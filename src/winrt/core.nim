@@ -10,10 +10,7 @@
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
 
-import std/strformat
-import std/widestrs
-import std/os
-import std/strutils
+import std/[os, strformat, strutils, widestrs]
 
 # ------------------------------------------------------------------- basics
 
@@ -88,7 +85,7 @@ proc check*(hr: HRESULT, what: string) =
 
 proc roInitialize(initType: int32): HRESULT
   {.importc: "RoInitialize", dynlib: "combase", stdcall.}
-proc roUninitialize*()
+proc roUninitialize()
   {.importc: "RoUninitialize", dynlib: "combase", stdcall.}
 proc roActivateInstance(classId: HSTRING, instance: ptr pointer): HRESULT
   {.importc: "RoActivateInstance", dynlib: "combase", stdcall.}
@@ -293,6 +290,12 @@ proc initApartment*(model = singleThreaded): HRESULT {.discardable.} =
   ## `RPC_E_CHANGED_MODE` without changing anything. Both are survivable, so
   ## this reports rather than raises.
   roInitialize(model.int32)
+
+proc uninitApartment*() =
+  ## Leave the apartment. Balances one `initApartment`, and is rarely worth
+  ## calling: the apartment lasts as long as the thread, and a process that is
+  ## exiting anyway has nothing to tidy up.
+  roUninitialize()
 
 # --------------------------------------------------------------- activation
 
