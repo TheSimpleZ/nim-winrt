@@ -27,10 +27,18 @@
 ## A mistyped signature yields a well-formed GUID that no object implements, so
 ## `QueryInterface` simply answers `E_NOINTERFACE` and the call site looks like
 ## an unsupported feature rather than a wrong hash. The only trustworthy check
-## is at runtime, against a real object — `tests/tgenerics.nim` computes
-## `IVector<UIElement>` and asks a live `Panel.Children` for it.
+## is at runtime, against a real object: compute the IID and ask a live instance
+## for it. `tools/piidcheck.nim` prints every instantiation the metadata uses,
+## with the signature string it was built from, so a suspect one can be taken to
+## a real object by hand.
 
-import std/[strutils, sha1, tables]
+import std/[strutils, tables]
+# `checksums/sha1` is the supported spelling, but it is a separate package and
+# this is the only hash in the project — not worth a dependency on the one code
+# path that regenerates bindings.
+{.push warning[Deprecated]: off.}
+import std/sha1
+{.pop.}
 import ./winmd
 import ./foreign
 
@@ -182,11 +190,6 @@ proc signatureOf*(c: SigContext, t: SigType): string =
       "pinterface(" & guidToSignature(seed) & ";" & parts.join(";") & ")"
   else: ""
 
-proc instantiationSignature*(c: SigContext, t: SigType): string =
-  ## The signature string for a whole `Generic<A, B>`, or "" if any part of it
-  ## cannot be described.
-  c.signatureOf(t)
-
 func uuidV5(namespace: openArray[uint8], name: string): string =
   ## RFC 4122 section 4.3: SHA-1 of the namespace bytes followed by the name,
   ## with the version and variant bits overwritten in place.
@@ -216,6 +219,6 @@ func uuidV5(namespace: openArray[uint8], name: string): string =
 proc parameterizedIid*(c: SigContext, t: SigType): string =
   ## The IID of a parameterised interface instantiation, braced and upper-case,
   ## or "" if its signature could not be built.
-  let sig = c.instantiationSignature(t)
+  let sig = c.signatureOf(t)
   if sig.len == 0: return ""
   uuidV5(pinterfaceNamespace, sig)

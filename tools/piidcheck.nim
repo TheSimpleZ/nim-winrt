@@ -3,11 +3,12 @@
 ##
 ## `nim c -r tools/piidcheck.nim <winmd> <namespace-prefix>`
 ##
-## The output is what `tests/tgenerics.nim` then checks against a live object:
-## a computed IID is either exactly right or matches nothing at all, and only a
-## real `QueryInterface` can tell those apart.
+## A computed IID is either exactly right or matches nothing at all, and only a
+## real `QueryInterface` against a live object can tell those apart — so the
+## signature string it was hashed from is printed beside it, since that is the
+## part a person can check against the Windows Runtime ABI documentation.
 
-import std/[os, strformat, strutils, tables, sets, algorithm]
+import std/[os, strformat, strutils, tables, algorithm]
 import ./winmd
 import ./piid
 
@@ -57,14 +58,13 @@ when isMainModule:
   var resolved, unresolved = 0
   for key, count in seen:
     let t = sample[key]
-    let s = c.instantiationSignature(t)
+    let s = c.signatureOf(t)
+    echo &"{count:>4}  {key}"
     if s.len == 0:
       unresolved.inc
-      echo &"{count:>4}  {key}"
       echo  "        signature could not be built"
     else:
       resolved.inc
-      echo &"{count:>4}  {key}"
       echo &"        {s}"
       echo &"        {c.parameterizedIid(t)}"
   echo ""

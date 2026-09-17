@@ -1,10 +1,9 @@
 ## An ECMA-335 reader for Windows Metadata (`.winmd`).
 ##
-## This is the foundation the rest of the library is generated from. Hand-
-## writing interfaces does not scale — `Microsoft.UI.Xaml.winmd` alone carries
-## 3083 types, 1917 of them with an IID — so the surface is emitted from
-## metadata instead, the same way `windows-bindgen`, C#/WinRT and swift-winui
-## all work.
+## This is what the bindings are generated from. Hand-writing them does not
+## scale — `Windows.winmd` carries over 8,000 interfaces with an IID — so the
+## surface is emitted from metadata instead, the same way `windows-bindgen`,
+## C++/WinRT and C#/WinRT all work.
 ##
 ## A `.winmd` is a PE file with no code: the CLI data directory points at an
 ## ECMA-335 metadata root, which holds a handful of heaps and a set of tables.
@@ -16,12 +15,11 @@
 ## to be known before any row can be located — and a single wrong width shifts
 ## every subsequent row silently, producing plausible garbage rather than an
 ## error.
-
+##
 ## This lives in `tools/` rather than `src/` on purpose: nothing at runtime
-## reads metadata. The generators consume it to emit `generated/`, and an
-## application that imports `winui3` never needs an ECMA-335 parser — so
-## shipping one to every consumer would be 700 lines of dead weight in their
-## install.
+## reads metadata. The generators consume it to emit `src/winrt/`, and an
+## application that imports `winrt` never needs an ECMA-335 parser — so
+## shipping one to every consumer would be dead weight in their install.
 
 import std/[strutils, tables, algorithm]
 
@@ -43,7 +41,7 @@ type
     else: discard
 
   WinMd* = ref object
-    data*: string
+    data: string
     stringsOff, guidOff, blobOff: int
     strW, guidW, blobW: int
     rows*: Table[int, int]          ## table id -> row count
@@ -60,27 +58,17 @@ type
     flags*: uint32
 
 const
-  ## Table ids used throughout. Named because the numbers are meaningless.
-  tModule* = 0x00
+  ## The tables this reader actually names. `schema` below describes all of
+  ## them, including the ones nothing here reads — their widths decide where
+  ## the tables after them begin — but only these are referred to by name.
   tTypeRef* = 0x01
   tTypeDef* = 0x02
   tField* = 0x04
   tMethodDef* = 0x06
-  tParam* = 0x08
   tInterfaceImpl* = 0x09
   tMemberRef* = 0x0A
   tConstant* = 0x0B
   tCustomAttribute* = 0x0C
-  tEventMap* = 0x12
-  tEvent* = 0x14
-  tPropertyMap* = 0x15
-  tProperty* = 0x17
-  tMethodSemantics* = 0x18
-  tMethodImpl* = 0x19
-  tModuleRef* = 0x1A
-  tTypeSpec* = 0x1B
-  tAssembly* = 0x20
-  tAssemblyRef* = 0x23
 
 func f(name: string, width: int): Col = Col(name: name, kind: ckFixed, width: width)
 func s(name: string): Col = Col(name: name, kind: ckString)
@@ -110,7 +98,8 @@ let coded = {
 }.toTable
 
 ## Every table must be described, even ones never read: their widths decide
-## where the tables after them begin.
+## where the tables after them begin. Keyed by the raw id, because most of
+## these are never named anywhere else.
 let schema = {
   0x00: @[f("Generation", 2), s("Name"), g("Mvid"), g("EncId"), g("EncBaseId")],
   0x01: @[c("ResolutionScope", "ResolutionScope"), s("Name"), s("Namespace")],
@@ -184,6 +173,24 @@ proc uint64At(m: WinMd, at: int): uint64 =
 proc intAt(m: WinMd, at, width: int): int =
   for i in countdown(width - 1, 0):
     result = (result shl 8) or m.u8(at + i)
+
+proc colWidth(m: WinMd, col: Col): int =
+  ## How many bytes one column occupies, which depends on how big the tables
+  ## and heaps in *this* file are. Every offset in the file is a running sum of
+  ## these, so the rule has to be applied identically everywhere — hence one
+  ## definition rather than one per caller.
+  case col.kind
+  of ckFixed: col.width
+  of ckString: m.strW
+  of ckGuid: m.guidW
+  of ckBlob: m.blobW
+  of ckTable: (if m.rows.getOrDefault(col.table, 0) >= 65536: 4 else: 2)
+  of ckCoded:
+    let (bits, tabs) = coded[col.coded]
+    var biggest = 0
+    for tt in tabs:
+      if tt != 0xFF: biggest = max(biggest, m.rows.getOrDefault(tt, 0))
+    if biggest >= (1 shl (16 - bits)): 4 else: 2
 
 proc findMetadata(m: WinMd): int =
   ## Walk the PE headers to the CLI metadata root.
@@ -259,21 +266,7 @@ proc load*(path: string): WinMd =
   for tid in m.rows.keys:
     doAssert tid in schema, "unknown table 0x" & toHex(tid, 2)
     var w = 0
-    for col in schema[tid]:
-      w += (
-        case col.kind
-        of ckFixed: col.width
-        of ckString: m.strW
-        of ckGuid: m.guidW
-        of ckBlob: m.blobW
-        of ckTable: (if m.rows.getOrDefault(col.table, 0) >= 65536: 4 else: 2)
-        of ckCoded:
-          let (bits, tabs) = coded[col.coded]
-          var biggest = 0
-          for tt in tabs:
-            if tt != 0xFF: biggest = max(biggest, m.rows.getOrDefault(tt, 0))
-          if biggest >= (1 shl (16 - bits)): 4 else: 2
-      )
+    for col in schema[tid]: w += m.colWidth(col)
     m.widths[tid] = w
 
   var sortedIds: seq[int]
@@ -287,19 +280,7 @@ proc colOffset(m: WinMd, tid, index: int, name: string): (int, int) =
   ## File offset and width of one column of a 1-based row.
   var at = m.starts[tid] + (index - 1) * m.widths[tid]
   for col in schema[tid]:
-    let w =
-      case col.kind
-      of ckFixed: col.width
-      of ckString: m.strW
-      of ckGuid: m.guidW
-      of ckBlob: m.blobW
-      of ckTable: (if m.rows.getOrDefault(col.table, 0) >= 65536: 4 else: 2)
-      of ckCoded:
-        let (bits, tabs) = coded[col.coded]
-        var biggest = 0
-        for tt in tabs:
-          if tt != 0xFF: biggest = max(biggest, m.rows.getOrDefault(tt, 0))
-        if biggest >= (1 shl (16 - bits)): 4 else: 2
+    let w = m.colWidth(col)
     if col.name == name:
       return (at, w)
     at += w
@@ -328,7 +309,7 @@ proc blob*(m: WinMd, idx: int): string =
         (m.u8(p + 2) shl 8) or m.u8(p + 3); p += 4
   m.data[p ..< p + n]
 
-proc decodeCoded*(kind: string, value: int): (int, int) =
+proc decodeCoded(kind: string, value: int): (int, int) =
   ## Split a coded index into (table id, row index).
   let (bits, tabs) = coded[kind]
   let tag = value and ((1 shl bits) - 1)
@@ -637,7 +618,7 @@ proc fieldRange*(m: WinMd, typeIndex: int): (int, int) =
     else: m.rows.getOrDefault(tField, 0) + 1
   (first, stop)
 
-proc constantsByField*(m: WinMd): Table[int, (int, string)] =
+proc constantsByField(m: WinMd): Table[int, (int, string)] =
   ## Field row -> (ELEMENT_TYPE, raw little-endian value bytes).
   ##
   ## Built once for the whole file rather than scanned per enum: the Constant
@@ -652,7 +633,7 @@ proc constantsByField*(m: WinMd): Table[int, (int, string)] =
     m.constsBuilt = true
   m.consts
 
-func decodeInt*(elementType: int, raw: string): int64 =
+func decodeInt(elementType: int, raw: string): int64 =
   ## Enums are backed by int32 or uint32 in WinRT; the blob is little-endian.
   var v: uint64
   for i in countdown(raw.high, 0):

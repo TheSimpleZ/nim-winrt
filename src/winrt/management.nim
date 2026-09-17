@@ -2,7 +2,6 @@
 ##
 ## Source:    Windows.winmd
 ## Namespace: Windows.Management
-## Generated: 2026-09-17
 ##
 ## Slot numbers are vtable indices. WinRT interfaces begin with
 ## IInspectable's six slots, so the first declared method is slot 6;

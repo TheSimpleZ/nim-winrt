@@ -1,6 +1,7 @@
 ## Emit Nim bindings from Windows Metadata.
 ##
 ## ```
+## nimble bindings                       # the whole package, one module per group
 ## nim c -r tools/generate.nim <winmd> <namespace-prefix> <out.nim>
 ## ```
 ##
@@ -31,9 +32,10 @@
 ## called with a hand-written signature. Emitting a *wrong* ABI type would be
 ## worse than emitting none.
 
-import std/[os, strformat, strutils, tables, sets, times, algorithm, sequtils]
+import std/[os, strformat, strutils, tables, sets, algorithm, sequtils]
 import ./winmd
 import ./foreign
+import ./nimgen
 
 const
   tdInterface = 0x20'u32
@@ -45,76 +47,7 @@ func asInt32(v: int64): int32 =
   ## what matters; this keeps it and lets the sign fall where it may.
   cast[int32](uint32(v))
 
-func sanitize(name: string): string =
-  ## Nim identifiers cannot contain `.` or start with a digit, `.ctor` turns up
-  ## as a method name on delegates, and metadata contains names like
-  ## `XamlChangeId._Reserved` that would otherwise produce a doubled underscore
-  ## — which Nim rejects outright.
-  var s = name.multiReplace(("`", "_"), (".", "_"))
-  for ch in s:
-    if ch == '_' and result.len > 0 and result[^1] == '_': continue
-    result.add ch
-  # Both ends: these names are concatenated onto a type name, so a leading
-  # underscore on `XamlChangeId._Reserved` would double the separator.
-  result = result.strip(chars = {'_'})
-  if result.len == 0 or result[0] in {'0' .. '9'}:
-    result = "n" & result
-
-proc guidLiteral(iid: string): string =
-  let hex = iid.strip(chars = {'{', '}'}).replace("-", "")
-  doAssert hex.len == 32, "bad IID: " & iid
-  var d4: seq[string]
-  for i in 0 ..< 8:
-    d4.add "0x" & hex[16 + i * 2 ..< 18 + i * 2]
-  "GUID(\n" &
-    &"    data1: 0x{hex[0 ..< 8]}'u32, data2: 0x{hex[8 ..< 12]}'u16, " &
-    &"data3: 0x{hex[12 ..< 16]}'u16,\n" &
-    &"    data4: [{d4[0]}'u8, " & d4[1 .. ^1].join(", ") & "])"
-
-func nimIdent(name: string): string =
-  ## How Nim itself will see this identifier.
-  ##
-  ## Nim compares identifiers with underscores removed and every character
-  ## after the first folded to lower case. `Windows.UI.Text.ITextRange` really
-  ## does declare both `get_Text` and `GetText`, and prefixed with `Slot_` those
-  ## are one identifier to the compiler — the leading `S` is the only character
-  ## whose case counts. A table keyed on the raw spelling sees no clash and
-  ## emits a redefinition, so key on this instead.
-  ##
-  ## Pass the identifier as it will actually be written, prefix and all: the
-  ## fragment `GetText` and the fragment `get_Text` differ in the character
-  ## that is case-sensitive, and `Slot_GetText` and `Slot_get_Text` do not.
-  for ch in name:
-    if ch == '_': continue
-    result.add (if result.len == 0: ch else: ch.toLowerAscii)
-
-func shortName(full: string): string =
-  ## `Microsoft.UI.Xaml.UIElement` -> `UIElement`.
-  let dot = full.rfind('.')
-  sanitize(if dot >= 0: full[dot + 1 .. ^1] else: full)
-
-func lowerFirstChar(s: string): string =
-  ## Struct fields are PascalCase in metadata. Nim compares identifiers
-  ## case-insensitively *except* for the first character, so `Left` and `left`
-  ## really are different names and the choice has to be made deliberately.
-  if s.len == 0: s else: toLowerAscii(s[0]) & s[1 .. ^1]
-
-const nimKeywords = [
-  "addr", "and", "as", "asm", "bind", "block", "break", "case", "cast",
-  "concept", "const", "continue", "converter", "defer", "discard", "distinct",
-  "div", "do", "elif", "else", "end", "enum", "except", "export", "finally",
-  "for", "from", "func", "if", "import", "in", "include", "interface", "is",
-  "isnot", "iterator", "let", "macro", "method", "mixin", "mod", "nil", "not",
-  "notin", "object", "of", "or", "out", "proc", "ptr", "raise", "ref", "result",
-  "return", "shl", "shr", "static", "template", "try", "tuple", "type", "using",
-  "var", "when", "while", "xor"]
-
-func escapeIdent(s: string): string =
-  ## `Duration.Type` is a real field name in the metadata and `type` is a Nim
-  ## keyword; backticks are how Nim spells one anyway.
-  if s.toLowerAscii in nimKeywords: "`" & s & "`" else: s
-
-var aliasOf = block:
+let aliasOf = block:
   ## Metadata name -> a type this library already declares. Kept as a table so
   ## `nimType` can answer in one lookup.
   var t = initTable[string, string]()
@@ -127,12 +60,13 @@ var aliasOf = block:
 # `Windows.Media.MediaTimeRange` and `Windows.Foundation.TimeSpan` in separate
 # files without either duplicating the other.
 var structNames: HashSet[string]
+  ## Full names of structs that got a Nim layout. A struct without one leaves
+  ## every signature that mentions it unmapped.
 var runDefines: HashSet[string]   ## short names this run will define from metadata
-var emitted: HashSet[string]
-var emittedEnums: HashSet[string]
+var emitted: HashSet[string]      ## `nimIdent` of every IID constant written
+var emittedEnums: HashSet[string] ## Nim names of the enums written
 var enumFullNames: HashSet[string]
-  ## Full names of structs that got a Nim layout, filled in before signatures
-  ## are mapped. A struct without one leaves its methods unmapped.
+  ## Metadata names of those same enums, for resolving a struct field's type.
 
 proc nimType(t: SigType): string =
   ## Map a signature type to its Nim ABI spelling, or "" when unsupported.
@@ -230,8 +164,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   var buf = newStringOfCap(4 shl 20)
   buf.add "## Generated by tools/generate.nim - do not edit.\n##\n"
   buf.add &"## Source:    {winmdPath.extractFilename}\n"
-  buf.add &"## Namespace: {prefix}\n"
-  buf.add &"## Generated: {now().format(\"yyyy-MM-dd\")}\n##\n"
+  buf.add &"## Namespace: {prefix}\n##\n"
   buf.add "## Slot numbers are vtable indices. WinRT interfaces begin with\n"
   buf.add "## IInspectable's six slots, so the first declared method is slot 6;\n"
   buf.add "## delegates derive from IUnknown and begin at slot 3.\n##\n"
@@ -251,7 +184,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   buf.add "\n"
 
   var
-    interfaces, slots, delegates, typed, untyped, skippedNoIid = 0
+    interfaces, slots, typed, untyped, skippedNoIid = 0
     enums, enumMembers = 0
 
   # Enums first: they are what call sites actually pass, and getting one
@@ -380,7 +313,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
           if n.len == 0 or n == "void":
             ok = false
             break
-          fields.add &"  {escapeIdent(lowerFirstChar(fname))}*: {n}"
+          fields.add &"  {escapeIdent(lowerFirst(fname))}*: {n}"
       if not ok:
         stillPending.add p
         continue
@@ -445,7 +378,6 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
 
     buf.add "\n"
     interfaces.inc
-    if delegate: delegates.inc
 
   if skippedNoIid > 0:
     echo &"  {outPath.extractFilename}: skipped {skippedNoIid} (no GuidAttribute)"
@@ -453,10 +385,10 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   (enums, enumMembers, structs, interfaces, slots, typed, untyped)
 
 
-const rootGroup* = "Windows.Foundation"
+const rootGroup = "Windows.Foundation"
   ## Written first, and the home of anything hoisted out of another group.
 
-const hoisted* = [
+const hoisted = [
   ## Types every projection needs that happen to live in a large module.
   ##
   ## `Windows.UI.Color` is the case this exists for: three bytes and an alpha
