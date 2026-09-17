@@ -6,27 +6,6 @@ srcDir        = "src"
 
 requires "nim >= 2.0.0"
 
-const Namespaces = {
-  "foundation": "Windows.Foundation",
-  "ai": "Windows.AI",
-  "applicationmodel": "Windows.ApplicationModel",
-  "data": "Windows.Data",
-  "devices": "Windows.Devices",
-  "gaming": "Windows.Gaming",
-  "globalization": "Windows.Globalization",
-  "graphics": "Windows.Graphics",
-  "management": "Windows.Management",
-  "media": "Windows.Media",
-  "networking": "Windows.Networking",
-  "perception": "Windows.Perception",
-  "security": "Windows.Security",
-  "services": "Windows.Services",
-  "storage": "Windows.Storage",
-  "system": "Windows.System",
-  "ui": "Windows.UI",
-  "web": "Windows.Web",
-}
-
 task test, "Run the test suite":
   for t in ["tactivation", "tdelegate", "timports", "tapi"]:
     exec "nim c -r --hints:off --path:src tests/" & t & ".nim"
@@ -54,7 +33,8 @@ task bindings, "Regenerate the bindings from the Windows SDK metadata":
   exec "nim c -d:release --hints:off -o:bin/wrappers.exe tools/wrappers.nim"
   # Doubled backslash: `exec` goes through cmd.exe, which will not resolve a
   # command path written with forward slashes.
+  # Which namespaces exist is the metadata's business, not this file's: both
+  # tools work the groups out from it, so a future SDK that adds one is
+  # picked up rather than silently skipped.
   exec "bin\\generate.exe \"" & winmd & "\" --split src/winrt/abi ../core"
-  for (m, ns) in Namespaces:
-    exec "bin\\wrappers.exe \"" & winmd & "\" " & ns &
-         " src/winrt/" & m & ".nim ./core ./abi/" & m
+  exec "bin\\wrappers.exe \"" & winmd & "\" --split src/winrt ./core ./abi"

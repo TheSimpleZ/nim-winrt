@@ -223,23 +223,13 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     else: ""
   else: ""
 
-when isMainModule:
-  if paramCount() < 3:
-    quit "usage: wrappers <winmd> <namespace-prefix> <out.nim>"
+type Emission = tuple
+  classes, procs, ctors, events, skipped: int
 
-  let
-    winmdPath = paramStr(1)
-    prefix = paramStr(2)
-    outPath = paramStr(3)
-    corePath = if paramCount() >= 4: paramStr(4) else: "../core"
-    # The ABI module this layer is built on. `generate.nim` wrote it, and the
-    # two must agree on slot numbers and signatures, so they are generated from
-    # the same metadata in the same run.
-    abiPath = if paramCount() >= 5: paramStr(5) else: "./xaml_abi"
-    delegatePath = corePath.rsplit('/', 1)[0] & "/delegate"
-
-  let md = load(winmdPath)
-  let iids = md.guids()
+proc emitModule(md: WinMd; iids: Table[int, string];
+                winmdPath, prefix, outPath, corePath, abiPath: string): Emission =
+  ## Write the API layer for one namespace, over the ABI module at `abiPath`.
+  let delegatePath = corePath.rsplit('/', 1)[0] & "/delegate"
   let impls = md.interfaceImpls()
   let attrs = md.attributeNames()
 
@@ -839,3 +829,53 @@ when isMainModule:
   skipReasons.sort()
   for reason, count in skipReasons:
     echo &"    {count:>5}  {reason}"
+  (classOrder.len, procs, ctors, events, skipped)
+
+
+when isMainModule:
+  if paramCount() < 3:
+    quit "usage: wrappers <winmd> <prefix> <out.nim> [core-import] [abi-import]\n" &
+         "       wrappers <winmd> --split <out-dir> [core-import] [abi-dir]"
+
+  let winmdPath = paramStr(1)
+  let md = load(winmdPath)
+  let iids = md.guids()
+
+  if paramStr(2) != "--split":
+    discard emitModule(md, iids, winmdPath, paramStr(2), paramStr(3),
+                       (if paramCount() >= 4: paramStr(4) else: "../core"),
+                       (if paramCount() >= 5: paramStr(5) else: "./xaml_abi"))
+    quit 0
+
+  # One module per namespace group, and the groups come from the metadata for
+  # the same reason `generate.nim` takes them from there: a list written down
+  # anywhere else is a list that can disagree with what was generated. An SDK
+  # that adds a top-level namespace would otherwise produce an ABI module with
+  # no API module over it, and nothing would say so.
+  let outDir = paramStr(3)
+  let corePath = if paramCount() >= 4: paramStr(4) else: "./core"
+  let abiDir = if paramCount() >= 5: paramStr(5) else: "./abi"
+  createDir(outDir)
+
+  var groups: seq[string]
+  for t in md.types:
+    if not t.namespace.startsWith("Windows."): continue
+    let g = topGroup(t.namespace)
+    if g notin groups: groups.add g
+  groups.sort()
+
+  var total: Emission
+  for g in groups:
+    let m = moduleName(g)
+    let e = emitModule(md, iids, winmdPath, g, outDir / (m & ".nim"),
+                       corePath, abiDir & "/" & m)
+    total.classes += e.classes
+    total.procs += e.procs
+    total.ctors += e.ctors
+    total.events += e.events
+    total.skipped += e.skipped
+
+  echo ""
+  echo &"  {groups.len} modules  {total.classes} classes  {total.procs} procs" &
+       &"  ({total.ctors} constructors)  {total.events} events"
+  echo &"  {total.skipped} skipped"

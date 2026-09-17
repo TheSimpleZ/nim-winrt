@@ -82,3 +82,17 @@ proc guidLiteral*(iid: string): string =
     &"    data1: 0x{hex[0 ..< 8]}'u32, data2: 0x{hex[8 ..< 12]}'u16, " &
     &"data3: 0x{hex[12 ..< 16]}'u16,\n" &
     &"    data4: [{d4[0]}'u8, " & d4[1 .. ^1].join(", ") & "])"
+
+proc topGroup*(ns: string): string =
+  ## `Windows.Devices.Enumeration.Pnp` -> `Windows.Devices`.
+  ##
+  ## The split is by the second segment, not by full namespace. 342 namespaces
+  ## would be 342 files for no gain — a namespace is a naming convention, not a
+  ## unit anyone imports — while 18 groups line up with how the documentation
+  ## is organised and how an app actually reaches for things.
+  let parts = ns.split('.')
+  if parts.len >= 2: parts[0] & "." & parts[1] else: ns
+
+proc moduleName*(group: string): string =
+  ## `Windows.ApplicationModel` -> `applicationmodel`.
+  group.split('.')[^1].toLowerAscii

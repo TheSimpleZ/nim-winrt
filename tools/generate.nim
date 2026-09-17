@@ -466,21 +466,6 @@ const hoisted = [
   "Windows.UI.Xaml.Interop.TypeName",
 ]
 
-proc topGroup(ns: string): string =
-  ## `Windows.Devices.Enumeration.Pnp` -> `Windows.Devices`.
-  ##
-  ## The split is by the second segment, not by full namespace. 342 namespaces
-  ## would be 342 files for no gain — a namespace is a naming convention, not a
-  ## unit anyone imports — while 18 groups line up with how the documentation
-  ## is organised and how an app actually reaches for things.
-  let parts = ns.split('.')
-  if parts.len >= 2: parts[0] & "." & parts[1] else: ns
-
-proc moduleName(group: string): string =
-  ## `Windows.ApplicationModel` -> `applicationmodel`.
-  group.split('.')[^1].toLowerAscii
-
-
 proc groupPlan(md: WinMd; hoist: seq[string]): tuple[order: seq[string],
                                  deps: Table[string, HashSet[string]]] =
   ## Decide what order the modules go in, and what each one imports.
