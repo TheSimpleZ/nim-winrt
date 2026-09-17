@@ -14,102 +14,117 @@ import ./core
 export core
 
 ## Windows.Foundation.AsyncStatus  (enum)
-type AsyncStatus* = distinct int32
-proc `==`*(a, b: AsyncStatus): bool {.borrow.}
+type AsyncStatus* {.pure, size: 4.} = enum
+  Started = 0'i32
+  Completed = 1'i32
+  Canceled = 2'i32
+  Error = 3'i32
 proc `$`*(v: AsyncStatus): string =
-  case int32(v)
-  of 2'i32: "Canceled"
-  of 1'i32: "Completed"
-  of 3'i32: "Error"
-  of 0'i32: "Started"
-  else: "AsyncStatus(" & $int32(v) & ")"
-const AsyncStatus_Canceled* = AsyncStatus(2'i32)
-const AsyncStatus_Completed* = AsyncStatus(1'i32)
-const AsyncStatus_Error* = AsyncStatus(3'i32)
-const AsyncStatus_Started* = AsyncStatus(0'i32)
+  case ord(v)
+  of 0: "Started"
+  of 1: "Completed"
+  of 2: "Canceled"
+  of 3: "Error"
+  else: "AsyncStatus(" & $ord(v) & ")"
 
 ## Windows.Foundation.Collections.CollectionChange  (enum)
-type CollectionChange* = distinct int32
-proc `==`*(a, b: CollectionChange): bool {.borrow.}
+type CollectionChange* {.pure, size: 4.} = enum
+  Reset = 0'i32
+  ItemInserted = 1'i32
+  ItemRemoved = 2'i32
+  ItemChanged = 3'i32
 proc `$`*(v: CollectionChange): string =
-  case int32(v)
-  of 0'i32: "Reset"
-  of 1'i32: "ItemInserted"
-  of 2'i32: "ItemRemoved"
-  of 3'i32: "ItemChanged"
-  else: "CollectionChange(" & $int32(v) & ")"
-const CollectionChange_Reset* = CollectionChange(0'i32)
-const CollectionChange_ItemInserted* = CollectionChange(1'i32)
-const CollectionChange_ItemRemoved* = CollectionChange(2'i32)
-const CollectionChange_ItemChanged* = CollectionChange(3'i32)
+  case ord(v)
+  of 0: "Reset"
+  of 1: "ItemInserted"
+  of 2: "ItemRemoved"
+  of 3: "ItemChanged"
+  else: "CollectionChange(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.CausalityRelation  (enum)
-type CausalityRelation* = distinct int32
-proc `==`*(a, b: CausalityRelation): bool {.borrow.}
+type CausalityRelation* {.pure, size: 4.} = enum
+  AssignDelegate = 0'i32
+  Join = 1'i32
+  Choice = 2'i32
+  Cancel = 3'i32
+  Error = 4'i32
 proc `$`*(v: CausalityRelation): string =
-  case int32(v)
-  of 0'i32: "AssignDelegate"
-  of 1'i32: "Join"
-  of 2'i32: "Choice"
-  of 3'i32: "Cancel"
-  of 4'i32: "Error"
-  else: "CausalityRelation(" & $int32(v) & ")"
-const CausalityRelation_AssignDelegate* = CausalityRelation(0'i32)
-const CausalityRelation_Join* = CausalityRelation(1'i32)
-const CausalityRelation_Choice* = CausalityRelation(2'i32)
-const CausalityRelation_Cancel* = CausalityRelation(3'i32)
-const CausalityRelation_Error* = CausalityRelation(4'i32)
+  case ord(v)
+  of 0: "AssignDelegate"
+  of 1: "Join"
+  of 2: "Choice"
+  of 3: "Cancel"
+  of 4: "Error"
+  else: "CausalityRelation(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.CausalitySource  (enum)
-type CausalitySource* = distinct int32
-proc `==`*(a, b: CausalitySource): bool {.borrow.}
+type CausalitySource* {.pure, size: 4.} = enum
+  Application = 0'i32
+  Library = 1'i32
+  System = 2'i32
 proc `$`*(v: CausalitySource): string =
-  case int32(v)
-  of 0'i32: "Application"
-  of 1'i32: "Library"
-  of 2'i32: "System"
-  else: "CausalitySource(" & $int32(v) & ")"
-const CausalitySource_Application* = CausalitySource(0'i32)
-const CausalitySource_Library* = CausalitySource(1'i32)
-const CausalitySource_System* = CausalitySource(2'i32)
+  case ord(v)
+  of 0: "Application"
+  of 1: "Library"
+  of 2: "System"
+  else: "CausalitySource(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.CausalitySynchronousWork  (enum)
-type CausalitySynchronousWork* = distinct int32
-proc `==`*(a, b: CausalitySynchronousWork): bool {.borrow.}
+type CausalitySynchronousWork* {.pure, size: 4.} = enum
+  CompletionNotification = 0'i32
+  ProgressNotification = 1'i32
+  Execution = 2'i32
 proc `$`*(v: CausalitySynchronousWork): string =
-  case int32(v)
-  of 0'i32: "CompletionNotification"
-  of 1'i32: "ProgressNotification"
-  of 2'i32: "Execution"
-  else: "CausalitySynchronousWork(" & $int32(v) & ")"
-const CausalitySynchronousWork_CompletionNotification* = CausalitySynchronousWork(0'i32)
-const CausalitySynchronousWork_ProgressNotification* = CausalitySynchronousWork(1'i32)
-const CausalitySynchronousWork_Execution* = CausalitySynchronousWork(2'i32)
+  case ord(v)
+  of 0: "CompletionNotification"
+  of 1: "ProgressNotification"
+  of 2: "Execution"
+  else: "CausalitySynchronousWork(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.CausalityTraceLevel  (enum)
-type CausalityTraceLevel* = distinct int32
-proc `==`*(a, b: CausalityTraceLevel): bool {.borrow.}
+type CausalityTraceLevel* {.pure, size: 4.} = enum
+  Required = 0'i32
+  Important = 1'i32
+  Verbose = 2'i32
 proc `$`*(v: CausalityTraceLevel): string =
-  case int32(v)
-  of 0'i32: "Required"
-  of 1'i32: "Important"
-  of 2'i32: "Verbose"
-  else: "CausalityTraceLevel(" & $int32(v) & ")"
-const CausalityTraceLevel_Required* = CausalityTraceLevel(0'i32)
-const CausalityTraceLevel_Important* = CausalityTraceLevel(1'i32)
-const CausalityTraceLevel_Verbose* = CausalityTraceLevel(2'i32)
+  case ord(v)
+  of 0: "Required"
+  of 1: "Important"
+  of 2: "Verbose"
+  else: "CausalityTraceLevel(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.ErrorOptions  (enum)
 type ErrorOptions* = distinct int32
 proc `==`*(a, b: ErrorOptions): bool {.borrow.}
+proc `or`*(a, b: ErrorOptions): ErrorOptions {.borrow.}
+proc `and`*(a, b: ErrorOptions): ErrorOptions {.borrow.}
+proc `not`*(a: ErrorOptions): ErrorOptions {.borrow.}
+proc contains*(a, b: ErrorOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: ErrorOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "SuppressExceptions"
-  of 2'i32: "ForceExceptions"
-  of 4'i32: "UseSetErrorInfo"
-  of 8'i32: "SuppressSetErrorInfo"
-  else: "ErrorOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "SuppressExceptions"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "ForceExceptions"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "UseSetErrorInfo"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "SuppressSetErrorInfo"
+    rest = rest and not 8'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "ErrorOptions(" & $rest & ")"
 const ErrorOptions_None* = ErrorOptions(0'i32)
 const ErrorOptions_SuppressExceptions* = ErrorOptions(1'i32)
 const ErrorOptions_ForceExceptions* = ErrorOptions(2'i32)
@@ -117,107 +132,153 @@ const ErrorOptions_UseSetErrorInfo* = ErrorOptions(4'i32)
 const ErrorOptions_SuppressSetErrorInfo* = ErrorOptions(8'i32)
 
 ## Windows.Foundation.Diagnostics.LoggingFieldFormat  (enum)
-type LoggingFieldFormat* = distinct int32
-proc `==`*(a, b: LoggingFieldFormat): bool {.borrow.}
+type LoggingFieldFormat* {.pure, size: 4.} = enum
+  Default = 0'i32
+  Hidden = 1'i32
+  String = 2'i32
+  Boolean = 3'i32
+  Hexadecimal = 4'i32
+  ProcessId = 5'i32
+  ThreadId = 6'i32
+  Port = 7'i32
+  Ipv4Address = 8'i32
+  Ipv6Address = 9'i32
+  SocketAddress = 10'i32
+  Xml = 11'i32
+  Json = 12'i32
+  Win32Error = 13'i32
+  NTStatus = 14'i32
+  HResult = 15'i32
+  FileTime = 16'i32
+  Signed = 17'i32
+  Unsigned = 18'i32
 proc `$`*(v: LoggingFieldFormat): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "Hidden"
-  of 2'i32: "String"
-  of 3'i32: "Boolean"
-  of 4'i32: "Hexadecimal"
-  of 5'i32: "ProcessId"
-  of 6'i32: "ThreadId"
-  of 7'i32: "Port"
-  of 8'i32: "Ipv4Address"
-  of 9'i32: "Ipv6Address"
-  of 10'i32: "SocketAddress"
-  of 11'i32: "Xml"
-  of 12'i32: "Json"
-  of 13'i32: "Win32Error"
-  of 14'i32: "NTStatus"
-  of 15'i32: "HResult"
-  of 16'i32: "FileTime"
-  of 17'i32: "Signed"
-  of 18'i32: "Unsigned"
-  else: "LoggingFieldFormat(" & $int32(v) & ")"
-const LoggingFieldFormat_Default* = LoggingFieldFormat(0'i32)
-const LoggingFieldFormat_Hidden* = LoggingFieldFormat(1'i32)
-const LoggingFieldFormat_String* = LoggingFieldFormat(2'i32)
-const LoggingFieldFormat_Boolean* = LoggingFieldFormat(3'i32)
-const LoggingFieldFormat_Hexadecimal* = LoggingFieldFormat(4'i32)
-const LoggingFieldFormat_ProcessId* = LoggingFieldFormat(5'i32)
-const LoggingFieldFormat_ThreadId* = LoggingFieldFormat(6'i32)
-const LoggingFieldFormat_Port* = LoggingFieldFormat(7'i32)
-const LoggingFieldFormat_Ipv4Address* = LoggingFieldFormat(8'i32)
-const LoggingFieldFormat_Ipv6Address* = LoggingFieldFormat(9'i32)
-const LoggingFieldFormat_SocketAddress* = LoggingFieldFormat(10'i32)
-const LoggingFieldFormat_Xml* = LoggingFieldFormat(11'i32)
-const LoggingFieldFormat_Json* = LoggingFieldFormat(12'i32)
-const LoggingFieldFormat_Win32Error* = LoggingFieldFormat(13'i32)
-const LoggingFieldFormat_NTStatus* = LoggingFieldFormat(14'i32)
-const LoggingFieldFormat_HResult* = LoggingFieldFormat(15'i32)
-const LoggingFieldFormat_FileTime* = LoggingFieldFormat(16'i32)
-const LoggingFieldFormat_Signed* = LoggingFieldFormat(17'i32)
-const LoggingFieldFormat_Unsigned* = LoggingFieldFormat(18'i32)
+  case ord(v)
+  of 0: "Default"
+  of 1: "Hidden"
+  of 2: "String"
+  of 3: "Boolean"
+  of 4: "Hexadecimal"
+  of 5: "ProcessId"
+  of 6: "ThreadId"
+  of 7: "Port"
+  of 8: "Ipv4Address"
+  of 9: "Ipv6Address"
+  of 10: "SocketAddress"
+  of 11: "Xml"
+  of 12: "Json"
+  of 13: "Win32Error"
+  of 14: "NTStatus"
+  of 15: "HResult"
+  of 16: "FileTime"
+  of 17: "Signed"
+  of 18: "Unsigned"
+  else: "LoggingFieldFormat(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.LoggingLevel  (enum)
-type LoggingLevel* = distinct int32
-proc `==`*(a, b: LoggingLevel): bool {.borrow.}
+type LoggingLevel* {.pure, size: 4.} = enum
+  Verbose = 0'i32
+  Information = 1'i32
+  Warning = 2'i32
+  Error = 3'i32
+  Critical = 4'i32
 proc `$`*(v: LoggingLevel): string =
-  case int32(v)
-  of 0'i32: "Verbose"
-  of 1'i32: "Information"
-  of 2'i32: "Warning"
-  of 3'i32: "Error"
-  of 4'i32: "Critical"
-  else: "LoggingLevel(" & $int32(v) & ")"
-const LoggingLevel_Verbose* = LoggingLevel(0'i32)
-const LoggingLevel_Information* = LoggingLevel(1'i32)
-const LoggingLevel_Warning* = LoggingLevel(2'i32)
-const LoggingLevel_Error* = LoggingLevel(3'i32)
-const LoggingLevel_Critical* = LoggingLevel(4'i32)
+  case ord(v)
+  of 0: "Verbose"
+  of 1: "Information"
+  of 2: "Warning"
+  of 3: "Error"
+  of 4: "Critical"
+  else: "LoggingLevel(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.LoggingOpcode  (enum)
-type LoggingOpcode* = distinct int32
-proc `==`*(a, b: LoggingOpcode): bool {.borrow.}
+type LoggingOpcode* {.pure, size: 4.} = enum
+  Info = 0'i32
+  Start = 1'i32
+  Stop = 2'i32
+  Reply = 6'i32
+  Resume = 7'i32
+  Suspend = 8'i32
+  Send = 9'i32
 proc `$`*(v: LoggingOpcode): string =
-  case int32(v)
-  of 0'i32: "Info"
-  of 1'i32: "Start"
-  of 2'i32: "Stop"
-  of 6'i32: "Reply"
-  of 7'i32: "Resume"
-  of 8'i32: "Suspend"
-  of 9'i32: "Send"
-  else: "LoggingOpcode(" & $int32(v) & ")"
-const LoggingOpcode_Info* = LoggingOpcode(0'i32)
-const LoggingOpcode_Start* = LoggingOpcode(1'i32)
-const LoggingOpcode_Stop* = LoggingOpcode(2'i32)
-const LoggingOpcode_Reply* = LoggingOpcode(6'i32)
-const LoggingOpcode_Resume* = LoggingOpcode(7'i32)
-const LoggingOpcode_Suspend* = LoggingOpcode(8'i32)
-const LoggingOpcode_Send* = LoggingOpcode(9'i32)
+  case ord(v)
+  of 0: "Info"
+  of 1: "Start"
+  of 2: "Stop"
+  of 6: "Reply"
+  of 7: "Resume"
+  of 8: "Suspend"
+  of 9: "Send"
+  else: "LoggingOpcode(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.AttributeTargets  (enum)
 type AttributeTargets* = distinct int32
 proc `==`*(a, b: AttributeTargets): bool {.borrow.}
+proc `or`*(a, b: AttributeTargets): AttributeTargets {.borrow.}
+proc `and`*(a, b: AttributeTargets): AttributeTargets {.borrow.}
+proc `not`*(a: AttributeTargets): AttributeTargets {.borrow.}
+proc contains*(a, b: AttributeTargets): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: AttributeTargets): string =
-  case int32(v)
-  of -1'i32: "All"
-  of 1'i32: "Delegate"
-  of 2'i32: "Enum"
-  of 4'i32: "Event"
-  of 8'i32: "Field"
-  of 16'i32: "Interface"
-  of 64'i32: "Method"
-  of 128'i32: "Parameter"
-  of 256'i32: "Property"
-  of 512'i32: "RuntimeClass"
-  of 1024'i32: "Struct"
-  of 2048'i32: "InterfaceImpl"
-  of 8192'i32: "ApiContract"
-  else: "AttributeTargets(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and -1'i32) == -1'i32:
+    if result.len > 0: result.add " or "
+    result.add "All"
+    rest = rest and not -1'i32
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Delegate"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Enum"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "Event"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "Field"
+    rest = rest and not 8'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "Interface"
+    rest = rest and not 16'i32
+  if (rest and 64'i32) == 64'i32:
+    if result.len > 0: result.add " or "
+    result.add "Method"
+    rest = rest and not 64'i32
+  if (rest and 128'i32) == 128'i32:
+    if result.len > 0: result.add " or "
+    result.add "Parameter"
+    rest = rest and not 128'i32
+  if (rest and 256'i32) == 256'i32:
+    if result.len > 0: result.add " or "
+    result.add "Property"
+    rest = rest and not 256'i32
+  if (rest and 512'i32) == 512'i32:
+    if result.len > 0: result.add " or "
+    result.add "RuntimeClass"
+    rest = rest and not 512'i32
+  if (rest and 1024'i32) == 1024'i32:
+    if result.len > 0: result.add " or "
+    result.add "Struct"
+    rest = rest and not 1024'i32
+  if (rest and 2048'i32) == 2048'i32:
+    if result.len > 0: result.add " or "
+    result.add "InterfaceImpl"
+    rest = rest and not 2048'i32
+  if (rest and 8192'i32) == 8192'i32:
+    if result.len > 0: result.add " or "
+    result.add "ApiContract"
+    rest = rest and not 8192'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "AttributeTargets(" & $rest & ")"
 const AttributeTargets_All* = AttributeTargets(-1'i32)
 const AttributeTargets_Delegate* = AttributeTargets(1'i32)
 const AttributeTargets_Enum* = AttributeTargets(2'i32)
@@ -233,184 +294,176 @@ const AttributeTargets_InterfaceImpl* = AttributeTargets(2048'i32)
 const AttributeTargets_ApiContract* = AttributeTargets(8192'i32)
 
 ## Windows.Foundation.Metadata.CompositionType  (enum)
-type CompositionType* = distinct int32
-proc `==`*(a, b: CompositionType): bool {.borrow.}
+type CompositionType* {.pure, size: 4.} = enum
+  Protected = 1'i32
+  Public = 2'i32
 proc `$`*(v: CompositionType): string =
-  case int32(v)
-  of 1'i32: "Protected"
-  of 2'i32: "Public"
-  else: "CompositionType(" & $int32(v) & ")"
-const CompositionType_Protected* = CompositionType(1'i32)
-const CompositionType_Public* = CompositionType(2'i32)
+  case ord(v)
+  of 1: "Protected"
+  of 2: "Public"
+  else: "CompositionType(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.DeprecationType  (enum)
-type DeprecationType* = distinct int32
-proc `==`*(a, b: DeprecationType): bool {.borrow.}
+type DeprecationType* {.pure, size: 4.} = enum
+  Deprecate = 0'i32
+  Remove = 1'i32
 proc `$`*(v: DeprecationType): string =
-  case int32(v)
-  of 0'i32: "Deprecate"
-  of 1'i32: "Remove"
-  else: "DeprecationType(" & $int32(v) & ")"
-const DeprecationType_Deprecate* = DeprecationType(0'i32)
-const DeprecationType_Remove* = DeprecationType(1'i32)
+  case ord(v)
+  of 0: "Deprecate"
+  of 1: "Remove"
+  else: "DeprecationType(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.FeatureStage  (enum)
-type FeatureStage* = distinct int32
-proc `==`*(a, b: FeatureStage): bool {.borrow.}
+type FeatureStage* {.pure, size: 4.} = enum
+  AlwaysDisabled = 0'i32
+  DisabledByDefault = 1'i32
+  EnabledByDefault = 2'i32
+  AlwaysEnabled = 3'i32
 proc `$`*(v: FeatureStage): string =
-  case int32(v)
-  of 0'i32: "AlwaysDisabled"
-  of 1'i32: "DisabledByDefault"
-  of 2'i32: "EnabledByDefault"
-  of 3'i32: "AlwaysEnabled"
-  else: "FeatureStage(" & $int32(v) & ")"
-const FeatureStage_AlwaysDisabled* = FeatureStage(0'i32)
-const FeatureStage_DisabledByDefault* = FeatureStage(1'i32)
-const FeatureStage_EnabledByDefault* = FeatureStage(2'i32)
-const FeatureStage_AlwaysEnabled* = FeatureStage(3'i32)
+  case ord(v)
+  of 0: "AlwaysDisabled"
+  of 1: "DisabledByDefault"
+  of 2: "EnabledByDefault"
+  of 3: "AlwaysEnabled"
+  else: "FeatureStage(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.GCPressureAmount  (enum)
-type GCPressureAmount* = distinct int32
-proc `==`*(a, b: GCPressureAmount): bool {.borrow.}
+type GCPressureAmount* {.pure, size: 4.} = enum
+  Low = 0'i32
+  Medium = 1'i32
+  High = 2'i32
 proc `$`*(v: GCPressureAmount): string =
-  case int32(v)
-  of 0'i32: "Low"
-  of 1'i32: "Medium"
-  of 2'i32: "High"
-  else: "GCPressureAmount(" & $int32(v) & ")"
-const GCPressureAmount_Low* = GCPressureAmount(0'i32)
-const GCPressureAmount_Medium* = GCPressureAmount(1'i32)
-const GCPressureAmount_High* = GCPressureAmount(2'i32)
+  case ord(v)
+  of 0: "Low"
+  of 1: "Medium"
+  of 2: "High"
+  else: "GCPressureAmount(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.MarshalingType  (enum)
-type MarshalingType* = distinct int32
-proc `==`*(a, b: MarshalingType): bool {.borrow.}
+type MarshalingType* {.pure, size: 4.} = enum
+  InvalidMarshaling = 0'i32
+  None = 1'i32
+  Agile = 2'i32
+  Standard = 3'i32
 proc `$`*(v: MarshalingType): string =
-  case int32(v)
-  of 1'i32: "None"
-  of 2'i32: "Agile"
-  of 3'i32: "Standard"
-  of 0'i32: "InvalidMarshaling"
-  else: "MarshalingType(" & $int32(v) & ")"
-const MarshalingType_None* = MarshalingType(1'i32)
-const MarshalingType_Agile* = MarshalingType(2'i32)
-const MarshalingType_Standard* = MarshalingType(3'i32)
-const MarshalingType_InvalidMarshaling* = MarshalingType(0'i32)
+  case ord(v)
+  of 0: "InvalidMarshaling"
+  of 1: "None"
+  of 2: "Agile"
+  of 3: "Standard"
+  else: "MarshalingType(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.Platform  (enum)
-type Platform* = distinct int32
-proc `==`*(a, b: Platform): bool {.borrow.}
+type Platform* {.pure, size: 4.} = enum
+  Windows = 0'i32
+  WindowsPhone = 1'i32
 proc `$`*(v: Platform): string =
-  case int32(v)
-  of 0'i32: "Windows"
-  of 1'i32: "WindowsPhone"
-  else: "Platform(" & $int32(v) & ")"
-const Platform_Windows* = Platform(0'i32)
-const Platform_WindowsPhone* = Platform(1'i32)
+  case ord(v)
+  of 0: "Windows"
+  of 1: "WindowsPhone"
+  else: "Platform(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.ThreadingModel  (enum)
-type ThreadingModel* = distinct int32
-proc `==`*(a, b: ThreadingModel): bool {.borrow.}
+type ThreadingModel* {.pure, size: 4.} = enum
+  InvalidThreading = 0'i32
+  STA = 1'i32
+  MTA = 2'i32
+  Both = 3'i32
 proc `$`*(v: ThreadingModel): string =
-  case int32(v)
-  of 1'i32: "STA"
-  of 2'i32: "MTA"
-  of 3'i32: "Both"
-  of 0'i32: "InvalidThreading"
-  else: "ThreadingModel(" & $int32(v) & ")"
-const ThreadingModel_STA* = ThreadingModel(1'i32)
-const ThreadingModel_MTA* = ThreadingModel(2'i32)
-const ThreadingModel_Both* = ThreadingModel(3'i32)
-const ThreadingModel_InvalidThreading* = ThreadingModel(0'i32)
+  case ord(v)
+  of 0: "InvalidThreading"
+  of 1: "STA"
+  of 2: "MTA"
+  of 3: "Both"
+  else: "ThreadingModel(" & $ord(v) & ")"
 
 ## Windows.Foundation.PropertyType  (enum)
-type PropertyType* = distinct int32
-proc `==`*(a, b: PropertyType): bool {.borrow.}
+type PropertyType* {.pure, size: 4.} = enum
+  Empty = 0'i32
+  UInt8 = 1'i32
+  Int16 = 2'i32
+  UInt16 = 3'i32
+  Int32 = 4'i32
+  UInt32 = 5'i32
+  Int64 = 6'i32
+  UInt64 = 7'i32
+  Single = 8'i32
+  Double = 9'i32
+  Char16 = 10'i32
+  Boolean = 11'i32
+  String = 12'i32
+  Inspectable = 13'i32
+  DateTime = 14'i32
+  TimeSpan = 15'i32
+  Guid = 16'i32
+  Point = 17'i32
+  Size = 18'i32
+  Rect = 19'i32
+  OtherType = 20'i32
+  UInt8Array = 1025'i32
+  Int16Array = 1026'i32
+  UInt16Array = 1027'i32
+  Int32Array = 1028'i32
+  UInt32Array = 1029'i32
+  Int64Array = 1030'i32
+  UInt64Array = 1031'i32
+  SingleArray = 1032'i32
+  DoubleArray = 1033'i32
+  Char16Array = 1034'i32
+  BooleanArray = 1035'i32
+  StringArray = 1036'i32
+  InspectableArray = 1037'i32
+  DateTimeArray = 1038'i32
+  TimeSpanArray = 1039'i32
+  GuidArray = 1040'i32
+  PointArray = 1041'i32
+  SizeArray = 1042'i32
+  RectArray = 1043'i32
+  OtherTypeArray = 1044'i32
 proc `$`*(v: PropertyType): string =
-  case int32(v)
-  of 0'i32: "Empty"
-  of 1'i32: "UInt8"
-  of 2'i32: "Int16"
-  of 3'i32: "UInt16"
-  of 4'i32: "Int32"
-  of 5'i32: "UInt32"
-  of 6'i32: "Int64"
-  of 7'i32: "UInt64"
-  of 8'i32: "Single"
-  of 9'i32: "Double"
-  of 10'i32: "Char16"
-  of 11'i32: "Boolean"
-  of 12'i32: "String"
-  of 13'i32: "Inspectable"
-  of 14'i32: "DateTime"
-  of 15'i32: "TimeSpan"
-  of 16'i32: "Guid"
-  of 17'i32: "Point"
-  of 18'i32: "Size"
-  of 19'i32: "Rect"
-  of 20'i32: "OtherType"
-  of 1025'i32: "UInt8Array"
-  of 1026'i32: "Int16Array"
-  of 1027'i32: "UInt16Array"
-  of 1028'i32: "Int32Array"
-  of 1029'i32: "UInt32Array"
-  of 1030'i32: "Int64Array"
-  of 1031'i32: "UInt64Array"
-  of 1032'i32: "SingleArray"
-  of 1033'i32: "DoubleArray"
-  of 1034'i32: "Char16Array"
-  of 1035'i32: "BooleanArray"
-  of 1036'i32: "StringArray"
-  of 1037'i32: "InspectableArray"
-  of 1038'i32: "DateTimeArray"
-  of 1039'i32: "TimeSpanArray"
-  of 1040'i32: "GuidArray"
-  of 1041'i32: "PointArray"
-  of 1042'i32: "SizeArray"
-  of 1043'i32: "RectArray"
-  of 1044'i32: "OtherTypeArray"
-  else: "PropertyType(" & $int32(v) & ")"
-const PropertyType_Empty* = PropertyType(0'i32)
-const PropertyType_UInt8* = PropertyType(1'i32)
-const PropertyType_Int16* = PropertyType(2'i32)
-const PropertyType_UInt16* = PropertyType(3'i32)
-const PropertyType_Int32* = PropertyType(4'i32)
-const PropertyType_UInt32* = PropertyType(5'i32)
-const PropertyType_Int64* = PropertyType(6'i32)
-const PropertyType_UInt64* = PropertyType(7'i32)
-const PropertyType_Single* = PropertyType(8'i32)
-const PropertyType_Double* = PropertyType(9'i32)
-const PropertyType_Char16* = PropertyType(10'i32)
-const PropertyType_Boolean* = PropertyType(11'i32)
-const PropertyType_String* = PropertyType(12'i32)
-const PropertyType_Inspectable* = PropertyType(13'i32)
-const PropertyType_DateTime* = PropertyType(14'i32)
-const PropertyType_TimeSpan* = PropertyType(15'i32)
-const PropertyType_Guid* = PropertyType(16'i32)
-const PropertyType_Point* = PropertyType(17'i32)
-const PropertyType_Size* = PropertyType(18'i32)
-const PropertyType_Rect* = PropertyType(19'i32)
-const PropertyType_OtherType* = PropertyType(20'i32)
-const PropertyType_UInt8Array* = PropertyType(1025'i32)
-const PropertyType_Int16Array* = PropertyType(1026'i32)
-const PropertyType_UInt16Array* = PropertyType(1027'i32)
-const PropertyType_Int32Array* = PropertyType(1028'i32)
-const PropertyType_UInt32Array* = PropertyType(1029'i32)
-const PropertyType_Int64Array* = PropertyType(1030'i32)
-const PropertyType_UInt64Array* = PropertyType(1031'i32)
-const PropertyType_SingleArray* = PropertyType(1032'i32)
-const PropertyType_DoubleArray* = PropertyType(1033'i32)
-const PropertyType_Char16Array* = PropertyType(1034'i32)
-const PropertyType_BooleanArray* = PropertyType(1035'i32)
-const PropertyType_StringArray* = PropertyType(1036'i32)
-const PropertyType_InspectableArray* = PropertyType(1037'i32)
-const PropertyType_DateTimeArray* = PropertyType(1038'i32)
-const PropertyType_TimeSpanArray* = PropertyType(1039'i32)
-const PropertyType_GuidArray* = PropertyType(1040'i32)
-const PropertyType_PointArray* = PropertyType(1041'i32)
-const PropertyType_SizeArray* = PropertyType(1042'i32)
-const PropertyType_RectArray* = PropertyType(1043'i32)
-const PropertyType_OtherTypeArray* = PropertyType(1044'i32)
+  case ord(v)
+  of 0: "Empty"
+  of 1: "UInt8"
+  of 2: "Int16"
+  of 3: "UInt16"
+  of 4: "Int32"
+  of 5: "UInt32"
+  of 6: "Int64"
+  of 7: "UInt64"
+  of 8: "Single"
+  of 9: "Double"
+  of 10: "Char16"
+  of 11: "Boolean"
+  of 12: "String"
+  of 13: "Inspectable"
+  of 14: "DateTime"
+  of 15: "TimeSpan"
+  of 16: "Guid"
+  of 17: "Point"
+  of 18: "Size"
+  of 19: "Rect"
+  of 20: "OtherType"
+  of 1025: "UInt8Array"
+  of 1026: "Int16Array"
+  of 1027: "UInt16Array"
+  of 1028: "Int32Array"
+  of 1029: "UInt32Array"
+  of 1030: "Int64Array"
+  of 1031: "UInt64Array"
+  of 1032: "SingleArray"
+  of 1033: "DoubleArray"
+  of 1034: "Char16Array"
+  of 1035: "BooleanArray"
+  of 1036: "StringArray"
+  of 1037: "InspectableArray"
+  of 1038: "DateTimeArray"
+  of 1039: "TimeSpanArray"
+  of 1040: "GuidArray"
+  of 1041: "PointArray"
+  of 1042: "SizeArray"
+  of 1043: "RectArray"
+  of 1044: "OtherTypeArray"
+  else: "PropertyType(" & $ord(v) & ")"
 
 ## Windows.Foundation.DateTime  (struct)
 type DateTime* {.pure.} = object
@@ -534,7 +587,7 @@ const IID_AsyncActionCompletedHandler* = GUID(
     data1: 0xA4ED5C81'u32, data2: 0x76C9'u16, data3: 0x40BD'u16,
     data4: [0x8B'u8, 0xE6, 0xB1, 0xD9, 0x0F, 0xB2, 0x0A, 0xE7])
 const Slot_AsyncActionCompletedHandler_Invoke* = 3
-type Fn_AsyncActionCompletedHandler_Invoke* = proc(self: pointer, a1IAsyncAction: pointer, a2: int32): HRESULT {.stdcall.}
+type Fn_AsyncActionCompletedHandler_Invoke* = proc(self: pointer, a1IAsyncAction: pointer, a2: AsyncStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.AsyncActionProgressHandler`1  (delegate)
 const IID_AsyncActionProgressHandler_1* = GUID(
@@ -576,7 +629,7 @@ const IID_IIterable_1* = GUID(
     data1: 0xFAA585EA'u32, data2: 0x6214'u16, data3: 0x4217'u16,
     data4: [0xAF'u8, 0xDA, 0x7F, 0x46, 0xDE, 0x58, 0x69, 0xB3])
 const Slot_IIterable_1_First* = 6
-type Fn_IIterable_1_First* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IIterable_1_First* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Collections.IIterator`1
 const IID_IIterator_1* = GUID(
@@ -585,9 +638,9 @@ const IID_IIterator_1* = GUID(
 const Slot_IIterator_1_get_Current* = 6
 # Fn_IIterator_1_get_Current: signature not mapped
 const Slot_IIterator_1_get_HasCurrent* = 7
-type Fn_IIterator_1_get_HasCurrent* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IIterator_1_get_HasCurrent* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIterator_1_MoveNext* = 8
-type Fn_IIterator_1_MoveNext* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IIterator_1_MoveNext* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIterator_1_GetMany* = 9
 # Fn_IIterator_1_GetMany: signature not mapped
 
@@ -605,7 +658,7 @@ const IID_IMapChangedEventArgs_1* = GUID(
     data1: 0x9939F4DF'u32, data2: 0x050A'u16, data3: 0x4C0F'u16,
     data4: [0xAA'u8, 0x60, 0x77, 0x07, 0x5F, 0x9C, 0x47, 0x77])
 const Slot_IMapChangedEventArgs_1_get_CollectionChange* = 6
-type Fn_IMapChangedEventArgs_1_get_CollectionChange* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMapChangedEventArgs_1_get_CollectionChange* = proc(self: pointer, value: ptr CollectionChange): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMapChangedEventArgs_1_get_Key* = 7
 # Fn_IMapChangedEventArgs_1_get_Key: signature not mapped
 
@@ -616,7 +669,7 @@ const IID_IMapView_2* = GUID(
 const Slot_IMapView_2_Lookup* = 6
 # Fn_IMapView_2_Lookup: signature not mapped
 const Slot_IMapView_2_get_Size* = 7
-type Fn_IMapView_2_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMapView_2_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMapView_2_HasKey* = 8
 # Fn_IMapView_2_HasKey: signature not mapped
 const Slot_IMapView_2_Split* = 9
@@ -629,35 +682,35 @@ const IID_IMap_2* = GUID(
 const Slot_IMap_2_Lookup* = 6
 # Fn_IMap_2_Lookup: signature not mapped
 const Slot_IMap_2_get_Size* = 7
-type Fn_IMap_2_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMap_2_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMap_2_HasKey* = 8
 # Fn_IMap_2_HasKey: signature not mapped
 const Slot_IMap_2_GetView* = 9
-type Fn_IMap_2_GetView* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMap_2_GetView* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMap_2_Insert* = 10
 # Fn_IMap_2_Insert: signature not mapped
 const Slot_IMap_2_Remove* = 11
 # Fn_IMap_2_Remove: signature not mapped
 const Slot_IMap_2_Clear* = 12
-type Fn_IMap_2_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMap_2_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Collections.IObservableMap`2
 const IID_IObservableMap_2* = GUID(
     data1: 0x65DF2BF5'u32, data2: 0xBF39'u16, data3: 0x41B5'u16,
     data4: [0xAE'u8, 0xBC, 0x5A, 0x9D, 0x86, 0x5E, 0x47, 0x2B])
 const Slot_IObservableMap_2_add_MapChanged* = 6
-type Fn_IObservableMap_2_add_MapChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IObservableMap_2_add_MapChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IObservableMap_2_remove_MapChanged* = 7
-type Fn_IObservableMap_2_remove_MapChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IObservableMap_2_remove_MapChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Collections.IObservableVector`1
 const IID_IObservableVector_1* = GUID(
     data1: 0x5917EB53'u32, data2: 0x50B4'u16, data3: 0x4A0D'u16,
     data4: [0xB3'u8, 0x09, 0x65, 0x86, 0x2B, 0x3F, 0x1D, 0xBC])
 const Slot_IObservableVector_1_add_VectorChanged* = 6
-type Fn_IObservableVector_1_add_VectorChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IObservableVector_1_add_VectorChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IObservableVector_1_remove_VectorChanged* = 7
-type Fn_IObservableVector_1_remove_VectorChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IObservableVector_1_remove_VectorChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Collections.IPropertySet
 const IID_IPropertySet* = GUID(
@@ -669,9 +722,9 @@ const IID_IVectorChangedEventArgs* = GUID(
     data1: 0x575933DF'u32, data2: 0x34FE'u16, data3: 0x4480'u16,
     data4: [0xAF'u8, 0x15, 0x07, 0x69, 0x1F, 0x3D, 0x5D, 0x9B])
 const Slot_IVectorChangedEventArgs_get_CollectionChange* = 6
-type Fn_IVectorChangedEventArgs_get_CollectionChange* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVectorChangedEventArgs_get_CollectionChange* = proc(self: pointer, value: ptr CollectionChange): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVectorChangedEventArgs_get_Index* = 7
-type Fn_IVectorChangedEventArgs_get_Index* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVectorChangedEventArgs_get_Index* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Collections.IVectorView`1
 const IID_IVectorView_1* = GUID(
@@ -680,7 +733,7 @@ const IID_IVectorView_1* = GUID(
 const Slot_IVectorView_1_GetAt* = 6
 # Fn_IVectorView_1_GetAt: signature not mapped
 const Slot_IVectorView_1_get_Size* = 7
-type Fn_IVectorView_1_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVectorView_1_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVectorView_1_IndexOf* = 8
 # Fn_IVectorView_1_IndexOf: signature not mapped
 const Slot_IVectorView_1_GetMany* = 9
@@ -693,9 +746,9 @@ const IID_IVector_1* = GUID(
 const Slot_IVector_1_GetAt* = 6
 # Fn_IVector_1_GetAt: signature not mapped
 const Slot_IVector_1_get_Size* = 7
-type Fn_IVector_1_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVector_1_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVector_1_GetView* = 8
-type Fn_IVector_1_GetView* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVector_1_GetView* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVector_1_IndexOf* = 9
 # Fn_IVector_1_IndexOf: signature not mapped
 const Slot_IVector_1_SetAt* = 10
@@ -703,13 +756,13 @@ const Slot_IVector_1_SetAt* = 10
 const Slot_IVector_1_InsertAt* = 11
 # Fn_IVector_1_InsertAt: signature not mapped
 const Slot_IVector_1_RemoveAt* = 12
-type Fn_IVector_1_RemoveAt* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IVector_1_RemoveAt* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVector_1_Append* = 13
 # Fn_IVector_1_Append: signature not mapped
 const Slot_IVector_1_RemoveAtEnd* = 14
-type Fn_IVector_1_RemoveAtEnd* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVector_1_RemoveAtEnd* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVector_1_Clear* = 15
-type Fn_IVector_1_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVector_1_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVector_1_GetMany* = 16
 # Fn_IVector_1_GetMany: signature not mapped
 const Slot_IVector_1_ReplaceAll* = 17
@@ -734,204 +787,204 @@ const IID_DeferralCompletedHandler* = GUID(
     data1: 0xED32A372'u32, data2: 0xF3C8'u16, data3: 0x4FAA'u16,
     data4: [0x9C'u8, 0xFB, 0x47, 0x01, 0x48, 0xDA, 0x38, 0x88])
 const Slot_DeferralCompletedHandler_Invoke* = 3
-type Fn_DeferralCompletedHandler_Invoke* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_DeferralCompletedHandler_Invoke* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics
 const IID_IAsyncCausalityTracerStatics* = GUID(
     data1: 0x50850B26'u32, data2: 0x267E'u16, data3: 0x451B'u16,
     data4: [0xA8'u8, 0x90, 0xAB, 0x6A, 0x37, 0x02, 0x45, 0xEE])
 const Slot_IAsyncCausalityTracerStatics_TraceOperationCreation* = 6
-type Fn_IAsyncCausalityTracerStatics_TraceOperationCreation* = proc(self: pointer, a1: int32, a2: int32, a3: GUID, a4: uint64, a5: HSTRING, a6: uint64): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_TraceOperationCreation* = proc(self: pointer, a1: CausalityTraceLevel, a2: CausalitySource, a3: GUID, a4: uint64, a5: HSTRING, a6: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_TraceOperationCompletion* = 7
-type Fn_IAsyncCausalityTracerStatics_TraceOperationCompletion* = proc(self: pointer, a1: int32, a2: int32, a3: GUID, a4: uint64, a5: int32): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_TraceOperationCompletion* = proc(self: pointer, a1: CausalityTraceLevel, a2: CausalitySource, a3: GUID, a4: uint64, a5: AsyncStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_TraceOperationRelation* = 8
-type Fn_IAsyncCausalityTracerStatics_TraceOperationRelation* = proc(self: pointer, a1: int32, a2: int32, a3: GUID, a4: uint64, a5: int32): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_TraceOperationRelation* = proc(self: pointer, a1: CausalityTraceLevel, a2: CausalitySource, a3: GUID, a4: uint64, a5: CausalityRelation): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_TraceSynchronousWorkStart* = 9
-type Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkStart* = proc(self: pointer, a1: int32, a2: int32, a3: GUID, a4: uint64, a5: int32): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkStart* = proc(self: pointer, a1: CausalityTraceLevel, a2: CausalitySource, a3: GUID, a4: uint64, a5: CausalitySynchronousWork): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion* = 10
-type Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion* = proc(self: pointer, a1: int32, a2: int32, a3: int32): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion* = proc(self: pointer, a1: CausalityTraceLevel, a2: CausalitySource, a3: CausalitySynchronousWork): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_add_TracingStatusChanged* = 11
-type Fn_IAsyncCausalityTracerStatics_add_TracingStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_add_TracingStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncCausalityTracerStatics_remove_TracingStatusChanged* = 12
-type Fn_IAsyncCausalityTracerStatics_remove_TracingStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IAsyncCausalityTracerStatics_remove_TracingStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IErrorDetails
 const IID_IErrorDetails* = GUID(
     data1: 0x378CBB01'u32, data2: 0x2CC9'u16, data3: 0x428F'u16,
     data4: [0x8C'u8, 0x55, 0x2C, 0x99, 0x0D, 0x46, 0x3E, 0x8F])
 const Slot_IErrorDetails_get_Description* = 6
-type Fn_IErrorDetails_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IErrorDetails_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IErrorDetails_get_LongDescription* = 7
-type Fn_IErrorDetails_get_LongDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IErrorDetails_get_LongDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IErrorDetails_get_HelpUri* = 8
-type Fn_IErrorDetails_get_HelpUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IErrorDetails_get_HelpUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IErrorDetailsStatics
 const IID_IErrorDetailsStatics* = GUID(
     data1: 0xB7703750'u32, data2: 0x0B1D'u16, data3: 0x46C8'u16,
     data4: [0xAA'u8, 0x0E, 0x4B, 0x81, 0x78, 0xE4, 0xFC, 0xE9])
 const Slot_IErrorDetailsStatics_CreateFromHResultAsync* = 6
-type Fn_IErrorDetailsStatics_CreateFromHResultAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IErrorDetailsStatics_CreateFromHResultAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IErrorReportingSettings
 const IID_IErrorReportingSettings* = GUID(
     data1: 0x16369792'u32, data2: 0xB03E'u16, data3: 0x4BA1'u16,
     data4: [0x8B'u8, 0xB8, 0xD2, 0x8F, 0x4A, 0xB4, 0xD2, 0xC0])
 const Slot_IErrorReportingSettings_SetErrorOptions* = 6
-type Fn_IErrorReportingSettings_SetErrorOptions* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IErrorReportingSettings_SetErrorOptions* = proc(self: pointer, a1: ErrorOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IErrorReportingSettings_GetErrorOptions* = 7
-type Fn_IErrorReportingSettings_GetErrorOptions* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IErrorReportingSettings_GetErrorOptions* = proc(self: pointer, value: ptr ErrorOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IFileLoggingSession
 const IID_IFileLoggingSession* = GUID(
     data1: 0x24C74216'u32, data2: 0xFED2'u16, data3: 0x404C'u16,
     data4: [0x89'u8, 0x5F, 0x1F, 0x96, 0x99, 0xCB, 0x02, 0xF7])
 const Slot_IFileLoggingSession_get_Name* = 6
-type Fn_IFileLoggingSession_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_AddLoggingChannel* = 7
-type Fn_IFileLoggingSession_AddLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_AddLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_AddLoggingChannel2* = 8
-type Fn_IFileLoggingSession_AddLoggingChannel2* = proc(self: pointer, a1ILoggingChannel: pointer, a2: int32): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_AddLoggingChannel2* = proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_RemoveLoggingChannel* = 9
-type Fn_IFileLoggingSession_RemoveLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_RemoveLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_CloseAndSaveToFileAsync* = 10
-type Fn_IFileLoggingSession_CloseAndSaveToFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_CloseAndSaveToFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_add_LogFileGenerated* = 11
-type Fn_IFileLoggingSession_add_LogFileGenerated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_add_LogFileGenerated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileLoggingSession_remove_LogFileGenerated* = 12
-type Fn_IFileLoggingSession_remove_LogFileGenerated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileLoggingSession_remove_LogFileGenerated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.IFileLoggingSessionFactory
 const IID_IFileLoggingSessionFactory* = GUID(
     data1: 0xEEA08DCE'u32, data2: 0x8447'u16, data3: 0x4DAA'u16,
     data4: [0x91'u8, 0x33, 0x12, 0xEB, 0x46, 0xF6, 0x97, 0xD4])
 const Slot_IFileLoggingSessionFactory_Create* = 6
-type Fn_IFileLoggingSessionFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileLoggingSessionFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILogFileGeneratedEventArgs
 const IID_ILogFileGeneratedEventArgs* = GUID(
     data1: 0x269E976F'u32, data2: 0x0D38'u16, data3: 0x4C1A'u16,
     data4: [0xB5'u8, 0x3F, 0xB3, 0x95, 0xD8, 0x81, 0xDF, 0x84])
 const Slot_ILogFileGeneratedEventArgs_get_File* = 6
-type Fn_ILogFileGeneratedEventArgs_get_File* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILogFileGeneratedEventArgs_get_File* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingActivity
 const IID_ILoggingActivity* = GUID(
     data1: 0xBC032941'u32, data2: 0xB766'u16, data3: 0x4CB5'u16,
     data4: [0x98'u8, 0x48, 0x97, 0xAC, 0x6B, 0xA6, 0xD6, 0x0C])
 const Slot_ILoggingActivity_get_Name* = 6
-type Fn_ILoggingActivity_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingActivity_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingActivity_get_Id* = 7
-type Fn_ILoggingActivity_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILoggingActivity_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingActivity2
 const IID_ILoggingActivity2* = GUID(
     data1: 0x26C29808'u32, data2: 0x6322'u16, data3: 0x456A'u16,
     data4: [0xAF'u8, 0x82, 0x80, 0xC8, 0x64, 0x2F, 0x17, 0x8B])
 const Slot_ILoggingActivity2_get_Channel* = 6
-type Fn_ILoggingActivity2_get_Channel* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingActivity2_get_Channel* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingActivity2_StopActivity* = 7
-type Fn_ILoggingActivity2_StopActivity* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingActivity2_StopActivity* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingActivity2_StopActivity2* = 8
-type Fn_ILoggingActivity2_StopActivity2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingActivity2_StopActivity2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingActivity2_StopActivity3* = 9
-type Fn_ILoggingActivity2_StopActivity3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3LoggingOptions: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingActivity2_StopActivity3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3LoggingOptions: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingActivityFactory
 const IID_ILoggingActivityFactory* = GUID(
     data1: 0x6B33B483'u32, data2: 0xE10A'u16, data3: 0x4C58'u16,
     data4: [0x97'u8, 0xD5, 0x10, 0xFB, 0x45, 0x10, 0x74, 0xFB])
 const Slot_ILoggingActivityFactory_CreateLoggingActivity* = 6
-type Fn_ILoggingActivityFactory_CreateLoggingActivity* = proc(self: pointer, a1: HSTRING, a2ILoggingChannel: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingActivityFactory_CreateLoggingActivity* = proc(self: pointer, a1: HSTRING, a2ILoggingChannel: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingActivityFactory_CreateLoggingActivityWithLevel* = 7
-type Fn_ILoggingActivityFactory_CreateLoggingActivityWithLevel* = proc(self: pointer, a1: HSTRING, a2ILoggingChannel: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingActivityFactory_CreateLoggingActivityWithLevel* = proc(self: pointer, a1: HSTRING, a2ILoggingChannel: pointer, a3: LoggingLevel, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannel
 const IID_ILoggingChannel* = GUID(
     data1: 0xE9A50343'u32, data2: 0x11D7'u16, data3: 0x4F01'u16,
     data4: [0xB5'u8, 0xCA, 0xCF, 0x49, 0x52, 0x78, 0xC0, 0xA8])
 const Slot_ILoggingChannel_get_Name* = 6
-type Fn_ILoggingChannel_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_get_Enabled* = 7
-type Fn_ILoggingChannel_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_get_Level* = 8
-type Fn_ILoggingChannel_get_Level* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_get_Level* = proc(self: pointer, value: ptr LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_LogMessage* = 9
-type Fn_ILoggingChannel_LogMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_LogMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_LogMessage2* = 10
-type Fn_ILoggingChannel_LogMessage2* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_LogMessage2* = proc(self: pointer, a1: HSTRING, a2: LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_LogValuePair* = 11
-type Fn_ILoggingChannel_LogValuePair* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_LogValuePair* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_LogValuePair2* = 12
-type Fn_ILoggingChannel_LogValuePair2* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_LogValuePair2* = proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_add_LoggingEnabled* = 13
-type Fn_ILoggingChannel_add_LoggingEnabled* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_add_LoggingEnabled* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannel_remove_LoggingEnabled* = 14
-type Fn_ILoggingChannel_remove_LoggingEnabled* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ILoggingChannel_remove_LoggingEnabled* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannel2
 const IID_ILoggingChannel2* = GUID(
     data1: 0x9F4C3CF3'u32, data2: 0x0BAC'u16, data3: 0x45A5'u16,
     data4: [0x9E'u8, 0x33, 0xBA, 0xF3, 0xF3, 0xA2, 0x46, 0xA5])
 const Slot_ILoggingChannel2_get_Id* = 6
-type Fn_ILoggingChannel2_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILoggingChannel2_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannelFactory
 const IID_ILoggingChannelFactory* = GUID(
     data1: 0x4EDC5B9C'u32, data2: 0xAF80'u16, data3: 0x4A9B'u16,
     data4: [0xB0'u8, 0xDC, 0x39, 0x8F, 0x9A, 0xE5, 0x20, 0x7B])
 const Slot_ILoggingChannelFactory_Create* = 6
-type Fn_ILoggingChannelFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingChannelFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannelFactory2
 const IID_ILoggingChannelFactory2* = GUID(
     data1: 0x4C6EF5DD'u32, data2: 0x3B27'u16, data3: 0x4DC9'u16,
     data4: [0x99'u8, 0xF0, 0x29, 0x9C, 0x6E, 0x46, 0x03, 0xA1])
 const Slot_ILoggingChannelFactory2_CreateWithOptions* = 6
-type Fn_ILoggingChannelFactory2_CreateWithOptions* = proc(self: pointer, a1: HSTRING, a2LoggingChannelOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingChannelFactory2_CreateWithOptions* = proc(self: pointer, a1: HSTRING, a2LoggingChannelOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannelFactory2_CreateWithOptionsAndId* = 7
-type Fn_ILoggingChannelFactory2_CreateWithOptionsAndId* = proc(self: pointer, a1: HSTRING, a2LoggingChannelOptions: pointer, a3: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingChannelFactory2_CreateWithOptionsAndId* = proc(self: pointer, a1: HSTRING, a2LoggingChannelOptions: pointer, a3: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannelOptions
 const IID_ILoggingChannelOptions* = GUID(
     data1: 0xC3E847FF'u32, data2: 0x0EBB'u16, data3: 0x4A53'u16,
     data4: [0x8C'u8, 0x54, 0xDE, 0xC2, 0x49, 0x26, 0xCB, 0x2C])
 const Slot_ILoggingChannelOptions_get_Group* = 6
-type Fn_ILoggingChannelOptions_get_Group* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILoggingChannelOptions_get_Group* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingChannelOptions_put_Group* = 7
-type Fn_ILoggingChannelOptions_put_Group* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_ILoggingChannelOptions_put_Group* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingChannelOptionsFactory
 const IID_ILoggingChannelOptionsFactory* = GUID(
     data1: 0xA93151DA'u32, data2: 0x7FAF'u16, data3: 0x4191'u16,
     data4: [0x87'u8, 0x55, 0x5E, 0x86, 0xDC, 0x65, 0xD8, 0x96])
 const Slot_ILoggingChannelOptionsFactory_Create* = 6
-type Fn_ILoggingChannelOptionsFactory_Create* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingChannelOptionsFactory_Create* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingFields
 const IID_ILoggingFields* = GUID(
     data1: 0xD7F6B7AF'u32, data2: 0x762D'u16, data3: 0x4579'u16,
     data4: [0x83'u8, 0xBD, 0x52, 0xC2, 0x3B, 0xC3, 0x33, 0xBC])
 const Slot_ILoggingFields_Clear* = 6
-type Fn_ILoggingFields_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingFields_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_BeginStruct* = 7
-type Fn_ILoggingFields_BeginStruct* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingFields_BeginStruct* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_BeginStruct2* = 8
-type Fn_ILoggingFields_BeginStruct2* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_BeginStruct2* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_EndStruct* = 9
-type Fn_ILoggingFields_EndStruct* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingFields_EndStruct* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddEmpty* = 10
-type Fn_ILoggingFields_AddEmpty* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddEmpty* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddEmpty2* = 11
-type Fn_ILoggingFields_AddEmpty2* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddEmpty2* = proc(self: pointer, a1: HSTRING, a2: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddEmpty3* = 12
-type Fn_ILoggingFields_AddEmpty3* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddEmpty3* = proc(self: pointer, a1: HSTRING, a2: LoggingFieldFormat, a3: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt8* = 13
-type Fn_ILoggingFields_AddUInt8* = proc(self: pointer, a1: HSTRING, a2: uint8): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt8* = proc(self: pointer, a1: HSTRING, a2: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt82* = 14
-type Fn_ILoggingFields_AddUInt82* = proc(self: pointer, a1: HSTRING, a2: uint8, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt82* = proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt83* = 15
-type Fn_ILoggingFields_AddUInt83* = proc(self: pointer, a1: HSTRING, a2: uint8, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt83* = proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt8Array* = 16
 # Fn_ILoggingFields_AddUInt8Array: signature not mapped
 const Slot_ILoggingFields_AddUInt8Array2* = 17
@@ -939,11 +992,11 @@ const Slot_ILoggingFields_AddUInt8Array2* = 17
 const Slot_ILoggingFields_AddUInt8Array3* = 18
 # Fn_ILoggingFields_AddUInt8Array3: signature not mapped
 const Slot_ILoggingFields_AddInt16* = 19
-type Fn_ILoggingFields_AddInt16* = proc(self: pointer, a1: HSTRING, a2: int16): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt16* = proc(self: pointer, a1: HSTRING, a2: int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt162* = 20
-type Fn_ILoggingFields_AddInt162* = proc(self: pointer, a1: HSTRING, a2: int16, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt162* = proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt163* = 21
-type Fn_ILoggingFields_AddInt163* = proc(self: pointer, a1: HSTRING, a2: int16, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt163* = proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt16Array* = 22
 # Fn_ILoggingFields_AddInt16Array: signature not mapped
 const Slot_ILoggingFields_AddInt16Array2* = 23
@@ -951,11 +1004,11 @@ const Slot_ILoggingFields_AddInt16Array2* = 23
 const Slot_ILoggingFields_AddInt16Array3* = 24
 # Fn_ILoggingFields_AddInt16Array3: signature not mapped
 const Slot_ILoggingFields_AddUInt16* = 25
-type Fn_ILoggingFields_AddUInt16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt162* = 26
-type Fn_ILoggingFields_AddUInt162* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt162* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt163* = 27
-type Fn_ILoggingFields_AddUInt163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt16Array* = 28
 # Fn_ILoggingFields_AddUInt16Array: signature not mapped
 const Slot_ILoggingFields_AddUInt16Array2* = 29
@@ -963,11 +1016,11 @@ const Slot_ILoggingFields_AddUInt16Array2* = 29
 const Slot_ILoggingFields_AddUInt16Array3* = 30
 # Fn_ILoggingFields_AddUInt16Array3: signature not mapped
 const Slot_ILoggingFields_AddInt32* = 31
-type Fn_ILoggingFields_AddInt32* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt32* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt322* = 32
-type Fn_ILoggingFields_AddInt322* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt322* = proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt323* = 33
-type Fn_ILoggingFields_AddInt323* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt323* = proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt32Array* = 34
 # Fn_ILoggingFields_AddInt32Array: signature not mapped
 const Slot_ILoggingFields_AddInt32Array2* = 35
@@ -975,11 +1028,11 @@ const Slot_ILoggingFields_AddInt32Array2* = 35
 const Slot_ILoggingFields_AddInt32Array3* = 36
 # Fn_ILoggingFields_AddInt32Array3: signature not mapped
 const Slot_ILoggingFields_AddUInt32* = 37
-type Fn_ILoggingFields_AddUInt32* = proc(self: pointer, a1: HSTRING, a2: uint32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt32* = proc(self: pointer, a1: HSTRING, a2: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt322* = 38
-type Fn_ILoggingFields_AddUInt322* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt322* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt323* = 39
-type Fn_ILoggingFields_AddUInt323* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt323* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt32Array* = 40
 # Fn_ILoggingFields_AddUInt32Array: signature not mapped
 const Slot_ILoggingFields_AddUInt32Array2* = 41
@@ -987,11 +1040,11 @@ const Slot_ILoggingFields_AddUInt32Array2* = 41
 const Slot_ILoggingFields_AddUInt32Array3* = 42
 # Fn_ILoggingFields_AddUInt32Array3: signature not mapped
 const Slot_ILoggingFields_AddInt64* = 43
-type Fn_ILoggingFields_AddInt64* = proc(self: pointer, a1: HSTRING, a2: int64): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt64* = proc(self: pointer, a1: HSTRING, a2: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt642* = 44
-type Fn_ILoggingFields_AddInt642* = proc(self: pointer, a1: HSTRING, a2: int64, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt642* = proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt643* = 45
-type Fn_ILoggingFields_AddInt643* = proc(self: pointer, a1: HSTRING, a2: int64, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddInt643* = proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddInt64Array* = 46
 # Fn_ILoggingFields_AddInt64Array: signature not mapped
 const Slot_ILoggingFields_AddInt64Array2* = 47
@@ -999,11 +1052,11 @@ const Slot_ILoggingFields_AddInt64Array2* = 47
 const Slot_ILoggingFields_AddInt64Array3* = 48
 # Fn_ILoggingFields_AddInt64Array3: signature not mapped
 const Slot_ILoggingFields_AddUInt64* = 49
-type Fn_ILoggingFields_AddUInt64* = proc(self: pointer, a1: HSTRING, a2: uint64): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt64* = proc(self: pointer, a1: HSTRING, a2: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt642* = 50
-type Fn_ILoggingFields_AddUInt642* = proc(self: pointer, a1: HSTRING, a2: uint64, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt642* = proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt643* = 51
-type Fn_ILoggingFields_AddUInt643* = proc(self: pointer, a1: HSTRING, a2: uint64, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddUInt643* = proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddUInt64Array* = 52
 # Fn_ILoggingFields_AddUInt64Array: signature not mapped
 const Slot_ILoggingFields_AddUInt64Array2* = 53
@@ -1011,11 +1064,11 @@ const Slot_ILoggingFields_AddUInt64Array2* = 53
 const Slot_ILoggingFields_AddUInt64Array3* = 54
 # Fn_ILoggingFields_AddUInt64Array3: signature not mapped
 const Slot_ILoggingFields_AddSingle* = 55
-type Fn_ILoggingFields_AddSingle* = proc(self: pointer, a1: HSTRING, a2: float32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSingle* = proc(self: pointer, a1: HSTRING, a2: float32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSingle2* = 56
-type Fn_ILoggingFields_AddSingle2* = proc(self: pointer, a1: HSTRING, a2: float32, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSingle2* = proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSingle3* = 57
-type Fn_ILoggingFields_AddSingle3* = proc(self: pointer, a1: HSTRING, a2: float32, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSingle3* = proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSingleArray* = 58
 # Fn_ILoggingFields_AddSingleArray: signature not mapped
 const Slot_ILoggingFields_AddSingleArray2* = 59
@@ -1023,11 +1076,11 @@ const Slot_ILoggingFields_AddSingleArray2* = 59
 const Slot_ILoggingFields_AddSingleArray3* = 60
 # Fn_ILoggingFields_AddSingleArray3: signature not mapped
 const Slot_ILoggingFields_AddDouble* = 61
-type Fn_ILoggingFields_AddDouble* = proc(self: pointer, a1: HSTRING, a2: float64): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDouble* = proc(self: pointer, a1: HSTRING, a2: float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDouble2* = 62
-type Fn_ILoggingFields_AddDouble2* = proc(self: pointer, a1: HSTRING, a2: float64, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDouble2* = proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDouble3* = 63
-type Fn_ILoggingFields_AddDouble3* = proc(self: pointer, a1: HSTRING, a2: float64, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDouble3* = proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDoubleArray* = 64
 # Fn_ILoggingFields_AddDoubleArray: signature not mapped
 const Slot_ILoggingFields_AddDoubleArray2* = 65
@@ -1035,11 +1088,11 @@ const Slot_ILoggingFields_AddDoubleArray2* = 65
 const Slot_ILoggingFields_AddDoubleArray3* = 66
 # Fn_ILoggingFields_AddDoubleArray3: signature not mapped
 const Slot_ILoggingFields_AddChar16* = 67
-type Fn_ILoggingFields_AddChar16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddChar16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddChar162* = 68
-type Fn_ILoggingFields_AddChar162* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddChar162* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddChar163* = 69
-type Fn_ILoggingFields_AddChar163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddChar163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddChar16Array* = 70
 # Fn_ILoggingFields_AddChar16Array: signature not mapped
 const Slot_ILoggingFields_AddChar16Array2* = 71
@@ -1047,11 +1100,11 @@ const Slot_ILoggingFields_AddChar16Array2* = 71
 const Slot_ILoggingFields_AddChar16Array3* = 72
 # Fn_ILoggingFields_AddChar16Array3: signature not mapped
 const Slot_ILoggingFields_AddBoolean* = 73
-type Fn_ILoggingFields_AddBoolean* = proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddBoolean* = proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddBoolean2* = 74
-type Fn_ILoggingFields_AddBoolean2* = proc(self: pointer, a1: HSTRING, a2: bool, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddBoolean2* = proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddBoolean3* = 75
-type Fn_ILoggingFields_AddBoolean3* = proc(self: pointer, a1: HSTRING, a2: bool, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddBoolean3* = proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddBooleanArray* = 76
 # Fn_ILoggingFields_AddBooleanArray: signature not mapped
 const Slot_ILoggingFields_AddBooleanArray2* = 77
@@ -1059,11 +1112,11 @@ const Slot_ILoggingFields_AddBooleanArray2* = 77
 const Slot_ILoggingFields_AddBooleanArray3* = 78
 # Fn_ILoggingFields_AddBooleanArray3: signature not mapped
 const Slot_ILoggingFields_AddString* = 79
-type Fn_ILoggingFields_AddString* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddString* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddString2* = 80
-type Fn_ILoggingFields_AddString2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddString2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddString3* = 81
-type Fn_ILoggingFields_AddString3* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddString3* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddStringArray* = 82
 # Fn_ILoggingFields_AddStringArray: signature not mapped
 const Slot_ILoggingFields_AddStringArray2* = 83
@@ -1071,11 +1124,11 @@ const Slot_ILoggingFields_AddStringArray2* = 83
 const Slot_ILoggingFields_AddStringArray3* = 84
 # Fn_ILoggingFields_AddStringArray3: signature not mapped
 const Slot_ILoggingFields_AddGuid* = 85
-type Fn_ILoggingFields_AddGuid* = proc(self: pointer, a1: HSTRING, a2: GUID): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddGuid* = proc(self: pointer, a1: HSTRING, a2: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddGuid2* = 86
-type Fn_ILoggingFields_AddGuid2* = proc(self: pointer, a1: HSTRING, a2: GUID, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddGuid2* = proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddGuid3* = 87
-type Fn_ILoggingFields_AddGuid3* = proc(self: pointer, a1: HSTRING, a2: GUID, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddGuid3* = proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddGuidArray* = 88
 # Fn_ILoggingFields_AddGuidArray: signature not mapped
 const Slot_ILoggingFields_AddGuidArray2* = 89
@@ -1083,11 +1136,11 @@ const Slot_ILoggingFields_AddGuidArray2* = 89
 const Slot_ILoggingFields_AddGuidArray3* = 90
 # Fn_ILoggingFields_AddGuidArray3: signature not mapped
 const Slot_ILoggingFields_AddDateTime* = 91
-type Fn_ILoggingFields_AddDateTime* = proc(self: pointer, a1: HSTRING, a2: DateTime): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDateTime* = proc(self: pointer, a1: HSTRING, a2: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDateTime2* = 92
-type Fn_ILoggingFields_AddDateTime2* = proc(self: pointer, a1: HSTRING, a2: DateTime, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDateTime2* = proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDateTime3* = 93
-type Fn_ILoggingFields_AddDateTime3* = proc(self: pointer, a1: HSTRING, a2: DateTime, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddDateTime3* = proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddDateTimeArray* = 94
 # Fn_ILoggingFields_AddDateTimeArray: signature not mapped
 const Slot_ILoggingFields_AddDateTimeArray2* = 95
@@ -1095,11 +1148,11 @@ const Slot_ILoggingFields_AddDateTimeArray2* = 95
 const Slot_ILoggingFields_AddDateTimeArray3* = 96
 # Fn_ILoggingFields_AddDateTimeArray3: signature not mapped
 const Slot_ILoggingFields_AddTimeSpan* = 97
-type Fn_ILoggingFields_AddTimeSpan* = proc(self: pointer, a1: HSTRING, a2: TimeSpan): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddTimeSpan* = proc(self: pointer, a1: HSTRING, a2: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddTimeSpan2* = 98
-type Fn_ILoggingFields_AddTimeSpan2* = proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddTimeSpan2* = proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddTimeSpan3* = 99
-type Fn_ILoggingFields_AddTimeSpan3* = proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddTimeSpan3* = proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddTimeSpanArray* = 100
 # Fn_ILoggingFields_AddTimeSpanArray: signature not mapped
 const Slot_ILoggingFields_AddTimeSpanArray2* = 101
@@ -1107,11 +1160,11 @@ const Slot_ILoggingFields_AddTimeSpanArray2* = 101
 const Slot_ILoggingFields_AddTimeSpanArray3* = 102
 # Fn_ILoggingFields_AddTimeSpanArray3: signature not mapped
 const Slot_ILoggingFields_AddPoint* = 103
-type Fn_ILoggingFields_AddPoint* = proc(self: pointer, a1: HSTRING, a2: Point): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddPoint* = proc(self: pointer, a1: HSTRING, a2: Point): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddPoint2* = 104
-type Fn_ILoggingFields_AddPoint2* = proc(self: pointer, a1: HSTRING, a2: Point, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddPoint2* = proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddPoint3* = 105
-type Fn_ILoggingFields_AddPoint3* = proc(self: pointer, a1: HSTRING, a2: Point, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddPoint3* = proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddPointArray* = 106
 # Fn_ILoggingFields_AddPointArray: signature not mapped
 const Slot_ILoggingFields_AddPointArray2* = 107
@@ -1119,11 +1172,11 @@ const Slot_ILoggingFields_AddPointArray2* = 107
 const Slot_ILoggingFields_AddPointArray3* = 108
 # Fn_ILoggingFields_AddPointArray3: signature not mapped
 const Slot_ILoggingFields_AddSize* = 109
-type Fn_ILoggingFields_AddSize* = proc(self: pointer, a1: HSTRING, a2: Size): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSize* = proc(self: pointer, a1: HSTRING, a2: Size): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSize2* = 110
-type Fn_ILoggingFields_AddSize2* = proc(self: pointer, a1: HSTRING, a2: Size, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSize2* = proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSize3* = 111
-type Fn_ILoggingFields_AddSize3* = proc(self: pointer, a1: HSTRING, a2: Size, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddSize3* = proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddSizeArray* = 112
 # Fn_ILoggingFields_AddSizeArray: signature not mapped
 const Slot_ILoggingFields_AddSizeArray2* = 113
@@ -1131,11 +1184,11 @@ const Slot_ILoggingFields_AddSizeArray2* = 113
 const Slot_ILoggingFields_AddSizeArray3* = 114
 # Fn_ILoggingFields_AddSizeArray3: signature not mapped
 const Slot_ILoggingFields_AddRect* = 115
-type Fn_ILoggingFields_AddRect* = proc(self: pointer, a1: HSTRING, a2: Rect): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddRect* = proc(self: pointer, a1: HSTRING, a2: Rect): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddRect2* = 116
-type Fn_ILoggingFields_AddRect2* = proc(self: pointer, a1: HSTRING, a2: Rect, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddRect2* = proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddRect3* = 117
-type Fn_ILoggingFields_AddRect3* = proc(self: pointer, a1: HSTRING, a2: Rect, a3: int32, a4: int32): HRESULT {.stdcall.}
+type Fn_ILoggingFields_AddRect3* = proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat, a4: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingFields_AddRectArray* = 118
 # Fn_ILoggingFields_AddRectArray: signature not mapped
 const Slot_ILoggingFields_AddRectArray2* = 119
@@ -1148,94 +1201,94 @@ const IID_ILoggingOptions* = GUID(
     data1: 0x90BC7850'u32, data2: 0x0192'u16, data3: 0x4F5D'u16,
     data4: [0xAC'u8, 0x26, 0x00, 0x6A, 0xDA, 0xCA, 0x12, 0xD8])
 const Slot_ILoggingOptions_get_Keywords* = 6
-type Fn_ILoggingOptions_get_Keywords* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_Keywords* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_Keywords* = 7
-type Fn_ILoggingOptions_put_Keywords* = proc(self: pointer, a1: int64): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_Keywords* = proc(self: pointer, a1: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_get_Tags* = 8
-type Fn_ILoggingOptions_get_Tags* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_Tags* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_Tags* = 9
-type Fn_ILoggingOptions_put_Tags* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_Tags* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_get_Task* = 10
-type Fn_ILoggingOptions_get_Task* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_Task* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_Task* = 11
-type Fn_ILoggingOptions_put_Task* = proc(self: pointer, a1: int16): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_Task* = proc(self: pointer, a1: int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_get_Opcode* = 12
-type Fn_ILoggingOptions_get_Opcode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_Opcode* = proc(self: pointer, value: ptr LoggingOpcode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_Opcode* = 13
-type Fn_ILoggingOptions_put_Opcode* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_Opcode* = proc(self: pointer, a1: LoggingOpcode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_get_ActivityId* = 14
-type Fn_ILoggingOptions_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_ActivityId* = 15
-type Fn_ILoggingOptions_put_ActivityId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_ActivityId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_get_RelatedActivityId* = 16
-type Fn_ILoggingOptions_get_RelatedActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_get_RelatedActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingOptions_put_RelatedActivityId* = 17
-type Fn_ILoggingOptions_put_RelatedActivityId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_ILoggingOptions_put_RelatedActivityId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingOptionsFactory
 const IID_ILoggingOptionsFactory* = GUID(
     data1: 0xD713C6CB'u32, data2: 0x98AB'u16, data3: 0x464B'u16,
     data4: [0x9F'u8, 0x22, 0xA3, 0x26, 0x84, 0x78, 0x36, 0x8A])
 const Slot_ILoggingOptionsFactory_CreateWithKeywords* = 6
-type Fn_ILoggingOptionsFactory_CreateWithKeywords* = proc(self: pointer, a1: int64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingOptionsFactory_CreateWithKeywords* = proc(self: pointer, a1: int64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingSession
 const IID_ILoggingSession* = GUID(
     data1: 0x6221F306'u32, data2: 0x9380'u16, data3: 0x4AD7'u16,
     data4: [0xBA'u8, 0xF5, 0x41, 0xEA, 0x93, 0x10, 0xD7, 0x68])
 const Slot_ILoggingSession_get_Name* = 6
-type Fn_ILoggingSession_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingSession_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingSession_SaveToFileAsync* = 7
-type Fn_ILoggingSession_SaveToFileAsync* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingSession_SaveToFileAsync* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingSession_AddLoggingChannel* = 8
-type Fn_ILoggingSession_AddLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingSession_AddLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingSession_AddLoggingChannel2* = 9
-type Fn_ILoggingSession_AddLoggingChannel2* = proc(self: pointer, a1ILoggingChannel: pointer, a2: int32): HRESULT {.stdcall.}
+type Fn_ILoggingSession_AddLoggingChannel2* = proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingSession_RemoveLoggingChannel* = 10
-type Fn_ILoggingSession_RemoveLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingSession_RemoveLoggingChannel* = proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingSessionFactory
 const IID_ILoggingSessionFactory* = GUID(
     data1: 0x4E937EE5'u32, data2: 0x58FD'u16, data3: 0x45E0'u16,
     data4: [0x8C'u8, 0x2F, 0xA1, 0x32, 0xEF, 0xF9, 0x5C, 0x1E])
 const Slot_ILoggingSessionFactory_Create* = 6
-type Fn_ILoggingSessionFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingSessionFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ILoggingTarget
 const IID_ILoggingTarget* = GUID(
     data1: 0x65F16C35'u32, data2: 0xE388'u16, data3: 0x4E26'u16,
     data4: [0xB1'u8, 0x7A, 0xF5, 0x1C, 0xD3, 0xA8, 0x39, 0x16])
 const Slot_ILoggingTarget_IsEnabled* = 6
-type Fn_ILoggingTarget_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_IsEnabled2* = 7
-type Fn_ILoggingTarget_IsEnabled2* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_IsEnabled2* = proc(self: pointer, a1: LoggingLevel, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_IsEnabled3* = 8
-type Fn_ILoggingTarget_IsEnabled3* = proc(self: pointer, a1: int32, a2: int64, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_IsEnabled3* = proc(self: pointer, a1: LoggingLevel, a2: int64, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_LogEvent* = 9
-type Fn_ILoggingTarget_LogEvent* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_LogEvent* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_LogEvent2* = 10
-type Fn_ILoggingTarget_LogEvent2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_LogEvent2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_LogEvent3* = 11
-type Fn_ILoggingTarget_LogEvent3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: int32): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_LogEvent3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_LogEvent4* = 12
-type Fn_ILoggingTarget_LogEvent4* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: int32, a4LoggingOptions: pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_LogEvent4* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel, a4LoggingOptions: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_StartActivity* = 13
-type Fn_ILoggingTarget_StartActivity* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_StartActivity* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_StartActivity2* = 14
-type Fn_ILoggingTarget_StartActivity2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_StartActivity2* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_StartActivity3* = 15
-type Fn_ILoggingTarget_StartActivity3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_StartActivity3* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILoggingTarget_StartActivity4* = 16
-type Fn_ILoggingTarget_StartActivity4* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: int32, a4LoggingOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILoggingTarget_StartActivity4* = proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel, a4LoggingOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Diagnostics.ITracingStatusChangedEventArgs
 const IID_ITracingStatusChangedEventArgs* = GUID(
     data1: 0x410B7711'u32, data2: 0xFF3B'u16, data3: 0x477F'u16,
     data4: [0x9C'u8, 0x9A, 0xD2, 0xEF, 0xDA, 0x30, 0x2D, 0xC3])
 const Slot_ITracingStatusChangedEventArgs_get_Enabled* = 6
-type Fn_ITracingStatusChangedEventArgs_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ITracingStatusChangedEventArgs_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITracingStatusChangedEventArgs_get_TraceLevel* = 7
-type Fn_ITracingStatusChangedEventArgs_get_TraceLevel* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ITracingStatusChangedEventArgs_get_TraceLevel* = proc(self: pointer, value: ptr CausalityTraceLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.EventHandler`1  (delegate)
 const IID_EventHandler_1* = GUID(
@@ -1249,54 +1302,54 @@ const IID_IAsyncAction* = GUID(
     data1: 0x5A648006'u32, data2: 0x843A'u16, data3: 0x4DA9'u16,
     data4: [0x86'u8, 0x5B, 0x9D, 0x26, 0xE5, 0xDF, 0xAD, 0x7B])
 const Slot_IAsyncAction_put_Completed* = 6
-type Fn_IAsyncAction_put_Completed* = proc(self: pointer, a1AsyncActionCompletedHandler: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncAction_put_Completed* = proc(self: pointer, a1AsyncActionCompletedHandler: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncAction_get_Completed* = 7
-type Fn_IAsyncAction_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncAction_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncAction_GetResults* = 8
-type Fn_IAsyncAction_GetResults* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncAction_GetResults* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IAsyncActionWithProgress`1
 const IID_IAsyncActionWithProgress_1* = GUID(
     data1: 0x1F6DB258'u32, data2: 0xE803'u16, data3: 0x48A1'u16,
     data4: [0x95'u8, 0x46, 0xEB, 0x73, 0x53, 0x39, 0x88, 0x84])
 const Slot_IAsyncActionWithProgress_1_put_Progress* = 6
-type Fn_IAsyncActionWithProgress_1_put_Progress* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncActionWithProgress_1_put_Progress* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncActionWithProgress_1_get_Progress* = 7
-type Fn_IAsyncActionWithProgress_1_get_Progress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncActionWithProgress_1_get_Progress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncActionWithProgress_1_put_Completed* = 8
-type Fn_IAsyncActionWithProgress_1_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncActionWithProgress_1_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncActionWithProgress_1_get_Completed* = 9
-type Fn_IAsyncActionWithProgress_1_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncActionWithProgress_1_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncActionWithProgress_1_GetResults* = 10
-type Fn_IAsyncActionWithProgress_1_GetResults* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncActionWithProgress_1_GetResults* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IAsyncInfo
 const IID_IAsyncInfo* = GUID(
     data1: 0x00000036'u32, data2: 0x0000'u16, data3: 0x0000'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
 const Slot_IAsyncInfo_get_Id* = 6
-type Fn_IAsyncInfo_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IAsyncInfo_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncInfo_get_Status* = 7
-type Fn_IAsyncInfo_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IAsyncInfo_get_Status* = proc(self: pointer, value: ptr AsyncStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncInfo_get_ErrorCode* = 8
-type Fn_IAsyncInfo_get_ErrorCode* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall.}
+type Fn_IAsyncInfo_get_ErrorCode* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncInfo_Cancel* = 9
-type Fn_IAsyncInfo_Cancel* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncInfo_Cancel* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncInfo_Close* = 10
-type Fn_IAsyncInfo_Close* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncInfo_Close* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IAsyncOperationWithProgress`2
 const IID_IAsyncOperationWithProgress_2* = GUID(
     data1: 0xB5D036D7'u32, data2: 0xE297'u16, data3: 0x498F'u16,
     data4: [0xBA'u8, 0x60, 0x02, 0x89, 0xE7, 0x6E, 0x23, 0xDD])
 const Slot_IAsyncOperationWithProgress_2_put_Progress* = 6
-type Fn_IAsyncOperationWithProgress_2_put_Progress* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperationWithProgress_2_put_Progress* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperationWithProgress_2_get_Progress* = 7
-type Fn_IAsyncOperationWithProgress_2_get_Progress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperationWithProgress_2_get_Progress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperationWithProgress_2_put_Completed* = 8
-type Fn_IAsyncOperationWithProgress_2_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperationWithProgress_2_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperationWithProgress_2_get_Completed* = 9
-type Fn_IAsyncOperationWithProgress_2_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperationWithProgress_2_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperationWithProgress_2_GetResults* = 10
 # Fn_IAsyncOperationWithProgress_2_GetResults: signature not mapped
 
@@ -1305,9 +1358,9 @@ const IID_IAsyncOperation_1* = GUID(
     data1: 0x9FC2B0BB'u32, data2: 0xE446'u16, data3: 0x44E2'u16,
     data4: [0xAA'u8, 0x61, 0x9C, 0xAB, 0x8F, 0x63, 0x6A, 0xF2])
 const Slot_IAsyncOperation_1_put_Completed* = 6
-type Fn_IAsyncOperation_1_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperation_1_put_Completed* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperation_1_get_Completed* = 7
-type Fn_IAsyncOperation_1_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAsyncOperation_1_get_Completed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAsyncOperation_1_GetResults* = 8
 # Fn_IAsyncOperation_1_GetResults: signature not mapped
 
@@ -1316,109 +1369,109 @@ const IID_IClosable* = GUID(
     data1: 0x30D5A829'u32, data2: 0x7FA4'u16, data3: 0x4026'u16,
     data4: [0x83'u8, 0xBB, 0xD7, 0x5B, 0xAE, 0x4E, 0xA9, 0x9E])
 const Slot_IClosable_Close* = 6
-type Fn_IClosable_Close* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IClosable_Close* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IDeferral
 const IID_IDeferral* = GUID(
     data1: 0xD6269732'u32, data2: 0x3B7F'u16, data3: 0x46A7'u16,
     data4: [0xB4'u8, 0x0B, 0x4F, 0xDC, 0xA2, 0xA2, 0xC6, 0x93])
 const Slot_IDeferral_Complete* = 6
-type Fn_IDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IDeferralFactory
 const IID_IDeferralFactory* = GUID(
     data1: 0x65A1ECC5'u32, data2: 0x3FB5'u16, data3: 0x4832'u16,
     data4: [0x8C'u8, 0xA9, 0xF0, 0x61, 0xB2, 0x81, 0xD1, 0x3A])
 const Slot_IDeferralFactory_Create* = 6
-type Fn_IDeferralFactory_Create* = proc(self: pointer, a1DeferralCompletedHandler: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDeferralFactory_Create* = proc(self: pointer, a1DeferralCompletedHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IGetActivationFactory
 const IID_IGetActivationFactory* = GUID(
     data1: 0x4EDB8EE2'u32, data2: 0x96DD'u16, data3: 0x49A7'u16,
     data4: [0x94'u8, 0xF7, 0x46, 0x07, 0xDD, 0xAB, 0x8E, 0x3C])
 const Slot_IGetActivationFactory_GetActivationFactory* = 6
-type Fn_IGetActivationFactory_GetActivationFactory* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IGetActivationFactory_GetActivationFactory* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IGuidHelperStatics
 const IID_IGuidHelperStatics* = GUID(
     data1: 0x59C7966B'u32, data2: 0xAE52'u16, data3: 0x5283'u16,
     data4: [0xAD'u8, 0x7F, 0xA1, 0xB9, 0xE9, 0x67, 0x8A, 0xDD])
 const Slot_IGuidHelperStatics_CreateNewGuid* = 6
-type Fn_IGuidHelperStatics_CreateNewGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IGuidHelperStatics_CreateNewGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IGuidHelperStatics_get_Empty* = 7
-type Fn_IGuidHelperStatics_get_Empty* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IGuidHelperStatics_get_Empty* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IGuidHelperStatics_Equals* = 8
-type Fn_IGuidHelperStatics_Equals* = proc(self: pointer, a1: ptr GUID, a2: ptr GUID, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IGuidHelperStatics_Equals* = proc(self: pointer, a1: ptr GUID, a2: ptr GUID, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IMemoryBuffer
 const IID_IMemoryBuffer* = GUID(
     data1: 0xFBC4DD2A'u32, data2: 0x245B'u16, data3: 0x11E4'u16,
     data4: [0xAF'u8, 0x98, 0x68, 0x94, 0x23, 0x26, 0x0C, 0xF8])
 const Slot_IMemoryBuffer_CreateReference* = 6
-type Fn_IMemoryBuffer_CreateReference* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMemoryBuffer_CreateReference* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IMemoryBufferFactory
 const IID_IMemoryBufferFactory* = GUID(
     data1: 0xFBC4DD2B'u32, data2: 0x245B'u16, data3: 0x11E4'u16,
     data4: [0xAF'u8, 0x98, 0x68, 0x94, 0x23, 0x26, 0x0C, 0xF8])
 const Slot_IMemoryBufferFactory_Create* = 6
-type Fn_IMemoryBufferFactory_Create* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMemoryBufferFactory_Create* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IMemoryBufferReference
 const IID_IMemoryBufferReference* = GUID(
     data1: 0xFBC4DD29'u32, data2: 0x245B'u16, data3: 0x11E4'u16,
     data4: [0xAF'u8, 0x98, 0x68, 0x94, 0x23, 0x26, 0x0C, 0xF8])
 const Slot_IMemoryBufferReference_get_Capacity* = 6
-type Fn_IMemoryBufferReference_get_Capacity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMemoryBufferReference_get_Capacity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMemoryBufferReference_add_Closed* = 7
-type Fn_IMemoryBufferReference_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMemoryBufferReference_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMemoryBufferReference_remove_Closed* = 8
-type Fn_IMemoryBufferReference_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMemoryBufferReference_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IPropertyValue
 const IID_IPropertyValue* = GUID(
     data1: 0x4BD682DD'u32, data2: 0x7554'u16, data3: 0x40E9'u16,
     data4: [0x9A'u8, 0x9B, 0x82, 0x65, 0x4E, 0xDE, 0x7E, 0x62])
 const Slot_IPropertyValue_get_Type* = 6
-type Fn_IPropertyValue_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPropertyValue_get_Type* = proc(self: pointer, value: ptr PropertyType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_get_IsNumericScalar* = 7
-type Fn_IPropertyValue_get_IsNumericScalar* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPropertyValue_get_IsNumericScalar* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetUInt8* = 8
-type Fn_IPropertyValue_GetUInt8* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetUInt8* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetInt16* = 9
-type Fn_IPropertyValue_GetInt16* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetInt16* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetUInt16* = 10
-type Fn_IPropertyValue_GetUInt16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetUInt16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetInt32* = 11
-type Fn_IPropertyValue_GetInt32* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetInt32* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetUInt32* = 12
-type Fn_IPropertyValue_GetUInt32* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetUInt32* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetInt64* = 13
-type Fn_IPropertyValue_GetInt64* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetInt64* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetUInt64* = 14
-type Fn_IPropertyValue_GetUInt64* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetUInt64* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetSingle* = 15
-type Fn_IPropertyValue_GetSingle* = proc(self: pointer, value: ptr float32): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetSingle* = proc(self: pointer, value: ptr float32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetDouble* = 16
-type Fn_IPropertyValue_GetDouble* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetDouble* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetChar16* = 17
-type Fn_IPropertyValue_GetChar16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetChar16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetBoolean* = 18
-type Fn_IPropertyValue_GetBoolean* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetBoolean* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetString* = 19
-type Fn_IPropertyValue_GetString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetGuid* = 20
-type Fn_IPropertyValue_GetGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetDateTime* = 21
-type Fn_IPropertyValue_GetDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetTimeSpan* = 22
-type Fn_IPropertyValue_GetTimeSpan* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetTimeSpan* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetPoint* = 23
-type Fn_IPropertyValue_GetPoint* = proc(self: pointer, value: ptr Point): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetPoint* = proc(self: pointer, value: ptr Point): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetSize* = 24
-type Fn_IPropertyValue_GetSize* = proc(self: pointer, value: ptr Size): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetSize* = proc(self: pointer, value: ptr Size): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetRect* = 25
-type Fn_IPropertyValue_GetRect* = proc(self: pointer, value: ptr Rect): HRESULT {.stdcall.}
+type Fn_IPropertyValue_GetRect* = proc(self: pointer, value: ptr Rect): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValue_GetUInt8Array* = 26
 # Fn_IPropertyValue_GetUInt8Array: signature not mapped
 const Slot_IPropertyValue_GetInt16Array* = 27
@@ -1463,45 +1516,45 @@ const IID_IPropertyValueStatics* = GUID(
     data1: 0x629BDBC8'u32, data2: 0xD932'u16, data3: 0x4FF4'u16,
     data4: [0x96'u8, 0xB9, 0x8D, 0x96, 0xC5, 0xC1, 0xE8, 0x58])
 const Slot_IPropertyValueStatics_CreateEmpty* = 6
-type Fn_IPropertyValueStatics_CreateEmpty* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateEmpty* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateUInt8* = 7
-type Fn_IPropertyValueStatics_CreateUInt8* = proc(self: pointer, a1: uint8, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateUInt8* = proc(self: pointer, a1: uint8, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateInt16* = 8
-type Fn_IPropertyValueStatics_CreateInt16* = proc(self: pointer, a1: int16, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateInt16* = proc(self: pointer, a1: int16, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateUInt16* = 9
-type Fn_IPropertyValueStatics_CreateUInt16* = proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateUInt16* = proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateInt32* = 10
-type Fn_IPropertyValueStatics_CreateInt32* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateInt32* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateUInt32* = 11
-type Fn_IPropertyValueStatics_CreateUInt32* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateUInt32* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateInt64* = 12
-type Fn_IPropertyValueStatics_CreateInt64* = proc(self: pointer, a1: int64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateInt64* = proc(self: pointer, a1: int64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateUInt64* = 13
-type Fn_IPropertyValueStatics_CreateUInt64* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateUInt64* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateSingle* = 14
-type Fn_IPropertyValueStatics_CreateSingle* = proc(self: pointer, a1: float32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateSingle* = proc(self: pointer, a1: float32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateDouble* = 15
-type Fn_IPropertyValueStatics_CreateDouble* = proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateDouble* = proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateChar16* = 16
-type Fn_IPropertyValueStatics_CreateChar16* = proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateChar16* = proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateBoolean* = 17
-type Fn_IPropertyValueStatics_CreateBoolean* = proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateBoolean* = proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateString* = 18
-type Fn_IPropertyValueStatics_CreateString* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateString* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateInspectable* = 19
-type Fn_IPropertyValueStatics_CreateInspectable* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateInspectable* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateGuid* = 20
-type Fn_IPropertyValueStatics_CreateGuid* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateGuid* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateDateTime* = 21
-type Fn_IPropertyValueStatics_CreateDateTime* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateDateTime* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateTimeSpan* = 22
-type Fn_IPropertyValueStatics_CreateTimeSpan* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateTimeSpan* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreatePoint* = 23
-type Fn_IPropertyValueStatics_CreatePoint* = proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreatePoint* = proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateSize* = 24
-type Fn_IPropertyValueStatics_CreateSize* = proc(self: pointer, a1: Size, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateSize* = proc(self: pointer, a1: Size, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateRect* = 25
-type Fn_IPropertyValueStatics_CreateRect* = proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertyValueStatics_CreateRect* = proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertyValueStatics_CreateUInt8Array* = 26
 # Fn_IPropertyValueStatics_CreateUInt8Array: signature not mapped
 const Slot_IPropertyValueStatics_CreateInt16Array* = 27
@@ -1560,121 +1613,121 @@ const IID_IStringable* = GUID(
     data1: 0x96369F54'u32, data2: 0x8EB6'u16, data3: 0x48F0'u16,
     data4: [0xAB'u8, 0xCE, 0xC1, 0xB2, 0x11, 0xE6, 0x27, 0xC3])
 const Slot_IStringable_ToString* = 6
-type Fn_IStringable_ToString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStringable_ToString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IUriEscapeStatics
 const IID_IUriEscapeStatics* = GUID(
     data1: 0xC1D432BA'u32, data2: 0xC824'u16, data3: 0x4452'u16,
     data4: [0xA7'u8, 0xFD, 0x51, 0x2B, 0xC3, 0xBB, 0xE9, 0xA1])
 const Slot_IUriEscapeStatics_UnescapeComponent* = 6
-type Fn_IUriEscapeStatics_UnescapeComponent* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriEscapeStatics_UnescapeComponent* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriEscapeStatics_EscapeComponent* = 7
-type Fn_IUriEscapeStatics_EscapeComponent* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriEscapeStatics_EscapeComponent* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IUriRuntimeClass
 const IID_IUriRuntimeClass* = GUID(
     data1: 0x9E365E57'u32, data2: 0x48B2'u16, data3: 0x4160'u16,
     data4: [0x95'u8, 0x6F, 0xC7, 0x38, 0x51, 0x20, 0xBB, 0xFC])
 const Slot_IUriRuntimeClass_get_AbsoluteUri* = 6
-type Fn_IUriRuntimeClass_get_AbsoluteUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_AbsoluteUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_DisplayUri* = 7
-type Fn_IUriRuntimeClass_get_DisplayUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_DisplayUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Domain* = 8
-type Fn_IUriRuntimeClass_get_Domain* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Domain* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Extension* = 9
-type Fn_IUriRuntimeClass_get_Extension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Extension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Fragment* = 10
-type Fn_IUriRuntimeClass_get_Fragment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Fragment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Host* = 11
-type Fn_IUriRuntimeClass_get_Host* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Host* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Password* = 12
-type Fn_IUriRuntimeClass_get_Password* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Password* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Path* = 13
-type Fn_IUriRuntimeClass_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Query* = 14
-type Fn_IUriRuntimeClass_get_Query* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Query* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_QueryParsed* = 15
-type Fn_IUriRuntimeClass_get_QueryParsed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_QueryParsed* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_RawUri* = 16
-type Fn_IUriRuntimeClass_get_RawUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_RawUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_SchemeName* = 17
-type Fn_IUriRuntimeClass_get_SchemeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_SchemeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_UserName* = 18
-type Fn_IUriRuntimeClass_get_UserName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_UserName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Port* = 19
-type Fn_IUriRuntimeClass_get_Port* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Port* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_get_Suspicious* = 20
-type Fn_IUriRuntimeClass_get_Suspicious* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Suspicious* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_Equals* = 21
-type Fn_IUriRuntimeClass_Equals* = proc(self: pointer, a1Uri: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_Equals* = proc(self: pointer, a1Uri: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClass_CombineUri* = 22
-type Fn_IUriRuntimeClass_CombineUri* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_CombineUri* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IUriRuntimeClassFactory
 const IID_IUriRuntimeClassFactory* = GUID(
     data1: 0x44A9796F'u32, data2: 0x723E'u16, data3: 0x4FDF'u16,
     data4: [0xA2'u8, 0x18, 0x03, 0x3E, 0x75, 0xB0, 0xC0, 0x84])
 const Slot_IUriRuntimeClassFactory_CreateUri* = 6
-type Fn_IUriRuntimeClassFactory_CreateUri* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClassFactory_CreateUri* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClassFactory_CreateWithRelativeUri* = 7
-type Fn_IUriRuntimeClassFactory_CreateWithRelativeUri* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClassFactory_CreateWithRelativeUri* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IUriRuntimeClassWithAbsoluteCanonicalUri
 const IID_IUriRuntimeClassWithAbsoluteCanonicalUri* = GUID(
     data1: 0x758D9661'u32, data2: 0x221C'u16, data3: 0x480F'u16,
     data4: [0xA3'u8, 0x39, 0x50, 0x65, 0x66, 0x73, 0xF4, 0x6F])
 const Slot_IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri* = 6
-type Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri* = 7
-type Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IWwwFormUrlDecoderEntry
 const IID_IWwwFormUrlDecoderEntry* = GUID(
     data1: 0x125E7431'u32, data2: 0xF678'u16, data3: 0x4E8E'u16,
     data4: [0xB6'u8, 0x70, 0x20, 0xA9, 0xB0, 0x6C, 0x51, 0x2D])
 const Slot_IWwwFormUrlDecoderEntry_get_Name* = 6
-type Fn_IWwwFormUrlDecoderEntry_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWwwFormUrlDecoderEntry_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWwwFormUrlDecoderEntry_get_Value* = 7
-type Fn_IWwwFormUrlDecoderEntry_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWwwFormUrlDecoderEntry_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IWwwFormUrlDecoderRuntimeClass
 const IID_IWwwFormUrlDecoderRuntimeClass* = GUID(
     data1: 0xD45A0451'u32, data2: 0xF225'u16, data3: 0x4542'u16,
     data4: [0x92'u8, 0x96, 0x0E, 0x1D, 0xF5, 0xD2, 0x54, 0xDF])
 const Slot_IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName* = 6
-type Fn_IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.IWwwFormUrlDecoderRuntimeClassFactory
 const IID_IWwwFormUrlDecoderRuntimeClassFactory* = GUID(
     data1: 0x5B8C6B3D'u32, data2: 0x24AE'u16, data3: 0x41B5'u16,
     data4: [0xA1'u8, 0xBF, 0xF0, 0xC3, 0xD5, 0x44, 0x84, 0x5B])
 const Slot_IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder* = 6
-type Fn_IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.Metadata.IApiInformationStatics
 const IID_IApiInformationStatics* = GUID(
     data1: 0x997439FE'u32, data2: 0xF681'u16, data3: 0x4A11'u16,
     data4: [0xB4'u8, 0x16, 0xC1, 0x3A, 0x47, 0xE8, 0xBA, 0x36])
 const Slot_IApiInformationStatics_IsTypePresent* = 6
-type Fn_IApiInformationStatics_IsTypePresent* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsTypePresent* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsMethodPresent* = 7
-type Fn_IApiInformationStatics_IsMethodPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsMethodPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsMethodPresent2* = 8
-type Fn_IApiInformationStatics_IsMethodPresent2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: uint32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsMethodPresent2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: uint32, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsEventPresent* = 9
-type Fn_IApiInformationStatics_IsEventPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsEventPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsPropertyPresent* = 10
-type Fn_IApiInformationStatics_IsPropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsPropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsReadOnlyPropertyPresent* = 11
-type Fn_IApiInformationStatics_IsReadOnlyPropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsReadOnlyPropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsWriteablePropertyPresent* = 12
-type Fn_IApiInformationStatics_IsWriteablePropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsWriteablePropertyPresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsEnumNamedValuePresent* = 13
-type Fn_IApiInformationStatics_IsEnumNamedValuePresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsEnumNamedValuePresent* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsApiContractPresent* = 14
-type Fn_IApiInformationStatics_IsApiContractPresent* = proc(self: pointer, a1: HSTRING, a2: uint16, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsApiContractPresent* = proc(self: pointer, a1: HSTRING, a2: uint16, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApiInformationStatics_IsApiContractPresent2* = 15
-type Fn_IApiInformationStatics_IsApiContractPresent2* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: uint16, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IApiInformationStatics_IsApiContractPresent2* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: uint16, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Foundation.TypedEventHandler`2  (delegate)
 const IID_TypedEventHandler_2* = GUID(

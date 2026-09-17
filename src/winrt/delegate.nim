@@ -49,17 +49,17 @@ type
 
   DelegateVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.stdcall.}
-    addRef: proc(self: pointer): uint32 {.stdcall.}
-    release: proc(self: pointer): uint32 {.stdcall.}
-    invoke: proc(self: pointer, args: pointer): HRESULT {.stdcall.}
+                         ppv: ptr pointer): HRESULT {.stdcall, raises: [].}
+    addRef: proc(self: pointer): uint32 {.stdcall, raises: [].}
+    release: proc(self: pointer): uint32 {.stdcall, raises: [].}
+    invoke: proc(self: pointer, args: pointer): HRESULT {.stdcall, raises: [].}
 
   EventVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.stdcall.}
-    addRef: proc(self: pointer): uint32 {.stdcall.}
-    release: proc(self: pointer): uint32 {.stdcall.}
-    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.stdcall.}
+                         ppv: ptr pointer): HRESULT {.stdcall, raises: [].}
+    addRef: proc(self: pointer): uint32 {.stdcall, raises: [].}
+    release: proc(self: pointer): uint32 {.stdcall, raises: [].}
+    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.stdcall, raises: [].}
 
   DelegateImpl {.pure.} = object
     ## Manually allocated, because its lifetime belongs to COM and not to Nim.
@@ -119,12 +119,12 @@ proc report(what, msg: string) =
 
 # ------------------------------------------------------------- IUnknown
 
-proc addRef(self: pointer): uint32 {.stdcall.} =
+proc addRef(self: pointer): uint32 {.stdcall, raises: [].} =
   let d = cast[ptr DelegateImpl](self)
   d.refs.inc
   uint32(d.refs)
 
-proc release(self: pointer): uint32 {.stdcall.} =
+proc release(self: pointer): uint32 {.stdcall, raises: [].} =
   let d = cast[ptr DelegateImpl](self)
   d.refs.dec
   if d.refs <= 0:
@@ -135,7 +135,7 @@ proc release(self: pointer): uint32 {.stdcall.} =
   uint32(d.refs)
 
 proc queryInterface(self: pointer, riid: ptr GUID,
-                    ppv: ptr pointer): HRESULT {.stdcall.} =
+                    ppv: ptr pointer): HRESULT {.stdcall, raises: [].} =
   if ppv.isNil:
     return E_POINTER
   let d = cast[ptr DelegateImpl](self)
@@ -149,7 +149,7 @@ proc queryInterface(self: pointer, riid: ptr GUID,
 
 # --------------------------------------------------------------- Invoke
 
-proc plainInvoke(self: pointer, args: pointer): HRESULT {.stdcall.} =
+proc plainInvoke(self: pointer, args: pointer): HRESULT {.stdcall, raises: [].} =
   ## The one-argument shape, used for lifecycle callbacks.
   ##
   ## This one *does* report failure, unlike `eventInvoke`: if the application's
@@ -168,7 +168,7 @@ proc plainInvoke(self: pointer, args: pointer): HRESULT {.stdcall.} =
     report("handler (defect)", e.msg)
     E_FAIL
 
-proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.stdcall.} =
+proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.stdcall, raises: [].} =
   ## The two-argument shape, and it always returns S_OK.
   ##
   ## A failing HRESULT out of an event handler is not a neutral way to report a

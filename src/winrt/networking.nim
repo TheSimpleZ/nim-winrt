@@ -16,246 +16,248 @@ import ./foundation
 export foundation
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferBehavior  (enum)
-type BackgroundTransferBehavior* = distinct int32
-proc `==`*(a, b: BackgroundTransferBehavior): bool {.borrow.}
+type BackgroundTransferBehavior* {.pure, size: 4.} = enum
+  Parallel = 0'i32
+  Serialized = 1'i32
 proc `$`*(v: BackgroundTransferBehavior): string =
-  case int32(v)
-  of 0'i32: "Parallel"
-  of 1'i32: "Serialized"
-  else: "BackgroundTransferBehavior(" & $int32(v) & ")"
-const BackgroundTransferBehavior_Parallel* = BackgroundTransferBehavior(0'i32)
-const BackgroundTransferBehavior_Serialized* = BackgroundTransferBehavior(1'i32)
+  case ord(v)
+  of 0: "Parallel"
+  of 1: "Serialized"
+  else: "BackgroundTransferBehavior(" & $ord(v) & ")"
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferCostPolicy  (enum)
-type BackgroundTransferCostPolicy* = distinct int32
-proc `==`*(a, b: BackgroundTransferCostPolicy): bool {.borrow.}
+type BackgroundTransferCostPolicy* {.pure, size: 4.} = enum
+  Default = 0'i32
+  UnrestrictedOnly = 1'i32
+  Always = 2'i32
 proc `$`*(v: BackgroundTransferCostPolicy): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "UnrestrictedOnly"
-  of 2'i32: "Always"
-  else: "BackgroundTransferCostPolicy(" & $int32(v) & ")"
-const BackgroundTransferCostPolicy_Default* = BackgroundTransferCostPolicy(0'i32)
-const BackgroundTransferCostPolicy_UnrestrictedOnly* = BackgroundTransferCostPolicy(1'i32)
-const BackgroundTransferCostPolicy_Always* = BackgroundTransferCostPolicy(2'i32)
+  case ord(v)
+  of 0: "Default"
+  of 1: "UnrestrictedOnly"
+  of 2: "Always"
+  else: "BackgroundTransferCostPolicy(" & $ord(v) & ")"
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferPriority  (enum)
-type BackgroundTransferPriority* = distinct int32
-proc `==`*(a, b: BackgroundTransferPriority): bool {.borrow.}
+type BackgroundTransferPriority* {.pure, size: 4.} = enum
+  Default = 0'i32
+  High = 1'i32
+  Low = 2'i32
 proc `$`*(v: BackgroundTransferPriority): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "High"
-  of 2'i32: "Low"
-  else: "BackgroundTransferPriority(" & $int32(v) & ")"
-const BackgroundTransferPriority_Default* = BackgroundTransferPriority(0'i32)
-const BackgroundTransferPriority_High* = BackgroundTransferPriority(1'i32)
-const BackgroundTransferPriority_Low* = BackgroundTransferPriority(2'i32)
+  case ord(v)
+  of 0: "Default"
+  of 1: "High"
+  of 2: "Low"
+  else: "BackgroundTransferPriority(" & $ord(v) & ")"
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferStatus  (enum)
-type BackgroundTransferStatus* = distinct int32
-proc `==`*(a, b: BackgroundTransferStatus): bool {.borrow.}
+type BackgroundTransferStatus* {.pure, size: 4.} = enum
+  Idle = 0'i32
+  Running = 1'i32
+  PausedByApplication = 2'i32
+  PausedCostedNetwork = 3'i32
+  PausedNoNetwork = 4'i32
+  Completed = 5'i32
+  Canceled = 6'i32
+  Error = 7'i32
+  PausedRecoverableWebErrorStatus = 8'i32
+  PausedSystemPolicy = 32'i32
 proc `$`*(v: BackgroundTransferStatus): string =
-  case int32(v)
-  of 0'i32: "Idle"
-  of 1'i32: "Running"
-  of 2'i32: "PausedByApplication"
-  of 3'i32: "PausedCostedNetwork"
-  of 4'i32: "PausedNoNetwork"
-  of 5'i32: "Completed"
-  of 6'i32: "Canceled"
-  of 7'i32: "Error"
-  of 8'i32: "PausedRecoverableWebErrorStatus"
-  of 32'i32: "PausedSystemPolicy"
-  else: "BackgroundTransferStatus(" & $int32(v) & ")"
-const BackgroundTransferStatus_Idle* = BackgroundTransferStatus(0'i32)
-const BackgroundTransferStatus_Running* = BackgroundTransferStatus(1'i32)
-const BackgroundTransferStatus_PausedByApplication* = BackgroundTransferStatus(2'i32)
-const BackgroundTransferStatus_PausedCostedNetwork* = BackgroundTransferStatus(3'i32)
-const BackgroundTransferStatus_PausedNoNetwork* = BackgroundTransferStatus(4'i32)
-const BackgroundTransferStatus_Completed* = BackgroundTransferStatus(5'i32)
-const BackgroundTransferStatus_Canceled* = BackgroundTransferStatus(6'i32)
-const BackgroundTransferStatus_Error* = BackgroundTransferStatus(7'i32)
-const BackgroundTransferStatus_PausedRecoverableWebErrorStatus* = BackgroundTransferStatus(8'i32)
-const BackgroundTransferStatus_PausedSystemPolicy* = BackgroundTransferStatus(32'i32)
+  case ord(v)
+  of 0: "Idle"
+  of 1: "Running"
+  of 2: "PausedByApplication"
+  of 3: "PausedCostedNetwork"
+  of 4: "PausedNoNetwork"
+  of 5: "Completed"
+  of 6: "Canceled"
+  of 7: "Error"
+  of 8: "PausedRecoverableWebErrorStatus"
+  of 32: "PausedSystemPolicy"
+  else: "BackgroundTransferStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.CellularApnAuthenticationType  (enum)
-type CellularApnAuthenticationType* = distinct int32
-proc `==`*(a, b: CellularApnAuthenticationType): bool {.borrow.}
+type CellularApnAuthenticationType* {.pure, size: 4.} = enum
+  None = 0'i32
+  Pap = 1'i32
+  Chap = 2'i32
+  Mschapv2 = 3'i32
 proc `$`*(v: CellularApnAuthenticationType): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Pap"
-  of 2'i32: "Chap"
-  of 3'i32: "Mschapv2"
-  else: "CellularApnAuthenticationType(" & $int32(v) & ")"
-const CellularApnAuthenticationType_None* = CellularApnAuthenticationType(0'i32)
-const CellularApnAuthenticationType_Pap* = CellularApnAuthenticationType(1'i32)
-const CellularApnAuthenticationType_Chap* = CellularApnAuthenticationType(2'i32)
-const CellularApnAuthenticationType_Mschapv2* = CellularApnAuthenticationType(3'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Pap"
+  of 2: "Chap"
+  of 3: "Mschapv2"
+  else: "CellularApnAuthenticationType(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.ConnectionProfileDeleteStatus  (enum)
-type ConnectionProfileDeleteStatus* = distinct int32
-proc `==`*(a, b: ConnectionProfileDeleteStatus): bool {.borrow.}
+type ConnectionProfileDeleteStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  DeniedByUser = 1'i32
+  DeniedBySystem = 2'i32
+  UnknownError = 3'i32
 proc `$`*(v: ConnectionProfileDeleteStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "DeniedByUser"
-  of 2'i32: "DeniedBySystem"
-  of 3'i32: "UnknownError"
-  else: "ConnectionProfileDeleteStatus(" & $int32(v) & ")"
-const ConnectionProfileDeleteStatus_Success* = ConnectionProfileDeleteStatus(0'i32)
-const ConnectionProfileDeleteStatus_DeniedByUser* = ConnectionProfileDeleteStatus(1'i32)
-const ConnectionProfileDeleteStatus_DeniedBySystem* = ConnectionProfileDeleteStatus(2'i32)
-const ConnectionProfileDeleteStatus_UnknownError* = ConnectionProfileDeleteStatus(3'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "DeniedByUser"
+  of 2: "DeniedBySystem"
+  of 3: "UnknownError"
+  else: "ConnectionProfileDeleteStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.DataUsageGranularity  (enum)
-type DataUsageGranularity* = distinct int32
-proc `==`*(a, b: DataUsageGranularity): bool {.borrow.}
+type DataUsageGranularity* {.pure, size: 4.} = enum
+  PerMinute = 0'i32
+  PerHour = 1'i32
+  PerDay = 2'i32
+  Total = 3'i32
 proc `$`*(v: DataUsageGranularity): string =
-  case int32(v)
-  of 0'i32: "PerMinute"
-  of 1'i32: "PerHour"
-  of 2'i32: "PerDay"
-  of 3'i32: "Total"
-  else: "DataUsageGranularity(" & $int32(v) & ")"
-const DataUsageGranularity_PerMinute* = DataUsageGranularity(0'i32)
-const DataUsageGranularity_PerHour* = DataUsageGranularity(1'i32)
-const DataUsageGranularity_PerDay* = DataUsageGranularity(2'i32)
-const DataUsageGranularity_Total* = DataUsageGranularity(3'i32)
+  case ord(v)
+  of 0: "PerMinute"
+  of 1: "PerHour"
+  of 2: "PerDay"
+  of 3: "Total"
+  else: "DataUsageGranularity(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.DomainAuthenticationKind  (enum)
-type DomainAuthenticationKind* = distinct int32
-proc `==`*(a, b: DomainAuthenticationKind): bool {.borrow.}
+type DomainAuthenticationKind* {.pure, size: 4.} = enum
+  None = 0'i32
+  Ldap = 1'i32
+  Tls = 2'i32
 proc `$`*(v: DomainAuthenticationKind): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Ldap"
-  of 2'i32: "Tls"
-  else: "DomainAuthenticationKind(" & $int32(v) & ")"
-const DomainAuthenticationKind_None* = DomainAuthenticationKind(0'i32)
-const DomainAuthenticationKind_Ldap* = DomainAuthenticationKind(1'i32)
-const DomainAuthenticationKind_Tls* = DomainAuthenticationKind(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Ldap"
+  of 2: "Tls"
+  else: "DomainAuthenticationKind(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.DomainConnectivityLevel  (enum)
-type DomainConnectivityLevel* = distinct int32
-proc `==`*(a, b: DomainConnectivityLevel): bool {.borrow.}
+type DomainConnectivityLevel* {.pure, size: 4.} = enum
+  None = 0'i32
+  Unauthenticated = 1'i32
+  Authenticated = 2'i32
 proc `$`*(v: DomainConnectivityLevel): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Unauthenticated"
-  of 2'i32: "Authenticated"
-  else: "DomainConnectivityLevel(" & $int32(v) & ")"
-const DomainConnectivityLevel_None* = DomainConnectivityLevel(0'i32)
-const DomainConnectivityLevel_Unauthenticated* = DomainConnectivityLevel(1'i32)
-const DomainConnectivityLevel_Authenticated* = DomainConnectivityLevel(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Unauthenticated"
+  of 2: "Authenticated"
+  else: "DomainConnectivityLevel(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkAuthenticationType  (enum)
-type NetworkAuthenticationType* = distinct int32
-proc `==`*(a, b: NetworkAuthenticationType): bool {.borrow.}
+type NetworkAuthenticationType* {.pure, size: 4.} = enum
+  None = 0'i32
+  Unknown = 1'i32
+  Open80211 = 2'i32
+  SharedKey80211 = 3'i32
+  Wpa = 4'i32
+  WpaPsk = 5'i32
+  WpaNone = 6'i32
+  Rsna = 7'i32
+  RsnaPsk = 8'i32
+  Ihv = 9'i32
+  Wpa3 = 10'i32
+  Wpa3Sae = 11'i32
+  Owe = 12'i32
+  Wpa3Enterprise = 13'i32
+const NetworkAuthenticationType_Wpa3Enterprise192Bits* = NetworkAuthenticationType.Wpa3
 proc `$`*(v: NetworkAuthenticationType): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Unknown"
-  of 2'i32: "Open80211"
-  of 3'i32: "SharedKey80211"
-  of 4'i32: "Wpa"
-  of 5'i32: "WpaPsk"
-  of 6'i32: "WpaNone"
-  of 7'i32: "Rsna"
-  of 8'i32: "RsnaPsk"
-  of 9'i32: "Ihv"
-  of 10'i32: "Wpa3"
-  of 11'i32: "Wpa3Sae"
-  of 12'i32: "Owe"
-  of 13'i32: "Wpa3Enterprise"
-  else: "NetworkAuthenticationType(" & $int32(v) & ")"
-const NetworkAuthenticationType_None* = NetworkAuthenticationType(0'i32)
-const NetworkAuthenticationType_Unknown* = NetworkAuthenticationType(1'i32)
-const NetworkAuthenticationType_Open80211* = NetworkAuthenticationType(2'i32)
-const NetworkAuthenticationType_SharedKey80211* = NetworkAuthenticationType(3'i32)
-const NetworkAuthenticationType_Wpa* = NetworkAuthenticationType(4'i32)
-const NetworkAuthenticationType_WpaPsk* = NetworkAuthenticationType(5'i32)
-const NetworkAuthenticationType_WpaNone* = NetworkAuthenticationType(6'i32)
-const NetworkAuthenticationType_Rsna* = NetworkAuthenticationType(7'i32)
-const NetworkAuthenticationType_RsnaPsk* = NetworkAuthenticationType(8'i32)
-const NetworkAuthenticationType_Ihv* = NetworkAuthenticationType(9'i32)
-const NetworkAuthenticationType_Wpa3* = NetworkAuthenticationType(10'i32)
-const NetworkAuthenticationType_Wpa3Enterprise192Bits* = NetworkAuthenticationType(10'i32)
-const NetworkAuthenticationType_Wpa3Sae* = NetworkAuthenticationType(11'i32)
-const NetworkAuthenticationType_Owe* = NetworkAuthenticationType(12'i32)
-const NetworkAuthenticationType_Wpa3Enterprise* = NetworkAuthenticationType(13'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Unknown"
+  of 2: "Open80211"
+  of 3: "SharedKey80211"
+  of 4: "Wpa"
+  of 5: "WpaPsk"
+  of 6: "WpaNone"
+  of 7: "Rsna"
+  of 8: "RsnaPsk"
+  of 9: "Ihv"
+  of 10: "Wpa3"
+  of 11: "Wpa3Sae"
+  of 12: "Owe"
+  of 13: "Wpa3Enterprise"
+  else: "NetworkAuthenticationType(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkConnectivityLevel  (enum)
-type NetworkConnectivityLevel* = distinct int32
-proc `==`*(a, b: NetworkConnectivityLevel): bool {.borrow.}
+type NetworkConnectivityLevel* {.pure, size: 4.} = enum
+  None = 0'i32
+  LocalAccess = 1'i32
+  ConstrainedInternetAccess = 2'i32
+  InternetAccess = 3'i32
 proc `$`*(v: NetworkConnectivityLevel): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "LocalAccess"
-  of 2'i32: "ConstrainedInternetAccess"
-  of 3'i32: "InternetAccess"
-  else: "NetworkConnectivityLevel(" & $int32(v) & ")"
-const NetworkConnectivityLevel_None* = NetworkConnectivityLevel(0'i32)
-const NetworkConnectivityLevel_LocalAccess* = NetworkConnectivityLevel(1'i32)
-const NetworkConnectivityLevel_ConstrainedInternetAccess* = NetworkConnectivityLevel(2'i32)
-const NetworkConnectivityLevel_InternetAccess* = NetworkConnectivityLevel(3'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "LocalAccess"
+  of 2: "ConstrainedInternetAccess"
+  of 3: "InternetAccess"
+  else: "NetworkConnectivityLevel(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkCostType  (enum)
-type NetworkCostType* = distinct int32
-proc `==`*(a, b: NetworkCostType): bool {.borrow.}
+type NetworkCostType* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Unrestricted = 1'i32
+  Fixed = 2'i32
+  Variable = 3'i32
 proc `$`*(v: NetworkCostType): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Unrestricted"
-  of 2'i32: "Fixed"
-  of 3'i32: "Variable"
-  else: "NetworkCostType(" & $int32(v) & ")"
-const NetworkCostType_Unknown* = NetworkCostType(0'i32)
-const NetworkCostType_Unrestricted* = NetworkCostType(1'i32)
-const NetworkCostType_Fixed* = NetworkCostType(2'i32)
-const NetworkCostType_Variable* = NetworkCostType(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Unrestricted"
+  of 2: "Fixed"
+  of 3: "Variable"
+  else: "NetworkCostType(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkEncryptionType  (enum)
-type NetworkEncryptionType* = distinct int32
-proc `==`*(a, b: NetworkEncryptionType): bool {.borrow.}
+type NetworkEncryptionType* {.pure, size: 4.} = enum
+  None = 0'i32
+  Unknown = 1'i32
+  Wep = 2'i32
+  Wep40 = 3'i32
+  Wep104 = 4'i32
+  Tkip = 5'i32
+  Ccmp = 6'i32
+  WpaUseGroup = 7'i32
+  RsnUseGroup = 8'i32
+  Ihv = 9'i32
+  Gcmp = 10'i32
+  Gcmp256 = 11'i32
 proc `$`*(v: NetworkEncryptionType): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Unknown"
-  of 2'i32: "Wep"
-  of 3'i32: "Wep40"
-  of 4'i32: "Wep104"
-  of 5'i32: "Tkip"
-  of 6'i32: "Ccmp"
-  of 7'i32: "WpaUseGroup"
-  of 8'i32: "RsnUseGroup"
-  of 9'i32: "Ihv"
-  of 10'i32: "Gcmp"
-  of 11'i32: "Gcmp256"
-  else: "NetworkEncryptionType(" & $int32(v) & ")"
-const NetworkEncryptionType_None* = NetworkEncryptionType(0'i32)
-const NetworkEncryptionType_Unknown* = NetworkEncryptionType(1'i32)
-const NetworkEncryptionType_Wep* = NetworkEncryptionType(2'i32)
-const NetworkEncryptionType_Wep40* = NetworkEncryptionType(3'i32)
-const NetworkEncryptionType_Wep104* = NetworkEncryptionType(4'i32)
-const NetworkEncryptionType_Tkip* = NetworkEncryptionType(5'i32)
-const NetworkEncryptionType_Ccmp* = NetworkEncryptionType(6'i32)
-const NetworkEncryptionType_WpaUseGroup* = NetworkEncryptionType(7'i32)
-const NetworkEncryptionType_RsnUseGroup* = NetworkEncryptionType(8'i32)
-const NetworkEncryptionType_Ihv* = NetworkEncryptionType(9'i32)
-const NetworkEncryptionType_Gcmp* = NetworkEncryptionType(10'i32)
-const NetworkEncryptionType_Gcmp256* = NetworkEncryptionType(11'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Unknown"
+  of 2: "Wep"
+  of 3: "Wep40"
+  of 4: "Wep104"
+  of 5: "Tkip"
+  of 6: "Ccmp"
+  of 7: "WpaUseGroup"
+  of 8: "RsnUseGroup"
+  of 9: "Ihv"
+  of 10: "Gcmp"
+  of 11: "Gcmp256"
+  else: "NetworkEncryptionType(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkTypes  (enum)
 type NetworkTypes* = distinct int32
 proc `==`*(a, b: NetworkTypes): bool {.borrow.}
+proc `or`*(a, b: NetworkTypes): NetworkTypes {.borrow.}
+proc `and`*(a, b: NetworkTypes): NetworkTypes {.borrow.}
+proc `not`*(a: NetworkTypes): NetworkTypes {.borrow.}
+proc contains*(a, b: NetworkTypes): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: NetworkTypes): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Internet"
-  of 2'i32: "PrivateNetwork"
-  else: "NetworkTypes(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Internet"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "PrivateNetwork"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "NetworkTypes(" & $rest & ")"
 const NetworkTypes_None* = NetworkTypes(0'i32)
 const NetworkTypes_Internet* = NetworkTypes(1'i32)
 const NetworkTypes_PrivateNetwork* = NetworkTypes(2'i32)
@@ -263,52 +265,123 @@ const NetworkTypes_PrivateNetwork* = NetworkTypes(2'i32)
 ## Windows.Networking.Connectivity.RoamingStates  (enum)
 type RoamingStates* = distinct int32
 proc `==`*(a, b: RoamingStates): bool {.borrow.}
+proc `or`*(a, b: RoamingStates): RoamingStates {.borrow.}
+proc `and`*(a, b: RoamingStates): RoamingStates {.borrow.}
+proc `not`*(a: RoamingStates): RoamingStates {.borrow.}
+proc contains*(a, b: RoamingStates): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: RoamingStates): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "NotRoaming"
-  of 2'i32: "Roaming"
-  else: "RoamingStates(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "NotRoaming"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Roaming"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "RoamingStates(" & $rest & ")"
 const RoamingStates_None* = RoamingStates(0'i32)
 const RoamingStates_NotRoaming* = RoamingStates(1'i32)
 const RoamingStates_Roaming* = RoamingStates(2'i32)
 
 ## Windows.Networking.Connectivity.TriStates  (enum)
-type TriStates* = distinct int32
-proc `==`*(a, b: TriStates): bool {.borrow.}
+type TriStates* {.pure, size: 4.} = enum
+  DoNotCare = 0'i32
+  No = 1'i32
+  Yes = 2'i32
 proc `$`*(v: TriStates): string =
-  case int32(v)
-  of 0'i32: "DoNotCare"
-  of 1'i32: "No"
-  of 2'i32: "Yes"
-  else: "TriStates(" & $int32(v) & ")"
-const TriStates_DoNotCare* = TriStates(0'i32)
-const TriStates_No* = TriStates(1'i32)
-const TriStates_Yes* = TriStates(2'i32)
+  case ord(v)
+  of 0: "DoNotCare"
+  of 1: "No"
+  of 2: "Yes"
+  else: "TriStates(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.WwanDataClass  (enum)
 type WwanDataClass* = distinct int32
 proc `==`*(a, b: WwanDataClass): bool {.borrow.}
+proc `or`*(a, b: WwanDataClass): WwanDataClass {.borrow.}
+proc `and`*(a, b: WwanDataClass): WwanDataClass {.borrow.}
+proc `not`*(a: WwanDataClass): WwanDataClass {.borrow.}
+proc contains*(a, b: WwanDataClass): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: WwanDataClass): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Gprs"
-  of 2'i32: "Edge"
-  of 4'i32: "Umts"
-  of 8'i32: "Hsdpa"
-  of 16'i32: "Hsupa"
-  of 32'i32: "LteAdvanced"
-  of 64'i32: "NewRadioNonStandalone"
-  of 128'i32: "NewRadioStandalone"
-  of 65536'i32: "Cdma1xRtt"
-  of 131072'i32: "Cdma1xEvdo"
-  of 262144'i32: "Cdma1xEvdoRevA"
-  of 524288'i32: "Cdma1xEvdv"
-  of 1048576'i32: "Cdma3xRtt"
-  of 2097152'i32: "Cdma1xEvdoRevB"
-  of 4194304'i32: "CdmaUmb"
-  of -2147483648'i32: "Custom"
-  else: "WwanDataClass(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Gprs"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Edge"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "Umts"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "Hsdpa"
+    rest = rest and not 8'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "Hsupa"
+    rest = rest and not 16'i32
+  if (rest and 32'i32) == 32'i32:
+    if result.len > 0: result.add " or "
+    result.add "LteAdvanced"
+    rest = rest and not 32'i32
+  if (rest and 64'i32) == 64'i32:
+    if result.len > 0: result.add " or "
+    result.add "NewRadioNonStandalone"
+    rest = rest and not 64'i32
+  if (rest and 128'i32) == 128'i32:
+    if result.len > 0: result.add " or "
+    result.add "NewRadioStandalone"
+    rest = rest and not 128'i32
+  if (rest and 65536'i32) == 65536'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xRtt"
+    rest = rest and not 65536'i32
+  if (rest and 131072'i32) == 131072'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdo"
+    rest = rest and not 131072'i32
+  if (rest and 262144'i32) == 262144'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdoRevA"
+    rest = rest and not 262144'i32
+  if (rest and 524288'i32) == 524288'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdv"
+    rest = rest and not 524288'i32
+  if (rest and 1048576'i32) == 1048576'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma3xRtt"
+    rest = rest and not 1048576'i32
+  if (rest and 2097152'i32) == 2097152'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdoRevB"
+    rest = rest and not 2097152'i32
+  if (rest and 4194304'i32) == 4194304'i32:
+    if result.len > 0: result.add " or "
+    result.add "CdmaUmb"
+    rest = rest and not 4194304'i32
+  if (rest and -2147483648'i32) == -2147483648'i32:
+    if result.len > 0: result.add " or "
+    result.add "Custom"
+    rest = rest and not -2147483648'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "WwanDataClass(" & $rest & ")"
 const WwanDataClass_None* = WwanDataClass(0'i32)
 const WwanDataClass_Gprs* = WwanDataClass(1'i32)
 const WwanDataClass_Edge* = WwanDataClass(2'i32)
@@ -328,103 +401,168 @@ const WwanDataClass_CdmaUmb* = WwanDataClass(4194304'i32)
 const WwanDataClass_Custom* = WwanDataClass(-2147483648'i32)
 
 ## Windows.Networking.Connectivity.WwanNetworkIPKind  (enum)
-type WwanNetworkIPKind* = distinct int32
-proc `==`*(a, b: WwanNetworkIPKind): bool {.borrow.}
+type WwanNetworkIPKind* {.pure, size: 4.} = enum
+  None = 0'i32
+  Ipv4 = 1'i32
+  Ipv6 = 2'i32
+  Ipv4v6 = 3'i32
+  Ipv4v6v4Xlat = 4'i32
 proc `$`*(v: WwanNetworkIPKind): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Ipv4"
-  of 2'i32: "Ipv6"
-  of 3'i32: "Ipv4v6"
-  of 4'i32: "Ipv4v6v4Xlat"
-  else: "WwanNetworkIPKind(" & $int32(v) & ")"
-const WwanNetworkIPKind_None* = WwanNetworkIPKind(0'i32)
-const WwanNetworkIPKind_Ipv4* = WwanNetworkIPKind(1'i32)
-const WwanNetworkIPKind_Ipv6* = WwanNetworkIPKind(2'i32)
-const WwanNetworkIPKind_Ipv4v6* = WwanNetworkIPKind(3'i32)
-const WwanNetworkIPKind_Ipv4v6v4Xlat* = WwanNetworkIPKind(4'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Ipv4"
+  of 2: "Ipv6"
+  of 3: "Ipv4v6"
+  of 4: "Ipv4v6v4Xlat"
+  else: "WwanNetworkIPKind(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.WwanNetworkRegistrationState  (enum)
-type WwanNetworkRegistrationState* = distinct int32
-proc `==`*(a, b: WwanNetworkRegistrationState): bool {.borrow.}
+type WwanNetworkRegistrationState* {.pure, size: 4.} = enum
+  None = 0'i32
+  Deregistered = 1'i32
+  Searching = 2'i32
+  Home = 3'i32
+  Roaming = 4'i32
+  Partner = 5'i32
+  Denied = 6'i32
 proc `$`*(v: WwanNetworkRegistrationState): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Deregistered"
-  of 2'i32: "Searching"
-  of 3'i32: "Home"
-  of 4'i32: "Roaming"
-  of 5'i32: "Partner"
-  of 6'i32: "Denied"
-  else: "WwanNetworkRegistrationState(" & $int32(v) & ")"
-const WwanNetworkRegistrationState_None* = WwanNetworkRegistrationState(0'i32)
-const WwanNetworkRegistrationState_Deregistered* = WwanNetworkRegistrationState(1'i32)
-const WwanNetworkRegistrationState_Searching* = WwanNetworkRegistrationState(2'i32)
-const WwanNetworkRegistrationState_Home* = WwanNetworkRegistrationState(3'i32)
-const WwanNetworkRegistrationState_Roaming* = WwanNetworkRegistrationState(4'i32)
-const WwanNetworkRegistrationState_Partner* = WwanNetworkRegistrationState(5'i32)
-const WwanNetworkRegistrationState_Denied* = WwanNetworkRegistrationState(6'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Deregistered"
+  of 2: "Searching"
+  of 3: "Home"
+  of 4: "Roaming"
+  of 5: "Partner"
+  of 6: "Denied"
+  else: "WwanNetworkRegistrationState(" & $ord(v) & ")"
 
 ## Windows.Networking.DomainNameType  (enum)
-type DomainNameType* = distinct int32
-proc `==`*(a, b: DomainNameType): bool {.borrow.}
+type DomainNameType* {.pure, size: 4.} = enum
+  Suffix = 0'i32
+  FullyQualified = 1'i32
 proc `$`*(v: DomainNameType): string =
-  case int32(v)
-  of 0'i32: "Suffix"
-  of 1'i32: "FullyQualified"
-  else: "DomainNameType(" & $int32(v) & ")"
-const DomainNameType_Suffix* = DomainNameType(0'i32)
-const DomainNameType_FullyQualified* = DomainNameType(1'i32)
+  case ord(v)
+  of 0: "Suffix"
+  of 1: "FullyQualified"
+  else: "DomainNameType(" & $ord(v) & ")"
 
 ## Windows.Networking.HostNameSortOptions  (enum)
 type HostNameSortOptions* = distinct int32
 proc `==`*(a, b: HostNameSortOptions): bool {.borrow.}
+proc `or`*(a, b: HostNameSortOptions): HostNameSortOptions {.borrow.}
+proc `and`*(a, b: HostNameSortOptions): HostNameSortOptions {.borrow.}
+proc `not`*(a: HostNameSortOptions): HostNameSortOptions {.borrow.}
+proc contains*(a, b: HostNameSortOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: HostNameSortOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 2'i32: "OptimizeForLongConnections"
-  else: "HostNameSortOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "OptimizeForLongConnections"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "HostNameSortOptions(" & $rest & ")"
 const HostNameSortOptions_None* = HostNameSortOptions(0'i32)
 const HostNameSortOptions_OptimizeForLongConnections* = HostNameSortOptions(2'i32)
 
 ## Windows.Networking.HostNameType  (enum)
-type HostNameType* = distinct int32
-proc `==`*(a, b: HostNameType): bool {.borrow.}
+type HostNameType* {.pure, size: 4.} = enum
+  DomainName = 0'i32
+  Ipv4 = 1'i32
+  Ipv6 = 2'i32
+  Bluetooth = 3'i32
 proc `$`*(v: HostNameType): string =
-  case int32(v)
-  of 0'i32: "DomainName"
-  of 1'i32: "Ipv4"
-  of 2'i32: "Ipv6"
-  of 3'i32: "Bluetooth"
-  else: "HostNameType(" & $int32(v) & ")"
-const HostNameType_DomainName* = HostNameType(0'i32)
-const HostNameType_Ipv4* = HostNameType(1'i32)
-const HostNameType_Ipv6* = HostNameType(2'i32)
-const HostNameType_Bluetooth* = HostNameType(3'i32)
+  case ord(v)
+  of 0: "DomainName"
+  of 1: "Ipv4"
+  of 2: "Ipv6"
+  of 3: "Bluetooth"
+  else: "HostNameType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.DataClasses  (enum)
 type DataClasses* = distinct int32
 proc `==`*(a, b: DataClasses): bool {.borrow.}
+proc `or`*(a, b: DataClasses): DataClasses {.borrow.}
+proc `and`*(a, b: DataClasses): DataClasses {.borrow.}
+proc `not`*(a: DataClasses): DataClasses {.borrow.}
+proc contains*(a, b: DataClasses): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: DataClasses): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Gprs"
-  of 2'i32: "Edge"
-  of 4'i32: "Umts"
-  of 8'i32: "Hsdpa"
-  of 16'i32: "Hsupa"
-  of 32'i32: "LteAdvanced"
-  of 64'i32: "NewRadioNonStandalone"
-  of 128'i32: "NewRadioStandalone"
-  of 65536'i32: "Cdma1xRtt"
-  of 131072'i32: "Cdma1xEvdo"
-  of 262144'i32: "Cdma1xEvdoRevA"
-  of 524288'i32: "Cdma1xEvdv"
-  of 1048576'i32: "Cdma3xRtt"
-  of 2097152'i32: "Cdma1xEvdoRevB"
-  of 4194304'i32: "CdmaUmb"
-  of -2147483648'i32: "Custom"
-  else: "DataClasses(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Gprs"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Edge"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "Umts"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "Hsdpa"
+    rest = rest and not 8'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "Hsupa"
+    rest = rest and not 16'i32
+  if (rest and 32'i32) == 32'i32:
+    if result.len > 0: result.add " or "
+    result.add "LteAdvanced"
+    rest = rest and not 32'i32
+  if (rest and 64'i32) == 64'i32:
+    if result.len > 0: result.add " or "
+    result.add "NewRadioNonStandalone"
+    rest = rest and not 64'i32
+  if (rest and 128'i32) == 128'i32:
+    if result.len > 0: result.add " or "
+    result.add "NewRadioStandalone"
+    rest = rest and not 128'i32
+  if (rest and 65536'i32) == 65536'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xRtt"
+    rest = rest and not 65536'i32
+  if (rest and 131072'i32) == 131072'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdo"
+    rest = rest and not 131072'i32
+  if (rest and 262144'i32) == 262144'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdoRevA"
+    rest = rest and not 262144'i32
+  if (rest and 524288'i32) == 524288'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdv"
+    rest = rest and not 524288'i32
+  if (rest and 1048576'i32) == 1048576'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma3xRtt"
+    rest = rest and not 1048576'i32
+  if (rest and 2097152'i32) == 2097152'i32:
+    if result.len > 0: result.add " or "
+    result.add "Cdma1xEvdoRevB"
+    rest = rest and not 2097152'i32
+  if (rest and 4194304'i32) == 4194304'i32:
+    if result.len > 0: result.add " or "
+    result.add "CdmaUmb"
+    rest = rest and not 4194304'i32
+  if (rest and -2147483648'i32) == -2147483648'i32:
+    if result.len > 0: result.add " or "
+    result.add "Custom"
+    rest = rest and not -2147483648'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "DataClasses(" & $rest & ")"
 const DataClasses_None* = DataClasses(0'i32)
 const DataClasses_Gprs* = DataClasses(1'i32)
 const DataClasses_Edge* = DataClasses(2'i32)
@@ -444,1338 +582,1311 @@ const DataClasses_CdmaUmb* = DataClasses(4194304'i32)
 const DataClasses_Custom* = DataClasses(-2147483648'i32)
 
 ## Windows.Networking.NetworkOperators.ESimAuthenticationPreference  (enum)
-type ESimAuthenticationPreference* = distinct int32
-proc `==`*(a, b: ESimAuthenticationPreference): bool {.borrow.}
+type ESimAuthenticationPreference* {.pure, size: 4.} = enum
+  OnEntry = 0'i32
+  OnAction = 1'i32
+  Never = 2'i32
 proc `$`*(v: ESimAuthenticationPreference): string =
-  case int32(v)
-  of 0'i32: "OnEntry"
-  of 1'i32: "OnAction"
-  of 2'i32: "Never"
-  else: "ESimAuthenticationPreference(" & $int32(v) & ")"
-const ESimAuthenticationPreference_OnEntry* = ESimAuthenticationPreference(0'i32)
-const ESimAuthenticationPreference_OnAction* = ESimAuthenticationPreference(1'i32)
-const ESimAuthenticationPreference_Never* = ESimAuthenticationPreference(2'i32)
+  case ord(v)
+  of 0: "OnEntry"
+  of 1: "OnAction"
+  of 2: "Never"
+  else: "ESimAuthenticationPreference(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimDiscoverResultKind  (enum)
-type ESimDiscoverResultKind* = distinct int32
-proc `==`*(a, b: ESimDiscoverResultKind): bool {.borrow.}
+type ESimDiscoverResultKind* {.pure, size: 4.} = enum
+  None = 0'i32
+  Events = 1'i32
+  ProfileMetadata = 2'i32
 proc `$`*(v: ESimDiscoverResultKind): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Events"
-  of 2'i32: "ProfileMetadata"
-  else: "ESimDiscoverResultKind(" & $int32(v) & ")"
-const ESimDiscoverResultKind_None* = ESimDiscoverResultKind(0'i32)
-const ESimDiscoverResultKind_Events* = ESimDiscoverResultKind(1'i32)
-const ESimDiscoverResultKind_ProfileMetadata* = ESimDiscoverResultKind(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Events"
+  of 2: "ProfileMetadata"
+  else: "ESimDiscoverResultKind(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimOperationStatus  (enum)
-type ESimOperationStatus* = distinct int32
-proc `==`*(a, b: ESimOperationStatus): bool {.borrow.}
+type ESimOperationStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  NotAuthorized = 1'i32
+  NotFound = 2'i32
+  PolicyViolation = 3'i32
+  InsufficientSpaceOnCard = 4'i32
+  ServerFailure = 5'i32
+  ServerNotReachable = 6'i32
+  TimeoutWaitingForUserConsent = 7'i32
+  IncorrectConfirmationCode = 8'i32
+  ConfirmationCodeMaxRetriesExceeded = 9'i32
+  CardRemoved = 10'i32
+  CardBusy = 11'i32
+  Other = 12'i32
+  CardGeneralFailure = 13'i32
+  ConfirmationCodeMissing = 14'i32
+  InvalidMatchingId = 15'i32
+  NoEligibleProfileForThisDevice = 16'i32
+  OperationAborted = 17'i32
+  EidMismatch = 18'i32
+  ProfileNotAvailableForNewBinding = 19'i32
+  ProfileNotReleasedByOperator = 20'i32
+  OperationProhibitedByProfileClass = 21'i32
+  ProfileNotPresent = 22'i32
+  NoCorrespondingRequest = 23'i32
+  TimeoutWaitingForResponse = 24'i32
+  IccidAlreadyExists = 25'i32
+  ProfileProcessingError = 26'i32
+  ServerNotTrusted = 27'i32
+  ProfileDownloadMaxRetriesExceeded = 28'i32
 proc `$`*(v: ESimOperationStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "NotAuthorized"
-  of 2'i32: "NotFound"
-  of 3'i32: "PolicyViolation"
-  of 4'i32: "InsufficientSpaceOnCard"
-  of 5'i32: "ServerFailure"
-  of 6'i32: "ServerNotReachable"
-  of 7'i32: "TimeoutWaitingForUserConsent"
-  of 8'i32: "IncorrectConfirmationCode"
-  of 9'i32: "ConfirmationCodeMaxRetriesExceeded"
-  of 10'i32: "CardRemoved"
-  of 11'i32: "CardBusy"
-  of 12'i32: "Other"
-  of 13'i32: "CardGeneralFailure"
-  of 14'i32: "ConfirmationCodeMissing"
-  of 15'i32: "InvalidMatchingId"
-  of 16'i32: "NoEligibleProfileForThisDevice"
-  of 17'i32: "OperationAborted"
-  of 18'i32: "EidMismatch"
-  of 19'i32: "ProfileNotAvailableForNewBinding"
-  of 20'i32: "ProfileNotReleasedByOperator"
-  of 21'i32: "OperationProhibitedByProfileClass"
-  of 22'i32: "ProfileNotPresent"
-  of 23'i32: "NoCorrespondingRequest"
-  of 24'i32: "TimeoutWaitingForResponse"
-  of 25'i32: "IccidAlreadyExists"
-  of 26'i32: "ProfileProcessingError"
-  of 27'i32: "ServerNotTrusted"
-  of 28'i32: "ProfileDownloadMaxRetriesExceeded"
-  else: "ESimOperationStatus(" & $int32(v) & ")"
-const ESimOperationStatus_Success* = ESimOperationStatus(0'i32)
-const ESimOperationStatus_NotAuthorized* = ESimOperationStatus(1'i32)
-const ESimOperationStatus_NotFound* = ESimOperationStatus(2'i32)
-const ESimOperationStatus_PolicyViolation* = ESimOperationStatus(3'i32)
-const ESimOperationStatus_InsufficientSpaceOnCard* = ESimOperationStatus(4'i32)
-const ESimOperationStatus_ServerFailure* = ESimOperationStatus(5'i32)
-const ESimOperationStatus_ServerNotReachable* = ESimOperationStatus(6'i32)
-const ESimOperationStatus_TimeoutWaitingForUserConsent* = ESimOperationStatus(7'i32)
-const ESimOperationStatus_IncorrectConfirmationCode* = ESimOperationStatus(8'i32)
-const ESimOperationStatus_ConfirmationCodeMaxRetriesExceeded* = ESimOperationStatus(9'i32)
-const ESimOperationStatus_CardRemoved* = ESimOperationStatus(10'i32)
-const ESimOperationStatus_CardBusy* = ESimOperationStatus(11'i32)
-const ESimOperationStatus_Other* = ESimOperationStatus(12'i32)
-const ESimOperationStatus_CardGeneralFailure* = ESimOperationStatus(13'i32)
-const ESimOperationStatus_ConfirmationCodeMissing* = ESimOperationStatus(14'i32)
-const ESimOperationStatus_InvalidMatchingId* = ESimOperationStatus(15'i32)
-const ESimOperationStatus_NoEligibleProfileForThisDevice* = ESimOperationStatus(16'i32)
-const ESimOperationStatus_OperationAborted* = ESimOperationStatus(17'i32)
-const ESimOperationStatus_EidMismatch* = ESimOperationStatus(18'i32)
-const ESimOperationStatus_ProfileNotAvailableForNewBinding* = ESimOperationStatus(19'i32)
-const ESimOperationStatus_ProfileNotReleasedByOperator* = ESimOperationStatus(20'i32)
-const ESimOperationStatus_OperationProhibitedByProfileClass* = ESimOperationStatus(21'i32)
-const ESimOperationStatus_ProfileNotPresent* = ESimOperationStatus(22'i32)
-const ESimOperationStatus_NoCorrespondingRequest* = ESimOperationStatus(23'i32)
-const ESimOperationStatus_TimeoutWaitingForResponse* = ESimOperationStatus(24'i32)
-const ESimOperationStatus_IccidAlreadyExists* = ESimOperationStatus(25'i32)
-const ESimOperationStatus_ProfileProcessingError* = ESimOperationStatus(26'i32)
-const ESimOperationStatus_ServerNotTrusted* = ESimOperationStatus(27'i32)
-const ESimOperationStatus_ProfileDownloadMaxRetriesExceeded* = ESimOperationStatus(28'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "NotAuthorized"
+  of 2: "NotFound"
+  of 3: "PolicyViolation"
+  of 4: "InsufficientSpaceOnCard"
+  of 5: "ServerFailure"
+  of 6: "ServerNotReachable"
+  of 7: "TimeoutWaitingForUserConsent"
+  of 8: "IncorrectConfirmationCode"
+  of 9: "ConfirmationCodeMaxRetriesExceeded"
+  of 10: "CardRemoved"
+  of 11: "CardBusy"
+  of 12: "Other"
+  of 13: "CardGeneralFailure"
+  of 14: "ConfirmationCodeMissing"
+  of 15: "InvalidMatchingId"
+  of 16: "NoEligibleProfileForThisDevice"
+  of 17: "OperationAborted"
+  of 18: "EidMismatch"
+  of 19: "ProfileNotAvailableForNewBinding"
+  of 20: "ProfileNotReleasedByOperator"
+  of 21: "OperationProhibitedByProfileClass"
+  of 22: "ProfileNotPresent"
+  of 23: "NoCorrespondingRequest"
+  of 24: "TimeoutWaitingForResponse"
+  of 25: "IccidAlreadyExists"
+  of 26: "ProfileProcessingError"
+  of 27: "ServerNotTrusted"
+  of 28: "ProfileDownloadMaxRetriesExceeded"
+  else: "ESimOperationStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimProfileClass  (enum)
-type ESimProfileClass* = distinct int32
-proc `==`*(a, b: ESimProfileClass): bool {.borrow.}
+type ESimProfileClass* {.pure, size: 4.} = enum
+  Operational = 0'i32
+  Test = 1'i32
+  Provisioning = 2'i32
 proc `$`*(v: ESimProfileClass): string =
-  case int32(v)
-  of 0'i32: "Operational"
-  of 1'i32: "Test"
-  of 2'i32: "Provisioning"
-  else: "ESimProfileClass(" & $int32(v) & ")"
-const ESimProfileClass_Operational* = ESimProfileClass(0'i32)
-const ESimProfileClass_Test* = ESimProfileClass(1'i32)
-const ESimProfileClass_Provisioning* = ESimProfileClass(2'i32)
+  case ord(v)
+  of 0: "Operational"
+  of 1: "Test"
+  of 2: "Provisioning"
+  else: "ESimProfileClass(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimProfileMetadataState  (enum)
-type ESimProfileMetadataState* = distinct int32
-proc `==`*(a, b: ESimProfileMetadataState): bool {.borrow.}
+type ESimProfileMetadataState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  WaitingForInstall = 1'i32
+  Downloading = 2'i32
+  Installing = 3'i32
+  Expired = 4'i32
+  RejectingDownload = 5'i32
+  NoLongerAvailable = 6'i32
+  DeniedByPolicy = 7'i32
 proc `$`*(v: ESimProfileMetadataState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "WaitingForInstall"
-  of 2'i32: "Downloading"
-  of 3'i32: "Installing"
-  of 4'i32: "Expired"
-  of 5'i32: "RejectingDownload"
-  of 6'i32: "NoLongerAvailable"
-  of 7'i32: "DeniedByPolicy"
-  else: "ESimProfileMetadataState(" & $int32(v) & ")"
-const ESimProfileMetadataState_Unknown* = ESimProfileMetadataState(0'i32)
-const ESimProfileMetadataState_WaitingForInstall* = ESimProfileMetadataState(1'i32)
-const ESimProfileMetadataState_Downloading* = ESimProfileMetadataState(2'i32)
-const ESimProfileMetadataState_Installing* = ESimProfileMetadataState(3'i32)
-const ESimProfileMetadataState_Expired* = ESimProfileMetadataState(4'i32)
-const ESimProfileMetadataState_RejectingDownload* = ESimProfileMetadataState(5'i32)
-const ESimProfileMetadataState_NoLongerAvailable* = ESimProfileMetadataState(6'i32)
-const ESimProfileMetadataState_DeniedByPolicy* = ESimProfileMetadataState(7'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "WaitingForInstall"
+  of 2: "Downloading"
+  of 3: "Installing"
+  of 4: "Expired"
+  of 5: "RejectingDownload"
+  of 6: "NoLongerAvailable"
+  of 7: "DeniedByPolicy"
+  else: "ESimProfileMetadataState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimProfileState  (enum)
-type ESimProfileState* = distinct int32
-proc `==`*(a, b: ESimProfileState): bool {.borrow.}
+type ESimProfileState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Disabled = 1'i32
+  Enabled = 2'i32
+  Deleted = 3'i32
 proc `$`*(v: ESimProfileState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Disabled"
-  of 2'i32: "Enabled"
-  of 3'i32: "Deleted"
-  else: "ESimProfileState(" & $int32(v) & ")"
-const ESimProfileState_Unknown* = ESimProfileState(0'i32)
-const ESimProfileState_Disabled* = ESimProfileState(1'i32)
-const ESimProfileState_Enabled* = ESimProfileState(2'i32)
-const ESimProfileState_Deleted* = ESimProfileState(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Disabled"
+  of 2: "Enabled"
+  of 3: "Deleted"
+  else: "ESimProfileState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimState  (enum)
-type ESimState* = distinct int32
-proc `==`*(a, b: ESimState): bool {.borrow.}
+type ESimState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Idle = 1'i32
+  Removed = 2'i32
+  Busy = 3'i32
 proc `$`*(v: ESimState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Idle"
-  of 2'i32: "Removed"
-  of 3'i32: "Busy"
-  else: "ESimState(" & $int32(v) & ")"
-const ESimState_Unknown* = ESimState(0'i32)
-const ESimState_Idle* = ESimState(1'i32)
-const ESimState_Removed* = ESimState(2'i32)
-const ESimState_Busy* = ESimState(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Idle"
+  of 2: "Removed"
+  of 3: "Busy"
+  else: "ESimState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ESimWatcherStatus  (enum)
-type ESimWatcherStatus* = distinct int32
-proc `==`*(a, b: ESimWatcherStatus): bool {.borrow.}
+type ESimWatcherStatus* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Started = 1'i32
+  EnumerationCompleted = 2'i32
+  Stopping = 3'i32
+  Stopped = 4'i32
 proc `$`*(v: ESimWatcherStatus): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Started"
-  of 2'i32: "EnumerationCompleted"
-  of 3'i32: "Stopping"
-  of 4'i32: "Stopped"
-  else: "ESimWatcherStatus(" & $int32(v) & ")"
-const ESimWatcherStatus_Created* = ESimWatcherStatus(0'i32)
-const ESimWatcherStatus_Started* = ESimWatcherStatus(1'i32)
-const ESimWatcherStatus_EnumerationCompleted* = ESimWatcherStatus(2'i32)
-const ESimWatcherStatus_Stopping* = ESimWatcherStatus(3'i32)
-const ESimWatcherStatus_Stopped* = ESimWatcherStatus(4'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Started"
+  of 2: "EnumerationCompleted"
+  of 3: "Stopping"
+  of 4: "Stopped"
+  else: "ESimWatcherStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.HotspotAuthenticationResponseCode  (enum)
-type HotspotAuthenticationResponseCode* = distinct int32
-proc `==`*(a, b: HotspotAuthenticationResponseCode): bool {.borrow.}
+type HotspotAuthenticationResponseCode* {.pure, size: 4.} = enum
+  NoError = 0'i32
+  LoginSucceeded = 50'i32
+  LoginFailed = 100'i32
+  RadiusServerError = 102'i32
+  NetworkAdministratorError = 105'i32
+  LoginAborted = 151'i32
+  AccessGatewayInternalError = 255'i32
 proc `$`*(v: HotspotAuthenticationResponseCode): string =
-  case int32(v)
-  of 0'i32: "NoError"
-  of 50'i32: "LoginSucceeded"
-  of 100'i32: "LoginFailed"
-  of 102'i32: "RadiusServerError"
-  of 105'i32: "NetworkAdministratorError"
-  of 151'i32: "LoginAborted"
-  of 255'i32: "AccessGatewayInternalError"
-  else: "HotspotAuthenticationResponseCode(" & $int32(v) & ")"
-const HotspotAuthenticationResponseCode_NoError* = HotspotAuthenticationResponseCode(0'i32)
-const HotspotAuthenticationResponseCode_LoginSucceeded* = HotspotAuthenticationResponseCode(50'i32)
-const HotspotAuthenticationResponseCode_LoginFailed* = HotspotAuthenticationResponseCode(100'i32)
-const HotspotAuthenticationResponseCode_RadiusServerError* = HotspotAuthenticationResponseCode(102'i32)
-const HotspotAuthenticationResponseCode_NetworkAdministratorError* = HotspotAuthenticationResponseCode(105'i32)
-const HotspotAuthenticationResponseCode_LoginAborted* = HotspotAuthenticationResponseCode(151'i32)
-const HotspotAuthenticationResponseCode_AccessGatewayInternalError* = HotspotAuthenticationResponseCode(255'i32)
+  case ord(v)
+  of 0: "NoError"
+  of 50: "LoginSucceeded"
+  of 100: "LoginFailed"
+  of 102: "RadiusServerError"
+  of 105: "NetworkAdministratorError"
+  of 151: "LoginAborted"
+  of 255: "AccessGatewayInternalError"
+  else: "HotspotAuthenticationResponseCode(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcherStatus  (enum)
-type MobileBroadbandAccountWatcherStatus* = distinct int32
-proc `==`*(a, b: MobileBroadbandAccountWatcherStatus): bool {.borrow.}
+type MobileBroadbandAccountWatcherStatus* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Started = 1'i32
+  EnumerationCompleted = 2'i32
+  Stopped = 3'i32
+  Aborted = 4'i32
 proc `$`*(v: MobileBroadbandAccountWatcherStatus): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Started"
-  of 2'i32: "EnumerationCompleted"
-  of 3'i32: "Stopped"
-  of 4'i32: "Aborted"
-  else: "MobileBroadbandAccountWatcherStatus(" & $int32(v) & ")"
-const MobileBroadbandAccountWatcherStatus_Created* = MobileBroadbandAccountWatcherStatus(0'i32)
-const MobileBroadbandAccountWatcherStatus_Started* = MobileBroadbandAccountWatcherStatus(1'i32)
-const MobileBroadbandAccountWatcherStatus_EnumerationCompleted* = MobileBroadbandAccountWatcherStatus(2'i32)
-const MobileBroadbandAccountWatcherStatus_Stopped* = MobileBroadbandAccountWatcherStatus(3'i32)
-const MobileBroadbandAccountWatcherStatus_Aborted* = MobileBroadbandAccountWatcherStatus(4'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Started"
+  of 2: "EnumerationCompleted"
+  of 3: "Stopped"
+  of 4: "Aborted"
+  else: "MobileBroadbandAccountWatcherStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceType  (enum)
-type MobileBroadbandDeviceType* = distinct int32
-proc `==`*(a, b: MobileBroadbandDeviceType): bool {.borrow.}
+type MobileBroadbandDeviceType* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Embedded = 1'i32
+  Removable = 2'i32
+  Remote = 3'i32
 proc `$`*(v: MobileBroadbandDeviceType): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Embedded"
-  of 2'i32: "Removable"
-  of 3'i32: "Remote"
-  else: "MobileBroadbandDeviceType(" & $int32(v) & ")"
-const MobileBroadbandDeviceType_Unknown* = MobileBroadbandDeviceType(0'i32)
-const MobileBroadbandDeviceType_Embedded* = MobileBroadbandDeviceType(1'i32)
-const MobileBroadbandDeviceType_Removable* = MobileBroadbandDeviceType(2'i32)
-const MobileBroadbandDeviceType_Remote* = MobileBroadbandDeviceType(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Embedded"
+  of 2: "Removable"
+  of 3: "Remote"
+  else: "MobileBroadbandDeviceType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandModemStatus  (enum)
-type MobileBroadbandModemStatus* = distinct int32
-proc `==`*(a, b: MobileBroadbandModemStatus): bool {.borrow.}
+type MobileBroadbandModemStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  OtherFailure = 1'i32
+  Busy = 2'i32
+  NoDeviceSupport = 3'i32
 proc `$`*(v: MobileBroadbandModemStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "OtherFailure"
-  of 2'i32: "Busy"
-  of 3'i32: "NoDeviceSupport"
-  else: "MobileBroadbandModemStatus(" & $int32(v) & ")"
-const MobileBroadbandModemStatus_Success* = MobileBroadbandModemStatus(0'i32)
-const MobileBroadbandModemStatus_OtherFailure* = MobileBroadbandModemStatus(1'i32)
-const MobileBroadbandModemStatus_Busy* = MobileBroadbandModemStatus(2'i32)
-const MobileBroadbandModemStatus_NoDeviceSupport* = MobileBroadbandModemStatus(3'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "OtherFailure"
+  of 2: "Busy"
+  of 3: "NoDeviceSupport"
+  else: "MobileBroadbandModemStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinFormat  (enum)
-type MobileBroadbandPinFormat* = distinct int32
-proc `==`*(a, b: MobileBroadbandPinFormat): bool {.borrow.}
+type MobileBroadbandPinFormat* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Numeric = 1'i32
+  Alphanumeric = 2'i32
 proc `$`*(v: MobileBroadbandPinFormat): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Numeric"
-  of 2'i32: "Alphanumeric"
-  else: "MobileBroadbandPinFormat(" & $int32(v) & ")"
-const MobileBroadbandPinFormat_Unknown* = MobileBroadbandPinFormat(0'i32)
-const MobileBroadbandPinFormat_Numeric* = MobileBroadbandPinFormat(1'i32)
-const MobileBroadbandPinFormat_Alphanumeric* = MobileBroadbandPinFormat(2'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Numeric"
+  of 2: "Alphanumeric"
+  else: "MobileBroadbandPinFormat(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinLockState  (enum)
-type MobileBroadbandPinLockState* = distinct int32
-proc `==`*(a, b: MobileBroadbandPinLockState): bool {.borrow.}
+type MobileBroadbandPinLockState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Unlocked = 1'i32
+  PinRequired = 2'i32
+  PinUnblockKeyRequired = 3'i32
 proc `$`*(v: MobileBroadbandPinLockState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Unlocked"
-  of 2'i32: "PinRequired"
-  of 3'i32: "PinUnblockKeyRequired"
-  else: "MobileBroadbandPinLockState(" & $int32(v) & ")"
-const MobileBroadbandPinLockState_Unknown* = MobileBroadbandPinLockState(0'i32)
-const MobileBroadbandPinLockState_Unlocked* = MobileBroadbandPinLockState(1'i32)
-const MobileBroadbandPinLockState_PinRequired* = MobileBroadbandPinLockState(2'i32)
-const MobileBroadbandPinLockState_PinUnblockKeyRequired* = MobileBroadbandPinLockState(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Unlocked"
+  of 2: "PinRequired"
+  of 3: "PinUnblockKeyRequired"
+  else: "MobileBroadbandPinLockState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandPinType  (enum)
-type MobileBroadbandPinType* = distinct int32
-proc `==`*(a, b: MobileBroadbandPinType): bool {.borrow.}
+type MobileBroadbandPinType* {.pure, size: 4.} = enum
+  None = 0'i32
+  Custom = 1'i32
+  Pin1 = 2'i32
+  Pin2 = 3'i32
+  SimPin = 4'i32
+  FirstSimPin = 5'i32
+  NetworkPin = 6'i32
+  NetworkSubsetPin = 7'i32
+  ServiceProviderPin = 8'i32
+  CorporatePin = 9'i32
+  SubsidyLock = 10'i32
 proc `$`*(v: MobileBroadbandPinType): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Custom"
-  of 2'i32: "Pin1"
-  of 3'i32: "Pin2"
-  of 4'i32: "SimPin"
-  of 5'i32: "FirstSimPin"
-  of 6'i32: "NetworkPin"
-  of 7'i32: "NetworkSubsetPin"
-  of 8'i32: "ServiceProviderPin"
-  of 9'i32: "CorporatePin"
-  of 10'i32: "SubsidyLock"
-  else: "MobileBroadbandPinType(" & $int32(v) & ")"
-const MobileBroadbandPinType_None* = MobileBroadbandPinType(0'i32)
-const MobileBroadbandPinType_Custom* = MobileBroadbandPinType(1'i32)
-const MobileBroadbandPinType_Pin1* = MobileBroadbandPinType(2'i32)
-const MobileBroadbandPinType_Pin2* = MobileBroadbandPinType(3'i32)
-const MobileBroadbandPinType_SimPin* = MobileBroadbandPinType(4'i32)
-const MobileBroadbandPinType_FirstSimPin* = MobileBroadbandPinType(5'i32)
-const MobileBroadbandPinType_NetworkPin* = MobileBroadbandPinType(6'i32)
-const MobileBroadbandPinType_NetworkSubsetPin* = MobileBroadbandPinType(7'i32)
-const MobileBroadbandPinType_ServiceProviderPin* = MobileBroadbandPinType(8'i32)
-const MobileBroadbandPinType_CorporatePin* = MobileBroadbandPinType(9'i32)
-const MobileBroadbandPinType_SubsidyLock* = MobileBroadbandPinType(10'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Custom"
+  of 2: "Pin1"
+  of 3: "Pin2"
+  of 4: "SimPin"
+  of 5: "FirstSimPin"
+  of 6: "NetworkPin"
+  of 7: "NetworkSubsetPin"
+  of 8: "ServiceProviderPin"
+  of 9: "CorporatePin"
+  of 10: "SubsidyLock"
+  else: "MobileBroadbandPinType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandRadioState  (enum)
-type MobileBroadbandRadioState* = distinct int32
-proc `==`*(a, b: MobileBroadbandRadioState): bool {.borrow.}
+type MobileBroadbandRadioState* {.pure, size: 4.} = enum
+  Off = 0'i32
+  On = 1'i32
 proc `$`*(v: MobileBroadbandRadioState): string =
-  case int32(v)
-  of 0'i32: "Off"
-  of 1'i32: "On"
-  else: "MobileBroadbandRadioState(" & $int32(v) & ")"
-const MobileBroadbandRadioState_Off* = MobileBroadbandRadioState(0'i32)
-const MobileBroadbandRadioState_On* = MobileBroadbandRadioState(1'i32)
+  case ord(v)
+  of 0: "Off"
+  of 1: "On"
+  else: "MobileBroadbandRadioState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandSlotState  (enum)
-type MobileBroadbandSlotState* = distinct int32
-proc `==`*(a, b: MobileBroadbandSlotState): bool {.borrow.}
+type MobileBroadbandSlotState* {.pure, size: 4.} = enum
+  Unmanaged = 0'i32
+  Unknown = 1'i32
+  OffEmpty = 2'i32
+  Off = 3'i32
+  Empty = 4'i32
+  NotReady = 5'i32
+  Active = 6'i32
+  Error = 7'i32
+  ActiveEsim = 8'i32
+  ActiveEsimNoProfile = 9'i32
 proc `$`*(v: MobileBroadbandSlotState): string =
-  case int32(v)
-  of 0'i32: "Unmanaged"
-  of 1'i32: "Unknown"
-  of 2'i32: "OffEmpty"
-  of 3'i32: "Off"
-  of 4'i32: "Empty"
-  of 5'i32: "NotReady"
-  of 6'i32: "Active"
-  of 7'i32: "Error"
-  of 8'i32: "ActiveEsim"
-  of 9'i32: "ActiveEsimNoProfile"
-  else: "MobileBroadbandSlotState(" & $int32(v) & ")"
-const MobileBroadbandSlotState_Unmanaged* = MobileBroadbandSlotState(0'i32)
-const MobileBroadbandSlotState_Unknown* = MobileBroadbandSlotState(1'i32)
-const MobileBroadbandSlotState_OffEmpty* = MobileBroadbandSlotState(2'i32)
-const MobileBroadbandSlotState_Off* = MobileBroadbandSlotState(3'i32)
-const MobileBroadbandSlotState_Empty* = MobileBroadbandSlotState(4'i32)
-const MobileBroadbandSlotState_NotReady* = MobileBroadbandSlotState(5'i32)
-const MobileBroadbandSlotState_Active* = MobileBroadbandSlotState(6'i32)
-const MobileBroadbandSlotState_Error* = MobileBroadbandSlotState(7'i32)
-const MobileBroadbandSlotState_ActiveEsim* = MobileBroadbandSlotState(8'i32)
-const MobileBroadbandSlotState_ActiveEsimNoProfile* = MobileBroadbandSlotState(9'i32)
+  case ord(v)
+  of 0: "Unmanaged"
+  of 1: "Unknown"
+  of 2: "OffEmpty"
+  of 3: "Off"
+  of 4: "Empty"
+  of 5: "NotReady"
+  of 6: "Active"
+  of 7: "Error"
+  of 8: "ActiveEsim"
+  of 9: "ActiveEsimNoProfile"
+  else: "MobileBroadbandSlotState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppOperationStatus  (enum)
-type MobileBroadbandUiccAppOperationStatus* = distinct int32
-proc `==`*(a, b: MobileBroadbandUiccAppOperationStatus): bool {.borrow.}
+type MobileBroadbandUiccAppOperationStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  InvalidUiccFilePath = 1'i32
+  AccessConditionNotHeld = 2'i32
+  UiccBusy = 3'i32
 proc `$`*(v: MobileBroadbandUiccAppOperationStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "InvalidUiccFilePath"
-  of 2'i32: "AccessConditionNotHeld"
-  of 3'i32: "UiccBusy"
-  else: "MobileBroadbandUiccAppOperationStatus(" & $int32(v) & ")"
-const MobileBroadbandUiccAppOperationStatus_Success* = MobileBroadbandUiccAppOperationStatus(0'i32)
-const MobileBroadbandUiccAppOperationStatus_InvalidUiccFilePath* = MobileBroadbandUiccAppOperationStatus(1'i32)
-const MobileBroadbandUiccAppOperationStatus_AccessConditionNotHeld* = MobileBroadbandUiccAppOperationStatus(2'i32)
-const MobileBroadbandUiccAppOperationStatus_UiccBusy* = MobileBroadbandUiccAppOperationStatus(3'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "InvalidUiccFilePath"
+  of 2: "AccessConditionNotHeld"
+  of 3: "UiccBusy"
+  else: "MobileBroadbandUiccAppOperationStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.NetworkDeviceStatus  (enum)
-type NetworkDeviceStatus* = distinct int32
-proc `==`*(a, b: NetworkDeviceStatus): bool {.borrow.}
+type NetworkDeviceStatus* {.pure, size: 4.} = enum
+  DeviceNotReady = 0'i32
+  DeviceReady = 1'i32
+  SimNotInserted = 2'i32
+  BadSim = 3'i32
+  DeviceHardwareFailure = 4'i32
+  AccountNotActivated = 5'i32
+  DeviceLocked = 6'i32
+  DeviceBlocked = 7'i32
 proc `$`*(v: NetworkDeviceStatus): string =
-  case int32(v)
-  of 0'i32: "DeviceNotReady"
-  of 1'i32: "DeviceReady"
-  of 2'i32: "SimNotInserted"
-  of 3'i32: "BadSim"
-  of 4'i32: "DeviceHardwareFailure"
-  of 5'i32: "AccountNotActivated"
-  of 6'i32: "DeviceLocked"
-  of 7'i32: "DeviceBlocked"
-  else: "NetworkDeviceStatus(" & $int32(v) & ")"
-const NetworkDeviceStatus_DeviceNotReady* = NetworkDeviceStatus(0'i32)
-const NetworkDeviceStatus_DeviceReady* = NetworkDeviceStatus(1'i32)
-const NetworkDeviceStatus_SimNotInserted* = NetworkDeviceStatus(2'i32)
-const NetworkDeviceStatus_BadSim* = NetworkDeviceStatus(3'i32)
-const NetworkDeviceStatus_DeviceHardwareFailure* = NetworkDeviceStatus(4'i32)
-const NetworkDeviceStatus_AccountNotActivated* = NetworkDeviceStatus(5'i32)
-const NetworkDeviceStatus_DeviceLocked* = NetworkDeviceStatus(6'i32)
-const NetworkDeviceStatus_DeviceBlocked* = NetworkDeviceStatus(7'i32)
+  case ord(v)
+  of 0: "DeviceNotReady"
+  of 1: "DeviceReady"
+  of 2: "SimNotInserted"
+  of 3: "BadSim"
+  of 4: "DeviceHardwareFailure"
+  of 5: "AccountNotActivated"
+  of 6: "DeviceLocked"
+  of 7: "DeviceBlocked"
+  else: "NetworkDeviceStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.NetworkOperatorDataUsageNotificationKind  (enum)
-type NetworkOperatorDataUsageNotificationKind* = distinct int32
-proc `==`*(a, b: NetworkOperatorDataUsageNotificationKind): bool {.borrow.}
+type NetworkOperatorDataUsageNotificationKind* {.pure, size: 4.} = enum
+  DataUsageProgress = 0'i32
 proc `$`*(v: NetworkOperatorDataUsageNotificationKind): string =
-  case int32(v)
-  of 0'i32: "DataUsageProgress"
-  else: "NetworkOperatorDataUsageNotificationKind(" & $int32(v) & ")"
-const NetworkOperatorDataUsageNotificationKind_DataUsageProgress* = NetworkOperatorDataUsageNotificationKind(0'i32)
+  case ord(v)
+  of 0: "DataUsageProgress"
+  else: "NetworkOperatorDataUsageNotificationKind(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.NetworkOperatorEventMessageType  (enum)
-type NetworkOperatorEventMessageType* = distinct int32
-proc `==`*(a, b: NetworkOperatorEventMessageType): bool {.borrow.}
+type NetworkOperatorEventMessageType* {.pure, size: 4.} = enum
+  Gsm = 0'i32
+  Cdma = 1'i32
+  Ussd = 2'i32
+  DataPlanThresholdReached = 3'i32
+  DataPlanReset = 4'i32
+  DataPlanDeleted = 5'i32
+  ProfileConnected = 6'i32
+  ProfileDisconnected = 7'i32
+  RegisteredRoaming = 8'i32
+  RegisteredHome = 9'i32
+  TetheringEntitlementCheck = 10'i32
+  TetheringOperationalStateChanged = 11'i32
+  TetheringNumberOfClientsChanged = 12'i32
 proc `$`*(v: NetworkOperatorEventMessageType): string =
-  case int32(v)
-  of 0'i32: "Gsm"
-  of 1'i32: "Cdma"
-  of 2'i32: "Ussd"
-  of 3'i32: "DataPlanThresholdReached"
-  of 4'i32: "DataPlanReset"
-  of 5'i32: "DataPlanDeleted"
-  of 6'i32: "ProfileConnected"
-  of 7'i32: "ProfileDisconnected"
-  of 8'i32: "RegisteredRoaming"
-  of 9'i32: "RegisteredHome"
-  of 10'i32: "TetheringEntitlementCheck"
-  of 11'i32: "TetheringOperationalStateChanged"
-  of 12'i32: "TetheringNumberOfClientsChanged"
-  else: "NetworkOperatorEventMessageType(" & $int32(v) & ")"
-const NetworkOperatorEventMessageType_Gsm* = NetworkOperatorEventMessageType(0'i32)
-const NetworkOperatorEventMessageType_Cdma* = NetworkOperatorEventMessageType(1'i32)
-const NetworkOperatorEventMessageType_Ussd* = NetworkOperatorEventMessageType(2'i32)
-const NetworkOperatorEventMessageType_DataPlanThresholdReached* = NetworkOperatorEventMessageType(3'i32)
-const NetworkOperatorEventMessageType_DataPlanReset* = NetworkOperatorEventMessageType(4'i32)
-const NetworkOperatorEventMessageType_DataPlanDeleted* = NetworkOperatorEventMessageType(5'i32)
-const NetworkOperatorEventMessageType_ProfileConnected* = NetworkOperatorEventMessageType(6'i32)
-const NetworkOperatorEventMessageType_ProfileDisconnected* = NetworkOperatorEventMessageType(7'i32)
-const NetworkOperatorEventMessageType_RegisteredRoaming* = NetworkOperatorEventMessageType(8'i32)
-const NetworkOperatorEventMessageType_RegisteredHome* = NetworkOperatorEventMessageType(9'i32)
-const NetworkOperatorEventMessageType_TetheringEntitlementCheck* = NetworkOperatorEventMessageType(10'i32)
-const NetworkOperatorEventMessageType_TetheringOperationalStateChanged* = NetworkOperatorEventMessageType(11'i32)
-const NetworkOperatorEventMessageType_TetheringNumberOfClientsChanged* = NetworkOperatorEventMessageType(12'i32)
+  case ord(v)
+  of 0: "Gsm"
+  of 1: "Cdma"
+  of 2: "Ussd"
+  of 3: "DataPlanThresholdReached"
+  of 4: "DataPlanReset"
+  of 5: "DataPlanDeleted"
+  of 6: "ProfileConnected"
+  of 7: "ProfileDisconnected"
+  of 8: "RegisteredRoaming"
+  of 9: "RegisteredHome"
+  of 10: "TetheringEntitlementCheck"
+  of 11: "TetheringOperationalStateChanged"
+  of 12: "TetheringNumberOfClientsChanged"
+  else: "NetworkOperatorEventMessageType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.NetworkRegistrationState  (enum)
-type NetworkRegistrationState* = distinct int32
-proc `==`*(a, b: NetworkRegistrationState): bool {.borrow.}
+type NetworkRegistrationState* {.pure, size: 4.} = enum
+  None = 0'i32
+  Deregistered = 1'i32
+  Searching = 2'i32
+  Home = 3'i32
+  Roaming = 4'i32
+  Partner = 5'i32
+  Denied = 6'i32
 proc `$`*(v: NetworkRegistrationState): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Deregistered"
-  of 2'i32: "Searching"
-  of 3'i32: "Home"
-  of 4'i32: "Roaming"
-  of 5'i32: "Partner"
-  of 6'i32: "Denied"
-  else: "NetworkRegistrationState(" & $int32(v) & ")"
-const NetworkRegistrationState_None* = NetworkRegistrationState(0'i32)
-const NetworkRegistrationState_Deregistered* = NetworkRegistrationState(1'i32)
-const NetworkRegistrationState_Searching* = NetworkRegistrationState(2'i32)
-const NetworkRegistrationState_Home* = NetworkRegistrationState(3'i32)
-const NetworkRegistrationState_Roaming* = NetworkRegistrationState(4'i32)
-const NetworkRegistrationState_Partner* = NetworkRegistrationState(5'i32)
-const NetworkRegistrationState_Denied* = NetworkRegistrationState(6'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Deregistered"
+  of 2: "Searching"
+  of 3: "Home"
+  of 4: "Roaming"
+  of 5: "Partner"
+  of 6: "Denied"
+  else: "NetworkRegistrationState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.ProfileMediaType  (enum)
-type ProfileMediaType* = distinct int32
-proc `==`*(a, b: ProfileMediaType): bool {.borrow.}
+type ProfileMediaType* {.pure, size: 4.} = enum
+  Wlan = 0'i32
+  Wwan = 1'i32
 proc `$`*(v: ProfileMediaType): string =
-  case int32(v)
-  of 0'i32: "Wlan"
-  of 1'i32: "Wwan"
-  else: "ProfileMediaType(" & $int32(v) & ")"
-const ProfileMediaType_Wlan* = ProfileMediaType(0'i32)
-const ProfileMediaType_Wwan* = ProfileMediaType(1'i32)
+  case ord(v)
+  of 0: "Wlan"
+  of 1: "Wwan"
+  else: "ProfileMediaType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringCapability  (enum)
-type TetheringCapability* = distinct int32
-proc `==`*(a, b: TetheringCapability): bool {.borrow.}
+type TetheringCapability* {.pure, size: 4.} = enum
+  Enabled = 0'i32
+  DisabledByGroupPolicy = 1'i32
+  DisabledByHardwareLimitation = 2'i32
+  DisabledByOperator = 3'i32
+  DisabledBySku = 4'i32
+  DisabledByRequiredAppNotInstalled = 5'i32
+  DisabledDueToUnknownCause = 6'i32
+  DisabledBySystemCapability = 7'i32
 proc `$`*(v: TetheringCapability): string =
-  case int32(v)
-  of 0'i32: "Enabled"
-  of 1'i32: "DisabledByGroupPolicy"
-  of 2'i32: "DisabledByHardwareLimitation"
-  of 3'i32: "DisabledByOperator"
-  of 4'i32: "DisabledBySku"
-  of 5'i32: "DisabledByRequiredAppNotInstalled"
-  of 6'i32: "DisabledDueToUnknownCause"
-  of 7'i32: "DisabledBySystemCapability"
-  else: "TetheringCapability(" & $int32(v) & ")"
-const TetheringCapability_Enabled* = TetheringCapability(0'i32)
-const TetheringCapability_DisabledByGroupPolicy* = TetheringCapability(1'i32)
-const TetheringCapability_DisabledByHardwareLimitation* = TetheringCapability(2'i32)
-const TetheringCapability_DisabledByOperator* = TetheringCapability(3'i32)
-const TetheringCapability_DisabledBySku* = TetheringCapability(4'i32)
-const TetheringCapability_DisabledByRequiredAppNotInstalled* = TetheringCapability(5'i32)
-const TetheringCapability_DisabledDueToUnknownCause* = TetheringCapability(6'i32)
-const TetheringCapability_DisabledBySystemCapability* = TetheringCapability(7'i32)
+  case ord(v)
+  of 0: "Enabled"
+  of 1: "DisabledByGroupPolicy"
+  of 2: "DisabledByHardwareLimitation"
+  of 3: "DisabledByOperator"
+  of 4: "DisabledBySku"
+  of 5: "DisabledByRequiredAppNotInstalled"
+  of 6: "DisabledDueToUnknownCause"
+  of 7: "DisabledBySystemCapability"
+  else: "TetheringCapability(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringOperationStatus  (enum)
-type TetheringOperationStatus* = distinct int32
-proc `==`*(a, b: TetheringOperationStatus): bool {.borrow.}
+type TetheringOperationStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  Unknown = 1'i32
+  MobileBroadbandDeviceOff = 2'i32
+  WiFiDeviceOff = 3'i32
+  EntitlementCheckTimeout = 4'i32
+  EntitlementCheckFailure = 5'i32
+  OperationInProgress = 6'i32
+  BluetoothDeviceOff = 7'i32
+  NetworkLimitedConnectivity = 8'i32
+  AlreadyOn = 9'i32
+  RadioRestriction = 10'i32
+  BandInterference = 11'i32
 proc `$`*(v: TetheringOperationStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "Unknown"
-  of 2'i32: "MobileBroadbandDeviceOff"
-  of 3'i32: "WiFiDeviceOff"
-  of 4'i32: "EntitlementCheckTimeout"
-  of 5'i32: "EntitlementCheckFailure"
-  of 6'i32: "OperationInProgress"
-  of 7'i32: "BluetoothDeviceOff"
-  of 8'i32: "NetworkLimitedConnectivity"
-  of 9'i32: "AlreadyOn"
-  of 10'i32: "RadioRestriction"
-  of 11'i32: "BandInterference"
-  else: "TetheringOperationStatus(" & $int32(v) & ")"
-const TetheringOperationStatus_Success* = TetheringOperationStatus(0'i32)
-const TetheringOperationStatus_Unknown* = TetheringOperationStatus(1'i32)
-const TetheringOperationStatus_MobileBroadbandDeviceOff* = TetheringOperationStatus(2'i32)
-const TetheringOperationStatus_WiFiDeviceOff* = TetheringOperationStatus(3'i32)
-const TetheringOperationStatus_EntitlementCheckTimeout* = TetheringOperationStatus(4'i32)
-const TetheringOperationStatus_EntitlementCheckFailure* = TetheringOperationStatus(5'i32)
-const TetheringOperationStatus_OperationInProgress* = TetheringOperationStatus(6'i32)
-const TetheringOperationStatus_BluetoothDeviceOff* = TetheringOperationStatus(7'i32)
-const TetheringOperationStatus_NetworkLimitedConnectivity* = TetheringOperationStatus(8'i32)
-const TetheringOperationStatus_AlreadyOn* = TetheringOperationStatus(9'i32)
-const TetheringOperationStatus_RadioRestriction* = TetheringOperationStatus(10'i32)
-const TetheringOperationStatus_BandInterference* = TetheringOperationStatus(11'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "Unknown"
+  of 2: "MobileBroadbandDeviceOff"
+  of 3: "WiFiDeviceOff"
+  of 4: "EntitlementCheckTimeout"
+  of 5: "EntitlementCheckFailure"
+  of 6: "OperationInProgress"
+  of 7: "BluetoothDeviceOff"
+  of 8: "NetworkLimitedConnectivity"
+  of 9: "AlreadyOn"
+  of 10: "RadioRestriction"
+  of 11: "BandInterference"
+  else: "TetheringOperationStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringOperationalState  (enum)
-type TetheringOperationalState* = distinct int32
-proc `==`*(a, b: TetheringOperationalState): bool {.borrow.}
+type TetheringOperationalState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  On = 1'i32
+  Off = 2'i32
+  InTransition = 3'i32
 proc `$`*(v: TetheringOperationalState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "On"
-  of 2'i32: "Off"
-  of 3'i32: "InTransition"
-  else: "TetheringOperationalState(" & $int32(v) & ")"
-const TetheringOperationalState_Unknown* = TetheringOperationalState(0'i32)
-const TetheringOperationalState_On* = TetheringOperationalState(1'i32)
-const TetheringOperationalState_Off* = TetheringOperationalState(2'i32)
-const TetheringOperationalState_InTransition* = TetheringOperationalState(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "On"
+  of 2: "Off"
+  of 3: "InTransition"
+  else: "TetheringOperationalState(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind  (enum)
-type TetheringWiFiAuthenticationKind* = distinct int32
-proc `==`*(a, b: TetheringWiFiAuthenticationKind): bool {.borrow.}
+type TetheringWiFiAuthenticationKind* {.pure, size: 4.} = enum
+  Wpa2 = 0'i32
+  Wpa3TransitionMode = 1'i32
+  Wpa3 = 2'i32
 proc `$`*(v: TetheringWiFiAuthenticationKind): string =
-  case int32(v)
-  of 0'i32: "Wpa2"
-  of 1'i32: "Wpa3TransitionMode"
-  of 2'i32: "Wpa3"
-  else: "TetheringWiFiAuthenticationKind(" & $int32(v) & ")"
-const TetheringWiFiAuthenticationKind_Wpa2* = TetheringWiFiAuthenticationKind(0'i32)
-const TetheringWiFiAuthenticationKind_Wpa3TransitionMode* = TetheringWiFiAuthenticationKind(1'i32)
-const TetheringWiFiAuthenticationKind_Wpa3* = TetheringWiFiAuthenticationKind(2'i32)
+  case ord(v)
+  of 0: "Wpa2"
+  of 1: "Wpa3TransitionMode"
+  of 2: "Wpa3"
+  else: "TetheringWiFiAuthenticationKind(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiBand  (enum)
-type TetheringWiFiBand* = distinct int32
-proc `==`*(a, b: TetheringWiFiBand): bool {.borrow.}
+type TetheringWiFiBand* {.pure, size: 4.} = enum
+  Auto = 0'i32
+  TwoPointFourGigahertz = 1'i32
+  FiveGigahertz = 2'i32
+  SixGigahertz = 3'i32
 proc `$`*(v: TetheringWiFiBand): string =
-  case int32(v)
-  of 0'i32: "Auto"
-  of 1'i32: "TwoPointFourGigahertz"
-  of 2'i32: "FiveGigahertz"
-  of 3'i32: "SixGigahertz"
-  else: "TetheringWiFiBand(" & $int32(v) & ")"
-const TetheringWiFiBand_Auto* = TetheringWiFiBand(0'i32)
-const TetheringWiFiBand_TwoPointFourGigahertz* = TetheringWiFiBand(1'i32)
-const TetheringWiFiBand_FiveGigahertz* = TetheringWiFiBand(2'i32)
-const TetheringWiFiBand_SixGigahertz* = TetheringWiFiBand(3'i32)
+  case ord(v)
+  of 0: "Auto"
+  of 1: "TwoPointFourGigahertz"
+  of 2: "FiveGigahertz"
+  of 3: "SixGigahertz"
+  else: "TetheringWiFiBand(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority  (enum)
-type TetheringWiFiPerformancePriority* = distinct int32
-proc `==`*(a, b: TetheringWiFiPerformancePriority): bool {.borrow.}
+type TetheringWiFiPerformancePriority* {.pure, size: 4.} = enum
+  Default = 0'i32
+  TetheringOverStation = 1'i32
 proc `$`*(v: TetheringWiFiPerformancePriority): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "TetheringOverStation"
-  else: "TetheringWiFiPerformancePriority(" & $int32(v) & ")"
-const TetheringWiFiPerformancePriority_Default* = TetheringWiFiPerformancePriority(0'i32)
-const TetheringWiFiPerformancePriority_TetheringOverStation* = TetheringWiFiPerformancePriority(1'i32)
+  case ord(v)
+  of 0: "Default"
+  of 1: "TetheringOverStation"
+  else: "TetheringWiFiPerformancePriority(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.UiccAccessCondition  (enum)
-type UiccAccessCondition* = distinct int32
-proc `==`*(a, b: UiccAccessCondition): bool {.borrow.}
+type UiccAccessCondition* {.pure, size: 4.} = enum
+  AlwaysAllowed = 0'i32
+  Pin1 = 1'i32
+  Pin2 = 2'i32
+  Pin3 = 3'i32
+  Pin4 = 4'i32
+  Administrative5 = 5'i32
+  Administrative6 = 6'i32
+  NeverAllowed = 7'i32
 proc `$`*(v: UiccAccessCondition): string =
-  case int32(v)
-  of 0'i32: "AlwaysAllowed"
-  of 1'i32: "Pin1"
-  of 2'i32: "Pin2"
-  of 3'i32: "Pin3"
-  of 4'i32: "Pin4"
-  of 5'i32: "Administrative5"
-  of 6'i32: "Administrative6"
-  of 7'i32: "NeverAllowed"
-  else: "UiccAccessCondition(" & $int32(v) & ")"
-const UiccAccessCondition_AlwaysAllowed* = UiccAccessCondition(0'i32)
-const UiccAccessCondition_Pin1* = UiccAccessCondition(1'i32)
-const UiccAccessCondition_Pin2* = UiccAccessCondition(2'i32)
-const UiccAccessCondition_Pin3* = UiccAccessCondition(3'i32)
-const UiccAccessCondition_Pin4* = UiccAccessCondition(4'i32)
-const UiccAccessCondition_Administrative5* = UiccAccessCondition(5'i32)
-const UiccAccessCondition_Administrative6* = UiccAccessCondition(6'i32)
-const UiccAccessCondition_NeverAllowed* = UiccAccessCondition(7'i32)
+  case ord(v)
+  of 0: "AlwaysAllowed"
+  of 1: "Pin1"
+  of 2: "Pin2"
+  of 3: "Pin3"
+  of 4: "Pin4"
+  of 5: "Administrative5"
+  of 6: "Administrative6"
+  of 7: "NeverAllowed"
+  else: "UiccAccessCondition(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.UiccAppKind  (enum)
-type UiccAppKind* = distinct int32
-proc `==`*(a, b: UiccAppKind): bool {.borrow.}
+type UiccAppKind* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  MF = 1'i32
+  MFSim = 2'i32
+  MFRuim = 3'i32
+  USim = 4'i32
+  CSim = 5'i32
+  ISim = 6'i32
 proc `$`*(v: UiccAppKind): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "MF"
-  of 2'i32: "MFSim"
-  of 3'i32: "MFRuim"
-  of 4'i32: "USim"
-  of 5'i32: "CSim"
-  of 6'i32: "ISim"
-  else: "UiccAppKind(" & $int32(v) & ")"
-const UiccAppKind_Unknown* = UiccAppKind(0'i32)
-const UiccAppKind_MF* = UiccAppKind(1'i32)
-const UiccAppKind_MFSim* = UiccAppKind(2'i32)
-const UiccAppKind_MFRuim* = UiccAppKind(3'i32)
-const UiccAppKind_USim* = UiccAppKind(4'i32)
-const UiccAppKind_CSim* = UiccAppKind(5'i32)
-const UiccAppKind_ISim* = UiccAppKind(6'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "MF"
+  of 2: "MFSim"
+  of 3: "MFRuim"
+  of 4: "USim"
+  of 5: "CSim"
+  of 6: "ISim"
+  else: "UiccAppKind(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.UiccAppRecordKind  (enum)
-type UiccAppRecordKind* = distinct int32
-proc `==`*(a, b: UiccAppRecordKind): bool {.borrow.}
+type UiccAppRecordKind* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Transparent = 1'i32
+  RecordOriented = 2'i32
 proc `$`*(v: UiccAppRecordKind): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Transparent"
-  of 2'i32: "RecordOriented"
-  else: "UiccAppRecordKind(" & $int32(v) & ")"
-const UiccAppRecordKind_Unknown* = UiccAppRecordKind(0'i32)
-const UiccAppRecordKind_Transparent* = UiccAppRecordKind(1'i32)
-const UiccAppRecordKind_RecordOriented* = UiccAppRecordKind(2'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Transparent"
+  of 2: "RecordOriented"
+  else: "UiccAppRecordKind(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.UssdResultCode  (enum)
-type UssdResultCode* = distinct int32
-proc `==`*(a, b: UssdResultCode): bool {.borrow.}
+type UssdResultCode* {.pure, size: 4.} = enum
+  NoActionRequired = 0'i32
+  ActionRequired = 1'i32
+  Terminated = 2'i32
+  OtherLocalClient = 3'i32
+  OperationNotSupported = 4'i32
+  NetworkTimeout = 5'i32
 proc `$`*(v: UssdResultCode): string =
-  case int32(v)
-  of 0'i32: "NoActionRequired"
-  of 1'i32: "ActionRequired"
-  of 2'i32: "Terminated"
-  of 3'i32: "OtherLocalClient"
-  of 4'i32: "OperationNotSupported"
-  of 5'i32: "NetworkTimeout"
-  else: "UssdResultCode(" & $int32(v) & ")"
-const UssdResultCode_NoActionRequired* = UssdResultCode(0'i32)
-const UssdResultCode_ActionRequired* = UssdResultCode(1'i32)
-const UssdResultCode_Terminated* = UssdResultCode(2'i32)
-const UssdResultCode_OtherLocalClient* = UssdResultCode(3'i32)
-const UssdResultCode_OperationNotSupported* = UssdResultCode(4'i32)
-const UssdResultCode_NetworkTimeout* = UssdResultCode(5'i32)
+  case ord(v)
+  of 0: "NoActionRequired"
+  of 1: "ActionRequired"
+  of 2: "Terminated"
+  of 3: "OtherLocalClient"
+  of 4: "OperationNotSupported"
+  of 5: "NetworkTimeout"
+  else: "UssdResultCode(" & $ord(v) & ")"
 
 ## Windows.Networking.Proximity.PeerDiscoveryTypes  (enum)
 type PeerDiscoveryTypes* = distinct int32
 proc `==`*(a, b: PeerDiscoveryTypes): bool {.borrow.}
+proc `or`*(a, b: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
+proc `and`*(a, b: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
+proc `not`*(a: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
+proc contains*(a, b: PeerDiscoveryTypes): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: PeerDiscoveryTypes): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Browse"
-  of 2'i32: "Triggered"
-  else: "PeerDiscoveryTypes(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Browse"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Triggered"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "PeerDiscoveryTypes(" & $rest & ")"
 const PeerDiscoveryTypes_None* = PeerDiscoveryTypes(0'i32)
 const PeerDiscoveryTypes_Browse* = PeerDiscoveryTypes(1'i32)
 const PeerDiscoveryTypes_Triggered* = PeerDiscoveryTypes(2'i32)
 
 ## Windows.Networking.Proximity.PeerRole  (enum)
-type PeerRole* = distinct int32
-proc `==`*(a, b: PeerRole): bool {.borrow.}
+type PeerRole* {.pure, size: 4.} = enum
+  Peer = 0'i32
+  Host = 1'i32
+  Client = 2'i32
 proc `$`*(v: PeerRole): string =
-  case int32(v)
-  of 0'i32: "Peer"
-  of 1'i32: "Host"
-  of 2'i32: "Client"
-  else: "PeerRole(" & $int32(v) & ")"
-const PeerRole_Peer* = PeerRole(0'i32)
-const PeerRole_Host* = PeerRole(1'i32)
-const PeerRole_Client* = PeerRole(2'i32)
+  case ord(v)
+  of 0: "Peer"
+  of 1: "Host"
+  of 2: "Client"
+  else: "PeerRole(" & $ord(v) & ")"
 
 ## Windows.Networking.Proximity.PeerWatcherStatus  (enum)
-type PeerWatcherStatus* = distinct int32
-proc `==`*(a, b: PeerWatcherStatus): bool {.borrow.}
+type PeerWatcherStatus* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Started = 1'i32
+  EnumerationCompleted = 2'i32
+  Stopping = 3'i32
+  Stopped = 4'i32
+  Aborted = 5'i32
 proc `$`*(v: PeerWatcherStatus): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Started"
-  of 2'i32: "EnumerationCompleted"
-  of 3'i32: "Stopping"
-  of 4'i32: "Stopped"
-  of 5'i32: "Aborted"
-  else: "PeerWatcherStatus(" & $int32(v) & ")"
-const PeerWatcherStatus_Created* = PeerWatcherStatus(0'i32)
-const PeerWatcherStatus_Started* = PeerWatcherStatus(1'i32)
-const PeerWatcherStatus_EnumerationCompleted* = PeerWatcherStatus(2'i32)
-const PeerWatcherStatus_Stopping* = PeerWatcherStatus(3'i32)
-const PeerWatcherStatus_Stopped* = PeerWatcherStatus(4'i32)
-const PeerWatcherStatus_Aborted* = PeerWatcherStatus(5'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Started"
+  of 2: "EnumerationCompleted"
+  of 3: "Stopping"
+  of 4: "Stopped"
+  of 5: "Aborted"
+  else: "PeerWatcherStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Proximity.TriggeredConnectState  (enum)
-type TriggeredConnectState* = distinct int32
-proc `==`*(a, b: TriggeredConnectState): bool {.borrow.}
+type TriggeredConnectState* {.pure, size: 4.} = enum
+  PeerFound = 0'i32
+  Listening = 1'i32
+  Connecting = 2'i32
+  Completed = 3'i32
+  Canceled = 4'i32
+  Failed = 5'i32
 proc `$`*(v: TriggeredConnectState): string =
-  case int32(v)
-  of 0'i32: "PeerFound"
-  of 1'i32: "Listening"
-  of 2'i32: "Connecting"
-  of 3'i32: "Completed"
-  of 4'i32: "Canceled"
-  of 5'i32: "Failed"
-  else: "TriggeredConnectState(" & $int32(v) & ")"
-const TriggeredConnectState_PeerFound* = TriggeredConnectState(0'i32)
-const TriggeredConnectState_Listening* = TriggeredConnectState(1'i32)
-const TriggeredConnectState_Connecting* = TriggeredConnectState(2'i32)
-const TriggeredConnectState_Completed* = TriggeredConnectState(3'i32)
-const TriggeredConnectState_Canceled* = TriggeredConnectState(4'i32)
-const TriggeredConnectState_Failed* = TriggeredConnectState(5'i32)
+  case ord(v)
+  of 0: "PeerFound"
+  of 1: "Listening"
+  of 2: "Connecting"
+  of 3: "Completed"
+  of 4: "Canceled"
+  of 5: "Failed"
+  else: "TriggeredConnectState(" & $ord(v) & ")"
 
 ## Windows.Networking.PushNotifications.PushNotificationType  (enum)
-type PushNotificationType* = distinct int32
-proc `==`*(a, b: PushNotificationType): bool {.borrow.}
+type PushNotificationType* {.pure, size: 4.} = enum
+  Toast = 0'i32
+  Tile = 1'i32
+  Badge = 2'i32
+  Raw = 3'i32
+  TileFlyout = 4'i32
 proc `$`*(v: PushNotificationType): string =
-  case int32(v)
-  of 0'i32: "Toast"
-  of 1'i32: "Tile"
-  of 2'i32: "Badge"
-  of 3'i32: "Raw"
-  of 4'i32: "TileFlyout"
-  else: "PushNotificationType(" & $int32(v) & ")"
-const PushNotificationType_Toast* = PushNotificationType(0'i32)
-const PushNotificationType_Tile* = PushNotificationType(1'i32)
-const PushNotificationType_Badge* = PushNotificationType(2'i32)
-const PushNotificationType_Raw* = PushNotificationType(3'i32)
-const PushNotificationType_TileFlyout* = PushNotificationType(4'i32)
+  case ord(v)
+  of 0: "Toast"
+  of 1: "Tile"
+  of 2: "Badge"
+  of 3: "Raw"
+  of 4: "TileFlyout"
+  else: "PushNotificationType(" & $ord(v) & ")"
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationStatus  (enum)
-type DnssdRegistrationStatus* = distinct int32
-proc `==`*(a, b: DnssdRegistrationStatus): bool {.borrow.}
+type DnssdRegistrationStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  InvalidServiceName = 1'i32
+  ServerError = 2'i32
+  SecurityError = 3'i32
 proc `$`*(v: DnssdRegistrationStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "InvalidServiceName"
-  of 2'i32: "ServerError"
-  of 3'i32: "SecurityError"
-  else: "DnssdRegistrationStatus(" & $int32(v) & ")"
-const DnssdRegistrationStatus_Success* = DnssdRegistrationStatus(0'i32)
-const DnssdRegistrationStatus_InvalidServiceName* = DnssdRegistrationStatus(1'i32)
-const DnssdRegistrationStatus_ServerError* = DnssdRegistrationStatus(2'i32)
-const DnssdRegistrationStatus_SecurityError* = DnssdRegistrationStatus(3'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "InvalidServiceName"
+  of 2: "ServerError"
+  of 3: "SecurityError"
+  else: "DnssdRegistrationStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcherStatus  (enum)
-type DnssdServiceWatcherStatus* = distinct int32
-proc `==`*(a, b: DnssdServiceWatcherStatus): bool {.borrow.}
+type DnssdServiceWatcherStatus* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Started = 1'i32
+  EnumerationCompleted = 2'i32
+  Stopping = 3'i32
+  Stopped = 4'i32
+  Aborted = 5'i32
 proc `$`*(v: DnssdServiceWatcherStatus): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Started"
-  of 2'i32: "EnumerationCompleted"
-  of 3'i32: "Stopping"
-  of 4'i32: "Stopped"
-  of 5'i32: "Aborted"
-  else: "DnssdServiceWatcherStatus(" & $int32(v) & ")"
-const DnssdServiceWatcherStatus_Created* = DnssdServiceWatcherStatus(0'i32)
-const DnssdServiceWatcherStatus_Started* = DnssdServiceWatcherStatus(1'i32)
-const DnssdServiceWatcherStatus_EnumerationCompleted* = DnssdServiceWatcherStatus(2'i32)
-const DnssdServiceWatcherStatus_Stopping* = DnssdServiceWatcherStatus(3'i32)
-const DnssdServiceWatcherStatus_Stopped* = DnssdServiceWatcherStatus(4'i32)
-const DnssdServiceWatcherStatus_Aborted* = DnssdServiceWatcherStatus(5'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Started"
+  of 2: "EnumerationCompleted"
+  of 3: "Stopping"
+  of 4: "Stopped"
+  of 5: "Aborted"
+  else: "DnssdServiceWatcherStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.ControlChannelTriggerResetReason  (enum)
-type ControlChannelTriggerResetReason* = distinct int32
-proc `==`*(a, b: ControlChannelTriggerResetReason): bool {.borrow.}
+type ControlChannelTriggerResetReason* {.pure, size: 4.} = enum
+  FastUserSwitched = 0'i32
+  LowPowerExit = 1'i32
+  QuietHoursExit = 2'i32
+  ApplicationRestart = 3'i32
 proc `$`*(v: ControlChannelTriggerResetReason): string =
-  case int32(v)
-  of 0'i32: "FastUserSwitched"
-  of 1'i32: "LowPowerExit"
-  of 2'i32: "QuietHoursExit"
-  of 3'i32: "ApplicationRestart"
-  else: "ControlChannelTriggerResetReason(" & $int32(v) & ")"
-const ControlChannelTriggerResetReason_FastUserSwitched* = ControlChannelTriggerResetReason(0'i32)
-const ControlChannelTriggerResetReason_LowPowerExit* = ControlChannelTriggerResetReason(1'i32)
-const ControlChannelTriggerResetReason_QuietHoursExit* = ControlChannelTriggerResetReason(2'i32)
-const ControlChannelTriggerResetReason_ApplicationRestart* = ControlChannelTriggerResetReason(3'i32)
+  case ord(v)
+  of 0: "FastUserSwitched"
+  of 1: "LowPowerExit"
+  of 2: "QuietHoursExit"
+  of 3: "ApplicationRestart"
+  else: "ControlChannelTriggerResetReason(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.ControlChannelTriggerResourceType  (enum)
-type ControlChannelTriggerResourceType* = distinct int32
-proc `==`*(a, b: ControlChannelTriggerResourceType): bool {.borrow.}
+type ControlChannelTriggerResourceType* {.pure, size: 4.} = enum
+  RequestSoftwareSlot = 0'i32
+  RequestHardwareSlot = 1'i32
 proc `$`*(v: ControlChannelTriggerResourceType): string =
-  case int32(v)
-  of 0'i32: "RequestSoftwareSlot"
-  of 1'i32: "RequestHardwareSlot"
-  else: "ControlChannelTriggerResourceType(" & $int32(v) & ")"
-const ControlChannelTriggerResourceType_RequestSoftwareSlot* = ControlChannelTriggerResourceType(0'i32)
-const ControlChannelTriggerResourceType_RequestHardwareSlot* = ControlChannelTriggerResourceType(1'i32)
+  case ord(v)
+  of 0: "RequestSoftwareSlot"
+  of 1: "RequestHardwareSlot"
+  else: "ControlChannelTriggerResourceType(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.ControlChannelTriggerStatus  (enum)
-type ControlChannelTriggerStatus* = distinct int32
-proc `==`*(a, b: ControlChannelTriggerStatus): bool {.borrow.}
+type ControlChannelTriggerStatus* {.pure, size: 4.} = enum
+  HardwareSlotRequested = 0'i32
+  SoftwareSlotAllocated = 1'i32
+  HardwareSlotAllocated = 2'i32
+  PolicyError = 3'i32
+  SystemError = 4'i32
+  TransportDisconnected = 5'i32
+  ServiceUnavailable = 6'i32
 proc `$`*(v: ControlChannelTriggerStatus): string =
-  case int32(v)
-  of 0'i32: "HardwareSlotRequested"
-  of 1'i32: "SoftwareSlotAllocated"
-  of 2'i32: "HardwareSlotAllocated"
-  of 3'i32: "PolicyError"
-  of 4'i32: "SystemError"
-  of 5'i32: "TransportDisconnected"
-  of 6'i32: "ServiceUnavailable"
-  else: "ControlChannelTriggerStatus(" & $int32(v) & ")"
-const ControlChannelTriggerStatus_HardwareSlotRequested* = ControlChannelTriggerStatus(0'i32)
-const ControlChannelTriggerStatus_SoftwareSlotAllocated* = ControlChannelTriggerStatus(1'i32)
-const ControlChannelTriggerStatus_HardwareSlotAllocated* = ControlChannelTriggerStatus(2'i32)
-const ControlChannelTriggerStatus_PolicyError* = ControlChannelTriggerStatus(3'i32)
-const ControlChannelTriggerStatus_SystemError* = ControlChannelTriggerStatus(4'i32)
-const ControlChannelTriggerStatus_TransportDisconnected* = ControlChannelTriggerStatus(5'i32)
-const ControlChannelTriggerStatus_ServiceUnavailable* = ControlChannelTriggerStatus(6'i32)
+  case ord(v)
+  of 0: "HardwareSlotRequested"
+  of 1: "SoftwareSlotAllocated"
+  of 2: "HardwareSlotAllocated"
+  of 3: "PolicyError"
+  of 4: "SystemError"
+  of 5: "TransportDisconnected"
+  of 6: "ServiceUnavailable"
+  else: "ControlChannelTriggerStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.MessageWebSocketReceiveMode  (enum)
-type MessageWebSocketReceiveMode* = distinct int32
-proc `==`*(a, b: MessageWebSocketReceiveMode): bool {.borrow.}
+type MessageWebSocketReceiveMode* {.pure, size: 4.} = enum
+  FullMessage = 0'i32
+  PartialMessage = 1'i32
 proc `$`*(v: MessageWebSocketReceiveMode): string =
-  case int32(v)
-  of 0'i32: "FullMessage"
-  of 1'i32: "PartialMessage"
-  else: "MessageWebSocketReceiveMode(" & $int32(v) & ")"
-const MessageWebSocketReceiveMode_FullMessage* = MessageWebSocketReceiveMode(0'i32)
-const MessageWebSocketReceiveMode_PartialMessage* = MessageWebSocketReceiveMode(1'i32)
+  case ord(v)
+  of 0: "FullMessage"
+  of 1: "PartialMessage"
+  else: "MessageWebSocketReceiveMode(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketActivityConnectedStandbyAction  (enum)
-type SocketActivityConnectedStandbyAction* = distinct int32
-proc `==`*(a, b: SocketActivityConnectedStandbyAction): bool {.borrow.}
+type SocketActivityConnectedStandbyAction* {.pure, size: 4.} = enum
+  DoNotWake = 0'i32
+  Wake = 1'i32
 proc `$`*(v: SocketActivityConnectedStandbyAction): string =
-  case int32(v)
-  of 0'i32: "DoNotWake"
-  of 1'i32: "Wake"
-  else: "SocketActivityConnectedStandbyAction(" & $int32(v) & ")"
-const SocketActivityConnectedStandbyAction_DoNotWake* = SocketActivityConnectedStandbyAction(0'i32)
-const SocketActivityConnectedStandbyAction_Wake* = SocketActivityConnectedStandbyAction(1'i32)
+  case ord(v)
+  of 0: "DoNotWake"
+  of 1: "Wake"
+  else: "SocketActivityConnectedStandbyAction(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketActivityKind  (enum)
-type SocketActivityKind* = distinct int32
-proc `==`*(a, b: SocketActivityKind): bool {.borrow.}
+type SocketActivityKind* {.pure, size: 4.} = enum
+  None = 0'i32
+  StreamSocketListener = 1'i32
+  DatagramSocket = 2'i32
+  StreamSocket = 3'i32
 proc `$`*(v: SocketActivityKind): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "StreamSocketListener"
-  of 2'i32: "DatagramSocket"
-  of 3'i32: "StreamSocket"
-  else: "SocketActivityKind(" & $int32(v) & ")"
-const SocketActivityKind_None* = SocketActivityKind(0'i32)
-const SocketActivityKind_StreamSocketListener* = SocketActivityKind(1'i32)
-const SocketActivityKind_DatagramSocket* = SocketActivityKind(2'i32)
-const SocketActivityKind_StreamSocket* = SocketActivityKind(3'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "StreamSocketListener"
+  of 2: "DatagramSocket"
+  of 3: "StreamSocket"
+  else: "SocketActivityKind(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketActivityTriggerReason  (enum)
-type SocketActivityTriggerReason* = distinct int32
-proc `==`*(a, b: SocketActivityTriggerReason): bool {.borrow.}
+type SocketActivityTriggerReason* {.pure, size: 4.} = enum
+  None = 0'i32
+  SocketActivity = 1'i32
+  ConnectionAccepted = 2'i32
+  KeepAliveTimerExpired = 3'i32
+  SocketClosed = 4'i32
 proc `$`*(v: SocketActivityTriggerReason): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "SocketActivity"
-  of 2'i32: "ConnectionAccepted"
-  of 3'i32: "KeepAliveTimerExpired"
-  of 4'i32: "SocketClosed"
-  else: "SocketActivityTriggerReason(" & $int32(v) & ")"
-const SocketActivityTriggerReason_None* = SocketActivityTriggerReason(0'i32)
-const SocketActivityTriggerReason_SocketActivity* = SocketActivityTriggerReason(1'i32)
-const SocketActivityTriggerReason_ConnectionAccepted* = SocketActivityTriggerReason(2'i32)
-const SocketActivityTriggerReason_KeepAliveTimerExpired* = SocketActivityTriggerReason(3'i32)
-const SocketActivityTriggerReason_SocketClosed* = SocketActivityTriggerReason(4'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "SocketActivity"
+  of 2: "ConnectionAccepted"
+  of 3: "KeepAliveTimerExpired"
+  of 4: "SocketClosed"
+  else: "SocketActivityTriggerReason(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketErrorStatus  (enum)
-type SocketErrorStatus* = distinct int32
-proc `==`*(a, b: SocketErrorStatus): bool {.borrow.}
+type SocketErrorStatus* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  OperationAborted = 1'i32
+  HttpInvalidServerResponse = 2'i32
+  ConnectionTimedOut = 3'i32
+  AddressFamilyNotSupported = 4'i32
+  SocketTypeNotSupported = 5'i32
+  HostNotFound = 6'i32
+  NoDataRecordOfRequestedType = 7'i32
+  NonAuthoritativeHostNotFound = 8'i32
+  ClassTypeNotFound = 9'i32
+  AddressAlreadyInUse = 10'i32
+  CannotAssignRequestedAddress = 11'i32
+  ConnectionRefused = 12'i32
+  NetworkIsUnreachable = 13'i32
+  UnreachableHost = 14'i32
+  NetworkIsDown = 15'i32
+  NetworkDroppedConnectionOnReset = 16'i32
+  SoftwareCausedConnectionAbort = 17'i32
+  ConnectionResetByPeer = 18'i32
+  HostIsDown = 19'i32
+  NoAddressesFound = 20'i32
+  TooManyOpenFiles = 21'i32
+  MessageTooLong = 22'i32
+  CertificateExpired = 23'i32
+  CertificateUntrustedRoot = 24'i32
+  CertificateCommonNameIsIncorrect = 25'i32
+  CertificateWrongUsage = 26'i32
+  CertificateRevoked = 27'i32
+  CertificateNoRevocationCheck = 28'i32
+  CertificateRevocationServerOffline = 29'i32
+  CertificateIsInvalid = 30'i32
 proc `$`*(v: SocketErrorStatus): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "OperationAborted"
-  of 2'i32: "HttpInvalidServerResponse"
-  of 3'i32: "ConnectionTimedOut"
-  of 4'i32: "AddressFamilyNotSupported"
-  of 5'i32: "SocketTypeNotSupported"
-  of 6'i32: "HostNotFound"
-  of 7'i32: "NoDataRecordOfRequestedType"
-  of 8'i32: "NonAuthoritativeHostNotFound"
-  of 9'i32: "ClassTypeNotFound"
-  of 10'i32: "AddressAlreadyInUse"
-  of 11'i32: "CannotAssignRequestedAddress"
-  of 12'i32: "ConnectionRefused"
-  of 13'i32: "NetworkIsUnreachable"
-  of 14'i32: "UnreachableHost"
-  of 15'i32: "NetworkIsDown"
-  of 16'i32: "NetworkDroppedConnectionOnReset"
-  of 17'i32: "SoftwareCausedConnectionAbort"
-  of 18'i32: "ConnectionResetByPeer"
-  of 19'i32: "HostIsDown"
-  of 20'i32: "NoAddressesFound"
-  of 21'i32: "TooManyOpenFiles"
-  of 22'i32: "MessageTooLong"
-  of 23'i32: "CertificateExpired"
-  of 24'i32: "CertificateUntrustedRoot"
-  of 25'i32: "CertificateCommonNameIsIncorrect"
-  of 26'i32: "CertificateWrongUsage"
-  of 27'i32: "CertificateRevoked"
-  of 28'i32: "CertificateNoRevocationCheck"
-  of 29'i32: "CertificateRevocationServerOffline"
-  of 30'i32: "CertificateIsInvalid"
-  else: "SocketErrorStatus(" & $int32(v) & ")"
-const SocketErrorStatus_Unknown* = SocketErrorStatus(0'i32)
-const SocketErrorStatus_OperationAborted* = SocketErrorStatus(1'i32)
-const SocketErrorStatus_HttpInvalidServerResponse* = SocketErrorStatus(2'i32)
-const SocketErrorStatus_ConnectionTimedOut* = SocketErrorStatus(3'i32)
-const SocketErrorStatus_AddressFamilyNotSupported* = SocketErrorStatus(4'i32)
-const SocketErrorStatus_SocketTypeNotSupported* = SocketErrorStatus(5'i32)
-const SocketErrorStatus_HostNotFound* = SocketErrorStatus(6'i32)
-const SocketErrorStatus_NoDataRecordOfRequestedType* = SocketErrorStatus(7'i32)
-const SocketErrorStatus_NonAuthoritativeHostNotFound* = SocketErrorStatus(8'i32)
-const SocketErrorStatus_ClassTypeNotFound* = SocketErrorStatus(9'i32)
-const SocketErrorStatus_AddressAlreadyInUse* = SocketErrorStatus(10'i32)
-const SocketErrorStatus_CannotAssignRequestedAddress* = SocketErrorStatus(11'i32)
-const SocketErrorStatus_ConnectionRefused* = SocketErrorStatus(12'i32)
-const SocketErrorStatus_NetworkIsUnreachable* = SocketErrorStatus(13'i32)
-const SocketErrorStatus_UnreachableHost* = SocketErrorStatus(14'i32)
-const SocketErrorStatus_NetworkIsDown* = SocketErrorStatus(15'i32)
-const SocketErrorStatus_NetworkDroppedConnectionOnReset* = SocketErrorStatus(16'i32)
-const SocketErrorStatus_SoftwareCausedConnectionAbort* = SocketErrorStatus(17'i32)
-const SocketErrorStatus_ConnectionResetByPeer* = SocketErrorStatus(18'i32)
-const SocketErrorStatus_HostIsDown* = SocketErrorStatus(19'i32)
-const SocketErrorStatus_NoAddressesFound* = SocketErrorStatus(20'i32)
-const SocketErrorStatus_TooManyOpenFiles* = SocketErrorStatus(21'i32)
-const SocketErrorStatus_MessageTooLong* = SocketErrorStatus(22'i32)
-const SocketErrorStatus_CertificateExpired* = SocketErrorStatus(23'i32)
-const SocketErrorStatus_CertificateUntrustedRoot* = SocketErrorStatus(24'i32)
-const SocketErrorStatus_CertificateCommonNameIsIncorrect* = SocketErrorStatus(25'i32)
-const SocketErrorStatus_CertificateWrongUsage* = SocketErrorStatus(26'i32)
-const SocketErrorStatus_CertificateRevoked* = SocketErrorStatus(27'i32)
-const SocketErrorStatus_CertificateNoRevocationCheck* = SocketErrorStatus(28'i32)
-const SocketErrorStatus_CertificateRevocationServerOffline* = SocketErrorStatus(29'i32)
-const SocketErrorStatus_CertificateIsInvalid* = SocketErrorStatus(30'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "OperationAborted"
+  of 2: "HttpInvalidServerResponse"
+  of 3: "ConnectionTimedOut"
+  of 4: "AddressFamilyNotSupported"
+  of 5: "SocketTypeNotSupported"
+  of 6: "HostNotFound"
+  of 7: "NoDataRecordOfRequestedType"
+  of 8: "NonAuthoritativeHostNotFound"
+  of 9: "ClassTypeNotFound"
+  of 10: "AddressAlreadyInUse"
+  of 11: "CannotAssignRequestedAddress"
+  of 12: "ConnectionRefused"
+  of 13: "NetworkIsUnreachable"
+  of 14: "UnreachableHost"
+  of 15: "NetworkIsDown"
+  of 16: "NetworkDroppedConnectionOnReset"
+  of 17: "SoftwareCausedConnectionAbort"
+  of 18: "ConnectionResetByPeer"
+  of 19: "HostIsDown"
+  of 20: "NoAddressesFound"
+  of 21: "TooManyOpenFiles"
+  of 22: "MessageTooLong"
+  of 23: "CertificateExpired"
+  of 24: "CertificateUntrustedRoot"
+  of 25: "CertificateCommonNameIsIncorrect"
+  of 26: "CertificateWrongUsage"
+  of 27: "CertificateRevoked"
+  of 28: "CertificateNoRevocationCheck"
+  of 29: "CertificateRevocationServerOffline"
+  of 30: "CertificateIsInvalid"
+  else: "SocketErrorStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketMessageType  (enum)
-type SocketMessageType* = distinct int32
-proc `==`*(a, b: SocketMessageType): bool {.borrow.}
+type SocketMessageType* {.pure, size: 4.} = enum
+  Binary = 0'i32
+  Utf8 = 1'i32
 proc `$`*(v: SocketMessageType): string =
-  case int32(v)
-  of 0'i32: "Binary"
-  of 1'i32: "Utf8"
-  else: "SocketMessageType(" & $int32(v) & ")"
-const SocketMessageType_Binary* = SocketMessageType(0'i32)
-const SocketMessageType_Utf8* = SocketMessageType(1'i32)
+  case ord(v)
+  of 0: "Binary"
+  of 1: "Utf8"
+  else: "SocketMessageType(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketProtectionLevel  (enum)
-type SocketProtectionLevel* = distinct int32
-proc `==`*(a, b: SocketProtectionLevel): bool {.borrow.}
+type SocketProtectionLevel* {.pure, size: 4.} = enum
+  PlainSocket = 0'i32
+  Ssl = 1'i32
+  SslAllowNullEncryption = 2'i32
+  BluetoothEncryptionAllowNullAuthentication = 3'i32
+  BluetoothEncryptionWithAuthentication = 4'i32
+  Ssl3AllowWeakEncryption = 5'i32
+  Tls10 = 6'i32
+  Tls11 = 7'i32
+  Tls12 = 8'i32
+  Unspecified = 9'i32
+  Tls13 = 10'i32
 proc `$`*(v: SocketProtectionLevel): string =
-  case int32(v)
-  of 0'i32: "PlainSocket"
-  of 1'i32: "Ssl"
-  of 2'i32: "SslAllowNullEncryption"
-  of 3'i32: "BluetoothEncryptionAllowNullAuthentication"
-  of 4'i32: "BluetoothEncryptionWithAuthentication"
-  of 5'i32: "Ssl3AllowWeakEncryption"
-  of 6'i32: "Tls10"
-  of 7'i32: "Tls11"
-  of 8'i32: "Tls12"
-  of 9'i32: "Unspecified"
-  of 10'i32: "Tls13"
-  else: "SocketProtectionLevel(" & $int32(v) & ")"
-const SocketProtectionLevel_PlainSocket* = SocketProtectionLevel(0'i32)
-const SocketProtectionLevel_Ssl* = SocketProtectionLevel(1'i32)
-const SocketProtectionLevel_SslAllowNullEncryption* = SocketProtectionLevel(2'i32)
-const SocketProtectionLevel_BluetoothEncryptionAllowNullAuthentication* = SocketProtectionLevel(3'i32)
-const SocketProtectionLevel_BluetoothEncryptionWithAuthentication* = SocketProtectionLevel(4'i32)
-const SocketProtectionLevel_Ssl3AllowWeakEncryption* = SocketProtectionLevel(5'i32)
-const SocketProtectionLevel_Tls10* = SocketProtectionLevel(6'i32)
-const SocketProtectionLevel_Tls11* = SocketProtectionLevel(7'i32)
-const SocketProtectionLevel_Tls12* = SocketProtectionLevel(8'i32)
-const SocketProtectionLevel_Unspecified* = SocketProtectionLevel(9'i32)
-const SocketProtectionLevel_Tls13* = SocketProtectionLevel(10'i32)
+  case ord(v)
+  of 0: "PlainSocket"
+  of 1: "Ssl"
+  of 2: "SslAllowNullEncryption"
+  of 3: "BluetoothEncryptionAllowNullAuthentication"
+  of 4: "BluetoothEncryptionWithAuthentication"
+  of 5: "Ssl3AllowWeakEncryption"
+  of 6: "Tls10"
+  of 7: "Tls11"
+  of 8: "Tls12"
+  of 9: "Unspecified"
+  of 10: "Tls13"
+  else: "SocketProtectionLevel(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketQualityOfService  (enum)
-type SocketQualityOfService* = distinct int32
-proc `==`*(a, b: SocketQualityOfService): bool {.borrow.}
+type SocketQualityOfService* {.pure, size: 4.} = enum
+  Normal = 0'i32
+  LowLatency = 1'i32
 proc `$`*(v: SocketQualityOfService): string =
-  case int32(v)
-  of 0'i32: "Normal"
-  of 1'i32: "LowLatency"
-  else: "SocketQualityOfService(" & $int32(v) & ")"
-const SocketQualityOfService_Normal* = SocketQualityOfService(0'i32)
-const SocketQualityOfService_LowLatency* = SocketQualityOfService(1'i32)
+  case ord(v)
+  of 0: "Normal"
+  of 1: "LowLatency"
+  else: "SocketQualityOfService(" & $ord(v) & ")"
 
 ## Windows.Networking.Sockets.SocketSslErrorSeverity  (enum)
-type SocketSslErrorSeverity* = distinct int32
-proc `==`*(a, b: SocketSslErrorSeverity): bool {.borrow.}
+type SocketSslErrorSeverity* {.pure, size: 4.} = enum
+  None = 0'i32
+  Ignorable = 1'i32
+  Fatal = 2'i32
 proc `$`*(v: SocketSslErrorSeverity): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Ignorable"
-  of 2'i32: "Fatal"
-  else: "SocketSslErrorSeverity(" & $int32(v) & ")"
-const SocketSslErrorSeverity_None* = SocketSslErrorSeverity(0'i32)
-const SocketSslErrorSeverity_Ignorable* = SocketSslErrorSeverity(1'i32)
-const SocketSslErrorSeverity_Fatal* = SocketSslErrorSeverity(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Ignorable"
+  of 2: "Fatal"
+  else: "SocketSslErrorSeverity(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnAppIdType  (enum)
-type VpnAppIdType* = distinct int32
-proc `==`*(a, b: VpnAppIdType): bool {.borrow.}
+type VpnAppIdType* {.pure, size: 4.} = enum
+  PackageFamilyName = 0'i32
+  FullyQualifiedBinaryName = 1'i32
+  FilePath = 2'i32
 proc `$`*(v: VpnAppIdType): string =
-  case int32(v)
-  of 0'i32: "PackageFamilyName"
-  of 1'i32: "FullyQualifiedBinaryName"
-  of 2'i32: "FilePath"
-  else: "VpnAppIdType(" & $int32(v) & ")"
-const VpnAppIdType_PackageFamilyName* = VpnAppIdType(0'i32)
-const VpnAppIdType_FullyQualifiedBinaryName* = VpnAppIdType(1'i32)
-const VpnAppIdType_FilePath* = VpnAppIdType(2'i32)
+  case ord(v)
+  of 0: "PackageFamilyName"
+  of 1: "FullyQualifiedBinaryName"
+  of 2: "FilePath"
+  else: "VpnAppIdType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnAuthenticationMethod  (enum)
-type VpnAuthenticationMethod* = distinct int32
-proc `==`*(a, b: VpnAuthenticationMethod): bool {.borrow.}
+type VpnAuthenticationMethod* {.pure, size: 4.} = enum
+  Mschapv2 = 0'i32
+  Eap = 1'i32
+  Certificate = 2'i32
+  PresharedKey = 3'i32
 proc `$`*(v: VpnAuthenticationMethod): string =
-  case int32(v)
-  of 0'i32: "Mschapv2"
-  of 1'i32: "Eap"
-  of 2'i32: "Certificate"
-  of 3'i32: "PresharedKey"
-  else: "VpnAuthenticationMethod(" & $int32(v) & ")"
-const VpnAuthenticationMethod_Mschapv2* = VpnAuthenticationMethod(0'i32)
-const VpnAuthenticationMethod_Eap* = VpnAuthenticationMethod(1'i32)
-const VpnAuthenticationMethod_Certificate* = VpnAuthenticationMethod(2'i32)
-const VpnAuthenticationMethod_PresharedKey* = VpnAuthenticationMethod(3'i32)
+  case ord(v)
+  of 0: "Mschapv2"
+  of 1: "Eap"
+  of 2: "Certificate"
+  of 3: "PresharedKey"
+  else: "VpnAuthenticationMethod(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnChannelActivityEventType  (enum)
-type VpnChannelActivityEventType* = distinct int32
-proc `==`*(a, b: VpnChannelActivityEventType): bool {.borrow.}
+type VpnChannelActivityEventType* {.pure, size: 4.} = enum
+  Idle = 0'i32
+  Active = 1'i32
 proc `$`*(v: VpnChannelActivityEventType): string =
-  case int32(v)
-  of 0'i32: "Idle"
-  of 1'i32: "Active"
-  else: "VpnChannelActivityEventType(" & $int32(v) & ")"
-const VpnChannelActivityEventType_Idle* = VpnChannelActivityEventType(0'i32)
-const VpnChannelActivityEventType_Active* = VpnChannelActivityEventType(1'i32)
+  case ord(v)
+  of 0: "Idle"
+  of 1: "Active"
+  else: "VpnChannelActivityEventType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnChannelRequestCredentialsOptions  (enum)
 type VpnChannelRequestCredentialsOptions* = distinct int32
 proc `==`*(a, b: VpnChannelRequestCredentialsOptions): bool {.borrow.}
+proc `or`*(a, b: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
+proc `and`*(a, b: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
+proc `not`*(a: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
+proc contains*(a, b: VpnChannelRequestCredentialsOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: VpnChannelRequestCredentialsOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Retrying"
-  of 2'i32: "UseForSingleSignIn"
-  else: "VpnChannelRequestCredentialsOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Retrying"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "UseForSingleSignIn"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "VpnChannelRequestCredentialsOptions(" & $rest & ")"
 const VpnChannelRequestCredentialsOptions_None* = VpnChannelRequestCredentialsOptions(0'i32)
 const VpnChannelRequestCredentialsOptions_Retrying* = VpnChannelRequestCredentialsOptions(1'i32)
 const VpnChannelRequestCredentialsOptions_UseForSingleSignIn* = VpnChannelRequestCredentialsOptions(2'i32)
 
 ## Windows.Networking.Vpn.VpnCredentialType  (enum)
-type VpnCredentialType* = distinct int32
-proc `==`*(a, b: VpnCredentialType): bool {.borrow.}
+type VpnCredentialType* {.pure, size: 4.} = enum
+  UsernamePassword = 0'i32
+  UsernameOtpPin = 1'i32
+  UsernamePasswordAndPin = 2'i32
+  UsernamePasswordChange = 3'i32
+  SmartCard = 4'i32
+  ProtectedCertificate = 5'i32
+  UnProtectedCertificate = 6'i32
 proc `$`*(v: VpnCredentialType): string =
-  case int32(v)
-  of 0'i32: "UsernamePassword"
-  of 1'i32: "UsernameOtpPin"
-  of 2'i32: "UsernamePasswordAndPin"
-  of 3'i32: "UsernamePasswordChange"
-  of 4'i32: "SmartCard"
-  of 5'i32: "ProtectedCertificate"
-  of 6'i32: "UnProtectedCertificate"
-  else: "VpnCredentialType(" & $int32(v) & ")"
-const VpnCredentialType_UsernamePassword* = VpnCredentialType(0'i32)
-const VpnCredentialType_UsernameOtpPin* = VpnCredentialType(1'i32)
-const VpnCredentialType_UsernamePasswordAndPin* = VpnCredentialType(2'i32)
-const VpnCredentialType_UsernamePasswordChange* = VpnCredentialType(3'i32)
-const VpnCredentialType_SmartCard* = VpnCredentialType(4'i32)
-const VpnCredentialType_ProtectedCertificate* = VpnCredentialType(5'i32)
-const VpnCredentialType_UnProtectedCertificate* = VpnCredentialType(6'i32)
+  case ord(v)
+  of 0: "UsernamePassword"
+  of 1: "UsernameOtpPin"
+  of 2: "UsernamePasswordAndPin"
+  of 3: "UsernamePasswordChange"
+  of 4: "SmartCard"
+  of 5: "ProtectedCertificate"
+  of 6: "UnProtectedCertificate"
+  else: "VpnCredentialType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnDataPathType  (enum)
-type VpnDataPathType* = distinct int32
-proc `==`*(a, b: VpnDataPathType): bool {.borrow.}
+type VpnDataPathType* {.pure, size: 4.} = enum
+  Send = 0'i32
+  Receive = 1'i32
 proc `$`*(v: VpnDataPathType): string =
-  case int32(v)
-  of 0'i32: "Send"
-  of 1'i32: "Receive"
-  else: "VpnDataPathType(" & $int32(v) & ")"
-const VpnDataPathType_Send* = VpnDataPathType(0'i32)
-const VpnDataPathType_Receive* = VpnDataPathType(1'i32)
+  case ord(v)
+  of 0: "Send"
+  of 1: "Receive"
+  else: "VpnDataPathType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnDomainNameType  (enum)
-type VpnDomainNameType* = distinct int32
-proc `==`*(a, b: VpnDomainNameType): bool {.borrow.}
+type VpnDomainNameType* {.pure, size: 4.} = enum
+  Suffix = 0'i32
+  FullyQualified = 1'i32
+  Reserved = 65535'i32
 proc `$`*(v: VpnDomainNameType): string =
-  case int32(v)
-  of 0'i32: "Suffix"
-  of 1'i32: "FullyQualified"
-  of 65535'i32: "Reserved"
-  else: "VpnDomainNameType(" & $int32(v) & ")"
-const VpnDomainNameType_Suffix* = VpnDomainNameType(0'i32)
-const VpnDomainNameType_FullyQualified* = VpnDomainNameType(1'i32)
-const VpnDomainNameType_Reserved* = VpnDomainNameType(65535'i32)
+  case ord(v)
+  of 0: "Suffix"
+  of 1: "FullyQualified"
+  of 65535: "Reserved"
+  else: "VpnDomainNameType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnIPProtocol  (enum)
-type VpnIPProtocol* = distinct int32
-proc `==`*(a, b: VpnIPProtocol): bool {.borrow.}
+type VpnIPProtocol* {.pure, size: 4.} = enum
+  None = 0'i32
+  Icmp = 1'i32
+  Igmp = 2'i32
+  Tcp = 6'i32
+  Udp = 17'i32
+  Ipv6Icmp = 58'i32
+  Pgm = 113'i32
 proc `$`*(v: VpnIPProtocol): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 6'i32: "Tcp"
-  of 17'i32: "Udp"
-  of 1'i32: "Icmp"
-  of 58'i32: "Ipv6Icmp"
-  of 2'i32: "Igmp"
-  of 113'i32: "Pgm"
-  else: "VpnIPProtocol(" & $int32(v) & ")"
-const VpnIPProtocol_None* = VpnIPProtocol(0'i32)
-const VpnIPProtocol_Tcp* = VpnIPProtocol(6'i32)
-const VpnIPProtocol_Udp* = VpnIPProtocol(17'i32)
-const VpnIPProtocol_Icmp* = VpnIPProtocol(1'i32)
-const VpnIPProtocol_Ipv6Icmp* = VpnIPProtocol(58'i32)
-const VpnIPProtocol_Igmp* = VpnIPProtocol(2'i32)
-const VpnIPProtocol_Pgm* = VpnIPProtocol(113'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Icmp"
+  of 2: "Igmp"
+  of 6: "Tcp"
+  of 17: "Udp"
+  of 58: "Ipv6Icmp"
+  of 113: "Pgm"
+  else: "VpnIPProtocol(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnManagementConnectionStatus  (enum)
-type VpnManagementConnectionStatus* = distinct int32
-proc `==`*(a, b: VpnManagementConnectionStatus): bool {.borrow.}
+type VpnManagementConnectionStatus* {.pure, size: 4.} = enum
+  Disconnected = 0'i32
+  Disconnecting = 1'i32
+  Connected = 2'i32
+  Connecting = 3'i32
 proc `$`*(v: VpnManagementConnectionStatus): string =
-  case int32(v)
-  of 0'i32: "Disconnected"
-  of 1'i32: "Disconnecting"
-  of 2'i32: "Connected"
-  of 3'i32: "Connecting"
-  else: "VpnManagementConnectionStatus(" & $int32(v) & ")"
-const VpnManagementConnectionStatus_Disconnected* = VpnManagementConnectionStatus(0'i32)
-const VpnManagementConnectionStatus_Disconnecting* = VpnManagementConnectionStatus(1'i32)
-const VpnManagementConnectionStatus_Connected* = VpnManagementConnectionStatus(2'i32)
-const VpnManagementConnectionStatus_Connecting* = VpnManagementConnectionStatus(3'i32)
+  case ord(v)
+  of 0: "Disconnected"
+  of 1: "Disconnecting"
+  of 2: "Connected"
+  of 3: "Connecting"
+  else: "VpnManagementConnectionStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnManagementErrorStatus  (enum)
-type VpnManagementErrorStatus* = distinct int32
-proc `==`*(a, b: VpnManagementErrorStatus): bool {.borrow.}
+type VpnManagementErrorStatus* {.pure, size: 4.} = enum
+  Ok = 0'i32
+  Other = 1'i32
+  InvalidXmlSyntax = 2'i32
+  ProfileNameTooLong = 3'i32
+  ProfileInvalidAppId = 4'i32
+  AccessDenied = 5'i32
+  CannotFindProfile = 6'i32
+  AlreadyDisconnecting = 7'i32
+  AlreadyConnected = 8'i32
+  GeneralAuthenticationFailure = 9'i32
+  EapFailure = 10'i32
+  SmartCardFailure = 11'i32
+  CertificateFailure = 12'i32
+  ServerConfiguration = 13'i32
+  NoConnection = 14'i32
+  ServerConnection = 15'i32
+  UserNamePassword = 16'i32
+  DnsNotResolvable = 17'i32
+  InvalidIP = 18'i32
 proc `$`*(v: VpnManagementErrorStatus): string =
-  case int32(v)
-  of 0'i32: "Ok"
-  of 1'i32: "Other"
-  of 2'i32: "InvalidXmlSyntax"
-  of 3'i32: "ProfileNameTooLong"
-  of 4'i32: "ProfileInvalidAppId"
-  of 5'i32: "AccessDenied"
-  of 6'i32: "CannotFindProfile"
-  of 7'i32: "AlreadyDisconnecting"
-  of 8'i32: "AlreadyConnected"
-  of 9'i32: "GeneralAuthenticationFailure"
-  of 10'i32: "EapFailure"
-  of 11'i32: "SmartCardFailure"
-  of 12'i32: "CertificateFailure"
-  of 13'i32: "ServerConfiguration"
-  of 14'i32: "NoConnection"
-  of 15'i32: "ServerConnection"
-  of 16'i32: "UserNamePassword"
-  of 17'i32: "DnsNotResolvable"
-  of 18'i32: "InvalidIP"
-  else: "VpnManagementErrorStatus(" & $int32(v) & ")"
-const VpnManagementErrorStatus_Ok* = VpnManagementErrorStatus(0'i32)
-const VpnManagementErrorStatus_Other* = VpnManagementErrorStatus(1'i32)
-const VpnManagementErrorStatus_InvalidXmlSyntax* = VpnManagementErrorStatus(2'i32)
-const VpnManagementErrorStatus_ProfileNameTooLong* = VpnManagementErrorStatus(3'i32)
-const VpnManagementErrorStatus_ProfileInvalidAppId* = VpnManagementErrorStatus(4'i32)
-const VpnManagementErrorStatus_AccessDenied* = VpnManagementErrorStatus(5'i32)
-const VpnManagementErrorStatus_CannotFindProfile* = VpnManagementErrorStatus(6'i32)
-const VpnManagementErrorStatus_AlreadyDisconnecting* = VpnManagementErrorStatus(7'i32)
-const VpnManagementErrorStatus_AlreadyConnected* = VpnManagementErrorStatus(8'i32)
-const VpnManagementErrorStatus_GeneralAuthenticationFailure* = VpnManagementErrorStatus(9'i32)
-const VpnManagementErrorStatus_EapFailure* = VpnManagementErrorStatus(10'i32)
-const VpnManagementErrorStatus_SmartCardFailure* = VpnManagementErrorStatus(11'i32)
-const VpnManagementErrorStatus_CertificateFailure* = VpnManagementErrorStatus(12'i32)
-const VpnManagementErrorStatus_ServerConfiguration* = VpnManagementErrorStatus(13'i32)
-const VpnManagementErrorStatus_NoConnection* = VpnManagementErrorStatus(14'i32)
-const VpnManagementErrorStatus_ServerConnection* = VpnManagementErrorStatus(15'i32)
-const VpnManagementErrorStatus_UserNamePassword* = VpnManagementErrorStatus(16'i32)
-const VpnManagementErrorStatus_DnsNotResolvable* = VpnManagementErrorStatus(17'i32)
-const VpnManagementErrorStatus_InvalidIP* = VpnManagementErrorStatus(18'i32)
+  case ord(v)
+  of 0: "Ok"
+  of 1: "Other"
+  of 2: "InvalidXmlSyntax"
+  of 3: "ProfileNameTooLong"
+  of 4: "ProfileInvalidAppId"
+  of 5: "AccessDenied"
+  of 6: "CannotFindProfile"
+  of 7: "AlreadyDisconnecting"
+  of 8: "AlreadyConnected"
+  of 9: "GeneralAuthenticationFailure"
+  of 10: "EapFailure"
+  of 11: "SmartCardFailure"
+  of 12: "CertificateFailure"
+  of 13: "ServerConfiguration"
+  of 14: "NoConnection"
+  of 15: "ServerConnection"
+  of 16: "UserNamePassword"
+  of 17: "DnsNotResolvable"
+  of 18: "InvalidIP"
+  else: "VpnManagementErrorStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnNativeProtocolType  (enum)
-type VpnNativeProtocolType* = distinct int32
-proc `==`*(a, b: VpnNativeProtocolType): bool {.borrow.}
+type VpnNativeProtocolType* {.pure, size: 4.} = enum
+  Pptp = 0'i32
+  L2tp = 1'i32
+  IpsecIkev2 = 2'i32
 proc `$`*(v: VpnNativeProtocolType): string =
-  case int32(v)
-  of 0'i32: "Pptp"
-  of 1'i32: "L2tp"
-  of 2'i32: "IpsecIkev2"
-  else: "VpnNativeProtocolType(" & $int32(v) & ")"
-const VpnNativeProtocolType_Pptp* = VpnNativeProtocolType(0'i32)
-const VpnNativeProtocolType_L2tp* = VpnNativeProtocolType(1'i32)
-const VpnNativeProtocolType_IpsecIkev2* = VpnNativeProtocolType(2'i32)
+  case ord(v)
+  of 0: "Pptp"
+  of 1: "L2tp"
+  of 2: "IpsecIkev2"
+  else: "VpnNativeProtocolType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnPacketBufferStatus  (enum)
-type VpnPacketBufferStatus* = distinct int32
-proc `==`*(a, b: VpnPacketBufferStatus): bool {.borrow.}
+type VpnPacketBufferStatus* {.pure, size: 4.} = enum
+  Ok = 0'i32
+  InvalidBufferSize = 1'i32
 proc `$`*(v: VpnPacketBufferStatus): string =
-  case int32(v)
-  of 0'i32: "Ok"
-  of 1'i32: "InvalidBufferSize"
-  else: "VpnPacketBufferStatus(" & $int32(v) & ")"
-const VpnPacketBufferStatus_Ok* = VpnPacketBufferStatus(0'i32)
-const VpnPacketBufferStatus_InvalidBufferSize* = VpnPacketBufferStatus(1'i32)
+  case ord(v)
+  of 0: "Ok"
+  of 1: "InvalidBufferSize"
+  else: "VpnPacketBufferStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnRoutingPolicyType  (enum)
-type VpnRoutingPolicyType* = distinct int32
-proc `==`*(a, b: VpnRoutingPolicyType): bool {.borrow.}
+type VpnRoutingPolicyType* {.pure, size: 4.} = enum
+  SplitRouting = 0'i32
+  ForceAllTrafficOverVpn = 1'i32
 proc `$`*(v: VpnRoutingPolicyType): string =
-  case int32(v)
-  of 0'i32: "SplitRouting"
-  of 1'i32: "ForceAllTrafficOverVpn"
-  else: "VpnRoutingPolicyType(" & $int32(v) & ")"
-const VpnRoutingPolicyType_SplitRouting* = VpnRoutingPolicyType(0'i32)
-const VpnRoutingPolicyType_ForceAllTrafficOverVpn* = VpnRoutingPolicyType(1'i32)
+  case ord(v)
+  of 0: "SplitRouting"
+  of 1: "ForceAllTrafficOverVpn"
+  else: "VpnRoutingPolicyType(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairCreationBehaviors  (enum)
 type XboxLiveEndpointPairCreationBehaviors* = distinct int32
 proc `==`*(a, b: XboxLiveEndpointPairCreationBehaviors): bool {.borrow.}
+proc `or`*(a, b: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
+proc `and`*(a, b: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
+proc `not`*(a: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
+proc contains*(a, b: XboxLiveEndpointPairCreationBehaviors): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: XboxLiveEndpointPairCreationBehaviors): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "ReevaluatePath"
-  else: "XboxLiveEndpointPairCreationBehaviors(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "ReevaluatePath"
+    rest = rest and not 1'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "XboxLiveEndpointPairCreationBehaviors(" & $rest & ")"
 const XboxLiveEndpointPairCreationBehaviors_None* = XboxLiveEndpointPairCreationBehaviors(0'i32)
 const XboxLiveEndpointPairCreationBehaviors_ReevaluatePath* = XboxLiveEndpointPairCreationBehaviors(1'i32)
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairCreationStatus  (enum)
-type XboxLiveEndpointPairCreationStatus* = distinct int32
-proc `==`*(a, b: XboxLiveEndpointPairCreationStatus): bool {.borrow.}
+type XboxLiveEndpointPairCreationStatus* {.pure, size: 4.} = enum
+  Succeeded = 0'i32
+  NoLocalNetworks = 1'i32
+  NoCompatibleNetworkPaths = 2'i32
+  LocalSystemNotAuthorized = 3'i32
+  Canceled = 4'i32
+  TimedOut = 5'i32
+  RemoteSystemNotAuthorized = 6'i32
+  RefusedDueToConfiguration = 7'i32
+  UnexpectedInternalError = 8'i32
 proc `$`*(v: XboxLiveEndpointPairCreationStatus): string =
-  case int32(v)
-  of 0'i32: "Succeeded"
-  of 1'i32: "NoLocalNetworks"
-  of 2'i32: "NoCompatibleNetworkPaths"
-  of 3'i32: "LocalSystemNotAuthorized"
-  of 4'i32: "Canceled"
-  of 5'i32: "TimedOut"
-  of 6'i32: "RemoteSystemNotAuthorized"
-  of 7'i32: "RefusedDueToConfiguration"
-  of 8'i32: "UnexpectedInternalError"
-  else: "XboxLiveEndpointPairCreationStatus(" & $int32(v) & ")"
-const XboxLiveEndpointPairCreationStatus_Succeeded* = XboxLiveEndpointPairCreationStatus(0'i32)
-const XboxLiveEndpointPairCreationStatus_NoLocalNetworks* = XboxLiveEndpointPairCreationStatus(1'i32)
-const XboxLiveEndpointPairCreationStatus_NoCompatibleNetworkPaths* = XboxLiveEndpointPairCreationStatus(2'i32)
-const XboxLiveEndpointPairCreationStatus_LocalSystemNotAuthorized* = XboxLiveEndpointPairCreationStatus(3'i32)
-const XboxLiveEndpointPairCreationStatus_Canceled* = XboxLiveEndpointPairCreationStatus(4'i32)
-const XboxLiveEndpointPairCreationStatus_TimedOut* = XboxLiveEndpointPairCreationStatus(5'i32)
-const XboxLiveEndpointPairCreationStatus_RemoteSystemNotAuthorized* = XboxLiveEndpointPairCreationStatus(6'i32)
-const XboxLiveEndpointPairCreationStatus_RefusedDueToConfiguration* = XboxLiveEndpointPairCreationStatus(7'i32)
-const XboxLiveEndpointPairCreationStatus_UnexpectedInternalError* = XboxLiveEndpointPairCreationStatus(8'i32)
+  case ord(v)
+  of 0: "Succeeded"
+  of 1: "NoLocalNetworks"
+  of 2: "NoCompatibleNetworkPaths"
+  of 3: "LocalSystemNotAuthorized"
+  of 4: "Canceled"
+  of 5: "TimedOut"
+  of 6: "RemoteSystemNotAuthorized"
+  of 7: "RefusedDueToConfiguration"
+  of 8: "UnexpectedInternalError"
+  else: "XboxLiveEndpointPairCreationStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairState  (enum)
-type XboxLiveEndpointPairState* = distinct int32
-proc `==`*(a, b: XboxLiveEndpointPairState): bool {.borrow.}
+type XboxLiveEndpointPairState* {.pure, size: 4.} = enum
+  Invalid = 0'i32
+  CreatingOutbound = 1'i32
+  CreatingInbound = 2'i32
+  Ready = 3'i32
+  DeletingLocally = 4'i32
+  RemoteEndpointTerminating = 5'i32
+  Deleted = 6'i32
 proc `$`*(v: XboxLiveEndpointPairState): string =
-  case int32(v)
-  of 0'i32: "Invalid"
-  of 1'i32: "CreatingOutbound"
-  of 2'i32: "CreatingInbound"
-  of 3'i32: "Ready"
-  of 4'i32: "DeletingLocally"
-  of 5'i32: "RemoteEndpointTerminating"
-  of 6'i32: "Deleted"
-  else: "XboxLiveEndpointPairState(" & $int32(v) & ")"
-const XboxLiveEndpointPairState_Invalid* = XboxLiveEndpointPairState(0'i32)
-const XboxLiveEndpointPairState_CreatingOutbound* = XboxLiveEndpointPairState(1'i32)
-const XboxLiveEndpointPairState_CreatingInbound* = XboxLiveEndpointPairState(2'i32)
-const XboxLiveEndpointPairState_Ready* = XboxLiveEndpointPairState(3'i32)
-const XboxLiveEndpointPairState_DeletingLocally* = XboxLiveEndpointPairState(4'i32)
-const XboxLiveEndpointPairState_RemoteEndpointTerminating* = XboxLiveEndpointPairState(5'i32)
-const XboxLiveEndpointPairState_Deleted* = XboxLiveEndpointPairState(6'i32)
+  case ord(v)
+  of 0: "Invalid"
+  of 1: "CreatingOutbound"
+  of 2: "CreatingInbound"
+  of 3: "Ready"
+  of 4: "DeletingLocally"
+  of 5: "RemoteEndpointTerminating"
+  of 6: "Deleted"
+  else: "XboxLiveEndpointPairState(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveNetworkAccessKind  (enum)
-type XboxLiveNetworkAccessKind* = distinct int32
-proc `==`*(a, b: XboxLiveNetworkAccessKind): bool {.borrow.}
+type XboxLiveNetworkAccessKind* {.pure, size: 4.} = enum
+  Open = 0'i32
+  Moderate = 1'i32
+  Strict = 2'i32
 proc `$`*(v: XboxLiveNetworkAccessKind): string =
-  case int32(v)
-  of 0'i32: "Open"
-  of 1'i32: "Moderate"
-  of 2'i32: "Strict"
-  else: "XboxLiveNetworkAccessKind(" & $int32(v) & ")"
-const XboxLiveNetworkAccessKind_Open* = XboxLiveNetworkAccessKind(0'i32)
-const XboxLiveNetworkAccessKind_Moderate* = XboxLiveNetworkAccessKind(1'i32)
-const XboxLiveNetworkAccessKind_Strict* = XboxLiveNetworkAccessKind(2'i32)
+  case ord(v)
+  of 0: "Open"
+  of 1: "Moderate"
+  of 2: "Strict"
+  else: "XboxLiveNetworkAccessKind(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurementStatus  (enum)
-type XboxLiveQualityOfServiceMeasurementStatus* = distinct int32
-proc `==`*(a, b: XboxLiveQualityOfServiceMeasurementStatus): bool {.borrow.}
+type XboxLiveQualityOfServiceMeasurementStatus* {.pure, size: 4.} = enum
+  NotStarted = 0'i32
+  InProgress = 1'i32
+  InProgressWithProvisionalResults = 2'i32
+  Succeeded = 3'i32
+  NoLocalNetworks = 4'i32
+  NoCompatibleNetworkPaths = 5'i32
+  LocalSystemNotAuthorized = 6'i32
+  Canceled = 7'i32
+  TimedOut = 8'i32
+  RemoteSystemNotAuthorized = 9'i32
+  RefusedDueToConfiguration = 10'i32
+  UnexpectedInternalError = 11'i32
 proc `$`*(v: XboxLiveQualityOfServiceMeasurementStatus): string =
-  case int32(v)
-  of 0'i32: "NotStarted"
-  of 1'i32: "InProgress"
-  of 2'i32: "InProgressWithProvisionalResults"
-  of 3'i32: "Succeeded"
-  of 4'i32: "NoLocalNetworks"
-  of 5'i32: "NoCompatibleNetworkPaths"
-  of 6'i32: "LocalSystemNotAuthorized"
-  of 7'i32: "Canceled"
-  of 8'i32: "TimedOut"
-  of 9'i32: "RemoteSystemNotAuthorized"
-  of 10'i32: "RefusedDueToConfiguration"
-  of 11'i32: "UnexpectedInternalError"
-  else: "XboxLiveQualityOfServiceMeasurementStatus(" & $int32(v) & ")"
-const XboxLiveQualityOfServiceMeasurementStatus_NotStarted* = XboxLiveQualityOfServiceMeasurementStatus(0'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_InProgress* = XboxLiveQualityOfServiceMeasurementStatus(1'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_InProgressWithProvisionalResults* = XboxLiveQualityOfServiceMeasurementStatus(2'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_Succeeded* = XboxLiveQualityOfServiceMeasurementStatus(3'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_NoLocalNetworks* = XboxLiveQualityOfServiceMeasurementStatus(4'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_NoCompatibleNetworkPaths* = XboxLiveQualityOfServiceMeasurementStatus(5'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_LocalSystemNotAuthorized* = XboxLiveQualityOfServiceMeasurementStatus(6'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_Canceled* = XboxLiveQualityOfServiceMeasurementStatus(7'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_TimedOut* = XboxLiveQualityOfServiceMeasurementStatus(8'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_RemoteSystemNotAuthorized* = XboxLiveQualityOfServiceMeasurementStatus(9'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_RefusedDueToConfiguration* = XboxLiveQualityOfServiceMeasurementStatus(10'i32)
-const XboxLiveQualityOfServiceMeasurementStatus_UnexpectedInternalError* = XboxLiveQualityOfServiceMeasurementStatus(11'i32)
+  case ord(v)
+  of 0: "NotStarted"
+  of 1: "InProgress"
+  of 2: "InProgressWithProvisionalResults"
+  of 3: "Succeeded"
+  of 4: "NoLocalNetworks"
+  of 5: "NoCompatibleNetworkPaths"
+  of 6: "LocalSystemNotAuthorized"
+  of 7: "Canceled"
+  of 8: "TimedOut"
+  of 9: "RemoteSystemNotAuthorized"
+  of 10: "RefusedDueToConfiguration"
+  of 11: "UnexpectedInternalError"
+  else: "XboxLiveQualityOfServiceMeasurementStatus(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMetric  (enum)
-type XboxLiveQualityOfServiceMetric* = distinct int32
-proc `==`*(a, b: XboxLiveQualityOfServiceMetric): bool {.borrow.}
+type XboxLiveQualityOfServiceMetric* {.pure, size: 4.} = enum
+  AverageLatencyInMilliseconds = 0'i32
+  MinLatencyInMilliseconds = 1'i32
+  MaxLatencyInMilliseconds = 2'i32
+  AverageOutboundBitsPerSecond = 3'i32
+  MinOutboundBitsPerSecond = 4'i32
+  MaxOutboundBitsPerSecond = 5'i32
+  AverageInboundBitsPerSecond = 6'i32
+  MinInboundBitsPerSecond = 7'i32
+  MaxInboundBitsPerSecond = 8'i32
 proc `$`*(v: XboxLiveQualityOfServiceMetric): string =
-  case int32(v)
-  of 0'i32: "AverageLatencyInMilliseconds"
-  of 1'i32: "MinLatencyInMilliseconds"
-  of 2'i32: "MaxLatencyInMilliseconds"
-  of 3'i32: "AverageOutboundBitsPerSecond"
-  of 4'i32: "MinOutboundBitsPerSecond"
-  of 5'i32: "MaxOutboundBitsPerSecond"
-  of 6'i32: "AverageInboundBitsPerSecond"
-  of 7'i32: "MinInboundBitsPerSecond"
-  of 8'i32: "MaxInboundBitsPerSecond"
-  else: "XboxLiveQualityOfServiceMetric(" & $int32(v) & ")"
-const XboxLiveQualityOfServiceMetric_AverageLatencyInMilliseconds* = XboxLiveQualityOfServiceMetric(0'i32)
-const XboxLiveQualityOfServiceMetric_MinLatencyInMilliseconds* = XboxLiveQualityOfServiceMetric(1'i32)
-const XboxLiveQualityOfServiceMetric_MaxLatencyInMilliseconds* = XboxLiveQualityOfServiceMetric(2'i32)
-const XboxLiveQualityOfServiceMetric_AverageOutboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(3'i32)
-const XboxLiveQualityOfServiceMetric_MinOutboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(4'i32)
-const XboxLiveQualityOfServiceMetric_MaxOutboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(5'i32)
-const XboxLiveQualityOfServiceMetric_AverageInboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(6'i32)
-const XboxLiveQualityOfServiceMetric_MinInboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(7'i32)
-const XboxLiveQualityOfServiceMetric_MaxInboundBitsPerSecond* = XboxLiveQualityOfServiceMetric(8'i32)
+  case ord(v)
+  of 0: "AverageLatencyInMilliseconds"
+  of 1: "MinLatencyInMilliseconds"
+  of 2: "MaxLatencyInMilliseconds"
+  of 3: "AverageOutboundBitsPerSecond"
+  of 4: "MinOutboundBitsPerSecond"
+  of 5: "MaxOutboundBitsPerSecond"
+  of 6: "AverageInboundBitsPerSecond"
+  of 7: "MinInboundBitsPerSecond"
+  of 8: "MaxInboundBitsPerSecond"
+  else: "XboxLiveQualityOfServiceMetric(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveSocketKind  (enum)
-type XboxLiveSocketKind* = distinct int32
-proc `==`*(a, b: XboxLiveSocketKind): bool {.borrow.}
+type XboxLiveSocketKind* {.pure, size: 4.} = enum
+  None = 0'i32
+  Datagram = 1'i32
+  Stream = 2'i32
 proc `$`*(v: XboxLiveSocketKind): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Datagram"
-  of 2'i32: "Stream"
-  else: "XboxLiveSocketKind(" & $int32(v) & ")"
-const XboxLiveSocketKind_None* = XboxLiveSocketKind(0'i32)
-const XboxLiveSocketKind_Datagram* = XboxLiveSocketKind(1'i32)
-const XboxLiveSocketKind_Stream* = XboxLiveSocketKind(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Datagram"
+  of 2: "Stream"
+  else: "XboxLiveSocketKind(" & $ord(v) & ")"
 
 ## Windows.Networking.BackgroundTransfer.BackgroundDownloadProgress  (struct)
 type BackgroundDownloadProgress* {.pure.} = object
@@ -1836,1183 +1947,1183 @@ const IID_IBackgroundDownloader* = GUID(
     data1: 0xC1C79333'u32, data2: 0x6649'u16, data3: 0x4B1D'u16,
     data4: [0xA8'u8, 0x26, 0xA4, 0xB3, 0xDD, 0x23, 0x4D, 0x0B])
 const Slot_IBackgroundDownloader_CreateDownload* = 6
-type Fn_IBackgroundDownloader_CreateDownload* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader_CreateDownload* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader_CreateDownload2* = 7
-type Fn_IBackgroundDownloader_CreateDownload2* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, a3IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader_CreateDownload2* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, a3IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader_CreateDownloadAsync* = 8
-type Fn_IBackgroundDownloader_CreateDownloadAsync* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, a3IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader_CreateDownloadAsync* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, a3IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloader2
 const IID_IBackgroundDownloader2* = GUID(
     data1: 0xA94A5847'u32, data2: 0x348D'u16, data3: 0x4A35'u16,
     data4: [0x89'u8, 0x0E, 0x8A, 0x1E, 0xF3, 0x79, 0x84, 0x79])
 const Slot_IBackgroundDownloader2_get_TransferGroup* = 6
-type Fn_IBackgroundDownloader2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_put_TransferGroup* = 7
-type Fn_IBackgroundDownloader2_put_TransferGroup* = proc(self: pointer, a1BackgroundTransferGroup: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_put_TransferGroup* = proc(self: pointer, a1BackgroundTransferGroup: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_get_SuccessToastNotification* = 8
-type Fn_IBackgroundDownloader2_get_SuccessToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_get_SuccessToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_put_SuccessToastNotification* = 9
-type Fn_IBackgroundDownloader2_put_SuccessToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_put_SuccessToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_get_FailureToastNotification* = 10
-type Fn_IBackgroundDownloader2_get_FailureToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_get_FailureToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_put_FailureToastNotification* = 11
-type Fn_IBackgroundDownloader2_put_FailureToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_put_FailureToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_get_SuccessTileNotification* = 12
-type Fn_IBackgroundDownloader2_get_SuccessTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_get_SuccessTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_put_SuccessTileNotification* = 13
-type Fn_IBackgroundDownloader2_put_SuccessTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_put_SuccessTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_get_FailureTileNotification* = 14
-type Fn_IBackgroundDownloader2_get_FailureTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_get_FailureTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloader2_put_FailureTileNotification* = 15
-type Fn_IBackgroundDownloader2_put_FailureTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader2_put_FailureTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloader3
 const IID_IBackgroundDownloader3* = GUID(
     data1: 0xD11A8C48'u32, data2: 0x86E8'u16, data3: 0x48E2'u16,
     data4: [0xB6'u8, 0x15, 0x69, 0x76, 0xAA, 0xBF, 0x86, 0x1D])
 const Slot_IBackgroundDownloader3_get_CompletionGroup* = 6
-type Fn_IBackgroundDownloader3_get_CompletionGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloader3_get_CompletionGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderFactory
 const IID_IBackgroundDownloaderFactory* = GUID(
     data1: 0x26836C24'u32, data2: 0xD89E'u16, data3: 0x46F4'u16,
     data4: [0xA2'u8, 0x9A, 0x4F, 0x4D, 0x4F, 0x14, 0x41, 0x55])
 const Slot_IBackgroundDownloaderFactory_CreateWithCompletionGroup* = 6
-type Fn_IBackgroundDownloaderFactory_CreateWithCompletionGroup* = proc(self: pointer, a1BackgroundTransferCompletionGroup: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloaderFactory_CreateWithCompletionGroup* = proc(self: pointer, a1BackgroundTransferCompletionGroup: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderStaticMethods
 const IID_IBackgroundDownloaderStaticMethods* = GUID(
     data1: 0x52A65A35'u32, data2: 0xC64E'u16, data3: 0x426C'u16,
     data4: [0x99'u8, 0x19, 0x54, 0x0D, 0x0D, 0x21, 0xA6, 0x50])
 const Slot_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync* = 6
-type Fn_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync2* = 7
-type Fn_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderStaticMethods2
 const IID_IBackgroundDownloaderStaticMethods2* = GUID(
     data1: 0x2FAA1327'u32, data2: 0x1AD4'u16, data3: 0x4CA5'u16,
     data4: [0xB2'u8, 0xCD, 0x08, 0xDB, 0xF0, 0x74, 0x6A, 0xFE])
 const Slot_IBackgroundDownloaderStaticMethods2_GetCurrentDownloadsForTransferGroupAsync* = 6
-type Fn_IBackgroundDownloaderStaticMethods2_GetCurrentDownloadsForTransferGroupAsync* = proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloaderStaticMethods2_GetCurrentDownloadsForTransferGroupAsync* = proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderUserConsent
 const IID_IBackgroundDownloaderUserConsent* = GUID(
     data1: 0x5D14E906'u32, data2: 0x9266'u16, data3: 0x4808'u16,
     data4: [0xBD'u8, 0x71, 0x59, 0x25, 0xF2, 0xA3, 0x13, 0x0A])
 const Slot_IBackgroundDownloaderUserConsent_RequestUnconstrainedDownloadsAsync* = 6
-type Fn_IBackgroundDownloaderUserConsent_RequestUnconstrainedDownloadsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundDownloaderUserConsent_RequestUnconstrainedDownloadsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferBase
 const IID_IBackgroundTransferBase* = GUID(
     data1: 0x2A9DA250'u32, data2: 0xC769'u16, data3: 0x458C'u16,
     data4: [0xAF'u8, 0xE8, 0xFE, 0xB8, 0xD4, 0xD3, 0xB2, 0xEF])
 const Slot_IBackgroundTransferBase_SetRequestHeader* = 6
-type Fn_IBackgroundTransferBase_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_get_ServerCredential* = 7
-type Fn_IBackgroundTransferBase_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_put_ServerCredential* = 8
-type Fn_IBackgroundTransferBase_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_get_ProxyCredential* = 9
-type Fn_IBackgroundTransferBase_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_put_ProxyCredential* = 10
-type Fn_IBackgroundTransferBase_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_get_Method* = 11
-type Fn_IBackgroundTransferBase_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_put_Method* = 12
-type Fn_IBackgroundTransferBase_put_Method* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_put_Method* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_get_Group* = 13
-type Fn_IBackgroundTransferBase_get_Group* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_get_Group* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_put_Group* = 14
-type Fn_IBackgroundTransferBase_put_Group* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_put_Group* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_get_CostPolicy* = 15
-type Fn_IBackgroundTransferBase_get_CostPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_get_CostPolicy* = proc(self: pointer, value: ptr BackgroundTransferCostPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferBase_put_CostPolicy* = 16
-type Fn_IBackgroundTransferBase_put_CostPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferBase_put_CostPolicy* = proc(self: pointer, a1: BackgroundTransferCostPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroup
 const IID_IBackgroundTransferCompletionGroup* = GUID(
     data1: 0x2D930225'u32, data2: 0x986B'u16, data3: 0x574D'u16,
     data4: [0x79'u8, 0x50, 0x0A, 0xDD, 0x47, 0xF5, 0xD7, 0x06])
 const Slot_IBackgroundTransferCompletionGroup_get_Trigger* = 6
-type Fn_IBackgroundTransferCompletionGroup_get_Trigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferCompletionGroup_get_Trigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferCompletionGroup_get_IsEnabled* = 7
-type Fn_IBackgroundTransferCompletionGroup_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferCompletionGroup_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferCompletionGroup_Enable* = 8
-type Fn_IBackgroundTransferCompletionGroup_Enable* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferCompletionGroup_Enable* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroupTriggerDetails
 const IID_IBackgroundTransferCompletionGroupTriggerDetails* = GUID(
     data1: 0x7B6BE286'u32, data2: 0x6E47'u16, data3: 0x5136'u16,
     data4: [0x7F'u8, 0xCB, 0xFA, 0x43, 0x89, 0xF4, 0x6F, 0x5B])
 const Slot_IBackgroundTransferCompletionGroupTriggerDetails_get_Downloads* = 6
-type Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Downloads* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Downloads* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferCompletionGroupTriggerDetails_get_Uploads* = 7
-type Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Uploads* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Uploads* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart
 const IID_IBackgroundTransferContentPart* = GUID(
     data1: 0xE8E15657'u32, data2: 0xD7D1'u16, data3: 0x4ED8'u16,
     data4: [0x83'u8, 0x8E, 0x67, 0x4A, 0xC2, 0x17, 0xAC, 0xE6])
 const Slot_IBackgroundTransferContentPart_SetHeader* = 6
-type Fn_IBackgroundTransferContentPart_SetHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferContentPart_SetHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferContentPart_SetText* = 7
-type Fn_IBackgroundTransferContentPart_SetText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferContentPart_SetText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferContentPart_SetFile* = 8
-type Fn_IBackgroundTransferContentPart_SetFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferContentPart_SetFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPartFactory
 const IID_IBackgroundTransferContentPartFactory* = GUID(
     data1: 0x90EF98A9'u32, data2: 0x7A01'u16, data3: 0x4A0B'u16,
     data4: [0x9F'u8, 0x80, 0xA0, 0xB0, 0xBB, 0x37, 0x0F, 0x8D])
 const Slot_IBackgroundTransferContentPartFactory_CreateWithName* = 6
-type Fn_IBackgroundTransferContentPartFactory_CreateWithName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferContentPartFactory_CreateWithName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName* = 7
-type Fn_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferErrorStaticMethods
 const IID_IBackgroundTransferErrorStaticMethods* = GUID(
     data1: 0xAAD33B04'u32, data2: 0x1192'u16, data3: 0x4BF4'u16,
     data4: [0x8B'u8, 0x68, 0x39, 0xC5, 0xAD, 0xD2, 0x44, 0xE2])
 const Slot_IBackgroundTransferErrorStaticMethods_GetStatus* = 6
-type Fn_IBackgroundTransferErrorStaticMethods_GetStatus* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferErrorStaticMethods_GetStatus* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferGroup
 const IID_IBackgroundTransferGroup* = GUID(
     data1: 0xD8C3E3E4'u32, data2: 0x6459'u16, data3: 0x4540'u16,
     data4: [0x85'u8, 0xEB, 0xAA, 0xA1, 0xC8, 0x90, 0x36, 0x77])
 const Slot_IBackgroundTransferGroup_get_Name* = 6
-type Fn_IBackgroundTransferGroup_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferGroup_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferGroup_get_TransferBehavior* = 7
-type Fn_IBackgroundTransferGroup_get_TransferBehavior* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferGroup_get_TransferBehavior* = proc(self: pointer, value: ptr BackgroundTransferBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferGroup_put_TransferBehavior* = 8
-type Fn_IBackgroundTransferGroup_put_TransferBehavior* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferGroup_put_TransferBehavior* = proc(self: pointer, a1: BackgroundTransferBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferGroupStatics
 const IID_IBackgroundTransferGroupStatics* = GUID(
     data1: 0x02EC50B2'u32, data2: 0x7D18'u16, data3: 0x495B'u16,
     data4: [0xAA'u8, 0x22, 0x32, 0xA9, 0x7D, 0x45, 0xD3, 0xE2])
 const Slot_IBackgroundTransferGroupStatics_CreateGroup* = 6
-type Fn_IBackgroundTransferGroupStatics_CreateGroup* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferGroupStatics_CreateGroup* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferOperation
 const IID_IBackgroundTransferOperation* = GUID(
     data1: 0xDED06846'u32, data2: 0x90CA'u16, data3: 0x44FB'u16,
     data4: [0x8F'u8, 0xB1, 0x12, 0x41, 0x54, 0xC0, 0xD5, 0x39])
 const Slot_IBackgroundTransferOperation_get_Guid* = 6
-type Fn_IBackgroundTransferOperation_get_Guid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_get_Guid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_get_RequestedUri* = 7
-type Fn_IBackgroundTransferOperation_get_RequestedUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_get_RequestedUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_get_Method* = 8
-type Fn_IBackgroundTransferOperation_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_get_Group* = 9
-type Fn_IBackgroundTransferOperation_get_Group* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_get_Group* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_get_CostPolicy* = 10
-type Fn_IBackgroundTransferOperation_get_CostPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_get_CostPolicy* = proc(self: pointer, value: ptr BackgroundTransferCostPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_put_CostPolicy* = 11
-type Fn_IBackgroundTransferOperation_put_CostPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_put_CostPolicy* = proc(self: pointer, a1: BackgroundTransferCostPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_GetResultStreamAt* = 12
-type Fn_IBackgroundTransferOperation_GetResultStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_GetResultStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperation_GetResponseInformation* = 13
-type Fn_IBackgroundTransferOperation_GetResponseInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperation_GetResponseInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferOperationPriority
 const IID_IBackgroundTransferOperationPriority* = GUID(
     data1: 0x04854327'u32, data2: 0x5254'u16, data3: 0x4B3A'u16,
     data4: [0x91'u8, 0x5E, 0x0A, 0xA4, 0x92, 0x75, 0xC0, 0xF9])
 const Slot_IBackgroundTransferOperationPriority_get_Priority* = 6
-type Fn_IBackgroundTransferOperationPriority_get_Priority* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperationPriority_get_Priority* = proc(self: pointer, value: ptr BackgroundTransferPriority): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferOperationPriority_put_Priority* = 7
-type Fn_IBackgroundTransferOperationPriority_put_Priority* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferOperationPriority_put_Priority* = proc(self: pointer, a1: BackgroundTransferPriority): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferRangesDownloadedEventArgs
 const IID_IBackgroundTransferRangesDownloadedEventArgs* = GUID(
     data1: 0x3EBC7453'u32, data2: 0xBF48'u16, data3: 0x4A88'u16,
     data4: [0x92'u8, 0x48, 0xB0, 0xC1, 0x65, 0x18, 0x4F, 0x5C])
 const Slot_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted* = 6
-type Fn_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges* = 7
-type Fn_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundTransferRangesDownloadedEventArgs_GetDeferral* = 8
-type Fn_IBackgroundTransferRangesDownloadedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundTransferRangesDownloadedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploader
 const IID_IBackgroundUploader* = GUID(
     data1: 0xC595C9AE'u32, data2: 0xCEAD'u16, data3: 0x465B'u16,
     data4: [0x88'u8, 0x01, 0xC5, 0x5A, 0xC9, 0x0A, 0x01, 0xCE])
 const Slot_IBackgroundUploader_CreateUpload* = 6
-type Fn_IBackgroundUploader_CreateUpload* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader_CreateUpload* = proc(self: pointer, a1Uri: pointer, a2IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader_CreateUploadFromStreamAsync* = 7
-type Fn_IBackgroundUploader_CreateUploadFromStreamAsync* = proc(self: pointer, a1Uri: pointer, a2IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader_CreateUploadFromStreamAsync* = proc(self: pointer, a1Uri: pointer, a2IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader_CreateUploadAsync* = 8
-type Fn_IBackgroundUploader_CreateUploadAsync* = proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader_CreateUploadAsync* = proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader_CreateUploadAsync2* = 9
-type Fn_IBackgroundUploader_CreateUploadAsync2* = proc(self: pointer, a1Uri: pointer, a2: pointer, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader_CreateUploadAsync2* = proc(self: pointer, a1Uri: pointer, a2: pointer, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader_CreateUploadAsync3* = 10
-type Fn_IBackgroundUploader_CreateUploadAsync3* = proc(self: pointer, a1Uri: pointer, a2: pointer, a3: HSTRING, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader_CreateUploadAsync3* = proc(self: pointer, a1Uri: pointer, a2: pointer, a3: HSTRING, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploader2
 const IID_IBackgroundUploader2* = GUID(
     data1: 0x8E0612CE'u32, data2: 0x0C34'u16, data3: 0x4463'u16,
     data4: [0x80'u8, 0x7F, 0x19, 0x8A, 0x1B, 0x8B, 0xD4, 0xAD])
 const Slot_IBackgroundUploader2_get_TransferGroup* = 6
-type Fn_IBackgroundUploader2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_put_TransferGroup* = 7
-type Fn_IBackgroundUploader2_put_TransferGroup* = proc(self: pointer, a1BackgroundTransferGroup: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_put_TransferGroup* = proc(self: pointer, a1BackgroundTransferGroup: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_get_SuccessToastNotification* = 8
-type Fn_IBackgroundUploader2_get_SuccessToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_get_SuccessToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_put_SuccessToastNotification* = 9
-type Fn_IBackgroundUploader2_put_SuccessToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_put_SuccessToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_get_FailureToastNotification* = 10
-type Fn_IBackgroundUploader2_get_FailureToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_get_FailureToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_put_FailureToastNotification* = 11
-type Fn_IBackgroundUploader2_put_FailureToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_put_FailureToastNotification* = proc(self: pointer, a1ToastNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_get_SuccessTileNotification* = 12
-type Fn_IBackgroundUploader2_get_SuccessTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_get_SuccessTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_put_SuccessTileNotification* = 13
-type Fn_IBackgroundUploader2_put_SuccessTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_put_SuccessTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_get_FailureTileNotification* = 14
-type Fn_IBackgroundUploader2_get_FailureTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_get_FailureTileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploader2_put_FailureTileNotification* = 15
-type Fn_IBackgroundUploader2_put_FailureTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader2_put_FailureTileNotification* = proc(self: pointer, a1TileNotification: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploader3
 const IID_IBackgroundUploader3* = GUID(
     data1: 0xB95E9439'u32, data2: 0x5BF0'u16, data3: 0x4B3A'u16,
     data4: [0x8C'u8, 0x47, 0x2C, 0x61, 0x99, 0xA8, 0x54, 0xB9])
 const Slot_IBackgroundUploader3_get_CompletionGroup* = 6
-type Fn_IBackgroundUploader3_get_CompletionGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploader3_get_CompletionGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderFactory
 const IID_IBackgroundUploaderFactory* = GUID(
     data1: 0x736203C7'u32, data2: 0x10E7'u16, data3: 0x48A0'u16,
     data4: [0xAC'u8, 0x3C, 0x1A, 0xC7, 0x10, 0x95, 0xEC, 0x57])
 const Slot_IBackgroundUploaderFactory_CreateWithCompletionGroup* = 6
-type Fn_IBackgroundUploaderFactory_CreateWithCompletionGroup* = proc(self: pointer, a1BackgroundTransferCompletionGroup: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploaderFactory_CreateWithCompletionGroup* = proc(self: pointer, a1BackgroundTransferCompletionGroup: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderStaticMethods
 const IID_IBackgroundUploaderStaticMethods* = GUID(
     data1: 0xF2875CFB'u32, data2: 0x9B05'u16, data3: 0x4741'u16,
     data4: [0x91'u8, 0x21, 0x74, 0x0A, 0x83, 0xE2, 0x47, 0xDF])
 const Slot_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync* = 6
-type Fn_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync2* = 7
-type Fn_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderStaticMethods2
 const IID_IBackgroundUploaderStaticMethods2* = GUID(
     data1: 0xE919AC62'u32, data2: 0xEA08'u16, data3: 0x42F0'u16,
     data4: [0xA2'u8, 0xAC, 0x07, 0xE4, 0x67, 0x54, 0x90, 0x80])
 const Slot_IBackgroundUploaderStaticMethods2_GetCurrentUploadsForTransferGroupAsync* = 6
-type Fn_IBackgroundUploaderStaticMethods2_GetCurrentUploadsForTransferGroupAsync* = proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploaderStaticMethods2_GetCurrentUploadsForTransferGroupAsync* = proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderUserConsent
 const IID_IBackgroundUploaderUserConsent* = GUID(
     data1: 0x3BB384CB'u32, data2: 0x0760'u16, data3: 0x461D'u16,
     data4: [0x90'u8, 0x7F, 0x51, 0x38, 0xF8, 0x4D, 0x44, 0xC1])
 const Slot_IBackgroundUploaderUserConsent_RequestUnconstrainedUploadsAsync* = 6
-type Fn_IBackgroundUploaderUserConsent_RequestUnconstrainedUploadsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBackgroundUploaderUserConsent_RequestUnconstrainedUploadsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IContentPrefetcher
 const IID_IContentPrefetcher* = GUID(
     data1: 0xA8D6F754'u32, data2: 0x7DC1'u16, data3: 0x4CD9'u16,
     data4: [0x88'u8, 0x10, 0x2A, 0x6A, 0xA9, 0x41, 0x7E, 0x11])
 const Slot_IContentPrefetcher_get_ContentUris* = 6
-type Fn_IContentPrefetcher_get_ContentUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentPrefetcher_get_ContentUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentPrefetcher_put_IndirectContentUri* = 7
-type Fn_IContentPrefetcher_put_IndirectContentUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IContentPrefetcher_put_IndirectContentUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentPrefetcher_get_IndirectContentUri* = 8
-type Fn_IContentPrefetcher_get_IndirectContentUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentPrefetcher_get_IndirectContentUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IContentPrefetcherTime
 const IID_IContentPrefetcherTime* = GUID(
     data1: 0xE361FD08'u32, data2: 0x132A'u16, data3: 0x4FDE'u16,
     data4: [0xA7'u8, 0xCC, 0xFC, 0xB0, 0xE6, 0x65, 0x23, 0xAF])
 const Slot_IContentPrefetcherTime_get_LastSuccessfulPrefetchTime* = 6
-type Fn_IContentPrefetcherTime_get_LastSuccessfulPrefetchTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentPrefetcherTime_get_LastSuccessfulPrefetchTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IDownloadOperation
 const IID_IDownloadOperation* = GUID(
     data1: 0xBD87EBB0'u32, data2: 0x5714'u16, data3: 0x4E09'u16,
     data4: [0xBA'u8, 0x68, 0xBE, 0xF7, 0x39, 0x03, 0xB0, 0xD7])
 const Slot_IDownloadOperation_get_ResultFile* = 6
-type Fn_IDownloadOperation_get_ResultFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_get_ResultFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation_get_Progress* = 7
-type Fn_IDownloadOperation_get_Progress* = proc(self: pointer, value: ptr BackgroundDownloadProgress): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_get_Progress* = proc(self: pointer, value: ptr BackgroundDownloadProgress): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation_StartAsync* = 8
-type Fn_IDownloadOperation_StartAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_StartAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation_AttachAsync* = 9
-type Fn_IDownloadOperation_AttachAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_AttachAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation_Pause* = 10
-type Fn_IDownloadOperation_Pause* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_Pause* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation_Resume* = 11
-type Fn_IDownloadOperation_Resume* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation_Resume* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IDownloadOperation2
 const IID_IDownloadOperation2* = GUID(
     data1: 0xA3CCED40'u32, data2: 0x8F9C'u16, data3: 0x4353'u16,
     data4: [0x9C'u8, 0xD4, 0x29, 0x0D, 0xEE, 0x38, 0x7C, 0x38])
 const Slot_IDownloadOperation2_get_TransferGroup* = 6
-type Fn_IDownloadOperation2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IDownloadOperation3
 const IID_IDownloadOperation3* = GUID(
     data1: 0x5027351C'u32, data2: 0x7D5E'u16, data3: 0x4ADC'u16,
     data4: [0xB8'u8, 0xD3, 0xDF, 0x5C, 0x60, 0x31, 0xB9, 0xCC])
 const Slot_IDownloadOperation3_get_IsRandomAccessRequired* = 6
-type Fn_IDownloadOperation3_get_IsRandomAccessRequired* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_get_IsRandomAccessRequired* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_put_IsRandomAccessRequired* = 7
-type Fn_IDownloadOperation3_put_IsRandomAccessRequired* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_put_IsRandomAccessRequired* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_GetResultRandomAccessStreamReference* = 8
-type Fn_IDownloadOperation3_GetResultRandomAccessStreamReference* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_GetResultRandomAccessStreamReference* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_GetDownloadedRanges* = 9
-type Fn_IDownloadOperation3_GetDownloadedRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_GetDownloadedRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_add_RangesDownloaded* = 10
-type Fn_IDownloadOperation3_add_RangesDownloaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_add_RangesDownloaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_remove_RangesDownloaded* = 11
-type Fn_IDownloadOperation3_remove_RangesDownloaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_remove_RangesDownloaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_put_RequestedUri* = 12
-type Fn_IDownloadOperation3_put_RequestedUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_put_RequestedUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_get_RecoverableWebErrorStatuses* = 13
-type Fn_IDownloadOperation3_get_RecoverableWebErrorStatuses* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_get_RecoverableWebErrorStatuses* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation3_get_CurrentWebErrorStatus* = 14
-type Fn_IDownloadOperation3_get_CurrentWebErrorStatus* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation3_get_CurrentWebErrorStatus* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IDownloadOperation4
 const IID_IDownloadOperation4* = GUID(
     data1: 0x0CDAAEF4'u32, data2: 0x8CEF'u16, data3: 0x404A'u16,
     data4: [0x96'u8, 0x6D, 0xF0, 0x58, 0x40, 0x0B, 0xED, 0x80])
 const Slot_IDownloadOperation4_MakeCurrentInTransferGroup* = 6
-type Fn_IDownloadOperation4_MakeCurrentInTransferGroup* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDownloadOperation4_MakeCurrentInTransferGroup* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IDownloadOperation5
 const IID_IDownloadOperation5* = GUID(
     data1: 0xA699A86F'u32, data2: 0x5590'u16, data3: 0x463A'u16,
     data4: [0xB8'u8, 0xD6, 0x1E, 0x49, 0x1A, 0x27, 0x60, 0xA5])
 const Slot_IDownloadOperation5_SetRequestHeader* = 6
-type Fn_IDownloadOperation5_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IDownloadOperation5_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadOperation5_RemoveRequestHeader* = 7
-type Fn_IDownloadOperation5_RemoveRequestHeader* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IDownloadOperation5_RemoveRequestHeader* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IResponseInformation
 const IID_IResponseInformation* = GUID(
     data1: 0xF8BB9A12'u32, data2: 0xF713'u16, data3: 0x4792'u16,
     data4: [0x8B'u8, 0x68, 0xD9, 0xD2, 0x97, 0xF9, 0x1D, 0x2E])
 const Slot_IResponseInformation_get_IsResumable* = 6
-type Fn_IResponseInformation_get_IsResumable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IResponseInformation_get_IsResumable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IResponseInformation_get_ActualUri* = 7
-type Fn_IResponseInformation_get_ActualUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IResponseInformation_get_ActualUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IResponseInformation_get_StatusCode* = 8
-type Fn_IResponseInformation_get_StatusCode* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IResponseInformation_get_StatusCode* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IResponseInformation_get_Headers* = 9
-type Fn_IResponseInformation_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IResponseInformation_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IUnconstrainedTransferRequestResult
 const IID_IUnconstrainedTransferRequestResult* = GUID(
     data1: 0x4C24B81F'u32, data2: 0xD944'u16, data3: 0x4112'u16,
     data4: [0xA9'u8, 0x8E, 0x6A, 0x69, 0x52, 0x2B, 0x7E, 0xBB])
 const Slot_IUnconstrainedTransferRequestResult_get_IsUnconstrained* = 6
-type Fn_IUnconstrainedTransferRequestResult_get_IsUnconstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IUnconstrainedTransferRequestResult_get_IsUnconstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IUploadOperation
 const IID_IUploadOperation* = GUID(
     data1: 0x3E5624E0'u32, data2: 0x7389'u16, data3: 0x434C'u16,
     data4: [0x8B'u8, 0x35, 0x42, 0x7F, 0xD3, 0x6B, 0xBD, 0xAE])
 const Slot_IUploadOperation_get_SourceFile* = 6
-type Fn_IUploadOperation_get_SourceFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUploadOperation_get_SourceFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUploadOperation_get_Progress* = 7
-type Fn_IUploadOperation_get_Progress* = proc(self: pointer, value: ptr BackgroundUploadProgress): HRESULT {.stdcall.}
+type Fn_IUploadOperation_get_Progress* = proc(self: pointer, value: ptr BackgroundUploadProgress): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUploadOperation_StartAsync* = 8
-type Fn_IUploadOperation_StartAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUploadOperation_StartAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUploadOperation_AttachAsync* = 9
-type Fn_IUploadOperation_AttachAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUploadOperation_AttachAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IUploadOperation2
 const IID_IUploadOperation2* = GUID(
     data1: 0x556189F2'u32, data2: 0x2774'u16, data3: 0x4DF6'u16,
     data4: [0x9F'u8, 0xA5, 0x20, 0x9F, 0x2B, 0xFB, 0x12, 0xF7])
 const Slot_IUploadOperation2_get_TransferGroup* = 6
-type Fn_IUploadOperation2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUploadOperation2_get_TransferGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IUploadOperation3
 const IID_IUploadOperation3* = GUID(
     data1: 0x42C92CA3'u32, data2: 0xDE39'u16, data3: 0x4546'u16,
     data4: [0xBC'u8, 0x62, 0x37, 0x74, 0xB4, 0x29, 0x4D, 0xE3])
 const Slot_IUploadOperation3_MakeCurrentInTransferGroup* = 6
-type Fn_IUploadOperation3_MakeCurrentInTransferGroup* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IUploadOperation3_MakeCurrentInTransferGroup* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.BackgroundTransfer.IUploadOperation4
 const IID_IUploadOperation4* = GUID(
     data1: 0x50EDEF31'u32, data2: 0xFAC5'u16, data3: 0x41EE'u16,
     data4: [0xB0'u8, 0x30, 0xDC, 0x77, 0xCA, 0xEE, 0x9F, 0xAA])
 const Slot_IUploadOperation4_SetRequestHeader* = 6
-type Fn_IUploadOperation4_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IUploadOperation4_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUploadOperation4_RemoveRequestHeader* = 7
-type Fn_IUploadOperation4_RemoveRequestHeader* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IUploadOperation4_RemoveRequestHeader* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IAttributedNetworkUsage
 const IID_IAttributedNetworkUsage* = GUID(
     data1: 0xF769B039'u32, data2: 0xECA2'u16, data3: 0x45EB'u16,
     data4: [0xAD'u8, 0xE1, 0xB0, 0x36, 0x8B, 0x75, 0x6C, 0x49])
 const Slot_IAttributedNetworkUsage_get_BytesSent* = 6
-type Fn_IAttributedNetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IAttributedNetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAttributedNetworkUsage_get_BytesReceived* = 7
-type Fn_IAttributedNetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IAttributedNetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAttributedNetworkUsage_get_AttributionId* = 8
-type Fn_IAttributedNetworkUsage_get_AttributionId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAttributedNetworkUsage_get_AttributionId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAttributedNetworkUsage_get_AttributionName* = 9
-type Fn_IAttributedNetworkUsage_get_AttributionName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAttributedNetworkUsage_get_AttributionName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAttributedNetworkUsage_get_AttributionThumbnail* = 10
-type Fn_IAttributedNetworkUsage_get_AttributionThumbnail* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAttributedNetworkUsage_get_AttributionThumbnail* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.ICellularApnContext
 const IID_ICellularApnContext* = GUID(
     data1: 0x6FA529F4'u32, data2: 0xEFFD'u16, data3: 0x4542'u16,
     data4: [0x9A'u8, 0xB2, 0x70, 0x5B, 0xBF, 0x94, 0x94, 0x3A])
 const Slot_ICellularApnContext_get_ProviderId* = 6
-type Fn_ICellularApnContext_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_ProviderId* = 7
-type Fn_ICellularApnContext_put_ProviderId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_ProviderId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_get_AccessPointName* = 8
-type Fn_ICellularApnContext_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_AccessPointName* = 9
-type Fn_ICellularApnContext_put_AccessPointName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_AccessPointName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_get_UserName* = 10
-type Fn_ICellularApnContext_get_UserName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_UserName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_UserName* = 11
-type Fn_ICellularApnContext_put_UserName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_UserName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_get_Password* = 12
-type Fn_ICellularApnContext_get_Password* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_Password* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_Password* = 13
-type Fn_ICellularApnContext_put_Password* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_Password* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_get_IsCompressionEnabled* = 14
-type Fn_ICellularApnContext_get_IsCompressionEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_IsCompressionEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_IsCompressionEnabled* = 15
-type Fn_ICellularApnContext_put_IsCompressionEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_IsCompressionEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_get_AuthenticationType* = 16
-type Fn_ICellularApnContext_get_AuthenticationType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_get_AuthenticationType* = proc(self: pointer, value: ptr CellularApnAuthenticationType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext_put_AuthenticationType* = 17
-type Fn_ICellularApnContext_put_AuthenticationType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ICellularApnContext_put_AuthenticationType* = proc(self: pointer, a1: CellularApnAuthenticationType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.ICellularApnContext2
 const IID_ICellularApnContext2* = GUID(
     data1: 0x76B0EB1A'u32, data2: 0xAC49'u16, data3: 0x4350'u16,
     data4: [0xB1'u8, 0xE5, 0xDC, 0x47, 0x63, 0xBC, 0x69, 0xC7])
 const Slot_ICellularApnContext2_get_ProfileName* = 6
-type Fn_ICellularApnContext2_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext2_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICellularApnContext2_put_ProfileName* = 7
-type Fn_ICellularApnContext2_put_ProfileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICellularApnContext2_put_ProfileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionCost
 const IID_IConnectionCost* = GUID(
     data1: 0xBAD7D829'u32, data2: 0x3416'u16, data3: 0x4B10'u16,
     data4: [0xA2'u8, 0x02, 0xBA, 0xC0, 0xB0, 0x75, 0xBD, 0xAE])
 const Slot_IConnectionCost_get_NetworkCostType* = 6
-type Fn_IConnectionCost_get_NetworkCostType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IConnectionCost_get_NetworkCostType* = proc(self: pointer, value: ptr NetworkCostType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionCost_get_Roaming* = 7
-type Fn_IConnectionCost_get_Roaming* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionCost_get_Roaming* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionCost_get_OverDataLimit* = 8
-type Fn_IConnectionCost_get_OverDataLimit* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionCost_get_OverDataLimit* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionCost_get_ApproachingDataLimit* = 9
-type Fn_IConnectionCost_get_ApproachingDataLimit* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionCost_get_ApproachingDataLimit* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionCost2
 const IID_IConnectionCost2* = GUID(
     data1: 0x8E113A05'u32, data2: 0xE209'u16, data3: 0x4549'u16,
     data4: [0xBB'u8, 0x25, 0x5E, 0x0D, 0xB6, 0x91, 0xCB, 0x05])
 const Slot_IConnectionCost2_get_BackgroundDataUsageRestricted* = 6
-type Fn_IConnectionCost2_get_BackgroundDataUsageRestricted* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionCost2_get_BackgroundDataUsageRestricted* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile
 const IID_IConnectionProfile* = GUID(
     data1: 0x71BA143C'u32, data2: 0x598E'u16, data3: 0x49D0'u16,
     data4: [0x84'u8, 0xEB, 0x8F, 0xEB, 0xAE, 0xDC, 0xC1, 0x95])
 const Slot_IConnectionProfile_get_ProfileName* = 6
-type Fn_IConnectionProfile_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetNetworkConnectivityLevel* = 7
-type Fn_IConnectionProfile_GetNetworkConnectivityLevel* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetNetworkConnectivityLevel* = proc(self: pointer, value: ptr NetworkConnectivityLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetNetworkNames* = 8
-type Fn_IConnectionProfile_GetNetworkNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetNetworkNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetConnectionCost* = 9
-type Fn_IConnectionProfile_GetConnectionCost* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetConnectionCost* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetDataPlanStatus* = 10
-type Fn_IConnectionProfile_GetDataPlanStatus* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetDataPlanStatus* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_get_NetworkAdapter* = 11
-type Fn_IConnectionProfile_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetLocalUsage* = 12
-type Fn_IConnectionProfile_GetLocalUsage* = proc(self: pointer, a1: DateTime, a2: DateTime, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetLocalUsage* = proc(self: pointer, a1: DateTime, a2: DateTime, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_GetLocalUsage2* = 13
-type Fn_IConnectionProfile_GetLocalUsage2* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_GetLocalUsage2* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: RoamingStates, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile_get_NetworkSecuritySettings* = 14
-type Fn_IConnectionProfile_get_NetworkSecuritySettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile_get_NetworkSecuritySettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile2
 const IID_IConnectionProfile2* = GUID(
     data1: 0xE2045145'u32, data2: 0x4C9F'u16, data3: 0x400C'u16,
     data4: [0x91'u8, 0x50, 0x7E, 0xC7, 0xD6, 0xE2, 0x88, 0x8A])
 const Slot_IConnectionProfile2_get_IsWwanConnectionProfile* = 6
-type Fn_IConnectionProfile2_get_IsWwanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_get_IsWwanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_get_IsWlanConnectionProfile* = 7
-type Fn_IConnectionProfile2_get_IsWlanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_get_IsWlanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_get_WwanConnectionProfileDetails* = 8
-type Fn_IConnectionProfile2_get_WwanConnectionProfileDetails* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_get_WwanConnectionProfileDetails* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_get_WlanConnectionProfileDetails* = 9
-type Fn_IConnectionProfile2_get_WlanConnectionProfileDetails* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_get_WlanConnectionProfileDetails* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_get_ServiceProviderGuid* = 10
-type Fn_IConnectionProfile2_get_ServiceProviderGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_get_ServiceProviderGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_GetSignalBars* = 11
-type Fn_IConnectionProfile2_GetSignalBars* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_GetSignalBars* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_GetDomainConnectivityLevel* = 12
-type Fn_IConnectionProfile2_GetDomainConnectivityLevel* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_GetDomainConnectivityLevel* = proc(self: pointer, value: ptr DomainConnectivityLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_GetNetworkUsageAsync* = 13
-type Fn_IConnectionProfile2_GetNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: int32, a4: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_GetNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: DataUsageGranularity, a4: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile2_GetConnectivityIntervalsAsync* = 14
-type Fn_IConnectionProfile2_GetConnectivityIntervalsAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile2_GetConnectivityIntervalsAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile3
 const IID_IConnectionProfile3* = GUID(
     data1: 0x578C2528'u32, data2: 0x4CD9'u16, data3: 0x4161'u16,
     data4: [0x80'u8, 0x45, 0x20, 0x1C, 0xFD, 0x5B, 0x11, 0x5C])
 const Slot_IConnectionProfile3_GetAttributedNetworkUsageAsync* = 6
-type Fn_IConnectionProfile3_GetAttributedNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile3_GetAttributedNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile4
 const IID_IConnectionProfile4* = GUID(
     data1: 0x7A2D42CD'u32, data2: 0x81E0'u16, data3: 0x4AE6'u16,
     data4: [0xAB'u8, 0xED, 0xAB, 0x9C, 0xA1, 0x3E, 0xB7, 0x14])
 const Slot_IConnectionProfile4_GetProviderNetworkUsageAsync* = 6
-type Fn_IConnectionProfile4_GetProviderNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile4_GetProviderNetworkUsageAsync* = proc(self: pointer, a1: DateTime, a2: DateTime, a3: NetworkUsageStates, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile5
 const IID_IConnectionProfile5* = GUID(
     data1: 0x85361EC7'u32, data2: 0x9C73'u16, data3: 0x4BE0'u16,
     data4: [0x8F'u8, 0x14, 0x57, 0x8E, 0xEC, 0x71, 0xEE, 0x0E])
 const Slot_IConnectionProfile5_get_CanDelete* = 6
-type Fn_IConnectionProfile5_get_CanDelete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfile5_get_CanDelete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfile5_TryDeleteAsync* = 7
-type Fn_IConnectionProfile5_TryDeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfile5_TryDeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfile6
 const IID_IConnectionProfile6* = GUID(
     data1: 0xDC27DFE2'u32, data2: 0x7A6F'u16, data3: 0x5D0E'u16,
     data4: [0x95'u8, 0x89, 0x2F, 0xE2, 0xE5, 0xB6, 0xF9, 0xAA])
 const Slot_IConnectionProfile6_IsDomainAuthenticatedBy* = 6
-type Fn_IConnectionProfile6_IsDomainAuthenticatedBy* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfile6_IsDomainAuthenticatedBy* = proc(self: pointer, a1: DomainAuthenticationKind, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfileFilter
 const IID_IConnectionProfileFilter* = GUID(
     data1: 0x204C7CC8'u32, data2: 0xBD2D'u16, data3: 0x4E8D'u16,
     data4: [0xA4'u8, 0xB3, 0x45, 0x5E, 0xC3, 0x37, 0x38, 0x8A])
 const Slot_IConnectionProfileFilter_put_IsConnected* = 6
-type Fn_IConnectionProfileFilter_put_IsConnected* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_put_IsConnected* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_get_IsConnected* = 7
-type Fn_IConnectionProfileFilter_get_IsConnected* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_get_IsConnected* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_put_IsWwanConnectionProfile* = 8
-type Fn_IConnectionProfileFilter_put_IsWwanConnectionProfile* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_put_IsWwanConnectionProfile* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_get_IsWwanConnectionProfile* = 9
-type Fn_IConnectionProfileFilter_get_IsWwanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_get_IsWwanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_put_IsWlanConnectionProfile* = 10
-type Fn_IConnectionProfileFilter_put_IsWlanConnectionProfile* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_put_IsWlanConnectionProfile* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_get_IsWlanConnectionProfile* = 11
-type Fn_IConnectionProfileFilter_get_IsWlanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_get_IsWlanConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_put_NetworkCostType* = 12
-type Fn_IConnectionProfileFilter_put_NetworkCostType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_put_NetworkCostType* = proc(self: pointer, a1: NetworkCostType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_get_NetworkCostType* = 13
-type Fn_IConnectionProfileFilter_get_NetworkCostType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_get_NetworkCostType* = proc(self: pointer, value: ptr NetworkCostType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_put_ServiceProviderGuid* = 14
-type Fn_IConnectionProfileFilter_put_ServiceProviderGuid* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_put_ServiceProviderGuid* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter_get_ServiceProviderGuid* = 15
-type Fn_IConnectionProfileFilter_get_ServiceProviderGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter_get_ServiceProviderGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfileFilter2
 const IID_IConnectionProfileFilter2* = GUID(
     data1: 0xCD068EE1'u32, data2: 0xC3FC'u16, data3: 0x4FAD'u16,
     data4: [0x9D'u8, 0xDC, 0x59, 0x3F, 0xAA, 0x4B, 0x78, 0x85])
 const Slot_IConnectionProfileFilter2_put_IsRoaming* = 6
-type Fn_IConnectionProfileFilter2_put_IsRoaming* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_put_IsRoaming* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_get_IsRoaming* = 7
-type Fn_IConnectionProfileFilter2_get_IsRoaming* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_get_IsRoaming* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_put_IsOverDataLimit* = 8
-type Fn_IConnectionProfileFilter2_put_IsOverDataLimit* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_put_IsOverDataLimit* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_get_IsOverDataLimit* = 9
-type Fn_IConnectionProfileFilter2_get_IsOverDataLimit* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_get_IsOverDataLimit* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_put_IsBackgroundDataUsageRestricted* = 10
-type Fn_IConnectionProfileFilter2_put_IsBackgroundDataUsageRestricted* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_put_IsBackgroundDataUsageRestricted* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_get_IsBackgroundDataUsageRestricted* = 11
-type Fn_IConnectionProfileFilter2_get_IsBackgroundDataUsageRestricted* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_get_IsBackgroundDataUsageRestricted* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter2_get_RawData* = 12
-type Fn_IConnectionProfileFilter2_get_RawData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter2_get_RawData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionProfileFilter3
 const IID_IConnectionProfileFilter3* = GUID(
     data1: 0x0AAA09C0'u32, data2: 0x5014'u16, data3: 0x447C'u16,
     data4: [0x88'u8, 0x09, 0xAE, 0xE4, 0xCB, 0x0A, 0xF9, 0x4A])
 const Slot_IConnectionProfileFilter3_put_PurposeGuid* = 6
-type Fn_IConnectionProfileFilter3_put_PurposeGuid* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter3_put_PurposeGuid* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectionProfileFilter3_get_PurposeGuid* = 7
-type Fn_IConnectionProfileFilter3_get_PurposeGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionProfileFilter3_get_PurposeGuid* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectionSession
 const IID_IConnectionSession* = GUID(
     data1: 0xFF905D4C'u32, data2: 0xF83B'u16, data3: 0x41B0'u16,
     data4: [0x8A'u8, 0x0C, 0x14, 0x62, 0xD9, 0xC5, 0x6B, 0x73])
 const Slot_IConnectionSession_get_ConnectionProfile* = 6
-type Fn_IConnectionSession_get_ConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionSession_get_ConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectivityInterval
 const IID_IConnectivityInterval* = GUID(
     data1: 0x4FAA3FFF'u32, data2: 0x6746'u16, data3: 0x4824'u16,
     data4: [0xA9'u8, 0x64, 0xEE, 0xD8, 0xE8, 0x7F, 0x87, 0x09])
 const Slot_IConnectivityInterval_get_StartTime* = 6
-type Fn_IConnectivityInterval_get_StartTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IConnectivityInterval_get_StartTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectivityInterval_get_ConnectionDuration* = 7
-type Fn_IConnectivityInterval_get_ConnectionDuration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IConnectivityInterval_get_ConnectionDuration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IConnectivityManagerStatics
 const IID_IConnectivityManagerStatics* = GUID(
     data1: 0x5120D4B1'u32, data2: 0x4FB1'u16, data3: 0x48B0'u16,
     data4: [0xAF'u8, 0xC9, 0x42, 0xE0, 0x09, 0x2A, 0x81, 0x64])
 const Slot_IConnectivityManagerStatics_AcquireConnectionAsync* = 6
-type Fn_IConnectivityManagerStatics_AcquireConnectionAsync* = proc(self: pointer, a1CellularApnContext: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectivityManagerStatics_AcquireConnectionAsync* = proc(self: pointer, a1CellularApnContext: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectivityManagerStatics_AddHttpRoutePolicy* = 7
-type Fn_IConnectivityManagerStatics_AddHttpRoutePolicy* = proc(self: pointer, a1RoutePolicy: pointer): HRESULT {.stdcall.}
+type Fn_IConnectivityManagerStatics_AddHttpRoutePolicy* = proc(self: pointer, a1RoutePolicy: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IConnectivityManagerStatics_RemoveHttpRoutePolicy* = 8
-type Fn_IConnectivityManagerStatics_RemoveHttpRoutePolicy* = proc(self: pointer, a1RoutePolicy: pointer): HRESULT {.stdcall.}
+type Fn_IConnectivityManagerStatics_RemoveHttpRoutePolicy* = proc(self: pointer, a1RoutePolicy: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IDataPlanStatus
 const IID_IDataPlanStatus* = GUID(
     data1: 0x977A8B8C'u32, data2: 0x3885'u16, data3: 0x40F3'u16,
     data4: [0x88'u8, 0x51, 0x42, 0xCD, 0x2B, 0xD5, 0x68, 0xBB])
 const Slot_IDataPlanStatus_get_DataPlanUsage* = 6
-type Fn_IDataPlanStatus_get_DataPlanUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_DataPlanUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanStatus_get_DataLimitInMegabytes* = 7
-type Fn_IDataPlanStatus_get_DataLimitInMegabytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_DataLimitInMegabytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanStatus_get_InboundBitsPerSecond* = 8
-type Fn_IDataPlanStatus_get_InboundBitsPerSecond* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_InboundBitsPerSecond* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanStatus_get_OutboundBitsPerSecond* = 9
-type Fn_IDataPlanStatus_get_OutboundBitsPerSecond* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_OutboundBitsPerSecond* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanStatus_get_NextBillingCycle* = 10
-type Fn_IDataPlanStatus_get_NextBillingCycle* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_NextBillingCycle* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanStatus_get_MaxTransferSizeInMegabytes* = 11
-type Fn_IDataPlanStatus_get_MaxTransferSizeInMegabytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataPlanStatus_get_MaxTransferSizeInMegabytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IDataPlanUsage
 const IID_IDataPlanUsage* = GUID(
     data1: 0xB921492D'u32, data2: 0x3B44'u16, data3: 0x47FF'u16,
     data4: [0xB3'u8, 0x61, 0xBE, 0x59, 0xE6, 0x9E, 0xD1, 0xB0])
 const Slot_IDataPlanUsage_get_MegabytesUsed* = 6
-type Fn_IDataPlanUsage_get_MegabytesUsed* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataPlanUsage_get_MegabytesUsed* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataPlanUsage_get_LastSyncTime* = 7
-type Fn_IDataPlanUsage_get_LastSyncTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IDataPlanUsage_get_LastSyncTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IDataUsage
 const IID_IDataUsage* = GUID(
     data1: 0xC1431DD3'u32, data2: 0xB146'u16, data3: 0x4D39'u16,
     data4: [0xB9'u8, 0x59, 0x0C, 0x69, 0xB0, 0x96, 0xC5, 0x12])
 const Slot_IDataUsage_get_BytesSent* = 6
-type Fn_IDataUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IDataUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataUsage_get_BytesReceived* = 7
-type Fn_IDataUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IDataUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IIPInformation
 const IID_IIPInformation* = GUID(
     data1: 0xD85145E0'u32, data2: 0x138F'u16, data3: 0x47D7'u16,
     data4: [0x9B'u8, 0x3A, 0x36, 0xBB, 0x48, 0x8C, 0xEF, 0x33])
 const Slot_IIPInformation_get_NetworkAdapter* = 6
-type Fn_IIPInformation_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IIPInformation_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIPInformation_get_PrefixLength* = 7
-type Fn_IIPInformation_get_PrefixLength* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IIPInformation_get_PrefixLength* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.ILanIdentifier
 const IID_ILanIdentifier* = GUID(
     data1: 0x48AA53AA'u32, data2: 0x1108'u16, data3: 0x4546'u16,
     data4: [0xA6'u8, 0xCB, 0x9A, 0x74, 0xDA, 0x4B, 0x7B, 0xA0])
 const Slot_ILanIdentifier_get_InfrastructureId* = 6
-type Fn_ILanIdentifier_get_InfrastructureId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILanIdentifier_get_InfrastructureId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILanIdentifier_get_PortId* = 7
-type Fn_ILanIdentifier_get_PortId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILanIdentifier_get_PortId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILanIdentifier_get_NetworkAdapterId* = 8
-type Fn_ILanIdentifier_get_NetworkAdapterId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ILanIdentifier_get_NetworkAdapterId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.ILanIdentifierData
 const IID_ILanIdentifierData* = GUID(
     data1: 0xA74E83C3'u32, data2: 0xD639'u16, data3: 0x45BE'u16,
     data4: [0xA3'u8, 0x6A, 0xC4, 0xE4, 0xAE, 0xAF, 0x6D, 0x9B])
 const Slot_ILanIdentifierData_get_Type* = 6
-type Fn_ILanIdentifierData_get_Type* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ILanIdentifierData_get_Type* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ILanIdentifierData_get_Value* = 7
-type Fn_ILanIdentifierData_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ILanIdentifierData_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkAdapter
 const IID_INetworkAdapter* = GUID(
     data1: 0x3B542E03'u32, data2: 0x5388'u16, data3: 0x496C'u16,
     data4: [0xA8'u8, 0xA3, 0xAF, 0xFD, 0x39, 0xAE, 0xC2, 0xE6])
 const Slot_INetworkAdapter_get_OutboundMaxBitsPerSecond* = 6
-type Fn_INetworkAdapter_get_OutboundMaxBitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_get_OutboundMaxBitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkAdapter_get_InboundMaxBitsPerSecond* = 7
-type Fn_INetworkAdapter_get_InboundMaxBitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_get_InboundMaxBitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkAdapter_get_IanaInterfaceType* = 8
-type Fn_INetworkAdapter_get_IanaInterfaceType* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_get_IanaInterfaceType* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkAdapter_get_NetworkItem* = 9
-type Fn_INetworkAdapter_get_NetworkItem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_get_NetworkItem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkAdapter_get_NetworkAdapterId* = 10
-type Fn_INetworkAdapter_get_NetworkAdapterId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_get_NetworkAdapterId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkAdapter_GetConnectedProfileAsync* = 11
-type Fn_INetworkAdapter_GetConnectedProfileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkAdapter_GetConnectedProfileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkInformationStatics
 const IID_INetworkInformationStatics* = GUID(
     data1: 0x5074F851'u32, data2: 0x950D'u16, data3: 0x4165'u16,
     data4: [0x9C'u8, 0x15, 0x36, 0x56, 0x19, 0x48, 0x1E, 0xEA])
 const Slot_INetworkInformationStatics_GetConnectionProfiles* = 6
-type Fn_INetworkInformationStatics_GetConnectionProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetConnectionProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_GetInternetConnectionProfile* = 7
-type Fn_INetworkInformationStatics_GetInternetConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetInternetConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_GetLanIdentifiers* = 8
-type Fn_INetworkInformationStatics_GetLanIdentifiers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetLanIdentifiers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_GetHostNames* = 9
-type Fn_INetworkInformationStatics_GetHostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetHostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_GetProxyConfigurationAsync* = 10
-type Fn_INetworkInformationStatics_GetProxyConfigurationAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetProxyConfigurationAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_GetSortedEndpointPairs* = 11
-type Fn_INetworkInformationStatics_GetSortedEndpointPairs* = proc(self: pointer, a1: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_GetSortedEndpointPairs* = proc(self: pointer, a1: pointer, a2: HostNameSortOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_add_NetworkStatusChanged* = 12
-type Fn_INetworkInformationStatics_add_NetworkStatusChanged* = proc(self: pointer, a1NetworkStatusChangedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_add_NetworkStatusChanged* = proc(self: pointer, a1NetworkStatusChangedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkInformationStatics_remove_NetworkStatusChanged* = 13
-type Fn_INetworkInformationStatics_remove_NetworkStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics_remove_NetworkStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkInformationStatics2
 const IID_INetworkInformationStatics2* = GUID(
     data1: 0x459CED14'u32, data2: 0x2832'u16, data3: 0x49B6'u16,
     data4: [0xBA'u8, 0x6E, 0xE2, 0x65, 0xF0, 0x47, 0x86, 0xA8])
 const Slot_INetworkInformationStatics2_FindConnectionProfilesAsync* = 6
-type Fn_INetworkInformationStatics2_FindConnectionProfilesAsync* = proc(self: pointer, a1ConnectionProfileFilter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkInformationStatics2_FindConnectionProfilesAsync* = proc(self: pointer, a1ConnectionProfileFilter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkItem
 const IID_INetworkItem* = GUID(
     data1: 0x01BC4D39'u32, data2: 0xF5E0'u16, data3: 0x4567'u16,
     data4: [0xA2'u8, 0x8C, 0x42, 0x08, 0x0C, 0x83, 0x1B, 0x2B])
 const Slot_INetworkItem_get_NetworkId* = 6
-type Fn_INetworkItem_get_NetworkId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_INetworkItem_get_NetworkId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkItem_GetNetworkTypes* = 7
-type Fn_INetworkItem_GetNetworkTypes* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkItem_GetNetworkTypes* = proc(self: pointer, value: ptr NetworkTypes): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkSecuritySettings
 const IID_INetworkSecuritySettings* = GUID(
     data1: 0x7CA07E8D'u32, data2: 0x917B'u16, data3: 0x4B5F'u16,
     data4: [0xB8'u8, 0x4D, 0x28, 0xF7, 0xA5, 0xAC, 0x54, 0x02])
 const Slot_INetworkSecuritySettings_get_NetworkAuthenticationType* = 6
-type Fn_INetworkSecuritySettings_get_NetworkAuthenticationType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkSecuritySettings_get_NetworkAuthenticationType* = proc(self: pointer, value: ptr NetworkAuthenticationType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkSecuritySettings_get_NetworkEncryptionType* = 7
-type Fn_INetworkSecuritySettings_get_NetworkEncryptionType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkSecuritySettings_get_NetworkEncryptionType* = proc(self: pointer, value: ptr NetworkEncryptionType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkStateChangeEventDetails
 const IID_INetworkStateChangeEventDetails* = GUID(
     data1: 0x1F0CF333'u32, data2: 0xD7A6'u16, data3: 0x44DD'u16,
     data4: [0xA4'u8, 0xE9, 0x68, 0x7C, 0x47, 0x6B, 0x90, 0x3D])
 const Slot_INetworkStateChangeEventDetails_get_HasNewInternetConnectionProfile* = 6
-type Fn_INetworkStateChangeEventDetails_get_HasNewInternetConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewInternetConnectionProfile* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails_get_HasNewConnectionCost* = 7
-type Fn_INetworkStateChangeEventDetails_get_HasNewConnectionCost* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewConnectionCost* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails_get_HasNewNetworkConnectivityLevel* = 8
-type Fn_INetworkStateChangeEventDetails_get_HasNewNetworkConnectivityLevel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewNetworkConnectivityLevel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails_get_HasNewDomainConnectivityLevel* = 9
-type Fn_INetworkStateChangeEventDetails_get_HasNewDomainConnectivityLevel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewDomainConnectivityLevel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails_get_HasNewHostNameList* = 10
-type Fn_INetworkStateChangeEventDetails_get_HasNewHostNameList* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewHostNameList* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails_get_HasNewWwanRegistrationState* = 11
-type Fn_INetworkStateChangeEventDetails_get_HasNewWwanRegistrationState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails_get_HasNewWwanRegistrationState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkStateChangeEventDetails2
 const IID_INetworkStateChangeEventDetails2* = GUID(
     data1: 0xD643C0E8'u32, data2: 0x30D3'u16, data3: 0x4F6A'u16,
     data4: [0xAD'u8, 0x47, 0x6A, 0x18, 0x73, 0xCE, 0xB3, 0xC1])
 const Slot_INetworkStateChangeEventDetails2_get_HasNewTetheringOperationalState* = 6
-type Fn_INetworkStateChangeEventDetails2_get_HasNewTetheringOperationalState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails2_get_HasNewTetheringOperationalState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkStateChangeEventDetails2_get_HasNewTetheringClientCount* = 7
-type Fn_INetworkStateChangeEventDetails2_get_HasNewTetheringClientCount* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkStateChangeEventDetails2_get_HasNewTetheringClientCount* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.INetworkUsage
 const IID_INetworkUsage* = GUID(
     data1: 0x49DA8FCE'u32, data2: 0x9985'u16, data3: 0x4927'u16,
     data4: [0xBF'u8, 0x5B, 0x07, 0x2B, 0x5C, 0x65, 0xF8, 0xD9])
 const Slot_INetworkUsage_get_BytesSent* = 6
-type Fn_INetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_INetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkUsage_get_BytesReceived* = 7
-type Fn_INetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_INetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkUsage_get_ConnectionDuration* = 8
-type Fn_INetworkUsage_get_ConnectionDuration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_INetworkUsage_get_ConnectionDuration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IProviderNetworkUsage
 const IID_IProviderNetworkUsage* = GUID(
     data1: 0x5EC69E04'u32, data2: 0x7931'u16, data3: 0x48C8'u16,
     data4: [0xB8'u8, 0xF3, 0x46, 0x30, 0x0F, 0xA4, 0x27, 0x28])
 const Slot_IProviderNetworkUsage_get_BytesSent* = 6
-type Fn_IProviderNetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IProviderNetworkUsage_get_BytesSent* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProviderNetworkUsage_get_BytesReceived* = 7
-type Fn_IProviderNetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IProviderNetworkUsage_get_BytesReceived* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProviderNetworkUsage_get_ProviderId* = 8
-type Fn_IProviderNetworkUsage_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProviderNetworkUsage_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IProxyConfiguration
 const IID_IProxyConfiguration* = GUID(
     data1: 0xEF3A60B4'u32, data2: 0x9004'u16, data3: 0x4DD6'u16,
     data4: [0xB7'u8, 0xD8, 0xB3, 0xE5, 0x02, 0xF4, 0xAA, 0xD0])
 const Slot_IProxyConfiguration_get_ProxyUris* = 6
-type Fn_IProxyConfiguration_get_ProxyUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProxyConfiguration_get_ProxyUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProxyConfiguration_get_CanConnectDirectly* = 7
-type Fn_IProxyConfiguration_get_CanConnectDirectly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IProxyConfiguration_get_CanConnectDirectly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IRoutePolicy
 const IID_IRoutePolicy* = GUID(
     data1: 0x11ABC4AC'u32, data2: 0x0FC7'u16, data3: 0x42E4'u16,
     data4: [0x87'u8, 0x42, 0x56, 0x99, 0x23, 0xB1, 0xCA, 0x11])
 const Slot_IRoutePolicy_get_ConnectionProfile* = 6
-type Fn_IRoutePolicy_get_ConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRoutePolicy_get_ConnectionProfile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRoutePolicy_get_HostName* = 7
-type Fn_IRoutePolicy_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRoutePolicy_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRoutePolicy_get_HostNameType* = 8
-type Fn_IRoutePolicy_get_HostNameType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IRoutePolicy_get_HostNameType* = proc(self: pointer, value: ptr DomainNameType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IRoutePolicyFactory
 const IID_IRoutePolicyFactory* = GUID(
     data1: 0x36027933'u32, data2: 0xA18E'u16, data3: 0x4DB5'u16,
     data4: [0xA6'u8, 0x97, 0xF5, 0x8F, 0xA7, 0x36, 0x4E, 0x44])
 const Slot_IRoutePolicyFactory_CreateRoutePolicy* = 6
-type Fn_IRoutePolicyFactory_CreateRoutePolicy* = proc(self: pointer, a1ConnectionProfile: pointer, a2HostName: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRoutePolicyFactory_CreateRoutePolicy* = proc(self: pointer, a1ConnectionProfile: pointer, a2HostName: pointer, a3: DomainNameType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IWlanConnectionProfileDetails
 const IID_IWlanConnectionProfileDetails* = GUID(
     data1: 0x562098CB'u32, data2: 0xB35A'u16, data3: 0x4BF1'u16,
     data4: [0xA8'u8, 0x84, 0xB7, 0x55, 0x7E, 0x88, 0xFF, 0x86])
 const Slot_IWlanConnectionProfileDetails_GetConnectedSsid* = 6
-type Fn_IWlanConnectionProfileDetails_GetConnectedSsid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWlanConnectionProfileDetails_GetConnectedSsid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IWwanConnectionProfileDetails
 const IID_IWwanConnectionProfileDetails* = GUID(
     data1: 0x0E4DA8FE'u32, data2: 0x835F'u16, data3: 0x4DF3'u16,
     data4: [0x82'u8, 0xFD, 0xDF, 0x55, 0x6E, 0xBC, 0x09, 0xEF])
 const Slot_IWwanConnectionProfileDetails_get_HomeProviderId* = 6
-type Fn_IWwanConnectionProfileDetails_get_HomeProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails_get_HomeProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWwanConnectionProfileDetails_get_AccessPointName* = 7
-type Fn_IWwanConnectionProfileDetails_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWwanConnectionProfileDetails_GetNetworkRegistrationState* = 8
-type Fn_IWwanConnectionProfileDetails_GetNetworkRegistrationState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails_GetNetworkRegistrationState* = proc(self: pointer, value: ptr WwanNetworkRegistrationState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWwanConnectionProfileDetails_GetCurrentDataClass* = 9
-type Fn_IWwanConnectionProfileDetails_GetCurrentDataClass* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails_GetCurrentDataClass* = proc(self: pointer, value: ptr WwanDataClass): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.IWwanConnectionProfileDetails2
 const IID_IWwanConnectionProfileDetails2* = GUID(
     data1: 0x7A754EDE'u32, data2: 0xA1ED'u16, data3: 0x48B2'u16,
     data4: [0x8E'u8, 0x92, 0xB4, 0x60, 0x03, 0x3D, 0x52, 0xE2])
 const Slot_IWwanConnectionProfileDetails2_get_IPKind* = 6
-type Fn_IWwanConnectionProfileDetails2_get_IPKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails2_get_IPKind* = proc(self: pointer, value: ptr WwanNetworkIPKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWwanConnectionProfileDetails2_get_PurposeGuids* = 7
-type Fn_IWwanConnectionProfileDetails2_get_PurposeGuids* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWwanConnectionProfileDetails2_get_PurposeGuids* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Connectivity.NetworkStatusChangedEventHandler  (delegate)
 const IID_NetworkStatusChangedEventHandler* = GUID(
     data1: 0x71BA143F'u32, data2: 0x598E'u16, data3: 0x49D0'u16,
     data4: [0x84'u8, 0xEB, 0x8F, 0xEB, 0xAE, 0xDC, 0xC1, 0x95])
 const Slot_NetworkStatusChangedEventHandler_Invoke* = 3
-type Fn_NetworkStatusChangedEventHandler_Invoke* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_NetworkStatusChangedEventHandler_Invoke* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.IEndpointPair
 const IID_IEndpointPair* = GUID(
     data1: 0x33A0AA36'u32, data2: 0xF8FA'u16, data3: 0x4B30'u16,
     data4: [0xB8'u8, 0x56, 0x76, 0x51, 0x7C, 0x3B, 0xD0, 0x6D])
 const Slot_IEndpointPair_get_LocalHostName* = 6
-type Fn_IEndpointPair_get_LocalHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEndpointPair_get_LocalHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_put_LocalHostName* = 7
-type Fn_IEndpointPair_put_LocalHostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IEndpointPair_put_LocalHostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_get_LocalServiceName* = 8
-type Fn_IEndpointPair_get_LocalServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IEndpointPair_get_LocalServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_put_LocalServiceName* = 9
-type Fn_IEndpointPair_put_LocalServiceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IEndpointPair_put_LocalServiceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_get_RemoteHostName* = 10
-type Fn_IEndpointPair_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEndpointPair_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_put_RemoteHostName* = 11
-type Fn_IEndpointPair_put_RemoteHostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IEndpointPair_put_RemoteHostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_get_RemoteServiceName* = 12
-type Fn_IEndpointPair_get_RemoteServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IEndpointPair_get_RemoteServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEndpointPair_put_RemoteServiceName* = 13
-type Fn_IEndpointPair_put_RemoteServiceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IEndpointPair_put_RemoteServiceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.IEndpointPairFactory
 const IID_IEndpointPairFactory* = GUID(
     data1: 0xB609D971'u32, data2: 0x64E0'u16, data3: 0x442B'u16,
     data4: [0xAA'u8, 0x6F, 0xCC, 0x8C, 0x8F, 0x18, 0x1F, 0x78])
 const Slot_IEndpointPairFactory_CreateEndpointPair* = 6
-type Fn_IEndpointPairFactory_CreateEndpointPair* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3HostName: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEndpointPairFactory_CreateEndpointPair* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3HostName: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.IHostName
 const IID_IHostName* = GUID(
     data1: 0xBF8ECAAD'u32, data2: 0xED96'u16, data3: 0x49A7'u16,
     data4: [0x90'u8, 0x84, 0xD4, 0x16, 0xCA, 0xE8, 0x8D, 0xCB])
 const Slot_IHostName_get_IPInformation* = 6
-type Fn_IHostName_get_IPInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHostName_get_IPInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHostName_get_RawName* = 7
-type Fn_IHostName_get_RawName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IHostName_get_RawName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHostName_get_DisplayName* = 8
-type Fn_IHostName_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IHostName_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHostName_get_CanonicalName* = 9
-type Fn_IHostName_get_CanonicalName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IHostName_get_CanonicalName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHostName_get_Type* = 10
-type Fn_IHostName_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IHostName_get_Type* = proc(self: pointer, value: ptr HostNameType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHostName_IsEqual* = 11
-type Fn_IHostName_IsEqual* = proc(self: pointer, a1HostName: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IHostName_IsEqual* = proc(self: pointer, a1HostName: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.IHostNameFactory
 const IID_IHostNameFactory* = GUID(
     data1: 0x458C23ED'u32, data2: 0x712F'u16, data3: 0x4576'u16,
     data4: [0xAD'u8, 0xF1, 0xC2, 0x0B, 0x2C, 0x64, 0x35, 0x58])
 const Slot_IHostNameFactory_CreateHostName* = 6
-type Fn_IHostNameFactory_CreateHostName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHostNameFactory_CreateHostName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.IHostNameStatics
 const IID_IHostNameStatics* = GUID(
     data1: 0xF68CD4BF'u32, data2: 0xA388'u16, data3: 0x4E8B'u16,
     data4: [0x91'u8, 0xEA, 0x54, 0xDD, 0x6D, 0xD9, 0x01, 0xC0])
 const Slot_IHostNameStatics_Compare* = 6
-type Fn_IHostNameStatics_Compare* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IHostNameStatics_Compare* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESim
 const IID_IESim* = GUID(
     data1: 0x6F6E6E26'u32, data2: 0xF123'u16, data3: 0x437D'u16,
     data4: [0x8C'u8, 0xED, 0xDC, 0x1D, 0x2B, 0xC0, 0xC3, 0xA9])
 const Slot_IESim_get_AvailableMemoryInBytes* = 6
-type Fn_IESim_get_AvailableMemoryInBytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_get_AvailableMemoryInBytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_get_Eid* = 7
-type Fn_IESim_get_Eid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESim_get_Eid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_get_FirmwareVersion* = 8
-type Fn_IESim_get_FirmwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESim_get_FirmwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_get_MobileBroadbandModemDeviceId* = 9
-type Fn_IESim_get_MobileBroadbandModemDeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESim_get_MobileBroadbandModemDeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_get_Policy* = 10
-type Fn_IESim_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_get_State* = 11
-type Fn_IESim_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESim_get_State* = proc(self: pointer, value: ptr ESimState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_GetProfiles* = 12
-type Fn_IESim_GetProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_GetProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_DeleteProfileAsync* = 13
-type Fn_IESim_DeleteProfileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_DeleteProfileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_DownloadProfileMetadataAsync* = 14
-type Fn_IESim_DownloadProfileMetadataAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_DownloadProfileMetadataAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_ResetAsync* = 15
-type Fn_IESim_ResetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim_ResetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_add_ProfileChanged* = 16
-type Fn_IESim_add_ProfileChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESim_add_ProfileChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim_remove_ProfileChanged* = 17
-type Fn_IESim_remove_ProfileChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESim_remove_ProfileChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESim2
 const IID_IESim2* = GUID(
     data1: 0xBD4FD0A0'u32, data2: 0xC68F'u16, data3: 0x56EB'u16,
     data4: [0xB9'u8, 0x9B, 0x8F, 0x34, 0xB8, 0x10, 0x02, 0x99])
 const Slot_IESim2_Discover* = 6
-type Fn_IESim2_Discover* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim2_Discover* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim2_Discover2* = 7
-type Fn_IESim2_Discover2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim2_Discover2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim2_DiscoverAsync* = 8
-type Fn_IESim2_DiscoverAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim2_DiscoverAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESim2_DiscoverAsync2* = 9
-type Fn_IESim2_DiscoverAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim2_DiscoverAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESim3
 const IID_IESim3* = GUID(
     data1: 0xFE1EDF45'u32, data2: 0x01B8'u16, data3: 0x5D31'u16,
     data4: [0xB8'u8, 0xD3, 0xD9, 0xCB, 0xEB, 0xB2, 0xB8, 0x31])
 const Slot_IESim3_get_SlotIndex* = 6
-type Fn_IESim3_get_SlotIndex* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESim3_get_SlotIndex* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimAddedEventArgs
 const IID_IESimAddedEventArgs* = GUID(
     data1: 0x38BD0A58'u32, data2: 0x4D5A'u16, data3: 0x4D08'u16,
     data4: [0x8D'u8, 0xA7, 0xE7, 0x3E, 0xFF, 0x36, 0x9D, 0xDD])
 const Slot_IESimAddedEventArgs_get_ESim* = 6
-type Fn_IESimAddedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimAddedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimDiscoverEvent
 const IID_IESimDiscoverEvent* = GUID(
     data1: 0xE59AC3E3'u32, data2: 0x39BC'u16, data3: 0x5F6F'u16,
     data4: [0x93'u8, 0x21, 0x0D, 0x4A, 0x18, 0x2D, 0x26, 0x1B])
 const Slot_IESimDiscoverEvent_get_MatchingId* = 6
-type Fn_IESimDiscoverEvent_get_MatchingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimDiscoverEvent_get_MatchingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimDiscoverEvent_get_RspServerAddress* = 7
-type Fn_IESimDiscoverEvent_get_RspServerAddress* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimDiscoverEvent_get_RspServerAddress* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimDiscoverResult
 const IID_IESimDiscoverResult* = GUID(
     data1: 0x56B4BB5E'u32, data2: 0xAB2F'u16, data3: 0x5AC6'u16,
     data4: [0xB3'u8, 0x59, 0xDD, 0x5A, 0x8E, 0x23, 0x79, 0x26])
 const Slot_IESimDiscoverResult_get_Events* = 6
-type Fn_IESimDiscoverResult_get_Events* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimDiscoverResult_get_Events* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimDiscoverResult_get_Kind* = 7
-type Fn_IESimDiscoverResult_get_Kind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimDiscoverResult_get_Kind* = proc(self: pointer, value: ptr ESimDiscoverResultKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimDiscoverResult_get_ProfileMetadata* = 8
-type Fn_IESimDiscoverResult_get_ProfileMetadata* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimDiscoverResult_get_ProfileMetadata* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimDiscoverResult_get_Result* = 9
-type Fn_IESimDiscoverResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimDiscoverResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimDownloadProfileMetadataResult
 const IID_IESimDownloadProfileMetadataResult* = GUID(
     data1: 0xC4234D9E'u32, data2: 0x5AD6'u16, data3: 0x426D'u16,
     data4: [0x8D'u8, 0x00, 0x44, 0x34, 0xF4, 0x49, 0xAF, 0xEC])
 const Slot_IESimDownloadProfileMetadataResult_get_Result* = 6
-type Fn_IESimDownloadProfileMetadataResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimDownloadProfileMetadataResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimDownloadProfileMetadataResult_get_ProfileMetadata* = 7
-type Fn_IESimDownloadProfileMetadataResult_get_ProfileMetadata* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimDownloadProfileMetadataResult_get_ProfileMetadata* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimManagerStatics
 const IID_IESimManagerStatics* = GUID(
     data1: 0x0BFA2C0C'u32, data2: 0xDF88'u16, data3: 0x4631'u16,
     data4: [0xBF'u8, 0x04, 0xC1, 0x2E, 0x28, 0x1B, 0x39, 0x62])
 const Slot_IESimManagerStatics_get_ServiceInfo* = 6
-type Fn_IESimManagerStatics_get_ServiceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimManagerStatics_get_ServiceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimManagerStatics_TryCreateESimWatcher* = 7
-type Fn_IESimManagerStatics_TryCreateESimWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimManagerStatics_TryCreateESimWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimManagerStatics_add_ServiceInfoChanged* = 8
-type Fn_IESimManagerStatics_add_ServiceInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimManagerStatics_add_ServiceInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimManagerStatics_remove_ServiceInfoChanged* = 9
-type Fn_IESimManagerStatics_remove_ServiceInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimManagerStatics_remove_ServiceInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimOperationResult
 const IID_IESimOperationResult* = GUID(
     data1: 0xA67B63B1'u32, data2: 0x309B'u16, data3: 0x4E77'u16,
     data4: [0x9E'u8, 0x7E, 0xCD, 0x93, 0xF1, 0xDD, 0xC7, 0xB9])
 const Slot_IESimOperationResult_get_Status* = 6
-type Fn_IESimOperationResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimOperationResult_get_Status* = proc(self: pointer, value: ptr ESimOperationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimPolicy
 const IID_IESimPolicy* = GUID(
     data1: 0x41E1B99D'u32, data2: 0xCF7E'u16, data3: 0x4315'u16,
     data4: [0x88'u8, 0x2B, 0x6F, 0x1E, 0x74, 0xB0, 0xD3, 0x8F])
 const Slot_IESimPolicy_get_ShouldEnableManagingUi* = 6
-type Fn_IESimPolicy_get_ShouldEnableManagingUi* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimPolicy_get_ShouldEnableManagingUi* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimProfile
 const IID_IESimProfile* = GUID(
     data1: 0xEE1E7880'u32, data2: 0x06A9'u16, data3: 0x4027'u16,
     data4: [0xB4'u8, 0xF8, 0xDD, 0xB2, 0x3D, 0x78, 0x10, 0xE0])
 const Slot_IESimProfile_get_Class* = 6
-type Fn_IESimProfile_get_Class* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_Class* = proc(self: pointer, value: ptr ESimProfileClass): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_Nickname* = 7
-type Fn_IESimProfile_get_Nickname* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_Nickname* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_Policy* = 8
-type Fn_IESimProfile_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_Id* = 9
-type Fn_IESimProfile_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_ProviderIcon* = 10
-type Fn_IESimProfile_get_ProviderIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_ProviderIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_ProviderId* = 11
-type Fn_IESimProfile_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_ProviderName* = 12
-type Fn_IESimProfile_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_get_State* = 13
-type Fn_IESimProfile_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimProfile_get_State* = proc(self: pointer, value: ptr ESimProfileState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_DisableAsync* = 14
-type Fn_IESimProfile_DisableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfile_DisableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_EnableAsync* = 15
-type Fn_IESimProfile_EnableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfile_EnableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfile_SetNicknameAsync* = 16
-type Fn_IESimProfile_SetNicknameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfile_SetNicknameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimProfileMetadata
 const IID_IESimProfileMetadata* = GUID(
     data1: 0xED25831F'u32, data2: 0x90DB'u16, data3: 0x498D'u16,
     data4: [0xA7'u8, 0xB4, 0xEB, 0xCE, 0x80, 0x7D, 0x3C, 0x23])
 const Slot_IESimProfileMetadata_get_IsConfirmationCodeRequired* = 6
-type Fn_IESimProfileMetadata_get_IsConfirmationCodeRequired* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_IsConfirmationCodeRequired* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_Policy* = 7
-type Fn_IESimProfileMetadata_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_Policy* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_Id* = 8
-type Fn_IESimProfileMetadata_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_ProviderIcon* = 9
-type Fn_IESimProfileMetadata_get_ProviderIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_ProviderIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_ProviderId* = 10
-type Fn_IESimProfileMetadata_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_ProviderName* = 11
-type Fn_IESimProfileMetadata_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_get_State* = 12
-type Fn_IESimProfileMetadata_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_get_State* = proc(self: pointer, value: ptr ESimProfileMetadataState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_DenyInstallAsync* = 13
-type Fn_IESimProfileMetadata_DenyInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_DenyInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_ConfirmInstallAsync* = 14
-type Fn_IESimProfileMetadata_ConfirmInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_ConfirmInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_ConfirmInstallAsync2* = 15
-type Fn_IESimProfileMetadata_ConfirmInstallAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_ConfirmInstallAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_PostponeInstallAsync* = 16
-type Fn_IESimProfileMetadata_PostponeInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_PostponeInstallAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_add_StateChanged* = 17
-type Fn_IESimProfileMetadata_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfileMetadata_remove_StateChanged* = 18
-type Fn_IESimProfileMetadata_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimProfileMetadata_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimProfilePolicy
 const IID_IESimProfilePolicy* = GUID(
     data1: 0xE6DD0F1D'u32, data2: 0x9C5C'u16, data3: 0x46C5'u16,
     data4: [0xA2'u8, 0x89, 0xA9, 0x48, 0x99, 0x9B, 0xF0, 0x62])
 const Slot_IESimProfilePolicy_get_CanDelete* = 6
-type Fn_IESimProfilePolicy_get_CanDelete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimProfilePolicy_get_CanDelete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfilePolicy_get_CanDisable* = 7
-type Fn_IESimProfilePolicy_get_CanDisable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimProfilePolicy_get_CanDisable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimProfilePolicy_get_IsManagedByEnterprise* = 8
-type Fn_IESimProfilePolicy_get_IsManagedByEnterprise* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimProfilePolicy_get_IsManagedByEnterprise* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimRemovedEventArgs
 const IID_IESimRemovedEventArgs* = GUID(
     data1: 0xDEC5277B'u32, data2: 0x2FD9'u16, data3: 0x4ED9'u16,
     data4: [0x83'u8, 0x76, 0xD9, 0xB5, 0xE4, 0x12, 0x78, 0xA3])
 const Slot_IESimRemovedEventArgs_get_ESim* = 6
-type Fn_IESimRemovedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimRemovedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimServiceInfo
 const IID_IESimServiceInfo* = GUID(
     data1: 0xF16AABCF'u32, data2: 0x7F59'u16, data3: 0x4A51'u16,
     data4: [0x84'u8, 0x94, 0xBD, 0x89, 0xD5, 0xFF, 0x50, 0xEE])
 const Slot_IESimServiceInfo_get_AuthenticationPreference* = 6
-type Fn_IESimServiceInfo_get_AuthenticationPreference* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimServiceInfo_get_AuthenticationPreference* = proc(self: pointer, value: ptr ESimAuthenticationPreference): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimServiceInfo_get_IsESimUiEnabled* = 7
-type Fn_IESimServiceInfo_get_IsESimUiEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IESimServiceInfo_get_IsESimUiEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimUpdatedEventArgs
 const IID_IESimUpdatedEventArgs* = GUID(
     data1: 0x4C125CEC'u32, data2: 0x508D'u16, data3: 0x4B88'u16,
     data4: [0x83'u8, 0xCB, 0x68, 0xBE, 0xF8, 0x16, 0x8D, 0x12])
 const Slot_IESimUpdatedEventArgs_get_ESim* = 6
-type Fn_IESimUpdatedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IESimUpdatedEventArgs_get_ESim* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IESimWatcher
 const IID_IESimWatcher* = GUID(
     data1: 0xC1F84CEB'u32, data2: 0xA28D'u16, data3: 0x4FBF'u16,
     data4: [0x97'u8, 0x71, 0x6E, 0x31, 0xB8, 0x1C, 0xCF, 0x22])
 const Slot_IESimWatcher_get_Status* = 6
-type Fn_IESimWatcher_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IESimWatcher_get_Status* = proc(self: pointer, value: ptr ESimWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_Start* = 7
-type Fn_IESimWatcher_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IESimWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_Stop* = 8
-type Fn_IESimWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IESimWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_add_Added* = 9
-type Fn_IESimWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_remove_Added* = 10
-type Fn_IESimWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_add_EnumerationCompleted* = 11
-type Fn_IESimWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_remove_EnumerationCompleted* = 12
-type Fn_IESimWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_add_Removed* = 13
-type Fn_IESimWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_remove_Removed* = 14
-type Fn_IESimWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_add_Stopped* = 15
-type Fn_IESimWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_remove_Stopped* = 16
-type Fn_IESimWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_add_Updated* = 17
-type Fn_IESimWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IESimWatcher_remove_Updated* = 18
-type Fn_IESimWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IESimWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IHotspotAuthenticationContext
 const IID_IHotspotAuthenticationContext* = GUID(
@@ -3021,1531 +3132,1531 @@ const IID_IHotspotAuthenticationContext* = GUID(
 const Slot_IHotspotAuthenticationContext_get_WirelessNetworkId* = 6
 # Fn_IHotspotAuthenticationContext_get_WirelessNetworkId: signature not mapped
 const Slot_IHotspotAuthenticationContext_get_NetworkAdapter* = 7
-type Fn_IHotspotAuthenticationContext_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_get_RedirectMessageUrl* = 8
-type Fn_IHotspotAuthenticationContext_get_RedirectMessageUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_get_RedirectMessageUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_get_RedirectMessageXml* = 9
-type Fn_IHotspotAuthenticationContext_get_RedirectMessageXml* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_get_RedirectMessageXml* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_get_AuthenticationUrl* = 10
-type Fn_IHotspotAuthenticationContext_get_AuthenticationUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_get_AuthenticationUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_IssueCredentials* = 11
-type Fn_IHotspotAuthenticationContext_IssueCredentials* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_IssueCredentials* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_AbortAuthentication* = 12
-type Fn_IHotspotAuthenticationContext_AbortAuthentication* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_AbortAuthentication* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_SkipAuthentication* = 13
-type Fn_IHotspotAuthenticationContext_SkipAuthentication* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_SkipAuthentication* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotAuthenticationContext_TriggerAttentionRequired* = 14
-type Fn_IHotspotAuthenticationContext_TriggerAttentionRequired* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext_TriggerAttentionRequired* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IHotspotAuthenticationContext2
 const IID_IHotspotAuthenticationContext2* = GUID(
     data1: 0xE756C791'u32, data2: 0x1004'u16, data3: 0x4DE5'u16,
     data4: [0x83'u8, 0xC7, 0xDE, 0x61, 0xD8, 0x88, 0x31, 0xD0])
 const Slot_IHotspotAuthenticationContext2_IssueCredentialsAsync* = 6
-type Fn_IHotspotAuthenticationContext2_IssueCredentialsAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContext2_IssueCredentialsAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IHotspotAuthenticationContextStatics
 const IID_IHotspotAuthenticationContextStatics* = GUID(
     data1: 0xE756C791'u32, data2: 0x1002'u16, data3: 0x4DE5'u16,
     data4: [0x83'u8, 0xC7, 0xDE, 0x61, 0xD8, 0x88, 0x31, 0xD0])
 const Slot_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext* = 6
-type Fn_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext* = proc(self: pointer, a1: HSTRING, a2HotspotAuthenticationContext: ptr pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext* = proc(self: pointer, a1: HSTRING, a2HotspotAuthenticationContext: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IHotspotAuthenticationEventDetails
 const IID_IHotspotAuthenticationEventDetails* = GUID(
     data1: 0xE756C791'u32, data2: 0x1001'u16, data3: 0x4DE5'u16,
     data4: [0x83'u8, 0xC7, 0xDE, 0x61, 0xD8, 0x88, 0x31, 0xD0])
 const Slot_IHotspotAuthenticationEventDetails_get_EventToken* = 6
-type Fn_IHotspotAuthenticationEventDetails_get_EventToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IHotspotAuthenticationEventDetails_get_EventToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IHotspotCredentialsAuthenticationResult
 const IID_IHotspotCredentialsAuthenticationResult* = GUID(
     data1: 0xE756C791'u32, data2: 0x1005'u16, data3: 0x4DE5'u16,
     data4: [0x83'u8, 0xC7, 0xDE, 0x61, 0xD8, 0x88, 0x31, 0xD0])
 const Slot_IHotspotCredentialsAuthenticationResult_get_HasNetworkErrorOccurred* = 6
-type Fn_IHotspotCredentialsAuthenticationResult_get_HasNetworkErrorOccurred* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IHotspotCredentialsAuthenticationResult_get_HasNetworkErrorOccurred* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotCredentialsAuthenticationResult_get_ResponseCode* = 7
-type Fn_IHotspotCredentialsAuthenticationResult_get_ResponseCode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IHotspotCredentialsAuthenticationResult_get_ResponseCode* = proc(self: pointer, value: ptr HotspotAuthenticationResponseCode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotCredentialsAuthenticationResult_get_LogoffUrl* = 8
-type Fn_IHotspotCredentialsAuthenticationResult_get_LogoffUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotCredentialsAuthenticationResult_get_LogoffUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHotspotCredentialsAuthenticationResult_get_AuthenticationReplyXml* = 9
-type Fn_IHotspotCredentialsAuthenticationResult_get_AuthenticationReplyXml* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHotspotCredentialsAuthenticationResult_get_AuthenticationReplyXml* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics
 const IID_IKnownCSimFilePathsStatics* = GUID(
     data1: 0xB458AEED'u32, data2: 0x49F1'u16, data3: 0x4C22'u16,
     data4: [0xB0'u8, 0x73, 0x96, 0xD5, 0x11, 0xBF, 0x9C, 0x35])
 const Slot_IKnownCSimFilePathsStatics_get_EFSpn* = 6
-type Fn_IKnownCSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownCSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownCSimFilePathsStatics_get_Gid1* = 7
-type Fn_IKnownCSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownCSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownCSimFilePathsStatics_get_Gid2* = 8
-type Fn_IKnownCSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownCSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics
 const IID_IKnownRuimFilePathsStatics* = GUID(
     data1: 0x3883C8B9'u32, data2: 0xFF24'u16, data3: 0x4571'u16,
     data4: [0xA8'u8, 0x67, 0x09, 0xF9, 0x60, 0x42, 0x6E, 0x14])
 const Slot_IKnownRuimFilePathsStatics_get_EFSpn* = 6
-type Fn_IKnownRuimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownRuimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownRuimFilePathsStatics_get_Gid1* = 7
-type Fn_IKnownRuimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownRuimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownRuimFilePathsStatics_get_Gid2* = 8
-type Fn_IKnownRuimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownRuimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics
 const IID_IKnownSimFilePathsStatics* = GUID(
     data1: 0x80CD1A63'u32, data2: 0x37A5'u16, data3: 0x43D3'u16,
     data4: [0x80'u8, 0xA3, 0xCC, 0xD2, 0x3E, 0x8F, 0xEC, 0xEE])
 const Slot_IKnownSimFilePathsStatics_get_EFOns* = 6
-type Fn_IKnownSimFilePathsStatics_get_EFOns* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownSimFilePathsStatics_get_EFOns* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownSimFilePathsStatics_get_EFSpn* = 7
-type Fn_IKnownSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownSimFilePathsStatics_get_Gid1* = 8
-type Fn_IKnownSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownSimFilePathsStatics_get_Gid2* = 9
-type Fn_IKnownSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics
 const IID_IKnownUSimFilePathsStatics* = GUID(
     data1: 0x7C34E581'u32, data2: 0x1F1B'u16, data3: 0x43F4'u16,
     data4: [0x95'u8, 0x30, 0x8B, 0x09, 0x2D, 0x32, 0xD7, 0x1F])
 const Slot_IKnownUSimFilePathsStatics_get_EFSpn* = 6
-type Fn_IKnownUSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownUSimFilePathsStatics_get_EFSpn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownUSimFilePathsStatics_get_EFOpl* = 7
-type Fn_IKnownUSimFilePathsStatics_get_EFOpl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownUSimFilePathsStatics_get_EFOpl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownUSimFilePathsStatics_get_EFPnn* = 8
-type Fn_IKnownUSimFilePathsStatics_get_EFPnn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownUSimFilePathsStatics_get_EFPnn* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownUSimFilePathsStatics_get_Gid1* = 9
-type Fn_IKnownUSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownUSimFilePathsStatics_get_Gid1* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownUSimFilePathsStatics_get_Gid2* = 10
-type Fn_IKnownUSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownUSimFilePathsStatics_get_Gid2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccount
 const IID_IMobileBroadbandAccount* = GUID(
     data1: 0x36C24CCD'u32, data2: 0xCEE2'u16, data3: 0x43E0'u16,
     data4: [0xA6'u8, 0x03, 0xEE, 0x86, 0xA3, 0x6D, 0x65, 0x70])
 const Slot_IMobileBroadbandAccount_get_NetworkAccountId* = 6
-type Fn_IMobileBroadbandAccount_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccount_get_ServiceProviderGuid* = 7
-type Fn_IMobileBroadbandAccount_get_ServiceProviderGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount_get_ServiceProviderGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccount_get_ServiceProviderName* = 8
-type Fn_IMobileBroadbandAccount_get_ServiceProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount_get_ServiceProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccount_get_CurrentNetwork* = 9
-type Fn_IMobileBroadbandAccount_get_CurrentNetwork* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount_get_CurrentNetwork* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccount_get_CurrentDeviceInformation* = 10
-type Fn_IMobileBroadbandAccount_get_CurrentDeviceInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount_get_CurrentDeviceInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccount2
 const IID_IMobileBroadbandAccount2* = GUID(
     data1: 0x38F52F1C'u32, data2: 0x1136'u16, data3: 0x4257'u16,
     data4: [0x95'u8, 0x9F, 0xB6, 0x58, 0xA3, 0x52, 0xB6, 0xD4])
 const Slot_IMobileBroadbandAccount2_GetConnectionProfiles* = 6
-type Fn_IMobileBroadbandAccount2_GetConnectionProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount2_GetConnectionProfiles* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccount3
 const IID_IMobileBroadbandAccount3* = GUID(
     data1: 0x092A1E21'u32, data2: 0x9379'u16, data3: 0x4B9B'u16,
     data4: [0xAD'u8, 0x31, 0xD5, 0xFE, 0xE2, 0xF7, 0x48, 0xC6])
 const Slot_IMobileBroadbandAccount3_get_AccountExperienceUrl* = 6
-type Fn_IMobileBroadbandAccount3_get_AccountExperienceUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccount3_get_AccountExperienceUrl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountEventArgs
 const IID_IMobileBroadbandAccountEventArgs* = GUID(
     data1: 0x3853C880'u32, data2: 0x77DE'u16, data3: 0x4C04'u16,
     data4: [0xBE'u8, 0xAD, 0xA1, 0x23, 0xB0, 0x8C, 0x9F, 0x59])
 const Slot_IMobileBroadbandAccountEventArgs_get_NetworkAccountId* = 6
-type Fn_IMobileBroadbandAccountEventArgs_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountEventArgs_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountStatics
 const IID_IMobileBroadbandAccountStatics* = GUID(
     data1: 0xAA7F4D24'u32, data2: 0xAFC1'u16, data3: 0x4FC8'u16,
     data4: [0xAE'u8, 0x9A, 0xA9, 0x17, 0x53, 0x10, 0xFA, 0xAD])
 const Slot_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds* = 6
-type Fn_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountStatics_CreateFromNetworkAccountId* = 7
-type Fn_IMobileBroadbandAccountStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountUpdatedEventArgs
 const IID_IMobileBroadbandAccountUpdatedEventArgs* = GUID(
     data1: 0x7BC31D88'u32, data2: 0xA6BD'u16, data3: 0x49E1'u16,
     data4: [0x80'u8, 0xAB, 0x6B, 0x91, 0x35, 0x4A, 0x57, 0xD4])
 const Slot_IMobileBroadbandAccountUpdatedEventArgs_get_NetworkAccountId* = 6
-type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountUpdatedEventArgs_get_HasDeviceInformationChanged* = 7
-type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_HasDeviceInformationChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_HasDeviceInformationChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountUpdatedEventArgs_get_HasNetworkChanged* = 8
-type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_HasNetworkChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_HasNetworkChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher
 const IID_IMobileBroadbandAccountWatcher* = GUID(
     data1: 0x6BF3335E'u32, data2: 0x23B5'u16, data3: 0x449F'u16,
     data4: [0x92'u8, 0x8D, 0x5E, 0x0D, 0x3E, 0x04, 0x47, 0x1D])
 const Slot_IMobileBroadbandAccountWatcher_add_AccountAdded* = 6
-type Fn_IMobileBroadbandAccountWatcher_add_AccountAdded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_add_AccountAdded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountAdded* = 7
-type Fn_IMobileBroadbandAccountWatcher_remove_AccountAdded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_remove_AccountAdded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_add_AccountUpdated* = 8
-type Fn_IMobileBroadbandAccountWatcher_add_AccountUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_add_AccountUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountUpdated* = 9
-type Fn_IMobileBroadbandAccountWatcher_remove_AccountUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_remove_AccountUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_add_AccountRemoved* = 10
-type Fn_IMobileBroadbandAccountWatcher_add_AccountRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_add_AccountRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountRemoved* = 11
-type Fn_IMobileBroadbandAccountWatcher_remove_AccountRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_remove_AccountRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_add_EnumerationCompleted* = 12
-type Fn_IMobileBroadbandAccountWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_remove_EnumerationCompleted* = 13
-type Fn_IMobileBroadbandAccountWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_add_Stopped* = 14
-type Fn_IMobileBroadbandAccountWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_remove_Stopped* = 15
-type Fn_IMobileBroadbandAccountWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_get_Status* = 16
-type Fn_IMobileBroadbandAccountWatcher_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_get_Status* = proc(self: pointer, value: ptr MobileBroadbandAccountWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_Start* = 17
-type Fn_IMobileBroadbandAccountWatcher_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAccountWatcher_Stop* = 18
-type Fn_IMobileBroadbandAccountWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAccountWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSar
 const IID_IMobileBroadbandAntennaSar* = GUID(
     data1: 0xB9AF4B7E'u32, data2: 0xCBF9'u16, data3: 0x4109'u16,
     data4: [0x90'u8, 0xBE, 0x5C, 0x06, 0xBF, 0xD5, 0x13, 0xB6])
 const Slot_IMobileBroadbandAntennaSar_get_AntennaIndex* = 6
-type Fn_IMobileBroadbandAntennaSar_get_AntennaIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAntennaSar_get_AntennaIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandAntennaSar_get_SarBackoffIndex* = 7
-type Fn_IMobileBroadbandAntennaSar_get_SarBackoffIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAntennaSar_get_SarBackoffIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSarFactory
 const IID_IMobileBroadbandAntennaSarFactory* = GUID(
     data1: 0xA91E1716'u32, data2: 0xC04D'u16, data3: 0x4A21'u16,
     data4: [0x86'u8, 0x98, 0x14, 0x59, 0xDC, 0x67, 0x2C, 0x6E])
 const Slot_IMobileBroadbandAntennaSarFactory_CreateWithIndex* = 6
-type Fn_IMobileBroadbandAntennaSarFactory_CreateWithIndex* = proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandAntennaSarFactory_CreateWithIndex* = proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellCdma
 const IID_IMobileBroadbandCellCdma* = GUID(
     data1: 0x0601B3B4'u32, data2: 0x411A'u16, data3: 0x4F2E'u16,
     data4: [0x82'u8, 0x87, 0x76, 0xF5, 0x65, 0x0C, 0x60, 0xCD])
 const Slot_IMobileBroadbandCellCdma_get_BaseStationId* = 6
-type Fn_IMobileBroadbandCellCdma_get_BaseStationId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_BaseStationId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_BaseStationPNCode* = 7
-type Fn_IMobileBroadbandCellCdma_get_BaseStationPNCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_BaseStationPNCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_BaseStationLatitude* = 8
-type Fn_IMobileBroadbandCellCdma_get_BaseStationLatitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_BaseStationLatitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_BaseStationLongitude* = 9
-type Fn_IMobileBroadbandCellCdma_get_BaseStationLongitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_BaseStationLongitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_BaseStationLastBroadcastGpsTime* = 10
-type Fn_IMobileBroadbandCellCdma_get_BaseStationLastBroadcastGpsTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_BaseStationLastBroadcastGpsTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_NetworkId* = 11
-type Fn_IMobileBroadbandCellCdma_get_NetworkId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_NetworkId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_PilotSignalStrengthInDB* = 12
-type Fn_IMobileBroadbandCellCdma_get_PilotSignalStrengthInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_PilotSignalStrengthInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellCdma_get_SystemId* = 13
-type Fn_IMobileBroadbandCellCdma_get_SystemId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellCdma_get_SystemId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellGsm
 const IID_IMobileBroadbandCellGsm* = GUID(
     data1: 0xCC917F06'u32, data2: 0x7EE0'u16, data3: 0x47B8'u16,
     data4: [0x9E'u8, 0x1F, 0xC3, 0xB4, 0x8D, 0xF9, 0xDF, 0x5B])
 const Slot_IMobileBroadbandCellGsm_get_BaseStationId* = 6
-type Fn_IMobileBroadbandCellGsm_get_BaseStationId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_BaseStationId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_CellId* = 7
-type Fn_IMobileBroadbandCellGsm_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_ChannelNumber* = 8
-type Fn_IMobileBroadbandCellGsm_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_LocationAreaCode* = 9
-type Fn_IMobileBroadbandCellGsm_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_ProviderId* = 10
-type Fn_IMobileBroadbandCellGsm_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_ReceivedSignalStrengthInDBm* = 11
-type Fn_IMobileBroadbandCellGsm_get_ReceivedSignalStrengthInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_ReceivedSignalStrengthInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellGsm_get_TimingAdvanceInBitPeriods* = 12
-type Fn_IMobileBroadbandCellGsm_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellGsm_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellLte
 const IID_IMobileBroadbandCellLte* = GUID(
     data1: 0x9197C87B'u32, data2: 0x2B78'u16, data3: 0x456D'u16,
     data4: [0x8B'u8, 0x53, 0xAA, 0xA2, 0x5D, 0x0A, 0xF7, 0x41])
 const Slot_IMobileBroadbandCellLte_get_CellId* = 6
-type Fn_IMobileBroadbandCellLte_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_ChannelNumber* = 7
-type Fn_IMobileBroadbandCellLte_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_PhysicalCellId* = 8
-type Fn_IMobileBroadbandCellLte_get_PhysicalCellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_PhysicalCellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_ProviderId* = 9
-type Fn_IMobileBroadbandCellLte_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_ReferenceSignalReceivedPowerInDBm* = 10
-type Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedPowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedPowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_ReferenceSignalReceivedQualityInDBm* = 11
-type Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedQualityInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedQualityInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_TimingAdvanceInBitPeriods* = 12
-type Fn_IMobileBroadbandCellLte_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellLte_get_TrackingAreaCode* = 13
-type Fn_IMobileBroadbandCellLte_get_TrackingAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellLte_get_TrackingAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellNR
 const IID_IMobileBroadbandCellNR* = GUID(
     data1: 0xA13F0DEB'u32, data2: 0x66FC'u16, data3: 0x4B4B'u16,
     data4: [0x83'u8, 0xA9, 0xA4, 0x87, 0xA3, 0xA5, 0xA0, 0xA6])
 const Slot_IMobileBroadbandCellNR_get_CellId* = 6
-type Fn_IMobileBroadbandCellNR_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_ChannelNumber* = 7
-type Fn_IMobileBroadbandCellNR_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_PhysicalCellId* = 8
-type Fn_IMobileBroadbandCellNR_get_PhysicalCellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_PhysicalCellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_ProviderId* = 9
-type Fn_IMobileBroadbandCellNR_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_ReferenceSignalReceivedPowerInDBm* = 10
-type Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedPowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedPowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_ReferenceSignalReceivedQualityInDBm* = 11
-type Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedQualityInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedQualityInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_TimingAdvanceInNanoseconds* = 12
-type Fn_IMobileBroadbandCellNR_get_TimingAdvanceInNanoseconds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_TimingAdvanceInNanoseconds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_TrackingAreaCode* = 13
-type Fn_IMobileBroadbandCellNR_get_TrackingAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_TrackingAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellNR_get_SignalToNoiseRatioInDB* = 14
-type Fn_IMobileBroadbandCellNR_get_SignalToNoiseRatioInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellNR_get_SignalToNoiseRatioInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellTdscdma
 const IID_IMobileBroadbandCellTdscdma* = GUID(
     data1: 0x0EDA1655'u32, data2: 0xDB0E'u16, data3: 0x4182'u16,
     data4: [0x8C'u8, 0xDA, 0xCC, 0x41, 0x9A, 0x7B, 0xDE, 0x08])
 const Slot_IMobileBroadbandCellTdscdma_get_CellId* = 6
-type Fn_IMobileBroadbandCellTdscdma_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_CellParameterId* = 7
-type Fn_IMobileBroadbandCellTdscdma_get_CellParameterId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_CellParameterId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_ChannelNumber* = 8
-type Fn_IMobileBroadbandCellTdscdma_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_LocationAreaCode* = 9
-type Fn_IMobileBroadbandCellTdscdma_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_PathLossInDB* = 10
-type Fn_IMobileBroadbandCellTdscdma_get_PathLossInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_PathLossInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_ProviderId* = 11
-type Fn_IMobileBroadbandCellTdscdma_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_ReceivedSignalCodePowerInDBm* = 12
-type Fn_IMobileBroadbandCellTdscdma_get_ReceivedSignalCodePowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_ReceivedSignalCodePowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellTdscdma_get_TimingAdvanceInBitPeriods* = 13
-type Fn_IMobileBroadbandCellTdscdma_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellTdscdma_get_TimingAdvanceInBitPeriods* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellUmts
 const IID_IMobileBroadbandCellUmts* = GUID(
     data1: 0x77B4B5AE'u32, data2: 0x49C8'u16, data3: 0x4F15'u16,
     data4: [0xB2'u8, 0x85, 0x4C, 0x26, 0xA7, 0xF6, 0x72, 0x15])
 const Slot_IMobileBroadbandCellUmts_get_CellId* = 6
-type Fn_IMobileBroadbandCellUmts_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_CellId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_ChannelNumber* = 7
-type Fn_IMobileBroadbandCellUmts_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_ChannelNumber* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_LocationAreaCode* = 8
-type Fn_IMobileBroadbandCellUmts_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_LocationAreaCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_PathLossInDB* = 9
-type Fn_IMobileBroadbandCellUmts_get_PathLossInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_PathLossInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_PrimaryScramblingCode* = 10
-type Fn_IMobileBroadbandCellUmts_get_PrimaryScramblingCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_PrimaryScramblingCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_ProviderId* = 11
-type Fn_IMobileBroadbandCellUmts_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_ProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_ReceivedSignalCodePowerInDBm* = 12
-type Fn_IMobileBroadbandCellUmts_get_ReceivedSignalCodePowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_ReceivedSignalCodePowerInDBm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellUmts_get_SignalToNoiseRatioInDB* = 13
-type Fn_IMobileBroadbandCellUmts_get_SignalToNoiseRatioInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellUmts_get_SignalToNoiseRatioInDB* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellsInfo
 const IID_IMobileBroadbandCellsInfo* = GUID(
     data1: 0x89A9562A'u32, data2: 0xE472'u16, data3: 0x4DA5'u16,
     data4: [0x92'u8, 0x9C, 0xDE, 0x61, 0x71, 0x1D, 0xD2, 0x61])
 const Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsCdma* = 6
-type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsCdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsCdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsGsm* = 7
-type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsGsm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsGsm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsLte* = 8
-type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsLte* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsLte* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsTdscdma* = 9
-type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsTdscdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsTdscdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsUmts* = 10
-type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsUmts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsUmts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_ServingCellsCdma* = 11
-type Fn_IMobileBroadbandCellsInfo_get_ServingCellsCdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_ServingCellsCdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_ServingCellsGsm* = 12
-type Fn_IMobileBroadbandCellsInfo_get_ServingCellsGsm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_ServingCellsGsm* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_ServingCellsLte* = 13
-type Fn_IMobileBroadbandCellsInfo_get_ServingCellsLte* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_ServingCellsLte* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_ServingCellsTdscdma* = 14
-type Fn_IMobileBroadbandCellsInfo_get_ServingCellsTdscdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_ServingCellsTdscdma* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo_get_ServingCellsUmts* = 15
-type Fn_IMobileBroadbandCellsInfo_get_ServingCellsUmts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo_get_ServingCellsUmts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellsInfo2
 const IID_IMobileBroadbandCellsInfo2* = GUID(
     data1: 0x66205912'u32, data2: 0xB89F'u16, data3: 0x4E12'u16,
     data4: [0xBB'u8, 0xB6, 0xD5, 0xCF, 0x09, 0xA8, 0x20, 0xCA])
 const Slot_IMobileBroadbandCellsInfo2_get_NeighboringCellsNR* = 6
-type Fn_IMobileBroadbandCellsInfo2_get_NeighboringCellsNR* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo2_get_NeighboringCellsNR* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandCellsInfo2_get_ServingCellsNR* = 7
-type Fn_IMobileBroadbandCellsInfo2_get_ServingCellsNR* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCellsInfo2_get_ServingCellsNR* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCurrentSlotIndexChangedEventArgs
 const IID_IMobileBroadbandCurrentSlotIndexChangedEventArgs* = GUID(
     data1: 0xF718B184'u32, data2: 0xC370'u16, data3: 0x5FD4'u16,
     data4: [0xA6'u8, 0x70, 0x18, 0x46, 0xCB, 0x9B, 0xCE, 0x47])
 const Slot_IMobileBroadbandCurrentSlotIndexChangedEventArgs_get_CurrentSlotIndex* = 6
-type Fn_IMobileBroadbandCurrentSlotIndexChangedEventArgs_get_CurrentSlotIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandCurrentSlotIndexChangedEventArgs_get_CurrentSlotIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation
 const IID_IMobileBroadbandDeviceInformation* = GUID(
     data1: 0xE6D08168'u32, data2: 0xE381'u16, data3: 0x4C6E'u16,
     data4: [0x9B'u8, 0xE8, 0xFE, 0x15, 0x69, 0x69, 0xA4, 0x46])
 const Slot_IMobileBroadbandDeviceInformation_get_NetworkDeviceStatus* = 6
-type Fn_IMobileBroadbandDeviceInformation_get_NetworkDeviceStatus* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_NetworkDeviceStatus* = proc(self: pointer, value: ptr NetworkDeviceStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_Manufacturer* = 7
-type Fn_IMobileBroadbandDeviceInformation_get_Manufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_Manufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_Model* = 8
-type Fn_IMobileBroadbandDeviceInformation_get_Model* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_Model* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_FirmwareInformation* = 9
-type Fn_IMobileBroadbandDeviceInformation_get_FirmwareInformation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_FirmwareInformation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_CellularClass* = 10
-type Fn_IMobileBroadbandDeviceInformation_get_CellularClass* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_CellularClass* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_DataClasses* = 11
-type Fn_IMobileBroadbandDeviceInformation_get_DataClasses* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_DataClasses* = proc(self: pointer, value: ptr DataClasses): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_CustomDataClass* = 12
-type Fn_IMobileBroadbandDeviceInformation_get_CustomDataClass* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_CustomDataClass* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_MobileEquipmentId* = 13
-type Fn_IMobileBroadbandDeviceInformation_get_MobileEquipmentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_MobileEquipmentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_TelephoneNumbers* = 14
-type Fn_IMobileBroadbandDeviceInformation_get_TelephoneNumbers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_TelephoneNumbers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_SubscriberId* = 15
-type Fn_IMobileBroadbandDeviceInformation_get_SubscriberId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_SubscriberId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_SimIccId* = 16
-type Fn_IMobileBroadbandDeviceInformation_get_SimIccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_SimIccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_DeviceType* = 17
-type Fn_IMobileBroadbandDeviceInformation_get_DeviceType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_DeviceType* = proc(self: pointer, value: ptr MobileBroadbandDeviceType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_DeviceId* = 18
-type Fn_IMobileBroadbandDeviceInformation_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation_get_CurrentRadioState* = 19
-type Fn_IMobileBroadbandDeviceInformation_get_CurrentRadioState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation_get_CurrentRadioState* = proc(self: pointer, value: ptr MobileBroadbandRadioState): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation2
 const IID_IMobileBroadbandDeviceInformation2* = GUID(
     data1: 0x2E467AF1'u32, data2: 0xF932'u16, data3: 0x4737'u16,
     data4: [0xA7'u8, 0x22, 0x03, 0xBA, 0x72, 0x37, 0x0C, 0xB8])
 const Slot_IMobileBroadbandDeviceInformation2_get_PinManager* = 6
-type Fn_IMobileBroadbandDeviceInformation2_get_PinManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation2_get_PinManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation2_get_Revision* = 7
-type Fn_IMobileBroadbandDeviceInformation2_get_Revision* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation2_get_Revision* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation2_get_SerialNumber* = 8
-type Fn_IMobileBroadbandDeviceInformation2_get_SerialNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation2_get_SerialNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation3
 const IID_IMobileBroadbandDeviceInformation3* = GUID(
     data1: 0xE08BB4BD'u32, data2: 0x5D30'u16, data3: 0x4B5A'u16,
     data4: [0x92'u8, 0xCC, 0xD5, 0x4D, 0xF8, 0x81, 0xD4, 0x9E])
 const Slot_IMobileBroadbandDeviceInformation3_get_SimSpn* = 6
-type Fn_IMobileBroadbandDeviceInformation3_get_SimSpn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation3_get_SimSpn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation3_get_SimPnn* = 7
-type Fn_IMobileBroadbandDeviceInformation3_get_SimPnn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation3_get_SimPnn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceInformation3_get_SimGid1* = 8
-type Fn_IMobileBroadbandDeviceInformation3_get_SimGid1* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation3_get_SimGid1* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceInformation4
 const IID_IMobileBroadbandDeviceInformation4* = GUID(
     data1: 0x263F3152'u32, data2: 0x7B9D'u16, data3: 0x582C'u16,
     data4: [0xB1'u8, 0x7C, 0xF8, 0x0A, 0x60, 0xB5, 0x00, 0x31])
 const Slot_IMobileBroadbandDeviceInformation4_get_SlotManager* = 6
-type Fn_IMobileBroadbandDeviceInformation4_get_SlotManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceInformation4_get_SlotManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceService
 const IID_IMobileBroadbandDeviceService* = GUID(
     data1: 0x22BE1A52'u32, data2: 0xBD80'u16, data3: 0x40AC'u16,
     data4: [0x8E'u8, 0x1F, 0x2E, 0x07, 0x83, 0x6A, 0x3D, 0xBD])
 const Slot_IMobileBroadbandDeviceService_get_DeviceServiceId* = 6
-type Fn_IMobileBroadbandDeviceService_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceService_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceService_get_SupportedCommands* = 7
-type Fn_IMobileBroadbandDeviceService_get_SupportedCommands* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceService_get_SupportedCommands* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceService_OpenDataSession* = 8
-type Fn_IMobileBroadbandDeviceService_OpenDataSession* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceService_OpenDataSession* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceService_OpenCommandSession* = 9
-type Fn_IMobileBroadbandDeviceService_OpenCommandSession* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceService_OpenCommandSession* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs
 const IID_IMobileBroadbandDeviceServiceCommandEventArgs* = GUID(
     data1: 0x28E4338F'u32, data2: 0xCCA4'u16, data3: 0x5047'u16,
     data4: [0xA2'u8, 0x0C, 0x0A, 0x6D, 0x79, 0xAC, 0xEC, 0xBA])
 const Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceId* = 6
-type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceServiceId* = 7
-type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_EventId* = 8
-type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_EventId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_EventId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_ReceivedData* = 9
-type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandResult
 const IID_IMobileBroadbandDeviceServiceCommandResult* = GUID(
     data1: 0xB0F46ABB'u32, data2: 0x94D6'u16, data3: 0x44B9'u16,
     data4: [0xA5'u8, 0x38, 0xF0, 0x81, 0x0B, 0x64, 0x53, 0x89])
 const Slot_IMobileBroadbandDeviceServiceCommandResult_get_StatusCode* = 6
-type Fn_IMobileBroadbandDeviceServiceCommandResult_get_StatusCode* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandResult_get_StatusCode* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData* = 7
-type Fn_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession
 const IID_IMobileBroadbandDeviceServiceCommandSession* = GUID(
     data1: 0xFC098A45'u32, data2: 0x913B'u16, data3: 0x4914'u16,
     data4: [0xB6'u8, 0xC3, 0xAE, 0x63, 0x04, 0x59, 0x3E, 0x75])
 const Slot_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync* = 6
-type Fn_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync* = proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync* = proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync* = 7
-type Fn_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync* = proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync* = proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession_CloseSession* = 8
-type Fn_IMobileBroadbandDeviceServiceCommandSession_CloseSession* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandSession_CloseSession* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession2
 const IID_IMobileBroadbandDeviceServiceCommandSession2* = GUID(
     data1: 0xEF004861'u32, data2: 0x2546'u16, data3: 0x5739'u16,
     data4: [0x86'u8, 0xE7, 0x0F, 0xDC, 0x0E, 0x62, 0x41, 0x1C])
 const Slot_IMobileBroadbandDeviceServiceCommandSession2_add_CommandReceived* = 6
-type Fn_IMobileBroadbandDeviceServiceCommandSession2_add_CommandReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandSession2_add_CommandReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived* = 7
-type Fn_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataReceivedEventArgs
 const IID_IMobileBroadbandDeviceServiceDataReceivedEventArgs* = GUID(
     data1: 0xB6AA13DE'u32, data2: 0x1380'u16, data3: 0x40E3'u16,
     data4: [0x86'u8, 0x18, 0x73, 0xCB, 0xCA, 0x48, 0x13, 0x8C])
 const Slot_IMobileBroadbandDeviceServiceDataReceivedEventArgs_get_ReceivedData* = 6
-type Fn_IMobileBroadbandDeviceServiceDataReceivedEventArgs_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceDataReceivedEventArgs_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataSession
 const IID_IMobileBroadbandDeviceServiceDataSession* = GUID(
     data1: 0xDAD62333'u32, data2: 0x8BCF'u16, data3: 0x4289'u16,
     data4: [0x8A'u8, 0x37, 0x04, 0x5C, 0x21, 0x69, 0x48, 0x6A])
 const Slot_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync* = 6
-type Fn_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceDataSession_CloseSession* = 7
-type Fn_IMobileBroadbandDeviceServiceDataSession_CloseSession* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceDataSession_CloseSession* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceDataSession_add_DataReceived* = 8
-type Fn_IMobileBroadbandDeviceServiceDataSession_add_DataReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceDataSession_add_DataReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceDataSession_remove_DataReceived* = 9
-type Fn_IMobileBroadbandDeviceServiceDataSession_remove_DataReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceDataSession_remove_DataReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceInformation
 const IID_IMobileBroadbandDeviceServiceInformation* = GUID(
     data1: 0x53D69B5B'u32, data2: 0xC4ED'u16, data3: 0x45F0'u16,
     data4: [0x80'u8, 0x3A, 0xD9, 0x41, 0x7A, 0x6D, 0x98, 0x46])
 const Slot_IMobileBroadbandDeviceServiceInformation_get_DeviceServiceId* = 6
-type Fn_IMobileBroadbandDeviceServiceInformation_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceInformation_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceInformation_get_IsDataReadSupported* = 7
-type Fn_IMobileBroadbandDeviceServiceInformation_get_IsDataReadSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceInformation_get_IsDataReadSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceInformation_get_IsDataWriteSupported* = 8
-type Fn_IMobileBroadbandDeviceServiceInformation_get_IsDataWriteSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceInformation_get_IsDataWriteSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceTriggerDetails
 const IID_IMobileBroadbandDeviceServiceTriggerDetails* = GUID(
     data1: 0x4A055B70'u32, data2: 0xB9AE'u16, data3: 0x4458'u16,
     data4: [0x92'u8, 0x41, 0xA6, 0xA5, 0xFB, 0xF1, 0x8A, 0x0C])
 const Slot_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceId* = 6
-type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceServiceId* = 7
-type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceServiceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandDeviceServiceTriggerDetails_get_ReceivedData* = 8
-type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_ReceivedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceTriggerDetails2
 const IID_IMobileBroadbandDeviceServiceTriggerDetails2* = GUID(
     data1: 0xD83D5F16'u32, data2: 0x336A'u16, data3: 0x553F'u16,
     data4: [0x94'u8, 0xBB, 0x0C, 0xD1, 0xA2, 0xFF, 0x0C, 0x81])
 const Slot_IMobileBroadbandDeviceServiceTriggerDetails2_get_EventId* = 6
-type Fn_IMobileBroadbandDeviceServiceTriggerDetails2_get_EventId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandDeviceServiceTriggerDetails2_get_EventId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModem
 const IID_IMobileBroadbandModem* = GUID(
     data1: 0xD0356912'u32, data2: 0xE9F9'u16, data3: 0x4F67'u16,
     data4: [0xA0'u8, 0x3D, 0x43, 0x18, 0x9A, 0x31, 0x6B, 0xF1])
 const Slot_IMobileBroadbandModem_get_CurrentAccount* = 6
-type Fn_IMobileBroadbandModem_get_CurrentAccount* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_CurrentAccount* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_DeviceInformation* = 7
-type Fn_IMobileBroadbandModem_get_DeviceInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_DeviceInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_MaxDeviceServiceCommandSizeInBytes* = 8
-type Fn_IMobileBroadbandModem_get_MaxDeviceServiceCommandSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_MaxDeviceServiceCommandSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_MaxDeviceServiceDataSizeInBytes* = 9
-type Fn_IMobileBroadbandModem_get_MaxDeviceServiceDataSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_MaxDeviceServiceDataSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_DeviceServices* = 10
-type Fn_IMobileBroadbandModem_get_DeviceServices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_DeviceServices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_GetDeviceService* = 11
-type Fn_IMobileBroadbandModem_GetDeviceService* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_GetDeviceService* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_IsResetSupported* = 12
-type Fn_IMobileBroadbandModem_get_IsResetSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_IsResetSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_ResetAsync* = 13
-type Fn_IMobileBroadbandModem_ResetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_ResetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_GetCurrentConfigurationAsync* = 14
-type Fn_IMobileBroadbandModem_GetCurrentConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_GetCurrentConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem_get_CurrentNetwork* = 15
-type Fn_IMobileBroadbandModem_get_CurrentNetwork* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem_get_CurrentNetwork* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModem2
 const IID_IMobileBroadbandModem2* = GUID(
     data1: 0x12862B28'u32, data2: 0xB9EB'u16, data3: 0x4EE2'u16,
     data4: [0xBB'u8, 0xE3, 0x71, 0x1F, 0x53, 0xEE, 0xA3, 0x73])
 const Slot_IMobileBroadbandModem2_GetIsPassthroughEnabledAsync* = 6
-type Fn_IMobileBroadbandModem2_GetIsPassthroughEnabledAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem2_GetIsPassthroughEnabledAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem2_SetIsPassthroughEnabledAsync* = 7
-type Fn_IMobileBroadbandModem2_SetIsPassthroughEnabledAsync* = proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem2_SetIsPassthroughEnabledAsync* = proc(self: pointer, a1: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModem3
 const IID_IMobileBroadbandModem3* = GUID(
     data1: 0xE9FEC6EA'u32, data2: 0x2F34'u16, data3: 0x4582'u16,
     data4: [0x91'u8, 0x02, 0xC3, 0x14, 0xD2, 0xA8, 0x7E, 0xEC])
 const Slot_IMobileBroadbandModem3_TryGetPcoAsync* = 6
-type Fn_IMobileBroadbandModem3_TryGetPcoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem3_TryGetPcoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem3_get_IsInEmergencyCallMode* = 7
-type Fn_IMobileBroadbandModem3_get_IsInEmergencyCallMode* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem3_get_IsInEmergencyCallMode* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem3_add_IsInEmergencyCallModeChanged* = 8
-type Fn_IMobileBroadbandModem3_add_IsInEmergencyCallModeChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem3_add_IsInEmergencyCallModeChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* = 9
-type Fn_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModem4
 const IID_IMobileBroadbandModem4* = GUID(
     data1: 0x4A0398C2'u32, data2: 0x91BE'u16, data3: 0x412B'u16,
     data4: [0xB5'u8, 0x69, 0x58, 0x6E, 0x9F, 0x00, 0x30, 0xD1])
 const Slot_IMobileBroadbandModem4_SetIsPassthroughEnabledAsync* = 6
-type Fn_IMobileBroadbandModem4_SetIsPassthroughEnabledAsync* = proc(self: pointer, a1: bool, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem4_SetIsPassthroughEnabledAsync* = proc(self: pointer, a1: bool, a2: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem4_GetIsPassthroughEnabledAsync* = 7
-type Fn_IMobileBroadbandModem4_GetIsPassthroughEnabledAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem4_GetIsPassthroughEnabledAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem4_SetIsPassthroughEnabled* = 8
-type Fn_IMobileBroadbandModem4_SetIsPassthroughEnabled* = proc(self: pointer, a1: bool, a2: int32, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem4_SetIsPassthroughEnabled* = proc(self: pointer, a1: bool, a2: int32, value: ptr MobileBroadbandModemStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModem4_GetIsPassthroughEnabled* = 9
-type Fn_IMobileBroadbandModem4_GetIsPassthroughEnabled* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModem4_GetIsPassthroughEnabled* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemConfiguration
 const IID_IMobileBroadbandModemConfiguration* = GUID(
     data1: 0xFCE035A3'u32, data2: 0xD6CD'u16, data3: 0x4320'u16,
     data4: [0xB9'u8, 0x82, 0xBE, 0x9D, 0x3E, 0xC7, 0x89, 0x0F])
 const Slot_IMobileBroadbandModemConfiguration_get_Uicc* = 6
-type Fn_IMobileBroadbandModemConfiguration_get_Uicc* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemConfiguration_get_Uicc* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemConfiguration_get_HomeProviderId* = 7
-type Fn_IMobileBroadbandModemConfiguration_get_HomeProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemConfiguration_get_HomeProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemConfiguration_get_HomeProviderName* = 8
-type Fn_IMobileBroadbandModemConfiguration_get_HomeProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemConfiguration_get_HomeProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemConfiguration2
 const IID_IMobileBroadbandModemConfiguration2* = GUID(
     data1: 0x320FF5C5'u32, data2: 0xE460'u16, data3: 0x42AE'u16,
     data4: [0xAA'u8, 0x51, 0x69, 0x62, 0x1E, 0x7A, 0x44, 0x77])
 const Slot_IMobileBroadbandModemConfiguration2_get_SarManager* = 6
-type Fn_IMobileBroadbandModemConfiguration2_get_SarManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemConfiguration2_get_SarManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation
 const IID_IMobileBroadbandModemIsolation* = GUID(
     data1: 0xB5618FEC'u32, data2: 0xE661'u16, data3: 0x4330'u16,
     data4: [0x9B'u8, 0xB4, 0x34, 0x80, 0x21, 0x2E, 0xC3, 0x54])
 const Slot_IMobileBroadbandModemIsolation_AddAllowedHost* = 6
-type Fn_IMobileBroadbandModemIsolation_AddAllowedHost* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemIsolation_AddAllowedHost* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemIsolation_AddAllowedHostRange* = 7
-type Fn_IMobileBroadbandModemIsolation_AddAllowedHostRange* = proc(self: pointer, a1HostName: pointer, a2HostName: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemIsolation_AddAllowedHostRange* = proc(self: pointer, a1HostName: pointer, a2HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemIsolation_ApplyConfigurationAsync* = 8
-type Fn_IMobileBroadbandModemIsolation_ApplyConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemIsolation_ApplyConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemIsolation_ClearConfigurationAsync* = 9
-type Fn_IMobileBroadbandModemIsolation_ClearConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemIsolation_ClearConfigurationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolationFactory
 const IID_IMobileBroadbandModemIsolationFactory* = GUID(
     data1: 0x21D7EC58'u32, data2: 0xC2B1'u16, data3: 0x4C2F'u16,
     data4: [0xA0'u8, 0x30, 0x72, 0x82, 0x0A, 0x24, 0xEC, 0xD9])
 const Slot_IMobileBroadbandModemIsolationFactory_Create* = 6
-type Fn_IMobileBroadbandModemIsolationFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemIsolationFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics
 const IID_IMobileBroadbandModemStatics* = GUID(
     data1: 0xF99ED637'u32, data2: 0xD6F1'u16, data3: 0x4A78'u16,
     data4: [0x8C'u8, 0xBC, 0x64, 0x21, 0xA6, 0x50, 0x63, 0xC8])
 const Slot_IMobileBroadbandModemStatics_GetDeviceSelector* = 6
-type Fn_IMobileBroadbandModemStatics_GetDeviceSelector* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemStatics_GetDeviceSelector* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemStatics_FromId* = 7
-type Fn_IMobileBroadbandModemStatics_FromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemStatics_FromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandModemStatics_GetDefault* = 8
-type Fn_IMobileBroadbandModemStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandModemStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandNetwork
 const IID_IMobileBroadbandNetwork* = GUID(
     data1: 0xCB63928C'u32, data2: 0x0309'u16, data3: 0x4CB6'u16,
     data4: [0xA8'u8, 0xC1, 0x6A, 0x5A, 0x3C, 0x8E, 0x1F, 0xF6])
 const Slot_IMobileBroadbandNetwork_get_NetworkAdapter* = 6
-type Fn_IMobileBroadbandNetwork_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_NetworkRegistrationState* = 7
-type Fn_IMobileBroadbandNetwork_get_NetworkRegistrationState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_NetworkRegistrationState* = proc(self: pointer, value: ptr NetworkRegistrationState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_RegistrationNetworkError* = 8
-type Fn_IMobileBroadbandNetwork_get_RegistrationNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_RegistrationNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_PacketAttachNetworkError* = 9
-type Fn_IMobileBroadbandNetwork_get_PacketAttachNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_PacketAttachNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_ActivationNetworkError* = 10
-type Fn_IMobileBroadbandNetwork_get_ActivationNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_ActivationNetworkError* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_AccessPointName* = 11
-type Fn_IMobileBroadbandNetwork_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_AccessPointName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_RegisteredDataClass* = 12
-type Fn_IMobileBroadbandNetwork_get_RegisteredDataClass* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_RegisteredDataClass* = proc(self: pointer, value: ptr DataClasses): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_RegisteredProviderId* = 13
-type Fn_IMobileBroadbandNetwork_get_RegisteredProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_RegisteredProviderId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_get_RegisteredProviderName* = 14
-type Fn_IMobileBroadbandNetwork_get_RegisteredProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_get_RegisteredProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork_ShowConnectionUI* = 15
-type Fn_IMobileBroadbandNetwork_ShowConnectionUI* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork_ShowConnectionUI* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandNetwork2
 const IID_IMobileBroadbandNetwork2* = GUID(
     data1: 0x5A55DB22'u32, data2: 0x62F7'u16, data3: 0x4BDD'u16,
     data4: [0xBA'u8, 0x1D, 0x47, 0x74, 0x41, 0x96, 0x0B, 0xA0])
 const Slot_IMobileBroadbandNetwork2_GetVoiceCallSupportAsync* = 6
-type Fn_IMobileBroadbandNetwork2_GetVoiceCallSupportAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork2_GetVoiceCallSupportAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetwork2_get_RegistrationUiccApps* = 7
-type Fn_IMobileBroadbandNetwork2_get_RegistrationUiccApps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork2_get_RegistrationUiccApps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandNetwork3
 const IID_IMobileBroadbandNetwork3* = GUID(
     data1: 0x33670A8A'u32, data2: 0xC7EF'u16, data3: 0x444C'u16,
     data4: [0xAB'u8, 0x6C, 0xDF, 0x7E, 0xF7, 0xA3, 0x90, 0xFE])
 const Slot_IMobileBroadbandNetwork3_GetCellsInfoAsync* = 6
-type Fn_IMobileBroadbandNetwork3_GetCellsInfoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetwork3_GetCellsInfoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandNetworkRegistrationStateChange
 const IID_IMobileBroadbandNetworkRegistrationStateChange* = GUID(
     data1: 0xBEAF94E1'u32, data2: 0x960F'u16, data3: 0x49B4'u16,
     data4: [0xA0'u8, 0x8D, 0x7D, 0x85, 0xE9, 0x68, 0xC7, 0xEC])
 const Slot_IMobileBroadbandNetworkRegistrationStateChange_get_DeviceId* = 6
-type Fn_IMobileBroadbandNetworkRegistrationStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetworkRegistrationStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandNetworkRegistrationStateChange_get_Network* = 7
-type Fn_IMobileBroadbandNetworkRegistrationStateChange_get_Network* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetworkRegistrationStateChange_get_Network* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails
 const IID_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails* = GUID(
     data1: 0x89135CFF'u32, data2: 0x28B8'u16, data3: 0x46AA'u16,
     data4: [0xB1'u8, 0x37, 0x1C, 0x4B, 0x0F, 0x21, 0xED, 0xFE])
 const Slot_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails_get_NetworkRegistrationStateChanges* = 6
-type Fn_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails_get_NetworkRegistrationStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails_get_NetworkRegistrationStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPco
 const IID_IMobileBroadbandPco* = GUID(
     data1: 0xD4E4FCBE'u32, data2: 0xE3A3'u16, data3: 0x43C5'u16,
     data4: [0xA8'u8, 0x7B, 0x6C, 0x86, 0xD2, 0x29, 0xD7, 0xFA])
 const Slot_IMobileBroadbandPco_get_Data* = 6
-type Fn_IMobileBroadbandPco_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPco_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPco_get_IsComplete* = 7
-type Fn_IMobileBroadbandPco_get_IsComplete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPco_get_IsComplete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPco_get_DeviceId* = 8
-type Fn_IMobileBroadbandPco_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPco_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPcoDataChangeTriggerDetails
 const IID_IMobileBroadbandPcoDataChangeTriggerDetails* = GUID(
     data1: 0x263F5114'u32, data2: 0x64E0'u16, data3: 0x4493'u16,
     data4: [0x90'u8, 0x9B, 0x2D, 0x14, 0xA0, 0x19, 0x62, 0xB1])
 const Slot_IMobileBroadbandPcoDataChangeTriggerDetails_get_UpdatedData* = 6
-type Fn_IMobileBroadbandPcoDataChangeTriggerDetails_get_UpdatedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPcoDataChangeTriggerDetails_get_UpdatedData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPin
 const IID_IMobileBroadbandPin* = GUID(
     data1: 0xE661D709'u32, data2: 0xE779'u16, data3: 0x45BF'u16,
     data4: [0x82'u8, 0x81, 0x75, 0x32, 0x3D, 0xF9, 0xE3, 0x21])
 const Slot_IMobileBroadbandPin_get_Type* = 6
-type Fn_IMobileBroadbandPin_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_Type* = proc(self: pointer, value: ptr MobileBroadbandPinType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_LockState* = 7
-type Fn_IMobileBroadbandPin_get_LockState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_LockState* = proc(self: pointer, value: ptr MobileBroadbandPinLockState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_Format* = 8
-type Fn_IMobileBroadbandPin_get_Format* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_Format* = proc(self: pointer, value: ptr MobileBroadbandPinFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_Enabled* = 9
-type Fn_IMobileBroadbandPin_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_Enabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_MaxLength* = 10
-type Fn_IMobileBroadbandPin_get_MaxLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_MaxLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_MinLength* = 11
-type Fn_IMobileBroadbandPin_get_MinLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_MinLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_get_AttemptsRemaining* = 12
-type Fn_IMobileBroadbandPin_get_AttemptsRemaining* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_get_AttemptsRemaining* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_EnableAsync* = 13
-type Fn_IMobileBroadbandPin_EnableAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_EnableAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_DisableAsync* = 14
-type Fn_IMobileBroadbandPin_DisableAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_DisableAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_EnterAsync* = 15
-type Fn_IMobileBroadbandPin_EnterAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_EnterAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_ChangeAsync* = 16
-type Fn_IMobileBroadbandPin_ChangeAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_ChangeAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPin_UnblockAsync* = 17
-type Fn_IMobileBroadbandPin_UnblockAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPin_UnblockAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinLockStateChange
 const IID_IMobileBroadbandPinLockStateChange* = GUID(
     data1: 0xBE16673E'u32, data2: 0x1F04'u16, data3: 0x4F95'u16,
     data4: [0x8B'u8, 0x90, 0xE7, 0xF5, 0x59, 0xDD, 0xE7, 0xE5])
 const Slot_IMobileBroadbandPinLockStateChange_get_DeviceId* = 6
-type Fn_IMobileBroadbandPinLockStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinLockStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPinLockStateChange_get_PinType* = 7
-type Fn_IMobileBroadbandPinLockStateChange_get_PinType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinLockStateChange_get_PinType* = proc(self: pointer, value: ptr MobileBroadbandPinType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPinLockStateChange_get_PinLockState* = 8
-type Fn_IMobileBroadbandPinLockStateChange_get_PinLockState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinLockStateChange_get_PinLockState* = proc(self: pointer, value: ptr MobileBroadbandPinLockState): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinLockStateChangeTriggerDetails
 const IID_IMobileBroadbandPinLockStateChangeTriggerDetails* = GUID(
     data1: 0xD338C091'u32, data2: 0x3E91'u16, data3: 0x4D38'u16,
     data4: [0x90'u8, 0x36, 0xAE, 0xE8, 0x3A, 0x6E, 0x79, 0xAD])
 const Slot_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges* = 6
-type Fn_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinManager
 const IID_IMobileBroadbandPinManager* = GUID(
     data1: 0x83567EDD'u32, data2: 0x6E1F'u16, data3: 0x4B9B'u16,
     data4: [0xA4'u8, 0x13, 0x2B, 0x1F, 0x50, 0xCC, 0x36, 0xDF])
 const Slot_IMobileBroadbandPinManager_get_SupportedPins* = 6
-type Fn_IMobileBroadbandPinManager_get_SupportedPins* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinManager_get_SupportedPins* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPinManager_GetPin* = 7
-type Fn_IMobileBroadbandPinManager_GetPin* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinManager_GetPin* = proc(self: pointer, a1: MobileBroadbandPinType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinOperationResult
 const IID_IMobileBroadbandPinOperationResult* = GUID(
     data1: 0x11DDDC32'u32, data2: 0x31E7'u16, data3: 0x49F5'u16,
     data4: [0xB6'u8, 0x63, 0x12, 0x3D, 0x3B, 0xEF, 0x03, 0x62])
 const Slot_IMobileBroadbandPinOperationResult_get_IsSuccessful* = 6
-type Fn_IMobileBroadbandPinOperationResult_get_IsSuccessful* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinOperationResult_get_IsSuccessful* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandPinOperationResult_get_AttemptsRemaining* = 7
-type Fn_IMobileBroadbandPinOperationResult_get_AttemptsRemaining* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandPinOperationResult_get_AttemptsRemaining* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandRadioStateChange
 const IID_IMobileBroadbandRadioStateChange* = GUID(
     data1: 0xB054A561'u32, data2: 0x9833'u16, data3: 0x4AED'u16,
     data4: [0x97'u8, 0x17, 0x43, 0x48, 0xB2, 0x1A, 0x24, 0xB3])
 const Slot_IMobileBroadbandRadioStateChange_get_DeviceId* = 6
-type Fn_IMobileBroadbandRadioStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandRadioStateChange_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandRadioStateChange_get_RadioState* = 7
-type Fn_IMobileBroadbandRadioStateChange_get_RadioState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandRadioStateChange_get_RadioState* = proc(self: pointer, value: ptr MobileBroadbandRadioState): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandRadioStateChangeTriggerDetails
 const IID_IMobileBroadbandRadioStateChangeTriggerDetails* = GUID(
     data1: 0x71301ACE'u32, data2: 0x093C'u16, data3: 0x42C6'u16,
     data4: [0xB0'u8, 0xDB, 0xAD, 0x1F, 0x75, 0xA6, 0x54, 0x45])
 const Slot_IMobileBroadbandRadioStateChangeTriggerDetails_get_RadioStateChanges* = 6
-type Fn_IMobileBroadbandRadioStateChangeTriggerDetails_get_RadioStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandRadioStateChangeTriggerDetails_get_RadioStateChanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandSarManager
 const IID_IMobileBroadbandSarManager* = GUID(
     data1: 0xE5B26833'u32, data2: 0x967E'u16, data3: 0x40C9'u16,
     data4: [0xA4'u8, 0x85, 0x19, 0xC0, 0xDD, 0x20, 0x9E, 0x22])
 const Slot_IMobileBroadbandSarManager_get_IsBackoffEnabled* = 6
-type Fn_IMobileBroadbandSarManager_get_IsBackoffEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_get_IsBackoffEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_get_IsWiFiHardwareIntegrated* = 7
-type Fn_IMobileBroadbandSarManager_get_IsWiFiHardwareIntegrated* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_get_IsWiFiHardwareIntegrated* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_get_IsSarControlledByHardware* = 8
-type Fn_IMobileBroadbandSarManager_get_IsSarControlledByHardware* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_get_IsSarControlledByHardware* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_get_Antennas* = 9
-type Fn_IMobileBroadbandSarManager_get_Antennas* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_get_Antennas* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_get_HysteresisTimerPeriod* = 10
-type Fn_IMobileBroadbandSarManager_get_HysteresisTimerPeriod* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_get_HysteresisTimerPeriod* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_add_TransmissionStateChanged* = 11
-type Fn_IMobileBroadbandSarManager_add_TransmissionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_add_TransmissionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_remove_TransmissionStateChanged* = 12
-type Fn_IMobileBroadbandSarManager_remove_TransmissionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_remove_TransmissionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_EnableBackoffAsync* = 13
-type Fn_IMobileBroadbandSarManager_EnableBackoffAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_EnableBackoffAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_DisableBackoffAsync* = 14
-type Fn_IMobileBroadbandSarManager_DisableBackoffAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_DisableBackoffAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_SetConfigurationAsync* = 15
-type Fn_IMobileBroadbandSarManager_SetConfigurationAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_SetConfigurationAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_RevertSarToHardwareControlAsync* = 16
-type Fn_IMobileBroadbandSarManager_RevertSarToHardwareControlAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_RevertSarToHardwareControlAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_SetTransmissionStateChangedHysteresisAsync* = 17
-type Fn_IMobileBroadbandSarManager_SetTransmissionStateChangedHysteresisAsync* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_SetTransmissionStateChangedHysteresisAsync* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_GetIsTransmittingAsync* = 18
-type Fn_IMobileBroadbandSarManager_GetIsTransmittingAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_GetIsTransmittingAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_StartTransmissionStateMonitoring* = 19
-type Fn_IMobileBroadbandSarManager_StartTransmissionStateMonitoring* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_StartTransmissionStateMonitoring* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSarManager_StopTransmissionStateMonitoring* = 20
-type Fn_IMobileBroadbandSarManager_StopTransmissionStateMonitoring* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSarManager_StopTransmissionStateMonitoring* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo
 const IID_IMobileBroadbandSlotInfo* = GUID(
     data1: 0xBD350B32'u32, data2: 0x882E'u16, data3: 0x542A'u16,
     data4: [0xB1'u8, 0x7D, 0x0B, 0xB1, 0xB4, 0x9B, 0xAE, 0x9E])
 const Slot_IMobileBroadbandSlotInfo_get_Index* = 6
-type Fn_IMobileBroadbandSlotInfo_get_Index* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotInfo_get_Index* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotInfo_get_State* = 7
-type Fn_IMobileBroadbandSlotInfo_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotInfo_get_State* = proc(self: pointer, value: ptr MobileBroadbandSlotState): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo2
 const IID_IMobileBroadbandSlotInfo2* = GUID(
     data1: 0x393CB039'u32, data2: 0xCA44'u16, data3: 0x524C'u16,
     data4: [0x82'u8, 0x2D, 0x83, 0xA3, 0x62, 0x0F, 0x0E, 0xFC])
 const Slot_IMobileBroadbandSlotInfo2_get_IccId* = 6
-type Fn_IMobileBroadbandSlotInfo2_get_IccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotInfo2_get_IccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfoChangedEventArgs
 const IID_IMobileBroadbandSlotInfoChangedEventArgs* = GUID(
     data1: 0x3158839F'u32, data2: 0x950C'u16, data3: 0x54CE'u16,
     data4: [0xA4'u8, 0x8D, 0xBA, 0x45, 0x29, 0xB4, 0x8F, 0x0F])
 const Slot_IMobileBroadbandSlotInfoChangedEventArgs_get_SlotInfo* = 6
-type Fn_IMobileBroadbandSlotInfoChangedEventArgs_get_SlotInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotInfoChangedEventArgs_get_SlotInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandSlotManager
 const IID_IMobileBroadbandSlotManager* = GUID(
     data1: 0xEBA07CD6'u32, data2: 0x2019'u16, data3: 0x5F81'u16,
     data4: [0xA2'u8, 0x94, 0xCC, 0x36, 0x4A, 0x11, 0xD0, 0xB2])
 const Slot_IMobileBroadbandSlotManager_get_SlotInfos* = 6
-type Fn_IMobileBroadbandSlotManager_get_SlotInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_get_SlotInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_get_CurrentSlotIndex* = 7
-type Fn_IMobileBroadbandSlotManager_get_CurrentSlotIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_get_CurrentSlotIndex* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_SetCurrentSlot* = 8
-type Fn_IMobileBroadbandSlotManager_SetCurrentSlot* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_SetCurrentSlot* = proc(self: pointer, a1: int32, value: ptr MobileBroadbandModemStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_SetCurrentSlotAsync* = 9
-type Fn_IMobileBroadbandSlotManager_SetCurrentSlotAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_SetCurrentSlotAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_add_SlotInfoChanged* = 10
-type Fn_IMobileBroadbandSlotManager_add_SlotInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_add_SlotInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_remove_SlotInfoChanged* = 11
-type Fn_IMobileBroadbandSlotManager_remove_SlotInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_remove_SlotInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_add_CurrentSlotIndexChanged* = 12
-type Fn_IMobileBroadbandSlotManager_add_CurrentSlotIndexChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_add_CurrentSlotIndexChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandSlotManager_remove_CurrentSlotIndexChanged* = 13
-type Fn_IMobileBroadbandSlotManager_remove_CurrentSlotIndexChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandSlotManager_remove_CurrentSlotIndexChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandTransmissionStateChangedEventArgs
 const IID_IMobileBroadbandTransmissionStateChangedEventArgs* = GUID(
     data1: 0x612E3875'u32, data2: 0x040A'u16, data3: 0x4F99'u16,
     data4: [0xA4'u8, 0xF9, 0x61, 0xD7, 0xC3, 0x2D, 0xA1, 0x29])
 const Slot_IMobileBroadbandTransmissionStateChangedEventArgs_get_IsTransmitting* = 6
-type Fn_IMobileBroadbandTransmissionStateChangedEventArgs_get_IsTransmitting* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandTransmissionStateChangedEventArgs_get_IsTransmitting* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUicc
 const IID_IMobileBroadbandUicc* = GUID(
     data1: 0xE634F691'u32, data2: 0x525A'u16, data3: 0x4CE2'u16,
     data4: [0x8F'u8, 0xCE, 0xAA, 0x41, 0x62, 0x57, 0x91, 0x54])
 const Slot_IMobileBroadbandUicc_get_SimIccId* = 6
-type Fn_IMobileBroadbandUicc_get_SimIccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUicc_get_SimIccId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUicc_GetUiccAppsAsync* = 7
-type Fn_IMobileBroadbandUicc_GetUiccAppsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUicc_GetUiccAppsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUiccApp
 const IID_IMobileBroadbandUiccApp* = GUID(
     data1: 0x4D170556'u32, data2: 0x98A1'u16, data3: 0x43DD'u16,
     data4: [0xB2'u8, 0xEC, 0x50, 0xC9, 0x0C, 0xF2, 0x48, 0xDF])
 const Slot_IMobileBroadbandUiccApp_get_Id* = 6
-type Fn_IMobileBroadbandUiccApp_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccApp_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccApp_get_Kind* = 7
-type Fn_IMobileBroadbandUiccApp_get_Kind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccApp_get_Kind* = proc(self: pointer, value: ptr UiccAppKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccApp_GetRecordDetailsAsync* = 8
-type Fn_IMobileBroadbandUiccApp_GetRecordDetailsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccApp_GetRecordDetailsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccApp_ReadRecordAsync* = 9
-type Fn_IMobileBroadbandUiccApp_ReadRecordAsync* = proc(self: pointer, a1: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccApp_ReadRecordAsync* = proc(self: pointer, a1: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppReadRecordResult
 const IID_IMobileBroadbandUiccAppReadRecordResult* = GUID(
     data1: 0x64C95285'u32, data2: 0x358E'u16, data3: 0x47C5'u16,
     data4: [0x82'u8, 0x49, 0x69, 0x5F, 0x38, 0x3B, 0x2B, 0xDB])
 const Slot_IMobileBroadbandUiccAppReadRecordResult_get_Status* = 6
-type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Status* = proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppReadRecordResult_get_Data* = 7
-type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppRecordDetailsResult
 const IID_IMobileBroadbandUiccAppRecordDetailsResult* = GUID(
     data1: 0xD919682F'u32, data2: 0xBE14'u16, data3: 0x4934'u16,
     data4: [0x98'u8, 0x1D, 0x2F, 0x57, 0xB9, 0xED, 0x83, 0xE6])
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_Status* = 6
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Status* = proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_Kind* = 7
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Kind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Kind* = proc(self: pointer, value: ptr UiccAppRecordKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordCount* = 8
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordCount* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordCount* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordSize* = 9
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordSize* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_RecordSize* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_ReadAccessCondition* = 10
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_ReadAccessCondition* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_ReadAccessCondition* = proc(self: pointer, value: ptr UiccAccessCondition): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_WriteAccessCondition* = 11
-type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_WriteAccessCondition* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_WriteAccessCondition* = proc(self: pointer, value: ptr UiccAccessCondition): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppsResult
 const IID_IMobileBroadbandUiccAppsResult* = GUID(
     data1: 0x744930EB'u32, data2: 0x8157'u16, data3: 0x4A41'u16,
     data4: [0x84'u8, 0x94, 0x6B, 0xF5, 0x4C, 0x9B, 0x1D, 0x2B])
 const Slot_IMobileBroadbandUiccAppsResult_get_Status* = 6
-type Fn_IMobileBroadbandUiccAppsResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppsResult_get_Status* = proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMobileBroadbandUiccAppsResult_get_UiccApps* = 7
-type Fn_IMobileBroadbandUiccAppsResult_get_UiccApps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMobileBroadbandUiccAppsResult_get_UiccApps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorDataUsageTriggerDetails
 const IID_INetworkOperatorDataUsageTriggerDetails* = GUID(
     data1: 0x50E3126D'u32, data2: 0xA465'u16, data3: 0x4EEB'u16,
     data4: [0x93'u8, 0x17, 0x28, 0xA1, 0x67, 0x63, 0x0C, 0xEA])
 const Slot_INetworkOperatorDataUsageTriggerDetails_get_NotificationKind* = 6
-type Fn_INetworkOperatorDataUsageTriggerDetails_get_NotificationKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorDataUsageTriggerDetails_get_NotificationKind* = proc(self: pointer, value: ptr NetworkOperatorDataUsageNotificationKind): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails
 const IID_INetworkOperatorNotificationEventDetails* = GUID(
     data1: 0xBC68A9D1'u32, data2: 0x82E1'u16, data3: 0x4488'u16,
     data4: [0x9F'u8, 0x2C, 0x12, 0x76, 0xC2, 0x46, 0x8F, 0xAC])
 const Slot_INetworkOperatorNotificationEventDetails_get_NotificationType* = 6
-type Fn_INetworkOperatorNotificationEventDetails_get_NotificationType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_NotificationType* = proc(self: pointer, value: ptr NetworkOperatorEventMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorNotificationEventDetails_get_NetworkAccountId* = 7
-type Fn_INetworkOperatorNotificationEventDetails_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorNotificationEventDetails_get_EncodingType* = 8
-type Fn_INetworkOperatorNotificationEventDetails_get_EncodingType* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_EncodingType* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorNotificationEventDetails_get_Message* = 9
-type Fn_INetworkOperatorNotificationEventDetails_get_Message* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_Message* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorNotificationEventDetails_get_RuleId* = 10
-type Fn_INetworkOperatorNotificationEventDetails_get_RuleId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_RuleId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorNotificationEventDetails_get_SmsMessage* = 11
-type Fn_INetworkOperatorNotificationEventDetails_get_SmsMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorNotificationEventDetails_get_SmsMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration
 const IID_INetworkOperatorTetheringAccessPointConfiguration* = GUID(
     data1: 0x0BCC0284'u32, data2: 0x412E'u16, data3: 0x403D'u16,
     data4: [0xAC'u8, 0xC6, 0xB7, 0x57, 0xE3, 0x47, 0x74, 0xA4])
 const Slot_INetworkOperatorTetheringAccessPointConfiguration_get_Ssid* = 6
-type Fn_INetworkOperatorTetheringAccessPointConfiguration_get_Ssid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration_get_Ssid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration_put_Ssid* = 7
-type Fn_INetworkOperatorTetheringAccessPointConfiguration_put_Ssid* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration_put_Ssid* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration_get_Passphrase* = 8
-type Fn_INetworkOperatorTetheringAccessPointConfiguration_get_Passphrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration_get_Passphrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration_put_Passphrase* = 9
-type Fn_INetworkOperatorTetheringAccessPointConfiguration_put_Passphrase* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration_put_Passphrase* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration2
 const IID_INetworkOperatorTetheringAccessPointConfiguration2* = GUID(
     data1: 0xB1809142'u32, data2: 0x7238'u16, data3: 0x59A0'u16,
     data4: [0x92'u8, 0x8B, 0x74, 0xAB, 0x46, 0xFD, 0x64, 0xB6])
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupported* = 6
-type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupported* = proc(self: pointer, a1: TetheringWiFiBand, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupportedAsync* = 7
-type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupportedAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupportedAsync* = proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_get_Band* = 8
-type Fn_INetworkOperatorTetheringAccessPointConfiguration2_get_Band* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration2_get_Band* = proc(self: pointer, value: ptr TetheringWiFiBand): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_put_Band* = 9
-type Fn_INetworkOperatorTetheringAccessPointConfiguration2_put_Band* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration2_put_Band* = proc(self: pointer, a1: TetheringWiFiBand): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3
 const IID_INetworkOperatorTetheringAccessPointConfiguration3* = GUID(
     data1: 0xA9BB0081'u32, data2: 0x9EED'u16, data3: 0x5D18'u16,
     data4: [0xB6'u8, 0x76, 0x24, 0xB7, 0x4A, 0x18, 0x2B, 0x8C])
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupported* = 6
-type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupported* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupportedAsync* = 7
-type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupportedAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupportedAsync* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_get_AuthenticationKind* = 8
-type Fn_INetworkOperatorTetheringAccessPointConfiguration3_get_AuthenticationKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration3_get_AuthenticationKind* = proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_put_AuthenticationKind* = 9
-type Fn_INetworkOperatorTetheringAccessPointConfiguration3_put_AuthenticationKind* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringAccessPointConfiguration3_put_AuthenticationKind* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringClient
 const IID_INetworkOperatorTetheringClient* = GUID(
     data1: 0x709D254C'u32, data2: 0x595F'u16, data3: 0x4847'u16,
     data4: [0xBB'u8, 0x30, 0x64, 0x69, 0x35, 0x54, 0x29, 0x18])
 const Slot_INetworkOperatorTetheringClient_get_MacAddress* = 6
-type Fn_INetworkOperatorTetheringClient_get_MacAddress* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringClient_get_MacAddress* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringClient_get_HostNames* = 7
-type Fn_INetworkOperatorTetheringClient_get_HostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringClient_get_HostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringClientManager
 const IID_INetworkOperatorTetheringClientManager* = GUID(
     data1: 0x91B14016'u32, data2: 0x8DCA'u16, data3: 0x4225'u16,
     data4: [0xBB'u8, 0xED, 0xEE, 0xF8, 0xB8, 0xD7, 0x18, 0xD7])
 const Slot_INetworkOperatorTetheringClientManager_GetTetheringClients* = 6
-type Fn_INetworkOperatorTetheringClientManager_GetTetheringClients* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringClientManager_GetTetheringClients* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringEntitlementCheck
 const IID_INetworkOperatorTetheringEntitlementCheck* = GUID(
     data1: 0x0108916D'u32, data2: 0x9E9A'u16, data3: 0x4AF6'u16,
     data4: [0x8D'u8, 0xA3, 0x60, 0x49, 0x3B, 0x19, 0xC2, 0x04])
 const Slot_INetworkOperatorTetheringEntitlementCheck_AuthorizeTethering* = 6
-type Fn_INetworkOperatorTetheringEntitlementCheck_AuthorizeTethering* = proc(self: pointer, a1: bool, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringEntitlementCheck_AuthorizeTethering* = proc(self: pointer, a1: bool, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager
 const IID_INetworkOperatorTetheringManager* = GUID(
     data1: 0xD45A8DA0'u32, data2: 0x0E86'u16, data3: 0x4D98'u16,
     data4: [0x8B'u8, 0xA4, 0xDD, 0x70, 0xD4, 0xB7, 0x64, 0xD3])
 const Slot_INetworkOperatorTetheringManager_get_MaxClientCount* = 6
-type Fn_INetworkOperatorTetheringManager_get_MaxClientCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_get_MaxClientCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_get_ClientCount* = 7
-type Fn_INetworkOperatorTetheringManager_get_ClientCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_get_ClientCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_get_TetheringOperationalState* = 8
-type Fn_INetworkOperatorTetheringManager_get_TetheringOperationalState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_get_TetheringOperationalState* = proc(self: pointer, value: ptr TetheringOperationalState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_GetCurrentAccessPointConfiguration* = 9
-type Fn_INetworkOperatorTetheringManager_GetCurrentAccessPointConfiguration* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_GetCurrentAccessPointConfiguration* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_ConfigureAccessPointAsync* = 10
-type Fn_INetworkOperatorTetheringManager_ConfigureAccessPointAsync* = proc(self: pointer, a1NetworkOperatorTetheringAccessPointConfiguration: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_ConfigureAccessPointAsync* = proc(self: pointer, a1NetworkOperatorTetheringAccessPointConfiguration: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_StartTetheringAsync* = 11
-type Fn_INetworkOperatorTetheringManager_StartTetheringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_StartTetheringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManager_StopTetheringAsync* = 12
-type Fn_INetworkOperatorTetheringManager_StopTetheringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager_StopTetheringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager2
 const IID_INetworkOperatorTetheringManager2* = GUID(
     data1: 0x7C1A4DF2'u32, data2: 0xB789'u16, data3: 0x4FEA'u16,
     data4: [0xBC'u8, 0x4E, 0x1F, 0x2B, 0x9E, 0x76, 0xC1, 0xF7])
 const Slot_INetworkOperatorTetheringManager2_StartTetheringAsync* = 6
-type Fn_INetworkOperatorTetheringManager2_StartTetheringAsync* = proc(self: pointer, a1NetworkOperatorTetheringSessionAccessPointConfiguration: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManager2_StartTetheringAsync* = proc(self: pointer, a1NetworkOperatorTetheringSessionAccessPointConfiguration: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics
 const IID_INetworkOperatorTetheringManagerStatics* = GUID(
     data1: 0x3EBCBACC'u32, data2: 0xF8C3'u16, data3: 0x405C'u16,
     data4: [0x99'u8, 0x64, 0x70, 0xA1, 0xEE, 0xAB, 0xE1, 0x94])
 const Slot_INetworkOperatorTetheringManagerStatics_GetTetheringCapability* = 6
-type Fn_INetworkOperatorTetheringManagerStatics_GetTetheringCapability* = proc(self: pointer, a1: HSTRING, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics_GetTetheringCapability* = proc(self: pointer, a1: HSTRING, value: ptr TetheringCapability): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics_CreateFromNetworkAccountId* = 7
-type Fn_INetworkOperatorTetheringManagerStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics2
 const IID_INetworkOperatorTetheringManagerStatics2* = GUID(
     data1: 0x5B235412'u32, data2: 0x35F0'u16, data3: 0x49E7'u16,
     data4: [0x9B'u8, 0x08, 0x16, 0xD2, 0x78, 0xFB, 0xAA, 0x42])
 const Slot_INetworkOperatorTetheringManagerStatics2_GetTetheringCapabilityFromConnectionProfile* = 6
-type Fn_INetworkOperatorTetheringManagerStatics2_GetTetheringCapabilityFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics2_GetTetheringCapabilityFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, value: ptr TetheringCapability): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics2_CreateFromConnectionProfile* = 7
-type Fn_INetworkOperatorTetheringManagerStatics2_CreateFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics2_CreateFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics3
 const IID_INetworkOperatorTetheringManagerStatics3* = GUID(
     data1: 0x8FDAADB6'u32, data2: 0x4AF9'u16, data3: 0x4F21'u16,
     data4: [0x9B'u8, 0x58, 0xD5, 0x3E, 0x9F, 0x24, 0x23, 0x1E])
 const Slot_INetworkOperatorTetheringManagerStatics3_CreateFromConnectionProfile* = 6
-type Fn_INetworkOperatorTetheringManagerStatics3_CreateFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics3_CreateFromConnectionProfile* = proc(self: pointer, a1ConnectionProfile: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4
 const IID_INetworkOperatorTetheringManagerStatics4* = GUID(
     data1: 0xB3B9F9D0'u32, data2: 0xEBFF'u16, data3: 0x46A4'u16,
     data4: [0xA8'u8, 0x47, 0xD6, 0x63, 0xD8, 0xB0, 0x97, 0x7E])
 const Slot_INetworkOperatorTetheringManagerStatics4_IsNoConnectionsTimeoutEnabled* = 6
-type Fn_INetworkOperatorTetheringManagerStatics4_IsNoConnectionsTimeoutEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics4_IsNoConnectionsTimeoutEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeout* = 7
-type Fn_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeout* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeout* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeoutAsync* = 8
-type Fn_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeoutAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics4_EnableNoConnectionsTimeoutAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeout* = 9
-type Fn_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeout* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeout* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeoutAsync* = 10
-type Fn_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeoutAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringManagerStatics4_DisableNoConnectionsTimeoutAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringOperationResult
 const IID_INetworkOperatorTetheringOperationResult* = GUID(
     data1: 0xEBD203A1'u32, data2: 0x01BA'u16, data3: 0x476D'u16,
     data4: [0xB4'u8, 0xB3, 0xBF, 0x3D, 0x12, 0xC8, 0xF8, 0x0C])
 const Slot_INetworkOperatorTetheringOperationResult_get_Status* = 6
-type Fn_INetworkOperatorTetheringOperationResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringOperationResult_get_Status* = proc(self: pointer, value: ptr TetheringOperationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringOperationResult_get_AdditionalErrorMessage* = 7
-type Fn_INetworkOperatorTetheringOperationResult_get_AdditionalErrorMessage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringOperationResult_get_AdditionalErrorMessage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration
 const IID_INetworkOperatorTetheringSessionAccessPointConfiguration* = GUID(
     data1: 0x0BCC1104'u32, data2: 0x34B7'u16, data3: 0x5212'u16,
     data4: [0x85'u8, 0x8C, 0x59, 0xD9, 0x74, 0x04, 0x92, 0x0A])
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Ssid* = 6
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Ssid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Ssid* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Ssid* = 7
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Ssid* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Ssid* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Passphrase* = 8
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Passphrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Passphrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Passphrase* = 9
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Passphrase* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Passphrase* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupported* = 10
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupported* = proc(self: pointer, a1: TetheringWiFiBand, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupportedAsync* = 11
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupportedAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupportedAsync* = proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Band* = 12
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Band* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Band* = proc(self: pointer, value: ptr TetheringWiFiBand): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Band* = 13
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Band* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Band* = proc(self: pointer, a1: TetheringWiFiBand): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupported* = 14
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupported* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupportedAsync* = 15
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupportedAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupportedAsync* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_AuthenticationKind* = 16
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_AuthenticationKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_AuthenticationKind* = proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_AuthenticationKind* = 17
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_AuthenticationKind* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_AuthenticationKind* = proc(self: pointer, a1: TetheringWiFiAuthenticationKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_PerformancePriority* = 18
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_PerformancePriority* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_PerformancePriority* = proc(self: pointer, value: ptr TetheringWiFiPerformancePriority): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_PerformancePriority* = 19
-type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_PerformancePriority* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_PerformancePriority* = proc(self: pointer, a1: TetheringWiFiPerformancePriority): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IProvisionFromXmlDocumentResults
 const IID_IProvisionFromXmlDocumentResults* = GUID(
     data1: 0x217700E0'u32, data2: 0x8203'u16, data3: 0x11DF'u16,
     data4: [0xAD'u8, 0xB9, 0xF4, 0xCE, 0x46, 0x2D, 0x91, 0x37])
 const Slot_IProvisionFromXmlDocumentResults_get_AllElementsProvisioned* = 6
-type Fn_IProvisionFromXmlDocumentResults_get_AllElementsProvisioned* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IProvisionFromXmlDocumentResults_get_AllElementsProvisioned* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProvisionFromXmlDocumentResults_get_ProvisionResultsXml* = 7
-type Fn_IProvisionFromXmlDocumentResults_get_ProvisionResultsXml* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProvisionFromXmlDocumentResults_get_ProvisionResultsXml* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IProvisionedProfile
 const IID_IProvisionedProfile* = GUID(
     data1: 0x217700E0'u32, data2: 0x8202'u16, data3: 0x11DF'u16,
     data4: [0xAD'u8, 0xB9, 0xF4, 0xCE, 0x46, 0x2D, 0x91, 0x37])
 const Slot_IProvisionedProfile_UpdateCost* = 6
-type Fn_IProvisionedProfile_UpdateCost* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IProvisionedProfile_UpdateCost* = proc(self: pointer, a1: NetworkCostType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProvisionedProfile_UpdateUsage* = 7
-type Fn_IProvisionedProfile_UpdateUsage* = proc(self: pointer, a1: ProfileUsage): HRESULT {.stdcall.}
+type Fn_IProvisionedProfile_UpdateUsage* = proc(self: pointer, a1: ProfileUsage): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IProvisioningAgent
 const IID_IProvisioningAgent* = GUID(
     data1: 0x217700E0'u32, data2: 0x8201'u16, data3: 0x11DF'u16,
     data4: [0xAD'u8, 0xB9, 0xF4, 0xCE, 0x46, 0x2D, 0x91, 0x37])
 const Slot_IProvisioningAgent_ProvisionFromXmlDocumentAsync* = 6
-type Fn_IProvisioningAgent_ProvisionFromXmlDocumentAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProvisioningAgent_ProvisionFromXmlDocumentAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProvisioningAgent_GetProvisionedProfile* = 7
-type Fn_IProvisioningAgent_GetProvisionedProfile* = proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProvisioningAgent_GetProvisionedProfile* = proc(self: pointer, a1: ProfileMediaType, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IProvisioningAgentStaticMethods
 const IID_IProvisioningAgentStaticMethods* = GUID(
     data1: 0x217700E0'u32, data2: 0x8101'u16, data3: 0x11DF'u16,
     data4: [0xAD'u8, 0xB9, 0xF4, 0xCE, 0x46, 0x2D, 0x91, 0x37])
 const Slot_IProvisioningAgentStaticMethods_CreateFromNetworkAccountId* = 6
-type Fn_IProvisioningAgentStaticMethods_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProvisioningAgentStaticMethods_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.ITetheringEntitlementCheckTriggerDetails
 const IID_ITetheringEntitlementCheckTriggerDetails* = GUID(
     data1: 0x03C65E9D'u32, data2: 0x5926'u16, data3: 0x41F3'u16,
     data4: [0xA9'u8, 0x4E, 0xB5, 0x09, 0x26, 0xFC, 0x42, 0x1B])
 const Slot_ITetheringEntitlementCheckTriggerDetails_get_NetworkAccountId* = 6
-type Fn_ITetheringEntitlementCheckTriggerDetails_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ITetheringEntitlementCheckTriggerDetails_get_NetworkAccountId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITetheringEntitlementCheckTriggerDetails_AllowTethering* = 7
-type Fn_ITetheringEntitlementCheckTriggerDetails_AllowTethering* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ITetheringEntitlementCheckTriggerDetails_AllowTethering* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITetheringEntitlementCheckTriggerDetails_DenyTethering* = 8
-type Fn_ITetheringEntitlementCheckTriggerDetails_DenyTethering* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ITetheringEntitlementCheckTriggerDetails_DenyTethering* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IUssdMessage
 const IID_IUssdMessage* = GUID(
     data1: 0x2F9ACF82'u32, data2: 0x2004'u16, data3: 0x4D5D'u16,
     data4: [0xBF'u8, 0x81, 0x2A, 0xBA, 0x1B, 0x4B, 0xE4, 0xA8])
 const Slot_IUssdMessage_get_DataCodingScheme* = 6
-type Fn_IUssdMessage_get_DataCodingScheme* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IUssdMessage_get_DataCodingScheme* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdMessage_put_DataCodingScheme* = 7
-type Fn_IUssdMessage_put_DataCodingScheme* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IUssdMessage_put_DataCodingScheme* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdMessage_GetPayload* = 8
 # Fn_IUssdMessage_GetPayload: signature not mapped
 const Slot_IUssdMessage_SetPayload* = 9
 # Fn_IUssdMessage_SetPayload: signature not mapped
 const Slot_IUssdMessage_get_PayloadAsText* = 10
-type Fn_IUssdMessage_get_PayloadAsText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUssdMessage_get_PayloadAsText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdMessage_put_PayloadAsText* = 11
-type Fn_IUssdMessage_put_PayloadAsText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IUssdMessage_put_PayloadAsText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IUssdMessageFactory
 const IID_IUssdMessageFactory* = GUID(
     data1: 0x2F9ACF82'u32, data2: 0x1003'u16, data3: 0x4D5D'u16,
     data4: [0xBF'u8, 0x81, 0x2A, 0xBA, 0x1B, 0x4B, 0xE4, 0xA8])
 const Slot_IUssdMessageFactory_CreateMessage* = 6
-type Fn_IUssdMessageFactory_CreateMessage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUssdMessageFactory_CreateMessage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IUssdReply
 const IID_IUssdReply* = GUID(
     data1: 0x2F9ACF82'u32, data2: 0x2005'u16, data3: 0x4D5D'u16,
     data4: [0xBF'u8, 0x81, 0x2A, 0xBA, 0x1B, 0x4B, 0xE4, 0xA8])
 const Slot_IUssdReply_get_ResultCode* = 6
-type Fn_IUssdReply_get_ResultCode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IUssdReply_get_ResultCode* = proc(self: pointer, value: ptr UssdResultCode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdReply_get_Message* = 7
-type Fn_IUssdReply_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUssdReply_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IUssdSession
 const IID_IUssdSession* = GUID(
     data1: 0x2F9ACF82'u32, data2: 0x2002'u16, data3: 0x4D5D'u16,
     data4: [0xBF'u8, 0x81, 0x2A, 0xBA, 0x1B, 0x4B, 0xE4, 0xA8])
 const Slot_IUssdSession_SendMessageAndGetReplyAsync* = 6
-type Fn_IUssdSession_SendMessageAndGetReplyAsync* = proc(self: pointer, a1UssdMessage: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUssdSession_SendMessageAndGetReplyAsync* = proc(self: pointer, a1UssdMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdSession_Close* = 7
-type Fn_IUssdSession_Close* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IUssdSession_Close* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.NetworkOperators.IUssdSessionStatics
 const IID_IUssdSessionStatics* = GUID(
     data1: 0x2F9ACF82'u32, data2: 0x1001'u16, data3: 0x4D5D'u16,
     data4: [0xBF'u8, 0x81, 0x2A, 0xBA, 0x1B, 0x4B, 0xE4, 0xA8])
 const Slot_IUssdSessionStatics_CreateFromNetworkAccountId* = 6
-type Fn_IUssdSessionStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUssdSessionStatics_CreateFromNetworkAccountId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUssdSessionStatics_CreateFromNetworkInterfaceId* = 7
-type Fn_IUssdSessionStatics_CreateFromNetworkInterfaceId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUssdSessionStatics_CreateFromNetworkInterfaceId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.DeviceArrivedEventHandler  (delegate)
 const IID_DeviceArrivedEventHandler* = GUID(
     data1: 0xEFA9DA69'u32, data2: 0xF6E1'u16, data3: 0x49C9'u16,
     data4: [0xA4'u8, 0x9E, 0x8E, 0x0F, 0xC5, 0x8F, 0xB9, 0x11])
 const Slot_DeviceArrivedEventHandler_Invoke* = 3
-type Fn_DeviceArrivedEventHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer): HRESULT {.stdcall.}
+type Fn_DeviceArrivedEventHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.DeviceDepartedEventHandler  (delegate)
 const IID_DeviceDepartedEventHandler* = GUID(
     data1: 0xEFA9DA69'u32, data2: 0xF6E2'u16, data3: 0x49C9'u16,
     data4: [0xA4'u8, 0x9E, 0x8E, 0x0F, 0xC5, 0x8F, 0xB9, 0x11])
 const Slot_DeviceDepartedEventHandler_Invoke* = 3
-type Fn_DeviceDepartedEventHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer): HRESULT {.stdcall.}
+type Fn_DeviceDepartedEventHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IConnectionRequestedEventArgs
 const IID_IConnectionRequestedEventArgs* = GUID(
     data1: 0xEB6891AE'u32, data2: 0x4F1E'u16, data3: 0x4C66'u16,
     data4: [0xBD'u8, 0x0D, 0x46, 0x92, 0x4A, 0x94, 0x2E, 0x08])
 const Slot_IConnectionRequestedEventArgs_get_PeerInformation* = 6
-type Fn_IConnectionRequestedEventArgs_get_PeerInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IConnectionRequestedEventArgs_get_PeerInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerFinderStatics
 const IID_IPeerFinderStatics* = GUID(
     data1: 0x914B3B61'u32, data2: 0xF6E1'u16, data3: 0x47C4'u16,
     data4: [0xA1'u8, 0x4C, 0x14, 0x8A, 0x19, 0x03, 0xD0, 0xC6])
 const Slot_IPeerFinderStatics_get_AllowBluetooth* = 6
-type Fn_IPeerFinderStatics_get_AllowBluetooth* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_AllowBluetooth* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_put_AllowBluetooth* = 7
-type Fn_IPeerFinderStatics_put_AllowBluetooth* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_put_AllowBluetooth* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_get_AllowInfrastructure* = 8
-type Fn_IPeerFinderStatics_get_AllowInfrastructure* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_AllowInfrastructure* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_put_AllowInfrastructure* = 9
-type Fn_IPeerFinderStatics_put_AllowInfrastructure* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_put_AllowInfrastructure* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_get_AllowWiFiDirect* = 10
-type Fn_IPeerFinderStatics_get_AllowWiFiDirect* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_AllowWiFiDirect* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_put_AllowWiFiDirect* = 11
-type Fn_IPeerFinderStatics_put_AllowWiFiDirect* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_put_AllowWiFiDirect* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_get_DisplayName* = 12
-type Fn_IPeerFinderStatics_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_put_DisplayName* = 13
-type Fn_IPeerFinderStatics_put_DisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_put_DisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_get_SupportedDiscoveryTypes* = 14
-type Fn_IPeerFinderStatics_get_SupportedDiscoveryTypes* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_SupportedDiscoveryTypes* = proc(self: pointer, value: ptr PeerDiscoveryTypes): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_get_AlternateIdentities* = 15
-type Fn_IPeerFinderStatics_get_AlternateIdentities* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_get_AlternateIdentities* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_Start* = 16
-type Fn_IPeerFinderStatics_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_Start2* = 17
-type Fn_IPeerFinderStatics_Start2* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_Start2* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_Stop* = 18
-type Fn_IPeerFinderStatics_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_add_TriggeredConnectionStateChanged* = 19
-type Fn_IPeerFinderStatics_add_TriggeredConnectionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_add_TriggeredConnectionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_remove_TriggeredConnectionStateChanged* = 20
-type Fn_IPeerFinderStatics_remove_TriggeredConnectionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_remove_TriggeredConnectionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_add_ConnectionRequested* = 21
-type Fn_IPeerFinderStatics_add_ConnectionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_add_ConnectionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_remove_ConnectionRequested* = 22
-type Fn_IPeerFinderStatics_remove_ConnectionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_remove_ConnectionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_FindAllPeersAsync* = 23
-type Fn_IPeerFinderStatics_FindAllPeersAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_FindAllPeersAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics_ConnectAsync* = 24
-type Fn_IPeerFinderStatics_ConnectAsync* = proc(self: pointer, a1PeerInformation: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics_ConnectAsync* = proc(self: pointer, a1PeerInformation: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerFinderStatics2
 const IID_IPeerFinderStatics2* = GUID(
     data1: 0xD6E73C65'u32, data2: 0xFDD0'u16, data3: 0x4B0B'u16,
     data4: [0x93'u8, 0x12, 0x86, 0x64, 0x08, 0x93, 0x5D, 0x82])
 const Slot_IPeerFinderStatics2_get_Role* = 6
-type Fn_IPeerFinderStatics2_get_Role* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics2_get_Role* = proc(self: pointer, value: ptr PeerRole): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics2_put_Role* = 7
-type Fn_IPeerFinderStatics2_put_Role* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics2_put_Role* = proc(self: pointer, a1: PeerRole): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics2_get_DiscoveryData* = 8
-type Fn_IPeerFinderStatics2_get_DiscoveryData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics2_get_DiscoveryData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics2_put_DiscoveryData* = 9
-type Fn_IPeerFinderStatics2_put_DiscoveryData* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics2_put_DiscoveryData* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerFinderStatics2_CreateWatcher* = 10
-type Fn_IPeerFinderStatics2_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerFinderStatics2_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerInformation
 const IID_IPeerInformation* = GUID(
     data1: 0x20024F08'u32, data2: 0x9FFF'u16, data3: 0x45F4'u16,
     data4: [0xB6'u8, 0xE9, 0x40, 0x8B, 0x2E, 0xBE, 0xF3, 0x73])
 const Slot_IPeerInformation_get_DisplayName* = 6
-type Fn_IPeerInformation_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerInformation_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerInformation3
 const IID_IPeerInformation3* = GUID(
     data1: 0xB20F612A'u32, data2: 0xDBD0'u16, data3: 0x40F8'u16,
     data4: [0x95'u8, 0xBD, 0x2D, 0x42, 0x09, 0xC7, 0x83, 0x6F])
 const Slot_IPeerInformation3_get_Id* = 6
-type Fn_IPeerInformation3_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerInformation3_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerInformation3_get_DiscoveryData* = 7
-type Fn_IPeerInformation3_get_DiscoveryData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerInformation3_get_DiscoveryData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerInformationWithHostAndService
 const IID_IPeerInformationWithHostAndService* = GUID(
     data1: 0xECC7CCAD'u32, data2: 0x1B70'u16, data3: 0x4E8B'u16,
     data4: [0x92'u8, 0xDB, 0xBB, 0xE7, 0x81, 0x41, 0x93, 0x08])
 const Slot_IPeerInformationWithHostAndService_get_HostName* = 6
-type Fn_IPeerInformationWithHostAndService_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPeerInformationWithHostAndService_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerInformationWithHostAndService_get_ServiceName* = 7
-type Fn_IPeerInformationWithHostAndService_get_ServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPeerInformationWithHostAndService_get_ServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IPeerWatcher
 const IID_IPeerWatcher* = GUID(
     data1: 0x3CEE21F8'u32, data2: 0x2FA6'u16, data3: 0x4679'u16,
     data4: [0x96'u8, 0x91, 0x03, 0xC9, 0x4A, 0x42, 0x0F, 0x34])
 const Slot_IPeerWatcher_add_Added* = 6
-type Fn_IPeerWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_remove_Added* = 7
-type Fn_IPeerWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_add_Removed* = 8
-type Fn_IPeerWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_remove_Removed* = 9
-type Fn_IPeerWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_add_Updated* = 10
-type Fn_IPeerWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_remove_Updated* = 11
-type Fn_IPeerWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_add_EnumerationCompleted* = 12
-type Fn_IPeerWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_remove_EnumerationCompleted* = 13
-type Fn_IPeerWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_add_Stopped* = 14
-type Fn_IPeerWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_remove_Stopped* = 15
-type Fn_IPeerWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_get_Status* = 16
-type Fn_IPeerWatcher_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_get_Status* = proc(self: pointer, value: ptr PeerWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_Start* = 17
-type Fn_IPeerWatcher_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPeerWatcher_Stop* = 18
-type Fn_IPeerWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPeerWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IProximityDevice
 const IID_IProximityDevice* = GUID(
     data1: 0xEFA8A552'u32, data2: 0xF6E1'u16, data3: 0x4329'u16,
     data4: [0xA0'u8, 0xFC, 0xAB, 0x6B, 0x0F, 0xD2, 0x82, 0x62])
 const Slot_IProximityDevice_SubscribeForMessage* = 6
-type Fn_IProximityDevice_SubscribeForMessage* = proc(self: pointer, a1: HSTRING, a2MessageReceivedHandler: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_SubscribeForMessage* = proc(self: pointer, a1: HSTRING, a2MessageReceivedHandler: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishMessage* = 7
-type Fn_IProximityDevice_PublishMessage* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishMessage* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishMessage2* = 8
-type Fn_IProximityDevice_PublishMessage2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishMessage2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishBinaryMessage* = 9
-type Fn_IProximityDevice_PublishBinaryMessage* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishBinaryMessage* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishBinaryMessage2* = 10
-type Fn_IProximityDevice_PublishBinaryMessage2* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishBinaryMessage2* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishUriMessage* = 11
-type Fn_IProximityDevice_PublishUriMessage* = proc(self: pointer, a1Uri: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishUriMessage* = proc(self: pointer, a1Uri: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_PublishUriMessage2* = 12
-type Fn_IProximityDevice_PublishUriMessage2* = proc(self: pointer, a1Uri: pointer, a2MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_PublishUriMessage2* = proc(self: pointer, a1Uri: pointer, a2MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_StopSubscribingForMessage* = 13
-type Fn_IProximityDevice_StopSubscribingForMessage* = proc(self: pointer, a1: int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_StopSubscribingForMessage* = proc(self: pointer, a1: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_StopPublishingMessage* = 14
-type Fn_IProximityDevice_StopPublishingMessage* = proc(self: pointer, a1: int64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_StopPublishingMessage* = proc(self: pointer, a1: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_add_DeviceArrived* = 15
-type Fn_IProximityDevice_add_DeviceArrived* = proc(self: pointer, a1DeviceArrivedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IProximityDevice_add_DeviceArrived* = proc(self: pointer, a1DeviceArrivedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_remove_DeviceArrived* = 16
-type Fn_IProximityDevice_remove_DeviceArrived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IProximityDevice_remove_DeviceArrived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_add_DeviceDeparted* = 17
-type Fn_IProximityDevice_add_DeviceDeparted* = proc(self: pointer, a1DeviceDepartedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IProximityDevice_add_DeviceDeparted* = proc(self: pointer, a1DeviceDepartedEventHandler: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_remove_DeviceDeparted* = 18
-type Fn_IProximityDevice_remove_DeviceDeparted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IProximityDevice_remove_DeviceDeparted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_get_MaxMessageBytes* = 19
-type Fn_IProximityDevice_get_MaxMessageBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IProximityDevice_get_MaxMessageBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_get_BitsPerSecond* = 20
-type Fn_IProximityDevice_get_BitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IProximityDevice_get_BitsPerSecond* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDevice_get_DeviceId* = 21
-type Fn_IProximityDevice_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProximityDevice_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IProximityDeviceStatics
 const IID_IProximityDeviceStatics* = GUID(
     data1: 0x914BA01D'u32, data2: 0xF6E1'u16, data3: 0x47C4'u16,
     data4: [0xA1'u8, 0x4C, 0x14, 0x8A, 0x19, 0x03, 0xD0, 0xC6])
 const Slot_IProximityDeviceStatics_GetDeviceSelector* = 6
-type Fn_IProximityDeviceStatics_GetDeviceSelector* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProximityDeviceStatics_GetDeviceSelector* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDeviceStatics_GetDefault* = 7
-type Fn_IProximityDeviceStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProximityDeviceStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityDeviceStatics_FromId* = 8
-type Fn_IProximityDeviceStatics_FromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProximityDeviceStatics_FromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.IProximityMessage
 const IID_IProximityMessage* = GUID(
     data1: 0xEFAB0782'u32, data2: 0xF6E1'u16, data3: 0x4675'u16,
     data4: [0xA0'u8, 0x45, 0xD8, 0xE3, 0x20, 0xC2, 0x48, 0x08])
 const Slot_IProximityMessage_get_MessageType* = 6
-type Fn_IProximityMessage_get_MessageType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProximityMessage_get_MessageType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityMessage_get_SubscriptionId* = 7
-type Fn_IProximityMessage_get_SubscriptionId* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IProximityMessage_get_SubscriptionId* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityMessage_get_Data* = 8
-type Fn_IProximityMessage_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IProximityMessage_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IProximityMessage_get_DataAsString* = 9
-type Fn_IProximityMessage_get_DataAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IProximityMessage_get_DataAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs
 const IID_ITriggeredConnectionStateChangedEventArgs* = GUID(
     data1: 0xC6A780AD'u32, data2: 0xF6E1'u16, data3: 0x4D54'u16,
     data4: [0x96'u8, 0xE2, 0x33, 0xF6, 0x20, 0xBC, 0xA8, 0x8A])
 const Slot_ITriggeredConnectionStateChangedEventArgs_get_State* = 6
-type Fn_ITriggeredConnectionStateChangedEventArgs_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ITriggeredConnectionStateChangedEventArgs_get_State* = proc(self: pointer, value: ptr TriggeredConnectState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITriggeredConnectionStateChangedEventArgs_get_Id* = 7
-type Fn_ITriggeredConnectionStateChangedEventArgs_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ITriggeredConnectionStateChangedEventArgs_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITriggeredConnectionStateChangedEventArgs_get_Socket* = 8
-type Fn_ITriggeredConnectionStateChangedEventArgs_get_Socket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ITriggeredConnectionStateChangedEventArgs_get_Socket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.MessageReceivedHandler  (delegate)
 const IID_MessageReceivedHandler* = GUID(
     data1: 0xEFAB0782'u32, data2: 0xF6E2'u16, data3: 0x4675'u16,
     data4: [0xA0'u8, 0x45, 0xD8, 0xE3, 0x20, 0xC2, 0x48, 0x08])
 const Slot_MessageReceivedHandler_Invoke* = 3
-type Fn_MessageReceivedHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer, a2ProximityMessage: pointer): HRESULT {.stdcall.}
+type Fn_MessageReceivedHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer, a2ProximityMessage: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Proximity.MessageTransmittedHandler  (delegate)
 const IID_MessageTransmittedHandler* = GUID(
     data1: 0xEFAA0B4A'u32, data2: 0xF6E2'u16, data3: 0x4D7D'u16,
     data4: [0x85'u8, 0x6C, 0x78, 0xFC, 0x8E, 0xFC, 0x02, 0x1E])
 const Slot_MessageTransmittedHandler_Invoke* = 3
-type Fn_MessageTransmittedHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer, a2: int64): HRESULT {.stdcall.}
+type Fn_MessageTransmittedHandler_Invoke* = proc(self: pointer, a1ProximityDevice: pointer, a2: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannel
 const IID_IPushNotificationChannel* = GUID(
     data1: 0x2B28102E'u32, data2: 0xEF0B'u16, data3: 0x4F39'u16,
     data4: [0x9B'u8, 0x8A, 0xA3, 0xC1, 0x94, 0xDE, 0x70, 0x81])
 const Slot_IPushNotificationChannel_get_Uri* = 6
-type Fn_IPushNotificationChannel_get_Uri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannel_get_Uri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannel_get_ExpirationTime* = 7
-type Fn_IPushNotificationChannel_get_ExpirationTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannel_get_ExpirationTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannel_Close* = 8
-type Fn_IPushNotificationChannel_Close* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannel_Close* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannel_add_PushNotificationReceived* = 9
-type Fn_IPushNotificationChannel_add_PushNotificationReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannel_add_PushNotificationReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannel_remove_PushNotificationReceived* = 10
-type Fn_IPushNotificationChannel_remove_PushNotificationReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannel_remove_PushNotificationReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerForUser
 const IID_IPushNotificationChannelManagerForUser* = GUID(
     data1: 0xA4C45704'u32, data2: 0x1182'u16, data3: 0x42C7'u16,
     data4: [0x88'u8, 0x90, 0xF5, 0x63, 0xC4, 0x89, 0x0D, 0xC4])
 const Slot_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync* = 6
-type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync2* = 7
-type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForApplicationAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForSecondaryTileAsync* = 8
-type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForSecondaryTileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForSecondaryTileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerForUser_get_User* = 9
-type Fn_IPushNotificationChannelManagerForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerForUser2
 const IID_IPushNotificationChannelManagerForUser2* = GUID(
     data1: 0xC38B066A'u32, data2: 0x7CC1'u16, data3: 0x4DAC'u16,
     data4: [0x87'u8, 0xFD, 0xBE, 0x6E, 0x92, 0x04, 0x14, 0xA4])
 const Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync* = 6
-type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync* = proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync* = proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2* = 7
-type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2* = proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2* = proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics
 const IID_IPushNotificationChannelManagerStatics* = GUID(
     data1: 0x8BAF9B65'u32, data2: 0x77A1'u16, data3: 0x4588'u16,
     data4: [0xBD'u8, 0x19, 0x86, 0x15, 0x29, 0xA9, 0xDC, 0xF0])
 const Slot_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync* = 6
-type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync2* = 7
-type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForApplicationAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForSecondaryTileAsync* = 8
-type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForSecondaryTileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics_CreatePushNotificationChannelForSecondaryTileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics2
 const IID_IPushNotificationChannelManagerStatics2* = GUID(
     data1: 0xB444A65D'u32, data2: 0xA7E9'u16, data3: 0x4B28'u16,
     data4: [0x95'u8, 0x0E, 0xF3, 0x75, 0xA9, 0x07, 0xF9, 0xDF])
 const Slot_IPushNotificationChannelManagerStatics2_GetForUser* = 6
-type Fn_IPushNotificationChannelManagerStatics2_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics2_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics3
 const IID_IPushNotificationChannelManagerStatics3* = GUID(
     data1: 0x4701FEFE'u32, data2: 0x0EDE'u16, data3: 0x4A3F'u16,
     data4: [0xAE'u8, 0x78, 0xBF, 0xA4, 0x71, 0x49, 0x69, 0x25])
 const Slot_IPushNotificationChannelManagerStatics3_GetDefault* = 6
-type Fn_IPushNotificationChannelManagerStatics3_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics3_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelManagerStatics4
 const IID_IPushNotificationChannelManagerStatics4* = GUID(
     data1: 0xBC540EFB'u32, data2: 0x7820'u16, data3: 0x5A5B'u16,
     data4: [0x9C'u8, 0x01, 0xB4, 0x75, 0x7F, 0x77, 0x40, 0x25])
 const Slot_IPushNotificationChannelManagerStatics4_add_ChannelsRevoked* = 6
-type Fn_IPushNotificationChannelManagerStatics4_add_ChannelsRevoked* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics4_add_ChannelsRevoked* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked* = 7
-type Fn_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IPushNotificationChannelsRevokedEventArgs
 const IID_IPushNotificationChannelsRevokedEventArgs* = GUID(
@@ -4557,1099 +4668,1099 @@ const IID_IPushNotificationReceivedEventArgs* = GUID(
     data1: 0xD1065E0C'u32, data2: 0x36CD'u16, data3: 0x484C'u16,
     data4: [0xB9'u8, 0x35, 0x0A, 0x99, 0xB7, 0x53, 0xCF, 0x00])
 const Slot_IPushNotificationReceivedEventArgs_put_Cancel* = 6
-type Fn_IPushNotificationReceivedEventArgs_put_Cancel* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_put_Cancel* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_Cancel* = 7
-type Fn_IPushNotificationReceivedEventArgs_get_Cancel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_Cancel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_NotificationType* = 8
-type Fn_IPushNotificationReceivedEventArgs_get_NotificationType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_NotificationType* = proc(self: pointer, value: ptr PushNotificationType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_ToastNotification* = 9
-type Fn_IPushNotificationReceivedEventArgs_get_ToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_ToastNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_TileNotification* = 10
-type Fn_IPushNotificationReceivedEventArgs_get_TileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_TileNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_BadgeNotification* = 11
-type Fn_IPushNotificationReceivedEventArgs_get_BadgeNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_BadgeNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPushNotificationReceivedEventArgs_get_RawNotification* = 12
-type Fn_IPushNotificationReceivedEventArgs_get_RawNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPushNotificationReceivedEventArgs_get_RawNotification* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IRawNotification
 const IID_IRawNotification* = GUID(
     data1: 0x1A227281'u32, data2: 0x3B79'u16, data3: 0x42AC'u16,
     data4: [0x99'u8, 0x63, 0x22, 0xAB, 0x00, 0xD4, 0xF0, 0xB7])
 const Slot_IRawNotification_get_Content* = 6
-type Fn_IRawNotification_get_Content* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IRawNotification_get_Content* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IRawNotification2
 const IID_IRawNotification2* = GUID(
     data1: 0xE6D0CF19'u32, data2: 0x0C6F'u16, data3: 0x4CDD'u16,
     data4: [0x94'u8, 0x24, 0xEE, 0xC5, 0xBE, 0x01, 0x4D, 0x26])
 const Slot_IRawNotification2_get_Headers* = 6
-type Fn_IRawNotification2_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRawNotification2_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRawNotification2_get_ChannelId* = 7
-type Fn_IRawNotification2_get_ChannelId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IRawNotification2_get_ChannelId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.PushNotifications.IRawNotification3
 const IID_IRawNotification3* = GUID(
     data1: 0x62737DDE'u32, data2: 0x8A73'u16, data3: 0x424C'u16,
     data4: [0xAB'u8, 0x44, 0x56, 0x35, 0xF4, 0x0A, 0x96, 0xE5])
 const Slot_IRawNotification3_get_ContentBytes* = 6
-type Fn_IRawNotification3_get_ContentBytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRawNotification3_get_ContentBytes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult
 const IID_IDnssdRegistrationResult* = GUID(
     data1: 0x3D786AD2'u32, data2: 0xE606'u16, data3: 0x5350'u16,
     data4: [0x73'u8, 0xEA, 0x7E, 0x97, 0xF0, 0x66, 0x16, 0x2F])
 const Slot_IDnssdRegistrationResult_get_Status* = 6
-type Fn_IDnssdRegistrationResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDnssdRegistrationResult_get_Status* = proc(self: pointer, value: ptr DnssdRegistrationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdRegistrationResult_get_IPAddress* = 7
-type Fn_IDnssdRegistrationResult_get_IPAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdRegistrationResult_get_IPAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdRegistrationResult_get_HasInstanceNameChanged* = 8
-type Fn_IDnssdRegistrationResult_get_HasInstanceNameChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IDnssdRegistrationResult_get_HasInstanceNameChanged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance
 const IID_IDnssdServiceInstance* = GUID(
     data1: 0xE246DB7E'u32, data2: 0x98A5'u16, data3: 0x4CA1'u16,
     data4: [0xB9'u8, 0xE4, 0xC2, 0x53, 0xD3, 0x3C, 0x35, 0xFF])
 const Slot_IDnssdServiceInstance_get_DnssdServiceInstanceName* = 6
-type Fn_IDnssdServiceInstance_get_DnssdServiceInstanceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_DnssdServiceInstanceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_put_DnssdServiceInstanceName* = 7
-type Fn_IDnssdServiceInstance_put_DnssdServiceInstanceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_put_DnssdServiceInstanceName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_get_HostName* = 8
-type Fn_IDnssdServiceInstance_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_HostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_put_HostName* = 9
-type Fn_IDnssdServiceInstance_put_HostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_put_HostName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_get_Port* = 10
-type Fn_IDnssdServiceInstance_get_Port* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_Port* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_put_Port* = 11
-type Fn_IDnssdServiceInstance_put_Port* = proc(self: pointer, a1: uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_put_Port* = proc(self: pointer, a1: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_get_Priority* = 12
-type Fn_IDnssdServiceInstance_get_Priority* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_Priority* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_put_Priority* = 13
-type Fn_IDnssdServiceInstance_put_Priority* = proc(self: pointer, a1: uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_put_Priority* = proc(self: pointer, a1: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_get_Weight* = 14
-type Fn_IDnssdServiceInstance_get_Weight* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_Weight* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_put_Weight* = 15
-type Fn_IDnssdServiceInstance_put_Weight* = proc(self: pointer, a1: uint16): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_put_Weight* = proc(self: pointer, a1: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_get_TextAttributes* = 16
-type Fn_IDnssdServiceInstance_get_TextAttributes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_get_TextAttributes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_RegisterStreamSocketListenerAsync* = 17
-type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync* = proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync* = proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_RegisterStreamSocketListenerAsync2* = 18
-type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync2* = proc(self: pointer, a1StreamSocketListener: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync2* = proc(self: pointer, a1StreamSocketListener: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_RegisterDatagramSocketAsync* = 19
-type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync* = proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync* = proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceInstance_RegisterDatagramSocketAsync2* = 20
-type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync2* = proc(self: pointer, a1DatagramSocket: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync2* = proc(self: pointer, a1DatagramSocket: pointer, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory
 const IID_IDnssdServiceInstanceFactory* = GUID(
     data1: 0x6CB061A1'u32, data2: 0xC478'u16, data3: 0x4331'u16,
     data4: [0x96'u8, 0x84, 0x4A, 0xF2, 0x18, 0x6C, 0x0A, 0x2B])
 const Slot_IDnssdServiceInstanceFactory_Create* = 6
-type Fn_IDnssdServiceInstanceFactory_Create* = proc(self: pointer, a1: HSTRING, a2HostName: pointer, a3: uint16, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceInstanceFactory_Create* = proc(self: pointer, a1: HSTRING, a2HostName: pointer, a3: uint16, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher
 const IID_IDnssdServiceWatcher* = GUID(
     data1: 0xCC34D9C1'u32, data2: 0xDB7D'u16, data3: 0x4B69'u16,
     data4: [0x98'u8, 0x3D, 0xC6, 0xF8, 0x3F, 0x20, 0x56, 0x82])
 const Slot_IDnssdServiceWatcher_add_Added* = 6
-type Fn_IDnssdServiceWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_remove_Added* = 7
-type Fn_IDnssdServiceWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_add_EnumerationCompleted* = 8
-type Fn_IDnssdServiceWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_remove_EnumerationCompleted* = 9
-type Fn_IDnssdServiceWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_add_Stopped* = 10
-type Fn_IDnssdServiceWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_remove_Stopped* = 11
-type Fn_IDnssdServiceWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_get_Status* = 12
-type Fn_IDnssdServiceWatcher_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_get_Status* = proc(self: pointer, value: ptr DnssdServiceWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_Start* = 13
-type Fn_IDnssdServiceWatcher_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDnssdServiceWatcher_Stop* = 14
-type Fn_IDnssdServiceWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IDnssdServiceWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IControlChannelTrigger
 const IID_IControlChannelTrigger* = GUID(
     data1: 0x7D1431A7'u32, data2: 0xEE96'u16, data3: 0x40E8'u16,
     data4: [0xA1'u8, 0x99, 0x87, 0x03, 0xCD, 0x96, 0x9E, 0xC3])
 const Slot_IControlChannelTrigger_get_ControlChannelTriggerId* = 6
-type Fn_IControlChannelTrigger_get_ControlChannelTriggerId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_ControlChannelTriggerId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_get_ServerKeepAliveIntervalInMinutes* = 7
-type Fn_IControlChannelTrigger_get_ServerKeepAliveIntervalInMinutes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_ServerKeepAliveIntervalInMinutes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_put_ServerKeepAliveIntervalInMinutes* = 8
-type Fn_IControlChannelTrigger_put_ServerKeepAliveIntervalInMinutes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_put_ServerKeepAliveIntervalInMinutes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_get_CurrentKeepAliveIntervalInMinutes* = 9
-type Fn_IControlChannelTrigger_get_CurrentKeepAliveIntervalInMinutes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_CurrentKeepAliveIntervalInMinutes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_get_TransportObject* = 10
-type Fn_IControlChannelTrigger_get_TransportObject* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_TransportObject* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_get_KeepAliveTrigger* = 11
-type Fn_IControlChannelTrigger_get_KeepAliveTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_KeepAliveTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_get_PushNotificationTrigger* = 12
-type Fn_IControlChannelTrigger_get_PushNotificationTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_get_PushNotificationTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_UsingTransport* = 13
-type Fn_IControlChannelTrigger_UsingTransport* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_UsingTransport* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_WaitForPushEnabled* = 14
-type Fn_IControlChannelTrigger_WaitForPushEnabled* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_WaitForPushEnabled* = proc(self: pointer, value: ptr ControlChannelTriggerStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_DecreaseNetworkKeepAliveInterval* = 15
-type Fn_IControlChannelTrigger_DecreaseNetworkKeepAliveInterval* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_DecreaseNetworkKeepAliveInterval* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTrigger_FlushTransport* = 16
-type Fn_IControlChannelTrigger_FlushTransport* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger_FlushTransport* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IControlChannelTrigger2
 const IID_IControlChannelTrigger2* = GUID(
     data1: 0xAF00D237'u32, data2: 0x51BE'u16, data3: 0x4514'u16,
     data4: [0x97'u8, 0x25, 0x35, 0x56, 0xE1, 0x87, 0x95, 0x80])
 const Slot_IControlChannelTrigger2_get_IsWakeFromLowPowerSupported* = 6
-type Fn_IControlChannelTrigger2_get_IsWakeFromLowPowerSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IControlChannelTrigger2_get_IsWakeFromLowPowerSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IControlChannelTriggerEventDetails
 const IID_IControlChannelTriggerEventDetails* = GUID(
     data1: 0x1B36E047'u32, data2: 0x89BB'u16, data3: 0x4236'u16,
     data4: [0x96'u8, 0xAC, 0x71, 0xD0, 0x12, 0xBB, 0x48, 0x69])
 const Slot_IControlChannelTriggerEventDetails_get_ControlChannelTrigger* = 6
-type Fn_IControlChannelTriggerEventDetails_get_ControlChannelTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerEventDetails_get_ControlChannelTrigger* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IControlChannelTriggerFactory
 const IID_IControlChannelTriggerFactory* = GUID(
     data1: 0xDA4B7CF0'u32, data2: 0x8D71'u16, data3: 0x446F'u16,
     data4: [0x88'u8, 0xC3, 0xB9, 0x51, 0x84, 0xA2, 0xD6, 0xCD])
 const Slot_IControlChannelTriggerFactory_CreateControlChannelTrigger* = 6
-type Fn_IControlChannelTriggerFactory_CreateControlChannelTrigger* = proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerFactory_CreateControlChannelTrigger* = proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTriggerFactory_CreateControlChannelTriggerEx* = 7
-type Fn_IControlChannelTriggerFactory_CreateControlChannelTriggerEx* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerFactory_CreateControlChannelTriggerEx* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: ControlChannelTriggerResourceType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IControlChannelTriggerResetEventDetails
 const IID_IControlChannelTriggerResetEventDetails* = GUID(
     data1: 0x6851038E'u32, data2: 0x8EC4'u16, data3: 0x42FE'u16,
     data4: [0x9B'u8, 0xB2, 0x21, 0xE9, 0x1B, 0x7B, 0xFC, 0xB1])
 const Slot_IControlChannelTriggerResetEventDetails_get_ResetReason* = 6
-type Fn_IControlChannelTriggerResetEventDetails_get_ResetReason* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerResetEventDetails_get_ResetReason* = proc(self: pointer, value: ptr ControlChannelTriggerResetReason): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTriggerResetEventDetails_get_HardwareSlotReset* = 7
-type Fn_IControlChannelTriggerResetEventDetails_get_HardwareSlotReset* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerResetEventDetails_get_HardwareSlotReset* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IControlChannelTriggerResetEventDetails_get_SoftwareSlotReset* = 8
-type Fn_IControlChannelTriggerResetEventDetails_get_SoftwareSlotReset* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IControlChannelTriggerResetEventDetails_get_SoftwareSlotReset* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocket
 const IID_IDatagramSocket* = GUID(
     data1: 0x7FE25BBB'u32, data2: 0xC3BC'u16, data3: 0x4677'u16,
     data4: [0x84'u8, 0x46, 0xCA, 0x28, 0xA4, 0x65, 0xA3, 0xAF])
 const Slot_IDatagramSocket_get_Control* = 6
-type Fn_IDatagramSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_get_Information* = 7
-type Fn_IDatagramSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_get_OutputStream* = 8
-type Fn_IDatagramSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_ConnectAsync* = 9
-type Fn_IDatagramSocket_ConnectAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_ConnectAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_ConnectAsync2* = 10
-type Fn_IDatagramSocket_ConnectAsync2* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_ConnectAsync2* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_BindServiceNameAsync* = 11
-type Fn_IDatagramSocket_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_BindEndpointAsync* = 12
-type Fn_IDatagramSocket_BindEndpointAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_BindEndpointAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_JoinMulticastGroup* = 13
-type Fn_IDatagramSocket_JoinMulticastGroup* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_JoinMulticastGroup* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_GetOutputStreamAsync* = 14
-type Fn_IDatagramSocket_GetOutputStreamAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_GetOutputStreamAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_GetOutputStreamAsync2* = 15
-type Fn_IDatagramSocket_GetOutputStreamAsync2* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_GetOutputStreamAsync2* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_add_MessageReceived* = 16
-type Fn_IDatagramSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket_remove_MessageReceived* = 17
-type Fn_IDatagramSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IDatagramSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocket2
 const IID_IDatagramSocket2* = GUID(
     data1: 0xD83BA354'u32, data2: 0x9A9D'u16, data3: 0x4185'u16,
     data4: [0xA2'u8, 0x0A, 0x14, 0x24, 0xC9, 0xC2, 0xA7, 0xCD])
 const Slot_IDatagramSocket2_BindServiceNameAsync* = 6
-type Fn_IDatagramSocket2_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket2_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocket3
 const IID_IDatagramSocket3* = GUID(
     data1: 0x37544F09'u32, data2: 0xAB92'u16, data3: 0x4306'u16,
     data4: [0x9A'u8, 0xC1, 0x0C, 0x38, 0x12, 0x83, 0xD9, 0xC6])
 const Slot_IDatagramSocket3_CancelIOAsync* = 6
-type Fn_IDatagramSocket3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket3_EnableTransferOwnership* = 7
-type Fn_IDatagramSocket3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket3_EnableTransferOwnership2* = 8
-type Fn_IDatagramSocket3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: int32): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket3_TransferOwnership* = 9
-type Fn_IDatagramSocket3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket3_TransferOwnership2* = 10
-type Fn_IDatagramSocket3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocket3_TransferOwnership3* = 11
-type Fn_IDatagramSocket3_TransferOwnership3* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer, a3: TimeSpan): HRESULT {.stdcall.}
+type Fn_IDatagramSocket3_TransferOwnership3* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer, a3: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketControl
 const IID_IDatagramSocketControl* = GUID(
     data1: 0x52AC3F2E'u32, data2: 0x349A'u16, data3: 0x4135'u16,
     data4: [0xBB'u8, 0x58, 0xB7, 0x9B, 0x26, 0x47, 0xD3, 0x90])
 const Slot_IDatagramSocketControl_get_QualityOfService* = 6
-type Fn_IDatagramSocketControl_get_QualityOfService* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl_get_QualityOfService* = proc(self: pointer, value: ptr SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl_put_QualityOfService* = 7
-type Fn_IDatagramSocketControl_put_QualityOfService* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl_put_QualityOfService* = proc(self: pointer, a1: SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl_get_OutboundUnicastHopLimit* = 8
-type Fn_IDatagramSocketControl_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl_put_OutboundUnicastHopLimit* = 9
-type Fn_IDatagramSocketControl_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketControl2
 const IID_IDatagramSocketControl2* = GUID(
     data1: 0x33EAD5C2'u32, data2: 0x979C'u16, data3: 0x4415'u16,
     data4: [0x82'u8, 0xA1, 0x3C, 0xFA, 0xF6, 0x46, 0xC1, 0x92])
 const Slot_IDatagramSocketControl2_get_InboundBufferSizeInBytes* = 6
-type Fn_IDatagramSocketControl2_get_InboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl2_get_InboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl2_put_InboundBufferSizeInBytes* = 7
-type Fn_IDatagramSocketControl2_put_InboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl2_put_InboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl2_get_DontFragment* = 8
-type Fn_IDatagramSocketControl2_get_DontFragment* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl2_get_DontFragment* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl2_put_DontFragment* = 9
-type Fn_IDatagramSocketControl2_put_DontFragment* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl2_put_DontFragment* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketControl3
 const IID_IDatagramSocketControl3* = GUID(
     data1: 0xD4EB8256'u32, data2: 0x1F6D'u16, data3: 0x4598'u16,
     data4: [0x9B'u8, 0x57, 0xD4, 0x2A, 0x00, 0x1D, 0xF3, 0x49])
 const Slot_IDatagramSocketControl3_get_MulticastOnly* = 6
-type Fn_IDatagramSocketControl3_get_MulticastOnly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl3_get_MulticastOnly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketControl3_put_MulticastOnly* = 7
-type Fn_IDatagramSocketControl3_put_MulticastOnly* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IDatagramSocketControl3_put_MulticastOnly* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketInformation
 const IID_IDatagramSocketInformation* = GUID(
     data1: 0x5F1A569A'u32, data2: 0x55FB'u16, data3: 0x48CD'u16,
     data4: [0x97'u8, 0x06, 0x7A, 0x97, 0x4F, 0x7B, 0x15, 0x85])
 const Slot_IDatagramSocketInformation_get_LocalAddress* = 6
-type Fn_IDatagramSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketInformation_get_LocalPort* = 7
-type Fn_IDatagramSocketInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDatagramSocketInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketInformation_get_RemoteAddress* = 8
-type Fn_IDatagramSocketInformation_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketInformation_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketInformation_get_RemotePort* = 9
-type Fn_IDatagramSocketInformation_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDatagramSocketInformation_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketMessageReceivedEventArgs
 const IID_IDatagramSocketMessageReceivedEventArgs* = GUID(
     data1: 0x9E2DDCA2'u32, data2: 0x1712'u16, data3: 0x4CE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x10, 0x7E])
 const Slot_IDatagramSocketMessageReceivedEventArgs_get_RemoteAddress* = 6
-type Fn_IDatagramSocketMessageReceivedEventArgs_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketMessageReceivedEventArgs_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketMessageReceivedEventArgs_get_RemotePort* = 7
-type Fn_IDatagramSocketMessageReceivedEventArgs_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDatagramSocketMessageReceivedEventArgs_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketMessageReceivedEventArgs_get_LocalAddress* = 8
-type Fn_IDatagramSocketMessageReceivedEventArgs_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketMessageReceivedEventArgs_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketMessageReceivedEventArgs_GetDataReader* = 9
-type Fn_IDatagramSocketMessageReceivedEventArgs_GetDataReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketMessageReceivedEventArgs_GetDataReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketMessageReceivedEventArgs_GetDataStream* = 10
-type Fn_IDatagramSocketMessageReceivedEventArgs_GetDataStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketMessageReceivedEventArgs_GetDataStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IDatagramSocketStatics
 const IID_IDatagramSocketStatics* = GUID(
     data1: 0xE9C62AEE'u32, data2: 0x1494'u16, data3: 0x4A21'u16,
     data4: [0xBB'u8, 0x7E, 0x85, 0x89, 0xFC, 0x75, 0x1D, 0x9D])
 const Slot_IDatagramSocketStatics_GetEndpointPairsAsync* = 6
-type Fn_IDatagramSocketStatics_GetEndpointPairsAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketStatics_GetEndpointPairsAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDatagramSocketStatics_GetEndpointPairsAsync2* = 7
-type Fn_IDatagramSocketStatics_GetEndpointPairsAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDatagramSocketStatics_GetEndpointPairsAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: HostNameSortOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocket
 const IID_IMessageWebSocket* = GUID(
     data1: 0x33727D08'u32, data2: 0x34D5'u16, data3: 0x4746'u16,
     data4: [0xAD'u8, 0x7B, 0x8D, 0xDE, 0x5B, 0xC2, 0xEF, 0x88])
 const Slot_IMessageWebSocket_get_Control* = 6
-type Fn_IMessageWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocket_get_Information* = 7
-type Fn_IMessageWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocket_add_MessageReceived* = 8
-type Fn_IMessageWebSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocket_remove_MessageReceived* = 9
-type Fn_IMessageWebSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocket2
 const IID_IMessageWebSocket2* = GUID(
     data1: 0xBED0CEE7'u32, data2: 0xF9C8'u16, data3: 0x440A'u16,
     data4: [0x9A'u8, 0xD5, 0x73, 0x72, 0x81, 0xD9, 0x74, 0x2E])
 const Slot_IMessageWebSocket2_add_ServerCustomValidationRequested* = 6
-type Fn_IMessageWebSocket2_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket2_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocket2_remove_ServerCustomValidationRequested* = 7
-type Fn_IMessageWebSocket2_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket2_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocket3
 const IID_IMessageWebSocket3* = GUID(
     data1: 0x59D9DEFB'u32, data2: 0x71AF'u16, data3: 0x4349'u16,
     data4: [0x84'u8, 0x87, 0x91, 0x1F, 0xCF, 0x68, 0x15, 0x97])
 const Slot_IMessageWebSocket3_SendNonfinalFrameAsync* = 6
-type Fn_IMessageWebSocket3_SendNonfinalFrameAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket3_SendNonfinalFrameAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocket3_SendFinalFrameAsync* = 7
-type Fn_IMessageWebSocket3_SendFinalFrameAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocket3_SendFinalFrameAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocketControl
 const IID_IMessageWebSocketControl* = GUID(
     data1: 0x8118388A'u32, data2: 0xC629'u16, data3: 0x4F0A'u16,
     data4: [0x80'u8, 0xFB, 0x81, 0xFC, 0x05, 0x53, 0x88, 0x62])
 const Slot_IMessageWebSocketControl_get_MaxMessageSize* = 6
-type Fn_IMessageWebSocketControl_get_MaxMessageSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl_get_MaxMessageSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl_put_MaxMessageSize* = 7
-type Fn_IMessageWebSocketControl_put_MaxMessageSize* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl_put_MaxMessageSize* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl_get_MessageType* = 8
-type Fn_IMessageWebSocketControl_get_MessageType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl_get_MessageType* = proc(self: pointer, value: ptr SocketMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl_put_MessageType* = 9
-type Fn_IMessageWebSocketControl_put_MessageType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl_put_MessageType* = proc(self: pointer, a1: SocketMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocketControl2
 const IID_IMessageWebSocketControl2* = GUID(
     data1: 0xE30FD791'u32, data2: 0x080C'u16, data3: 0x400A'u16,
     data4: [0xA7'u8, 0x12, 0x27, 0xDF, 0xA9, 0xE7, 0x44, 0xD8])
 const Slot_IMessageWebSocketControl2_get_DesiredUnsolicitedPongInterval* = 6
-type Fn_IMessageWebSocketControl2_get_DesiredUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_get_DesiredUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_put_DesiredUnsolicitedPongInterval* = 7
-type Fn_IMessageWebSocketControl2_put_DesiredUnsolicitedPongInterval* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_put_DesiredUnsolicitedPongInterval* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_get_ActualUnsolicitedPongInterval* = 8
-type Fn_IMessageWebSocketControl2_get_ActualUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_get_ActualUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_get_ReceiveMode* = 9
-type Fn_IMessageWebSocketControl2_get_ReceiveMode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_get_ReceiveMode* = proc(self: pointer, value: ptr MessageWebSocketReceiveMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_put_ReceiveMode* = 10
-type Fn_IMessageWebSocketControl2_put_ReceiveMode* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_put_ReceiveMode* = proc(self: pointer, a1: MessageWebSocketReceiveMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_get_ClientCertificate* = 11
-type Fn_IMessageWebSocketControl2_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketControl2_put_ClientCertificate* = 12
-type Fn_IMessageWebSocketControl2_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketControl2_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs
 const IID_IMessageWebSocketMessageReceivedEventArgs* = GUID(
     data1: 0x478C22AC'u32, data2: 0x4C4B'u16, data3: 0x42ED'u16,
     data4: [0x9E'u8, 0xD7, 0x1E, 0xF9, 0xF9, 0x4F, 0xA3, 0xD5])
 const Slot_IMessageWebSocketMessageReceivedEventArgs_get_MessageType* = 6
-type Fn_IMessageWebSocketMessageReceivedEventArgs_get_MessageType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketMessageReceivedEventArgs_get_MessageType* = proc(self: pointer, value: ptr SocketMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketMessageReceivedEventArgs_GetDataReader* = 7
-type Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMessageWebSocketMessageReceivedEventArgs_GetDataStream* = 8
-type Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs2
 const IID_IMessageWebSocketMessageReceivedEventArgs2* = GUID(
     data1: 0x89CE06FD'u32, data2: 0xDD6F'u16, data3: 0x4A07'u16,
     data4: [0x87'u8, 0xF9, 0xF9, 0xEB, 0x4D, 0x89, 0xD8, 0x3D])
 const Slot_IMessageWebSocketMessageReceivedEventArgs2_get_IsMessageComplete* = 6
-type Fn_IMessageWebSocketMessageReceivedEventArgs2_get_IsMessageComplete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IMessageWebSocketMessageReceivedEventArgs2_get_IsMessageComplete* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IServerMessageWebSocket
 const IID_IServerMessageWebSocket* = GUID(
     data1: 0xE3AC9240'u32, data2: 0x813B'u16, data3: 0x5EFD'u16,
     data4: [0x7E'u8, 0x11, 0xAE, 0x23, 0x05, 0xFC, 0x77, 0xF1])
 const Slot_IServerMessageWebSocket_add_MessageReceived* = 6
-type Fn_IServerMessageWebSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_add_MessageReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_remove_MessageReceived* = 7
-type Fn_IServerMessageWebSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_remove_MessageReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_get_Control* = 8
-type Fn_IServerMessageWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_get_Information* = 9
-type Fn_IServerMessageWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_get_OutputStream* = 10
-type Fn_IServerMessageWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_add_Closed* = 11
-type Fn_IServerMessageWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_remove_Closed* = 12
-type Fn_IServerMessageWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocket_Close* = 13
-type Fn_IServerMessageWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IServerMessageWebSocketControl
 const IID_IServerMessageWebSocketControl* = GUID(
     data1: 0x69C2F051'u32, data2: 0x1C1F'u16, data3: 0x587A'u16,
     data4: [0x45'u8, 0x19, 0x21, 0x81, 0x61, 0x01, 0x92, 0xB7])
 const Slot_IServerMessageWebSocketControl_get_MessageType* = 6
-type Fn_IServerMessageWebSocketControl_get_MessageType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocketControl_get_MessageType* = proc(self: pointer, value: ptr SocketMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocketControl_put_MessageType* = 7
-type Fn_IServerMessageWebSocketControl_put_MessageType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocketControl_put_MessageType* = proc(self: pointer, a1: SocketMessageType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IServerMessageWebSocketInformation
 const IID_IServerMessageWebSocketInformation* = GUID(
     data1: 0xFC32B45F'u32, data2: 0x4448'u16, data3: 0x5505'u16,
     data4: [0x6C'u8, 0xC9, 0x09, 0xAF, 0xA8, 0x91, 0x5F, 0x5D])
 const Slot_IServerMessageWebSocketInformation_get_BandwidthStatistics* = 6
-type Fn_IServerMessageWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocketInformation_get_Protocol* = 7
-type Fn_IServerMessageWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerMessageWebSocketInformation_get_LocalAddress* = 8
-type Fn_IServerMessageWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerMessageWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IServerStreamWebSocket
 const IID_IServerStreamWebSocket* = GUID(
     data1: 0x2CED5BBF'u32, data2: 0x74F6'u16, data3: 0x55E4'u16,
     data4: [0x79'u8, 0xDF, 0x91, 0x32, 0x68, 0x0D, 0xFE, 0xE8])
 const Slot_IServerStreamWebSocket_get_Information* = 6
-type Fn_IServerStreamWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocket_get_InputStream* = 7
-type Fn_IServerStreamWebSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocket_get_OutputStream* = 8
-type Fn_IServerStreamWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocket_add_Closed* = 9
-type Fn_IServerStreamWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocket_remove_Closed* = 10
-type Fn_IServerStreamWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocket_Close* = 11
-type Fn_IServerStreamWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IServerStreamWebSocketInformation
 const IID_IServerStreamWebSocketInformation* = GUID(
     data1: 0xFC32B45F'u32, data2: 0x4448'u16, data3: 0x5505'u16,
     data4: [0x6C'u8, 0xC9, 0x09, 0xAB, 0xA8, 0x91, 0x5F, 0x5D])
 const Slot_IServerStreamWebSocketInformation_get_BandwidthStatistics* = 6
-type Fn_IServerStreamWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocketInformation_get_Protocol* = 7
-type Fn_IServerStreamWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IServerStreamWebSocketInformation_get_LocalAddress* = 8
-type Fn_IServerStreamWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IServerStreamWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketActivityContext
 const IID_ISocketActivityContext* = GUID(
     data1: 0x43B04D64'u32, data2: 0x4C85'u16, data3: 0x4396'u16,
     data4: [0xA6'u8, 0x37, 0x1D, 0x97, 0x3F, 0x6E, 0xBD, 0x49])
 const Slot_ISocketActivityContext_get_Data* = 6
-type Fn_ISocketActivityContext_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityContext_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketActivityContextFactory
 const IID_ISocketActivityContextFactory* = GUID(
     data1: 0xB99FC3C3'u32, data2: 0x088C'u16, data3: 0x4388'u16,
     data4: [0x83'u8, 0xAE, 0x25, 0x25, 0x13, 0x8E, 0x04, 0x9A])
 const Slot_ISocketActivityContextFactory_Create* = 6
-type Fn_ISocketActivityContextFactory_Create* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityContextFactory_Create* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketActivityInformation
 const IID_ISocketActivityInformation* = GUID(
     data1: 0x8D8A42E4'u32, data2: 0xA87E'u16, data3: 0x4B74'u16,
     data4: [0x99'u8, 0x68, 0x18, 0x5B, 0x25, 0x11, 0xDE, 0xFE])
 const Slot_ISocketActivityInformation_get_TaskId* = 6
-type Fn_ISocketActivityInformation_get_TaskId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_TaskId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_Id* = 7
-type Fn_ISocketActivityInformation_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_SocketKind* = 8
-type Fn_ISocketActivityInformation_get_SocketKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_SocketKind* = proc(self: pointer, value: ptr SocketActivityKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_Context* = 9
-type Fn_ISocketActivityInformation_get_Context* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_Context* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_DatagramSocket* = 10
-type Fn_ISocketActivityInformation_get_DatagramSocket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_DatagramSocket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_StreamSocket* = 11
-type Fn_ISocketActivityInformation_get_StreamSocket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_StreamSocket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityInformation_get_StreamSocketListener* = 12
-type Fn_ISocketActivityInformation_get_StreamSocketListener* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformation_get_StreamSocketListener* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketActivityInformationStatics
 const IID_ISocketActivityInformationStatics* = GUID(
     data1: 0x8570B47A'u32, data2: 0x7E7D'u16, data3: 0x4736'u16,
     data4: [0x80'u8, 0x41, 0x13, 0x27, 0xA6, 0x54, 0x3C, 0x56])
 const Slot_ISocketActivityInformationStatics_get_AllSockets* = 6
-type Fn_ISocketActivityInformationStatics_get_AllSockets* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityInformationStatics_get_AllSockets* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketActivityTriggerDetails
 const IID_ISocketActivityTriggerDetails* = GUID(
     data1: 0x45F406A7'u32, data2: 0xFC9F'u16, data3: 0x4F81'u16,
     data4: [0xAC'u8, 0xAD, 0x35, 0x5F, 0xEF, 0x51, 0xE6, 0x7B])
 const Slot_ISocketActivityTriggerDetails_get_Reason* = 6
-type Fn_ISocketActivityTriggerDetails_get_Reason* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISocketActivityTriggerDetails_get_Reason* = proc(self: pointer, value: ptr SocketActivityTriggerReason): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISocketActivityTriggerDetails_get_SocketInformation* = 7
-type Fn_ISocketActivityTriggerDetails_get_SocketInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISocketActivityTriggerDetails_get_SocketInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.ISocketErrorStatics
 const IID_ISocketErrorStatics* = GUID(
     data1: 0x828337F4'u32, data2: 0x7D56'u16, data3: 0x4D8E'u16,
     data4: [0xB7'u8, 0xB4, 0xA0, 0x7D, 0xD7, 0xC1, 0xBC, 0xA9])
 const Slot_ISocketErrorStatics_GetStatus* = 6
-type Fn_ISocketErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISocketErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr SocketErrorStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocket
 const IID_IStreamSocket* = GUID(
     data1: 0x69A22CF3'u32, data2: 0xFC7B'u16, data3: 0x4857'u16,
     data4: [0xAF'u8, 0x38, 0xF6, 0xE7, 0xDE, 0x6A, 0x5B, 0x49])
 const Slot_IStreamSocket_get_Control* = 6
-type Fn_IStreamSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_get_Information* = 7
-type Fn_IStreamSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_get_InputStream* = 8
-type Fn_IStreamSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_get_OutputStream* = 9
-type Fn_IStreamSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_ConnectAsync* = 10
-type Fn_IStreamSocket_ConnectAsync* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_ConnectAsync* = proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_ConnectAsync2* = 11
-type Fn_IStreamSocket_ConnectAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_ConnectAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_ConnectAsync3* = 12
-type Fn_IStreamSocket_ConnectAsync3* = proc(self: pointer, a1EndpointPair: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_ConnectAsync3* = proc(self: pointer, a1EndpointPair: pointer, a2: SocketProtectionLevel, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_ConnectAsync4* = 13
-type Fn_IStreamSocket_ConnectAsync4* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_ConnectAsync4* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: SocketProtectionLevel, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket_UpgradeToSslAsync* = 14
-type Fn_IStreamSocket_UpgradeToSslAsync* = proc(self: pointer, a1: int32, a2HostName: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket_UpgradeToSslAsync* = proc(self: pointer, a1: SocketProtectionLevel, a2HostName: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocket2
 const IID_IStreamSocket2* = GUID(
     data1: 0x29D0E575'u32, data2: 0xF314'u16, data3: 0x4D09'u16,
     data4: [0xAD'u8, 0xF0, 0x0F, 0xBD, 0x96, 0x7F, 0xBD, 0x9F])
 const Slot_IStreamSocket2_ConnectAsync* = 6
-type Fn_IStreamSocket2_ConnectAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: int32, a4NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket2_ConnectAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: SocketProtectionLevel, a4NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocket3
 const IID_IStreamSocket3* = GUID(
     data1: 0x3F430B00'u32, data2: 0x9D28'u16, data3: 0x4854'u16,
     data4: [0xBA'u8, 0xC3, 0x23, 0x01, 0x94, 0x1E, 0xC2, 0x23])
 const Slot_IStreamSocket3_CancelIOAsync* = 6
-type Fn_IStreamSocket3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket3_EnableTransferOwnership* = 7
-type Fn_IStreamSocket3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket3_EnableTransferOwnership2* = 8
-type Fn_IStreamSocket3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: int32): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket3_TransferOwnership* = 9
-type Fn_IStreamSocket3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket3_TransferOwnership2* = 10
-type Fn_IStreamSocket3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocket3_TransferOwnership3* = 11
-type Fn_IStreamSocket3_TransferOwnership3* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer, a3: TimeSpan): HRESULT {.stdcall.}
+type Fn_IStreamSocket3_TransferOwnership3* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer, a3: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketControl
 const IID_IStreamSocketControl* = GUID(
     data1: 0xFE25ADF1'u32, data2: 0x92AB'u16, data3: 0x4AF3'u16,
     data4: [0x99'u8, 0x92, 0x0F, 0x4C, 0x85, 0xE3, 0x6C, 0xC4])
 const Slot_IStreamSocketControl_get_NoDelay* = 6
-type Fn_IStreamSocketControl_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_put_NoDelay* = 7
-type Fn_IStreamSocketControl_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_get_KeepAlive* = 8
-type Fn_IStreamSocketControl_get_KeepAlive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_get_KeepAlive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_put_KeepAlive* = 9
-type Fn_IStreamSocketControl_put_KeepAlive* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_put_KeepAlive* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_get_OutboundBufferSizeInBytes* = 10
-type Fn_IStreamSocketControl_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_put_OutboundBufferSizeInBytes* = 11
-type Fn_IStreamSocketControl_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_get_QualityOfService* = 12
-type Fn_IStreamSocketControl_get_QualityOfService* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_get_QualityOfService* = proc(self: pointer, value: ptr SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_put_QualityOfService* = 13
-type Fn_IStreamSocketControl_put_QualityOfService* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_put_QualityOfService* = proc(self: pointer, a1: SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_get_OutboundUnicastHopLimit* = 14
-type Fn_IStreamSocketControl_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl_put_OutboundUnicastHopLimit* = 15
-type Fn_IStreamSocketControl_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketControl2
 const IID_IStreamSocketControl2* = GUID(
     data1: 0xC2D09A56'u32, data2: 0x060F'u16, data3: 0x44C1'u16,
     data4: [0xB8'u8, 0xE2, 0x1F, 0xBF, 0x60, 0xBD, 0x62, 0xC5])
 const Slot_IStreamSocketControl2_get_IgnorableServerCertificateErrors* = 6
-type Fn_IStreamSocketControl2_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl2_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketControl3
 const IID_IStreamSocketControl3* = GUID(
     data1: 0xC56A444C'u32, data2: 0x4E74'u16, data3: 0x403E'u16,
     data4: [0x89'u8, 0x4C, 0xB3, 0x1C, 0xAE, 0x5C, 0x73, 0x42])
 const Slot_IStreamSocketControl3_get_SerializeConnectionAttempts* = 6
-type Fn_IStreamSocketControl3_get_SerializeConnectionAttempts* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl3_get_SerializeConnectionAttempts* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl3_put_SerializeConnectionAttempts* = 7
-type Fn_IStreamSocketControl3_put_SerializeConnectionAttempts* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl3_put_SerializeConnectionAttempts* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl3_get_ClientCertificate* = 8
-type Fn_IStreamSocketControl3_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl3_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl3_put_ClientCertificate* = 9
-type Fn_IStreamSocketControl3_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl3_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketControl4
 const IID_IStreamSocketControl4* = GUID(
     data1: 0x964E2B3D'u32, data2: 0xEC27'u16, data3: 0x4888'u16,
     data4: [0xB3'u8, 0xCE, 0xC7, 0x4B, 0x41, 0x84, 0x23, 0xAD])
 const Slot_IStreamSocketControl4_get_MinProtectionLevel* = 6
-type Fn_IStreamSocketControl4_get_MinProtectionLevel* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl4_get_MinProtectionLevel* = proc(self: pointer, value: ptr SocketProtectionLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketControl4_put_MinProtectionLevel* = 7
-type Fn_IStreamSocketControl4_put_MinProtectionLevel* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketControl4_put_MinProtectionLevel* = proc(self: pointer, a1: SocketProtectionLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketInformation
 const IID_IStreamSocketInformation* = GUID(
     data1: 0x3B80AE30'u32, data2: 0x5E68'u16, data3: 0x4205'u16,
     data4: [0x88'u8, 0xF0, 0xDC, 0x85, 0xD2, 0xE2, 0x5D, 0xED])
 const Slot_IStreamSocketInformation_get_LocalAddress* = 6
-type Fn_IStreamSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_LocalPort* = 7
-type Fn_IStreamSocketInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_RemoteHostName* = 8
-type Fn_IStreamSocketInformation_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_RemoteAddress* = 9
-type Fn_IStreamSocketInformation_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_RemoteAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_RemoteServiceName* = 10
-type Fn_IStreamSocketInformation_get_RemoteServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_RemoteServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_RemotePort* = 11
-type Fn_IStreamSocketInformation_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_RoundTripTimeStatistics* = 12
-type Fn_IStreamSocketInformation_get_RoundTripTimeStatistics* = proc(self: pointer, value: ptr RoundTripTimeStatistics): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_RoundTripTimeStatistics* = proc(self: pointer, value: ptr RoundTripTimeStatistics): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_BandwidthStatistics* = 13
-type Fn_IStreamSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_ProtectionLevel* = 14
-type Fn_IStreamSocketInformation_get_ProtectionLevel* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_ProtectionLevel* = proc(self: pointer, value: ptr SocketProtectionLevel): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation_get_SessionKey* = 15
-type Fn_IStreamSocketInformation_get_SessionKey* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation_get_SessionKey* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketInformation2
 const IID_IStreamSocketInformation2* = GUID(
     data1: 0x12C28452'u32, data2: 0x4BDC'u16, data3: 0x4EE4'u16,
     data4: [0x97'u8, 0x6A, 0xCF, 0x13, 0x0E, 0x9D, 0x92, 0xE3])
 const Slot_IStreamSocketInformation2_get_ServerCertificateErrorSeverity* = 6
-type Fn_IStreamSocketInformation2_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation2_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation2_get_ServerCertificateErrors* = 7
-type Fn_IStreamSocketInformation2_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation2_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation2_get_ServerCertificate* = 8
-type Fn_IStreamSocketInformation2_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation2_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketInformation2_get_ServerIntermediateCertificates* = 9
-type Fn_IStreamSocketInformation2_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketInformation2_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListener
 const IID_IStreamSocketListener* = GUID(
     data1: 0xFF513437'u32, data2: 0xDF9F'u16, data3: 0x4DF0'u16,
     data4: [0xBF'u8, 0x82, 0x0E, 0xC5, 0xD7, 0xB3, 0x5A, 0xAE])
 const Slot_IStreamSocketListener_get_Control* = 6
-type Fn_IStreamSocketListener_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener_get_Information* = 7
-type Fn_IStreamSocketListener_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener_BindServiceNameAsync* = 8
-type Fn_IStreamSocketListener_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener_BindEndpointAsync* = 9
-type Fn_IStreamSocketListener_BindEndpointAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_BindEndpointAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener_add_ConnectionReceived* = 10
-type Fn_IStreamSocketListener_add_ConnectionReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_add_ConnectionReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener_remove_ConnectionReceived* = 11
-type Fn_IStreamSocketListener_remove_ConnectionReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener_remove_ConnectionReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListener2
 const IID_IStreamSocketListener2* = GUID(
     data1: 0x658DC13E'u32, data2: 0xBB3E'u16, data3: 0x4458'u16,
     data4: [0xB2'u8, 0x32, 0xED, 0x10, 0x88, 0x69, 0x4B, 0x98])
 const Slot_IStreamSocketListener2_BindServiceNameAsync* = 6
-type Fn_IStreamSocketListener2_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener2_BindServiceNameAsync* = proc(self: pointer, a1: HSTRING, a2: SocketProtectionLevel, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener2_BindServiceNameAsync2* = 7
-type Fn_IStreamSocketListener2_BindServiceNameAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, a3NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener2_BindServiceNameAsync2* = proc(self: pointer, a1: HSTRING, a2: SocketProtectionLevel, a3NetworkAdapter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListener3
 const IID_IStreamSocketListener3* = GUID(
     data1: 0x4798201C'u32, data2: 0xBDF8'u16, data3: 0x4919'u16,
     data4: [0x85'u8, 0x42, 0x28, 0xD4, 0x50, 0xE7, 0x45, 0x07])
 const Slot_IStreamSocketListener3_CancelIOAsync* = 6
-type Fn_IStreamSocketListener3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener3_CancelIOAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener3_EnableTransferOwnership* = 7
-type Fn_IStreamSocketListener3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener3_EnableTransferOwnership* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener3_EnableTransferOwnership2* = 8
-type Fn_IStreamSocketListener3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener3_EnableTransferOwnership2* = proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener3_TransferOwnership* = 9
-type Fn_IStreamSocketListener3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener3_TransferOwnership* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListener3_TransferOwnership2* = 10
-type Fn_IStreamSocketListener3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListener3_TransferOwnership2* = proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs
 const IID_IStreamSocketListenerConnectionReceivedEventArgs* = GUID(
     data1: 0x0C472EA9'u32, data2: 0x373F'u16, data3: 0x447B'u16,
     data4: [0x85'u8, 0xB1, 0xDD, 0xD4, 0x54, 0x88, 0x03, 0xBA])
 const Slot_IStreamSocketListenerConnectionReceivedEventArgs_get_Socket* = 6
-type Fn_IStreamSocketListenerConnectionReceivedEventArgs_get_Socket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerConnectionReceivedEventArgs_get_Socket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListenerControl
 const IID_IStreamSocketListenerControl* = GUID(
     data1: 0x20D8C576'u32, data2: 0x8D8A'u16, data3: 0x4DBA'u16,
     data4: [0x97'u8, 0x22, 0xA1, 0x6C, 0x4D, 0x98, 0x49, 0x80])
 const Slot_IStreamSocketListenerControl_get_QualityOfService* = 6
-type Fn_IStreamSocketListenerControl_get_QualityOfService* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl_get_QualityOfService* = proc(self: pointer, value: ptr SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl_put_QualityOfService* = 7
-type Fn_IStreamSocketListenerControl_put_QualityOfService* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl_put_QualityOfService* = proc(self: pointer, a1: SocketQualityOfService): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListenerControl2
 const IID_IStreamSocketListenerControl2* = GUID(
     data1: 0x948BB665'u32, data2: 0x2C3E'u16, data3: 0x404B'u16,
     data4: [0xB8'u8, 0xB0, 0x8E, 0xB2, 0x49, 0xA2, 0xB0, 0xA1])
 const Slot_IStreamSocketListenerControl2_get_NoDelay* = 6
-type Fn_IStreamSocketListenerControl2_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_put_NoDelay* = 7
-type Fn_IStreamSocketListenerControl2_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_get_KeepAlive* = 8
-type Fn_IStreamSocketListenerControl2_get_KeepAlive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_get_KeepAlive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_put_KeepAlive* = 9
-type Fn_IStreamSocketListenerControl2_put_KeepAlive* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_put_KeepAlive* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_get_OutboundBufferSizeInBytes* = 10
-type Fn_IStreamSocketListenerControl2_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_put_OutboundBufferSizeInBytes* = 11
-type Fn_IStreamSocketListenerControl2_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_get_OutboundUnicastHopLimit* = 12
-type Fn_IStreamSocketListenerControl2_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_get_OutboundUnicastHopLimit* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketListenerControl2_put_OutboundUnicastHopLimit* = 13
-type Fn_IStreamSocketListenerControl2_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerControl2_put_OutboundUnicastHopLimit* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketListenerInformation
 const IID_IStreamSocketListenerInformation* = GUID(
     data1: 0xE62BA82F'u32, data2: 0xA63A'u16, data3: 0x430B'u16,
     data4: [0xBF'u8, 0x62, 0x29, 0xE9, 0x3E, 0x56, 0x33, 0xB4])
 const Slot_IStreamSocketListenerInformation_get_LocalPort* = 6
-type Fn_IStreamSocketListenerInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStreamSocketListenerInformation_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamSocketStatics
 const IID_IStreamSocketStatics* = GUID(
     data1: 0xA420BC4A'u32, data2: 0x6E2E'u16, data3: 0x4AF5'u16,
     data4: [0xB5'u8, 0x56, 0x35, 0x5A, 0xE0, 0xCD, 0x4F, 0x29])
 const Slot_IStreamSocketStatics_GetEndpointPairsAsync* = 6
-type Fn_IStreamSocketStatics_GetEndpointPairsAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketStatics_GetEndpointPairsAsync* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamSocketStatics_GetEndpointPairsAsync2* = 7
-type Fn_IStreamSocketStatics_GetEndpointPairsAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamSocketStatics_GetEndpointPairsAsync2* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3: HostNameSortOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamWebSocket
 const IID_IStreamWebSocket* = GUID(
     data1: 0xBD4A49D8'u32, data2: 0xB289'u16, data3: 0x45BB'u16,
     data4: [0x97'u8, 0xEB, 0xC7, 0x52, 0x52, 0x05, 0xA8, 0x43])
 const Slot_IStreamWebSocket_get_Control* = 6
-type Fn_IStreamWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamWebSocket_get_Control* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocket_get_Information* = 7
-type Fn_IStreamWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamWebSocket_get_Information* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocket_get_InputStream* = 8
-type Fn_IStreamWebSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamWebSocket_get_InputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamWebSocket2
 const IID_IStreamWebSocket2* = GUID(
     data1: 0xAA4D08CB'u32, data2: 0x93F5'u16, data3: 0x4678'u16,
     data4: [0x82'u8, 0x36, 0x57, 0xCC, 0xE5, 0x41, 0x7E, 0xD5])
 const Slot_IStreamWebSocket2_add_ServerCustomValidationRequested* = 6
-type Fn_IStreamWebSocket2_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStreamWebSocket2_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocket2_remove_ServerCustomValidationRequested* = 7
-type Fn_IStreamWebSocket2_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStreamWebSocket2_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamWebSocketControl
 const IID_IStreamWebSocketControl* = GUID(
     data1: 0xB4F478B1'u32, data2: 0xA45A'u16, data3: 0x48DB'u16,
     data4: [0x95'u8, 0x3A, 0x64, 0x5B, 0x7D, 0x96, 0x4C, 0x07])
 const Slot_IStreamWebSocketControl_get_NoDelay* = 6
-type Fn_IStreamWebSocketControl_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl_get_NoDelay* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocketControl_put_NoDelay* = 7
-type Fn_IStreamWebSocketControl_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl_put_NoDelay* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IStreamWebSocketControl2
 const IID_IStreamWebSocketControl2* = GUID(
     data1: 0x215D9F7E'u32, data2: 0xFA58'u16, data3: 0x40DA'u16,
     data4: [0x9F'u8, 0x11, 0xA4, 0x8D, 0xAF, 0xE9, 0x50, 0x37])
 const Slot_IStreamWebSocketControl2_get_DesiredUnsolicitedPongInterval* = 6
-type Fn_IStreamWebSocketControl2_get_DesiredUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl2_get_DesiredUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocketControl2_put_DesiredUnsolicitedPongInterval* = 7
-type Fn_IStreamWebSocketControl2_put_DesiredUnsolicitedPongInterval* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl2_put_DesiredUnsolicitedPongInterval* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocketControl2_get_ActualUnsolicitedPongInterval* = 8
-type Fn_IStreamWebSocketControl2_get_ActualUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl2_get_ActualUnsolicitedPongInterval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocketControl2_get_ClientCertificate* = 9
-type Fn_IStreamWebSocketControl2_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl2_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStreamWebSocketControl2_put_ClientCertificate* = 10
-type Fn_IStreamWebSocketControl2_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall.}
+type Fn_IStreamWebSocketControl2_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocket
 const IID_IWebSocket* = GUID(
     data1: 0xF877396F'u32, data2: 0x99B1'u16, data3: 0x4E18'u16,
     data4: [0xBC'u8, 0x08, 0x85, 0x0C, 0x9A, 0xDF, 0x15, 0x6E])
 const Slot_IWebSocket_get_OutputStream* = 6
-type Fn_IWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocket_get_OutputStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocket_ConnectAsync* = 7
-type Fn_IWebSocket_ConnectAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocket_ConnectAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocket_SetRequestHeader* = 8
-type Fn_IWebSocket_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IWebSocket_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocket_add_Closed* = 9
-type Fn_IWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IWebSocket_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocket_remove_Closed* = 10
-type Fn_IWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IWebSocket_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocket_Close* = 11
-type Fn_IWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IWebSocket_Close* = proc(self: pointer, a1: uint16, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketClosedEventArgs
 const IID_IWebSocketClosedEventArgs* = GUID(
     data1: 0xCEB78D07'u32, data2: 0xD0A8'u16, data3: 0x4703'u16,
     data4: [0xA0'u8, 0x91, 0xC8, 0xC2, 0xC0, 0x91, 0x5B, 0xC3])
 const Slot_IWebSocketClosedEventArgs_get_Code* = 6
-type Fn_IWebSocketClosedEventArgs_get_Code* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IWebSocketClosedEventArgs_get_Code* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketClosedEventArgs_get_Reason* = 7
-type Fn_IWebSocketClosedEventArgs_get_Reason* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWebSocketClosedEventArgs_get_Reason* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketControl
 const IID_IWebSocketControl* = GUID(
     data1: 0x2EC4BDC3'u32, data2: 0xD9A5'u16, data3: 0x455A'u16,
     data4: [0x98'u8, 0x11, 0xDE, 0x24, 0xD4, 0x53, 0x37, 0xE9])
 const Slot_IWebSocketControl_get_OutboundBufferSizeInBytes* = 6
-type Fn_IWebSocketControl_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_get_OutboundBufferSizeInBytes* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_put_OutboundBufferSizeInBytes* = 7
-type Fn_IWebSocketControl_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_put_OutboundBufferSizeInBytes* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_get_ServerCredential* = 8
-type Fn_IWebSocketControl_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_put_ServerCredential* = 9
-type Fn_IWebSocketControl_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_get_ProxyCredential* = 10
-type Fn_IWebSocketControl_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_put_ProxyCredential* = 11
-type Fn_IWebSocketControl_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketControl_get_SupportedProtocols* = 12
-type Fn_IWebSocketControl_get_SupportedProtocols* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl_get_SupportedProtocols* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketControl2
 const IID_IWebSocketControl2* = GUID(
     data1: 0x79C3BE03'u32, data2: 0xF2CA'u16, data3: 0x461E'u16,
     data4: [0xAF'u8, 0x4E, 0x96, 0x65, 0xBC, 0x2D, 0x06, 0x20])
 const Slot_IWebSocketControl2_get_IgnorableServerCertificateErrors* = 6
-type Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketErrorStatics
 const IID_IWebSocketErrorStatics* = GUID(
     data1: 0x27CDF35B'u32, data2: 0x1F61'u16, data3: 0x4709'u16,
     data4: [0x8E'u8, 0x02, 0x61, 0x28, 0x3A, 0xDA, 0x4E, 0x9D])
 const Slot_IWebSocketErrorStatics_GetStatus* = 6
-type Fn_IWebSocketErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWebSocketErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketInformation
 const IID_IWebSocketInformation* = GUID(
     data1: 0x5E01E316'u32, data2: 0xC92A'u16, data3: 0x47A5'u16,
     data4: [0xB2'u8, 0x5F, 0x07, 0x84, 0x76, 0x39, 0xD1, 0x81])
 const Slot_IWebSocketInformation_get_LocalAddress* = 6
-type Fn_IWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation_get_LocalAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketInformation_get_BandwidthStatistics* = 7
-type Fn_IWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation_get_BandwidthStatistics* = proc(self: pointer, value: ptr BandwidthStatistics): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketInformation_get_Protocol* = 8
-type Fn_IWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation_get_Protocol* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketInformation2
 const IID_IWebSocketInformation2* = GUID(
     data1: 0xCE1D39CE'u32, data2: 0xA1B7'u16, data3: 0x4D43'u16,
     data4: [0x82'u8, 0x69, 0x8D, 0x5B, 0x98, 0x1B, 0xD4, 0x7A])
 const Slot_IWebSocketInformation2_get_ServerCertificate* = 6
-type Fn_IWebSocketInformation2_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation2_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketInformation2_get_ServerCertificateErrorSeverity* = 7
-type Fn_IWebSocketInformation2_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation2_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketInformation2_get_ServerCertificateErrors* = 8
-type Fn_IWebSocketInformation2_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation2_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketInformation2_get_ServerIntermediateCertificates* = 9
-type Fn_IWebSocketInformation2_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketInformation2_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Sockets.IWebSocketServerCustomValidationRequestedEventArgs
 const IID_IWebSocketServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xFFEFFE48'u32, data2: 0x022A'u16, data3: 0x4AB7'u16,
     data4: [0x8B'u8, 0x36, 0xE1, 0x0A, 0xF4, 0x64, 0x0E, 0x6B])
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificate* = 6
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = 7
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = 8
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = 9
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_Reject* = 10
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_Reject* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_Reject* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IWebSocketServerCustomValidationRequestedEventArgs_GetDeferral* = 11
-type Fn_IWebSocketServerCustomValidationRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IWebSocketServerCustomValidationRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnAppId
 const IID_IVpnAppId* = GUID(
     data1: 0x7B06A635'u32, data2: 0x5C58'u16, data3: 0x41D9'u16,
     data4: [0x94'u8, 0xA7, 0xBF, 0xBC, 0xF1, 0xD8, 0xCA, 0x54])
 const Slot_IVpnAppId_get_Type* = 6
-type Fn_IVpnAppId_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnAppId_get_Type* = proc(self: pointer, value: ptr VpnAppIdType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnAppId_put_Type* = 7
-type Fn_IVpnAppId_put_Type* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnAppId_put_Type* = proc(self: pointer, a1: VpnAppIdType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnAppId_get_Value* = 8
-type Fn_IVpnAppId_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnAppId_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnAppId_put_Value* = 9
-type Fn_IVpnAppId_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnAppId_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnAppIdFactory
 const IID_IVpnAppIdFactory* = GUID(
     data1: 0x46ADFD2A'u32, data2: 0x0AAB'u16, data3: 0x4FDB'u16,
     data4: [0x82'u8, 0x1D, 0xD3, 0xDD, 0xC9, 0x19, 0x78, 0x8B])
 const Slot_IVpnAppIdFactory_Create* = 6
-type Fn_IVpnAppIdFactory_Create* = proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnAppIdFactory_Create* = proc(self: pointer, a1: VpnAppIdType, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannel
 const IID_IVpnChannel* = GUID(
     data1: 0x4AC78D07'u32, data2: 0xD1A8'u16, data3: 0x4303'u16,
     data4: [0xA0'u8, 0x91, 0xC8, 0xD2, 0xE0, 0x91, 0x5B, 0xC3])
 const Slot_IVpnChannel_AssociateTransport* = 6
-type Fn_IVpnChannel_AssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_AssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_Start* = 7
-type Fn_IVpnChannel_Start* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnNamespaceAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_Start* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnNamespaceAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_Stop* = 8
-type Fn_IVpnChannel_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_RequestCredentials* = 9
-type Fn_IVpnChannel_RequestCredentials* = proc(self: pointer, a1: int32, a2: bool, a3: bool, a4Certificate: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_RequestCredentials* = proc(self: pointer, a1: VpnCredentialType, a2: bool, a3: bool, a4Certificate: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_RequestVpnPacketBuffer* = 10
-type Fn_IVpnChannel_RequestVpnPacketBuffer* = proc(self: pointer, a1: int32, a2VpnPacketBuffer: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_RequestVpnPacketBuffer* = proc(self: pointer, a1: VpnDataPathType, a2VpnPacketBuffer: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_LogDiagnosticMessage* = 11
-type Fn_IVpnChannel_LogDiagnosticMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnChannel_LogDiagnosticMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_get_Id* = 12
-type Fn_IVpnChannel_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVpnChannel_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_get_Configuration* = 13
-type Fn_IVpnChannel_get_Configuration* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_get_Configuration* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_add_ActivityChange* = 14
-type Fn_IVpnChannel_add_ActivityChange* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IVpnChannel_add_ActivityChange* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_remove_ActivityChange* = 15
-type Fn_IVpnChannel_remove_ActivityChange* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IVpnChannel_remove_ActivityChange* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_put_PlugInContext* = 16
-type Fn_IVpnChannel_put_PlugInContext* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_put_PlugInContext* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_get_PlugInContext* = 17
-type Fn_IVpnChannel_get_PlugInContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_get_PlugInContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_get_SystemHealth* = 18
-type Fn_IVpnChannel_get_SystemHealth* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_get_SystemHealth* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_RequestCustomPrompt* = 19
-type Fn_IVpnChannel_RequestCustomPrompt* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel_RequestCustomPrompt* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_SetErrorMessage* = 20
-type Fn_IVpnChannel_SetErrorMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnChannel_SetErrorMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel_SetAllowedSslTlsVersions* = 21
-type Fn_IVpnChannel_SetAllowedSslTlsVersions* = proc(self: pointer, a1: pointer, a2: bool): HRESULT {.stdcall.}
+type Fn_IVpnChannel_SetAllowedSslTlsVersions* = proc(self: pointer, a1: pointer, a2: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannel2
 const IID_IVpnChannel2* = GUID(
     data1: 0x2255D165'u32, data2: 0x993B'u16, data3: 0x4629'u16,
     data4: [0xAD'u8, 0x60, 0xF1, 0xC3, 0xF3, 0x53, 0x7F, 0x50])
 const Slot_IVpnChannel2_StartWithMainTransport* = 6
-type Fn_IVpnChannel2_StartWithMainTransport* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_StartWithMainTransport* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_StartExistingTransports* = 7
-type Fn_IVpnChannel2_StartExistingTransports* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_StartExistingTransports* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_add_ActivityStateChange* = 8
-type Fn_IVpnChannel2_add_ActivityStateChange* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_add_ActivityStateChange* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_remove_ActivityStateChange* = 9
-type Fn_IVpnChannel2_remove_ActivityStateChange* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_remove_ActivityStateChange* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_GetVpnSendPacketBuffer* = 10
-type Fn_IVpnChannel2_GetVpnSendPacketBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_GetVpnSendPacketBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_GetVpnReceivePacketBuffer* = 11
-type Fn_IVpnChannel2_GetVpnReceivePacketBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_GetVpnReceivePacketBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_RequestCustomPromptAsync* = 12
-type Fn_IVpnChannel2_RequestCustomPromptAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_RequestCustomPromptAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_RequestCredentialsAsync* = 13
-type Fn_IVpnChannel2_RequestCredentialsAsync* = proc(self: pointer, a1: int32, a2: uint32, a3Certificate: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_RequestCredentialsAsync* = proc(self: pointer, a1: VpnCredentialType, a2: uint32, a3Certificate: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_RequestCredentialsAsync2* = 14
-type Fn_IVpnChannel2_RequestCredentialsAsync2* = proc(self: pointer, a1: int32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_RequestCredentialsAsync2* = proc(self: pointer, a1: VpnCredentialType, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_RequestCredentialsAsync3* = 15
-type Fn_IVpnChannel2_RequestCredentialsAsync3* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_RequestCredentialsAsync3* = proc(self: pointer, a1: VpnCredentialType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_TerminateConnection* = 16
-type Fn_IVpnChannel2_TerminateConnection* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_TerminateConnection* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel2_StartWithTrafficFilter* = 17
-type Fn_IVpnChannel2_StartWithTrafficFilter* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer, a11VpnTrafficFilterAssignment: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel2_StartWithTrafficFilter* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer, a11VpnTrafficFilterAssignment: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannel4
 const IID_IVpnChannel4* = GUID(
     data1: 0xD7266EDE'u32, data2: 0x2937'u16, data3: 0x419D'u16,
     data4: [0x95'u8, 0x70, 0x48, 0x6A, 0xEB, 0xB8, 0x18, 0x03])
 const Slot_IVpnChannel4_AddAndAssociateTransport* = 6
-type Fn_IVpnChannel4_AddAndAssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_AddAndAssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel4_StartWithTrafficFilter* = 7
-type Fn_IVpnChannel4_StartWithTrafficFilter* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10VpnTrafficFilterAssignment: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_StartWithTrafficFilter* = proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer, a4VpnRouteAssignment: pointer, a5VpnDomainNameAssignment: pointer, a6: uint32, a7: uint32, a8: bool, a9: pointer, a10VpnTrafficFilterAssignment: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel4_ReplaceAndAssociateTransport* = 8
-type Fn_IVpnChannel4_ReplaceAndAssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_ReplaceAndAssociateTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel4_StartReconnectingTransport* = 9
-type Fn_IVpnChannel4_StartReconnectingTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_StartReconnectingTransport* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel4_GetSlotTypeForTransportContext* = 10
-type Fn_IVpnChannel4_GetSlotTypeForTransportContext* = proc(self: pointer, a1: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_GetSlotTypeForTransportContext* = proc(self: pointer, a1: pointer, value: ptr ControlChannelTriggerStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel4_get_CurrentRequestTransportContext* = 11
-type Fn_IVpnChannel4_get_CurrentRequestTransportContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel4_get_CurrentRequestTransportContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannel5
 const IID_IVpnChannel5* = GUID(
     data1: 0xDE7A0992'u32, data2: 0x8384'u16, data3: 0x4FBC'u16,
     data4: [0x88'u8, 0x2C, 0x1F, 0xD2, 0x31, 0x24, 0xCD, 0x3B])
 const Slot_IVpnChannel5_AppendVpnReceivePacketBuffer* = 6
-type Fn_IVpnChannel5_AppendVpnReceivePacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel5_AppendVpnReceivePacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel5_AppendVpnSendPacketBuffer* = 7
-type Fn_IVpnChannel5_AppendVpnSendPacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel5_AppendVpnSendPacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel5_FlushVpnReceivePacketBuffers* = 8
-type Fn_IVpnChannel5_FlushVpnReceivePacketBuffers* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel5_FlushVpnReceivePacketBuffers* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannel5_FlushVpnSendPacketBuffers* = 9
-type Fn_IVpnChannel5_FlushVpnSendPacketBuffers* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel5_FlushVpnSendPacketBuffers* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannel6
 const IID_IVpnChannel6* = GUID(
     data1: 0x55843696'u32, data2: 0xBD63'u16, data3: 0x49C5'u16,
     data4: [0xAB'u8, 0xCA, 0x5D, 0xA7, 0x78, 0x85, 0x55, 0x1A])
 const Slot_IVpnChannel6_ActivateForeground* = 6
-type Fn_IVpnChannel6_ActivateForeground* = proc(self: pointer, a1: HSTRING, a2ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannel6_ActivateForeground* = proc(self: pointer, a1: HSTRING, a2ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannelActivityEventArgs
 const IID_IVpnChannelActivityEventArgs* = GUID(
     data1: 0xA36C88F2'u32, data2: 0xAFDC'u16, data3: 0x4775'u16,
     data4: [0x85'u8, 0x5D, 0xD4, 0xAC, 0x0A, 0x35, 0xFC, 0x55])
 const Slot_IVpnChannelActivityEventArgs_get_Type* = 6
-type Fn_IVpnChannelActivityEventArgs_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnChannelActivityEventArgs_get_Type* = proc(self: pointer, value: ptr VpnChannelActivityEventType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannelActivityStateChangedArgs
 const IID_IVpnChannelActivityStateChangedArgs* = GUID(
     data1: 0x3D750565'u32, data2: 0xFDC0'u16, data3: 0x4BBE'u16,
     data4: [0xA2'u8, 0x3B, 0x45, 0xFF, 0xFC, 0x6D, 0x97, 0xA1])
 const Slot_IVpnChannelActivityStateChangedArgs_get_ActivityState* = 6
-type Fn_IVpnChannelActivityStateChangedArgs_get_ActivityState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnChannelActivityStateChangedArgs_get_ActivityState* = proc(self: pointer, value: ptr VpnChannelActivityEventType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannelConfiguration
 const IID_IVpnChannelConfiguration* = GUID(
     data1: 0x0E2DDCA2'u32, data2: 0x2012'u16, data3: 0x4FE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x10, 0x7E])
 const Slot_IVpnChannelConfiguration_get_ServerServiceName* = 6
-type Fn_IVpnChannelConfiguration_get_ServerServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnChannelConfiguration_get_ServerServiceName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannelConfiguration_get_ServerHostNameList* = 7
-type Fn_IVpnChannelConfiguration_get_ServerHostNameList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannelConfiguration_get_ServerHostNameList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnChannelConfiguration_get_CustomField* = 8
-type Fn_IVpnChannelConfiguration_get_CustomField* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnChannelConfiguration_get_CustomField* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannelConfiguration2
 const IID_IVpnChannelConfiguration2* = GUID(
     data1: 0xF30B574C'u32, data2: 0x7824'u16, data3: 0x471C'u16,
     data4: [0xA1'u8, 0x18, 0x63, 0xDB, 0xC9, 0x3A, 0xE4, 0xC7])
 const Slot_IVpnChannelConfiguration2_get_ServerUris* = 6
-type Fn_IVpnChannelConfiguration2_get_ServerUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannelConfiguration2_get_ServerUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnChannelStatics
 const IID_IVpnChannelStatics* = GUID(
     data1: 0x88EB062D'u32, data2: 0xE818'u16, data3: 0x4FFD'u16,
     data4: [0x98'u8, 0xA6, 0x36, 0x3E, 0x37, 0x36, 0xC9, 0x5D])
 const Slot_IVpnChannelStatics_ProcessEventAsync* = 6
-type Fn_IVpnChannelStatics_ProcessEventAsync* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnChannelStatics_ProcessEventAsync* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCredential
 const IID_IVpnCredential* = GUID(
     data1: 0xB7E78AF3'u32, data2: 0xA46D'u16, data3: 0x404B'u16,
     data4: [0x87'u8, 0x29, 0x18, 0x32, 0x52, 0x28, 0x53, 0xAC])
 const Slot_IVpnCredential_get_PasskeyCredential* = 6
-type Fn_IVpnCredential_get_PasskeyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnCredential_get_PasskeyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCredential_get_CertificateCredential* = 7
-type Fn_IVpnCredential_get_CertificateCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnCredential_get_CertificateCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCredential_get_AdditionalPin* = 8
-type Fn_IVpnCredential_get_AdditionalPin* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCredential_get_AdditionalPin* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCredential_get_OldPasswordCredential* = 9
-type Fn_IVpnCredential_get_OldPasswordCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnCredential_get_OldPasswordCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomCheckBox
 const IID_IVpnCustomCheckBox* = GUID(
     data1: 0x43878753'u32, data2: 0x03C5'u16, data3: 0x4E61'u16,
     data4: [0x93'u8, 0xD7, 0xA9, 0x57, 0x71, 0x4C, 0x42, 0x82])
 const Slot_IVpnCustomCheckBox_put_InitialCheckState* = 6
-type Fn_IVpnCustomCheckBox_put_InitialCheckState* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomCheckBox_put_InitialCheckState* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomCheckBox_get_InitialCheckState* = 7
-type Fn_IVpnCustomCheckBox_get_InitialCheckState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomCheckBox_get_InitialCheckState* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomCheckBox_get_Checked* = 8
-type Fn_IVpnCustomCheckBox_get_Checked* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomCheckBox_get_Checked* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomComboBox
 const IID_IVpnCustomComboBox* = GUID(
     data1: 0x9A24158E'u32, data2: 0xDBA1'u16, data3: 0x4C6F'u16,
     data4: [0x82'u8, 0x70, 0xDC, 0xF3, 0xC9, 0x76, 0x1C, 0x4C])
 const Slot_IVpnCustomComboBox_put_OptionsText* = 6
-type Fn_IVpnCustomComboBox_put_OptionsText* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnCustomComboBox_put_OptionsText* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomComboBox_get_OptionsText* = 7
-type Fn_IVpnCustomComboBox_get_OptionsText* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnCustomComboBox_get_OptionsText* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomComboBox_get_Selected* = 8
-type Fn_IVpnCustomComboBox_get_Selected* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVpnCustomComboBox_get_Selected* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomEditBox
 const IID_IVpnCustomEditBox* = GUID(
     data1: 0x3002D9A0'u32, data2: 0xCFBF'u16, data3: 0x4C0B'u16,
     data4: [0x8F'u8, 0x3C, 0x66, 0xF5, 0x03, 0xC2, 0x0B, 0x39])
 const Slot_IVpnCustomEditBox_put_DefaultText* = 6
-type Fn_IVpnCustomEditBox_put_DefaultText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomEditBox_put_DefaultText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomEditBox_get_DefaultText* = 7
-type Fn_IVpnCustomEditBox_get_DefaultText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomEditBox_get_DefaultText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomEditBox_put_NoEcho* = 8
-type Fn_IVpnCustomEditBox_put_NoEcho* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomEditBox_put_NoEcho* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomEditBox_get_NoEcho* = 9
-type Fn_IVpnCustomEditBox_get_NoEcho* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomEditBox_get_NoEcho* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomEditBox_get_Text* = 10
-type Fn_IVpnCustomEditBox_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomEditBox_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomErrorBox
 const IID_IVpnCustomErrorBox* = GUID(
@@ -5661,147 +5772,147 @@ const IID_IVpnCustomPrompt* = GUID(
     data1: 0x9B2EBE7B'u32, data2: 0x87D5'u16, data3: 0x433C'u16,
     data4: [0xB4'u8, 0xF6, 0xEE, 0xE6, 0xAA, 0x68, 0xA2, 0x44])
 const Slot_IVpnCustomPrompt_put_Label* = 6
-type Fn_IVpnCustomPrompt_put_Label* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_put_Label* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPrompt_get_Label* = 7
-type Fn_IVpnCustomPrompt_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPrompt_put_Compulsory* = 8
-type Fn_IVpnCustomPrompt_put_Compulsory* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_put_Compulsory* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPrompt_get_Compulsory* = 9
-type Fn_IVpnCustomPrompt_get_Compulsory* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_get_Compulsory* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPrompt_put_Bordered* = 10
-type Fn_IVpnCustomPrompt_put_Bordered* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_put_Bordered* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPrompt_get_Bordered* = 11
-type Fn_IVpnCustomPrompt_get_Bordered* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPrompt_get_Bordered* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomPromptBooleanInput
 const IID_IVpnCustomPromptBooleanInput* = GUID(
     data1: 0xC4C9A69E'u32, data2: 0xFF47'u16, data3: 0x4527'u16,
     data4: [0x9F'u8, 0x27, 0xA4, 0x92, 0x92, 0x01, 0x99, 0x79])
 const Slot_IVpnCustomPromptBooleanInput_put_InitialValue* = 6
-type Fn_IVpnCustomPromptBooleanInput_put_InitialValue* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptBooleanInput_put_InitialValue* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptBooleanInput_get_InitialValue* = 7
-type Fn_IVpnCustomPromptBooleanInput_get_InitialValue* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptBooleanInput_get_InitialValue* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptBooleanInput_get_Value* = 8
-type Fn_IVpnCustomPromptBooleanInput_get_Value* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptBooleanInput_get_Value* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomPromptElement
 const IID_IVpnCustomPromptElement* = GUID(
     data1: 0x73BD5638'u32, data2: 0x6F04'u16, data3: 0x404D'u16,
     data4: [0x93'u8, 0xDD, 0x50, 0xA4, 0x49, 0x24, 0xA3, 0x8B])
 const Slot_IVpnCustomPromptElement_put_DisplayName* = 6
-type Fn_IVpnCustomPromptElement_put_DisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_put_DisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptElement_get_DisplayName* = 7
-type Fn_IVpnCustomPromptElement_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptElement_put_Compulsory* = 8
-type Fn_IVpnCustomPromptElement_put_Compulsory* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_put_Compulsory* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptElement_get_Compulsory* = 9
-type Fn_IVpnCustomPromptElement_get_Compulsory* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_get_Compulsory* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptElement_put_Emphasized* = 10
-type Fn_IVpnCustomPromptElement_put_Emphasized* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_put_Emphasized* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptElement_get_Emphasized* = 11
-type Fn_IVpnCustomPromptElement_get_Emphasized* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptElement_get_Emphasized* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomPromptOptionSelector
 const IID_IVpnCustomPromptOptionSelector* = GUID(
     data1: 0x3B8F34D9'u32, data2: 0x8EC1'u16, data3: 0x4E95'u16,
     data4: [0x9A'u8, 0x4E, 0x7B, 0xA6, 0x4D, 0x38, 0xF3, 0x30])
 const Slot_IVpnCustomPromptOptionSelector_get_Options* = 6
-type Fn_IVpnCustomPromptOptionSelector_get_Options* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptOptionSelector_get_Options* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptOptionSelector_get_SelectedIndex* = 7
-type Fn_IVpnCustomPromptOptionSelector_get_SelectedIndex* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptOptionSelector_get_SelectedIndex* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomPromptText
 const IID_IVpnCustomPromptText* = GUID(
     data1: 0x3BC8BDEE'u32, data2: 0x3A42'u16, data3: 0x49A3'u16,
     data4: [0xAB'u8, 0xDD, 0x07, 0xB2, 0xED, 0xEA, 0x75, 0x2D])
 const Slot_IVpnCustomPromptText_put_Text* = 6
-type Fn_IVpnCustomPromptText_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptText_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptText_get_Text* = 7
-type Fn_IVpnCustomPromptText_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptText_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomPromptTextInput
 const IID_IVpnCustomPromptTextInput* = GUID(
     data1: 0xC9DA9C75'u32, data2: 0x913C'u16, data3: 0x47D5'u16,
     data4: [0x88'u8, 0xBA, 0x48, 0xFC, 0x48, 0x93, 0x02, 0x35])
 const Slot_IVpnCustomPromptTextInput_put_PlaceholderText* = 6
-type Fn_IVpnCustomPromptTextInput_put_PlaceholderText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptTextInput_put_PlaceholderText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptTextInput_get_PlaceholderText* = 7
-type Fn_IVpnCustomPromptTextInput_get_PlaceholderText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptTextInput_get_PlaceholderText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptTextInput_put_IsTextHidden* = 8
-type Fn_IVpnCustomPromptTextInput_put_IsTextHidden* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptTextInput_put_IsTextHidden* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptTextInput_get_IsTextHidden* = 9
-type Fn_IVpnCustomPromptTextInput_get_IsTextHidden* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptTextInput_get_IsTextHidden* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomPromptTextInput_get_Text* = 10
-type Fn_IVpnCustomPromptTextInput_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomPromptTextInput_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnCustomTextBox
 const IID_IVpnCustomTextBox* = GUID(
     data1: 0xDAA4C3CA'u32, data2: 0x8F23'u16, data3: 0x4D36'u16,
     data4: [0x91'u8, 0xF1, 0x76, 0xD9, 0x37, 0x82, 0x79, 0x42])
 const Slot_IVpnCustomTextBox_put_DisplayText* = 6
-type Fn_IVpnCustomTextBox_put_DisplayText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomTextBox_put_DisplayText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnCustomTextBox_get_DisplayText* = 7
-type Fn_IVpnCustomTextBox_get_DisplayText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnCustomTextBox_get_DisplayText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnDomainNameAssignment
 const IID_IVpnDomainNameAssignment* = GUID(
     data1: 0x4135B141'u32, data2: 0xCCDB'u16, data3: 0x49B5'u16,
     data4: [0x94'u8, 0x01, 0x03, 0x9A, 0x8A, 0xE7, 0x67, 0xE9])
 const Slot_IVpnDomainNameAssignment_get_DomainNameList* = 6
-type Fn_IVpnDomainNameAssignment_get_DomainNameList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameAssignment_get_DomainNameList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameAssignment_put_ProxyAutoConfigurationUri* = 7
-type Fn_IVpnDomainNameAssignment_put_ProxyAutoConfigurationUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameAssignment_put_ProxyAutoConfigurationUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameAssignment_get_ProxyAutoConfigurationUri* = 8
-type Fn_IVpnDomainNameAssignment_get_ProxyAutoConfigurationUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameAssignment_get_ProxyAutoConfigurationUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnDomainNameInfo
 const IID_IVpnDomainNameInfo* = GUID(
     data1: 0xAD2EB82F'u32, data2: 0xEA8E'u16, data3: 0x4F7A'u16,
     data4: [0x84'u8, 0x3E, 0x1A, 0x87, 0xE3, 0x2E, 0x1B, 0x9A])
 const Slot_IVpnDomainNameInfo_put_DomainName* = 6
-type Fn_IVpnDomainNameInfo_put_DomainName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_put_DomainName* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameInfo_get_DomainName* = 7
-type Fn_IVpnDomainNameInfo_get_DomainName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_get_DomainName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameInfo_put_DomainNameType* = 8
-type Fn_IVpnDomainNameInfo_put_DomainNameType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_put_DomainNameType* = proc(self: pointer, a1: VpnDomainNameType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameInfo_get_DomainNameType* = 9
-type Fn_IVpnDomainNameInfo_get_DomainNameType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_get_DomainNameType* = proc(self: pointer, value: ptr VpnDomainNameType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameInfo_get_DnsServers* = 10
-type Fn_IVpnDomainNameInfo_get_DnsServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_get_DnsServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnDomainNameInfo_get_WebProxyServers* = 11
-type Fn_IVpnDomainNameInfo_get_WebProxyServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo_get_WebProxyServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnDomainNameInfo2
 const IID_IVpnDomainNameInfo2* = GUID(
     data1: 0xAB871151'u32, data2: 0x6C53'u16, data3: 0x4828'u16,
     data4: [0x98'u8, 0x83, 0xD8, 0x86, 0xDE, 0x10, 0x44, 0x07])
 const Slot_IVpnDomainNameInfo2_get_WebProxyUris* = 6
-type Fn_IVpnDomainNameInfo2_get_WebProxyUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfo2_get_WebProxyUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnDomainNameInfoFactory
 const IID_IVpnDomainNameInfoFactory* = GUID(
     data1: 0x2507BB75'u32, data2: 0x028F'u16, data3: 0x4688'u16,
     data4: [0x8D'u8, 0x3A, 0xC4, 0x53, 0x1D, 0xF3, 0x7D, 0xA8])
 const Slot_IVpnDomainNameInfoFactory_CreateVpnDomainNameInfo* = 6
-type Fn_IVpnDomainNameInfoFactory_CreateVpnDomainNameInfo* = proc(self: pointer, a1: HSTRING, a2: int32, a3: pointer, a4: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnDomainNameInfoFactory_CreateVpnDomainNameInfo* = proc(self: pointer, a1: HSTRING, a2: VpnDomainNameType, a3: pointer, a4: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnForegroundActivatedEventArgs
 const IID_IVpnForegroundActivatedEventArgs* = GUID(
     data1: 0x85B465B0'u32, data2: 0xCADB'u16, data3: 0x4D70'u16,
     data4: [0xAC'u8, 0x92, 0x54, 0x3A, 0x24, 0xDC, 0x9E, 0xBC])
 const Slot_IVpnForegroundActivatedEventArgs_get_ProfileName* = 6
-type Fn_IVpnForegroundActivatedEventArgs_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnForegroundActivatedEventArgs_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnForegroundActivatedEventArgs_get_SharedContext* = 7
-type Fn_IVpnForegroundActivatedEventArgs_get_SharedContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnForegroundActivatedEventArgs_get_SharedContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnForegroundActivatedEventArgs_get_ActivationOperation* = 8
-type Fn_IVpnForegroundActivatedEventArgs_get_ActivationOperation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnForegroundActivatedEventArgs_get_ActivationOperation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnForegroundActivationOperation
 const IID_IVpnForegroundActivationOperation* = GUID(
     data1: 0x9E010D57'u32, data2: 0xF17A'u16, data3: 0x4BD5'u16,
     data4: [0x9B'u8, 0x6D, 0xF9, 0x84, 0xF1, 0x29, 0x7D, 0x3C])
 const Slot_IVpnForegroundActivationOperation_Complete* = 6
-type Fn_IVpnForegroundActivationOperation_Complete* = proc(self: pointer, a1ValueSet: pointer): HRESULT {.stdcall.}
+type Fn_IVpnForegroundActivationOperation_Complete* = proc(self: pointer, a1ValueSet: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnInterfaceId
 const IID_IVpnInterfaceId* = GUID(
@@ -5822,444 +5933,444 @@ const IID_IVpnManagementAgent* = GUID(
     data1: 0x193696CD'u32, data2: 0xA5C4'u16, data3: 0x4ABE'u16,
     data4: [0x85'u8, 0x2B, 0x78, 0x5B, 0xE4, 0xCB, 0x3E, 0x34])
 const Slot_IVpnManagementAgent_AddProfileFromXmlAsync* = 6
-type Fn_IVpnManagementAgent_AddProfileFromXmlAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_AddProfileFromXmlAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_AddProfileFromObjectAsync* = 7
-type Fn_IVpnManagementAgent_AddProfileFromObjectAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_AddProfileFromObjectAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_UpdateProfileFromXmlAsync* = 8
-type Fn_IVpnManagementAgent_UpdateProfileFromXmlAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_UpdateProfileFromXmlAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_UpdateProfileFromObjectAsync* = 9
-type Fn_IVpnManagementAgent_UpdateProfileFromObjectAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_UpdateProfileFromObjectAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_GetProfilesAsync* = 10
-type Fn_IVpnManagementAgent_GetProfilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_GetProfilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_DeleteProfileAsync* = 11
-type Fn_IVpnManagementAgent_DeleteProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_DeleteProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_ConnectProfileAsync* = 12
-type Fn_IVpnManagementAgent_ConnectProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_ConnectProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync* = 13
-type Fn_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync* = proc(self: pointer, a1IVpnProfile: pointer, a2PasswordCredential: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync* = proc(self: pointer, a1IVpnProfile: pointer, a2PasswordCredential: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnManagementAgent_DisconnectProfileAsync* = 14
-type Fn_IVpnManagementAgent_DisconnectProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnManagementAgent_DisconnectProfileAsync* = proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnNamespaceAssignment
 const IID_IVpnNamespaceAssignment* = GUID(
     data1: 0xD7F7DB18'u32, data2: 0x307D'u16, data3: 0x4C0E'u16,
     data4: [0xBD'u8, 0x62, 0x8F, 0xA2, 0x70, 0xBB, 0xAD, 0xD6])
 const Slot_IVpnNamespaceAssignment_put_NamespaceList* = 6
-type Fn_IVpnNamespaceAssignment_put_NamespaceList* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceAssignment_put_NamespaceList* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceAssignment_get_NamespaceList* = 7
-type Fn_IVpnNamespaceAssignment_get_NamespaceList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceAssignment_get_NamespaceList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceAssignment_put_ProxyAutoConfigUri* = 8
-type Fn_IVpnNamespaceAssignment_put_ProxyAutoConfigUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceAssignment_put_ProxyAutoConfigUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceAssignment_get_ProxyAutoConfigUri* = 9
-type Fn_IVpnNamespaceAssignment_get_ProxyAutoConfigUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceAssignment_get_ProxyAutoConfigUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnNamespaceInfo
 const IID_IVpnNamespaceInfo* = GUID(
     data1: 0x30EDFB43'u32, data2: 0x444F'u16, data3: 0x44C5'u16,
     data4: [0x81'u8, 0x67, 0xA3, 0x5A, 0x91, 0xF1, 0xAF, 0x94])
 const Slot_IVpnNamespaceInfo_put_Namespace* = 6
-type Fn_IVpnNamespaceInfo_put_Namespace* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_put_Namespace* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceInfo_get_Namespace* = 7
-type Fn_IVpnNamespaceInfo_get_Namespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_get_Namespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceInfo_put_DnsServers* = 8
-type Fn_IVpnNamespaceInfo_put_DnsServers* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_put_DnsServers* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceInfo_get_DnsServers* = 9
-type Fn_IVpnNamespaceInfo_get_DnsServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_get_DnsServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceInfo_put_WebProxyServers* = 10
-type Fn_IVpnNamespaceInfo_put_WebProxyServers* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_put_WebProxyServers* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNamespaceInfo_get_WebProxyServers* = 11
-type Fn_IVpnNamespaceInfo_get_WebProxyServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfo_get_WebProxyServers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnNamespaceInfoFactory
 const IID_IVpnNamespaceInfoFactory* = GUID(
     data1: 0xCB3E951A'u32, data2: 0xB0CE'u16, data3: 0x442B'u16,
     data4: [0xAC'u8, 0xBB, 0x5F, 0x99, 0xB2, 0x02, 0xC3, 0x1C])
 const Slot_IVpnNamespaceInfoFactory_CreateVpnNamespaceInfo* = 6
-type Fn_IVpnNamespaceInfoFactory_CreateVpnNamespaceInfo* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNamespaceInfoFactory_CreateVpnNamespaceInfo* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnNativeProfile
 const IID_IVpnNativeProfile* = GUID(
     data1: 0xA4AEE29E'u32, data2: 0x6417'u16, data3: 0x4333'u16,
     data4: [0x98'u8, 0x42, 0xF0, 0xA6, 0x6D, 0xB6, 0x98, 0x02])
 const Slot_IVpnNativeProfile_get_Servers* = 6
-type Fn_IVpnNativeProfile_get_Servers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_Servers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_get_RoutingPolicyType* = 7
-type Fn_IVpnNativeProfile_get_RoutingPolicyType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_RoutingPolicyType* = proc(self: pointer, value: ptr VpnRoutingPolicyType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_put_RoutingPolicyType* = 8
-type Fn_IVpnNativeProfile_put_RoutingPolicyType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_put_RoutingPolicyType* = proc(self: pointer, a1: VpnRoutingPolicyType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_get_NativeProtocolType* = 9
-type Fn_IVpnNativeProfile_get_NativeProtocolType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_NativeProtocolType* = proc(self: pointer, value: ptr VpnNativeProtocolType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_put_NativeProtocolType* = 10
-type Fn_IVpnNativeProfile_put_NativeProtocolType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_put_NativeProtocolType* = proc(self: pointer, a1: VpnNativeProtocolType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_get_UserAuthenticationMethod* = 11
-type Fn_IVpnNativeProfile_get_UserAuthenticationMethod* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_UserAuthenticationMethod* = proc(self: pointer, value: ptr VpnAuthenticationMethod): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_put_UserAuthenticationMethod* = 12
-type Fn_IVpnNativeProfile_put_UserAuthenticationMethod* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_put_UserAuthenticationMethod* = proc(self: pointer, a1: VpnAuthenticationMethod): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_get_TunnelAuthenticationMethod* = 13
-type Fn_IVpnNativeProfile_get_TunnelAuthenticationMethod* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_TunnelAuthenticationMethod* = proc(self: pointer, value: ptr VpnAuthenticationMethod): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_put_TunnelAuthenticationMethod* = 14
-type Fn_IVpnNativeProfile_put_TunnelAuthenticationMethod* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_put_TunnelAuthenticationMethod* = proc(self: pointer, a1: VpnAuthenticationMethod): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_get_EapConfiguration* = 15
-type Fn_IVpnNativeProfile_get_EapConfiguration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_get_EapConfiguration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile_put_EapConfiguration* = 16
-type Fn_IVpnNativeProfile_put_EapConfiguration* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile_put_EapConfiguration* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnNativeProfile2
 const IID_IVpnNativeProfile2* = GUID(
     data1: 0x0FEC2467'u32, data2: 0xCDB5'u16, data3: 0x4AC7'u16,
     data4: [0xB5'u8, 0xA3, 0x0A, 0xFB, 0x5E, 0xC4, 0x76, 0x82])
 const Slot_IVpnNativeProfile2_get_RequireVpnClientAppUI* = 6
-type Fn_IVpnNativeProfile2_get_RequireVpnClientAppUI* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile2_get_RequireVpnClientAppUI* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile2_put_RequireVpnClientAppUI* = 7
-type Fn_IVpnNativeProfile2_put_RequireVpnClientAppUI* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile2_put_RequireVpnClientAppUI* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnNativeProfile2_get_ConnectionStatus* = 8
-type Fn_IVpnNativeProfile2_get_ConnectionStatus* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnNativeProfile2_get_ConnectionStatus* = proc(self: pointer, value: ptr VpnManagementConnectionStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBuffer
 const IID_IVpnPacketBuffer* = GUID(
     data1: 0xC2F891FC'u32, data2: 0x4D5C'u16, data3: 0x4A63'u16,
     data4: [0xB7'u8, 0x0D, 0x4E, 0x30, 0x7E, 0xAC, 0xCE, 0x55])
 const Slot_IVpnPacketBuffer_get_Buffer* = 6
-type Fn_IVpnPacketBuffer_get_Buffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer_get_Buffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBuffer_put_Status* = 7
-type Fn_IVpnPacketBuffer_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer_put_Status* = proc(self: pointer, a1: VpnPacketBufferStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBuffer_get_Status* = 8
-type Fn_IVpnPacketBuffer_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer_get_Status* = proc(self: pointer, value: ptr VpnPacketBufferStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBuffer_put_TransportAffinity* = 9
-type Fn_IVpnPacketBuffer_put_TransportAffinity* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer_put_TransportAffinity* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBuffer_get_TransportAffinity* = 10
-type Fn_IVpnPacketBuffer_get_TransportAffinity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer_get_TransportAffinity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBuffer2
 const IID_IVpnPacketBuffer2* = GUID(
     data1: 0x665E91F0'u32, data2: 0x8805'u16, data3: 0x4BF5'u16,
     data4: [0xA6'u8, 0x19, 0x2E, 0x84, 0x88, 0x2E, 0x6B, 0x4F])
 const Slot_IVpnPacketBuffer2_get_AppId* = 6
-type Fn_IVpnPacketBuffer2_get_AppId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer2_get_AppId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBuffer3
 const IID_IVpnPacketBuffer3* = GUID(
     data1: 0xE256072F'u32, data2: 0x107B'u16, data3: 0x4C40'u16,
     data4: [0xB1'u8, 0x27, 0x5B, 0xC5, 0x3E, 0x0A, 0xD9, 0x60])
 const Slot_IVpnPacketBuffer3_put_TransportContext* = 6
-type Fn_IVpnPacketBuffer3_put_TransportContext* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer3_put_TransportContext* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBuffer3_get_TransportContext* = 7
-type Fn_IVpnPacketBuffer3_get_TransportContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBuffer3_get_TransportContext* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBufferFactory
 const IID_IVpnPacketBufferFactory* = GUID(
     data1: 0x9E2DDCA2'u32, data2: 0x1712'u16, data3: 0x4CE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x99, 0x99])
 const Slot_IVpnPacketBufferFactory_CreateVpnPacketBuffer* = 6
-type Fn_IVpnPacketBufferFactory_CreateVpnPacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferFactory_CreateVpnPacketBuffer* = proc(self: pointer, a1VpnPacketBuffer: pointer, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBufferList
 const IID_IVpnPacketBufferList* = GUID(
     data1: 0xC2F891FC'u32, data2: 0x4D5C'u16, data3: 0x4A63'u16,
     data4: [0xB7'u8, 0x0D, 0x4E, 0x30, 0x7E, 0xAC, 0xCE, 0x77])
 const Slot_IVpnPacketBufferList_Append* = 6
-type Fn_IVpnPacketBufferList_Append* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_Append* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_AddAtBegin* = 7
-type Fn_IVpnPacketBufferList_AddAtBegin* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_AddAtBegin* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_RemoveAtEnd* = 8
-type Fn_IVpnPacketBufferList_RemoveAtEnd* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_RemoveAtEnd* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_RemoveAtBegin* = 9
-type Fn_IVpnPacketBufferList_RemoveAtBegin* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_RemoveAtBegin* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_Clear* = 10
-type Fn_IVpnPacketBufferList_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_put_Status* = 11
-type Fn_IVpnPacketBufferList_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_put_Status* = proc(self: pointer, a1: VpnPacketBufferStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_get_Status* = 12
-type Fn_IVpnPacketBufferList_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_get_Status* = proc(self: pointer, value: ptr VpnPacketBufferStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList_get_Size* = 13
-type Fn_IVpnPacketBufferList_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList_get_Size* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPacketBufferList2
 const IID_IVpnPacketBufferList2* = GUID(
     data1: 0x3E7ACFE5'u32, data2: 0xEA1E'u16, data3: 0x482A'u16,
     data4: [0x8D'u8, 0x98, 0xC0, 0x65, 0xF5, 0x7D, 0x89, 0xEA])
 const Slot_IVpnPacketBufferList2_AddLeadingPacket* = 6
-type Fn_IVpnPacketBufferList2_AddLeadingPacket* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList2_AddLeadingPacket* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList2_RemoveLeadingPacket* = 7
-type Fn_IVpnPacketBufferList2_RemoveLeadingPacket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList2_RemoveLeadingPacket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList2_AddTrailingPacket* = 8
-type Fn_IVpnPacketBufferList2_AddTrailingPacket* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList2_AddTrailingPacket* = proc(self: pointer, a1VpnPacketBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPacketBufferList2_RemoveTrailingPacket* = 9
-type Fn_IVpnPacketBufferList2_RemoveTrailingPacket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPacketBufferList2_RemoveTrailingPacket* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPickedCredential
 const IID_IVpnPickedCredential* = GUID(
     data1: 0x9A793AC7'u32, data2: 0x8854'u16, data3: 0x4E52'u16,
     data4: [0xAD'u8, 0x97, 0x24, 0xDD, 0x9A, 0x84, 0x2B, 0xCE])
 const Slot_IVpnPickedCredential_get_PasskeyCredential* = 6
-type Fn_IVpnPickedCredential_get_PasskeyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPickedCredential_get_PasskeyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPickedCredential_get_AdditionalPin* = 7
-type Fn_IVpnPickedCredential_get_AdditionalPin* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnPickedCredential_get_AdditionalPin* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPickedCredential_get_OldPasswordCredential* = 8
-type Fn_IVpnPickedCredential_get_OldPasswordCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPickedCredential_get_OldPasswordCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPlugIn
 const IID_IVpnPlugIn* = GUID(
     data1: 0xCEB78D07'u32, data2: 0xD0A8'u16, data3: 0x4703'u16,
     data4: [0xA0'u8, 0x91, 0xC8, 0xC2, 0xC0, 0x91, 0x5B, 0xC4])
 const Slot_IVpnPlugIn_Connect* = 6
-type Fn_IVpnPlugIn_Connect* = proc(self: pointer, a1VpnChannel: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugIn_Connect* = proc(self: pointer, a1VpnChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugIn_Disconnect* = 7
-type Fn_IVpnPlugIn_Disconnect* = proc(self: pointer, a1VpnChannel: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugIn_Disconnect* = proc(self: pointer, a1VpnChannel: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugIn_GetKeepAlivePayload* = 8
-type Fn_IVpnPlugIn_GetKeepAlivePayload* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugIn_GetKeepAlivePayload* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugIn_Encapsulate* = 9
-type Fn_IVpnPlugIn_Encapsulate* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBufferList: pointer, a3VpnPacketBufferList: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugIn_Encapsulate* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBufferList: pointer, a3VpnPacketBufferList: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugIn_Decapsulate* = 10
-type Fn_IVpnPlugIn_Decapsulate* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: pointer, a3VpnPacketBufferList: pointer, a4VpnPacketBufferList: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugIn_Decapsulate* = proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: pointer, a3VpnPacketBufferList: pointer, a4VpnPacketBufferList: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPlugInProfile
 const IID_IVpnPlugInProfile* = GUID(
     data1: 0x0EDF0DA4'u32, data2: 0x4F00'u16, data3: 0x4589'u16,
     data4: [0x8D'u8, 0x7B, 0x4B, 0xF9, 0x88, 0xF6, 0x54, 0x2C])
 const Slot_IVpnPlugInProfile_get_ServerUris* = 6
-type Fn_IVpnPlugInProfile_get_ServerUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile_get_ServerUris* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile_get_CustomConfiguration* = 7
-type Fn_IVpnPlugInProfile_get_CustomConfiguration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile_get_CustomConfiguration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile_put_CustomConfiguration* = 8
-type Fn_IVpnPlugInProfile_put_CustomConfiguration* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile_put_CustomConfiguration* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile_get_VpnPluginPackageFamilyName* = 9
-type Fn_IVpnPlugInProfile_get_VpnPluginPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile_get_VpnPluginPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile_put_VpnPluginPackageFamilyName* = 10
-type Fn_IVpnPlugInProfile_put_VpnPluginPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile_put_VpnPluginPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPlugInProfile2
 const IID_IVpnPlugInProfile2* = GUID(
     data1: 0x611C4892'u32, data2: 0xCF94'u16, data3: 0x4AD6'u16,
     data4: [0xBA'u8, 0x99, 0x00, 0xF4, 0xFF, 0x34, 0x56, 0x5E])
 const Slot_IVpnPlugInProfile2_get_RequireVpnClientAppUI* = 6
-type Fn_IVpnPlugInProfile2_get_RequireVpnClientAppUI* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile2_get_RequireVpnClientAppUI* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile2_put_RequireVpnClientAppUI* = 7
-type Fn_IVpnPlugInProfile2_put_RequireVpnClientAppUI* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile2_put_RequireVpnClientAppUI* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnPlugInProfile2_get_ConnectionStatus* = 8
-type Fn_IVpnPlugInProfile2_get_ConnectionStatus* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnPlugInProfile2_get_ConnectionStatus* = proc(self: pointer, value: ptr VpnManagementConnectionStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnPlugInReconnectTransport
 const IID_IVpnPlugInReconnectTransport* = GUID(
     data1: 0x9D5A1092'u32, data2: 0xBB46'u16, data3: 0x4D34'u16,
     data4: [0x9D'u8, 0x88, 0xF2, 0x17, 0x89, 0x30, 0x76, 0xF4])
 const Slot_IVpnPlugInReconnectTransport_ReconnectTransport* = 6
-type Fn_IVpnPlugInReconnectTransport_ReconnectTransport* = proc(self: pointer, a1VpnChannel: pointer, a2: pointer): HRESULT {.stdcall.}
+type Fn_IVpnPlugInReconnectTransport_ReconnectTransport* = proc(self: pointer, a1VpnChannel: pointer, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnProfile
 const IID_IVpnProfile* = GUID(
     data1: 0x7875B751'u32, data2: 0xB0D7'u16, data3: 0x43DB'u16,
     data4: [0x8A'u8, 0x93, 0xD3, 0xFE, 0x24, 0x79, 0xE5, 0x6A])
 const Slot_IVpnProfile_get_ProfileName* = 6
-type Fn_IVpnProfile_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_ProfileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_put_ProfileName* = 7
-type Fn_IVpnProfile_put_ProfileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVpnProfile_put_ProfileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_AppTriggers* = 8
-type Fn_IVpnProfile_get_AppTriggers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_AppTriggers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_Routes* = 9
-type Fn_IVpnProfile_get_Routes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_Routes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_DomainNameInfoList* = 10
-type Fn_IVpnProfile_get_DomainNameInfoList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_DomainNameInfoList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_TrafficFilters* = 11
-type Fn_IVpnProfile_get_TrafficFilters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_TrafficFilters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_RememberCredentials* = 12
-type Fn_IVpnProfile_get_RememberCredentials* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_RememberCredentials* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_put_RememberCredentials* = 13
-type Fn_IVpnProfile_put_RememberCredentials* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnProfile_put_RememberCredentials* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_get_AlwaysOn* = 14
-type Fn_IVpnProfile_get_AlwaysOn* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnProfile_get_AlwaysOn* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnProfile_put_AlwaysOn* = 15
-type Fn_IVpnProfile_put_AlwaysOn* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnProfile_put_AlwaysOn* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnRoute
 const IID_IVpnRoute* = GUID(
     data1: 0xB5731B83'u32, data2: 0x0969'u16, data3: 0x4699'u16,
     data4: [0x93'u8, 0x8E, 0x77, 0x76, 0xDB, 0x29, 0xCF, 0xB3])
 const Slot_IVpnRoute_put_Address* = 6
-type Fn_IVpnRoute_put_Address* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall.}
+type Fn_IVpnRoute_put_Address* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRoute_get_Address* = 7
-type Fn_IVpnRoute_get_Address* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRoute_get_Address* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRoute_put_PrefixSize* = 8
-type Fn_IVpnRoute_put_PrefixSize* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IVpnRoute_put_PrefixSize* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRoute_get_PrefixSize* = 9
-type Fn_IVpnRoute_get_PrefixSize* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IVpnRoute_get_PrefixSize* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnRouteAssignment
 const IID_IVpnRouteAssignment* = GUID(
     data1: 0xDB64DE22'u32, data2: 0xCE39'u16, data3: 0x4A76'u16,
     data4: [0x95'u8, 0x50, 0xF6, 0x10, 0x39, 0xF8, 0x0E, 0x48])
 const Slot_IVpnRouteAssignment_put_Ipv4InclusionRoutes* = 6
-type Fn_IVpnRouteAssignment_put_Ipv4InclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_put_Ipv4InclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_put_Ipv6InclusionRoutes* = 7
-type Fn_IVpnRouteAssignment_put_Ipv6InclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_put_Ipv6InclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_get_Ipv4InclusionRoutes* = 8
-type Fn_IVpnRouteAssignment_get_Ipv4InclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_get_Ipv4InclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_get_Ipv6InclusionRoutes* = 9
-type Fn_IVpnRouteAssignment_get_Ipv6InclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_get_Ipv6InclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_put_Ipv4ExclusionRoutes* = 10
-type Fn_IVpnRouteAssignment_put_Ipv4ExclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_put_Ipv4ExclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_put_Ipv6ExclusionRoutes* = 11
-type Fn_IVpnRouteAssignment_put_Ipv6ExclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_put_Ipv6ExclusionRoutes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_get_Ipv4ExclusionRoutes* = 12
-type Fn_IVpnRouteAssignment_get_Ipv4ExclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_get_Ipv4ExclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_get_Ipv6ExclusionRoutes* = 13
-type Fn_IVpnRouteAssignment_get_Ipv6ExclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_get_Ipv6ExclusionRoutes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_put_ExcludeLocalSubnets* = 14
-type Fn_IVpnRouteAssignment_put_ExcludeLocalSubnets* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_put_ExcludeLocalSubnets* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnRouteAssignment_get_ExcludeLocalSubnets* = 15
-type Fn_IVpnRouteAssignment_get_ExcludeLocalSubnets* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnRouteAssignment_get_ExcludeLocalSubnets* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnRouteFactory
 const IID_IVpnRouteFactory* = GUID(
     data1: 0xBDEAB5FF'u32, data2: 0x45CF'u16, data3: 0x4B99'u16,
     data4: [0x83'u8, 0xFB, 0xDB, 0x3B, 0xC2, 0x67, 0x2B, 0x02])
 const Slot_IVpnRouteFactory_CreateVpnRoute* = 6
-type Fn_IVpnRouteFactory_CreateVpnRoute* = proc(self: pointer, a1HostName: pointer, a2: uint8, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnRouteFactory_CreateVpnRoute* = proc(self: pointer, a1HostName: pointer, a2: uint8, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnSystemHealth
 const IID_IVpnSystemHealth* = GUID(
     data1: 0x99A8F8AF'u32, data2: 0xC0EE'u16, data3: 0x4E75'u16,
     data4: [0x81'u8, 0x7A, 0xF2, 0x31, 0xAE, 0xE5, 0x12, 0x3D])
 const Slot_IVpnSystemHealth_get_StatementOfHealth* = 6
-type Fn_IVpnSystemHealth_get_StatementOfHealth* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnSystemHealth_get_StatementOfHealth* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnTrafficFilter
 const IID_IVpnTrafficFilter* = GUID(
     data1: 0x2F691B60'u32, data2: 0x6C9F'u16, data3: 0x47F5'u16,
     data4: [0xAC'u8, 0x36, 0xBB, 0x1B, 0x04, 0x2E, 0x2C, 0x50])
 const Slot_IVpnTrafficFilter_get_AppId* = 6
-type Fn_IVpnTrafficFilter_get_AppId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_AppId* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_put_AppId* = 7
-type Fn_IVpnTrafficFilter_put_AppId* = proc(self: pointer, a1VpnAppId: pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_put_AppId* = proc(self: pointer, a1VpnAppId: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_AppClaims* = 8
-type Fn_IVpnTrafficFilter_get_AppClaims* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_AppClaims* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_Protocol* = 9
-type Fn_IVpnTrafficFilter_get_Protocol* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_Protocol* = proc(self: pointer, value: ptr VpnIPProtocol): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_put_Protocol* = 10
-type Fn_IVpnTrafficFilter_put_Protocol* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_put_Protocol* = proc(self: pointer, a1: VpnIPProtocol): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_LocalPortRanges* = 11
-type Fn_IVpnTrafficFilter_get_LocalPortRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_LocalPortRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_RemotePortRanges* = 12
-type Fn_IVpnTrafficFilter_get_RemotePortRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_RemotePortRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_LocalAddressRanges* = 13
-type Fn_IVpnTrafficFilter_get_LocalAddressRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_LocalAddressRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_RemoteAddressRanges* = 14
-type Fn_IVpnTrafficFilter_get_RemoteAddressRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_RemoteAddressRanges* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_get_RoutingPolicyType* = 15
-type Fn_IVpnTrafficFilter_get_RoutingPolicyType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_get_RoutingPolicyType* = proc(self: pointer, value: ptr VpnRoutingPolicyType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilter_put_RoutingPolicyType* = 16
-type Fn_IVpnTrafficFilter_put_RoutingPolicyType* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilter_put_RoutingPolicyType* = proc(self: pointer, a1: VpnRoutingPolicyType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnTrafficFilterAssignment
 const IID_IVpnTrafficFilterAssignment* = GUID(
     data1: 0x56CCD45C'u32, data2: 0xE664'u16, data3: 0x471E'u16,
     data4: [0x89'u8, 0xCD, 0x60, 0x16, 0x03, 0xB9, 0xE0, 0xF3])
 const Slot_IVpnTrafficFilterAssignment_get_TrafficFilterList* = 6
-type Fn_IVpnTrafficFilterAssignment_get_TrafficFilterList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterAssignment_get_TrafficFilterList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilterAssignment_get_AllowOutbound* = 7
-type Fn_IVpnTrafficFilterAssignment_get_AllowOutbound* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterAssignment_get_AllowOutbound* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilterAssignment_put_AllowOutbound* = 8
-type Fn_IVpnTrafficFilterAssignment_put_AllowOutbound* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterAssignment_put_AllowOutbound* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilterAssignment_get_AllowInbound* = 9
-type Fn_IVpnTrafficFilterAssignment_get_AllowInbound* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterAssignment_get_AllowInbound* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVpnTrafficFilterAssignment_put_AllowInbound* = 10
-type Fn_IVpnTrafficFilterAssignment_put_AllowInbound* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterAssignment_put_AllowInbound* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.Vpn.IVpnTrafficFilterFactory
 const IID_IVpnTrafficFilterFactory* = GUID(
     data1: 0x480D41D5'u32, data2: 0x7F99'u16, data3: 0x474C'u16,
     data4: [0x86'u8, 0xEE, 0x96, 0xDF, 0x16, 0x83, 0x18, 0xF1])
 const Slot_IVpnTrafficFilterFactory_Create* = 6
-type Fn_IVpnTrafficFilterFactory_Create* = proc(self: pointer, a1VpnAppId: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVpnTrafficFilterFactory_Create* = proc(self: pointer, a1VpnAppId: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveDeviceAddress
 const IID_IXboxLiveDeviceAddress* = GUID(
     data1: 0xF5BBD279'u32, data2: 0x3C86'u16, data3: 0x4B57'u16,
     data4: [0xA3'u8, 0x1A, 0xB9, 0x46, 0x24, 0x08, 0xFD, 0x01])
 const Slot_IXboxLiveDeviceAddress_add_SnapshotChanged* = 6
-type Fn_IXboxLiveDeviceAddress_add_SnapshotChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_add_SnapshotChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_remove_SnapshotChanged* = 7
-type Fn_IXboxLiveDeviceAddress_remove_SnapshotChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_remove_SnapshotChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBase64* = 8
-type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBase64* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBase64* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* = 9
-type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBytes* = 10
 # Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes: signature not mapped
 const Slot_IXboxLiveDeviceAddress_Compare* = 11
-type Fn_IXboxLiveDeviceAddress_Compare* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_Compare* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_get_IsValid* = 12
-type Fn_IXboxLiveDeviceAddress_get_IsValid* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_get_IsValid* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_get_IsLocal* = 13
-type Fn_IXboxLiveDeviceAddress_get_IsLocal* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_get_IsLocal* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddress_get_NetworkAccessKind* = 14
-type Fn_IXboxLiveDeviceAddress_get_NetworkAccessKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddress_get_NetworkAccessKind* = proc(self: pointer, value: ptr XboxLiveNetworkAccessKind): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveDeviceAddressStatics
 const IID_IXboxLiveDeviceAddressStatics* = GUID(
     data1: 0x5954A819'u32, data2: 0x4A79'u16, data3: 0x4931'u16,
     data4: [0x82'u8, 0x7C, 0x7F, 0x50, 0x3E, 0x96, 0x32, 0x63])
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64* = 6
-type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* = 7
-type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes* = 8
 # Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes: signature not mapped
 const Slot_IXboxLiveDeviceAddressStatics_GetLocal* = 9
-type Fn_IXboxLiveDeviceAddressStatics_GetLocal* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddressStatics_GetLocal* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveDeviceAddressStatics_get_MaxSnapshotBytesSize* = 10
-type Fn_IXboxLiveDeviceAddressStatics_get_MaxSnapshotBytesSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveDeviceAddressStatics_get_MaxSnapshotBytesSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPair
 const IID_IXboxLiveEndpointPair* = GUID(
     data1: 0x1E9A839B'u32, data2: 0x813E'u16, data3: 0x44E0'u16,
     data4: [0xB8'u8, 0x7F, 0xC8, 0x7A, 0x09, 0x34, 0x75, 0xE4])
 const Slot_IXboxLiveEndpointPair_add_StateChanged* = 6
-type Fn_IXboxLiveEndpointPair_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_remove_StateChanged* = 7
-type Fn_IXboxLiveEndpointPair_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_DeleteAsync* = 8
-type Fn_IXboxLiveEndpointPair_DeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_DeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes* = 9
 # Fn_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes: signature not mapped
 const Slot_IXboxLiveEndpointPair_GetLocalSocketAddressBytes* = 10
 # Fn_IXboxLiveEndpointPair_GetLocalSocketAddressBytes: signature not mapped
 const Slot_IXboxLiveEndpointPair_get_State* = 11
-type Fn_IXboxLiveEndpointPair_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_State* = proc(self: pointer, value: ptr XboxLiveEndpointPairState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_Template* = 12
-type Fn_IXboxLiveEndpointPair_get_Template* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_Template* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_RemoteDeviceAddress* = 13
-type Fn_IXboxLiveEndpointPair_get_RemoteDeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_RemoteDeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_RemoteHostName* = 14
-type Fn_IXboxLiveEndpointPair_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_RemoteHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_RemotePort* = 15
-type Fn_IXboxLiveEndpointPair_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_RemotePort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_LocalHostName* = 16
-type Fn_IXboxLiveEndpointPair_get_LocalHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_LocalHostName* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPair_get_LocalPort* = 17
-type Fn_IXboxLiveEndpointPair_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPair_get_LocalPort* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPairCreationResult
 const IID_IXboxLiveEndpointPairCreationResult* = GUID(
     data1: 0xD9A8BB95'u32, data2: 0x2AAB'u16, data3: 0x4D1E'u16,
     data4: [0x97'u8, 0x94, 0x33, 0xEC, 0xC0, 0xDC, 0xF0, 0xFE])
 const Slot_IXboxLiveEndpointPairCreationResult_get_DeviceAddress* = 6
-type Fn_IXboxLiveEndpointPairCreationResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairCreationResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairCreationResult_get_Status* = 7
-type Fn_IXboxLiveEndpointPairCreationResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairCreationResult_get_Status* = proc(self: pointer, value: ptr XboxLiveEndpointPairCreationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairCreationResult_get_IsExistingPathEvaluation* = 8
-type Fn_IXboxLiveEndpointPairCreationResult_get_IsExistingPathEvaluation* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairCreationResult_get_IsExistingPathEvaluation* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairCreationResult_get_EndpointPair* = 9
-type Fn_IXboxLiveEndpointPairCreationResult_get_EndpointPair* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairCreationResult_get_EndpointPair* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPairStateChangedEventArgs
 const IID_IXboxLiveEndpointPairStateChangedEventArgs* = GUID(
     data1: 0x592E3B55'u32, data2: 0xDE08'u16, data3: 0x44E7'u16,
     data4: [0xAC'u8, 0x3B, 0xB9, 0xB9, 0xA1, 0x69, 0x58, 0x3A])
 const Slot_IXboxLiveEndpointPairStateChangedEventArgs_get_OldState* = 6
-type Fn_IXboxLiveEndpointPairStateChangedEventArgs_get_OldState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairStateChangedEventArgs_get_OldState* = proc(self: pointer, value: ptr XboxLiveEndpointPairState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairStateChangedEventArgs_get_NewState* = 7
-type Fn_IXboxLiveEndpointPairStateChangedEventArgs_get_NewState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairStateChangedEventArgs_get_NewState* = proc(self: pointer, value: ptr XboxLiveEndpointPairState): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPairStatics
 const IID_IXboxLiveEndpointPairStatics* = GUID(
@@ -6268,91 +6379,91 @@ const IID_IXboxLiveEndpointPairStatics* = GUID(
 const Slot_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes* = 6
 # Fn_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes: signature not mapped
 const Slot_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* = 7
-type Fn_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3HostName: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3HostName: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplate
 const IID_IXboxLiveEndpointPairTemplate* = GUID(
     data1: 0x6B286ECF'u32, data2: 0x3457'u16, data3: 0x40CE'u16,
     data4: [0xB9'u8, 0xA1, 0xC0, 0xCF, 0xE0, 0x21, 0x3E, 0xA7])
 const Slot_IXboxLiveEndpointPairTemplate_add_InboundEndpointPairCreated* = 6
-type Fn_IXboxLiveEndpointPairTemplate_add_InboundEndpointPairCreated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_add_InboundEndpointPairCreated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_remove_InboundEndpointPairCreated* = 7
-type Fn_IXboxLiveEndpointPairTemplate_remove_InboundEndpointPairCreated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_remove_InboundEndpointPairCreated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync* = 8
-type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync2* = 9
-type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync2* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync2* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: XboxLiveEndpointPairCreationBehaviors, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync* = 10
-type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync2* = 11
-type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync2* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: HSTRING, a3: HSTRING, a4: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync2* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: HSTRING, a3: HSTRING, a4: XboxLiveEndpointPairCreationBehaviors, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_Name* = 12
-type Fn_IXboxLiveEndpointPairTemplate_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_SocketKind* = 13
-type Fn_IXboxLiveEndpointPairTemplate_get_SocketKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_SocketKind* = proc(self: pointer, value: ptr XboxLiveSocketKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeLower* = 14
-type Fn_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeLower* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeLower* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeUpper* = 15
-type Fn_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeUpper* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_InitiatorBoundPortRangeUpper* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeLower* = 16
-type Fn_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeLower* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeLower* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeUpper* = 17
-type Fn_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeUpper* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeUpper* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplate_get_EndpointPairs* = 18
-type Fn_IXboxLiveEndpointPairTemplate_get_EndpointPairs* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplate_get_EndpointPairs* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveEndpointPairTemplateStatics
 const IID_IXboxLiveEndpointPairTemplateStatics* = GUID(
     data1: 0x1E13137B'u32, data2: 0x737B'u16, data3: 0x4A23'u16,
     data4: [0xBC'u8, 0x64, 0x08, 0x70, 0xF7, 0x56, 0x55, 0xBA])
 const Slot_IXboxLiveEndpointPairTemplateStatics_GetTemplateByName* = 6
-type Fn_IXboxLiveEndpointPairTemplateStatics_GetTemplateByName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplateStatics_GetTemplateByName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveEndpointPairTemplateStatics_get_Templates* = 7
-type Fn_IXboxLiveEndpointPairTemplateStatics_get_Templates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveEndpointPairTemplateStatics_get_Templates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs
 const IID_IXboxLiveInboundEndpointPairCreatedEventArgs* = GUID(
     data1: 0xDC183B62'u32, data2: 0x22BA'u16, data3: 0x48D2'u16,
     data4: [0x80'u8, 0xDE, 0xC2, 0x39, 0x68, 0xBD, 0x19, 0x8B])
 const Slot_IXboxLiveInboundEndpointPairCreatedEventArgs_get_EndpointPair* = 6
-type Fn_IXboxLiveInboundEndpointPairCreatedEventArgs_get_EndpointPair* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveInboundEndpointPairCreatedEventArgs_get_EndpointPair* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurement
 const IID_IXboxLiveQualityOfServiceMeasurement* = GUID(
     data1: 0x4D682BCE'u32, data2: 0xA5D6'u16, data3: 0x47E6'u16,
     data4: [0xA2'u8, 0x36, 0xCF, 0xDE, 0x5F, 0xBD, 0xF2, 0xED])
 const Slot_IXboxLiveQualityOfServiceMeasurement_MeasureAsync* = 6
-type Fn_IXboxLiveQualityOfServiceMeasurement_MeasureAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_MeasureAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice* = 7
-type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric* = 8
-type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric* = proc(self: pointer, a1: XboxLiveQualityOfServiceMetric, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResult* = 9
-type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResult* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResult* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: XboxLiveQualityOfServiceMetric, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult* = 10
-type Fn_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_Metrics* = 11
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_Metrics* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_Metrics* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_DeviceAddresses* = 12
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_DeviceAddresses* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_DeviceAddresses* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_ShouldRequestPrivatePayloads* = 13
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_ShouldRequestPrivatePayloads* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_ShouldRequestPrivatePayloads* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_put_ShouldRequestPrivatePayloads* = 14
-type Fn_IXboxLiveQualityOfServiceMeasurement_put_ShouldRequestPrivatePayloads* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_put_ShouldRequestPrivatePayloads* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_TimeoutInMilliseconds* = 15
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_TimeoutInMilliseconds* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_TimeoutInMilliseconds* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_put_TimeoutInMilliseconds* = 16
-type Fn_IXboxLiveQualityOfServiceMeasurement_put_TimeoutInMilliseconds* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_put_TimeoutInMilliseconds* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_NumberOfProbesToAttempt* = 17
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_NumberOfProbesToAttempt* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_NumberOfProbesToAttempt* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_put_NumberOfProbesToAttempt* = 18
-type Fn_IXboxLiveQualityOfServiceMeasurement_put_NumberOfProbesToAttempt* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_put_NumberOfProbesToAttempt* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_NumberOfResultsPending* = 19
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_NumberOfResultsPending* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_NumberOfResultsPending* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_MetricResults* = 20
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_MetricResults* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_MetricResults* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults* = 21
-type Fn_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMeasurementStatics
 const IID_IXboxLiveQualityOfServiceMeasurementStatics* = GUID(
@@ -6361,47 +6472,47 @@ const IID_IXboxLiveQualityOfServiceMeasurementStatics* = GUID(
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes* = 6
 # Fn_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes: signature not mapped
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_ClearPrivatePayload* = 7
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_ClearPrivatePayload* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_ClearPrivatePayload* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxSimultaneousProbeConnections* = 8
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxSimultaneousProbeConnections* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxSimultaneousProbeConnections* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_MaxSimultaneousProbeConnections* = 9
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_MaxSimultaneousProbeConnections* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_MaxSimultaneousProbeConnections* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemOutboundBandwidthConstrained* = 10
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemOutboundBandwidthConstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemOutboundBandwidthConstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemOutboundBandwidthConstrained* = 11
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemOutboundBandwidthConstrained* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemOutboundBandwidthConstrained* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemInboundBandwidthConstrained* = 12
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemInboundBandwidthConstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_IsSystemInboundBandwidthConstrained* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemInboundBandwidthConstrained* = 13
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemInboundBandwidthConstrained* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemInboundBandwidthConstrained* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_PublishedPrivatePayload* = 14
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_PublishedPrivatePayload* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_PublishedPrivatePayload* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload* = 15
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxPrivatePayloadSize* = 16
-type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxPrivatePayloadSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxPrivatePayloadSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveQualityOfServiceMetricResult
 const IID_IXboxLiveQualityOfServiceMetricResult* = GUID(
     data1: 0xAEEC53D1'u32, data2: 0x3561'u16, data3: 0x4782'u16,
     data4: [0xB0'u8, 0xCF, 0xD3, 0xAE, 0x29, 0xD9, 0xFA, 0x87])
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Status* = 6
-type Fn_IXboxLiveQualityOfServiceMetricResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMetricResult_get_Status* = proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_DeviceAddress* = 7
-type Fn_IXboxLiveQualityOfServiceMetricResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMetricResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Metric* = 8
-type Fn_IXboxLiveQualityOfServiceMetricResult_get_Metric* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMetricResult_get_Metric* = proc(self: pointer, value: ptr XboxLiveQualityOfServiceMetric): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Value* = 9
-type Fn_IXboxLiveQualityOfServiceMetricResult_get_Value* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServiceMetricResult_get_Value* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Networking.XboxLive.IXboxLiveQualityOfServicePrivatePayloadResult
 const IID_IXboxLiveQualityOfServicePrivatePayloadResult* = GUID(
     data1: 0x5A6302AE'u32, data2: 0x6F38'u16, data3: 0x41C0'u16,
     data4: [0x9F'u8, 0xCC, 0xEA, 0x6C, 0xB9, 0x78, 0xCA, 0xFC])
 const Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_Status* = 6
-type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Status* = proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress* = 7
-type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_Value* = 8
-type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 

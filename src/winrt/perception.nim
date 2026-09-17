@@ -18,158 +18,150 @@ import ./graphics
 export graphics
 
 ## Windows.Perception.People.HandJointKind  (enum)
-type HandJointKind* = distinct int32
-proc `==`*(a, b: HandJointKind): bool {.borrow.}
+type HandJointKind* {.pure, size: 4.} = enum
+  Palm = 0'i32
+  Wrist = 1'i32
+  ThumbMetacarpal = 2'i32
+  ThumbProximal = 3'i32
+  ThumbDistal = 4'i32
+  ThumbTip = 5'i32
+  IndexMetacarpal = 6'i32
+  IndexProximal = 7'i32
+  IndexIntermediate = 8'i32
+  IndexDistal = 9'i32
+  IndexTip = 10'i32
+  MiddleMetacarpal = 11'i32
+  MiddleProximal = 12'i32
+  MiddleIntermediate = 13'i32
+  MiddleDistal = 14'i32
+  MiddleTip = 15'i32
+  RingMetacarpal = 16'i32
+  RingProximal = 17'i32
+  RingIntermediate = 18'i32
+  RingDistal = 19'i32
+  RingTip = 20'i32
+  LittleMetacarpal = 21'i32
+  LittleProximal = 22'i32
+  LittleIntermediate = 23'i32
+  LittleDistal = 24'i32
+  LittleTip = 25'i32
 proc `$`*(v: HandJointKind): string =
-  case int32(v)
-  of 0'i32: "Palm"
-  of 1'i32: "Wrist"
-  of 2'i32: "ThumbMetacarpal"
-  of 3'i32: "ThumbProximal"
-  of 4'i32: "ThumbDistal"
-  of 5'i32: "ThumbTip"
-  of 6'i32: "IndexMetacarpal"
-  of 7'i32: "IndexProximal"
-  of 8'i32: "IndexIntermediate"
-  of 9'i32: "IndexDistal"
-  of 10'i32: "IndexTip"
-  of 11'i32: "MiddleMetacarpal"
-  of 12'i32: "MiddleProximal"
-  of 13'i32: "MiddleIntermediate"
-  of 14'i32: "MiddleDistal"
-  of 15'i32: "MiddleTip"
-  of 16'i32: "RingMetacarpal"
-  of 17'i32: "RingProximal"
-  of 18'i32: "RingIntermediate"
-  of 19'i32: "RingDistal"
-  of 20'i32: "RingTip"
-  of 21'i32: "LittleMetacarpal"
-  of 22'i32: "LittleProximal"
-  of 23'i32: "LittleIntermediate"
-  of 24'i32: "LittleDistal"
-  of 25'i32: "LittleTip"
-  else: "HandJointKind(" & $int32(v) & ")"
-const HandJointKind_Palm* = HandJointKind(0'i32)
-const HandJointKind_Wrist* = HandJointKind(1'i32)
-const HandJointKind_ThumbMetacarpal* = HandJointKind(2'i32)
-const HandJointKind_ThumbProximal* = HandJointKind(3'i32)
-const HandJointKind_ThumbDistal* = HandJointKind(4'i32)
-const HandJointKind_ThumbTip* = HandJointKind(5'i32)
-const HandJointKind_IndexMetacarpal* = HandJointKind(6'i32)
-const HandJointKind_IndexProximal* = HandJointKind(7'i32)
-const HandJointKind_IndexIntermediate* = HandJointKind(8'i32)
-const HandJointKind_IndexDistal* = HandJointKind(9'i32)
-const HandJointKind_IndexTip* = HandJointKind(10'i32)
-const HandJointKind_MiddleMetacarpal* = HandJointKind(11'i32)
-const HandJointKind_MiddleProximal* = HandJointKind(12'i32)
-const HandJointKind_MiddleIntermediate* = HandJointKind(13'i32)
-const HandJointKind_MiddleDistal* = HandJointKind(14'i32)
-const HandJointKind_MiddleTip* = HandJointKind(15'i32)
-const HandJointKind_RingMetacarpal* = HandJointKind(16'i32)
-const HandJointKind_RingProximal* = HandJointKind(17'i32)
-const HandJointKind_RingIntermediate* = HandJointKind(18'i32)
-const HandJointKind_RingDistal* = HandJointKind(19'i32)
-const HandJointKind_RingTip* = HandJointKind(20'i32)
-const HandJointKind_LittleMetacarpal* = HandJointKind(21'i32)
-const HandJointKind_LittleProximal* = HandJointKind(22'i32)
-const HandJointKind_LittleIntermediate* = HandJointKind(23'i32)
-const HandJointKind_LittleDistal* = HandJointKind(24'i32)
-const HandJointKind_LittleTip* = HandJointKind(25'i32)
+  case ord(v)
+  of 0: "Palm"
+  of 1: "Wrist"
+  of 2: "ThumbMetacarpal"
+  of 3: "ThumbProximal"
+  of 4: "ThumbDistal"
+  of 5: "ThumbTip"
+  of 6: "IndexMetacarpal"
+  of 7: "IndexProximal"
+  of 8: "IndexIntermediate"
+  of 9: "IndexDistal"
+  of 10: "IndexTip"
+  of 11: "MiddleMetacarpal"
+  of 12: "MiddleProximal"
+  of 13: "MiddleIntermediate"
+  of 14: "MiddleDistal"
+  of 15: "MiddleTip"
+  of 16: "RingMetacarpal"
+  of 17: "RingProximal"
+  of 18: "RingIntermediate"
+  of 19: "RingDistal"
+  of 20: "RingTip"
+  of 21: "LittleMetacarpal"
+  of 22: "LittleProximal"
+  of 23: "LittleIntermediate"
+  of 24: "LittleDistal"
+  of 25: "LittleTip"
+  else: "HandJointKind(" & $ord(v) & ")"
 
 ## Windows.Perception.People.JointPoseAccuracy  (enum)
-type JointPoseAccuracy* = distinct int32
-proc `==`*(a, b: JointPoseAccuracy): bool {.borrow.}
+type JointPoseAccuracy* {.pure, size: 4.} = enum
+  High = 0'i32
+  Approximate = 1'i32
 proc `$`*(v: JointPoseAccuracy): string =
-  case int32(v)
-  of 0'i32: "High"
-  of 1'i32: "Approximate"
-  else: "JointPoseAccuracy(" & $int32(v) & ")"
-const JointPoseAccuracy_High* = JointPoseAccuracy(0'i32)
-const JointPoseAccuracy_Approximate* = JointPoseAccuracy(1'i32)
+  case ord(v)
+  of 0: "High"
+  of 1: "Approximate"
+  else: "JointPoseAccuracy(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialAnchorExportPurpose  (enum)
-type SpatialAnchorExportPurpose* = distinct int32
-proc `==`*(a, b: SpatialAnchorExportPurpose): bool {.borrow.}
+type SpatialAnchorExportPurpose* {.pure, size: 4.} = enum
+  Relocalization = 0'i32
+  Sharing = 1'i32
 proc `$`*(v: SpatialAnchorExportPurpose): string =
-  case int32(v)
-  of 0'i32: "Relocalization"
-  of 1'i32: "Sharing"
-  else: "SpatialAnchorExportPurpose(" & $int32(v) & ")"
-const SpatialAnchorExportPurpose_Relocalization* = SpatialAnchorExportPurpose(0'i32)
-const SpatialAnchorExportPurpose_Sharing* = SpatialAnchorExportPurpose(1'i32)
+  case ord(v)
+  of 0: "Relocalization"
+  of 1: "Sharing"
+  else: "SpatialAnchorExportPurpose(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialEntityWatcherStatus  (enum)
-type SpatialEntityWatcherStatus* = distinct int32
-proc `==`*(a, b: SpatialEntityWatcherStatus): bool {.borrow.}
+type SpatialEntityWatcherStatus* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Started = 1'i32
+  EnumerationCompleted = 2'i32
+  Stopping = 3'i32
+  Stopped = 4'i32
+  Aborted = 5'i32
 proc `$`*(v: SpatialEntityWatcherStatus): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Started"
-  of 2'i32: "EnumerationCompleted"
-  of 3'i32: "Stopping"
-  of 4'i32: "Stopped"
-  of 5'i32: "Aborted"
-  else: "SpatialEntityWatcherStatus(" & $int32(v) & ")"
-const SpatialEntityWatcherStatus_Created* = SpatialEntityWatcherStatus(0'i32)
-const SpatialEntityWatcherStatus_Started* = SpatialEntityWatcherStatus(1'i32)
-const SpatialEntityWatcherStatus_EnumerationCompleted* = SpatialEntityWatcherStatus(2'i32)
-const SpatialEntityWatcherStatus_Stopping* = SpatialEntityWatcherStatus(3'i32)
-const SpatialEntityWatcherStatus_Stopped* = SpatialEntityWatcherStatus(4'i32)
-const SpatialEntityWatcherStatus_Aborted* = SpatialEntityWatcherStatus(5'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Started"
+  of 2: "EnumerationCompleted"
+  of 3: "Stopping"
+  of 4: "Stopped"
+  of 5: "Aborted"
+  else: "SpatialEntityWatcherStatus(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialLocatability  (enum)
-type SpatialLocatability* = distinct int32
-proc `==`*(a, b: SpatialLocatability): bool {.borrow.}
+type SpatialLocatability* {.pure, size: 4.} = enum
+  Unavailable = 0'i32
+  OrientationOnly = 1'i32
+  PositionalTrackingActivating = 2'i32
+  PositionalTrackingActive = 3'i32
+  PositionalTrackingInhibited = 4'i32
 proc `$`*(v: SpatialLocatability): string =
-  case int32(v)
-  of 0'i32: "Unavailable"
-  of 1'i32: "OrientationOnly"
-  of 2'i32: "PositionalTrackingActivating"
-  of 3'i32: "PositionalTrackingActive"
-  of 4'i32: "PositionalTrackingInhibited"
-  else: "SpatialLocatability(" & $int32(v) & ")"
-const SpatialLocatability_Unavailable* = SpatialLocatability(0'i32)
-const SpatialLocatability_OrientationOnly* = SpatialLocatability(1'i32)
-const SpatialLocatability_PositionalTrackingActivating* = SpatialLocatability(2'i32)
-const SpatialLocatability_PositionalTrackingActive* = SpatialLocatability(3'i32)
-const SpatialLocatability_PositionalTrackingInhibited* = SpatialLocatability(4'i32)
+  case ord(v)
+  of 0: "Unavailable"
+  of 1: "OrientationOnly"
+  of 2: "PositionalTrackingActivating"
+  of 3: "PositionalTrackingActive"
+  of 4: "PositionalTrackingInhibited"
+  else: "SpatialLocatability(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialLookDirectionRange  (enum)
-type SpatialLookDirectionRange* = distinct int32
-proc `==`*(a, b: SpatialLookDirectionRange): bool {.borrow.}
+type SpatialLookDirectionRange* {.pure, size: 4.} = enum
+  ForwardOnly = 0'i32
+  Omnidirectional = 1'i32
 proc `$`*(v: SpatialLookDirectionRange): string =
-  case int32(v)
-  of 0'i32: "ForwardOnly"
-  of 1'i32: "Omnidirectional"
-  else: "SpatialLookDirectionRange(" & $int32(v) & ")"
-const SpatialLookDirectionRange_ForwardOnly* = SpatialLookDirectionRange(0'i32)
-const SpatialLookDirectionRange_Omnidirectional* = SpatialLookDirectionRange(1'i32)
+  case ord(v)
+  of 0: "ForwardOnly"
+  of 1: "Omnidirectional"
+  else: "SpatialLookDirectionRange(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialMovementRange  (enum)
-type SpatialMovementRange* = distinct int32
-proc `==`*(a, b: SpatialMovementRange): bool {.borrow.}
+type SpatialMovementRange* {.pure, size: 4.} = enum
+  NoMovement = 0'i32
+  Bounded = 1'i32
 proc `$`*(v: SpatialMovementRange): string =
-  case int32(v)
-  of 0'i32: "NoMovement"
-  of 1'i32: "Bounded"
-  else: "SpatialMovementRange(" & $int32(v) & ")"
-const SpatialMovementRange_NoMovement* = SpatialMovementRange(0'i32)
-const SpatialMovementRange_Bounded* = SpatialMovementRange(1'i32)
+  case ord(v)
+  of 0: "NoMovement"
+  of 1: "Bounded"
+  else: "SpatialMovementRange(" & $ord(v) & ")"
 
 ## Windows.Perception.Spatial.SpatialPerceptionAccessStatus  (enum)
-type SpatialPerceptionAccessStatus* = distinct int32
-proc `==`*(a, b: SpatialPerceptionAccessStatus): bool {.borrow.}
+type SpatialPerceptionAccessStatus* {.pure, size: 4.} = enum
+  Unspecified = 0'i32
+  Allowed = 1'i32
+  DeniedByUser = 2'i32
+  DeniedBySystem = 3'i32
 proc `$`*(v: SpatialPerceptionAccessStatus): string =
-  case int32(v)
-  of 0'i32: "Unspecified"
-  of 1'i32: "Allowed"
-  of 2'i32: "DeniedByUser"
-  of 3'i32: "DeniedBySystem"
-  else: "SpatialPerceptionAccessStatus(" & $int32(v) & ")"
-const SpatialPerceptionAccessStatus_Unspecified* = SpatialPerceptionAccessStatus(0'i32)
-const SpatialPerceptionAccessStatus_Allowed* = SpatialPerceptionAccessStatus(1'i32)
-const SpatialPerceptionAccessStatus_DeniedByUser* = SpatialPerceptionAccessStatus(2'i32)
-const SpatialPerceptionAccessStatus_DeniedBySystem* = SpatialPerceptionAccessStatus(3'i32)
+  case ord(v)
+  of 0: "Unspecified"
+  of 1: "Allowed"
+  of 2: "DeniedByUser"
+  of 3: "DeniedBySystem"
+  else: "SpatialPerceptionAccessStatus(" & $ord(v) & ")"
 
 ## Windows.Perception.People.HandMeshVertex  (struct)
 type HandMeshVertex* {.pure.} = object
@@ -218,100 +210,100 @@ const IID_ICorePerceptionAutomationStatics* = GUID(
     data1: 0x0BB04541'u32, data2: 0x4CE2'u16, data3: 0x4923'u16,
     data4: [0x9A'u8, 0x76, 0x81, 0x87, 0xEC, 0xC5, 0x91, 0x12])
 const Slot_ICorePerceptionAutomationStatics_SetActivationFactoryProvider* = 6
-type Fn_ICorePerceptionAutomationStatics_SetActivationFactoryProvider* = proc(self: pointer, a1IGetActivationFactory: pointer): HRESULT {.stdcall.}
+type Fn_ICorePerceptionAutomationStatics_SetActivationFactoryProvider* = proc(self: pointer, a1IGetActivationFactory: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.IPerceptionTimestamp
 const IID_IPerceptionTimestamp* = GUID(
     data1: 0x87C24804'u32, data2: 0xA22E'u16, data3: 0x4ADB'u16,
     data4: [0xBA'u8, 0x26, 0xD7, 0x8E, 0xF6, 0x39, 0xBC, 0xF4])
 const Slot_IPerceptionTimestamp_get_TargetTime* = 6
-type Fn_IPerceptionTimestamp_get_TargetTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IPerceptionTimestamp_get_TargetTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPerceptionTimestamp_get_PredictionAmount* = 7
-type Fn_IPerceptionTimestamp_get_PredictionAmount* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IPerceptionTimestamp_get_PredictionAmount* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.IPerceptionTimestamp2
 const IID_IPerceptionTimestamp2* = GUID(
     data1: 0xE354B7ED'u32, data2: 0x2BD1'u16, data3: 0x41B7'u16,
     data4: [0x9E'u8, 0xD0, 0x74, 0xA1, 0x5C, 0x35, 0x45, 0x37])
 const Slot_IPerceptionTimestamp2_get_SystemRelativeTargetTime* = 6
-type Fn_IPerceptionTimestamp2_get_SystemRelativeTargetTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IPerceptionTimestamp2_get_SystemRelativeTargetTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.IPerceptionTimestampHelperStatics
 const IID_IPerceptionTimestampHelperStatics* = GUID(
     data1: 0x47A611D4'u32, data2: 0xA9DF'u16, data3: 0x4EDC'u16,
     data4: [0x85'u8, 0x5D, 0xF4, 0xD3, 0x39, 0xD9, 0x67, 0xAC])
 const Slot_IPerceptionTimestampHelperStatics_FromHistoricalTargetTime* = 6
-type Fn_IPerceptionTimestampHelperStatics_FromHistoricalTargetTime* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPerceptionTimestampHelperStatics_FromHistoricalTargetTime* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.IPerceptionTimestampHelperStatics2
 const IID_IPerceptionTimestampHelperStatics2* = GUID(
     data1: 0x73D1A7FE'u32, data2: 0x3FB9'u16, data3: 0x4571'u16,
     data4: [0x87'u8, 0xD4, 0x3C, 0x92, 0x0A, 0x5E, 0x86, 0xEB])
 const Slot_IPerceptionTimestampHelperStatics2_FromSystemRelativeTargetTime* = 6
-type Fn_IPerceptionTimestampHelperStatics2_FromSystemRelativeTargetTime* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPerceptionTimestampHelperStatics2_FromSystemRelativeTargetTime* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.People.IEyesPose
 const IID_IEyesPose* = GUID(
     data1: 0x682A9B23'u32, data2: 0x8A1E'u16, data3: 0x5B86'u16,
     data4: [0xA0'u8, 0x60, 0x90, 0x6F, 0xFA, 0xCB, 0x62, 0xA4])
 const Slot_IEyesPose_get_IsCalibrationValid* = 6
-type Fn_IEyesPose_get_IsCalibrationValid* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IEyesPose_get_IsCalibrationValid* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEyesPose_get_Gaze* = 7
-type Fn_IEyesPose_get_Gaze* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEyesPose_get_Gaze* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEyesPose_get_UpdateTimestamp* = 8
-type Fn_IEyesPose_get_UpdateTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEyesPose_get_UpdateTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.People.IEyesPoseStatics
 const IID_IEyesPoseStatics* = GUID(
     data1: 0x1CFF7413'u32, data2: 0xB21F'u16, data3: 0x54C0'u16,
     data4: [0x80'u8, 0xC1, 0xE6, 0x0D, 0x99, 0x4C, 0xA5, 0x8C])
 const Slot_IEyesPoseStatics_IsSupported* = 6
-type Fn_IEyesPoseStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IEyesPoseStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IEyesPoseStatics_RequestAccessAsync* = 7
-type Fn_IEyesPoseStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IEyesPoseStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.People.IHandMeshObserver
 const IID_IHandMeshObserver* = GUID(
     data1: 0x85AE30CB'u32, data2: 0x6FC3'u16, data3: 0x55C4'u16,
     data4: [0xA7'u8, 0xB4, 0x29, 0xE3, 0x38, 0x96, 0xCA, 0x69])
 const Slot_IHandMeshObserver_get_Source* = 6
-type Fn_IHandMeshObserver_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_get_TriangleIndexCount* = 7
-type Fn_IHandMeshObserver_get_TriangleIndexCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_TriangleIndexCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_get_VertexCount* = 8
-type Fn_IHandMeshObserver_get_VertexCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_VertexCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_GetTriangleIndices* = 9
 # Fn_IHandMeshObserver_GetTriangleIndices: signature not mapped
 const Slot_IHandMeshObserver_GetVertexStateForPose* = 10
-type Fn_IHandMeshObserver_GetVertexStateForPose* = proc(self: pointer, a1HandPose: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_GetVertexStateForPose* = proc(self: pointer, a1HandPose: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_get_NeutralPose* = 11
-type Fn_IHandMeshObserver_get_NeutralPose* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_NeutralPose* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_get_NeutralPoseVersion* = 12
-type Fn_IHandMeshObserver_get_NeutralPoseVersion* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_NeutralPoseVersion* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshObserver_get_ModelId* = 13
-type Fn_IHandMeshObserver_get_ModelId* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IHandMeshObserver_get_ModelId* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.People.IHandMeshVertexState
 const IID_IHandMeshVertexState* = GUID(
     data1: 0x046C5FEF'u32, data2: 0x1D8B'u16, data3: 0x55DE'u16,
     data4: [0xAB'u8, 0x2C, 0x1C, 0xD4, 0x24, 0x88, 0x6D, 0x8F])
 const Slot_IHandMeshVertexState_get_CoordinateSystem* = 6
-type Fn_IHandMeshVertexState_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHandMeshVertexState_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandMeshVertexState_GetVertices* = 7
 # Fn_IHandMeshVertexState_GetVertices: signature not mapped
 const Slot_IHandMeshVertexState_get_UpdateTimestamp* = 8
-type Fn_IHandMeshVertexState_get_UpdateTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IHandMeshVertexState_get_UpdateTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.People.IHandPose
 const IID_IHandPose* = GUID(
     data1: 0x4D98E79A'u32, data2: 0xBB08'u16, data3: 0x5D09'u16,
     data4: [0x91'u8, 0xDE, 0xDF, 0x0D, 0xD3, 0xFA, 0xE4, 0x6C])
 const Slot_IHandPose_TryGetJoint* = 6
-type Fn_IHandPose_TryGetJoint* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: int32, a3: ptr JointPose, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IHandPose_TryGetJoint* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: HandJointKind, a3: ptr JointPose, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandPose_TryGetJoints* = 7
 # Fn_IHandPose_TryGetJoints: signature not mapped
 const Slot_IHandPose_GetRelativeJoint* = 8
-type Fn_IHandPose_GetRelativeJoint* = proc(self: pointer, a1: int32, a2: int32, value: ptr JointPose): HRESULT {.stdcall.}
+type Fn_IHandPose_GetRelativeJoint* = proc(self: pointer, a1: HandJointKind, a2: HandJointKind, value: ptr JointPose): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHandPose_GetRelativeJoints* = 9
 # Fn_IHandPose_GetRelativeJoints: signature not mapped
 
@@ -320,109 +312,109 @@ const IID_IHeadPose* = GUID(
     data1: 0x7F5AC5A5'u32, data2: 0x49DB'u16, data3: 0x379F'u16,
     data4: [0x94'u8, 0x29, 0x32, 0xA2, 0xFA, 0xF3, 0x4F, 0xA6])
 const Slot_IHeadPose_get_Position* = 6
-type Fn_IHeadPose_get_Position* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_IHeadPose_get_Position* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHeadPose_get_ForwardDirection* = 7
-type Fn_IHeadPose_get_ForwardDirection* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_IHeadPose_get_ForwardDirection* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IHeadPose_get_UpDirection* = 8
-type Fn_IHeadPose_get_UpDirection* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_IHeadPose_get_UpDirection* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchor
 const IID_ISpatialAnchor* = GUID(
     data1: 0x0529E5CE'u32, data2: 0x1D34'u16, data3: 0x3702'u16,
     data4: [0xBC'u8, 0xEC, 0xEA, 0xBF, 0xF5, 0x78, 0xA8, 0x69])
 const Slot_ISpatialAnchor_get_CoordinateSystem* = 6
-type Fn_ISpatialAnchor_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchor_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchor_get_RawCoordinateSystem* = 7
-type Fn_ISpatialAnchor_get_RawCoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchor_get_RawCoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchor_add_RawCoordinateSystemAdjusted* = 8
-type Fn_ISpatialAnchor_add_RawCoordinateSystemAdjusted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialAnchor_add_RawCoordinateSystemAdjusted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* = 9
-type Fn_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchor2
 const IID_ISpatialAnchor2* = GUID(
     data1: 0xED17C908'u32, data2: 0xA695'u16, data3: 0x4CF6'u16,
     data4: [0x92'u8, 0xFD, 0x97, 0x26, 0x3B, 0xA7, 0x10, 0x47])
 const Slot_ISpatialAnchor2_get_RemovedByUser* = 6
-type Fn_ISpatialAnchor2_get_RemovedByUser* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialAnchor2_get_RemovedByUser* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExportSufficiency
 const IID_ISpatialAnchorExportSufficiency* = GUID(
     data1: 0x77C25B2B'u32, data2: 0x3409'u16, data3: 0x4088'u16,
     data4: [0xB9'u8, 0x1B, 0xFD, 0xFD, 0x05, 0xD1, 0x64, 0x8F])
 const Slot_ISpatialAnchorExportSufficiency_get_IsMinimallySufficient* = 6
-type Fn_ISpatialAnchorExportSufficiency_get_IsMinimallySufficient* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExportSufficiency_get_IsMinimallySufficient* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorExportSufficiency_get_SufficiencyLevel* = 7
-type Fn_ISpatialAnchorExportSufficiency_get_SufficiencyLevel* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExportSufficiency_get_SufficiencyLevel* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel* = 8
-type Fn_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExporter
 const IID_ISpatialAnchorExporter* = GUID(
     data1: 0x9A2A4338'u32, data2: 0x24FB'u16, data3: 0x4269'u16,
     data4: [0x89'u8, 0xC5, 0x88, 0x30, 0x4A, 0xEE, 0xF2, 0x0F])
 const Slot_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync* = 6
-type Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync* = proc(self: pointer, a1SpatialAnchor: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync* = proc(self: pointer, a1SpatialAnchor: pointer, a2: SpatialAnchorExportPurpose, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorExporter_TryExportAnchorAsync* = 7
-type Fn_ISpatialAnchorExporter_TryExportAnchorAsync* = proc(self: pointer, a1SpatialAnchor: pointer, a2: int32, a3IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExporter_TryExportAnchorAsync* = proc(self: pointer, a1SpatialAnchor: pointer, a2: SpatialAnchorExportPurpose, a3IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorExporterStatics
 const IID_ISpatialAnchorExporterStatics* = GUID(
     data1: 0xED2507B8'u32, data2: 0x2475'u16, data3: 0x439C'u16,
     data4: [0x85'u8, 0xFF, 0x7F, 0xED, 0x34, 0x1F, 0xDC, 0x88])
 const Slot_ISpatialAnchorExporterStatics_GetDefault* = 6
-type Fn_ISpatialAnchorExporterStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExporterStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorExporterStatics_RequestAccessAsync* = 7
-type Fn_ISpatialAnchorExporterStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorExporterStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorManagerStatics
 const IID_ISpatialAnchorManagerStatics* = GUID(
     data1: 0x88E30EAB'u32, data2: 0xF3B7'u16, data3: 0x420B'u16,
     data4: [0xB0'u8, 0x86, 0x8A, 0x80, 0xC0, 0x7D, 0x91, 0x0D])
 const Slot_ISpatialAnchorManagerStatics_RequestStoreAsync* = 6
-type Fn_ISpatialAnchorManagerStatics_RequestStoreAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorManagerStatics_RequestStoreAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorRawCoordinateSystemAdjustedEventArgs
 const IID_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs* = GUID(
     data1: 0xA1E81EB8'u32, data2: 0x56C7'u16, data3: 0x3117'u16,
     data4: [0xA2'u8, 0xE4, 0x81, 0xE0, 0xFC, 0xF2, 0x8E, 0x00])
 const Slot_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform* = 6
-type Fn_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform* = proc(self: pointer, value: ptr Matrix4x4): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform* = proc(self: pointer, value: ptr Matrix4x4): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorStatics
 const IID_ISpatialAnchorStatics* = GUID(
     data1: 0xA9928642'u32, data2: 0x0174'u16, data3: 0x311C'u16,
     data4: [0xAE'u8, 0x79, 0x0E, 0x51, 0x07, 0x66, 0x9F, 0x16])
 const Slot_ISpatialAnchorStatics_TryCreateRelativeTo* = 6
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStatics_TryCreateRelativeTo* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorStatics_TryCreateRelativeTo2* = 7
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo2* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStatics_TryCreateRelativeTo2* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorStatics_TryCreateRelativeTo3* = 8
-type Fn_ISpatialAnchorStatics_TryCreateRelativeTo3* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStatics_TryCreateRelativeTo3* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorStore
 const IID_ISpatialAnchorStore* = GUID(
     data1: 0xB0BC3636'u32, data2: 0x486A'u16, data3: 0x3CB0'u16,
     data4: [0x9E'u8, 0x6F, 0x12, 0x45, 0x16, 0x5C, 0x4D, 0xB6])
 const Slot_ISpatialAnchorStore_GetAllSavedAnchors* = 6
-type Fn_ISpatialAnchorStore_GetAllSavedAnchors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStore_GetAllSavedAnchors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorStore_TrySave* = 7
-type Fn_ISpatialAnchorStore_TrySave* = proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStore_TrySave* = proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorStore_Remove* = 8
-type Fn_ISpatialAnchorStore_Remove* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStore_Remove* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorStore_Clear* = 9
-type Fn_ISpatialAnchorStore_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorStore_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics
 const IID_ISpatialAnchorTransferManagerStatics* = GUID(
     data1: 0x03BBF9B9'u32, data2: 0x12D8'u16, data3: 0x4BCE'u16,
     data4: [0x88'u8, 0x35, 0xC5, 0xDF, 0x3A, 0xC0, 0xAD, 0xAB])
 const Slot_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* = 6
-type Fn_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* = 7
-type Fn_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* = proc(self: pointer, a1: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* = proc(self: pointer, a1: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialAnchorTransferManagerStatics_RequestAccessAsync* = 8
-type Fn_ISpatialAnchorTransferManagerStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialAnchorTransferManagerStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialBoundingVolume
 const IID_ISpatialBoundingVolume* = GUID(
@@ -434,215 +426,215 @@ const IID_ISpatialBoundingVolumeStatics* = GUID(
     data1: 0x05889117'u32, data2: 0xB3E1'u16, data3: 0x36D8'u16,
     data4: [0xB0'u8, 0x17, 0x56, 0x61, 0x81, 0xA5, 0xB1, 0x96])
 const Slot_ISpatialBoundingVolumeStatics_FromBox* = 6
-type Fn_ISpatialBoundingVolumeStatics_FromBox* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingBox, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialBoundingVolumeStatics_FromBox* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingBox, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialBoundingVolumeStatics_FromOrientedBox* = 7
-type Fn_ISpatialBoundingVolumeStatics_FromOrientedBox* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingOrientedBox, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialBoundingVolumeStatics_FromOrientedBox* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingOrientedBox, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialBoundingVolumeStatics_FromSphere* = 8
-type Fn_ISpatialBoundingVolumeStatics_FromSphere* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingSphere, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialBoundingVolumeStatics_FromSphere* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingSphere, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialBoundingVolumeStatics_FromFrustum* = 9
-type Fn_ISpatialBoundingVolumeStatics_FromFrustum* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingFrustum, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialBoundingVolumeStatics_FromFrustum* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: SpatialBoundingFrustum, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialCoordinateSystem
 const IID_ISpatialCoordinateSystem* = GUID(
     data1: 0x69EBCA4B'u32, data2: 0x60A3'u16, data3: 0x3586'u16,
     data4: [0xA6'u8, 0x53, 0x59, 0xA7, 0xBD, 0x67, 0x6D, 0x07])
 const Slot_ISpatialCoordinateSystem_TryGetTransformTo* = 6
-type Fn_ISpatialCoordinateSystem_TryGetTransformTo* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialCoordinateSystem_TryGetTransformTo* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntity
 const IID_ISpatialEntity* = GUID(
     data1: 0x166DE955'u32, data2: 0xE1EB'u16, data3: 0x454C'u16,
     data4: [0xBA'u8, 0x08, 0xE6, 0xC0, 0x66, 0x8D, 0xDC, 0x65])
 const Slot_ISpatialEntity_get_Id* = 6
-type Fn_ISpatialEntity_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISpatialEntity_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntity_get_Anchor* = 7
-type Fn_ISpatialEntity_get_Anchor* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntity_get_Anchor* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntity_get_Properties* = 8
-type Fn_ISpatialEntity_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntity_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityAddedEventArgs
 const IID_ISpatialEntityAddedEventArgs* = GUID(
     data1: 0xA397F49B'u32, data2: 0x156A'u16, data3: 0x4707'u16,
     data4: [0xAC'u8, 0x2C, 0xD3, 0x1D, 0x57, 0x0E, 0xD3, 0x99])
 const Slot_ISpatialEntityAddedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityAddedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityAddedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityFactory
 const IID_ISpatialEntityFactory* = GUID(
     data1: 0xE1F1E325'u32, data2: 0x349F'u16, data3: 0x4225'u16,
     data4: [0xA2'u8, 0xF3, 0x4B, 0x01, 0xC1, 0x5F, 0xE0, 0x56])
 const Slot_ISpatialEntityFactory_CreateWithSpatialAnchor* = 6
-type Fn_ISpatialEntityFactory_CreateWithSpatialAnchor* = proc(self: pointer, a1SpatialAnchor: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityFactory_CreateWithSpatialAnchor* = proc(self: pointer, a1SpatialAnchor: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* = 7
-type Fn_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* = proc(self: pointer, a1SpatialAnchor: pointer, a2ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* = proc(self: pointer, a1SpatialAnchor: pointer, a2ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityRemovedEventArgs
 const IID_ISpatialEntityRemovedEventArgs* = GUID(
     data1: 0x91741800'u32, data2: 0x536D'u16, data3: 0x4E9F'u16,
     data4: [0xAB'u8, 0xF6, 0x41, 0x5B, 0x54, 0x44, 0xD6, 0x51])
 const Slot_ISpatialEntityRemovedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityRemovedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityRemovedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityStore
 const IID_ISpatialEntityStore* = GUID(
     data1: 0x329788BA'u32, data2: 0xE513'u16, data3: 0x4F06'u16,
     data4: [0x88'u8, 0x9D, 0x1B, 0xE3, 0x0E, 0xCF, 0x43, 0xE6])
 const Slot_ISpatialEntityStore_SaveAsync* = 6
-type Fn_ISpatialEntityStore_SaveAsync* = proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityStore_SaveAsync* = proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityStore_RemoveAsync* = 7
-type Fn_ISpatialEntityStore_RemoveAsync* = proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityStore_RemoveAsync* = proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityStore_CreateEntityWatcher* = 8
-type Fn_ISpatialEntityStore_CreateEntityWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityStore_CreateEntityWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityStoreStatics
 const IID_ISpatialEntityStoreStatics* = GUID(
     data1: 0x6B4B389E'u32, data2: 0x7C50'u16, data3: 0x4E92'u16,
     data4: [0x8A'u8, 0x62, 0x4D, 0x1D, 0x4B, 0x7C, 0xCD, 0x3E])
 const Slot_ISpatialEntityStoreStatics_get_IsSupported* = 6
-type Fn_ISpatialEntityStoreStatics_get_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialEntityStoreStatics_get_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityStoreStatics_TryGet* = 7
-type Fn_ISpatialEntityStoreStatics_TryGet* = proc(self: pointer, a1RemoteSystemSession: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityStoreStatics_TryGet* = proc(self: pointer, a1RemoteSystemSession: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs
 const IID_ISpatialEntityUpdatedEventArgs* = GUID(
     data1: 0xE5671766'u32, data2: 0x627B'u16, data3: 0x43CB'u16,
     data4: [0xA4'u8, 0x9F, 0xB3, 0xBE, 0x6D, 0x47, 0xDE, 0xED])
 const Slot_ISpatialEntityUpdatedEventArgs_get_Entity* = 6
-type Fn_ISpatialEntityUpdatedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityUpdatedEventArgs_get_Entity* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialEntityWatcher
 const IID_ISpatialEntityWatcher* = GUID(
     data1: 0xB3B85FA0'u32, data2: 0x6D5E'u16, data3: 0x4BBC'u16,
     data4: [0x80'u8, 0x5D, 0x5F, 0xE5, 0xB9, 0xBA, 0x19, 0x59])
 const Slot_ISpatialEntityWatcher_get_Status* = 6
-type Fn_ISpatialEntityWatcher_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_get_Status* = proc(self: pointer, value: ptr SpatialEntityWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_add_Added* = 7
-type Fn_ISpatialEntityWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_remove_Added* = 8
-type Fn_ISpatialEntityWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_add_Updated* = 9
-type Fn_ISpatialEntityWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_remove_Updated* = 10
-type Fn_ISpatialEntityWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_add_Removed* = 11
-type Fn_ISpatialEntityWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_remove_Removed* = 12
-type Fn_ISpatialEntityWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_add_EnumerationCompleted* = 13
-type Fn_ISpatialEntityWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_remove_EnumerationCompleted* = 14
-type Fn_ISpatialEntityWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_Start* = 15
-type Fn_ISpatialEntityWatcher_Start* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialEntityWatcher_Stop* = 16
-type Fn_ISpatialEntityWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ISpatialEntityWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocation
 const IID_ISpatialLocation* = GUID(
     data1: 0x1D81D29D'u32, data2: 0x24A1'u16, data3: 0x37D5'u16,
     data4: [0x8F'u8, 0xA1, 0x39, 0xB4, 0xF9, 0xAD, 0x67, 0xE2])
 const Slot_ISpatialLocation_get_Position* = 6
-type Fn_ISpatialLocation_get_Position* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_Position* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation_get_Orientation* = 7
-type Fn_ISpatialLocation_get_Orientation* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_Orientation* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation_get_AbsoluteLinearVelocity* = 8
-type Fn_ISpatialLocation_get_AbsoluteLinearVelocity* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_AbsoluteLinearVelocity* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation_get_AbsoluteLinearAcceleration* = 9
-type Fn_ISpatialLocation_get_AbsoluteLinearAcceleration* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_AbsoluteLinearAcceleration* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation_get_AbsoluteAngularVelocity* = 10
-type Fn_ISpatialLocation_get_AbsoluteAngularVelocity* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_AbsoluteAngularVelocity* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation_get_AbsoluteAngularAcceleration* = 11
-type Fn_ISpatialLocation_get_AbsoluteAngularAcceleration* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall.}
+type Fn_ISpatialLocation_get_AbsoluteAngularAcceleration* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocation2
 const IID_ISpatialLocation2* = GUID(
     data1: 0x117F2416'u32, data2: 0x38A7'u16, data3: 0x4A18'u16,
     data4: [0xB4'u8, 0x04, 0xAB, 0x8F, 0xAB, 0xE1, 0xD7, 0x8B])
 const Slot_ISpatialLocation2_get_AbsoluteAngularVelocityAxisAngle* = 6
-type Fn_ISpatialLocation2_get_AbsoluteAngularVelocityAxisAngle* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocation2_get_AbsoluteAngularVelocityAxisAngle* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocation2_get_AbsoluteAngularAccelerationAxisAngle* = 7
-type Fn_ISpatialLocation2_get_AbsoluteAngularAccelerationAxisAngle* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocation2_get_AbsoluteAngularAccelerationAxisAngle* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocator
 const IID_ISpatialLocator* = GUID(
     data1: 0xF6478925'u32, data2: 0x9E0C'u16, data3: 0x3BB6'u16,
     data4: [0x99'u8, 0x7E, 0xB6, 0x4E, 0xCC, 0xA2, 0x4C, 0xF4])
 const Slot_ISpatialLocator_get_Locatability* = 6
-type Fn_ISpatialLocator_get_Locatability* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_get_Locatability* = proc(self: pointer, value: ptr SpatialLocatability): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_add_LocatabilityChanged* = 7
-type Fn_ISpatialLocator_add_LocatabilityChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_add_LocatabilityChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_remove_LocatabilityChanged* = 8
-type Fn_ISpatialLocator_remove_LocatabilityChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_remove_LocatabilityChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_add_PositionalTrackingDeactivating* = 9
-type Fn_ISpatialLocator_add_PositionalTrackingDeactivating* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_add_PositionalTrackingDeactivating* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_remove_PositionalTrackingDeactivating* = 10
-type Fn_ISpatialLocator_remove_PositionalTrackingDeactivating* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_remove_PositionalTrackingDeactivating* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_TryLocateAtTimestamp* = 11
-type Fn_ISpatialLocator_TryLocateAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, a2SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_TryLocateAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, a2SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* = 12
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* = 13
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* = proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* = proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* = 14
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* = proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* = proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* = 15
-type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* = proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* = proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation* = 16
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* = 17
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* = proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* = proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* = 18
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* = proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* = proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* = 19
-type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* = proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* = proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorAttachedFrameOfReference
 const IID_ISpatialLocatorAttachedFrameOfReference* = GUID(
     data1: 0xE1774EF6'u32, data2: 0x1F4F'u16, data3: 0x499C'u16,
     data4: [0x96'u8, 0x25, 0xEF, 0x5E, 0x6E, 0xD7, 0xA0, 0x48])
 const Slot_ISpatialLocatorAttachedFrameOfReference_get_RelativePosition* = 6
-type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativePosition* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativePosition* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_put_RelativePosition* = 7
-type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativePosition* = proc(self: pointer, a1: Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativePosition* = proc(self: pointer, a1: Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_get_RelativeOrientation* = 8
-type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativeOrientation* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_get_RelativeOrientation* = proc(self: pointer, value: ptr Quaternion): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_put_RelativeOrientation* = 9
-type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativeOrientation* = proc(self: pointer, a1: Quaternion): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_put_RelativeOrientation* = proc(self: pointer, a1: Quaternion): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* = 10
-type Fn_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* = proc(self: pointer, a1: float64): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* = proc(self: pointer, a1: float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* = 11
-type Fn_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* = 12
-type Fn_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* = proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorPositionalTrackingDeactivatingEventArgs
 const IID_ISpatialLocatorPositionalTrackingDeactivatingEventArgs* = GUID(
     data1: 0xB8A84063'u32, data2: 0xE3F4'u16, data3: 0x368B'u16,
     data4: [0x90'u8, 0x61, 0x9E, 0xA9, 0xD1, 0xD6, 0xCC, 0x16])
 const Slot_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_get_Canceled* = 6
-type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_get_Canceled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_get_Canceled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_put_Canceled* = 7
-type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_put_Canceled* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorPositionalTrackingDeactivatingEventArgs_put_Canceled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorStatics
 const IID_ISpatialLocatorStatics* = GUID(
     data1: 0xB76E3340'u32, data2: 0xA7C2'u16, data3: 0x361B'u16,
     data4: [0xBB'u8, 0x82, 0x56, 0xE9, 0x3B, 0x89, 0xB1, 0xBB])
 const Slot_ISpatialLocatorStatics_GetDefault* = 6
-type Fn_ISpatialLocatorStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialLocatorStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialStageFrameOfReference
 const IID_ISpatialStageFrameOfReference* = GUID(
     data1: 0x7A8A3464'u32, data2: 0xAD0D'u16, data3: 0x4590'u16,
     data4: [0xAB'u8, 0x86, 0x33, 0x06, 0x2B, 0x67, 0x49, 0x26])
 const Slot_ISpatialStageFrameOfReference_get_CoordinateSystem* = 6
-type Fn_ISpatialStageFrameOfReference_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReference_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReference_get_MovementRange* = 7
-type Fn_ISpatialStageFrameOfReference_get_MovementRange* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReference_get_MovementRange* = proc(self: pointer, value: ptr SpatialMovementRange): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReference_get_LookDirectionRange* = 8
-type Fn_ISpatialStageFrameOfReference_get_LookDirectionRange* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReference_get_LookDirectionRange* = proc(self: pointer, value: ptr SpatialLookDirectionRange): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = 9
-type Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReference_TryGetMovementBounds* = 10
 # Fn_ISpatialStageFrameOfReference_TryGetMovementBounds: signature not mapped
 
@@ -651,159 +643,159 @@ const IID_ISpatialStageFrameOfReferenceStatics* = GUID(
     data1: 0xF78D5C4D'u32, data2: 0xA0A4'u16, data3: 0x499C'u16,
     data4: [0x8D'u8, 0x91, 0xA8, 0xC9, 0x65, 0xD4, 0x06, 0x54])
 const Slot_ISpatialStageFrameOfReferenceStatics_get_Current* = 6
-type Fn_ISpatialStageFrameOfReferenceStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReferenceStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* = 7
-type Fn_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* = 8
-type Fn_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync* = 9
-type Fn_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.ISpatialStationaryFrameOfReference
 const IID_ISpatialStationaryFrameOfReference* = GUID(
     data1: 0x09DBCCB9'u32, data2: 0xBCF8'u16, data3: 0x3E7F'u16,
     data4: [0xBE'u8, 0x7E, 0x7E, 0xDC, 0xCB, 0xB1, 0x78, 0xA8])
 const Slot_ISpatialStationaryFrameOfReference_get_CoordinateSystem* = 6
-type Fn_ISpatialStationaryFrameOfReference_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialStationaryFrameOfReference_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropFrameOfReferencePreview
 const IID_ISpatialGraphInteropFrameOfReferencePreview* = GUID(
     data1: 0xA8271B23'u32, data2: 0x735F'u16, data3: 0x5729'u16,
     data4: [0xA9'u8, 0x8E, 0xE6, 0x4E, 0xD1, 0x89, 0xAB, 0xC5])
 const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystem* = 6
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_NodeId* = 7
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_NodeId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_NodeId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystemToNodeTransform* = 8
-type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystemToNodeTransform* = proc(self: pointer, value: ptr Matrix4x4): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropFrameOfReferencePreview_get_CoordinateSystemToNodeTransform* = proc(self: pointer, value: ptr Matrix4x4): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics
 const IID_ISpatialGraphInteropPreviewStatics* = GUID(
     data1: 0xC042644C'u32, data2: 0x20D8'u16, data3: 0x4ED0'u16,
     data4: [0xAE'u8, 0xF7, 0x68, 0x05, 0xB8, 0xE5, 0x3F, 0x55])
 const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* = 6
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* = 7
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* = proc(self: pointer, a1: GUID, a2: Vector3, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* = proc(self: pointer, a1: GUID, a2: Vector3, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* = 8
-type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* = proc(self: pointer, a1: GUID, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* = proc(self: pointer, a1: GUID, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* = 9
-type Fn_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* = proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Preview.ISpatialGraphInteropPreviewStatics2
 const IID_ISpatialGraphInteropPreviewStatics2* = GUID(
     data1: 0x2490B15F'u32, data2: 0x6CBD'u16, data3: 0x4B1E'u16,
     data4: [0xB7'u8, 0x65, 0x31, 0xE4, 0x62, 0xA3, 0x2D, 0xF2])
 const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* = 6
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* = 7
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference3* = 8
-type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference3* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference3* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3, a3: Quaternion, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceInfo
 const IID_ISpatialSurfaceInfo* = GUID(
     data1: 0xF8E9EBE7'u32, data2: 0x39B7'u16, data3: 0x3962'u16,
     data4: [0xBB'u8, 0x03, 0x57, 0xF5, 0x6E, 0x1F, 0xB0, 0xA1])
 const Slot_ISpatialSurfaceInfo_get_Id* = 6
-type Fn_ISpatialSurfaceInfo_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceInfo_get_Id* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceInfo_get_UpdateTime* = 7
-type Fn_ISpatialSurfaceInfo_get_UpdateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceInfo_get_UpdateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceInfo_TryGetBounds* = 8
-type Fn_ISpatialSurfaceInfo_TryGetBounds* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceInfo_TryGetBounds* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* = 9
-type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* = proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* = proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2* = 10
-type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2* = proc(self: pointer, a1: float64, a2SpatialSurfaceMeshOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2* = proc(self: pointer, a1: float64, a2SpatialSurfaceMeshOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMesh
 const IID_ISpatialSurfaceMesh* = GUID(
     data1: 0x108F57D9'u32, data2: 0xDF0D'u16, data3: 0x3950'u16,
     data4: [0xA0'u8, 0xFD, 0xF9, 0x72, 0xC7, 0x7C, 0x27, 0xB4])
 const Slot_ISpatialSurfaceMesh_get_SurfaceInfo* = 6
-type Fn_ISpatialSurfaceMesh_get_SurfaceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_SurfaceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMesh_get_CoordinateSystem* = 7
-type Fn_ISpatialSurfaceMesh_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMesh_get_TriangleIndices* = 8
-type Fn_ISpatialSurfaceMesh_get_TriangleIndices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_TriangleIndices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMesh_get_VertexPositions* = 9
-type Fn_ISpatialSurfaceMesh_get_VertexPositions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_VertexPositions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMesh_get_VertexPositionScale* = 10
-type Fn_ISpatialSurfaceMesh_get_VertexPositionScale* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_VertexPositionScale* = proc(self: pointer, value: ptr Vector3): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMesh_get_VertexNormals* = 11
-type Fn_ISpatialSurfaceMesh_get_VertexNormals* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMesh_get_VertexNormals* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer
 const IID_ISpatialSurfaceMeshBuffer* = GUID(
     data1: 0x93CF59E0'u32, data2: 0x871F'u16, data3: 0x33F8'u16,
     data4: [0x98'u8, 0xB2, 0x03, 0xD1, 0x01, 0x45, 0x8F, 0x6F])
 const Slot_ISpatialSurfaceMeshBuffer_get_Format* = 6
-type Fn_ISpatialSurfaceMeshBuffer_get_Format* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshBuffer_get_Format* = proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshBuffer_get_Stride* = 7
-type Fn_ISpatialSurfaceMeshBuffer_get_Stride* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshBuffer_get_Stride* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshBuffer_get_ElementCount* = 8
-type Fn_ISpatialSurfaceMeshBuffer_get_ElementCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshBuffer_get_ElementCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshBuffer_get_Data* = 9
-type Fn_ISpatialSurfaceMeshBuffer_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshBuffer_get_Data* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions
 const IID_ISpatialSurfaceMeshOptions* = GUID(
     data1: 0xD2759F89'u32, data2: 0x3572'u16, data3: 0x3D2D'u16,
     data4: [0xA1'u8, 0x0D, 0x5F, 0xEE, 0x93, 0x94, 0xAA, 0x37])
 const Slot_ISpatialSurfaceMeshOptions_get_VertexPositionFormat* = 6
-type Fn_ISpatialSurfaceMeshOptions_get_VertexPositionFormat* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_get_VertexPositionFormat* = proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_put_VertexPositionFormat* = 7
-type Fn_ISpatialSurfaceMeshOptions_put_VertexPositionFormat* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_put_VertexPositionFormat* = proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat* = 8
-type Fn_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat* = proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat* = 9
-type Fn_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat* = proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_get_VertexNormalFormat* = 10
-type Fn_ISpatialSurfaceMeshOptions_get_VertexNormalFormat* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_get_VertexNormalFormat* = proc(self: pointer, value: ptr DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_put_VertexNormalFormat* = 11
-type Fn_ISpatialSurfaceMeshOptions_put_VertexNormalFormat* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_put_VertexNormalFormat* = proc(self: pointer, a1: DirectXPixelFormat): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_get_IncludeVertexNormals* = 12
-type Fn_ISpatialSurfaceMeshOptions_get_IncludeVertexNormals* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_get_IncludeVertexNormals* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals* = 13
-type Fn_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptionsStatics
 const IID_ISpatialSurfaceMeshOptionsStatics* = GUID(
     data1: 0x9B340ABF'u32, data2: 0x9781'u16, data3: 0x4505'u16,
     data4: [0x89'u8, 0x35, 0x01, 0x35, 0x75, 0xCA, 0xAE, 0x5E])
 const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats* = 6
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats* = 7
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats* = 8
-type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver
 const IID_ISpatialSurfaceObserver* = GUID(
     data1: 0x10B69819'u32, data2: 0xDDCA'u16, data3: 0x3483'u16,
     data4: [0xAC'u8, 0x3A, 0x74, 0x8F, 0xE8, 0xC8, 0x6D, 0xF5])
 const Slot_ISpatialSurfaceObserver_GetObservedSurfaces* = 6
-type Fn_ISpatialSurfaceObserver_GetObservedSurfaces* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserver_GetObservedSurfaces* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceObserver_SetBoundingVolume* = 7
-type Fn_ISpatialSurfaceObserver_SetBoundingVolume* = proc(self: pointer, a1SpatialBoundingVolume: pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserver_SetBoundingVolume* = proc(self: pointer, a1SpatialBoundingVolume: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceObserver_SetBoundingVolumes* = 8
-type Fn_ISpatialSurfaceObserver_SetBoundingVolumes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserver_SetBoundingVolumes* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* = 9
-type Fn_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* = 10
-type Fn_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics
 const IID_ISpatialSurfaceObserverStatics* = GUID(
     data1: 0x165951ED'u32, data2: 0x2108'u16, data3: 0x4168'u16,
     data4: [0x91'u8, 0x75, 0x87, 0xE0, 0x27, 0xBC, 0x92, 0x85])
 const Slot_ISpatialSurfaceObserverStatics_RequestAccessAsync* = 6
-type Fn_ISpatialSurfaceObserverStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserverStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2
 const IID_ISpatialSurfaceObserverStatics2* = GUID(
     data1: 0x0F534261'u32, data2: 0xC55D'u16, data3: 0x4E6B'u16,
     data4: [0xA8'u8, 0x95, 0xA1, 0x9D, 0xE6, 0x9A, 0x42, 0xE3])
 const Slot_ISpatialSurfaceObserverStatics2_IsSupported* = 6
-type Fn_ISpatialSurfaceObserverStatics2_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_ISpatialSurfaceObserverStatics2_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 

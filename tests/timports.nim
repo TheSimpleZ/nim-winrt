@@ -25,10 +25,19 @@ suite "bindings":
     var fn: Fn_IUriRuntimeClassFactory_CreateUri
     check fn == nil
 
-  test "an enum carries its values and prints its names":
-    check int32(BatteryStatus_Charging) == 3
-    check $BatteryStatus_Charging == "Charging"
-    check $BatteryStatus(99) == "BatteryStatus(99)"
+  test "a plain enum is a real Nim enum, sized for the wire":
+    check ord(BatteryStatus.Charging) == 3
+    check sizeof(BatteryStatus) == 4
+    check $BatteryStatus.Charging == "Charging"
+    # A newer Windows can return a value this metadata predates. The built-in
+    # `$` renders that as the empty string, so the generated one takes over.
+    check $cast[BatteryStatus](99'i32) == "BatteryStatus(99)"
+
+  test "a [Flags] enum combines, prints and tests membership":
+    let held = GamepadButtons_A or GamepadButtons_Menu
+    check GamepadButtons_A in held
+    check GamepadButtons_B notin held
+    check $held == "Menu or A"
 
   test "a hoisted type lands in foundation, not ui":
     # `Windows.UI.Color` is pulled forward so that anything visual can name it

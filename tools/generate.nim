@@ -91,7 +91,12 @@ proc nimType(t: SigType): string =
     of skF8: "float64"
     of skString: "HSTRING"
     of skObject, skInterface: "pointer"
-    of skEnum: "int32"         # WinRT enums are int32 on the wire
+    of skEnum:
+      # int32 on the wire, but say which enum: `ptr BatteryStatus` rather than
+      # `ptr int32` is the difference between reading a result and decoding
+      # one. Falls back to the raw width for an enum from another winmd, which
+      # has no type here to name.
+      if t.name in enumFullNames: shortName(t.name) else: "int32"
     of skStruct:
       # A struct crosses by value, so Nim must know its exact layout. Nim emits
       # these as plain C structs, which means the C compiler applies the same
@@ -139,7 +144,7 @@ proc abiProc(sig: MethodSig): string =
     let r = nimType(sig.returns)
     if r.len == 0: return ""
     parts.add &"value: ptr {r}"
-  "proc(" & parts.join(", ") & "): HRESULT {.stdcall.}"
+  "proc(" & parts.join(", ") & "): HRESULT {.stdcall, raises: [], gcsafe.}"
 
 type Emission = tuple
   enums, enumMembers, structs, interfaces, slots, typed, untyped: int
@@ -191,13 +196,26 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   # backwards is silent. `Orientation.Vertical` is 0 in XAML and 1 in WPF, and
   # the wrong one lays a panel out sideways without reporting anything.
   #
-  # `distinct int32` rather than a Nim `enum`: WinRT enums are sparse, are
-  # sometimes flags, and sometimes carry two names for one value, none of which
-  # a Nim enum permits.
+  # Most become a real Nim enum. `{.size: 4.}` pins the representation to the
+  # int32 that crosses the wire, and `{.pure.}` keeps the members behind the
+  # type name — necessary rather than stylistic, since `None`, `All` and
+  # `Unknown` appear in dozens of unrelated enums.
+  #
+  # Two shapes cannot be one:
+  #
+  # * An enum marked `[Flags]` holds combinations, and no Nim enum can — a
+  #   `set` would be the idiomatic answer but its members must be small
+  #   ordinals and these run to 2^31. Those stay `distinct int32` and get the
+  #   bitwise operators instead, so they can at least be combined.
+  # * Nim requires enum values to be unique and ascending. Eight enums in the
+  #   whole of `Windows.winmd` give one value two names, so those are emitted
+  #   once and the other name becomes a `const` alias.
+  let attrs = md.attributeNames()
   for t in md.types:
     if not owned(t): continue
     if (t.flags and tdInterface) != 0: continue
     if not md.isEnum(t.index): continue
+    if t.fullName in aliasOf: continue
     let members = md.enumMembers(t.index)
     if members.len == 0: continue
     let ident = sanitize(t.name)
@@ -205,22 +223,63 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
     emittedEnums.incl ident
     enumFullNames.incl t.fullName
 
-    buf.add "## " & t.fullName & "  (enum)\n"
-    buf.add "type " & ident & "* = distinct int32\n"
-    buf.add "proc `==`*(a, b: " & ident & "): bool {.borrow.}\n"
-    buf.add "proc `$`*(v: " & ident & "): string =\n"
-    buf.add "  case int32(v)\n"
-    var seenValues = initHashSet[int32]()
-    for (name, value) in members:
-      # Aliases share a value; a `case` may only list it once.
-      if asInt32(value) in seenValues: continue
-      seenValues.incl asInt32(value)
-      buf.add "  of " & $asInt32(value) & "'i32: \"" & name & "\"\n"
-    buf.add "  else: \"" & ident & "(\" & $int32(v) & \")\"\n"
-    for (name, value) in members:
-      buf.add "const " & ident & "_" & sanitize(name) & "* = " & ident &
-              "(" & $asInt32(value) & "'i32)\n"
-      enumMembers.inc
+    var isFlags = false
+    for a in attrs.getOrDefault(t.index, @[]):
+      if a == "FlagsAttribute": isFlags = true
+
+    buf.add &"## {t.fullName}  (enum)\n"
+    if isFlags:
+      buf.add &"type {ident}* = distinct int32\n"
+      buf.add &"proc `==`*(a, b: {ident}): bool {{.borrow.}}\n"
+      buf.add &"proc `or`*(a, b: {ident}): {ident} {{.borrow.}}\n"
+      buf.add &"proc `and`*(a, b: {ident}): {ident} {{.borrow.}}\n"
+      buf.add &"proc `not`*(a: {ident}): {ident} {{.borrow.}}\n"
+      buf.add &"proc contains*(a, b: {ident}): bool =\n"
+      buf.add  "  ## Is every bit of `b` set in `a`?\n"
+      buf.add &"  (int32(a) and int32(b)) == int32(b)\n"
+      buf.add &"proc `$`*(v: {ident}): string =\n"
+      buf.add  "  ## The set bits by name, or the number if none match.\n"
+      buf.add &"  var rest = int32(v)\n"
+      buf.add  "  result = \"\"\n"
+      for (name, value) in members:
+        if asInt32(value) == 0: continue
+        buf.add &"  if (rest and {asInt32(value)}'i32) == {asInt32(value)}'i32:\n"
+        buf.add  "    if result.len > 0: result.add \" or \"\n"
+        buf.add &"    result.add \"{name}\"\n"
+        buf.add &"    rest = rest and not {asInt32(value)}'i32\n"
+      buf.add  "  if rest != 0 or result.len == 0:\n"
+      buf.add &"    if result.len > 0: result.add \" or \"\n"
+      buf.add &"    result.add \"{ident}(\" & $rest & \")\"\n"
+      for (name, value) in members:
+        buf.add &"const {ident}_{sanitize(name)}* = {ident}({asInt32(value)}'i32)\n"
+        enumMembers.inc
+    else:
+      # Sorted, because Nim needs ascending values and the metadata is in
+      # declaration order. Aliases follow as consts.
+      var seen: Table[int32, string]
+      var uniq: seq[(int32, string)]
+      var aliases: seq[(string, string)]
+      for (name, value) in members:
+        let v = asInt32(value)
+        if v in seen: aliases.add (sanitize(name), seen[v])
+        else:
+          seen[v] = sanitize(name)
+          uniq.add (v, sanitize(name))
+      uniq.sort(proc (a, b: (int32, string)): int = cmp(a[0], b[0]))
+
+      buf.add &"type {ident}* {{.pure, size: 4.}} = enum\n"
+      for (v, name) in uniq:
+        buf.add &"  {escapeIdent(name)} = {v}'i32\n"
+      for (alias, orig) in aliases:
+        buf.add &"const {ident}_{alias}* = {ident}.{escapeIdent(orig)}\n"
+      # Windows can hand back a value added after this metadata was cut, and
+      # the built-in `$` renders that as the empty string.
+      buf.add &"proc `$`*(v: {ident}): string =\n"
+      buf.add  "  case ord(v)\n"
+      for (v, name) in uniq:
+        buf.add &"  of {v}: \"{name}\"\n"
+      buf.add &"  else: \"{ident}(\" & $ord(v) & \")\"\n"
+      enumMembers.inc uniq.len + aliases.len
     buf.add "\n"
     enums.inc
 

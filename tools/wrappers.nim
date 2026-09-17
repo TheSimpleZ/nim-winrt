@@ -282,7 +282,7 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
   ## `outer` says we are not deriving from it, and the `inner` handed back
   ## carries its own reference that is not ours to keep.
   type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
-                        value: ptr pointer): HRESULT {.stdcall.}
+                        value: ptr pointer): HRESULT {.abi.}
   let factory = activationFactory(classId, factoryIid)
   var inner, instance: pointer
   try:

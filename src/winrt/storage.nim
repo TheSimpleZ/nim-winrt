@@ -18,14 +18,35 @@ export foundation
 ## Windows.Storage.AccessCache.AccessCacheOptions  (enum)
 type AccessCacheOptions* = distinct int32
 proc `==`*(a, b: AccessCacheOptions): bool {.borrow.}
+proc `or`*(a, b: AccessCacheOptions): AccessCacheOptions {.borrow.}
+proc `and`*(a, b: AccessCacheOptions): AccessCacheOptions {.borrow.}
+proc `not`*(a: AccessCacheOptions): AccessCacheOptions {.borrow.}
+proc contains*(a, b: AccessCacheOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: AccessCacheOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "DisallowUserInput"
-  of 2'i32: "FastLocationsOnly"
-  of 4'i32: "UseReadOnlyCachedCopy"
-  of 8'i32: "SuppressAccessTimeUpdate"
-  else: "AccessCacheOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "DisallowUserInput"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "FastLocationsOnly"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "UseReadOnlyCachedCopy"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "SuppressAccessTimeUpdate"
+    rest = rest and not 8'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "AccessCacheOptions(" & $rest & ")"
 const AccessCacheOptions_None* = AccessCacheOptions(0'i32)
 const AccessCacheOptions_DisallowUserInput* = AccessCacheOptions(1'i32)
 const AccessCacheOptions_FastLocationsOnly* = AccessCacheOptions(2'i32)
@@ -33,101 +54,119 @@ const AccessCacheOptions_UseReadOnlyCachedCopy* = AccessCacheOptions(4'i32)
 const AccessCacheOptions_SuppressAccessTimeUpdate* = AccessCacheOptions(8'i32)
 
 ## Windows.Storage.AccessCache.RecentStorageItemVisibility  (enum)
-type RecentStorageItemVisibility* = distinct int32
-proc `==`*(a, b: RecentStorageItemVisibility): bool {.borrow.}
+type RecentStorageItemVisibility* {.pure, size: 4.} = enum
+  AppOnly = 0'i32
+  AppAndSystem = 1'i32
 proc `$`*(v: RecentStorageItemVisibility): string =
-  case int32(v)
-  of 0'i32: "AppOnly"
-  of 1'i32: "AppAndSystem"
-  else: "RecentStorageItemVisibility(" & $int32(v) & ")"
-const RecentStorageItemVisibility_AppOnly* = RecentStorageItemVisibility(0'i32)
-const RecentStorageItemVisibility_AppAndSystem* = RecentStorageItemVisibility(1'i32)
+  case ord(v)
+  of 0: "AppOnly"
+  of 1: "AppAndSystem"
+  else: "RecentStorageItemVisibility(" & $ord(v) & ")"
 
 ## Windows.Storage.ApplicationDataCreateDisposition  (enum)
-type ApplicationDataCreateDisposition* = distinct int32
-proc `==`*(a, b: ApplicationDataCreateDisposition): bool {.borrow.}
+type ApplicationDataCreateDisposition* {.pure, size: 4.} = enum
+  Always = 0'i32
+  Existing = 1'i32
 proc `$`*(v: ApplicationDataCreateDisposition): string =
-  case int32(v)
-  of 0'i32: "Always"
-  of 1'i32: "Existing"
-  else: "ApplicationDataCreateDisposition(" & $int32(v) & ")"
-const ApplicationDataCreateDisposition_Always* = ApplicationDataCreateDisposition(0'i32)
-const ApplicationDataCreateDisposition_Existing* = ApplicationDataCreateDisposition(1'i32)
+  case ord(v)
+  of 0: "Always"
+  of 1: "Existing"
+  else: "ApplicationDataCreateDisposition(" & $ord(v) & ")"
 
 ## Windows.Storage.ApplicationDataLocality  (enum)
-type ApplicationDataLocality* = distinct int32
-proc `==`*(a, b: ApplicationDataLocality): bool {.borrow.}
+type ApplicationDataLocality* {.pure, size: 4.} = enum
+  Local = 0'i32
+  Roaming = 1'i32
+  Temporary = 2'i32
+  LocalCache = 3'i32
+  SharedLocal = 4'i32
 proc `$`*(v: ApplicationDataLocality): string =
-  case int32(v)
-  of 0'i32: "Local"
-  of 1'i32: "Roaming"
-  of 2'i32: "Temporary"
-  of 3'i32: "LocalCache"
-  of 4'i32: "SharedLocal"
-  else: "ApplicationDataLocality(" & $int32(v) & ")"
-const ApplicationDataLocality_Local* = ApplicationDataLocality(0'i32)
-const ApplicationDataLocality_Roaming* = ApplicationDataLocality(1'i32)
-const ApplicationDataLocality_Temporary* = ApplicationDataLocality(2'i32)
-const ApplicationDataLocality_LocalCache* = ApplicationDataLocality(3'i32)
-const ApplicationDataLocality_SharedLocal* = ApplicationDataLocality(4'i32)
+  case ord(v)
+  of 0: "Local"
+  of 1: "Roaming"
+  of 2: "Temporary"
+  of 3: "LocalCache"
+  of 4: "SharedLocal"
+  else: "ApplicationDataLocality(" & $ord(v) & ")"
 
 ## Windows.Storage.Compression.CompressAlgorithm  (enum)
-type CompressAlgorithm* = distinct int32
-proc `==`*(a, b: CompressAlgorithm): bool {.borrow.}
+type CompressAlgorithm* {.pure, size: 4.} = enum
+  InvalidAlgorithm = 0'i32
+  NullAlgorithm = 1'i32
+  Mszip = 2'i32
+  Xpress = 3'i32
+  XpressHuff = 4'i32
+  Lzms = 5'i32
 proc `$`*(v: CompressAlgorithm): string =
-  case int32(v)
-  of 0'i32: "InvalidAlgorithm"
-  of 1'i32: "NullAlgorithm"
-  of 2'i32: "Mszip"
-  of 3'i32: "Xpress"
-  of 4'i32: "XpressHuff"
-  of 5'i32: "Lzms"
-  else: "CompressAlgorithm(" & $int32(v) & ")"
-const CompressAlgorithm_InvalidAlgorithm* = CompressAlgorithm(0'i32)
-const CompressAlgorithm_NullAlgorithm* = CompressAlgorithm(1'i32)
-const CompressAlgorithm_Mszip* = CompressAlgorithm(2'i32)
-const CompressAlgorithm_Xpress* = CompressAlgorithm(3'i32)
-const CompressAlgorithm_XpressHuff* = CompressAlgorithm(4'i32)
-const CompressAlgorithm_Lzms* = CompressAlgorithm(5'i32)
+  case ord(v)
+  of 0: "InvalidAlgorithm"
+  of 1: "NullAlgorithm"
+  of 2: "Mszip"
+  of 3: "Xpress"
+  of 4: "XpressHuff"
+  of 5: "Lzms"
+  else: "CompressAlgorithm(" & $ord(v) & ")"
 
 ## Windows.Storage.CreationCollisionOption  (enum)
-type CreationCollisionOption* = distinct int32
-proc `==`*(a, b: CreationCollisionOption): bool {.borrow.}
+type CreationCollisionOption* {.pure, size: 4.} = enum
+  GenerateUniqueName = 0'i32
+  ReplaceExisting = 1'i32
+  FailIfExists = 2'i32
+  OpenIfExists = 3'i32
 proc `$`*(v: CreationCollisionOption): string =
-  case int32(v)
-  of 0'i32: "GenerateUniqueName"
-  of 1'i32: "ReplaceExisting"
-  of 2'i32: "FailIfExists"
-  of 3'i32: "OpenIfExists"
-  else: "CreationCollisionOption(" & $int32(v) & ")"
-const CreationCollisionOption_GenerateUniqueName* = CreationCollisionOption(0'i32)
-const CreationCollisionOption_ReplaceExisting* = CreationCollisionOption(1'i32)
-const CreationCollisionOption_FailIfExists* = CreationCollisionOption(2'i32)
-const CreationCollisionOption_OpenIfExists* = CreationCollisionOption(3'i32)
+  case ord(v)
+  of 0: "GenerateUniqueName"
+  of 1: "ReplaceExisting"
+  of 2: "FailIfExists"
+  of 3: "OpenIfExists"
+  else: "CreationCollisionOption(" & $ord(v) & ")"
 
 ## Windows.Storage.FileAccessMode  (enum)
-type FileAccessMode* = distinct int32
-proc `==`*(a, b: FileAccessMode): bool {.borrow.}
+type FileAccessMode* {.pure, size: 4.} = enum
+  Read = 0'i32
+  ReadWrite = 1'i32
 proc `$`*(v: FileAccessMode): string =
-  case int32(v)
-  of 0'i32: "Read"
-  of 1'i32: "ReadWrite"
-  else: "FileAccessMode(" & $int32(v) & ")"
-const FileAccessMode_Read* = FileAccessMode(0'i32)
-const FileAccessMode_ReadWrite* = FileAccessMode(1'i32)
+  case ord(v)
+  of 0: "Read"
+  of 1: "ReadWrite"
+  else: "FileAccessMode(" & $ord(v) & ")"
 
 ## Windows.Storage.FileAttributes  (enum)
 type FileAttributes* = distinct int32
 proc `==`*(a, b: FileAttributes): bool {.borrow.}
+proc `or`*(a, b: FileAttributes): FileAttributes {.borrow.}
+proc `and`*(a, b: FileAttributes): FileAttributes {.borrow.}
+proc `not`*(a: FileAttributes): FileAttributes {.borrow.}
+proc contains*(a, b: FileAttributes): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: FileAttributes): string =
-  case int32(v)
-  of 0'i32: "Normal"
-  of 1'i32: "ReadOnly"
-  of 16'i32: "Directory"
-  of 32'i32: "Archive"
-  of 256'i32: "Temporary"
-  of 512'i32: "LocallyIncomplete"
-  else: "FileAttributes(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "ReadOnly"
+    rest = rest and not 1'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "Directory"
+    rest = rest and not 16'i32
+  if (rest and 32'i32) == 32'i32:
+    if result.len > 0: result.add " or "
+    result.add "Archive"
+    rest = rest and not 32'i32
+  if (rest and 256'i32) == 256'i32:
+    if result.len > 0: result.add " or "
+    result.add "Temporary"
+    rest = rest and not 256'i32
+  if (rest and 512'i32) == 512'i32:
+    if result.len > 0: result.add " or "
+    result.add "LocallyIncomplete"
+    rest = rest and not 512'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "FileAttributes(" & $rest & ")"
 const FileAttributes_Normal* = FileAttributes(0'i32)
 const FileAttributes_ReadOnly* = FileAttributes(1'i32)
 const FileAttributes_Directory* = FileAttributes(16'i32)
@@ -136,42 +175,65 @@ const FileAttributes_Temporary* = FileAttributes(256'i32)
 const FileAttributes_LocallyIncomplete* = FileAttributes(512'i32)
 
 ## Windows.Storage.FileProperties.PhotoOrientation  (enum)
-type PhotoOrientation* = distinct int32
-proc `==`*(a, b: PhotoOrientation): bool {.borrow.}
+type PhotoOrientation* {.pure, size: 4.} = enum
+  Unspecified = 0'i32
+  Normal = 1'i32
+  FlipHorizontal = 2'i32
+  Rotate180 = 3'i32
+  FlipVertical = 4'i32
+  Transpose = 5'i32
+  Rotate270 = 6'i32
+  Transverse = 7'i32
+  Rotate90 = 8'i32
 proc `$`*(v: PhotoOrientation): string =
-  case int32(v)
-  of 0'i32: "Unspecified"
-  of 1'i32: "Normal"
-  of 2'i32: "FlipHorizontal"
-  of 3'i32: "Rotate180"
-  of 4'i32: "FlipVertical"
-  of 5'i32: "Transpose"
-  of 6'i32: "Rotate270"
-  of 7'i32: "Transverse"
-  of 8'i32: "Rotate90"
-  else: "PhotoOrientation(" & $int32(v) & ")"
-const PhotoOrientation_Unspecified* = PhotoOrientation(0'i32)
-const PhotoOrientation_Normal* = PhotoOrientation(1'i32)
-const PhotoOrientation_FlipHorizontal* = PhotoOrientation(2'i32)
-const PhotoOrientation_Rotate180* = PhotoOrientation(3'i32)
-const PhotoOrientation_FlipVertical* = PhotoOrientation(4'i32)
-const PhotoOrientation_Transpose* = PhotoOrientation(5'i32)
-const PhotoOrientation_Rotate270* = PhotoOrientation(6'i32)
-const PhotoOrientation_Transverse* = PhotoOrientation(7'i32)
-const PhotoOrientation_Rotate90* = PhotoOrientation(8'i32)
+  case ord(v)
+  of 0: "Unspecified"
+  of 1: "Normal"
+  of 2: "FlipHorizontal"
+  of 3: "Rotate180"
+  of 4: "FlipVertical"
+  of 5: "Transpose"
+  of 6: "Rotate270"
+  of 7: "Transverse"
+  of 8: "Rotate90"
+  else: "PhotoOrientation(" & $ord(v) & ")"
 
 ## Windows.Storage.FileProperties.PropertyPrefetchOptions  (enum)
 type PropertyPrefetchOptions* = distinct int32
 proc `==`*(a, b: PropertyPrefetchOptions): bool {.borrow.}
+proc `or`*(a, b: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
+proc `and`*(a, b: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
+proc `not`*(a: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
+proc contains*(a, b: PropertyPrefetchOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: PropertyPrefetchOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "MusicProperties"
-  of 2'i32: "VideoProperties"
-  of 4'i32: "ImageProperties"
-  of 8'i32: "DocumentProperties"
-  of 16'i32: "BasicProperties"
-  else: "PropertyPrefetchOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "MusicProperties"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "VideoProperties"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "ImageProperties"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "DocumentProperties"
+    rest = rest and not 8'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "BasicProperties"
+    rest = rest and not 16'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "PropertyPrefetchOptions(" & $rest & ")"
 const PropertyPrefetchOptions_None* = PropertyPrefetchOptions(0'i32)
 const PropertyPrefetchOptions_MusicProperties* = PropertyPrefetchOptions(1'i32)
 const PropertyPrefetchOptions_VideoProperties* = PropertyPrefetchOptions(2'i32)
@@ -180,323 +242,376 @@ const PropertyPrefetchOptions_DocumentProperties* = PropertyPrefetchOptions(8'i3
 const PropertyPrefetchOptions_BasicProperties* = PropertyPrefetchOptions(16'i32)
 
 ## Windows.Storage.FileProperties.ThumbnailMode  (enum)
-type ThumbnailMode* = distinct int32
-proc `==`*(a, b: ThumbnailMode): bool {.borrow.}
+type ThumbnailMode* {.pure, size: 4.} = enum
+  PicturesView = 0'i32
+  VideosView = 1'i32
+  MusicView = 2'i32
+  DocumentsView = 3'i32
+  ListView = 4'i32
+  SingleItem = 5'i32
 proc `$`*(v: ThumbnailMode): string =
-  case int32(v)
-  of 0'i32: "PicturesView"
-  of 1'i32: "VideosView"
-  of 2'i32: "MusicView"
-  of 3'i32: "DocumentsView"
-  of 4'i32: "ListView"
-  of 5'i32: "SingleItem"
-  else: "ThumbnailMode(" & $int32(v) & ")"
-const ThumbnailMode_PicturesView* = ThumbnailMode(0'i32)
-const ThumbnailMode_VideosView* = ThumbnailMode(1'i32)
-const ThumbnailMode_MusicView* = ThumbnailMode(2'i32)
-const ThumbnailMode_DocumentsView* = ThumbnailMode(3'i32)
-const ThumbnailMode_ListView* = ThumbnailMode(4'i32)
-const ThumbnailMode_SingleItem* = ThumbnailMode(5'i32)
+  case ord(v)
+  of 0: "PicturesView"
+  of 1: "VideosView"
+  of 2: "MusicView"
+  of 3: "DocumentsView"
+  of 4: "ListView"
+  of 5: "SingleItem"
+  else: "ThumbnailMode(" & $ord(v) & ")"
 
 ## Windows.Storage.FileProperties.ThumbnailOptions  (enum)
 type ThumbnailOptions* = distinct int32
 proc `==`*(a, b: ThumbnailOptions): bool {.borrow.}
+proc `or`*(a, b: ThumbnailOptions): ThumbnailOptions {.borrow.}
+proc `and`*(a, b: ThumbnailOptions): ThumbnailOptions {.borrow.}
+proc `not`*(a: ThumbnailOptions): ThumbnailOptions {.borrow.}
+proc contains*(a, b: ThumbnailOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: ThumbnailOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "ReturnOnlyIfCached"
-  of 2'i32: "ResizeThumbnail"
-  of 4'i32: "UseCurrentScale"
-  else: "ThumbnailOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "ReturnOnlyIfCached"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "ResizeThumbnail"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "UseCurrentScale"
+    rest = rest and not 4'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "ThumbnailOptions(" & $rest & ")"
 const ThumbnailOptions_None* = ThumbnailOptions(0'i32)
 const ThumbnailOptions_ReturnOnlyIfCached* = ThumbnailOptions(1'i32)
 const ThumbnailOptions_ResizeThumbnail* = ThumbnailOptions(2'i32)
 const ThumbnailOptions_UseCurrentScale* = ThumbnailOptions(4'i32)
 
 ## Windows.Storage.FileProperties.ThumbnailType  (enum)
-type ThumbnailType* = distinct int32
-proc `==`*(a, b: ThumbnailType): bool {.borrow.}
+type ThumbnailType* {.pure, size: 4.} = enum
+  Image = 0'i32
+  Icon = 1'i32
 proc `$`*(v: ThumbnailType): string =
-  case int32(v)
-  of 0'i32: "Image"
-  of 1'i32: "Icon"
-  else: "ThumbnailType(" & $int32(v) & ")"
-const ThumbnailType_Image* = ThumbnailType(0'i32)
-const ThumbnailType_Icon* = ThumbnailType(1'i32)
+  case ord(v)
+  of 0: "Image"
+  of 1: "Icon"
+  else: "ThumbnailType(" & $ord(v) & ")"
 
 ## Windows.Storage.FileProperties.VideoOrientation  (enum)
-type VideoOrientation* = distinct int32
-proc `==`*(a, b: VideoOrientation): bool {.borrow.}
+type VideoOrientation* {.pure, size: 4.} = enum
+  Normal = 0'i32
+  Rotate90 = 90'i32
+  Rotate180 = 180'i32
+  Rotate270 = 270'i32
 proc `$`*(v: VideoOrientation): string =
-  case int32(v)
-  of 0'i32: "Normal"
-  of 90'i32: "Rotate90"
-  of 180'i32: "Rotate180"
-  of 270'i32: "Rotate270"
-  else: "VideoOrientation(" & $int32(v) & ")"
-const VideoOrientation_Normal* = VideoOrientation(0'i32)
-const VideoOrientation_Rotate90* = VideoOrientation(90'i32)
-const VideoOrientation_Rotate180* = VideoOrientation(180'i32)
-const VideoOrientation_Rotate270* = VideoOrientation(270'i32)
+  case ord(v)
+  of 0: "Normal"
+  of 90: "Rotate90"
+  of 180: "Rotate180"
+  of 270: "Rotate270"
+  else: "VideoOrientation(" & $ord(v) & ")"
 
 ## Windows.Storage.KnownFolderId  (enum)
-type KnownFolderId* = distinct int32
-proc `==`*(a, b: KnownFolderId): bool {.borrow.}
+type KnownFolderId* {.pure, size: 4.} = enum
+  AppCaptures = 0'i32
+  CameraRoll = 1'i32
+  DocumentsLibrary = 2'i32
+  HomeGroup = 3'i32
+  MediaServerDevices = 4'i32
+  MusicLibrary = 5'i32
+  Objects3D = 6'i32
+  PicturesLibrary = 7'i32
+  Playlists = 8'i32
+  RecordedCalls = 9'i32
+  RemovableDevices = 10'i32
+  SavedPictures = 11'i32
+  Screenshots = 12'i32
+  VideosLibrary = 13'i32
+  AllAppMods = 14'i32
+  CurrentAppMods = 15'i32
+  DownloadsFolder = 16'i32
 proc `$`*(v: KnownFolderId): string =
-  case int32(v)
-  of 0'i32: "AppCaptures"
-  of 1'i32: "CameraRoll"
-  of 2'i32: "DocumentsLibrary"
-  of 3'i32: "HomeGroup"
-  of 4'i32: "MediaServerDevices"
-  of 5'i32: "MusicLibrary"
-  of 6'i32: "Objects3D"
-  of 7'i32: "PicturesLibrary"
-  of 8'i32: "Playlists"
-  of 9'i32: "RecordedCalls"
-  of 10'i32: "RemovableDevices"
-  of 11'i32: "SavedPictures"
-  of 12'i32: "Screenshots"
-  of 13'i32: "VideosLibrary"
-  of 14'i32: "AllAppMods"
-  of 15'i32: "CurrentAppMods"
-  of 16'i32: "DownloadsFolder"
-  else: "KnownFolderId(" & $int32(v) & ")"
-const KnownFolderId_AppCaptures* = KnownFolderId(0'i32)
-const KnownFolderId_CameraRoll* = KnownFolderId(1'i32)
-const KnownFolderId_DocumentsLibrary* = KnownFolderId(2'i32)
-const KnownFolderId_HomeGroup* = KnownFolderId(3'i32)
-const KnownFolderId_MediaServerDevices* = KnownFolderId(4'i32)
-const KnownFolderId_MusicLibrary* = KnownFolderId(5'i32)
-const KnownFolderId_Objects3D* = KnownFolderId(6'i32)
-const KnownFolderId_PicturesLibrary* = KnownFolderId(7'i32)
-const KnownFolderId_Playlists* = KnownFolderId(8'i32)
-const KnownFolderId_RecordedCalls* = KnownFolderId(9'i32)
-const KnownFolderId_RemovableDevices* = KnownFolderId(10'i32)
-const KnownFolderId_SavedPictures* = KnownFolderId(11'i32)
-const KnownFolderId_Screenshots* = KnownFolderId(12'i32)
-const KnownFolderId_VideosLibrary* = KnownFolderId(13'i32)
-const KnownFolderId_AllAppMods* = KnownFolderId(14'i32)
-const KnownFolderId_CurrentAppMods* = KnownFolderId(15'i32)
-const KnownFolderId_DownloadsFolder* = KnownFolderId(16'i32)
+  case ord(v)
+  of 0: "AppCaptures"
+  of 1: "CameraRoll"
+  of 2: "DocumentsLibrary"
+  of 3: "HomeGroup"
+  of 4: "MediaServerDevices"
+  of 5: "MusicLibrary"
+  of 6: "Objects3D"
+  of 7: "PicturesLibrary"
+  of 8: "Playlists"
+  of 9: "RecordedCalls"
+  of 10: "RemovableDevices"
+  of 11: "SavedPictures"
+  of 12: "Screenshots"
+  of 13: "VideosLibrary"
+  of 14: "AllAppMods"
+  of 15: "CurrentAppMods"
+  of 16: "DownloadsFolder"
+  else: "KnownFolderId(" & $ord(v) & ")"
 
 ## Windows.Storage.KnownFoldersAccessStatus  (enum)
-type KnownFoldersAccessStatus* = distinct int32
-proc `==`*(a, b: KnownFoldersAccessStatus): bool {.borrow.}
+type KnownFoldersAccessStatus* {.pure, size: 4.} = enum
+  DeniedBySystem = 0'i32
+  NotDeclaredByApp = 1'i32
+  DeniedByUser = 2'i32
+  UserPromptRequired = 3'i32
+  Allowed = 4'i32
+  AllowedPerAppFolder = 5'i32
 proc `$`*(v: KnownFoldersAccessStatus): string =
-  case int32(v)
-  of 0'i32: "DeniedBySystem"
-  of 1'i32: "NotDeclaredByApp"
-  of 2'i32: "DeniedByUser"
-  of 3'i32: "UserPromptRequired"
-  of 4'i32: "Allowed"
-  of 5'i32: "AllowedPerAppFolder"
-  else: "KnownFoldersAccessStatus(" & $int32(v) & ")"
-const KnownFoldersAccessStatus_DeniedBySystem* = KnownFoldersAccessStatus(0'i32)
-const KnownFoldersAccessStatus_NotDeclaredByApp* = KnownFoldersAccessStatus(1'i32)
-const KnownFoldersAccessStatus_DeniedByUser* = KnownFoldersAccessStatus(2'i32)
-const KnownFoldersAccessStatus_UserPromptRequired* = KnownFoldersAccessStatus(3'i32)
-const KnownFoldersAccessStatus_Allowed* = KnownFoldersAccessStatus(4'i32)
-const KnownFoldersAccessStatus_AllowedPerAppFolder* = KnownFoldersAccessStatus(5'i32)
+  case ord(v)
+  of 0: "DeniedBySystem"
+  of 1: "NotDeclaredByApp"
+  of 2: "DeniedByUser"
+  of 3: "UserPromptRequired"
+  of 4: "Allowed"
+  of 5: "AllowedPerAppFolder"
+  else: "KnownFoldersAccessStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.KnownLibraryId  (enum)
-type KnownLibraryId* = distinct int32
-proc `==`*(a, b: KnownLibraryId): bool {.borrow.}
+type KnownLibraryId* {.pure, size: 4.} = enum
+  Music = 0'i32
+  Pictures = 1'i32
+  Videos = 2'i32
+  Documents = 3'i32
 proc `$`*(v: KnownLibraryId): string =
-  case int32(v)
-  of 0'i32: "Music"
-  of 1'i32: "Pictures"
-  of 2'i32: "Videos"
-  of 3'i32: "Documents"
-  else: "KnownLibraryId(" & $int32(v) & ")"
-const KnownLibraryId_Music* = KnownLibraryId(0'i32)
-const KnownLibraryId_Pictures* = KnownLibraryId(1'i32)
-const KnownLibraryId_Videos* = KnownLibraryId(2'i32)
-const KnownLibraryId_Documents* = KnownLibraryId(3'i32)
+  case ord(v)
+  of 0: "Music"
+  of 1: "Pictures"
+  of 2: "Videos"
+  of 3: "Documents"
+  else: "KnownLibraryId(" & $ord(v) & ")"
 
 ## Windows.Storage.NameCollisionOption  (enum)
-type NameCollisionOption* = distinct int32
-proc `==`*(a, b: NameCollisionOption): bool {.borrow.}
+type NameCollisionOption* {.pure, size: 4.} = enum
+  GenerateUniqueName = 0'i32
+  ReplaceExisting = 1'i32
+  FailIfExists = 2'i32
 proc `$`*(v: NameCollisionOption): string =
-  case int32(v)
-  of 0'i32: "GenerateUniqueName"
-  of 1'i32: "ReplaceExisting"
-  of 2'i32: "FailIfExists"
-  else: "NameCollisionOption(" & $int32(v) & ")"
-const NameCollisionOption_GenerateUniqueName* = NameCollisionOption(0'i32)
-const NameCollisionOption_ReplaceExisting* = NameCollisionOption(1'i32)
-const NameCollisionOption_FailIfExists* = NameCollisionOption(2'i32)
+  case ord(v)
+  of 0: "GenerateUniqueName"
+  of 1: "ReplaceExisting"
+  of 2: "FailIfExists"
+  else: "NameCollisionOption(" & $ord(v) & ")"
 
 ## Windows.Storage.Pickers.PickerLocationId  (enum)
-type PickerLocationId* = distinct int32
-proc `==`*(a, b: PickerLocationId): bool {.borrow.}
+type PickerLocationId* {.pure, size: 4.} = enum
+  DocumentsLibrary = 0'i32
+  ComputerFolder = 1'i32
+  Desktop = 2'i32
+  Downloads = 3'i32
+  HomeGroup = 4'i32
+  MusicLibrary = 5'i32
+  PicturesLibrary = 6'i32
+  VideosLibrary = 7'i32
+  Objects3D = 8'i32
+  Unspecified = 9'i32
 proc `$`*(v: PickerLocationId): string =
-  case int32(v)
-  of 0'i32: "DocumentsLibrary"
-  of 1'i32: "ComputerFolder"
-  of 2'i32: "Desktop"
-  of 3'i32: "Downloads"
-  of 4'i32: "HomeGroup"
-  of 5'i32: "MusicLibrary"
-  of 6'i32: "PicturesLibrary"
-  of 7'i32: "VideosLibrary"
-  of 8'i32: "Objects3D"
-  of 9'i32: "Unspecified"
-  else: "PickerLocationId(" & $int32(v) & ")"
-const PickerLocationId_DocumentsLibrary* = PickerLocationId(0'i32)
-const PickerLocationId_ComputerFolder* = PickerLocationId(1'i32)
-const PickerLocationId_Desktop* = PickerLocationId(2'i32)
-const PickerLocationId_Downloads* = PickerLocationId(3'i32)
-const PickerLocationId_HomeGroup* = PickerLocationId(4'i32)
-const PickerLocationId_MusicLibrary* = PickerLocationId(5'i32)
-const PickerLocationId_PicturesLibrary* = PickerLocationId(6'i32)
-const PickerLocationId_VideosLibrary* = PickerLocationId(7'i32)
-const PickerLocationId_Objects3D* = PickerLocationId(8'i32)
-const PickerLocationId_Unspecified* = PickerLocationId(9'i32)
+  case ord(v)
+  of 0: "DocumentsLibrary"
+  of 1: "ComputerFolder"
+  of 2: "Desktop"
+  of 3: "Downloads"
+  of 4: "HomeGroup"
+  of 5: "MusicLibrary"
+  of 6: "PicturesLibrary"
+  of 7: "VideosLibrary"
+  of 8: "Objects3D"
+  of 9: "Unspecified"
+  else: "PickerLocationId(" & $ord(v) & ")"
 
 ## Windows.Storage.Pickers.PickerViewMode  (enum)
-type PickerViewMode* = distinct int32
-proc `==`*(a, b: PickerViewMode): bool {.borrow.}
+type PickerViewMode* {.pure, size: 4.} = enum
+  List = 0'i32
+  Thumbnail = 1'i32
 proc `$`*(v: PickerViewMode): string =
-  case int32(v)
-  of 0'i32: "List"
-  of 1'i32: "Thumbnail"
-  else: "PickerViewMode(" & $int32(v) & ")"
-const PickerViewMode_List* = PickerViewMode(0'i32)
-const PickerViewMode_Thumbnail* = PickerViewMode(1'i32)
+  case ord(v)
+  of 0: "List"
+  of 1: "Thumbnail"
+  else: "PickerViewMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Pickers.Provider.AddFileResult  (enum)
-type AddFileResult* = distinct int32
-proc `==`*(a, b: AddFileResult): bool {.borrow.}
+type AddFileResult* {.pure, size: 4.} = enum
+  Added = 0'i32
+  AlreadyAdded = 1'i32
+  NotAllowed = 2'i32
+  Unavailable = 3'i32
 proc `$`*(v: AddFileResult): string =
-  case int32(v)
-  of 0'i32: "Added"
-  of 1'i32: "AlreadyAdded"
-  of 2'i32: "NotAllowed"
-  of 3'i32: "Unavailable"
-  else: "AddFileResult(" & $int32(v) & ")"
-const AddFileResult_Added* = AddFileResult(0'i32)
-const AddFileResult_AlreadyAdded* = AddFileResult(1'i32)
-const AddFileResult_NotAllowed* = AddFileResult(2'i32)
-const AddFileResult_Unavailable* = AddFileResult(3'i32)
+  case ord(v)
+  of 0: "Added"
+  of 1: "AlreadyAdded"
+  of 2: "NotAllowed"
+  of 3: "Unavailable"
+  else: "AddFileResult(" & $ord(v) & ")"
 
 ## Windows.Storage.Pickers.Provider.FileSelectionMode  (enum)
-type FileSelectionMode* = distinct int32
-proc `==`*(a, b: FileSelectionMode): bool {.borrow.}
+type FileSelectionMode* {.pure, size: 4.} = enum
+  Single = 0'i32
+  Multiple = 1'i32
 proc `$`*(v: FileSelectionMode): string =
-  case int32(v)
-  of 0'i32: "Single"
-  of 1'i32: "Multiple"
-  else: "FileSelectionMode(" & $int32(v) & ")"
-const FileSelectionMode_Single* = FileSelectionMode(0'i32)
-const FileSelectionMode_Multiple* = FileSelectionMode(1'i32)
+  case ord(v)
+  of 0: "Single"
+  of 1: "Multiple"
+  else: "FileSelectionMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Pickers.Provider.SetFileNameResult  (enum)
-type SetFileNameResult* = distinct int32
-proc `==`*(a, b: SetFileNameResult): bool {.borrow.}
+type SetFileNameResult* {.pure, size: 4.} = enum
+  Succeeded = 0'i32
+  NotAllowed = 1'i32
+  Unavailable = 2'i32
 proc `$`*(v: SetFileNameResult): string =
-  case int32(v)
-  of 0'i32: "Succeeded"
-  of 1'i32: "NotAllowed"
-  of 2'i32: "Unavailable"
-  else: "SetFileNameResult(" & $int32(v) & ")"
-const SetFileNameResult_Succeeded* = SetFileNameResult(0'i32)
-const SetFileNameResult_NotAllowed* = SetFileNameResult(1'i32)
-const SetFileNameResult_Unavailable* = SetFileNameResult(2'i32)
+  case ord(v)
+  of 0: "Succeeded"
+  of 1: "NotAllowed"
+  of 2: "Unavailable"
+  else: "SetFileNameResult(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.CachedFileOptions  (enum)
 type CachedFileOptions* = distinct int32
 proc `==`*(a, b: CachedFileOptions): bool {.borrow.}
+proc `or`*(a, b: CachedFileOptions): CachedFileOptions {.borrow.}
+proc `and`*(a, b: CachedFileOptions): CachedFileOptions {.borrow.}
+proc `not`*(a: CachedFileOptions): CachedFileOptions {.borrow.}
+proc contains*(a, b: CachedFileOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: CachedFileOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "RequireUpdateOnAccess"
-  of 2'i32: "UseCachedFileWhenOffline"
-  of 4'i32: "DenyAccessWhenOffline"
-  else: "CachedFileOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "RequireUpdateOnAccess"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "UseCachedFileWhenOffline"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "DenyAccessWhenOffline"
+    rest = rest and not 4'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "CachedFileOptions(" & $rest & ")"
 const CachedFileOptions_None* = CachedFileOptions(0'i32)
 const CachedFileOptions_RequireUpdateOnAccess* = CachedFileOptions(1'i32)
 const CachedFileOptions_UseCachedFileWhenOffline* = CachedFileOptions(2'i32)
 const CachedFileOptions_DenyAccessWhenOffline* = CachedFileOptions(4'i32)
 
 ## Windows.Storage.Provider.CachedFileTarget  (enum)
-type CachedFileTarget* = distinct int32
-proc `==`*(a, b: CachedFileTarget): bool {.borrow.}
+type CachedFileTarget* {.pure, size: 4.} = enum
+  Local = 0'i32
+  Remote = 1'i32
 proc `$`*(v: CachedFileTarget): string =
-  case int32(v)
-  of 0'i32: "Local"
-  of 1'i32: "Remote"
-  else: "CachedFileTarget(" & $int32(v) & ")"
-const CachedFileTarget_Local* = CachedFileTarget(0'i32)
-const CachedFileTarget_Remote* = CachedFileTarget(1'i32)
+  case ord(v)
+  of 0: "Local"
+  of 1: "Remote"
+  else: "CachedFileTarget(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.FileUpdateStatus  (enum)
-type FileUpdateStatus* = distinct int32
-proc `==`*(a, b: FileUpdateStatus): bool {.borrow.}
+type FileUpdateStatus* {.pure, size: 4.} = enum
+  Incomplete = 0'i32
+  Complete = 1'i32
+  UserInputNeeded = 2'i32
+  CurrentlyUnavailable = 3'i32
+  Failed = 4'i32
+  CompleteAndRenamed = 5'i32
 proc `$`*(v: FileUpdateStatus): string =
-  case int32(v)
-  of 0'i32: "Incomplete"
-  of 1'i32: "Complete"
-  of 2'i32: "UserInputNeeded"
-  of 3'i32: "CurrentlyUnavailable"
-  of 4'i32: "Failed"
-  of 5'i32: "CompleteAndRenamed"
-  else: "FileUpdateStatus(" & $int32(v) & ")"
-const FileUpdateStatus_Incomplete* = FileUpdateStatus(0'i32)
-const FileUpdateStatus_Complete* = FileUpdateStatus(1'i32)
-const FileUpdateStatus_UserInputNeeded* = FileUpdateStatus(2'i32)
-const FileUpdateStatus_CurrentlyUnavailable* = FileUpdateStatus(3'i32)
-const FileUpdateStatus_Failed* = FileUpdateStatus(4'i32)
-const FileUpdateStatus_CompleteAndRenamed* = FileUpdateStatus(5'i32)
+  case ord(v)
+  of 0: "Incomplete"
+  of 1: "Complete"
+  of 2: "UserInputNeeded"
+  of 3: "CurrentlyUnavailable"
+  of 4: "Failed"
+  of 5: "CompleteAndRenamed"
+  else: "FileUpdateStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.ReadActivationMode  (enum)
-type ReadActivationMode* = distinct int32
-proc `==`*(a, b: ReadActivationMode): bool {.borrow.}
+type ReadActivationMode* {.pure, size: 4.} = enum
+  NotNeeded = 0'i32
+  BeforeAccess = 1'i32
 proc `$`*(v: ReadActivationMode): string =
-  case int32(v)
-  of 0'i32: "NotNeeded"
-  of 1'i32: "BeforeAccess"
-  else: "ReadActivationMode(" & $int32(v) & ")"
-const ReadActivationMode_NotNeeded* = ReadActivationMode(0'i32)
-const ReadActivationMode_BeforeAccess* = ReadActivationMode(1'i32)
+  case ord(v)
+  of 0: "NotNeeded"
+  of 1: "BeforeAccess"
+  else: "ReadActivationMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderHardlinkPolicy  (enum)
 type StorageProviderHardlinkPolicy* = distinct int32
 proc `==`*(a, b: StorageProviderHardlinkPolicy): bool {.borrow.}
+proc `or`*(a, b: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
+proc `and`*(a, b: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
+proc `not`*(a: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
+proc contains*(a, b: StorageProviderHardlinkPolicy): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: StorageProviderHardlinkPolicy): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Allowed"
-  else: "StorageProviderHardlinkPolicy(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Allowed"
+    rest = rest and not 1'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "StorageProviderHardlinkPolicy(" & $rest & ")"
 const StorageProviderHardlinkPolicy_None* = StorageProviderHardlinkPolicy(0'i32)
 const StorageProviderHardlinkPolicy_Allowed* = StorageProviderHardlinkPolicy(1'i32)
 
 ## Windows.Storage.Provider.StorageProviderHydrationPolicy  (enum)
-type StorageProviderHydrationPolicy* = distinct int32
-proc `==`*(a, b: StorageProviderHydrationPolicy): bool {.borrow.}
+type StorageProviderHydrationPolicy* {.pure, size: 4.} = enum
+  Partial = 0'i32
+  Progressive = 1'i32
+  Full = 2'i32
+  AlwaysFull = 3'i32
 proc `$`*(v: StorageProviderHydrationPolicy): string =
-  case int32(v)
-  of 0'i32: "Partial"
-  of 1'i32: "Progressive"
-  of 2'i32: "Full"
-  of 3'i32: "AlwaysFull"
-  else: "StorageProviderHydrationPolicy(" & $int32(v) & ")"
-const StorageProviderHydrationPolicy_Partial* = StorageProviderHydrationPolicy(0'i32)
-const StorageProviderHydrationPolicy_Progressive* = StorageProviderHydrationPolicy(1'i32)
-const StorageProviderHydrationPolicy_Full* = StorageProviderHydrationPolicy(2'i32)
-const StorageProviderHydrationPolicy_AlwaysFull* = StorageProviderHydrationPolicy(3'i32)
+  case ord(v)
+  of 0: "Partial"
+  of 1: "Progressive"
+  of 2: "Full"
+  of 3: "AlwaysFull"
+  else: "StorageProviderHydrationPolicy(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderHydrationPolicyModifier  (enum)
 type StorageProviderHydrationPolicyModifier* = distinct int32
 proc `==`*(a, b: StorageProviderHydrationPolicyModifier): bool {.borrow.}
+proc `or`*(a, b: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
+proc `and`*(a, b: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
+proc `not`*(a: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
+proc contains*(a, b: StorageProviderHydrationPolicyModifier): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: StorageProviderHydrationPolicyModifier): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "ValidationRequired"
-  of 2'i32: "StreamingAllowed"
-  of 4'i32: "AutoDehydrationAllowed"
-  of 8'i32: "AllowFullRestartHydration"
-  else: "StorageProviderHydrationPolicyModifier(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "ValidationRequired"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "StreamingAllowed"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "AutoDehydrationAllowed"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "AllowFullRestartHydration"
+    rest = rest and not 8'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "StorageProviderHydrationPolicyModifier(" & $rest & ")"
 const StorageProviderHydrationPolicyModifier_None* = StorageProviderHydrationPolicyModifier(0'i32)
 const StorageProviderHydrationPolicyModifier_ValidationRequired* = StorageProviderHydrationPolicyModifier(1'i32)
 const StorageProviderHydrationPolicyModifier_StreamingAllowed* = StorageProviderHydrationPolicyModifier(2'i32)
@@ -506,21 +621,63 @@ const StorageProviderHydrationPolicyModifier_AllowFullRestartHydration* = Storag
 ## Windows.Storage.Provider.StorageProviderInSyncPolicy  (enum)
 type StorageProviderInSyncPolicy* = distinct int32
 proc `==`*(a, b: StorageProviderInSyncPolicy): bool {.borrow.}
+proc `or`*(a, b: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
+proc `and`*(a, b: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
+proc `not`*(a: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
+proc contains*(a, b: StorageProviderInSyncPolicy): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: StorageProviderInSyncPolicy): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "FileCreationTime"
-  of 2'i32: "FileReadOnlyAttribute"
-  of 4'i32: "FileHiddenAttribute"
-  of 8'i32: "FileSystemAttribute"
-  of 16'i32: "DirectoryCreationTime"
-  of 32'i32: "DirectoryReadOnlyAttribute"
-  of 64'i32: "DirectoryHiddenAttribute"
-  of 128'i32: "DirectorySystemAttribute"
-  of 256'i32: "FileLastWriteTime"
-  of 512'i32: "DirectoryLastWriteTime"
-  of -2147483648'i32: "PreserveInsyncForSyncEngine"
-  else: "StorageProviderInSyncPolicy(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "FileCreationTime"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "FileReadOnlyAttribute"
+    rest = rest and not 2'i32
+  if (rest and 4'i32) == 4'i32:
+    if result.len > 0: result.add " or "
+    result.add "FileHiddenAttribute"
+    rest = rest and not 4'i32
+  if (rest and 8'i32) == 8'i32:
+    if result.len > 0: result.add " or "
+    result.add "FileSystemAttribute"
+    rest = rest and not 8'i32
+  if (rest and 16'i32) == 16'i32:
+    if result.len > 0: result.add " or "
+    result.add "DirectoryCreationTime"
+    rest = rest and not 16'i32
+  if (rest and 32'i32) == 32'i32:
+    if result.len > 0: result.add " or "
+    result.add "DirectoryReadOnlyAttribute"
+    rest = rest and not 32'i32
+  if (rest and 64'i32) == 64'i32:
+    if result.len > 0: result.add " or "
+    result.add "DirectoryHiddenAttribute"
+    rest = rest and not 64'i32
+  if (rest and 128'i32) == 128'i32:
+    if result.len > 0: result.add " or "
+    result.add "DirectorySystemAttribute"
+    rest = rest and not 128'i32
+  if (rest and 256'i32) == 256'i32:
+    if result.len > 0: result.add " or "
+    result.add "FileLastWriteTime"
+    rest = rest and not 256'i32
+  if (rest and 512'i32) == 512'i32:
+    if result.len > 0: result.add " or "
+    result.add "DirectoryLastWriteTime"
+    rest = rest and not 512'i32
+  if (rest and -2147483648'i32) == -2147483648'i32:
+    if result.len > 0: result.add " or "
+    result.add "PreserveInsyncForSyncEngine"
+    rest = rest and not -2147483648'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "StorageProviderInSyncPolicy(" & $rest & ")"
 const StorageProviderInSyncPolicy_Default* = StorageProviderInSyncPolicy(0'i32)
 const StorageProviderInSyncPolicy_FileCreationTime* = StorageProviderInSyncPolicy(1'i32)
 const StorageProviderInSyncPolicy_FileReadOnlyAttribute* = StorageProviderInSyncPolicy(2'i32)
@@ -535,428 +692,448 @@ const StorageProviderInSyncPolicy_DirectoryLastWriteTime* = StorageProviderInSyn
 const StorageProviderInSyncPolicy_PreserveInsyncForSyncEngine* = StorageProviderInSyncPolicy(-2147483648'i32)
 
 ## Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus  (enum)
-type StorageProviderKnownFolderSyncStatus* = distinct int32
-proc `==`*(a, b: StorageProviderKnownFolderSyncStatus): bool {.borrow.}
+type StorageProviderKnownFolderSyncStatus* {.pure, size: 4.} = enum
+  Available = 0'i32
+  Enrolling = 1'i32
+  Enrolled = 2'i32
 proc `$`*(v: StorageProviderKnownFolderSyncStatus): string =
-  case int32(v)
-  of 0'i32: "Available"
-  of 1'i32: "Enrolling"
-  of 2'i32: "Enrolled"
-  else: "StorageProviderKnownFolderSyncStatus(" & $int32(v) & ")"
-const StorageProviderKnownFolderSyncStatus_Available* = StorageProviderKnownFolderSyncStatus(0'i32)
-const StorageProviderKnownFolderSyncStatus_Enrolling* = StorageProviderKnownFolderSyncStatus(1'i32)
-const StorageProviderKnownFolderSyncStatus_Enrolled* = StorageProviderKnownFolderSyncStatus(2'i32)
+  case ord(v)
+  of 0: "Available"
+  of 1: "Enrolling"
+  of 2: "Enrolled"
+  else: "StorageProviderKnownFolderSyncStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderPopulationPolicy  (enum)
-type StorageProviderPopulationPolicy* = distinct int32
-proc `==`*(a, b: StorageProviderPopulationPolicy): bool {.borrow.}
+type StorageProviderPopulationPolicy* {.pure, size: 4.} = enum
+  Full = 1'i32
+  AlwaysFull = 2'i32
 proc `$`*(v: StorageProviderPopulationPolicy): string =
-  case int32(v)
-  of 1'i32: "Full"
-  of 2'i32: "AlwaysFull"
-  else: "StorageProviderPopulationPolicy(" & $int32(v) & ")"
-const StorageProviderPopulationPolicy_Full* = StorageProviderPopulationPolicy(1'i32)
-const StorageProviderPopulationPolicy_AlwaysFull* = StorageProviderPopulationPolicy(2'i32)
+  case ord(v)
+  of 1: "Full"
+  of 2: "AlwaysFull"
+  else: "StorageProviderPopulationPolicy(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderProtectionMode  (enum)
-type StorageProviderProtectionMode* = distinct int32
-proc `==`*(a, b: StorageProviderProtectionMode): bool {.borrow.}
+type StorageProviderProtectionMode* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  Personal = 1'i32
 proc `$`*(v: StorageProviderProtectionMode): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "Personal"
-  else: "StorageProviderProtectionMode(" & $int32(v) & ")"
-const StorageProviderProtectionMode_Unknown* = StorageProviderProtectionMode(0'i32)
-const StorageProviderProtectionMode_Personal* = StorageProviderProtectionMode(1'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "Personal"
+  else: "StorageProviderProtectionMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderResultKind  (enum)
-type StorageProviderResultKind* = distinct int32
-proc `==`*(a, b: StorageProviderResultKind): bool {.borrow.}
+type StorageProviderResultKind* {.pure, size: 4.} = enum
+  Search = 0'i32
+  Recommended = 1'i32
+  Favorites = 2'i32
+  Recent = 3'i32
+  Shared = 4'i32
+  RelatedFiles = 5'i32
+  RelatedConversations = 6'i32
 proc `$`*(v: StorageProviderResultKind): string =
-  case int32(v)
-  of 0'i32: "Search"
-  of 1'i32: "Recommended"
-  of 2'i32: "Favorites"
-  of 3'i32: "Recent"
-  of 4'i32: "Shared"
-  of 5'i32: "RelatedFiles"
-  of 6'i32: "RelatedConversations"
-  else: "StorageProviderResultKind(" & $int32(v) & ")"
-const StorageProviderResultKind_Search* = StorageProviderResultKind(0'i32)
-const StorageProviderResultKind_Recommended* = StorageProviderResultKind(1'i32)
-const StorageProviderResultKind_Favorites* = StorageProviderResultKind(2'i32)
-const StorageProviderResultKind_Recent* = StorageProviderResultKind(3'i32)
-const StorageProviderResultKind_Shared* = StorageProviderResultKind(4'i32)
-const StorageProviderResultKind_RelatedFiles* = StorageProviderResultKind(5'i32)
-const StorageProviderResultKind_RelatedConversations* = StorageProviderResultKind(6'i32)
+  case ord(v)
+  of 0: "Search"
+  of 1: "Recommended"
+  of 2: "Favorites"
+  of 3: "Recent"
+  of 4: "Shared"
+  of 5: "RelatedFiles"
+  of 6: "RelatedConversations"
+  else: "StorageProviderResultKind(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderResultUsageKind  (enum)
-type StorageProviderResultUsageKind* = distinct int32
-proc `==`*(a, b: StorageProviderResultUsageKind): bool {.borrow.}
+type StorageProviderResultUsageKind* {.pure, size: 4.} = enum
+  Rendered = 0'i32
+  Opened = 1'i32
+  SuggestionResponseReceived = 2'i32
 proc `$`*(v: StorageProviderResultUsageKind): string =
-  case int32(v)
-  of 0'i32: "Rendered"
-  of 1'i32: "Opened"
-  of 2'i32: "SuggestionResponseReceived"
-  else: "StorageProviderResultUsageKind(" & $int32(v) & ")"
-const StorageProviderResultUsageKind_Rendered* = StorageProviderResultUsageKind(0'i32)
-const StorageProviderResultUsageKind_Opened* = StorageProviderResultUsageKind(1'i32)
-const StorageProviderResultUsageKind_SuggestionResponseReceived* = StorageProviderResultUsageKind(2'i32)
+  case ord(v)
+  of 0: "Rendered"
+  of 1: "Opened"
+  of 2: "SuggestionResponseReceived"
+  else: "StorageProviderResultUsageKind(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderSearchMatchKind  (enum)
-type StorageProviderSearchMatchKind* = distinct int32
-proc `==`*(a, b: StorageProviderSearchMatchKind): bool {.borrow.}
+type StorageProviderSearchMatchKind* {.pure, size: 4.} = enum
+  Lexical = 0'i32
+  Semantic = 1'i32
 proc `$`*(v: StorageProviderSearchMatchKind): string =
-  case int32(v)
-  of 0'i32: "Lexical"
-  of 1'i32: "Semantic"
-  else: "StorageProviderSearchMatchKind(" & $int32(v) & ")"
-const StorageProviderSearchMatchKind_Lexical* = StorageProviderSearchMatchKind(0'i32)
-const StorageProviderSearchMatchKind_Semantic* = StorageProviderSearchMatchKind(1'i32)
+  case ord(v)
+  of 0: "Lexical"
+  of 1: "Semantic"
+  else: "StorageProviderSearchMatchKind(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderSearchQueryStatus  (enum)
-type StorageProviderSearchQueryStatus* = distinct int32
-proc `==`*(a, b: StorageProviderSearchQueryStatus): bool {.borrow.}
+type StorageProviderSearchQueryStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  Error = 1'i32
+  Timeout = 2'i32
+  NoNetwork = 3'i32
+  NetworkError = 4'i32
+  NotSignedIn = 5'i32
+  QueryNotSupported = 6'i32
+  SortOrderNotSupported = 7'i32
 proc `$`*(v: StorageProviderSearchQueryStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "Error"
-  of 2'i32: "Timeout"
-  of 3'i32: "NoNetwork"
-  of 4'i32: "NetworkError"
-  of 5'i32: "NotSignedIn"
-  of 6'i32: "QueryNotSupported"
-  of 7'i32: "SortOrderNotSupported"
-  else: "StorageProviderSearchQueryStatus(" & $int32(v) & ")"
-const StorageProviderSearchQueryStatus_Success* = StorageProviderSearchQueryStatus(0'i32)
-const StorageProviderSearchQueryStatus_Error* = StorageProviderSearchQueryStatus(1'i32)
-const StorageProviderSearchQueryStatus_Timeout* = StorageProviderSearchQueryStatus(2'i32)
-const StorageProviderSearchQueryStatus_NoNetwork* = StorageProviderSearchQueryStatus(3'i32)
-const StorageProviderSearchQueryStatus_NetworkError* = StorageProviderSearchQueryStatus(4'i32)
-const StorageProviderSearchQueryStatus_NotSignedIn* = StorageProviderSearchQueryStatus(5'i32)
-const StorageProviderSearchQueryStatus_QueryNotSupported* = StorageProviderSearchQueryStatus(6'i32)
-const StorageProviderSearchQueryStatus_SortOrderNotSupported* = StorageProviderSearchQueryStatus(7'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "Error"
+  of 2: "Timeout"
+  of 3: "NoNetwork"
+  of 4: "NetworkError"
+  of 5: "NotSignedIn"
+  of 6: "QueryNotSupported"
+  of 7: "SortOrderNotSupported"
+  else: "StorageProviderSearchQueryStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderShareLinkState  (enum)
-type StorageProviderShareLinkState* = distinct int32
-proc `==`*(a, b: StorageProviderShareLinkState): bool {.borrow.}
+type StorageProviderShareLinkState* {.pure, size: 4.} = enum
+  Enabled = 0'i32
+  Disabled = 1'i32
 proc `$`*(v: StorageProviderShareLinkState): string =
-  case int32(v)
-  of 0'i32: "Enabled"
-  of 1'i32: "Disabled"
-  else: "StorageProviderShareLinkState(" & $int32(v) & ")"
-const StorageProviderShareLinkState_Enabled* = StorageProviderShareLinkState(0'i32)
-const StorageProviderShareLinkState_Disabled* = StorageProviderShareLinkState(1'i32)
+  case ord(v)
+  of 0: "Enabled"
+  of 1: "Disabled"
+  else: "StorageProviderShareLinkState(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderState  (enum)
-type StorageProviderState* = distinct int32
-proc `==`*(a, b: StorageProviderState): bool {.borrow.}
+type StorageProviderState* {.pure, size: 4.} = enum
+  InSync = 0'i32
+  Syncing = 1'i32
+  Paused = 2'i32
+  Error = 3'i32
+  Warning = 4'i32
+  Offline = 5'i32
 proc `$`*(v: StorageProviderState): string =
-  case int32(v)
-  of 0'i32: "InSync"
-  of 1'i32: "Syncing"
-  of 2'i32: "Paused"
-  of 3'i32: "Error"
-  of 4'i32: "Warning"
-  of 5'i32: "Offline"
-  else: "StorageProviderState(" & $int32(v) & ")"
-const StorageProviderState_InSync* = StorageProviderState(0'i32)
-const StorageProviderState_Syncing* = StorageProviderState(1'i32)
-const StorageProviderState_Paused* = StorageProviderState(2'i32)
-const StorageProviderState_Error* = StorageProviderState(3'i32)
-const StorageProviderState_Warning* = StorageProviderState(4'i32)
-const StorageProviderState_Offline* = StorageProviderState(5'i32)
+  case ord(v)
+  of 0: "InSync"
+  of 1: "Syncing"
+  of 2: "Paused"
+  of 3: "Error"
+  of 4: "Warning"
+  of 5: "Offline"
+  else: "StorageProviderState(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderUICommandState  (enum)
-type StorageProviderUICommandState* = distinct int32
-proc `==`*(a, b: StorageProviderUICommandState): bool {.borrow.}
+type StorageProviderUICommandState* {.pure, size: 4.} = enum
+  Enabled = 0'i32
+  Disabled = 1'i32
+  Hidden = 2'i32
 proc `$`*(v: StorageProviderUICommandState): string =
-  case int32(v)
-  of 0'i32: "Enabled"
-  of 1'i32: "Disabled"
-  of 2'i32: "Hidden"
-  else: "StorageProviderUICommandState(" & $int32(v) & ")"
-const StorageProviderUICommandState_Enabled* = StorageProviderUICommandState(0'i32)
-const StorageProviderUICommandState_Disabled* = StorageProviderUICommandState(1'i32)
-const StorageProviderUICommandState_Hidden* = StorageProviderUICommandState(2'i32)
+  case ord(v)
+  of 0: "Enabled"
+  of 1: "Disabled"
+  of 2: "Hidden"
+  else: "StorageProviderUICommandState(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderUriSourceStatus  (enum)
-type StorageProviderUriSourceStatus* = distinct int32
-proc `==`*(a, b: StorageProviderUriSourceStatus): bool {.borrow.}
+type StorageProviderUriSourceStatus* {.pure, size: 4.} = enum
+  Success = 0'i32
+  NoSyncRoot = 1'i32
+  FileNotFound = 2'i32
 proc `$`*(v: StorageProviderUriSourceStatus): string =
-  case int32(v)
-  of 0'i32: "Success"
-  of 1'i32: "NoSyncRoot"
-  of 2'i32: "FileNotFound"
-  else: "StorageProviderUriSourceStatus(" & $int32(v) & ")"
-const StorageProviderUriSourceStatus_Success* = StorageProviderUriSourceStatus(0'i32)
-const StorageProviderUriSourceStatus_NoSyncRoot* = StorageProviderUriSourceStatus(1'i32)
-const StorageProviderUriSourceStatus_FileNotFound* = StorageProviderUriSourceStatus(2'i32)
+  case ord(v)
+  of 0: "Success"
+  of 1: "NoSyncRoot"
+  of 2: "FileNotFound"
+  else: "StorageProviderUriSourceStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.UIStatus  (enum)
-type UIStatus* = distinct int32
-proc `==`*(a, b: UIStatus): bool {.borrow.}
+type UIStatus* {.pure, size: 4.} = enum
+  Unavailable = 0'i32
+  Hidden = 1'i32
+  Visible = 2'i32
+  Complete = 3'i32
 proc `$`*(v: UIStatus): string =
-  case int32(v)
-  of 0'i32: "Unavailable"
-  of 1'i32: "Hidden"
-  of 2'i32: "Visible"
-  of 3'i32: "Complete"
-  else: "UIStatus(" & $int32(v) & ")"
-const UIStatus_Unavailable* = UIStatus(0'i32)
-const UIStatus_Hidden* = UIStatus(1'i32)
-const UIStatus_Visible* = UIStatus(2'i32)
-const UIStatus_Complete* = UIStatus(3'i32)
+  case ord(v)
+  of 0: "Unavailable"
+  of 1: "Hidden"
+  of 2: "Visible"
+  of 3: "Complete"
+  else: "UIStatus(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.WriteActivationMode  (enum)
-type WriteActivationMode* = distinct int32
-proc `==`*(a, b: WriteActivationMode): bool {.borrow.}
+type WriteActivationMode* {.pure, size: 4.} = enum
+  ReadOnly = 0'i32
+  NotNeeded = 1'i32
+  AfterWrite = 2'i32
 proc `$`*(v: WriteActivationMode): string =
-  case int32(v)
-  of 0'i32: "ReadOnly"
-  of 1'i32: "NotNeeded"
-  of 2'i32: "AfterWrite"
-  else: "WriteActivationMode(" & $int32(v) & ")"
-const WriteActivationMode_ReadOnly* = WriteActivationMode(0'i32)
-const WriteActivationMode_NotNeeded* = WriteActivationMode(1'i32)
-const WriteActivationMode_AfterWrite* = WriteActivationMode(2'i32)
+  case ord(v)
+  of 0: "ReadOnly"
+  of 1: "NotNeeded"
+  of 2: "AfterWrite"
+  else: "WriteActivationMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.CommonFileQuery  (enum)
-type CommonFileQuery* = distinct int32
-proc `==`*(a, b: CommonFileQuery): bool {.borrow.}
+type CommonFileQuery* {.pure, size: 4.} = enum
+  DefaultQuery = 0'i32
+  OrderByName = 1'i32
+  OrderByTitle = 2'i32
+  OrderByMusicProperties = 3'i32
+  OrderBySearchRank = 4'i32
+  OrderByDate = 5'i32
 proc `$`*(v: CommonFileQuery): string =
-  case int32(v)
-  of 0'i32: "DefaultQuery"
-  of 1'i32: "OrderByName"
-  of 2'i32: "OrderByTitle"
-  of 3'i32: "OrderByMusicProperties"
-  of 4'i32: "OrderBySearchRank"
-  of 5'i32: "OrderByDate"
-  else: "CommonFileQuery(" & $int32(v) & ")"
-const CommonFileQuery_DefaultQuery* = CommonFileQuery(0'i32)
-const CommonFileQuery_OrderByName* = CommonFileQuery(1'i32)
-const CommonFileQuery_OrderByTitle* = CommonFileQuery(2'i32)
-const CommonFileQuery_OrderByMusicProperties* = CommonFileQuery(3'i32)
-const CommonFileQuery_OrderBySearchRank* = CommonFileQuery(4'i32)
-const CommonFileQuery_OrderByDate* = CommonFileQuery(5'i32)
+  case ord(v)
+  of 0: "DefaultQuery"
+  of 1: "OrderByName"
+  of 2: "OrderByTitle"
+  of 3: "OrderByMusicProperties"
+  of 4: "OrderBySearchRank"
+  of 5: "OrderByDate"
+  else: "CommonFileQuery(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.CommonFolderQuery  (enum)
-type CommonFolderQuery* = distinct int32
-proc `==`*(a, b: CommonFolderQuery): bool {.borrow.}
+type CommonFolderQuery* {.pure, size: 4.} = enum
+  DefaultQuery = 0'i32
+  GroupByYear = 100'i32
+  GroupByMonth = 101'i32
+  GroupByArtist = 102'i32
+  GroupByAlbum = 103'i32
+  GroupByAlbumArtist = 104'i32
+  GroupByComposer = 105'i32
+  GroupByGenre = 106'i32
+  GroupByPublishedYear = 107'i32
+  GroupByRating = 108'i32
+  GroupByTag = 109'i32
+  GroupByAuthor = 110'i32
+  GroupByType = 111'i32
 proc `$`*(v: CommonFolderQuery): string =
-  case int32(v)
-  of 0'i32: "DefaultQuery"
-  of 100'i32: "GroupByYear"
-  of 101'i32: "GroupByMonth"
-  of 102'i32: "GroupByArtist"
-  of 103'i32: "GroupByAlbum"
-  of 104'i32: "GroupByAlbumArtist"
-  of 105'i32: "GroupByComposer"
-  of 106'i32: "GroupByGenre"
-  of 107'i32: "GroupByPublishedYear"
-  of 108'i32: "GroupByRating"
-  of 109'i32: "GroupByTag"
-  of 110'i32: "GroupByAuthor"
-  of 111'i32: "GroupByType"
-  else: "CommonFolderQuery(" & $int32(v) & ")"
-const CommonFolderQuery_DefaultQuery* = CommonFolderQuery(0'i32)
-const CommonFolderQuery_GroupByYear* = CommonFolderQuery(100'i32)
-const CommonFolderQuery_GroupByMonth* = CommonFolderQuery(101'i32)
-const CommonFolderQuery_GroupByArtist* = CommonFolderQuery(102'i32)
-const CommonFolderQuery_GroupByAlbum* = CommonFolderQuery(103'i32)
-const CommonFolderQuery_GroupByAlbumArtist* = CommonFolderQuery(104'i32)
-const CommonFolderQuery_GroupByComposer* = CommonFolderQuery(105'i32)
-const CommonFolderQuery_GroupByGenre* = CommonFolderQuery(106'i32)
-const CommonFolderQuery_GroupByPublishedYear* = CommonFolderQuery(107'i32)
-const CommonFolderQuery_GroupByRating* = CommonFolderQuery(108'i32)
-const CommonFolderQuery_GroupByTag* = CommonFolderQuery(109'i32)
-const CommonFolderQuery_GroupByAuthor* = CommonFolderQuery(110'i32)
-const CommonFolderQuery_GroupByType* = CommonFolderQuery(111'i32)
+  case ord(v)
+  of 0: "DefaultQuery"
+  of 100: "GroupByYear"
+  of 101: "GroupByMonth"
+  of 102: "GroupByArtist"
+  of 103: "GroupByAlbum"
+  of 104: "GroupByAlbumArtist"
+  of 105: "GroupByComposer"
+  of 106: "GroupByGenre"
+  of 107: "GroupByPublishedYear"
+  of 108: "GroupByRating"
+  of 109: "GroupByTag"
+  of 110: "GroupByAuthor"
+  of 111: "GroupByType"
+  else: "CommonFolderQuery(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.DateStackOption  (enum)
-type DateStackOption* = distinct int32
-proc `==`*(a, b: DateStackOption): bool {.borrow.}
+type DateStackOption* {.pure, size: 4.} = enum
+  None = 0'i32
+  Year = 1'i32
+  Month = 2'i32
 proc `$`*(v: DateStackOption): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Year"
-  of 2'i32: "Month"
-  else: "DateStackOption(" & $int32(v) & ")"
-const DateStackOption_None* = DateStackOption(0'i32)
-const DateStackOption_Year* = DateStackOption(1'i32)
-const DateStackOption_Month* = DateStackOption(2'i32)
+  case ord(v)
+  of 0: "None"
+  of 1: "Year"
+  of 2: "Month"
+  else: "DateStackOption(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.FolderDepth  (enum)
-type FolderDepth* = distinct int32
-proc `==`*(a, b: FolderDepth): bool {.borrow.}
+type FolderDepth* {.pure, size: 4.} = enum
+  Shallow = 0'i32
+  Deep = 1'i32
 proc `$`*(v: FolderDepth): string =
-  case int32(v)
-  of 0'i32: "Shallow"
-  of 1'i32: "Deep"
-  else: "FolderDepth(" & $int32(v) & ")"
-const FolderDepth_Shallow* = FolderDepth(0'i32)
-const FolderDepth_Deep* = FolderDepth(1'i32)
+  case ord(v)
+  of 0: "Shallow"
+  of 1: "Deep"
+  else: "FolderDepth(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.IndexedState  (enum)
-type IndexedState* = distinct int32
-proc `==`*(a, b: IndexedState): bool {.borrow.}
+type IndexedState* {.pure, size: 4.} = enum
+  Unknown = 0'i32
+  NotIndexed = 1'i32
+  PartiallyIndexed = 2'i32
+  FullyIndexed = 3'i32
 proc `$`*(v: IndexedState): string =
-  case int32(v)
-  of 0'i32: "Unknown"
-  of 1'i32: "NotIndexed"
-  of 2'i32: "PartiallyIndexed"
-  of 3'i32: "FullyIndexed"
-  else: "IndexedState(" & $int32(v) & ")"
-const IndexedState_Unknown* = IndexedState(0'i32)
-const IndexedState_NotIndexed* = IndexedState(1'i32)
-const IndexedState_PartiallyIndexed* = IndexedState(2'i32)
-const IndexedState_FullyIndexed* = IndexedState(3'i32)
+  case ord(v)
+  of 0: "Unknown"
+  of 1: "NotIndexed"
+  of 2: "PartiallyIndexed"
+  of 3: "FullyIndexed"
+  else: "IndexedState(" & $ord(v) & ")"
 
 ## Windows.Storage.Search.IndexerOption  (enum)
-type IndexerOption* = distinct int32
-proc `==`*(a, b: IndexerOption): bool {.borrow.}
+type IndexerOption* {.pure, size: 4.} = enum
+  UseIndexerWhenAvailable = 0'i32
+  OnlyUseIndexer = 1'i32
+  DoNotUseIndexer = 2'i32
+  OnlyUseIndexerAndOptimizeForIndexedProperties = 3'i32
 proc `$`*(v: IndexerOption): string =
-  case int32(v)
-  of 0'i32: "UseIndexerWhenAvailable"
-  of 1'i32: "OnlyUseIndexer"
-  of 2'i32: "DoNotUseIndexer"
-  of 3'i32: "OnlyUseIndexerAndOptimizeForIndexedProperties"
-  else: "IndexerOption(" & $int32(v) & ")"
-const IndexerOption_UseIndexerWhenAvailable* = IndexerOption(0'i32)
-const IndexerOption_OnlyUseIndexer* = IndexerOption(1'i32)
-const IndexerOption_DoNotUseIndexer* = IndexerOption(2'i32)
-const IndexerOption_OnlyUseIndexerAndOptimizeForIndexedProperties* = IndexerOption(3'i32)
+  case ord(v)
+  of 0: "UseIndexerWhenAvailable"
+  of 1: "OnlyUseIndexer"
+  of 2: "DoNotUseIndexer"
+  of 3: "OnlyUseIndexerAndOptimizeForIndexedProperties"
+  else: "IndexerOption(" & $ord(v) & ")"
 
 ## Windows.Storage.StorageDeleteOption  (enum)
-type StorageDeleteOption* = distinct int32
-proc `==`*(a, b: StorageDeleteOption): bool {.borrow.}
+type StorageDeleteOption* {.pure, size: 4.} = enum
+  Default = 0'i32
+  PermanentDelete = 1'i32
 proc `$`*(v: StorageDeleteOption): string =
-  case int32(v)
-  of 0'i32: "Default"
-  of 1'i32: "PermanentDelete"
-  else: "StorageDeleteOption(" & $int32(v) & ")"
-const StorageDeleteOption_Default* = StorageDeleteOption(0'i32)
-const StorageDeleteOption_PermanentDelete* = StorageDeleteOption(1'i32)
+  case ord(v)
+  of 0: "Default"
+  of 1: "PermanentDelete"
+  else: "StorageDeleteOption(" & $ord(v) & ")"
 
 ## Windows.Storage.StorageItemTypes  (enum)
 type StorageItemTypes* = distinct int32
 proc `==`*(a, b: StorageItemTypes): bool {.borrow.}
+proc `or`*(a, b: StorageItemTypes): StorageItemTypes {.borrow.}
+proc `and`*(a, b: StorageItemTypes): StorageItemTypes {.borrow.}
+proc `not`*(a: StorageItemTypes): StorageItemTypes {.borrow.}
+proc contains*(a, b: StorageItemTypes): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: StorageItemTypes): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "File"
-  of 2'i32: "Folder"
-  else: "StorageItemTypes(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "File"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "Folder"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "StorageItemTypes(" & $rest & ")"
 const StorageItemTypes_None* = StorageItemTypes(0'i32)
 const StorageItemTypes_File* = StorageItemTypes(1'i32)
 const StorageItemTypes_Folder* = StorageItemTypes(2'i32)
 
 ## Windows.Storage.StorageLibraryChangeType  (enum)
-type StorageLibraryChangeType* = distinct int32
-proc `==`*(a, b: StorageLibraryChangeType): bool {.borrow.}
+type StorageLibraryChangeType* {.pure, size: 4.} = enum
+  Created = 0'i32
+  Deleted = 1'i32
+  MovedOrRenamed = 2'i32
+  ContentsChanged = 3'i32
+  MovedOutOfLibrary = 4'i32
+  MovedIntoLibrary = 5'i32
+  ContentsReplaced = 6'i32
+  IndexingStatusChanged = 7'i32
+  EncryptionChanged = 8'i32
+  ChangeTrackingLost = 9'i32
 proc `$`*(v: StorageLibraryChangeType): string =
-  case int32(v)
-  of 0'i32: "Created"
-  of 1'i32: "Deleted"
-  of 2'i32: "MovedOrRenamed"
-  of 3'i32: "ContentsChanged"
-  of 4'i32: "MovedOutOfLibrary"
-  of 5'i32: "MovedIntoLibrary"
-  of 6'i32: "ContentsReplaced"
-  of 7'i32: "IndexingStatusChanged"
-  of 8'i32: "EncryptionChanged"
-  of 9'i32: "ChangeTrackingLost"
-  else: "StorageLibraryChangeType(" & $int32(v) & ")"
-const StorageLibraryChangeType_Created* = StorageLibraryChangeType(0'i32)
-const StorageLibraryChangeType_Deleted* = StorageLibraryChangeType(1'i32)
-const StorageLibraryChangeType_MovedOrRenamed* = StorageLibraryChangeType(2'i32)
-const StorageLibraryChangeType_ContentsChanged* = StorageLibraryChangeType(3'i32)
-const StorageLibraryChangeType_MovedOutOfLibrary* = StorageLibraryChangeType(4'i32)
-const StorageLibraryChangeType_MovedIntoLibrary* = StorageLibraryChangeType(5'i32)
-const StorageLibraryChangeType_ContentsReplaced* = StorageLibraryChangeType(6'i32)
-const StorageLibraryChangeType_IndexingStatusChanged* = StorageLibraryChangeType(7'i32)
-const StorageLibraryChangeType_EncryptionChanged* = StorageLibraryChangeType(8'i32)
-const StorageLibraryChangeType_ChangeTrackingLost* = StorageLibraryChangeType(9'i32)
+  case ord(v)
+  of 0: "Created"
+  of 1: "Deleted"
+  of 2: "MovedOrRenamed"
+  of 3: "ContentsChanged"
+  of 4: "MovedOutOfLibrary"
+  of 5: "MovedIntoLibrary"
+  of 6: "ContentsReplaced"
+  of 7: "IndexingStatusChanged"
+  of 8: "EncryptionChanged"
+  of 9: "ChangeTrackingLost"
+  else: "StorageLibraryChangeType(" & $ord(v) & ")"
 
 ## Windows.Storage.StorageOpenOptions  (enum)
 type StorageOpenOptions* = distinct int32
 proc `==`*(a, b: StorageOpenOptions): bool {.borrow.}
+proc `or`*(a, b: StorageOpenOptions): StorageOpenOptions {.borrow.}
+proc `and`*(a, b: StorageOpenOptions): StorageOpenOptions {.borrow.}
+proc `not`*(a: StorageOpenOptions): StorageOpenOptions {.borrow.}
+proc contains*(a, b: StorageOpenOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: StorageOpenOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "AllowOnlyReaders"
-  of 2'i32: "AllowReadersAndWriters"
-  else: "StorageOpenOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "AllowOnlyReaders"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "AllowReadersAndWriters"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "StorageOpenOptions(" & $rest & ")"
 const StorageOpenOptions_None* = StorageOpenOptions(0'i32)
 const StorageOpenOptions_AllowOnlyReaders* = StorageOpenOptions(1'i32)
 const StorageOpenOptions_AllowReadersAndWriters* = StorageOpenOptions(2'i32)
 
 ## Windows.Storage.StreamedFileFailureMode  (enum)
-type StreamedFileFailureMode* = distinct int32
-proc `==`*(a, b: StreamedFileFailureMode): bool {.borrow.}
+type StreamedFileFailureMode* {.pure, size: 4.} = enum
+  Failed = 0'i32
+  CurrentlyUnavailable = 1'i32
+  Incomplete = 2'i32
 proc `$`*(v: StreamedFileFailureMode): string =
-  case int32(v)
-  of 0'i32: "Failed"
-  of 1'i32: "CurrentlyUnavailable"
-  of 2'i32: "Incomplete"
-  else: "StreamedFileFailureMode(" & $int32(v) & ")"
-const StreamedFileFailureMode_Failed* = StreamedFileFailureMode(0'i32)
-const StreamedFileFailureMode_CurrentlyUnavailable* = StreamedFileFailureMode(1'i32)
-const StreamedFileFailureMode_Incomplete* = StreamedFileFailureMode(2'i32)
+  case ord(v)
+  of 0: "Failed"
+  of 1: "CurrentlyUnavailable"
+  of 2: "Incomplete"
+  else: "StreamedFileFailureMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Streams.ByteOrder  (enum)
-type ByteOrder* = distinct int32
-proc `==`*(a, b: ByteOrder): bool {.borrow.}
+type ByteOrder* {.pure, size: 4.} = enum
+  LittleEndian = 0'i32
+  BigEndian = 1'i32
 proc `$`*(v: ByteOrder): string =
-  case int32(v)
-  of 0'i32: "LittleEndian"
-  of 1'i32: "BigEndian"
-  else: "ByteOrder(" & $int32(v) & ")"
-const ByteOrder_LittleEndian* = ByteOrder(0'i32)
-const ByteOrder_BigEndian* = ByteOrder(1'i32)
+  case ord(v)
+  of 0: "LittleEndian"
+  of 1: "BigEndian"
+  else: "ByteOrder(" & $ord(v) & ")"
 
 ## Windows.Storage.Streams.FileOpenDisposition  (enum)
-type FileOpenDisposition* = distinct int32
-proc `==`*(a, b: FileOpenDisposition): bool {.borrow.}
+type FileOpenDisposition* {.pure, size: 4.} = enum
+  OpenExisting = 0'i32
+  OpenAlways = 1'i32
+  CreateNew = 2'i32
+  CreateAlways = 3'i32
+  TruncateExisting = 4'i32
 proc `$`*(v: FileOpenDisposition): string =
-  case int32(v)
-  of 0'i32: "OpenExisting"
-  of 1'i32: "OpenAlways"
-  of 2'i32: "CreateNew"
-  of 3'i32: "CreateAlways"
-  of 4'i32: "TruncateExisting"
-  else: "FileOpenDisposition(" & $int32(v) & ")"
-const FileOpenDisposition_OpenExisting* = FileOpenDisposition(0'i32)
-const FileOpenDisposition_OpenAlways* = FileOpenDisposition(1'i32)
-const FileOpenDisposition_CreateNew* = FileOpenDisposition(2'i32)
-const FileOpenDisposition_CreateAlways* = FileOpenDisposition(3'i32)
-const FileOpenDisposition_TruncateExisting* = FileOpenDisposition(4'i32)
+  case ord(v)
+  of 0: "OpenExisting"
+  of 1: "OpenAlways"
+  of 2: "CreateNew"
+  of 3: "CreateAlways"
+  of 4: "TruncateExisting"
+  else: "FileOpenDisposition(" & $ord(v) & ")"
 
 ## Windows.Storage.Streams.InputStreamOptions  (enum)
 type InputStreamOptions* = distinct int32
 proc `==`*(a, b: InputStreamOptions): bool {.borrow.}
+proc `or`*(a, b: InputStreamOptions): InputStreamOptions {.borrow.}
+proc `and`*(a, b: InputStreamOptions): InputStreamOptions {.borrow.}
+proc `not`*(a: InputStreamOptions): InputStreamOptions {.borrow.}
+proc contains*(a, b: InputStreamOptions): bool =
+  ## Is every bit of `b` set in `a`?
+  (int32(a) and int32(b)) == int32(b)
 proc `$`*(v: InputStreamOptions): string =
-  case int32(v)
-  of 0'i32: "None"
-  of 1'i32: "Partial"
-  of 2'i32: "ReadAhead"
-  else: "InputStreamOptions(" & $int32(v) & ")"
+  ## The set bits by name, or the number if none match.
+  var rest = int32(v)
+  result = ""
+  if (rest and 1'i32) == 1'i32:
+    if result.len > 0: result.add " or "
+    result.add "Partial"
+    rest = rest and not 1'i32
+  if (rest and 2'i32) == 2'i32:
+    if result.len > 0: result.add " or "
+    result.add "ReadAhead"
+    rest = rest and not 2'i32
+  if rest != 0 or result.len == 0:
+    if result.len > 0: result.add " or "
+    result.add "InputStreamOptions(" & $rest & ")"
 const InputStreamOptions_None* = InputStreamOptions(0'i32)
 const InputStreamOptions_Partial* = InputStreamOptions(1'i32)
 const InputStreamOptions_ReadAhead* = InputStreamOptions(2'i32)
 
 ## Windows.Storage.Streams.UnicodeEncoding  (enum)
-type UnicodeEncoding* = distinct int32
-proc `==`*(a, b: UnicodeEncoding): bool {.borrow.}
+type UnicodeEncoding* {.pure, size: 4.} = enum
+  Utf8 = 0'i32
+  Utf16LE = 1'i32
+  Utf16BE = 2'i32
 proc `$`*(v: UnicodeEncoding): string =
-  case int32(v)
-  of 0'i32: "Utf8"
-  of 1'i32: "Utf16LE"
-  of 2'i32: "Utf16BE"
-  else: "UnicodeEncoding(" & $int32(v) & ")"
-const UnicodeEncoding_Utf8* = UnicodeEncoding(0'i32)
-const UnicodeEncoding_Utf16LE* = UnicodeEncoding(1'i32)
-const UnicodeEncoding_Utf16BE* = UnicodeEncoding(2'i32)
+  case ord(v)
+  of 0: "Utf8"
+  of 1: "Utf16LE"
+  of 2: "Utf16BE"
+  else: "UnicodeEncoding(" & $ord(v) & ")"
 
 ## Windows.Storage.AccessCache.AccessListEntry  (struct)
 type AccessListEntry* {.pure.} = object
@@ -973,577 +1150,577 @@ const IID_IItemRemovedEventArgs* = GUID(
     data1: 0x59677E5C'u32, data2: 0x55BE'u16, data3: 0x4C66'u16,
     data4: [0xBA'u8, 0x66, 0x5E, 0xAE, 0xA7, 0x9D, 0x26, 0x31])
 const Slot_IItemRemovedEventArgs_get_RemovedEntry* = 6
-type Fn_IItemRemovedEventArgs_get_RemovedEntry* = proc(self: pointer, value: ptr AccessListEntry): HRESULT {.stdcall.}
+type Fn_IItemRemovedEventArgs_get_RemovedEntry* = proc(self: pointer, value: ptr AccessListEntry): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics
 const IID_IStorageApplicationPermissionsStatics* = GUID(
     data1: 0x4391DFAA'u32, data2: 0xD033'u16, data3: 0x48F9'u16,
     data4: [0x80'u8, 0x60, 0x3E, 0xC8, 0x47, 0xD2, 0xE3, 0xF1])
 const Slot_IStorageApplicationPermissionsStatics_get_FutureAccessList* = 6
-type Fn_IStorageApplicationPermissionsStatics_get_FutureAccessList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageApplicationPermissionsStatics_get_FutureAccessList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageApplicationPermissionsStatics_get_MostRecentlyUsedList* = 7
-type Fn_IStorageApplicationPermissionsStatics_get_MostRecentlyUsedList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageApplicationPermissionsStatics_get_MostRecentlyUsedList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2
 const IID_IStorageApplicationPermissionsStatics2* = GUID(
     data1: 0x072716EC'u32, data2: 0xAA05'u16, data3: 0x4294'u16,
     data4: [0x9A'u8, 0x11, 0x1A, 0x3D, 0x04, 0x51, 0x9A, 0xD0])
 const Slot_IStorageApplicationPermissionsStatics2_GetFutureAccessListForUser* = 6
-type Fn_IStorageApplicationPermissionsStatics2_GetFutureAccessListForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageApplicationPermissionsStatics2_GetFutureAccessListForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageApplicationPermissionsStatics2_GetMostRecentlyUsedListForUser* = 7
-type Fn_IStorageApplicationPermissionsStatics2_GetMostRecentlyUsedListForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageApplicationPermissionsStatics2_GetMostRecentlyUsedListForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.AccessCache.IStorageItemAccessList
 const IID_IStorageItemAccessList* = GUID(
     data1: 0x2CAFF6AD'u32, data2: 0xDE90'u16, data3: 0x47F5'u16,
     data4: [0xB2'u8, 0xC3, 0xDD, 0x36, 0xC9, 0xFD, 0xD4, 0x53])
 const Slot_IStorageItemAccessList_Add* = 6
-type Fn_IStorageItemAccessList_Add* = proc(self: pointer, a1IStorageItem: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_Add* = proc(self: pointer, a1IStorageItem: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_Add2* = 7
-type Fn_IStorageItemAccessList_Add2* = proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_Add2* = proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_AddOrReplace* = 8
-type Fn_IStorageItemAccessList_AddOrReplace* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_AddOrReplace* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_AddOrReplace2* = 9
-type Fn_IStorageItemAccessList_AddOrReplace2* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer, a3: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_AddOrReplace2* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer, a3: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetItemAsync* = 10
-type Fn_IStorageItemAccessList_GetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetFileAsync* = 11
-type Fn_IStorageItemAccessList_GetFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetFolderAsync* = 12
-type Fn_IStorageItemAccessList_GetFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetItemAsync2* = 13
-type Fn_IStorageItemAccessList_GetItemAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetItemAsync2* = proc(self: pointer, a1: HSTRING, a2: AccessCacheOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetFileAsync2* = 14
-type Fn_IStorageItemAccessList_GetFileAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetFileAsync2* = proc(self: pointer, a1: HSTRING, a2: AccessCacheOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_GetFolderAsync2* = 15
-type Fn_IStorageItemAccessList_GetFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_GetFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: AccessCacheOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_Remove* = 16
-type Fn_IStorageItemAccessList_Remove* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_Remove* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_ContainsItem* = 17
-type Fn_IStorageItemAccessList_ContainsItem* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_ContainsItem* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_Clear* = 18
-type Fn_IStorageItemAccessList_Clear* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_Clear* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_CheckAccess* = 19
-type Fn_IStorageItemAccessList_CheckAccess* = proc(self: pointer, a1IStorageItem: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_CheckAccess* = proc(self: pointer, a1IStorageItem: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_get_Entries* = 20
-type Fn_IStorageItemAccessList_get_Entries* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_get_Entries* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemAccessList_get_MaximumItemsAllowed* = 21
-type Fn_IStorageItemAccessList_get_MaximumItemsAllowed* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IStorageItemAccessList_get_MaximumItemsAllowed* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList
 const IID_IStorageItemMostRecentlyUsedList* = GUID(
     data1: 0x016239D5'u32, data2: 0x510D'u16, data3: 0x411E'u16,
     data4: [0x8C'u8, 0xF1, 0xC3, 0xD1, 0xEF, 0xFA, 0x4C, 0x33])
 const Slot_IStorageItemMostRecentlyUsedList_add_ItemRemoved* = 6
-type Fn_IStorageItemMostRecentlyUsedList_add_ItemRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemMostRecentlyUsedList_add_ItemRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemMostRecentlyUsedList_remove_ItemRemoved* = 7
-type Fn_IStorageItemMostRecentlyUsedList_remove_ItemRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemMostRecentlyUsedList_remove_ItemRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList2
 const IID_IStorageItemMostRecentlyUsedList2* = GUID(
     data1: 0xDA481EA0'u32, data2: 0xED8D'u16, data3: 0x4731'u16,
     data4: [0xA1'u8, 0xDB, 0xE4, 0x4E, 0xE2, 0x20, 0x40, 0x93])
 const Slot_IStorageItemMostRecentlyUsedList2_Add* = 6
-type Fn_IStorageItemMostRecentlyUsedList2_Add* = proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, a3: int32, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemMostRecentlyUsedList2_Add* = proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, a3: RecentStorageItemVisibility, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemMostRecentlyUsedList2_AddOrReplace* = 7
-type Fn_IStorageItemMostRecentlyUsedList2_AddOrReplace* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer, a3: HSTRING, a4: int32): HRESULT {.stdcall.}
+type Fn_IStorageItemMostRecentlyUsedList2_AddOrReplace* = proc(self: pointer, a1: HSTRING, a2IStorageItem: pointer, a3: HSTRING, a4: RecentStorageItemVisibility): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ApplicationDataSetVersionHandler  (delegate)
 const IID_ApplicationDataSetVersionHandler* = GUID(
     data1: 0xA05791E6'u32, data2: 0xCC9F'u16, data3: 0x4687'u16,
     data4: [0xAC'u8, 0xAB, 0xA3, 0x64, 0xFD, 0x78, 0x54, 0x63])
 const Slot_ApplicationDataSetVersionHandler_Invoke* = 3
-type Fn_ApplicationDataSetVersionHandler_Invoke* = proc(self: pointer, a1SetVersionRequest: pointer): HRESULT {.stdcall.}
+type Fn_ApplicationDataSetVersionHandler_Invoke* = proc(self: pointer, a1SetVersionRequest: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.BulkAccess.IFileInformationFactory
 const IID_IFileInformationFactory* = GUID(
     data1: 0x401D88BE'u32, data2: 0x960F'u16, data3: 0x4D6D'u16,
     data4: [0xA7'u8, 0xD0, 0x1A, 0x38, 0x61, 0xE7, 0x6C, 0x83])
 const Slot_IFileInformationFactory_GetItemsAsync* = 6
-type Fn_IFileInformationFactory_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetItemsAsync2* = 7
-type Fn_IFileInformationFactory_GetItemsAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetItemsAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetFilesAsync* = 8
-type Fn_IFileInformationFactory_GetFilesAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetFilesAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetFilesAsync2* = 9
-type Fn_IFileInformationFactory_GetFilesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetFilesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetFoldersAsync* = 10
-type Fn_IFileInformationFactory_GetFoldersAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetFoldersAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetFoldersAsync2* = 11
-type Fn_IFileInformationFactory_GetFoldersAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetFoldersAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetVirtualizedItemsVector* = 12
-type Fn_IFileInformationFactory_GetVirtualizedItemsVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetVirtualizedItemsVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetVirtualizedFilesVector* = 13
-type Fn_IFileInformationFactory_GetVirtualizedFilesVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetVirtualizedFilesVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactory_GetVirtualizedFoldersVector* = 14
-type Fn_IFileInformationFactory_GetVirtualizedFoldersVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactory_GetVirtualizedFoldersVector* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.BulkAccess.IFileInformationFactoryFactory
 const IID_IFileInformationFactoryFactory* = GUID(
     data1: 0x84EA0E7D'u32, data2: 0xE4A2'u16, data3: 0x4F00'u16,
     data4: [0x8A'u8, 0xFA, 0xAF, 0x5E, 0x0F, 0x82, 0x6B, 0xD5])
 const Slot_IFileInformationFactoryFactory_CreateWithMode* = 6
-type Fn_IFileInformationFactoryFactory_CreateWithMode* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactoryFactory_CreateWithMode* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: ThumbnailMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactoryFactory_CreateWithModeAndSize* = 7
-type Fn_IFileInformationFactoryFactory_CreateWithModeAndSize* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: int32, a3: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactoryFactory_CreateWithModeAndSize* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: ThumbnailMode, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptions* = 8
-type Fn_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptions* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: int32, a3: uint32, a4: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptions* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: ThumbnailMode, a3: uint32, a4: ThumbnailOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptionsAndFlags* = 9
-type Fn_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptionsAndFlags* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: int32, a3: uint32, a4: int32, a5: bool, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileInformationFactoryFactory_CreateWithModeAndSizeAndOptionsAndFlags* = proc(self: pointer, a1IStorageQueryResultBase: pointer, a2: ThumbnailMode, a3: uint32, a4: ThumbnailOptions, a5: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.BulkAccess.IStorageItemInformation
 const IID_IStorageItemInformation* = GUID(
     data1: 0x87A5CB8B'u32, data2: 0x8972'u16, data3: 0x4F40'u16,
     data4: [0x8D'u8, 0xE0, 0xD8, 0x6F, 0xB1, 0x79, 0xD8, 0xFA])
 const Slot_IStorageItemInformation_get_MusicProperties* = 6
-type Fn_IStorageItemInformation_get_MusicProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_MusicProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_get_VideoProperties* = 7
-type Fn_IStorageItemInformation_get_VideoProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_VideoProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_get_ImageProperties* = 8
-type Fn_IStorageItemInformation_get_ImageProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_ImageProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_get_DocumentProperties* = 9
-type Fn_IStorageItemInformation_get_DocumentProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_DocumentProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_get_BasicProperties* = 10
-type Fn_IStorageItemInformation_get_BasicProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_BasicProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_get_Thumbnail* = 11
-type Fn_IStorageItemInformation_get_Thumbnail* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_get_Thumbnail* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_add_ThumbnailUpdated* = 12
-type Fn_IStorageItemInformation_add_ThumbnailUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_add_ThumbnailUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_remove_ThumbnailUpdated* = 13
-type Fn_IStorageItemInformation_remove_ThumbnailUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_remove_ThumbnailUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_add_PropertiesUpdated* = 14
-type Fn_IStorageItemInformation_add_PropertiesUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_add_PropertiesUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemInformation_remove_PropertiesUpdated* = 15
-type Fn_IStorageItemInformation_remove_PropertiesUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageItemInformation_remove_PropertiesUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Compression.ICompressor
 const IID_ICompressor* = GUID(
     data1: 0x0AC3645A'u32, data2: 0x57AC'u16, data3: 0x4EE1'u16,
     data4: [0xB7'u8, 0x02, 0x84, 0xD3, 0x9D, 0x54, 0x24, 0xE0])
 const Slot_ICompressor_FinishAsync* = 6
-type Fn_ICompressor_FinishAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICompressor_FinishAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICompressor_DetachStream* = 7
-type Fn_ICompressor_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICompressor_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Compression.ICompressorFactory
 const IID_ICompressorFactory* = GUID(
     data1: 0x5F3D96A4'u32, data2: 0x2CFB'u16, data3: 0x442C'u16,
     data4: [0xA8'u8, 0xBA, 0xD7, 0xD1, 0x1B, 0x03, 0x9D, 0xA0])
 const Slot_ICompressorFactory_CreateCompressor* = 6
-type Fn_ICompressorFactory_CreateCompressor* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICompressorFactory_CreateCompressor* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICompressorFactory_CreateCompressorEx* = 7
-type Fn_ICompressorFactory_CreateCompressorEx* = proc(self: pointer, a1IOutputStream: pointer, a2: int32, a3: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICompressorFactory_CreateCompressorEx* = proc(self: pointer, a1IOutputStream: pointer, a2: CompressAlgorithm, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Compression.IDecompressor
 const IID_IDecompressor* = GUID(
     data1: 0xB883FE46'u32, data2: 0xD68A'u16, data3: 0x4C8B'u16,
     data4: [0xAD'u8, 0xA0, 0x4E, 0xE8, 0x13, 0xFC, 0x52, 0x83])
 const Slot_IDecompressor_DetachStream* = 6
-type Fn_IDecompressor_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDecompressor_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Compression.IDecompressorFactory
 const IID_IDecompressorFactory* = GUID(
     data1: 0x5337E252'u32, data2: 0x1DA2'u16, data3: 0x42E1'u16,
     data4: [0x88'u8, 0x34, 0x03, 0x79, 0xD2, 0x8D, 0x74, 0x2F])
 const Slot_IDecompressorFactory_CreateDecompressor* = 6
-type Fn_IDecompressorFactory_CreateDecompressor* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDecompressorFactory_CreateDecompressor* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IBasicProperties
 const IID_IBasicProperties* = GUID(
     data1: 0xD05D55DB'u32, data2: 0x785E'u16, data3: 0x4A66'u16,
     data4: [0xBE'u8, 0x02, 0x9B, 0xEE, 0xC5, 0x8A, 0xEA, 0x81])
 const Slot_IBasicProperties_get_Size* = 6
-type Fn_IBasicProperties_get_Size* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IBasicProperties_get_Size* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBasicProperties_get_DateModified* = 7
-type Fn_IBasicProperties_get_DateModified* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IBasicProperties_get_DateModified* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBasicProperties_get_ItemDate* = 8
-type Fn_IBasicProperties_get_ItemDate* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IBasicProperties_get_ItemDate* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IDocumentProperties
 const IID_IDocumentProperties* = GUID(
     data1: 0x7EAB19BC'u32, data2: 0x1821'u16, data3: 0x4923'u16,
     data4: [0xB4'u8, 0xA9, 0x0A, 0xEA, 0x40, 0x4D, 0x00, 0x70])
 const Slot_IDocumentProperties_get_Author* = 6
-type Fn_IDocumentProperties_get_Author* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_get_Author* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDocumentProperties_get_Title* = 7
-type Fn_IDocumentProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDocumentProperties_put_Title* = 8
-type Fn_IDocumentProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDocumentProperties_get_Keywords* = 9
-type Fn_IDocumentProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDocumentProperties_get_Comment* = 10
-type Fn_IDocumentProperties_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDocumentProperties_put_Comment* = 11
-type Fn_IDocumentProperties_put_Comment* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IDocumentProperties_put_Comment* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IGeotagHelperStatics
 const IID_IGeotagHelperStatics* = GUID(
     data1: 0x41493244'u32, data2: 0x2524'u16, data3: 0x4655'u16,
     data4: [0x86'u8, 0xA6, 0xED, 0x16, 0xF5, 0xFC, 0x71, 0x6B])
 const Slot_IGeotagHelperStatics_GetGeotagAsync* = 6
-type Fn_IGeotagHelperStatics_GetGeotagAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IGeotagHelperStatics_GetGeotagAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IGeotagHelperStatics_SetGeotagFromGeolocatorAsync* = 7
-type Fn_IGeotagHelperStatics_SetGeotagFromGeolocatorAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Geolocator: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IGeotagHelperStatics_SetGeotagFromGeolocatorAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Geolocator: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IGeotagHelperStatics_SetGeotagAsync* = 8
-type Fn_IGeotagHelperStatics_SetGeotagAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Geopoint: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IGeotagHelperStatics_SetGeotagAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Geopoint: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IImageProperties
 const IID_IImageProperties* = GUID(
     data1: 0x523C9424'u32, data2: 0xFCFF'u16, data3: 0x4275'u16,
     data4: [0xAF'u8, 0xEE, 0xEC, 0xDB, 0x9A, 0xB4, 0x79, 0x73])
 const Slot_IImageProperties_get_Rating* = 6
-type Fn_IImageProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_put_Rating* = 7
-type Fn_IImageProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IImageProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Keywords* = 8
-type Fn_IImageProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_DateTaken* = 9
-type Fn_IImageProperties_get_DateTaken* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_DateTaken* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_put_DateTaken* = 10
-type Fn_IImageProperties_put_DateTaken* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall.}
+type Fn_IImageProperties_put_DateTaken* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Width* = 11
-type Fn_IImageProperties_get_Width* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Width* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Height* = 12
-type Fn_IImageProperties_get_Height* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Height* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Title* = 13
-type Fn_IImageProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_put_Title* = 14
-type Fn_IImageProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Latitude* = 15
-type Fn_IImageProperties_get_Latitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Latitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Longitude* = 16
-type Fn_IImageProperties_get_Longitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Longitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_CameraManufacturer* = 17
-type Fn_IImageProperties_get_CameraManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_CameraManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_put_CameraManufacturer* = 18
-type Fn_IImageProperties_put_CameraManufacturer* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_put_CameraManufacturer* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_CameraModel* = 19
-type Fn_IImageProperties_get_CameraModel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_CameraModel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_put_CameraModel* = 20
-type Fn_IImageProperties_put_CameraModel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IImageProperties_put_CameraModel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_Orientation* = 21
-type Fn_IImageProperties_get_Orientation* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_Orientation* = proc(self: pointer, value: ptr PhotoOrientation): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IImageProperties_get_PeopleNames* = 22
-type Fn_IImageProperties_get_PeopleNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IImageProperties_get_PeopleNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IMusicProperties
 const IID_IMusicProperties* = GUID(
     data1: 0xBC8AAB62'u32, data2: 0x66EC'u16, data3: 0x419A'u16,
     data4: [0xBC'u8, 0x5D, 0xCA, 0x65, 0xA4, 0xCB, 0x46, 0xDA])
 const Slot_IMusicProperties_get_Album* = 6
-type Fn_IMusicProperties_get_Album* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Album* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Album* = 7
-type Fn_IMusicProperties_put_Album* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Album* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Artist* = 8
-type Fn_IMusicProperties_get_Artist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Artist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Artist* = 9
-type Fn_IMusicProperties_put_Artist* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Artist* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Genre* = 10
-type Fn_IMusicProperties_get_Genre* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Genre* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_TrackNumber* = 11
-type Fn_IMusicProperties_get_TrackNumber* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_TrackNumber* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_TrackNumber* = 12
-type Fn_IMusicProperties_put_TrackNumber* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_TrackNumber* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Title* = 13
-type Fn_IMusicProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Title* = 14
-type Fn_IMusicProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Rating* = 15
-type Fn_IMusicProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Rating* = 16
-type Fn_IMusicProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Duration* = 17
-type Fn_IMusicProperties_get_Duration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Duration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Bitrate* = 18
-type Fn_IMusicProperties_get_Bitrate* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Bitrate* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_AlbumArtist* = 19
-type Fn_IMusicProperties_get_AlbumArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_AlbumArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_AlbumArtist* = 20
-type Fn_IMusicProperties_put_AlbumArtist* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_AlbumArtist* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Composers* = 21
-type Fn_IMusicProperties_get_Composers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Composers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Conductors* = 22
-type Fn_IMusicProperties_get_Conductors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Conductors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Subtitle* = 23
-type Fn_IMusicProperties_get_Subtitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Subtitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Subtitle* = 24
-type Fn_IMusicProperties_put_Subtitle* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Subtitle* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Producers* = 25
-type Fn_IMusicProperties_get_Producers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Producers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Publisher* = 26
-type Fn_IMusicProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Publisher* = 27
-type Fn_IMusicProperties_put_Publisher* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Publisher* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Writers* = 28
-type Fn_IMusicProperties_get_Writers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Writers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_get_Year* = 29
-type Fn_IMusicProperties_get_Year* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_get_Year* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IMusicProperties_put_Year* = 30
-type Fn_IMusicProperties_put_Year* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IMusicProperties_put_Year* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IStorageItemContentProperties
 const IID_IStorageItemContentProperties* = GUID(
     data1: 0x05294BAD'u32, data2: 0xBC38'u16, data3: 0x48BF'u16,
     data4: [0x85'u8, 0xD7, 0x77, 0x0E, 0x0E, 0x2A, 0xE0, 0xBA])
 const Slot_IStorageItemContentProperties_GetMusicPropertiesAsync* = 6
-type Fn_IStorageItemContentProperties_GetMusicPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemContentProperties_GetMusicPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemContentProperties_GetVideoPropertiesAsync* = 7
-type Fn_IStorageItemContentProperties_GetVideoPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemContentProperties_GetVideoPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemContentProperties_GetImagePropertiesAsync* = 8
-type Fn_IStorageItemContentProperties_GetImagePropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemContentProperties_GetImagePropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemContentProperties_GetDocumentPropertiesAsync* = 9
-type Fn_IStorageItemContentProperties_GetDocumentPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemContentProperties_GetDocumentPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IStorageItemExtraProperties
 const IID_IStorageItemExtraProperties* = GUID(
     data1: 0xC54361B2'u32, data2: 0x54CD'u16, data3: 0x432B'u16,
     data4: [0xBD'u8, 0xBC, 0x4B, 0x19, 0xC4, 0xB4, 0x70, 0xD7])
 const Slot_IStorageItemExtraProperties_RetrievePropertiesAsync* = 6
-type Fn_IStorageItemExtraProperties_RetrievePropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemExtraProperties_RetrievePropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemExtraProperties_SavePropertiesAsync* = 7
-type Fn_IStorageItemExtraProperties_SavePropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemExtraProperties_SavePropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemExtraProperties_SavePropertiesAsync2* = 8
-type Fn_IStorageItemExtraProperties_SavePropertiesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemExtraProperties_SavePropertiesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IThumbnailProperties
 const IID_IThumbnailProperties* = GUID(
     data1: 0x693DD42F'u32, data2: 0xDBE7'u16, data3: 0x49B5'u16,
     data4: [0xB3'u8, 0xB3, 0x28, 0x93, 0xAC, 0x5D, 0x34, 0x23])
 const Slot_IThumbnailProperties_get_OriginalWidth* = 6
-type Fn_IThumbnailProperties_get_OriginalWidth* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IThumbnailProperties_get_OriginalWidth* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IThumbnailProperties_get_OriginalHeight* = 7
-type Fn_IThumbnailProperties_get_OriginalHeight* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IThumbnailProperties_get_OriginalHeight* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IThumbnailProperties_get_ReturnedSmallerCachedSize* = 8
-type Fn_IThumbnailProperties_get_ReturnedSmallerCachedSize* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IThumbnailProperties_get_ReturnedSmallerCachedSize* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IThumbnailProperties_get_Type* = 9
-type Fn_IThumbnailProperties_get_Type* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IThumbnailProperties_get_Type* = proc(self: pointer, value: ptr ThumbnailType): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.FileProperties.IVideoProperties
 const IID_IVideoProperties* = GUID(
     data1: 0x719AE507'u32, data2: 0x68DE'u16, data3: 0x4DB8'u16,
     data4: [0x97'u8, 0xDE, 0x49, 0x99, 0x8C, 0x05, 0x9F, 0x2F])
 const Slot_IVideoProperties_get_Rating* = 6
-type Fn_IVideoProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Rating* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_put_Rating* = 7
-type Fn_IVideoProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_put_Rating* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Keywords* = 8
-type Fn_IVideoProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Keywords* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Width* = 9
-type Fn_IVideoProperties_get_Width* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Width* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Height* = 10
-type Fn_IVideoProperties_get_Height* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Height* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Duration* = 11
-type Fn_IVideoProperties_get_Duration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Duration* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Latitude* = 12
-type Fn_IVideoProperties_get_Latitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Latitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Longitude* = 13
-type Fn_IVideoProperties_get_Longitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Longitude* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Title* = 14
-type Fn_IVideoProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_put_Title* = 15
-type Fn_IVideoProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Subtitle* = 16
-type Fn_IVideoProperties_get_Subtitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Subtitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_put_Subtitle* = 17
-type Fn_IVideoProperties_put_Subtitle* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_put_Subtitle* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Producers* = 18
-type Fn_IVideoProperties_get_Producers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Producers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Publisher* = 19
-type Fn_IVideoProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_put_Publisher* = 20
-type Fn_IVideoProperties_put_Publisher* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IVideoProperties_put_Publisher* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Writers* = 21
-type Fn_IVideoProperties_get_Writers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Writers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Year* = 22
-type Fn_IVideoProperties_get_Year* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Year* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_put_Year* = 23
-type Fn_IVideoProperties_put_Year* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_put_Year* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Bitrate* = 24
-type Fn_IVideoProperties_get_Bitrate* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Bitrate* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Directors* = 25
-type Fn_IVideoProperties_get_Directors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Directors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IVideoProperties_get_Orientation* = 26
-type Fn_IVideoProperties_get_Orientation* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IVideoProperties_get_Orientation* = proc(self: pointer, value: ptr VideoOrientation): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IAppDataPaths
 const IID_IAppDataPaths* = GUID(
     data1: 0x7301D60A'u32, data2: 0x79A2'u16, data3: 0x48C9'u16,
     data4: [0x9E'u8, 0xC0, 0x3F, 0xDA, 0x09, 0x2F, 0x79, 0xE1])
 const Slot_IAppDataPaths_get_Cookies* = 6
-type Fn_IAppDataPaths_get_Cookies* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_Cookies* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_Desktop* = 7
-type Fn_IAppDataPaths_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_Documents* = 8
-type Fn_IAppDataPaths_get_Documents* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_Documents* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_Favorites* = 9
-type Fn_IAppDataPaths_get_Favorites* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_Favorites* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_History* = 10
-type Fn_IAppDataPaths_get_History* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_History* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_InternetCache* = 11
-type Fn_IAppDataPaths_get_InternetCache* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_InternetCache* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_LocalAppData* = 12
-type Fn_IAppDataPaths_get_LocalAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_LocalAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_ProgramData* = 13
-type Fn_IAppDataPaths_get_ProgramData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_ProgramData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPaths_get_RoamingAppData* = 14
-type Fn_IAppDataPaths_get_RoamingAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IAppDataPaths_get_RoamingAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IAppDataPathsStatics
 const IID_IAppDataPathsStatics* = GUID(
     data1: 0xD8EB2AFE'u32, data2: 0xA9D9'u16, data3: 0x4B14'u16,
     data4: [0xB9'u8, 0x99, 0xE3, 0x92, 0x13, 0x79, 0xD9, 0x03])
 const Slot_IAppDataPathsStatics_GetForUser* = 6
-type Fn_IAppDataPathsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAppDataPathsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IAppDataPathsStatics_GetDefault* = 7
-type Fn_IAppDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IAppDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationData
 const IID_IApplicationData* = GUID(
     data1: 0xC3DA6FB7'u32, data2: 0xB744'u16, data3: 0x4B45'u16,
     data4: [0xB0'u8, 0xB8, 0x22, 0x3A, 0x09, 0x38, 0xD0, 0xDC])
 const Slot_IApplicationData_get_Version* = 6
-type Fn_IApplicationData_get_Version* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_Version* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_SetVersionAsync* = 7
-type Fn_IApplicationData_SetVersionAsync* = proc(self: pointer, a1: uint32, a2ApplicationDataSetVersionHandler: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_SetVersionAsync* = proc(self: pointer, a1: uint32, a2ApplicationDataSetVersionHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_ClearAsync* = 8
-type Fn_IApplicationData_ClearAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_ClearAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_ClearAsync2* = 9
-type Fn_IApplicationData_ClearAsync2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_ClearAsync2* = proc(self: pointer, a1: ApplicationDataLocality, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_LocalSettings* = 10
-type Fn_IApplicationData_get_LocalSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_LocalSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_RoamingSettings* = 11
-type Fn_IApplicationData_get_RoamingSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_RoamingSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_LocalFolder* = 12
-type Fn_IApplicationData_get_LocalFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_LocalFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_RoamingFolder* = 13
-type Fn_IApplicationData_get_RoamingFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_RoamingFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_TemporaryFolder* = 14
-type Fn_IApplicationData_get_TemporaryFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_TemporaryFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_add_DataChanged* = 15
-type Fn_IApplicationData_add_DataChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IApplicationData_add_DataChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_remove_DataChanged* = 16
-type Fn_IApplicationData_remove_DataChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IApplicationData_remove_DataChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_SignalDataChanged* = 17
-type Fn_IApplicationData_SignalDataChanged* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData_SignalDataChanged* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData_get_RoamingStorageQuota* = 18
-type Fn_IApplicationData_get_RoamingStorageQuota* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IApplicationData_get_RoamingStorageQuota* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationData2
 const IID_IApplicationData2* = GUID(
     data1: 0x9E65CD69'u32, data2: 0x0BA3'u16, data3: 0x4E32'u16,
     data4: [0xBE'u8, 0x29, 0xB0, 0x2D, 0xE6, 0x60, 0x76, 0x38])
 const Slot_IApplicationData2_get_LocalCacheFolder* = 6
-type Fn_IApplicationData2_get_LocalCacheFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData2_get_LocalCacheFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationData3
 const IID_IApplicationData3* = GUID(
     data1: 0xDC222CF4'u32, data2: 0x2772'u16, data3: 0x4C1D'u16,
     data4: [0xAA'u8, 0x2C, 0xC9, 0xF7, 0x43, 0xAD, 0xE8, 0xD1])
 const Slot_IApplicationData3_GetPublisherCacheFolder* = 6
-type Fn_IApplicationData3_GetPublisherCacheFolder* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData3_GetPublisherCacheFolder* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData3_ClearPublisherCacheFolderAsync* = 7
-type Fn_IApplicationData3_ClearPublisherCacheFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData3_ClearPublisherCacheFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationData3_get_SharedLocalFolder* = 8
-type Fn_IApplicationData3_get_SharedLocalFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationData3_get_SharedLocalFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationDataContainer
 const IID_IApplicationDataContainer* = GUID(
     data1: 0xC5AEFD1E'u32, data2: 0xF467'u16, data3: 0x40BA'u16,
     data4: [0x85'u8, 0x66, 0xAB, 0x64, 0x0A, 0x44, 0x1E, 0x1D])
 const Slot_IApplicationDataContainer_get_Name* = 6
-type Fn_IApplicationDataContainer_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationDataContainer_get_Locality* = 7
-type Fn_IApplicationDataContainer_get_Locality* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_get_Locality* = proc(self: pointer, value: ptr ApplicationDataLocality): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationDataContainer_get_Values* = 8
-type Fn_IApplicationDataContainer_get_Values* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_get_Values* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationDataContainer_get_Containers* = 9
-type Fn_IApplicationDataContainer_get_Containers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_get_Containers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationDataContainer_CreateContainer* = 10
-type Fn_IApplicationDataContainer_CreateContainer* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_CreateContainer* = proc(self: pointer, a1: HSTRING, a2: ApplicationDataCreateDisposition, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IApplicationDataContainer_DeleteContainer* = 11
-type Fn_IApplicationDataContainer_DeleteContainer* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IApplicationDataContainer_DeleteContainer* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationDataStatics
 const IID_IApplicationDataStatics* = GUID(
     data1: 0x5612147B'u32, data2: 0xE843'u16, data3: 0x45E3'u16,
     data4: [0x94'u8, 0xD8, 0x06, 0x16, 0x9E, 0x3C, 0x8E, 0x17])
 const Slot_IApplicationDataStatics_get_Current* = 6
-type Fn_IApplicationDataStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationDataStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IApplicationDataStatics2
 const IID_IApplicationDataStatics2* = GUID(
     data1: 0xCD606211'u32, data2: 0xCF49'u16, data3: 0x40A4'u16,
     data4: [0xA4'u8, 0x7C, 0xC7, 0xF0, 0xDB, 0xBA, 0x81, 0x07])
 const Slot_IApplicationDataStatics2_GetForUserAsync* = 6
-type Fn_IApplicationDataStatics2_GetForUserAsync* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IApplicationDataStatics2_GetForUserAsync* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ICachedFileManagerStatics
 const IID_ICachedFileManagerStatics* = GUID(
     data1: 0x8FFC224A'u32, data2: 0xE782'u16, data3: 0x495D'u16,
     data4: [0xB6'u8, 0x14, 0x65, 0x4C, 0x4F, 0x0B, 0x23, 0x70])
 const Slot_ICachedFileManagerStatics_DeferUpdates* = 6
-type Fn_ICachedFileManagerStatics_DeferUpdates* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall.}
+type Fn_ICachedFileManagerStatics_DeferUpdates* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileManagerStatics_CompleteUpdatesAsync* = 7
-type Fn_ICachedFileManagerStatics_CompleteUpdatesAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICachedFileManagerStatics_CompleteUpdatesAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IDownloadsFolderStatics
 const IID_IDownloadsFolderStatics* = GUID(
     data1: 0x27862ED0'u32, data2: 0x404E'u16, data3: 0x47DF'u16,
     data4: [0xA1'u8, 0xE2, 0xE3, 0x73, 0x08, 0xBE, 0x7B, 0x37])
 const Slot_IDownloadsFolderStatics_CreateFileAsync* = 6
-type Fn_IDownloadsFolderStatics_CreateFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics_CreateFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics_CreateFolderAsync* = 7
-type Fn_IDownloadsFolderStatics_CreateFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics_CreateFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics_CreateFileAsync2* = 8
-type Fn_IDownloadsFolderStatics_CreateFileAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics_CreateFileAsync2* = proc(self: pointer, a1: HSTRING, a2: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics_CreateFolderAsync2* = 9
-type Fn_IDownloadsFolderStatics_CreateFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics_CreateFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IDownloadsFolderStatics2
 const IID_IDownloadsFolderStatics2* = GUID(
     data1: 0xE93045BD'u32, data2: 0x8EF8'u16, data3: 0x4F8E'u16,
     data4: [0x8D'u8, 0x15, 0xAC, 0x0E, 0x26, 0x5F, 0x39, 0x0D])
 const Slot_IDownloadsFolderStatics2_CreateFileForUserAsync* = 6
-type Fn_IDownloadsFolderStatics2_CreateFileForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics2_CreateFileForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics2_CreateFolderForUserAsync* = 7
-type Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics2_CreateFileForUserAsync2* = 8
-type Fn_IDownloadsFolderStatics2_CreateFileForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics2_CreateFileForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDownloadsFolderStatics2_CreateFolderForUserAsync2* = 9
-type Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IFileIOStatics
 const IID_IFileIOStatics* = GUID(
     data1: 0x887411EB'u32, data2: 0x7F54'u16, data3: 0x4732'u16,
     data4: [0xA5'u8, 0xF0, 0x5E, 0x43, 0xE3, 0xB8, 0xC2, 0xF5])
 const Slot_IFileIOStatics_ReadTextAsync* = 6
-type Fn_IFileIOStatics_ReadTextAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_ReadTextAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_ReadTextAsync2* = 7
-type Fn_IFileIOStatics_ReadTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_ReadTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteTextAsync* = 8
-type Fn_IFileIOStatics_WriteTextAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_WriteTextAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteTextAsync2* = 9
-type Fn_IFileIOStatics_WriteTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_WriteTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_AppendTextAsync* = 10
-type Fn_IFileIOStatics_AppendTextAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_AppendTextAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_AppendTextAsync2* = 11
-type Fn_IFileIOStatics_AppendTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_AppendTextAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_ReadLinesAsync* = 12
-type Fn_IFileIOStatics_ReadLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_ReadLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_ReadLinesAsync2* = 13
-type Fn_IFileIOStatics_ReadLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_ReadLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteLinesAsync* = 14
-type Fn_IFileIOStatics_WriteLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_WriteLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteLinesAsync2* = 15
-type Fn_IFileIOStatics_WriteLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_WriteLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_AppendLinesAsync* = 16
-type Fn_IFileIOStatics_AppendLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_AppendLinesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_AppendLinesAsync2* = 17
-type Fn_IFileIOStatics_AppendLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_AppendLinesAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2: pointer, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_ReadBufferAsync* = 18
-type Fn_IFileIOStatics_ReadBufferAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_ReadBufferAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteBufferAsync* = 19
-type Fn_IFileIOStatics_WriteBufferAsync* = proc(self: pointer, a1IStorageFile: pointer, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileIOStatics_WriteBufferAsync* = proc(self: pointer, a1IStorageFile: pointer, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileIOStatics_WriteBytesAsync* = 20
 # Fn_IFileIOStatics_WriteBytesAsync: signature not mapped
 
@@ -1552,102 +1729,102 @@ const IID_IKnownFoldersCameraRollStatics* = GUID(
     data1: 0x5D115E66'u32, data2: 0x27E8'u16, data3: 0x492F'u16,
     data4: [0xB8'u8, 0xE5, 0x2F, 0x90, 0x89, 0x6C, 0xD4, 0xCD])
 const Slot_IKnownFoldersCameraRollStatics_get_CameraRoll* = 6
-type Fn_IKnownFoldersCameraRollStatics_get_CameraRoll* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersCameraRollStatics_get_CameraRoll* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersPlaylistsStatics
 const IID_IKnownFoldersPlaylistsStatics* = GUID(
     data1: 0xDAD5ECD6'u32, data2: 0x306F'u16, data3: 0x4D6A'u16,
     data4: [0xB4'u8, 0x96, 0x46, 0xBA, 0x8E, 0xB1, 0x06, 0xCE])
 const Slot_IKnownFoldersPlaylistsStatics_get_Playlists* = 6
-type Fn_IKnownFoldersPlaylistsStatics_get_Playlists* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersPlaylistsStatics_get_Playlists* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersSavedPicturesStatics
 const IID_IKnownFoldersSavedPicturesStatics* = GUID(
     data1: 0x055C93EA'u32, data2: 0x253D'u16, data3: 0x467C'u16,
     data4: [0xB6'u8, 0xCA, 0xA9, 0x7D, 0xA1, 0xE9, 0xA1, 0x8D])
 const Slot_IKnownFoldersSavedPicturesStatics_get_SavedPictures* = 6
-type Fn_IKnownFoldersSavedPicturesStatics_get_SavedPictures* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersSavedPicturesStatics_get_SavedPictures* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersStatics
 const IID_IKnownFoldersStatics* = GUID(
     data1: 0x5A2A7520'u32, data2: 0x4802'u16, data3: 0x452D'u16,
     data4: [0x9A'u8, 0xD9, 0x43, 0x51, 0xAD, 0xA7, 0xEC, 0x35])
 const Slot_IKnownFoldersStatics_get_MusicLibrary* = 6
-type Fn_IKnownFoldersStatics_get_MusicLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_MusicLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_PicturesLibrary* = 7
-type Fn_IKnownFoldersStatics_get_PicturesLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_PicturesLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_VideosLibrary* = 8
-type Fn_IKnownFoldersStatics_get_VideosLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_VideosLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_DocumentsLibrary* = 9
-type Fn_IKnownFoldersStatics_get_DocumentsLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_DocumentsLibrary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_HomeGroup* = 10
-type Fn_IKnownFoldersStatics_get_HomeGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_HomeGroup* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_RemovableDevices* = 11
-type Fn_IKnownFoldersStatics_get_RemovableDevices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_RemovableDevices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics_get_MediaServerDevices* = 12
-type Fn_IKnownFoldersStatics_get_MediaServerDevices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics_get_MediaServerDevices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersStatics2
 const IID_IKnownFoldersStatics2* = GUID(
     data1: 0x194BD0CD'u32, data2: 0xCF6E'u16, data3: 0x4D07'u16,
     data4: [0x9D'u8, 0x53, 0xE9, 0x16, 0x3A, 0x25, 0x36, 0xE9])
 const Slot_IKnownFoldersStatics2_get_Objects3D* = 6
-type Fn_IKnownFoldersStatics2_get_Objects3D* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics2_get_Objects3D* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics2_get_AppCaptures* = 7
-type Fn_IKnownFoldersStatics2_get_AppCaptures* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics2_get_AppCaptures* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics2_get_RecordedCalls* = 8
-type Fn_IKnownFoldersStatics2_get_RecordedCalls* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics2_get_RecordedCalls* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersStatics3
 const IID_IKnownFoldersStatics3* = GUID(
     data1: 0xC5194341'u32, data2: 0x9742'u16, data3: 0x4ED5'u16,
     data4: [0x82'u8, 0x3D, 0xFC, 0x14, 0x01, 0x14, 0x87, 0x64])
 const Slot_IKnownFoldersStatics3_GetFolderForUserAsync* = 6
-type Fn_IKnownFoldersStatics3_GetFolderForUserAsync* = proc(self: pointer, a1User: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics3_GetFolderForUserAsync* = proc(self: pointer, a1User: pointer, a2: KnownFolderId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IKnownFoldersStatics4
 const IID_IKnownFoldersStatics4* = GUID(
     data1: 0x1722E6BF'u32, data2: 0x9FF9'u16, data3: 0x4B21'u16,
     data4: [0xBE'u8, 0xD5, 0x90, 0xEC, 0xB1, 0x3A, 0x19, 0x2E])
 const Slot_IKnownFoldersStatics4_RequestAccessAsync* = 6
-type Fn_IKnownFoldersStatics4_RequestAccessAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics4_RequestAccessAsync* = proc(self: pointer, a1: KnownFolderId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics4_RequestAccessForUserAsync* = 7
-type Fn_IKnownFoldersStatics4_RequestAccessForUserAsync* = proc(self: pointer, a1User: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics4_RequestAccessForUserAsync* = proc(self: pointer, a1User: pointer, a2: KnownFolderId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IKnownFoldersStatics4_GetFolderAsync* = 8
-type Fn_IKnownFoldersStatics4_GetFolderAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IKnownFoldersStatics4_GetFolderAsync* = proc(self: pointer, a1: KnownFolderId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IPathIOStatics
 const IID_IPathIOStatics* = GUID(
     data1: 0x0F2F3758'u32, data2: 0x8EC7'u16, data3: 0x4381'u16,
     data4: [0x92'u8, 0x2B, 0x8F, 0x6C, 0x07, 0xD2, 0x88, 0xF3])
 const Slot_IPathIOStatics_ReadTextAsync* = 6
-type Fn_IPathIOStatics_ReadTextAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_ReadTextAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_ReadTextAsync2* = 7
-type Fn_IPathIOStatics_ReadTextAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_ReadTextAsync2* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteTextAsync* = 8
-type Fn_IPathIOStatics_WriteTextAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_WriteTextAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteTextAsync2* = 9
-type Fn_IPathIOStatics_WriteTextAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_WriteTextAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_AppendTextAsync* = 10
-type Fn_IPathIOStatics_AppendTextAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_AppendTextAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_AppendTextAsync2* = 11
-type Fn_IPathIOStatics_AppendTextAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_AppendTextAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_ReadLinesAsync* = 12
-type Fn_IPathIOStatics_ReadLinesAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_ReadLinesAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_ReadLinesAsync2* = 13
-type Fn_IPathIOStatics_ReadLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_ReadLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteLinesAsync* = 14
-type Fn_IPathIOStatics_WriteLinesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_WriteLinesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteLinesAsync2* = 15
-type Fn_IPathIOStatics_WriteLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_WriteLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_AppendLinesAsync* = 16
-type Fn_IPathIOStatics_AppendLinesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_AppendLinesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_AppendLinesAsync2* = 17
-type Fn_IPathIOStatics_AppendLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_AppendLinesAsync2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_ReadBufferAsync* = 18
-type Fn_IPathIOStatics_ReadBufferAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_ReadBufferAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteBufferAsync* = 19
-type Fn_IPathIOStatics_WriteBufferAsync* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPathIOStatics_WriteBufferAsync* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPathIOStatics_WriteBytesAsync* = 20
 # Fn_IPathIOStatics_WriteBytesAsync: signature not mapped
 
@@ -1656,302 +1833,302 @@ const IID_ISetVersionDeferral* = GUID(
     data1: 0x033508A2'u32, data2: 0x781A'u16, data3: 0x437A'u16,
     data4: [0xB0'u8, 0x78, 0x3F, 0x32, 0xBA, 0xDC, 0xFE, 0x47])
 const Slot_ISetVersionDeferral_Complete* = 6
-type Fn_ISetVersionDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ISetVersionDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISetVersionRequest
 const IID_ISetVersionRequest* = GUID(
     data1: 0xB9C76B9B'u32, data2: 0x1056'u16, data3: 0x4E69'u16,
     data4: [0x83'u8, 0x30, 0x16, 0x26, 0x19, 0x95, 0x6F, 0x9B])
 const Slot_ISetVersionRequest_get_CurrentVersion* = 6
-type Fn_ISetVersionRequest_get_CurrentVersion* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ISetVersionRequest_get_CurrentVersion* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISetVersionRequest_get_DesiredVersion* = 7
-type Fn_ISetVersionRequest_get_DesiredVersion* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_ISetVersionRequest_get_DesiredVersion* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISetVersionRequest_GetDeferral* = 8
-type Fn_ISetVersionRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISetVersionRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFile
 const IID_IStorageFile* = GUID(
     data1: 0xFA3F6186'u32, data2: 0x4214'u16, data3: 0x428C'u16,
     data4: [0xA6'u8, 0x4C, 0x14, 0xC9, 0xAC, 0x73, 0x15, 0xEA])
 const Slot_IStorageFile_get_FileType* = 6
-type Fn_IStorageFile_get_FileType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageFile_get_FileType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_get_ContentType* = 7
-type Fn_IStorageFile_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageFile_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_OpenAsync* = 8
-type Fn_IStorageFile_OpenAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_OpenAsync* = proc(self: pointer, a1: FileAccessMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_OpenTransactedWriteAsync* = 9
-type Fn_IStorageFile_OpenTransactedWriteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_OpenTransactedWriteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_CopyAsync* = 10
-type Fn_IStorageFile_CopyAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_CopyAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_CopyAsync2* = 11
-type Fn_IStorageFile_CopyAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_CopyAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_CopyAsync3* = 12
-type Fn_IStorageFile_CopyAsync3* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_CopyAsync3* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, a3: NameCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_CopyAndReplaceAsync* = 13
-type Fn_IStorageFile_CopyAndReplaceAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_CopyAndReplaceAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_MoveAsync* = 14
-type Fn_IStorageFile_MoveAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_MoveAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_MoveAsync2* = 15
-type Fn_IStorageFile_MoveAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_MoveAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_MoveAsync3* = 16
-type Fn_IStorageFile_MoveAsync3* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_MoveAsync3* = proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, a3: NameCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile_MoveAndReplaceAsync* = 17
-type Fn_IStorageFile_MoveAndReplaceAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile_MoveAndReplaceAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFile2
 const IID_IStorageFile2* = GUID(
     data1: 0x954E4BCF'u32, data2: 0x0A77'u16, data3: 0x42FB'u16,
     data4: [0xB7'u8, 0x77, 0xC2, 0xED, 0x58, 0xA5, 0x2E, 0x44])
 const Slot_IStorageFile2_OpenAsync* = 6
-type Fn_IStorageFile2_OpenAsync* = proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile2_OpenAsync* = proc(self: pointer, a1: FileAccessMode, a2: StorageOpenOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFile2_OpenTransactedWriteAsync* = 7
-type Fn_IStorageFile2_OpenTransactedWriteAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFile2_OpenTransactedWriteAsync* = proc(self: pointer, a1: StorageOpenOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFilePropertiesWithAvailability
 const IID_IStorageFilePropertiesWithAvailability* = GUID(
     data1: 0xAFCBBE9B'u32, data2: 0x582B'u16, data3: 0x4133'u16,
     data4: [0x96'u8, 0x48, 0xE4, 0x4C, 0xA4, 0x6E, 0xE4, 0x91])
 const Slot_IStorageFilePropertiesWithAvailability_get_IsAvailable* = 6
-type Fn_IStorageFilePropertiesWithAvailability_get_IsAvailable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageFilePropertiesWithAvailability_get_IsAvailable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFileStatics
 const IID_IStorageFileStatics* = GUID(
     data1: 0x5984C710'u32, data2: 0xDAF2'u16, data3: 0x43C8'u16,
     data4: [0x8B'u8, 0xB4, 0xA4, 0xD3, 0xEA, 0xCF, 0xD0, 0x3F])
 const Slot_IStorageFileStatics_GetFileFromPathAsync* = 6
-type Fn_IStorageFileStatics_GetFileFromPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_GetFileFromPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileStatics_GetFileFromApplicationUriAsync* = 7
-type Fn_IStorageFileStatics_GetFileFromApplicationUriAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_GetFileFromApplicationUriAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileStatics_CreateStreamedFileAsync* = 8
-type Fn_IStorageFileStatics_CreateStreamedFileAsync* = proc(self: pointer, a1: HSTRING, a2StreamedFileDataRequestedHandler: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_CreateStreamedFileAsync* = proc(self: pointer, a1: HSTRING, a2StreamedFileDataRequestedHandler: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileStatics_ReplaceWithStreamedFileAsync* = 9
-type Fn_IStorageFileStatics_ReplaceWithStreamedFileAsync* = proc(self: pointer, a1IStorageFile: pointer, a2StreamedFileDataRequestedHandler: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_ReplaceWithStreamedFileAsync* = proc(self: pointer, a1IStorageFile: pointer, a2StreamedFileDataRequestedHandler: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileStatics_CreateStreamedFileFromUriAsync* = 10
-type Fn_IStorageFileStatics_CreateStreamedFileFromUriAsync* = proc(self: pointer, a1: HSTRING, a2Uri: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_CreateStreamedFileFromUriAsync* = proc(self: pointer, a1: HSTRING, a2Uri: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync* = 11
-type Fn_IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Uri: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Uri: pointer, a3IRandomAccessStreamReference: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFileStatics2
 const IID_IStorageFileStatics2* = GUID(
     data1: 0x5C76A781'u32, data2: 0x212E'u16, data3: 0x4AF9'u16,
     data4: [0x8F'u8, 0x04, 0x74, 0x0C, 0xAE, 0x10, 0x89, 0x74])
 const Slot_IStorageFileStatics2_GetFileFromPathForUserAsync* = 6
-type Fn_IStorageFileStatics2_GetFileFromPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileStatics2_GetFileFromPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFolder
 const IID_IStorageFolder* = GUID(
     data1: 0x72D1CB78'u32, data2: 0xB3EF'u16, data3: 0x4F75'u16,
     data4: [0xA8'u8, 0x0B, 0x6F, 0xD9, 0xDA, 0xE2, 0x94, 0x4B])
 const Slot_IStorageFolder_CreateFileAsync* = 6
-type Fn_IStorageFolder_CreateFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_CreateFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_CreateFileAsync2* = 7
-type Fn_IStorageFolder_CreateFileAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_CreateFileAsync2* = proc(self: pointer, a1: HSTRING, a2: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_CreateFolderAsync* = 8
-type Fn_IStorageFolder_CreateFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_CreateFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_CreateFolderAsync2* = 9
-type Fn_IStorageFolder_CreateFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_CreateFolderAsync2* = proc(self: pointer, a1: HSTRING, a2: CreationCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetFileAsync* = 10
-type Fn_IStorageFolder_GetFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetFolderAsync* = 11
-type Fn_IStorageFolder_GetFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetFolderAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetItemAsync* = 12
-type Fn_IStorageFolder_GetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetFilesAsync* = 13
-type Fn_IStorageFolder_GetFilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetFilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetFoldersAsync* = 14
-type Fn_IStorageFolder_GetFoldersAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetFoldersAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolder_GetItemsAsync* = 15
-type Fn_IStorageFolder_GetItemsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder_GetItemsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFolder2
 const IID_IStorageFolder2* = GUID(
     data1: 0xE827E8B9'u32, data2: 0x08D9'u16, data3: 0x4A8E'u16,
     data4: [0xA0'u8, 0xAC, 0xFE, 0x5E, 0xD3, 0xCB, 0xBB, 0xD3])
 const Slot_IStorageFolder2_TryGetItemAsync* = 6
-type Fn_IStorageFolder2_TryGetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder2_TryGetItemAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFolder3
 const IID_IStorageFolder3* = GUID(
     data1: 0x9F617899'u32, data2: 0xBDE1'u16, data3: 0x4124'u16,
     data4: [0xAE'u8, 0xB3, 0xB0, 0x6A, 0xD9, 0x6F, 0x98, 0xD4])
 const Slot_IStorageFolder3_TryGetChangeTracker* = 6
-type Fn_IStorageFolder3_TryGetChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolder3_TryGetChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFolderStatics
 const IID_IStorageFolderStatics* = GUID(
     data1: 0x08F327FF'u32, data2: 0x85D5'u16, data3: 0x48B9'u16,
     data4: [0xAE'u8, 0xE9, 0x28, 0x51, 0x1E, 0x33, 0x9F, 0x9F])
 const Slot_IStorageFolderStatics_GetFolderFromPathAsync* = 6
-type Fn_IStorageFolderStatics_GetFolderFromPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderStatics_GetFolderFromPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageFolderStatics2
 const IID_IStorageFolderStatics2* = GUID(
     data1: 0xB4656DC3'u32, data2: 0x71D2'u16, data3: 0x467D'u16,
     data4: [0x8B'u8, 0x29, 0x37, 0x1F, 0x0F, 0x62, 0xBF, 0x6F])
 const Slot_IStorageFolderStatics2_GetFolderFromPathForUserAsync* = 6
-type Fn_IStorageFolderStatics2_GetFolderFromPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderStatics2_GetFolderFromPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageItem
 const IID_IStorageItem* = GUID(
     data1: 0x4207A996'u32, data2: 0xCA2F'u16, data3: 0x42F7'u16,
     data4: [0xBD'u8, 0xE8, 0x8B, 0x10, 0x45, 0x7A, 0x7F, 0x30])
 const Slot_IStorageItem_RenameAsync* = 6
-type Fn_IStorageItem_RenameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem_RenameAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_RenameAsync2* = 7
-type Fn_IStorageItem_RenameAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem_RenameAsync2* = proc(self: pointer, a1: HSTRING, a2: NameCollisionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_DeleteAsync* = 8
-type Fn_IStorageItem_DeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem_DeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_DeleteAsync2* = 9
-type Fn_IStorageItem_DeleteAsync2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem_DeleteAsync2* = proc(self: pointer, a1: StorageDeleteOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_GetBasicPropertiesAsync* = 10
-type Fn_IStorageItem_GetBasicPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem_GetBasicPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_get_Name* = 11
-type Fn_IStorageItem_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItem_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_get_Path* = 12
-type Fn_IStorageItem_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItem_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_get_Attributes* = 13
-type Fn_IStorageItem_get_Attributes* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageItem_get_Attributes* = proc(self: pointer, value: ptr FileAttributes): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_get_DateCreated* = 14
-type Fn_IStorageItem_get_DateCreated* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IStorageItem_get_DateCreated* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem_IsOfType* = 15
-type Fn_IStorageItem_IsOfType* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageItem_IsOfType* = proc(self: pointer, a1: StorageItemTypes, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageItem2
 const IID_IStorageItem2* = GUID(
     data1: 0x53F926D2'u32, data2: 0x083C'u16, data3: 0x4283'u16,
     data4: [0xB4'u8, 0x5B, 0x81, 0xC0, 0x07, 0x23, 0x7E, 0x44])
 const Slot_IStorageItem2_GetParentAsync* = 6
-type Fn_IStorageItem2_GetParentAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItem2_GetParentAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItem2_IsEqual* = 7
-type Fn_IStorageItem2_IsEqual* = proc(self: pointer, a1IStorageItem: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageItem2_IsEqual* = proc(self: pointer, a1IStorageItem: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageItemProperties
 const IID_IStorageItemProperties* = GUID(
     data1: 0x86664478'u32, data2: 0x8029'u16, data3: 0x46FE'u16,
     data4: [0xA7'u8, 0x89, 0x1C, 0x2F, 0x3E, 0x2F, 0xFB, 0x5C])
 const Slot_IStorageItemProperties_GetThumbnailAsync* = 6
-type Fn_IStorageItemProperties_GetThumbnailAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_GetThumbnailAsync* = proc(self: pointer, a1: ThumbnailMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_GetThumbnailAsync2* = 7
-type Fn_IStorageItemProperties_GetThumbnailAsync2* = proc(self: pointer, a1: int32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_GetThumbnailAsync2* = proc(self: pointer, a1: ThumbnailMode, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_GetThumbnailAsync3* = 8
-type Fn_IStorageItemProperties_GetThumbnailAsync3* = proc(self: pointer, a1: int32, a2: uint32, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_GetThumbnailAsync3* = proc(self: pointer, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_get_DisplayName* = 9
-type Fn_IStorageItemProperties_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_get_DisplayType* = 10
-type Fn_IStorageItemProperties_get_DisplayType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_get_DisplayType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_get_FolderRelativeId* = 11
-type Fn_IStorageItemProperties_get_FolderRelativeId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_get_FolderRelativeId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties_get_Properties* = 12
-type Fn_IStorageItemProperties_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageItemProperties2
 const IID_IStorageItemProperties2* = GUID(
     data1: 0x8E86A951'u32, data2: 0x04B9'u16, data3: 0x4BD2'u16,
     data4: [0x92'u8, 0x9D, 0xFE, 0xF3, 0xF7, 0x16, 0x21, 0xD0])
 const Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync* = 6
-type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync* = proc(self: pointer, a1: ThumbnailMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2* = 7
-type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2* = proc(self: pointer, a1: int32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2* = proc(self: pointer, a1: ThumbnailMode, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3* = 8
-type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3* = proc(self: pointer, a1: int32, a2: uint32, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3* = proc(self: pointer, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageItemPropertiesWithProvider
 const IID_IStorageItemPropertiesWithProvider* = GUID(
     data1: 0x861BF39B'u32, data2: 0x6368'u16, data3: 0x4DEE'u16,
     data4: [0xB4'u8, 0x0E, 0x74, 0x68, 0x4A, 0x5C, 0xE7, 0x14])
 const Slot_IStorageItemPropertiesWithProvider_get_Provider* = 6
-type Fn_IStorageItemPropertiesWithProvider_get_Provider* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemPropertiesWithProvider_get_Provider* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibrary
 const IID_IStorageLibrary* = GUID(
     data1: 0x1EDD7103'u32, data2: 0x0E5E'u16, data3: 0x4D6C'u16,
     data4: [0xB5'u8, 0xE8, 0x93, 0x18, 0x98, 0x3D, 0x6A, 0x03])
 const Slot_IStorageLibrary_RequestAddFolderAsync* = 6
-type Fn_IStorageLibrary_RequestAddFolderAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_RequestAddFolderAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibrary_RequestRemoveFolderAsync* = 7
-type Fn_IStorageLibrary_RequestRemoveFolderAsync* = proc(self: pointer, a1StorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_RequestRemoveFolderAsync* = proc(self: pointer, a1StorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibrary_get_Folders* = 8
-type Fn_IStorageLibrary_get_Folders* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_get_Folders* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibrary_get_SaveFolder* = 9
-type Fn_IStorageLibrary_get_SaveFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_get_SaveFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibrary_add_DefinitionChanged* = 10
-type Fn_IStorageLibrary_add_DefinitionChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_add_DefinitionChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibrary_remove_DefinitionChanged* = 11
-type Fn_IStorageLibrary_remove_DefinitionChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageLibrary_remove_DefinitionChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibrary2
 const IID_IStorageLibrary2* = GUID(
     data1: 0x5B0CE348'u32, data2: 0xFCB3'u16, data3: 0x4031'u16,
     data4: [0xAF'u8, 0xB0, 0xA6, 0x8D, 0x7B, 0xD4, 0x45, 0x34])
 const Slot_IStorageLibrary2_get_ChangeTracker* = 6
-type Fn_IStorageLibrary2_get_ChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary2_get_ChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibrary3
 const IID_IStorageLibrary3* = GUID(
     data1: 0x8A281291'u32, data2: 0x2154'u16, data3: 0x4201'u16,
     data4: [0x81'u8, 0x13, 0xD2, 0xC0, 0x5C, 0xE1, 0xAD, 0x23])
 const Slot_IStorageLibrary3_AreFolderSuggestionsAvailableAsync* = 6
-type Fn_IStorageLibrary3_AreFolderSuggestionsAvailableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibrary3_AreFolderSuggestionsAvailableAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChange
 const IID_IStorageLibraryChange* = GUID(
     data1: 0x00980B23'u32, data2: 0x2BE2'u16, data3: 0x4909'u16,
     data4: [0xAA'u8, 0x48, 0x15, 0x9F, 0x52, 0x03, 0xA5, 0x1E])
 const Slot_IStorageLibraryChange_get_ChangeType* = 6
-type Fn_IStorageLibraryChange_get_ChangeType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChange_get_ChangeType* = proc(self: pointer, value: ptr StorageLibraryChangeType): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChange_get_Path* = 7
-type Fn_IStorageLibraryChange_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChange_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChange_get_PreviousPath* = 8
-type Fn_IStorageLibraryChange_get_PreviousPath* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChange_get_PreviousPath* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChange_IsOfType* = 9
-type Fn_IStorageLibraryChange_IsOfType* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChange_IsOfType* = proc(self: pointer, a1: StorageItemTypes, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChange_GetStorageItemAsync* = 10
-type Fn_IStorageLibraryChange_GetStorageItemAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChange_GetStorageItemAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChangeReader
 const IID_IStorageLibraryChangeReader* = GUID(
     data1: 0xF205BC83'u32, data2: 0xFCA2'u16, data3: 0x41F9'u16,
     data4: [0x89'u8, 0x54, 0xEE, 0x2E, 0x99, 0x1E, 0xB9, 0x6F])
 const Slot_IStorageLibraryChangeReader_ReadBatchAsync* = 6
-type Fn_IStorageLibraryChangeReader_ReadBatchAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeReader_ReadBatchAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeReader_AcceptChangesAsync* = 7
-type Fn_IStorageLibraryChangeReader_AcceptChangesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeReader_AcceptChangesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChangeReader2
 const IID_IStorageLibraryChangeReader2* = GUID(
     data1: 0xABF4868B'u32, data2: 0xFBCC'u16, data3: 0x4A4F'u16,
     data4: [0x99'u8, 0x9E, 0xE7, 0xAB, 0x7C, 0x64, 0x6D, 0xBE])
 const Slot_IStorageLibraryChangeReader2_GetLastChangeId* = 6
-type Fn_IStorageLibraryChangeReader2_GetLastChangeId* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeReader2_GetLastChangeId* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChangeTracker
 const IID_IStorageLibraryChangeTracker* = GUID(
     data1: 0x9E157316'u32, data2: 0x6073'u16, data3: 0x44F6'u16,
     data4: [0x96'u8, 0x81, 0x74, 0x92, 0xD1, 0x28, 0x6C, 0x90])
 const Slot_IStorageLibraryChangeTracker_GetChangeReader* = 6
-type Fn_IStorageLibraryChangeTracker_GetChangeReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTracker_GetChangeReader* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeTracker_Enable* = 7
-type Fn_IStorageLibraryChangeTracker_Enable* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTracker_Enable* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeTracker_Reset* = 8
-type Fn_IStorageLibraryChangeTracker_Reset* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTracker_Reset* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChangeTracker2
 const IID_IStorageLibraryChangeTracker2* = GUID(
     data1: 0xCD051C3B'u32, data2: 0x0F9F'u16, data3: 0x42F9'u16,
     data4: [0x8F'u8, 0xB3, 0x15, 0x8D, 0x82, 0xE1, 0x38, 0x21])
 const Slot_IStorageLibraryChangeTracker2_Enable* = 6
-type Fn_IStorageLibraryChangeTracker2_Enable* = proc(self: pointer, a1StorageLibraryChangeTrackerOptions: pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTracker2_Enable* = proc(self: pointer, a1StorageLibraryChangeTrackerOptions: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeTracker2_Disable* = 7
-type Fn_IStorageLibraryChangeTracker2_Disable* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTracker2_Disable* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryChangeTrackerOptions
 const IID_IStorageLibraryChangeTrackerOptions* = GUID(
     data1: 0xBB52BCD4'u32, data2: 0x1A6D'u16, data3: 0x59C0'u16,
     data4: [0xAD'u8, 0x2A, 0x82, 0x3A, 0x20, 0x53, 0x24, 0x83])
 const Slot_IStorageLibraryChangeTrackerOptions_get_TrackChangeDetails* = 6
-type Fn_IStorageLibraryChangeTrackerOptions_get_TrackChangeDetails* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTrackerOptions_get_TrackChangeDetails* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeTrackerOptions_put_TrackChangeDetails* = 7
-type Fn_IStorageLibraryChangeTrackerOptions_put_TrackChangeDetails* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTrackerOptions_put_TrackChangeDetails* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryLastChangeId
 const IID_IStorageLibraryLastChangeId* = GUID(
@@ -1963,830 +2140,830 @@ const IID_IStorageLibraryLastChangeIdStatics* = GUID(
     data1: 0x81A49128'u32, data2: 0x2CA3'u16, data3: 0x5309'u16,
     data4: [0xB0'u8, 0xD1, 0xCF, 0x07, 0x88, 0xE4, 0x07, 0x62])
 const Slot_IStorageLibraryLastChangeIdStatics_get_Unknown* = 6
-type Fn_IStorageLibraryLastChangeIdStatics_get_Unknown* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IStorageLibraryLastChangeIdStatics_get_Unknown* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryStatics
 const IID_IStorageLibraryStatics* = GUID(
     data1: 0x4208A6DB'u32, data2: 0x684A'u16, data3: 0x49C6'u16,
     data4: [0x9E'u8, 0x59, 0x90, 0x12, 0x1E, 0xE0, 0x50, 0xD6])
 const Slot_IStorageLibraryStatics_GetLibraryAsync* = 6
-type Fn_IStorageLibraryStatics_GetLibraryAsync* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryStatics_GetLibraryAsync* = proc(self: pointer, a1: KnownLibraryId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageLibraryStatics2
 const IID_IStorageLibraryStatics2* = GUID(
     data1: 0xFFB08DDC'u32, data2: 0xFA75'u16, data3: 0x4695'u16,
     data4: [0xB9'u8, 0xD1, 0x7F, 0x81, 0xF9, 0x78, 0x32, 0xE3])
 const Slot_IStorageLibraryStatics2_GetLibraryForUserAsync* = 6
-type Fn_IStorageLibraryStatics2_GetLibraryForUserAsync* = proc(self: pointer, a1User: pointer, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryStatics2_GetLibraryForUserAsync* = proc(self: pointer, a1User: pointer, a2: KnownLibraryId, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageProvider
 const IID_IStorageProvider* = GUID(
     data1: 0xE705EED4'u32, data2: 0xD478'u16, data3: 0x47D6'u16,
     data4: [0xBA'u8, 0x46, 0x1A, 0x8E, 0xBE, 0x11, 0x4A, 0x20])
 const Slot_IStorageProvider_get_Id* = 6
-type Fn_IStorageProvider_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProvider_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProvider_get_DisplayName* = 7
-type Fn_IStorageProvider_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProvider_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageProvider2
 const IID_IStorageProvider2* = GUID(
     data1: 0x010D1917'u32, data2: 0x3404'u16, data3: 0x414B'u16,
     data4: [0x9F'u8, 0xD7, 0xCD, 0x44, 0x47, 0x2E, 0xAA, 0x39])
 const Slot_IStorageProvider2_IsPropertySupportedForPartialFileAsync* = 6
-type Fn_IStorageProvider2_IsPropertySupportedForPartialFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProvider2_IsPropertySupportedForPartialFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStorageStreamTransaction
 const IID_IStorageStreamTransaction* = GUID(
     data1: 0xF67CF363'u32, data2: 0xA53D'u16, data3: 0x4D94'u16,
     data4: [0xAE'u8, 0x2C, 0x67, 0x23, 0x2D, 0x93, 0xAC, 0xDD])
 const Slot_IStorageStreamTransaction_get_Stream* = 6
-type Fn_IStorageStreamTransaction_get_Stream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageStreamTransaction_get_Stream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageStreamTransaction_CommitAsync* = 7
-type Fn_IStorageStreamTransaction_CommitAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageStreamTransaction_CommitAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IStreamedFileDataRequest
 const IID_IStreamedFileDataRequest* = GUID(
     data1: 0x1673FCCE'u32, data2: 0xDABD'u16, data3: 0x4D50'u16,
     data4: [0xBE'u8, 0xEE, 0x18, 0x0B, 0x8A, 0x81, 0x91, 0xB6])
 const Slot_IStreamedFileDataRequest_FailAndClose* = 6
-type Fn_IStreamedFileDataRequest_FailAndClose* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStreamedFileDataRequest_FailAndClose* = proc(self: pointer, a1: StreamedFileFailureMode): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemAudioProperties
 const IID_ISystemAudioProperties* = GUID(
     data1: 0x3F8F38B7'u32, data2: 0x308C'u16, data3: 0x47E1'u16,
     data4: [0x92'u8, 0x4D, 0x86, 0x45, 0x34, 0x8E, 0x5D, 0xB7])
 const Slot_ISystemAudioProperties_get_EncodingBitrate* = 6
-type Fn_ISystemAudioProperties_get_EncodingBitrate* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemAudioProperties_get_EncodingBitrate* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemDataPaths
 const IID_ISystemDataPaths* = GUID(
     data1: 0xE32ABF70'u32, data2: 0xD8FA'u16, data3: 0x45EC'u16,
     data4: [0xA9'u8, 0x42, 0xD2, 0xE2, 0x6F, 0xB6, 0x0B, 0xA5])
 const Slot_ISystemDataPaths_get_Fonts* = 6
-type Fn_ISystemDataPaths_get_Fonts* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_Fonts* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_ProgramData* = 7
-type Fn_ISystemDataPaths_get_ProgramData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_ProgramData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_Public* = 8
-type Fn_ISystemDataPaths_get_Public* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_Public* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicDesktop* = 9
-type Fn_ISystemDataPaths_get_PublicDesktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicDesktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicDocuments* = 10
-type Fn_ISystemDataPaths_get_PublicDocuments* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicDocuments* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicDownloads* = 11
-type Fn_ISystemDataPaths_get_PublicDownloads* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicDownloads* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicMusic* = 12
-type Fn_ISystemDataPaths_get_PublicMusic* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicMusic* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicPictures* = 13
-type Fn_ISystemDataPaths_get_PublicPictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicPictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_PublicVideos* = 14
-type Fn_ISystemDataPaths_get_PublicVideos* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_PublicVideos* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_System* = 15
-type Fn_ISystemDataPaths_get_System* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_System* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_SystemHost* = 16
-type Fn_ISystemDataPaths_get_SystemHost* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_SystemHost* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_SystemX86* = 17
-type Fn_ISystemDataPaths_get_SystemX86* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_SystemX86* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_SystemX64* = 18
-type Fn_ISystemDataPaths_get_SystemX64* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_SystemX64* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_SystemArm* = 19
-type Fn_ISystemDataPaths_get_SystemArm* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_SystemArm* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_UserProfiles* = 20
-type Fn_ISystemDataPaths_get_UserProfiles* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_UserProfiles* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemDataPaths_get_Windows* = 21
-type Fn_ISystemDataPaths_get_Windows* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemDataPaths_get_Windows* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemDataPathsStatics
 const IID_ISystemDataPathsStatics* = GUID(
     data1: 0xE0F96FD0'u32, data2: 0x9920'u16, data3: 0x4BCA'u16,
     data4: [0xB3'u8, 0x79, 0xF9, 0x6F, 0xDF, 0x7C, 0xAA, 0xD8])
 const Slot_ISystemDataPathsStatics_GetDefault* = 6
-type Fn_ISystemDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemGPSProperties
 const IID_ISystemGPSProperties* = GUID(
     data1: 0xC0F46EB4'u32, data2: 0xC174'u16, data3: 0x481A'u16,
     data4: [0xBC'u8, 0x25, 0x92, 0x19, 0x86, 0xF6, 0xA6, 0xF3])
 const Slot_ISystemGPSProperties_get_LatitudeDecimal* = 6
-type Fn_ISystemGPSProperties_get_LatitudeDecimal* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemGPSProperties_get_LatitudeDecimal* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemGPSProperties_get_LongitudeDecimal* = 7
-type Fn_ISystemGPSProperties_get_LongitudeDecimal* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemGPSProperties_get_LongitudeDecimal* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemImageProperties
 const IID_ISystemImageProperties* = GUID(
     data1: 0x011B2E30'u32, data2: 0x8B39'u16, data3: 0x4308'u16,
     data4: [0xBE'u8, 0xA1, 0xE8, 0xAA, 0x61, 0xE4, 0x78, 0x26])
 const Slot_ISystemImageProperties_get_HorizontalSize* = 6
-type Fn_ISystemImageProperties_get_HorizontalSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemImageProperties_get_HorizontalSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemImageProperties_get_VerticalSize* = 7
-type Fn_ISystemImageProperties_get_VerticalSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemImageProperties_get_VerticalSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemMediaProperties
 const IID_ISystemMediaProperties* = GUID(
     data1: 0xA42B3316'u32, data2: 0x8415'u16, data3: 0x40DC'u16,
     data4: [0x8C'u8, 0x44, 0x98, 0x36, 0x1D, 0x23, 0x54, 0x30])
 const Slot_ISystemMediaProperties_get_Duration* = 6
-type Fn_ISystemMediaProperties_get_Duration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_Duration* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMediaProperties_get_Producer* = 7
-type Fn_ISystemMediaProperties_get_Producer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_Producer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMediaProperties_get_Publisher* = 8
-type Fn_ISystemMediaProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMediaProperties_get_SubTitle* = 9
-type Fn_ISystemMediaProperties_get_SubTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_SubTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMediaProperties_get_Writer* = 10
-type Fn_ISystemMediaProperties_get_Writer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_Writer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMediaProperties_get_Year* = 11
-type Fn_ISystemMediaProperties_get_Year* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMediaProperties_get_Year* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemMusicProperties
 const IID_ISystemMusicProperties* = GUID(
     data1: 0xB47988D5'u32, data2: 0x67AF'u16, data3: 0x4BC3'u16,
     data4: [0x8D'u8, 0x39, 0x5B, 0x89, 0x02, 0x20, 0x26, 0xA1])
 const Slot_ISystemMusicProperties_get_AlbumArtist* = 6
-type Fn_ISystemMusicProperties_get_AlbumArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_AlbumArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_AlbumTitle* = 7
-type Fn_ISystemMusicProperties_get_AlbumTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_AlbumTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_Artist* = 8
-type Fn_ISystemMusicProperties_get_Artist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_Artist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_Composer* = 9
-type Fn_ISystemMusicProperties_get_Composer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_Composer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_Conductor* = 10
-type Fn_ISystemMusicProperties_get_Conductor* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_Conductor* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_DisplayArtist* = 11
-type Fn_ISystemMusicProperties_get_DisplayArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_DisplayArtist* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_Genre* = 12
-type Fn_ISystemMusicProperties_get_Genre* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_Genre* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemMusicProperties_get_TrackNumber* = 13
-type Fn_ISystemMusicProperties_get_TrackNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemMusicProperties_get_TrackNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemPhotoProperties
 const IID_ISystemPhotoProperties* = GUID(
     data1: 0x4734FC3D'u32, data2: 0xAB21'u16, data3: 0x4424'u16,
     data4: [0xB7'u8, 0x35, 0xF4, 0x35, 0x3A, 0x56, 0xC8, 0xFC])
 const Slot_ISystemPhotoProperties_get_CameraManufacturer* = 6
-type Fn_ISystemPhotoProperties_get_CameraManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemPhotoProperties_get_CameraManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemPhotoProperties_get_CameraModel* = 7
-type Fn_ISystemPhotoProperties_get_CameraModel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemPhotoProperties_get_CameraModel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemPhotoProperties_get_DateTaken* = 8
-type Fn_ISystemPhotoProperties_get_DateTaken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemPhotoProperties_get_DateTaken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemPhotoProperties_get_Orientation* = 9
-type Fn_ISystemPhotoProperties_get_Orientation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemPhotoProperties_get_Orientation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemPhotoProperties_get_PeopleNames* = 10
-type Fn_ISystemPhotoProperties_get_PeopleNames* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemPhotoProperties_get_PeopleNames* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemProperties
 const IID_ISystemProperties* = GUID(
     data1: 0x917A71C1'u32, data2: 0x85F3'u16, data3: 0x4DD1'u16,
     data4: [0xB0'u8, 0x01, 0xA5, 0x0B, 0xFD, 0x21, 0xC8, 0xD2])
 const Slot_ISystemProperties_get_Author* = 6
-type Fn_ISystemProperties_get_Author* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Author* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Comment* = 7
-type Fn_ISystemProperties_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_ItemNameDisplay* = 8
-type Fn_ISystemProperties_get_ItemNameDisplay* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_ItemNameDisplay* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Keywords* = 9
-type Fn_ISystemProperties_get_Keywords* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Keywords* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Rating* = 10
-type Fn_ISystemProperties_get_Rating* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Rating* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Title* = 11
-type Fn_ISystemProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Audio* = 12
-type Fn_ISystemProperties_get_Audio* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Audio* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_GPS* = 13
-type Fn_ISystemProperties_get_GPS* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_GPS* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Media* = 14
-type Fn_ISystemProperties_get_Media* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Media* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Music* = 15
-type Fn_ISystemProperties_get_Music* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Music* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Photo* = 16
-type Fn_ISystemProperties_get_Photo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Photo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Video* = 17
-type Fn_ISystemProperties_get_Video* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Video* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemProperties_get_Image* = 18
-type Fn_ISystemProperties_get_Image* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ISystemProperties_get_Image* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.ISystemVideoProperties
 const IID_ISystemVideoProperties* = GUID(
     data1: 0x2040F715'u32, data2: 0x67F8'u16, data3: 0x4322'u16,
     data4: [0x9B'u8, 0x80, 0x4F, 0xA9, 0xFE, 0xFB, 0x83, 0xE8])
 const Slot_ISystemVideoProperties_get_Director* = 6
-type Fn_ISystemVideoProperties_get_Director* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemVideoProperties_get_Director* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemVideoProperties_get_FrameHeight* = 7
-type Fn_ISystemVideoProperties_get_FrameHeight* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemVideoProperties_get_FrameHeight* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemVideoProperties_get_FrameWidth* = 8
-type Fn_ISystemVideoProperties_get_FrameWidth* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemVideoProperties_get_FrameWidth* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemVideoProperties_get_Orientation* = 9
-type Fn_ISystemVideoProperties_get_Orientation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemVideoProperties_get_Orientation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ISystemVideoProperties_get_TotalBitrate* = 10
-type Fn_ISystemVideoProperties_get_TotalBitrate* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ISystemVideoProperties_get_TotalBitrate* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IUserDataPaths
 const IID_IUserDataPaths* = GUID(
     data1: 0xF9C53912'u32, data2: 0xABC4'u16, data3: 0x46FF'u16,
     data4: [0x8A'u8, 0x2B, 0xDC, 0x9D, 0x7F, 0xA6, 0xE5, 0x2F])
 const Slot_IUserDataPaths_get_CameraRoll* = 6
-type Fn_IUserDataPaths_get_CameraRoll* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_CameraRoll* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Cookies* = 7
-type Fn_IUserDataPaths_get_Cookies* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Cookies* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Desktop* = 8
-type Fn_IUserDataPaths_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Documents* = 9
-type Fn_IUserDataPaths_get_Documents* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Documents* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Downloads* = 10
-type Fn_IUserDataPaths_get_Downloads* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Downloads* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Favorites* = 11
-type Fn_IUserDataPaths_get_Favorites* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Favorites* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_History* = 12
-type Fn_IUserDataPaths_get_History* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_History* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_InternetCache* = 13
-type Fn_IUserDataPaths_get_InternetCache* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_InternetCache* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_LocalAppData* = 14
-type Fn_IUserDataPaths_get_LocalAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_LocalAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_LocalAppDataLow* = 15
-type Fn_IUserDataPaths_get_LocalAppDataLow* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_LocalAppDataLow* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Music* = 16
-type Fn_IUserDataPaths_get_Music* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Music* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Pictures* = 17
-type Fn_IUserDataPaths_get_Pictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Pictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Profile* = 18
-type Fn_IUserDataPaths_get_Profile* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Profile* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Recent* = 19
-type Fn_IUserDataPaths_get_Recent* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Recent* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_RoamingAppData* = 20
-type Fn_IUserDataPaths_get_RoamingAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_RoamingAppData* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_SavedPictures* = 21
-type Fn_IUserDataPaths_get_SavedPictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_SavedPictures* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Screenshots* = 22
-type Fn_IUserDataPaths_get_Screenshots* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Screenshots* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Templates* = 23
-type Fn_IUserDataPaths_get_Templates* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Templates* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPaths_get_Videos* = 24
-type Fn_IUserDataPaths_get_Videos* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUserDataPaths_get_Videos* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.IUserDataPathsStatics
 const IID_IUserDataPathsStatics* = GUID(
     data1: 0x01B29DEF'u32, data2: 0xE062'u16, data3: 0x48A1'u16,
     data4: [0x8B'u8, 0x0C, 0xF2, 0xC7, 0xA9, 0xCA, 0x56, 0xC0])
 const Slot_IUserDataPathsStatics_GetForUser* = 6
-type Fn_IUserDataPathsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUserDataPathsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IUserDataPathsStatics_GetDefault* = 7
-type Fn_IUserDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IUserDataPathsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPicker
 const IID_IFileOpenPicker* = GUID(
     data1: 0x2CA8278A'u32, data2: 0x12C5'u16, data3: 0x4C5F'u16,
     data4: [0x89'u8, 0x77, 0x94, 0x54, 0x77, 0x93, 0xC2, 0x41])
 const Slot_IFileOpenPicker_get_ViewMode* = 6
-type Fn_IFileOpenPicker_get_ViewMode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_get_ViewMode* = proc(self: pointer, value: ptr PickerViewMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_put_ViewMode* = 7
-type Fn_IFileOpenPicker_put_ViewMode* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_put_ViewMode* = proc(self: pointer, a1: PickerViewMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_get_SettingsIdentifier* = 8
-type Fn_IFileOpenPicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_put_SettingsIdentifier* = 9
-type Fn_IFileOpenPicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_get_SuggestedStartLocation* = 10
-type Fn_IFileOpenPicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_put_SuggestedStartLocation* = 11
-type Fn_IFileOpenPicker_put_SuggestedStartLocation* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_put_SuggestedStartLocation* = proc(self: pointer, a1: PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_get_CommitButtonText* = 12
-type Fn_IFileOpenPicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_put_CommitButtonText* = 13
-type Fn_IFileOpenPicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_get_FileTypeFilter* = 14
-type Fn_IFileOpenPicker_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_PickSingleFileAsync* = 15
-type Fn_IFileOpenPicker_PickSingleFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_PickSingleFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker_PickMultipleFilesAsync* = 16
-type Fn_IFileOpenPicker_PickMultipleFilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker_PickMultipleFilesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPicker2
 const IID_IFileOpenPicker2* = GUID(
     data1: 0x8CEB6CD2'u32, data2: 0xB446'u16, data3: 0x46F7'u16,
     data4: [0xB2'u8, 0x65, 0x90, 0xF8, 0xE5, 0x5A, 0xD6, 0x50])
 const Slot_IFileOpenPicker2_get_ContinuationData* = 6
-type Fn_IFileOpenPicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker2_PickSingleFileAndContinue* = 7
-type Fn_IFileOpenPicker2_PickSingleFileAndContinue* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker2_PickSingleFileAndContinue* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPicker2_PickMultipleFilesAndContinue* = 8
-type Fn_IFileOpenPicker2_PickMultipleFilesAndContinue* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker2_PickMultipleFilesAndContinue* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPicker3
 const IID_IFileOpenPicker3* = GUID(
     data1: 0xD9A5C5B3'u32, data2: 0xC5DC'u16, data3: 0x5B98'u16,
     data4: [0xBD'u8, 0x80, 0xA8, 0xD0, 0xCA, 0x05, 0x84, 0xD8])
 const Slot_IFileOpenPicker3_get_User* = 6
-type Fn_IFileOpenPicker3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPicker3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPickerStatics
 const IID_IFileOpenPickerStatics* = GUID(
     data1: 0x6821573B'u32, data2: 0x2F02'u16, data3: 0x4833'u16,
     data4: [0x96'u8, 0xD4, 0xAB, 0xBF, 0xAD, 0x72, 0xB6, 0x7B])
 const Slot_IFileOpenPickerStatics_ResumePickSingleFileAsync* = 6
-type Fn_IFileOpenPickerStatics_ResumePickSingleFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerStatics_ResumePickSingleFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPickerStatics2
 const IID_IFileOpenPickerStatics2* = GUID(
     data1: 0xE8917415'u32, data2: 0xEDDD'u16, data3: 0x5C98'u16,
     data4: [0xB6'u8, 0xF3, 0x36, 0x6F, 0xDF, 0xCA, 0xD3, 0x92])
 const Slot_IFileOpenPickerStatics2_CreateForUser* = 6
-type Fn_IFileOpenPickerStatics2_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerStatics2_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileOpenPickerWithOperationId
 const IID_IFileOpenPickerWithOperationId* = GUID(
     data1: 0x3F57B569'u32, data2: 0x2522'u16, data3: 0x4CA5'u16,
     data4: [0xAA'u8, 0x73, 0xA1, 0x55, 0x09, 0xF1, 0xFC, 0xBF])
 const Slot_IFileOpenPickerWithOperationId_PickSingleFileAsync* = 6
-type Fn_IFileOpenPickerWithOperationId_PickSingleFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerWithOperationId_PickSingleFileAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileSavePicker
 const IID_IFileSavePicker* = GUID(
     data1: 0x3286FFCB'u32, data2: 0x617F'u16, data3: 0x4CC5'u16,
     data4: [0xAF'u8, 0x6A, 0xB3, 0xFD, 0xF2, 0x9A, 0xD1, 0x45])
 const Slot_IFileSavePicker_get_SettingsIdentifier* = 6
-type Fn_IFileSavePicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_SettingsIdentifier* = 7
-type Fn_IFileSavePicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_SuggestedStartLocation* = 8
-type Fn_IFileSavePicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_SuggestedStartLocation* = 9
-type Fn_IFileSavePicker_put_SuggestedStartLocation* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_SuggestedStartLocation* = proc(self: pointer, a1: PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_CommitButtonText* = 10
-type Fn_IFileSavePicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_CommitButtonText* = 11
-type Fn_IFileSavePicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_FileTypeChoices* = 12
-type Fn_IFileSavePicker_get_FileTypeChoices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_FileTypeChoices* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_DefaultFileExtension* = 13
-type Fn_IFileSavePicker_get_DefaultFileExtension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_DefaultFileExtension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_DefaultFileExtension* = 14
-type Fn_IFileSavePicker_put_DefaultFileExtension* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_DefaultFileExtension* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_SuggestedSaveFile* = 15
-type Fn_IFileSavePicker_get_SuggestedSaveFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_SuggestedSaveFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_SuggestedSaveFile* = 16
-type Fn_IFileSavePicker_put_SuggestedSaveFile* = proc(self: pointer, a1StorageFile: pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_SuggestedSaveFile* = proc(self: pointer, a1StorageFile: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_get_SuggestedFileName* = 17
-type Fn_IFileSavePicker_get_SuggestedFileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_get_SuggestedFileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_put_SuggestedFileName* = 18
-type Fn_IFileSavePicker_put_SuggestedFileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_put_SuggestedFileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker_PickSaveFileAsync* = 19
-type Fn_IFileSavePicker_PickSaveFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker_PickSaveFileAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileSavePicker2
 const IID_IFileSavePicker2* = GUID(
     data1: 0x0EC313A2'u32, data2: 0xD24B'u16, data3: 0x449A'u16,
     data4: [0x81'u8, 0x97, 0xE8, 0x91, 0x04, 0xFD, 0x42, 0xCC])
 const Slot_IFileSavePicker2_get_ContinuationData* = 6
-type Fn_IFileSavePicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker2_PickSaveFileAndContinue* = 7
-type Fn_IFileSavePicker2_PickSaveFileAndContinue* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker2_PickSaveFileAndContinue* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileSavePicker3
 const IID_IFileSavePicker3* = GUID(
     data1: 0x698AEC69'u32, data2: 0xBA3C'u16, data3: 0x4E51'u16,
     data4: [0xBD'u8, 0x90, 0x4A, 0xBC, 0xBB, 0xF4, 0xCF, 0xAF])
 const Slot_IFileSavePicker3_get_EnterpriseId* = 6
-type Fn_IFileSavePicker3_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker3_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePicker3_put_EnterpriseId* = 7
-type Fn_IFileSavePicker3_put_EnterpriseId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePicker3_put_EnterpriseId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileSavePicker4
 const IID_IFileSavePicker4* = GUID(
     data1: 0xE7D83A5A'u32, data2: 0xDDFA'u16, data3: 0x5DE0'u16,
     data4: [0x8B'u8, 0x70, 0xC8, 0x42, 0xC2, 0x19, 0x88, 0xEC])
 const Slot_IFileSavePicker4_get_User* = 6
-type Fn_IFileSavePicker4_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePicker4_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFileSavePickerStatics
 const IID_IFileSavePickerStatics* = GUID(
     data1: 0x28E3CF9E'u32, data2: 0x961C'u16, data3: 0x5E2C'u16,
     data4: [0xAE'u8, 0xD7, 0xE6, 0x47, 0x37, 0xF4, 0xCE, 0x37])
 const Slot_IFileSavePickerStatics_CreateForUser* = 6
-type Fn_IFileSavePickerStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePickerStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFolderPicker
 const IID_IFolderPicker* = GUID(
     data1: 0x084F7799'u32, data2: 0xF3FB'u16, data3: 0x400A'u16,
     data4: [0x99'u8, 0xB1, 0x7B, 0x4A, 0x77, 0x2F, 0xD6, 0x0D])
 const Slot_IFolderPicker_get_ViewMode* = 6
-type Fn_IFolderPicker_get_ViewMode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFolderPicker_get_ViewMode* = proc(self: pointer, value: ptr PickerViewMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_put_ViewMode* = 7
-type Fn_IFolderPicker_put_ViewMode* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFolderPicker_put_ViewMode* = proc(self: pointer, a1: PickerViewMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_get_SettingsIdentifier* = 8
-type Fn_IFolderPicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFolderPicker_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_put_SettingsIdentifier* = 9
-type Fn_IFolderPicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFolderPicker_put_SettingsIdentifier* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_get_SuggestedStartLocation* = 10
-type Fn_IFolderPicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFolderPicker_get_SuggestedStartLocation* = proc(self: pointer, value: ptr PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_put_SuggestedStartLocation* = 11
-type Fn_IFolderPicker_put_SuggestedStartLocation* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFolderPicker_put_SuggestedStartLocation* = proc(self: pointer, a1: PickerLocationId): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_get_CommitButtonText* = 12
-type Fn_IFolderPicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFolderPicker_get_CommitButtonText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_put_CommitButtonText* = 13
-type Fn_IFolderPicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFolderPicker_put_CommitButtonText* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_get_FileTypeFilter* = 14
-type Fn_IFolderPicker_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFolderPicker_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker_PickSingleFolderAsync* = 15
-type Fn_IFolderPicker_PickSingleFolderAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFolderPicker_PickSingleFolderAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFolderPicker2
 const IID_IFolderPicker2* = GUID(
     data1: 0x8EB3BA97'u32, data2: 0xDC85'u16, data3: 0x4616'u16,
     data4: [0xBE'u8, 0x94, 0x96, 0x60, 0x88, 0x1F, 0x2F, 0x5D])
 const Slot_IFolderPicker2_get_ContinuationData* = 6
-type Fn_IFolderPicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFolderPicker2_get_ContinuationData* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFolderPicker2_PickFolderAndContinue* = 7
-type Fn_IFolderPicker2_PickFolderAndContinue* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IFolderPicker2_PickFolderAndContinue* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFolderPicker3
 const IID_IFolderPicker3* = GUID(
     data1: 0x673B1E29'u32, data2: 0xD326'u16, data3: 0x53C0'u16,
     data4: [0xBD'u8, 0x24, 0xA2, 0x5C, 0x71, 0x4C, 0xEE, 0x36])
 const Slot_IFolderPicker3_get_User* = 6
-type Fn_IFolderPicker3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFolderPicker3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.IFolderPickerStatics
 const IID_IFolderPickerStatics* = GUID(
     data1: 0x9BE34740'u32, data2: 0x7CA1'u16, data3: 0x5942'u16,
     data4: [0xA3'u8, 0xC8, 0x46, 0xF2, 0x55, 0x1E, 0xCF, 0xF3])
 const Slot_IFolderPickerStatics_CreateForUser* = 6
-type Fn_IFolderPickerStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFolderPickerStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IFileOpenPickerUI
 const IID_IFileOpenPickerUI* = GUID(
     data1: 0xDDA45A10'u32, data2: 0xF9D4'u16, data3: 0x40C4'u16,
     data4: [0x8A'u8, 0xF5, 0xC5, 0xB6, 0xB5, 0xA6, 0x1D, 0x1D])
 const Slot_IFileOpenPickerUI_AddFile* = 6
-type Fn_IFileOpenPickerUI_AddFile* = proc(self: pointer, a1: HSTRING, a2IStorageFile: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_AddFile* = proc(self: pointer, a1: HSTRING, a2IStorageFile: pointer, value: ptr AddFileResult): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_RemoveFile* = 7
-type Fn_IFileOpenPickerUI_RemoveFile* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_RemoveFile* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_ContainsFile* = 8
-type Fn_IFileOpenPickerUI_ContainsFile* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_ContainsFile* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_CanAddFile* = 9
-type Fn_IFileOpenPickerUI_CanAddFile* = proc(self: pointer, a1IStorageFile: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_CanAddFile* = proc(self: pointer, a1IStorageFile: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_get_AllowedFileTypes* = 10
-type Fn_IFileOpenPickerUI_get_AllowedFileTypes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_get_AllowedFileTypes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_get_SelectionMode* = 11
-type Fn_IFileOpenPickerUI_get_SelectionMode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_get_SelectionMode* = proc(self: pointer, value: ptr FileSelectionMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_get_SettingsIdentifier* = 12
-type Fn_IFileOpenPickerUI_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_get_Title* = 13
-type Fn_IFileOpenPickerUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_put_Title* = 14
-type Fn_IFileOpenPickerUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_add_FileRemoved* = 15
-type Fn_IFileOpenPickerUI_add_FileRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_add_FileRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_remove_FileRemoved* = 16
-type Fn_IFileOpenPickerUI_remove_FileRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_remove_FileRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_add_Closing* = 17
-type Fn_IFileOpenPickerUI_add_Closing* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_add_Closing* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileOpenPickerUI_remove_Closing* = 18
-type Fn_IFileOpenPickerUI_remove_Closing* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileOpenPickerUI_remove_Closing* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IFileRemovedEventArgs
 const IID_IFileRemovedEventArgs* = GUID(
     data1: 0x13043DA7'u32, data2: 0x7FCA'u16, data3: 0x4C2B'u16,
     data4: [0x9E'u8, 0xCA, 0x68, 0x90, 0xF9, 0xF0, 0x01, 0x85])
 const Slot_IFileRemovedEventArgs_get_Id* = 6
-type Fn_IFileRemovedEventArgs_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileRemovedEventArgs_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IFileSavePickerUI
 const IID_IFileSavePickerUI* = GUID(
     data1: 0x9656C1E7'u32, data2: 0x3E56'u16, data3: 0x43CC'u16,
     data4: [0x8A'u8, 0x39, 0x33, 0xC7, 0x3D, 0x9D, 0x54, 0x2B])
 const Slot_IFileSavePickerUI_get_Title* = 6
-type Fn_IFileSavePickerUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_put_Title* = 7
-type Fn_IFileSavePickerUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_get_AllowedFileTypes* = 8
-type Fn_IFileSavePickerUI_get_AllowedFileTypes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_get_AllowedFileTypes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_get_SettingsIdentifier* = 9
-type Fn_IFileSavePickerUI_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_get_SettingsIdentifier* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_get_FileName* = 10
-type Fn_IFileSavePickerUI_get_FileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_get_FileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_TrySetFileName* = 11
-type Fn_IFileSavePickerUI_TrySetFileName* = proc(self: pointer, a1: HSTRING, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_TrySetFileName* = proc(self: pointer, a1: HSTRING, value: ptr SetFileNameResult): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_add_FileNameChanged* = 12
-type Fn_IFileSavePickerUI_add_FileNameChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_add_FileNameChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_remove_FileNameChanged* = 13
-type Fn_IFileSavePickerUI_remove_FileNameChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_remove_FileNameChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_add_TargetFileRequested* = 14
-type Fn_IFileSavePickerUI_add_TargetFileRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_add_TargetFileRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileSavePickerUI_remove_TargetFileRequested* = 15
-type Fn_IFileSavePickerUI_remove_TargetFileRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IFileSavePickerUI_remove_TargetFileRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IPickerClosingDeferral
 const IID_IPickerClosingDeferral* = GUID(
     data1: 0x7AF7F71E'u32, data2: 0x1A67'u16, data3: 0x4A31'u16,
     data4: [0xAE'u8, 0x80, 0xE9, 0x07, 0x70, 0x8A, 0x61, 0x9B])
 const Slot_IPickerClosingDeferral_Complete* = 6
-type Fn_IPickerClosingDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IPickerClosingDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IPickerClosingEventArgs
 const IID_IPickerClosingEventArgs* = GUID(
     data1: 0x7E59F224'u32, data2: 0xB332'u16, data3: 0x4F12'u16,
     data4: [0x8B'u8, 0x9F, 0xA8, 0xC2, 0xF0, 0x6B, 0x32, 0xCD])
 const Slot_IPickerClosingEventArgs_get_ClosingOperation* = 6
-type Fn_IPickerClosingEventArgs_get_ClosingOperation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPickerClosingEventArgs_get_ClosingOperation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPickerClosingEventArgs_get_IsCanceled* = 7
-type Fn_IPickerClosingEventArgs_get_IsCanceled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IPickerClosingEventArgs_get_IsCanceled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.IPickerClosingOperation
 const IID_IPickerClosingOperation* = GUID(
     data1: 0x4CE9FB84'u32, data2: 0xBEEE'u16, data3: 0x4E39'u16,
     data4: [0xA7'u8, 0x73, 0xFC, 0x5F, 0x0E, 0xAE, 0x32, 0x8D])
 const Slot_IPickerClosingOperation_GetDeferral* = 6
-type Fn_IPickerClosingOperation_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPickerClosingOperation_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPickerClosingOperation_get_Deadline* = 7
-type Fn_IPickerClosingOperation_get_Deadline* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IPickerClosingOperation_get_Deadline* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.ITargetFileRequest
 const IID_ITargetFileRequest* = GUID(
     data1: 0x42BD3355'u32, data2: 0x7F88'u16, data3: 0x478B'u16,
     data4: [0x8E'u8, 0x81, 0x69, 0x0B, 0x20, 0x34, 0x06, 0x78])
 const Slot_ITargetFileRequest_get_TargetFile* = 6
-type Fn_ITargetFileRequest_get_TargetFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ITargetFileRequest_get_TargetFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITargetFileRequest_put_TargetFile* = 7
-type Fn_ITargetFileRequest_put_TargetFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall.}
+type Fn_ITargetFileRequest_put_TargetFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ITargetFileRequest_GetDeferral* = 8
-type Fn_ITargetFileRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ITargetFileRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.ITargetFileRequestDeferral
 const IID_ITargetFileRequestDeferral* = GUID(
     data1: 0x4AEE9D91'u32, data2: 0xBF15'u16, data3: 0x4DA9'u16,
     data4: [0x95'u8, 0xF6, 0xF6, 0xB7, 0xD5, 0x58, 0x22, 0x5B])
 const Slot_ITargetFileRequestDeferral_Complete* = 6
-type Fn_ITargetFileRequestDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_ITargetFileRequestDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Pickers.Provider.ITargetFileRequestedEventArgs
 const IID_ITargetFileRequestedEventArgs* = GUID(
     data1: 0xB163DBC1'u32, data2: 0x1B51'u16, data3: 0x4C89'u16,
     data4: [0xA5'u8, 0x91, 0x0F, 0xD4, 0x0B, 0x3C, 0x57, 0xC9])
 const Slot_ITargetFileRequestedEventArgs_get_Request* = 6
-type Fn_ITargetFileRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ITargetFileRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.ICachedFileUpdaterStatics
 const IID_ICachedFileUpdaterStatics* = GUID(
     data1: 0x9FC90920'u32, data2: 0x7BCF'u16, data3: 0x4888'u16,
     data4: [0xA8'u8, 0x1E, 0x10, 0x2D, 0x70, 0x34, 0xD7, 0xCE])
 const Slot_ICachedFileUpdaterStatics_SetUpdateInformation* = 6
-type Fn_ICachedFileUpdaterStatics_SetUpdateInformation* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: int32, a4: int32, a5: int32): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterStatics_SetUpdateInformation* = proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, a3: ReadActivationMode, a4: WriteActivationMode, a5: CachedFileOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.ICachedFileUpdaterUI
 const IID_ICachedFileUpdaterUI* = GUID(
     data1: 0x9E6F41E6'u32, data2: 0xBAF2'u16, data3: 0x4A97'u16,
     data4: [0xB6'u8, 0x00, 0x93, 0x33, 0xF5, 0xDF, 0x80, 0xFD])
 const Slot_ICachedFileUpdaterUI_get_Title* = 6
-type Fn_ICachedFileUpdaterUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_put_Title* = 7
-type Fn_ICachedFileUpdaterUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_get_UpdateTarget* = 8
-type Fn_ICachedFileUpdaterUI_get_UpdateTarget* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_get_UpdateTarget* = proc(self: pointer, value: ptr CachedFileTarget): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_add_FileUpdateRequested* = 9
-type Fn_ICachedFileUpdaterUI_add_FileUpdateRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_add_FileUpdateRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_remove_FileUpdateRequested* = 10
-type Fn_ICachedFileUpdaterUI_remove_FileUpdateRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_remove_FileUpdateRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_add_UIRequested* = 11
-type Fn_ICachedFileUpdaterUI_add_UIRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_add_UIRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_remove_UIRequested* = 12
-type Fn_ICachedFileUpdaterUI_remove_UIRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_remove_UIRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI_get_UIStatus* = 13
-type Fn_ICachedFileUpdaterUI_get_UIStatus* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI_get_UIStatus* = proc(self: pointer, value: ptr UIStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.ICachedFileUpdaterUI2
 const IID_ICachedFileUpdaterUI2* = GUID(
     data1: 0x8856A21C'u32, data2: 0x8699'u16, data3: 0x4340'u16,
     data4: [0x9F'u8, 0x49, 0xF7, 0xCA, 0xD7, 0xFE, 0x89, 0x91])
 const Slot_ICachedFileUpdaterUI2_get_UpdateRequest* = 6
-type Fn_ICachedFileUpdaterUI2_get_UpdateRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI2_get_UpdateRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_ICachedFileUpdaterUI2_GetDeferral* = 7
-type Fn_ICachedFileUpdaterUI2_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_ICachedFileUpdaterUI2_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IFileUpdateRequest
 const IID_IFileUpdateRequest* = GUID(
     data1: 0x40C82536'u32, data2: 0xC1FE'u16, data3: 0x4D93'u16,
     data4: [0xA7'u8, 0x92, 0x1E, 0x73, 0x6B, 0xC7, 0x08, 0x37])
 const Slot_IFileUpdateRequest_get_ContentId* = 6
-type Fn_IFileUpdateRequest_get_ContentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_get_ContentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest_get_File* = 7
-type Fn_IFileUpdateRequest_get_File* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_get_File* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest_get_Status* = 8
-type Fn_IFileUpdateRequest_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_get_Status* = proc(self: pointer, value: ptr FileUpdateStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest_put_Status* = 9
-type Fn_IFileUpdateRequest_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_put_Status* = proc(self: pointer, a1: FileUpdateStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest_GetDeferral* = 10
-type Fn_IFileUpdateRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest_UpdateLocalFile* = 11
-type Fn_IFileUpdateRequest_UpdateLocalFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest_UpdateLocalFile* = proc(self: pointer, a1IStorageFile: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IFileUpdateRequest2
 const IID_IFileUpdateRequest2* = GUID(
     data1: 0x82484648'u32, data2: 0xBDBE'u16, data3: 0x447B'u16,
     data4: [0xA2'u8, 0xEE, 0x7A, 0xFE, 0x6A, 0x03, 0x2A, 0x94])
 const Slot_IFileUpdateRequest2_get_UserInputNeededMessage* = 6
-type Fn_IFileUpdateRequest2_get_UserInputNeededMessage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest2_get_UserInputNeededMessage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileUpdateRequest2_put_UserInputNeededMessage* = 7
-type Fn_IFileUpdateRequest2_put_UserInputNeededMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequest2_put_UserInputNeededMessage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IFileUpdateRequestDeferral
 const IID_IFileUpdateRequestDeferral* = GUID(
     data1: 0xFFCEDB2B'u32, data2: 0x8ADE'u16, data3: 0x44A5'u16,
     data4: [0xBB'u8, 0x00, 0x16, 0x4C, 0x4E, 0x72, 0xF1, 0x3A])
 const Slot_IFileUpdateRequestDeferral_Complete* = 6
-type Fn_IFileUpdateRequestDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequestDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IFileUpdateRequestedEventArgs
 const IID_IFileUpdateRequestedEventArgs* = GUID(
     data1: 0x7B0A9342'u32, data2: 0x3905'u16, data3: 0x438D'u16,
     data4: [0xAA'u8, 0xEF, 0x78, 0xAE, 0x26, 0x5F, 0x8D, 0xD2])
 const Slot_IFileUpdateRequestedEventArgs_get_Request* = 6
-type Fn_IFileUpdateRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileUpdateRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderFileTypeInfo
 const IID_IStorageProviderFileTypeInfo* = GUID(
     data1: 0x1955B9C1'u32, data2: 0x0184'u16, data3: 0x5A88'u16,
     data4: [0x87'u8, 0xDF, 0x45, 0x44, 0xF4, 0x64, 0x36, 0x5D])
 const Slot_IStorageProviderFileTypeInfo_get_FileExtension* = 6
-type Fn_IStorageProviderFileTypeInfo_get_FileExtension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderFileTypeInfo_get_FileExtension* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderFileTypeInfo_get_IconResource* = 7
-type Fn_IStorageProviderFileTypeInfo_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderFileTypeInfo_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderFileTypeInfoFactory
 const IID_IStorageProviderFileTypeInfoFactory* = GUID(
     data1: 0x3FA12C6F'u32, data2: 0xCCE6'u16, data3: 0x5D5D'u16,
     data4: [0x80'u8, 0xB1, 0x38, 0x9E, 0x7C, 0xF9, 0x2D, 0xBF])
 const Slot_IStorageProviderFileTypeInfoFactory_CreateInstance* = 6
-type Fn_IStorageProviderFileTypeInfoFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderFileTypeInfoFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderGetContentInfoForPathResult
 const IID_IStorageProviderGetContentInfoForPathResult* = GUID(
     data1: 0x2564711D'u32, data2: 0xAA89'u16, data3: 0x4D12'u16,
     data4: [0x82'u8, 0xE3, 0xF7, 0x2A, 0x92, 0xE3, 0x39, 0x66])
 const Slot_IStorageProviderGetContentInfoForPathResult_get_Status* = 6
-type Fn_IStorageProviderGetContentInfoForPathResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_get_Status* = proc(self: pointer, value: ptr StorageProviderUriSourceStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetContentInfoForPathResult_put_Status* = 7
-type Fn_IStorageProviderGetContentInfoForPathResult_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_put_Status* = proc(self: pointer, a1: StorageProviderUriSourceStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetContentInfoForPathResult_get_ContentUri* = 8
-type Fn_IStorageProviderGetContentInfoForPathResult_get_ContentUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_get_ContentUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetContentInfoForPathResult_put_ContentUri* = 9
-type Fn_IStorageProviderGetContentInfoForPathResult_put_ContentUri* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_put_ContentUri* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetContentInfoForPathResult_get_ContentId* = 10
-type Fn_IStorageProviderGetContentInfoForPathResult_get_ContentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_get_ContentId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetContentInfoForPathResult_put_ContentId* = 11
-type Fn_IStorageProviderGetContentInfoForPathResult_put_ContentId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetContentInfoForPathResult_put_ContentId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderGetPathForContentUriResult
 const IID_IStorageProviderGetPathForContentUriResult* = GUID(
     data1: 0x63711A9D'u32, data2: 0x4118'u16, data3: 0x45A6'u16,
     data4: [0xAC'u8, 0xB6, 0x22, 0xC4, 0x9D, 0x01, 0x9F, 0x40])
 const Slot_IStorageProviderGetPathForContentUriResult_get_Status* = 6
-type Fn_IStorageProviderGetPathForContentUriResult_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetPathForContentUriResult_get_Status* = proc(self: pointer, value: ptr StorageProviderUriSourceStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetPathForContentUriResult_put_Status* = 7
-type Fn_IStorageProviderGetPathForContentUriResult_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetPathForContentUriResult_put_Status* = proc(self: pointer, a1: StorageProviderUriSourceStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetPathForContentUriResult_get_Path* = 8
-type Fn_IStorageProviderGetPathForContentUriResult_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetPathForContentUriResult_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderGetPathForContentUriResult_put_Path* = 9
-type Fn_IStorageProviderGetPathForContentUriResult_put_Path* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderGetPathForContentUriResult_put_Path* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderItemPropertiesStatics
 const IID_IStorageProviderItemPropertiesStatics* = GUID(
     data1: 0x2D2C1C97'u32, data2: 0x2704'u16, data3: 0x4729'u16,
     data4: [0x8F'u8, 0xA9, 0x7E, 0x6B, 0x8E, 0x15, 0x8C, 0x2F])
 const Slot_IStorageProviderItemPropertiesStatics_SetAsync* = 6
-type Fn_IStorageProviderItemPropertiesStatics_SetAsync* = proc(self: pointer, a1IStorageItem: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertiesStatics_SetAsync* = proc(self: pointer, a1IStorageItem: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderItemProperty
 const IID_IStorageProviderItemProperty* = GUID(
     data1: 0x476CB558'u32, data2: 0x730B'u16, data3: 0x4188'u16,
     data4: [0xB7'u8, 0xB5, 0x63, 0xB7, 0x16, 0xED, 0x47, 0x6D])
 const Slot_IStorageProviderItemProperty_put_Id* = 6
-type Fn_IStorageProviderItemProperty_put_Id* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_put_Id* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemProperty_get_Id* = 7
-type Fn_IStorageProviderItemProperty_get_Id* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_get_Id* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemProperty_put_Value* = 8
-type Fn_IStorageProviderItemProperty_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemProperty_get_Value* = 9
-type Fn_IStorageProviderItemProperty_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemProperty_put_IconResource* = 10
-type Fn_IStorageProviderItemProperty_put_IconResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_put_IconResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemProperty_get_IconResource* = 11
-type Fn_IStorageProviderItemProperty_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemProperty_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderItemPropertyDefinition
 const IID_IStorageProviderItemPropertyDefinition* = GUID(
     data1: 0xC5B383BB'u32, data2: 0xFF1F'u16, data3: 0x4298'u16,
     data4: [0x83'u8, 0x1E, 0xFF, 0x1C, 0x08, 0x08, 0x96, 0x90])
 const Slot_IStorageProviderItemPropertyDefinition_get_Id* = 6
-type Fn_IStorageProviderItemPropertyDefinition_get_Id* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertyDefinition_get_Id* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemPropertyDefinition_put_Id* = 7
-type Fn_IStorageProviderItemPropertyDefinition_put_Id* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertyDefinition_put_Id* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemPropertyDefinition_get_DisplayNameResource* = 8
-type Fn_IStorageProviderItemPropertyDefinition_get_DisplayNameResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertyDefinition_get_DisplayNameResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderItemPropertyDefinition_put_DisplayNameResource* = 9
-type Fn_IStorageProviderItemPropertyDefinition_put_DisplayNameResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertyDefinition_put_DisplayNameResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderItemPropertySource
 const IID_IStorageProviderItemPropertySource* = GUID(
     data1: 0x8F6F9C3E'u32, data2: 0xF632'u16, data3: 0x4A9B'u16,
     data4: [0x8D'u8, 0x99, 0xD2, 0xD7, 0xA1, 0x1D, 0xF5, 0x6A])
 const Slot_IStorageProviderItemPropertySource_GetItemProperties* = 6
-type Fn_IStorageProviderItemPropertySource_GetItemProperties* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderItemPropertySource_GetItemProperties* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderKnownFolderEntry
 const IID_IStorageProviderKnownFolderEntry* = GUID(
     data1: 0xEFFA7DB0'u32, data2: 0x1D44'u16, data3: 0x596B'u16,
     data4: [0x84'u8, 0x64, 0x92, 0x88, 0x00, 0xC5, 0xE2, 0xD8])
 const Slot_IStorageProviderKnownFolderEntry_get_KnownFolderId* = 6
-type Fn_IStorageProviderKnownFolderEntry_get_KnownFolderId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderEntry_get_KnownFolderId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderEntry_put_KnownFolderId* = 7
-type Fn_IStorageProviderKnownFolderEntry_put_KnownFolderId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderEntry_put_KnownFolderId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderEntry_get_Status* = 8
-type Fn_IStorageProviderKnownFolderEntry_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderEntry_get_Status* = proc(self: pointer, value: ptr StorageProviderKnownFolderSyncStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderEntry_put_Status* = 9
-type Fn_IStorageProviderKnownFolderEntry_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderEntry_put_Status* = proc(self: pointer, a1: StorageProviderKnownFolderSyncStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo
 const IID_IStorageProviderKnownFolderSyncInfo* = GUID(
     data1: 0x98B017CE'u32, data2: 0xFFC1'u16, data3: 0x5B11'u16,
     data4: [0xAE'u8, 0x77, 0xCC, 0x17, 0xAF, 0xEC, 0x10, 0x49])
 const Slot_IStorageProviderKnownFolderSyncInfo_get_ProviderDisplayName* = 6
-type Fn_IStorageProviderKnownFolderSyncInfo_get_ProviderDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfo_get_ProviderDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfo_put_ProviderDisplayName* = 7
-type Fn_IStorageProviderKnownFolderSyncInfo_put_ProviderDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfo_put_ProviderDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries* = 8
-type Fn_IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfo_get_SyncRequested* = 9
-type Fn_IStorageProviderKnownFolderSyncInfo_get_SyncRequested* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfo_get_SyncRequested* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfo_put_SyncRequested* = 10
-type Fn_IStorageProviderKnownFolderSyncInfo_put_SyncRequested* = proc(self: pointer, a1StorageProviderKnownFolderSyncRequestedHandler: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfo_put_SyncRequested* = proc(self: pointer, a1StorageProviderKnownFolderSyncRequestedHandler: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource
 const IID_IStorageProviderKnownFolderSyncInfoSource* = GUID(
     data1: 0x51359342'u32, data2: 0xF7C0'u16, data3: 0x53D0'u16,
     data4: [0xBB'u8, 0xB6, 0x1C, 0xDC, 0x09, 0x8E, 0xBD, 0xA9])
 const Slot_IStorageProviderKnownFolderSyncInfoSource_GetKnownFolderSyncInfo* = 6
-type Fn_IStorageProviderKnownFolderSyncInfoSource_GetKnownFolderSyncInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfoSource_GetKnownFolderSyncInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfoSource_add_KnownFolderSyncInfoChanged* = 7
-type Fn_IStorageProviderKnownFolderSyncInfoSource_add_KnownFolderSyncInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfoSource_add_KnownFolderSyncInfoChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncInfoSource_remove_KnownFolderSyncInfoChanged* = 8
-type Fn_IStorageProviderKnownFolderSyncInfoSource_remove_KnownFolderSyncInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfoSource_remove_KnownFolderSyncInfoChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSourceFactory
 const IID_IStorageProviderKnownFolderSyncInfoSourceFactory* = GUID(
     data1: 0xAAEE03A7'u32, data2: 0xA7F6'u16, data3: 0x50BE'u16,
     data4: [0xA9'u8, 0xB0, 0x8E, 0x82, 0xD0, 0xC8, 0x10, 0x82])
 const Slot_IStorageProviderKnownFolderSyncInfoSourceFactory_GetKnownFolderSyncInfoSource* = 6
-type Fn_IStorageProviderKnownFolderSyncInfoSourceFactory_GetKnownFolderSyncInfoSource* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncInfoSourceFactory_GetKnownFolderSyncInfoSource* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs
 const IID_IStorageProviderKnownFolderSyncRequestArgs* = GUID(
     data1: 0xEDA6D569'u32, data2: 0xB4E8'u16, data3: 0x542F'u16,
     data4: [0xAB'u8, 0x8D, 0xF3, 0x61, 0x3F, 0x25, 0x0A, 0x4A])
 const Slot_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders* = 6
-type Fn_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderKnownFolderSyncRequestArgs_get_Source* = 7
-type Fn_IStorageProviderKnownFolderSyncRequestArgs_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderKnownFolderSyncRequestArgs_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderMoreInfoUI
 const IID_IStorageProviderMoreInfoUI* = GUID(
     data1: 0xEF38E591'u32, data2: 0xA7CB'u16, data3: 0x5E7D'u16,
     data4: [0x9B'u8, 0x5E, 0x22, 0x74, 0x98, 0x42, 0x69, 0x7C])
 const Slot_IStorageProviderMoreInfoUI_get_Message* = 6
-type Fn_IStorageProviderMoreInfoUI_get_Message* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderMoreInfoUI_get_Message* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderMoreInfoUI_put_Message* = 7
-type Fn_IStorageProviderMoreInfoUI_put_Message* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderMoreInfoUI_put_Message* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderMoreInfoUI_get_Command* = 8
-type Fn_IStorageProviderMoreInfoUI_get_Command* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderMoreInfoUI_get_Command* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderMoreInfoUI_put_Command* = 9
-type Fn_IStorageProviderMoreInfoUI_put_Command* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderMoreInfoUI_put_Command* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderPropertyCapabilities
 const IID_IStorageProviderPropertyCapabilities* = GUID(
     data1: 0x658D2F0E'u32, data2: 0x63B7'u16, data3: 0x4567'u16,
     data4: [0xAC'u8, 0xF9, 0x51, 0xAB, 0xE3, 0x01, 0xDD, 0xA5])
 const Slot_IStorageProviderPropertyCapabilities_IsPropertySupported* = 6
-type Fn_IStorageProviderPropertyCapabilities_IsPropertySupported* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderPropertyCapabilities_IsPropertySupported* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderQueryResult
 const IID_IStorageProviderQueryResult* = GUID(
     data1: 0xF1CD00AE'u32, data2: 0xB4A9'u16, data3: 0x5D20'u16,
     data4: [0xA5'u8, 0x98, 0x3E, 0xB4, 0xDD, 0x8F, 0xF8, 0xF4])
 const Slot_IStorageProviderQueryResult_get_Kind* = 6
-type Fn_IStorageProviderQueryResult_get_Kind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_get_Kind* = proc(self: pointer, value: ptr StorageProviderResultKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_put_Kind* = 7
-type Fn_IStorageProviderQueryResult_put_Kind* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_put_Kind* = proc(self: pointer, a1: StorageProviderResultKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_get_ResultId* = 8
-type Fn_IStorageProviderQueryResult_get_ResultId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_get_ResultId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_put_ResultId* = 9
-type Fn_IStorageProviderQueryResult_put_ResultId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_put_ResultId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_get_RemoteFileId* = 10
-type Fn_IStorageProviderQueryResult_get_RemoteFileId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_get_RemoteFileId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_put_RemoteFileId* = 11
-type Fn_IStorageProviderQueryResult_put_RemoteFileId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_put_RemoteFileId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_get_FilePath* = 12
-type Fn_IStorageProviderQueryResult_get_FilePath* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_get_FilePath* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_put_FilePath* = 13
-type Fn_IStorageProviderQueryResult_put_FilePath* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_put_FilePath* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResult_get_RequestedProperties* = 14
-type Fn_IStorageProviderQueryResult_get_RequestedProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResult_get_RequestedProperties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderQueryResultSet
 const IID_IStorageProviderQueryResultSet* = GUID(
@@ -2795,13 +2972,13 @@ const IID_IStorageProviderQueryResultSet* = GUID(
 const Slot_IStorageProviderQueryResultSet_GetResults* = 6
 # Fn_IStorageProviderQueryResultSet_GetResults: signature not mapped
 const Slot_IStorageProviderQueryResultSet_get_QueryResultId* = 7
-type Fn_IStorageProviderQueryResultSet_get_QueryResultId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResultSet_get_QueryResultId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResultSet_put_QueryResultId* = 8
-type Fn_IStorageProviderQueryResultSet_put_QueryResultId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResultSet_put_QueryResultId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResultSet_get_Status* = 9
-type Fn_IStorageProviderQueryResultSet_get_Status* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResultSet_get_Status* = proc(self: pointer, value: ptr StorageProviderSearchQueryStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQueryResultSet_put_Status* = 10
-type Fn_IStorageProviderQueryResultSet_put_Status* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderQueryResultSet_put_Status* = proc(self: pointer, a1: StorageProviderSearchQueryStatus): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderQueryResultSetFactory
 const IID_IStorageProviderQueryResultSetFactory* = GUID(
@@ -2815,856 +2992,856 @@ const IID_IStorageProviderQuotaUI* = GUID(
     data1: 0xBA6295C3'u32, data2: 0x312E'u16, data3: 0x544F'u16,
     data4: [0x9F'u8, 0xD5, 0x1F, 0x81, 0xB2, 0x1F, 0x36, 0x49])
 const Slot_IStorageProviderQuotaUI_get_QuotaTotalInBytes* = 6
-type Fn_IStorageProviderQuotaUI_get_QuotaTotalInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_get_QuotaTotalInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_put_QuotaTotalInBytes* = 7
-type Fn_IStorageProviderQuotaUI_put_QuotaTotalInBytes* = proc(self: pointer, a1: uint64): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_put_QuotaTotalInBytes* = proc(self: pointer, a1: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_get_QuotaUsedInBytes* = 8
-type Fn_IStorageProviderQuotaUI_get_QuotaUsedInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_get_QuotaUsedInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_put_QuotaUsedInBytes* = 9
-type Fn_IStorageProviderQuotaUI_put_QuotaUsedInBytes* = proc(self: pointer, a1: uint64): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_put_QuotaUsedInBytes* = proc(self: pointer, a1: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_get_QuotaUsedLabel* = 10
-type Fn_IStorageProviderQuotaUI_get_QuotaUsedLabel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_get_QuotaUsedLabel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_put_QuotaUsedLabel* = 11
-type Fn_IStorageProviderQuotaUI_put_QuotaUsedLabel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_put_QuotaUsedLabel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_get_QuotaUsedColor* = 12
-type Fn_IStorageProviderQuotaUI_get_QuotaUsedColor* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_get_QuotaUsedColor* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderQuotaUI_put_QuotaUsedColor* = 13
-type Fn_IStorageProviderQuotaUI_put_QuotaUsedColor* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderQuotaUI_put_QuotaUsedColor* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSearchHandler
 const IID_IStorageProviderSearchHandler* = GUID(
     data1: 0x69CC977D'u32, data2: 0xADAD'u16, data3: 0x59C9'u16,
     data4: [0x8F'u8, 0xD1, 0xF3, 0x0B, 0x6F, 0xAE, 0x0F, 0xD9])
 const Slot_IStorageProviderSearchHandler_Find* = 6
-type Fn_IStorageProviderSearchHandler_Find* = proc(self: pointer, a1StorageProviderSearchQueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchHandler_Find* = proc(self: pointer, a1StorageProviderSearchQueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchHandler_ReportUsage* = 7
-type Fn_IStorageProviderSearchHandler_ReportUsage* = proc(self: pointer, a1: int32, a2: HSTRING, a3: HSTRING, a4: TimeSpan): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchHandler_ReportUsage* = proc(self: pointer, a1: StorageProviderResultUsageKind, a2: HSTRING, a3: HSTRING, a4: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSearchHandlerFactory
 const IID_IStorageProviderSearchHandlerFactory* = GUID(
     data1: 0xB0DCAD80'u32, data2: 0xF3F5'u16, data3: 0x516B'u16,
     data4: [0x8A'u8, 0xCE, 0x4E, 0x77, 0x02, 0x2C, 0x95, 0x98])
 const Slot_IStorageProviderSearchHandlerFactory_CreateSearchHandler* = 6
-type Fn_IStorageProviderSearchHandlerFactory_CreateSearchHandler* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchHandlerFactory_CreateSearchHandler* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSearchQueryOptions
 const IID_IStorageProviderSearchQueryOptions* = GUID(
     data1: 0x93D854EB'u32, data2: 0x1007'u16, data3: 0x563C'u16,
     data4: [0xB2'u8, 0x13, 0xCC, 0x44, 0xBD, 0x88, 0xFE, 0xF2])
 const Slot_IStorageProviderSearchQueryOptions_get_UserQuery* = 6
-type Fn_IStorageProviderSearchQueryOptions_get_UserQuery* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_UserQuery* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_Language* = 7
-type Fn_IStorageProviderSearchQueryOptions_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_SortOrder* = 8
-type Fn_IStorageProviderSearchQueryOptions_get_SortOrder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_SortOrder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_ProgrammaticQuery* = 9
-type Fn_IStorageProviderSearchQueryOptions_get_ProgrammaticQuery* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_ProgrammaticQuery* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_MaxResults* = 10
-type Fn_IStorageProviderSearchQueryOptions_get_MaxResults* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_MaxResults* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_FolderScope* = 11
-type Fn_IStorageProviderSearchQueryOptions_get_FolderScope* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_FolderScope* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_QueryId* = 12
-type Fn_IStorageProviderSearchQueryOptions_get_QueryId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_QueryId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchQueryOptions_get_PropertiesToFetch* = 13
-type Fn_IStorageProviderSearchQueryOptions_get_PropertiesToFetch* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchQueryOptions_get_PropertiesToFetch* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSearchResult
 const IID_IStorageProviderSearchResult* = GUID(
     data1: 0xFC161049'u32, data2: 0x0995'u16, data3: 0x535F'u16,
     data4: [0x99'u8, 0xB7, 0xFE, 0x29, 0x2C, 0xBA, 0xBA, 0xF5])
 const Slot_IStorageProviderSearchResult_get_MatchScore* = 6
-type Fn_IStorageProviderSearchResult_get_MatchScore* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_get_MatchScore* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchResult_put_MatchScore* = 7
-type Fn_IStorageProviderSearchResult_put_MatchScore* = proc(self: pointer, a1: float64): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_put_MatchScore* = proc(self: pointer, a1: float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchResult_get_MatchKind* = 8
-type Fn_IStorageProviderSearchResult_get_MatchKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_get_MatchKind* = proc(self: pointer, value: ptr StorageProviderSearchMatchKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchResult_put_MatchKind* = 9
-type Fn_IStorageProviderSearchResult_put_MatchKind* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_put_MatchKind* = proc(self: pointer, a1: StorageProviderSearchMatchKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchResult_get_MatchedPropertyName* = 10
-type Fn_IStorageProviderSearchResult_get_MatchedPropertyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_get_MatchedPropertyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSearchResult_put_MatchedPropertyName* = 11
-type Fn_IStorageProviderSearchResult_put_MatchedPropertyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSearchResult_put_MatchedPropertyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderShareLinkSource
 const IID_IStorageProviderShareLinkSource* = GUID(
     data1: 0x4C6055E2'u32, data2: 0x029C'u16, data3: 0x5539'u16,
     data4: [0x8E'u8, 0x51, 0xA1, 0xAF, 0xC8, 0x38, 0xB5, 0xCB])
 const Slot_IStorageProviderShareLinkSource_CreateLinkAsync* = 6
-type Fn_IStorageProviderShareLinkSource_CreateLinkAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderShareLinkSource_CreateLinkAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderShareLinkSource_GetDefaultAccessControlStringAsync* = 7
-type Fn_IStorageProviderShareLinkSource_GetDefaultAccessControlStringAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderShareLinkSource_GetDefaultAccessControlStringAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderShareLinkSource_GetState* = 8
-type Fn_IStorageProviderShareLinkSource_GetState* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderShareLinkSource_GetState* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderStatusUI
 const IID_IStorageProviderStatusUI* = GUID(
     data1: 0xD6B6A758'u32, data2: 0x198D'u16, data3: 0x5B80'u16,
     data4: [0x97'u8, 0x7F, 0x5F, 0xF7, 0x3D, 0xA3, 0x31, 0x18])
 const Slot_IStorageProviderStatusUI_get_ProviderState* = 6
-type Fn_IStorageProviderStatusUI_get_ProviderState* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_ProviderState* = proc(self: pointer, value: ptr StorageProviderState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_ProviderState* = 7
-type Fn_IStorageProviderStatusUI_put_ProviderState* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_ProviderState* = proc(self: pointer, a1: StorageProviderState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_ProviderStateLabel* = 8
-type Fn_IStorageProviderStatusUI_get_ProviderStateLabel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_ProviderStateLabel* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_ProviderStateLabel* = 9
-type Fn_IStorageProviderStatusUI_put_ProviderStateLabel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_ProviderStateLabel* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_ProviderStateIcon* = 10
-type Fn_IStorageProviderStatusUI_get_ProviderStateIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_ProviderStateIcon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_ProviderStateIcon* = 11
-type Fn_IStorageProviderStatusUI_put_ProviderStateIcon* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_ProviderStateIcon* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_SyncStatusCommand* = 12
-type Fn_IStorageProviderStatusUI_get_SyncStatusCommand* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_SyncStatusCommand* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_SyncStatusCommand* = 13
-type Fn_IStorageProviderStatusUI_put_SyncStatusCommand* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_SyncStatusCommand* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_QuotaUI* = 14
-type Fn_IStorageProviderStatusUI_get_QuotaUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_QuotaUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_QuotaUI* = 15
-type Fn_IStorageProviderStatusUI_put_QuotaUI* = proc(self: pointer, a1StorageProviderQuotaUI: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_QuotaUI* = proc(self: pointer, a1StorageProviderQuotaUI: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_MoreInfoUI* = 16
-type Fn_IStorageProviderStatusUI_get_MoreInfoUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_MoreInfoUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_MoreInfoUI* = 17
-type Fn_IStorageProviderStatusUI_put_MoreInfoUI* = proc(self: pointer, a1StorageProviderMoreInfoUI: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_MoreInfoUI* = proc(self: pointer, a1StorageProviderMoreInfoUI: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_ProviderPrimaryCommand* = 18
-type Fn_IStorageProviderStatusUI_get_ProviderPrimaryCommand* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_ProviderPrimaryCommand* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_ProviderPrimaryCommand* = 19
-type Fn_IStorageProviderStatusUI_put_ProviderPrimaryCommand* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_ProviderPrimaryCommand* = proc(self: pointer, a1IStorageProviderUICommand: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_get_ProviderSecondaryCommands* = 20
-type Fn_IStorageProviderStatusUI_get_ProviderSecondaryCommands* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_get_ProviderSecondaryCommands* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUI_put_ProviderSecondaryCommands* = 21
-type Fn_IStorageProviderStatusUI_put_ProviderSecondaryCommands* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUI_put_ProviderSecondaryCommands* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderStatusUISource
 const IID_IStorageProviderStatusUISource* = GUID(
     data1: 0xA306C249'u32, data2: 0x3D66'u16, data3: 0x5E70'u16,
     data4: [0x90'u8, 0x07, 0xE4, 0x3D, 0xF9, 0x60, 0x51, 0xFF])
 const Slot_IStorageProviderStatusUISource_GetStatusUI* = 6
-type Fn_IStorageProviderStatusUISource_GetStatusUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUISource_GetStatusUI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUISource_add_StatusUIChanged* = 7
-type Fn_IStorageProviderStatusUISource_add_StatusUIChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUISource_add_StatusUIChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderStatusUISource_remove_StatusUIChanged* = 8
-type Fn_IStorageProviderStatusUISource_remove_StatusUIChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUISource_remove_StatusUIChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderStatusUISourceFactory
 const IID_IStorageProviderStatusUISourceFactory* = GUID(
     data1: 0x12E46B74'u32, data2: 0x4E5A'u16, data3: 0x58D1'u16,
     data4: [0xA6'u8, 0x2F, 0x03, 0x76, 0xE8, 0xEE, 0x7D, 0xD8])
 const Slot_IStorageProviderStatusUISourceFactory_GetStatusUISource* = 6
-type Fn_IStorageProviderStatusUISourceFactory_GetStatusUISource* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderStatusUISourceFactory_GetStatusUISource* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSuggestionsHandler
 const IID_IStorageProviderSuggestionsHandler* = GUID(
     data1: 0xAFF493F6'u32, data2: 0xE1FD'u16, data3: 0x5D03'u16,
     data4: [0xB4'u8, 0x80, 0xF1, 0x84, 0x9C, 0x83, 0xEF, 0x4A])
 const Slot_IStorageProviderSuggestionsHandler_GetSuggestions* = 6
-type Fn_IStorageProviderSuggestionsHandler_GetSuggestions* = proc(self: pointer, a1StorageProviderSuggestionsQueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsHandler_GetSuggestions* = proc(self: pointer, a1StorageProviderSuggestionsQueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsHandler_Add* = 7
-type Fn_IStorageProviderSuggestionsHandler_Add* = proc(self: pointer, a1: int32, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsHandler_Add* = proc(self: pointer, a1: StorageProviderResultKind, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsHandler_Remove* = 8
-type Fn_IStorageProviderSuggestionsHandler_Remove* = proc(self: pointer, a1: int32, a2: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsHandler_Remove* = proc(self: pointer, a1: StorageProviderResultKind, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsHandler_GetDetails* = 9
 # Fn_IStorageProviderSuggestionsHandler_GetDetails: signature not mapped
 const Slot_IStorageProviderSuggestionsHandler_ReportUsage* = 10
-type Fn_IStorageProviderSuggestionsHandler_ReportUsage* = proc(self: pointer, a1: int32, a2: HSTRING, a3: HSTRING, a4: TimeSpan): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsHandler_ReportUsage* = proc(self: pointer, a1: StorageProviderResultUsageKind, a2: HSTRING, a3: HSTRING, a4: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSuggestionsHandlerFactory
 const IID_IStorageProviderSuggestionsHandlerFactory* = GUID(
     data1: 0xDC7B35D8'u32, data2: 0xA25B'u16, data3: 0x58A3'u16,
     data4: [0xAC'u8, 0xE7, 0xB3, 0x54, 0x31, 0x06, 0xA2, 0xAA])
 const Slot_IStorageProviderSuggestionsHandlerFactory_CreateSuggestionsHandler* = 6
-type Fn_IStorageProviderSuggestionsHandlerFactory_CreateSuggestionsHandler* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsHandlerFactory_CreateSuggestionsHandler* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions
 const IID_IStorageProviderSuggestionsQueryOptions* = GUID(
     data1: 0xEFB8B74D'u32, data2: 0x0D84'u16, data3: 0x579C'u16,
     data4: [0xB1'u8, 0x37, 0xEA, 0x73, 0x06, 0x35, 0xD9, 0xBB])
 const Slot_IStorageProviderSuggestionsQueryOptions_get_SuggestionsKind* = 6
-type Fn_IStorageProviderSuggestionsQueryOptions_get_SuggestionsKind* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsQueryOptions_get_SuggestionsKind* = proc(self: pointer, value: ptr StorageProviderResultKind): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsQueryOptions_get_RemoteFileId* = 7
-type Fn_IStorageProviderSuggestionsQueryOptions_get_RemoteFileId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsQueryOptions_get_RemoteFileId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsQueryOptions_get_MaxResults* = 8
-type Fn_IStorageProviderSuggestionsQueryOptions_get_MaxResults* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsQueryOptions_get_MaxResults* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsQueryOptions_get_QueryId* = 9
-type Fn_IStorageProviderSuggestionsQueryOptions_get_QueryId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsQueryOptions_get_QueryId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch* = 10
-type Fn_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSyncRootInfo
 const IID_IStorageProviderSyncRootInfo* = GUID(
     data1: 0x7C1305C4'u32, data2: 0x99F9'u16, data3: 0x41AC'u16,
     data4: [0x89'u8, 0x04, 0xAB, 0x05, 0x5D, 0x65, 0x49, 0x26])
 const Slot_IStorageProviderSyncRootInfo_get_Id* = 6
-type Fn_IStorageProviderSyncRootInfo_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_Id* = 7
-type Fn_IStorageProviderSyncRootInfo_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_Context* = 8
-type Fn_IStorageProviderSyncRootInfo_get_Context* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_Context* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_Context* = 9
-type Fn_IStorageProviderSyncRootInfo_put_Context* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_Context* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_Path* = 10
-type Fn_IStorageProviderSyncRootInfo_get_Path* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_Path* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_Path* = 11
-type Fn_IStorageProviderSyncRootInfo_put_Path* = proc(self: pointer, a1IStorageFolder: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_Path* = proc(self: pointer, a1IStorageFolder: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_DisplayNameResource* = 12
-type Fn_IStorageProviderSyncRootInfo_get_DisplayNameResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_DisplayNameResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_DisplayNameResource* = 13
-type Fn_IStorageProviderSyncRootInfo_put_DisplayNameResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_DisplayNameResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_IconResource* = 14
-type Fn_IStorageProviderSyncRootInfo_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_IconResource* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_IconResource* = 15
-type Fn_IStorageProviderSyncRootInfo_put_IconResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_IconResource* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_HydrationPolicy* = 16
-type Fn_IStorageProviderSyncRootInfo_get_HydrationPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_HydrationPolicy* = proc(self: pointer, value: ptr StorageProviderHydrationPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_HydrationPolicy* = 17
-type Fn_IStorageProviderSyncRootInfo_put_HydrationPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_HydrationPolicy* = proc(self: pointer, a1: StorageProviderHydrationPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_HydrationPolicyModifier* = 18
-type Fn_IStorageProviderSyncRootInfo_get_HydrationPolicyModifier* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_HydrationPolicyModifier* = proc(self: pointer, value: ptr StorageProviderHydrationPolicyModifier): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_HydrationPolicyModifier* = 19
-type Fn_IStorageProviderSyncRootInfo_put_HydrationPolicyModifier* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_HydrationPolicyModifier* = proc(self: pointer, a1: StorageProviderHydrationPolicyModifier): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_PopulationPolicy* = 20
-type Fn_IStorageProviderSyncRootInfo_get_PopulationPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_PopulationPolicy* = proc(self: pointer, value: ptr StorageProviderPopulationPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_PopulationPolicy* = 21
-type Fn_IStorageProviderSyncRootInfo_put_PopulationPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_PopulationPolicy* = proc(self: pointer, a1: StorageProviderPopulationPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_InSyncPolicy* = 22
-type Fn_IStorageProviderSyncRootInfo_get_InSyncPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_InSyncPolicy* = proc(self: pointer, value: ptr StorageProviderInSyncPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_InSyncPolicy* = 23
-type Fn_IStorageProviderSyncRootInfo_put_InSyncPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_InSyncPolicy* = proc(self: pointer, a1: StorageProviderInSyncPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_HardlinkPolicy* = 24
-type Fn_IStorageProviderSyncRootInfo_get_HardlinkPolicy* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_HardlinkPolicy* = proc(self: pointer, value: ptr StorageProviderHardlinkPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_HardlinkPolicy* = 25
-type Fn_IStorageProviderSyncRootInfo_put_HardlinkPolicy* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_HardlinkPolicy* = proc(self: pointer, a1: StorageProviderHardlinkPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_ShowSiblingsAsGroup* = 26
-type Fn_IStorageProviderSyncRootInfo_get_ShowSiblingsAsGroup* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_ShowSiblingsAsGroup* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_ShowSiblingsAsGroup* = 27
-type Fn_IStorageProviderSyncRootInfo_put_ShowSiblingsAsGroup* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_ShowSiblingsAsGroup* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_Version* = 28
-type Fn_IStorageProviderSyncRootInfo_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_Version* = 29
-type Fn_IStorageProviderSyncRootInfo_put_Version* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_Version* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_ProtectionMode* = 30
-type Fn_IStorageProviderSyncRootInfo_get_ProtectionMode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_ProtectionMode* = proc(self: pointer, value: ptr StorageProviderProtectionMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_ProtectionMode* = 31
-type Fn_IStorageProviderSyncRootInfo_put_ProtectionMode* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_ProtectionMode* = proc(self: pointer, a1: StorageProviderProtectionMode): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_AllowPinning* = 32
-type Fn_IStorageProviderSyncRootInfo_get_AllowPinning* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_AllowPinning* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_AllowPinning* = 33
-type Fn_IStorageProviderSyncRootInfo_put_AllowPinning* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_AllowPinning* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions* = 34
-type Fn_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_get_RecycleBinUri* = 35
-type Fn_IStorageProviderSyncRootInfo_get_RecycleBinUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_get_RecycleBinUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo_put_RecycleBinUri* = 36
-type Fn_IStorageProviderSyncRootInfo_put_RecycleBinUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo_put_RecycleBinUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSyncRootInfo2
 const IID_IStorageProviderSyncRootInfo2* = GUID(
     data1: 0xCF51B023'u32, data2: 0x7CF1'u16, data3: 0x5166'u16,
     data4: [0xBD'u8, 0xBA, 0xEF, 0xD9, 0x5F, 0x52, 0x9E, 0x31])
 const Slot_IStorageProviderSyncRootInfo2_get_ProviderId* = 6
-type Fn_IStorageProviderSyncRootInfo2_get_ProviderId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo2_get_ProviderId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootInfo2_put_ProviderId* = 7
-type Fn_IStorageProviderSyncRootInfo2_put_ProviderId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo2_put_ProviderId* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSyncRootInfo3
 const IID_IStorageProviderSyncRootInfo3* = GUID(
     data1: 0x507A6617'u32, data2: 0xBEF6'u16, data3: 0x56FD'u16,
     data4: [0x85'u8, 0x5E, 0x75, 0xAC, 0xE2, 0xE4, 0x5C, 0xF5])
 const Slot_IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo* = 6
-type Fn_IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics
 const IID_IStorageProviderSyncRootManagerStatics* = GUID(
     data1: 0x3E99FBBF'u32, data2: 0x8FE3'u16, data3: 0x4B40'u16,
     data4: [0xAB'u8, 0xC7, 0xF6, 0xFC, 0x3D, 0x74, 0xC9, 0x8E])
 const Slot_IStorageProviderSyncRootManagerStatics_Register* = 6
-type Fn_IStorageProviderSyncRootManagerStatics_Register* = proc(self: pointer, a1StorageProviderSyncRootInfo: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics_Register* = proc(self: pointer, a1StorageProviderSyncRootInfo: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootManagerStatics_Unregister* = 7
-type Fn_IStorageProviderSyncRootManagerStatics_Unregister* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics_Unregister* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForFolder* = 8
-type Fn_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForFolder* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForFolder* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForId* = 9
-type Fn_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots* = 10
-type Fn_IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics2
 const IID_IStorageProviderSyncRootManagerStatics2* = GUID(
     data1: 0xEFB6CFEE'u32, data2: 0x1374'u16, data3: 0x544E'u16,
     data4: [0x9D'u8, 0xF1, 0x55, 0x98, 0xD2, 0xE9, 0xCF, 0xDD])
 const Slot_IStorageProviderSyncRootManagerStatics2_IsSupported* = 6
-type Fn_IStorageProviderSyncRootManagerStatics2_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageProviderSyncRootManagerStatics2_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderUICommand
 const IID_IStorageProviderUICommand* = GUID(
     data1: 0x0C3E0760'u32, data2: 0xD846'u16, data3: 0x568F'u16,
     data4: [0x94'u8, 0x84, 0x10, 0x5C, 0xC5, 0x7B, 0x50, 0x2B])
 const Slot_IStorageProviderUICommand_get_Label* = 6
-type Fn_IStorageProviderUICommand_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderUICommand_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderUICommand_get_Description* = 7
-type Fn_IStorageProviderUICommand_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IStorageProviderUICommand_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderUICommand_get_Icon* = 8
-type Fn_IStorageProviderUICommand_get_Icon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderUICommand_get_Icon* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderUICommand_get_State* = 9
-type Fn_IStorageProviderUICommand_get_State* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IStorageProviderUICommand_get_State* = proc(self: pointer, value: ptr StorageProviderUICommandState): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderUICommand_Invoke* = 10
-type Fn_IStorageProviderUICommand_Invoke* = proc(self: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderUICommand_Invoke* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.IStorageProviderUriSource
 const IID_IStorageProviderUriSource* = GUID(
     data1: 0xB29806D1'u32, data2: 0x8BE0'u16, data3: 0x4962'u16,
     data4: [0x8B'u8, 0xB6, 0x0D, 0x4C, 0x2E, 0x14, 0xD4, 0x7A])
 const Slot_IStorageProviderUriSource_GetPathForContentUri* = 6
-type Fn_IStorageProviderUriSource_GetPathForContentUri* = proc(self: pointer, a1: HSTRING, a2StorageProviderGetPathForContentUriResult: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderUriSource_GetPathForContentUri* = proc(self: pointer, a1: HSTRING, a2StorageProviderGetPathForContentUriResult: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageProviderUriSource_GetContentInfoForPath* = 7
-type Fn_IStorageProviderUriSource_GetContentInfoForPath* = proc(self: pointer, a1: HSTRING, a2StorageProviderGetContentInfoForPathResult: pointer): HRESULT {.stdcall.}
+type Fn_IStorageProviderUriSource_GetContentInfoForPath* = proc(self: pointer, a1: HSTRING, a2StorageProviderGetContentInfoForPathResult: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestedHandler  (delegate)
 const IID_StorageProviderKnownFolderSyncRequestedHandler* = GUID(
     data1: 0xC4CBB4F5'u32, data2: 0x13DD'u16, data3: 0x5C8E'u16,
     data4: [0x8B'u8, 0x96, 0x33, 0x6F, 0xC3, 0x0C, 0x62, 0x9B])
 const Slot_StorageProviderKnownFolderSyncRequestedHandler_Invoke* = 3
-type Fn_StorageProviderKnownFolderSyncRequestedHandler_Invoke* = proc(self: pointer, a1StorageProviderKnownFolderSyncRequestArgs: pointer): HRESULT {.stdcall.}
+type Fn_StorageProviderKnownFolderSyncRequestedHandler_Invoke* = proc(self: pointer, a1StorageProviderKnownFolderSyncRequestArgs: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IContentIndexer
 const IID_IContentIndexer* = GUID(
     data1: 0xB1767F8D'u32, data2: 0xF698'u16, data3: 0x4982'u16,
     data4: [0xB0'u8, 0x5F, 0x3A, 0x6E, 0x8C, 0xAB, 0x01, 0xA2])
 const Slot_IContentIndexer_AddAsync* = 6
-type Fn_IContentIndexer_AddAsync* = proc(self: pointer, a1IIndexableContent: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_AddAsync* = proc(self: pointer, a1IIndexableContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_UpdateAsync* = 7
-type Fn_IContentIndexer_UpdateAsync* = proc(self: pointer, a1IIndexableContent: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_UpdateAsync* = proc(self: pointer, a1IIndexableContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_DeleteAsync* = 8
-type Fn_IContentIndexer_DeleteAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_DeleteAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_DeleteMultipleAsync* = 9
-type Fn_IContentIndexer_DeleteMultipleAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_DeleteMultipleAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_DeleteAllAsync* = 10
-type Fn_IContentIndexer_DeleteAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_DeleteAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_RetrievePropertiesAsync* = 11
-type Fn_IContentIndexer_RetrievePropertiesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexer_RetrievePropertiesAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexer_get_Revision* = 12
-type Fn_IContentIndexer_get_Revision* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IContentIndexer_get_Revision* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IContentIndexerQuery
 const IID_IContentIndexerQuery* = GUID(
     data1: 0x70E3B0F8'u32, data2: 0x4BFC'u16, data3: 0x428A'u16,
     data4: [0x88'u8, 0x89, 0xCC, 0x51, 0xDA, 0x9A, 0x7B, 0x9D])
 const Slot_IContentIndexerQuery_GetCountAsync* = 6
-type Fn_IContentIndexerQuery_GetCountAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_GetCountAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQuery_GetPropertiesAsync* = 7
-type Fn_IContentIndexerQuery_GetPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_GetPropertiesAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQuery_GetPropertiesAsync2* = 8
-type Fn_IContentIndexerQuery_GetPropertiesAsync2* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_GetPropertiesAsync2* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQuery_GetAsync* = 9
-type Fn_IContentIndexerQuery_GetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_GetAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQuery_GetAsync2* = 10
-type Fn_IContentIndexerQuery_GetAsync2* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_GetAsync2* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQuery_get_QueryFolder* = 11
-type Fn_IContentIndexerQuery_get_QueryFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQuery_get_QueryFolder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IContentIndexerQueryOperations
 const IID_IContentIndexerQueryOperations* = GUID(
     data1: 0x28823E10'u32, data2: 0x4786'u16, data3: 0x42F1'u16,
     data4: [0x97'u8, 0x30, 0x79, 0x2B, 0x35, 0x66, 0xB1, 0x50])
 const Slot_IContentIndexerQueryOperations_CreateQuery* = 6
-type Fn_IContentIndexerQueryOperations_CreateQuery* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQueryOperations_CreateQuery* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQueryOperations_CreateQuery2* = 7
-type Fn_IContentIndexerQueryOperations_CreateQuery2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQueryOperations_CreateQuery2* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerQueryOperations_CreateQuery3* = 8
-type Fn_IContentIndexerQueryOperations_CreateQuery3* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerQueryOperations_CreateQuery3* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IContentIndexerStatics
 const IID_IContentIndexerStatics* = GUID(
     data1: 0x8C488375'u32, data2: 0xB37E'u16, data3: 0x4C60'u16,
     data4: [0x9B'u8, 0xA8, 0xB7, 0x60, 0xFD, 0xA3, 0xE5, 0x9D])
 const Slot_IContentIndexerStatics_GetIndexer* = 6
-type Fn_IContentIndexerStatics_GetIndexer* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerStatics_GetIndexer* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IContentIndexerStatics_GetIndexer2* = 7
-type Fn_IContentIndexerStatics_GetIndexer2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IContentIndexerStatics_GetIndexer2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IIndexableContent
 const IID_IIndexableContent* = GUID(
     data1: 0xCCF1A05F'u32, data2: 0xD4B5'u16, data3: 0x483A'u16,
     data4: [0xB0'u8, 0x6E, 0xE0, 0xDB, 0x1E, 0xC4, 0x20, 0xE4])
 const Slot_IIndexableContent_get_Id* = 6
-type Fn_IIndexableContent_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IIndexableContent_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_put_Id* = 7
-type Fn_IIndexableContent_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IIndexableContent_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_get_Properties* = 8
-type Fn_IIndexableContent_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IIndexableContent_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_get_Stream* = 9
-type Fn_IIndexableContent_get_Stream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IIndexableContent_get_Stream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_put_Stream* = 10
-type Fn_IIndexableContent_put_Stream* = proc(self: pointer, a1IRandomAccessStream: pointer): HRESULT {.stdcall.}
+type Fn_IIndexableContent_put_Stream* = proc(self: pointer, a1IRandomAccessStream: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_get_StreamContentType* = 11
-type Fn_IIndexableContent_get_StreamContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IIndexableContent_get_StreamContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IIndexableContent_put_StreamContentType* = 12
-type Fn_IIndexableContent_put_StreamContentType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IIndexableContent_put_StreamContentType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IQueryOptions
 const IID_IQueryOptions* = GUID(
     data1: 0x1E5E46EE'u32, data2: 0x0F45'u16, data3: 0x4838'u16,
     data4: [0xA8'u8, 0xE9, 0xD0, 0x47, 0x9D, 0x44, 0x6C, 0x30])
 const Slot_IQueryOptions_get_FileTypeFilter* = 6
-type Fn_IQueryOptions_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_FileTypeFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_FolderDepth* = 7
-type Fn_IQueryOptions_get_FolderDepth* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_FolderDepth* = proc(self: pointer, value: ptr FolderDepth): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_put_FolderDepth* = 8
-type Fn_IQueryOptions_put_FolderDepth* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_put_FolderDepth* = proc(self: pointer, a1: FolderDepth): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_ApplicationSearchFilter* = 9
-type Fn_IQueryOptions_get_ApplicationSearchFilter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_ApplicationSearchFilter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_put_ApplicationSearchFilter* = 10
-type Fn_IQueryOptions_put_ApplicationSearchFilter* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_put_ApplicationSearchFilter* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_UserSearchFilter* = 11
-type Fn_IQueryOptions_get_UserSearchFilter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_UserSearchFilter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_put_UserSearchFilter* = 12
-type Fn_IQueryOptions_put_UserSearchFilter* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_put_UserSearchFilter* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_Language* = 13
-type Fn_IQueryOptions_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_put_Language* = 14
-type Fn_IQueryOptions_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_IndexerOption* = 15
-type Fn_IQueryOptions_get_IndexerOption* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_IndexerOption* = proc(self: pointer, value: ptr IndexerOption): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_put_IndexerOption* = 16
-type Fn_IQueryOptions_put_IndexerOption* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_put_IndexerOption* = proc(self: pointer, a1: IndexerOption): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_SortOrder* = 17
-type Fn_IQueryOptions_get_SortOrder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_SortOrder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_GroupPropertyName* = 18
-type Fn_IQueryOptions_get_GroupPropertyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_GroupPropertyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_get_DateStackOption* = 19
-type Fn_IQueryOptions_get_DateStackOption* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_get_DateStackOption* = proc(self: pointer, value: ptr DateStackOption): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_SaveToString* = 20
-type Fn_IQueryOptions_SaveToString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_SaveToString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_LoadFromString* = 21
-type Fn_IQueryOptions_LoadFromString* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IQueryOptions_LoadFromString* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_SetThumbnailPrefetch* = 22
-type Fn_IQueryOptions_SetThumbnailPrefetch* = proc(self: pointer, a1: int32, a2: uint32, a3: int32): HRESULT {.stdcall.}
+type Fn_IQueryOptions_SetThumbnailPrefetch* = proc(self: pointer, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptions_SetPropertyPrefetch* = 23
-type Fn_IQueryOptions_SetPropertyPrefetch* = proc(self: pointer, a1: int32, a2: pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptions_SetPropertyPrefetch* = proc(self: pointer, a1: PropertyPrefetchOptions, a2: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IQueryOptionsFactory
 const IID_IQueryOptionsFactory* = GUID(
     data1: 0x032E1F8C'u32, data2: 0xA9C1'u16, data3: 0x4E71'u16,
     data4: [0x80'u8, 0x11, 0x0D, 0xEE, 0x9D, 0x48, 0x11, 0xA3])
 const Slot_IQueryOptionsFactory_CreateCommonFileQuery* = 6
-type Fn_IQueryOptionsFactory_CreateCommonFileQuery* = proc(self: pointer, a1: int32, a2: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptionsFactory_CreateCommonFileQuery* = proc(self: pointer, a1: CommonFileQuery, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IQueryOptionsFactory_CreateCommonFolderQuery* = 7
-type Fn_IQueryOptionsFactory_CreateCommonFolderQuery* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptionsFactory_CreateCommonFolderQuery* = proc(self: pointer, a1: CommonFolderQuery, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IQueryOptionsWithProviderFilter
 const IID_IQueryOptionsWithProviderFilter* = GUID(
     data1: 0x5B9D1026'u32, data2: 0x15C4'u16, data3: 0x44DD'u16,
     data4: [0xB8'u8, 0x9A, 0x47, 0xA5, 0x9B, 0x7D, 0x7C, 0x4F])
 const Slot_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter* = 6
-type Fn_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageFileQueryResult
 const IID_IStorageFileQueryResult* = GUID(
     data1: 0x52FDA447'u32, data2: 0x2BAA'u16, data3: 0x412C'u16,
     data4: [0xB2'u8, 0x9F, 0xD4, 0xB1, 0x77, 0x8E, 0xFA, 0x1E])
 const Slot_IStorageFileQueryResult_GetFilesAsync* = 6
-type Fn_IStorageFileQueryResult_GetFilesAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileQueryResult_GetFilesAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFileQueryResult_GetFilesAsync2* = 7
-type Fn_IStorageFileQueryResult_GetFilesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileQueryResult_GetFilesAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageFileQueryResult2
 const IID_IStorageFileQueryResult2* = GUID(
     data1: 0x4E5DB9DD'u32, data2: 0x7141'u16, data3: 0x46C4'u16,
     data4: [0x8B'u8, 0xE3, 0xE9, 0xDC, 0x9E, 0x27, 0x27, 0x5C])
 const Slot_IStorageFileQueryResult2_GetMatchingPropertiesWithRanges* = 6
-type Fn_IStorageFileQueryResult2_GetMatchingPropertiesWithRanges* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFileQueryResult2_GetMatchingPropertiesWithRanges* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageFolderQueryOperations
 const IID_IStorageFolderQueryOperations* = GUID(
     data1: 0xCB43CCC9'u32, data2: 0x446B'u16, data3: 0x4A4F'u16,
     data4: [0xBE'u8, 0x97, 0x75, 0x77, 0x71, 0xBE, 0x52, 0x03])
 const Slot_IStorageFolderQueryOperations_GetIndexedStateAsync* = 6
-type Fn_IStorageFolderQueryOperations_GetIndexedStateAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetIndexedStateAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFileQuery* = 7
-type Fn_IStorageFolderQueryOperations_CreateFileQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFileQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFileQuery2* = 8
-type Fn_IStorageFolderQueryOperations_CreateFileQuery2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFileQuery2* = proc(self: pointer, a1: CommonFileQuery, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFileQueryWithOptions* = 9
-type Fn_IStorageFolderQueryOperations_CreateFileQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFileQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFolderQuery* = 10
-type Fn_IStorageFolderQueryOperations_CreateFolderQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFolderQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFolderQuery2* = 11
-type Fn_IStorageFolderQueryOperations_CreateFolderQuery2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFolderQuery2* = proc(self: pointer, a1: CommonFolderQuery, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateFolderQueryWithOptions* = 12
-type Fn_IStorageFolderQueryOperations_CreateFolderQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateFolderQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateItemQuery* = 13
-type Fn_IStorageFolderQueryOperations_CreateItemQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateItemQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_CreateItemQueryWithOptions* = 14
-type Fn_IStorageFolderQueryOperations_CreateItemQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_CreateItemQueryWithOptions* = proc(self: pointer, a1QueryOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_GetFilesAsync* = 15
-type Fn_IStorageFolderQueryOperations_GetFilesAsync* = proc(self: pointer, a1: int32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetFilesAsync* = proc(self: pointer, a1: CommonFileQuery, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_GetFilesAsync2* = 16
-type Fn_IStorageFolderQueryOperations_GetFilesAsync2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetFilesAsync2* = proc(self: pointer, a1: CommonFileQuery, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_GetFoldersAsync* = 17
-type Fn_IStorageFolderQueryOperations_GetFoldersAsync* = proc(self: pointer, a1: int32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetFoldersAsync* = proc(self: pointer, a1: CommonFolderQuery, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_GetFoldersAsync2* = 18
-type Fn_IStorageFolderQueryOperations_GetFoldersAsync2* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetFoldersAsync2* = proc(self: pointer, a1: CommonFolderQuery, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_GetItemsAsync* = 19
-type Fn_IStorageFolderQueryOperations_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_AreQueryOptionsSupported* = 20
-type Fn_IStorageFolderQueryOperations_AreQueryOptionsSupported* = proc(self: pointer, a1QueryOptions: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_AreQueryOptionsSupported* = proc(self: pointer, a1QueryOptions: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_IsCommonFolderQuerySupported* = 21
-type Fn_IStorageFolderQueryOperations_IsCommonFolderQuerySupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_IsCommonFolderQuerySupported* = proc(self: pointer, a1: CommonFolderQuery, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryOperations_IsCommonFileQuerySupported* = 22
-type Fn_IStorageFolderQueryOperations_IsCommonFileQuerySupported* = proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryOperations_IsCommonFileQuerySupported* = proc(self: pointer, a1: CommonFileQuery, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageFolderQueryResult
 const IID_IStorageFolderQueryResult* = GUID(
     data1: 0x6654C911'u32, data2: 0x7D66'u16, data3: 0x46FA'u16,
     data4: [0xAE'u8, 0xCF, 0xE4, 0xA4, 0xBA, 0xA9, 0x3A, 0xB8])
 const Slot_IStorageFolderQueryResult_GetFoldersAsync* = 6
-type Fn_IStorageFolderQueryResult_GetFoldersAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryResult_GetFoldersAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageFolderQueryResult_GetFoldersAsync2* = 7
-type Fn_IStorageFolderQueryResult_GetFoldersAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageFolderQueryResult_GetFoldersAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageItemQueryResult
 const IID_IStorageItemQueryResult* = GUID(
     data1: 0xE8948079'u32, data2: 0x9D58'u16, data3: 0x47B8'u16,
     data4: [0xB2'u8, 0xB2, 0x41, 0xB0, 0x7F, 0x47, 0x95, 0xF9])
 const Slot_IStorageItemQueryResult_GetItemsAsync* = 6
-type Fn_IStorageItemQueryResult_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemQueryResult_GetItemsAsync* = proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageItemQueryResult_GetItemsAsync2* = 7
-type Fn_IStorageItemQueryResult_GetItemsAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageItemQueryResult_GetItemsAsync2* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails
 const IID_IStorageLibraryChangeTrackerTriggerDetails* = GUID(
     data1: 0x1DC7A369'u32, data2: 0xB7A3'u16, data3: 0x4DF2'u16,
     data4: [0x9D'u8, 0x61, 0xEB, 0xA8, 0x5A, 0x03, 0x43, 0xD2])
 const Slot_IStorageLibraryChangeTrackerTriggerDetails_get_Folder* = 6
-type Fn_IStorageLibraryChangeTrackerTriggerDetails_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTrackerTriggerDetails_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryChangeTrackerTriggerDetails_get_ChangeTracker* = 7
-type Fn_IStorageLibraryChangeTrackerTriggerDetails_get_ChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryChangeTrackerTriggerDetails_get_ChangeTracker* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageLibraryContentChangedTriggerDetails
 const IID_IStorageLibraryContentChangedTriggerDetails* = GUID(
     data1: 0x2A371977'u32, data2: 0xABBF'u16, data3: 0x4E1D'u16,
     data4: [0x8A'u8, 0xA5, 0x63, 0x85, 0xD8, 0x88, 0x47, 0x99])
 const Slot_IStorageLibraryContentChangedTriggerDetails_get_Folder* = 6
-type Fn_IStorageLibraryContentChangedTriggerDetails_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryContentChangedTriggerDetails_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageLibraryContentChangedTriggerDetails_CreateModifiedSinceQuery* = 7
-type Fn_IStorageLibraryContentChangedTriggerDetails_CreateModifiedSinceQuery* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageLibraryContentChangedTriggerDetails_CreateModifiedSinceQuery* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IStorageQueryResultBase
 const IID_IStorageQueryResultBase* = GUID(
     data1: 0xC297D70D'u32, data2: 0x7353'u16, data3: 0x47AB'u16,
     data4: [0xBA'u8, 0x58, 0x8C, 0x61, 0x42, 0x5D, 0xC5, 0x4B])
 const Slot_IStorageQueryResultBase_GetItemCountAsync* = 6
-type Fn_IStorageQueryResultBase_GetItemCountAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_GetItemCountAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_get_Folder* = 7
-type Fn_IStorageQueryResultBase_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_get_Folder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_add_ContentsChanged* = 8
-type Fn_IStorageQueryResultBase_add_ContentsChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_add_ContentsChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_remove_ContentsChanged* = 9
-type Fn_IStorageQueryResultBase_remove_ContentsChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_remove_ContentsChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_add_OptionsChanged* = 10
-type Fn_IStorageQueryResultBase_add_OptionsChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_add_OptionsChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_remove_OptionsChanged* = 11
-type Fn_IStorageQueryResultBase_remove_OptionsChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_remove_OptionsChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_FindStartIndexAsync* = 12
-type Fn_IStorageQueryResultBase_FindStartIndexAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_FindStartIndexAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_GetCurrentQueryOptions* = 13
-type Fn_IStorageQueryResultBase_GetCurrentQueryOptions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_GetCurrentQueryOptions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IStorageQueryResultBase_ApplyNewQueryOptions* = 14
-type Fn_IStorageQueryResultBase_ApplyNewQueryOptions* = proc(self: pointer, a1QueryOptions: pointer): HRESULT {.stdcall.}
+type Fn_IStorageQueryResultBase_ApplyNewQueryOptions* = proc(self: pointer, a1QueryOptions: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Search.IValueAndLanguage
 const IID_IValueAndLanguage* = GUID(
     data1: 0xB9914881'u32, data2: 0xA1EE'u16, data3: 0x4BC4'u16,
     data4: [0x92'u8, 0xA5, 0x46, 0x69, 0x68, 0xE3, 0x04, 0x36])
 const Slot_IValueAndLanguage_get_Language* = 6
-type Fn_IValueAndLanguage_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IValueAndLanguage_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IValueAndLanguage_put_Language* = 7
-type Fn_IValueAndLanguage_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall.}
+type Fn_IValueAndLanguage_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IValueAndLanguage_get_Value* = 8
-type Fn_IValueAndLanguage_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IValueAndLanguage_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IValueAndLanguage_put_Value* = 9
-type Fn_IValueAndLanguage_put_Value* = proc(self: pointer, a1: pointer): HRESULT {.stdcall.}
+type Fn_IValueAndLanguage_put_Value* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.StreamedFileDataRequestedHandler  (delegate)
 const IID_StreamedFileDataRequestedHandler* = GUID(
     data1: 0xFEF6A824'u32, data2: 0x2FE1'u16, data3: 0x4D07'u16,
     data4: [0xA3'u8, 0x5B, 0xB7, 0x7C, 0x50, 0xB5, 0xF4, 0xCC])
 const Slot_StreamedFileDataRequestedHandler_Invoke* = 3
-type Fn_StreamedFileDataRequestedHandler_Invoke* = proc(self: pointer, a1StreamedFileDataRequest: pointer): HRESULT {.stdcall.}
+type Fn_StreamedFileDataRequestedHandler_Invoke* = proc(self: pointer, a1StreamedFileDataRequest: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IBuffer
 const IID_IBuffer* = GUID(
     data1: 0x905A0FE0'u32, data2: 0xBC53'u16, data3: 0x11DF'u16,
     data4: [0x8C'u8, 0x49, 0x00, 0x1E, 0x4F, 0xC6, 0x86, 0xDA])
 const Slot_IBuffer_get_Capacity* = 6
-type Fn_IBuffer_get_Capacity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IBuffer_get_Capacity* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBuffer_get_Length* = 7
-type Fn_IBuffer_get_Length* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IBuffer_get_Length* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBuffer_put_Length* = 8
-type Fn_IBuffer_put_Length* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IBuffer_put_Length* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IBufferFactory
 const IID_IBufferFactory* = GUID(
     data1: 0x71AF914D'u32, data2: 0xC10F'u16, data3: 0x484B'u16,
     data4: [0xBC'u8, 0x50, 0x14, 0xBC, 0x62, 0x3B, 0x3A, 0x27])
 const Slot_IBufferFactory_Create* = 6
-type Fn_IBufferFactory_Create* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBufferFactory_Create* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IBufferStatics
 const IID_IBufferStatics* = GUID(
     data1: 0xE901E65B'u32, data2: 0xD716'u16, data3: 0x475A'u16,
     data4: [0xA9'u8, 0x0A, 0xAF, 0x72, 0x29, 0xB1, 0xE7, 0x41])
 const Slot_IBufferStatics_CreateCopyFromMemoryBuffer* = 6
-type Fn_IBufferStatics_CreateCopyFromMemoryBuffer* = proc(self: pointer, a1IMemoryBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBufferStatics_CreateCopyFromMemoryBuffer* = proc(self: pointer, a1IMemoryBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IBufferStatics_CreateMemoryBufferOverIBuffer* = 7
-type Fn_IBufferStatics_CreateMemoryBufferOverIBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IBufferStatics_CreateMemoryBufferOverIBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IContentTypeProvider
 const IID_IContentTypeProvider* = GUID(
     data1: 0x97D098A5'u32, data2: 0x3B99'u16, data3: 0x4DE9'u16,
     data4: [0x88'u8, 0xA5, 0xE1, 0x1D, 0x2F, 0x50, 0xC7, 0x95])
 const Slot_IContentTypeProvider_get_ContentType* = 6
-type Fn_IContentTypeProvider_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IContentTypeProvider_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IDataReader
 const IID_IDataReader* = GUID(
     data1: 0xE2B50029'u32, data2: 0xB4C1'u16, data3: 0x4314'u16,
     data4: [0xA4'u8, 0xB8, 0xFB, 0x81, 0x3A, 0x2F, 0x27, 0x5E])
 const Slot_IDataReader_get_UnconsumedBufferLength* = 6
-type Fn_IDataReader_get_UnconsumedBufferLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataReader_get_UnconsumedBufferLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_get_UnicodeEncoding* = 7
-type Fn_IDataReader_get_UnicodeEncoding* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataReader_get_UnicodeEncoding* = proc(self: pointer, value: ptr UnicodeEncoding): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_put_UnicodeEncoding* = 8
-type Fn_IDataReader_put_UnicodeEncoding* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataReader_put_UnicodeEncoding* = proc(self: pointer, a1: UnicodeEncoding): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_get_ByteOrder* = 9
-type Fn_IDataReader_get_ByteOrder* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataReader_get_ByteOrder* = proc(self: pointer, value: ptr ByteOrder): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_put_ByteOrder* = 10
-type Fn_IDataReader_put_ByteOrder* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataReader_put_ByteOrder* = proc(self: pointer, a1: ByteOrder): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_get_InputStreamOptions* = 11
-type Fn_IDataReader_get_InputStreamOptions* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataReader_get_InputStreamOptions* = proc(self: pointer, value: ptr InputStreamOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_put_InputStreamOptions* = 12
-type Fn_IDataReader_put_InputStreamOptions* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataReader_put_InputStreamOptions* = proc(self: pointer, a1: InputStreamOptions): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadByte* = 13
-type Fn_IDataReader_ReadByte* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadByte* = proc(self: pointer, value: ptr uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadBytes* = 14
 # Fn_IDataReader_ReadBytes: signature not mapped
 const Slot_IDataReader_ReadBuffer* = 15
-type Fn_IDataReader_ReadBuffer* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadBuffer* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadBoolean* = 16
-type Fn_IDataReader_ReadBoolean* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadBoolean* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadGuid* = 17
-type Fn_IDataReader_ReadGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadGuid* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadInt16* = 18
-type Fn_IDataReader_ReadInt16* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadInt16* = proc(self: pointer, value: ptr int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadInt32* = 19
-type Fn_IDataReader_ReadInt32* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadInt32* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadInt64* = 20
-type Fn_IDataReader_ReadInt64* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadInt64* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadUInt16* = 21
-type Fn_IDataReader_ReadUInt16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadUInt16* = proc(self: pointer, value: ptr uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadUInt32* = 22
-type Fn_IDataReader_ReadUInt32* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadUInt32* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadUInt64* = 23
-type Fn_IDataReader_ReadUInt64* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadUInt64* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadSingle* = 24
-type Fn_IDataReader_ReadSingle* = proc(self: pointer, value: ptr float32): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadSingle* = proc(self: pointer, value: ptr float32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadDouble* = 25
-type Fn_IDataReader_ReadDouble* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadDouble* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadString* = 26
-type Fn_IDataReader_ReadString* = proc(self: pointer, a1: uint32, value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadString* = proc(self: pointer, a1: uint32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadDateTime* = 27
-type Fn_IDataReader_ReadDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_ReadTimeSpan* = 28
-type Fn_IDataReader_ReadTimeSpan* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall.}
+type Fn_IDataReader_ReadTimeSpan* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_LoadAsync* = 29
-type Fn_IDataReader_LoadAsync* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReader_LoadAsync* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_DetachBuffer* = 30
-type Fn_IDataReader_DetachBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReader_DetachBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataReader_DetachStream* = 31
-type Fn_IDataReader_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReader_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IDataReaderFactory
 const IID_IDataReaderFactory* = GUID(
     data1: 0xD7527847'u32, data2: 0x57DA'u16, data3: 0x4E15'u16,
     data4: [0x91'u8, 0x4C, 0x06, 0x80, 0x66, 0x99, 0xA0, 0x98])
 const Slot_IDataReaderFactory_CreateDataReader* = 6
-type Fn_IDataReaderFactory_CreateDataReader* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReaderFactory_CreateDataReader* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IDataReaderStatics
 const IID_IDataReaderStatics* = GUID(
     data1: 0x11FCBFC8'u32, data2: 0xF93A'u16, data3: 0x471B'u16,
     data4: [0xB1'u8, 0x21, 0xF3, 0x79, 0xE3, 0x49, 0x31, 0x3C])
 const Slot_IDataReaderStatics_FromBuffer* = 6
-type Fn_IDataReaderStatics_FromBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataReaderStatics_FromBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IDataWriter
 const IID_IDataWriter* = GUID(
     data1: 0x64B89265'u32, data2: 0xD341'u16, data3: 0x4922'u16,
     data4: [0xB3'u8, 0x8A, 0xDD, 0x4A, 0xF8, 0x80, 0x8C, 0x4E])
 const Slot_IDataWriter_get_UnstoredBufferLength* = 6
-type Fn_IDataWriter_get_UnstoredBufferLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataWriter_get_UnstoredBufferLength* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_get_UnicodeEncoding* = 7
-type Fn_IDataWriter_get_UnicodeEncoding* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataWriter_get_UnicodeEncoding* = proc(self: pointer, value: ptr UnicodeEncoding): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_put_UnicodeEncoding* = 8
-type Fn_IDataWriter_put_UnicodeEncoding* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataWriter_put_UnicodeEncoding* = proc(self: pointer, a1: UnicodeEncoding): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_get_ByteOrder* = 9
-type Fn_IDataWriter_get_ByteOrder* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall.}
+type Fn_IDataWriter_get_ByteOrder* = proc(self: pointer, value: ptr ByteOrder): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_put_ByteOrder* = 10
-type Fn_IDataWriter_put_ByteOrder* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataWriter_put_ByteOrder* = proc(self: pointer, a1: ByteOrder): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteByte* = 11
-type Fn_IDataWriter_WriteByte* = proc(self: pointer, a1: uint8): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteByte* = proc(self: pointer, a1: uint8): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteBytes* = 12
 # Fn_IDataWriter_WriteBytes: signature not mapped
 const Slot_IDataWriter_WriteBuffer* = 13
-type Fn_IDataWriter_WriteBuffer* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteBuffer* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteBuffer2* = 14
-type Fn_IDataWriter_WriteBuffer2* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: uint32): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteBuffer2* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteBoolean* = 15
-type Fn_IDataWriter_WriteBoolean* = proc(self: pointer, a1: bool): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteBoolean* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteGuid* = 16
-type Fn_IDataWriter_WriteGuid* = proc(self: pointer, a1: GUID): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteGuid* = proc(self: pointer, a1: GUID): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteInt16* = 17
-type Fn_IDataWriter_WriteInt16* = proc(self: pointer, a1: int16): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteInt16* = proc(self: pointer, a1: int16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteInt32* = 18
-type Fn_IDataWriter_WriteInt32* = proc(self: pointer, a1: int32): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteInt32* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteInt64* = 19
-type Fn_IDataWriter_WriteInt64* = proc(self: pointer, a1: int64): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteInt64* = proc(self: pointer, a1: int64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteUInt16* = 20
-type Fn_IDataWriter_WriteUInt16* = proc(self: pointer, a1: uint16): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteUInt16* = proc(self: pointer, a1: uint16): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteUInt32* = 21
-type Fn_IDataWriter_WriteUInt32* = proc(self: pointer, a1: uint32): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteUInt32* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteUInt64* = 22
-type Fn_IDataWriter_WriteUInt64* = proc(self: pointer, a1: uint64): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteUInt64* = proc(self: pointer, a1: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteSingle* = 23
-type Fn_IDataWriter_WriteSingle* = proc(self: pointer, a1: float32): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteSingle* = proc(self: pointer, a1: float32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteDouble* = 24
-type Fn_IDataWriter_WriteDouble* = proc(self: pointer, a1: float64): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteDouble* = proc(self: pointer, a1: float64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteDateTime* = 25
-type Fn_IDataWriter_WriteDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteTimeSpan* = 26
-type Fn_IDataWriter_WriteTimeSpan* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteTimeSpan* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_WriteString* = 27
-type Fn_IDataWriter_WriteString* = proc(self: pointer, a1: HSTRING, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataWriter_WriteString* = proc(self: pointer, a1: HSTRING, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_MeasureString* = 28
-type Fn_IDataWriter_MeasureString* = proc(self: pointer, a1: HSTRING, value: ptr uint32): HRESULT {.stdcall.}
+type Fn_IDataWriter_MeasureString* = proc(self: pointer, a1: HSTRING, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_StoreAsync* = 29
-type Fn_IDataWriter_StoreAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataWriter_StoreAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_FlushAsync* = 30
-type Fn_IDataWriter_FlushAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataWriter_FlushAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_DetachBuffer* = 31
-type Fn_IDataWriter_DetachBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataWriter_DetachBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IDataWriter_DetachStream* = 32
-type Fn_IDataWriter_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataWriter_DetachStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IDataWriterFactory
 const IID_IDataWriterFactory* = GUID(
     data1: 0x338C67C2'u32, data2: 0x8B84'u16, data3: 0x4C2B'u16,
     data4: [0x9C'u8, 0x50, 0x7B, 0x87, 0x67, 0x84, 0x7A, 0x1F])
 const Slot_IDataWriterFactory_CreateDataWriter* = 6
-type Fn_IDataWriterFactory_CreateDataWriter* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IDataWriterFactory_CreateDataWriter* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IFileRandomAccessStreamStatics
 const IID_IFileRandomAccessStreamStatics* = GUID(
     data1: 0x73550107'u32, data2: 0x3B57'u16, data3: 0x4B5D'u16,
     data4: [0x83'u8, 0x45, 0x55, 0x4D, 0x2F, 0xC6, 0x21, 0xF0])
 const Slot_IFileRandomAccessStreamStatics_OpenAsync* = 6
-type Fn_IFileRandomAccessStreamStatics_OpenAsync* = proc(self: pointer, a1: HSTRING, a2: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenAsync* = proc(self: pointer, a1: HSTRING, a2: FileAccessMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenAsync2* = 7
-type Fn_IFileRandomAccessStreamStatics_OpenAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32, a4: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenAsync2* = proc(self: pointer, a1: HSTRING, a2: FileAccessMode, a3: StorageOpenOptions, a4: FileOpenDisposition, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync* = 8
-type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2* = 9
-type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2* = proc(self: pointer, a1: HSTRING, a2: int32, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2* = proc(self: pointer, a1: HSTRING, a2: StorageOpenOptions, a3: FileOpenDisposition, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenForUserAsync* = 10
-type Fn_IFileRandomAccessStreamStatics_OpenForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: FileAccessMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenForUserAsync2* = 11
-type Fn_IFileRandomAccessStreamStatics_OpenForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: int32, a4: int32, a5: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: FileAccessMode, a4: StorageOpenOptions, a5: FileOpenDisposition, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync* = 12
-type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2* = 13
-type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: int32, a4: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3: StorageOpenOptions, a4: FileOpenDisposition, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IInputStream
 const IID_IInputStream* = GUID(
     data1: 0x905A0FE2'u32, data2: 0xBC53'u16, data3: 0x11DF'u16,
     data4: [0x8C'u8, 0x49, 0x00, 0x1E, 0x4F, 0xC6, 0x86, 0xDA])
 const Slot_IInputStream_ReadAsync* = 6
-type Fn_IInputStream_ReadAsync* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: int32, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IInputStream_ReadAsync* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: InputStreamOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IInputStreamReference
 const IID_IInputStreamReference* = GUID(
     data1: 0x43929D18'u32, data2: 0x5EC9'u16, data3: 0x4B5A'u16,
     data4: [0x91'u8, 0x9C, 0x42, 0x05, 0xB0, 0xC8, 0x04, 0xB6])
 const Slot_IInputStreamReference_OpenSequentialReadAsync* = 6
-type Fn_IInputStreamReference_OpenSequentialReadAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IInputStreamReference_OpenSequentialReadAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IOutputStream
 const IID_IOutputStream* = GUID(
     data1: 0x905A0FE6'u32, data2: 0xBC53'u16, data3: 0x11DF'u16,
     data4: [0x8C'u8, 0x49, 0x00, 0x1E, 0x4F, 0xC6, 0x86, 0xDA])
 const Slot_IOutputStream_WriteAsync* = 6
-type Fn_IOutputStream_WriteAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IOutputStream_WriteAsync* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IOutputStream_FlushAsync* = 7
-type Fn_IOutputStream_FlushAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IOutputStream_FlushAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IPropertySetSerializer
 const IID_IPropertySetSerializer* = GUID(
     data1: 0x6E8EBF1C'u32, data2: 0xEF3D'u16, data3: 0x4376'u16,
     data4: [0xB2'u8, 0x0E, 0x5B, 0xE6, 0x38, 0xAE, 0xAC, 0x77])
 const Slot_IPropertySetSerializer_Serialize* = 6
-type Fn_IPropertySetSerializer_Serialize* = proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IPropertySetSerializer_Serialize* = proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IPropertySetSerializer_Deserialize* = 7
-type Fn_IPropertySetSerializer_Deserialize* = proc(self: pointer, a1IPropertySet: pointer, a2IBuffer: pointer): HRESULT {.stdcall.}
+type Fn_IPropertySetSerializer_Deserialize* = proc(self: pointer, a1IPropertySet: pointer, a2IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IRandomAccessStream
 const IID_IRandomAccessStream* = GUID(
     data1: 0x905A0FE1'u32, data2: 0xBC53'u16, data3: 0x11DF'u16,
     data4: [0x8C'u8, 0x49, 0x00, 0x1E, 0x4F, 0xC6, 0x86, 0xDA])
 const Slot_IRandomAccessStream_get_Size* = 6
-type Fn_IRandomAccessStream_get_Size* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_get_Size* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_put_Size* = 7
-type Fn_IRandomAccessStream_put_Size* = proc(self: pointer, a1: uint64): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_put_Size* = proc(self: pointer, a1: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_GetInputStreamAt* = 8
-type Fn_IRandomAccessStream_GetInputStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_GetInputStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_GetOutputStreamAt* = 9
-type Fn_IRandomAccessStream_GetOutputStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_GetOutputStreamAt* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_get_Position* = 10
-type Fn_IRandomAccessStream_get_Position* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_get_Position* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_Seek* = 11
-type Fn_IRandomAccessStream_Seek* = proc(self: pointer, a1: uint64): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_Seek* = proc(self: pointer, a1: uint64): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_CloneStream* = 12
-type Fn_IRandomAccessStream_CloneStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_CloneStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_get_CanRead* = 13
-type Fn_IRandomAccessStream_get_CanRead* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_get_CanRead* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStream_get_CanWrite* = 14
-type Fn_IRandomAccessStream_get_CanWrite* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall.}
+type Fn_IRandomAccessStream_get_CanWrite* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IRandomAccessStreamReference
 const IID_IRandomAccessStreamReference* = GUID(
     data1: 0x33EE3134'u32, data2: 0x1DD6'u16, data3: 0x4E3A'u16,
     data4: [0x80'u8, 0x67, 0xD1, 0xC1, 0x62, 0xE8, 0x64, 0x2B])
 const Slot_IRandomAccessStreamReference_OpenReadAsync* = 6
-type Fn_IRandomAccessStreamReference_OpenReadAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamReference_OpenReadAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IRandomAccessStreamReferenceStatics
 const IID_IRandomAccessStreamReferenceStatics* = GUID(
     data1: 0x857309DC'u32, data2: 0x3FBF'u16, data3: 0x4E7D'u16,
     data4: [0x98'u8, 0x6F, 0xEF, 0x3B, 0x1A, 0x07, 0xA9, 0x64])
 const Slot_IRandomAccessStreamReferenceStatics_CreateFromFile* = 6
-type Fn_IRandomAccessStreamReferenceStatics_CreateFromFile* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamReferenceStatics_CreateFromFile* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStreamReferenceStatics_CreateFromUri* = 7
-type Fn_IRandomAccessStreamReferenceStatics_CreateFromUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamReferenceStatics_CreateFromUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStreamReferenceStatics_CreateFromStream* = 8
-type Fn_IRandomAccessStreamReferenceStatics_CreateFromStream* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamReferenceStatics_CreateFromStream* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IRandomAccessStreamStatics
 const IID_IRandomAccessStreamStatics* = GUID(
     data1: 0x524CEDCF'u32, data2: 0x6E29'u16, data3: 0x4CE5'u16,
     data4: [0x95'u8, 0x73, 0x6B, 0x75, 0x3D, 0xB6, 0x6C, 0x3A])
 const Slot_IRandomAccessStreamStatics_CopyAsync* = 6
-type Fn_IRandomAccessStreamStatics_CopyAsync* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamStatics_CopyAsync* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStreamStatics_CopyAsync2* = 7
-type Fn_IRandomAccessStreamStatics_CopyAsync2* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, a3: uint64, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamStatics_CopyAsync2* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, a3: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 const Slot_IRandomAccessStreamStatics_CopyAndCloseAsync* = 8
-type Fn_IRandomAccessStreamStatics_CopyAndCloseAsync* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall.}
+type Fn_IRandomAccessStreamStatics_CopyAndCloseAsync* = proc(self: pointer, a1IInputStream: pointer, a2IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
 
 ## Windows.Storage.Streams.IRandomAccessStreamWithContentType
 const IID_IRandomAccessStreamWithContentType* = GUID(

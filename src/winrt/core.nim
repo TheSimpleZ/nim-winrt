@@ -83,23 +83,38 @@ proc check*(hr: HRESULT, what: string) =
 
 # -------------------------------------------------------------------- imports
 
-proc roInitialize(initType: int32): HRESULT
-  {.importc: "RoInitialize", dynlib: "combase", stdcall.}
-proc roUninitialize()
-  {.importc: "RoUninitialize", dynlib: "combase", stdcall.}
-proc roActivateInstance(classId: HSTRING, instance: ptr pointer): HRESULT
-  {.importc: "RoActivateInstance", dynlib: "combase", stdcall.}
+# Everything here comes out of `combase.dll`, which is part of Windows and so
+# is always present — the same way `std/winlean` reaches `kernel32`. The shared
+# attributes are pushed rather than repeated:
+#
+# * `raises: []` and `gcsafe` because a C function does neither. Saying so is
+#   not decoration — without it Nim assumes every call through this boundary
+#   might raise, and `=destroy` hooks that call `Release` will not compile.
+# * `stdcall` because that is the Windows ABI for these.
+#
+# The Nim names are camelCase and the C names are not, so `importc` still
+# carries the real name on each one.
+{.push stdcall, dynlib: "combase", raises: [], gcsafe.}
+
+proc roInitialize(initType: int32): HRESULT {.importc: "RoInitialize".}
+proc roUninitialize() {.importc: "RoUninitialize".}
+proc roActivateInstance(classId: HSTRING,
+                        instance: ptr pointer): HRESULT
+  {.importc: "RoActivateInstance".}
 proc roGetActivationFactory(classId: HSTRING, iid: ptr GUID,
                             factory: ptr pointer): HRESULT
-  {.importc: "RoGetActivationFactory", dynlib: "combase", stdcall.}
+  {.importc: "RoGetActivationFactory".}
 
 proc windowsCreateString(src: ptr Utf16Char, len: uint32,
                          res: ptr HSTRING): HRESULT
-  {.importc: "WindowsCreateString", dynlib: "combase", stdcall.}
+  {.importc: "WindowsCreateString".}
 proc windowsDeleteString*(s: HSTRING): HRESULT
-  {.importc: "WindowsDeleteString", dynlib: "combase", stdcall.}
-proc windowsGetStringRawBuffer(s: HSTRING, len: ptr uint32): ptr Utf16Char
-  {.importc: "WindowsGetStringRawBuffer", dynlib: "combase", stdcall.}
+  {.importc: "WindowsDeleteString".}
+proc windowsGetStringRawBuffer(s: HSTRING,
+                               len: ptr uint32): ptr Utf16Char
+  {.importc: "WindowsGetStringRawBuffer".}
+
+{.pop.}
 
 # -------------------------------------------------------------------- strings
 
@@ -141,18 +156,36 @@ template withHString*(s: string, name, body: untyped) =
 
 # ------------------------------------------------------------------- vtables
 
+# What every WinRT vtable slot is: a C function, called the Windows way, that
+# neither raises a Nim exception nor touches Nim's heap.
+#
+# Declaring all three matters. `stdcall` is the ABI. `raises: []` is what lets
+# `release` be called from a `=destroy` hook — a destructor may not raise, and
+# without this Nim assumes anything reached through a function pointer might.
+# `gcsafe` says the call cannot touch GC memory, which is true and which
+# threaded code needs to know.
+#
+# A user pragma does not cross a module boundary in Nim — the stdlib `include`s
+# such definitions rather than importing them — so generated code spells the
+# same three out at each signature.
+{.pragma: abi, stdcall, raises: [], gcsafe.}
+
+
 type
   IInspectableVtbl* {.pure.} = object
+    ## Every slot carries `abi`, so Nim knows a call through one neither raises
+    ## nor touches the heap. That is what lets `release` be called from a
+    ## `=destroy` hook, which must not raise.
     # --- IUnknown ---
     queryInterface*: proc(self: pointer, riid: ptr GUID,
-                          ppv: ptr pointer): HRESULT {.stdcall.}
-    addRef*: proc(self: pointer): uint32 {.stdcall.}
-    release*: proc(self: pointer): uint32 {.stdcall.}
+                          ppv: ptr pointer): HRESULT {.abi.}
+    addRef*: proc(self: pointer): uint32 {.abi.}
+    release*: proc(self: pointer): uint32 {.abi.}
     # --- IInspectable ---
     getIids*: proc(self: pointer, count: ptr uint32,
-                   iids: ptr ptr GUID): HRESULT {.stdcall.}
-    getRuntimeClassName*: proc(self: pointer, name: ptr HSTRING): HRESULT {.stdcall.}
-    getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.stdcall.}
+                   iids: ptr ptr GUID): HRESULT {.abi.}
+    getRuntimeClassName*: proc(self: pointer, name: ptr HSTRING): HRESULT {.abi.}
+    getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
 
   IInspectable* {.pure.} = object
     vtbl*: ptr IInspectableVtbl
@@ -185,24 +218,16 @@ template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## belongs to, not whichever pointer happens to be at hand.
   cast[T](cast[ptr ptr UncheckedArray[pointer]](obj)[][slot])
 
-proc addRef*(obj: pointer): uint32 {.discardable, raises: [].} =
-  ## Declared non-raising so it can be called from a destructor.
-  ##
-  ## Nim cannot see through a vtable slot, so it assumes any call through one
-  ## might raise. `AddRef` and `Release` are C functions that cannot, and
-  ## saying so is what lets the generated `=destroy` hooks compile — a
-  ## destructor that raised would terminate the process anyway.
+proc addRef*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
+  ## Take a reference. Safe to call from a destructor, because `abi` says the
+  ## slot cannot raise.
   if obj.isNil: return 0
-  let i = cast[ptr IInspectable](obj)
-  {.cast(raises: []).}:
-    i.vtbl.addRef(obj)
+  cast[ptr IInspectable](obj).vtbl.addRef(obj)
 
-proc release*(obj: pointer): uint32 {.discardable, raises: [].} =
-  ## See `addRef` for why this is declared non-raising.
+proc release*(obj: pointer): uint32 {.discardable, raises: [], gcsafe.} =
+  ## Drop a reference, and the object with the last one.
   if obj.isNil: return 0
-  let i = cast[ptr IInspectable](obj)
-  {.cast(raises: []).}:
-    i.vtbl.release(obj)
+  cast[ptr IInspectable](obj).vtbl.release(obj)
 
 func guid*(s: string): GUID =
   ## A GUID from its textual form, with or without braces.
