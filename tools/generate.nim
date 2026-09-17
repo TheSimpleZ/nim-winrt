@@ -410,8 +410,8 @@ const hoisted = [
 proc topGroup(ns: string): string =
   ## `Windows.Devices.Enumeration.Pnp` -> `Windows.Devices`.
   ##
-  ## The split is by the second segment, not by full namespace. 347 namespaces
-  ## would be 347 files for no gain — a namespace is a naming convention, not a
+  ## The split is by the second segment, not by full namespace. 342 namespaces
+  ## would be 342 files for no gain — a namespace is a naming convention, not a
   ## unit anyone imports — while 18 groups line up with how the documentation
   ## is organised and how an app actually reaches for things.
   let parts = ns.split('.')

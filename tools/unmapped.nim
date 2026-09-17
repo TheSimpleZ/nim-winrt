@@ -2,9 +2,15 @@
 ##
 ## `nim c -r tools/unmapped.nim <winmd> <namespace-prefix>`
 ##
-## "7% of signatures" is not an actionable number. This groups every method the
-## ABI generator skipped by the *shape* that stopped it, so the remaining work
-## can be judged one shape at a time rather than as a percentage.
+## "2% of signatures" is not an actionable number. This groups every method the
+## ABI generator left untyped by the *shape* that stopped it, so the remaining
+## work can be judged one shape at a time rather than as a percentage.
+##
+## It also counts, separately, the methods that are typed only because a
+## generic instantiation crosses the ABI as a bare pointer. Those compile and
+## call correctly - `IVector<T>` is an interface pointer like any other - but
+## the type says nothing, and they are where a typed collection layer would
+## pay off.
 
 import std/[os, strformat, strutils, tables, sets, algorithm, sequtils]
 import ./winmd
@@ -49,15 +55,26 @@ when isMainModule:
     of skArray:
       "array of " & (if t.name.len > 0: shortName(t.name) else: "a primitive")
     of skUnsupported:
-      if t.name.len > 0: "generic: " & shortName(t.name)
+      # A named instantiation is an interface pointer on the wire, and
+      # `generate.nim` spells it `pointer`, so it does not stop a signature.
+      # Anything else here - a type variable, a function pointer - has no
+      # shape at all.
+      if t.name.len > 0 and t.args.len > 0: ""
       else: "pointer or type variable"
     of skEnum:
       if t.name in enums: "" else: "enum from another winmd: " & t.name
     else: ""
 
+  func opaqueGeneric(t: SigType): string =
+    ## Typed, but only as `pointer`.
+    if t.kind == skUnsupported and t.name.len > 0 and t.args.len > 0:
+      shortName(t.name)
+    else: ""
+
   var byReason = initCountTable[string]()
+  var byGeneric = initCountTable[string]()
   var examples = initTable[string, seq[string]]()
-  var total, blocked = 0
+  var total, blocked, opaque = 0
 
   for t in md.types:
     if not t.namespace.startsWith(prefix): continue
@@ -71,14 +88,18 @@ when isMainModule:
       total.inc
       let sig = md.methodSignature(mi)
 
-      var reasons: seq[string]
+      var reasons, generics: seq[string]
       # `byRef` is not a blocker: the generator spells it `ptr T`. Only the
       # underlying shape can stop a signature.
-      for p in sig.params:
+      for p in sig.params & @[sig.returns]:
         let r = reasonFor(p)
         if r.len > 0: reasons.add r
-      let rr = reasonFor(sig.returns)
-      if rr.len > 0: reasons.add rr
+        let g = opaqueGeneric(p)
+        if g.len > 0: generics.add g
+
+      if reasons.len == 0 and generics.len > 0:
+        opaque.inc
+        for g in generics.deduplicate: byGeneric.inc g
 
       if reasons.len > 0:
         blocked.inc
@@ -88,7 +109,8 @@ when isMainModule:
             examples.mgetOrPut(r, @[]).add shortName(t.fullName) & "." & raw
 
   echo &"methods            {total}"
-  echo &"blocked            {blocked}  ({blocked * 100 div max(total, 1)}%)"
+  echo &"untyped            {blocked}  ({blocked * 100 div max(total, 1)}%)"
+  echo &"typed as pointer   {opaque}  (a generic instantiation)"
   echo ""
   byReason.sort()
   var shown = 0
@@ -98,4 +120,9 @@ when isMainModule:
     for e in examples.getOrDefault(reason, @[]):
       echo &"         e.g. {e}"
   echo ""
-  echo &"       {shown} reasons across {blocked} blocked methods"
+  echo &"       {shown} reasons across {blocked} untyped methods"
+  echo ""
+  echo "typed as an opaque pointer, by generic:"
+  byGeneric.sort()
+  for name, count in byGeneric:
+    echo &"{count:>5}  {name}"

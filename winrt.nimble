@@ -26,4 +26,6 @@ task bindings, "Regenerate the bindings from the Windows SDK metadata":
     quit "winrt: no Windows metadata at " & winmd &
          "\n  install the Windows SDK, or set WINMD to the .winmd to read"
   exec "nim c -d:release --hints:off -o:bin/generate.exe tools/generate.nim"
-  exec "bin/generate.exe \"" & winmd & "\" --split src/winrt"
+  # Backslashes: `exec` goes through cmd.exe, which will not resolve a command
+  # path written with forward slashes.
+  exec "bin\\generate.exe \"" & winmd & "\" --split src\\winrt"
