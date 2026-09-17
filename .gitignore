@@ -18,3 +18,7 @@ nimble.paths
 *.swp
 Thumbs.db
 config.nims
+
+# Throwaway probes belong in a scratch directory outside the repository, not
+# in a folder here that is one `git add -A` away from being published.
+/tmp*/
