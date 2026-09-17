@@ -40,10 +40,15 @@ when isMainModule:
 
   for t in md.types:
     if t.fullName in wanted:
-      echo t.fullName
+      let delegate = md.isDelegate(t.index)
+      echo t.fullName & (if delegate: "  (delegate)" else: "")
       echo &"  IID {g.getOrDefault(t.index, \"<none>\")}"
-      for slot, name in md.methodNames(t.index):
-        # WinRT interfaces begin with IInspectable's six slots; delegates,
-        # which derive from IUnknown, begin after three.
-        echo &"  [{slot + 6}] {name}"
+      # WinRT interfaces begin with IInspectable's six slots; a delegate
+      # derives from IUnknown, so it begins after three — and its `.ctor` is
+      # metadata, not a vtable entry.
+      var slot = if delegate: 3 else: 6
+      for name in md.methodNames(t.index):
+        if delegate and name == ".ctor": continue
+        echo &"  [{slot}] {name}"
+        slot.inc
       echo ""
