@@ -200,8 +200,18 @@ discard windowsDeleteString(h) # a string a method returned is yours to delete
 
 ### Enums and structs
 
-Enums are `distinct int32` with a constant per value and a `$` that knows the
-names — `BatteryStatus_Charging`, `$BatteryStatus(99)` → `BatteryStatus(99)`.
+Most enums are ordinary Nim enums, `{.pure.}` and pinned to four bytes, so a
+signature says `ptr BatteryStatus` and you write `BatteryStatus.Charging`. An
+enum marked `[Flags]` in the metadata cannot be one — it holds combinations —
+so those stay `distinct int32` and carry `or`, `and`, `not` and `in`:
+
+```nim
+let held = GamepadButtons_A or GamepadButtons_Menu
+if GamepadButtons_A in held: echo held      # Menu or A
+```
+
+Either way `$` falls back to `BatteryStatus(99)` for a value newer than this
+metadata, which the built-in one renders as an empty string.
 They cross the ABI as `int32`, so a generated signature says `ptr int32` and
 you convert on this side.
 

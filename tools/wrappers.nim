@@ -282,7 +282,7 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
   ## `outer` says we are not deriving from it, and the `inner` handed back
   ## carries its own reference that is not ours to keep.
   type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
-                        value: ptr pointer): HRESULT {.abi.}
+                        value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
   let factory = activationFactory(classId, factoryIid)
   var inner, instance: pointer
   try:
@@ -621,7 +621,7 @@ proc borrowed*[T](p: pointer): T =
             else:
               callArgs.add pn
           of skEnum:
-            callArgs.add &"int32({pn})"
+            callArgs.add pn
           else:
             callArgs.add pn
         if not ok:
@@ -637,13 +637,13 @@ proc borrowed*[T](p: pointer): T =
           case sig.returns.kind
           of skString: lines.add &"{indent}var tmp: HSTRING"
           of skInterface, skObject: lines.add &"{indent}var tmp: pointer"
-          of skEnum: lines.add &"{indent}var tmp: int32"
+          of skEnum: lines.add &"{indent}var tmp: {retType}"
           else: lines.add &"{indent}var tmp: {retType}"
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
           case sig.returns.kind
           of skString: lines.add &"{indent}result = takeString(tmp)"
-          of skEnum: lines.add &"{indent}result = {retType}(tmp)"
+          of skEnum: lines.add &"{indent}result = tmp"
           of skInterface:
             if sig.returns.name in c.classes:
               lines.add &"{indent}result = owned[{retType}](tmp)"
