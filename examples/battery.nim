@@ -8,21 +8,12 @@ import winrt/system
 proc main() =
   discard initApartment()
 
-  let power = activationFactory("Windows.System.Power.PowerManager",
-                                IID_IPowerManagerStatics)
-  defer: release(power)
+  echo "battery      ", PowerManager.batteryStatus
+  echo "power supply ", PowerManager.powerSupplyStatus
+  echo "energy saver ", PowerManager.energySaverStatus
 
-  var battery: BatteryStatus
-  power.vcall(Slot_IPowerManagerStatics_get_BatteryStatus,
-              Fn_IPowerManagerStatics_get_BatteryStatus)(power, battery.addr)
-    .check("PowerManager.get_BatteryStatus")
-
-  var charge: int32
-  power.vcall(Slot_IPowerManagerStatics_get_RemainingChargePercent,
-              Fn_IPowerManagerStatics_get_RemainingChargePercent)(power, charge.addr)
-    .check("PowerManager.get_RemainingChargePercent")
-
-  echo "battery ", battery, ", ", charge, "% charged"
+  if PowerManager.batteryStatus != BatteryStatus.NotPresent:
+    echo "charge       ", PowerManager.remainingChargePercent, "%"
 
 when isMainModule:
   main()

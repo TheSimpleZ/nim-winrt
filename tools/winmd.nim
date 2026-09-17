@@ -606,6 +606,55 @@ proc guids*(m: WinMd): Table[int, string] =
     result[pIdx] = "{" & toHex(int(d1), 8) & "-" & toHex(d2, 4) & "-" &
       toHex(d3, 4) & "-" & tail[0 ..< 4] & "-" & tail[4 .. ^1] & "}"
 
+proc attributeTypeArgs*(m: WinMd, attribute: string): Table[int, seq[string]] =
+  ## TypeDef row -> the type named by each `attribute` on it.
+  ##
+  ## Two attributes carry one. `StaticAttribute` names the interface holding a
+  ## static class's members — `PowerManager` implements nothing and declares
+  ## nothing, so that interface is the only place its API exists.
+  ## `ActivatableAttribute` names the factory interface a class is constructed
+  ## through, when it is not constructible with no arguments at all.
+  ##
+  ## Either way the interface is an attribute *argument*, so it has to be read
+  ## out of the blob rather than found anywhere in the type's shape. An
+  ## `ActivatableAttribute` with no type argument yields nothing here, which is
+  ## exactly what distinguishes the two forms.
+  ##
+  ## The blob is a 2-byte prolog, then the constructor's fixed arguments. The
+  ## first is a `System.Type`, serialised as a SerString: a compressed length
+  ## followed by that many UTF-8 bytes. `0xFF` means null and `0x00` an empty
+  ## string, neither of which names anything.
+  for i in 1 .. m.rows.getOrDefault(tCustomAttribute, 0):
+    let (pTab, pIdx) = decodeCoded("HasCustomAttribute",
+                                   m.cell(tCustomAttribute, i, "Parent"))
+    if pTab != tTypeDef: continue
+    let (tTab, tIdx) = decodeCoded("CustomAttributeType",
+                                   m.cell(tCustomAttribute, i, "Type"))
+    if tTab != tMemberRef: continue
+    let (cTab, cIdx) = decodeCoded("MemberRefParent",
+                                   m.cell(tMemberRef, tIdx, "Class"))
+    if cTab != tTypeRef: continue
+    if m.str(m.cell(tTypeRef, cIdx, "Name")) != attribute: continue
+
+    let v = m.blob(m.cell(tCustomAttribute, i, "Value"))
+    if v.len < 3: continue
+    var p = 2
+    let first = byte(v[p])
+    if first == 0xFF or first == 0x00: continue
+    # Compressed unsigned integer, ECMA-335 II.23.2.
+    var length = 0
+    if (first and 0x80) == 0:
+      length = int(first); p += 1
+    elif (first and 0xC0) == 0x80:
+      if p + 1 >= v.len: continue
+      length = ((int(first) and 0x3F) shl 8) or int(byte(v[p + 1])); p += 2
+    else:
+      if p + 3 >= v.len: continue
+      length = ((int(first) and 0x1F) shl 24) or (int(byte(v[p + 1])) shl 16) or
+               (int(byte(v[p + 2])) shl 8) or int(byte(v[p + 3])); p += 4
+    if length <= 0 or p + length > v.len: continue
+    result.mgetOrPut(pIdx, @[]).add v[p ..< p + length]
+
 proc fieldRange*(m: WinMd, typeIndex: int): (int, int) =
   ## The half-open Field row range belonging to a type.
   ##

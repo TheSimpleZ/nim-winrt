@@ -66,7 +66,9 @@ type
     classes: HashSet[string]             ## full names of classes we emit
     enums: HashSet[string]               ## enums the ABI module emits
     ifaceIid: HashSet[string]            ## interfaces that have an IID
-    structs: HashSet[string]             ## structs xaml_abi laid out
+    localIface: HashSet[string]          ## ...and whose IID this module can name
+    classOfIface: Table[string, string]  ## default interface -> the class it is
+    structs: HashSet[string]             ## structs the ABI module laid out
     aliases: Table[string, string]       ## metadata name -> existing Nim type
     defaultIface: Table[string, string]  ## class -> its default interface
 
@@ -119,10 +121,11 @@ func nimTypeOf(c: Ctx, t: SigType): string =
     # interface for the rest. A class becomes its wrapper type; an interface
     # stays a pointer, because there is no wrapper to give it.
     if t.name in c.classes: shortName(t.name)
+    elif t.name in c.classOfIface: shortName(c.classOfIface[t.name])
     elif t.name in c.ifaceIid: "pointer"
     else: ""
   of skStruct:
-    # Structs cross by value and `xaml_abi` has already laid out the ones it
+    # Structs cross by value and the ABI module has already laid out the ones it
     # could, so a wrapper can name them directly — this is what makes `Margin`,
     # `Padding` and `Color` reachable at all.
     if t.name in foreignEnums: "int32"
@@ -140,6 +143,10 @@ when isMainModule:
     prefix = paramStr(2)
     outPath = paramStr(3)
     corePath = if paramCount() >= 4: paramStr(4) else: "../core"
+    # The ABI module this layer is built on. `generate.nim` wrote it, and the
+    # two must agree on slot numbers and signatures, so they are generated from
+    # the same metadata in the same run.
+    abiPath = if paramCount() >= 5: paramStr(5) else: "./xaml_abi"
     delegatePath = corePath.rsplit('/', 1)[0] & "/delegate"
 
   let md = load(winmdPath)
@@ -151,13 +158,32 @@ when isMainModule:
   for t in md.types: byName[t.fullName] = t.index
 
   var c = Ctx()
+  # Both layers reduce a full name to its last segment, and two namespaces in
+  # one group can end in the same one — `Windows.UI.Composition` and
+  # `Windows.UI.Xaml.Media` both declare `CompositionTarget`. Whichever comes
+  # first in the metadata wins, and this has to make the same choice
+  # `generate.nim` did: name the loser and the emitted code refers to a slot
+  # that was never written.
+  var takenIface, takenEnum: HashSet[string]
   for t in md.types:
     if t.index in iids and (t.flags and tdInterface) != 0:
       c.ifaceIid.incl t.fullName
+      # `IID_X` and `Slot_X_Y` come from the ABI module this one imports, which
+      # covers this namespace and no other. A class here may well implement an
+      # interface from elsewhere — a Windows.Networking class implementing
+      # `IBackgroundTask` — and those members are skipped rather than named.
+      if t.namespace.startsWith(prefix):
+        let k = nimIdent(sanitize(t.name))
+        if k notin takenIface:
+          takenIface.incl k
+          c.localIface.incl t.fullName
     if t.namespace.startsWith(prefix) and md.isEnum(t.index):
-      c.enums.incl t.fullName
+      let k = nimIdent(sanitize(t.name))
+      if k notin takenEnum:
+        takenEnum.incl k
+        c.enums.incl t.fullName
   # Mirror what `generate.nim` emitted: the foreign table, plus in-namespace
-  # value types. A struct it could not lay out is absent from `xaml_abi`, so a
+  # value types. A struct it could not lay out is absent from the ABI module, so a
   # wrapper naming it would not compile.
   for (name, _) in foreignStructs:
     c.structs.incl name
@@ -193,26 +219,55 @@ when isMainModule:
     sigCtx.indexOf[t.fullName] = t.index
 
   # Runtime classes: not interfaces, enums, delegates or plain structs.
+  let staticIfaces = md.attributeTypeArgs("StaticAttribute")
+  let activatableFactories = md.attributeTypeArgs("ActivatableAttribute")
+  var staticOnly: HashSet[string]
   var classOrder: seq[TypeRow]
+  var takenNames: HashSet[string]
   for t in md.types:
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
     if md.isEnum(t.index) or md.isDelegate(t.index): continue
     let own = impls.getOrDefault(t.index, @[])
-    if md.baseName(t.index) == "" and own.len == 0: continue
+    # No base and no interfaces means no instance — which is either a plain
+    # struct, or a static class whose whole API hangs off its factory.
+    if md.baseName(t.index) == "" and own.len == 0 and
+       t.index notin staticIfaces: continue
     # WinRT lists a class's default interface first.
     var default = ""
     for coded in own:
       let n = md.typeDefOrRefName(coded)
-      if n in c.ifaceIid:
+      if n in c.localIface:
         default = n
         break
-    if default.len == 0 and md.baseName(t.index) == "": continue
+    if default.len == 0 and md.baseName(t.index) == "":
+      # No instance to have. If the metadata gives it a static interface it is
+      # a class like `PowerManager` — real API, reached through the activation
+      # factory — so it is kept, as a name to hang those members on.
+      if t.index notin staticIfaces: continue
+      staticOnly.incl t.fullName
+    # Two namespaces under one group can declare the same short name:
+    # `Windows.UI.Composition.CompositionTarget` and
+    # `Windows.UI.Xaml.Media.CompositionTarget` both want `CompositionTarget`.
+    # The ABI layer keeps whichever comes first and so must this, or the two
+    # disagree about what the name means.
+    if nimIdent(shortName(t.fullName)) in takenNames: continue
+    takenNames.incl nimIdent(shortName(t.fullName))
     c.classes.incl t.fullName
     if default.len > 0:
       c.defaultIface[t.fullName] = default
       sigCtx.defaultIface[t.fullName] = default
+      # A factory returns the class's default interface rather than the class,
+      # so this is what lets `CreateUri` be typed as returning a `Uri`.
+      c.classOfIface[default] = t.fullName
     classOrder.add t
+
+  proc asClass(name: string): string =
+    ## The class a type name stands for: itself if it is one, or the class it
+    ## is the default interface of. A factory hands back `IUriRuntimeClass`,
+    ## and what the caller wants is a `Uri`.
+    if name in c.classes: name
+    else: c.classOfIface.getOrDefault(name, "")
 
   proc ancestorsOf(full: string): seq[string] =
     var cur = md.baseName(byName[full])
@@ -230,92 +285,14 @@ when isMainModule:
   buf.add "## inherited method resolves without being emitted again for every\n"
   buf.add "## subclass, and a derived value passes where a base is expected.\n\n"
   buf.add &"import {corePath}\n"
-  buf.add "import ./xaml_abi\n"
+  buf.add &"import {abiPath}\n"
   buf.add &"import {delegatePath}\n"
-  buf.add &"export {corePath.split('/')[^1]}, xaml_abi\n\n"
-  buf.add "template withIface(obj: pointer, iid: GUID, what: string,\n"
-  buf.add "                   name, body: untyped) =\n"
-  buf.add "  ## Dispatch through the interface that declares the method, not\n"
-  buf.add "  ## through whichever one the caller happens to hold. Slots are\n"
-  buf.add "  ## numbered per interface, so the difference is a wrong function\n"
-  buf.add "  ## or a crash, never an error code.\n"
-  buf.add "  let name = queryInterface(obj, iid)\n"
-  buf.add "  if name.isNil:\n"
-  buf.add "    raise newException(WinRtError, \"winui3: object is not a \" & what)\n"
-  buf.add "  try:\n"
-  buf.add "    body\n"
-  buf.add "  finally:\n"
-  buf.add "    release(name)\n\n"
-  # Activation lives here rather than in `xaml.nim`, which imports this module.
-  # It is not called `create`, because `system.create` already exists and the
-  # overload-resolution failure that produces names neither of them.
-  buf.add """proc takeString*(h: HSTRING): string =
-  ## Convert an `[out] HSTRING` to a Nim string and delete it.
-  ##
-  ## A WinRT method that returns a string hands over ownership: the HSTRING is
-  ## the caller's to delete. Reading a string property without this leaks one
-  ## per call, which a soak test measures as a flat couple of hundred bytes an
-  ## iteration — invisible in a demo and fatal in a program that runs for days.
-  result = $h
-  discard windowsDeleteString(h)
+  buf.add &"export {corePath.split('/')[^1]}, {abiPath.split('/')[^1]}\n\n"
+  # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
+  # `adopt` and `borrow` are not emitted here. They are the same in every
+  # module, so eighteen copies collided the moment a program imported two of
+  # them; they live in `core` and arrive through the import above.
 
-"""
-  buf.add """proc activateAs*(classId: string, iid: GUID): pointer =
-  ## Activate a runtime class and narrow it to one of its interfaces.
-  ##
-  ## The activation reference is dropped once the typed one is held: they name
-  ## the same object, and keeping both would leak it.
-  let obj = activateInstance(classId)
-  result = queryInterface(obj, iid)
-  release(obj)
-  if result.isNil:
-    raise newException(WinRtError, "winui3: " & classId &
-      " does not implement the expected interface")
-
-proc composeAs*(classId: string, factoryIid, iid: GUID,
-                slot: int): pointer =
-  ## Construct a composable runtime class.
-  ##
-  ## Most of the visual tree is designed to be derived from, and answers
-  ## `RoActivateInstance` with `E_NOTIMPL`. Such a class is built through its
-  ## factory's `CreateInstance(outer, inner, value)` instead. Passing a nil
-  ## `outer` says we are not deriving from it, and the `inner` handed back
-  ## carries its own reference that is not ours to keep.
-  type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
-                        value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
-  let factory = activationFactory(classId, factoryIid)
-  var inner, instance: pointer
-  try:
-    vcall(factory, slot, FnCompose)(factory, nil, inner.addr, instance.addr)
-      .check(classId & ".CreateInstance")
-  finally:
-    release(factory)
-  if not inner.isNil and inner != instance:
-    release(inner)
-  result = queryInterface(instance, iid)
-  release(instance)
-  if result.isNil:
-    raise newException(WinRtError, "winui3: " & classId &
-      " does not implement the expected interface")
-
-"""
-
-  # The class hierarchy is Nim's own object inheritance, not `distinct pointer`
-  # plus converters.
-  #
-  # Converters were the obvious first try and are unusable at this scale: Nim
-  # considers every converter in scope at every type mismatch, and 1,715 of them
-  # took compilation of this one module from 3.6 seconds to over seven minutes.
-  # Object subtyping costs nothing at compile time, passes a derived value where
-  # a base is expected, and resolves inherited methods — and with `pure` and
-  # `inheritable` there is no runtime type field, so each of these is exactly one
-  # pointer wide.
-  #
-  # Bases must be declared before the types that extend them, so this emits by
-  # depth.
-  # Computed IIDs land here, above every proc that names one. They are only
-  # discovered while those procs are emitted, so the block is spliced in at the
-  # end.
   buf.add GenericIidMarker
   buf.add "type\n"
   var roots: seq[string]
@@ -326,7 +303,11 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
   for (_, t) in byDepth:
     let n = shortName(t.fullName)
     let base = md.baseName(t.index)
-    if base.len > 0 and base in c.classes:
+    if t.fullName in staticOnly:
+      # Never constructed, never held: it exists so that `PowerManager.x`
+      # resolves. No pointer, so no reference counting either.
+      buf.add &"  {n}* = object\n"
+    elif base.len > 0 and base in c.classes:
       buf.add &"  {n}* = object of {shortName(base)}\n"
     else:
       buf.add &"  {n}* {{.inheritable, pure.}} = object\n"
@@ -360,29 +341,8 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
     buf.add "  dst.p = src.p\n"
   buf.add "\n"
 
-  buf.add """proc owned*[T](p: pointer): T =
-  ## Adopt a pointer that is already ours — anything a getter, a factory or a
-  ## QueryInterface returned, all of which hand over a reference.
-  ##
-  ## The counterpart of `borrowed`. Between them they cover every way a raw
-  ## pointer becomes an object, and saying which one applies is the whole of
-  ## the lifetime contract: adopt something you were only lent and the wrapper
-  ## releases a reference it never took.
-  T(p: p)
-
-proc borrowed*[T](p: pointer): T =
-  ## Wrap a pointer we were *lent*, such as an event's sender or arguments.
-  ##
-  ## The wrapper releases on destruction, so adopting a borrowed pointer
-  ## without this would over-release it and free an object still in use. A
-  ## pointer that is already ours — anything a getter or a factory returned —
-  ## is wrapped directly instead.
-  if not p.isNil: addRef(p)
-  T(p: p)
-
-"""
-
   for t in classOrder:
+    if t.fullName in staticOnly: continue   # no pointer to be nil
     let n = shortName(t.fullName)
     buf.add &"func isNil*(x: {n}): bool {{.inline.}} = x.p.isNil\n"
   buf.add "\n"
@@ -434,19 +394,31 @@ proc borrowed*[T](p: pointer): T =
     var emitted = initHashSet[string]()
 
     let a = attrs.getOrDefault(t.index, @[])
-    if t.fullName in c.defaultIface:
+    # `ActivatableAttribute` comes in two forms and they mean opposite things.
+    # With a factory interface as its argument it says "constructed through
+    # this", and `RoActivateInstance` on such a class returns E_NOTIMPL — which
+    # is what a generated `newUri()` used to do. Without one it says
+    # "constructible with no arguments", which is the only case that proc is
+    # right for. A class can carry both.
+    let factories = activatableFactories.getOrDefault(t.index, @[])
+    var plainActivations = 0
+    for n in a:
+      if n == "ActivatableAttribute": plainActivations.inc
+    plainActivations -= factories.len
+
+    if t.fullName notin staticOnly and t.fullName in c.defaultIface:
       let iface = shortName(c.defaultIface[t.fullName])
-      if "ActivatableAttribute" in a:
+      if plainActivations > 0:
         buf.add &"proc new{cls}*(): {cls} =\n"
         buf.add &"  ## Activate a `{t.fullName}`.\n"
-        buf.add &"  owned[{cls}](activateAs(\"{t.fullName}\", IID_{iface}))\n\n"
+        buf.add &"  adopt[{cls}](activateAs(\"{t.fullName}\", IID_{iface}))\n\n"
         ctors.inc
-      elif "ComposableAttribute" in a:
+      elif "ComposableAttribute" in a and factories.len == 0:
         # A composable class refuses RoActivateInstance and is built through
         # `I<Name>Factory.CreateInstance`. The slot is read rather than assumed
         # to be 6, since a factory may declare other methods first.
         let factoryFull = t.namespace & ".I" & t.name & "Factory"
-        if factoryFull in c.ifaceIid and factoryFull in byName:
+        if factoryFull in c.localIface and factoryFull in byName:
           let (first, stop) = md.methodRange(byName[factoryFull])
           var slot = -1
           for mi in first ..< stop:
@@ -457,14 +429,31 @@ proc borrowed*[T](p: pointer): T =
             let fac = shortName(factoryFull)
             buf.add &"proc new{cls}*(): {cls} =\n"
             buf.add &"  ## Compose a `{t.fullName}`.\n"
-            buf.add &"  owned[{cls}](composeAs(\"{t.fullName}\", IID_{fac},\n"
+            buf.add &"  adopt[{cls}](composeAs(\"{t.fullName}\", IID_{fac},\n"
             buf.add &"                     IID_{iface}, {slot}))\n\n"
             ctors.inc
 
+    # A class contributes members from two places: the interfaces it
+    # implements, whose members need an instance, and the interfaces named by
+    # its `StaticAttribute`, whose members do not and are reached through the
+    # activation factory. `PowerManager` has only the second kind.
+    var faces: seq[(string, bool)]
     for coded in impls.getOrDefault(t.index, @[]):
-      let ifaceFull = md.typeDefOrRefName(coded)
-      if ifaceFull notin c.ifaceIid or ifaceFull notin byName: continue
+      faces.add (md.typeDefOrRefName(coded), false)
+    for n in staticIfaces.getOrDefault(t.index, @[]):
+      faces.add (n, true)
+    for n in factories:
+      faces.add (n, true)
+
+    for (ifaceFull, isStatic) in faces:
+      if ifaceFull notin c.localIface or ifaceFull notin byName: continue
       let iface = shortName(ifaceFull)
+      # A static member hangs off the type, so it reads `PowerManager.x` at the
+      # call site and takes a `typedesc` here.
+      let recv = if isStatic: &"_: typedesc[{cls}]" else: &"self: {cls}"
+      let enter =
+        if isStatic: &"withStatics(\"{t.fullName}\", IID_{iface}, it):"
+        else: &"withIface(self.p, IID_{iface}, \"{iface}\", it):"
       let (first, stop) = md.methodRange(byName[ifaceFull])
       var seen = initCountTable[string]()
       for mi in first ..< stop:
@@ -509,7 +498,7 @@ proc borrowed*[T](p: pointer): T =
               let key = "on" & evName & "/handler"
               if key notin emitted:
                 emitted.incl key
-                buf.add &"proc on{evName}*(self: {cls},\n"
+                buf.add &"proc on{evName}*({recv},\n"
                 buf.add &"    handler: proc(sender: pointer, args: {argsType})): " &
                         "EventRegistrationToken {.discardable.} =\n"
                 buf.add &"  ## {t.fullName}.{raw}\n"
@@ -517,13 +506,13 @@ proc borrowed*[T](p: pointer): T =
                 buf.add "  ## The token is what `remove" & evName &
                         "` needs. The delegate is released here because the\n"
                 buf.add "  ## event source took its own reference.\n"
-                buf.add &"  withIface(self.p, IID_{iface}, \"{iface}\", it):\n"
+                buf.add &"  {enter}\n"
                 buf.add &"    let cb = newEventDelegate({dlgName},\n"
                 if argsType == "pointer":
                   buf.add "      proc(s, a: pointer) = handler(s, a))\n"
                 else:
                   buf.add "      proc(s, a: pointer) = handler(s, " &
-                          &"borrowed[{argsType}](a)))\n"
+                          &"borrow[{argsType}](a)))\n"
                 buf.add "    try:\n"
                 buf.add &"      vcall(it, Slot_{tag}, Fn_{tag})(it, cb, result.addr)\n"
                 buf.add &"        .check(\"{cls}.{raw}\")\n"
@@ -542,10 +531,9 @@ proc borrowed*[T](p: pointer): T =
             let key = "remove" & evName & "/token"
             if key notin emitted:
               emitted.incl key
-              buf.add &"proc remove{evName}*(self: {cls}, " &
+              buf.add &"proc remove{evName}*({recv}, " &
                       "token: EventRegistrationToken) =\n"
-              buf.add &"  ## {t.fullName}.{raw}\n"
-              buf.add &"  withIface(self.p, IID_{iface}, \"{iface}\", it):\n"
+              buf.add &"  {enter}\n"
               buf.add &"    vcall(it, Slot_{tag}, Fn_{tag})(it, token)" &
                       &".check(\"{cls}.{raw}\")\n\n"
               events.inc
@@ -588,7 +576,7 @@ proc borrowed*[T](p: pointer): T =
           continue
         emitted.incl key
 
-        var params = @[&"self: {cls}"]
+        var params = @[recv]
         for i, at in argTypes:
           let pn = if isPut: "value" else: &"a{i + 1}"
           params.add &"{pn}: {at}"
@@ -599,7 +587,7 @@ proc borrowed*[T](p: pointer): T =
         var lines: seq[string]
         var callArgs = @["it"]
         var indent = "  "
-        lines.add &"{indent}withIface(self.p, IID_{iface}, \"{iface}\", it):"
+        lines.add &"{indent}{enter}"
         indent.add "  "
         for i, p in sig.params:
           let pn = if isPut: "value" else: &"a{i + 1}"
@@ -609,8 +597,9 @@ proc borrowed*[T](p: pointer): T =
             indent.add "  "
             callArgs.add &"h{i}"
           of skInterface:
-            if p.name in c.classes:
-              let want = c.defaultIface.getOrDefault(p.name, "")
+            let pc = asClass(p.name)
+            if pc.len > 0:
+              let want = c.defaultIface.getOrDefault(pc, "")
               if want.len == 0:
                 ok = false
                 break
@@ -645,8 +634,8 @@ proc borrowed*[T](p: pointer): T =
           of skString: lines.add &"{indent}result = takeString(tmp)"
           of skEnum: lines.add &"{indent}result = tmp"
           of skInterface:
-            if sig.returns.name in c.classes:
-              lines.add &"{indent}result = owned[{retType}](tmp)"
+            if asClass(sig.returns.name).len > 0:
+              lines.add &"{indent}result = adopt[{retType}](tmp)"
             else:
               lines.add &"{indent}result = tmp"
           else: lines.add &"{indent}result = tmp"

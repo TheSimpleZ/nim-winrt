@@ -384,3 +384,117 @@ proc tryActivationFactory*(classId: string,
   var id = iid
   withHString(classId, cid):
     result.hr = roGetActivationFactory(cid, id.addr, result.factory.addr)
+
+# ------------------------------------------- what the generated API is built on
+#
+# These used to be emitted into every generated module, which meant eighteen
+# copies of each and an `ambiguous call` the moment a program imported two of
+# them. They are not specific to any namespace, so they live here.
+
+template withIface*(obj: pointer, iid: GUID, what: string,
+                   name, body: untyped) =
+  ## Dispatch through the interface that declares the method, not
+  ## through whichever one the caller happens to hold. Slots are
+  ## numbered per interface, so the difference is a wrong function
+  ## or a crash, never an error code.
+  let name = queryInterface(obj, iid)
+  if name.isNil:
+    raise newException(WinRtError, "winui3: object is not a " & what)
+  try:
+    body
+  finally:
+    release(name)
+
+template withStatics*(classId: string, iid: GUID,
+                     name, body: untyped) =
+  ## Dispatch to a class with no instances. Everything it can do
+  ## lives on an interface reached through its activation factory,
+  ## which combase caches, so this costs a lookup and an AddRef.
+  let name = activationFactory(classId, iid)
+  try:
+    body
+  finally:
+    release(name)
+
+proc takeString*(h: HSTRING): string =
+  ## Convert an `[out] HSTRING` to a Nim string and delete it.
+  ##
+  ## A WinRT method that returns a string hands over ownership: the HSTRING is
+  ## the caller's to delete. Reading a string property without this leaks one
+  ## per call, which a soak test measures as a flat couple of hundred bytes an
+  ## iteration — invisible in a demo and fatal in a program that runs for days.
+  result = $h
+  discard windowsDeleteString(h)
+
+proc activateAs*(classId: string, iid: GUID): pointer =
+  ## Activate a runtime class and narrow it to one of its interfaces.
+  ##
+  ## The activation reference is dropped once the typed one is held: they name
+  ## the same object, and keeping both would leak it.
+  let obj = activateInstance(classId)
+  result = queryInterface(obj, iid)
+  release(obj)
+  if result.isNil:
+    raise newException(WinRtError, "winrt: " & classId &
+      " does not implement the expected interface")
+
+proc composeAs*(classId: string, factoryIid, iid: GUID,
+                slot: int): pointer =
+  ## Construct a composable runtime class.
+  ##
+  ## Most of the visual tree is designed to be derived from, and answers
+  ## `RoActivateInstance` with `E_NOTIMPL`. Such a class is built through its
+  ## factory's `CreateInstance(outer, inner, value)` instead. Passing a nil
+  ## `outer` says we are not deriving from it, and the `inner` handed back
+  ## carries its own reference that is not ours to keep.
+  type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
+                        value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+  let factory = activationFactory(classId, factoryIid)
+  var inner, instance: pointer
+  try:
+    vcall(factory, slot, FnCompose)(factory, nil, inner.addr, instance.addr)
+      .check(classId & ".CreateInstance")
+  finally:
+    release(factory)
+  if not inner.isNil and inner != instance:
+    release(inner)
+  result = queryInterface(instance, iid)
+  release(instance)
+  if result.isNil:
+    raise newException(WinRtError, "winrt: " & classId &
+      " does not implement the expected interface")
+
+# IIDs of parameterised interfaces, computed from a signature
+# string rather than read from metadata - see tools/piid.nim.
+const IID_EventHandler_1_TracingStatusChangedEventArgs* = GUID(
+    data1: 0x2BF27008'u32, data2: 0x2EB4'u16, data3: 0x5675'u16,
+    data4: [0xB1'u8, 0xCD, 0xE9, 0x90, 0x6C, 0xC5, 0xCE, 0x64])
+const IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs* = GUID(
+    data1: 0x0C6563B0'u32, data2: 0x9D8B'u16, data3: 0x5B60'u16,
+    data4: [0x99'u8, 0x4B, 0xDE, 0xE1, 0x17, 0x4D, 0x1E, 0xFB])
+const IID_TypedEventHandler_2_ILoggingChannel_Object* = GUID(
+    data1: 0x52C9C2A1'u32, data2: 0x54A3'u16, data3: 0x5EF9'u16,
+    data4: [0x9A'u8, 0xFF, 0x01, 0x4E, 0x7C, 0x45, 0x46, 0x55])
+
+
+proc adopt*[T](p: pointer): T =
+  ## Not called `owned`: Nim has a built-in `owned` type modifier, so `owned[T](p)`
+  ## parses as a type the moment this is imported rather than declared locally.
+  ## Adopt a pointer that is already ours — anything a getter, a factory or a
+  ## QueryInterface returned, all of which hand over a reference.
+  ##
+  ## The counterpart of `borrowed`. Between them they cover every way a raw
+  ## pointer becomes an object, and saying which one applies is the whole of
+  ## the lifetime contract: adopt something you were only lent and the wrapper
+  ## releases a reference it never took.
+  T(p: p)
+
+proc borrow*[T](p: pointer): T =
+  ## Wrap a pointer we were *lent*, such as an event's sender or arguments.
+  ##
+  ## The wrapper releases on destruction, so adopting a borrowed pointer
+  ## without this would over-release it and free an object still in use. A
+  ## pointer that is already ours — anything a getter or a factory returned —
+  ## is wrapped directly instead.
+  if not p.isNil: addRef(p)
+  T(p: p)
