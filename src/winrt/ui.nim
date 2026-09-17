@@ -119,6 +119,9 @@ const IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs* = GUID
 const IID_IVector_1_IUICommand* = GUID(
     data1: 0x105139A1'u32, data2: 0xDCB8'u16, data3: 0x5F65'u16,
     data4: [0x97'u8, 0xEF, 0xCB, 0x1B, 0xF0, 0xB7, 0x5F, 0x9D])
+const IID_IAsyncOperation_1_IUICommand* = GUID(
+    data1: 0xB8770535'u32, data2: 0x6A4B'u16, data3: 0x52B1'u16,
+    data4: [0xB5'u8, 0x78, 0xF3, 0xCD, 0xC5, 0x00, 0x7A, 0x1F])
 const IID_IVector_1_PointerPoint* = GUID(
     data1: 0xDFA655CF'u32, data2: 0xFDE7'u16, data3: 0x5048'u16,
     data4: [0xB4'u8, 0xBF, 0xC9, 0x09, 0x23, 0x1B, 0x7E, 0xDB])
@@ -164,6 +167,9 @@ const IID_IVectorView_1_IInkAnalysisNode* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IAsyncOperation_1_InkAnalysisResult* = GUID(
+    data1: 0x2C46D1BD'u32, data2: 0x6DBB'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x85, 0x3D, 0x01, 0x06, 0xBD, 0xDF, 0x50])
 const IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs* = GUID(
     data1: 0xB83FBE98'u32, data2: 0x882A'u16, data3: 0x5B69'u16,
     data4: [0xBD'u8, 0x1C, 0xC6, 0x66, 0x90, 0x70, 0x7F, 0xEF])
@@ -176,6 +182,9 @@ const IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEvent
 const IID_IVectorView_1_InkRecognizer* = GUID(
     data1: 0x8EADFA4F'u32, data2: 0x27EF'u16, data3: 0x5A5D'u16,
     data4: [0xB0'u8, 0xB8, 0x7F, 0xD5, 0xC0, 0xCE, 0x6B, 0x39])
+const IID_IAsyncActionWithProgress_1_U8* = GUID(
+    data1: 0x43F713D0'u32, data2: 0xC49D'u16, data3: 0x5E55'u16,
+    data4: [0xAE'u8, 0xBF, 0xAF, 0x39, 0x57, 0x68, 0x35, 0x1E])
 const IID_IVectorView_1_InkStroke* = GUID(
     data1: 0x6744F458'u32, data2: 0xB242'u16, data3: 0x5767'u16,
     data4: [0xA6'u8, 0x43, 0x99, 0x6E, 0x01, 0xDF, 0xF0, 0xE4])
@@ -368,6 +377,9 @@ const IID_IVector_1_NotificationBinding* = GUID(
 const IID_IVectorView_1_ScheduledTileNotification* = GUID(
     data1: 0x4F729C64'u32, data2: 0xA213'u16, data3: 0x52E9'u16,
     data4: [0xAF'u8, 0x8B, 0x58, 0xAD, 0xCA, 0x3E, 0x59, 0x7F])
+const IID_IAsyncOperation_1_ToastCollection* = GUID(
+    data1: 0x9310EC47'u32, data2: 0x9F0A'u16, data3: 0x5999'u16,
+    data4: [0x80'u8, 0xC2, 0x4B, 0x31, 0xE9, 0xF7, 0x7E, 0x8E])
 const IID_TypedEventHandler_2_ToastNotification_ToastDismissedEventArgs* = GUID(
     data1: 0x61C2402F'u32, data2: 0x0ED0'u16, data3: 0x5A18'u16,
     data4: [0xAB'u8, 0x69, 0x59, 0xF4, 0xAA, 0x99, 0xA3, 0x68])
@@ -380,6 +392,12 @@ const IID_TypedEventHandler_2_ToastNotification_ToastFailedEventArgs* = GUID(
 const IID_IVectorView_1_ToastNotification* = GUID(
     data1: 0xA819F3DE'u32, data2: 0x60AA'u16, data3: 0x5159'u16,
     data4: [0x84'u8, 0x07, 0xF0, 0xA7, 0xFB, 0x1F, 0x68, 0x32])
+const IID_IAsyncOperation_1_ToastNotifier* = GUID(
+    data1: 0x2DDDC10E'u32, data2: 0x38E6'u16, data3: 0x5655'u16,
+    data4: [0xAD'u8, 0xF3, 0x82, 0x0E, 0x8F, 0xB1, 0x4D, 0xCC])
+const IID_IAsyncOperation_1_ToastNotificationHistory* = GUID(
+    data1: 0x92D2DAFF'u32, data2: 0x3C94'u16, data3: 0x5B26'u16,
+    data4: [0x87'u8, 0x7F, 0xD3, 0xD7, 0x63, 0x22, 0x21, 0x0B])
 const IID_TypedEventHandler_2_ToastNotificationManagerForUser_Object* = GUID(
     data1: 0x821BDF6B'u32, data2: 0x029A'u16, data3: 0x5299'u16,
     data4: [0x93'u8, 0xF3, 0x30, 0x77, 0xB2, 0xEE, 0x5E, 0x33])
@@ -389,6 +407,9 @@ const IID_IVectorView_1_ScheduledToastNotification* = GUID(
 const IID_TypedEventHandler_2_ToastNotifier_ScheduledToastNotificationShowingEventArgs* = GUID(
     data1: 0xB1BB0CAB'u32, data2: 0xF8B9'u16, data3: 0x5909'u16,
     data4: [0xA8'u8, 0x72, 0xEF, 0x29, 0xE0, 0x5A, 0x8C, 0x7A])
+const IID_IAsyncOperation_1_CompanionWindowRequestResult* = GUID(
+    data1: 0x71D91C43'u32, data2: 0xB325'u16, data3: 0x5C8A'u16,
+    data4: [0x81'u8, 0x5E, 0x16, 0x8C, 0x11, 0x19, 0xA2, 0xE6])
 const IID_TypedEventHandler_2_CompanionWindowCoordinator_Object* = GUID(
     data1: 0xC7413260'u32, data2: 0x4A0D'u16, data3: 0x50D6'u16,
     data4: [0xBB'u8, 0xF8, 0x5F, 0x08, 0x54, 0x31, 0x57, 0x16])
@@ -413,6 +434,9 @@ const IID_TypedEventHandler_2_WindowTabManager_WindowTabThumbnailRequestedEventA
 const IID_IVector_1_JumpListItem* = GUID(
     data1: 0xAF8F3FB2'u32, data2: 0xF179'u16, data3: 0x5F0A'u16,
     data4: [0xAA'u8, 0x09, 0x28, 0x94, 0x2E, 0xED, 0xF6, 0x25])
+const IID_IAsyncOperation_1_JumpList* = GUID(
+    data1: 0x1C008C58'u32, data2: 0x733B'u16, data3: 0x5B42'u16,
+    data4: [0x96'u8, 0x2A, 0xB3, 0x33, 0x28, 0x23, 0x6C, 0xD3])
 const IID_TypedEventHandler_2_SecondaryTile_VisualElementsRequestedEventArgs* = GUID(
     data1: 0x02D9F968'u32, data2: 0xFA76'u16, data3: 0x5D77'u16,
     data4: [0x93'u8, 0x4B, 0x66, 0x5E, 0x7C, 0x3B, 0xE7, 0xCF])
@@ -452,6 +476,9 @@ const IID_TypedEventHandler_2_CoreTextEditContext_Object* = GUID(
 const IID_TypedEventHandler_2_CoreTextServicesManager_Object* = GUID(
     data1: 0x112FB01D'u32, data2: 0x260A'u16, data3: 0x51C6'u16,
     data4: [0x91'u8, 0x98, 0x5D, 0xB3, 0xE6, 0xE9, 0xEF, 0x3D])
+const IID_IAsyncOperation_1_RemoteAutomationWindow* = GUID(
+    data1: 0x3DC07F97'u32, data2: 0x215C'u16, data3: 0x5AD9'u16,
+    data4: [0x8F'u8, 0x22, 0x5C, 0x52, 0x2D, 0x0F, 0x09, 0xEC])
 const IID_TypedEventHandler_2_RemoteAutomationClientSession_RemoteAutomationConnectionRequestedEventArgs* = GUID(
     data1: 0x1B0EB0D9'u32, data2: 0xB29B'u16, data3: 0x52F6'u16,
     data4: [0x9D'u8, 0x79, 0xFF, 0xFE, 0x5A, 0x28, 0x02, 0x99])
@@ -497,6 +524,9 @@ const IID_TypedEventHandler_2_CoreInputView_CoreInputViewHidingEventArgs* = GUID
 const IID_TypedEventHandler_2_CoreInputView_CoreInputViewAnimationStartingEventArgs* = GUID(
     data1: 0x070CC1CF'u32, data2: 0x2C3A'u16, data3: 0x5E23'u16,
     data4: [0xA0'u8, 0xAA, 0x0D, 0xAB, 0xE6, 0xD4, 0xD2, 0x7E])
+const IID_IAsyncOperation_1_UISettingsController* = GUID(
+    data1: 0xBC3153C5'u32, data2: 0x58D0'u16, data3: 0x5B0B'u16,
+    data4: [0xA9'u8, 0xA5, 0x1B, 0x7C, 0xC2, 0xFA, 0xEF, 0x5F])
 const IID_TypedEventHandler_2_InputPane_InputPaneVisibilityEventArgs* = GUID(
     data1: 0xB813D684'u32, data2: 0xD953'u16, data3: 0x5A8A'u16,
     data4: [0x9B'u8, 0x30, 0x78, 0xB7, 0x9F, 0xB9, 0x14, 0x7B])
@@ -527,6 +557,9 @@ const IID_TypedEventHandler_2_WebUIView_Object* = GUID(
 const IID_TypedEventHandler_2_WebUIView_IActivatedEventArgs* = GUID(
     data1: 0x8A4231A8'u32, data2: 0xC4CB'u16, data3: 0x5130'u16,
     data4: [0xBA'u8, 0x5B, 0xB4, 0x96, 0x3B, 0x42, 0xB6, 0x0D])
+const IID_IAsyncOperation_1_WebUIView* = GUID(
+    data1: 0x43B17969'u32, data2: 0xE5DF'u16, data3: 0x5639'u16,
+    data4: [0x9A'u8, 0x5C, 0x8F, 0x18, 0x47, 0x7C, 0x63, 0x7E])
 const IID_TypedEventHandler_2_AppWindow_AppWindowChangedEventArgs* = GUID(
     data1: 0xC6A30887'u32, data2: 0x6F60'u16, data3: 0x597F'u16,
     data4: [0xB9'u8, 0x18, 0x75, 0x7C, 0xAB, 0x5F, 0x3A, 0x76])
@@ -536,6 +569,9 @@ const IID_TypedEventHandler_2_AppWindow_AppWindowClosedEventArgs* = GUID(
 const IID_TypedEventHandler_2_AppWindow_AppWindowCloseRequestedEventArgs* = GUID(
     data1: 0xC0359718'u32, data2: 0x173D'u16, data3: 0x5F19'u16,
     data4: [0xB7'u8, 0x6A, 0x91, 0x92, 0x9B, 0x2B, 0x04, 0x51])
+const IID_IAsyncOperation_1_AppWindow* = GUID(
+    data1: 0x4167727A'u32, data2: 0x5DF0'u16, data3: 0x5ED3'u16,
+    data4: [0xB6'u8, 0x24, 0x16, 0x7C, 0x81, 0xBE, 0xFF, 0x6B])
 const IID_IVectorView_1_AppWindowTitleBarOcclusion* = GUID(
     data1: 0x586D5577'u32, data2: 0x7D02'u16, data3: 0x5C77'u16,
     data4: [0xBB'u8, 0x43, 0x39, 0x52, 0x2F, 0x80, 0x97, 0x2E])
@@ -830,6 +866,9 @@ const IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerPointerExitedEven
 const IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerContextRequestedEventArgs* = GUID(
     data1: 0xD4C7ECED'u32, data2: 0x5053'u16, data3: 0x5D3C'u16,
     data4: [0x8C'u8, 0xFA, 0xFB, 0x19, 0xDB, 0xDE, 0x4A, 0x3A])
+const IID_IAsyncOperation_1_MapModel3D* = GUID(
+    data1: 0x0CF0240F'u32, data2: 0x7F78'u16, data3: 0x535B'u16,
+    data4: [0x85'u8, 0x0C, 0xFE, 0x62, 0x31, 0x75, 0x90, 0x64])
 const IID_TypedEventHandler_2_MapScene_MapTargetCameraChangedEventArgs* = GUID(
     data1: 0x766ED4A8'u32, data2: 0xE810'u16, data3: 0x5F78'u16,
     data4: [0xBC'u8, 0x96, 0x9A, 0xFF, 0x9F, 0x58, 0xCF, 0xCA])
@@ -1085,6 +1124,9 @@ const IID_TypedEventHandler_2_Hyperlink_HyperlinkClickEventArgs* = GUID(
 const IID_TypedEventHandler_2_DesignerAppManager_DesignerAppExitedEventArgs* = GUID(
     data1: 0x3772CE98'u32, data2: 0x9BA0'u16, data3: 0x504B'u16,
     data4: [0x8A'u8, 0x0D, 0x36, 0xB7, 0xF8, 0x16, 0xA1, 0xC2])
+const IID_IAsyncOperation_1_DesignerAppView* = GUID(
+    data1: 0x49C6C658'u32, data2: 0x1BD2'u16, data3: 0x581E'u16,
+    data4: [0xA3'u8, 0x85, 0x6E, 0xB3, 0xFD, 0x9B, 0xFE, 0xE3])
 const IID_TypedEventHandler_2_DesktopWindowXamlSource_DesktopWindowXamlSourceTakeFocusRequestedEventArgs* = GUID(
     data1: 0x9E79EAFE'u32, data2: 0xC7FE'u16, data3: 0x54A5'u16,
     data4: [0x96'u8, 0xFF, 0x7A, 0xBE, 0x02, 0xE0, 0x54, 0x18])
@@ -1106,6 +1148,9 @@ const IID_EventHandler_1_GettingFocusEventArgs* = GUID(
 const IID_EventHandler_1_LosingFocusEventArgs* = GUID(
     data1: 0xB17A4F5F'u32, data2: 0x1E9F'u16, data3: 0x5DE1'u16,
     data4: [0xAB'u8, 0x5D, 0x6F, 0x58, 0xDF, 0x7D, 0x0E, 0x47])
+const IID_IAsyncOperation_1_FocusMovementResult* = GUID(
+    data1: 0x0EA4496B'u32, data2: 0x37DE'u16, data3: 0x5E58'u16,
+    data4: [0x8B'u8, 0x0D, 0x2C, 0x39, 0x90, 0xC4, 0xCB, 0xB2])
 const IID_IVector_1_InputScopeName* = GUID(
     data1: 0x703FE123'u32, data2: 0xD766'u16, data3: 0x562F'u16,
     data4: [0xB2'u8, 0x10, 0x19, 0x80, 0xBB, 0x2A, 0x0D, 0x33])
@@ -13270,19 +13315,21 @@ proc show*(_: typedesc[AccountsSettingsPane]) =
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane", IID_IAccountsSettingsPaneStatics, it):
     vcall(it, Slot_IAccountsSettingsPaneStatics_Show, Fn_IAccountsSettingsPaneStatics_Show)(it).check("AccountsSettingsPane.Show")
 
-proc showManageAccountsAsync*(_: typedesc[AccountsSettingsPane]): pointer =
+proc showManageAccountsAsync*(_: typedesc[AccountsSettingsPane]) =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowManageAccountsAsync
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane", IID_IAccountsSettingsPaneStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IAccountsSettingsPaneStatics2_ShowManageAccountsAsync, Fn_IAccountsSettingsPaneStatics2_ShowManageAccountsAsync)(it, tmp.addr).check("AccountsSettingsPane.ShowManageAccountsAsync")
-    result = tmp
+    awaitVoid(tmp, "AccountsSettingsPane.ShowManageAccountsAsync")
+    release(tmp)
 
-proc showAddAccountAsync*(_: typedesc[AccountsSettingsPane]): pointer =
+proc showAddAccountAsync*(_: typedesc[AccountsSettingsPane]) =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.ShowAddAccountAsync
   withStatics("Windows.UI.ApplicationSettings.AccountsSettingsPane", IID_IAccountsSettingsPaneStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IAccountsSettingsPaneStatics2_ShowAddAccountAsync, Fn_IAccountsSettingsPaneStatics2_ShowAddAccountAsync)(it, tmp.addr).check("AccountsSettingsPane.ShowAddAccountAsync")
-    result = tmp
+    awaitVoid(tmp, "AccountsSettingsPane.ShowAddAccountAsync")
+    release(tmp)
 
 proc webAccountProviderCommands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[WebAccountProviderCommand] =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountProviderCommands
@@ -17187,12 +17234,13 @@ proc createViewBox*(self: Compositor): CompositionViewBox =
     vcall(it, Slot_ICompositor5_CreateViewBox, Fn_ICompositor5_CreateViewBox)(it, tmp.addr).check("Compositor.CreateViewBox")
     result = adopt[CompositionViewBox](tmp)
 
-proc requestCommitAsync*(self: Compositor): pointer =
+proc requestCommitAsync*(self: Compositor) =
   ## Windows.UI.Composition.Compositor.RequestCommitAsync
   withIface(self.p, IID_ICompositor5, "ICompositor5", it):
     var tmp: pointer
     vcall(it, Slot_ICompositor5_RequestCommitAsync, Fn_ICompositor5_RequestCommitAsync)(it, tmp.addr).check("Compositor.RequestCommitAsync")
-    result = tmp
+    awaitVoid(tmp, "Compositor.RequestCommitAsync")
+    release(tmp)
 
 proc createGeometricClip*(self: Compositor): CompositionGeometricClip =
   ## Windows.UI.Composition.Compositor.CreateGeometricClip
@@ -17606,12 +17654,13 @@ proc commit*(self: CompositorController) =
   withIface(self.p, IID_ICompositorController, "ICompositorController", it):
     vcall(it, Slot_ICompositorController_Commit, Fn_ICompositorController_Commit)(it).check("CompositorController.Commit")
 
-proc ensurePreviousCommitCompletedAsync*(self: CompositorController): pointer =
+proc ensurePreviousCommitCompletedAsync*(self: CompositorController) =
   ## Windows.UI.Composition.Core.CompositorController.EnsurePreviousCommitCompletedAsync
   withIface(self.p, IID_ICompositorController, "ICompositorController", it):
     var tmp: pointer
     vcall(it, Slot_ICompositorController_EnsurePreviousCommitCompletedAsync, Fn_ICompositorController_EnsurePreviousCommitCompletedAsync)(it, tmp.addr).check("CompositorController.EnsurePreviousCommitCompletedAsync")
-    result = tmp
+    awaitVoid(tmp, "CompositorController.EnsurePreviousCommitCompletedAsync")
+    release(tmp)
 
 proc onCommitNeeded*(self: CompositorController,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -21799,6 +21848,14 @@ proc `cancelCommandIndex=`*(self: CoreWindowDialog, value: uint32) =
   withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
     vcall(it, Slot_ICoreWindowDialog_put_CancelCommandIndex, Fn_ICoreWindowDialog_put_CancelCommandIndex)(it, value).check("CoreWindowDialog.put_CancelCommandIndex")
 
+proc showAsync*(self: CoreWindowDialog): UICommandSeparator =
+  ## Windows.UI.Core.CoreWindowDialog.ShowAsync
+  withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreWindowDialog_ShowAsync, Fn_ICoreWindowDialog_ShowAsync)(it, tmp.addr).check("CoreWindowDialog.ShowAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "CoreWindowDialog.ShowAsync"))
+    release(tmp)
+
 proc createWithTitle*(_: typedesc[CoreWindowDialog], a1: string): CoreWindowDialog =
   ## Windows.UI.Core.CoreWindowDialog.CreateWithTitle
   withStatics("Windows.UI.Core.CoreWindowDialog", IID_ICoreWindowDialogFactory, it):
@@ -21896,6 +21953,14 @@ proc `defaultCommandIndex=`*(self: CoreWindowFlyout, value: uint32) =
   ## Windows.UI.Core.CoreWindowFlyout.put_DefaultCommandIndex
   withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
     vcall(it, Slot_ICoreWindowFlyout_put_DefaultCommandIndex, Fn_ICoreWindowFlyout_put_DefaultCommandIndex)(it, value).check("CoreWindowFlyout.put_DefaultCommandIndex")
+
+proc showAsync*(self: CoreWindowFlyout): UICommandSeparator =
+  ## Windows.UI.Core.CoreWindowFlyout.ShowAsync
+  withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreWindowFlyout_ShowAsync, Fn_ICoreWindowFlyout_ShowAsync)(it, tmp.addr).check("CoreWindowFlyout.ShowAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "CoreWindowFlyout.ShowAsync"))
+    release(tmp)
 
 proc create*(_: typedesc[CoreWindowFlyout], a1: Point): CoreWindowFlyout =
   ## Windows.UI.Core.CoreWindowFlyout.Create
@@ -23331,6 +23396,14 @@ proc setStrokeDataKind*(self: InkAnalyzer, a1: uint32, a2: InkAnalysisStrokeKind
   withIface(self.p, IID_IInkAnalyzer, "IInkAnalyzer", it):
     vcall(it, Slot_IInkAnalyzer_SetStrokeDataKind, Fn_IInkAnalyzer_SetStrokeDataKind)(it, a1, a2).check("InkAnalyzer.SetStrokeDataKind")
 
+proc analyzeAsync*(self: InkAnalyzer): InkAnalysisResult =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalyzer.AnalyzeAsync
+  withIface(self.p, IID_IInkAnalyzer, "IInkAnalyzer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalyzer_AnalyzeAsync, Fn_IInkAnalyzer_AnalyzeAsync)(it, tmp.addr).check("InkAnalyzer.AnalyzeAsync")
+    result = adopt[InkAnalysisResult](awaitObject(tmp, IID_IAsyncOperation_1_InkAnalysisResult, "InkAnalyzer.AnalyzeAsync"))
+    release(tmp)
+
 proc createInkStroke*(self: CoreIncrementalInkStroke): InkStroke =
   ## Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke.CreateInkStroke
   withIface(self.p, IID_ICoreIncrementalInkStroke, "ICoreIncrementalInkStroke", it):
@@ -23972,6 +24045,14 @@ proc canPasteFromClipboard*(self: InkManager): bool =
     var tmp: bool
     vcall(it, Slot_IInkStrokeContainer_CanPasteFromClipboard, Fn_IInkStrokeContainer_CanPasteFromClipboard)(it, tmp.addr).check("InkManager.CanPasteFromClipboard")
     result = tmp
+
+proc loadAsync*(self: InkManager, a1: pointer) =
+  ## Windows.UI.Input.Inking.InkManager.LoadAsync
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_LoadAsync, Fn_IInkStrokeContainer_LoadAsync)(it, a1, tmp.addr).check("InkManager.LoadAsync")
+    awaitVoid(tmp, "InkManager.LoadAsync")
+    release(tmp)
 
 proc getStrokes*(self: InkManager): seq[InkStroke] =
   ## Windows.UI.Input.Inking.InkManager.GetStrokes
@@ -24660,6 +24741,14 @@ proc canPasteFromClipboard*(self: InkStrokeContainer): bool =
     var tmp: bool
     vcall(it, Slot_IInkStrokeContainer_CanPasteFromClipboard, Fn_IInkStrokeContainer_CanPasteFromClipboard)(it, tmp.addr).check("InkStrokeContainer.CanPasteFromClipboard")
     result = tmp
+
+proc loadAsync*(self: InkStrokeContainer, a1: pointer) =
+  ## Windows.UI.Input.Inking.InkStrokeContainer.LoadAsync
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_LoadAsync, Fn_IInkStrokeContainer_LoadAsync)(it, a1, tmp.addr).check("InkStrokeContainer.LoadAsync")
+    awaitVoid(tmp, "InkStrokeContainer.LoadAsync")
+    release(tmp)
 
 proc getStrokes*(self: InkStrokeContainer): seq[InkStroke] =
   ## Windows.UI.Input.Inking.InkStrokeContainer.GetStrokes
@@ -26806,12 +26895,13 @@ proc populatedRange*(self: TextEditSession): CoreTextRange =
     vcall(it, Slot_ITextEditSession_get_PopulatedRange, Fn_ITextEditSession_get_PopulatedRange)(it, tmp.addr).check("TextEditSession.get_PopulatedRange")
     result = tmp
 
-proc populateAsync*(self: TextEditSession, a1: CoreTextRange): pointer =
+proc populateAsync*(self: TextEditSession, a1: CoreTextRange) =
   ## Windows.UI.Input.Preview.Text.TextEditSession.PopulateAsync
   withIface(self.p, IID_ITextEditSession, "ITextEditSession", it):
     var tmp: pointer
     vcall(it, Slot_ITextEditSession_PopulateAsync, Fn_ITextEditSession_PopulateAsync)(it, a1, tmp.addr).check("TextEditSession.PopulateAsync")
-    result = tmp
+    awaitVoid(tmp, "TextEditSession.PopulateAsync")
+    release(tmp)
 
 proc getText*(self: TextEditSession, a1: CoreTextRange): string =
   ## Windows.UI.Input.Preview.Text.TextEditSession.GetText
@@ -29562,28 +29652,40 @@ proc `launchArgs=`*(self: ToastCollection, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IToastCollection_put_LaunchArgs, Fn_IToastCollection_put_LaunchArgs)(it, h0).check("ToastCollection.put_LaunchArgs")
 
-proc saveToastCollectionAsync*(self: ToastCollectionManager, a1: ToastCollection): pointer =
+proc saveToastCollectionAsync*(self: ToastCollectionManager, a1: ToastCollection) =
   ## Windows.UI.Notifications.ToastCollectionManager.SaveToastCollectionAsync
   withIface(self.p, IID_IToastCollectionManager, "IToastCollectionManager", it):
     withIface(a1.p, IID_IToastCollection, "IToastCollection", p0):
       var tmp: pointer
       vcall(it, Slot_IToastCollectionManager_SaveToastCollectionAsync, Fn_IToastCollectionManager_SaveToastCollectionAsync)(it, p0, tmp.addr).check("ToastCollectionManager.SaveToastCollectionAsync")
-      result = tmp
+      awaitVoid(tmp, "ToastCollectionManager.SaveToastCollectionAsync")
+      release(tmp)
 
-proc removeToastCollectionAsync*(self: ToastCollectionManager, a1: string): pointer =
+proc getToastCollectionAsync*(self: ToastCollectionManager, a1: string): ToastCollection =
+  ## Windows.UI.Notifications.ToastCollectionManager.GetToastCollectionAsync
+  withIface(self.p, IID_IToastCollectionManager, "IToastCollectionManager", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IToastCollectionManager_GetToastCollectionAsync, Fn_IToastCollectionManager_GetToastCollectionAsync)(it, h0, tmp.addr).check("ToastCollectionManager.GetToastCollectionAsync")
+      result = adopt[ToastCollection](awaitObject(tmp, IID_IAsyncOperation_1_ToastCollection, "ToastCollectionManager.GetToastCollectionAsync"))
+      release(tmp)
+
+proc removeToastCollectionAsync*(self: ToastCollectionManager, a1: string) =
   ## Windows.UI.Notifications.ToastCollectionManager.RemoveToastCollectionAsync
   withIface(self.p, IID_IToastCollectionManager, "IToastCollectionManager", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IToastCollectionManager_RemoveToastCollectionAsync, Fn_IToastCollectionManager_RemoveToastCollectionAsync)(it, h0, tmp.addr).check("ToastCollectionManager.RemoveToastCollectionAsync")
-      result = tmp
+      awaitVoid(tmp, "ToastCollectionManager.RemoveToastCollectionAsync")
+      release(tmp)
 
-proc removeAllToastCollectionsAsync*(self: ToastCollectionManager): pointer =
+proc removeAllToastCollectionsAsync*(self: ToastCollectionManager) =
   ## Windows.UI.Notifications.ToastCollectionManager.RemoveAllToastCollectionsAsync
   withIface(self.p, IID_IToastCollectionManager, "IToastCollectionManager", it):
     var tmp: pointer
     vcall(it, Slot_IToastCollectionManager_RemoveAllToastCollectionsAsync, Fn_IToastCollectionManager_RemoveAllToastCollectionsAsync)(it, tmp.addr).check("ToastCollectionManager.RemoveAllToastCollectionsAsync")
-    result = tmp
+    awaitVoid(tmp, "ToastCollectionManager.RemoveAllToastCollectionsAsync")
+    release(tmp)
 
 proc appId*(self: ToastCollectionManager): string =
   ## Windows.UI.Notifications.ToastCollectionManager.get_AppId
@@ -29902,6 +30004,24 @@ proc history*(self: ToastNotificationManagerForUser): ToastNotificationHistory =
     vcall(it, Slot_IToastNotificationManagerForUser_get_History, Fn_IToastNotificationManagerForUser_get_History)(it, tmp.addr).check("ToastNotificationManagerForUser.get_History")
     result = adopt[ToastNotificationHistory](tmp)
 
+proc getToastNotifierForToastCollectionIdAsync*(self: ToastNotificationManagerForUser, a1: string): ToastNotifier =
+  ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync
+  withIface(self.p, IID_IToastNotificationManagerForUser2, "IToastNotificationManagerForUser2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IToastNotificationManagerForUser2_GetToastNotifierForToastCollectionIdAsync, Fn_IToastNotificationManagerForUser2_GetToastNotifierForToastCollectionIdAsync)(it, h0, tmp.addr).check("ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync")
+      result = adopt[ToastNotifier](awaitObject(tmp, IID_IAsyncOperation_1_ToastNotifier, "ToastNotificationManagerForUser.GetToastNotifierForToastCollectionIdAsync"))
+      release(tmp)
+
+proc getHistoryForToastCollectionIdAsync*(self: ToastNotificationManagerForUser, a1: string): ToastNotificationHistory =
+  ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync
+  withIface(self.p, IID_IToastNotificationManagerForUser2, "IToastNotificationManagerForUser2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IToastNotificationManagerForUser2_GetHistoryForToastCollectionIdAsync, Fn_IToastNotificationManagerForUser2_GetHistoryForToastCollectionIdAsync)(it, h0, tmp.addr).check("ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync")
+      result = adopt[ToastNotificationHistory](awaitObject(tmp, IID_IAsyncOperation_1_ToastNotificationHistory, "ToastNotificationManagerForUser.GetHistoryForToastCollectionIdAsync"))
+      release(tmp)
+
 proc getToastCollectionManager*(self: ToastNotificationManagerForUser): ToastCollectionManager =
   ## Windows.UI.Notifications.ToastNotificationManagerForUser.GetToastCollectionManager
   withIface(self.p, IID_IToastNotificationManagerForUser2, "IToastNotificationManagerForUser2", it):
@@ -30113,6 +30233,14 @@ proc `content=`*(self: MessageDialog, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IMessageDialog_put_Content, Fn_IMessageDialog_put_Content)(it, h0).check("MessageDialog.put_Content")
 
+proc showAsync*(self: MessageDialog): UICommandSeparator =
+  ## Windows.UI.Popups.MessageDialog.ShowAsync
+  withIface(self.p, IID_IMessageDialog, "IMessageDialog", it):
+    var tmp: pointer
+    vcall(it, Slot_IMessageDialog_ShowAsync, Fn_IMessageDialog_ShowAsync)(it, tmp.addr).check("MessageDialog.ShowAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "MessageDialog.ShowAsync"))
+    release(tmp)
+
 proc options*(self: MessageDialog): MessageDialogOptions =
   ## Windows.UI.Popups.MessageDialog.get_Options
   withIface(self.p, IID_IMessageDialog, "IMessageDialog", it):
@@ -30152,6 +30280,30 @@ proc commands*(self: PopupMenu): seq[UICommandSeparator] =
     var tmp: pointer
     vcall(it, Slot_IPopupMenu_get_Commands, Fn_IPopupMenu_get_Commands)(it, tmp.addr).check("PopupMenu.get_Commands")
     result = toSeq[UICommandSeparator](tmp, IID_IVector_1_IUICommand)
+    release(tmp)
+
+proc showAsync*(self: PopupMenu, a1: Point): UICommandSeparator =
+  ## Windows.UI.Popups.PopupMenu.ShowAsync
+  withIface(self.p, IID_IPopupMenu, "IPopupMenu", it):
+    var tmp: pointer
+    vcall(it, Slot_IPopupMenu_ShowAsync, Fn_IPopupMenu_ShowAsync)(it, a1, tmp.addr).check("PopupMenu.ShowAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "PopupMenu.ShowAsync"))
+    release(tmp)
+
+proc showForSelectionAsync*(self: PopupMenu, a1: Rect): UICommandSeparator =
+  ## Windows.UI.Popups.PopupMenu.ShowForSelectionAsync
+  withIface(self.p, IID_IPopupMenu, "IPopupMenu", it):
+    var tmp: pointer
+    vcall(it, Slot_IPopupMenu_ShowForSelectionAsync, Fn_IPopupMenu_ShowForSelectionAsync)(it, a1, tmp.addr).check("PopupMenu.ShowForSelectionAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "PopupMenu.ShowForSelectionAsync"))
+    release(tmp)
+
+proc showForSelectionAsync*(self: PopupMenu, a1: Rect, a2: Placement): UICommandSeparator =
+  ## Windows.UI.Popups.PopupMenu.ShowForSelectionAsync
+  withIface(self.p, IID_IPopupMenu, "IPopupMenu", it):
+    var tmp: pointer
+    vcall(it, Slot_IPopupMenu_ShowForSelectionAsync2, Fn_IPopupMenu_ShowForSelectionAsync2)(it, a1, a2, tmp.addr).check("PopupMenu.ShowForSelectionAsync")
+    result = adopt[UICommandSeparator](awaitObject(tmp, IID_IAsyncOperation_1_IUICommand, "PopupMenu.ShowForSelectionAsync"))
     release(tmp)
 
 proc newUICommand*(): UICommand =
@@ -30227,6 +30379,15 @@ proc createAdaptiveCardFromJson*(_: typedesc[AdaptiveCardBuilder], a1: string): 
       var tmp: pointer
       vcall(it, Slot_IAdaptiveCardBuilderStatics_CreateAdaptiveCardFromJson, Fn_IAdaptiveCardBuilderStatics_CreateAdaptiveCardFromJson)(it, h0, tmp.addr).check("AdaptiveCardBuilder.CreateAdaptiveCardFromJson")
       result = tmp
+
+proc requestWindowFromAppAsync*(self: CompanionWindowCoordinator, a1: string): CompanionWindowRequestResult =
+  ## Windows.UI.Shell.CompanionWindows.CompanionWindowCoordinator.RequestWindowFromAppAsync
+  withIface(self.p, IID_ICompanionWindowCoordinator, "ICompanionWindowCoordinator", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_ICompanionWindowCoordinator_RequestWindowFromAppAsync, Fn_ICompanionWindowCoordinator_RequestWindowFromAppAsync)(it, h0, tmp.addr).check("CompanionWindowCoordinator.RequestWindowFromAppAsync")
+      result = adopt[CompanionWindowRequestResult](awaitObject(tmp, IID_IAsyncOperation_1_CompanionWindowRequestResult, "CompanionWindowCoordinator.RequestWindowFromAppAsync"))
+      release(tmp)
 
 proc detachCompanionWindow*(self: CompanionWindowCoordinator) =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowCoordinator.DetachCompanionWindow
@@ -30922,12 +31083,21 @@ proc `systemGroupKind=`*(self: JumpList, value: JumpListSystemGroupKind) =
   withIface(self.p, IID_IJumpList, "IJumpList", it):
     vcall(it, Slot_IJumpList_put_SystemGroupKind, Fn_IJumpList_put_SystemGroupKind)(it, value).check("JumpList.put_SystemGroupKind")
 
-proc saveAsync*(self: JumpList): pointer =
+proc saveAsync*(self: JumpList) =
   ## Windows.UI.StartScreen.JumpList.SaveAsync
   withIface(self.p, IID_IJumpList, "IJumpList", it):
     var tmp: pointer
     vcall(it, Slot_IJumpList_SaveAsync, Fn_IJumpList_SaveAsync)(it, tmp.addr).check("JumpList.SaveAsync")
-    result = tmp
+    awaitVoid(tmp, "JumpList.SaveAsync")
+    release(tmp)
+
+proc loadCurrentAsync*(_: typedesc[JumpList]): JumpList =
+  ## Windows.UI.StartScreen.JumpList.LoadCurrentAsync
+  withStatics("Windows.UI.StartScreen.JumpList", IID_IJumpListStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IJumpListStatics_LoadCurrentAsync, Fn_IJumpListStatics_LoadCurrentAsync)(it, tmp.addr).check("JumpList.LoadCurrentAsync")
+    result = adopt[JumpList](awaitObject(tmp, IID_IAsyncOperation_1_JumpList, "JumpList.LoadCurrentAsync"))
+    release(tmp)
 
 proc isSupported*(_: typedesc[JumpList]): bool =
   ## Windows.UI.StartScreen.JumpList.IsSupported
@@ -32720,6 +32890,14 @@ proc stop*(self: RemoteAutomationClientSession) =
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
     vcall(it, Slot_IRemoteAutomationClientSession_Stop, Fn_IRemoteAutomationClientSession_Stop)(it).check("RemoteAutomationClientSession.Stop")
 
+proc createWindowAsync*(self: RemoteAutomationClientSession, a1: uint64, a2: uint32, a3: pointer): RemoteAutomationWindow =
+  ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateWindowAsync
+  withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteAutomationClientSession_CreateWindowAsync, Fn_IRemoteAutomationClientSession_CreateWindowAsync)(it, a1, a2, a3, tmp.addr).check("RemoteAutomationClientSession.CreateWindowAsync")
+    result = adopt[RemoteAutomationWindow](awaitObject(tmp, IID_IAsyncOperation_1_RemoteAutomationWindow, "RemoteAutomationClientSession.CreateWindowAsync"))
+    release(tmp)
+
 proc sessionId*(self: RemoteAutomationClientSession): GUID =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.get_SessionId
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
@@ -32814,12 +32992,13 @@ proc automationProvider*(self: RemoteAutomationWindow): pointer =
     vcall(it, Slot_IRemoteAutomationWindow_get_AutomationProvider, Fn_IRemoteAutomationWindow_get_AutomationProvider)(it, tmp.addr).check("RemoteAutomationWindow.get_AutomationProvider")
     result = tmp
 
-proc unregisterAsync*(self: RemoteAutomationWindow): pointer =
+proc unregisterAsync*(self: RemoteAutomationWindow) =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationWindow.UnregisterAsync
   withIface(self.p, IID_IRemoteAutomationWindow, "IRemoteAutomationWindow", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteAutomationWindow_UnregisterAsync, Fn_IRemoteAutomationWindow_UnregisterAsync)(it, tmp.addr).check("RemoteAutomationWindow.UnregisterAsync")
-    result = tmp
+    awaitVoid(tmp, "RemoteAutomationWindow.UnregisterAsync")
+    release(tmp)
 
 proc uIContext*(self: UIContentRoot): UIContext =
   ## Windows.UI.UIContentRoot.get_UIContext
@@ -32865,19 +33044,21 @@ proc removeHighContrastChanged*(self: AccessibilitySettings, token: EventRegistr
   withIface(self.p, IID_IAccessibilitySettings, "IAccessibilitySettings", it):
     vcall(it, Slot_IAccessibilitySettings_remove_HighContrastChanged, Fn_IAccessibilitySettings_remove_HighContrastChanged)(it, token).check("AccessibilitySettings.remove_HighContrastChanged")
 
-proc showAsStandaloneAsync*(self: ActivationViewSwitcher, a1: int32): pointer =
+proc showAsStandaloneAsync*(self: ActivationViewSwitcher, a1: int32) =
   ## Windows.UI.ViewManagement.ActivationViewSwitcher.ShowAsStandaloneAsync
   withIface(self.p, IID_IActivationViewSwitcher, "IActivationViewSwitcher", it):
     var tmp: pointer
     vcall(it, Slot_IActivationViewSwitcher_ShowAsStandaloneAsync, Fn_IActivationViewSwitcher_ShowAsStandaloneAsync)(it, a1, tmp.addr).check("ActivationViewSwitcher.ShowAsStandaloneAsync")
-    result = tmp
+    awaitVoid(tmp, "ActivationViewSwitcher.ShowAsStandaloneAsync")
+    release(tmp)
 
-proc showAsStandaloneAsync*(self: ActivationViewSwitcher, a1: int32, a2: ViewSizePreference): pointer =
+proc showAsStandaloneAsync*(self: ActivationViewSwitcher, a1: int32, a2: ViewSizePreference) =
   ## Windows.UI.ViewManagement.ActivationViewSwitcher.ShowAsStandaloneAsync
   withIface(self.p, IID_IActivationViewSwitcher, "IActivationViewSwitcher", it):
     var tmp: pointer
     vcall(it, Slot_IActivationViewSwitcher_ShowAsStandaloneAsync2, Fn_IActivationViewSwitcher_ShowAsStandaloneAsync2)(it, a1, a2, tmp.addr).check("ActivationViewSwitcher.ShowAsStandaloneAsync")
-    result = tmp
+    awaitVoid(tmp, "ActivationViewSwitcher.ShowAsStandaloneAsync")
+    release(tmp)
 
 proc isViewPresentedOnActivationVirtualDesktop*(self: ActivationViewSwitcher, a1: int32): bool =
   ## Windows.UI.ViewManagement.ActivationViewSwitcher.IsViewPresentedOnActivationVirtualDesktop
@@ -33249,26 +33430,29 @@ proc disableShowingMainViewOnActivation*(_: typedesc[ApplicationViewSwitcher]) =
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher", IID_IApplicationViewSwitcherStatics, it):
     vcall(it, Slot_IApplicationViewSwitcherStatics_DisableShowingMainViewOnActivation, Fn_IApplicationViewSwitcherStatics_DisableShowingMainViewOnActivation)(it).check("ApplicationViewSwitcher.DisableShowingMainViewOnActivation")
 
-proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32): pointer =
+proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32) =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher", IID_IApplicationViewSwitcherStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationViewSwitcherStatics_SwitchAsync, Fn_IApplicationViewSwitcherStatics_SwitchAsync)(it, a1, tmp.addr).check("ApplicationViewSwitcher.SwitchAsync")
-    result = tmp
+    awaitVoid(tmp, "ApplicationViewSwitcher.SwitchAsync")
+    release(tmp)
 
-proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32, a2: int32): pointer =
+proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32, a2: int32) =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher", IID_IApplicationViewSwitcherStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationViewSwitcherStatics_SwitchAsync2, Fn_IApplicationViewSwitcherStatics_SwitchAsync2)(it, a1, a2, tmp.addr).check("ApplicationViewSwitcher.SwitchAsync")
-    result = tmp
+    awaitVoid(tmp, "ApplicationViewSwitcher.SwitchAsync")
+    release(tmp)
 
-proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32, a2: int32, a3: ApplicationViewSwitchingOptions): pointer =
+proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32, a2: int32, a3: ApplicationViewSwitchingOptions) =
   ## Windows.UI.ViewManagement.ApplicationViewSwitcher.SwitchAsync
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher", IID_IApplicationViewSwitcherStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationViewSwitcherStatics_SwitchAsync3, Fn_IApplicationViewSwitcherStatics_SwitchAsync3)(it, a1, a2, a3, tmp.addr).check("ApplicationViewSwitcher.SwitchAsync")
-    result = tmp
+    awaitVoid(tmp, "ApplicationViewSwitcher.SwitchAsync")
+    release(tmp)
 
 proc newApplicationViewTransferContext*(): ApplicationViewTransferContext =
   ## Activate a `Windows.UI.ViewManagement.ApplicationViewTransferContext`.
@@ -33726,6 +33910,14 @@ proc setTextScaleFactor*(self: UISettingsController, a1: float64) =
   withIface(self.p, IID_IUISettingsController, "IUISettingsController", it):
     vcall(it, Slot_IUISettingsController_SetTextScaleFactor, Fn_IUISettingsController_SetTextScaleFactor)(it, a1).check("UISettingsController.SetTextScaleFactor")
 
+proc requestDefaultAsync*(_: typedesc[UISettingsController]): UISettingsController =
+  ## Windows.UI.ViewManagement.Core.UISettingsController.RequestDefaultAsync
+  withStatics("Windows.UI.ViewManagement.Core.UISettingsController", IID_IUISettingsControllerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUISettingsControllerStatics_RequestDefaultAsync, Fn_IUISettingsControllerStatics_RequestDefaultAsync)(it, tmp.addr).check("UISettingsController.RequestDefaultAsync")
+    result = adopt[UISettingsController](awaitObject(tmp, IID_IAsyncOperation_1_UISettingsController, "UISettingsController.RequestDefaultAsync"))
+    release(tmp)
+
 proc onShowing*(self: InputPane,
     handler: proc(sender: pointer, args: InputPaneVisibilityEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.InputPane.add_Showing
@@ -33838,26 +34030,29 @@ proc getDeviceSelector*(_: typedesc[ProjectionManager]): string =
     vcall(it, Slot_IProjectionManagerStatics2_GetDeviceSelector, Fn_IProjectionManagerStatics2_GetDeviceSelector)(it, tmp.addr).check("ProjectionManager.GetDeviceSelector")
     result = takeString(tmp)
 
-proc startProjectingAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32): pointer =
+proc startProjectingAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32) =
   ## Windows.UI.ViewManagement.ProjectionManager.StartProjectingAsync
   withStatics("Windows.UI.ViewManagement.ProjectionManager", IID_IProjectionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IProjectionManagerStatics_StartProjectingAsync, Fn_IProjectionManagerStatics_StartProjectingAsync)(it, a1, a2, tmp.addr).check("ProjectionManager.StartProjectingAsync")
-    result = tmp
+    awaitVoid(tmp, "ProjectionManager.StartProjectingAsync")
+    release(tmp)
 
-proc swapDisplaysForViewsAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32): pointer =
+proc swapDisplaysForViewsAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32) =
   ## Windows.UI.ViewManagement.ProjectionManager.SwapDisplaysForViewsAsync
   withStatics("Windows.UI.ViewManagement.ProjectionManager", IID_IProjectionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IProjectionManagerStatics_SwapDisplaysForViewsAsync, Fn_IProjectionManagerStatics_SwapDisplaysForViewsAsync)(it, a1, a2, tmp.addr).check("ProjectionManager.SwapDisplaysForViewsAsync")
-    result = tmp
+    awaitVoid(tmp, "ProjectionManager.SwapDisplaysForViewsAsync")
+    release(tmp)
 
-proc stopProjectingAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32): pointer =
+proc stopProjectingAsync*(_: typedesc[ProjectionManager], a1: int32, a2: int32) =
   ## Windows.UI.ViewManagement.ProjectionManager.StopProjectingAsync
   withStatics("Windows.UI.ViewManagement.ProjectionManager", IID_IProjectionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IProjectionManagerStatics_StopProjectingAsync, Fn_IProjectionManagerStatics_StopProjectingAsync)(it, a1, a2, tmp.addr).check("ProjectionManager.StopProjectingAsync")
-    result = tmp
+    awaitVoid(tmp, "ProjectionManager.StopProjectingAsync")
+    release(tmp)
 
 proc projectionDisplayAvailable*(_: typedesc[ProjectionManager]): bool =
   ## Windows.UI.ViewManagement.ProjectionManager.get_ProjectionDisplayAvailable
@@ -34854,6 +35049,14 @@ proc `ignoreApplicationContentUriRulesNavigationRestrictions=`*(self: WebUIView,
   withIface(self.p, IID_IWebUIView, "IWebUIView", it):
     vcall(it, Slot_IWebUIView_put_IgnoreApplicationContentUriRulesNavigationRestrictions, Fn_IWebUIView_put_IgnoreApplicationContentUriRulesNavigationRestrictions)(it, value).check("WebUIView.put_IgnoreApplicationContentUriRulesNavigationRestrictions")
 
+proc createAsync*(_: typedesc[WebUIView]): WebUIView =
+  ## Windows.UI.WebUI.WebUIView.CreateAsync
+  withStatics("Windows.UI.WebUI.WebUIView", IID_IWebUIViewStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWebUIViewStatics_CreateAsync, Fn_IWebUIViewStatics_CreateAsync)(it, tmp.addr).check("WebUIView.CreateAsync")
+    result = adopt[WebUIView](awaitObject(tmp, IID_IAsyncOperation_1_WebUIView, "WebUIView.CreateAsync"))
+    release(tmp)
+
 proc activatedOperation*(self: WebUIVoiceCommandActivatedEventArgs): ActivatedOperation =
   ## Windows.UI.WebUI.WebUIVoiceCommandActivatedEventArgs.get_ActivatedOperation
   withIface(self.p, IID_IActivatedEventArgsDeferral, "IActivatedEventArgsDeferral", it):
@@ -34957,12 +35160,13 @@ proc windowingEnvironment*(self: AppWindow): WindowingEnvironment =
     vcall(it, Slot_IAppWindow_get_WindowingEnvironment, Fn_IAppWindow_get_WindowingEnvironment)(it, tmp.addr).check("AppWindow.get_WindowingEnvironment")
     result = adopt[WindowingEnvironment](tmp)
 
-proc closeAsync*(self: AppWindow): pointer =
+proc closeAsync*(self: AppWindow) =
   ## Windows.UI.WindowManagement.AppWindow.CloseAsync
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
     var tmp: pointer
     vcall(it, Slot_IAppWindow_CloseAsync, Fn_IAppWindow_CloseAsync)(it, tmp.addr).check("AppWindow.CloseAsync")
-    result = tmp
+    awaitVoid(tmp, "AppWindow.CloseAsync")
+    release(tmp)
 
 proc getPlacement*(self: AppWindow): AppWindowPlacement =
   ## Windows.UI.WindowManagement.AppWindow.GetPlacement
@@ -35074,6 +35278,14 @@ proc onCloseRequested*(self: AppWindow,
 proc removeCloseRequested*(self: AppWindow, token: EventRegistrationToken) =
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
     vcall(it, Slot_IAppWindow_remove_CloseRequested, Fn_IAppWindow_remove_CloseRequested)(it, token).check("AppWindow.remove_CloseRequested")
+
+proc tryCreateAsync*(_: typedesc[AppWindow]): AppWindow =
+  ## Windows.UI.WindowManagement.AppWindow.TryCreateAsync
+  withStatics("Windows.UI.WindowManagement.AppWindow", IID_IAppWindowStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowStatics_TryCreateAsync, Fn_IAppWindowStatics_TryCreateAsync)(it, tmp.addr).check("AppWindow.TryCreateAsync")
+    result = adopt[AppWindow](awaitObject(tmp, IID_IAsyncOperation_1_AppWindow, "AppWindow.TryCreateAsync"))
+    release(tmp)
 
 proc clearAllPersistedState*(_: typedesc[AppWindow]) =
   ## Windows.UI.WindowManagement.AppWindow.ClearAllPersistedState
@@ -56914,6 +57126,22 @@ proc newMapModel3D*(): MapModel3D =
   adopt[MapModel3D](composeAs("Windows.UI.Xaml.Controls.Maps.MapModel3D", IID_IMapModel3DFactory,
                      IID_IMapModel3D, 6))
 
+proc createFrom3MFAsync*(_: typedesc[MapModel3D], a1: pointer): MapModel3D =
+  ## Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateFrom3MFAsync
+  withStatics("Windows.UI.Xaml.Controls.Maps.MapModel3D", IID_IMapModel3DStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IMapModel3DStatics_CreateFrom3MFAsync, Fn_IMapModel3DStatics_CreateFrom3MFAsync)(it, a1, tmp.addr).check("MapModel3D.CreateFrom3MFAsync")
+    result = adopt[MapModel3D](awaitObject(tmp, IID_IAsyncOperation_1_MapModel3D, "MapModel3D.CreateFrom3MFAsync"))
+    release(tmp)
+
+proc createFrom3MFAsync*(_: typedesc[MapModel3D], a1: pointer, a2: MapModel3DShadingOption): MapModel3D =
+  ## Windows.UI.Xaml.Controls.Maps.MapModel3D.CreateFrom3MFAsync
+  withStatics("Windows.UI.Xaml.Controls.Maps.MapModel3D", IID_IMapModel3DStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IMapModel3DStatics_CreateFrom3MFAsync2, Fn_IMapModel3DStatics_CreateFrom3MFAsync2)(it, a1, a2, tmp.addr).check("MapModel3D.CreateFrom3MFAsync")
+    result = adopt[MapModel3D](awaitObject(tmp, IID_IAsyncOperation_1_MapModel3D, "MapModel3D.CreateFrom3MFAsync"))
+    release(tmp)
+
 proc newMapPolygon*(): MapPolygon =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapPolygon`.
   adopt[MapPolygon](activateAs("Windows.UI.Xaml.Controls.Maps.MapPolygon", IID_IMapPolygon))
@@ -76831,12 +77059,13 @@ proc stop*(self: WebView) =
   withIface(self.p, IID_IWebView2, "IWebView2", it):
     vcall(it, Slot_IWebView2_Stop, Fn_IWebView2_Stop)(it).check("WebView.Stop")
 
-proc capturePreviewToStreamAsync*(self: WebView, a1: pointer): pointer =
+proc capturePreviewToStreamAsync*(self: WebView, a1: pointer) =
   ## Windows.UI.Xaml.Controls.WebView.CapturePreviewToStreamAsync
   withIface(self.p, IID_IWebView2, "IWebView2", it):
     var tmp: pointer
     vcall(it, Slot_IWebView2_CapturePreviewToStreamAsync, Fn_IWebView2_CapturePreviewToStreamAsync)(it, a1, tmp.addr).check("WebView.CapturePreviewToStreamAsync")
-    result = tmp
+    awaitVoid(tmp, "WebView.CapturePreviewToStreamAsync")
+    release(tmp)
 
 proc defaultBackgroundColor*(self: WebView): Color =
   ## Windows.UI.Xaml.Controls.WebView.get_DefaultBackgroundColor
@@ -77224,12 +77453,13 @@ proc defaultExecutionMode*(_: typedesc[WebView]): WebViewExecutionMode =
     vcall(it, Slot_IWebViewStatics4_get_DefaultExecutionMode, Fn_IWebViewStatics4_get_DefaultExecutionMode)(it, tmp.addr).check("WebView.get_DefaultExecutionMode")
     result = tmp
 
-proc clearTemporaryWebDataAsync*(_: typedesc[WebView]): pointer =
+proc clearTemporaryWebDataAsync*(_: typedesc[WebView]) =
   ## Windows.UI.Xaml.Controls.WebView.ClearTemporaryWebDataAsync
   withStatics("Windows.UI.Xaml.Controls.WebView", IID_IWebViewStatics4, it):
     var tmp: pointer
     vcall(it, Slot_IWebViewStatics4_ClearTemporaryWebDataAsync, Fn_IWebViewStatics4_ClearTemporaryWebDataAsync)(it, tmp.addr).check("WebView.ClearTemporaryWebDataAsync")
-    result = tmp
+    awaitVoid(tmp, "WebView.ClearTemporaryWebDataAsync")
+    release(tmp)
 
 proc canGoBackProperty*(_: typedesc[WebView]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.WebView.get_CanGoBackProperty
@@ -81717,14 +81947,23 @@ proc removeDesignerAppExited*(self: DesignerAppManager, token: EventRegistration
   withIface(self.p, IID_IDesignerAppManager, "IDesignerAppManager", it):
     vcall(it, Slot_IDesignerAppManager_remove_DesignerAppExited, Fn_IDesignerAppManager_remove_DesignerAppExited)(it, token).check("DesignerAppManager.remove_DesignerAppExited")
 
-proc loadObjectIntoAppAsync*(self: DesignerAppManager, a1: string, a2: GUID, a3: string): pointer =
+proc createNewViewAsync*(self: DesignerAppManager, a1: DesignerAppViewState, a2: Size): DesignerAppView =
+  ## Windows.UI.Xaml.Hosting.DesignerAppManager.CreateNewViewAsync
+  withIface(self.p, IID_IDesignerAppManager, "IDesignerAppManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IDesignerAppManager_CreateNewViewAsync, Fn_IDesignerAppManager_CreateNewViewAsync)(it, a1, a2, tmp.addr).check("DesignerAppManager.CreateNewViewAsync")
+    result = adopt[DesignerAppView](awaitObject(tmp, IID_IAsyncOperation_1_DesignerAppView, "DesignerAppManager.CreateNewViewAsync"))
+    release(tmp)
+
+proc loadObjectIntoAppAsync*(self: DesignerAppManager, a1: string, a2: GUID, a3: string) =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.LoadObjectIntoAppAsync
   withIface(self.p, IID_IDesignerAppManager, "IDesignerAppManager", it):
     withHString(a1, h0):
       withHString(a3, h2):
         var tmp: pointer
         vcall(it, Slot_IDesignerAppManager_LoadObjectIntoAppAsync, Fn_IDesignerAppManager_LoadObjectIntoAppAsync)(it, h0, a2, h2, tmp.addr).check("DesignerAppManager.LoadObjectIntoAppAsync")
-        result = tmp
+        awaitVoid(tmp, "DesignerAppManager.LoadObjectIntoAppAsync")
+        release(tmp)
 
 proc create*(_: typedesc[DesignerAppManager], a1: string): DesignerAppManager =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.Create
@@ -81762,12 +82001,13 @@ proc viewSize*(self: DesignerAppView): Size =
     vcall(it, Slot_IDesignerAppView_get_ViewSize, Fn_IDesignerAppView_get_ViewSize)(it, tmp.addr).check("DesignerAppView.get_ViewSize")
     result = tmp
 
-proc updateViewAsync*(self: DesignerAppView, a1: DesignerAppViewState, a2: Size): pointer =
+proc updateViewAsync*(self: DesignerAppView, a1: DesignerAppViewState, a2: Size) =
   ## Windows.UI.Xaml.Hosting.DesignerAppView.UpdateViewAsync
   withIface(self.p, IID_IDesignerAppView, "IDesignerAppView", it):
     var tmp: pointer
     vcall(it, Slot_IDesignerAppView_UpdateViewAsync, Fn_IDesignerAppView_UpdateViewAsync)(it, a1, a2, tmp.addr).check("DesignerAppView.UpdateViewAsync")
-    result = tmp
+    awaitVoid(tmp, "DesignerAppView.UpdateViewAsync")
+    release(tmp)
 
 proc newDesktopWindowXamlSource*(): DesktopWindowXamlSource =
   ## Compose a `Windows.UI.Xaml.Hosting.DesktopWindowXamlSource`.
@@ -82434,6 +82674,32 @@ proc findNextElement*(_: typedesc[FocusManager], a1: FocusNavigationDirection, a
       var tmp: pointer
       vcall(it, Slot_IFocusManagerStatics4_FindNextElement2, Fn_IFocusManagerStatics4_FindNextElement2)(it, a1, p1, tmp.addr).check("FocusManager.FindNextElement")
       result = adopt[DependencyObject](tmp)
+
+proc tryFocusAsync*(_: typedesc[FocusManager], a1: DependencyObject, a2: FocusState): FocusMovementResult =
+  ## Windows.UI.Xaml.Input.FocusManager.TryFocusAsync
+  withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics5, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFocusManagerStatics5_TryFocusAsync, Fn_IFocusManagerStatics5_TryFocusAsync)(it, p0, a2, tmp.addr).check("FocusManager.TryFocusAsync")
+      result = adopt[FocusMovementResult](awaitObject(tmp, IID_IAsyncOperation_1_FocusMovementResult, "FocusManager.TryFocusAsync"))
+      release(tmp)
+
+proc tryMoveFocusAsync*(_: typedesc[FocusManager], a1: FocusNavigationDirection): FocusMovementResult =
+  ## Windows.UI.Xaml.Input.FocusManager.TryMoveFocusAsync
+  withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics5, it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusManagerStatics5_TryMoveFocusAsync, Fn_IFocusManagerStatics5_TryMoveFocusAsync)(it, a1, tmp.addr).check("FocusManager.TryMoveFocusAsync")
+    result = adopt[FocusMovementResult](awaitObject(tmp, IID_IAsyncOperation_1_FocusMovementResult, "FocusManager.TryMoveFocusAsync"))
+    release(tmp)
+
+proc tryMoveFocusAsync*(_: typedesc[FocusManager], a1: FocusNavigationDirection, a2: FindNextElementOptions): FocusMovementResult =
+  ## Windows.UI.Xaml.Input.FocusManager.TryMoveFocusAsync
+  withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics5, it):
+    withIface(a2.p, IID_IFindNextElementOptions, "IFindNextElementOptions", p1):
+      var tmp: pointer
+      vcall(it, Slot_IFocusManagerStatics5_TryMoveFocusAsync2, Fn_IFocusManagerStatics5_TryMoveFocusAsync2)(it, a1, p1, tmp.addr).check("FocusManager.TryMoveFocusAsync")
+      result = adopt[FocusMovementResult](awaitObject(tmp, IID_IAsyncOperation_1_FocusMovementResult, "FocusManager.TryMoveFocusAsync"))
+      release(tmp)
 
 proc newFocusedElement*(self: FocusManagerGotFocusEventArgs): DependencyObject =
   ## Windows.UI.Xaml.Input.FocusManagerGotFocusEventArgs.get_NewFocusedElement
@@ -87505,12 +87771,13 @@ proc setSource*(self: BitmapSource, a1: pointer) =
   withIface(self.p, IID_IBitmapSource, "IBitmapSource", it):
     vcall(it, Slot_IBitmapSource_SetSource, Fn_IBitmapSource_SetSource)(it, a1).check("BitmapSource.SetSource")
 
-proc setSourceAsync*(self: BitmapSource, a1: pointer): pointer =
+proc setSourceAsync*(self: BitmapSource, a1: pointer) =
   ## Windows.UI.Xaml.Media.Imaging.BitmapSource.SetSourceAsync
   withIface(self.p, IID_IBitmapSource, "IBitmapSource", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapSource_SetSourceAsync, Fn_IBitmapSource_SetSourceAsync)(it, a1, tmp.addr).check("BitmapSource.SetSourceAsync")
-    result = tmp
+    awaitVoid(tmp, "BitmapSource.SetSourceAsync")
+    release(tmp)
 
 proc pixelWidthProperty*(_: typedesc[BitmapSource]): DependencyProperty =
   ## Windows.UI.Xaml.Media.Imaging.BitmapSource.get_PixelWidthProperty
@@ -87757,21 +88024,23 @@ proc pixelHeight*(self: RenderTargetBitmap): int32 =
     vcall(it, Slot_IRenderTargetBitmap_get_PixelHeight, Fn_IRenderTargetBitmap_get_PixelHeight)(it, tmp.addr).check("RenderTargetBitmap.get_PixelHeight")
     result = tmp
 
-proc renderAsync*(self: RenderTargetBitmap, a1: UIElement): pointer =
+proc renderAsync*(self: RenderTargetBitmap, a1: UIElement) =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.RenderAsync
   withIface(self.p, IID_IRenderTargetBitmap, "IRenderTargetBitmap", it):
     withIface(a1.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRenderTargetBitmap_RenderAsync, Fn_IRenderTargetBitmap_RenderAsync)(it, p0, tmp.addr).check("RenderTargetBitmap.RenderAsync")
-      result = tmp
+      awaitVoid(tmp, "RenderTargetBitmap.RenderAsync")
+      release(tmp)
 
-proc renderAsync*(self: RenderTargetBitmap, a1: UIElement, a2: int32, a3: int32): pointer =
+proc renderAsync*(self: RenderTargetBitmap, a1: UIElement, a2: int32, a3: int32) =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.RenderAsync
   withIface(self.p, IID_IRenderTargetBitmap, "IRenderTargetBitmap", it):
     withIface(a1.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRenderTargetBitmap_RenderAsync2, Fn_IRenderTargetBitmap_RenderAsync2)(it, p0, a2, a3, tmp.addr).check("RenderTargetBitmap.RenderAsync")
-      result = tmp
+      awaitVoid(tmp, "RenderTargetBitmap.RenderAsync")
+      release(tmp)
 
 proc pixelWidthProperty*(_: typedesc[RenderTargetBitmap]): DependencyProperty =
   ## Windows.UI.Xaml.Media.Imaging.RenderTargetBitmap.get_PixelWidthProperty

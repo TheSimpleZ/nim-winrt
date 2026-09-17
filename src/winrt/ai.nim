@@ -23,9 +23,21 @@ const IID_TypedEventHandler_2_ActionCatalog_Object* = GUID(
 const IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs* = GUID(
     data1: 0x9154A3ED'u32, data2: 0xC383'u16, data3: 0x5BDD'u16,
     data4: [0xA8'u8, 0xAE, 0xFA, 0xB2, 0xC1, 0x38, 0x69, 0xD5])
+const IID_IAsyncOperation_1_LearningModel* = GUID(
+    data1: 0x634AB3CB'u32, data2: 0x406C'u16, data3: 0x5EDE'u16,
+    data4: [0x8A'u8, 0x89, 0xA7, 0xF9, 0xCA, 0x37, 0x03, 0x26])
+const IID_IAsyncOperation_1_LearningModelEvaluationResult* = GUID(
+    data1: 0x28050590'u32, data2: 0x1422'u16, data3: 0x5A18'u16,
+    data4: [0x8C'u8, 0x8B, 0x84, 0x7F, 0x2D, 0x2C, 0xF6, 0x9A])
 const IID_IIterable_1_ILearningModelVariableDescriptorPreview* = GUID(
     data1: 0xDF23DB35'u32, data2: 0xF789'u16, data3: 0x51A1'u16,
     data4: [0x85'u8, 0x6D, 0x87, 0xCD, 0x7C, 0xD0, 0x42, 0xF1])
+const IID_IAsyncOperation_1_LearningModelEvaluationResultPreview* = GUID(
+    data1: 0xC643F2B8'u32, data2: 0xEA38'u16, data3: 0x5230'u16,
+    data4: [0x93'u8, 0x48, 0x10, 0x94, 0xC0, 0x6D, 0x91, 0x7D])
+const IID_IAsyncOperation_1_LearningModelPreview* = GUID(
+    data1: 0x86CDC6BD'u32, data2: 0x809D'u16, data3: 0x5A2B'u16,
+    data4: [0x89'u8, 0x8B, 0x5C, 0x2A, 0x92, 0xBE, 0x77, 0x44])
 const IID_IIterable_1_String* = GUID(
     data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
     data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
@@ -1404,12 +1416,13 @@ proc context*(self: ActionInstance): ActionInvocationContext =
     vcall(it, Slot_IActionInstance_get_Context, Fn_IActionInstance_get_Context)(it, tmp.addr).check("ActionInstance.get_Context")
     result = adopt[ActionInvocationContext](tmp)
 
-proc invokeAsync*(self: ActionInstance): pointer =
+proc invokeAsync*(self: ActionInstance) =
   ## Windows.AI.Actions.Hosting.ActionInstance.InvokeAsync
   withIface(self.p, IID_IActionInstance, "IActionInstance", it):
     var tmp: pointer
     vcall(it, Slot_IActionInstance_InvokeAsync, Fn_IActionInstance_InvokeAsync)(it, tmp.addr).check("ActionInstance.InvokeAsync")
-    result = tmp
+    awaitVoid(tmp, "ActionInstance.InvokeAsync")
+    release(tmp)
 
 proc description*(self: ActionInstanceDisplayInfo): string =
   ## Windows.AI.Actions.Hosting.ActionInstanceDisplayInfo.get_Description
@@ -1425,22 +1438,24 @@ proc descriptionTemplate*(self: ActionOverload): string =
     vcall(it, Slot_IActionOverload_get_DescriptionTemplate, Fn_IActionOverload_get_DescriptionTemplate)(it, tmp.addr).check("ActionOverload.get_DescriptionTemplate")
     result = takeString(tmp)
 
-proc invokeAsync*(self: ActionOverload, a1: ActionInvocationContext): pointer =
+proc invokeAsync*(self: ActionOverload, a1: ActionInvocationContext) =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeAsync
   withIface(self.p, IID_IActionOverload, "IActionOverload", it):
     withIface(a1.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
       var tmp: pointer
       vcall(it, Slot_IActionOverload_InvokeAsync, Fn_IActionOverload_InvokeAsync)(it, p0, tmp.addr).check("ActionOverload.InvokeAsync")
-      result = tmp
+      awaitVoid(tmp, "ActionOverload.InvokeAsync")
+      release(tmp)
 
-proc invokeFeedbackAsync*(self: ActionOverload, a1: ActionInvocationContext, a2: ActionFeedback): pointer =
+proc invokeFeedbackAsync*(self: ActionOverload, a1: ActionInvocationContext, a2: ActionFeedback) =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeFeedbackAsync
   withIface(self.p, IID_IActionOverload2, "IActionOverload2", it):
     withIface(a1.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
       withIface(a2.p, IID_IActionFeedback, "IActionFeedback", p1):
         var tmp: pointer
         vcall(it, Slot_IActionOverload2_InvokeFeedbackAsync, Fn_IActionOverload2_InvokeFeedbackAsync)(it, p0, p1, tmp.addr).check("ActionOverload.InvokeFeedbackAsync")
-        result = tmp
+        awaitVoid(tmp, "ActionOverload.InvokeFeedbackAsync")
+        release(tmp)
 
 proc getSupportsFeedback*(self: ActionOverload): bool =
   ## Windows.AI.Actions.Hosting.ActionOverload.GetSupportsFeedback
@@ -1750,6 +1765,22 @@ proc version*(self: LearningModel): int64 =
     vcall(it, Slot_ILearningModel_get_Version, Fn_ILearningModel_get_Version)(it, tmp.addr).check("LearningModel.get_Version")
     result = tmp
 
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], a1: pointer): LearningModel =
+  ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
+  withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync, Fn_ILearningModelStatics_LoadFromStorageFileAsync)(it, a1, tmp.addr).check("LearningModel.LoadFromStorageFileAsync")
+    result = adopt[LearningModel](awaitObject(tmp, IID_IAsyncOperation_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
+    release(tmp)
+
+proc loadFromStreamAsync*(_: typedesc[LearningModel], a1: pointer): LearningModel =
+  ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
+  withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync, Fn_ILearningModelStatics_LoadFromStreamAsync)(it, a1, tmp.addr).check("LearningModel.LoadFromStreamAsync")
+    result = adopt[LearningModel](awaitObject(tmp, IID_IAsyncOperation_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
+    release(tmp)
+
 proc loadFromFilePath*(_: typedesc[LearningModel], a1: string): LearningModel =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromFilePath
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
@@ -1764,6 +1795,22 @@ proc loadFromStream*(_: typedesc[LearningModel], a1: pointer): LearningModel =
     var tmp: pointer
     vcall(it, Slot_ILearningModelStatics_LoadFromStream, Fn_ILearningModelStatics_LoadFromStream)(it, a1, tmp.addr).check("LearningModel.LoadFromStream")
     result = adopt[LearningModel](tmp)
+
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], a1: pointer, a2: pointer): LearningModel =
+  ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
+  withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync2, Fn_ILearningModelStatics_LoadFromStorageFileAsync2)(it, a1, a2, tmp.addr).check("LearningModel.LoadFromStorageFileAsync")
+    result = adopt[LearningModel](awaitObject(tmp, IID_IAsyncOperation_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
+    release(tmp)
+
+proc loadFromStreamAsync*(_: typedesc[LearningModel], a1: pointer, a2: pointer): LearningModel =
+  ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
+  withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync2, Fn_ILearningModelStatics_LoadFromStreamAsync2)(it, a1, a2, tmp.addr).check("LearningModel.LoadFromStreamAsync")
+    result = adopt[LearningModel](awaitObject(tmp, IID_IAsyncOperation_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
+    release(tmp)
 
 proc loadFromFilePath*(_: typedesc[LearningModel], a1: string, a2: pointer): LearningModel =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromFilePath
@@ -1867,6 +1914,16 @@ proc evaluationProperties*(self: LearningModelSession): pointer =
     var tmp: pointer
     vcall(it, Slot_ILearningModelSession_get_EvaluationProperties, Fn_ILearningModelSession_get_EvaluationProperties)(it, tmp.addr).check("LearningModelSession.get_EvaluationProperties")
     result = tmp
+
+proc evaluateAsync*(self: LearningModelSession, a1: LearningModelBinding, a2: string): LearningModelEvaluationResult =
+  ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
+  withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
+    withIface(a1.p, IID_ILearningModelBinding, "ILearningModelBinding", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_ILearningModelSession_EvaluateAsync, Fn_ILearningModelSession_EvaluateAsync)(it, p0, h1, tmp.addr).check("LearningModelSession.EvaluateAsync")
+        result = adopt[LearningModelEvaluationResult](awaitObject(tmp, IID_IAsyncOperation_1_LearningModelEvaluationResult, "LearningModelSession.EvaluateAsync"))
+        release(tmp)
 
 proc evaluate*(self: LearningModelSession, a1: LearningModelBinding, a2: string): LearningModelEvaluationResult =
   ## Windows.AI.MachineLearning.LearningModelSession.Evaluate
@@ -2165,6 +2222,16 @@ proc correlationId*(self: LearningModelEvaluationResultPreview): string =
     vcall(it, Slot_ILearningModelEvaluationResultPreview_get_CorrelationId, Fn_ILearningModelEvaluationResultPreview_get_CorrelationId)(it, tmp.addr).check("LearningModelEvaluationResultPreview.get_CorrelationId")
     result = takeString(tmp)
 
+proc evaluateAsync*(self: LearningModelPreview, a1: LearningModelBindingPreview, a2: string): LearningModelEvaluationResultPreview =
+  ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateAsync
+  withIface(self.p, IID_ILearningModelPreview, "ILearningModelPreview", it):
+    withIface(a1.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_ILearningModelPreview_EvaluateAsync, Fn_ILearningModelPreview_EvaluateAsync)(it, p0, h1, tmp.addr).check("LearningModelPreview.EvaluateAsync")
+        result = adopt[LearningModelEvaluationResultPreview](awaitObject(tmp, IID_IAsyncOperation_1_LearningModelEvaluationResultPreview, "LearningModelPreview.EvaluateAsync"))
+        release(tmp)
+
 proc description*(self: LearningModelPreview): LearningModelDescriptionPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_Description
   withIface(self.p, IID_ILearningModelPreview, "ILearningModelPreview", it):
@@ -2184,6 +2251,22 @@ proc `inferencingOptions=`*(self: LearningModelPreview, value: InferencingOption
   withIface(self.p, IID_ILearningModelPreview, "ILearningModelPreview", it):
     withIface(value.p, IID_IInferencingOptionsPreview, "IInferencingOptionsPreview", p0):
       vcall(it, Slot_ILearningModelPreview_put_InferencingOptions, Fn_ILearningModelPreview_put_InferencingOptions)(it, p0).check("LearningModelPreview.put_InferencingOptions")
+
+proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview], a1: pointer): LearningModelPreview =
+  ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStorageFileAsync
+  withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync)(it, a1, tmp.addr).check("LearningModelPreview.LoadModelFromStorageFileAsync")
+    result = adopt[LearningModelPreview](awaitObject(tmp, IID_IAsyncOperation_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStorageFileAsync"))
+    release(tmp)
+
+proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview], a1: pointer): LearningModelPreview =
+  ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStreamAsync
+  withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync)(it, a1, tmp.addr).check("LearningModelPreview.LoadModelFromStreamAsync")
+    result = adopt[LearningModelPreview](awaitObject(tmp, IID_IAsyncOperation_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStreamAsync"))
+    release(tmp)
 
 proc name*(self: LearningModelVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_Name

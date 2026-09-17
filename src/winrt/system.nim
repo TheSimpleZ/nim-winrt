@@ -17,6 +17,9 @@ export core, system
 const IID_IVector_1_AppResourceGroupInfo* = GUID(
     data1: 0xBD7D69A0'u32, data2: 0x0D57'u16, data3: 0x5148'u16,
     data4: [0x8B'u8, 0x23, 0x49, 0xA0, 0x86, 0x54, 0xF0, 0xC7])
+const IID_IAsyncOperation_1_AppActivationResult* = GUID(
+    data1: 0xB6F373B8'u32, data2: 0xBD4D'u16, data3: 0x50BF'u16,
+    data4: [0x82'u8, 0xB4, 0x5B, 0x1D, 0x45, 0x2A, 0x5F, 0x83])
 const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs* = GUID(
     data1: 0x7C8C6F9F'u32, data2: 0xD6BF'u16, data3: 0x5566'u16,
     data4: [0xB0'u8, 0x13, 0x39, 0xC1, 0x41, 0xE0, 0xFF, 0x8C])
@@ -29,6 +32,9 @@ const IID_IVector_1_AppResourceGroupBackgroundTaskReport* = GUID(
 const IID_IVector_1_ProcessDiagnosticInfo* = GUID(
     data1: 0xF62E2D01'u32, data2: 0xC1DD'u16, data3: 0x5B60'u16,
     data4: [0xB5'u8, 0xDA, 0x16, 0x51, 0x8C, 0xBA, 0x0B, 0xB0])
+const IID_IAsyncOperation_1_AppExecutionStateChangeResult* = GUID(
+    data1: 0xC251CC22'u32, data2: 0xABA9'u16, data3: 0x59B8'u16,
+    data4: [0xBF'u8, 0x87, 0x20, 0x67, 0x7F, 0xC4, 0x92, 0x4E])
 const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs* = GUID(
     data1: 0xA7E14BAE'u32, data2: 0xC778'u16, data3: 0x5661'u16,
     data4: [0xA4'u8, 0x1C, 0x1A, 0xC3, 0xAC, 0x63, 0x5F, 0x79])
@@ -53,6 +59,9 @@ const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionReque
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState* = GUID(
+    data1: 0xBB5D493E'u32, data2: 0x74E9'u16, data3: 0x57A1'u16,
+    data4: [0x8C'u8, 0x4C, 0x92, 0x3E, 0x0D, 0xC4, 0x56, 0x5B])
 const IID_IVector_1_AppDiagnosticInfo* = GUID(
     data1: 0x9CFFA2C3'u32, data2: 0x7EEB'u16, data3: 0x599C'u16,
     data4: [0xB9'u8, 0x4D, 0xC7, 0x94, 0xB1, 0x1F, 0x80, 0x7F])
@@ -86,9 +95,18 @@ const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_Object* = GUID(
 const IID_TypedEventHandler_2_PowerThermalChannelDataProducer_Object* = GUID(
     data1: 0x790AFC3F'u32, data2: 0x625E'u16, data3: 0x52AC'u16,
     data4: [0x87'u8, 0x69, 0xFB, 0xB5, 0xB0, 0xBA, 0x73, 0x86])
+const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading* = GUID(
+    data1: 0x2286A430'u32, data2: 0xA059'u16, data3: 0x5998'u16,
+    data4: [0x81'u8, 0x0C, 0x25, 0xBA, 0x16, 0x01, 0x7C, 0x9E])
 const IID_TypedEventHandler_2_TwoPanelHingedDevicePosturePreview_TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* = GUID(
     data1: 0x3FC92C27'u32, data2: 0x176D'u16, data3: 0x58AA'u16,
     data4: [0xA7'u8, 0x48, 0xBE, 0x82, 0xC3, 0x78, 0xDF, 0x41])
+const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview* = GUID(
+    data1: 0xB9620919'u32, data2: 0xE111'u16, data3: 0x520F'u16,
+    data4: [0x80'u8, 0x97, 0x8E, 0x9B, 0x27, 0x53, 0x91, 0xB5])
+const IID_IAsyncOperation_1_ProcessLauncherResult* = GUID(
+    data1: 0xE6827240'u32, data2: 0x7A8D'u16, data3: 0x51BE'u16,
+    data4: [0x8D'u8, 0x21, 0xE0, 0x93, 0x26, 0x8C, 0xCC, 0x15])
 const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
     data1: 0xFF5F83B6'u32, data2: 0x18E5'u16, data3: 0x5787'u16,
     data4: [0xBF'u8, 0x03, 0x97, 0x4C, 0xA9, 0x92, 0x92, 0x75])
@@ -110,6 +128,12 @@ const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnecte
 const IID_TypedEventHandler_2_RemoteSystemSessionController_RemoteSystemSessionJoinRequestedEventArgs* = GUID(
     data1: 0xD8E04916'u32, data2: 0xB452'u16, data3: 0x5322'u16,
     data4: [0xAE'u8, 0xC9, 0xE3, 0xD4, 0xD5, 0x81, 0xC7, 0x72])
+const IID_IAsyncOperation_1_RemoteSystemSessionCreationResult* = GUID(
+    data1: 0x90364BF5'u32, data2: 0xD084'u16, data3: 0x5F50'u16,
+    data4: [0x97'u8, 0x29, 0x82, 0x02, 0x53, 0x26, 0xAB, 0xEF])
+const IID_IAsyncOperation_1_RemoteSystemSessionJoinResult* = GUID(
+    data1: 0xC58DBD1E'u32, data2: 0xE300'u16, data3: 0x55A8'u16,
+    data4: [0xAD'u8, 0xA5, 0xE2, 0x5A, 0xAA, 0xA8, 0x66, 0x67])
 const IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs* = GUID(
     data1: 0x18A242BB'u32, data2: 0xD338'u16, data3: 0x56C4'u16,
     data4: [0x95'u8, 0x59, 0x56, 0x8D, 0x5C, 0x2C, 0x3E, 0x93])
@@ -155,6 +179,12 @@ const IID_IVectorView_1_SystemUpdateItem* = GUID(
 const IID_EventHandler_1_UserDeviceAssociationChangedEventArgs* = GUID(
     data1: 0xD3A3D4C5'u32, data2: 0xD8B6'u16, data3: 0x5A0E'u16,
     data4: [0x88'u8, 0xED, 0xA5, 0x49, 0x9C, 0x37, 0x7B, 0xE3])
+const IID_IAsyncOperation_1_User* = GUID(
+    data1: 0xA895D2F9'u32, data2: 0x2399'u16, data3: 0x5104'u16,
+    data4: [0xA5'u8, 0x32, 0x5B, 0xA4, 0x4A, 0xB4, 0xB1, 0x65])
+const IID_IAsyncOperation_1_String* = GUID(
+    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
+    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
 const IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs* = GUID(
     data1: 0xEB9D0454'u32, data2: 0x25DB'u16, data3: 0x5620'u16,
     data4: [0x98'u8, 0xB8, 0xBE, 0x4C, 0x5D, 0x0D, 0xBC, 0x67])
@@ -2304,6 +2334,14 @@ proc createResourceGroupWatcher*(self: AppDiagnosticInfo): AppResourceGroupInfoW
     vcall(it, Slot_IAppDiagnosticInfo2_CreateResourceGroupWatcher, Fn_IAppDiagnosticInfo2_CreateResourceGroupWatcher)(it, tmp.addr).check("AppDiagnosticInfo.CreateResourceGroupWatcher")
     result = adopt[AppResourceGroupInfoWatcher](tmp)
 
+proc launchAsync*(self: AppDiagnosticInfo): AppActivationResult =
+  ## Windows.System.AppDiagnosticInfo.LaunchAsync
+  withIface(self.p, IID_IAppDiagnosticInfo3, "IAppDiagnosticInfo3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppDiagnosticInfo3_LaunchAsync, Fn_IAppDiagnosticInfo3_LaunchAsync)(it, tmp.addr).check("AppDiagnosticInfo.LaunchAsync")
+    result = adopt[AppActivationResult](awaitObject(tmp, IID_IAsyncOperation_1_AppActivationResult, "AppDiagnosticInfo.LaunchAsync"))
+    release(tmp)
+
 proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
   ## Windows.System.AppDiagnosticInfo.CreateWatcher
   withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
@@ -2538,6 +2576,30 @@ proc getStateReport*(self: AppResourceGroupInfo): AppResourceGroupStateReport =
     var tmp: pointer
     vcall(it, Slot_IAppResourceGroupInfo_GetStateReport, Fn_IAppResourceGroupInfo_GetStateReport)(it, tmp.addr).check("AppResourceGroupInfo.GetStateReport")
     result = adopt[AppResourceGroupStateReport](tmp)
+
+proc startSuspendAsync*(self: AppResourceGroupInfo): AppExecutionStateChangeResult =
+  ## Windows.System.AppResourceGroupInfo.StartSuspendAsync
+  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfo2_StartSuspendAsync, Fn_IAppResourceGroupInfo2_StartSuspendAsync)(it, tmp.addr).check("AppResourceGroupInfo.StartSuspendAsync")
+    result = adopt[AppExecutionStateChangeResult](awaitObject(tmp, IID_IAsyncOperation_1_AppExecutionStateChangeResult, "AppResourceGroupInfo.StartSuspendAsync"))
+    release(tmp)
+
+proc startResumeAsync*(self: AppResourceGroupInfo): AppExecutionStateChangeResult =
+  ## Windows.System.AppResourceGroupInfo.StartResumeAsync
+  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfo2_StartResumeAsync, Fn_IAppResourceGroupInfo2_StartResumeAsync)(it, tmp.addr).check("AppResourceGroupInfo.StartResumeAsync")
+    result = adopt[AppExecutionStateChangeResult](awaitObject(tmp, IID_IAsyncOperation_1_AppExecutionStateChangeResult, "AppResourceGroupInfo.StartResumeAsync"))
+    release(tmp)
+
+proc startTerminateAsync*(self: AppResourceGroupInfo): AppExecutionStateChangeResult =
+  ## Windows.System.AppResourceGroupInfo.StartTerminateAsync
+  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfo2_StartTerminateAsync, Fn_IAppResourceGroupInfo2_StartTerminateAsync)(it, tmp.addr).check("AppResourceGroupInfo.StartTerminateAsync")
+    result = adopt[AppExecutionStateChangeResult](awaitObject(tmp, IID_IAsyncOperation_1_AppExecutionStateChangeResult, "AppResourceGroupInfo.StartTerminateAsync"))
+    release(tmp)
 
 proc onAdded*(self: AppResourceGroupInfoWatcher,
     handler: proc(sender: pointer, args: AppResourceGroupInfoWatcherEventArgs)): EventRegistrationToken {.discardable.} =
@@ -2914,6 +2976,15 @@ proc extendedError*(self: DiagnosticActionResult): HRESULT =
     var tmp: HRESULT
     vcall(it, Slot_IDiagnosticActionResult_get_ExtendedError, Fn_IDiagnosticActionResult_get_ExtendedError)(it, tmp.addr).check("DiagnosticActionResult.get_ExtendedError")
     result = tmp
+
+proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker, a1: string): DiagnosticActionResult =
+  ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionFromStringAsync
+  withIface(self.p, IID_IDiagnosticInvoker2, "IDiagnosticInvoker2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync, Fn_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync)(it, h0, tmp.addr).check("DiagnosticInvoker.RunDiagnosticActionFromStringAsync")
+      result = adopt[DiagnosticActionResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState, "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"))
+      release(tmp)
 
 proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker =
   ## Windows.System.Diagnostics.DiagnosticInvoker.GetDefault
@@ -3494,12 +3565,13 @@ proc dispatcherQueue*(self: DispatcherQueueController): DispatcherQueue =
     vcall(it, Slot_IDispatcherQueueController_get_DispatcherQueue, Fn_IDispatcherQueueController_get_DispatcherQueue)(it, tmp.addr).check("DispatcherQueueController.get_DispatcherQueue")
     result = adopt[DispatcherQueue](tmp)
 
-proc shutdownQueueAsync*(self: DispatcherQueueController): pointer =
+proc shutdownQueueAsync*(self: DispatcherQueueController) =
   ## Windows.System.DispatcherQueueController.ShutdownQueueAsync
   withIface(self.p, IID_IDispatcherQueueController, "IDispatcherQueueController", it):
     var tmp: pointer
     vcall(it, Slot_IDispatcherQueueController_ShutdownQueueAsync, Fn_IDispatcherQueueController_ShutdownQueueAsync)(it, tmp.addr).check("DispatcherQueueController.ShutdownQueueAsync")
-    result = tmp
+    awaitVoid(tmp, "DispatcherQueueController.ShutdownQueueAsync")
+    release(tmp)
 
 proc createOnDedicatedThread*(_: typedesc[DispatcherQueueController]): DispatcherQueueController =
   ## Windows.System.DispatcherQueueController.CreateOnDedicatedThread
@@ -4382,6 +4454,14 @@ proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelD
     vcall(it, Slot_IPowerThermalChannelDiagnosticsStatics_get_Current, Fn_IPowerThermalChannelDiagnosticsStatics_get_Current)(it, tmp.addr).check("PowerThermalChannelDiagnostics.get_Current")
     result = adopt[PowerThermalChannelDiagnostics](tmp)
 
+proc getCurrentPostureAsync*(self: TwoPanelHingedDevicePosturePreview): TwoPanelHingedDevicePosturePreviewReading =
+  ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync
+  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreview, "ITwoPanelHingedDevicePosturePreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync, Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync")
+    result = adopt[TwoPanelHingedDevicePosturePreviewReading](awaitObject(tmp, IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading, "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"))
+    release(tmp)
+
 proc onPostureChanged*(self: TwoPanelHingedDevicePosturePreview,
     handler: proc(sender: pointer, args: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.add_PostureChanged
@@ -4400,6 +4480,14 @@ proc onPostureChanged*(self: TwoPanelHingedDevicePosturePreview,
 proc removePostureChanged*(self: TwoPanelHingedDevicePosturePreview, token: EventRegistrationToken) =
   withIface(self.p, IID_ITwoPanelHingedDevicePosturePreview, "ITwoPanelHingedDevicePosturePreview", it):
     vcall(it, Slot_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged, Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged)(it, token).check("TwoPanelHingedDevicePosturePreview.remove_PostureChanged")
+
+proc getDefaultAsync*(_: typedesc[TwoPanelHingedDevicePosturePreview]): TwoPanelHingedDevicePosturePreview =
+  ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetDefaultAsync
+  withStatics("Windows.System.Preview.TwoPanelHingedDevicePosturePreview", IID_ITwoPanelHingedDevicePosturePreviewStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync, Fn_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreview.GetDefaultAsync")
+    result = adopt[TwoPanelHingedDevicePosturePreview](awaitObject(tmp, IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview, "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"))
+    release(tmp)
 
 proc timestamp*(self: TwoPanelHingedDevicePosturePreviewReading): DateTime =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Timestamp
@@ -4435,6 +4523,27 @@ proc reading*(self: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs): 
     var tmp: pointer
     vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading, Fn_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs.get_Reading")
     result = adopt[TwoPanelHingedDevicePosturePreviewReading](tmp)
+
+proc runToCompletionAsync*(_: typedesc[ProcessLauncher], a1: string, a2: string): ProcessLauncherResult =
+  ## Windows.System.ProcessLauncher.RunToCompletionAsync
+  withStatics("Windows.System.ProcessLauncher", IID_IProcessLauncherStatics, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IProcessLauncherStatics_RunToCompletionAsync, Fn_IProcessLauncherStatics_RunToCompletionAsync)(it, h0, h1, tmp.addr).check("ProcessLauncher.RunToCompletionAsync")
+        result = adopt[ProcessLauncherResult](awaitObject(tmp, IID_IAsyncOperation_1_ProcessLauncherResult, "ProcessLauncher.RunToCompletionAsync"))
+        release(tmp)
+
+proc runToCompletionAsync*(_: typedesc[ProcessLauncher], a1: string, a2: string, a3: ProcessLauncherOptions): ProcessLauncherResult =
+  ## Windows.System.ProcessLauncher.RunToCompletionAsync
+  withStatics("Windows.System.ProcessLauncher", IID_IProcessLauncherStatics, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", p2):
+          var tmp: pointer
+          vcall(it, Slot_IProcessLauncherStatics_RunToCompletionAsync2, Fn_IProcessLauncherStatics_RunToCompletionAsync2)(it, h0, h1, p2, tmp.addr).check("ProcessLauncher.RunToCompletionAsync")
+          result = adopt[ProcessLauncherResult](awaitObject(tmp, IID_IAsyncOperation_1_ProcessLauncherResult, "ProcessLauncher.RunToCompletionAsync"))
+          release(tmp)
 
 proc newProcessLauncherOptions*(): ProcessLauncherOptions =
   ## Activate a `Windows.System.ProcessLauncherOptions`.
@@ -5616,6 +5725,14 @@ proc removeJoinRequested*(self: RemoteSystemSessionController, token: EventRegis
   withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
     vcall(it, Slot_IRemoteSystemSessionController_remove_JoinRequested, Fn_IRemoteSystemSessionController_remove_JoinRequested)(it, token).check("RemoteSystemSessionController.remove_JoinRequested")
 
+proc createSessionAsync*(self: RemoteSystemSessionController): RemoteSystemSessionCreationResult =
+  ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateSessionAsync
+  withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemSessionController_CreateSessionAsync, Fn_IRemoteSystemSessionController_CreateSessionAsync)(it, tmp.addr).check("RemoteSystemSessionController.CreateSessionAsync")
+    result = adopt[RemoteSystemSessionCreationResult](awaitObject(tmp, IID_IAsyncOperation_1_RemoteSystemSessionCreationResult, "RemoteSystemSessionController.CreateSessionAsync"))
+    release(tmp)
+
 proc createController*(_: typedesc[RemoteSystemSessionController], a1: string): RemoteSystemSessionController =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController
   withStatics("Windows.System.RemoteSystems.RemoteSystemSessionController", IID_IRemoteSystemSessionControllerFactory, it):
@@ -5667,6 +5784,14 @@ proc controllerDisplayName*(self: RemoteSystemSessionInfo): string =
     var tmp: HSTRING
     vcall(it, Slot_IRemoteSystemSessionInfo_get_ControllerDisplayName, Fn_IRemoteSystemSessionInfo_get_ControllerDisplayName)(it, tmp.addr).check("RemoteSystemSessionInfo.get_ControllerDisplayName")
     result = takeString(tmp)
+
+proc joinAsync*(self: RemoteSystemSessionInfo): RemoteSystemSessionJoinResult =
+  ## Windows.System.RemoteSystems.RemoteSystemSessionInfo.JoinAsync
+  withIface(self.p, IID_IRemoteSystemSessionInfo, "IRemoteSystemSessionInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemSessionInfo_JoinAsync, Fn_IRemoteSystemSessionInfo_JoinAsync)(it, tmp.addr).check("RemoteSystemSessionInfo.JoinAsync")
+    result = adopt[RemoteSystemSessionJoinResult](awaitObject(tmp, IID_IAsyncOperation_1_RemoteSystemSessionJoinResult, "RemoteSystemSessionInfo.JoinAsync"))
+    release(tmp)
 
 proc sender*(self: RemoteSystemSessionInvitation): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitation.get_Sender
@@ -6162,12 +6287,13 @@ proc cancelShutdown*(_: typedesc[ShutdownManager]) =
   withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics, it):
     vcall(it, Slot_IShutdownManagerStatics_CancelShutdown, Fn_IShutdownManagerStatics_CancelShutdown)(it).check("ShutdownManager.CancelShutdown")
 
-proc runAsync*(self: PreallocatedWorkItem): pointer =
+proc runAsync*(self: PreallocatedWorkItem) =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.RunAsync
   withIface(self.p, IID_IPreallocatedWorkItem, "IPreallocatedWorkItem", it):
     var tmp: pointer
     vcall(it, Slot_IPreallocatedWorkItem_RunAsync, Fn_IPreallocatedWorkItem_RunAsync)(it, tmp.addr).check("PreallocatedWorkItem.RunAsync")
-    result = tmp
+    awaitVoid(tmp, "PreallocatedWorkItem.RunAsync")
+    release(tmp)
 
 proc enable*(self: SignalNotifier) =
   ## Windows.System.Threading.Core.SignalNotifier.Enable
@@ -6619,6 +6745,14 @@ proc `suggestedSelectedUser=`*(self: UserPicker, value: User) =
     withIface(value.p, IID_IUser, "IUser", p0):
       vcall(it, Slot_IUserPicker_put_SuggestedSelectedUser, Fn_IUserPicker_put_SuggestedSelectedUser)(it, p0).check("UserPicker.put_SuggestedSelectedUser")
 
+proc pickSingleUserAsync*(self: UserPicker): User =
+  ## Windows.System.UserPicker.PickSingleUserAsync
+  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserPicker_PickSingleUserAsync, Fn_IUserPicker_PickSingleUserAsync)(it, tmp.addr).check("UserPicker.PickSingleUserAsync")
+    result = adopt[User](awaitObject(tmp, IID_IAsyncOperation_1_User, "UserPicker.PickSingleUserAsync"))
+    release(tmp)
+
 proc isSupported*(_: typedesc[UserPicker]): bool =
   ## Windows.System.UserPicker.IsSupported
   withStatics("Windows.System.UserPicker", IID_IUserPickerStatics, it):
@@ -6835,19 +6969,21 @@ proc getImageStream*(_: typedesc[LockScreen]): pointer =
     vcall(it, Slot_ILockScreenStatics_GetImageStream, Fn_ILockScreenStatics_GetImageStream)(it, tmp.addr).check("LockScreen.GetImageStream")
     result = tmp
 
-proc setImageFileAsync*(_: typedesc[LockScreen], a1: pointer): pointer =
+proc setImageFileAsync*(_: typedesc[LockScreen], a1: pointer) =
   ## Windows.System.UserProfile.LockScreen.SetImageFileAsync
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenStatics_SetImageFileAsync, Fn_ILockScreenStatics_SetImageFileAsync)(it, a1, tmp.addr).check("LockScreen.SetImageFileAsync")
-    result = tmp
+    awaitVoid(tmp, "LockScreen.SetImageFileAsync")
+    release(tmp)
 
-proc setImageStreamAsync*(_: typedesc[LockScreen], a1: pointer): pointer =
+proc setImageStreamAsync*(_: typedesc[LockScreen], a1: pointer) =
   ## Windows.System.UserProfile.LockScreen.SetImageStreamAsync
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenStatics_SetImageStreamAsync, Fn_ILockScreenStatics_SetImageStreamAsync)(it, a1, tmp.addr).check("LockScreen.SetImageStreamAsync")
-    result = tmp
+    awaitVoid(tmp, "LockScreen.SetImageStreamAsync")
+    release(tmp)
 
 proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool =
   ## Windows.System.UserProfile.LockScreen.TryRemoveImageFeed
@@ -6895,6 +7031,46 @@ proc onAccountPictureChanged*(_: typedesc[UserInformation],
 proc removeAccountPictureChanged*(_: typedesc[UserInformation], token: EventRegistrationToken) =
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
     vcall(it, Slot_IUserInformationStatics_remove_AccountPictureChanged, Fn_IUserInformationStatics_remove_AccountPictureChanged)(it, token).check("UserInformation.remove_AccountPictureChanged")
+
+proc getDisplayNameAsync*(_: typedesc[UserInformation]): string =
+  ## Windows.System.UserProfile.UserInformation.GetDisplayNameAsync
+  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUserInformationStatics_GetDisplayNameAsync, Fn_IUserInformationStatics_GetDisplayNameAsync)(it, tmp.addr).check("UserInformation.GetDisplayNameAsync")
+    result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserInformation.GetDisplayNameAsync")
+    release(tmp)
+
+proc getFirstNameAsync*(_: typedesc[UserInformation]): string =
+  ## Windows.System.UserProfile.UserInformation.GetFirstNameAsync
+  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUserInformationStatics_GetFirstNameAsync, Fn_IUserInformationStatics_GetFirstNameAsync)(it, tmp.addr).check("UserInformation.GetFirstNameAsync")
+    result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserInformation.GetFirstNameAsync")
+    release(tmp)
+
+proc getLastNameAsync*(_: typedesc[UserInformation]): string =
+  ## Windows.System.UserProfile.UserInformation.GetLastNameAsync
+  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUserInformationStatics_GetLastNameAsync, Fn_IUserInformationStatics_GetLastNameAsync)(it, tmp.addr).check("UserInformation.GetLastNameAsync")
+    result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserInformation.GetLastNameAsync")
+    release(tmp)
+
+proc getPrincipalNameAsync*(_: typedesc[UserInformation]): string =
+  ## Windows.System.UserProfile.UserInformation.GetPrincipalNameAsync
+  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUserInformationStatics_GetPrincipalNameAsync, Fn_IUserInformationStatics_GetPrincipalNameAsync)(it, tmp.addr).check("UserInformation.GetPrincipalNameAsync")
+    result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserInformation.GetPrincipalNameAsync")
+    release(tmp)
+
+proc getDomainNameAsync*(_: typedesc[UserInformation]): string =
+  ## Windows.System.UserProfile.UserInformation.GetDomainNameAsync
+  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IUserInformationStatics_GetDomainNameAsync, Fn_IUserInformationStatics_GetDomainNameAsync)(it, tmp.addr).check("UserInformation.GetDomainNameAsync")
+    result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserInformation.GetDomainNameAsync")
+    release(tmp)
 
 proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.get_Current

@@ -17,6 +17,12 @@ export core, perception
 const IID_TypedEventHandler_2_SpatialAnchor_SpatialAnchorRawCoordinateSystemAdjustedEventArgs* = GUID(
     data1: 0xFA43F9E4'u32, data2: 0x3558'u16, data3: 0x59C8'u16,
     data4: [0x9A'u8, 0x77, 0x6E, 0x8B, 0x76, 0x5A, 0xDC, 0xC8])
+const IID_IAsyncOperation_1_SpatialAnchorExportSufficiency* = GUID(
+    data1: 0x260957B8'u32, data2: 0x5B76'u16, data3: 0x5159'u16,
+    data4: [0x8D'u8, 0xC5, 0xE0, 0x3D, 0x74, 0xAA, 0x5F, 0x3D])
+const IID_IAsyncOperation_1_SpatialAnchorStore* = GUID(
+    data1: 0x1CD05E51'u32, data2: 0x1457'u16, data3: 0x5023'u16,
+    data4: [0x8F'u8, 0x5D, 0xFE, 0x5E, 0x5A, 0x95, 0x34, 0x23])
 const IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityAddedEventArgs* = GUID(
     data1: 0xF8EDAE01'u32, data2: 0x6A30'u16, data3: 0x52CC'u16,
     data4: [0xB5'u8, 0x43, 0x8A, 0xBD, 0xB2, 0x65, 0x29, 0xB4])
@@ -38,6 +44,12 @@ const IID_TypedEventHandler_2_SpatialLocator_SpatialLocatorPositionalTrackingDea
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IAsyncOperation_1_SpatialStageFrameOfReference* = GUID(
+    data1: 0xB4D8B1BF'u32, data2: 0x1D66'u16, data3: 0x5458'u16,
+    data4: [0xA5'u8, 0xDF, 0x3F, 0x4F, 0x6C, 0x36, 0x6C, 0x58])
+const IID_IAsyncOperation_1_SpatialSurfaceMesh* = GUID(
+    data1: 0xF5938FAD'u32, data2: 0xA8A1'u16, data3: 0x5F7E'u16,
+    data4: [0x94'u8, 0x40, 0xBD, 0xB7, 0x81, 0xAD, 0x26, 0xB6])
 const IID_TypedEventHandler_2_SpatialSurfaceObserver_Object* = GUID(
     data1: 0x8B31274A'u32, data2: 0x7693'u16, data3: 0x52BE'u16,
     data4: [0x90'u8, 0x14, 0xB0, 0xF5, 0xF6, 0x5A, 0x35, 0x39])
@@ -851,12 +863,29 @@ proc recommendedSufficiencyLevel*(self: SpatialAnchorExportSufficiency): float64
     vcall(it, Slot_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel, Fn_ISpatialAnchorExportSufficiency_get_RecommendedSufficiencyLevel)(it, tmp.addr).check("SpatialAnchorExportSufficiency.get_RecommendedSufficiencyLevel")
     result = tmp
 
+proc getAnchorExportSufficiencyAsync*(self: SpatialAnchorExporter, a1: SpatialAnchor, a2: SpatialAnchorExportPurpose): SpatialAnchorExportSufficiency =
+  ## Windows.Perception.Spatial.SpatialAnchorExporter.GetAnchorExportSufficiencyAsync
+  withIface(self.p, IID_ISpatialAnchorExporter, "ISpatialAnchorExporter", it):
+    withIface(a1.p, IID_ISpatialAnchor, "ISpatialAnchor", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync, Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync)(it, p0, a2, tmp.addr).check("SpatialAnchorExporter.GetAnchorExportSufficiencyAsync")
+      result = adopt[SpatialAnchorExportSufficiency](awaitObject(tmp, IID_IAsyncOperation_1_SpatialAnchorExportSufficiency, "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"))
+      release(tmp)
+
 proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.GetDefault
   withStatics("Windows.Perception.Spatial.SpatialAnchorExporter", IID_ISpatialAnchorExporterStatics, it):
     var tmp: pointer
     vcall(it, Slot_ISpatialAnchorExporterStatics_GetDefault, Fn_ISpatialAnchorExporterStatics_GetDefault)(it, tmp.addr).check("SpatialAnchorExporter.GetDefault")
     result = adopt[SpatialAnchorExporter](tmp)
+
+proc requestStoreAsync*(_: typedesc[SpatialAnchorManager]): SpatialAnchorStore =
+  ## Windows.Perception.Spatial.SpatialAnchorManager.RequestStoreAsync
+  withStatics("Windows.Perception.Spatial.SpatialAnchorManager", IID_ISpatialAnchorManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialAnchorManagerStatics_RequestStoreAsync, Fn_ISpatialAnchorManagerStatics_RequestStoreAsync)(it, tmp.addr).check("SpatialAnchorManager.RequestStoreAsync")
+    result = adopt[SpatialAnchorStore](awaitObject(tmp, IID_IAsyncOperation_1_SpatialAnchorStore, "SpatialAnchorManager.RequestStoreAsync"))
+    release(tmp)
 
 proc oldRawCoordinateSystemToNewRawCoordinateSystemTransform*(self: SpatialAnchorRawCoordinateSystemAdjustedEventArgs): Matrix4x4 =
   ## Windows.Perception.Spatial.SpatialAnchorRawCoordinateSystemAdjustedEventArgs.get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform
@@ -953,21 +982,23 @@ proc entity*(self: SpatialEntityRemovedEventArgs): SpatialEntity =
     vcall(it, Slot_ISpatialEntityRemovedEventArgs_get_Entity, Fn_ISpatialEntityRemovedEventArgs_get_Entity)(it, tmp.addr).check("SpatialEntityRemovedEventArgs.get_Entity")
     result = adopt[SpatialEntity](tmp)
 
-proc saveAsync*(self: SpatialEntityStore, a1: SpatialEntity): pointer =
+proc saveAsync*(self: SpatialEntityStore, a1: SpatialEntity) =
   ## Windows.Perception.Spatial.SpatialEntityStore.SaveAsync
   withIface(self.p, IID_ISpatialEntityStore, "ISpatialEntityStore", it):
     withIface(a1.p, IID_ISpatialEntity, "ISpatialEntity", p0):
       var tmp: pointer
       vcall(it, Slot_ISpatialEntityStore_SaveAsync, Fn_ISpatialEntityStore_SaveAsync)(it, p0, tmp.addr).check("SpatialEntityStore.SaveAsync")
-      result = tmp
+      awaitVoid(tmp, "SpatialEntityStore.SaveAsync")
+      release(tmp)
 
-proc removeAsync*(self: SpatialEntityStore, a1: SpatialEntity): pointer =
+proc removeAsync*(self: SpatialEntityStore, a1: SpatialEntity) =
   ## Windows.Perception.Spatial.SpatialEntityStore.RemoveAsync
   withIface(self.p, IID_ISpatialEntityStore, "ISpatialEntityStore", it):
     withIface(a1.p, IID_ISpatialEntity, "ISpatialEntity", p0):
       var tmp: pointer
       vcall(it, Slot_ISpatialEntityStore_RemoveAsync, Fn_ISpatialEntityStore_RemoveAsync)(it, p0, tmp.addr).check("SpatialEntityStore.RemoveAsync")
-      result = tmp
+      awaitVoid(tmp, "SpatialEntityStore.RemoveAsync")
+      release(tmp)
 
 proc createEntityWatcher*(self: SpatialEntityStore): SpatialEntityWatcher =
   ## Windows.Perception.Spatial.SpatialEntityStore.CreateEntityWatcher
@@ -1360,6 +1391,14 @@ proc removeCurrentChanged*(_: typedesc[SpatialStageFrameOfReference], token: Eve
   withStatics("Windows.Perception.Spatial.SpatialStageFrameOfReference", IID_ISpatialStageFrameOfReferenceStatics, it):
     vcall(it, Slot_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged, Fn_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged)(it, token).check("SpatialStageFrameOfReference.remove_CurrentChanged")
 
+proc requestNewStageAsync*(_: typedesc[SpatialStageFrameOfReference]): SpatialStageFrameOfReference =
+  ## Windows.Perception.Spatial.SpatialStageFrameOfReference.RequestNewStageAsync
+  withStatics("Windows.Perception.Spatial.SpatialStageFrameOfReference", IID_ISpatialStageFrameOfReferenceStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync, Fn_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync)(it, tmp.addr).check("SpatialStageFrameOfReference.RequestNewStageAsync")
+    result = adopt[SpatialStageFrameOfReference](awaitObject(tmp, IID_IAsyncOperation_1_SpatialStageFrameOfReference, "SpatialStageFrameOfReference.RequestNewStageAsync"))
+    release(tmp)
+
 proc coordinateSystem*(self: SpatialStationaryFrameOfReference): SpatialCoordinateSystem =
   ## Windows.Perception.Spatial.SpatialStationaryFrameOfReference.get_CoordinateSystem
   withIface(self.p, IID_ISpatialStationaryFrameOfReference, "ISpatialStationaryFrameOfReference", it):
@@ -1380,6 +1419,23 @@ proc updateTime*(self: SpatialSurfaceInfo): DateTime =
     var tmp: DateTime
     vcall(it, Slot_ISpatialSurfaceInfo_get_UpdateTime, Fn_ISpatialSurfaceInfo_get_UpdateTime)(it, tmp.addr).check("SpatialSurfaceInfo.get_UpdateTime")
     result = tmp
+
+proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, a1: float64): SpatialSurfaceMesh =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync
+  withIface(self.p, IID_ISpatialSurfaceInfo, "ISpatialSurfaceInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync, Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync)(it, a1, tmp.addr).check("SpatialSurfaceInfo.TryComputeLatestMeshAsync")
+    result = adopt[SpatialSurfaceMesh](awaitObject(tmp, IID_IAsyncOperation_1_SpatialSurfaceMesh, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
+    release(tmp)
+
+proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, a1: float64, a2: SpatialSurfaceMeshOptions): SpatialSurfaceMesh =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync
+  withIface(self.p, IID_ISpatialSurfaceInfo, "ISpatialSurfaceInfo", it):
+    withIface(a2.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", p1):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2, Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2)(it, a1, p1, tmp.addr).check("SpatialSurfaceInfo.TryComputeLatestMeshAsync")
+      result = adopt[SpatialSurfaceMesh](awaitObject(tmp, IID_IAsyncOperation_1_SpatialSurfaceMesh, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
+      release(tmp)
 
 proc surfaceInfo*(self: SpatialSurfaceMesh): SpatialSurfaceInfo =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh.get_SurfaceInfo

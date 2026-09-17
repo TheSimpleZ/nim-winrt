@@ -5,12 +5,13 @@
 ## works where `RoActivateInstance` would fail, that strings cross as Nim
 ## strings, and that nothing has to be released by hand.
 
-import std/[unittest, sequtils, strutils]
+import std/[unittest, sequtils, strutils, times]
 import winrt
 import winrt/foundation
 import winrt/globalization
 import winrt/system
 import winrt/gaming
+import winrt/devices
 
 suite "generated API":
   setup:
@@ -80,3 +81,18 @@ suite "generated API":
     for i in 1 .. 2_000:
       last = TimeZoneSettings.supportedTimeZoneDisplayNames.len
     check last > 100
+
+  test "an async method blocks and hands back its result":
+    # No ADC controller on a desktop, so this completes with a null result.
+    # The point is that it completes: a wait that never returns would hang the
+    # suite rather than fail it.
+    let started = cpuTime()
+    let adc = AdcController.getDefaultAsync()
+    check cpuTime() - started < 10.0
+    check adc.isNil
+
+  test "a failed async raises with the runtime's own error code":
+    # The HRESULT comes from IAsyncInfo.get_ErrorCode, not from the call that
+    # started the operation — that one succeeded.
+    expect WinRtError:
+      discard Print3DDevice.fromIdAsync("not-a-real-device-id")

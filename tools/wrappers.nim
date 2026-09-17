@@ -72,6 +72,31 @@ type
     aliases: Table[string, string]       ## metadata name -> existing Nim type
     defaultIface: Table[string, string]  ## class -> its default interface
 
+const
+  AsyncOps = [
+    "Windows.Foundation.IAsyncOperation`1",
+    "Windows.Foundation.IAsyncOperationWithProgress`2",
+  ]
+  AsyncActions = [
+    "Windows.Foundation.IAsyncAction",
+    "Windows.Foundation.IAsyncActionWithProgress`1",
+  ]
+
+func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
+  ## Whether `t` is an async operation, and what it eventually produces.
+  ##
+  ## An action produces nothing; an operation's first type argument is the
+  ## result, and a `WithProgress` variant's second is progress reporting this
+  ## does not surface.
+  if t.kind == skInterface and t.name in AsyncActions:
+    (true, SigType(kind: skVoid))
+  elif t.kind == skUnsupported and t.name in AsyncActions:
+    (true, SigType(kind: skVoid))
+  elif t.kind == skUnsupported and t.name in AsyncOps and t.args.len >= 1:
+    (true, t.args[0])
+  else:
+    (false, SigType(kind: skVoid))
+
 const CollectionIfaces = [
   "Windows.Foundation.Collections.IVectorView`1",
   "Windows.Foundation.Collections.IVector`1",
@@ -100,6 +125,23 @@ func elementSpelling(c: Ctx, e: SigType): string =
     else: ""
   else: ""
 
+func asyncSpelling(c: Ctx, res: SigType): string =
+  ## What an async operation's result becomes in Nim. "void" is a real answer
+  ## here — an action completes without producing anything — and "" means the
+  ## result is a shape this cannot carry.
+  ## Only the shapes `core` can fetch a result for: nothing, a string, or an
+  ## object. A primitive result needs its own `GetResults` signature per width
+  ## and a nested collection needs the walk as well, so both stay skipped and
+  ## counted rather than half-supported.
+  if res.kind == skVoid: return "void"
+  case res.kind
+  of skString: "string"
+  of skInterface:
+    if res.name in c.classes: shortName(res.name)
+    elif res.name in c.classOfIface: shortName(c.classOfIface[res.name])
+    else: ""
+  else: ""
+
 func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## Why this type has no wrapper spelling. "" means it has one.
   ##
@@ -109,15 +151,18 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   if t.byRef: return "a second out-parameter"
   case t.kind
   of skUnsupported:
+    let a = c.asyncResult(t)
     let e = c.collectionElement(t)
-    if inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
+    if inReturn and a.isAsync and c.asyncSpelling(a.res).len > 0: ""
+    elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
   of skArray: "an array"
   of skEnum:
     if t.name in c.enums: "" else: "an enum from another winmd"
   of skInterface:
-    if t.name in c.classes or t.name in c.ifaceIid: ""
+    if inReturn and c.asyncResult(t).isAsync: ""
+    elif t.name in c.classes or t.name in c.ifaceIid: ""
     else: "an interface from another winmd"
   of skStruct:
     if t.name in foreignEnums or t.name in c.aliases or t.name in c.structs: ""
@@ -133,6 +178,11 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   ## than spelled `pointer`, which would read as a typed API while giving none
   ## of the safety.
   if t.byRef: return ""   # out-parameters beyond the return value are unmapped
+  if inReturn:
+    let a = c.asyncResult(t)
+    if a.isAsync:
+      let sp = c.asyncSpelling(a.res)
+      return if sp == "void": "" else: sp
   let elem = c.collectionElement(t)
   if elem.kind != skVoid:
     let e = c.elementSpelling(elem)
@@ -596,10 +646,14 @@ when isMainModule:
           skipped.inc
           noteSkip(sig)
           continue
+        # An async *action* legitimately has no return type, so "unmapped" and
+        # "produces nothing" have to be told apart before the guard below.
+        let async = c.asyncResult(sig.returns)
+        let asyncVoid = async.isAsync and c.asyncSpelling(async.res) == "void"
         let retType =
           if sig.returns.kind == skVoid: ""
           else: c.nimTypeOf(sig.returns, inReturn = true)
-        if sig.returns.kind != skVoid and retType.len == 0:
+        if sig.returns.kind != skVoid and retType.len == 0 and not asyncVoid:
           skipped.inc
           noteSkip(sig)
           continue
@@ -656,7 +710,32 @@ when isMainModule:
           continue
 
         let what = &"{cls}.{raw}"
-        if sig.returns.kind == skVoid:
+        if async.isAsync:
+          # The call itself is quick: it hands back an operation object, and
+          # the work happens elsewhere. `core` blocks on that object's status
+          # and then reads the result out of it. The wrapper is therefore
+          # synchronous, and named as the metadata names it — `...Async` — so
+          # it can still be found from Microsoft's documentation.
+          var opIid = ""
+          if sig.returns.kind == skUnsupported:
+            let computed = sigCtx.parameterizedIid(sig.returns)
+            if computed.len == 0:
+              skipped.inc
+              skipReasons.inc "an operation whose IID could not be computed"
+              continue
+            opIid = genericIidConst(computed, sig.returns)
+          lines.add &"{indent}var tmp: pointer"
+          lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
+                    callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
+          if asyncVoid:
+            lines.add &"{indent}awaitVoid(tmp, \"{what}\")"
+          elif retType == "string":
+            lines.add &"{indent}result = awaitString(tmp, {opIid}, \"{what}\")"
+          else:
+            lines.add &"{indent}result = adopt[{retType}](" &
+                      &"awaitObject(tmp, {opIid}, \"{what}\"))"
+          lines.add &"{indent}release(tmp)"
+        elif sig.returns.kind == skVoid:
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &").check(\"{what}\")"
         else:

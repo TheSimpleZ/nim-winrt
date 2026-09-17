@@ -20,6 +20,9 @@ const IID_TypedEventHandler_2_Direct3D11CaptureFramePool_Object* = GUID(
 const IID_TypedEventHandler_2_GraphicsCaptureItem_Object* = GUID(
     data1: 0xE9C610C0'u32, data2: 0xA68C'u16, data3: 0x5BD9'u16,
     data4: [0x80'u8, 0x21, 0x85, 0x89, 0x34, 0x6E, 0xEE, 0xE2])
+const IID_IAsyncOperation_1_GraphicsCaptureItem* = GUID(
+    data1: 0x01CCF2AE'u32, data2: 0x1059'u16, data3: 0x5D57'u16,
+    data4: [0xA8'u8, 0x05, 0x0A, 0x1D, 0xFC, 0x54, 0xCA, 0xB9])
 const IID_TypedEventHandler_2_BrightnessOverride_Object* = GUID(
     data1: 0xA460214E'u32, data2: 0x6620'u16, data3: 0x521D'u16,
     data4: [0x9C'u8, 0xB9, 0xA0, 0xA0, 0xF7, 0x32, 0xCE, 0x90])
@@ -68,9 +71,24 @@ const IID_EventHandler_1_Object* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IAsyncOperation_1_BitmapFrame* = GUID(
+    data1: 0xCB1483D1'u32, data2: 0x1464'u16, data3: 0x5BF9'u16,
+    data4: [0x93'u8, 0x46, 0xD5, 0x37, 0x73, 0x5D, 0xFB, 0xD6])
+const IID_IAsyncOperation_1_PixelDataProvider* = GUID(
+    data1: 0x8C2DFEB0'u32, data2: 0x6C22'u16, data3: 0x5863'u16,
+    data4: [0x88'u8, 0xD8, 0x85, 0xC1, 0xFB, 0xC7, 0x56, 0x97])
+const IID_IAsyncOperation_1_SoftwareBitmap* = GUID(
+    data1: 0xC4A10980'u32, data2: 0x714B'u16, data3: 0x5501'u16,
+    data4: [0x8D'u8, 0xA2, 0xDB, 0xDA, 0xCC, 0xE7, 0x0F, 0x73])
 const IID_IVectorView_1_BitmapCodecInformation* = GUID(
     data1: 0x97DFDE96'u32, data2: 0xFF1D'u16, data3: 0x5AA1'u16,
     data4: [0x86'u8, 0x3A, 0x90, 0x11, 0x6A, 0x31, 0xB8, 0x6B])
+const IID_IAsyncOperation_1_BitmapDecoder* = GUID(
+    data1: 0xAA94D8E9'u32, data2: 0xCAEF'u16, data3: 0x53F6'u16,
+    data4: [0x82'u8, 0x3D, 0x91, 0xB6, 0xE8, 0x34, 0x05, 0x10])
+const IID_IAsyncOperation_1_BitmapEncoder* = GUID(
+    data1: 0x151BD1C5'u32, data2: 0x4675'u16, data3: 0x5AF5'u16,
+    data4: [0xA2'u8, 0x89, 0x00, 0x1E, 0xDC, 0x66, 0xB8, 0x6A])
 const IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs* = GUID(
     data1: 0x1B1F456B'u32, data2: 0x8821'u16, data3: 0x592E'u16,
     data4: [0xB4'u8, 0xA7, 0x9B, 0x4C, 0x37, 0x12, 0x51, 0x8E])
@@ -110,12 +128,18 @@ const IID_IVector_1_PrintPageRange* = GUID(
 const IID_IVectorView_1_PrintTicketOption* = GUID(
     data1: 0xC80B48EF'u32, data2: 0x2A4C'u16, data3: 0x5685'u16,
     data4: [0xB7'u8, 0xA4, 0x88, 0xCC, 0x79, 0x6C, 0xA2, 0x74])
+const IID_IAsyncOperation_1_WorkflowPrintTicketValidationResult* = GUID(
+    data1: 0xF47C8F81'u32, data2: 0x23EF'u16, data3: 0x5A68'u16,
+    data4: [0x88'u8, 0x40, 0x70, 0x07, 0x47, 0xB1, 0x09, 0x99])
 const IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowBackgroundSetupRequestedEventArgs* = GUID(
     data1: 0xBB5C0591'u32, data2: 0x4B11'u16, data3: 0x511C'u16,
     data4: [0x8E'u8, 0xF3, 0x18, 0x22, 0xCB, 0x71, 0x42, 0x7C])
 const IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowSubmittedEventArgs* = GUID(
     data1: 0x9EC7B563'u32, data2: 0x5044'u16, data3: 0x5DF3'u16,
     data4: [0x98'u8, 0xB5, 0x3A, 0x56, 0x43, 0xFC, 0x59, 0xFE])
+const IID_IAsyncOperation_1_WorkflowPrintTicket* = GUID(
+    data1: 0x26AEDF79'u32, data2: 0x0659'u16, data3: 0x5A5D'u16,
+    data4: [0x9A'u8, 0xCF, 0xB4, 0x42, 0x3E, 0xEF, 0xDE, 0xBB])
 const IID_TypedEventHandler_2_PrintWorkflowForegroundSession_PrintWorkflowForegroundSetupRequestedEventArgs* = GUID(
     data1: 0xD85B48F0'u32, data2: 0x960B'u16, data3: 0x5F65'u16,
     data4: [0x98'u8, 0xB1, 0x5F, 0x9B, 0x09, 0xFE, 0xB2, 0xF6])
@@ -161,6 +185,12 @@ const IID_TypedEventHandler_2_Print3DTask_Print3DTaskSourceChangedEventArgs* = G
 const IID_IVector_1_Printing3DTextureResource* = GUID(
     data1: 0x120948C9'u32, data2: 0xAAA5'u16, data3: 0x5EE5'u16,
     data4: [0xA1'u8, 0x33, 0x32, 0x15, 0xD0, 0x56, 0x14, 0x04])
+const IID_IAsyncOperation_1_Printing3DModel* = GUID(
+    data1: 0x1B27900B'u32, data2: 0x10D5'u16, data3: 0x53FF'u16,
+    data4: [0x9A'u8, 0x34, 0x4B, 0x31, 0xF3, 0x15, 0x82, 0xB0])
+const IID_IAsyncOperation_1_Printing3D3MFPackage* = GUID(
+    data1: 0x6CF2EB38'u32, data2: 0xE068'u16, data3: 0x5558'u16,
+    data4: [0x94'u8, 0xB0, 0x01, 0x61, 0x19, 0x2C, 0x5F, 0x19])
 const IID_IVector_1_Printing3DBaseMaterial* = GUID(
     data1: 0x6A5AA59F'u32, data2: 0xFE10'u16, data3: 0x517B'u16,
     data4: [0xB1'u8, 0xA9, 0xC6, 0x85, 0xEC, 0xCE, 0x16, 0x44])
@@ -188,6 +218,9 @@ const IID_IVector_1_Printing3DCompositeMaterialGroup* = GUID(
 const IID_IVector_1_Printing3DMultiplePropertyMaterialGroup* = GUID(
     data1: 0x22585B94'u32, data2: 0x34A1'u16, data3: 0x5B6A'u16,
     data4: [0xBA'u8, 0xE3, 0xBF, 0x44, 0x65, 0x98, 0x12, 0xF3])
+const IID_IAsyncOperation_1_Printing3DMeshVerificationResult* = GUID(
+    data1: 0x0F9EB6C4'u32, data2: 0x19F5'u16, data3: 0x5BE9'u16,
+    data4: [0x9A'u8, 0xDB, 0x64, 0xF2, 0x4A, 0xF1, 0x15, 0xD8])
 const IID_IVector_1_Printing3DModelTexture* = GUID(
     data1: 0x4E72578F'u32, data2: 0x9BEA'u16, data3: 0x5663'u16,
     data4: [0x86'u8, 0x99, 0xE7, 0xFC, 0xAD, 0x35, 0x47, 0xA7])
@@ -2961,6 +2994,14 @@ proc newGraphicsCapturePicker*(): GraphicsCapturePicker =
   ## Activate a `Windows.Graphics.Capture.GraphicsCapturePicker`.
   adopt[GraphicsCapturePicker](activateAs("Windows.Graphics.Capture.GraphicsCapturePicker", IID_IGraphicsCapturePicker))
 
+proc pickSingleItemAsync*(self: GraphicsCapturePicker): GraphicsCaptureItem =
+  ## Windows.Graphics.Capture.GraphicsCapturePicker.PickSingleItemAsync
+  withIface(self.p, IID_IGraphicsCapturePicker, "IGraphicsCapturePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IGraphicsCapturePicker_PickSingleItemAsync, Fn_IGraphicsCapturePicker_PickSingleItemAsync)(it, tmp.addr).check("GraphicsCapturePicker.PickSingleItemAsync")
+    result = adopt[GraphicsCaptureItem](awaitObject(tmp, IID_IAsyncOperation_1_GraphicsCaptureItem, "GraphicsCapturePicker.PickSingleItemAsync"))
+    release(tmp)
+
 proc startCapture*(self: GraphicsCaptureSession) =
   ## Windows.Graphics.Capture.GraphicsCaptureSession.StartCapture
   withIface(self.p, IID_IGraphicsCaptureSession, "IGraphicsCaptureSession", it):
@@ -3293,12 +3334,13 @@ proc getCurrentDisplayMode*(self: HdmiDisplayInformation): HdmiDisplayMode =
     vcall(it, Slot_IHdmiDisplayInformation_GetCurrentDisplayMode, Fn_IHdmiDisplayInformation_GetCurrentDisplayMode)(it, tmp.addr).check("HdmiDisplayInformation.GetCurrentDisplayMode")
     result = adopt[HdmiDisplayMode](tmp)
 
-proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation): pointer =
+proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation) =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.SetDefaultDisplayModeAsync
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
     var tmp: pointer
     vcall(it, Slot_IHdmiDisplayInformation_SetDefaultDisplayModeAsync, Fn_IHdmiDisplayInformation_SetDefaultDisplayModeAsync)(it, tmp.addr).check("HdmiDisplayInformation.SetDefaultDisplayModeAsync")
-    result = tmp
+    awaitVoid(tmp, "HdmiDisplayInformation.SetDefaultDisplayModeAsync")
+    release(tmp)
 
 proc onDisplayModesChanged*(self: HdmiDisplayInformation,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -4684,6 +4726,14 @@ proc frameCount*(self: BitmapDecoder): uint32 =
     vcall(it, Slot_IBitmapDecoder_get_FrameCount, Fn_IBitmapDecoder_get_FrameCount)(it, tmp.addr).check("BitmapDecoder.get_FrameCount")
     result = tmp
 
+proc getFrameAsync*(self: BitmapDecoder, a1: uint32): BitmapFrame =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetFrameAsync
+  withIface(self.p, IID_IBitmapDecoder, "IBitmapDecoder", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapDecoder_GetFrameAsync, Fn_IBitmapDecoder_GetFrameAsync)(it, a1, tmp.addr).check("BitmapDecoder.GetFrameAsync")
+    result = adopt[BitmapFrame](awaitObject(tmp, IID_IAsyncOperation_1_BitmapFrame, "BitmapDecoder.GetFrameAsync"))
+    release(tmp)
+
 proc bitmapProperties*(self: BitmapDecoder): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapDecoder.get_BitmapProperties
   withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
@@ -4746,6 +4796,48 @@ proc orientedPixelHeight*(self: BitmapDecoder): uint32 =
     var tmp: uint32
     vcall(it, Slot_IBitmapFrame_get_OrientedPixelHeight, Fn_IBitmapFrame_get_OrientedPixelHeight)(it, tmp.addr).check("BitmapDecoder.get_OrientedPixelHeight")
     result = tmp
+
+proc getPixelDataAsync*(self: BitmapDecoder): PixelDataProvider =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetPixelDataAsync
+  withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrame_GetPixelDataAsync, Fn_IBitmapFrame_GetPixelDataAsync)(it, tmp.addr).check("BitmapDecoder.GetPixelDataAsync")
+    result = adopt[PixelDataProvider](awaitObject(tmp, IID_IAsyncOperation_1_PixelDataProvider, "BitmapDecoder.GetPixelDataAsync"))
+    release(tmp)
+
+proc getPixelDataAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): PixelDataProvider =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetPixelDataAsync
+  withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
+    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, a1, a2, p2, a4, a5, tmp.addr).check("BitmapDecoder.GetPixelDataAsync")
+      result = adopt[PixelDataProvider](awaitObject(tmp, IID_IAsyncOperation_1_PixelDataProvider, "BitmapDecoder.GetPixelDataAsync"))
+      release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapDecoder): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync)(it, tmp.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
+    release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, a1, a2, tmp.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
+    release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, a1, a2, p2, a4, a5, tmp.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
+      result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
+      release(tmp)
 
 proc heifDecoderId*(_: typedesc[BitmapDecoder]): GUID =
   ## Windows.Graphics.Imaging.BitmapDecoder.get_HeifDecoderId
@@ -4818,6 +4910,22 @@ proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
+proc createAsync*(_: typedesc[BitmapDecoder], a1: pointer): BitmapDecoder =
+  ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
+  withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync, Fn_IBitmapDecoderStatics_CreateAsync)(it, a1, tmp.addr).check("BitmapDecoder.CreateAsync")
+    result = adopt[BitmapDecoder](awaitObject(tmp, IID_IAsyncOperation_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
+    release(tmp)
+
+proc createAsync*(_: typedesc[BitmapDecoder], a1: GUID, a2: pointer): BitmapDecoder =
+  ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
+  withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync2, Fn_IBitmapDecoderStatics_CreateAsync2)(it, a1, a2, tmp.addr).check("BitmapDecoder.CreateAsync")
+    result = adopt[BitmapDecoder](awaitObject(tmp, IID_IAsyncOperation_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
+    release(tmp)
+
 proc encoderInformation*(self: BitmapEncoder): BitmapCodecInformation =
   ## Windows.Graphics.Imaging.BitmapEncoder.get_EncoderInformation
   withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
@@ -4882,19 +4990,21 @@ proc bitmapTransform*(self: BitmapEncoder): BitmapTransform =
     vcall(it, Slot_IBitmapEncoder_get_BitmapTransform, Fn_IBitmapEncoder_get_BitmapTransform)(it, tmp.addr).check("BitmapEncoder.get_BitmapTransform")
     result = adopt[BitmapTransform](tmp)
 
-proc goToNextFrameAsync*(self: BitmapEncoder): pointer =
+proc goToNextFrameAsync*(self: BitmapEncoder) =
   ## Windows.Graphics.Imaging.BitmapEncoder.GoToNextFrameAsync
   withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapEncoder_GoToNextFrameAsync, Fn_IBitmapEncoder_GoToNextFrameAsync)(it, tmp.addr).check("BitmapEncoder.GoToNextFrameAsync")
-    result = tmp
+    awaitVoid(tmp, "BitmapEncoder.GoToNextFrameAsync")
+    release(tmp)
 
-proc flushAsync*(self: BitmapEncoder): pointer =
+proc flushAsync*(self: BitmapEncoder) =
   ## Windows.Graphics.Imaging.BitmapEncoder.FlushAsync
   withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapEncoder_FlushAsync, Fn_IBitmapEncoder_FlushAsync)(it, tmp.addr).check("BitmapEncoder.FlushAsync")
-    result = tmp
+    awaitVoid(tmp, "BitmapEncoder.FlushAsync")
+    release(tmp)
 
 proc setSoftwareBitmap*(self: BitmapEncoder, a1: SoftwareBitmap) =
   ## Windows.Graphics.Imaging.BitmapEncoder.SetSoftwareBitmap
@@ -4959,6 +5069,32 @@ proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
+proc createAsync*(_: typedesc[BitmapEncoder], a1: GUID, a2: pointer): BitmapEncoder =
+  ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
+  withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, a1, a2, tmp.addr).check("BitmapEncoder.CreateAsync")
+    result = adopt[BitmapEncoder](awaitObject(tmp, IID_IAsyncOperation_1_BitmapEncoder, "BitmapEncoder.CreateAsync"))
+    release(tmp)
+
+proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], a1: pointer, a2: BitmapDecoder): BitmapEncoder =
+  ## Windows.Graphics.Imaging.BitmapEncoder.CreateForTranscodingAsync
+  withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
+    withIface(a2.p, IID_IBitmapDecoder, "IBitmapDecoder", p1):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapEncoderStatics_CreateForTranscodingAsync, Fn_IBitmapEncoderStatics_CreateForTranscodingAsync)(it, a1, p1, tmp.addr).check("BitmapEncoder.CreateForTranscodingAsync")
+      result = adopt[BitmapEncoder](awaitObject(tmp, IID_IAsyncOperation_1_BitmapEncoder, "BitmapEncoder.CreateForTranscodingAsync"))
+      release(tmp)
+
+proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder], a1: BitmapDecoder): BitmapEncoder =
+  ## Windows.Graphics.Imaging.BitmapEncoder.CreateForInPlacePropertyEncodingAsync
+  withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
+    withIface(a1.p, IID_IBitmapDecoder, "IBitmapDecoder", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync, Fn_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync)(it, p0, tmp.addr).check("BitmapEncoder.CreateForInPlacePropertyEncodingAsync")
+      result = adopt[BitmapEncoder](awaitObject(tmp, IID_IAsyncOperation_1_BitmapEncoder, "BitmapEncoder.CreateForInPlacePropertyEncodingAsync"))
+      release(tmp)
+
 proc bitmapProperties*(self: BitmapFrame): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapFrame.get_BitmapProperties
   withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
@@ -5021,6 +5157,48 @@ proc orientedPixelHeight*(self: BitmapFrame): uint32 =
     var tmp: uint32
     vcall(it, Slot_IBitmapFrame_get_OrientedPixelHeight, Fn_IBitmapFrame_get_OrientedPixelHeight)(it, tmp.addr).check("BitmapFrame.get_OrientedPixelHeight")
     result = tmp
+
+proc getPixelDataAsync*(self: BitmapFrame): PixelDataProvider =
+  ## Windows.Graphics.Imaging.BitmapFrame.GetPixelDataAsync
+  withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrame_GetPixelDataAsync, Fn_IBitmapFrame_GetPixelDataAsync)(it, tmp.addr).check("BitmapFrame.GetPixelDataAsync")
+    result = adopt[PixelDataProvider](awaitObject(tmp, IID_IAsyncOperation_1_PixelDataProvider, "BitmapFrame.GetPixelDataAsync"))
+    release(tmp)
+
+proc getPixelDataAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): PixelDataProvider =
+  ## Windows.Graphics.Imaging.BitmapFrame.GetPixelDataAsync
+  withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
+    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, a1, a2, p2, a4, a5, tmp.addr).check("BitmapFrame.GetPixelDataAsync")
+      result = adopt[PixelDataProvider](awaitObject(tmp, IID_IAsyncOperation_1_PixelDataProvider, "BitmapFrame.GetPixelDataAsync"))
+      release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapFrame): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync)(it, tmp.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
+    release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, a1, a2, tmp.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
+    release(tmp)
+
+proc getSoftwareBitmapAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
+  withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
+    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, a1, a2, p2, a4, a5, tmp.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
+      result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
+      release(tmp)
 
 proc newBitmapTransform*(): BitmapTransform =
   ## Activate a `Windows.Graphics.Imaging.BitmapTransform`.
@@ -5231,6 +5409,22 @@ proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], a1: pointer, a2: BitmapP
     var tmp: pointer
     vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer2, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2)(it, a1, a2, a3, a4, a5, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
     result = adopt[SoftwareBitmap](tmp)
+
+proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], a1: pointer): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
+  withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync)(it, a1, tmp.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "SoftwareBitmap.CreateCopyFromSurfaceAsync"))
+    release(tmp)
+
+proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], a1: pointer, a2: BitmapAlphaMode): SoftwareBitmap =
+  ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
+  withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2)(it, a1, a2, tmp.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
+    result = adopt[SoftwareBitmap](awaitObject(tmp, IID_IAsyncOperation_1_SoftwareBitmap, "SoftwareBitmap.CreateCopyFromSurfaceAsync"))
+    release(tmp)
 
 proc create*(_: typedesc[SoftwareBitmap], a1: BitmapPixelFormat, a2: int32, a3: int32): SoftwareBitmap =
   ## Windows.Graphics.Imaging.SoftwareBitmap.Create
@@ -8197,12 +8391,21 @@ proc getFeature*(self: WorkflowPrintTicket, a1: string, a2: string): PrintTicket
         vcall(it, Slot_IWorkflowPrintTicket_GetFeature, Fn_IWorkflowPrintTicket_GetFeature)(it, h0, h1, tmp.addr).check("WorkflowPrintTicket.GetFeature")
         result = adopt[PrintTicketFeature](tmp)
 
-proc notifyXmlChangedAsync*(self: WorkflowPrintTicket): pointer =
+proc notifyXmlChangedAsync*(self: WorkflowPrintTicket) =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.NotifyXmlChangedAsync
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
     var tmp: pointer
     vcall(it, Slot_IWorkflowPrintTicket_NotifyXmlChangedAsync, Fn_IWorkflowPrintTicket_NotifyXmlChangedAsync)(it, tmp.addr).check("WorkflowPrintTicket.NotifyXmlChangedAsync")
-    result = tmp
+    awaitVoid(tmp, "WorkflowPrintTicket.NotifyXmlChangedAsync")
+    release(tmp)
+
+proc validateAsync*(self: WorkflowPrintTicket): WorkflowPrintTicketValidationResult =
+  ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.ValidateAsync
+  withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
+    var tmp: pointer
+    vcall(it, Slot_IWorkflowPrintTicket_ValidateAsync, Fn_IWorkflowPrintTicket_ValidateAsync)(it, tmp.addr).check("WorkflowPrintTicket.ValidateAsync")
+    result = adopt[WorkflowPrintTicketValidationResult](awaitObject(tmp, IID_IAsyncOperation_1_WorkflowPrintTicketValidationResult, "WorkflowPrintTicket.ValidateAsync"))
+    release(tmp)
 
 proc getParameterInitializer*(self: WorkflowPrintTicket, a1: string, a2: string): PrintTicketParameterInitializer =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.GetParameterInitializer
@@ -8424,6 +8627,14 @@ proc start*(self: PrintWorkflowBackgroundSession) =
   withIface(self.p, IID_IPrintWorkflowBackgroundSession, "IPrintWorkflowBackgroundSession", it):
     vcall(it, Slot_IPrintWorkflowBackgroundSession_Start, Fn_IPrintWorkflowBackgroundSession_Start)(it).check("PrintWorkflowBackgroundSession.Start")
 
+proc getUserPrintTicketAsync*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): WorkflowPrintTicket =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync
+  withIface(self.p, IID_IPrintWorkflowBackgroundSetupRequestedEventArgs, "IPrintWorkflowBackgroundSetupRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowBackgroundSetupRequestedEventArgs_GetUserPrintTicketAsync, Fn_IPrintWorkflowBackgroundSetupRequestedEventArgs_GetUserPrintTicketAsync)(it, tmp.addr).check("PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync")
+    result = adopt[WorkflowPrintTicket](awaitObject(tmp, IID_IAsyncOperation_1_WorkflowPrintTicket, "PrintWorkflowBackgroundSetupRequestedEventArgs.GetUserPrintTicketAsync"))
+    release(tmp)
+
 proc configuration*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSetupRequestedEventArgs.get_Configuration
   withIface(self.p, IID_IPrintWorkflowBackgroundSetupRequestedEventArgs, "IPrintWorkflowBackgroundSetupRequestedEventArgs", it):
@@ -8511,6 +8722,14 @@ proc start*(self: PrintWorkflowForegroundSession) =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession.Start
   withIface(self.p, IID_IPrintWorkflowForegroundSession, "IPrintWorkflowForegroundSession", it):
     vcall(it, Slot_IPrintWorkflowForegroundSession_Start, Fn_IPrintWorkflowForegroundSession_Start)(it).check("PrintWorkflowForegroundSession.Start")
+
+proc getUserPrintTicketAsync*(self: PrintWorkflowForegroundSetupRequestedEventArgs): WorkflowPrintTicket =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync
+  withIface(self.p, IID_IPrintWorkflowForegroundSetupRequestedEventArgs, "IPrintWorkflowForegroundSetupRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowForegroundSetupRequestedEventArgs_GetUserPrintTicketAsync, Fn_IPrintWorkflowForegroundSetupRequestedEventArgs_GetUserPrintTicketAsync)(it, tmp.addr).check("PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync")
+    result = adopt[WorkflowPrintTicket](awaitObject(tmp, IID_IAsyncOperation_1_WorkflowPrintTicket, "PrintWorkflowForegroundSetupRequestedEventArgs.GetUserPrintTicketAsync"))
+    release(tmp)
 
 proc configuration*(self: PrintWorkflowForegroundSetupRequestedEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSetupRequestedEventArgs.get_Configuration
@@ -8794,29 +9013,32 @@ proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent], a1:
     vcall(it, Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance, Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance)(it, a1, tmp.addr).check("PrintWorkflowObjectModelSourceFileContent.CreateInstance")
     result = adopt[PrintWorkflowObjectModelSourceFileContent](tmp)
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer): pointer =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer) =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   withIface(self.p, IID_IPrintWorkflowPdlConverter, "IPrintWorkflowPdlConverter", it):
     withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintWorkflowPdlConverter_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter_ConvertPdlAsync)(it, p0, a2, a3, tmp.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
-      result = tmp
+      awaitVoid(tmp, "PrintWorkflowPdlConverter.ConvertPdlAsync")
+      release(tmp)
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations): pointer =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations) =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   withIface(self.p, IID_IPrintWorkflowPdlConverter2, "IPrintWorkflowPdlConverter2", it):
     withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync)(it, p0, a2, a3, a4, tmp.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
-      result = tmp
+      awaitVoid(tmp, "PrintWorkflowPdlConverter.ConvertPdlAsync")
+      release(tmp)
 
-proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations): pointer =
+proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations) =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync
   withIface(self.p, IID_IPrintWorkflowPdlConverter3, "IPrintWorkflowPdlConverter3", it):
     withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync, Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync)(it, p0, a2, a3, a4, tmp.addr).check("PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
-      result = tmp
+      awaitVoid(tmp, "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
+      release(tmp)
 
 proc configuration*(self: PrintWorkflowPdlDataAvailableEventArgs): PrintWorkflowConfiguration =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlDataAvailableEventArgs.get_Configuration
@@ -8963,6 +9185,14 @@ proc configuration*(self: PrintWorkflowPrinterJobStatusChangedEventArgs): PrintW
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPrinterJobStatusChangedEventArgs_get_Configuration, Fn_IPrintWorkflowPrinterJobStatusChangedEventArgs_get_Configuration)(it, tmp.addr).check("PrintWorkflowPrinterJobStatusChangedEventArgs.get_Configuration")
     result = adopt[PrintWorkflowConfiguration](tmp)
+
+proc getJobPrintTicketAsync*(self: PrintWorkflowSourceContent): WorkflowPrintTicket =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent.GetJobPrintTicketAsync
+  withIface(self.p, IID_IPrintWorkflowSourceContent, "IPrintWorkflowSourceContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowSourceContent_GetJobPrintTicketAsync, Fn_IPrintWorkflowSourceContent_GetJobPrintTicketAsync)(it, tmp.addr).check("PrintWorkflowSourceContent.GetJobPrintTicketAsync")
+    result = adopt[WorkflowPrintTicket](awaitObject(tmp, IID_IAsyncOperation_1_WorkflowPrintTicket, "PrintWorkflowSourceContent.GetJobPrintTicketAsync"))
+    release(tmp)
 
 proc getSourceSpoolDataAsStreamContent*(self: PrintWorkflowSourceContent): PrintWorkflowSpoolStreamContent =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent.GetSourceSpoolDataAsStreamContent
@@ -9344,13 +9574,22 @@ proc textures*(self: Printing3D3MFPackage): seq[Printing3DTextureResource] =
     result = toSeq[Printing3DTextureResource](tmp, IID_IVector_1_Printing3DTextureResource)
     release(tmp)
 
-proc saveModelToPackageAsync*(self: Printing3D3MFPackage, a1: Printing3DModel): pointer =
+proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, a1: pointer): Printing3DModel =
+  ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadModelFromPackageAsync
+  withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync, Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync)(it, a1, tmp.addr).check("Printing3D3MFPackage.LoadModelFromPackageAsync")
+    result = adopt[Printing3DModel](awaitObject(tmp, IID_IAsyncOperation_1_Printing3DModel, "Printing3D3MFPackage.LoadModelFromPackageAsync"))
+    release(tmp)
+
+proc saveModelToPackageAsync*(self: Printing3D3MFPackage, a1: Printing3DModel) =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveModelToPackageAsync
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
     withIface(a1.p, IID_IPrinting3DModel, "IPrinting3DModel", p0):
       var tmp: pointer
       vcall(it, Slot_IPrinting3D3MFPackage_SaveModelToPackageAsync, Fn_IPrinting3D3MFPackage_SaveModelToPackageAsync)(it, p0, tmp.addr).check("Printing3D3MFPackage.SaveModelToPackageAsync")
-      result = tmp
+      awaitVoid(tmp, "Printing3D3MFPackage.SaveModelToPackageAsync")
+      release(tmp)
 
 proc compression*(self: Printing3D3MFPackage): Printing3DPackageCompression =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_Compression
@@ -9363,6 +9602,14 @@ proc `compression=`*(self: Printing3D3MFPackage, value: Printing3DPackageCompres
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.put_Compression
   withIface(self.p, IID_IPrinting3D3MFPackage2, "IPrinting3D3MFPackage2", it):
     vcall(it, Slot_IPrinting3D3MFPackage2_put_Compression, Fn_IPrinting3D3MFPackage2_put_Compression)(it, value).check("Printing3D3MFPackage.put_Compression")
+
+proc loadAsync*(_: typedesc[Printing3D3MFPackage], a1: pointer): Printing3D3MFPackage =
+  ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadAsync
+  withStatics("Windows.Graphics.Printing3D.Printing3D3MFPackage", IID_IPrinting3D3MFPackageStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3D3MFPackageStatics_LoadAsync, Fn_IPrinting3D3MFPackageStatics_LoadAsync)(it, a1, tmp.addr).check("Printing3D3MFPackage.LoadAsync")
+    result = adopt[Printing3D3MFPackage](awaitObject(tmp, IID_IAsyncOperation_1_Printing3D3MFPackage, "Printing3D3MFPackage.LoadAsync"))
+    release(tmp)
 
 proc newPrinting3DBaseMaterial*(): Printing3DBaseMaterial =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DBaseMaterial`.
@@ -9846,6 +10093,14 @@ proc bufferSet*(self: Printing3DMesh): pointer =
     vcall(it, Slot_IPrinting3DMesh_get_BufferSet, Fn_IPrinting3DMesh_get_BufferSet)(it, tmp.addr).check("Printing3DMesh.get_BufferSet")
     result = tmp
 
+proc verifyAsync*(self: Printing3DMesh, a1: Printing3DMeshVerificationMode): Printing3DMeshVerificationResult =
+  ## Windows.Graphics.Printing3D.Printing3DMesh.VerifyAsync
+  withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMesh_VerifyAsync, Fn_IPrinting3DMesh_VerifyAsync)(it, a1, tmp.addr).check("Printing3DMesh.VerifyAsync")
+    result = adopt[Printing3DMeshVerificationResult](awaitObject(tmp, IID_IAsyncOperation_1_Printing3DMeshVerificationResult, "Printing3DMesh.VerifyAsync"))
+    release(tmp)
+
 proc isValid*(self: Printing3DMeshVerificationResult): bool =
   ## Windows.Graphics.Printing3D.Printing3DMeshVerificationResult.get_IsValid
   withIface(self.p, IID_IPrinting3DMeshVerificationResult, "IPrinting3DMeshVerificationResult", it):
@@ -9940,12 +10195,13 @@ proc requiredExtensions*(self: Printing3DModel): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc repairAsync*(self: Printing3DModel): pointer =
+proc repairAsync*(self: Printing3DModel) =
   ## Windows.Graphics.Printing3D.Printing3DModel.RepairAsync
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_RepairAsync, Fn_IPrinting3DModel_RepairAsync)(it, tmp.addr).check("Printing3DModel.RepairAsync")
-    result = tmp
+    awaitVoid(tmp, "Printing3DModel.RepairAsync")
+    release(tmp)
 
 proc clone*(self: Printing3DModel): Printing3DModel =
   ## Windows.Graphics.Printing3D.Printing3DModel.Clone

@@ -20,9 +20,15 @@ const IID_IVector_1_String* = GUID(
 const IID_IVector_1_SharedPackageContainerMember* = GUID(
     data1: 0x45787BB3'u32, data2: 0x2770'u16, data3: 0x5086'u16,
     data4: [0x95'u8, 0x46, 0x51, 0x11, 0x41, 0xEF, 0x72, 0x89])
+const IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress* = GUID(
+    data1: 0x5A97AAB7'u32, data2: 0xB6EA'u16, data3: 0x55AC'u16,
+    data4: [0xA5'u8, 0xDC, 0xD5, 0xB1, 0x64, 0xD9, 0x4E, 0x94])
 const IID_IIterable_1_PackageUserInformation* = GUID(
     data1: 0x341348B9'u32, data2: 0x52C8'u16, data3: 0x5B57'u16,
     data4: [0x9E'u8, 0x91, 0xF1, 0x9F, 0x2A, 0x05, 0xB1, 0x88])
+const IID_IAsyncOperation_1_PackageVolume* = GUID(
+    data1: 0x0315EDB6'u32, data2: 0xDC58'u16, data3: 0x51CC'u16,
+    data4: [0xA5'u8, 0x19, 0x44, 0x90, 0x1A, 0xD2, 0xCF, 0x15])
 const IID_IIterable_1_PackageVolume* = GUID(
     data1: 0xA6199162'u32, data2: 0xB163'u16, data3: 0x56A1'u16,
     data4: [0x99'u8, 0x80, 0xDB, 0x0C, 0x3F, 0x4E, 0x92, 0x84])
@@ -50,6 +56,9 @@ const IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSess
 const IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSessionConnectionChangedEventArgs* = GUID(
     data1: 0x3091FE0B'u32, data2: 0x29C3'u16, data3: 0x596C'u16,
     data4: [0xBA'u8, 0xE3, 0xAC, 0xA1, 0xAE, 0xD1, 0xA4, 0xDC])
+const IID_IAsyncOperation_1_DevicePreparationExecutionContext* = GUID(
+    data1: 0x7275B4FE'u32, data2: 0xBA33'u16, data3: 0x55BD'u16,
+    data4: [0x83'u8, 0x0F, 0x47, 0x0F, 0x0F, 0x6D, 0x9A, 0x78])
 const IID_IVectorView_1_WindowsSoftwareUpdateLocalizationInfo* = GUID(
     data1: 0x3145957D'u32, data2: 0x539F'u16, data3: 0x5F3D'u16,
     data4: [0x8D'u8, 0x5D, 0xBC, 0x8A, 0x95, 0xFC, 0x90, 0x37])
@@ -1692,6 +1701,15 @@ proc newPackageManager*(): PackageManager =
   ## Activate a `Windows.Management.Deployment.PackageManager`.
   adopt[PackageManager](activateAs("Windows.Management.Deployment.PackageManager", IID_IPackageManager))
 
+proc removePackageAsync*(self: PackageManager, a1: string): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.RemovePackageAsync
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager_RemovePackageAsync, Fn_IPackageManager_RemovePackageAsync)(it, h0, tmp.addr).check("PackageManager.RemovePackageAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.RemovePackageAsync"))
+      release(tmp)
+
 proc findUsers*(self: PackageManager, a1: string): seq[PackageUserInformation] =
   ## Windows.Management.Deployment.PackageManager.FindUsers
   withIface(self.p, IID_IPackageManager, "IPackageManager", it):
@@ -1706,6 +1724,43 @@ proc setPackageState*(self: PackageManager, a1: string, a2: PackageState) =
   withIface(self.p, IID_IPackageManager, "IPackageManager", it):
     withHString(a1, h0):
       vcall(it, Slot_IPackageManager_SetPackageState, Fn_IPackageManager_SetPackageState)(it, h0, a2).check("PackageManager.SetPackageState")
+
+proc cleanupPackageForUserAsync*(self: PackageManager, a1: string, a2: string): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.CleanupPackageForUserAsync
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager_CleanupPackageForUserAsync, Fn_IPackageManager_CleanupPackageForUserAsync)(it, h0, h1, tmp.addr).check("PackageManager.CleanupPackageForUserAsync")
+        result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.CleanupPackageForUserAsync"))
+        release(tmp)
+
+proc removePackageAsync*(self: PackageManager, a1: string, a2: RemovalOptions): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.RemovePackageAsync
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager2_RemovePackageAsync, Fn_IPackageManager2_RemovePackageAsync)(it, h0, a2, tmp.addr).check("PackageManager.RemovePackageAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.RemovePackageAsync"))
+      release(tmp)
+
+proc stageUserDataAsync*(self: PackageManager, a1: string): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.StageUserDataAsync
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager2_StageUserDataAsync, Fn_IPackageManager2_StageUserDataAsync)(it, h0, tmp.addr).check("PackageManager.StageUserDataAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.StageUserDataAsync"))
+      release(tmp)
+
+proc addPackageVolumeAsync*(self: PackageManager, a1: string): PackageVolume =
+  ## Windows.Management.Deployment.PackageManager.AddPackageVolumeAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager3_AddPackageVolumeAsync, Fn_IPackageManager3_AddPackageVolumeAsync)(it, h0, tmp.addr).check("PackageManager.AddPackageVolumeAsync")
+      result = adopt[PackageVolume](awaitObject(tmp, IID_IAsyncOperation_1_PackageVolume, "PackageManager.AddPackageVolumeAsync"))
+      release(tmp)
 
 proc clearPackageStatus*(self: PackageManager, a1: string, a2: PackageStatus) =
   ## Windows.Management.Deployment.PackageManager.ClearPackageStatus
@@ -1736,6 +1791,25 @@ proc getDefaultPackageVolume*(self: PackageManager): PackageVolume =
     vcall(it, Slot_IPackageManager3_GetDefaultPackageVolume, Fn_IPackageManager3_GetDefaultPackageVolume)(it, tmp.addr).check("PackageManager.GetDefaultPackageVolume")
     result = adopt[PackageVolume](tmp)
 
+proc movePackageToVolumeAsync*(self: PackageManager, a1: string, a2: DeploymentOptions, a3: PackageVolume): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.MovePackageToVolumeAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withHString(a1, h0):
+      withIface(a3.p, IID_IPackageVolume, "IPackageVolume", p2):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager3_MovePackageToVolumeAsync, Fn_IPackageManager3_MovePackageToVolumeAsync)(it, h0, a2, p2, tmp.addr).check("PackageManager.MovePackageToVolumeAsync")
+        result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.MovePackageToVolumeAsync"))
+        release(tmp)
+
+proc removePackageVolumeAsync*(self: PackageManager, a1: PackageVolume): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.RemovePackageVolumeAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(a1.p, IID_IPackageVolume, "IPackageVolume", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager3_RemovePackageVolumeAsync, Fn_IPackageManager3_RemovePackageVolumeAsync)(it, p0, tmp.addr).check("PackageManager.RemovePackageVolumeAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.RemovePackageVolumeAsync"))
+      release(tmp)
+
 proc setDefaultPackageVolume*(self: PackageManager, a1: PackageVolume) =
   ## Windows.Management.Deployment.PackageManager.SetDefaultPackageVolume
   withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
@@ -1748,12 +1822,57 @@ proc setPackageStatus*(self: PackageManager, a1: string, a2: PackageStatus) =
     withHString(a1, h0):
       vcall(it, Slot_IPackageManager3_SetPackageStatus, Fn_IPackageManager3_SetPackageStatus)(it, h0, a2).check("PackageManager.SetPackageStatus")
 
+proc setPackageVolumeOfflineAsync*(self: PackageManager, a1: PackageVolume): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.SetPackageVolumeOfflineAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(a1.p, IID_IPackageVolume, "IPackageVolume", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager3_SetPackageVolumeOfflineAsync, Fn_IPackageManager3_SetPackageVolumeOfflineAsync)(it, p0, tmp.addr).check("PackageManager.SetPackageVolumeOfflineAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.SetPackageVolumeOfflineAsync"))
+      release(tmp)
+
+proc setPackageVolumeOnlineAsync*(self: PackageManager, a1: PackageVolume): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.SetPackageVolumeOnlineAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withIface(a1.p, IID_IPackageVolume, "IPackageVolume", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager3_SetPackageVolumeOnlineAsync, Fn_IPackageManager3_SetPackageVolumeOnlineAsync)(it, p0, tmp.addr).check("PackageManager.SetPackageVolumeOnlineAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.SetPackageVolumeOnlineAsync"))
+      release(tmp)
+
+proc stageUserDataAsync*(self: PackageManager, a1: string, a2: DeploymentOptions): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.StageUserDataAsync
+  withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager3_StageUserDataAsync, Fn_IPackageManager3_StageUserDataAsync)(it, h0, a2, tmp.addr).check("PackageManager.StageUserDataAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.StageUserDataAsync"))
+      release(tmp)
+
 proc debugSettings*(self: PackageManager): PackageManagerDebugSettings =
   ## Windows.Management.Deployment.PackageManager.get_DebugSettings
   withIface(self.p, IID_IPackageManager5, "IPackageManager5", it):
     var tmp: pointer
     vcall(it, Slot_IPackageManager5_get_DebugSettings, Fn_IPackageManager5_get_DebugSettings)(it, tmp.addr).check("PackageManager.get_DebugSettings")
     result = adopt[PackageManagerDebugSettings](tmp)
+
+proc provisionPackageForAllUsersAsync*(self: PackageManager, a1: string): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.ProvisionPackageForAllUsersAsync
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager6_ProvisionPackageForAllUsersAsync, Fn_IPackageManager6_ProvisionPackageForAllUsersAsync)(it, h0, tmp.addr).check("PackageManager.ProvisionPackageForAllUsersAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.ProvisionPackageForAllUsersAsync"))
+      release(tmp)
+
+proc deprovisionPackageForAllUsersAsync*(self: PackageManager, a1: string): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.DeprovisionPackageForAllUsersAsync
+  withIface(self.p, IID_IPackageManager8, "IPackageManager8", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager8_DeprovisionPackageForAllUsersAsync, Fn_IPackageManager8_DeprovisionPackageForAllUsersAsync)(it, h0, tmp.addr).check("PackageManager.DeprovisionPackageForAllUsersAsync")
+      result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.DeprovisionPackageForAllUsersAsync"))
+      release(tmp)
 
 proc setPackageStubPreference*(self: PackageManager, a1: string, a2: PackageStubPreference) =
   ## Windows.Management.Deployment.PackageManager.SetPackageStubPreference
@@ -1768,6 +1887,16 @@ proc getPackageStubPreference*(self: PackageManager, a1: string): PackageStubPre
       var tmp: PackageStubPreference
       vcall(it, Slot_IPackageManager9_GetPackageStubPreference, Fn_IPackageManager9_GetPackageStubPreference)(it, h0, tmp.addr).check("PackageManager.GetPackageStubPreference")
       result = tmp
+
+proc provisionPackageForAllUsersAsync*(self: PackageManager, a1: string, a2: PackageAllUserProvisioningOptions): DeploymentResult =
+  ## Windows.Management.Deployment.PackageManager.ProvisionPackageForAllUsersAsync
+  withIface(self.p, IID_IPackageManager10, "IPackageManager10", it):
+    withHString(a1, h0):
+      withIface(a2.p, IID_IPackageAllUserProvisioningOptions, "IPackageAllUserProvisioningOptions", p1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager10_ProvisionPackageForAllUsersAsync, Fn_IPackageManager10_ProvisionPackageForAllUsersAsync)(it, h0, p1, tmp.addr).check("PackageManager.ProvisionPackageForAllUsersAsync")
+        result = adopt[DeploymentResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, "PackageManager.ProvisionPackageForAllUsersAsync"))
+        release(tmp)
 
 proc isPackageRemovalPending*(self: PackageManager, a1: string): bool =
   ## Windows.Management.Deployment.PackageManager.IsPackageRemovalPending
@@ -2448,24 +2577,26 @@ proc state*(self: MdmSession): MdmSessionState =
     vcall(it, Slot_IMdmSession_get_State, Fn_IMdmSession_get_State)(it, tmp.addr).check("MdmSession.get_State")
     result = tmp
 
-proc attachAsync*(self: MdmSession): pointer =
+proc attachAsync*(self: MdmSession) =
   ## Windows.Management.MdmSession.AttachAsync
   withIface(self.p, IID_IMdmSession, "IMdmSession", it):
     var tmp: pointer
     vcall(it, Slot_IMdmSession_AttachAsync, Fn_IMdmSession_AttachAsync)(it, tmp.addr).check("MdmSession.AttachAsync")
-    result = tmp
+    awaitVoid(tmp, "MdmSession.AttachAsync")
+    release(tmp)
 
 proc delete*(self: MdmSession) =
   ## Windows.Management.MdmSession.Delete
   withIface(self.p, IID_IMdmSession, "IMdmSession", it):
     vcall(it, Slot_IMdmSession_Delete, Fn_IMdmSession_Delete)(it).check("MdmSession.Delete")
 
-proc startAsync*(self: MdmSession): pointer =
+proc startAsync*(self: MdmSession) =
   ## Windows.Management.MdmSession.StartAsync
   withIface(self.p, IID_IMdmSession, "IMdmSession", it):
     var tmp: pointer
     vcall(it, Slot_IMdmSession_StartAsync, Fn_IMdmSession_StartAsync)(it, tmp.addr).check("MdmSession.StartAsync")
-    result = tmp
+    awaitVoid(tmp, "MdmSession.StartAsync")
+    release(tmp)
 
 proc sessionIds*(_: typedesc[MdmSessionManager]): seq[string] =
   ## Windows.Management.MdmSessionManager.get_SessionIds
@@ -2930,6 +3061,14 @@ proc reportProgress*(self: MachineProvisioningProgressReporter, a1: AgentProvisi
   withIface(self.p, IID_IMachineProvisioningProgressReporter, "IMachineProvisioningProgressReporter", it):
     withIface(a1.p, IID_IAgentProvisioningProgressReport, "IAgentProvisioningProgressReport", p0):
       vcall(it, Slot_IMachineProvisioningProgressReporter_ReportProgress, Fn_IMachineProvisioningProgressReporter_ReportProgress)(it, p0).check("MachineProvisioningProgressReporter.ReportProgress")
+
+proc getDevicePreparationExecutionContextAsync*(self: MachineProvisioningProgressReporter): DevicePreparationExecutionContext =
+  ## Windows.Management.Setup.MachineProvisioningProgressReporter.GetDevicePreparationExecutionContextAsync
+  withIface(self.p, IID_IMachineProvisioningProgressReporter, "IMachineProvisioningProgressReporter", it):
+    var tmp: pointer
+    vcall(it, Slot_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync, Fn_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync)(it, tmp.addr).check("MachineProvisioningProgressReporter.GetDevicePreparationExecutionContextAsync")
+    result = adopt[DevicePreparationExecutionContext](awaitObject(tmp, IID_IAsyncOperation_1_DevicePreparationExecutionContext, "MachineProvisioningProgressReporter.GetDevicePreparationExecutionContextAsync"))
+    release(tmp)
 
 proc arePreviewBuildsAllowed*(self: PreviewBuildsManager): bool =
   ## Windows.Management.Update.PreviewBuildsManager.get_ArePreviewBuildsAllowed

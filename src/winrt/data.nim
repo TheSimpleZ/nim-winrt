@@ -14,15 +14,24 @@ export core, data
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IAsyncOperation_1_PdfDocument* = GUID(
+    data1: 0xD6B166EC'u32, data2: 0x099A'u16, data3: 0x5EE2'u16,
+    data4: [0xAD'u8, 0x2E, 0xF4, 0xC8, 0x86, 0x14, 0xAA, 0xBB])
 const IID_IVectorView_1_SelectableWordSegment* = GUID(
     data1: 0x33F90A72'u32, data2: 0x86F4'u16, data3: 0x5027'u16,
     data4: [0xB5'u8, 0x0A, 0x69, 0x39, 0xA1, 0xF9, 0xD5, 0x60])
+const IID_IAsyncOperation_1_String* = GUID(
+    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
+    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
 const IID_IVectorView_1_AlternateWordForm* = GUID(
     data1: 0x6B742FF2'u32, data2: 0x746A'u16, data3: 0x5545'u16,
     data4: [0xA6'u8, 0xED, 0x3B, 0xBA, 0x45, 0x3C, 0xF5, 0xD9])
 const IID_IVectorView_1_WordSegment* = GUID(
     data1: 0xC706749A'u32, data2: 0xE11D'u16, data3: 0x5E07'u16,
     data4: [0x85'u8, 0x34, 0x2B, 0xD2, 0x3E, 0xC2, 0x10, 0xF9])
+const IID_IAsyncOperation_1_XmlDocument* = GUID(
+    data1: 0xF858E239'u32, data2: 0x1896'u16, data3: 0x5982'u16,
+    data4: [0x84'u8, 0x95, 0x14, 0x31, 0x68, 0x47, 0x8E, 0xB8])
 
 type
   HtmlUtilities* = object
@@ -961,27 +970,64 @@ proc isPasswordProtected*(self: PdfDocument): bool =
     vcall(it, Slot_IPdfDocument_get_IsPasswordProtected, Fn_IPdfDocument_get_IsPasswordProtected)(it, tmp.addr).check("PdfDocument.get_IsPasswordProtected")
     result = tmp
 
-proc renderToStreamAsync*(self: PdfPage, a1: pointer): pointer =
+proc loadFromFileAsync*(_: typedesc[PdfDocument], a1: pointer): PdfDocument =
+  ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
+  withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync, Fn_IPdfDocumentStatics_LoadFromFileAsync)(it, a1, tmp.addr).check("PdfDocument.LoadFromFileAsync")
+    result = adopt[PdfDocument](awaitObject(tmp, IID_IAsyncOperation_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
+    release(tmp)
+
+proc loadFromFileAsync*(_: typedesc[PdfDocument], a1: pointer, a2: string): PdfDocument =
+  ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
+  withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
+    withHString(a2, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync2, Fn_IPdfDocumentStatics_LoadFromFileAsync2)(it, a1, h1, tmp.addr).check("PdfDocument.LoadFromFileAsync")
+      result = adopt[PdfDocument](awaitObject(tmp, IID_IAsyncOperation_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
+      release(tmp)
+
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], a1: pointer): PdfDocument =
+  ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
+  withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync, Fn_IPdfDocumentStatics_LoadFromStreamAsync)(it, a1, tmp.addr).check("PdfDocument.LoadFromStreamAsync")
+    result = adopt[PdfDocument](awaitObject(tmp, IID_IAsyncOperation_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
+    release(tmp)
+
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], a1: pointer, a2: string): PdfDocument =
+  ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
+  withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
+    withHString(a2, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync2, Fn_IPdfDocumentStatics_LoadFromStreamAsync2)(it, a1, h1, tmp.addr).check("PdfDocument.LoadFromStreamAsync")
+      result = adopt[PdfDocument](awaitObject(tmp, IID_IAsyncOperation_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
+      release(tmp)
+
+proc renderToStreamAsync*(self: PdfPage, a1: pointer) =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
     var tmp: pointer
     vcall(it, Slot_IPdfPage_RenderToStreamAsync, Fn_IPdfPage_RenderToStreamAsync)(it, a1, tmp.addr).check("PdfPage.RenderToStreamAsync")
-    result = tmp
+    awaitVoid(tmp, "PdfPage.RenderToStreamAsync")
+    release(tmp)
 
-proc renderToStreamAsync*(self: PdfPage, a1: pointer, a2: PdfPageRenderOptions): pointer =
+proc renderToStreamAsync*(self: PdfPage, a1: pointer, a2: PdfPageRenderOptions) =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
     withIface(a2.p, IID_IPdfPageRenderOptions, "IPdfPageRenderOptions", p1):
       var tmp: pointer
       vcall(it, Slot_IPdfPage_RenderToStreamAsync2, Fn_IPdfPage_RenderToStreamAsync2)(it, a1, p1, tmp.addr).check("PdfPage.RenderToStreamAsync")
-      result = tmp
+      awaitVoid(tmp, "PdfPage.RenderToStreamAsync")
+      release(tmp)
 
-proc preparePageAsync*(self: PdfPage): pointer =
+proc preparePageAsync*(self: PdfPage) =
   ## Windows.Data.Pdf.PdfPage.PreparePageAsync
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
     var tmp: pointer
     vcall(it, Slot_IPdfPage_PreparePageAsync, Fn_IPdfPage_PreparePageAsync)(it, tmp.addr).check("PdfPage.PreparePageAsync")
-    result = tmp
+    awaitVoid(tmp, "PdfPage.PreparePageAsync")
+    release(tmp)
 
 proc index*(self: PdfPage): uint32 =
   ## Windows.Data.Pdf.PdfPage.get_Index
@@ -1284,6 +1330,15 @@ proc languageAvailableButNotInstalled*(self: TextReverseConversionGenerator): bo
     var tmp: bool
     vcall(it, Slot_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextReverseConversionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
+
+proc convertBackAsync*(self: TextReverseConversionGenerator, a1: string): string =
+  ## Windows.Data.Text.TextReverseConversionGenerator.ConvertBackAsync
+  withIface(self.p, IID_ITextReverseConversionGenerator, "ITextReverseConversionGenerator", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_ITextReverseConversionGenerator_ConvertBackAsync, Fn_ITextReverseConversionGenerator_ConvertBackAsync)(it, h0, tmp.addr).check("TextReverseConversionGenerator.ConvertBackAsync")
+      result = awaitString(tmp, IID_IAsyncOperation_1_String, "TextReverseConversionGenerator.ConvertBackAsync")
+      release(tmp)
 
 proc create*(_: typedesc[TextReverseConversionGenerator], a1: string): TextReverseConversionGenerator =
   ## Windows.Data.Text.TextReverseConversionGenerator.Create
@@ -3018,12 +3073,13 @@ proc loadXml*(self: XmlDocument, a1: string, a2: XmlLoadSettings) =
       withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
         vcall(it, Slot_IXmlDocumentIO_LoadXml2, Fn_IXmlDocumentIO_LoadXml2)(it, h0, p1).check("XmlDocument.LoadXml")
 
-proc saveToFileAsync*(self: XmlDocument, a1: pointer): pointer =
+proc saveToFileAsync*(self: XmlDocument, a1: pointer) =
   ## Windows.Data.Xml.Dom.XmlDocument.SaveToFileAsync
   withIface(self.p, IID_IXmlDocumentIO, "IXmlDocumentIO", it):
     var tmp: pointer
     vcall(it, Slot_IXmlDocumentIO_SaveToFileAsync, Fn_IXmlDocumentIO_SaveToFileAsync)(it, a1, tmp.addr).check("XmlDocument.SaveToFileAsync")
-    result = tmp
+    awaitVoid(tmp, "XmlDocument.SaveToFileAsync")
+    release(tmp)
 
 proc loadXmlFromBuffer*(self: XmlDocument, a1: pointer) =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
@@ -3035,6 +3091,23 @@ proc loadXmlFromBuffer*(self: XmlDocument, a1: pointer, a2: XmlLoadSettings) =
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
     withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
       vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, a1, p1).check("XmlDocument.LoadXmlFromBuffer")
+
+proc loadFromFileAsync*(_: typedesc[XmlDocument], a1: pointer): XmlDocument =
+  ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
+  withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync, Fn_IXmlDocumentStatics_LoadFromFileAsync)(it, a1, tmp.addr).check("XmlDocument.LoadFromFileAsync")
+    result = adopt[XmlDocument](awaitObject(tmp, IID_IAsyncOperation_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
+    release(tmp)
+
+proc loadFromFileAsync*(_: typedesc[XmlDocument], a1: pointer, a2: XmlLoadSettings): XmlDocument =
+  ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
+  withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
+    withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+      var tmp: pointer
+      vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync2, Fn_IXmlDocumentStatics_LoadFromFileAsync2)(it, a1, p1, tmp.addr).check("XmlDocument.LoadFromFileAsync")
+      result = adopt[XmlDocument](awaitObject(tmp, IID_IAsyncOperation_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
+      release(tmp)
 
 proc nodeValue*(self: XmlDocumentFragment): pointer =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.get_NodeValue

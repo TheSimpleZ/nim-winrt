@@ -14,6 +14,9 @@ export core, web
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IAsyncActionWithProgress_1_TransferProgress* = GUID(
+    data1: 0xB7EB83F5'u32, data2: 0xA746'u16, data3: 0x50F2'u16,
+    data4: [0xB9'u8, 0x1F, 0x31, 0x80, 0x31, 0x61, 0xCC, 0xC7])
 const IID_IVectorView_1_SyndicationCategory* = GUID(
     data1: 0xA1AC007C'u32, data2: 0x9D94'u16, data3: 0x552E'u16,
     data4: [0x84'u8, 0x0E, 0x13, 0x9F, 0x10, 0x9A, 0x9B, 0x88])
@@ -47,9 +50,18 @@ const IID_IVectorView_1_HttpDiagnosticSourceLocation* = GUID(
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
     data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
+const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = GUID(
+    data1: 0x5D144364'u32, data2: 0x77D7'u16, data3: 0x5ECA'u16,
+    data4: [0x8B'u8, 0x09, 0x93, 0x6A, 0x69, 0x44, 0x66, 0x52])
 const IID_IVector_1_HttpNameValueHeaderValue* = GUID(
     data1: 0x2CF800D4'u32, data2: 0x35D0'u16, data3: 0x545C'u16,
     data4: [0xAB'u8, 0x82, 0xF6, 0x79, 0x3B, 0xE7, 0x4C, 0xBA])
+const IID_IAsyncOperationWithProgress_2_String_U8* = GUID(
+    data1: 0xC8BBCB29'u32, data2: 0x6B64'u16, data3: 0x5CE2'u16,
+    data4: [0xA8'u8, 0x31, 0x03, 0x8F, 0x6E, 0x02, 0x19, 0x9E])
+const IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress* = GUID(
+    data1: 0x97388336'u32, data2: 0x2EAC'u16, data3: 0x5D76'u16,
+    data4: [0xB2'u8, 0x28, 0xD3, 0x2E, 0xF9, 0xA3, 0x81, 0x75])
 const IID_IVector_1_SyndicationPerson* = GUID(
     data1: 0xAB772CD6'u32, data2: 0x8CE7'u16, data3: 0x5DB9'u16,
     data4: [0x83'u8, 0xAC, 0x0D, 0xB9, 0xE4, 0x4A, 0x1B, 0x0C])
@@ -110,6 +122,9 @@ const IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressed
 const IID_TypedEventHandler_2_WebViewControl_Object* = GUID(
     data1: 0x34A6446F'u32, data2: 0x5467'u16, data3: 0x5063'u16,
     data4: [0xBD'u8, 0xC0, 0x7F, 0xB0, 0x65, 0x75, 0x10, 0xD1])
+const IID_IAsyncOperation_1_WebViewControl* = GUID(
+    data1: 0xAC3D28AC'u32, data2: 0x8362'u16, data3: 0x51C6'u16,
+    data4: [0xB2'u8, 0xCC, 0x16, 0xF3, 0x67, 0x27, 0x58, 0xF1])
 const IID_IVectorView_1_WebViewControl* = GUID(
     data1: 0x5ECBD5C0'u32, data2: 0x8282'u16, data3: 0x5FE1'u16,
     data4: [0xAD'u8, 0x39, 0x37, 0x4C, 0xDE, 0x70, 0xE0, 0xCD])
@@ -1615,6 +1630,24 @@ proc newAtomPubClient*(): AtomPubClient =
   ## Activate a `Windows.Web.AtomPub.AtomPubClient`.
   adopt[AtomPubClient](activateAs("Windows.Web.AtomPub.AtomPubClient", IID_IAtomPubClient))
 
+proc updateResourceItemAsync*(self: AtomPubClient, a1: SyndicationItem) =
+  ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceItemAsync
+  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
+    withIface(a1.p, IID_ISyndicationItem, "ISyndicationItem", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAtomPubClient_UpdateResourceItemAsync, Fn_IAtomPubClient_UpdateResourceItemAsync)(it, p0, tmp.addr).check("AtomPubClient.UpdateResourceItemAsync")
+      awaitVoid(tmp, "AtomPubClient.UpdateResourceItemAsync")
+      release(tmp)
+
+proc deleteResourceItemAsync*(self: AtomPubClient, a1: SyndicationItem) =
+  ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceItemAsync
+  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
+    withIface(a1.p, IID_ISyndicationItem, "ISyndicationItem", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAtomPubClient_DeleteResourceItemAsync, Fn_IAtomPubClient_DeleteResourceItemAsync)(it, p0, tmp.addr).check("AtomPubClient.DeleteResourceItemAsync")
+      awaitVoid(tmp, "AtomPubClient.DeleteResourceItemAsync")
+      release(tmp)
+
 proc cancelAsyncOperations*(self: AtomPubClient) =
   ## Windows.Web.AtomPub.AtomPubClient.CancelAsyncOperations
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
@@ -2233,6 +2266,15 @@ proc clearAuthenticationCache*(self: HttpBaseProtocolFilter) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.ClearAuthenticationCache
   withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
     vcall(it, Slot_IHttpBaseProtocolFilter4_ClearAuthenticationCache, Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache)(it).check("HttpBaseProtocolFilter.ClearAuthenticationCache")
+
+proc sendRequestAsync*(self: HttpBaseProtocolFilter, a1: HttpRequestMessage): HttpResponseMessage =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.SendRequestAsync
+  withIface(self.p, IID_IHttpFilter, "IHttpFilter", it):
+    withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpFilter_SendRequestAsync, Fn_IHttpFilter_SendRequestAsync)(it, p0, tmp.addr).check("HttpBaseProtocolFilter.SendRequestAsync")
+      result = adopt[HttpResponseMessage](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, "HttpBaseProtocolFilter.SendRequestAsync"))
+      release(tmp)
 
 proc readBehavior*(self: HttpCacheControl): HttpCacheReadBehavior =
   ## Windows.Web.Http.Filters.HttpCacheControl.get_ReadBehavior
@@ -3421,6 +3463,14 @@ proc headers*(self: HttpBufferContent): HttpContentHeaderCollection =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpBufferContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc readAsStringAsync*(self: HttpBufferContent): string =
+  ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpBufferContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpBufferContent.ReadAsStringAsync")
+    release(tmp)
+
 proc createFromBuffer*(_: typedesc[HttpBufferContent], a1: pointer): HttpBufferContent =
   ## Windows.Web.Http.HttpBufferContent.CreateFromBuffer
   withStatics("Windows.Web.Http.HttpBufferContent", IID_IHttpBufferContentFactory, it):
@@ -3439,12 +3489,48 @@ proc newHttpClient*(): HttpClient =
   ## Activate a `Windows.Web.Http.HttpClient`.
   adopt[HttpClient](activateAs("Windows.Web.Http.HttpClient", IID_IHttpClient))
 
+proc sendRequestAsync*(self: HttpClient, a1: HttpRequestMessage): HttpResponseMessage =
+  ## Windows.Web.Http.HttpClient.SendRequestAsync
+  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
+    withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpClient_SendRequestAsync, Fn_IHttpClient_SendRequestAsync)(it, p0, tmp.addr).check("HttpClient.SendRequestAsync")
+      result = adopt[HttpResponseMessage](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, "HttpClient.SendRequestAsync"))
+      release(tmp)
+
+proc sendRequestAsync*(self: HttpClient, a1: HttpRequestMessage, a2: HttpCompletionOption): HttpResponseMessage =
+  ## Windows.Web.Http.HttpClient.SendRequestAsync
+  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
+    withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpClient_SendRequestAsync2, Fn_IHttpClient_SendRequestAsync2)(it, p0, a2, tmp.addr).check("HttpClient.SendRequestAsync")
+      result = adopt[HttpResponseMessage](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, "HttpClient.SendRequestAsync"))
+      release(tmp)
+
 proc defaultRequestHeaders*(self: HttpClient): HttpRequestHeaderCollection =
   ## Windows.Web.Http.HttpClient.get_DefaultRequestHeaders
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     var tmp: pointer
     vcall(it, Slot_IHttpClient_get_DefaultRequestHeaders, Fn_IHttpClient_get_DefaultRequestHeaders)(it, tmp.addr).check("HttpClient.get_DefaultRequestHeaders")
     result = adopt[HttpRequestHeaderCollection](tmp)
+
+proc trySendRequestAsync*(self: HttpClient, a1: HttpRequestMessage): HttpRequestResult =
+  ## Windows.Web.Http.HttpClient.TrySendRequestAsync
+  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
+    withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpClient2_TrySendRequestAsync, Fn_IHttpClient2_TrySendRequestAsync)(it, p0, tmp.addr).check("HttpClient.TrySendRequestAsync")
+      result = adopt[HttpRequestResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, "HttpClient.TrySendRequestAsync"))
+      release(tmp)
+
+proc trySendRequestAsync*(self: HttpClient, a1: HttpRequestMessage, a2: HttpCompletionOption): HttpRequestResult =
+  ## Windows.Web.Http.HttpClient.TrySendRequestAsync
+  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
+    withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpClient2_TrySendRequestAsync2, Fn_IHttpClient2_TrySendRequestAsync2)(it, p0, a2, tmp.addr).check("HttpClient.TrySendRequestAsync")
+      result = adopt[HttpRequestResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, "HttpClient.TrySendRequestAsync"))
+      release(tmp)
 
 proc defaultPrivacyAnnotation*(self: HttpClient): string =
   ## Windows.Web.Http.HttpClient.get_DefaultPrivacyAnnotation
@@ -3562,6 +3648,14 @@ proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection =
     var tmp: pointer
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpFormUrlEncodedContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
+
+proc readAsStringAsync*(self: HttpFormUrlEncodedContent): string =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpFormUrlEncodedContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpFormUrlEncodedContent.ReadAsStringAsync")
+    release(tmp)
 
 proc extendedError*(self: HttpGetBufferResult): HRESULT =
   ## Windows.Web.Http.HttpGetBufferResult.get_ExtendedError
@@ -3749,6 +3843,14 @@ proc headers*(self: HttpMultipartContent): HttpContentHeaderCollection =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc readAsStringAsync*(self: HttpMultipartContent): string =
+  ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpMultipartContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpMultipartContent.ReadAsStringAsync")
+    release(tmp)
+
 proc createWithSubtype*(_: typedesc[HttpMultipartContent], a1: string): HttpMultipartContent =
   ## Windows.Web.Http.HttpMultipartContent.CreateWithSubtype
   withStatics("Windows.Web.Http.HttpMultipartContent", IID_IHttpMultipartContentFactory, it):
@@ -3797,6 +3899,14 @@ proc headers*(self: HttpMultipartFormDataContent): HttpContentHeaderCollection =
     var tmp: pointer
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartFormDataContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
+
+proc readAsStringAsync*(self: HttpMultipartFormDataContent): string =
+  ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpMultipartFormDataContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpMultipartFormDataContent.ReadAsStringAsync")
+    release(tmp)
 
 proc createWithBoundary*(_: typedesc[HttpMultipartFormDataContent], a1: string): HttpMultipartFormDataContent =
   ## Windows.Web.Http.HttpMultipartFormDataContent.CreateWithBoundary
@@ -4005,6 +4115,14 @@ proc headers*(self: HttpStreamContent): HttpContentHeaderCollection =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStreamContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc readAsStringAsync*(self: HttpStreamContent): string =
+  ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpStreamContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpStreamContent.ReadAsStringAsync")
+    release(tmp)
+
 proc createFromInputStream*(_: typedesc[HttpStreamContent], a1: pointer): HttpStreamContent =
   ## Windows.Web.Http.HttpStreamContent.CreateFromInputStream
   withStatics("Windows.Web.Http.HttpStreamContent", IID_IHttpStreamContentFactory, it):
@@ -4018,6 +4136,14 @@ proc headers*(self: HttpStringContent): HttpContentHeaderCollection =
     var tmp: pointer
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStringContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
+
+proc readAsStringAsync*(self: HttpStringContent): string =
+  ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, tmp.addr).check("HttpStringContent.ReadAsStringAsync")
+    result = awaitString(tmp, IID_IAsyncOperationWithProgress_2_String_U8, "HttpStringContent.ReadAsStringAsync")
+    release(tmp)
 
 proc createFromString*(_: typedesc[HttpStringContent], a1: string): HttpStringContent =
   ## Windows.Web.Http.HttpStringContent.CreateFromString
@@ -5421,12 +5547,13 @@ proc navigateWithHttpRequestMessage*(self: WebViewControl, a1: HttpRequestMessag
     withIface(a1.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IWebViewControl_NavigateWithHttpRequestMessage, Fn_IWebViewControl_NavigateWithHttpRequestMessage)(it, p0).check("WebViewControl.NavigateWithHttpRequestMessage")
 
-proc capturePreviewToStreamAsync*(self: WebViewControl, a1: pointer): pointer =
+proc capturePreviewToStreamAsync*(self: WebViewControl, a1: pointer) =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     var tmp: pointer
     vcall(it, Slot_IWebViewControl_CapturePreviewToStreamAsync, Fn_IWebViewControl_CapturePreviewToStreamAsync)(it, a1, tmp.addr).check("WebViewControl.CapturePreviewToStreamAsync")
-    result = tmp
+    awaitVoid(tmp, "WebViewControl.CapturePreviewToStreamAsync")
+    release(tmp)
 
 proc onNavigationStarting*(self: WebViewControl,
     handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
@@ -5943,6 +6070,14 @@ proc isPrivateNetworkClientServerCapabilityEnabled*(self: WebViewControlProcess)
     var tmp: bool
     vcall(it, Slot_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled, Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled)(it, tmp.addr).check("WebViewControlProcess.get_IsPrivateNetworkClientServerCapabilityEnabled")
     result = tmp
+
+proc createWebViewControlAsync*(self: WebViewControlProcess, a1: int64, a2: Rect): WebViewControl =
+  ## Windows.Web.UI.Interop.WebViewControlProcess.CreateWebViewControlAsync
+  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewControlProcess_CreateWebViewControlAsync, Fn_IWebViewControlProcess_CreateWebViewControlAsync)(it, a1, a2, tmp.addr).check("WebViewControlProcess.CreateWebViewControlAsync")
+    result = adopt[WebViewControl](awaitObject(tmp, IID_IAsyncOperation_1_WebViewControl, "WebViewControlProcess.CreateWebViewControlAsync"))
+    release(tmp)
 
 proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl] =
   ## Windows.Web.UI.Interop.WebViewControlProcess.GetWebViewControls

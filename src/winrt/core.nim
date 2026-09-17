@@ -555,3 +555,110 @@ proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
     vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(view, i, item.addr)
       .check("collection.GetAt")
     result.add takeString(item)
+
+# --------------------------------------------------------------------- async
+
+# A WinRT method that does anything slow hands back an `IAsyncOperation<T>`
+# rather than a result. The operation carries its own state, and `IAsyncInfo`
+# — which every one of them also implements, under a fixed IID — is how that
+# state is read.
+#
+# Waiting is done by polling `get_Status` rather than by registering a
+# completion handler. That is the unglamorous choice and the safe one: a
+# handler may be marshalled back to the thread that started the call, so a
+# single-threaded apartment blocking on one deadlocks unless it also pumps
+# messages. The status transitions regardless of whether any handler has been
+# delivered, so polling it works from either apartment with nothing to pump.
+const
+  IID_IAsyncInfo* = GUID(
+    data1: 0x00000036'u32, data2: 0'u16, data3: 0'u16,
+    data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
+
+  SlotAsyncInfoStatus = 7
+  SlotAsyncInfoErrorCode = 8
+  SlotAsyncGetResults = 8
+
+type
+  # Not exported, and not named `AsyncStatus`: `Windows.Foundation.AsyncStatus`
+  # is a real enum in the generated bindings, and two of that name in scope is
+  # an ambiguity for anyone importing `winrt/foundation`.
+  AsyncState = enum
+    asStarted = 0, asCompleted = 1, asCanceled = 2, asError = 3
+
+  FnAsyncStatus = proc(self: pointer,
+                       status: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnAsyncError = proc(self: pointer,
+                      hr: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnGetResultsVoid = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnGetResultsPtr = proc(self: pointer,
+                         value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnGetResultsString = proc(self: pointer,
+                            value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+
+proc sleepMs(ms: int32) {.importc: "Sleep", dynlib: "kernel32", stdcall,
+                          raises: [], gcsafe.}
+
+proc settle(op: pointer, what: string) =
+  ## Block until an async operation finishes, and raise if it failed.
+  doAssert not op.isNil, "winrt: " & what & " returned no operation"
+  let info = queryInterface(op, IID_IAsyncInfo)
+  if info.isNil:
+    raise newException(WinRtError, "winrt: " & what & " is not an IAsyncInfo")
+  try:
+    var status: int32
+    # Yielding rather than spinning: the first poll usually finds it already
+    # finished, and anything slower is waiting on IO in another thread.
+    while true:
+      vcall(info, SlotAsyncInfoStatus, FnAsyncStatus)(info, status.addr)
+        .check(what & ".get_Status")
+      if AsyncState(status) != asStarted: break
+      sleepMs(1)
+    case AsyncState(status)
+    of asCompleted: discard
+    of asCanceled:
+      raise newException(WinRtError, "winrt: " & what & " was cancelled")
+    of asError:
+      var hr: HRESULT
+      vcall(info, SlotAsyncInfoErrorCode, FnAsyncError)(info, hr.addr)
+        .check(what & ".get_ErrorCode")
+      hr.check(what)
+    of asStarted: discard
+  finally:
+    release(info)
+
+proc awaitVoid*(op: pointer, what: string) =
+  ## Wait for an `IAsyncAction`, which produces nothing.
+  settle(op, what)
+  vcall(op, SlotAsyncGetResults, FnGetResultsVoid)(op).check(what & ".GetResults")
+
+proc awaitObject*(op: pointer, iid: GUID, what: string): pointer =
+  ## Wait for an `IAsyncOperation<T>` whose result is an interface pointer.
+  ##
+  ## `iid` identifies the instantiation: `GetResults` is slot 8 on every one of
+  ## them, but calling it through the wrong interface would read slot 8 of a
+  ## different table.
+  settle(op, what)
+  let typed = queryInterface(op, iid)
+  if typed.isNil:
+    raise newException(WinRtError, "winrt: " & what & " is not the operation " &
+      "type its signature declares")
+  try:
+    vcall(typed, SlotAsyncGetResults, FnGetResultsPtr)(typed, result.addr)
+      .check(what & ".GetResults")
+  finally:
+    release(typed)
+
+proc awaitString*(op: pointer, iid: GUID, what: string): string =
+  ## The same, for an operation that produces a string.
+  settle(op, what)
+  let typed = queryInterface(op, iid)
+  if typed.isNil:
+    raise newException(WinRtError, "winrt: " & what & " is not the operation " &
+      "type its signature declares")
+  try:
+    var h: HSTRING
+    vcall(typed, SlotAsyncGetResults, FnGetResultsString)(typed, h.addr)
+      .check(what & ".GetResults")
+    result = takeString(h)
+  finally:
+    release(typed)

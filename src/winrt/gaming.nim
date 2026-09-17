@@ -23,6 +23,9 @@ const IID_EventHandler_1_ArcadeStick* = GUID(
 const IID_IVectorView_1_ArcadeStick* = GUID(
     data1: 0xBECACE75'u32, data2: 0xD0CD'u16, data3: 0x5A9C'u16,
     data4: [0x84'u8, 0x5F, 0x72, 0xF0, 0x85, 0x50, 0x3C, 0xDF])
+const IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress* = GUID(
+    data1: 0xBFAA48BD'u32, data2: 0x155F'u16, data3: 0x5112'u16,
+    data4: [0xBD'u8, 0x86, 0xE0, 0x1D, 0x6F, 0x7C, 0xD4, 0x05])
 const IID_EventHandler_1_FlightStick* = GUID(
     data1: 0xD57470B1'u32, data2: 0xCC22'u16, data3: 0x5A43'u16,
     data4: [0x8E'u8, 0x18, 0x5C, 0xA0, 0x64, 0xAA, 0xFE, 0x21])
@@ -59,6 +62,9 @@ const IID_EventHandler_1_UINavigationController* = GUID(
 const IID_IVectorView_1_UINavigationController* = GUID(
     data1: 0x684B9E5A'u32, data2: 0x2DC2'u16, data3: 0x54FC'u16,
     data4: [0xAD'u8, 0xF5, 0x5C, 0xA8, 0xF6, 0x87, 0x14, 0x25])
+const IID_IAsyncOperation_1_GameListEntry* = GUID(
+    data1: 0x37BCB2E2'u32, data2: 0x9C6F'u16, data3: 0x5658'u16,
+    data4: [0xA4'u8, 0x3B, 0xED, 0x28, 0xFE, 0x0C, 0x84, 0x58])
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
@@ -71,9 +77,18 @@ const IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceiv
 const IID_IVectorView_1_GameSaveBlobInfo* = GUID(
     data1: 0xB9C466A0'u32, data2: 0x2A3F'u16, data3: 0x5F28'u16,
     data4: [0xA1'u8, 0xC1, 0x9C, 0xB1, 0x92, 0xF6, 0xC7, 0x86])
+const IID_IAsyncOperation_1_GameSaveBlobInfoGetResult* = GUID(
+    data1: 0xD7B7F3B4'u32, data2: 0x6028'u16, data3: 0x522F'u16,
+    data4: [0x84'u8, 0x9D, 0xA6, 0x94, 0x95, 0xE4, 0xDC, 0xD0])
 const IID_IVectorView_1_GameSaveContainerInfo* = GUID(
     data1: 0x9C490594'u32, data2: 0x0846'u16, data3: 0x50F5'u16,
     data4: [0xB2'u8, 0xEF, 0xC6, 0xF0, 0x3E, 0xE6, 0x86, 0x8A])
+const IID_IAsyncOperation_1_GameSaveContainerInfoGetResult* = GUID(
+    data1: 0xCFF8AFEB'u32, data2: 0x5A18'u16, data3: 0x5F51'u16,
+    data4: [0xB6'u8, 0x1B, 0x94, 0x38, 0x87, 0xF7, 0x29, 0xEE])
+const IID_IAsyncOperation_1_GameSaveOperationResult* = GUID(
+    data1: 0x1C27FB97'u32, data2: 0x1E1A'u16, data3: 0x516F'u16,
+    data4: [0xAB'u8, 0xB2, 0x12, 0xC1, 0x8E, 0x18, 0x21, 0x8D])
 
 type
   ArcadeStick* {.inheritable, pure.} = object
@@ -808,6 +823,14 @@ proc status*(self: GipFirmwareUpdateResult): GipFirmwareUpdateStatus =
     var tmp: GipFirmwareUpdateStatus
     vcall(it, Slot_IGipFirmwareUpdateResult_get_Status, Fn_IGipFirmwareUpdateResult_get_Status)(it, tmp.addr).check("GipFirmwareUpdateResult.get_Status")
     result = tmp
+
+proc updateFirmwareAsync*(self: GipGameControllerProvider, a1: pointer): GipFirmwareUpdateResult =
+  ## Windows.Gaming.Input.Custom.GipGameControllerProvider.UpdateFirmwareAsync
+  withIface(self.p, IID_IGipGameControllerProvider, "IGipGameControllerProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_IGipGameControllerProvider_UpdateFirmwareAsync, Fn_IGipGameControllerProvider_UpdateFirmwareAsync)(it, a1, tmp.addr).check("GipGameControllerProvider.UpdateFirmwareAsync")
+    result = adopt[GipFirmwareUpdateResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress, "GipGameControllerProvider.UpdateFirmwareAsync"))
+    release(tmp)
 
 proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_FirmwareVersionInfo
@@ -2024,6 +2047,16 @@ proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINaviga
     result = toSeq[UINavigationController](tmp, IID_IVectorView_1_UINavigationController)
     release(tmp)
 
+proc mergeEntriesAsync*(_: typedesc[GameList], a1: GameListEntry, a2: GameListEntry): GameListEntry =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.MergeEntriesAsync
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics2, it):
+    withIface(a1.p, IID_IGameListEntry, "IGameListEntry", p0):
+      withIface(a2.p, IID_IGameListEntry, "IGameListEntry", p1):
+        var tmp: pointer
+        vcall(it, Slot_IGameListStatics2_MergeEntriesAsync, Fn_IGameListStatics2_MergeEntriesAsync)(it, p0, p1, tmp.addr).check("GameList.MergeEntriesAsync")
+        result = adopt[GameListEntry](awaitObject(tmp, IID_IAsyncOperation_1_GameListEntry, "GameList.MergeEntriesAsync"))
+        release(tmp)
+
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameAdded, Fn_IGameListStatics_remove_GameAdded)(it, token).check("GameList.remove_GameAdded")
@@ -2043,12 +2076,13 @@ proc category*(self: GameListEntry): GameListCategory =
     vcall(it, Slot_IGameListEntry_get_Category, Fn_IGameListEntry_get_Category)(it, tmp.addr).check("GameListEntry.get_Category")
     result = tmp
 
-proc setCategoryAsync*(self: GameListEntry, a1: GameListCategory): pointer =
+proc setCategoryAsync*(self: GameListEntry, a1: GameListCategory) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetCategoryAsync
   withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
     var tmp: pointer
     vcall(it, Slot_IGameListEntry_SetCategoryAsync, Fn_IGameListEntry_SetCategoryAsync)(it, a1, tmp.addr).check("GameListEntry.SetCategoryAsync")
-    result = tmp
+    awaitVoid(tmp, "GameListEntry.SetCategoryAsync")
+    release(tmp)
 
 proc launchableState*(self: GameListEntry): GameListEntryLaunchableState =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchableState
@@ -2071,20 +2105,22 @@ proc launchParameters*(self: GameListEntry): string =
     vcall(it, Slot_IGameListEntry2_get_LaunchParameters, Fn_IGameListEntry2_get_LaunchParameters)(it, tmp.addr).check("GameListEntry.get_LaunchParameters")
     result = takeString(tmp)
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer): pointer =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: pointer
     vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync, Fn_IGameListEntry2_SetLauncherExecutableFileAsync)(it, a1, tmp.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
-    result = tmp
+    awaitVoid(tmp, "GameListEntry.SetLauncherExecutableFileAsync")
+    release(tmp)
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer, a2: string): pointer =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer, a2: string) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     withHString(a2, h1):
       var tmp: pointer
       vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync2, Fn_IGameListEntry2_SetLauncherExecutableFileAsync2)(it, a1, h1, tmp.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
-      result = tmp
+      awaitVoid(tmp, "GameListEntry.SetLauncherExecutableFileAsync")
+      release(tmp)
 
 proc titleId*(self: GameListEntry): string =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_TitleId
@@ -2093,13 +2129,14 @@ proc titleId*(self: GameListEntry): string =
     vcall(it, Slot_IGameListEntry2_get_TitleId, Fn_IGameListEntry2_get_TitleId)(it, tmp.addr).check("GameListEntry.get_TitleId")
     result = takeString(tmp)
 
-proc setTitleIdAsync*(self: GameListEntry, a1: string): pointer =
+proc setTitleIdAsync*(self: GameListEntry, a1: string) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetTitleIdAsync
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IGameListEntry2_SetTitleIdAsync, Fn_IGameListEntry2_SetTitleIdAsync)(it, h0, tmp.addr).check("GameListEntry.SetTitleIdAsync")
-      result = tmp
+      awaitVoid(tmp, "GameListEntry.SetTitleIdAsync")
+      release(tmp)
 
 proc gameModeConfiguration*(self: GameListEntry): GameModeConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_GameModeConfiguration
@@ -2140,12 +2177,13 @@ proc `affinitizeToExclusiveCpus=`*(self: GameModeConfiguration, value: bool) =
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     vcall(it, Slot_IGameModeConfiguration_put_AffinitizeToExclusiveCpus, Fn_IGameModeConfiguration_put_AffinitizeToExclusiveCpus)(it, value).check("GameModeConfiguration.put_AffinitizeToExclusiveCpus")
 
-proc saveAsync*(self: GameModeConfiguration): pointer =
+proc saveAsync*(self: GameModeConfiguration) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.SaveAsync
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IGameModeConfiguration_SaveAsync, Fn_IGameModeConfiguration_SaveAsync)(it, tmp.addr).check("GameModeConfiguration.SaveAsync")
-    result = tmp
+    awaitVoid(tmp, "GameModeConfiguration.SaveAsync")
+    release(tmp)
 
 proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.get_GamingRelatedProcessNames
@@ -2155,12 +2193,13 @@ proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc saveAsync*(self: GameModeUserConfiguration): pointer =
+proc saveAsync*(self: GameModeUserConfiguration) =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.SaveAsync
   withIface(self.p, IID_IGameModeUserConfiguration, "IGameModeUserConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IGameModeUserConfiguration_SaveAsync, Fn_IGameModeUserConfiguration_SaveAsync)(it, tmp.addr).check("GameModeUserConfiguration.SaveAsync")
-    result = tmp
+    awaitVoid(tmp, "GameModeUserConfiguration.SaveAsync")
+    release(tmp)
 
 proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfiguration =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.GetDefault
@@ -2346,6 +2385,22 @@ proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo] =
     result = toSeq[GameSaveBlobInfo](tmp, IID_IVectorView_1_GameSaveBlobInfo)
     release(tmp)
 
+proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): GameSaveBlobInfoGetResult =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
+  withIface(self.p, IID_IGameSaveBlobInfoQuery, "IGameSaveBlobInfoQuery", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync)(it, tmp.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
+    result = adopt[GameSaveBlobInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
+    release(tmp)
+
+proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, a1: uint32, a2: uint32): GameSaveBlobInfoGetResult =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
+  withIface(self.p, IID_IGameSaveBlobInfoQuery, "IGameSaveBlobInfoQuery", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync2, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync2)(it, a1, a2, tmp.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
+    result = adopt[GameSaveBlobInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
+    release(tmp)
+
 proc name*(self: GameSaveContainer): string =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Name
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
@@ -2418,6 +2473,22 @@ proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo] =
     result = toSeq[GameSaveContainerInfo](tmp, IID_IVectorView_1_GameSaveContainerInfo)
     release(tmp)
 
+proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): GameSaveContainerInfoGetResult =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
+  withIface(self.p, IID_IGameSaveContainerInfoQuery, "IGameSaveContainerInfoQuery", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync)(it, tmp.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
+    result = adopt[GameSaveContainerInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
+    release(tmp)
+
+proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery, a1: uint32, a2: uint32): GameSaveContainerInfoGetResult =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
+  withIface(self.p, IID_IGameSaveContainerInfoQuery, "IGameSaveContainerInfoQuery", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync2, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync2)(it, a1, a2, tmp.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
+    result = adopt[GameSaveContainerInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
+    release(tmp)
+
 proc status*(self: GameSaveOperationResult): GameSaveErrorStatus =
   ## Windows.Gaming.XboxLive.Storage.GameSaveOperationResult.get_Status
   withIface(self.p, IID_IGameSaveOperationResult, "IGameSaveOperationResult", it):
@@ -2432,6 +2503,15 @@ proc createContainer*(self: GameSaveProvider, a1: string): GameSaveContainer =
       var tmp: pointer
       vcall(it, Slot_IGameSaveProvider_CreateContainer, Fn_IGameSaveProvider_CreateContainer)(it, h0, tmp.addr).check("GameSaveProvider.CreateContainer")
       result = adopt[GameSaveContainer](tmp)
+
+proc deleteContainerAsync*(self: GameSaveProvider, a1: string): GameSaveOperationResult =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.DeleteContainerAsync
+  withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IGameSaveProvider_DeleteContainerAsync, Fn_IGameSaveProvider_DeleteContainerAsync)(it, h0, tmp.addr).check("GameSaveProvider.DeleteContainerAsync")
+      result = adopt[GameSaveOperationResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveOperationResult, "GameSaveProvider.DeleteContainerAsync"))
+      release(tmp)
 
 proc createContainerInfoQuery*(self: GameSaveProvider): GameSaveContainerInfoQuery =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainerInfoQuery

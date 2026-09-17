@@ -14,6 +14,12 @@ export core, storage
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IAsyncOperation_1_StorageFile* = GUID(
+    data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
+    data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
+const IID_IAsyncOperation_1_StorageFolder* = GUID(
+    data1: 0x6BE9E7D7'u32, data2: 0xE83A'u16, data3: 0x5CBC'u16,
+    data4: [0x80'u8, 0x2C, 0x17, 0x68, 0x96, 0x0B, 0x52, 0xC3])
 const IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventArgs* = GUID(
     data1: 0x029DACE8'u32, data2: 0x98D1'u16, data3: 0x5BF7'u16,
     data4: [0xB7'u8, 0x80, 0x97, 0x17, 0xE9, 0x50, 0x27, 0xFF])
@@ -23,12 +29,51 @@ const IID_TypedEventHandler_2_ApplicationData_Object* = GUID(
 const IID_TypedEventHandler_2_IStorageItemInformation_Object* = GUID(
     data1: 0x5B98B352'u32, data2: 0xE0CF'u16, data3: 0x58DE'u16,
     data4: [0xB2'u8, 0xEC, 0x4F, 0xD7, 0x86, 0xBB, 0xB5, 0xA7])
+const IID_IAsyncOperation_1_IRandomAccessStream* = GUID(
+    data1: 0x430ECECE'u32, data2: 0x1418'u16, data3: 0x5D19'u16,
+    data4: [0x81'u8, 0xB2, 0x5D, 0xDB, 0x38, 0x16, 0x03, 0xCC])
+const IID_IAsyncOperation_1_StorageStreamTransaction* = GUID(
+    data1: 0x0D81405A'u32, data2: 0x9BD3'u16, data3: 0x5E87'u16,
+    data4: [0x82'u8, 0xF4, 0x9B, 0x41, 0x28, 0xA8, 0x87, 0xEB])
+const IID_IAsyncOperation_1_IInputStream* = GUID(
+    data1: 0xA8FE0732'u32, data2: 0x556D'u16, data3: 0x5841'u16,
+    data4: [0xB7'u8, 0xEE, 0xB3, 0x45, 0x0F, 0xB5, 0x26, 0x66])
+const IID_IAsyncOperation_1_IRandomAccessStreamWithContentType* = GUID(
+    data1: 0xC4A57C5E'u32, data2: 0x32B0'u16, data3: 0x55B3'u16,
+    data4: [0xAD'u8, 0x13, 0xCE, 0x1C, 0x23, 0x04, 0x1E, 0xD6])
+const IID_IAsyncOperation_1_BasicProperties* = GUID(
+    data1: 0x5186131A'u32, data2: 0x4467'u16, data3: 0x504B'u16,
+    data4: [0x97'u8, 0x7A, 0x07, 0x85, 0xA8, 0x23, 0x04, 0x85])
+const IID_IAsyncOperation_1_StorageItemThumbnail* = GUID(
+    data1: 0x11C7CC5E'u32, data2: 0xC04E'u16, data3: 0x50E7'u16,
+    data4: [0xA6'u8, 0x5E, 0x6F, 0x69, 0x03, 0x69, 0x0C, 0x16])
+const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = GUID(
+    data1: 0xD26B2819'u32, data2: 0x897F'u16, data3: 0x5C7D'u16,
+    data4: [0x84'u8, 0xD6, 0x56, 0xD7, 0x96, 0x56, 0x14, 0x31])
+const IID_IAsyncOperation_1_String* = GUID(
+    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
+    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
+const IID_IAsyncOperation_1_IBuffer* = GUID(
+    data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
+    data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IAsyncOperation_1_MusicProperties* = GUID(
+    data1: 0x0D023B76'u32, data2: 0x20A7'u16, data3: 0x56F3'u16,
+    data4: [0x84'u8, 0xAB, 0xCE, 0x31, 0xE6, 0x54, 0x4B, 0x71])
+const IID_IAsyncOperation_1_VideoProperties* = GUID(
+    data1: 0x447D4590'u32, data2: 0xD3F9'u16, data3: 0x58BF'u16,
+    data4: [0xAC'u8, 0x58, 0x6F, 0x9A, 0x50, 0x83, 0x9E, 0xFE])
+const IID_IAsyncOperation_1_ImageProperties* = GUID(
+    data1: 0xFCD07511'u32, data2: 0xE7F8'u16, data3: 0x5BDA'u16,
+    data4: [0x8C'u8, 0x04, 0x79, 0x5A, 0x63, 0x9D, 0xAE, 0x8F])
+const IID_IAsyncOperation_1_DocumentProperties* = GUID(
+    data1: 0x6C86E97C'u32, data2: 0x5699'u16, data3: 0x5700'u16,
+    data4: [0x8D'u8, 0x35, 0xD3, 0x50, 0xAD, 0x3E, 0x4D, 0xF2])
 const IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs* = GUID(
     data1: 0xF1FB2939'u32, data2: 0x695B'u16, data3: 0x5F56'u16,
     data4: [0x84'u8, 0x1A, 0xA5, 0x2A, 0x7D, 0x14, 0x85, 0x72])
@@ -65,6 +110,9 @@ const IID_TypedEventHandler_2_IStorageQueryResultBase_Object* = GUID(
 const IID_TypedEventHandler_2_StorageLibrary_Object* = GUID(
     data1: 0xEDC09538'u32, data2: 0xBBAE'u16, data3: 0x5B2B'u16,
     data4: [0x9E'u8, 0x81, 0xB4, 0x49, 0xEA, 0x7E, 0x48, 0xFE])
+const IID_IAsyncOperation_1_StorageLibrary* = GUID(
+    data1: 0x2F160A19'u32, data2: 0x99C1'u16, data3: 0x52B9'u16,
+    data4: [0x8D'u8, 0xCA, 0x14, 0xE4, 0xAB, 0x79, 0xF2, 0x87])
 
 type
   ItemRemovedEventArgs* {.inheritable, pure.} = object
@@ -1635,6 +1683,42 @@ proc addOrReplace*(self: StorageItemAccessList, a1: string, a2: pointer, a3: str
       withHString(a3, h2):
         vcall(it, Slot_IStorageItemAccessList_AddOrReplace2, Fn_IStorageItemAccessList_AddOrReplace2)(it, h0, a2, h2).check("StorageItemAccessList.AddOrReplace")
 
+proc getFileAsync*(self: StorageItemAccessList, a1: string): StorageFile =
+  ## Windows.Storage.AccessCache.StorageItemAccessList.GetFileAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFileAsync, Fn_IStorageItemAccessList_GetFileAsync)(it, h0, tmp.addr).check("StorageItemAccessList.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageItemAccessList.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: StorageItemAccessList, a1: string): StorageFolder =
+  ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFolderAsync, Fn_IStorageItemAccessList_GetFolderAsync)(it, h0, tmp.addr).check("StorageItemAccessList.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageItemAccessList.GetFolderAsync"))
+      release(tmp)
+
+proc getFileAsync*(self: StorageItemAccessList, a1: string, a2: AccessCacheOptions): StorageFile =
+  ## Windows.Storage.AccessCache.StorageItemAccessList.GetFileAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFileAsync2, Fn_IStorageItemAccessList_GetFileAsync2)(it, h0, a2, tmp.addr).check("StorageItemAccessList.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageItemAccessList.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: StorageItemAccessList, a1: string, a2: AccessCacheOptions): StorageFolder =
+  ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFolderAsync2, Fn_IStorageItemAccessList_GetFolderAsync2)(it, h0, a2, tmp.addr).check("StorageItemAccessList.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageItemAccessList.GetFolderAsync"))
+      release(tmp)
+
 proc remove*(self: StorageItemAccessList, a1: string) =
   ## Windows.Storage.AccessCache.StorageItemAccessList.Remove
   withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
@@ -1714,6 +1798,42 @@ proc addOrReplace*(self: StorageItemMostRecentlyUsedList, a1: string, a2: pointe
     withHString(a1, h0):
       withHString(a3, h2):
         vcall(it, Slot_IStorageItemAccessList_AddOrReplace2, Fn_IStorageItemAccessList_AddOrReplace2)(it, h0, a2, h2).check("StorageItemMostRecentlyUsedList.AddOrReplace")
+
+proc getFileAsync*(self: StorageItemMostRecentlyUsedList, a1: string): StorageFile =
+  ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFileAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFileAsync, Fn_IStorageItemAccessList_GetFileAsync)(it, h0, tmp.addr).check("StorageItemMostRecentlyUsedList.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageItemMostRecentlyUsedList.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, a1: string): StorageFolder =
+  ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFolderAsync, Fn_IStorageItemAccessList_GetFolderAsync)(it, h0, tmp.addr).check("StorageItemMostRecentlyUsedList.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageItemMostRecentlyUsedList.GetFolderAsync"))
+      release(tmp)
+
+proc getFileAsync*(self: StorageItemMostRecentlyUsedList, a1: string, a2: AccessCacheOptions): StorageFile =
+  ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFileAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFileAsync2, Fn_IStorageItemAccessList_GetFileAsync2)(it, h0, a2, tmp.addr).check("StorageItemMostRecentlyUsedList.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageItemMostRecentlyUsedList.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, a1: string, a2: AccessCacheOptions): StorageFolder =
+  ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageItemAccessList_GetFolderAsync2, Fn_IStorageItemAccessList_GetFolderAsync2)(it, h0, a2, tmp.addr).check("StorageItemMostRecentlyUsedList.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageItemMostRecentlyUsedList.GetFolderAsync"))
+      release(tmp)
 
 proc remove*(self: StorageItemMostRecentlyUsedList, a1: string) =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.Remove
@@ -1840,19 +1960,21 @@ proc version*(self: ApplicationData): uint32 =
     vcall(it, Slot_IApplicationData_get_Version, Fn_IApplicationData_get_Version)(it, tmp.addr).check("ApplicationData.get_Version")
     result = tmp
 
-proc clearAsync*(self: ApplicationData): pointer =
+proc clearAsync*(self: ApplicationData) =
   ## Windows.Storage.ApplicationData.ClearAsync
   withIface(self.p, IID_IApplicationData, "IApplicationData", it):
     var tmp: pointer
     vcall(it, Slot_IApplicationData_ClearAsync, Fn_IApplicationData_ClearAsync)(it, tmp.addr).check("ApplicationData.ClearAsync")
-    result = tmp
+    awaitVoid(tmp, "ApplicationData.ClearAsync")
+    release(tmp)
 
-proc clearAsync*(self: ApplicationData, a1: ApplicationDataLocality): pointer =
+proc clearAsync*(self: ApplicationData, a1: ApplicationDataLocality) =
   ## Windows.Storage.ApplicationData.ClearAsync
   withIface(self.p, IID_IApplicationData, "IApplicationData", it):
     var tmp: pointer
     vcall(it, Slot_IApplicationData_ClearAsync2, Fn_IApplicationData_ClearAsync2)(it, a1, tmp.addr).check("ApplicationData.ClearAsync")
-    result = tmp
+    awaitVoid(tmp, "ApplicationData.ClearAsync")
+    release(tmp)
 
 proc localSettings*(self: ApplicationData): ApplicationDataContainer =
   ## Windows.Storage.ApplicationData.get_LocalSettings
@@ -1935,13 +2057,14 @@ proc getPublisherCacheFolder*(self: ApplicationData, a1: string): StorageFolder 
       vcall(it, Slot_IApplicationData3_GetPublisherCacheFolder, Fn_IApplicationData3_GetPublisherCacheFolder)(it, h0, tmp.addr).check("ApplicationData.GetPublisherCacheFolder")
       result = adopt[StorageFolder](tmp)
 
-proc clearPublisherCacheFolderAsync*(self: ApplicationData, a1: string): pointer =
+proc clearPublisherCacheFolderAsync*(self: ApplicationData, a1: string) =
   ## Windows.Storage.ApplicationData.ClearPublisherCacheFolderAsync
   withIface(self.p, IID_IApplicationData3, "IApplicationData3", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IApplicationData3_ClearPublisherCacheFolderAsync, Fn_IApplicationData3_ClearPublisherCacheFolderAsync)(it, h0, tmp.addr).check("ApplicationData.ClearPublisherCacheFolderAsync")
-      result = tmp
+      awaitVoid(tmp, "ApplicationData.ClearPublisherCacheFolderAsync")
+      release(tmp)
 
 proc sharedLocalFolder*(self: ApplicationData): StorageFolder =
   ## Windows.Storage.ApplicationData.get_SharedLocalFolder
@@ -2086,77 +2209,155 @@ proc contentType*(self: FileInformation): string =
     vcall(it, Slot_IStorageFile_get_ContentType, Fn_IStorageFile_get_ContentType)(it, tmp.addr).check("FileInformation.get_ContentType")
     result = takeString(tmp)
 
-proc copyAndReplaceAsync*(self: FileInformation, a1: StorageFile): pointer =
+proc openAsync*(self: FileInformation, a1: FileAccessMode): RandomAccessStreamOverStream =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile_OpenAsync, Fn_IStorageFile_OpenAsync)(it, a1, tmp.addr).check("FileInformation.OpenAsync")
+    result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "FileInformation.OpenAsync"))
+    release(tmp)
+
+proc openTransactedWriteAsync*(self: FileInformation): StorageStreamTransaction =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile_OpenTransactedWriteAsync, Fn_IStorageFile_OpenTransactedWriteAsync)(it, tmp.addr).check("FileInformation.OpenTransactedWriteAsync")
+    result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "FileInformation.OpenTransactedWriteAsync"))
+    release(tmp)
+
+proc copyAsync*(self: FileInformation, a1: StorageFolder): StorageFile =
+  ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFile_CopyAsync, Fn_IStorageFile_CopyAsync)(it, p0, tmp.addr).check("FileInformation.CopyAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileInformation.CopyAsync"))
+      release(tmp)
+
+proc copyAsync*(self: FileInformation, a1: StorageFolder, a2: string): StorageFile =
+  ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IStorageFile_CopyAsync2, Fn_IStorageFile_CopyAsync2)(it, p0, h1, tmp.addr).check("FileInformation.CopyAsync")
+        result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileInformation.CopyAsync"))
+        release(tmp)
+
+proc copyAsync*(self: FileInformation, a1: StorageFolder, a2: string, a3: NameCollisionOption): StorageFile =
+  ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IStorageFile_CopyAsync3, Fn_IStorageFile_CopyAsync3)(it, p0, h1, a3, tmp.addr).check("FileInformation.CopyAsync")
+        result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileInformation.CopyAsync"))
+        release(tmp)
+
+proc copyAndReplaceAsync*(self: FileInformation, a1: StorageFile) =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAndReplaceAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_CopyAndReplaceAsync, Fn_IStorageFile_CopyAndReplaceAsync)(it, p0, tmp.addr).check("FileInformation.CopyAndReplaceAsync")
-      result = tmp
+      awaitVoid(tmp, "FileInformation.CopyAndReplaceAsync")
+      release(tmp)
 
-proc moveAsync*(self: FileInformation, a1: StorageFolder): pointer =
+proc moveAsync*(self: FileInformation, a1: StorageFolder) =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_MoveAsync, Fn_IStorageFile_MoveAsync)(it, p0, tmp.addr).check("FileInformation.MoveAsync")
-      result = tmp
+      awaitVoid(tmp, "FileInformation.MoveAsync")
+      release(tmp)
 
-proc moveAsync*(self: FileInformation, a1: StorageFolder, a2: string): pointer =
+proc moveAsync*(self: FileInformation, a1: StorageFolder, a2: string) =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IStorageFile_MoveAsync2, Fn_IStorageFile_MoveAsync2)(it, p0, h1, tmp.addr).check("FileInformation.MoveAsync")
-        result = tmp
+        awaitVoid(tmp, "FileInformation.MoveAsync")
+        release(tmp)
 
-proc moveAsync*(self: FileInformation, a1: StorageFolder, a2: string, a3: NameCollisionOption): pointer =
+proc moveAsync*(self: FileInformation, a1: StorageFolder, a2: string, a3: NameCollisionOption) =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IStorageFile_MoveAsync3, Fn_IStorageFile_MoveAsync3)(it, p0, h1, a3, tmp.addr).check("FileInformation.MoveAsync")
-        result = tmp
+        awaitVoid(tmp, "FileInformation.MoveAsync")
+        release(tmp)
 
-proc moveAndReplaceAsync*(self: FileInformation, a1: StorageFile): pointer =
+proc moveAndReplaceAsync*(self: FileInformation, a1: StorageFile) =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAndReplaceAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_MoveAndReplaceAsync, Fn_IStorageFile_MoveAndReplaceAsync)(it, p0, tmp.addr).check("FileInformation.MoveAndReplaceAsync")
-      result = tmp
+      awaitVoid(tmp, "FileInformation.MoveAndReplaceAsync")
+      release(tmp)
 
-proc renameAsync*(self: FileInformation, a1: string): pointer =
+proc openSequentialReadAsync*(self: FileInformation): InputStreamOverStream =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenSequentialReadAsync
+  withIface(self.p, IID_IInputStreamReference, "IInputStreamReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IInputStreamReference_OpenSequentialReadAsync, Fn_IInputStreamReference_OpenSequentialReadAsync)(it, tmp.addr).check("FileInformation.OpenSequentialReadAsync")
+    result = adopt[InputStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IInputStream, "FileInformation.OpenSequentialReadAsync"))
+    release(tmp)
+
+proc openReadAsync*(self: FileInformation): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenReadAsync
+  withIface(self.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStreamReference_OpenReadAsync, Fn_IRandomAccessStreamReference_OpenReadAsync)(it, tmp.addr).check("FileInformation.OpenReadAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, "FileInformation.OpenReadAsync"))
+    release(tmp)
+
+proc renameAsync*(self: FileInformation, a1: string) =
   ## Windows.Storage.BulkAccess.FileInformation.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync, Fn_IStorageItem_RenameAsync)(it, h0, tmp.addr).check("FileInformation.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "FileInformation.RenameAsync")
+      release(tmp)
 
-proc renameAsync*(self: FileInformation, a1: string, a2: NameCollisionOption): pointer =
+proc renameAsync*(self: FileInformation, a1: string, a2: NameCollisionOption) =
   ## Windows.Storage.BulkAccess.FileInformation.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync2, Fn_IStorageItem_RenameAsync2)(it, h0, a2, tmp.addr).check("FileInformation.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "FileInformation.RenameAsync")
+      release(tmp)
 
-proc deleteAsync*(self: FileInformation): pointer =
+proc deleteAsync*(self: FileInformation) =
   ## Windows.Storage.BulkAccess.FileInformation.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync, Fn_IStorageItem_DeleteAsync)(it, tmp.addr).check("FileInformation.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "FileInformation.DeleteAsync")
+    release(tmp)
 
-proc deleteAsync*(self: FileInformation, a1: StorageDeleteOption): pointer =
+proc deleteAsync*(self: FileInformation, a1: StorageDeleteOption) =
   ## Windows.Storage.BulkAccess.FileInformation.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync2, Fn_IStorageItem_DeleteAsync2)(it, a1, tmp.addr).check("FileInformation.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "FileInformation.DeleteAsync")
+    release(tmp)
+
+proc getBasicPropertiesAsync*(self: FileInformation): BasicProperties =
+  ## Windows.Storage.BulkAccess.FileInformation.GetBasicPropertiesAsync
+  withIface(self.p, IID_IStorageItem, "IStorageItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem_GetBasicPropertiesAsync, Fn_IStorageItem_GetBasicPropertiesAsync)(it, tmp.addr).check("FileInformation.GetBasicPropertiesAsync")
+    result = adopt[BasicProperties](awaitObject(tmp, IID_IAsyncOperation_1_BasicProperties, "FileInformation.GetBasicPropertiesAsync"))
+    release(tmp)
 
 proc name*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_Name
@@ -2193,6 +2394,30 @@ proc isOfType*(self: FileInformation, a1: StorageItemTypes): bool =
     vcall(it, Slot_IStorageItem_IsOfType, Fn_IStorageItem_IsOfType)(it, a1, tmp.addr).check("FileInformation.IsOfType")
     result = tmp
 
+proc getThumbnailAsync*(self: FileInformation, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync, Fn_IStorageItemProperties_GetThumbnailAsync)(it, a1, tmp.addr).check("FileInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FileInformation.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: FileInformation, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync2, Fn_IStorageItemProperties_GetThumbnailAsync2)(it, a1, a2, tmp.addr).check("FileInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FileInformation.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: FileInformation, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync3, Fn_IStorageItemProperties_GetThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("FileInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FileInformation.GetThumbnailAsync"))
+    release(tmp)
+
 proc displayName*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_DisplayName
   withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
@@ -2221,6 +2446,14 @@ proc properties*(self: FileInformation): StorageItemContentProperties =
     vcall(it, Slot_IStorageItemProperties_get_Properties, Fn_IStorageItemProperties_get_Properties)(it, tmp.addr).check("FileInformation.get_Properties")
     result = adopt[StorageItemContentProperties](tmp)
 
+proc getParentAsync*(self: FileInformation): StorageFolder =
+  ## Windows.Storage.BulkAccess.FileInformation.GetParentAsync
+  withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem2_GetParentAsync, Fn_IStorageItem2_GetParentAsync)(it, tmp.addr).check("FileInformation.GetParentAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FileInformation.GetParentAsync"))
+    release(tmp)
+
 proc isEqual*(self: FileInformation, a1: pointer): bool =
   ## Windows.Storage.BulkAccess.FileInformation.IsEqual
   withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
@@ -2241,6 +2474,22 @@ proc isAvailable*(self: FileInformation): bool =
     var tmp: bool
     vcall(it, Slot_IStorageFilePropertiesWithAvailability_get_IsAvailable, Fn_IStorageFilePropertiesWithAvailability_get_IsAvailable)(it, tmp.addr).check("FileInformation.get_IsAvailable")
     result = tmp
+
+proc openAsync*(self: FileInformation, a1: FileAccessMode, a2: StorageOpenOptions): RandomAccessStreamOverStream =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenAsync
+  withIface(self.p, IID_IStorageFile2, "IStorageFile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile2_OpenAsync, Fn_IStorageFile2_OpenAsync)(it, a1, a2, tmp.addr).check("FileInformation.OpenAsync")
+    result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "FileInformation.OpenAsync"))
+    release(tmp)
+
+proc openTransactedWriteAsync*(self: FileInformation, a1: StorageOpenOptions): StorageStreamTransaction =
+  ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
+  withIface(self.p, IID_IStorageFile2, "IStorageFile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile2_OpenTransactedWriteAsync, Fn_IStorageFile2_OpenTransactedWriteAsync)(it, a1, tmp.addr).check("FileInformation.OpenTransactedWriteAsync")
+    result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "FileInformation.OpenTransactedWriteAsync"))
+    release(tmp)
 
 proc getVirtualizedItemsVector*(self: FileInformationFactory): pointer =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetVirtualizedItemsVector
@@ -2371,35 +2620,101 @@ proc removePropertiesUpdated*(self: FolderInformation, token: EventRegistrationT
   withIface(self.p, IID_IStorageItemInformation, "IStorageItemInformation", it):
     vcall(it, Slot_IStorageItemInformation_remove_PropertiesUpdated, Fn_IStorageItemInformation_remove_PropertiesUpdated)(it, token).check("FolderInformation.remove_PropertiesUpdated")
 
-proc renameAsync*(self: FolderInformation, a1: string): pointer =
+proc createFileAsync*(self: FolderInformation, a1: string): StorageFile =
+  ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFileAsync, Fn_IStorageFolder_CreateFileAsync)(it, h0, tmp.addr).check("FolderInformation.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FolderInformation.CreateFileAsync"))
+      release(tmp)
+
+proc createFileAsync*(self: FolderInformation, a1: string, a2: CreationCollisionOption): StorageFile =
+  ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFileAsync2, Fn_IStorageFolder_CreateFileAsync2)(it, h0, a2, tmp.addr).check("FolderInformation.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FolderInformation.CreateFileAsync"))
+      release(tmp)
+
+proc createFolderAsync*(self: FolderInformation, a1: string): StorageFolder =
+  ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFolderAsync, Fn_IStorageFolder_CreateFolderAsync)(it, h0, tmp.addr).check("FolderInformation.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FolderInformation.CreateFolderAsync"))
+      release(tmp)
+
+proc createFolderAsync*(self: FolderInformation, a1: string, a2: CreationCollisionOption): StorageFolder =
+  ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFolderAsync2, Fn_IStorageFolder_CreateFolderAsync2)(it, h0, a2, tmp.addr).check("FolderInformation.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FolderInformation.CreateFolderAsync"))
+      release(tmp)
+
+proc getFileAsync*(self: FolderInformation, a1: string): StorageFile =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_GetFileAsync, Fn_IStorageFolder_GetFileAsync)(it, h0, tmp.addr).check("FolderInformation.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FolderInformation.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: FolderInformation, a1: string): StorageFolder =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_GetFolderAsync, Fn_IStorageFolder_GetFolderAsync)(it, h0, tmp.addr).check("FolderInformation.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FolderInformation.GetFolderAsync"))
+      release(tmp)
+
+proc renameAsync*(self: FolderInformation, a1: string) =
   ## Windows.Storage.BulkAccess.FolderInformation.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync, Fn_IStorageItem_RenameAsync)(it, h0, tmp.addr).check("FolderInformation.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "FolderInformation.RenameAsync")
+      release(tmp)
 
-proc renameAsync*(self: FolderInformation, a1: string, a2: NameCollisionOption): pointer =
+proc renameAsync*(self: FolderInformation, a1: string, a2: NameCollisionOption) =
   ## Windows.Storage.BulkAccess.FolderInformation.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync2, Fn_IStorageItem_RenameAsync2)(it, h0, a2, tmp.addr).check("FolderInformation.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "FolderInformation.RenameAsync")
+      release(tmp)
 
-proc deleteAsync*(self: FolderInformation): pointer =
+proc deleteAsync*(self: FolderInformation) =
   ## Windows.Storage.BulkAccess.FolderInformation.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync, Fn_IStorageItem_DeleteAsync)(it, tmp.addr).check("FolderInformation.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "FolderInformation.DeleteAsync")
+    release(tmp)
 
-proc deleteAsync*(self: FolderInformation, a1: StorageDeleteOption): pointer =
+proc deleteAsync*(self: FolderInformation, a1: StorageDeleteOption) =
   ## Windows.Storage.BulkAccess.FolderInformation.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync2, Fn_IStorageItem_DeleteAsync2)(it, a1, tmp.addr).check("FolderInformation.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "FolderInformation.DeleteAsync")
+    release(tmp)
+
+proc getBasicPropertiesAsync*(self: FolderInformation): BasicProperties =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetBasicPropertiesAsync
+  withIface(self.p, IID_IStorageItem, "IStorageItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem_GetBasicPropertiesAsync, Fn_IStorageItem_GetBasicPropertiesAsync)(it, tmp.addr).check("FolderInformation.GetBasicPropertiesAsync")
+    result = adopt[BasicProperties](awaitObject(tmp, IID_IAsyncOperation_1_BasicProperties, "FolderInformation.GetBasicPropertiesAsync"))
+    release(tmp)
 
 proc name*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_Name
@@ -2435,6 +2750,30 @@ proc isOfType*(self: FolderInformation, a1: StorageItemTypes): bool =
     var tmp: bool
     vcall(it, Slot_IStorageItem_IsOfType, Fn_IStorageItem_IsOfType)(it, a1, tmp.addr).check("FolderInformation.IsOfType")
     result = tmp
+
+proc getThumbnailAsync*(self: FolderInformation, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync, Fn_IStorageItemProperties_GetThumbnailAsync)(it, a1, tmp.addr).check("FolderInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FolderInformation.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: FolderInformation, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync2, Fn_IStorageItemProperties_GetThumbnailAsync2)(it, a1, a2, tmp.addr).check("FolderInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FolderInformation.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: FolderInformation, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync3, Fn_IStorageItemProperties_GetThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("FolderInformation.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "FolderInformation.GetThumbnailAsync"))
+    release(tmp)
 
 proc displayName*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_DisplayName
@@ -2545,6 +2884,14 @@ proc isCommonFileQuerySupported*(self: FolderInformation, a1: CommonFileQuery): 
     vcall(it, Slot_IStorageFolderQueryOperations_IsCommonFileQuerySupported, Fn_IStorageFolderQueryOperations_IsCommonFileQuerySupported)(it, a1, tmp.addr).check("FolderInformation.IsCommonFileQuerySupported")
     result = tmp
 
+proc getParentAsync*(self: FolderInformation): StorageFolder =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetParentAsync
+  withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem2_GetParentAsync, Fn_IStorageItem2_GetParentAsync)(it, tmp.addr).check("FolderInformation.GetParentAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FolderInformation.GetParentAsync"))
+    release(tmp)
+
 proc isEqual*(self: FolderInformation, a1: pointer): bool =
   ## Windows.Storage.BulkAccess.FolderInformation.IsEqual
   withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
@@ -2595,6 +2942,15 @@ proc detachStream*(self: Decompressor): InputStreamOverStream =
     vcall(it, Slot_IDecompressor_DetachStream, Fn_IDecompressor_DetachStream)(it, tmp.addr).check("Decompressor.DetachStream")
     result = adopt[InputStreamOverStream](tmp)
 
+proc readAsync*(self: Decompressor, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Compression.Decompressor.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("Decompressor.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "Decompressor.ReadAsync"))
+      release(tmp)
+
 proc createDecompressor*(_: typedesc[Decompressor], a1: InputStreamOverStream): Decompressor =
   ## Windows.Storage.Compression.Decompressor.CreateDecompressor
   withStatics("Windows.Storage.Compression.Decompressor", IID_IDecompressorFactory, it):
@@ -2603,50 +2959,118 @@ proc createDecompressor*(_: typedesc[Decompressor], a1: InputStreamOverStream): 
       vcall(it, Slot_IDecompressorFactory_CreateDecompressor, Fn_IDecompressorFactory_CreateDecompressor)(it, p0, tmp.addr).check("Decompressor.CreateDecompressor")
       result = adopt[Decompressor](tmp)
 
-proc writeTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string): pointer =
+proc createFileAsync*(_: typedesc[DownloadsFolder], a1: string): StorageFile =
+  ## Windows.Storage.DownloadsFolder.CreateFileAsync
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IDownloadsFolderStatics_CreateFileAsync, Fn_IDownloadsFolderStatics_CreateFileAsync)(it, h0, tmp.addr).check("DownloadsFolder.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "DownloadsFolder.CreateFileAsync"))
+      release(tmp)
+
+proc createFolderAsync*(_: typedesc[DownloadsFolder], a1: string): StorageFolder =
+  ## Windows.Storage.DownloadsFolder.CreateFolderAsync
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IDownloadsFolderStatics_CreateFolderAsync, Fn_IDownloadsFolderStatics_CreateFolderAsync)(it, h0, tmp.addr).check("DownloadsFolder.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "DownloadsFolder.CreateFolderAsync"))
+      release(tmp)
+
+proc createFileAsync*(_: typedesc[DownloadsFolder], a1: string, a2: CreationCollisionOption): StorageFile =
+  ## Windows.Storage.DownloadsFolder.CreateFileAsync
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IDownloadsFolderStatics_CreateFileAsync2, Fn_IDownloadsFolderStatics_CreateFileAsync2)(it, h0, a2, tmp.addr).check("DownloadsFolder.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "DownloadsFolder.CreateFileAsync"))
+      release(tmp)
+
+proc createFolderAsync*(_: typedesc[DownloadsFolder], a1: string, a2: CreationCollisionOption): StorageFolder =
+  ## Windows.Storage.DownloadsFolder.CreateFolderAsync
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IDownloadsFolderStatics_CreateFolderAsync2, Fn_IDownloadsFolderStatics_CreateFolderAsync2)(it, h0, a2, tmp.addr).check("DownloadsFolder.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "DownloadsFolder.CreateFolderAsync"))
+      release(tmp)
+
+proc readTextAsync*(_: typedesc[FileIO], a1: StorageFile): string =
+  ## Windows.Storage.FileIO.ReadTextAsync
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFileIOStatics_ReadTextAsync, Fn_IFileIOStatics_ReadTextAsync)(it, p0, tmp.addr).check("FileIO.ReadTextAsync")
+      result = awaitString(tmp, IID_IAsyncOperation_1_String, "FileIO.ReadTextAsync")
+      release(tmp)
+
+proc readTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: UnicodeEncoding): string =
+  ## Windows.Storage.FileIO.ReadTextAsync
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFileIOStatics_ReadTextAsync2, Fn_IFileIOStatics_ReadTextAsync2)(it, p0, a2, tmp.addr).check("FileIO.ReadTextAsync")
+      result = awaitString(tmp, IID_IAsyncOperation_1_String, "FileIO.ReadTextAsync")
+      release(tmp)
+
+proc writeTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string) =
   ## Windows.Storage.FileIO.WriteTextAsync
   withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IFileIOStatics_WriteTextAsync, Fn_IFileIOStatics_WriteTextAsync)(it, p0, h1, tmp.addr).check("FileIO.WriteTextAsync")
-        result = tmp
+        awaitVoid(tmp, "FileIO.WriteTextAsync")
+        release(tmp)
 
-proc writeTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string, a3: UnicodeEncoding): pointer =
+proc writeTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string, a3: UnicodeEncoding) =
   ## Windows.Storage.FileIO.WriteTextAsync
   withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IFileIOStatics_WriteTextAsync2, Fn_IFileIOStatics_WriteTextAsync2)(it, p0, h1, a3, tmp.addr).check("FileIO.WriteTextAsync")
-        result = tmp
+        awaitVoid(tmp, "FileIO.WriteTextAsync")
+        release(tmp)
 
-proc appendTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string): pointer =
+proc appendTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string) =
   ## Windows.Storage.FileIO.AppendTextAsync
   withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IFileIOStatics_AppendTextAsync, Fn_IFileIOStatics_AppendTextAsync)(it, p0, h1, tmp.addr).check("FileIO.AppendTextAsync")
-        result = tmp
+        awaitVoid(tmp, "FileIO.AppendTextAsync")
+        release(tmp)
 
-proc appendTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string, a3: UnicodeEncoding): pointer =
+proc appendTextAsync*(_: typedesc[FileIO], a1: StorageFile, a2: string, a3: UnicodeEncoding) =
   ## Windows.Storage.FileIO.AppendTextAsync
   withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IFileIOStatics_AppendTextAsync2, Fn_IFileIOStatics_AppendTextAsync2)(it, p0, h1, a3, tmp.addr).check("FileIO.AppendTextAsync")
-        result = tmp
+        awaitVoid(tmp, "FileIO.AppendTextAsync")
+        release(tmp)
 
-proc writeBufferAsync*(_: typedesc[FileIO], a1: StorageFile, a2: Buffer): pointer =
+proc readBufferAsync*(_: typedesc[FileIO], a1: StorageFile): Buffer =
+  ## Windows.Storage.FileIO.ReadBufferAsync
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFileIOStatics_ReadBufferAsync, Fn_IFileIOStatics_ReadBufferAsync)(it, p0, tmp.addr).check("FileIO.ReadBufferAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperation_1_IBuffer, "FileIO.ReadBufferAsync"))
+      release(tmp)
+
+proc writeBufferAsync*(_: typedesc[FileIO], a1: StorageFile, a2: Buffer) =
   ## Windows.Storage.FileIO.WriteBufferAsync
   withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       withIface(a2.p, IID_IBuffer, "IBuffer", p1):
         var tmp: pointer
         vcall(it, Slot_IFileIOStatics_WriteBufferAsync, Fn_IFileIOStatics_WriteBufferAsync)(it, p0, p1, tmp.addr).check("FileIO.WriteBufferAsync")
-        result = tmp
+        awaitVoid(tmp, "FileIO.WriteBufferAsync")
+        release(tmp)
 
 proc size*(self: BasicProperties): uint64 =
   ## Windows.Storage.FileProperties.BasicProperties.get_Size
@@ -2669,12 +3093,13 @@ proc itemDate*(self: BasicProperties): DateTime =
     vcall(it, Slot_IBasicProperties_get_ItemDate, Fn_IBasicProperties_get_ItemDate)(it, tmp.addr).check("BasicProperties.get_ItemDate")
     result = tmp
 
-proc savePropertiesAsync*(self: BasicProperties): pointer =
+proc savePropertiesAsync*(self: BasicProperties) =
   ## Windows.Storage.FileProperties.BasicProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("BasicProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "BasicProperties.SavePropertiesAsync")
+    release(tmp)
 
 proc author*(self: DocumentProperties): seq[string] =
   ## Windows.Storage.FileProperties.DocumentProperties.get_Author
@@ -2718,12 +3143,13 @@ proc `comment=`*(self: DocumentProperties, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IDocumentProperties_put_Comment, Fn_IDocumentProperties_put_Comment)(it, h0).check("DocumentProperties.put_Comment")
 
-proc savePropertiesAsync*(self: DocumentProperties): pointer =
+proc savePropertiesAsync*(self: DocumentProperties) =
   ## Windows.Storage.FileProperties.DocumentProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("DocumentProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "DocumentProperties.SavePropertiesAsync")
+    release(tmp)
 
 proc rating*(self: ImageProperties): uint32 =
   ## Windows.Storage.FileProperties.ImageProperties.get_Rating
@@ -2825,12 +3251,13 @@ proc peopleNames*(self: ImageProperties): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc savePropertiesAsync*(self: ImageProperties): pointer =
+proc savePropertiesAsync*(self: ImageProperties) =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("ImageProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "ImageProperties.SavePropertiesAsync")
+    release(tmp)
 
 proc album*(self: MusicProperties): string =
   ## Windows.Storage.FileProperties.MusicProperties.get_Album
@@ -3000,19 +3427,53 @@ proc `year=`*(self: MusicProperties, value: uint32) =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     vcall(it, Slot_IMusicProperties_put_Year, Fn_IMusicProperties_put_Year)(it, value).check("MusicProperties.put_Year")
 
-proc savePropertiesAsync*(self: MusicProperties): pointer =
+proc savePropertiesAsync*(self: MusicProperties) =
   ## Windows.Storage.FileProperties.MusicProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("MusicProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "MusicProperties.SavePropertiesAsync")
+    release(tmp)
 
-proc savePropertiesAsync*(self: StorageItemContentProperties): pointer =
+proc getMusicPropertiesAsync*(self: StorageItemContentProperties): MusicProperties =
+  ## Windows.Storage.FileProperties.StorageItemContentProperties.GetMusicPropertiesAsync
+  withIface(self.p, IID_IStorageItemContentProperties, "IStorageItemContentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemContentProperties_GetMusicPropertiesAsync, Fn_IStorageItemContentProperties_GetMusicPropertiesAsync)(it, tmp.addr).check("StorageItemContentProperties.GetMusicPropertiesAsync")
+    result = adopt[MusicProperties](awaitObject(tmp, IID_IAsyncOperation_1_MusicProperties, "StorageItemContentProperties.GetMusicPropertiesAsync"))
+    release(tmp)
+
+proc getVideoPropertiesAsync*(self: StorageItemContentProperties): VideoProperties =
+  ## Windows.Storage.FileProperties.StorageItemContentProperties.GetVideoPropertiesAsync
+  withIface(self.p, IID_IStorageItemContentProperties, "IStorageItemContentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemContentProperties_GetVideoPropertiesAsync, Fn_IStorageItemContentProperties_GetVideoPropertiesAsync)(it, tmp.addr).check("StorageItemContentProperties.GetVideoPropertiesAsync")
+    result = adopt[VideoProperties](awaitObject(tmp, IID_IAsyncOperation_1_VideoProperties, "StorageItemContentProperties.GetVideoPropertiesAsync"))
+    release(tmp)
+
+proc getImagePropertiesAsync*(self: StorageItemContentProperties): ImageProperties =
+  ## Windows.Storage.FileProperties.StorageItemContentProperties.GetImagePropertiesAsync
+  withIface(self.p, IID_IStorageItemContentProperties, "IStorageItemContentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemContentProperties_GetImagePropertiesAsync, Fn_IStorageItemContentProperties_GetImagePropertiesAsync)(it, tmp.addr).check("StorageItemContentProperties.GetImagePropertiesAsync")
+    result = adopt[ImageProperties](awaitObject(tmp, IID_IAsyncOperation_1_ImageProperties, "StorageItemContentProperties.GetImagePropertiesAsync"))
+    release(tmp)
+
+proc getDocumentPropertiesAsync*(self: StorageItemContentProperties): DocumentProperties =
+  ## Windows.Storage.FileProperties.StorageItemContentProperties.GetDocumentPropertiesAsync
+  withIface(self.p, IID_IStorageItemContentProperties, "IStorageItemContentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemContentProperties_GetDocumentPropertiesAsync, Fn_IStorageItemContentProperties_GetDocumentPropertiesAsync)(it, tmp.addr).check("StorageItemContentProperties.GetDocumentPropertiesAsync")
+    result = adopt[DocumentProperties](awaitObject(tmp, IID_IAsyncOperation_1_DocumentProperties, "StorageItemContentProperties.GetDocumentPropertiesAsync"))
+    release(tmp)
+
+proc savePropertiesAsync*(self: StorageItemContentProperties) =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("StorageItemContentProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageItemContentProperties.SavePropertiesAsync")
+    release(tmp)
 
 proc contentType*(self: StorageItemThumbnail): string =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.get_ContentType
@@ -3079,6 +3540,15 @@ proc canWrite*(self: StorageItemThumbnail): bool =
     var tmp: bool
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("StorageItemThumbnail.get_CanWrite")
     result = tmp
+
+proc readAsync*(self: StorageItemThumbnail, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.FileProperties.StorageItemThumbnail.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("StorageItemThumbnail.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "StorageItemThumbnail.ReadAsync"))
+      release(tmp)
 
 proc originalWidth*(self: StorageItemThumbnail): uint32 =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.get_OriginalWidth
@@ -3238,12 +3708,13 @@ proc orientation*(self: VideoProperties): VideoOrientation =
     vcall(it, Slot_IVideoProperties_get_Orientation, Fn_IVideoProperties_get_Orientation)(it, tmp.addr).check("VideoProperties.get_Orientation")
     result = tmp
 
-proc savePropertiesAsync*(self: VideoProperties): pointer =
+proc savePropertiesAsync*(self: VideoProperties) =
   ## Windows.Storage.FileProperties.VideoProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("VideoProperties.SavePropertiesAsync")
-    result = tmp
+    awaitVoid(tmp, "VideoProperties.SavePropertiesAsync")
+    release(tmp)
 
 proc musicLibrary*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_MusicLibrary
@@ -3301,6 +3772,14 @@ proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
     vcall(it, Slot_IKnownFoldersCameraRollStatics_get_CameraRoll, Fn_IKnownFoldersCameraRollStatics_get_CameraRoll)(it, tmp.addr).check("KnownFolders.get_CameraRoll")
     result = adopt[StorageFolder](tmp)
 
+proc getFolderAsync*(_: typedesc[KnownFolders], a1: KnownFolderId): StorageFolder =
+  ## Windows.Storage.KnownFolders.GetFolderAsync
+  withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersStatics4, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownFoldersStatics4_GetFolderAsync, Fn_IKnownFoldersStatics4_GetFolderAsync)(it, a1, tmp.addr).check("KnownFolders.GetFolderAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "KnownFolders.GetFolderAsync"))
+    release(tmp)
+
 proc savedPictures*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_SavedPictures
   withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersSavedPicturesStatics, it):
@@ -3336,50 +3815,82 @@ proc playlists*(_: typedesc[KnownFolders]): StorageFolder =
     vcall(it, Slot_IKnownFoldersPlaylistsStatics_get_Playlists, Fn_IKnownFoldersPlaylistsStatics_get_Playlists)(it, tmp.addr).check("KnownFolders.get_Playlists")
     result = adopt[StorageFolder](tmp)
 
-proc writeTextAsync*(_: typedesc[PathIO], a1: string, a2: string): pointer =
+proc readTextAsync*(_: typedesc[PathIO], a1: string): string =
+  ## Windows.Storage.PathIO.ReadTextAsync
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPathIOStatics_ReadTextAsync, Fn_IPathIOStatics_ReadTextAsync)(it, h0, tmp.addr).check("PathIO.ReadTextAsync")
+      result = awaitString(tmp, IID_IAsyncOperation_1_String, "PathIO.ReadTextAsync")
+      release(tmp)
+
+proc readTextAsync*(_: typedesc[PathIO], a1: string, a2: UnicodeEncoding): string =
+  ## Windows.Storage.PathIO.ReadTextAsync
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPathIOStatics_ReadTextAsync2, Fn_IPathIOStatics_ReadTextAsync2)(it, h0, a2, tmp.addr).check("PathIO.ReadTextAsync")
+      result = awaitString(tmp, IID_IAsyncOperation_1_String, "PathIO.ReadTextAsync")
+      release(tmp)
+
+proc writeTextAsync*(_: typedesc[PathIO], a1: string, a2: string) =
   ## Windows.Storage.PathIO.WriteTextAsync
   withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IPathIOStatics_WriteTextAsync, Fn_IPathIOStatics_WriteTextAsync)(it, h0, h1, tmp.addr).check("PathIO.WriteTextAsync")
-        result = tmp
+        awaitVoid(tmp, "PathIO.WriteTextAsync")
+        release(tmp)
 
-proc writeTextAsync*(_: typedesc[PathIO], a1: string, a2: string, a3: UnicodeEncoding): pointer =
+proc writeTextAsync*(_: typedesc[PathIO], a1: string, a2: string, a3: UnicodeEncoding) =
   ## Windows.Storage.PathIO.WriteTextAsync
   withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IPathIOStatics_WriteTextAsync2, Fn_IPathIOStatics_WriteTextAsync2)(it, h0, h1, a3, tmp.addr).check("PathIO.WriteTextAsync")
-        result = tmp
+        awaitVoid(tmp, "PathIO.WriteTextAsync")
+        release(tmp)
 
-proc appendTextAsync*(_: typedesc[PathIO], a1: string, a2: string): pointer =
+proc appendTextAsync*(_: typedesc[PathIO], a1: string, a2: string) =
   ## Windows.Storage.PathIO.AppendTextAsync
   withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IPathIOStatics_AppendTextAsync, Fn_IPathIOStatics_AppendTextAsync)(it, h0, h1, tmp.addr).check("PathIO.AppendTextAsync")
-        result = tmp
+        awaitVoid(tmp, "PathIO.AppendTextAsync")
+        release(tmp)
 
-proc appendTextAsync*(_: typedesc[PathIO], a1: string, a2: string, a3: UnicodeEncoding): pointer =
+proc appendTextAsync*(_: typedesc[PathIO], a1: string, a2: string, a3: UnicodeEncoding) =
   ## Windows.Storage.PathIO.AppendTextAsync
   withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IPathIOStatics_AppendTextAsync2, Fn_IPathIOStatics_AppendTextAsync2)(it, h0, h1, a3, tmp.addr).check("PathIO.AppendTextAsync")
-        result = tmp
+        awaitVoid(tmp, "PathIO.AppendTextAsync")
+        release(tmp)
 
-proc writeBufferAsync*(_: typedesc[PathIO], a1: string, a2: Buffer): pointer =
+proc readBufferAsync*(_: typedesc[PathIO], a1: string): Buffer =
+  ## Windows.Storage.PathIO.ReadBufferAsync
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPathIOStatics_ReadBufferAsync, Fn_IPathIOStatics_ReadBufferAsync)(it, h0, tmp.addr).check("PathIO.ReadBufferAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperation_1_IBuffer, "PathIO.ReadBufferAsync"))
+      release(tmp)
+
+proc writeBufferAsync*(_: typedesc[PathIO], a1: string, a2: Buffer) =
   ## Windows.Storage.PathIO.WriteBufferAsync
   withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
     withHString(a1, h0):
       withIface(a2.p, IID_IBuffer, "IBuffer", p1):
         var tmp: pointer
         vcall(it, Slot_IPathIOStatics_WriteBufferAsync, Fn_IPathIOStatics_WriteBufferAsync)(it, h0, p1, tmp.addr).check("PathIO.WriteBufferAsync")
-        result = tmp
+        awaitVoid(tmp, "PathIO.WriteBufferAsync")
+        release(tmp)
 
 proc newFileOpenPicker*(): FileOpenPicker =
   ## Activate a `Windows.Storage.Pickers.FileOpenPicker`.
@@ -3394,6 +3905,15 @@ proc pickMultipleFilesAndContinue*(self: FileOpenPicker) =
   ## Windows.Storage.Pickers.FileOpenPicker.PickMultipleFilesAndContinue
   withIface(self.p, IID_IFileOpenPicker2, "IFileOpenPicker2", it):
     vcall(it, Slot_IFileOpenPicker2_PickMultipleFilesAndContinue, Fn_IFileOpenPicker2_PickMultipleFilesAndContinue)(it).check("FileOpenPicker.PickMultipleFilesAndContinue")
+
+proc pickSingleFileAsync*(self: FileOpenPicker, a1: string): StorageFile =
+  ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAsync
+  withIface(self.p, IID_IFileOpenPickerWithOperationId, "IFileOpenPickerWithOperationId", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IFileOpenPickerWithOperationId_PickSingleFileAsync, Fn_IFileOpenPickerWithOperationId_PickSingleFileAsync)(it, h0, tmp.addr).check("FileOpenPicker.PickSingleFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileOpenPicker.PickSingleFileAsync"))
+      release(tmp)
 
 proc viewMode*(self: FileOpenPicker): PickerViewMode =
   ## Windows.Storage.Pickers.FileOpenPicker.get_ViewMode
@@ -3451,6 +3971,22 @@ proc fileTypeFilter*(self: FileOpenPicker): seq[string] =
     var tmp: pointer
     vcall(it, Slot_IFileOpenPicker_get_FileTypeFilter, Fn_IFileOpenPicker_get_FileTypeFilter)(it, tmp.addr).check("FileOpenPicker.get_FileTypeFilter")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc pickSingleFileAsync*(self: FileOpenPicker): StorageFile =
+  ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAsync
+  withIface(self.p, IID_IFileOpenPicker, "IFileOpenPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPicker_PickSingleFileAsync, Fn_IFileOpenPicker_PickSingleFileAsync)(it, tmp.addr).check("FileOpenPicker.PickSingleFileAsync")
+    result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileOpenPicker.PickSingleFileAsync"))
+    release(tmp)
+
+proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): StorageFile =
+  ## Windows.Storage.Pickers.FileOpenPicker.ResumePickSingleFileAsync
+  withStatics("Windows.Storage.Pickers.FileOpenPicker", IID_IFileOpenPickerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPickerStatics_ResumePickSingleFileAsync, Fn_IFileOpenPickerStatics_ResumePickSingleFileAsync)(it, tmp.addr).check("FileOpenPicker.ResumePickSingleFileAsync")
+    result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileOpenPicker.ResumePickSingleFileAsync"))
     release(tmp)
 
 proc newFileSavePicker*(): FileSavePicker =
@@ -3552,6 +4088,14 @@ proc `suggestedFileName=`*(self: FileSavePicker, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IFileSavePicker_put_SuggestedFileName, Fn_IFileSavePicker_put_SuggestedFileName)(it, h0).check("FileSavePicker.put_SuggestedFileName")
 
+proc pickSaveFileAsync*(self: FileSavePicker): StorageFile =
+  ## Windows.Storage.Pickers.FileSavePicker.PickSaveFileAsync
+  withIface(self.p, IID_IFileSavePicker, "IFileSavePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileSavePicker_PickSaveFileAsync, Fn_IFileSavePicker_PickSaveFileAsync)(it, tmp.addr).check("FileSavePicker.PickSaveFileAsync")
+    result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "FileSavePicker.PickSaveFileAsync"))
+    release(tmp)
+
 proc newFolderPicker*(): FolderPicker =
   ## Activate a `Windows.Storage.Pickers.FolderPicker`.
   adopt[FolderPicker](activateAs("Windows.Storage.Pickers.FolderPicker", IID_IFolderPicker2))
@@ -3617,6 +4161,14 @@ proc fileTypeFilter*(self: FolderPicker): seq[string] =
     var tmp: pointer
     vcall(it, Slot_IFolderPicker_get_FileTypeFilter, Fn_IFolderPicker_get_FileTypeFilter)(it, tmp.addr).check("FolderPicker.get_FileTypeFilter")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc pickSingleFolderAsync*(self: FolderPicker): StorageFolder =
+  ## Windows.Storage.Pickers.FolderPicker.PickSingleFolderAsync
+  withIface(self.p, IID_IFolderPicker, "IFolderPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFolderPicker_PickSingleFolderAsync, Fn_IFolderPicker_PickSingleFolderAsync)(it, tmp.addr).check("FolderPicker.PickSingleFolderAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "FolderPicker.PickSingleFolderAsync"))
     release(tmp)
 
 proc addFile*(self: FileOpenPickerUI, a1: string, a2: StorageFile): AddFileResult =
@@ -4907,36 +5459,40 @@ proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
     vcall(it, Slot_IStorageProviderSyncRootManagerStatics2_IsSupported, Fn_IStorageProviderSyncRootManagerStatics2_IsSupported)(it, tmp.addr).check("StorageProviderSyncRootManager.IsSupported")
     result = tmp
 
-proc addAsync*(self: ContentIndexer, a1: IndexableContent): pointer =
+proc addAsync*(self: ContentIndexer, a1: IndexableContent) =
   ## Windows.Storage.Search.ContentIndexer.AddAsync
   withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
     withIface(a1.p, IID_IIndexableContent, "IIndexableContent", p0):
       var tmp: pointer
       vcall(it, Slot_IContentIndexer_AddAsync, Fn_IContentIndexer_AddAsync)(it, p0, tmp.addr).check("ContentIndexer.AddAsync")
-      result = tmp
+      awaitVoid(tmp, "ContentIndexer.AddAsync")
+      release(tmp)
 
-proc updateAsync*(self: ContentIndexer, a1: IndexableContent): pointer =
+proc updateAsync*(self: ContentIndexer, a1: IndexableContent) =
   ## Windows.Storage.Search.ContentIndexer.UpdateAsync
   withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
     withIface(a1.p, IID_IIndexableContent, "IIndexableContent", p0):
       var tmp: pointer
       vcall(it, Slot_IContentIndexer_UpdateAsync, Fn_IContentIndexer_UpdateAsync)(it, p0, tmp.addr).check("ContentIndexer.UpdateAsync")
-      result = tmp
+      awaitVoid(tmp, "ContentIndexer.UpdateAsync")
+      release(tmp)
 
-proc deleteAsync*(self: ContentIndexer, a1: string): pointer =
+proc deleteAsync*(self: ContentIndexer, a1: string) =
   ## Windows.Storage.Search.ContentIndexer.DeleteAsync
   withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IContentIndexer_DeleteAsync, Fn_IContentIndexer_DeleteAsync)(it, h0, tmp.addr).check("ContentIndexer.DeleteAsync")
-      result = tmp
+      awaitVoid(tmp, "ContentIndexer.DeleteAsync")
+      release(tmp)
 
-proc deleteAllAsync*(self: ContentIndexer): pointer =
+proc deleteAllAsync*(self: ContentIndexer) =
   ## Windows.Storage.Search.ContentIndexer.DeleteAllAsync
   withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
     var tmp: pointer
     vcall(it, Slot_IContentIndexer_DeleteAllAsync, Fn_IContentIndexer_DeleteAllAsync)(it, tmp.addr).check("ContentIndexer.DeleteAllAsync")
-    result = tmp
+    awaitVoid(tmp, "ContentIndexer.DeleteAllAsync")
+    release(tmp)
 
 proc revision*(self: ContentIndexer): uint64 =
   ## Windows.Storage.Search.ContentIndexer.get_Revision
@@ -5403,77 +5959,155 @@ proc contentType*(self: StorageFile): string =
     vcall(it, Slot_IStorageFile_get_ContentType, Fn_IStorageFile_get_ContentType)(it, tmp.addr).check("StorageFile.get_ContentType")
     result = takeString(tmp)
 
-proc copyAndReplaceAsync*(self: StorageFile, a1: StorageFile): pointer =
+proc openAsync*(self: StorageFile, a1: FileAccessMode): RandomAccessStreamOverStream =
+  ## Windows.Storage.StorageFile.OpenAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile_OpenAsync, Fn_IStorageFile_OpenAsync)(it, a1, tmp.addr).check("StorageFile.OpenAsync")
+    result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "StorageFile.OpenAsync"))
+    release(tmp)
+
+proc openTransactedWriteAsync*(self: StorageFile): StorageStreamTransaction =
+  ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile_OpenTransactedWriteAsync, Fn_IStorageFile_OpenTransactedWriteAsync)(it, tmp.addr).check("StorageFile.OpenTransactedWriteAsync")
+    result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "StorageFile.OpenTransactedWriteAsync"))
+    release(tmp)
+
+proc copyAsync*(self: StorageFile, a1: StorageFolder): StorageFile =
+  ## Windows.Storage.StorageFile.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFile_CopyAsync, Fn_IStorageFile_CopyAsync)(it, p0, tmp.addr).check("StorageFile.CopyAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFile.CopyAsync"))
+      release(tmp)
+
+proc copyAsync*(self: StorageFile, a1: StorageFolder, a2: string): StorageFile =
+  ## Windows.Storage.StorageFile.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IStorageFile_CopyAsync2, Fn_IStorageFile_CopyAsync2)(it, p0, h1, tmp.addr).check("StorageFile.CopyAsync")
+        result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFile.CopyAsync"))
+        release(tmp)
+
+proc copyAsync*(self: StorageFile, a1: StorageFolder, a2: string, a3: NameCollisionOption): StorageFile =
+  ## Windows.Storage.StorageFile.CopyAsync
+  withIface(self.p, IID_IStorageFile, "IStorageFile", it):
+    withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IStorageFile_CopyAsync3, Fn_IStorageFile_CopyAsync3)(it, p0, h1, a3, tmp.addr).check("StorageFile.CopyAsync")
+        result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFile.CopyAsync"))
+        release(tmp)
+
+proc copyAndReplaceAsync*(self: StorageFile, a1: StorageFile) =
   ## Windows.Storage.StorageFile.CopyAndReplaceAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_CopyAndReplaceAsync, Fn_IStorageFile_CopyAndReplaceAsync)(it, p0, tmp.addr).check("StorageFile.CopyAndReplaceAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFile.CopyAndReplaceAsync")
+      release(tmp)
 
-proc moveAsync*(self: StorageFile, a1: StorageFolder): pointer =
+proc moveAsync*(self: StorageFile, a1: StorageFolder) =
   ## Windows.Storage.StorageFile.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_MoveAsync, Fn_IStorageFile_MoveAsync)(it, p0, tmp.addr).check("StorageFile.MoveAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFile.MoveAsync")
+      release(tmp)
 
-proc moveAsync*(self: StorageFile, a1: StorageFolder, a2: string): pointer =
+proc moveAsync*(self: StorageFile, a1: StorageFolder, a2: string) =
   ## Windows.Storage.StorageFile.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IStorageFile_MoveAsync2, Fn_IStorageFile_MoveAsync2)(it, p0, h1, tmp.addr).check("StorageFile.MoveAsync")
-        result = tmp
+        awaitVoid(tmp, "StorageFile.MoveAsync")
+        release(tmp)
 
-proc moveAsync*(self: StorageFile, a1: StorageFolder, a2: string, a3: NameCollisionOption): pointer =
+proc moveAsync*(self: StorageFile, a1: StorageFolder, a2: string, a3: NameCollisionOption) =
   ## Windows.Storage.StorageFile.MoveAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFolder, "IStorageFolder", p0):
       withHString(a2, h1):
         var tmp: pointer
         vcall(it, Slot_IStorageFile_MoveAsync3, Fn_IStorageFile_MoveAsync3)(it, p0, h1, a3, tmp.addr).check("StorageFile.MoveAsync")
-        result = tmp
+        awaitVoid(tmp, "StorageFile.MoveAsync")
+        release(tmp)
 
-proc moveAndReplaceAsync*(self: StorageFile, a1: StorageFile): pointer =
+proc moveAndReplaceAsync*(self: StorageFile, a1: StorageFile) =
   ## Windows.Storage.StorageFile.MoveAndReplaceAsync
   withIface(self.p, IID_IStorageFile, "IStorageFile", it):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_IStorageFile_MoveAndReplaceAsync, Fn_IStorageFile_MoveAndReplaceAsync)(it, p0, tmp.addr).check("StorageFile.MoveAndReplaceAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFile.MoveAndReplaceAsync")
+      release(tmp)
 
-proc renameAsync*(self: StorageFile, a1: string): pointer =
+proc openSequentialReadAsync*(self: StorageFile): InputStreamOverStream =
+  ## Windows.Storage.StorageFile.OpenSequentialReadAsync
+  withIface(self.p, IID_IInputStreamReference, "IInputStreamReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IInputStreamReference_OpenSequentialReadAsync, Fn_IInputStreamReference_OpenSequentialReadAsync)(it, tmp.addr).check("StorageFile.OpenSequentialReadAsync")
+    result = adopt[InputStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IInputStream, "StorageFile.OpenSequentialReadAsync"))
+    release(tmp)
+
+proc openReadAsync*(self: StorageFile): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.OpenReadAsync
+  withIface(self.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStreamReference_OpenReadAsync, Fn_IRandomAccessStreamReference_OpenReadAsync)(it, tmp.addr).check("StorageFile.OpenReadAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, "StorageFile.OpenReadAsync"))
+    release(tmp)
+
+proc renameAsync*(self: StorageFile, a1: string) =
   ## Windows.Storage.StorageFile.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync, Fn_IStorageItem_RenameAsync)(it, h0, tmp.addr).check("StorageFile.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFile.RenameAsync")
+      release(tmp)
 
-proc renameAsync*(self: StorageFile, a1: string, a2: NameCollisionOption): pointer =
+proc renameAsync*(self: StorageFile, a1: string, a2: NameCollisionOption) =
   ## Windows.Storage.StorageFile.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync2, Fn_IStorageItem_RenameAsync2)(it, h0, a2, tmp.addr).check("StorageFile.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFile.RenameAsync")
+      release(tmp)
 
-proc deleteAsync*(self: StorageFile): pointer =
+proc deleteAsync*(self: StorageFile) =
   ## Windows.Storage.StorageFile.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync, Fn_IStorageItem_DeleteAsync)(it, tmp.addr).check("StorageFile.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageFile.DeleteAsync")
+    release(tmp)
 
-proc deleteAsync*(self: StorageFile, a1: StorageDeleteOption): pointer =
+proc deleteAsync*(self: StorageFile, a1: StorageDeleteOption) =
   ## Windows.Storage.StorageFile.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync2, Fn_IStorageItem_DeleteAsync2)(it, a1, tmp.addr).check("StorageFile.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageFile.DeleteAsync")
+    release(tmp)
+
+proc getBasicPropertiesAsync*(self: StorageFile): BasicProperties =
+  ## Windows.Storage.StorageFile.GetBasicPropertiesAsync
+  withIface(self.p, IID_IStorageItem, "IStorageItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem_GetBasicPropertiesAsync, Fn_IStorageItem_GetBasicPropertiesAsync)(it, tmp.addr).check("StorageFile.GetBasicPropertiesAsync")
+    result = adopt[BasicProperties](awaitObject(tmp, IID_IAsyncOperation_1_BasicProperties, "StorageFile.GetBasicPropertiesAsync"))
+    release(tmp)
 
 proc name*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_Name
@@ -5510,6 +6144,30 @@ proc isOfType*(self: StorageFile, a1: StorageItemTypes): bool =
     vcall(it, Slot_IStorageItem_IsOfType, Fn_IStorageItem_IsOfType)(it, a1, tmp.addr).check("StorageFile.IsOfType")
     result = tmp
 
+proc getThumbnailAsync*(self: StorageFile, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync, Fn_IStorageItemProperties_GetThumbnailAsync)(it, a1, tmp.addr).check("StorageFile.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: StorageFile, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync2, Fn_IStorageItemProperties_GetThumbnailAsync2)(it, a1, a2, tmp.addr).check("StorageFile.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: StorageFile, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync3, Fn_IStorageItemProperties_GetThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("StorageFile.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetThumbnailAsync"))
+    release(tmp)
+
 proc displayName*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_DisplayName
   withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
@@ -5538,6 +6196,38 @@ proc properties*(self: StorageFile): StorageItemContentProperties =
     vcall(it, Slot_IStorageItemProperties_get_Properties, Fn_IStorageItemProperties_get_Properties)(it, tmp.addr).check("StorageFile.get_Properties")
     result = adopt[StorageItemContentProperties](tmp)
 
+proc getScaledImageAsThumbnailAsync*(self: StorageFile, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync)(it, a1, tmp.addr).check("StorageFile.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getScaledImageAsThumbnailAsync*(self: StorageFile, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2)(it, a1, a2, tmp.addr).check("StorageFile.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getScaledImageAsThumbnailAsync*(self: StorageFile, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("StorageFile.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFile.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getParentAsync*(self: StorageFile): StorageFolder =
+  ## Windows.Storage.StorageFile.GetParentAsync
+  withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem2_GetParentAsync, Fn_IStorageItem2_GetParentAsync)(it, tmp.addr).check("StorageFile.GetParentAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFile.GetParentAsync"))
+    release(tmp)
+
 proc isEqual*(self: StorageFile, a1: pointer): bool =
   ## Windows.Storage.StorageFile.IsEqual
   withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
@@ -5559,35 +6249,126 @@ proc isAvailable*(self: StorageFile): bool =
     vcall(it, Slot_IStorageFilePropertiesWithAvailability_get_IsAvailable, Fn_IStorageFilePropertiesWithAvailability_get_IsAvailable)(it, tmp.addr).check("StorageFile.get_IsAvailable")
     result = tmp
 
-proc renameAsync*(self: StorageFolder, a1: string): pointer =
+proc openAsync*(self: StorageFile, a1: FileAccessMode, a2: StorageOpenOptions): RandomAccessStreamOverStream =
+  ## Windows.Storage.StorageFile.OpenAsync
+  withIface(self.p, IID_IStorageFile2, "IStorageFile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile2_OpenAsync, Fn_IStorageFile2_OpenAsync)(it, a1, a2, tmp.addr).check("StorageFile.OpenAsync")
+    result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "StorageFile.OpenAsync"))
+    release(tmp)
+
+proc openTransactedWriteAsync*(self: StorageFile, a1: StorageOpenOptions): StorageStreamTransaction =
+  ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
+  withIface(self.p, IID_IStorageFile2, "IStorageFile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageFile2_OpenTransactedWriteAsync, Fn_IStorageFile2_OpenTransactedWriteAsync)(it, a1, tmp.addr).check("StorageFile.OpenTransactedWriteAsync")
+    result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "StorageFile.OpenTransactedWriteAsync"))
+    release(tmp)
+
+proc getFileFromPathAsync*(_: typedesc[StorageFile], a1: string): StorageFile =
+  ## Windows.Storage.StorageFile.GetFileFromPathAsync
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFileStatics_GetFileFromPathAsync, Fn_IStorageFileStatics_GetFileFromPathAsync)(it, h0, tmp.addr).check("StorageFile.GetFileFromPathAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFile.GetFileFromPathAsync"))
+      release(tmp)
+
+proc createFileAsync*(self: StorageFolder, a1: string): StorageFile =
+  ## Windows.Storage.StorageFolder.CreateFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFileAsync, Fn_IStorageFolder_CreateFileAsync)(it, h0, tmp.addr).check("StorageFolder.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFolder.CreateFileAsync"))
+      release(tmp)
+
+proc createFileAsync*(self: StorageFolder, a1: string, a2: CreationCollisionOption): StorageFile =
+  ## Windows.Storage.StorageFolder.CreateFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFileAsync2, Fn_IStorageFolder_CreateFileAsync2)(it, h0, a2, tmp.addr).check("StorageFolder.CreateFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFolder.CreateFileAsync"))
+      release(tmp)
+
+proc createFolderAsync*(self: StorageFolder, a1: string): StorageFolder =
+  ## Windows.Storage.StorageFolder.CreateFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFolderAsync, Fn_IStorageFolder_CreateFolderAsync)(it, h0, tmp.addr).check("StorageFolder.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFolder.CreateFolderAsync"))
+      release(tmp)
+
+proc createFolderAsync*(self: StorageFolder, a1: string, a2: CreationCollisionOption): StorageFolder =
+  ## Windows.Storage.StorageFolder.CreateFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_CreateFolderAsync2, Fn_IStorageFolder_CreateFolderAsync2)(it, h0, a2, tmp.addr).check("StorageFolder.CreateFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFolder.CreateFolderAsync"))
+      release(tmp)
+
+proc getFileAsync*(self: StorageFolder, a1: string): StorageFile =
+  ## Windows.Storage.StorageFolder.GetFileAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_GetFileAsync, Fn_IStorageFolder_GetFileAsync)(it, h0, tmp.addr).check("StorageFolder.GetFileAsync")
+      result = adopt[StorageFile](awaitObject(tmp, IID_IAsyncOperation_1_StorageFile, "StorageFolder.GetFileAsync"))
+      release(tmp)
+
+proc getFolderAsync*(self: StorageFolder, a1: string): StorageFolder =
+  ## Windows.Storage.StorageFolder.GetFolderAsync
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolder_GetFolderAsync, Fn_IStorageFolder_GetFolderAsync)(it, h0, tmp.addr).check("StorageFolder.GetFolderAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFolder.GetFolderAsync"))
+      release(tmp)
+
+proc renameAsync*(self: StorageFolder, a1: string) =
   ## Windows.Storage.StorageFolder.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync, Fn_IStorageItem_RenameAsync)(it, h0, tmp.addr).check("StorageFolder.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFolder.RenameAsync")
+      release(tmp)
 
-proc renameAsync*(self: StorageFolder, a1: string, a2: NameCollisionOption): pointer =
+proc renameAsync*(self: StorageFolder, a1: string, a2: NameCollisionOption) =
   ## Windows.Storage.StorageFolder.RenameAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     withHString(a1, h0):
       var tmp: pointer
       vcall(it, Slot_IStorageItem_RenameAsync2, Fn_IStorageItem_RenameAsync2)(it, h0, a2, tmp.addr).check("StorageFolder.RenameAsync")
-      result = tmp
+      awaitVoid(tmp, "StorageFolder.RenameAsync")
+      release(tmp)
 
-proc deleteAsync*(self: StorageFolder): pointer =
+proc deleteAsync*(self: StorageFolder) =
   ## Windows.Storage.StorageFolder.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync, Fn_IStorageItem_DeleteAsync)(it, tmp.addr).check("StorageFolder.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageFolder.DeleteAsync")
+    release(tmp)
 
-proc deleteAsync*(self: StorageFolder, a1: StorageDeleteOption): pointer =
+proc deleteAsync*(self: StorageFolder, a1: StorageDeleteOption) =
   ## Windows.Storage.StorageFolder.DeleteAsync
   withIface(self.p, IID_IStorageItem, "IStorageItem", it):
     var tmp: pointer
     vcall(it, Slot_IStorageItem_DeleteAsync2, Fn_IStorageItem_DeleteAsync2)(it, a1, tmp.addr).check("StorageFolder.DeleteAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageFolder.DeleteAsync")
+    release(tmp)
+
+proc getBasicPropertiesAsync*(self: StorageFolder): BasicProperties =
+  ## Windows.Storage.StorageFolder.GetBasicPropertiesAsync
+  withIface(self.p, IID_IStorageItem, "IStorageItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem_GetBasicPropertiesAsync, Fn_IStorageItem_GetBasicPropertiesAsync)(it, tmp.addr).check("StorageFolder.GetBasicPropertiesAsync")
+    result = adopt[BasicProperties](awaitObject(tmp, IID_IAsyncOperation_1_BasicProperties, "StorageFolder.GetBasicPropertiesAsync"))
+    release(tmp)
 
 proc name*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_Name
@@ -5705,6 +6486,30 @@ proc isCommonFileQuerySupported*(self: StorageFolder, a1: CommonFileQuery): bool
     vcall(it, Slot_IStorageFolderQueryOperations_IsCommonFileQuerySupported, Fn_IStorageFolderQueryOperations_IsCommonFileQuerySupported)(it, a1, tmp.addr).check("StorageFolder.IsCommonFileQuerySupported")
     result = tmp
 
+proc getThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync, Fn_IStorageItemProperties_GetThumbnailAsync)(it, a1, tmp.addr).check("StorageFolder.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync2, Fn_IStorageItemProperties_GetThumbnailAsync2)(it, a1, a2, tmp.addr).check("StorageFolder.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetThumbnailAsync"))
+    release(tmp)
+
+proc getThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties_GetThumbnailAsync3, Fn_IStorageItemProperties_GetThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("StorageFolder.GetThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetThumbnailAsync"))
+    release(tmp)
+
 proc displayName*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_DisplayName
   withIface(self.p, IID_IStorageItemProperties, "IStorageItemProperties", it):
@@ -5733,6 +6538,38 @@ proc properties*(self: StorageFolder): StorageItemContentProperties =
     vcall(it, Slot_IStorageItemProperties_get_Properties, Fn_IStorageItemProperties_get_Properties)(it, tmp.addr).check("StorageFolder.get_Properties")
     result = adopt[StorageItemContentProperties](tmp)
 
+proc getScaledImageAsThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync)(it, a1, tmp.addr).check("StorageFolder.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getScaledImageAsThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode, a2: uint32): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync2)(it, a1, a2, tmp.addr).check("StorageFolder.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getScaledImageAsThumbnailAsync*(self: StorageFolder, a1: ThumbnailMode, a2: uint32, a3: ThumbnailOptions): StorageItemThumbnail =
+  ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
+  withIface(self.p, IID_IStorageItemProperties2, "IStorageItemProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3, Fn_IStorageItemProperties2_GetScaledImageAsThumbnailAsync3)(it, a1, a2, a3, tmp.addr).check("StorageFolder.GetScaledImageAsThumbnailAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_StorageItemThumbnail, "StorageFolder.GetScaledImageAsThumbnailAsync"))
+    release(tmp)
+
+proc getParentAsync*(self: StorageFolder): StorageFolder =
+  ## Windows.Storage.StorageFolder.GetParentAsync
+  withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItem2_GetParentAsync, Fn_IStorageItem2_GetParentAsync)(it, tmp.addr).check("StorageFolder.GetParentAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFolder.GetParentAsync"))
+    release(tmp)
+
 proc isEqual*(self: StorageFolder, a1: pointer): bool =
   ## Windows.Storage.StorageFolder.IsEqual
   withIface(self.p, IID_IStorageItem2, "IStorageItem2", it):
@@ -5753,6 +6590,23 @@ proc tryGetChangeTracker*(self: StorageFolder): StorageLibraryChangeTracker =
     var tmp: pointer
     vcall(it, Slot_IStorageFolder3_TryGetChangeTracker, Fn_IStorageFolder3_TryGetChangeTracker)(it, tmp.addr).check("StorageFolder.TryGetChangeTracker")
     result = adopt[StorageLibraryChangeTracker](tmp)
+
+proc getFolderFromPathAsync*(_: typedesc[StorageFolder], a1: string): StorageFolder =
+  ## Windows.Storage.StorageFolder.GetFolderFromPathAsync
+  withStatics("Windows.Storage.StorageFolder", IID_IStorageFolderStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFolderStatics_GetFolderFromPathAsync, Fn_IStorageFolderStatics_GetFolderFromPathAsync)(it, h0, tmp.addr).check("StorageFolder.GetFolderFromPathAsync")
+      result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageFolder.GetFolderFromPathAsync"))
+      release(tmp)
+
+proc requestAddFolderAsync*(self: StorageLibrary): StorageFolder =
+  ## Windows.Storage.StorageLibrary.RequestAddFolderAsync
+  withIface(self.p, IID_IStorageLibrary, "IStorageLibrary", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageLibrary_RequestAddFolderAsync, Fn_IStorageLibrary_RequestAddFolderAsync)(it, tmp.addr).check("StorageLibrary.RequestAddFolderAsync")
+    result = adopt[StorageFolder](awaitObject(tmp, IID_IAsyncOperation_1_StorageFolder, "StorageLibrary.RequestAddFolderAsync"))
+    release(tmp)
 
 proc saveFolder*(self: StorageLibrary): StorageFolder =
   ## Windows.Storage.StorageLibrary.get_SaveFolder
@@ -5787,6 +6641,14 @@ proc changeTracker*(self: StorageLibrary): StorageLibraryChangeTracker =
     vcall(it, Slot_IStorageLibrary2_get_ChangeTracker, Fn_IStorageLibrary2_get_ChangeTracker)(it, tmp.addr).check("StorageLibrary.get_ChangeTracker")
     result = adopt[StorageLibraryChangeTracker](tmp)
 
+proc getLibraryAsync*(_: typedesc[StorageLibrary], a1: KnownLibraryId): StorageLibrary =
+  ## Windows.Storage.StorageLibrary.GetLibraryAsync
+  withStatics("Windows.Storage.StorageLibrary", IID_IStorageLibraryStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageLibraryStatics_GetLibraryAsync, Fn_IStorageLibraryStatics_GetLibraryAsync)(it, a1, tmp.addr).check("StorageLibrary.GetLibraryAsync")
+    result = adopt[StorageLibrary](awaitObject(tmp, IID_IAsyncOperation_1_StorageLibrary, "StorageLibrary.GetLibraryAsync"))
+    release(tmp)
+
 proc changeType*(self: StorageLibraryChange): StorageLibraryChangeType =
   ## Windows.Storage.StorageLibraryChange.get_ChangeType
   withIface(self.p, IID_IStorageLibraryChange, "IStorageLibraryChange", it):
@@ -5815,12 +6677,13 @@ proc isOfType*(self: StorageLibraryChange, a1: StorageItemTypes): bool =
     vcall(it, Slot_IStorageLibraryChange_IsOfType, Fn_IStorageLibraryChange_IsOfType)(it, a1, tmp.addr).check("StorageLibraryChange.IsOfType")
     result = tmp
 
-proc acceptChangesAsync*(self: StorageLibraryChangeReader): pointer =
+proc acceptChangesAsync*(self: StorageLibraryChangeReader) =
   ## Windows.Storage.StorageLibraryChangeReader.AcceptChangesAsync
   withIface(self.p, IID_IStorageLibraryChangeReader, "IStorageLibraryChangeReader", it):
     var tmp: pointer
     vcall(it, Slot_IStorageLibraryChangeReader_AcceptChangesAsync, Fn_IStorageLibraryChangeReader_AcceptChangesAsync)(it, tmp.addr).check("StorageLibraryChangeReader.AcceptChangesAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageLibraryChangeReader.AcceptChangesAsync")
+    release(tmp)
 
 proc getLastChangeId*(self: StorageLibraryChangeReader): uint64 =
   ## Windows.Storage.StorageLibraryChangeReader.GetLastChangeId
@@ -5901,12 +6764,13 @@ proc stream*(self: StorageStreamTransaction): RandomAccessStreamOverStream =
     vcall(it, Slot_IStorageStreamTransaction_get_Stream, Fn_IStorageStreamTransaction_get_Stream)(it, tmp.addr).check("StorageStreamTransaction.get_Stream")
     result = adopt[RandomAccessStreamOverStream](tmp)
 
-proc commitAsync*(self: StorageStreamTransaction): pointer =
+proc commitAsync*(self: StorageStreamTransaction) =
   ## Windows.Storage.StorageStreamTransaction.CommitAsync
   withIface(self.p, IID_IStorageStreamTransaction, "IStorageStreamTransaction", it):
     var tmp: pointer
     vcall(it, Slot_IStorageStreamTransaction_CommitAsync, Fn_IStorageStreamTransaction_CommitAsync)(it, tmp.addr).check("StorageStreamTransaction.CommitAsync")
-    result = tmp
+    awaitVoid(tmp, "StorageStreamTransaction.CommitAsync")
+    release(tmp)
 
 proc failAndClose*(self: StreamedFileDataRequest, a1: StreamedFileFailureMode) =
   ## Windows.Storage.StreamedFileDataRequest.FailAndClose
@@ -6274,6 +7138,15 @@ proc createDataWriter*(_: typedesc[DataWriter], a1: OutputStreamOverStream): Dat
       vcall(it, Slot_IDataWriterFactory_CreateDataWriter, Fn_IDataWriterFactory_CreateDataWriter)(it, p0, tmp.addr).check("DataWriter.CreateDataWriter")
       result = adopt[DataWriter](tmp)
 
+proc readAsync*(self: FileInputStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Streams.FileInputStream.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("FileInputStream.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "FileInputStream.ReadAsync"))
+      release(tmp)
+
 proc size*(self: FileRandomAccessStream): uint64 =
   ## Windows.Storage.Streams.FileRandomAccessStream.get_Size
   withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
@@ -6332,6 +7205,51 @@ proc canWrite*(self: FileRandomAccessStream): bool =
     var tmp: bool
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("FileRandomAccessStream.get_CanWrite")
     result = tmp
+
+proc readAsync*(self: FileRandomAccessStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Streams.FileRandomAccessStream.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("FileRandomAccessStream.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "FileRandomAccessStream.ReadAsync"))
+      release(tmp)
+
+proc openAsync*(_: typedesc[FileRandomAccessStream], a1: string, a2: FileAccessMode): RandomAccessStreamOverStream =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenAsync
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IFileRandomAccessStreamStatics_OpenAsync, Fn_IFileRandomAccessStreamStatics_OpenAsync)(it, h0, a2, tmp.addr).check("FileRandomAccessStream.OpenAsync")
+      result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "FileRandomAccessStream.OpenAsync"))
+      release(tmp)
+
+proc openAsync*(_: typedesc[FileRandomAccessStream], a1: string, a2: FileAccessMode, a3: StorageOpenOptions, a4: FileOpenDisposition): RandomAccessStreamOverStream =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenAsync
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IFileRandomAccessStreamStatics_OpenAsync2, Fn_IFileRandomAccessStreamStatics_OpenAsync2)(it, h0, a2, a3, a4, tmp.addr).check("FileRandomAccessStream.OpenAsync")
+      result = adopt[RandomAccessStreamOverStream](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStream, "FileRandomAccessStream.OpenAsync"))
+      release(tmp)
+
+proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream], a1: string): StorageStreamTransaction =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync, Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync)(it, h0, tmp.addr).check("FileRandomAccessStream.OpenTransactedWriteAsync")
+      result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "FileRandomAccessStream.OpenTransactedWriteAsync"))
+      release(tmp)
+
+proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream], a1: string, a2: StorageOpenOptions, a3: FileOpenDisposition): StorageStreamTransaction =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2, Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2)(it, h0, a2, a3, tmp.addr).check("FileRandomAccessStream.OpenTransactedWriteAsync")
+      result = adopt[StorageStreamTransaction](awaitObject(tmp, IID_IAsyncOperation_1_StorageStreamTransaction, "FileRandomAccessStream.OpenTransactedWriteAsync"))
+      release(tmp)
 
 proc newInMemoryRandomAccessStream*(): InMemoryRandomAccessStream =
   ## Activate a `Windows.Storage.Streams.InMemoryRandomAccessStream`.
@@ -6396,6 +7314,24 @@ proc canWrite*(self: InMemoryRandomAccessStream): bool =
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("InMemoryRandomAccessStream.get_CanWrite")
     result = tmp
 
+proc readAsync*(self: InMemoryRandomAccessStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Streams.InMemoryRandomAccessStream.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("InMemoryRandomAccessStream.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "InMemoryRandomAccessStream.ReadAsync"))
+      release(tmp)
+
+proc readAsync*(self: InputStreamOverStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Streams.InputStreamOverStream.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("InputStreamOverStream.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "InputStreamOverStream.ReadAsync"))
+      release(tmp)
+
 proc size*(self: RandomAccessStreamOverStream): uint64 =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.get_Size
   withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
@@ -6454,6 +7390,23 @@ proc canWrite*(self: RandomAccessStreamOverStream): bool =
     var tmp: bool
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("RandomAccessStreamOverStream.get_CanWrite")
     result = tmp
+
+proc readAsync*(self: RandomAccessStreamOverStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Buffer =
+  ## Windows.Storage.Streams.RandomAccessStreamOverStream.ReadAsync
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, tmp.addr).check("RandomAccessStreamOverStream.ReadAsync")
+      result = adopt[Buffer](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IBuffer_U4, "RandomAccessStreamOverStream.ReadAsync"))
+      release(tmp)
+
+proc openReadAsync*(self: RandomAccessStreamReference): StorageItemThumbnail =
+  ## Windows.Storage.Streams.RandomAccessStreamReference.OpenReadAsync
+  withIface(self.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStreamReference_OpenReadAsync, Fn_IRandomAccessStreamReference_OpenReadAsync)(it, tmp.addr).check("RandomAccessStreamReference.OpenReadAsync")
+    result = adopt[StorageItemThumbnail](awaitObject(tmp, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, "RandomAccessStreamReference.OpenReadAsync"))
+    release(tmp)
 
 proc createFromFile*(_: typedesc[RandomAccessStreamReference], a1: StorageFile): RandomAccessStreamReference =
   ## Windows.Storage.Streams.RandomAccessStreamReference.CreateFromFile

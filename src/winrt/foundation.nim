@@ -17,6 +17,9 @@ export core, foundation
 const IID_EventHandler_1_TracingStatusChangedEventArgs* = GUID(
     data1: 0x2BF27008'u32, data2: 0x2EB4'u16, data3: 0x5675'u16,
     data4: [0xB1'u8, 0xCD, 0xE9, 0x90, 0x6C, 0xC5, 0xCE, 0x64])
+const IID_IAsyncOperation_1_ErrorDetails* = GUID(
+    data1: 0x9B05106D'u32, data2: 0x77E0'u16, data3: 0x5C24'u16,
+    data4: [0x82'u8, 0xB0, 0x9B, 0x2D, 0xC8, 0xF7, 0x96, 0x71])
 const IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs* = GUID(
     data1: 0x0C6563B0'u32, data2: 0x9D8B'u16, data3: 0x5B60'u16,
     data4: [0x99'u8, 0x4B, 0xDE, 0xE1, 0x17, 0x4D, 0x1E, 0xFB])
@@ -1011,6 +1014,14 @@ proc helpUri*(self: ErrorDetails): Uri =
     var tmp: pointer
     vcall(it, Slot_IErrorDetails_get_HelpUri, Fn_IErrorDetails_get_HelpUri)(it, tmp.addr).check("ErrorDetails.get_HelpUri")
     result = adopt[Uri](tmp)
+
+proc createFromHResultAsync*(_: typedesc[ErrorDetails], a1: int32): ErrorDetails =
+  ## Windows.Foundation.Diagnostics.ErrorDetails.CreateFromHResultAsync
+  withStatics("Windows.Foundation.Diagnostics.ErrorDetails", IID_IErrorDetailsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IErrorDetailsStatics_CreateFromHResultAsync, Fn_IErrorDetailsStatics_CreateFromHResultAsync)(it, a1, tmp.addr).check("ErrorDetails.CreateFromHResultAsync")
+    result = adopt[ErrorDetails](awaitObject(tmp, IID_IAsyncOperation_1_ErrorDetails, "ErrorDetails.CreateFromHResultAsync"))
+    release(tmp)
 
 proc name*(self: FileLoggingSession): string =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
