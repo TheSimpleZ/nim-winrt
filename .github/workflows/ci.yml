@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # WinRT is Windows, and the tests call into it for real rather than
+    # mocking it — there is nothing to gain from a Linux job.
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: 2.2.12
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test
+        run: nimble test -y
+
+      - name: Type-check every generated module on its own
+        shell: pwsh
+        # `nimble test` already compiles all eighteen together, which is what
+        # catches a name collision between them. This catches the other half:
+        # a module that only compiles because something else imported first.
+        run: |
+          $failed = @()
+          foreach ($m in Get-ChildItem src/winrt/*.nim) {
+            Write-Host "--- $($m.Name)"
+            nim check --hints:off --path:src $m.FullName
+            if ($LASTEXITCODE -ne 0) { $failed += $m.Name }
+          }
+          if ($failed.Count -gt 0) {
+            Write-Host "::error::modules failed to type-check: $($failed -join ', ')"
+            exit 1
+          }
+
+      - name: Build the examples
+        shell: pwsh
+        # Built, not run: some of what they read — the power state in
+        # particular — is not present on every Windows SKU, and a runner is
+        # not the machine to find that out on. Running them is `nimble
+        # examples`, locally.
+        run: |
+          $failed = @()
+          foreach ($e in Get-ChildItem examples/*.nim) {
+            Write-Host "--- $($e.Name)"
+            nim c --hints:off --path:src -o:"$env:TEMP\$($e.BaseName).exe" $e.FullName
+            if ($LASTEXITCODE -ne 0) { $failed += $e.Name }
+          }
+          if ($failed.Count -gt 0) {
+            Write-Host "::error::examples failed to build: $($failed -join ', ')"
+            exit 1
+          }
+
+      - name: Build the generator and its diagnostics
+        shell: pwsh
+        # Nothing here ships, but a generator that no longer compiles is only
+        # discovered when someone needs to move to a new SDK, which is the
+        # worst moment to find out.
+        run: |
+          $failed = @()
+          foreach ($t in Get-ChildItem tools/*.nim) {
+            if ($t.Name -in @('winmd.nim', 'foreign.nim', 'piid.nim', 'nimgen.nim')) {
+              continue   # libraries, covered by the programs that import them
+            }
+            Write-Host "--- $($t.Name)"
+            nim c --hints:off -o:"$env:TEMP\$($t.BaseName).exe" $t.FullName
+            if ($LASTEXITCODE -ne 0) { $failed += $t.Name }
+          }
+          if ($failed.Count -gt 0) {
+            Write-Host "::error::tools failed to build: $($failed -join ', ')"
+            exit 1
+          }
