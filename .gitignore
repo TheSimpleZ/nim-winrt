@@ -1,0 +1,20 @@
+# Build output
+/bin/
+nimcache/
+*.exe
+*.pdb
+*.ilk
+*.obj
+*.o
+
+# Nimble
+/nimbledeps/
+nimble.develop
+nimble.paths
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+config.nims

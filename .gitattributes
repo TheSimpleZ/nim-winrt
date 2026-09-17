@@ -1,0 +1,5 @@
+# Keep text as LF in the repository whatever the checkout platform does.
+* text=auto eol=lf
+*.png binary
+*.res binary
+*.winmd binary
