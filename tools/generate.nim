@@ -279,6 +279,12 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
     # already spells as `HRESULT`; emitting it too would put two names for one
     # thing in two modules, and Nim would call every use of it ambiguous.
     if t.fullName in aliasOf: continue
+    # A hoisted type is still `owned` by its own group, which reaches this loop
+    # after the root module has already written it. Declaring it a second time
+    # would produce two Nim types of the same name and layout that cannot be
+    # passed to each other — and an app importing both modules could name
+    # neither, which is precisely what hoisting exists to avoid.
+    if t.fullName in structNames: continue
     let (ff, fs) = md.fieldRange(t.index)
     if fs <= ff: continue
     queue.add PendingStruct(foreign: false, full: t.fullName, row: t)

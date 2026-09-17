@@ -40,9 +40,9 @@ const
   CO_E_NOTINITIALIZED* = cast[HRESULT](0x800401F0'u32)
   RPC_E_CHANGED_MODE* = cast[HRESULT](0x80010106'u32)
   REGDB_E_CLASSNOTREG* = cast[HRESULT](0x80040154'u32)
-  ## Raised by `RoGetActivationFactory` when the class id is not resolvable —
-  ## In practice this means the class's runtime is not deployed; see
-  ## `activationHint`.
+    ## Returned by `RoGetActivationFactory` when the class id does not resolve.
+    ## In practice that means the class's runtime is not deployed, not that the
+    ## name is wrong; see `activationHint`.
   CLASS_E_CLASSNOTAVAILABLE* = cast[HRESULT](0x80040111'u32)
 
 func succeeded*(hr: HRESULT): bool {.inline.} =
@@ -161,11 +161,17 @@ type
     vtbl*: ptr IInspectableVtbl
 
 const
-  ## {00000035-0000-0000-C000-000000000046} — implemented by every activation
-  ## factory, so it is the one IID that never needs generating.
   IID_IActivationFactory* = GUID(
     data1: 0x00000035'u32, data2: 0'u16, data3: 0'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
+    ## {00000035-0000-0000-C000-000000000046} — implemented by every activation
+    ## factory, so it is the one IID that never needs generating.
+
+func `==`*(a, b: GUID): bool =
+  ## Field by field: a GUID is sixteen bytes with no padding, but Nim has no
+  ## structural equality for an object containing an array without saying so.
+  a.data1 == b.data1 and a.data2 == b.data2 and a.data3 == b.data3 and
+    a.data4 == b.data4
 
 template vcall*(obj: pointer, slot: int, T: typedesc): untyped =
   ## The method at vtable index `slot`, as a callable of type `T`.
@@ -224,24 +230,23 @@ func guid*(s: string): GUID =
 var runtimeAlive = true
 
 proc endRuntime*() =
-  ## Record that the XAML runtime has shut down and its objects are gone.
+  ## Record that the hosting runtime has shut down and its objects are gone.
   ##
-  ## Called by `start` once `Application.Start` returns. After this point a
-  ## `Release` would reach through a vtable that XAML has already freed.
+  ## Nothing in this package calls this: an application that only makes WinRT
+  ## calls never has a runtime torn out from under it. A framework built on top
+  ## does — a XAML projection calls this once `Application.Start` returns —
+  ## after which a `Release` would reach through a vtable that has been freed.
   runtimeAlive = false
-
-proc runtimeHasEnded*(): bool {.inline, raises: [].} =
-  not runtimeAlive
 
 proc releaseIfLive*(obj: pointer) {.raises: [].} =
   ## Release, unless the runtime has already gone.
   ##
   ## Object wrappers release in their destructors, and a wrapper captured by an
   ## event handler's closure outlives the message loop: the closure sits in a
-  ## module-level table that Nim destroys at *process* exit, by which time XAML
-  ## has torn itself down. Releasing then corrupts the heap — `STATUS_HEAP_
-  ## CORRUPTION`, raised after the program has otherwise finished successfully,
-  ## which is about as hard to attribute as a fault gets.
+  ## module-level table that Nim destroys at *process* exit, by which time the
+  ## framework has torn itself down. Releasing then corrupts the heap —
+  ## `STATUS_HEAP_CORRUPTION`, raised after the program has otherwise finished
+  ## successfully, which is about as hard to attribute as a fault gets.
   ##
   ## Skipping the release leaks, but only during the handful of microseconds
   ## between the runtime ending and the process ending, so nothing can observe
@@ -294,8 +299,9 @@ proc initApartment*(model = singleThreaded): HRESULT {.discardable.} =
 proc activateInstance*(classId: string): pointer =
   ## Create a WinRT object that has a default constructor.
   ##
-  ## Most of XAML does *not*, which is why `activationFactory` is the call
-  ## this library actually leans on.
+  ## Plenty of classes do not — anything static, and anything meant to be
+  ## derived from, answers `E_NOTIMPL` here — which is why `activationFactory`
+  ## is the call this library actually leans on.
   withHString(classId, id):
     let hr = roActivateInstance(id, result.addr)
     hr.check(&"RoActivateInstance({classId})")

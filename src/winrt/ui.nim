@@ -11945,26 +11945,10 @@ proc `$`*(v: Visibility): string =
 const Visibility_Visible* = Visibility(0'i32)
 const Visibility_Collapsed* = Visibility(1'i32)
 
-## Windows.UI.Color  (struct)
-type Color* {.pure.} = object
-  a*: uint8
-  r*: uint8
-  g*: uint8
-  b*: uint8
-
 ## Windows.UI.Composition.InkTrailPoint  (struct)
 type InkTrailPoint* {.pure.} = object
   point*: Point
   radius*: float32
-
-## Windows.UI.Core.CorePhysicalKeyStatus  (struct)
-type CorePhysicalKeyStatus* {.pure.} = object
-  repeatCount*: uint32
-  scanCode*: uint32
-  isExtendedKey*: bool
-  isMenuKeyDown*: bool
-  wasKeyDown*: bool
-  isKeyReleased*: bool
 
 ## Windows.UI.Core.CoreProximityEvaluation  (struct)
 type CoreProximityEvaluation* {.pure.} = object
@@ -12033,10 +12017,6 @@ type CoreTextRange* {.pure.} = object
   startCaretPosition*: int32
   endCaretPosition*: int32
 
-## Windows.UI.Text.FontWeight  (struct)
-type FontWeight* {.pure.} = object
-  weight*: uint16
-
 ## Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration  (struct)
 type AutomationAnnotationTypeRegistration* {.pure.} = object
   localId*: int32
@@ -12089,11 +12069,6 @@ type Duration* {.pure.} = object
 type GridLength* {.pure.} = object
   value*: float64
   gridUnitType*: GridUnitType
-
-## Windows.UI.Xaml.Interop.TypeName  (struct)
-type TypeName* {.pure.} = object
-  name*: HSTRING
-  kind*: TypeKind
 
 ## Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation  (struct)
 type XamlBinaryWriterErrorInformation* {.pure.} = object

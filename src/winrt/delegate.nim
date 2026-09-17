@@ -47,35 +47,31 @@ type
   StoredProc = proc(a, b: pointer) {.closure.}
     ## How both kinds are kept. A `DelegateProc` is wrapped to ignore `b`.
 
-  DelegateVtbl* {.pure.} = object
-    queryInterface*: proc(self: pointer, riid: ptr GUID,
-                          ppv: ptr pointer): HRESULT {.stdcall.}
-    addRef*: proc(self: pointer): uint32 {.stdcall.}
-    release*: proc(self: pointer): uint32 {.stdcall.}
-    invoke*: proc(self: pointer, args: pointer): HRESULT {.stdcall.}
+  DelegateVtbl {.pure.} = object
+    queryInterface: proc(self: pointer, riid: ptr GUID,
+                         ppv: ptr pointer): HRESULT {.stdcall.}
+    addRef: proc(self: pointer): uint32 {.stdcall.}
+    release: proc(self: pointer): uint32 {.stdcall.}
+    invoke: proc(self: pointer, args: pointer): HRESULT {.stdcall.}
 
-  EventVtbl* {.pure.} = object
-    queryInterface*: proc(self: pointer, riid: ptr GUID,
-                          ppv: ptr pointer): HRESULT {.stdcall.}
-    addRef*: proc(self: pointer): uint32 {.stdcall.}
-    release*: proc(self: pointer): uint32 {.stdcall.}
-    invoke*: proc(self: pointer, sender, args: pointer): HRESULT {.stdcall.}
+  EventVtbl {.pure.} = object
+    queryInterface: proc(self: pointer, riid: ptr GUID,
+                         ppv: ptr pointer): HRESULT {.stdcall.}
+    addRef: proc(self: pointer): uint32 {.stdcall.}
+    release: proc(self: pointer): uint32 {.stdcall.}
+    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.stdcall.}
 
-  DelegateImpl* {.pure.} = object
+  DelegateImpl {.pure.} = object
     ## Manually allocated, because its lifetime belongs to COM and not to Nim.
-    vtbl*: ptr DelegateVtbl   ## must stay first
-    refs*: int32
-    iid*: GUID
-    slot*: int32              ## index into `handlers`
+    vtbl: ptr DelegateVtbl   ## must stay first
+    refs: int32
+    iid: GUID
+    slot: int32              ## index into `handlers`
 
 const
   IID_IUnknown* = GUID(
     data1: 0x00000000'u32, data2: 0'u16, data3: 0'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
-
-func `==`*(a, b: GUID): bool =
-  a.data1 == b.data1 and a.data2 == b.data2 and a.data3 == b.data3 and
-    a.data4 == b.data4
 
 # Handlers live here so the GC can see them: a closure's environment is
 # GC-managed and the COM object is not, so burying one inside the other gives a
@@ -230,6 +226,7 @@ proc newDelegate*(iid: GUID, handler: DelegateProc): pointer =
 
 proc delegateTableSizes*(): tuple[slots, free: int] =
   ## Diagnostic: how many slots the handler table holds, and how many of those
-  ## are free for reuse. A test asserts these stop growing; without the free
-  ## list they would grow by one per subscription for the life of the process.
+  ## are free for reuse. `tests/tdelegate.nim` asserts the first number stops
+  ## growing; without the free list it would grow by one per subscription for
+  ## the life of the process.
   (handlers.len, freeSlots.len)
