@@ -11,9 +11,14 @@ import ./core
 import ./abi/security
 import ./delegate
 export core, security
+import ./asyncops
+export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorOneTimeCodedInfo* = GUID(
+    data1: 0x02E84540'u32, data2: 0xF4A1'u16, data3: 0x589F'u16,
+    data4: [0x93'u8, 0x60, 0xA0, 0x50, 0x2E, 0x6D, 0xC9, 0xC0])
 const IID_IAsyncOperation_1_MicrosoftAccountMultiFactorOneTimeCodedInfo* = GUID(
     data1: 0xAE63588E'u32, data2: 0x1FC2'u16, data3: 0x58A3'u16,
     data4: [0xAF'u8, 0x36, 0x6F, 0x67, 0xB8, 0x92, 0x2B, 0xE7])
@@ -23,18 +28,30 @@ const IID_IVectorView_1_MicrosoftAccountMultiFactorSessionInfo* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult* = GUID(
+    data1: 0x2547373D'u32, data2: 0x9684'u16, data3: 0x5E5B'u16,
+    data4: [0xA9'u8, 0xB8, 0xA6, 0xF9, 0x0C, 0xE6, 0x32, 0xAD])
 const IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult* = GUID(
     data1: 0x18B0A73C'u32, data2: 0xDB59'u16, data3: 0x5279'u16,
     data4: [0xA7'u8, 0x6D, 0x02, 0x41, 0x6B, 0x2D, 0x90, 0xB6])
 const IID_EventHandler_1_SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs* = GUID(
     data1: 0x10409B3C'u32, data2: 0x42E4'u16, data3: 0x586F'u16,
     data4: [0x84'u8, 0xC1, 0x80, 0x3D, 0xA2, 0x37, 0x65, 0xAF])
+const IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationStageInfo* = GUID(
+    data1: 0x7811D384'u32, data2: 0x2EB8'u16, data3: 0x58F1'u16,
+    data4: [0xAF'u8, 0xED, 0x4B, 0x4B, 0x88, 0x8F, 0x43, 0x57])
 const IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationStageInfo* = GUID(
     data1: 0x864A2317'u32, data2: 0xB440'u16, data3: 0x5E9E'u16,
     data4: [0xAE'u8, 0x55, 0x45, 0x50, 0xBB, 0x63, 0x07, 0xDF])
+const IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorRegistrationResult* = GUID(
+    data1: 0xA04902E8'u32, data2: 0xF830'u16, data3: 0x50EA'u16,
+    data4: [0x89'u8, 0xEA, 0x96, 0xE2, 0xA6, 0xFB, 0x94, 0x53])
 const IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult* = GUID(
     data1: 0x05DA520C'u32, data2: 0xABA4'u16, data3: 0x584C'u16,
     data4: [0xBC'u8, 0x08, 0x19, 0xC5, 0x38, 0x9A, 0x70, 0xE2])
+const IID_AsyncOperationCompletedHandler_1_OnlineIdSystemTicketResult* = GUID(
+    data1: 0x05F9F2EC'u32, data2: 0x5950'u16, data3: 0x56F8'u16,
+    data4: [0xB7'u8, 0xF8, 0x22, 0xE2, 0x0B, 0x98, 0x46, 0x79])
 const IID_IAsyncOperation_1_OnlineIdSystemTicketResult* = GUID(
     data1: 0x162F5870'u32, data2: 0x5A4A'u16, data3: 0x503C'u16,
     data4: [0x98'u8, 0x7F, 0xA0, 0x5A, 0x13, 0x12, 0xD8, 0xE4])
@@ -50,18 +67,33 @@ const IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs* = GUID(
 const IID_TypedEventHandler_2_WebAccountMonitor_Object* = GUID(
     data1: 0xC8CB498D'u32, data2: 0xE0DA'u16, data3: 0x52A1'u16,
     data4: [0xAB'u8, 0xF9, 0x71, 0x98, 0xC7, 0xF5, 0xCB, 0x42])
+const IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult* = GUID(
+    data1: 0xDEB54B22'u32, data2: 0x70F2'u16, data3: 0x55AB'u16,
+    data4: [0x97'u8, 0xC0, 0x6C, 0xBD, 0xC5, 0xDD, 0xB6, 0xF0])
 const IID_IAsyncOperation_1_WebTokenRequestResult* = GUID(
     data1: 0x0A815852'u32, data2: 0x7C44'u16, data3: 0x5674'u16,
     data4: [0xB3'u8, 0xD2, 0xFA, 0x2E, 0x4C, 0x1E, 0x46, 0xC9])
+const IID_AsyncOperationCompletedHandler_1_WebAccount* = GUID(
+    data1: 0x4BD6F1E5'u32, data2: 0xCA89'u16, data3: 0x5240'u16,
+    data4: [0x8F'u8, 0x3D, 0x7F, 0x1B, 0x54, 0xAE, 0x90, 0xA7])
 const IID_IAsyncOperation_1_WebAccount* = GUID(
     data1: 0xACD76B54'u32, data2: 0x297F'u16, data3: 0x5A18'u16,
     data4: [0x91'u8, 0x43, 0x20, 0xA3, 0x09, 0xE2, 0xDF, 0xD3])
+const IID_AsyncOperationCompletedHandler_1_WebAccountProvider* = GUID(
+    data1: 0x9477622B'u32, data2: 0x1340'u16, data3: 0x5574'u16,
+    data4: [0x81'u8, 0xFC, 0x50, 0x13, 0x58, 0x1F, 0x57, 0xC9])
 const IID_IAsyncOperation_1_WebAccountProvider* = GUID(
     data1: 0x88C66009'u32, data2: 0x12F7'u16, data3: 0x58E2'u16,
     data4: [0x8D'u8, 0xBE, 0x6E, 0xFC, 0x62, 0x0C, 0x85, 0xBA])
+const IID_AsyncOperationCompletedHandler_1_WebAuthenticationAddAccountResult* = GUID(
+    data1: 0xFE15F0E6'u32, data2: 0x6520'u16, data3: 0x5B5E'u16,
+    data4: [0xAE'u8, 0x26, 0xB5, 0x2A, 0x50, 0x6B, 0x98, 0x0D])
 const IID_IAsyncOperation_1_WebAuthenticationAddAccountResult* = GUID(
     data1: 0x63824A59'u32, data2: 0xB4FA'u16, data3: 0x5E89'u16,
     data4: [0xBA'u8, 0x3C, 0xD4, 0x4E, 0x53, 0x2A, 0x29, 0xD8])
+const IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult* = GUID(
+    data1: 0x5DE9BA5E'u32, data2: 0x0ADE'u16, data3: 0x5344'u16,
+    data4: [0x9F'u8, 0xE4, 0x98, 0x7F, 0x1D, 0x38, 0x7E, 0xF7])
 const IID_IAsyncOperation_1_FindAllAccountsResult* = GUID(
     data1: 0x9AFFB572'u32, data2: 0x58C3'u16, data3: 0x5C6C'u16,
     data4: [0x93'u8, 0x97, 0x2B, 0x77, 0x04, 0xAA, 0x35, 0xC3])
@@ -74,24 +106,39 @@ const IID_IVector_1_WebProviderTokenResponse* = GUID(
 const IID_TypedEventHandler_2_AppCapability_AppCapabilityAccessChangedEventArgs* = GUID(
     data1: 0x6D923C95'u32, data2: 0x7B83'u16, data3: 0x5F59'u16,
     data4: [0x88'u8, 0x83, 0xF4, 0x41, 0x75, 0x28, 0x48, 0x98])
+const IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult* = GUID(
+    data1: 0x39B4609A'u32, data2: 0x0202'u16, data3: 0x55FA'u16,
+    data4: [0x80'u8, 0x05, 0x6F, 0x83, 0x70, 0x9E, 0x20, 0xF3])
 const IID_IAsyncOperation_1_KeyCredentialOperationResult* = GUID(
     data1: 0x6576E5B3'u32, data2: 0x9535'u16, data3: 0x50D6'u16,
     data4: [0x98'u8, 0xF6, 0xC6, 0x7D, 0x6A, 0xAC, 0xA2, 0xC5])
+const IID_AsyncOperationCompletedHandler_1_KeyCredentialAttestationResult* = GUID(
+    data1: 0x2C16E103'u32, data2: 0xF783'u16, data3: 0x5DD9'u16,
+    data4: [0xA5'u8, 0xF3, 0x33, 0x62, 0xBC, 0xBD, 0xAA, 0xBD])
 const IID_IAsyncOperation_1_KeyCredentialAttestationResult* = GUID(
     data1: 0xB83D29E9'u32, data2: 0xF4E4'u16, data3: 0x5AA4'u16,
     data4: [0x92'u8, 0xD5, 0xB2, 0x62, 0xCB, 0x40, 0xC6, 0x22])
+const IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult* = GUID(
+    data1: 0x03EA60B1'u32, data2: 0xA874'u16, data3: 0x58CE'u16,
+    data4: [0x8E'u8, 0x8E, 0xFF, 0xF4, 0x48, 0xB6, 0x73, 0x3E])
 const IID_IAsyncOperation_1_KeyCredentialRetrievalResult* = GUID(
     data1: 0x89D0AD1E'u32, data2: 0xBD4C'u16, data3: 0x55B4'u16,
     data4: [0x81'u8, 0x0E, 0xBD, 0xDD, 0x4C, 0xEC, 0x7A, 0x2A])
 const IID_IVectorView_1_PasswordCredential* = GUID(
     data1: 0x4E6185AD'u32, data2: 0xA6DF'u16, data3: 0x5428'u16,
     data4: [0xAF'u8, 0xF5, 0x17, 0xE4, 0x5F, 0x3F, 0x47, 0x6F])
+const IID_AsyncOperationCompletedHandler_1_CredentialPickerResults* = GUID(
+    data1: 0x091A96B8'u32, data2: 0x52A6'u16, data3: 0x523A'u16,
+    data4: [0x8C'u8, 0x94, 0x7F, 0x9C, 0x11, 0xC6, 0xDA, 0xE5])
 const IID_IAsyncOperation_1_CredentialPickerResults* = GUID(
     data1: 0x83FD09A4'u32, data2: 0x21FD'u16, data3: 0x5C01'u16,
     data4: [0x9C'u8, 0xF6, 0x82, 0x93, 0xB2, 0x92, 0x9A, 0x9F])
 const IID_IVectorView_1_Certificate* = GUID(
     data1: 0x963F7013'u32, data2: 0x77C2'u16, data3: 0x51C5'u16,
     data4: [0x80'u8, 0x38, 0xB5, 0xBC, 0xEF, 0x63, 0x3E, 0xDB])
+const IID_AsyncOperationCompletedHandler_1_String* = GUID(
+    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
+    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
 const IID_IAsyncOperation_1_String* = GUID(
     data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
     data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
@@ -107,30 +154,54 @@ const IID_IVector_1_Certificate* = GUID(
 const IID_IVectorView_1_CmsSignerInfo* = GUID(
     data1: 0xF46BCAA8'u32, data2: 0x747C'u16, data3: 0x5A93'u16,
     data4: [0x82'u8, 0xFE, 0x85, 0xD6, 0x35, 0x49, 0xFE, 0x81])
+const IID_AsyncOperationCompletedHandler_1_CryptographicKey* = GUID(
+    data1: 0x04CA4378'u32, data2: 0xF594'u16, data3: 0x5DE6'u16,
+    data4: [0xA5'u8, 0x55, 0x30, 0x4F, 0x62, 0xCB, 0x4F, 0xAF])
 const IID_IAsyncOperation_1_CryptographicKey* = GUID(
     data1: 0x81CA789B'u32, data2: 0x98DF'u16, data3: 0x5C6A'u16,
     data4: [0x95'u8, 0x31, 0x96, 0x62, 0x38, 0xE3, 0xE7, 0xAE])
+const IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo* = GUID(
+    data1: 0xAA8164DA'u32, data2: 0xD880'u16, data3: 0x59F5'u16,
+    data4: [0x80'u8, 0x93, 0x66, 0x4D, 0x05, 0x2D, 0x74, 0xB5])
 const IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo* = GUID(
     data1: 0x28FF9352'u32, data2: 0x5CB2'u16, data3: 0x5F87'u16,
     data4: [0x9F'u8, 0x08, 0xDE, 0xCA, 0xCF, 0x4F, 0x59, 0xB3])
+const IID_AsyncOperationCompletedHandler_1_UserDataBufferUnprotectResult* = GUID(
+    data1: 0xB7ADDEB1'u32, data2: 0x3676'u16, data3: 0x5199'u16,
+    data4: [0xA1'u8, 0xFE, 0xBD, 0x4F, 0x60, 0x23, 0x11, 0x9F])
 const IID_IAsyncOperation_1_UserDataBufferUnprotectResult* = GUID(
     data1: 0xF876652D'u32, data2: 0xFFE1'u16, data3: 0x5C77'u16,
     data4: [0xA6'u8, 0x91, 0x2B, 0xDB, 0x40, 0x4C, 0xFA, 0x6F])
 const IID_TypedEventHandler_2_UserDataProtectionManager_UserDataAvailabilityStateChangedEventArgs* = GUID(
     data1: 0x82965140'u32, data2: 0xA327'u16, data3: 0x568E'u16,
     data4: [0x87'u8, 0x8F, 0x66, 0x3C, 0x2C, 0xA7, 0xC5, 0x62])
+const IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult* = GUID(
+    data1: 0x73D780CB'u32, data2: 0xAD38'u16, data3: 0x59E6'u16,
+    data4: [0xA2'u8, 0x36, 0xCC, 0x0D, 0xF6, 0x9F, 0x15, 0xA8])
 const IID_IAsyncOperation_1_BufferProtectUnprotectResult* = GUID(
     data1: 0x11F95A2E'u32, data2: 0x2E87'u16, data3: 0x5449'u16,
     data4: [0xBC'u8, 0xA3, 0xDC, 0xDF, 0x2A, 0xE6, 0xE1, 0x7A])
+const IID_AsyncOperationCompletedHandler_1_DataProtectionInfo* = GUID(
+    data1: 0xE12BB475'u32, data2: 0x3F2B'u16, data3: 0x51C9'u16,
+    data4: [0x83'u8, 0xC6, 0xA5, 0x66, 0x10, 0x86, 0xB6, 0xC3])
 const IID_IAsyncOperation_1_DataProtectionInfo* = GUID(
     data1: 0xC8EF3F16'u32, data2: 0xDD70'u16, data3: 0x5E88'u16,
     data4: [0x93'u8, 0x23, 0x85, 0xDD, 0xDD, 0xCD, 0x2C, 0xA5])
+const IID_AsyncOperationCompletedHandler_1_FileProtectionInfo* = GUID(
+    data1: 0x2918FFEA'u32, data2: 0xE091'u16, data3: 0x53E2'u16,
+    data4: [0xBD'u8, 0xE5, 0x61, 0x7C, 0x9B, 0xB3, 0xD8, 0xFE])
 const IID_IAsyncOperation_1_FileProtectionInfo* = GUID(
     data1: 0x67E04591'u32, data2: 0x2D11'u16, data3: 0x5018'u16,
     data4: [0x9F'u8, 0xF0, 0x0B, 0x85, 0x52, 0x0B, 0x88, 0x8B])
+const IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult* = GUID(
+    data1: 0x560C5521'u32, data2: 0x5008'u16, data3: 0x5272'u16,
+    data4: [0xA7'u8, 0x66, 0x94, 0x1F, 0x70, 0x71, 0x8B, 0xC6])
 const IID_IAsyncOperation_1_ProtectedContainerExportResult* = GUID(
     data1: 0xC99F0B2E'u32, data2: 0x67AD'u16, data3: 0x518A'u16,
     data4: [0x86'u8, 0x6F, 0xE3, 0x9B, 0x45, 0x67, 0xB1, 0x10])
+const IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult* = GUID(
+    data1: 0xCFEA00F8'u32, data2: 0xD2AD'u16, data3: 0x5AD2'u16,
+    data4: [0xA3'u8, 0x96, 0xE4, 0xF7, 0x1B, 0x9A, 0x7C, 0x3F])
 const IID_IAsyncOperation_1_ProtectedContainerImportResult* = GUID(
     data1: 0x384E9499'u32, data2: 0xD491'u16, data3: 0x5297'u16,
     data4: [0xBE'u8, 0xBA, 0xB3, 0x3A, 0x3D, 0x67, 0xF2, 0x07])
@@ -146,21 +217,39 @@ const IID_EventHandler_1_ProtectedContentRevokedEventArgs* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_AsyncOperationCompletedHandler_1_EasComplianceResults* = GUID(
+    data1: 0x24A4131A'u32, data2: 0xED31'u16, data3: 0x5EFF'u16,
+    data4: [0x97'u8, 0x2E, 0x75, 0x0B, 0x95, 0x64, 0x04, 0xD0])
 const IID_IAsyncOperation_1_EasComplianceResults* = GUID(
     data1: 0xFC3A733A'u32, data2: 0x7DED'u16, data3: 0x5E92'u16,
     data4: [0xA5'u8, 0x69, 0xB4, 0x33, 0x89, 0xEE, 0x88, 0x27])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult* = GUID(
+    data1: 0x0687867C'u32, data2: 0x5E3F'u16, data3: 0x53BB'u16,
+    data4: [0x91'u8, 0xC0, 0xCC, 0x93, 0x19, 0x48, 0xD5, 0x24])
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult* = GUID(
     data1: 0x7CCBC39F'u32, data2: 0x2BAA'u16, data3: 0x5747'u16,
     data4: [0xA9'u8, 0x88, 0xFF, 0xA3, 0x8F, 0x14, 0xA4, 0x46])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult* = GUID(
+    data1: 0x555C4BCA'u32, data2: 0xD35B'u16, data3: 0x5E94'u16,
+    data4: [0xB8'u8, 0xE5, 0xA7, 0xE3, 0xC4, 0x4B, 0xD1, 0xC1])
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult* = GUID(
     data1: 0x89424DED'u32, data2: 0xB21A'u16, data3: 0x55AD'u16,
     data4: [0x9D'u8, 0x4A, 0x8E, 0x53, 0xF1, 0x54, 0x64, 0xA2])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult* = GUID(
+    data1: 0x940EE865'u32, data2: 0x8C8C'u16, data3: 0x5B6B'u16,
+    data4: [0x88'u8, 0xF6, 0xA0, 0x37, 0x1F, 0x58, 0xB3, 0x86])
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult* = GUID(
     data1: 0xAF891FA2'u32, data2: 0x3F89'u16, data3: 0x5E5B'u16,
     data4: [0xA7'u8, 0x2B, 0xDF, 0x93, 0x6B, 0xB1, 0xAD, 0x45])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult* = GUID(
+    data1: 0x8BACA361'u32, data2: 0x2935'u16, data3: 0x5255'u16,
+    data4: [0x84'u8, 0xDC, 0x1C, 0x85, 0x4F, 0x4F, 0xEF, 0x69])
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult* = GUID(
     data1: 0x76CE76BF'u32, data2: 0xEC05'u16, data3: 0x513D'u16,
     data4: [0x84'u8, 0x3F, 0x79, 0xAF, 0x17, 0x66, 0xE4, 0x90])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult* = GUID(
+    data1: 0xC4F89A89'u32, data2: 0x29CE'u16, data3: 0x5B9C'u16,
+    data4: [0xB2'u8, 0x9C, 0x16, 0xA4, 0xA8, 0xE2, 0x7C, 0xC8])
 const IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress* = GUID(
     data1: 0xDF32B4B4'u32, data2: 0x4508'u16, data3: 0x594A'u16,
     data4: [0x83'u8, 0x0B, 0xB4, 0x6C, 0xED, 0x2A, 0x4A, 0xE0])
@@ -2104,23 +2193,22 @@ func isNil*(x: IsolatedWindowsEnvironmentStartProcessResult): bool {.inline.} = 
 func isNil*(x: IsolatedWindowsEnvironmentTelemetryParameters): bool {.inline.} = x.p.isNil
 func isNil*(x: IsolatedWindowsEnvironmentUserInfo): bool {.inline.} = x.p.isNil
 
-proc getOneTimePassCodeAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, a1: string, a2: uint32): MicrosoftAccountMultiFactorOneTimeCodedInfo =
+proc getOneTimePassCodeAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, a1: string, a2: uint32): Future[MicrosoftAccountMultiFactorOneTimeCodedInfo] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync
+  var op: pointer
   withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync)(it, h0, a2, tmp.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync")
-      result = adopt[MicrosoftAccountMultiFactorOneTimeCodedInfo](awaitObject(tmp, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, "MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync"))
-      release(tmp)
+      vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync)(it, h0, a2, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync")
+  result = adopt[MicrosoftAccountMultiFactorOneTimeCodedInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, "MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync"))
 
-proc current*(_: typedesc[MicrosoftAccountMultiFactorAuthenticationManager]): MicrosoftAccountMultiFactorAuthenticationManager =
+proc current*(_: typedesc[MicrosoftAccountMultiFactorAuthenticationManager]): MicrosoftAccountMultiFactorAuthenticationManager  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.get_Current
   withStatics("Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager", IID_IMicrosoftAccountMultiFactorAuthenticatorStatics, it):
     var tmp: pointer
     vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticatorStatics_get_Current, Fn_IMicrosoftAccountMultiFactorAuthenticatorStatics_get_Current)(it, tmp.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.get_Current")
     result = adopt[MicrosoftAccountMultiFactorAuthenticationManager](tmp)
 
-proc sessions*(self: MicrosoftAccountMultiFactorGetSessionsResult): seq[MicrosoftAccountMultiFactorSessionInfo] =
+proc sessions*(self: MicrosoftAccountMultiFactorGetSessionsResult): seq[MicrosoftAccountMultiFactorSessionInfo]  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorGetSessionsResult.get_Sessions
   withIface(self.p, IID_IMicrosoftAccountMultiFactorGetSessionsResult, "IMicrosoftAccountMultiFactorGetSessionsResult", it):
     var tmp: pointer
@@ -2128,91 +2216,91 @@ proc sessions*(self: MicrosoftAccountMultiFactorGetSessionsResult): seq[Microsof
     result = toSeq[MicrosoftAccountMultiFactorSessionInfo](tmp, IID_IVectorView_1_MicrosoftAccountMultiFactorSessionInfo)
     release(tmp)
 
-proc serviceResponse*(self: MicrosoftAccountMultiFactorGetSessionsResult): MicrosoftAccountMultiFactorServiceResponse =
+proc serviceResponse*(self: MicrosoftAccountMultiFactorGetSessionsResult): MicrosoftAccountMultiFactorServiceResponse  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorGetSessionsResult.get_ServiceResponse
   withIface(self.p, IID_IMicrosoftAccountMultiFactorGetSessionsResult, "IMicrosoftAccountMultiFactorGetSessionsResult", it):
     var tmp: MicrosoftAccountMultiFactorServiceResponse
     vcall(it, Slot_IMicrosoftAccountMultiFactorGetSessionsResult_get_ServiceResponse, Fn_IMicrosoftAccountMultiFactorGetSessionsResult_get_ServiceResponse)(it, tmp.addr).check("MicrosoftAccountMultiFactorGetSessionsResult.get_ServiceResponse")
     result = tmp
 
-proc code*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): string =
+proc code*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): string  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo.get_Code
   withIface(self.p, IID_IMicrosoftAccountMultiFactorOneTimeCodedInfo, "IMicrosoftAccountMultiFactorOneTimeCodedInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_Code, Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_Code)(it, tmp.addr).check("MicrosoftAccountMultiFactorOneTimeCodedInfo.get_Code")
     result = takeString(tmp)
 
-proc timeInterval*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): TimeSpan =
+proc timeInterval*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): TimeSpan  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo.get_TimeInterval
   withIface(self.p, IID_IMicrosoftAccountMultiFactorOneTimeCodedInfo, "IMicrosoftAccountMultiFactorOneTimeCodedInfo", it):
     var tmp: TimeSpan
     vcall(it, Slot_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_TimeInterval, Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_TimeInterval)(it, tmp.addr).check("MicrosoftAccountMultiFactorOneTimeCodedInfo.get_TimeInterval")
     result = tmp
 
-proc timeToLive*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): TimeSpan =
+proc timeToLive*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): TimeSpan  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo.get_TimeToLive
   withIface(self.p, IID_IMicrosoftAccountMultiFactorOneTimeCodedInfo, "IMicrosoftAccountMultiFactorOneTimeCodedInfo", it):
     var tmp: TimeSpan
     vcall(it, Slot_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_TimeToLive, Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_TimeToLive)(it, tmp.addr).check("MicrosoftAccountMultiFactorOneTimeCodedInfo.get_TimeToLive")
     result = tmp
 
-proc serviceResponse*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): MicrosoftAccountMultiFactorServiceResponse =
+proc serviceResponse*(self: MicrosoftAccountMultiFactorOneTimeCodedInfo): MicrosoftAccountMultiFactorServiceResponse  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo.get_ServiceResponse
   withIface(self.p, IID_IMicrosoftAccountMultiFactorOneTimeCodedInfo, "IMicrosoftAccountMultiFactorOneTimeCodedInfo", it):
     var tmp: MicrosoftAccountMultiFactorServiceResponse
     vcall(it, Slot_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_ServiceResponse, Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_ServiceResponse)(it, tmp.addr).check("MicrosoftAccountMultiFactorOneTimeCodedInfo.get_ServiceResponse")
     result = tmp
 
-proc userAccountId*(self: MicrosoftAccountMultiFactorSessionInfo): string =
+proc userAccountId*(self: MicrosoftAccountMultiFactorSessionInfo): string  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_UserAccountId
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_UserAccountId, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_UserAccountId)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_UserAccountId")
     result = takeString(tmp)
 
-proc sessionId*(self: MicrosoftAccountMultiFactorSessionInfo): string =
+proc sessionId*(self: MicrosoftAccountMultiFactorSessionInfo): string  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_SessionId
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_SessionId, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_SessionId)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_SessionId")
     result = takeString(tmp)
 
-proc displaySessionId*(self: MicrosoftAccountMultiFactorSessionInfo): string =
+proc displaySessionId*(self: MicrosoftAccountMultiFactorSessionInfo): string  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_DisplaySessionId
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_DisplaySessionId, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_DisplaySessionId)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_DisplaySessionId")
     result = takeString(tmp)
 
-proc approvalStatus*(self: MicrosoftAccountMultiFactorSessionInfo): MicrosoftAccountMultiFactorSessionApprovalStatus =
+proc approvalStatus*(self: MicrosoftAccountMultiFactorSessionInfo): MicrosoftAccountMultiFactorSessionApprovalStatus  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_ApprovalStatus
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: MicrosoftAccountMultiFactorSessionApprovalStatus
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_ApprovalStatus, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_ApprovalStatus)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_ApprovalStatus")
     result = tmp
 
-proc authenticationType*(self: MicrosoftAccountMultiFactorSessionInfo): MicrosoftAccountMultiFactorAuthenticationType =
+proc authenticationType*(self: MicrosoftAccountMultiFactorSessionInfo): MicrosoftAccountMultiFactorAuthenticationType  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_AuthenticationType
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: MicrosoftAccountMultiFactorAuthenticationType
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_AuthenticationType, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_AuthenticationType)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_AuthenticationType")
     result = tmp
 
-proc requestTime*(self: MicrosoftAccountMultiFactorSessionInfo): DateTime =
+proc requestTime*(self: MicrosoftAccountMultiFactorSessionInfo): DateTime  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_RequestTime
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: DateTime
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_RequestTime, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_RequestTime)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_RequestTime")
     result = tmp
 
-proc expirationTime*(self: MicrosoftAccountMultiFactorSessionInfo): DateTime =
+proc expirationTime*(self: MicrosoftAccountMultiFactorSessionInfo): DateTime  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo.get_ExpirationTime
   withIface(self.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", it):
     var tmp: DateTime
     vcall(it, Slot_IMicrosoftAccountMultiFactorSessionInfo_get_ExpirationTime, Fn_IMicrosoftAccountMultiFactorSessionInfo_get_ExpirationTime)(it, tmp.addr).check("MicrosoftAccountMultiFactorSessionInfo.get_ExpirationTime")
     result = tmp
 
-proc sessions*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): seq[MicrosoftAccountMultiFactorSessionInfo] =
+proc sessions*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): seq[MicrosoftAccountMultiFactorSessionInfo]  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo.get_Sessions
   withIface(self.p, IID_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo", it):
     var tmp: pointer
@@ -2220,7 +2308,7 @@ proc sessions*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionIn
     result = toSeq[MicrosoftAccountMultiFactorSessionInfo](tmp, IID_IVectorView_1_MicrosoftAccountMultiFactorSessionInfo)
     release(tmp)
 
-proc unregisteredAccounts*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): seq[string] =
+proc unregisteredAccounts*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): seq[string]  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo.get_UnregisteredAccounts
   withIface(self.p, IID_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo", it):
     var tmp: pointer
@@ -2228,109 +2316,106 @@ proc unregisteredAccounts*(self: MicrosoftAccountMultiFactorUnregisteredAccounts
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc serviceResponse*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): MicrosoftAccountMultiFactorServiceResponse =
+proc serviceResponse*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): MicrosoftAccountMultiFactorServiceResponse  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo.get_ServiceResponse
   withIface(self.p, IID_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo", it):
     var tmp: MicrosoftAccountMultiFactorServiceResponse
     vcall(it, Slot_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_ServiceResponse, Fn_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_ServiceResponse)(it, tmp.addr).check("MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo.get_ServiceResponse")
     result = tmp
 
-proc tenantId*(self: EnterpriseKeyCredentialRegistrationInfo): string =
+proc tenantId*(self: EnterpriseKeyCredentialRegistrationInfo): string  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo.get_TenantId
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationInfo, "IEnterpriseKeyCredentialRegistrationInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationInfo_get_TenantId, Fn_IEnterpriseKeyCredentialRegistrationInfo_get_TenantId)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationInfo.get_TenantId")
     result = takeString(tmp)
 
-proc tenantName*(self: EnterpriseKeyCredentialRegistrationInfo): string =
+proc tenantName*(self: EnterpriseKeyCredentialRegistrationInfo): string  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo.get_TenantName
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationInfo, "IEnterpriseKeyCredentialRegistrationInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationInfo_get_TenantName, Fn_IEnterpriseKeyCredentialRegistrationInfo_get_TenantName)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationInfo.get_TenantName")
     result = takeString(tmp)
 
-proc subject*(self: EnterpriseKeyCredentialRegistrationInfo): string =
+proc subject*(self: EnterpriseKeyCredentialRegistrationInfo): string  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo.get_Subject
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationInfo, "IEnterpriseKeyCredentialRegistrationInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationInfo_get_Subject, Fn_IEnterpriseKeyCredentialRegistrationInfo_get_Subject)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationInfo.get_Subject")
     result = takeString(tmp)
 
-proc keyId*(self: EnterpriseKeyCredentialRegistrationInfo): string =
+proc keyId*(self: EnterpriseKeyCredentialRegistrationInfo): string  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo.get_KeyId
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationInfo, "IEnterpriseKeyCredentialRegistrationInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationInfo_get_KeyId, Fn_IEnterpriseKeyCredentialRegistrationInfo_get_KeyId)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationInfo.get_KeyId")
     result = takeString(tmp)
 
-proc keyName*(self: EnterpriseKeyCredentialRegistrationInfo): string =
+proc keyName*(self: EnterpriseKeyCredentialRegistrationInfo): string  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo.get_KeyName
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationInfo, "IEnterpriseKeyCredentialRegistrationInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationInfo_get_KeyName, Fn_IEnterpriseKeyCredentialRegistrationInfo_get_KeyName)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationInfo.get_KeyName")
     result = takeString(tmp)
 
-proc current*(_: typedesc[EnterpriseKeyCredentialRegistrationManager]): EnterpriseKeyCredentialRegistrationManager =
+proc current*(_: typedesc[EnterpriseKeyCredentialRegistrationManager]): EnterpriseKeyCredentialRegistrationManager  =
   ## Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager.get_Current
   withStatics("Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager", IID_IEnterpriseKeyCredentialRegistrationManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationManagerStatics_get_Current, Fn_IEnterpriseKeyCredentialRegistrationManagerStatics_get_Current)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationManager.get_Current")
     result = adopt[EnterpriseKeyCredentialRegistrationManager](tmp)
 
-proc serviceAuthenticationHmac*(self: SecondaryAuthenticationFactorAuthentication): pointer =
+proc serviceAuthenticationHmac*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_ServiceAuthenticationHmac
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_ServiceAuthenticationHmac, Fn_ISecondaryAuthenticationFactorAuthentication_get_ServiceAuthenticationHmac)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_ServiceAuthenticationHmac")
     result = tmp
 
-proc sessionNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer =
+proc sessionNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_SessionNonce
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_SessionNonce, Fn_ISecondaryAuthenticationFactorAuthentication_get_SessionNonce)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_SessionNonce")
     result = tmp
 
-proc deviceNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer =
+proc deviceNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_DeviceNonce
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_DeviceNonce, Fn_ISecondaryAuthenticationFactorAuthentication_get_DeviceNonce)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_DeviceNonce")
     result = tmp
 
-proc deviceConfigurationData*(self: SecondaryAuthenticationFactorAuthentication): pointer =
+proc deviceConfigurationData*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_DeviceConfigurationData
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_DeviceConfigurationData, Fn_ISecondaryAuthenticationFactorAuthentication_get_DeviceConfigurationData)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_DeviceConfigurationData")
     result = tmp
 
-proc abortAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, a1: string) =
+proc abortAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, a1: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync
+  var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync)(it, h0, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
 
-proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], a1: string, a2: SecondaryAuthenticationFactorAuthenticationMessage) =
+proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], a1: string, a2: SecondaryAuthenticationFactorAuthenticationMessage) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync)(it, h0, a2, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync)(it, h0, a2, op.addr).check("SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
 
-proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], a1: string, a2: pointer): SecondaryAuthenticationFactorAuthenticationResult =
+proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], a1: string, a2: pointer): Future[SecondaryAuthenticationFactorAuthenticationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync)(it, h0, a2, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync")
-      result = adopt[SecondaryAuthenticationFactorAuthenticationResult](awaitObject(tmp, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync)(it, h0, a2, op.addr).check("SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync")
+  result = adopt[SecondaryAuthenticationFactorAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
 
 proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuthentication],
     handler: proc(sender: pointer, args: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -2351,176 +2436,168 @@ proc removeAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactor
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_remove_AuthenticationStageChanged, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_remove_AuthenticationStageChanged)(it, token).check("SecondaryAuthenticationFactorAuthentication.remove_AuthenticationStageChanged")
 
-proc getAuthenticationStageInfoAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication]): SecondaryAuthenticationFactorAuthenticationStageInfo =
+proc getAuthenticationStageInfoAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication]): Future[SecondaryAuthenticationFactorAuthenticationStageInfo] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync")
-    result = adopt[SecondaryAuthenticationFactorAuthenticationStageInfo](awaitObject(tmp, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationStageInfo, "SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync)(it, op.addr).check("SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync")
+  result = adopt[SecondaryAuthenticationFactorAuthenticationStageInfo](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationStageInfo, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationStageInfo, "SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync"))
 
-proc status*(self: SecondaryAuthenticationFactorAuthenticationResult): SecondaryAuthenticationFactorAuthenticationStatus =
+proc status*(self: SecondaryAuthenticationFactorAuthenticationResult): SecondaryAuthenticationFactorAuthenticationStatus  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationResult.get_Status
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationResult, "ISecondaryAuthenticationFactorAuthenticationResult", it):
     var tmp: SecondaryAuthenticationFactorAuthenticationStatus
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationResult_get_Status, Fn_ISecondaryAuthenticationFactorAuthenticationResult_get_Status)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationResult.get_Status")
     result = tmp
 
-proc authentication*(self: SecondaryAuthenticationFactorAuthenticationResult): SecondaryAuthenticationFactorAuthentication =
+proc authentication*(self: SecondaryAuthenticationFactorAuthenticationResult): SecondaryAuthenticationFactorAuthentication  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationResult.get_Authentication
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationResult, "ISecondaryAuthenticationFactorAuthenticationResult", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationResult_get_Authentication, Fn_ISecondaryAuthenticationFactorAuthenticationResult_get_Authentication)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationResult.get_Authentication")
     result = adopt[SecondaryAuthenticationFactorAuthentication](tmp)
 
-proc stageInfo*(self: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs): SecondaryAuthenticationFactorAuthenticationStageInfo =
+proc stageInfo*(self: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs): SecondaryAuthenticationFactorAuthenticationStageInfo  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs.get_StageInfo
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs, "ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs_get_StageInfo, Fn_ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs_get_StageInfo)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs.get_StageInfo")
     result = adopt[SecondaryAuthenticationFactorAuthenticationStageInfo](tmp)
 
-proc stage*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): SecondaryAuthenticationFactorAuthenticationStage =
+proc stage*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): SecondaryAuthenticationFactorAuthenticationStage  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo.get_Stage
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationStageInfo, "ISecondaryAuthenticationFactorAuthenticationStageInfo", it):
     var tmp: SecondaryAuthenticationFactorAuthenticationStage
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Stage, Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Stage)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationStageInfo.get_Stage")
     result = tmp
 
-proc scenario*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): SecondaryAuthenticationFactorAuthenticationScenario =
+proc scenario*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): SecondaryAuthenticationFactorAuthenticationScenario  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo.get_Scenario
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationStageInfo, "ISecondaryAuthenticationFactorAuthenticationStageInfo", it):
     var tmp: SecondaryAuthenticationFactorAuthenticationScenario
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Scenario, Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Scenario)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationStageInfo.get_Scenario")
     result = tmp
 
-proc deviceId*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): string =
+proc deviceId*(self: SecondaryAuthenticationFactorAuthenticationStageInfo): string  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo.get_DeviceId
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthenticationStageInfo, "ISecondaryAuthenticationFactorAuthenticationStageInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_DeviceId, Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_DeviceId)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthenticationStageInfo.get_DeviceId")
     result = takeString(tmp)
 
-proc deviceId*(self: SecondaryAuthenticationFactorInfo): string =
+proc deviceId*(self: SecondaryAuthenticationFactorInfo): string  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_DeviceId
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo, "ISecondaryAuthenticationFactorInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceId, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceId)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceId")
     result = takeString(tmp)
 
-proc deviceFriendlyName*(self: SecondaryAuthenticationFactorInfo): string =
+proc deviceFriendlyName*(self: SecondaryAuthenticationFactorInfo): string  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_DeviceFriendlyName
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo, "ISecondaryAuthenticationFactorInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceFriendlyName, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceFriendlyName)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceFriendlyName")
     result = takeString(tmp)
 
-proc deviceModelNumber*(self: SecondaryAuthenticationFactorInfo): string =
+proc deviceModelNumber*(self: SecondaryAuthenticationFactorInfo): string  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_DeviceModelNumber
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo, "ISecondaryAuthenticationFactorInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceModelNumber, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceModelNumber)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceModelNumber")
     result = takeString(tmp)
 
-proc deviceConfigurationData*(self: SecondaryAuthenticationFactorInfo): pointer =
+proc deviceConfigurationData*(self: SecondaryAuthenticationFactorInfo): pointer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_DeviceConfigurationData
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo, "ISecondaryAuthenticationFactorInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceConfigurationData, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceConfigurationData)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceConfigurationData")
     result = tmp
 
-proc presenceMonitoringMode*(self: SecondaryAuthenticationFactorInfo): SecondaryAuthenticationFactorDevicePresenceMonitoringMode =
+proc presenceMonitoringMode*(self: SecondaryAuthenticationFactorInfo): SecondaryAuthenticationFactorDevicePresenceMonitoringMode  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_PresenceMonitoringMode
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo2, "ISecondaryAuthenticationFactorInfo2", it):
     var tmp: SecondaryAuthenticationFactorDevicePresenceMonitoringMode
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_get_PresenceMonitoringMode, Fn_ISecondaryAuthenticationFactorInfo2_get_PresenceMonitoringMode)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_PresenceMonitoringMode")
     result = tmp
 
-proc updateDevicePresenceAsync*(self: SecondaryAuthenticationFactorInfo, a1: SecondaryAuthenticationFactorDevicePresence) =
+proc updateDevicePresenceAsync*(self: SecondaryAuthenticationFactorInfo, a1: SecondaryAuthenticationFactorDevicePresence) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync
+  var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo2, "ISecondaryAuthenticationFactorInfo2", it):
-    var tmp: pointer
-    vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync, Fn_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync)(it, a1, tmp.addr).check("SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
-    awaitVoid(tmp, "SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
-    release(tmp)
+    vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync, Fn_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync)(it, a1, op.addr).check("SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
 
-proc isAuthenticationSupported*(self: SecondaryAuthenticationFactorInfo): bool =
+proc isAuthenticationSupported*(self: SecondaryAuthenticationFactorInfo): bool  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_IsAuthenticationSupported
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo2, "ISecondaryAuthenticationFactorInfo2", it):
     var tmp: bool
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_get_IsAuthenticationSupported, Fn_ISecondaryAuthenticationFactorInfo2_get_IsAuthenticationSupported)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_IsAuthenticationSupported")
     result = tmp
 
-proc finishRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, a1: pointer) =
+proc finishRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, a1: pointer) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync
+  var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistration, "ISecondaryAuthenticationFactorRegistration", it):
-    var tmp: pointer
-    vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync)(it, a1, tmp.addr).check("SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
-    awaitVoid(tmp, "SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
-    release(tmp)
+    vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync)(it, a1, op.addr).check("SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
 
-proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, a1: string) =
+proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, a1: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync
+  var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistration, "ISecondaryAuthenticationFactorRegistration", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync)(it, h0, tmp.addr).check("SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
 
-proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string, a2: SecondaryAuthenticationFactorDeviceCapabilities, a3: string, a4: string, a5: pointer, a6: pointer): SecondaryAuthenticationFactorRegistrationResult =
+proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string, a2: SecondaryAuthenticationFactorDeviceCapabilities, a3: string, a4: string, a5: pointer, a6: pointer): Future[SecondaryAuthenticationFactorRegistrationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(a1, h0):
       withHString(a3, h2):
         withHString(a4, h3):
-          var tmp: pointer
-          vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync)(it, h0, a2, h2, h3, a5, a6, tmp.addr).check("SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync")
-          result = adopt[SecondaryAuthenticationFactorRegistrationResult](awaitObject(tmp, IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult, "SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync"))
-          release(tmp)
+          vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync)(it, h0, a2, h2, h3, a5, a6, op.addr).check("SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync")
+  result = adopt[SecondaryAuthenticationFactorRegistrationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorRegistrationResult, "SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync"))
 
-proc unregisterDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string) =
+proc unregisterDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync)(it, h0, tmp.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
 
-proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string, a2: pointer) =
+proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string, a2: pointer) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync)(it, h0, a2, tmp.addr).check("SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync)(it, h0, a2, op.addr).check("SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
 
-proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string) =
+proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], a1: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync)(it, h0, tmp.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
-      awaitVoid(tmp, "SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
-      release(tmp)
+      vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
 
-proc isDevicePresenceMonitoringSupported*(_: typedesc[SecondaryAuthenticationFactorRegistration]): bool =
+proc isDevicePresenceMonitoringSupported*(_: typedesc[SecondaryAuthenticationFactorRegistration]): bool  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.IsDevicePresenceMonitoringSupported
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics, it):
     var tmp: bool
     vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_IsDevicePresenceMonitoringSupported, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_IsDevicePresenceMonitoringSupported)(it, tmp.addr).check("SecondaryAuthenticationFactorRegistration.IsDevicePresenceMonitoringSupported")
     result = tmp
 
-proc status*(self: SecondaryAuthenticationFactorRegistrationResult): SecondaryAuthenticationFactorRegistrationStatus =
+proc status*(self: SecondaryAuthenticationFactorRegistrationResult): SecondaryAuthenticationFactorRegistrationStatus  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationResult.get_Status
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistrationResult, "ISecondaryAuthenticationFactorRegistrationResult", it):
     var tmp: SecondaryAuthenticationFactorRegistrationStatus
     vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationResult_get_Status, Fn_ISecondaryAuthenticationFactorRegistrationResult_get_Status)(it, tmp.addr).check("SecondaryAuthenticationFactorRegistrationResult.get_Status")
     result = tmp
 
-proc registration*(self: SecondaryAuthenticationFactorRegistrationResult): SecondaryAuthenticationFactorRegistration =
+proc registration*(self: SecondaryAuthenticationFactorRegistrationResult): SecondaryAuthenticationFactorRegistration  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationResult.get_Registration
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistrationResult, "ISecondaryAuthenticationFactorRegistrationResult", it):
     var tmp: pointer
@@ -2531,68 +2608,68 @@ proc newOnlineIdAuthenticator*(): OnlineIdAuthenticator =
   ## Activate a `Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator`.
   adopt[OnlineIdAuthenticator](activateAs("Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator", IID_IOnlineIdAuthenticator))
 
-proc `applicationId=`*(self: OnlineIdAuthenticator, value: GUID) =
+proc `applicationId=`*(self: OnlineIdAuthenticator, value: GUID)  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.put_ApplicationId
   withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
     vcall(it, Slot_IOnlineIdAuthenticator_put_ApplicationId, Fn_IOnlineIdAuthenticator_put_ApplicationId)(it, value).check("OnlineIdAuthenticator.put_ApplicationId")
 
-proc applicationId*(self: OnlineIdAuthenticator): GUID =
+proc applicationId*(self: OnlineIdAuthenticator): GUID  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.get_ApplicationId
   withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
     var tmp: GUID
     vcall(it, Slot_IOnlineIdAuthenticator_get_ApplicationId, Fn_IOnlineIdAuthenticator_get_ApplicationId)(it, tmp.addr).check("OnlineIdAuthenticator.get_ApplicationId")
     result = tmp
 
-proc canSignOut*(self: OnlineIdAuthenticator): bool =
+proc canSignOut*(self: OnlineIdAuthenticator): bool  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.get_CanSignOut
   withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
     var tmp: bool
     vcall(it, Slot_IOnlineIdAuthenticator_get_CanSignOut, Fn_IOnlineIdAuthenticator_get_CanSignOut)(it, tmp.addr).check("OnlineIdAuthenticator.get_CanSignOut")
     result = tmp
 
-proc authenticatedSafeCustomerId*(self: OnlineIdAuthenticator): string =
+proc authenticatedSafeCustomerId*(self: OnlineIdAuthenticator): string  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.get_AuthenticatedSafeCustomerId
   withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
     var tmp: HSTRING
     vcall(it, Slot_IOnlineIdAuthenticator_get_AuthenticatedSafeCustomerId, Fn_IOnlineIdAuthenticator_get_AuthenticatedSafeCustomerId)(it, tmp.addr).check("OnlineIdAuthenticator.get_AuthenticatedSafeCustomerId")
     result = takeString(tmp)
 
-proc value*(self: OnlineIdServiceTicket): string =
+proc value*(self: OnlineIdServiceTicket): string  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket.get_Value
   withIface(self.p, IID_IOnlineIdServiceTicket, "IOnlineIdServiceTicket", it):
     var tmp: HSTRING
     vcall(it, Slot_IOnlineIdServiceTicket_get_Value, Fn_IOnlineIdServiceTicket_get_Value)(it, tmp.addr).check("OnlineIdServiceTicket.get_Value")
     result = takeString(tmp)
 
-proc request*(self: OnlineIdServiceTicket): OnlineIdServiceTicketRequest =
+proc request*(self: OnlineIdServiceTicket): OnlineIdServiceTicketRequest  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket.get_Request
   withIface(self.p, IID_IOnlineIdServiceTicket, "IOnlineIdServiceTicket", it):
     var tmp: pointer
     vcall(it, Slot_IOnlineIdServiceTicket_get_Request, Fn_IOnlineIdServiceTicket_get_Request)(it, tmp.addr).check("OnlineIdServiceTicket.get_Request")
     result = adopt[OnlineIdServiceTicketRequest](tmp)
 
-proc errorCode*(self: OnlineIdServiceTicket): int32 =
+proc errorCode*(self: OnlineIdServiceTicket): int32  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket.get_ErrorCode
   withIface(self.p, IID_IOnlineIdServiceTicket, "IOnlineIdServiceTicket", it):
     var tmp: int32
     vcall(it, Slot_IOnlineIdServiceTicket_get_ErrorCode, Fn_IOnlineIdServiceTicket_get_ErrorCode)(it, tmp.addr).check("OnlineIdServiceTicket.get_ErrorCode")
     result = tmp
 
-proc service*(self: OnlineIdServiceTicketRequest): string =
+proc service*(self: OnlineIdServiceTicketRequest): string  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.get_Service
   withIface(self.p, IID_IOnlineIdServiceTicketRequest, "IOnlineIdServiceTicketRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IOnlineIdServiceTicketRequest_get_Service, Fn_IOnlineIdServiceTicketRequest_get_Service)(it, tmp.addr).check("OnlineIdServiceTicketRequest.get_Service")
     result = takeString(tmp)
 
-proc policy*(self: OnlineIdServiceTicketRequest): string =
+proc policy*(self: OnlineIdServiceTicketRequest): string  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.get_Policy
   withIface(self.p, IID_IOnlineIdServiceTicketRequest, "IOnlineIdServiceTicketRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IOnlineIdServiceTicketRequest_get_Policy, Fn_IOnlineIdServiceTicketRequest_get_Policy)(it, tmp.addr).check("OnlineIdServiceTicketRequest.get_Policy")
     result = takeString(tmp)
 
-proc createOnlineIdServiceTicketRequest*(_: typedesc[OnlineIdServiceTicketRequest], a1: string, a2: string): OnlineIdServiceTicketRequest =
+proc createOnlineIdServiceTicketRequest*(_: typedesc[OnlineIdServiceTicketRequest], a1: string, a2: string): OnlineIdServiceTicketRequest  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest
   withStatics("Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest", IID_IOnlineIdServiceTicketRequestFactory, it):
     withHString(a1, h0):
@@ -2601,7 +2678,7 @@ proc createOnlineIdServiceTicketRequest*(_: typedesc[OnlineIdServiceTicketReques
         vcall(it, Slot_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequest, Fn_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequest)(it, h0, h1, tmp.addr).check("OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest")
         result = adopt[OnlineIdServiceTicketRequest](tmp)
 
-proc createOnlineIdServiceTicketRequestAdvanced*(_: typedesc[OnlineIdServiceTicketRequest], a1: string): OnlineIdServiceTicketRequest =
+proc createOnlineIdServiceTicketRequestAdvanced*(_: typedesc[OnlineIdServiceTicketRequest], a1: string): OnlineIdServiceTicketRequest  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced
   withStatics("Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest", IID_IOnlineIdServiceTicketRequestFactory, it):
     withHString(a1, h0):
@@ -2609,70 +2686,69 @@ proc createOnlineIdServiceTicketRequestAdvanced*(_: typedesc[OnlineIdServiceTick
       vcall(it, Slot_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequestAdvanced, Fn_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequestAdvanced)(it, h0, tmp.addr).check("OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced")
       result = adopt[OnlineIdServiceTicketRequest](tmp)
 
-proc default*(_: typedesc[OnlineIdSystemAuthenticator]): OnlineIdSystemAuthenticatorForUser =
+proc default*(_: typedesc[OnlineIdSystemAuthenticator]): OnlineIdSystemAuthenticatorForUser  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator.get_Default
   withStatics("Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator", IID_IOnlineIdSystemAuthenticatorStatics, it):
     var tmp: pointer
     vcall(it, Slot_IOnlineIdSystemAuthenticatorStatics_get_Default, Fn_IOnlineIdSystemAuthenticatorStatics_get_Default)(it, tmp.addr).check("OnlineIdSystemAuthenticator.get_Default")
     result = adopt[OnlineIdSystemAuthenticatorForUser](tmp)
 
-proc getTicketAsync*(self: OnlineIdSystemAuthenticatorForUser, a1: OnlineIdServiceTicketRequest): OnlineIdSystemTicketResult =
+proc getTicketAsync*(self: OnlineIdSystemAuthenticatorForUser, a1: OnlineIdServiceTicketRequest): Future[OnlineIdSystemTicketResult] {.async.} =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.GetTicketAsync
+  var op: pointer
   withIface(self.p, IID_IOnlineIdSystemAuthenticatorForUser, "IOnlineIdSystemAuthenticatorForUser", it):
     withIface(a1.p, IID_IOnlineIdServiceTicketRequest, "IOnlineIdServiceTicketRequest", p0):
-      var tmp: pointer
-      vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync, Fn_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync)(it, p0, tmp.addr).check("OnlineIdSystemAuthenticatorForUser.GetTicketAsync")
-      result = adopt[OnlineIdSystemTicketResult](awaitObject(tmp, IID_IAsyncOperation_1_OnlineIdSystemTicketResult, "OnlineIdSystemAuthenticatorForUser.GetTicketAsync"))
-      release(tmp)
+      vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync, Fn_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync)(it, p0, op.addr).check("OnlineIdSystemAuthenticatorForUser.GetTicketAsync")
+  result = adopt[OnlineIdSystemTicketResult](await awaitObject(op, IID_IAsyncOperation_1_OnlineIdSystemTicketResult, IID_AsyncOperationCompletedHandler_1_OnlineIdSystemTicketResult, "OnlineIdSystemAuthenticatorForUser.GetTicketAsync"))
 
-proc `applicationId=`*(self: OnlineIdSystemAuthenticatorForUser, value: GUID) =
+proc `applicationId=`*(self: OnlineIdSystemAuthenticatorForUser, value: GUID)  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.put_ApplicationId
   withIface(self.p, IID_IOnlineIdSystemAuthenticatorForUser, "IOnlineIdSystemAuthenticatorForUser", it):
     vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_put_ApplicationId, Fn_IOnlineIdSystemAuthenticatorForUser_put_ApplicationId)(it, value).check("OnlineIdSystemAuthenticatorForUser.put_ApplicationId")
 
-proc applicationId*(self: OnlineIdSystemAuthenticatorForUser): GUID =
+proc applicationId*(self: OnlineIdSystemAuthenticatorForUser): GUID  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.get_ApplicationId
   withIface(self.p, IID_IOnlineIdSystemAuthenticatorForUser, "IOnlineIdSystemAuthenticatorForUser", it):
     var tmp: GUID
     vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_get_ApplicationId, Fn_IOnlineIdSystemAuthenticatorForUser_get_ApplicationId)(it, tmp.addr).check("OnlineIdSystemAuthenticatorForUser.get_ApplicationId")
     result = tmp
 
-proc ticket*(self: OnlineIdSystemIdentity): OnlineIdServiceTicket =
+proc ticket*(self: OnlineIdSystemIdentity): OnlineIdServiceTicket  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity.get_Ticket
   withIface(self.p, IID_IOnlineIdSystemIdentity, "IOnlineIdSystemIdentity", it):
     var tmp: pointer
     vcall(it, Slot_IOnlineIdSystemIdentity_get_Ticket, Fn_IOnlineIdSystemIdentity_get_Ticket)(it, tmp.addr).check("OnlineIdSystemIdentity.get_Ticket")
     result = adopt[OnlineIdServiceTicket](tmp)
 
-proc id*(self: OnlineIdSystemIdentity): string =
+proc id*(self: OnlineIdSystemIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity.get_Id
   withIface(self.p, IID_IOnlineIdSystemIdentity, "IOnlineIdSystemIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IOnlineIdSystemIdentity_get_Id, Fn_IOnlineIdSystemIdentity_get_Id)(it, tmp.addr).check("OnlineIdSystemIdentity.get_Id")
     result = takeString(tmp)
 
-proc identity*(self: OnlineIdSystemTicketResult): OnlineIdSystemIdentity =
+proc identity*(self: OnlineIdSystemTicketResult): OnlineIdSystemIdentity  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult.get_Identity
   withIface(self.p, IID_IOnlineIdSystemTicketResult, "IOnlineIdSystemTicketResult", it):
     var tmp: pointer
     vcall(it, Slot_IOnlineIdSystemTicketResult_get_Identity, Fn_IOnlineIdSystemTicketResult_get_Identity)(it, tmp.addr).check("OnlineIdSystemTicketResult.get_Identity")
     result = adopt[OnlineIdSystemIdentity](tmp)
 
-proc status*(self: OnlineIdSystemTicketResult): OnlineIdSystemTicketStatus =
+proc status*(self: OnlineIdSystemTicketResult): OnlineIdSystemTicketStatus  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult.get_Status
   withIface(self.p, IID_IOnlineIdSystemTicketResult, "IOnlineIdSystemTicketResult", it):
     var tmp: OnlineIdSystemTicketStatus
     vcall(it, Slot_IOnlineIdSystemTicketResult_get_Status, Fn_IOnlineIdSystemTicketResult_get_Status)(it, tmp.addr).check("OnlineIdSystemTicketResult.get_Status")
     result = tmp
 
-proc extendedError*(self: OnlineIdSystemTicketResult): HRESULT =
+proc extendedError*(self: OnlineIdSystemTicketResult): HRESULT  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult.get_ExtendedError
   withIface(self.p, IID_IOnlineIdSystemTicketResult, "IOnlineIdSystemTicketResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IOnlineIdSystemTicketResult_get_ExtendedError, Fn_IOnlineIdSystemTicketResult_get_ExtendedError)(it, tmp.addr).check("OnlineIdSystemTicketResult.get_ExtendedError")
     result = tmp
 
-proc tickets*(self: UserIdentity): seq[OnlineIdServiceTicket] =
+proc tickets*(self: UserIdentity): seq[OnlineIdServiceTicket]  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_Tickets
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: pointer
@@ -2680,56 +2756,56 @@ proc tickets*(self: UserIdentity): seq[OnlineIdServiceTicket] =
     result = toSeq[OnlineIdServiceTicket](tmp, IID_IVectorView_1_OnlineIdServiceTicket)
     release(tmp)
 
-proc id*(self: UserIdentity): string =
+proc id*(self: UserIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_Id
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserIdentity_get_Id, Fn_IUserIdentity_get_Id)(it, tmp.addr).check("UserIdentity.get_Id")
     result = takeString(tmp)
 
-proc safeCustomerId*(self: UserIdentity): string =
+proc safeCustomerId*(self: UserIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_SafeCustomerId
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserIdentity_get_SafeCustomerId, Fn_IUserIdentity_get_SafeCustomerId)(it, tmp.addr).check("UserIdentity.get_SafeCustomerId")
     result = takeString(tmp)
 
-proc signInName*(self: UserIdentity): string =
+proc signInName*(self: UserIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_SignInName
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserIdentity_get_SignInName, Fn_IUserIdentity_get_SignInName)(it, tmp.addr).check("UserIdentity.get_SignInName")
     result = takeString(tmp)
 
-proc firstName*(self: UserIdentity): string =
+proc firstName*(self: UserIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_FirstName
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserIdentity_get_FirstName, Fn_IUserIdentity_get_FirstName)(it, tmp.addr).check("UserIdentity.get_FirstName")
     result = takeString(tmp)
 
-proc lastName*(self: UserIdentity): string =
+proc lastName*(self: UserIdentity): string  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_LastName
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserIdentity_get_LastName, Fn_IUserIdentity_get_LastName)(it, tmp.addr).check("UserIdentity.get_LastName")
     result = takeString(tmp)
 
-proc isBetaAccount*(self: UserIdentity): bool =
+proc isBetaAccount*(self: UserIdentity): bool  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_IsBetaAccount
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: bool
     vcall(it, Slot_IUserIdentity_get_IsBetaAccount, Fn_IUserIdentity_get_IsBetaAccount)(it, tmp.addr).check("UserIdentity.get_IsBetaAccount")
     result = tmp
 
-proc isConfirmedPC*(self: UserIdentity): bool =
+proc isConfirmedPC*(self: UserIdentity): bool  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_IsConfirmedPC
   withIface(self.p, IID_IUserIdentity, "IUserIdentity", it):
     var tmp: bool
     vcall(it, Slot_IUserIdentity_get_IsConfirmedPC, Fn_IUserIdentity_get_IsConfirmedPC)(it, tmp.addr).check("UserIdentity.get_IsConfirmedPC")
     result = tmp
 
-proc accounts*(self: FindAllAccountsResult): seq[WebAccount] =
+proc accounts*(self: FindAllAccountsResult): seq[WebAccount]  =
   ## Windows.Security.Authentication.Web.Core.FindAllAccountsResult.get_Accounts
   withIface(self.p, IID_IFindAllAccountsResult, "IFindAllAccountsResult", it):
     var tmp: pointer
@@ -2737,21 +2813,21 @@ proc accounts*(self: FindAllAccountsResult): seq[WebAccount] =
     result = toSeq[WebAccount](tmp, IID_IVectorView_1_WebAccount)
     release(tmp)
 
-proc status*(self: FindAllAccountsResult): FindAllWebAccountsStatus =
+proc status*(self: FindAllAccountsResult): FindAllWebAccountsStatus  =
   ## Windows.Security.Authentication.Web.Core.FindAllAccountsResult.get_Status
   withIface(self.p, IID_IFindAllAccountsResult, "IFindAllAccountsResult", it):
     var tmp: FindAllWebAccountsStatus
     vcall(it, Slot_IFindAllAccountsResult_get_Status, Fn_IFindAllAccountsResult_get_Status)(it, tmp.addr).check("FindAllAccountsResult.get_Status")
     result = tmp
 
-proc providerError*(self: FindAllAccountsResult): WebProviderError =
+proc providerError*(self: FindAllAccountsResult): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.FindAllAccountsResult.get_ProviderError
   withIface(self.p, IID_IFindAllAccountsResult, "IFindAllAccountsResult", it):
     var tmp: pointer
     vcall(it, Slot_IFindAllAccountsResult_get_ProviderError, Fn_IFindAllAccountsResult_get_ProviderError)(it, tmp.addr).check("FindAllAccountsResult.get_ProviderError")
     result = adopt[WebProviderError](tmp)
 
-proc account*(self: WebAccountEventArgs): WebAccount =
+proc account*(self: WebAccountEventArgs): WebAccount  =
   ## Windows.Security.Authentication.Web.Core.WebAccountEventArgs.get_Account
   withIface(self.p, IID_IWebAccountEventArgs, "IWebAccountEventArgs", it):
     var tmp: pointer
@@ -2834,14 +2910,14 @@ proc removeAccountPictureUpdated*(self: WebAccountMonitor, token: EventRegistrat
   withIface(self.p, IID_IWebAccountMonitor2, "IWebAccountMonitor2", it):
     vcall(it, Slot_IWebAccountMonitor2_remove_AccountPictureUpdated, Fn_IWebAccountMonitor2_remove_AccountPictureUpdated)(it, token).check("WebAccountMonitor.remove_AccountPictureUpdated")
 
-proc webAccount*(self: WebAuthenticationAddAccountResponse): WebAccount =
+proc webAccount*(self: WebAuthenticationAddAccountResponse): WebAccount  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse.get_WebAccount
   withIface(self.p, IID_IWebAuthenticationAddAccountResponse, "IWebAuthenticationAddAccountResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationAddAccountResponse_get_WebAccount, Fn_IWebAuthenticationAddAccountResponse_get_WebAccount)(it, tmp.addr).check("WebAuthenticationAddAccountResponse.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
-proc createWithAccount*(_: typedesc[WebAuthenticationAddAccountResponse], a1: WebAccount): WebAuthenticationAddAccountResponse =
+proc createWithAccount*(_: typedesc[WebAuthenticationAddAccountResponse], a1: WebAccount): WebAuthenticationAddAccountResponse  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse.CreateWithAccount
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse", IID_IWebAuthenticationAddAccountResponseFactory, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
@@ -2849,175 +2925,163 @@ proc createWithAccount*(_: typedesc[WebAuthenticationAddAccountResponse], a1: We
       vcall(it, Slot_IWebAuthenticationAddAccountResponseFactory_CreateWithAccount, Fn_IWebAuthenticationAddAccountResponseFactory_CreateWithAccount)(it, p0, tmp.addr).check("WebAuthenticationAddAccountResponse.CreateWithAccount")
       result = adopt[WebAuthenticationAddAccountResponse](tmp)
 
-proc responseData*(self: WebAuthenticationAddAccountResult): WebAuthenticationAddAccountResponse =
+proc responseData*(self: WebAuthenticationAddAccountResult): WebAuthenticationAddAccountResponse  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult.get_ResponseData
   withIface(self.p, IID_IWebAuthenticationAddAccountResult, "IWebAuthenticationAddAccountResult", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationAddAccountResult_get_ResponseData, Fn_IWebAuthenticationAddAccountResult_get_ResponseData)(it, tmp.addr).check("WebAuthenticationAddAccountResult.get_ResponseData")
     result = adopt[WebAuthenticationAddAccountResponse](tmp)
 
-proc responseStatus*(self: WebAuthenticationAddAccountResult): WebAuthenticationAddAccountStatus =
+proc responseStatus*(self: WebAuthenticationAddAccountResult): WebAuthenticationAddAccountStatus  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult.get_ResponseStatus
   withIface(self.p, IID_IWebAuthenticationAddAccountResult, "IWebAuthenticationAddAccountResult", it):
     var tmp: WebAuthenticationAddAccountStatus
     vcall(it, Slot_IWebAuthenticationAddAccountResult_get_ResponseStatus, Fn_IWebAuthenticationAddAccountResult_get_ResponseStatus)(it, tmp.addr).check("WebAuthenticationAddAccountResult.get_ResponseStatus")
     result = tmp
 
-proc responseError*(self: WebAuthenticationAddAccountResult): WebProviderError =
+proc responseError*(self: WebAuthenticationAddAccountResult): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult.get_ResponseError
   withIface(self.p, IID_IWebAuthenticationAddAccountResult, "IWebAuthenticationAddAccountResult", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationAddAccountResult_get_ResponseError, Fn_IWebAuthenticationAddAccountResult_get_ResponseError)(it, tmp.addr).check("WebAuthenticationAddAccountResult.get_ResponseError")
     result = adopt[WebProviderError](tmp)
 
-proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest): WebTokenRequestResult =
+proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.GetTokenSilentlyAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(a1.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
-      result = adopt[WebTokenRequestResult](awaitObject(tmp, IID_IAsyncOperation_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
 
-proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest, a2: WebAccount): WebTokenRequestResult =
+proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest, a2: WebAccount): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.GetTokenSilentlyAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(a1.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       withIface(a2.p, IID_IWebAccount, "IWebAccount", p1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2)(it, p0, p1, tmp.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
-        result = adopt[WebTokenRequestResult](awaitObject(tmp, IID_IAsyncOperation_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2)(it, p0, p1, op.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
 
-proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest): WebTokenRequestResult =
+proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.RequestTokenAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(a1.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
-      result = adopt[WebTokenRequestResult](awaitObject(tmp, IID_IAsyncOperation_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
 
-proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest, a2: WebAccount): WebTokenRequestResult =
+proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebTokenRequest, a2: WebAccount): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.RequestTokenAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(a1.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       withIface(a2.p, IID_IWebAccount, "IWebAccount", p1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2)(it, p0, p1, tmp.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
-        result = adopt[WebTokenRequestResult](awaitObject(tmp, IID_IAsyncOperation_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2)(it, p0, p1, op.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
 
-proc findAccountAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider, a2: string): WebAccount =
+proc findAccountAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider, a2: string): Future[WebAccount] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountAsync)(it, p0, h1, tmp.addr).check("WebAuthenticationCoreManager.FindAccountAsync")
-        result = adopt[WebAccount](awaitObject(tmp, IID_IAsyncOperation_1_WebAccount, "WebAuthenticationCoreManager.FindAccountAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountAsync)(it, p0, h1, op.addr).check("WebAuthenticationCoreManager.FindAccountAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, "WebAuthenticationCoreManager.FindAccountAsync"))
 
-proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string): WebAccountProvider =
+proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountProviderAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync)(it, h0, tmp.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
-      result = adopt[WebAccountProvider](awaitObject(tmp, IID_IAsyncOperation_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync)(it, h0, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
-proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string, a2: string): WebAccountProvider =
+proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string, a2: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountProviderAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2)(it, h0, h1, tmp.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
-        result = adopt[WebAccountProvider](awaitObject(tmp, IID_IAsyncOperation_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
-proc addAccountWithTransferTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAuthenticationTransferTokenRequest): WebAuthenticationAddAccountResult =
+proc addAccountWithTransferTokenAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAuthenticationTransferTokenRequest): Future[WebAuthenticationAddAccountResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics5, it):
     withIface(a1.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync, Fn_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync")
-      result = adopt[WebAuthenticationAddAccountResult](awaitObject(tmp, IID_IAsyncOperation_1_WebAuthenticationAddAccountResult, "WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync, Fn_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync")
+  result = adopt[WebAuthenticationAddAccountResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationAddAccountResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationAddAccountResult, "WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync"))
 
-proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider): FindAllAccountsResult =
+proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider): Future[FindAllAccountsResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAllAccountsAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
-      result = adopt[FindAllAccountsResult](awaitObject(tmp, IID_IAsyncOperation_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
+  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
 
-proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider, a2: string): FindAllAccountsResult =
+proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], a1: WebAccountProvider, a2: string): Future[FindAllAccountsResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAllAccountsAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2)(it, p0, h1, tmp.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
-        result = adopt[FindAllAccountsResult](awaitObject(tmp, IID_IAsyncOperation_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2)(it, p0, h1, op.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
+  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
 
-proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string): WebAccountProvider =
+proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync)(it, h0, tmp.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
-      result = adopt[WebAccountProvider](awaitObject(tmp, IID_IAsyncOperation_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync)(it, h0, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
-proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string, a2: string): WebAccountProvider =
+proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], a1: string, a2: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2)(it, h0, h1, tmp.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
-        result = adopt[WebAccountProvider](awaitObject(tmp, IID_IAsyncOperation_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
-        release(tmp)
+        vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
-proc webAccountProvider*(self: WebAuthenticationTransferTokenRequest): WebAccountProvider =
+proc webAccountProvider*(self: WebAuthenticationTransferTokenRequest): WebAccountProvider  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_WebAccountProvider
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationTransferTokenRequest_get_WebAccountProvider, Fn_IWebAuthenticationTransferTokenRequest_get_WebAccountProvider)(it, tmp.addr).check("WebAuthenticationTransferTokenRequest.get_WebAccountProvider")
     result = adopt[WebAccountProvider](tmp)
 
-proc transferToken*(self: WebAuthenticationTransferTokenRequest): string =
+proc transferToken*(self: WebAuthenticationTransferTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_TransferToken
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAuthenticationTransferTokenRequest_get_TransferToken, Fn_IWebAuthenticationTransferTokenRequest_get_TransferToken)(it, tmp.addr).check("WebAuthenticationTransferTokenRequest.get_TransferToken")
     result = takeString(tmp)
 
-proc `transferToken=`*(self: WebAuthenticationTransferTokenRequest, value: string) =
+proc `transferToken=`*(self: WebAuthenticationTransferTokenRequest, value: string)  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.put_TransferToken
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     withHString(value, h0):
       vcall(it, Slot_IWebAuthenticationTransferTokenRequest_put_TransferToken, Fn_IWebAuthenticationTransferTokenRequest_put_TransferToken)(it, h0).check("WebAuthenticationTransferTokenRequest.put_TransferToken")
 
-proc correlationId*(self: WebAuthenticationTransferTokenRequest): string =
+proc correlationId*(self: WebAuthenticationTransferTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_CorrelationId
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAuthenticationTransferTokenRequest_get_CorrelationId, Fn_IWebAuthenticationTransferTokenRequest_get_CorrelationId)(it, tmp.addr).check("WebAuthenticationTransferTokenRequest.get_CorrelationId")
     result = takeString(tmp)
 
-proc `correlationId=`*(self: WebAuthenticationTransferTokenRequest, value: string) =
+proc `correlationId=`*(self: WebAuthenticationTransferTokenRequest, value: string)  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.put_CorrelationId
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     withHString(value, h0):
       vcall(it, Slot_IWebAuthenticationTransferTokenRequest_put_CorrelationId, Fn_IWebAuthenticationTransferTokenRequest_put_CorrelationId)(it, h0).check("WebAuthenticationTransferTokenRequest.put_CorrelationId")
 
-proc create*(_: typedesc[WebAuthenticationTransferTokenRequest], a1: WebAccountProvider, a2: string): WebAuthenticationTransferTokenRequest =
+proc create*(_: typedesc[WebAuthenticationTransferTokenRequest], a1: WebAccountProvider, a2: string): WebAuthenticationTransferTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.Create
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest", IID_IWebAuthenticationTransferTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3026,7 +3090,7 @@ proc create*(_: typedesc[WebAuthenticationTransferTokenRequest], a1: WebAccountP
         vcall(it, Slot_IWebAuthenticationTransferTokenRequestFactory_Create, Fn_IWebAuthenticationTransferTokenRequestFactory_Create)(it, p0, h1, tmp.addr).check("WebAuthenticationTransferTokenRequest.Create")
         result = adopt[WebAuthenticationTransferTokenRequest](tmp)
 
-proc createWithCorrelationId*(_: typedesc[WebAuthenticationTransferTokenRequest], a1: WebAccountProvider, a2: string, a3: string): WebAuthenticationTransferTokenRequest =
+proc createWithCorrelationId*(_: typedesc[WebAuthenticationTransferTokenRequest], a1: WebAccountProvider, a2: string, a3: string): WebAuthenticationTransferTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.CreateWithCorrelationId
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest", IID_IWebAuthenticationTransferTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3036,21 +3100,21 @@ proc createWithCorrelationId*(_: typedesc[WebAuthenticationTransferTokenRequest]
           vcall(it, Slot_IWebAuthenticationTransferTokenRequestFactory_CreateWithCorrelationId, Fn_IWebAuthenticationTransferTokenRequestFactory_CreateWithCorrelationId)(it, p0, h1, h2, tmp.addr).check("WebAuthenticationTransferTokenRequest.CreateWithCorrelationId")
           result = adopt[WebAuthenticationTransferTokenRequest](tmp)
 
-proc errorCode*(self: WebProviderError): uint32 =
+proc errorCode*(self: WebProviderError): uint32  =
   ## Windows.Security.Authentication.Web.Core.WebProviderError.get_ErrorCode
   withIface(self.p, IID_IWebProviderError, "IWebProviderError", it):
     var tmp: uint32
     vcall(it, Slot_IWebProviderError_get_ErrorCode, Fn_IWebProviderError_get_ErrorCode)(it, tmp.addr).check("WebProviderError.get_ErrorCode")
     result = tmp
 
-proc errorMessage*(self: WebProviderError): string =
+proc errorMessage*(self: WebProviderError): string  =
   ## Windows.Security.Authentication.Web.Core.WebProviderError.get_ErrorMessage
   withIface(self.p, IID_IWebProviderError, "IWebProviderError", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebProviderError_get_ErrorMessage, Fn_IWebProviderError_get_ErrorMessage)(it, tmp.addr).check("WebProviderError.get_ErrorMessage")
     result = takeString(tmp)
 
-proc create*(_: typedesc[WebProviderError], a1: uint32, a2: string): WebProviderError =
+proc create*(_: typedesc[WebProviderError], a1: uint32, a2: string): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.WebProviderError.Create
   withStatics("Windows.Security.Authentication.Web.Core.WebProviderError", IID_IWebProviderErrorFactory, it):
     withHString(a2, h1):
@@ -3058,48 +3122,48 @@ proc create*(_: typedesc[WebProviderError], a1: uint32, a2: string): WebProvider
       vcall(it, Slot_IWebProviderErrorFactory_Create, Fn_IWebProviderErrorFactory_Create)(it, a1, h1, tmp.addr).check("WebProviderError.Create")
       result = adopt[WebProviderError](tmp)
 
-proc webAccountProvider*(self: WebTokenRequest): WebAccountProvider =
+proc webAccountProvider*(self: WebTokenRequest): WebAccountProvider  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_WebAccountProvider
   withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenRequest_get_WebAccountProvider, Fn_IWebTokenRequest_get_WebAccountProvider)(it, tmp.addr).check("WebTokenRequest.get_WebAccountProvider")
     result = adopt[WebAccountProvider](tmp)
 
-proc scope*(self: WebTokenRequest): string =
+proc scope*(self: WebTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_Scope
   withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebTokenRequest_get_Scope, Fn_IWebTokenRequest_get_Scope)(it, tmp.addr).check("WebTokenRequest.get_Scope")
     result = takeString(tmp)
 
-proc clientId*(self: WebTokenRequest): string =
+proc clientId*(self: WebTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_ClientId
   withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebTokenRequest_get_ClientId, Fn_IWebTokenRequest_get_ClientId)(it, tmp.addr).check("WebTokenRequest.get_ClientId")
     result = takeString(tmp)
 
-proc promptType*(self: WebTokenRequest): WebTokenRequestPromptType =
+proc promptType*(self: WebTokenRequest): WebTokenRequestPromptType  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_PromptType
   withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
     var tmp: WebTokenRequestPromptType
     vcall(it, Slot_IWebTokenRequest_get_PromptType, Fn_IWebTokenRequest_get_PromptType)(it, tmp.addr).check("WebTokenRequest.get_PromptType")
     result = tmp
 
-proc correlationId*(self: WebTokenRequest): string =
+proc correlationId*(self: WebTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_CorrelationId
   withIface(self.p, IID_IWebTokenRequest3, "IWebTokenRequest3", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebTokenRequest3_get_CorrelationId, Fn_IWebTokenRequest3_get_CorrelationId)(it, tmp.addr).check("WebTokenRequest.get_CorrelationId")
     result = takeString(tmp)
 
-proc `correlationId=`*(self: WebTokenRequest, value: string) =
+proc `correlationId=`*(self: WebTokenRequest, value: string)  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.put_CorrelationId
   withIface(self.p, IID_IWebTokenRequest3, "IWebTokenRequest3", it):
     withHString(value, h0):
       vcall(it, Slot_IWebTokenRequest3_put_CorrelationId, Fn_IWebTokenRequest3_put_CorrelationId)(it, h0).check("WebTokenRequest.put_CorrelationId")
 
-proc create*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string, a3: string): WebTokenRequest =
+proc create*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string, a3: string): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.Create
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenRequest", IID_IWebTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3109,7 +3173,7 @@ proc create*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string, a
           vcall(it, Slot_IWebTokenRequestFactory_Create, Fn_IWebTokenRequestFactory_Create)(it, p0, h1, h2, tmp.addr).check("WebTokenRequest.Create")
           result = adopt[WebTokenRequest](tmp)
 
-proc createWithPromptType*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string, a3: string, a4: WebTokenRequestPromptType): WebTokenRequest =
+proc createWithPromptType*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string, a3: string, a4: WebTokenRequestPromptType): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithPromptType
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenRequest", IID_IWebTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3119,7 +3183,7 @@ proc createWithPromptType*(_: typedesc[WebTokenRequest], a1: WebAccountProvider,
           vcall(it, Slot_IWebTokenRequestFactory_CreateWithPromptType, Fn_IWebTokenRequestFactory_CreateWithPromptType)(it, p0, h1, h2, a4, tmp.addr).check("WebTokenRequest.CreateWithPromptType")
           result = adopt[WebTokenRequest](tmp)
 
-proc createWithProvider*(_: typedesc[WebTokenRequest], a1: WebAccountProvider): WebTokenRequest =
+proc createWithProvider*(_: typedesc[WebTokenRequest], a1: WebAccountProvider): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithProvider
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenRequest", IID_IWebTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3127,7 +3191,7 @@ proc createWithProvider*(_: typedesc[WebTokenRequest], a1: WebAccountProvider): 
       vcall(it, Slot_IWebTokenRequestFactory_CreateWithProvider, Fn_IWebTokenRequestFactory_CreateWithProvider)(it, p0, tmp.addr).check("WebTokenRequest.CreateWithProvider")
       result = adopt[WebTokenRequest](tmp)
 
-proc createWithScope*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string): WebTokenRequest =
+proc createWithScope*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: string): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithScope
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenRequest", IID_IWebTokenRequestFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -3136,7 +3200,7 @@ proc createWithScope*(_: typedesc[WebTokenRequest], a1: WebAccountProvider, a2: 
         vcall(it, Slot_IWebTokenRequestFactory_CreateWithScope, Fn_IWebTokenRequestFactory_CreateWithScope)(it, p0, h1, tmp.addr).check("WebTokenRequest.CreateWithScope")
         result = adopt[WebTokenRequest](tmp)
 
-proc responseData*(self: WebTokenRequestResult): seq[WebTokenResponse] =
+proc responseData*(self: WebTokenRequestResult): seq[WebTokenResponse]  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequestResult.get_ResponseData
   withIface(self.p, IID_IWebTokenRequestResult, "IWebTokenRequestResult", it):
     var tmp: pointer
@@ -3144,54 +3208,53 @@ proc responseData*(self: WebTokenRequestResult): seq[WebTokenResponse] =
     result = toSeq[WebTokenResponse](tmp, IID_IVectorView_1_WebTokenResponse)
     release(tmp)
 
-proc responseStatus*(self: WebTokenRequestResult): WebTokenRequestStatus =
+proc responseStatus*(self: WebTokenRequestResult): WebTokenRequestStatus  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequestResult.get_ResponseStatus
   withIface(self.p, IID_IWebTokenRequestResult, "IWebTokenRequestResult", it):
     var tmp: WebTokenRequestStatus
     vcall(it, Slot_IWebTokenRequestResult_get_ResponseStatus, Fn_IWebTokenRequestResult_get_ResponseStatus)(it, tmp.addr).check("WebTokenRequestResult.get_ResponseStatus")
     result = tmp
 
-proc responseError*(self: WebTokenRequestResult): WebProviderError =
+proc responseError*(self: WebTokenRequestResult): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequestResult.get_ResponseError
   withIface(self.p, IID_IWebTokenRequestResult, "IWebTokenRequestResult", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenRequestResult_get_ResponseError, Fn_IWebTokenRequestResult_get_ResponseError)(it, tmp.addr).check("WebTokenRequestResult.get_ResponseError")
     result = adopt[WebProviderError](tmp)
 
-proc invalidateCacheAsync*(self: WebTokenRequestResult) =
+proc invalidateCacheAsync*(self: WebTokenRequestResult) {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequestResult.InvalidateCacheAsync
+  var op: pointer
   withIface(self.p, IID_IWebTokenRequestResult, "IWebTokenRequestResult", it):
-    var tmp: pointer
-    vcall(it, Slot_IWebTokenRequestResult_InvalidateCacheAsync, Fn_IWebTokenRequestResult_InvalidateCacheAsync)(it, tmp.addr).check("WebTokenRequestResult.InvalidateCacheAsync")
-    awaitVoid(tmp, "WebTokenRequestResult.InvalidateCacheAsync")
-    release(tmp)
+    vcall(it, Slot_IWebTokenRequestResult_InvalidateCacheAsync, Fn_IWebTokenRequestResult_InvalidateCacheAsync)(it, op.addr).check("WebTokenRequestResult.InvalidateCacheAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebTokenRequestResult.InvalidateCacheAsync")
 
 proc newWebTokenResponse*(): WebTokenResponse =
   ## Activate a `Windows.Security.Authentication.Web.Core.WebTokenResponse`.
   adopt[WebTokenResponse](activateAs("Windows.Security.Authentication.Web.Core.WebTokenResponse", IID_IWebTokenResponse))
 
-proc token*(self: WebTokenResponse): string =
+proc token*(self: WebTokenResponse): string  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.get_Token
   withIface(self.p, IID_IWebTokenResponse, "IWebTokenResponse", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebTokenResponse_get_Token, Fn_IWebTokenResponse_get_Token)(it, tmp.addr).check("WebTokenResponse.get_Token")
     result = takeString(tmp)
 
-proc providerError*(self: WebTokenResponse): WebProviderError =
+proc providerError*(self: WebTokenResponse): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.get_ProviderError
   withIface(self.p, IID_IWebTokenResponse, "IWebTokenResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenResponse_get_ProviderError, Fn_IWebTokenResponse_get_ProviderError)(it, tmp.addr).check("WebTokenResponse.get_ProviderError")
     result = adopt[WebProviderError](tmp)
 
-proc webAccount*(self: WebTokenResponse): WebAccount =
+proc webAccount*(self: WebTokenResponse): WebAccount  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.get_WebAccount
   withIface(self.p, IID_IWebTokenResponse, "IWebTokenResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenResponse_get_WebAccount, Fn_IWebTokenResponse_get_WebAccount)(it, tmp.addr).check("WebTokenResponse.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
-proc createWithToken*(_: typedesc[WebTokenResponse], a1: string): WebTokenResponse =
+proc createWithToken*(_: typedesc[WebTokenResponse], a1: string): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenResponse", IID_IWebTokenResponseFactory, it):
     withHString(a1, h0):
@@ -3199,7 +3262,7 @@ proc createWithToken*(_: typedesc[WebTokenResponse], a1: string): WebTokenRespon
       vcall(it, Slot_IWebTokenResponseFactory_CreateWithToken, Fn_IWebTokenResponseFactory_CreateWithToken)(it, h0, tmp.addr).check("WebTokenResponse.CreateWithToken")
       result = adopt[WebTokenResponse](tmp)
 
-proc createWithTokenAndAccount*(_: typedesc[WebTokenResponse], a1: string, a2: WebAccount): WebTokenResponse =
+proc createWithTokenAndAccount*(_: typedesc[WebTokenResponse], a1: string, a2: WebAccount): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAndAccount
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenResponse", IID_IWebTokenResponseFactory, it):
     withHString(a1, h0):
@@ -3208,7 +3271,7 @@ proc createWithTokenAndAccount*(_: typedesc[WebTokenResponse], a1: string, a2: W
         vcall(it, Slot_IWebTokenResponseFactory_CreateWithTokenAndAccount, Fn_IWebTokenResponseFactory_CreateWithTokenAndAccount)(it, h0, p1, tmp.addr).check("WebTokenResponse.CreateWithTokenAndAccount")
         result = adopt[WebTokenResponse](tmp)
 
-proc createWithTokenAccountAndError*(_: typedesc[WebTokenResponse], a1: string, a2: WebAccount, a3: WebProviderError): WebTokenResponse =
+proc createWithTokenAccountAndError*(_: typedesc[WebTokenResponse], a1: string, a2: WebAccount, a3: WebProviderError): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAccountAndError
   withStatics("Windows.Security.Authentication.Web.Core.WebTokenResponse", IID_IWebTokenResponseFactory, it):
     withHString(a1, h0):
@@ -3218,40 +3281,38 @@ proc createWithTokenAccountAndError*(_: typedesc[WebTokenResponse], a1: string, 
           vcall(it, Slot_IWebTokenResponseFactory_CreateWithTokenAccountAndError, Fn_IWebTokenResponseFactory_CreateWithTokenAccountAndError)(it, h0, p1, p2, tmp.addr).check("WebTokenResponse.CreateWithTokenAccountAndError")
           result = adopt[WebTokenResponse](tmp)
 
-proc `type`*(self: WebAccountClientView): WebAccountClientViewType =
+proc `type`*(self: WebAccountClientView): WebAccountClientViewType  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.get_Type
   withIface(self.p, IID_IWebAccountClientView, "IWebAccountClientView", it):
     var tmp: WebAccountClientViewType
     vcall(it, Slot_IWebAccountClientView_get_Type, Fn_IWebAccountClientView_get_Type)(it, tmp.addr).check("WebAccountClientView.get_Type")
     result = tmp
 
-proc accountPairwiseId*(self: WebAccountClientView): string =
+proc accountPairwiseId*(self: WebAccountClientView): string  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.get_AccountPairwiseId
   withIface(self.p, IID_IWebAccountClientView, "IWebAccountClientView", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountClientView_get_AccountPairwiseId, Fn_IWebAccountClientView_get_AccountPairwiseId)(it, tmp.addr).check("WebAccountClientView.get_AccountPairwiseId")
     result = takeString(tmp)
 
-proc pullCookiesAsync*(_: typedesc[WebAccountManager], a1: string, a2: string) =
+proc pullCookiesAsync*(_: typedesc[WebAccountManager], a1: string, a2: string) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.PullCookiesAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics2, it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAccountManagerStatics2_PullCookiesAsync, Fn_IWebAccountManagerStatics2_PullCookiesAsync)(it, h0, h1, tmp.addr).check("WebAccountManager.PullCookiesAsync")
-        awaitVoid(tmp, "WebAccountManager.PullCookiesAsync")
-        release(tmp)
+        vcall(it, Slot_IWebAccountManagerStatics2_PullCookiesAsync, Fn_IWebAccountManagerStatics2_PullCookiesAsync)(it, h0, h1, op.addr).check("WebAccountManager.PullCookiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.PullCookiesAsync")
 
-proc setScopeAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: WebAccountScope) =
+proc setScopeAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: WebAccountScope) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetScopeAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountScopeManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountScopeManagerStatics_SetScopeAsync, Fn_IWebAccountScopeManagerStatics_SetScopeAsync)(it, p0, a2, tmp.addr).check("WebAccountManager.SetScopeAsync")
-      awaitVoid(tmp, "WebAccountManager.SetScopeAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountScopeManagerStatics_SetScopeAsync, Fn_IWebAccountScopeManagerStatics_SetScopeAsync)(it, p0, a2, op.addr).check("WebAccountManager.SetScopeAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetScopeAsync")
 
-proc getScope*(_: typedesc[WebAccountManager], a1: WebAccount): WebAccountScope =
+proc getScope*(_: typedesc[WebAccountManager], a1: WebAccount): WebAccountScope  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.GetScope
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountScopeManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
@@ -3259,133 +3320,124 @@ proc getScope*(_: typedesc[WebAccountManager], a1: WebAccount): WebAccountScope 
       vcall(it, Slot_IWebAccountScopeManagerStatics_GetScope, Fn_IWebAccountScopeManagerStatics_GetScope)(it, p0, tmp.addr).check("WebAccountManager.GetScope")
       result = tmp
 
-proc deleteWebAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) =
+proc deleteWebAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.DeleteWebAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountManagerStatics_DeleteWebAccountAsync, Fn_IWebAccountManagerStatics_DeleteWebAccountAsync)(it, p0, tmp.addr).check("WebAccountManager.DeleteWebAccountAsync")
-      awaitVoid(tmp, "WebAccountManager.DeleteWebAccountAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountManagerStatics_DeleteWebAccountAsync, Fn_IWebAccountManagerStatics_DeleteWebAccountAsync)(it, p0, op.addr).check("WebAccountManager.DeleteWebAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.DeleteWebAccountAsync")
 
-proc setViewAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: WebAccountClientView) =
+proc setViewAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: WebAccountClientView) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetViewAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
       withIface(a2.p, IID_IWebAccountClientView, "IWebAccountClientView", p1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAccountManagerStatics_SetViewAsync, Fn_IWebAccountManagerStatics_SetViewAsync)(it, p0, p1, tmp.addr).check("WebAccountManager.SetViewAsync")
-        awaitVoid(tmp, "WebAccountManager.SetViewAsync")
-        release(tmp)
+        vcall(it, Slot_IWebAccountManagerStatics_SetViewAsync, Fn_IWebAccountManagerStatics_SetViewAsync)(it, p0, p1, op.addr).check("WebAccountManager.SetViewAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetViewAsync")
 
-proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: pointer) =
+proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: pointer) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetWebAccountPictureAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync, Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync)(it, p0, a2, tmp.addr).check("WebAccountManager.SetWebAccountPictureAsync")
-      awaitVoid(tmp, "WebAccountManager.SetWebAccountPictureAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync, Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync)(it, p0, a2, op.addr).check("WebAccountManager.SetWebAccountPictureAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetWebAccountPictureAsync")
 
-proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], a1: WebAccount) =
+proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], a1: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearWebAccountPictureAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountManagerStatics_ClearWebAccountPictureAsync, Fn_IWebAccountManagerStatics_ClearWebAccountPictureAsync)(it, p0, tmp.addr).check("WebAccountManager.ClearWebAccountPictureAsync")
-      awaitVoid(tmp, "WebAccountManager.ClearWebAccountPictureAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountManagerStatics_ClearWebAccountPictureAsync, Fn_IWebAccountManagerStatics_ClearWebAccountPictureAsync)(it, p0, op.addr).check("WebAccountManager.ClearWebAccountPictureAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearWebAccountPictureAsync")
 
-proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: string) =
+proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: string) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetPerAppToPerUserAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync, Fn_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync)(it, p0, h1, tmp.addr).check("WebAccountManager.SetPerAppToPerUserAccountAsync")
-        awaitVoid(tmp, "WebAccountManager.SetPerAppToPerUserAccountAsync")
-        release(tmp)
+        vcall(it, Slot_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync, Fn_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync)(it, p0, h1, op.addr).check("WebAccountManager.SetPerAppToPerUserAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetPerAppToPerUserAccountAsync")
 
-proc getPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount): WebAccount =
+proc getPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount): Future[WebAccount] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.GetPerUserFromPerAppAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync)(it, p0, tmp.addr).check("WebAccountManager.GetPerUserFromPerAppAccountAsync")
-      result = adopt[WebAccount](awaitObject(tmp, IID_IAsyncOperation_1_WebAccount, "WebAccountManager.GetPerUserFromPerAppAccountAsync"))
-      release(tmp)
+      vcall(it, Slot_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync)(it, p0, op.addr).check("WebAccountManager.GetPerUserFromPerAppAccountAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, "WebAccountManager.GetPerUserFromPerAppAccountAsync"))
 
-proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) =
+proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearPerUserFromPerAppAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync)(it, p0, tmp.addr).check("WebAccountManager.ClearPerUserFromPerAppAccountAsync")
-      awaitVoid(tmp, "WebAccountManager.ClearPerUserFromPerAppAccountAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync)(it, p0, op.addr).check("WebAccountManager.ClearPerUserFromPerAppAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearPerUserFromPerAppAccountAsync")
 
-proc invalidateAppCacheForAllAccountsAsync*(_: typedesc[WebAccountManager]) =
+proc invalidateAppCacheForAllAccountsAsync*(_: typedesc[WebAccountManager]) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.InvalidateAppCacheForAllAccountsAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics4, it):
-    var tmp: pointer
-    vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync)(it, tmp.addr).check("WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
-    awaitVoid(tmp, "WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
-    release(tmp)
+    vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync)(it, op.addr).check("WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
 
-proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) =
+proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager], a1: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.InvalidateAppCacheForAccountAsync
+  var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics4, it):
     withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync)(it, p0, tmp.addr).check("WebAccountManager.InvalidateAppCacheForAccountAsync")
-      awaitVoid(tmp, "WebAccountManager.InvalidateAppCacheForAccountAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync)(it, p0, op.addr).check("WebAccountManager.InvalidateAppCacheForAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.InvalidateAppCacheForAccountAsync")
 
-proc reportCompleted*(self: WebAccountProviderAddAccountOperation) =
+proc reportCompleted*(self: WebAccountProviderAddAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderAddAccountOperation, "IWebAccountProviderAddAccountOperation", it):
     vcall(it, Slot_IWebAccountProviderAddAccountOperation_ReportCompleted, Fn_IWebAccountProviderAddAccountOperation_ReportCompleted)(it).check("WebAccountProviderAddAccountOperation.ReportCompleted")
 
-proc kind*(self: WebAccountProviderAddAccountOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderAddAccountOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderAddAccountOperation.get_Kind")
     result = tmp
 
-proc webAccount*(self: WebAccountProviderDeleteAccountOperation): WebAccount =
+proc webAccount*(self: WebAccountProviderDeleteAccountOperation): WebAccount  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation.get_WebAccount
   withIface(self.p, IID_IWebAccountProviderDeleteAccountOperation, "IWebAccountProviderDeleteAccountOperation", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderDeleteAccountOperation_get_WebAccount, Fn_IWebAccountProviderDeleteAccountOperation_get_WebAccount)(it, tmp.addr).check("WebAccountProviderDeleteAccountOperation.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
-proc kind*(self: WebAccountProviderDeleteAccountOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderDeleteAccountOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderDeleteAccountOperation.get_Kind")
     result = tmp
 
-proc reportCompleted*(self: WebAccountProviderDeleteAccountOperation) =
+proc reportCompleted*(self: WebAccountProviderDeleteAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportCompleted, Fn_IWebAccountProviderBaseReportOperation_ReportCompleted)(it).check("WebAccountProviderDeleteAccountOperation.ReportCompleted")
 
-proc reportError*(self: WebAccountProviderDeleteAccountOperation, a1: WebProviderError) =
+proc reportError*(self: WebAccountProviderDeleteAccountOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation.ReportError
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderDeleteAccountOperation.ReportError")
 
-proc providerRequest*(self: WebAccountProviderGetTokenSilentOperation): WebProviderTokenRequest =
+proc providerRequest*(self: WebAccountProviderGetTokenSilentOperation): WebProviderTokenRequest  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.get_ProviderRequest
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderTokenOperation_get_ProviderRequest, Fn_IWebAccountProviderTokenOperation_get_ProviderRequest)(it, tmp.addr).check("WebAccountProviderGetTokenSilentOperation.get_ProviderRequest")
     result = adopt[WebProviderTokenRequest](tmp)
 
-proc providerResponses*(self: WebAccountProviderGetTokenSilentOperation): seq[WebProviderTokenResponse] =
+proc providerResponses*(self: WebAccountProviderGetTokenSilentOperation): seq[WebProviderTokenResponse]  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.get_ProviderResponses
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: pointer
@@ -3393,74 +3445,74 @@ proc providerResponses*(self: WebAccountProviderGetTokenSilentOperation): seq[We
     result = toSeq[WebProviderTokenResponse](tmp, IID_IVector_1_WebProviderTokenResponse)
     release(tmp)
 
-proc `cacheExpirationTime=`*(self: WebAccountProviderGetTokenSilentOperation, value: DateTime) =
+proc `cacheExpirationTime=`*(self: WebAccountProviderGetTokenSilentOperation, value: DateTime)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.put_CacheExpirationTime
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     vcall(it, Slot_IWebAccountProviderTokenOperation_put_CacheExpirationTime, Fn_IWebAccountProviderTokenOperation_put_CacheExpirationTime)(it, value).check("WebAccountProviderGetTokenSilentOperation.put_CacheExpirationTime")
 
-proc cacheExpirationTime*(self: WebAccountProviderGetTokenSilentOperation): DateTime =
+proc cacheExpirationTime*(self: WebAccountProviderGetTokenSilentOperation): DateTime  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.get_CacheExpirationTime
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: DateTime
     vcall(it, Slot_IWebAccountProviderTokenOperation_get_CacheExpirationTime, Fn_IWebAccountProviderTokenOperation_get_CacheExpirationTime)(it, tmp.addr).check("WebAccountProviderGetTokenSilentOperation.get_CacheExpirationTime")
     result = tmp
 
-proc kind*(self: WebAccountProviderGetTokenSilentOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderGetTokenSilentOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderGetTokenSilentOperation.get_Kind")
     result = tmp
 
-proc reportUserInteractionRequired*(self: WebAccountProviderGetTokenSilentOperation) =
+proc reportUserInteractionRequired*(self: WebAccountProviderGetTokenSilentOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.ReportUserInteractionRequired
   withIface(self.p, IID_IWebAccountProviderSilentReportOperation, "IWebAccountProviderSilentReportOperation", it):
     vcall(it, Slot_IWebAccountProviderSilentReportOperation_ReportUserInteractionRequired, Fn_IWebAccountProviderSilentReportOperation_ReportUserInteractionRequired)(it).check("WebAccountProviderGetTokenSilentOperation.ReportUserInteractionRequired")
 
-proc reportUserInteractionRequired*(self: WebAccountProviderGetTokenSilentOperation, a1: WebProviderError) =
+proc reportUserInteractionRequired*(self: WebAccountProviderGetTokenSilentOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.ReportUserInteractionRequired
   withIface(self.p, IID_IWebAccountProviderSilentReportOperation, "IWebAccountProviderSilentReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderSilentReportOperation_ReportUserInteractionRequired2, Fn_IWebAccountProviderSilentReportOperation_ReportUserInteractionRequired2)(it, p0).check("WebAccountProviderGetTokenSilentOperation.ReportUserInteractionRequired")
 
-proc reportCompleted*(self: WebAccountProviderGetTokenSilentOperation) =
+proc reportCompleted*(self: WebAccountProviderGetTokenSilentOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportCompleted, Fn_IWebAccountProviderBaseReportOperation_ReportCompleted)(it).check("WebAccountProviderGetTokenSilentOperation.ReportCompleted")
 
-proc reportError*(self: WebAccountProviderGetTokenSilentOperation, a1: WebProviderError) =
+proc reportError*(self: WebAccountProviderGetTokenSilentOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation.ReportError
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderGetTokenSilentOperation.ReportError")
 
-proc webAccount*(self: WebAccountProviderManageAccountOperation): WebAccount =
+proc webAccount*(self: WebAccountProviderManageAccountOperation): WebAccount  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderManageAccountOperation.get_WebAccount
   withIface(self.p, IID_IWebAccountProviderManageAccountOperation, "IWebAccountProviderManageAccountOperation", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderManageAccountOperation_get_WebAccount, Fn_IWebAccountProviderManageAccountOperation_get_WebAccount)(it, tmp.addr).check("WebAccountProviderManageAccountOperation.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
-proc reportCompleted*(self: WebAccountProviderManageAccountOperation) =
+proc reportCompleted*(self: WebAccountProviderManageAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderManageAccountOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderManageAccountOperation, "IWebAccountProviderManageAccountOperation", it):
     vcall(it, Slot_IWebAccountProviderManageAccountOperation_ReportCompleted, Fn_IWebAccountProviderManageAccountOperation_ReportCompleted)(it).check("WebAccountProviderManageAccountOperation.ReportCompleted")
 
-proc kind*(self: WebAccountProviderManageAccountOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderManageAccountOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderManageAccountOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderManageAccountOperation.get_Kind")
     result = tmp
 
-proc providerRequest*(self: WebAccountProviderRequestTokenOperation): WebProviderTokenRequest =
+proc providerRequest*(self: WebAccountProviderRequestTokenOperation): WebProviderTokenRequest  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.get_ProviderRequest
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderTokenOperation_get_ProviderRequest, Fn_IWebAccountProviderTokenOperation_get_ProviderRequest)(it, tmp.addr).check("WebAccountProviderRequestTokenOperation.get_ProviderRequest")
     result = adopt[WebProviderTokenRequest](tmp)
 
-proc providerResponses*(self: WebAccountProviderRequestTokenOperation): seq[WebProviderTokenResponse] =
+proc providerResponses*(self: WebAccountProviderRequestTokenOperation): seq[WebProviderTokenResponse]  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.get_ProviderResponses
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: pointer
@@ -3468,106 +3520,106 @@ proc providerResponses*(self: WebAccountProviderRequestTokenOperation): seq[WebP
     result = toSeq[WebProviderTokenResponse](tmp, IID_IVector_1_WebProviderTokenResponse)
     release(tmp)
 
-proc `cacheExpirationTime=`*(self: WebAccountProviderRequestTokenOperation, value: DateTime) =
+proc `cacheExpirationTime=`*(self: WebAccountProviderRequestTokenOperation, value: DateTime)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.put_CacheExpirationTime
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     vcall(it, Slot_IWebAccountProviderTokenOperation_put_CacheExpirationTime, Fn_IWebAccountProviderTokenOperation_put_CacheExpirationTime)(it, value).check("WebAccountProviderRequestTokenOperation.put_CacheExpirationTime")
 
-proc cacheExpirationTime*(self: WebAccountProviderRequestTokenOperation): DateTime =
+proc cacheExpirationTime*(self: WebAccountProviderRequestTokenOperation): DateTime  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.get_CacheExpirationTime
   withIface(self.p, IID_IWebAccountProviderTokenOperation, "IWebAccountProviderTokenOperation", it):
     var tmp: DateTime
     vcall(it, Slot_IWebAccountProviderTokenOperation_get_CacheExpirationTime, Fn_IWebAccountProviderTokenOperation_get_CacheExpirationTime)(it, tmp.addr).check("WebAccountProviderRequestTokenOperation.get_CacheExpirationTime")
     result = tmp
 
-proc kind*(self: WebAccountProviderRequestTokenOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderRequestTokenOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderRequestTokenOperation.get_Kind")
     result = tmp
 
-proc reportUserCanceled*(self: WebAccountProviderRequestTokenOperation) =
+proc reportUserCanceled*(self: WebAccountProviderRequestTokenOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.ReportUserCanceled
   withIface(self.p, IID_IWebAccountProviderUIReportOperation, "IWebAccountProviderUIReportOperation", it):
     vcall(it, Slot_IWebAccountProviderUIReportOperation_ReportUserCanceled, Fn_IWebAccountProviderUIReportOperation_ReportUserCanceled)(it).check("WebAccountProviderRequestTokenOperation.ReportUserCanceled")
 
-proc reportCompleted*(self: WebAccountProviderRequestTokenOperation) =
+proc reportCompleted*(self: WebAccountProviderRequestTokenOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportCompleted, Fn_IWebAccountProviderBaseReportOperation_ReportCompleted)(it).check("WebAccountProviderRequestTokenOperation.ReportCompleted")
 
-proc reportError*(self: WebAccountProviderRequestTokenOperation, a1: WebProviderError) =
+proc reportError*(self: WebAccountProviderRequestTokenOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation.ReportError
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderRequestTokenOperation.ReportError")
 
-proc kind*(self: WebAccountProviderRetrieveCookiesOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderRetrieveCookiesOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_Kind")
     result = tmp
 
-proc reportCompleted*(self: WebAccountProviderRetrieveCookiesOperation) =
+proc reportCompleted*(self: WebAccountProviderRetrieveCookiesOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportCompleted, Fn_IWebAccountProviderBaseReportOperation_ReportCompleted)(it).check("WebAccountProviderRetrieveCookiesOperation.ReportCompleted")
 
-proc reportError*(self: WebAccountProviderRetrieveCookiesOperation, a1: WebProviderError) =
+proc reportError*(self: WebAccountProviderRetrieveCookiesOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.ReportError
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderRetrieveCookiesOperation.ReportError")
 
-proc webAccount*(self: WebAccountProviderSignOutAccountOperation): WebAccount =
+proc webAccount*(self: WebAccountProviderSignOutAccountOperation): WebAccount  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.get_WebAccount
   withIface(self.p, IID_IWebAccountProviderSignOutAccountOperation, "IWebAccountProviderSignOutAccountOperation", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderSignOutAccountOperation_get_WebAccount, Fn_IWebAccountProviderSignOutAccountOperation_get_WebAccount)(it, tmp.addr).check("WebAccountProviderSignOutAccountOperation.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
-proc clientId*(self: WebAccountProviderSignOutAccountOperation): string =
+proc clientId*(self: WebAccountProviderSignOutAccountOperation): string  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.get_ClientId
   withIface(self.p, IID_IWebAccountProviderSignOutAccountOperation, "IWebAccountProviderSignOutAccountOperation", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountProviderSignOutAccountOperation_get_ClientId, Fn_IWebAccountProviderSignOutAccountOperation_get_ClientId)(it, tmp.addr).check("WebAccountProviderSignOutAccountOperation.get_ClientId")
     result = takeString(tmp)
 
-proc kind*(self: WebAccountProviderSignOutAccountOperation): WebAccountProviderOperationKind =
+proc kind*(self: WebAccountProviderSignOutAccountOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
     var tmp: WebAccountProviderOperationKind
     vcall(it, Slot_IWebAccountProviderOperation_get_Kind, Fn_IWebAccountProviderOperation_get_Kind)(it, tmp.addr).check("WebAccountProviderSignOutAccountOperation.get_Kind")
     result = tmp
 
-proc reportCompleted*(self: WebAccountProviderSignOutAccountOperation) =
+proc reportCompleted*(self: WebAccountProviderSignOutAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.ReportCompleted
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportCompleted, Fn_IWebAccountProviderBaseReportOperation_ReportCompleted)(it).check("WebAccountProviderSignOutAccountOperation.ReportCompleted")
 
-proc reportError*(self: WebAccountProviderSignOutAccountOperation, a1: WebProviderError) =
+proc reportError*(self: WebAccountProviderSignOutAccountOperation, a1: WebProviderError)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.ReportError
   withIface(self.p, IID_IWebAccountProviderBaseReportOperation, "IWebAccountProviderBaseReportOperation", it):
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderSignOutAccountOperation.ReportError")
 
-proc operation*(self: WebAccountProviderTriggerDetails): pointer =
+proc operation*(self: WebAccountProviderTriggerDetails): pointer  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails.get_Operation
   withIface(self.p, IID_IWebAccountProviderTokenObjects, "IWebAccountProviderTokenObjects", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderTokenObjects_get_Operation, Fn_IWebAccountProviderTokenObjects_get_Operation)(it, tmp.addr).check("WebAccountProviderTriggerDetails.get_Operation")
     result = tmp
 
-proc clientRequest*(self: WebProviderTokenRequest): WebTokenRequest =
+proc clientRequest*(self: WebProviderTokenRequest): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ClientRequest
   withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWebProviderTokenRequest_get_ClientRequest, Fn_IWebProviderTokenRequest_get_ClientRequest)(it, tmp.addr).check("WebProviderTokenRequest.get_ClientRequest")
     result = adopt[WebTokenRequest](tmp)
 
-proc webAccounts*(self: WebProviderTokenRequest): seq[WebAccount] =
+proc webAccounts*(self: WebProviderTokenRequest): seq[WebAccount]  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_WebAccounts
   withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
     var tmp: pointer
@@ -3575,35 +3627,35 @@ proc webAccounts*(self: WebProviderTokenRequest): seq[WebAccount] =
     result = toSeq[WebAccount](tmp, IID_IVectorView_1_WebAccount)
     release(tmp)
 
-proc webAccountSelectionOptions*(self: WebProviderTokenRequest): WebAccountSelectionOptions =
+proc webAccountSelectionOptions*(self: WebProviderTokenRequest): WebAccountSelectionOptions  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_WebAccountSelectionOptions
   withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
     var tmp: WebAccountSelectionOptions
     vcall(it, Slot_IWebProviderTokenRequest_get_WebAccountSelectionOptions, Fn_IWebProviderTokenRequest_get_WebAccountSelectionOptions)(it, tmp.addr).check("WebProviderTokenRequest.get_WebAccountSelectionOptions")
     result = tmp
 
-proc applicationPackageFamilyName*(self: WebProviderTokenRequest): string =
+proc applicationPackageFamilyName*(self: WebProviderTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationPackageFamilyName
   withIface(self.p, IID_IWebProviderTokenRequest3, "IWebProviderTokenRequest3", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebProviderTokenRequest3_get_ApplicationPackageFamilyName, Fn_IWebProviderTokenRequest3_get_ApplicationPackageFamilyName)(it, tmp.addr).check("WebProviderTokenRequest.get_ApplicationPackageFamilyName")
     result = takeString(tmp)
 
-proc applicationProcessName*(self: WebProviderTokenRequest): string =
+proc applicationProcessName*(self: WebProviderTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationProcessName
   withIface(self.p, IID_IWebProviderTokenRequest3, "IWebProviderTokenRequest3", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebProviderTokenRequest3_get_ApplicationProcessName, Fn_IWebProviderTokenRequest3_get_ApplicationProcessName)(it, tmp.addr).check("WebProviderTokenRequest.get_ApplicationProcessName")
     result = takeString(tmp)
 
-proc clientResponse*(self: WebProviderTokenResponse): WebTokenResponse =
+proc clientResponse*(self: WebProviderTokenResponse): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.get_ClientResponse
   withIface(self.p, IID_IWebProviderTokenResponse, "IWebProviderTokenResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebProviderTokenResponse_get_ClientResponse, Fn_IWebProviderTokenResponse_get_ClientResponse)(it, tmp.addr).check("WebProviderTokenResponse.get_ClientResponse")
     result = adopt[WebTokenResponse](tmp)
 
-proc create*(_: typedesc[WebProviderTokenResponse], a1: WebTokenResponse): WebProviderTokenResponse =
+proc create*(_: typedesc[WebProviderTokenResponse], a1: WebTokenResponse): WebProviderTokenResponse  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.Create
   withStatics("Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse", IID_IWebProviderTokenResponseFactory, it):
     withIface(a1.p, IID_IWebTokenResponse, "IWebTokenResponse", p0):
@@ -3611,35 +3663,35 @@ proc create*(_: typedesc[WebProviderTokenResponse], a1: WebTokenResponse): WebPr
       vcall(it, Slot_IWebProviderTokenResponseFactory_Create, Fn_IWebProviderTokenResponseFactory_Create)(it, p0, tmp.addr).check("WebProviderTokenResponse.Create")
       result = adopt[WebProviderTokenResponse](tmp)
 
-proc responseData*(self: WebAuthenticationResult): string =
+proc responseData*(self: WebAuthenticationResult): string  =
   ## Windows.Security.Authentication.Web.WebAuthenticationResult.get_ResponseData
   withIface(self.p, IID_IWebAuthenticationResult, "IWebAuthenticationResult", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAuthenticationResult_get_ResponseData, Fn_IWebAuthenticationResult_get_ResponseData)(it, tmp.addr).check("WebAuthenticationResult.get_ResponseData")
     result = takeString(tmp)
 
-proc responseStatus*(self: WebAuthenticationResult): WebAuthenticationStatus =
+proc responseStatus*(self: WebAuthenticationResult): WebAuthenticationStatus  =
   ## Windows.Security.Authentication.Web.WebAuthenticationResult.get_ResponseStatus
   withIface(self.p, IID_IWebAuthenticationResult, "IWebAuthenticationResult", it):
     var tmp: WebAuthenticationStatus
     vcall(it, Slot_IWebAuthenticationResult_get_ResponseStatus, Fn_IWebAuthenticationResult_get_ResponseStatus)(it, tmp.addr).check("WebAuthenticationResult.get_ResponseStatus")
     result = tmp
 
-proc responseErrorDetail*(self: WebAuthenticationResult): uint32 =
+proc responseErrorDetail*(self: WebAuthenticationResult): uint32  =
   ## Windows.Security.Authentication.Web.WebAuthenticationResult.get_ResponseErrorDetail
   withIface(self.p, IID_IWebAuthenticationResult, "IWebAuthenticationResult", it):
     var tmp: uint32
     vcall(it, Slot_IWebAuthenticationResult_get_ResponseErrorDetail, Fn_IWebAuthenticationResult_get_ResponseErrorDetail)(it, tmp.addr).check("WebAuthenticationResult.get_ResponseErrorDetail")
     result = tmp
 
-proc capabilityName*(self: AppCapability): string =
+proc capabilityName*(self: AppCapability): string  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.get_CapabilityName
   withIface(self.p, IID_IAppCapability, "IAppCapability", it):
     var tmp: HSTRING
     vcall(it, Slot_IAppCapability_get_CapabilityName, Fn_IAppCapability_get_CapabilityName)(it, tmp.addr).check("AppCapability.get_CapabilityName")
     result = takeString(tmp)
 
-proc checkAccess*(self: AppCapability): AppCapabilityAccessStatus =
+proc checkAccess*(self: AppCapability): AppCapabilityAccessStatus  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.CheckAccess
   withIface(self.p, IID_IAppCapability, "IAppCapability", it):
     var tmp: AppCapabilityAccessStatus
@@ -3665,20 +3717,20 @@ proc removeAccessChanged*(self: AppCapability, token: EventRegistrationToken) =
   withIface(self.p, IID_IAppCapability, "IAppCapability", it):
     vcall(it, Slot_IAppCapability_remove_AccessChanged, Fn_IAppCapability_remove_AccessChanged)(it, token).check("AppCapability.remove_AccessChanged")
 
-proc displayMessage*(self: AppCapability): string =
+proc displayMessage*(self: AppCapability): string  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.get_DisplayMessage
   withIface(self.p, IID_IAppCapability2, "IAppCapability2", it):
     var tmp: HSTRING
     vcall(it, Slot_IAppCapability2_get_DisplayMessage, Fn_IAppCapability2_get_DisplayMessage)(it, tmp.addr).check("AppCapability.get_DisplayMessage")
     result = takeString(tmp)
 
-proc `displayMessage=`*(self: AppCapability, value: string) =
+proc `displayMessage=`*(self: AppCapability, value: string)  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.put_DisplayMessage
   withIface(self.p, IID_IAppCapability2, "IAppCapability2", it):
     withHString(value, h0):
       vcall(it, Slot_IAppCapability2_put_DisplayMessage, Fn_IAppCapability2_put_DisplayMessage)(it, h0).check("AppCapability.put_DisplayMessage")
 
-proc create*(_: typedesc[AppCapability], a1: string): AppCapability =
+proc create*(_: typedesc[AppCapability], a1: string): AppCapability  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.Create
   withStatics("Windows.Security.Authorization.AppCapabilityAccess.AppCapability", IID_IAppCapabilityStatics, it):
     withHString(a1, h0):
@@ -3686,163 +3738,157 @@ proc create*(_: typedesc[AppCapability], a1: string): AppCapability =
       vcall(it, Slot_IAppCapabilityStatics_Create, Fn_IAppCapabilityStatics_Create)(it, h0, tmp.addr).check("AppCapability.Create")
       result = adopt[AppCapability](tmp)
 
-proc name*(self: KeyCredential): string =
+proc name*(self: KeyCredential): string  =
   ## Windows.Security.Credentials.KeyCredential.get_Name
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyCredential_get_Name, Fn_IKeyCredential_get_Name)(it, tmp.addr).check("KeyCredential.get_Name")
     result = takeString(tmp)
 
-proc retrievePublicKey*(self: KeyCredential): pointer =
+proc retrievePublicKey*(self: KeyCredential): pointer  =
   ## Windows.Security.Credentials.KeyCredential.RetrievePublicKey
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredential_RetrievePublicKey, Fn_IKeyCredential_RetrievePublicKey)(it, tmp.addr).check("KeyCredential.RetrievePublicKey")
     result = tmp
 
-proc retrievePublicKey*(self: KeyCredential, a1: CryptographicPublicKeyBlobType): pointer =
+proc retrievePublicKey*(self: KeyCredential, a1: CryptographicPublicKeyBlobType): pointer  =
   ## Windows.Security.Credentials.KeyCredential.RetrievePublicKey
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredential_RetrievePublicKey2, Fn_IKeyCredential_RetrievePublicKey2)(it, a1, tmp.addr).check("KeyCredential.RetrievePublicKey")
     result = tmp
 
-proc requestSignAsync*(self: KeyCredential, a1: pointer): KeyCredentialOperationResult =
+proc requestSignAsync*(self: KeyCredential, a1: pointer): Future[KeyCredentialOperationResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredential.RequestSignAsync
+  var op: pointer
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyCredential_RequestSignAsync, Fn_IKeyCredential_RequestSignAsync)(it, a1, tmp.addr).check("KeyCredential.RequestSignAsync")
-    result = adopt[KeyCredentialOperationResult](awaitObject(tmp, IID_IAsyncOperation_1_KeyCredentialOperationResult, "KeyCredential.RequestSignAsync"))
-    release(tmp)
+    vcall(it, Slot_IKeyCredential_RequestSignAsync, Fn_IKeyCredential_RequestSignAsync)(it, a1, op.addr).check("KeyCredential.RequestSignAsync")
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestSignAsync"))
 
-proc getAttestationAsync*(self: KeyCredential): KeyCredentialAttestationResult =
+proc getAttestationAsync*(self: KeyCredential): Future[KeyCredentialAttestationResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredential.GetAttestationAsync
+  var op: pointer
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyCredential_GetAttestationAsync, Fn_IKeyCredential_GetAttestationAsync)(it, tmp.addr).check("KeyCredential.GetAttestationAsync")
-    result = adopt[KeyCredentialAttestationResult](awaitObject(tmp, IID_IAsyncOperation_1_KeyCredentialAttestationResult, "KeyCredential.GetAttestationAsync"))
-    release(tmp)
+    vcall(it, Slot_IKeyCredential_GetAttestationAsync, Fn_IKeyCredential_GetAttestationAsync)(it, op.addr).check("KeyCredential.GetAttestationAsync")
+  result = adopt[KeyCredentialAttestationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialAttestationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialAttestationResult, "KeyCredential.GetAttestationAsync"))
 
-proc retrieveAuthorizationContext*(self: KeyCredential, a1: pointer): pointer =
+proc retrieveAuthorizationContext*(self: KeyCredential, a1: pointer): pointer  =
   ## Windows.Security.Credentials.KeyCredential.RetrieveAuthorizationContext
   withIface(self.p, IID_IKeyCredential2, "IKeyCredential2", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredential2_RetrieveAuthorizationContext, Fn_IKeyCredential2_RetrieveAuthorizationContext)(it, a1, tmp.addr).check("KeyCredential.RetrieveAuthorizationContext")
     result = tmp
 
-proc certificateChainBuffer*(self: KeyCredentialAttestationResult): pointer =
+proc certificateChainBuffer*(self: KeyCredentialAttestationResult): pointer  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_CertificateChainBuffer
   withIface(self.p, IID_IKeyCredentialAttestationResult, "IKeyCredentialAttestationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialAttestationResult_get_CertificateChainBuffer, Fn_IKeyCredentialAttestationResult_get_CertificateChainBuffer)(it, tmp.addr).check("KeyCredentialAttestationResult.get_CertificateChainBuffer")
     result = tmp
 
-proc attestationBuffer*(self: KeyCredentialAttestationResult): pointer =
+proc attestationBuffer*(self: KeyCredentialAttestationResult): pointer  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_AttestationBuffer
   withIface(self.p, IID_IKeyCredentialAttestationResult, "IKeyCredentialAttestationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialAttestationResult_get_AttestationBuffer, Fn_IKeyCredentialAttestationResult_get_AttestationBuffer)(it, tmp.addr).check("KeyCredentialAttestationResult.get_AttestationBuffer")
     result = tmp
 
-proc status*(self: KeyCredentialAttestationResult): KeyCredentialAttestationStatus =
+proc status*(self: KeyCredentialAttestationResult): KeyCredentialAttestationStatus  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_Status
   withIface(self.p, IID_IKeyCredentialAttestationResult, "IKeyCredentialAttestationResult", it):
     var tmp: KeyCredentialAttestationStatus
     vcall(it, Slot_IKeyCredentialAttestationResult_get_Status, Fn_IKeyCredentialAttestationResult_get_Status)(it, tmp.addr).check("KeyCredentialAttestationResult.get_Status")
     result = tmp
 
-proc cacheOption*(self: KeyCredentialCacheConfiguration): KeyCredentialCacheOption =
+proc cacheOption*(self: KeyCredentialCacheConfiguration): KeyCredentialCacheOption  =
   ## Windows.Security.Credentials.KeyCredentialCacheConfiguration.get_CacheOption
   withIface(self.p, IID_IKeyCredentialCacheConfiguration, "IKeyCredentialCacheConfiguration", it):
     var tmp: KeyCredentialCacheOption
     vcall(it, Slot_IKeyCredentialCacheConfiguration_get_CacheOption, Fn_IKeyCredentialCacheConfiguration_get_CacheOption)(it, tmp.addr).check("KeyCredentialCacheConfiguration.get_CacheOption")
     result = tmp
 
-proc timeout*(self: KeyCredentialCacheConfiguration): TimeSpan =
+proc timeout*(self: KeyCredentialCacheConfiguration): TimeSpan  =
   ## Windows.Security.Credentials.KeyCredentialCacheConfiguration.get_Timeout
   withIface(self.p, IID_IKeyCredentialCacheConfiguration, "IKeyCredentialCacheConfiguration", it):
     var tmp: TimeSpan
     vcall(it, Slot_IKeyCredentialCacheConfiguration_get_Timeout, Fn_IKeyCredentialCacheConfiguration_get_Timeout)(it, tmp.addr).check("KeyCredentialCacheConfiguration.get_Timeout")
     result = tmp
 
-proc usageCount*(self: KeyCredentialCacheConfiguration): uint32 =
+proc usageCount*(self: KeyCredentialCacheConfiguration): uint32  =
   ## Windows.Security.Credentials.KeyCredentialCacheConfiguration.get_UsageCount
   withIface(self.p, IID_IKeyCredentialCacheConfiguration, "IKeyCredentialCacheConfiguration", it):
     var tmp: uint32
     vcall(it, Slot_IKeyCredentialCacheConfiguration_get_UsageCount, Fn_IKeyCredentialCacheConfiguration_get_UsageCount)(it, tmp.addr).check("KeyCredentialCacheConfiguration.get_UsageCount")
     result = tmp
 
-proc createInstance*(_: typedesc[KeyCredentialCacheConfiguration], a1: KeyCredentialCacheOption, a2: TimeSpan, a3: uint32): KeyCredentialCacheConfiguration =
+proc createInstance*(_: typedesc[KeyCredentialCacheConfiguration], a1: KeyCredentialCacheOption, a2: TimeSpan, a3: uint32): KeyCredentialCacheConfiguration  =
   ## Windows.Security.Credentials.KeyCredentialCacheConfiguration.CreateInstance
   withStatics("Windows.Security.Credentials.KeyCredentialCacheConfiguration", IID_IKeyCredentialCacheConfigurationFactory, it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialCacheConfigurationFactory_CreateInstance, Fn_IKeyCredentialCacheConfigurationFactory_CreateInstance)(it, a1, a2, a3, tmp.addr).check("KeyCredentialCacheConfiguration.CreateInstance")
     result = adopt[KeyCredentialCacheConfiguration](tmp)
 
-proc getSecureId*(_: typedesc[KeyCredentialManager]): pointer =
+proc getSecureId*(_: typedesc[KeyCredentialManager]): pointer  =
   ## Windows.Security.Credentials.KeyCredentialManager.GetSecureId
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialManagerStatics2_GetSecureId, Fn_IKeyCredentialManagerStatics2_GetSecureId)(it, tmp.addr).check("KeyCredentialManager.GetSecureId")
     result = tmp
 
-proc renewAttestationAsync*(_: typedesc[KeyCredentialManager]) =
+proc renewAttestationAsync*(_: typedesc[KeyCredentialManager]) {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RenewAttestationAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyCredentialManagerStatics_RenewAttestationAsync, Fn_IKeyCredentialManagerStatics_RenewAttestationAsync)(it, tmp.addr).check("KeyCredentialManager.RenewAttestationAsync")
-    awaitVoid(tmp, "KeyCredentialManager.RenewAttestationAsync")
-    release(tmp)
+    vcall(it, Slot_IKeyCredentialManagerStatics_RenewAttestationAsync, Fn_IKeyCredentialManagerStatics_RenewAttestationAsync)(it, op.addr).check("KeyCredentialManager.RenewAttestationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "KeyCredentialManager.RenewAttestationAsync")
 
-proc requestCreateAsync*(_: typedesc[KeyCredentialManager], a1: string, a2: KeyCredentialCreationOption): KeyCredentialRetrievalResult =
+proc requestCreateAsync*(_: typedesc[KeyCredentialManager], a1: string, a2: KeyCredentialCreationOption): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IKeyCredentialManagerStatics_RequestCreateAsync, Fn_IKeyCredentialManagerStatics_RequestCreateAsync)(it, h0, a2, tmp.addr).check("KeyCredentialManager.RequestCreateAsync")
-      result = adopt[KeyCredentialRetrievalResult](awaitObject(tmp, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateAsync"))
-      release(tmp)
+      vcall(it, Slot_IKeyCredentialManagerStatics_RequestCreateAsync, Fn_IKeyCredentialManagerStatics_RequestCreateAsync)(it, h0, a2, op.addr).check("KeyCredentialManager.RequestCreateAsync")
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateAsync"))
 
-proc openAsync*(_: typedesc[KeyCredentialManager], a1: string): KeyCredentialRetrievalResult =
+proc openAsync*(_: typedesc[KeyCredentialManager], a1: string): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.OpenAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IKeyCredentialManagerStatics_OpenAsync, Fn_IKeyCredentialManagerStatics_OpenAsync)(it, h0, tmp.addr).check("KeyCredentialManager.OpenAsync")
-      result = adopt[KeyCredentialRetrievalResult](awaitObject(tmp, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, "KeyCredentialManager.OpenAsync"))
-      release(tmp)
+      vcall(it, Slot_IKeyCredentialManagerStatics_OpenAsync, Fn_IKeyCredentialManagerStatics_OpenAsync)(it, h0, op.addr).check("KeyCredentialManager.OpenAsync")
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.OpenAsync"))
 
-proc deleteAsync*(_: typedesc[KeyCredentialManager], a1: string) =
+proc deleteAsync*(_: typedesc[KeyCredentialManager], a1: string) {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.DeleteAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IKeyCredentialManagerStatics_DeleteAsync, Fn_IKeyCredentialManagerStatics_DeleteAsync)(it, h0, tmp.addr).check("KeyCredentialManager.DeleteAsync")
-      awaitVoid(tmp, "KeyCredentialManager.DeleteAsync")
-      release(tmp)
+      vcall(it, Slot_IKeyCredentialManagerStatics_DeleteAsync, Fn_IKeyCredentialManagerStatics_DeleteAsync)(it, h0, op.addr).check("KeyCredentialManager.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "KeyCredentialManager.DeleteAsync")
 
-proc `result`*(self: KeyCredentialOperationResult): pointer =
+proc `result`*(self: KeyCredentialOperationResult): pointer  =
   ## Windows.Security.Credentials.KeyCredentialOperationResult.get_Result
   withIface(self.p, IID_IKeyCredentialOperationResult, "IKeyCredentialOperationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialOperationResult_get_Result, Fn_IKeyCredentialOperationResult_get_Result)(it, tmp.addr).check("KeyCredentialOperationResult.get_Result")
     result = tmp
 
-proc status*(self: KeyCredentialOperationResult): KeyCredentialStatus =
+proc status*(self: KeyCredentialOperationResult): KeyCredentialStatus  =
   ## Windows.Security.Credentials.KeyCredentialOperationResult.get_Status
   withIface(self.p, IID_IKeyCredentialOperationResult, "IKeyCredentialOperationResult", it):
     var tmp: KeyCredentialStatus
     vcall(it, Slot_IKeyCredentialOperationResult_get_Status, Fn_IKeyCredentialOperationResult_get_Status)(it, tmp.addr).check("KeyCredentialOperationResult.get_Status")
     result = tmp
 
-proc credential*(self: KeyCredentialRetrievalResult): KeyCredential =
+proc credential*(self: KeyCredentialRetrievalResult): KeyCredential  =
   ## Windows.Security.Credentials.KeyCredentialRetrievalResult.get_Credential
   withIface(self.p, IID_IKeyCredentialRetrievalResult, "IKeyCredentialRetrievalResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialRetrievalResult_get_Credential, Fn_IKeyCredentialRetrievalResult_get_Credential)(it, tmp.addr).check("KeyCredentialRetrievalResult.get_Credential")
     result = adopt[KeyCredential](tmp)
 
-proc status*(self: KeyCredentialRetrievalResult): KeyCredentialStatus =
+proc status*(self: KeyCredentialRetrievalResult): KeyCredentialStatus  =
   ## Windows.Security.Credentials.KeyCredentialRetrievalResult.get_Status
   withIface(self.p, IID_IKeyCredentialRetrievalResult, "IKeyCredentialRetrievalResult", it):
     var tmp: KeyCredentialStatus
@@ -3853,58 +3899,58 @@ proc newPasswordCredential*(): PasswordCredential =
   ## Activate a `Windows.Security.Credentials.PasswordCredential`.
   adopt[PasswordCredential](activateAs("Windows.Security.Credentials.PasswordCredential", IID_IPasswordCredential))
 
-proc resource*(self: PasswordCredential): string =
+proc resource*(self: PasswordCredential): string  =
   ## Windows.Security.Credentials.PasswordCredential.get_Resource
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IPasswordCredential_get_Resource, Fn_IPasswordCredential_get_Resource)(it, tmp.addr).check("PasswordCredential.get_Resource")
     result = takeString(tmp)
 
-proc `resource=`*(self: PasswordCredential, value: string) =
+proc `resource=`*(self: PasswordCredential, value: string)  =
   ## Windows.Security.Credentials.PasswordCredential.put_Resource
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     withHString(value, h0):
       vcall(it, Slot_IPasswordCredential_put_Resource, Fn_IPasswordCredential_put_Resource)(it, h0).check("PasswordCredential.put_Resource")
 
-proc userName*(self: PasswordCredential): string =
+proc userName*(self: PasswordCredential): string  =
   ## Windows.Security.Credentials.PasswordCredential.get_UserName
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IPasswordCredential_get_UserName, Fn_IPasswordCredential_get_UserName)(it, tmp.addr).check("PasswordCredential.get_UserName")
     result = takeString(tmp)
 
-proc `userName=`*(self: PasswordCredential, value: string) =
+proc `userName=`*(self: PasswordCredential, value: string)  =
   ## Windows.Security.Credentials.PasswordCredential.put_UserName
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     withHString(value, h0):
       vcall(it, Slot_IPasswordCredential_put_UserName, Fn_IPasswordCredential_put_UserName)(it, h0).check("PasswordCredential.put_UserName")
 
-proc password*(self: PasswordCredential): string =
+proc password*(self: PasswordCredential): string  =
   ## Windows.Security.Credentials.PasswordCredential.get_Password
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IPasswordCredential_get_Password, Fn_IPasswordCredential_get_Password)(it, tmp.addr).check("PasswordCredential.get_Password")
     result = takeString(tmp)
 
-proc `password=`*(self: PasswordCredential, value: string) =
+proc `password=`*(self: PasswordCredential, value: string)  =
   ## Windows.Security.Credentials.PasswordCredential.put_Password
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     withHString(value, h0):
       vcall(it, Slot_IPasswordCredential_put_Password, Fn_IPasswordCredential_put_Password)(it, h0).check("PasswordCredential.put_Password")
 
-proc retrievePassword*(self: PasswordCredential) =
+proc retrievePassword*(self: PasswordCredential)  =
   ## Windows.Security.Credentials.PasswordCredential.RetrievePassword
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     vcall(it, Slot_IPasswordCredential_RetrievePassword, Fn_IPasswordCredential_RetrievePassword)(it).check("PasswordCredential.RetrievePassword")
 
-proc properties*(self: PasswordCredential): pointer =
+proc properties*(self: PasswordCredential): pointer  =
   ## Windows.Security.Credentials.PasswordCredential.get_Properties
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordCredential_get_Properties, Fn_IPasswordCredential_get_Properties)(it, tmp.addr).check("PasswordCredential.get_Properties")
     result = tmp
 
-proc createPasswordCredential*(_: typedesc[PasswordCredential], a1: string, a2: string, a3: string): PasswordCredential =
+proc createPasswordCredential*(_: typedesc[PasswordCredential], a1: string, a2: string, a3: string): PasswordCredential  =
   ## Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential
   withStatics("Windows.Security.Credentials.PasswordCredential", IID_ICredentialFactory, it):
     withHString(a1, h0):
@@ -3918,19 +3964,19 @@ proc newPasswordVault*(): PasswordVault =
   ## Activate a `Windows.Security.Credentials.PasswordVault`.
   adopt[PasswordVault](activateAs("Windows.Security.Credentials.PasswordVault", IID_IPasswordVault))
 
-proc add*(self: PasswordVault, a1: PasswordCredential) =
+proc add*(self: PasswordVault, a1: PasswordCredential)  =
   ## Windows.Security.Credentials.PasswordVault.Add
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     withIface(a1.p, IID_IPasswordCredential, "IPasswordCredential", p0):
       vcall(it, Slot_IPasswordVault_Add, Fn_IPasswordVault_Add)(it, p0).check("PasswordVault.Add")
 
-proc remove*(self: PasswordVault, a1: PasswordCredential) =
+proc remove*(self: PasswordVault, a1: PasswordCredential)  =
   ## Windows.Security.Credentials.PasswordVault.Remove
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     withIface(a1.p, IID_IPasswordCredential, "IPasswordCredential", p0):
       vcall(it, Slot_IPasswordVault_Remove, Fn_IPasswordVault_Remove)(it, p0).check("PasswordVault.Remove")
 
-proc retrieve*(self: PasswordVault, a1: string, a2: string): PasswordCredential =
+proc retrieve*(self: PasswordVault, a1: string, a2: string): PasswordCredential  =
   ## Windows.Security.Credentials.PasswordVault.Retrieve
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     withHString(a1, h0):
@@ -3939,7 +3985,7 @@ proc retrieve*(self: PasswordVault, a1: string, a2: string): PasswordCredential 
         vcall(it, Slot_IPasswordVault_Retrieve, Fn_IPasswordVault_Retrieve)(it, h0, h1, tmp.addr).check("PasswordVault.Retrieve")
         result = adopt[PasswordCredential](tmp)
 
-proc findAllByResource*(self: PasswordVault, a1: string): seq[PasswordCredential] =
+proc findAllByResource*(self: PasswordVault, a1: string): seq[PasswordCredential]  =
   ## Windows.Security.Credentials.PasswordVault.FindAllByResource
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     withHString(a1, h0):
@@ -3948,7 +3994,7 @@ proc findAllByResource*(self: PasswordVault, a1: string): seq[PasswordCredential
       result = toSeq[PasswordCredential](tmp, IID_IVectorView_1_PasswordCredential)
       release(tmp)
 
-proc findAllByUserName*(self: PasswordVault, a1: string): seq[PasswordCredential] =
+proc findAllByUserName*(self: PasswordVault, a1: string): seq[PasswordCredential]  =
   ## Windows.Security.Credentials.PasswordVault.FindAllByUserName
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     withHString(a1, h0):
@@ -3957,7 +4003,7 @@ proc findAllByUserName*(self: PasswordVault, a1: string): seq[PasswordCredential
       result = toSeq[PasswordCredential](tmp, IID_IVectorView_1_PasswordCredential)
       release(tmp)
 
-proc retrieveAll*(self: PasswordVault): seq[PasswordCredential] =
+proc retrieveAll*(self: PasswordVault): seq[PasswordCredential]  =
   ## Windows.Security.Credentials.PasswordVault.RetrieveAll
   withIface(self.p, IID_IPasswordVault, "IPasswordVault", it):
     var tmp: pointer
@@ -3965,259 +4011,254 @@ proc retrieveAll*(self: PasswordVault): seq[PasswordCredential] =
     result = toSeq[PasswordCredential](tmp, IID_IVectorView_1_PasswordCredential)
     release(tmp)
 
-proc pickAsync*(_: typedesc[CredentialPicker], a1: CredentialPickerOptions): CredentialPickerResults =
+proc pickAsync*(_: typedesc[CredentialPicker], a1: CredentialPickerOptions): Future[CredentialPickerResults] {.async.} =
   ## Windows.Security.Credentials.UI.CredentialPicker.PickAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.UI.CredentialPicker", IID_ICredentialPickerStatics, it):
     withIface(a1.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICredentialPickerStatics_PickAsync, Fn_ICredentialPickerStatics_PickAsync)(it, p0, tmp.addr).check("CredentialPicker.PickAsync")
-      result = adopt[CredentialPickerResults](awaitObject(tmp, IID_IAsyncOperation_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
-      release(tmp)
+      vcall(it, Slot_ICredentialPickerStatics_PickAsync, Fn_ICredentialPickerStatics_PickAsync)(it, p0, op.addr).check("CredentialPicker.PickAsync")
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
 
-proc pickAsync*(_: typedesc[CredentialPicker], a1: string, a2: string): CredentialPickerResults =
+proc pickAsync*(_: typedesc[CredentialPicker], a1: string, a2: string): Future[CredentialPickerResults] {.async.} =
   ## Windows.Security.Credentials.UI.CredentialPicker.PickAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.UI.CredentialPicker", IID_ICredentialPickerStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_ICredentialPickerStatics_PickAsync2, Fn_ICredentialPickerStatics_PickAsync2)(it, h0, h1, tmp.addr).check("CredentialPicker.PickAsync")
-        result = adopt[CredentialPickerResults](awaitObject(tmp, IID_IAsyncOperation_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
-        release(tmp)
+        vcall(it, Slot_ICredentialPickerStatics_PickAsync2, Fn_ICredentialPickerStatics_PickAsync2)(it, h0, h1, op.addr).check("CredentialPicker.PickAsync")
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
 
-proc pickAsync*(_: typedesc[CredentialPicker], a1: string, a2: string, a3: string): CredentialPickerResults =
+proc pickAsync*(_: typedesc[CredentialPicker], a1: string, a2: string, a3: string): Future[CredentialPickerResults] {.async.} =
   ## Windows.Security.Credentials.UI.CredentialPicker.PickAsync
+  var op: pointer
   withStatics("Windows.Security.Credentials.UI.CredentialPicker", IID_ICredentialPickerStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a3, h2):
-          var tmp: pointer
-          vcall(it, Slot_ICredentialPickerStatics_PickAsync3, Fn_ICredentialPickerStatics_PickAsync3)(it, h0, h1, h2, tmp.addr).check("CredentialPicker.PickAsync")
-          result = adopt[CredentialPickerResults](awaitObject(tmp, IID_IAsyncOperation_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
-          release(tmp)
+          vcall(it, Slot_ICredentialPickerStatics_PickAsync3, Fn_ICredentialPickerStatics_PickAsync3)(it, h0, h1, h2, op.addr).check("CredentialPicker.PickAsync")
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
 
 proc newCredentialPickerOptions*(): CredentialPickerOptions =
   ## Activate a `Windows.Security.Credentials.UI.CredentialPickerOptions`.
   adopt[CredentialPickerOptions](activateAs("Windows.Security.Credentials.UI.CredentialPickerOptions", IID_ICredentialPickerOptions))
 
-proc `caption=`*(self: CredentialPickerOptions, value: string) =
+proc `caption=`*(self: CredentialPickerOptions, value: string)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_Caption
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     withHString(value, h0):
       vcall(it, Slot_ICredentialPickerOptions_put_Caption, Fn_ICredentialPickerOptions_put_Caption)(it, h0).check("CredentialPickerOptions.put_Caption")
 
-proc caption*(self: CredentialPickerOptions): string =
+proc caption*(self: CredentialPickerOptions): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_Caption
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerOptions_get_Caption, Fn_ICredentialPickerOptions_get_Caption)(it, tmp.addr).check("CredentialPickerOptions.get_Caption")
     result = takeString(tmp)
 
-proc `message=`*(self: CredentialPickerOptions, value: string) =
+proc `message=`*(self: CredentialPickerOptions, value: string)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_Message
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     withHString(value, h0):
       vcall(it, Slot_ICredentialPickerOptions_put_Message, Fn_ICredentialPickerOptions_put_Message)(it, h0).check("CredentialPickerOptions.put_Message")
 
-proc message*(self: CredentialPickerOptions): string =
+proc message*(self: CredentialPickerOptions): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_Message
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerOptions_get_Message, Fn_ICredentialPickerOptions_get_Message)(it, tmp.addr).check("CredentialPickerOptions.get_Message")
     result = takeString(tmp)
 
-proc `errorCode=`*(self: CredentialPickerOptions, value: uint32) =
+proc `errorCode=`*(self: CredentialPickerOptions, value: uint32)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_ErrorCode
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_ErrorCode, Fn_ICredentialPickerOptions_put_ErrorCode)(it, value).check("CredentialPickerOptions.put_ErrorCode")
 
-proc errorCode*(self: CredentialPickerOptions): uint32 =
+proc errorCode*(self: CredentialPickerOptions): uint32  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_ErrorCode
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: uint32
     vcall(it, Slot_ICredentialPickerOptions_get_ErrorCode, Fn_ICredentialPickerOptions_get_ErrorCode)(it, tmp.addr).check("CredentialPickerOptions.get_ErrorCode")
     result = tmp
 
-proc `targetName=`*(self: CredentialPickerOptions, value: string) =
+proc `targetName=`*(self: CredentialPickerOptions, value: string)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_TargetName
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     withHString(value, h0):
       vcall(it, Slot_ICredentialPickerOptions_put_TargetName, Fn_ICredentialPickerOptions_put_TargetName)(it, h0).check("CredentialPickerOptions.put_TargetName")
 
-proc targetName*(self: CredentialPickerOptions): string =
+proc targetName*(self: CredentialPickerOptions): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_TargetName
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerOptions_get_TargetName, Fn_ICredentialPickerOptions_get_TargetName)(it, tmp.addr).check("CredentialPickerOptions.get_TargetName")
     result = takeString(tmp)
 
-proc `authenticationProtocol=`*(self: CredentialPickerOptions, value: AuthenticationProtocol) =
+proc `authenticationProtocol=`*(self: CredentialPickerOptions, value: AuthenticationProtocol)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_AuthenticationProtocol
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_AuthenticationProtocol, Fn_ICredentialPickerOptions_put_AuthenticationProtocol)(it, value).check("CredentialPickerOptions.put_AuthenticationProtocol")
 
-proc authenticationProtocol*(self: CredentialPickerOptions): AuthenticationProtocol =
+proc authenticationProtocol*(self: CredentialPickerOptions): AuthenticationProtocol  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_AuthenticationProtocol
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: AuthenticationProtocol
     vcall(it, Slot_ICredentialPickerOptions_get_AuthenticationProtocol, Fn_ICredentialPickerOptions_get_AuthenticationProtocol)(it, tmp.addr).check("CredentialPickerOptions.get_AuthenticationProtocol")
     result = tmp
 
-proc `customAuthenticationProtocol=`*(self: CredentialPickerOptions, value: string) =
+proc `customAuthenticationProtocol=`*(self: CredentialPickerOptions, value: string)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_CustomAuthenticationProtocol
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     withHString(value, h0):
       vcall(it, Slot_ICredentialPickerOptions_put_CustomAuthenticationProtocol, Fn_ICredentialPickerOptions_put_CustomAuthenticationProtocol)(it, h0).check("CredentialPickerOptions.put_CustomAuthenticationProtocol")
 
-proc customAuthenticationProtocol*(self: CredentialPickerOptions): string =
+proc customAuthenticationProtocol*(self: CredentialPickerOptions): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_CustomAuthenticationProtocol
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerOptions_get_CustomAuthenticationProtocol, Fn_ICredentialPickerOptions_get_CustomAuthenticationProtocol)(it, tmp.addr).check("CredentialPickerOptions.get_CustomAuthenticationProtocol")
     result = takeString(tmp)
 
-proc `previousCredential=`*(self: CredentialPickerOptions, value: pointer) =
+proc `previousCredential=`*(self: CredentialPickerOptions, value: pointer)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_PreviousCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_PreviousCredential, Fn_ICredentialPickerOptions_put_PreviousCredential)(it, value).check("CredentialPickerOptions.put_PreviousCredential")
 
-proc previousCredential*(self: CredentialPickerOptions): pointer =
+proc previousCredential*(self: CredentialPickerOptions): pointer  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_PreviousCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: pointer
     vcall(it, Slot_ICredentialPickerOptions_get_PreviousCredential, Fn_ICredentialPickerOptions_get_PreviousCredential)(it, tmp.addr).check("CredentialPickerOptions.get_PreviousCredential")
     result = tmp
 
-proc `alwaysDisplayDialog=`*(self: CredentialPickerOptions, value: bool) =
+proc `alwaysDisplayDialog=`*(self: CredentialPickerOptions, value: bool)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_AlwaysDisplayDialog
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_AlwaysDisplayDialog, Fn_ICredentialPickerOptions_put_AlwaysDisplayDialog)(it, value).check("CredentialPickerOptions.put_AlwaysDisplayDialog")
 
-proc alwaysDisplayDialog*(self: CredentialPickerOptions): bool =
+proc alwaysDisplayDialog*(self: CredentialPickerOptions): bool  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_AlwaysDisplayDialog
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: bool
     vcall(it, Slot_ICredentialPickerOptions_get_AlwaysDisplayDialog, Fn_ICredentialPickerOptions_get_AlwaysDisplayDialog)(it, tmp.addr).check("CredentialPickerOptions.get_AlwaysDisplayDialog")
     result = tmp
 
-proc `callerSavesCredential=`*(self: CredentialPickerOptions, value: bool) =
+proc `callerSavesCredential=`*(self: CredentialPickerOptions, value: bool)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_CallerSavesCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_CallerSavesCredential, Fn_ICredentialPickerOptions_put_CallerSavesCredential)(it, value).check("CredentialPickerOptions.put_CallerSavesCredential")
 
-proc callerSavesCredential*(self: CredentialPickerOptions): bool =
+proc callerSavesCredential*(self: CredentialPickerOptions): bool  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_CallerSavesCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: bool
     vcall(it, Slot_ICredentialPickerOptions_get_CallerSavesCredential, Fn_ICredentialPickerOptions_get_CallerSavesCredential)(it, tmp.addr).check("CredentialPickerOptions.get_CallerSavesCredential")
     result = tmp
 
-proc `credentialSaveOption=`*(self: CredentialPickerOptions, value: CredentialSaveOption) =
+proc `credentialSaveOption=`*(self: CredentialPickerOptions, value: CredentialSaveOption)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_CredentialSaveOption
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     vcall(it, Slot_ICredentialPickerOptions_put_CredentialSaveOption, Fn_ICredentialPickerOptions_put_CredentialSaveOption)(it, value).check("CredentialPickerOptions.put_CredentialSaveOption")
 
-proc credentialSaveOption*(self: CredentialPickerOptions): CredentialSaveOption =
+proc credentialSaveOption*(self: CredentialPickerOptions): CredentialSaveOption  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_CredentialSaveOption
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: CredentialSaveOption
     vcall(it, Slot_ICredentialPickerOptions_get_CredentialSaveOption, Fn_ICredentialPickerOptions_get_CredentialSaveOption)(it, tmp.addr).check("CredentialPickerOptions.get_CredentialSaveOption")
     result = tmp
 
-proc errorCode*(self: CredentialPickerResults): uint32 =
+proc errorCode*(self: CredentialPickerResults): uint32  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_ErrorCode
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: uint32
     vcall(it, Slot_ICredentialPickerResults_get_ErrorCode, Fn_ICredentialPickerResults_get_ErrorCode)(it, tmp.addr).check("CredentialPickerResults.get_ErrorCode")
     result = tmp
 
-proc credentialSaveOption*(self: CredentialPickerResults): CredentialSaveOption =
+proc credentialSaveOption*(self: CredentialPickerResults): CredentialSaveOption  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialSaveOption
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: CredentialSaveOption
     vcall(it, Slot_ICredentialPickerResults_get_CredentialSaveOption, Fn_ICredentialPickerResults_get_CredentialSaveOption)(it, tmp.addr).check("CredentialPickerResults.get_CredentialSaveOption")
     result = tmp
 
-proc credentialSaved*(self: CredentialPickerResults): bool =
+proc credentialSaved*(self: CredentialPickerResults): bool  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialSaved
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: bool
     vcall(it, Slot_ICredentialPickerResults_get_CredentialSaved, Fn_ICredentialPickerResults_get_CredentialSaved)(it, tmp.addr).check("CredentialPickerResults.get_CredentialSaved")
     result = tmp
 
-proc credential*(self: CredentialPickerResults): pointer =
+proc credential*(self: CredentialPickerResults): pointer  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_Credential
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: pointer
     vcall(it, Slot_ICredentialPickerResults_get_Credential, Fn_ICredentialPickerResults_get_Credential)(it, tmp.addr).check("CredentialPickerResults.get_Credential")
     result = tmp
 
-proc credentialDomainName*(self: CredentialPickerResults): string =
+proc credentialDomainName*(self: CredentialPickerResults): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialDomainName
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerResults_get_CredentialDomainName, Fn_ICredentialPickerResults_get_CredentialDomainName)(it, tmp.addr).check("CredentialPickerResults.get_CredentialDomainName")
     result = takeString(tmp)
 
-proc credentialUserName*(self: CredentialPickerResults): string =
+proc credentialUserName*(self: CredentialPickerResults): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialUserName
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerResults_get_CredentialUserName, Fn_ICredentialPickerResults_get_CredentialUserName)(it, tmp.addr).check("CredentialPickerResults.get_CredentialUserName")
     result = takeString(tmp)
 
-proc credentialPassword*(self: CredentialPickerResults): string =
+proc credentialPassword*(self: CredentialPickerResults): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialPassword
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: HSTRING
     vcall(it, Slot_ICredentialPickerResults_get_CredentialPassword, Fn_ICredentialPickerResults_get_CredentialPassword)(it, tmp.addr).check("CredentialPickerResults.get_CredentialPassword")
     result = takeString(tmp)
 
-proc webAccountProvider*(self: WebAccount): WebAccountProvider =
+proc webAccountProvider*(self: WebAccount): WebAccountProvider  =
   ## Windows.Security.Credentials.WebAccount.get_WebAccountProvider
   withIface(self.p, IID_IWebAccount, "IWebAccount", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccount_get_WebAccountProvider, Fn_IWebAccount_get_WebAccountProvider)(it, tmp.addr).check("WebAccount.get_WebAccountProvider")
     result = adopt[WebAccountProvider](tmp)
 
-proc userName*(self: WebAccount): string =
+proc userName*(self: WebAccount): string  =
   ## Windows.Security.Credentials.WebAccount.get_UserName
   withIface(self.p, IID_IWebAccount, "IWebAccount", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccount_get_UserName, Fn_IWebAccount_get_UserName)(it, tmp.addr).check("WebAccount.get_UserName")
     result = takeString(tmp)
 
-proc state*(self: WebAccount): WebAccountState =
+proc state*(self: WebAccount): WebAccountState  =
   ## Windows.Security.Credentials.WebAccount.get_State
   withIface(self.p, IID_IWebAccount, "IWebAccount", it):
     var tmp: WebAccountState
     vcall(it, Slot_IWebAccount_get_State, Fn_IWebAccount_get_State)(it, tmp.addr).check("WebAccount.get_State")
     result = tmp
 
-proc id*(self: WebAccount): string =
+proc id*(self: WebAccount): string  =
   ## Windows.Security.Credentials.WebAccount.get_Id
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccount2_get_Id, Fn_IWebAccount2_get_Id)(it, tmp.addr).check("WebAccount.get_Id")
     result = takeString(tmp)
 
-proc signOutAsync*(self: WebAccount) =
+proc signOutAsync*(self: WebAccount) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync
+  var op: pointer
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
-    var tmp: pointer
-    vcall(it, Slot_IWebAccount2_SignOutAsync, Fn_IWebAccount2_SignOutAsync)(it, tmp.addr).check("WebAccount.SignOutAsync")
-    awaitVoid(tmp, "WebAccount.SignOutAsync")
-    release(tmp)
+    vcall(it, Slot_IWebAccount2_SignOutAsync, Fn_IWebAccount2_SignOutAsync)(it, op.addr).check("WebAccount.SignOutAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccount.SignOutAsync")
 
-proc signOutAsync*(self: WebAccount, a1: string) =
+proc signOutAsync*(self: WebAccount, a1: string) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync
+  var op: pointer
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IWebAccount2_SignOutAsync2, Fn_IWebAccount2_SignOutAsync2)(it, h0, tmp.addr).check("WebAccount.SignOutAsync")
-      awaitVoid(tmp, "WebAccount.SignOutAsync")
-      release(tmp)
+      vcall(it, Slot_IWebAccount2_SignOutAsync2, Fn_IWebAccount2_SignOutAsync2)(it, h0, op.addr).check("WebAccount.SignOutAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccount.SignOutAsync")
 
-proc createWebAccount*(_: typedesc[WebAccount], a1: WebAccountProvider, a2: string, a3: WebAccountState): WebAccount =
+proc createWebAccount*(_: typedesc[WebAccount], a1: WebAccountProvider, a2: string, a3: WebAccountState): WebAccount  =
   ## Windows.Security.Credentials.WebAccount.CreateWebAccount
   withStatics("Windows.Security.Credentials.WebAccount", IID_IWebAccountFactory, it):
     withIface(a1.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
@@ -4226,91 +4267,91 @@ proc createWebAccount*(_: typedesc[WebAccount], a1: WebAccountProvider, a2: stri
         vcall(it, Slot_IWebAccountFactory_CreateWebAccount, Fn_IWebAccountFactory_CreateWebAccount)(it, p0, h1, a3, tmp.addr).check("WebAccount.CreateWebAccount")
         result = adopt[WebAccount](tmp)
 
-proc id*(self: WebAccountProvider): string =
+proc id*(self: WebAccountProvider): string  =
   ## Windows.Security.Credentials.WebAccountProvider.get_Id
   withIface(self.p, IID_IWebAccountProvider, "IWebAccountProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountProvider_get_Id, Fn_IWebAccountProvider_get_Id)(it, tmp.addr).check("WebAccountProvider.get_Id")
     result = takeString(tmp)
 
-proc displayName*(self: WebAccountProvider): string =
+proc displayName*(self: WebAccountProvider): string  =
   ## Windows.Security.Credentials.WebAccountProvider.get_DisplayName
   withIface(self.p, IID_IWebAccountProvider, "IWebAccountProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountProvider_get_DisplayName, Fn_IWebAccountProvider_get_DisplayName)(it, tmp.addr).check("WebAccountProvider.get_DisplayName")
     result = takeString(tmp)
 
-proc displayPurpose*(self: WebAccountProvider): string =
+proc displayPurpose*(self: WebAccountProvider): string  =
   ## Windows.Security.Credentials.WebAccountProvider.get_DisplayPurpose
   withIface(self.p, IID_IWebAccountProvider2, "IWebAccountProvider2", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountProvider2_get_DisplayPurpose, Fn_IWebAccountProvider2_get_DisplayPurpose)(it, tmp.addr).check("WebAccountProvider.get_DisplayPurpose")
     result = takeString(tmp)
 
-proc authority*(self: WebAccountProvider): string =
+proc authority*(self: WebAccountProvider): string  =
   ## Windows.Security.Credentials.WebAccountProvider.get_Authority
   withIface(self.p, IID_IWebAccountProvider2, "IWebAccountProvider2", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountProvider2_get_Authority, Fn_IWebAccountProvider2_get_Authority)(it, tmp.addr).check("WebAccountProvider.get_Authority")
     result = takeString(tmp)
 
-proc isSystemProvider*(self: WebAccountProvider): bool =
+proc isSystemProvider*(self: WebAccountProvider): bool  =
   ## Windows.Security.Credentials.WebAccountProvider.get_IsSystemProvider
   withIface(self.p, IID_IWebAccountProvider4, "IWebAccountProvider4", it):
     var tmp: bool
     vcall(it, Slot_IWebAccountProvider4_get_IsSystemProvider, Fn_IWebAccountProvider4_get_IsSystemProvider)(it, tmp.addr).check("WebAccountProvider.get_IsSystemProvider")
     result = tmp
 
-proc getCertificateBlob*(self: Certificate): pointer =
+proc getCertificateBlob*(self: Certificate): pointer  =
   ## Windows.Security.Cryptography.Certificates.Certificate.GetCertificateBlob
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: pointer
     vcall(it, Slot_ICertificate_GetCertificateBlob, Fn_ICertificate_GetCertificateBlob)(it, tmp.addr).check("Certificate.GetCertificateBlob")
     result = tmp
 
-proc subject*(self: Certificate): string =
+proc subject*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_Subject
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate_get_Subject, Fn_ICertificate_get_Subject)(it, tmp.addr).check("Certificate.get_Subject")
     result = takeString(tmp)
 
-proc issuer*(self: Certificate): string =
+proc issuer*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_Issuer
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate_get_Issuer, Fn_ICertificate_get_Issuer)(it, tmp.addr).check("Certificate.get_Issuer")
     result = takeString(tmp)
 
-proc hasPrivateKey*(self: Certificate): bool =
+proc hasPrivateKey*(self: Certificate): bool  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_HasPrivateKey
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: bool
     vcall(it, Slot_ICertificate_get_HasPrivateKey, Fn_ICertificate_get_HasPrivateKey)(it, tmp.addr).check("Certificate.get_HasPrivateKey")
     result = tmp
 
-proc isStronglyProtected*(self: Certificate): bool =
+proc isStronglyProtected*(self: Certificate): bool  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_IsStronglyProtected
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: bool
     vcall(it, Slot_ICertificate_get_IsStronglyProtected, Fn_ICertificate_get_IsStronglyProtected)(it, tmp.addr).check("Certificate.get_IsStronglyProtected")
     result = tmp
 
-proc validFrom*(self: Certificate): DateTime =
+proc validFrom*(self: Certificate): DateTime  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_ValidFrom
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: DateTime
     vcall(it, Slot_ICertificate_get_ValidFrom, Fn_ICertificate_get_ValidFrom)(it, tmp.addr).check("Certificate.get_ValidFrom")
     result = tmp
 
-proc validTo*(self: Certificate): DateTime =
+proc validTo*(self: Certificate): DateTime  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_ValidTo
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: DateTime
     vcall(it, Slot_ICertificate_get_ValidTo, Fn_ICertificate_get_ValidTo)(it, tmp.addr).check("Certificate.get_ValidTo")
     result = tmp
 
-proc enhancedKeyUsages*(self: Certificate): seq[string] =
+proc enhancedKeyUsages*(self: Certificate): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_EnhancedKeyUsages
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: pointer
@@ -4318,97 +4359,97 @@ proc enhancedKeyUsages*(self: Certificate): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc `friendlyName=`*(self: Certificate, value: string) =
+proc `friendlyName=`*(self: Certificate, value: string)  =
   ## Windows.Security.Cryptography.Certificates.Certificate.put_FriendlyName
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificate_put_FriendlyName, Fn_ICertificate_put_FriendlyName)(it, h0).check("Certificate.put_FriendlyName")
 
-proc friendlyName*(self: Certificate): string =
+proc friendlyName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_FriendlyName
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate_get_FriendlyName, Fn_ICertificate_get_FriendlyName)(it, tmp.addr).check("Certificate.get_FriendlyName")
     result = takeString(tmp)
 
-proc isSecurityDeviceBound*(self: Certificate): bool =
+proc isSecurityDeviceBound*(self: Certificate): bool  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_IsSecurityDeviceBound
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: bool
     vcall(it, Slot_ICertificate2_get_IsSecurityDeviceBound, Fn_ICertificate2_get_IsSecurityDeviceBound)(it, tmp.addr).check("Certificate.get_IsSecurityDeviceBound")
     result = tmp
 
-proc keyUsages*(self: Certificate): CertificateKeyUsages =
+proc keyUsages*(self: Certificate): CertificateKeyUsages  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_KeyUsages
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: pointer
     vcall(it, Slot_ICertificate2_get_KeyUsages, Fn_ICertificate2_get_KeyUsages)(it, tmp.addr).check("Certificate.get_KeyUsages")
     result = adopt[CertificateKeyUsages](tmp)
 
-proc keyAlgorithmName*(self: Certificate): string =
+proc keyAlgorithmName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_KeyAlgorithmName
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate2_get_KeyAlgorithmName, Fn_ICertificate2_get_KeyAlgorithmName)(it, tmp.addr).check("Certificate.get_KeyAlgorithmName")
     result = takeString(tmp)
 
-proc signatureAlgorithmName*(self: Certificate): string =
+proc signatureAlgorithmName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_SignatureAlgorithmName
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate2_get_SignatureAlgorithmName, Fn_ICertificate2_get_SignatureAlgorithmName)(it, tmp.addr).check("Certificate.get_SignatureAlgorithmName")
     result = takeString(tmp)
 
-proc signatureHashAlgorithmName*(self: Certificate): string =
+proc signatureHashAlgorithmName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_SignatureHashAlgorithmName
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate2_get_SignatureHashAlgorithmName, Fn_ICertificate2_get_SignatureHashAlgorithmName)(it, tmp.addr).check("Certificate.get_SignatureHashAlgorithmName")
     result = takeString(tmp)
 
-proc subjectAlternativeName*(self: Certificate): SubjectAlternativeNameInfo =
+proc subjectAlternativeName*(self: Certificate): SubjectAlternativeNameInfo  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_SubjectAlternativeName
   withIface(self.p, IID_ICertificate2, "ICertificate2", it):
     var tmp: pointer
     vcall(it, Slot_ICertificate2_get_SubjectAlternativeName, Fn_ICertificate2_get_SubjectAlternativeName)(it, tmp.addr).check("Certificate.get_SubjectAlternativeName")
     result = adopt[SubjectAlternativeNameInfo](tmp)
 
-proc isPerUser*(self: Certificate): bool =
+proc isPerUser*(self: Certificate): bool  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_IsPerUser
   withIface(self.p, IID_ICertificate3, "ICertificate3", it):
     var tmp: bool
     vcall(it, Slot_ICertificate3_get_IsPerUser, Fn_ICertificate3_get_IsPerUser)(it, tmp.addr).check("Certificate.get_IsPerUser")
     result = tmp
 
-proc storeName*(self: Certificate): string =
+proc storeName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_StoreName
   withIface(self.p, IID_ICertificate3, "ICertificate3", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate3_get_StoreName, Fn_ICertificate3_get_StoreName)(it, tmp.addr).check("Certificate.get_StoreName")
     result = takeString(tmp)
 
-proc keyStorageProviderName*(self: Certificate): string =
+proc keyStorageProviderName*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_KeyStorageProviderName
   withIface(self.p, IID_ICertificate3, "ICertificate3", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificate3_get_KeyStorageProviderName, Fn_ICertificate3_get_KeyStorageProviderName)(it, tmp.addr).check("Certificate.get_KeyStorageProviderName")
     result = takeString(tmp)
 
-proc createCertificate*(_: typedesc[Certificate], a1: pointer): Certificate =
+proc createCertificate*(_: typedesc[Certificate], a1: pointer): Certificate  =
   ## Windows.Security.Cryptography.Certificates.Certificate.CreateCertificate
   withStatics("Windows.Security.Cryptography.Certificates.Certificate", IID_ICertificateFactory, it):
     var tmp: pointer
     vcall(it, Slot_ICertificateFactory_CreateCertificate, Fn_ICertificateFactory_CreateCertificate)(it, a1, tmp.addr).check("Certificate.CreateCertificate")
     result = adopt[Certificate](tmp)
 
-proc validate*(self: CertificateChain): ChainValidationResult =
+proc validate*(self: CertificateChain): ChainValidationResult  =
   ## Windows.Security.Cryptography.Certificates.CertificateChain.Validate
   withIface(self.p, IID_ICertificateChain, "ICertificateChain", it):
     var tmp: ChainValidationResult
     vcall(it, Slot_ICertificateChain_Validate, Fn_ICertificateChain_Validate)(it, tmp.addr).check("CertificateChain.Validate")
     result = tmp
 
-proc validate*(self: CertificateChain, a1: ChainValidationParameters): ChainValidationResult =
+proc validate*(self: CertificateChain, a1: ChainValidationParameters): ChainValidationResult  =
   ## Windows.Security.Cryptography.Certificates.CertificateChain.Validate
   withIface(self.p, IID_ICertificateChain, "ICertificateChain", it):
     withIface(a1.p, IID_IChainValidationParameters, "IChainValidationParameters", p0):
@@ -4416,7 +4457,7 @@ proc validate*(self: CertificateChain, a1: ChainValidationParameters): ChainVali
       vcall(it, Slot_ICertificateChain_Validate2, Fn_ICertificateChain_Validate2)(it, p0, tmp.addr).check("CertificateChain.Validate")
       result = tmp
 
-proc getCertificates*(self: CertificateChain, a1: bool): seq[Certificate] =
+proc getCertificates*(self: CertificateChain, a1: bool): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CertificateChain.GetCertificates
   withIface(self.p, IID_ICertificateChain, "ICertificateChain", it):
     var tmp: pointer
@@ -4424,95 +4465,90 @@ proc getCertificates*(self: CertificateChain, a1: bool): seq[Certificate] =
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc userCertificateEnrollmentManager*(_: typedesc[CertificateEnrollmentManager]): UserCertificateEnrollmentManager =
+proc userCertificateEnrollmentManager*(_: typedesc[CertificateEnrollmentManager]): UserCertificateEnrollmentManager  =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.get_UserCertificateEnrollmentManager
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics2, it):
     var tmp: pointer
     vcall(it, Slot_ICertificateEnrollmentManagerStatics2_get_UserCertificateEnrollmentManager, Fn_ICertificateEnrollmentManagerStatics2_get_UserCertificateEnrollmentManager)(it, tmp.addr).check("CertificateEnrollmentManager.get_UserCertificateEnrollmentManager")
     result = adopt[UserCertificateEnrollmentManager](tmp)
 
-proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string, a7: string) =
+proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string, a7: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics2, it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a6, h5):
           withHString(a7, h6):
-            var tmp: pointer
-            vcall(it, Slot_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, h6, tmp.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-            awaitVoid(tmp, "CertificateEnrollmentManager.ImportPfxDataAsync")
-            release(tmp)
+            vcall(it, Slot_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, h6, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
-proc createRequestAsync*(_: typedesc[CertificateEnrollmentManager], a1: CertificateRequestProperties): string =
+proc createRequestAsync*(_: typedesc[CertificateEnrollmentManager], a1: CertificateRequestProperties): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.CreateRequestAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics, it):
     withIface(a1.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICertificateEnrollmentManagerStatics_CreateRequestAsync, Fn_ICertificateEnrollmentManagerStatics_CreateRequestAsync)(it, p0, tmp.addr).check("CertificateEnrollmentManager.CreateRequestAsync")
-      result = awaitString(tmp, IID_IAsyncOperation_1_String, "CertificateEnrollmentManager.CreateRequestAsync")
-      release(tmp)
+      vcall(it, Slot_ICertificateEnrollmentManagerStatics_CreateRequestAsync, Fn_ICertificateEnrollmentManagerStatics_CreateRequestAsync)(it, p0, op.addr).check("CertificateEnrollmentManager.CreateRequestAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CertificateEnrollmentManager.CreateRequestAsync")
 
-proc installCertificateAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: InstallOptions) =
+proc installCertificateAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: InstallOptions) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.InstallCertificateAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_ICertificateEnrollmentManagerStatics_InstallCertificateAsync, Fn_ICertificateEnrollmentManagerStatics_InstallCertificateAsync)(it, h0, a2, tmp.addr).check("CertificateEnrollmentManager.InstallCertificateAsync")
-      awaitVoid(tmp, "CertificateEnrollmentManager.InstallCertificateAsync")
-      release(tmp)
+      vcall(it, Slot_ICertificateEnrollmentManagerStatics_InstallCertificateAsync, Fn_ICertificateEnrollmentManagerStatics_InstallCertificateAsync)(it, h0, a2, op.addr).check("CertificateEnrollmentManager.InstallCertificateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.InstallCertificateAsync")
 
-proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string) =
+proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics, it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a6, h5):
-          var tmp: pointer
-          vcall(it, Slot_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, tmp.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-          awaitVoid(tmp, "CertificateEnrollmentManager.ImportPfxDataAsync")
-          release(tmp)
+          vcall(it, Slot_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
-proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: PfxImportParameters) =
+proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], a1: string, a2: string, a3: PfxImportParameters) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics3, it):
     withHString(a1, h0):
       withHString(a2, h1):
         withIface(a3.p, IID_IPfxImportParameters, "IPfxImportParameters", p2):
-          var tmp: pointer
-          vcall(it, Slot_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync)(it, h0, h1, p2, tmp.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-          awaitVoid(tmp, "CertificateEnrollmentManager.ImportPfxDataAsync")
-          release(tmp)
+          vcall(it, Slot_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync)(it, h0, h1, p2, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc newCertificateExtension*(): CertificateExtension =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateExtension`.
   adopt[CertificateExtension](activateAs("Windows.Security.Cryptography.Certificates.CertificateExtension", IID_ICertificateExtension))
 
-proc objectId*(self: CertificateExtension): string =
+proc objectId*(self: CertificateExtension): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.get_ObjectId
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateExtension_get_ObjectId, Fn_ICertificateExtension_get_ObjectId)(it, tmp.addr).check("CertificateExtension.get_ObjectId")
     result = takeString(tmp)
 
-proc `objectId=`*(self: CertificateExtension, value: string) =
+proc `objectId=`*(self: CertificateExtension, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.put_ObjectId
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateExtension_put_ObjectId, Fn_ICertificateExtension_put_ObjectId)(it, h0).check("CertificateExtension.put_ObjectId")
 
-proc isCritical*(self: CertificateExtension): bool =
+proc isCritical*(self: CertificateExtension): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.get_IsCritical
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
     var tmp: bool
     vcall(it, Slot_ICertificateExtension_get_IsCritical, Fn_ICertificateExtension_get_IsCritical)(it, tmp.addr).check("CertificateExtension.get_IsCritical")
     result = tmp
 
-proc `isCritical=`*(self: CertificateExtension, value: bool) =
+proc `isCritical=`*(self: CertificateExtension, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.put_IsCritical
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
     vcall(it, Slot_ICertificateExtension_put_IsCritical, Fn_ICertificateExtension_put_IsCritical)(it, value).check("CertificateExtension.put_IsCritical")
 
-proc encodeValue*(self: CertificateExtension, a1: string) =
+proc encodeValue*(self: CertificateExtension, a1: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.EncodeValue
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
     withHString(a1, h0):
@@ -4522,98 +4558,98 @@ proc newCertificateKeyUsages*(): CertificateKeyUsages =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateKeyUsages`.
   adopt[CertificateKeyUsages](activateAs("Windows.Security.Cryptography.Certificates.CertificateKeyUsages", IID_ICertificateKeyUsages))
 
-proc encipherOnly*(self: CertificateKeyUsages): bool =
+proc encipherOnly*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_EncipherOnly
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_EncipherOnly, Fn_ICertificateKeyUsages_get_EncipherOnly)(it, tmp.addr).check("CertificateKeyUsages.get_EncipherOnly")
     result = tmp
 
-proc `encipherOnly=`*(self: CertificateKeyUsages, value: bool) =
+proc `encipherOnly=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_EncipherOnly
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_EncipherOnly, Fn_ICertificateKeyUsages_put_EncipherOnly)(it, value).check("CertificateKeyUsages.put_EncipherOnly")
 
-proc crlSign*(self: CertificateKeyUsages): bool =
+proc crlSign*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_CrlSign
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_CrlSign, Fn_ICertificateKeyUsages_get_CrlSign)(it, tmp.addr).check("CertificateKeyUsages.get_CrlSign")
     result = tmp
 
-proc `crlSign=`*(self: CertificateKeyUsages, value: bool) =
+proc `crlSign=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_CrlSign
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_CrlSign, Fn_ICertificateKeyUsages_put_CrlSign)(it, value).check("CertificateKeyUsages.put_CrlSign")
 
-proc keyCertificateSign*(self: CertificateKeyUsages): bool =
+proc keyCertificateSign*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_KeyCertificateSign
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_KeyCertificateSign, Fn_ICertificateKeyUsages_get_KeyCertificateSign)(it, tmp.addr).check("CertificateKeyUsages.get_KeyCertificateSign")
     result = tmp
 
-proc `keyCertificateSign=`*(self: CertificateKeyUsages, value: bool) =
+proc `keyCertificateSign=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_KeyCertificateSign
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_KeyCertificateSign, Fn_ICertificateKeyUsages_put_KeyCertificateSign)(it, value).check("CertificateKeyUsages.put_KeyCertificateSign")
 
-proc keyAgreement*(self: CertificateKeyUsages): bool =
+proc keyAgreement*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_KeyAgreement
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_KeyAgreement, Fn_ICertificateKeyUsages_get_KeyAgreement)(it, tmp.addr).check("CertificateKeyUsages.get_KeyAgreement")
     result = tmp
 
-proc `keyAgreement=`*(self: CertificateKeyUsages, value: bool) =
+proc `keyAgreement=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_KeyAgreement
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_KeyAgreement, Fn_ICertificateKeyUsages_put_KeyAgreement)(it, value).check("CertificateKeyUsages.put_KeyAgreement")
 
-proc dataEncipherment*(self: CertificateKeyUsages): bool =
+proc dataEncipherment*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_DataEncipherment
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_DataEncipherment, Fn_ICertificateKeyUsages_get_DataEncipherment)(it, tmp.addr).check("CertificateKeyUsages.get_DataEncipherment")
     result = tmp
 
-proc `dataEncipherment=`*(self: CertificateKeyUsages, value: bool) =
+proc `dataEncipherment=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_DataEncipherment
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_DataEncipherment, Fn_ICertificateKeyUsages_put_DataEncipherment)(it, value).check("CertificateKeyUsages.put_DataEncipherment")
 
-proc keyEncipherment*(self: CertificateKeyUsages): bool =
+proc keyEncipherment*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_KeyEncipherment
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_KeyEncipherment, Fn_ICertificateKeyUsages_get_KeyEncipherment)(it, tmp.addr).check("CertificateKeyUsages.get_KeyEncipherment")
     result = tmp
 
-proc `keyEncipherment=`*(self: CertificateKeyUsages, value: bool) =
+proc `keyEncipherment=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_KeyEncipherment
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_KeyEncipherment, Fn_ICertificateKeyUsages_put_KeyEncipherment)(it, value).check("CertificateKeyUsages.put_KeyEncipherment")
 
-proc nonRepudiation*(self: CertificateKeyUsages): bool =
+proc nonRepudiation*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_NonRepudiation
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_NonRepudiation, Fn_ICertificateKeyUsages_get_NonRepudiation)(it, tmp.addr).check("CertificateKeyUsages.get_NonRepudiation")
     result = tmp
 
-proc `nonRepudiation=`*(self: CertificateKeyUsages, value: bool) =
+proc `nonRepudiation=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_NonRepudiation
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_NonRepudiation, Fn_ICertificateKeyUsages_put_NonRepudiation)(it, value).check("CertificateKeyUsages.put_NonRepudiation")
 
-proc digitalSignature*(self: CertificateKeyUsages): bool =
+proc digitalSignature*(self: CertificateKeyUsages): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.get_DigitalSignature
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     var tmp: bool
     vcall(it, Slot_ICertificateKeyUsages_get_DigitalSignature, Fn_ICertificateKeyUsages_get_DigitalSignature)(it, tmp.addr).check("CertificateKeyUsages.get_DigitalSignature")
     result = tmp
 
-proc `digitalSignature=`*(self: CertificateKeyUsages, value: bool) =
+proc `digitalSignature=`*(self: CertificateKeyUsages, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateKeyUsages.put_DigitalSignature
   withIface(self.p, IID_ICertificateKeyUsages, "ICertificateKeyUsages", it):
     vcall(it, Slot_ICertificateKeyUsages_put_DigitalSignature, Fn_ICertificateKeyUsages_put_DigitalSignature)(it, value).check("CertificateKeyUsages.put_DigitalSignature")
@@ -4622,7 +4658,7 @@ proc newCertificateQuery*(): CertificateQuery =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateQuery`.
   adopt[CertificateQuery](activateAs("Windows.Security.Cryptography.Certificates.CertificateQuery", IID_ICertificateQuery))
 
-proc enhancedKeyUsages*(self: CertificateQuery): seq[string] =
+proc enhancedKeyUsages*(self: CertificateQuery): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_EnhancedKeyUsages
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     var tmp: pointer
@@ -4630,76 +4666,76 @@ proc enhancedKeyUsages*(self: CertificateQuery): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc issuerName*(self: CertificateQuery): string =
+proc issuerName*(self: CertificateQuery): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_IssuerName
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateQuery_get_IssuerName, Fn_ICertificateQuery_get_IssuerName)(it, tmp.addr).check("CertificateQuery.get_IssuerName")
     result = takeString(tmp)
 
-proc `issuerName=`*(self: CertificateQuery, value: string) =
+proc `issuerName=`*(self: CertificateQuery, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_IssuerName
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateQuery_put_IssuerName, Fn_ICertificateQuery_put_IssuerName)(it, h0).check("CertificateQuery.put_IssuerName")
 
-proc friendlyName*(self: CertificateQuery): string =
+proc friendlyName*(self: CertificateQuery): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_FriendlyName
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateQuery_get_FriendlyName, Fn_ICertificateQuery_get_FriendlyName)(it, tmp.addr).check("CertificateQuery.get_FriendlyName")
     result = takeString(tmp)
 
-proc `friendlyName=`*(self: CertificateQuery, value: string) =
+proc `friendlyName=`*(self: CertificateQuery, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_FriendlyName
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateQuery_put_FriendlyName, Fn_ICertificateQuery_put_FriendlyName)(it, h0).check("CertificateQuery.put_FriendlyName")
 
-proc hardwareOnly*(self: CertificateQuery): bool =
+proc hardwareOnly*(self: CertificateQuery): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_HardwareOnly
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     var tmp: bool
     vcall(it, Slot_ICertificateQuery_get_HardwareOnly, Fn_ICertificateQuery_get_HardwareOnly)(it, tmp.addr).check("CertificateQuery.get_HardwareOnly")
     result = tmp
 
-proc `hardwareOnly=`*(self: CertificateQuery, value: bool) =
+proc `hardwareOnly=`*(self: CertificateQuery, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_HardwareOnly
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     vcall(it, Slot_ICertificateQuery_put_HardwareOnly, Fn_ICertificateQuery_put_HardwareOnly)(it, value).check("CertificateQuery.put_HardwareOnly")
 
-proc includeDuplicates*(self: CertificateQuery): bool =
+proc includeDuplicates*(self: CertificateQuery): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_IncludeDuplicates
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     var tmp: bool
     vcall(it, Slot_ICertificateQuery2_get_IncludeDuplicates, Fn_ICertificateQuery2_get_IncludeDuplicates)(it, tmp.addr).check("CertificateQuery.get_IncludeDuplicates")
     result = tmp
 
-proc `includeDuplicates=`*(self: CertificateQuery, value: bool) =
+proc `includeDuplicates=`*(self: CertificateQuery, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_IncludeDuplicates
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     vcall(it, Slot_ICertificateQuery2_put_IncludeDuplicates, Fn_ICertificateQuery2_put_IncludeDuplicates)(it, value).check("CertificateQuery.put_IncludeDuplicates")
 
-proc includeExpiredCertificates*(self: CertificateQuery): bool =
+proc includeExpiredCertificates*(self: CertificateQuery): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_IncludeExpiredCertificates
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     var tmp: bool
     vcall(it, Slot_ICertificateQuery2_get_IncludeExpiredCertificates, Fn_ICertificateQuery2_get_IncludeExpiredCertificates)(it, tmp.addr).check("CertificateQuery.get_IncludeExpiredCertificates")
     result = tmp
 
-proc `includeExpiredCertificates=`*(self: CertificateQuery, value: bool) =
+proc `includeExpiredCertificates=`*(self: CertificateQuery, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_IncludeExpiredCertificates
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     vcall(it, Slot_ICertificateQuery2_put_IncludeExpiredCertificates, Fn_ICertificateQuery2_put_IncludeExpiredCertificates)(it, value).check("CertificateQuery.put_IncludeExpiredCertificates")
 
-proc storeName*(self: CertificateQuery): string =
+proc storeName*(self: CertificateQuery): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_StoreName
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateQuery2_get_StoreName, Fn_ICertificateQuery2_get_StoreName)(it, tmp.addr).check("CertificateQuery.get_StoreName")
     result = takeString(tmp)
 
-proc `storeName=`*(self: CertificateQuery, value: string) =
+proc `storeName=`*(self: CertificateQuery, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_StoreName
   withIface(self.p, IID_ICertificateQuery2, "ICertificateQuery2", it):
     withHString(value, h0):
@@ -4709,210 +4745,210 @@ proc newCertificateRequestProperties*(): CertificateRequestProperties =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateRequestProperties`.
   adopt[CertificateRequestProperties](activateAs("Windows.Security.Cryptography.Certificates.CertificateRequestProperties", IID_ICertificateRequestProperties))
 
-proc subject*(self: CertificateRequestProperties): string =
+proc subject*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_Subject
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties_get_Subject, Fn_ICertificateRequestProperties_get_Subject)(it, tmp.addr).check("CertificateRequestProperties.get_Subject")
     result = takeString(tmp)
 
-proc `subject=`*(self: CertificateRequestProperties, value: string) =
+proc `subject=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_Subject
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties_put_Subject, Fn_ICertificateRequestProperties_put_Subject)(it, h0).check("CertificateRequestProperties.put_Subject")
 
-proc keyAlgorithmName*(self: CertificateRequestProperties): string =
+proc keyAlgorithmName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_KeyAlgorithmName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties_get_KeyAlgorithmName, Fn_ICertificateRequestProperties_get_KeyAlgorithmName)(it, tmp.addr).check("CertificateRequestProperties.get_KeyAlgorithmName")
     result = takeString(tmp)
 
-proc `keyAlgorithmName=`*(self: CertificateRequestProperties, value: string) =
+proc `keyAlgorithmName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_KeyAlgorithmName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties_put_KeyAlgorithmName, Fn_ICertificateRequestProperties_put_KeyAlgorithmName)(it, h0).check("CertificateRequestProperties.put_KeyAlgorithmName")
 
-proc keySize*(self: CertificateRequestProperties): uint32 =
+proc keySize*(self: CertificateRequestProperties): uint32  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_KeySize
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: uint32
     vcall(it, Slot_ICertificateRequestProperties_get_KeySize, Fn_ICertificateRequestProperties_get_KeySize)(it, tmp.addr).check("CertificateRequestProperties.get_KeySize")
     result = tmp
 
-proc `keySize=`*(self: CertificateRequestProperties, value: uint32) =
+proc `keySize=`*(self: CertificateRequestProperties, value: uint32)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_KeySize
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     vcall(it, Slot_ICertificateRequestProperties_put_KeySize, Fn_ICertificateRequestProperties_put_KeySize)(it, value).check("CertificateRequestProperties.put_KeySize")
 
-proc friendlyName*(self: CertificateRequestProperties): string =
+proc friendlyName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_FriendlyName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties_get_FriendlyName, Fn_ICertificateRequestProperties_get_FriendlyName)(it, tmp.addr).check("CertificateRequestProperties.get_FriendlyName")
     result = takeString(tmp)
 
-proc `friendlyName=`*(self: CertificateRequestProperties, value: string) =
+proc `friendlyName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_FriendlyName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties_put_FriendlyName, Fn_ICertificateRequestProperties_put_FriendlyName)(it, h0).check("CertificateRequestProperties.put_FriendlyName")
 
-proc hashAlgorithmName*(self: CertificateRequestProperties): string =
+proc hashAlgorithmName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_HashAlgorithmName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties_get_HashAlgorithmName, Fn_ICertificateRequestProperties_get_HashAlgorithmName)(it, tmp.addr).check("CertificateRequestProperties.get_HashAlgorithmName")
     result = takeString(tmp)
 
-proc `hashAlgorithmName=`*(self: CertificateRequestProperties, value: string) =
+proc `hashAlgorithmName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_HashAlgorithmName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties_put_HashAlgorithmName, Fn_ICertificateRequestProperties_put_HashAlgorithmName)(it, h0).check("CertificateRequestProperties.put_HashAlgorithmName")
 
-proc exportable*(self: CertificateRequestProperties): ExportOption =
+proc exportable*(self: CertificateRequestProperties): ExportOption  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_Exportable
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: ExportOption
     vcall(it, Slot_ICertificateRequestProperties_get_Exportable, Fn_ICertificateRequestProperties_get_Exportable)(it, tmp.addr).check("CertificateRequestProperties.get_Exportable")
     result = tmp
 
-proc `exportable=`*(self: CertificateRequestProperties, value: ExportOption) =
+proc `exportable=`*(self: CertificateRequestProperties, value: ExportOption)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_Exportable
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     vcall(it, Slot_ICertificateRequestProperties_put_Exportable, Fn_ICertificateRequestProperties_put_Exportable)(it, value).check("CertificateRequestProperties.put_Exportable")
 
-proc keyUsages*(self: CertificateRequestProperties): EnrollKeyUsages =
+proc keyUsages*(self: CertificateRequestProperties): EnrollKeyUsages  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_KeyUsages
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: EnrollKeyUsages
     vcall(it, Slot_ICertificateRequestProperties_get_KeyUsages, Fn_ICertificateRequestProperties_get_KeyUsages)(it, tmp.addr).check("CertificateRequestProperties.get_KeyUsages")
     result = tmp
 
-proc `keyUsages=`*(self: CertificateRequestProperties, value: EnrollKeyUsages) =
+proc `keyUsages=`*(self: CertificateRequestProperties, value: EnrollKeyUsages)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_KeyUsages
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     vcall(it, Slot_ICertificateRequestProperties_put_KeyUsages, Fn_ICertificateRequestProperties_put_KeyUsages)(it, value).check("CertificateRequestProperties.put_KeyUsages")
 
-proc keyProtectionLevel*(self: CertificateRequestProperties): KeyProtectionLevel =
+proc keyProtectionLevel*(self: CertificateRequestProperties): KeyProtectionLevel  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_KeyProtectionLevel
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: KeyProtectionLevel
     vcall(it, Slot_ICertificateRequestProperties_get_KeyProtectionLevel, Fn_ICertificateRequestProperties_get_KeyProtectionLevel)(it, tmp.addr).check("CertificateRequestProperties.get_KeyProtectionLevel")
     result = tmp
 
-proc `keyProtectionLevel=`*(self: CertificateRequestProperties, value: KeyProtectionLevel) =
+proc `keyProtectionLevel=`*(self: CertificateRequestProperties, value: KeyProtectionLevel)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_KeyProtectionLevel
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     vcall(it, Slot_ICertificateRequestProperties_put_KeyProtectionLevel, Fn_ICertificateRequestProperties_put_KeyProtectionLevel)(it, value).check("CertificateRequestProperties.put_KeyProtectionLevel")
 
-proc keyStorageProviderName*(self: CertificateRequestProperties): string =
+proc keyStorageProviderName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_KeyStorageProviderName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties_get_KeyStorageProviderName, Fn_ICertificateRequestProperties_get_KeyStorageProviderName)(it, tmp.addr).check("CertificateRequestProperties.get_KeyStorageProviderName")
     result = takeString(tmp)
 
-proc `keyStorageProviderName=`*(self: CertificateRequestProperties, value: string) =
+proc `keyStorageProviderName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_KeyStorageProviderName
   withIface(self.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties_put_KeyStorageProviderName, Fn_ICertificateRequestProperties_put_KeyStorageProviderName)(it, h0).check("CertificateRequestProperties.put_KeyStorageProviderName")
 
-proc smartcardReaderName*(self: CertificateRequestProperties): string =
+proc smartcardReaderName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_SmartcardReaderName
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties2_get_SmartcardReaderName, Fn_ICertificateRequestProperties2_get_SmartcardReaderName)(it, tmp.addr).check("CertificateRequestProperties.get_SmartcardReaderName")
     result = takeString(tmp)
 
-proc `smartcardReaderName=`*(self: CertificateRequestProperties, value: string) =
+proc `smartcardReaderName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_SmartcardReaderName
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties2_put_SmartcardReaderName, Fn_ICertificateRequestProperties2_put_SmartcardReaderName)(it, h0).check("CertificateRequestProperties.put_SmartcardReaderName")
 
-proc signingCertificate*(self: CertificateRequestProperties): Certificate =
+proc signingCertificate*(self: CertificateRequestProperties): Certificate  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_SigningCertificate
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     var tmp: pointer
     vcall(it, Slot_ICertificateRequestProperties2_get_SigningCertificate, Fn_ICertificateRequestProperties2_get_SigningCertificate)(it, tmp.addr).check("CertificateRequestProperties.get_SigningCertificate")
     result = adopt[Certificate](tmp)
 
-proc `signingCertificate=`*(self: CertificateRequestProperties, value: Certificate) =
+proc `signingCertificate=`*(self: CertificateRequestProperties, value: Certificate)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_SigningCertificate
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     withIface(value.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_ICertificateRequestProperties2_put_SigningCertificate, Fn_ICertificateRequestProperties2_put_SigningCertificate)(it, p0).check("CertificateRequestProperties.put_SigningCertificate")
 
-proc attestationCredentialCertificate*(self: CertificateRequestProperties): Certificate =
+proc attestationCredentialCertificate*(self: CertificateRequestProperties): Certificate  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_AttestationCredentialCertificate
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     var tmp: pointer
     vcall(it, Slot_ICertificateRequestProperties2_get_AttestationCredentialCertificate, Fn_ICertificateRequestProperties2_get_AttestationCredentialCertificate)(it, tmp.addr).check("CertificateRequestProperties.get_AttestationCredentialCertificate")
     result = adopt[Certificate](tmp)
 
-proc `attestationCredentialCertificate=`*(self: CertificateRequestProperties, value: Certificate) =
+proc `attestationCredentialCertificate=`*(self: CertificateRequestProperties, value: Certificate)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_AttestationCredentialCertificate
   withIface(self.p, IID_ICertificateRequestProperties2, "ICertificateRequestProperties2", it):
     withIface(value.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_ICertificateRequestProperties2_put_AttestationCredentialCertificate, Fn_ICertificateRequestProperties2_put_AttestationCredentialCertificate)(it, p0).check("CertificateRequestProperties.put_AttestationCredentialCertificate")
 
-proc curveName*(self: CertificateRequestProperties): string =
+proc curveName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_CurveName
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties3_get_CurveName, Fn_ICertificateRequestProperties3_get_CurveName)(it, tmp.addr).check("CertificateRequestProperties.get_CurveName")
     result = takeString(tmp)
 
-proc `curveName=`*(self: CertificateRequestProperties, value: string) =
+proc `curveName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_CurveName
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties3_put_CurveName, Fn_ICertificateRequestProperties3_put_CurveName)(it, h0).check("CertificateRequestProperties.put_CurveName")
 
-proc containerNamePrefix*(self: CertificateRequestProperties): string =
+proc containerNamePrefix*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_ContainerNamePrefix
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties3_get_ContainerNamePrefix, Fn_ICertificateRequestProperties3_get_ContainerNamePrefix)(it, tmp.addr).check("CertificateRequestProperties.get_ContainerNamePrefix")
     result = takeString(tmp)
 
-proc `containerNamePrefix=`*(self: CertificateRequestProperties, value: string) =
+proc `containerNamePrefix=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_ContainerNamePrefix
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties3_put_ContainerNamePrefix, Fn_ICertificateRequestProperties3_put_ContainerNamePrefix)(it, h0).check("CertificateRequestProperties.put_ContainerNamePrefix")
 
-proc containerName*(self: CertificateRequestProperties): string =
+proc containerName*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_ContainerName
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateRequestProperties3_get_ContainerName, Fn_ICertificateRequestProperties3_get_ContainerName)(it, tmp.addr).check("CertificateRequestProperties.get_ContainerName")
     result = takeString(tmp)
 
-proc `containerName=`*(self: CertificateRequestProperties, value: string) =
+proc `containerName=`*(self: CertificateRequestProperties, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_ContainerName
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties3_put_ContainerName, Fn_ICertificateRequestProperties3_put_ContainerName)(it, h0).check("CertificateRequestProperties.put_ContainerName")
 
-proc useExistingKey*(self: CertificateRequestProperties): bool =
+proc useExistingKey*(self: CertificateRequestProperties): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_UseExistingKey
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     var tmp: bool
     vcall(it, Slot_ICertificateRequestProperties3_get_UseExistingKey, Fn_ICertificateRequestProperties3_get_UseExistingKey)(it, tmp.addr).check("CertificateRequestProperties.get_UseExistingKey")
     result = tmp
 
-proc `useExistingKey=`*(self: CertificateRequestProperties, value: bool) =
+proc `useExistingKey=`*(self: CertificateRequestProperties, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_UseExistingKey
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     vcall(it, Slot_ICertificateRequestProperties3_put_UseExistingKey, Fn_ICertificateRequestProperties3_put_UseExistingKey)(it, value).check("CertificateRequestProperties.put_UseExistingKey")
 
-proc suppressedDefaults*(self: CertificateRequestProperties): seq[string] =
+proc suppressedDefaults*(self: CertificateRequestProperties): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_SuppressedDefaults
   withIface(self.p, IID_ICertificateRequestProperties4, "ICertificateRequestProperties4", it):
     var tmp: pointer
@@ -4920,14 +4956,14 @@ proc suppressedDefaults*(self: CertificateRequestProperties): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc subjectAlternativeName*(self: CertificateRequestProperties): SubjectAlternativeNameInfo =
+proc subjectAlternativeName*(self: CertificateRequestProperties): SubjectAlternativeNameInfo  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_SubjectAlternativeName
   withIface(self.p, IID_ICertificateRequestProperties4, "ICertificateRequestProperties4", it):
     var tmp: pointer
     vcall(it, Slot_ICertificateRequestProperties4_get_SubjectAlternativeName, Fn_ICertificateRequestProperties4_get_SubjectAlternativeName)(it, tmp.addr).check("CertificateRequestProperties.get_SubjectAlternativeName")
     result = adopt[SubjectAlternativeNameInfo](tmp)
 
-proc extensions*(self: CertificateRequestProperties): seq[CertificateExtension] =
+proc extensions*(self: CertificateRequestProperties): seq[CertificateExtension]  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_Extensions
   withIface(self.p, IID_ICertificateRequestProperties4, "ICertificateRequestProperties4", it):
     var tmp: pointer
@@ -4935,40 +4971,40 @@ proc extensions*(self: CertificateRequestProperties): seq[CertificateExtension] 
     result = toSeq[CertificateExtension](tmp, IID_IVector_1_CertificateExtension)
     release(tmp)
 
-proc add*(self: CertificateStore, a1: Certificate) =
+proc add*(self: CertificateStore, a1: Certificate)  =
   ## Windows.Security.Cryptography.Certificates.CertificateStore.Add
   withIface(self.p, IID_ICertificateStore, "ICertificateStore", it):
     withIface(a1.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_ICertificateStore_Add, Fn_ICertificateStore_Add)(it, p0).check("CertificateStore.Add")
 
-proc delete*(self: CertificateStore, a1: Certificate) =
+proc delete*(self: CertificateStore, a1: Certificate)  =
   ## Windows.Security.Cryptography.Certificates.CertificateStore.Delete
   withIface(self.p, IID_ICertificateStore, "ICertificateStore", it):
     withIface(a1.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_ICertificateStore_Delete, Fn_ICertificateStore_Delete)(it, p0).check("CertificateStore.Delete")
 
-proc name*(self: CertificateStore): string =
+proc name*(self: CertificateStore): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateStore.get_Name
   withIface(self.p, IID_ICertificateStore2, "ICertificateStore2", it):
     var tmp: HSTRING
     vcall(it, Slot_ICertificateStore2_get_Name, Fn_ICertificateStore2_get_Name)(it, tmp.addr).check("CertificateStore.get_Name")
     result = takeString(tmp)
 
-proc trustedRootCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore =
+proc trustedRootCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore  =
   ## Windows.Security.Cryptography.Certificates.CertificateStores.get_TrustedRootCertificationAuthorities
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics, it):
     var tmp: pointer
     vcall(it, Slot_ICertificateStoresStatics_get_TrustedRootCertificationAuthorities, Fn_ICertificateStoresStatics_get_TrustedRootCertificationAuthorities)(it, tmp.addr).check("CertificateStores.get_TrustedRootCertificationAuthorities")
     result = adopt[CertificateStore](tmp)
 
-proc intermediateCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore =
+proc intermediateCertificationAuthorities*(_: typedesc[CertificateStores]): CertificateStore  =
   ## Windows.Security.Cryptography.Certificates.CertificateStores.get_IntermediateCertificationAuthorities
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics, it):
     var tmp: pointer
     vcall(it, Slot_ICertificateStoresStatics_get_IntermediateCertificationAuthorities, Fn_ICertificateStoresStatics_get_IntermediateCertificationAuthorities)(it, tmp.addr).check("CertificateStores.get_IntermediateCertificationAuthorities")
     result = adopt[CertificateStore](tmp)
 
-proc getStoreByName*(_: typedesc[CertificateStores], a1: string): CertificateStore =
+proc getStoreByName*(_: typedesc[CertificateStores], a1: string): CertificateStore  =
   ## Windows.Security.Cryptography.Certificates.CertificateStores.GetStoreByName
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics, it):
     withHString(a1, h0):
@@ -4976,7 +5012,7 @@ proc getStoreByName*(_: typedesc[CertificateStores], a1: string): CertificateSto
       vcall(it, Slot_ICertificateStoresStatics_GetStoreByName, Fn_ICertificateStoresStatics_GetStoreByName)(it, h0, tmp.addr).check("CertificateStores.GetStoreByName")
       result = adopt[CertificateStore](tmp)
 
-proc getUserStoreByName*(_: typedesc[CertificateStores], a1: string): UserCertificateStore =
+proc getUserStoreByName*(_: typedesc[CertificateStores], a1: string): UserCertificateStore  =
   ## Windows.Security.Cryptography.Certificates.CertificateStores.GetUserStoreByName
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics2, it):
     withHString(a1, h0):
@@ -4988,7 +5024,7 @@ proc newChainBuildingParameters*(): ChainBuildingParameters =
   ## Activate a `Windows.Security.Cryptography.Certificates.ChainBuildingParameters`.
   adopt[ChainBuildingParameters](activateAs("Windows.Security.Cryptography.Certificates.ChainBuildingParameters", IID_IChainBuildingParameters))
 
-proc enhancedKeyUsages*(self: ChainBuildingParameters): seq[string] =
+proc enhancedKeyUsages*(self: ChainBuildingParameters): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_EnhancedKeyUsages
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: pointer
@@ -4996,67 +5032,67 @@ proc enhancedKeyUsages*(self: ChainBuildingParameters): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc validationTimestamp*(self: ChainBuildingParameters): DateTime =
+proc validationTimestamp*(self: ChainBuildingParameters): DateTime  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_ValidationTimestamp
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: DateTime
     vcall(it, Slot_IChainBuildingParameters_get_ValidationTimestamp, Fn_IChainBuildingParameters_get_ValidationTimestamp)(it, tmp.addr).check("ChainBuildingParameters.get_ValidationTimestamp")
     result = tmp
 
-proc `validationTimestamp=`*(self: ChainBuildingParameters, value: DateTime) =
+proc `validationTimestamp=`*(self: ChainBuildingParameters, value: DateTime)  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.put_ValidationTimestamp
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     vcall(it, Slot_IChainBuildingParameters_put_ValidationTimestamp, Fn_IChainBuildingParameters_put_ValidationTimestamp)(it, value).check("ChainBuildingParameters.put_ValidationTimestamp")
 
-proc revocationCheckEnabled*(self: ChainBuildingParameters): bool =
+proc revocationCheckEnabled*(self: ChainBuildingParameters): bool  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_RevocationCheckEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: bool
     vcall(it, Slot_IChainBuildingParameters_get_RevocationCheckEnabled, Fn_IChainBuildingParameters_get_RevocationCheckEnabled)(it, tmp.addr).check("ChainBuildingParameters.get_RevocationCheckEnabled")
     result = tmp
 
-proc `revocationCheckEnabled=`*(self: ChainBuildingParameters, value: bool) =
+proc `revocationCheckEnabled=`*(self: ChainBuildingParameters, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.put_RevocationCheckEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     vcall(it, Slot_IChainBuildingParameters_put_RevocationCheckEnabled, Fn_IChainBuildingParameters_put_RevocationCheckEnabled)(it, value).check("ChainBuildingParameters.put_RevocationCheckEnabled")
 
-proc networkRetrievalEnabled*(self: ChainBuildingParameters): bool =
+proc networkRetrievalEnabled*(self: ChainBuildingParameters): bool  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_NetworkRetrievalEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: bool
     vcall(it, Slot_IChainBuildingParameters_get_NetworkRetrievalEnabled, Fn_IChainBuildingParameters_get_NetworkRetrievalEnabled)(it, tmp.addr).check("ChainBuildingParameters.get_NetworkRetrievalEnabled")
     result = tmp
 
-proc `networkRetrievalEnabled=`*(self: ChainBuildingParameters, value: bool) =
+proc `networkRetrievalEnabled=`*(self: ChainBuildingParameters, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.put_NetworkRetrievalEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     vcall(it, Slot_IChainBuildingParameters_put_NetworkRetrievalEnabled, Fn_IChainBuildingParameters_put_NetworkRetrievalEnabled)(it, value).check("ChainBuildingParameters.put_NetworkRetrievalEnabled")
 
-proc authorityInformationAccessEnabled*(self: ChainBuildingParameters): bool =
+proc authorityInformationAccessEnabled*(self: ChainBuildingParameters): bool  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_AuthorityInformationAccessEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: bool
     vcall(it, Slot_IChainBuildingParameters_get_AuthorityInformationAccessEnabled, Fn_IChainBuildingParameters_get_AuthorityInformationAccessEnabled)(it, tmp.addr).check("ChainBuildingParameters.get_AuthorityInformationAccessEnabled")
     result = tmp
 
-proc `authorityInformationAccessEnabled=`*(self: ChainBuildingParameters, value: bool) =
+proc `authorityInformationAccessEnabled=`*(self: ChainBuildingParameters, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.put_AuthorityInformationAccessEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     vcall(it, Slot_IChainBuildingParameters_put_AuthorityInformationAccessEnabled, Fn_IChainBuildingParameters_put_AuthorityInformationAccessEnabled)(it, value).check("ChainBuildingParameters.put_AuthorityInformationAccessEnabled")
 
-proc currentTimeValidationEnabled*(self: ChainBuildingParameters): bool =
+proc currentTimeValidationEnabled*(self: ChainBuildingParameters): bool  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_CurrentTimeValidationEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: bool
     vcall(it, Slot_IChainBuildingParameters_get_CurrentTimeValidationEnabled, Fn_IChainBuildingParameters_get_CurrentTimeValidationEnabled)(it, tmp.addr).check("ChainBuildingParameters.get_CurrentTimeValidationEnabled")
     result = tmp
 
-proc `currentTimeValidationEnabled=`*(self: ChainBuildingParameters, value: bool) =
+proc `currentTimeValidationEnabled=`*(self: ChainBuildingParameters, value: bool)  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.put_CurrentTimeValidationEnabled
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     vcall(it, Slot_IChainBuildingParameters_put_CurrentTimeValidationEnabled, Fn_IChainBuildingParameters_put_CurrentTimeValidationEnabled)(it, value).check("ChainBuildingParameters.put_CurrentTimeValidationEnabled")
 
-proc exclusiveTrustRoots*(self: ChainBuildingParameters): seq[Certificate] =
+proc exclusiveTrustRoots*(self: ChainBuildingParameters): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.ChainBuildingParameters.get_ExclusiveTrustRoots
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: pointer
@@ -5068,19 +5104,19 @@ proc newChainValidationParameters*(): ChainValidationParameters =
   ## Activate a `Windows.Security.Cryptography.Certificates.ChainValidationParameters`.
   adopt[ChainValidationParameters](activateAs("Windows.Security.Cryptography.Certificates.ChainValidationParameters", IID_IChainValidationParameters))
 
-proc certificateChainPolicy*(self: ChainValidationParameters): CertificateChainPolicy =
+proc certificateChainPolicy*(self: ChainValidationParameters): CertificateChainPolicy  =
   ## Windows.Security.Cryptography.Certificates.ChainValidationParameters.get_CertificateChainPolicy
   withIface(self.p, IID_IChainValidationParameters, "IChainValidationParameters", it):
     var tmp: CertificateChainPolicy
     vcall(it, Slot_IChainValidationParameters_get_CertificateChainPolicy, Fn_IChainValidationParameters_get_CertificateChainPolicy)(it, tmp.addr).check("ChainValidationParameters.get_CertificateChainPolicy")
     result = tmp
 
-proc `certificateChainPolicy=`*(self: ChainValidationParameters, value: CertificateChainPolicy) =
+proc `certificateChainPolicy=`*(self: ChainValidationParameters, value: CertificateChainPolicy)  =
   ## Windows.Security.Cryptography.Certificates.ChainValidationParameters.put_CertificateChainPolicy
   withIface(self.p, IID_IChainValidationParameters, "IChainValidationParameters", it):
     vcall(it, Slot_IChainValidationParameters_put_CertificateChainPolicy, Fn_IChainValidationParameters_put_CertificateChainPolicy)(it, value).check("ChainValidationParameters.put_CertificateChainPolicy")
 
-proc certificates*(self: CmsAttachedSignature): seq[Certificate] =
+proc certificates*(self: CmsAttachedSignature): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.get_Certificates
   withIface(self.p, IID_ICmsAttachedSignature, "ICmsAttachedSignature", it):
     var tmp: pointer
@@ -5088,7 +5124,7 @@ proc certificates*(self: CmsAttachedSignature): seq[Certificate] =
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc signers*(self: CmsAttachedSignature): seq[CmsSignerInfo] =
+proc signers*(self: CmsAttachedSignature): seq[CmsSignerInfo]  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.get_Signers
   withIface(self.p, IID_ICmsAttachedSignature, "ICmsAttachedSignature", it):
     var tmp: pointer
@@ -5096,21 +5132,21 @@ proc signers*(self: CmsAttachedSignature): seq[CmsSignerInfo] =
     result = toSeq[CmsSignerInfo](tmp, IID_IVectorView_1_CmsSignerInfo)
     release(tmp)
 
-proc verifySignature*(self: CmsAttachedSignature): SignatureValidationResult =
+proc verifySignature*(self: CmsAttachedSignature): SignatureValidationResult  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.VerifySignature
   withIface(self.p, IID_ICmsAttachedSignature, "ICmsAttachedSignature", it):
     var tmp: SignatureValidationResult
     vcall(it, Slot_ICmsAttachedSignature_VerifySignature, Fn_ICmsAttachedSignature_VerifySignature)(it, tmp.addr).check("CmsAttachedSignature.VerifySignature")
     result = tmp
 
-proc createCmsAttachedSignature*(_: typedesc[CmsAttachedSignature], a1: pointer): CmsAttachedSignature =
+proc createCmsAttachedSignature*(_: typedesc[CmsAttachedSignature], a1: pointer): CmsAttachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.CreateCmsAttachedSignature
   withStatics("Windows.Security.Cryptography.Certificates.CmsAttachedSignature", IID_ICmsAttachedSignatureFactory, it):
     var tmp: pointer
     vcall(it, Slot_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature, Fn_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature)(it, a1, tmp.addr).check("CmsAttachedSignature.CreateCmsAttachedSignature")
     result = adopt[CmsAttachedSignature](tmp)
 
-proc certificates*(self: CmsDetachedSignature): seq[Certificate] =
+proc certificates*(self: CmsDetachedSignature): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.get_Certificates
   withIface(self.p, IID_ICmsDetachedSignature, "ICmsDetachedSignature", it):
     var tmp: pointer
@@ -5118,7 +5154,7 @@ proc certificates*(self: CmsDetachedSignature): seq[Certificate] =
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc signers*(self: CmsDetachedSignature): seq[CmsSignerInfo] =
+proc signers*(self: CmsDetachedSignature): seq[CmsSignerInfo]  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.get_Signers
   withIface(self.p, IID_ICmsDetachedSignature, "ICmsDetachedSignature", it):
     var tmp: pointer
@@ -5126,7 +5162,7 @@ proc signers*(self: CmsDetachedSignature): seq[CmsSignerInfo] =
     result = toSeq[CmsSignerInfo](tmp, IID_IVectorView_1_CmsSignerInfo)
     release(tmp)
 
-proc createCmsDetachedSignature*(_: typedesc[CmsDetachedSignature], a1: pointer): CmsDetachedSignature =
+proc createCmsDetachedSignature*(_: typedesc[CmsDetachedSignature], a1: pointer): CmsDetachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.CreateCmsDetachedSignature
   withStatics("Windows.Security.Cryptography.Certificates.CmsDetachedSignature", IID_ICmsDetachedSignatureFactory, it):
     var tmp: pointer
@@ -5137,47 +5173,47 @@ proc newCmsSignerInfo*(): CmsSignerInfo =
   ## Activate a `Windows.Security.Cryptography.Certificates.CmsSignerInfo`.
   adopt[CmsSignerInfo](activateAs("Windows.Security.Cryptography.Certificates.CmsSignerInfo", IID_ICmsSignerInfo))
 
-proc certificate*(self: CmsSignerInfo): Certificate =
+proc certificate*(self: CmsSignerInfo): Certificate  =
   ## Windows.Security.Cryptography.Certificates.CmsSignerInfo.get_Certificate
   withIface(self.p, IID_ICmsSignerInfo, "ICmsSignerInfo", it):
     var tmp: pointer
     vcall(it, Slot_ICmsSignerInfo_get_Certificate, Fn_ICmsSignerInfo_get_Certificate)(it, tmp.addr).check("CmsSignerInfo.get_Certificate")
     result = adopt[Certificate](tmp)
 
-proc `certificate=`*(self: CmsSignerInfo, value: Certificate) =
+proc `certificate=`*(self: CmsSignerInfo, value: Certificate)  =
   ## Windows.Security.Cryptography.Certificates.CmsSignerInfo.put_Certificate
   withIface(self.p, IID_ICmsSignerInfo, "ICmsSignerInfo", it):
     withIface(value.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_ICmsSignerInfo_put_Certificate, Fn_ICmsSignerInfo_put_Certificate)(it, p0).check("CmsSignerInfo.put_Certificate")
 
-proc hashAlgorithmName*(self: CmsSignerInfo): string =
+proc hashAlgorithmName*(self: CmsSignerInfo): string  =
   ## Windows.Security.Cryptography.Certificates.CmsSignerInfo.get_HashAlgorithmName
   withIface(self.p, IID_ICmsSignerInfo, "ICmsSignerInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_ICmsSignerInfo_get_HashAlgorithmName, Fn_ICmsSignerInfo_get_HashAlgorithmName)(it, tmp.addr).check("CmsSignerInfo.get_HashAlgorithmName")
     result = takeString(tmp)
 
-proc `hashAlgorithmName=`*(self: CmsSignerInfo, value: string) =
+proc `hashAlgorithmName=`*(self: CmsSignerInfo, value: string)  =
   ## Windows.Security.Cryptography.Certificates.CmsSignerInfo.put_HashAlgorithmName
   withIface(self.p, IID_ICmsSignerInfo, "ICmsSignerInfo", it):
     withHString(value, h0):
       vcall(it, Slot_ICmsSignerInfo_put_HashAlgorithmName, Fn_ICmsSignerInfo_put_HashAlgorithmName)(it, h0).check("CmsSignerInfo.put_HashAlgorithmName")
 
-proc timestampInfo*(self: CmsSignerInfo): CmsTimestampInfo =
+proc timestampInfo*(self: CmsSignerInfo): CmsTimestampInfo  =
   ## Windows.Security.Cryptography.Certificates.CmsSignerInfo.get_TimestampInfo
   withIface(self.p, IID_ICmsSignerInfo, "ICmsSignerInfo", it):
     var tmp: pointer
     vcall(it, Slot_ICmsSignerInfo_get_TimestampInfo, Fn_ICmsSignerInfo_get_TimestampInfo)(it, tmp.addr).check("CmsSignerInfo.get_TimestampInfo")
     result = adopt[CmsTimestampInfo](tmp)
 
-proc signingCertificate*(self: CmsTimestampInfo): Certificate =
+proc signingCertificate*(self: CmsTimestampInfo): Certificate  =
   ## Windows.Security.Cryptography.Certificates.CmsTimestampInfo.get_SigningCertificate
   withIface(self.p, IID_ICmsTimestampInfo, "ICmsTimestampInfo", it):
     var tmp: pointer
     vcall(it, Slot_ICmsTimestampInfo_get_SigningCertificate, Fn_ICmsTimestampInfo_get_SigningCertificate)(it, tmp.addr).check("CmsTimestampInfo.get_SigningCertificate")
     result = adopt[Certificate](tmp)
 
-proc certificates*(self: CmsTimestampInfo): seq[Certificate] =
+proc certificates*(self: CmsTimestampInfo): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CmsTimestampInfo.get_Certificates
   withIface(self.p, IID_ICmsTimestampInfo, "ICmsTimestampInfo", it):
     var tmp: pointer
@@ -5185,103 +5221,101 @@ proc certificates*(self: CmsTimestampInfo): seq[Certificate] =
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc timestamp*(self: CmsTimestampInfo): DateTime =
+proc timestamp*(self: CmsTimestampInfo): DateTime  =
   ## Windows.Security.Cryptography.Certificates.CmsTimestampInfo.get_Timestamp
   withIface(self.p, IID_ICmsTimestampInfo, "ICmsTimestampInfo", it):
     var tmp: DateTime
     vcall(it, Slot_ICmsTimestampInfo_get_Timestamp, Fn_ICmsTimestampInfo_get_Timestamp)(it, tmp.addr).check("CmsTimestampInfo.get_Timestamp")
     result = tmp
 
-proc rsa*(_: typedesc[KeyAlgorithmNames]): string =
+proc rsa*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Rsa
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Rsa, Fn_IKeyAlgorithmNamesStatics_get_Rsa)(it, tmp.addr).check("KeyAlgorithmNames.get_Rsa")
     result = takeString(tmp)
 
-proc dsa*(_: typedesc[KeyAlgorithmNames]): string =
+proc dsa*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Dsa
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Dsa, Fn_IKeyAlgorithmNamesStatics_get_Dsa)(it, tmp.addr).check("KeyAlgorithmNames.get_Dsa")
     result = takeString(tmp)
 
-proc ecdh256*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdh256*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdh256
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdh256, Fn_IKeyAlgorithmNamesStatics_get_Ecdh256)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdh256")
     result = takeString(tmp)
 
-proc ecdh384*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdh384*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdh384
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdh384, Fn_IKeyAlgorithmNamesStatics_get_Ecdh384)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdh384")
     result = takeString(tmp)
 
-proc ecdh521*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdh521*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdh521
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdh521, Fn_IKeyAlgorithmNamesStatics_get_Ecdh521)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdh521")
     result = takeString(tmp)
 
-proc ecdsa256*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdsa256*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdsa256
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdsa256, Fn_IKeyAlgorithmNamesStatics_get_Ecdsa256)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdsa256")
     result = takeString(tmp)
 
-proc ecdsa384*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdsa384*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdsa384
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdsa384, Fn_IKeyAlgorithmNamesStatics_get_Ecdsa384)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdsa384")
     result = takeString(tmp)
 
-proc ecdsa521*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdsa521*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdsa521
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics_get_Ecdsa521, Fn_IKeyAlgorithmNamesStatics_get_Ecdsa521)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdsa521")
     result = takeString(tmp)
 
-proc ecdsa*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdsa*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdsa
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics2_get_Ecdsa, Fn_IKeyAlgorithmNamesStatics2_get_Ecdsa)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdsa")
     result = takeString(tmp)
 
-proc ecdh*(_: typedesc[KeyAlgorithmNames]): string =
+proc ecdh*(_: typedesc[KeyAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAlgorithmNames.get_Ecdh
   withStatics("Windows.Security.Cryptography.Certificates.KeyAlgorithmNames", IID_IKeyAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyAlgorithmNamesStatics2_get_Ecdh, Fn_IKeyAlgorithmNamesStatics2_get_Ecdh)(it, tmp.addr).check("KeyAlgorithmNames.get_Ecdh")
     result = takeString(tmp)
 
-proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], a1: string, a2: string): string =
+proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], a1: string, a2: string): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.KeyAttestationHelper.DecryptTpmAttestationCredentialAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.KeyAttestationHelper", IID_IKeyAttestationHelperStatics2, it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync)(it, h0, h1, tmp.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-        result = awaitString(tmp, IID_IAsyncOperation_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-        release(tmp)
+        vcall(it, Slot_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync)(it, h0, h1, op.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
 
-proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], a1: string): string =
+proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], a1: string): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.KeyAttestationHelper.DecryptTpmAttestationCredentialAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.KeyAttestationHelper", IID_IKeyAttestationHelperStatics, it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync)(it, h0, tmp.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-      result = awaitString(tmp, IID_IAsyncOperation_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-      release(tmp)
+      vcall(it, Slot_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync)(it, h0, op.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
 
-proc getTpmAttestationCredentialId*(_: typedesc[KeyAttestationHelper], a1: string): string =
+proc getTpmAttestationCredentialId*(_: typedesc[KeyAttestationHelper], a1: string): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAttestationHelper.GetTpmAttestationCredentialId
   withStatics("Windows.Security.Cryptography.Certificates.KeyAttestationHelper", IID_IKeyAttestationHelperStatics, it):
     withHString(a1, h0):
@@ -5289,28 +5323,28 @@ proc getTpmAttestationCredentialId*(_: typedesc[KeyAttestationHelper], a1: strin
       vcall(it, Slot_IKeyAttestationHelperStatics_GetTpmAttestationCredentialId, Fn_IKeyAttestationHelperStatics_GetTpmAttestationCredentialId)(it, h0, tmp.addr).check("KeyAttestationHelper.GetTpmAttestationCredentialId")
       result = takeString(tmp)
 
-proc passportKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
+proc passportKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyStorageProviderNames.get_PassportKeyStorageProvider
   withStatics("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames", IID_IKeyStorageProviderNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyStorageProviderNamesStatics2_get_PassportKeyStorageProvider, Fn_IKeyStorageProviderNamesStatics2_get_PassportKeyStorageProvider)(it, tmp.addr).check("KeyStorageProviderNames.get_PassportKeyStorageProvider")
     result = takeString(tmp)
 
-proc softwareKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
+proc softwareKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyStorageProviderNames.get_SoftwareKeyStorageProvider
   withStatics("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames", IID_IKeyStorageProviderNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyStorageProviderNamesStatics_get_SoftwareKeyStorageProvider, Fn_IKeyStorageProviderNamesStatics_get_SoftwareKeyStorageProvider)(it, tmp.addr).check("KeyStorageProviderNames.get_SoftwareKeyStorageProvider")
     result = takeString(tmp)
 
-proc smartcardKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
+proc smartcardKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyStorageProviderNames.get_SmartcardKeyStorageProvider
   withStatics("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames", IID_IKeyStorageProviderNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyStorageProviderNamesStatics_get_SmartcardKeyStorageProvider, Fn_IKeyStorageProviderNamesStatics_get_SmartcardKeyStorageProvider)(it, tmp.addr).check("KeyStorageProviderNames.get_SmartcardKeyStorageProvider")
     result = takeString(tmp)
 
-proc platformKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string =
+proc platformKeyStorageProvider*(_: typedesc[KeyStorageProviderNames]): string  =
   ## Windows.Security.Cryptography.Certificates.KeyStorageProviderNames.get_PlatformKeyStorageProvider
   withStatics("Windows.Security.Cryptography.Certificates.KeyStorageProviderNames", IID_IKeyStorageProviderNamesStatics, it):
     var tmp: HSTRING
@@ -5321,109 +5355,109 @@ proc newPfxImportParameters*(): PfxImportParameters =
   ## Activate a `Windows.Security.Cryptography.Certificates.PfxImportParameters`.
   adopt[PfxImportParameters](activateAs("Windows.Security.Cryptography.Certificates.PfxImportParameters", IID_IPfxImportParameters))
 
-proc exportable*(self: PfxImportParameters): ExportOption =
+proc exportable*(self: PfxImportParameters): ExportOption  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_Exportable
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: ExportOption
     vcall(it, Slot_IPfxImportParameters_get_Exportable, Fn_IPfxImportParameters_get_Exportable)(it, tmp.addr).check("PfxImportParameters.get_Exportable")
     result = tmp
 
-proc `exportable=`*(self: PfxImportParameters, value: ExportOption) =
+proc `exportable=`*(self: PfxImportParameters, value: ExportOption)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_Exportable
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     vcall(it, Slot_IPfxImportParameters_put_Exportable, Fn_IPfxImportParameters_put_Exportable)(it, value).check("PfxImportParameters.put_Exportable")
 
-proc keyProtectionLevel*(self: PfxImportParameters): KeyProtectionLevel =
+proc keyProtectionLevel*(self: PfxImportParameters): KeyProtectionLevel  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_KeyProtectionLevel
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: KeyProtectionLevel
     vcall(it, Slot_IPfxImportParameters_get_KeyProtectionLevel, Fn_IPfxImportParameters_get_KeyProtectionLevel)(it, tmp.addr).check("PfxImportParameters.get_KeyProtectionLevel")
     result = tmp
 
-proc `keyProtectionLevel=`*(self: PfxImportParameters, value: KeyProtectionLevel) =
+proc `keyProtectionLevel=`*(self: PfxImportParameters, value: KeyProtectionLevel)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_KeyProtectionLevel
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     vcall(it, Slot_IPfxImportParameters_put_KeyProtectionLevel, Fn_IPfxImportParameters_put_KeyProtectionLevel)(it, value).check("PfxImportParameters.put_KeyProtectionLevel")
 
-proc installOptions*(self: PfxImportParameters): InstallOptions =
+proc installOptions*(self: PfxImportParameters): InstallOptions  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_InstallOptions
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: InstallOptions
     vcall(it, Slot_IPfxImportParameters_get_InstallOptions, Fn_IPfxImportParameters_get_InstallOptions)(it, tmp.addr).check("PfxImportParameters.get_InstallOptions")
     result = tmp
 
-proc `installOptions=`*(self: PfxImportParameters, value: InstallOptions) =
+proc `installOptions=`*(self: PfxImportParameters, value: InstallOptions)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_InstallOptions
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     vcall(it, Slot_IPfxImportParameters_put_InstallOptions, Fn_IPfxImportParameters_put_InstallOptions)(it, value).check("PfxImportParameters.put_InstallOptions")
 
-proc friendlyName*(self: PfxImportParameters): string =
+proc friendlyName*(self: PfxImportParameters): string  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_FriendlyName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: HSTRING
     vcall(it, Slot_IPfxImportParameters_get_FriendlyName, Fn_IPfxImportParameters_get_FriendlyName)(it, tmp.addr).check("PfxImportParameters.get_FriendlyName")
     result = takeString(tmp)
 
-proc `friendlyName=`*(self: PfxImportParameters, value: string) =
+proc `friendlyName=`*(self: PfxImportParameters, value: string)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_FriendlyName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     withHString(value, h0):
       vcall(it, Slot_IPfxImportParameters_put_FriendlyName, Fn_IPfxImportParameters_put_FriendlyName)(it, h0).check("PfxImportParameters.put_FriendlyName")
 
-proc keyStorageProviderName*(self: PfxImportParameters): string =
+proc keyStorageProviderName*(self: PfxImportParameters): string  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_KeyStorageProviderName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: HSTRING
     vcall(it, Slot_IPfxImportParameters_get_KeyStorageProviderName, Fn_IPfxImportParameters_get_KeyStorageProviderName)(it, tmp.addr).check("PfxImportParameters.get_KeyStorageProviderName")
     result = takeString(tmp)
 
-proc `keyStorageProviderName=`*(self: PfxImportParameters, value: string) =
+proc `keyStorageProviderName=`*(self: PfxImportParameters, value: string)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_KeyStorageProviderName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     withHString(value, h0):
       vcall(it, Slot_IPfxImportParameters_put_KeyStorageProviderName, Fn_IPfxImportParameters_put_KeyStorageProviderName)(it, h0).check("PfxImportParameters.put_KeyStorageProviderName")
 
-proc containerNamePrefix*(self: PfxImportParameters): string =
+proc containerNamePrefix*(self: PfxImportParameters): string  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_ContainerNamePrefix
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: HSTRING
     vcall(it, Slot_IPfxImportParameters_get_ContainerNamePrefix, Fn_IPfxImportParameters_get_ContainerNamePrefix)(it, tmp.addr).check("PfxImportParameters.get_ContainerNamePrefix")
     result = takeString(tmp)
 
-proc `containerNamePrefix=`*(self: PfxImportParameters, value: string) =
+proc `containerNamePrefix=`*(self: PfxImportParameters, value: string)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_ContainerNamePrefix
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     withHString(value, h0):
       vcall(it, Slot_IPfxImportParameters_put_ContainerNamePrefix, Fn_IPfxImportParameters_put_ContainerNamePrefix)(it, h0).check("PfxImportParameters.put_ContainerNamePrefix")
 
-proc readerName*(self: PfxImportParameters): string =
+proc readerName*(self: PfxImportParameters): string  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.get_ReaderName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     var tmp: HSTRING
     vcall(it, Slot_IPfxImportParameters_get_ReaderName, Fn_IPfxImportParameters_get_ReaderName)(it, tmp.addr).check("PfxImportParameters.get_ReaderName")
     result = takeString(tmp)
 
-proc `readerName=`*(self: PfxImportParameters, value: string) =
+proc `readerName=`*(self: PfxImportParameters, value: string)  =
   ## Windows.Security.Cryptography.Certificates.PfxImportParameters.put_ReaderName
   withIface(self.p, IID_IPfxImportParameters, "IPfxImportParameters", it):
     withHString(value, h0):
       vcall(it, Slot_IPfxImportParameters_put_ReaderName, Fn_IPfxImportParameters_put_ReaderName)(it, h0).check("PfxImportParameters.put_ReaderName")
 
-proc personal*(_: typedesc[StandardCertificateStoreNames]): string =
+proc personal*(_: typedesc[StandardCertificateStoreNames]): string  =
   ## Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames.get_Personal
   withStatics("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames", IID_IStandardCertificateStoreNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IStandardCertificateStoreNamesStatics_get_Personal, Fn_IStandardCertificateStoreNamesStatics_get_Personal)(it, tmp.addr).check("StandardCertificateStoreNames.get_Personal")
     result = takeString(tmp)
 
-proc trustedRootCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string =
+proc trustedRootCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string  =
   ## Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames.get_TrustedRootCertificationAuthorities
   withStatics("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames", IID_IStandardCertificateStoreNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IStandardCertificateStoreNamesStatics_get_TrustedRootCertificationAuthorities, Fn_IStandardCertificateStoreNamesStatics_get_TrustedRootCertificationAuthorities)(it, tmp.addr).check("StandardCertificateStoreNames.get_TrustedRootCertificationAuthorities")
     result = takeString(tmp)
 
-proc intermediateCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string =
+proc intermediateCertificationAuthorities*(_: typedesc[StandardCertificateStoreNames]): string  =
   ## Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames.get_IntermediateCertificationAuthorities
   withStatics("Windows.Security.Cryptography.Certificates.StandardCertificateStoreNames", IID_IStandardCertificateStoreNamesStatics, it):
     var tmp: HSTRING
@@ -5434,7 +5468,7 @@ proc newSubjectAlternativeNameInfo*(): SubjectAlternativeNameInfo =
   ## Activate a `Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo`.
   adopt[SubjectAlternativeNameInfo](activateAs("Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo", IID_ISubjectAlternativeNameInfo))
 
-proc emailName*(self: SubjectAlternativeNameInfo): seq[string] =
+proc emailName*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_EmailName
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5442,7 +5476,7 @@ proc emailName*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc iPAddress*(self: SubjectAlternativeNameInfo): seq[string] =
+proc iPAddress*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_IPAddress
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5450,7 +5484,7 @@ proc iPAddress*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc url*(self: SubjectAlternativeNameInfo): seq[string] =
+proc url*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_Url
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5458,7 +5492,7 @@ proc url*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc dnsName*(self: SubjectAlternativeNameInfo): seq[string] =
+proc dnsName*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_DnsName
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5466,7 +5500,7 @@ proc dnsName*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc distinguishedName*(self: SubjectAlternativeNameInfo): seq[string] =
+proc distinguishedName*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_DistinguishedName
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5474,7 +5508,7 @@ proc distinguishedName*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc principalName*(self: SubjectAlternativeNameInfo): seq[string] =
+proc principalName*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_PrincipalName
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
@@ -5482,7 +5516,7 @@ proc principalName*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc emailNames*(self: SubjectAlternativeNameInfo): seq[string] =
+proc emailNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_EmailNames
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5490,7 +5524,7 @@ proc emailNames*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc iPAddresses*(self: SubjectAlternativeNameInfo): seq[string] =
+proc iPAddresses*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_IPAddresses
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5498,7 +5532,7 @@ proc iPAddresses*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc urls*(self: SubjectAlternativeNameInfo): seq[string] =
+proc urls*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_Urls
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5506,7 +5540,7 @@ proc urls*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc dnsNames*(self: SubjectAlternativeNameInfo): seq[string] =
+proc dnsNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_DnsNames
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5514,7 +5548,7 @@ proc dnsNames*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc distinguishedNames*(self: SubjectAlternativeNameInfo): seq[string] =
+proc distinguishedNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_DistinguishedNames
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5522,7 +5556,7 @@ proc distinguishedNames*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc principalNames*(self: SubjectAlternativeNameInfo): seq[string] =
+proc principalNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_PrincipalNames
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
@@ -5530,262 +5564,257 @@ proc principalNames*(self: SubjectAlternativeNameInfo): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc extension*(self: SubjectAlternativeNameInfo): CertificateExtension =
+proc extension*(self: SubjectAlternativeNameInfo): CertificateExtension  =
   ## Windows.Security.Cryptography.Certificates.SubjectAlternativeNameInfo.get_Extension
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_Extension, Fn_ISubjectAlternativeNameInfo2_get_Extension)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_Extension")
     result = adopt[CertificateExtension](tmp)
 
-proc createRequestAsync*(self: UserCertificateEnrollmentManager, a1: CertificateRequestProperties): string =
+proc createRequestAsync*(self: UserCertificateEnrollmentManager, a1: CertificateRequestProperties): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.CreateRequestAsync
+  var op: pointer
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withIface(a1.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", p0):
-      var tmp: pointer
-      vcall(it, Slot_IUserCertificateEnrollmentManager_CreateRequestAsync, Fn_IUserCertificateEnrollmentManager_CreateRequestAsync)(it, p0, tmp.addr).check("UserCertificateEnrollmentManager.CreateRequestAsync")
-      result = awaitString(tmp, IID_IAsyncOperation_1_String, "UserCertificateEnrollmentManager.CreateRequestAsync")
-      release(tmp)
+      vcall(it, Slot_IUserCertificateEnrollmentManager_CreateRequestAsync, Fn_IUserCertificateEnrollmentManager_CreateRequestAsync)(it, p0, op.addr).check("UserCertificateEnrollmentManager.CreateRequestAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserCertificateEnrollmentManager.CreateRequestAsync")
 
-proc installCertificateAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: InstallOptions) =
+proc installCertificateAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: InstallOptions) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.InstallCertificateAsync
+  var op: pointer
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IUserCertificateEnrollmentManager_InstallCertificateAsync, Fn_IUserCertificateEnrollmentManager_InstallCertificateAsync)(it, h0, a2, tmp.addr).check("UserCertificateEnrollmentManager.InstallCertificateAsync")
-      awaitVoid(tmp, "UserCertificateEnrollmentManager.InstallCertificateAsync")
-      release(tmp)
+      vcall(it, Slot_IUserCertificateEnrollmentManager_InstallCertificateAsync, Fn_IUserCertificateEnrollmentManager_InstallCertificateAsync)(it, h0, a2, op.addr).check("UserCertificateEnrollmentManager.InstallCertificateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.InstallCertificateAsync")
 
-proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string) =
+proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a6, h5):
-          var tmp: pointer
-          vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, tmp.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-          awaitVoid(tmp, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
-          release(tmp)
+          vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync)(it, h0, h1, a3, a4, a5, h5, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
-proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string, a7: string) =
+proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: ExportOption, a4: KeyProtectionLevel, a5: InstallOptions, a6: string, a7: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a6, h5):
           withHString(a7, h6):
-            var tmp: pointer
-            vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync2, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync2)(it, h0, h1, a3, a4, a5, h5, h6, tmp.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-            awaitVoid(tmp, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
-            release(tmp)
+            vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync2, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync2)(it, h0, h1, a3, a4, a5, h5, h6, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
-proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: PfxImportParameters) =
+proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, a1: string, a2: string, a3: PfxImportParameters) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
+  var op: pointer
   withIface(self.p, IID_IUserCertificateEnrollmentManager2, "IUserCertificateEnrollmentManager2", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withIface(a3.p, IID_IPfxImportParameters, "IPfxImportParameters", p2):
-          var tmp: pointer
-          vcall(it, Slot_IUserCertificateEnrollmentManager2_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager2_ImportPfxDataAsync)(it, h0, h1, p2, tmp.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-          awaitVoid(tmp, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
-          release(tmp)
+          vcall(it, Slot_IUserCertificateEnrollmentManager2_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager2_ImportPfxDataAsync)(it, h0, h1, p2, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
-proc name*(self: UserCertificateStore): string =
+proc name*(self: UserCertificateStore): string  =
   ## Windows.Security.Cryptography.Certificates.UserCertificateStore.get_Name
   withIface(self.p, IID_IUserCertificateStore, "IUserCertificateStore", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserCertificateStore_get_Name, Fn_IUserCertificateStore_get_Name)(it, tmp.addr).check("UserCertificateStore.get_Name")
     result = takeString(tmp)
 
-proc rsaPkcs1*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaPkcs1*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaPkcs1
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaPkcs1, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaPkcs1)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaPkcs1")
     result = takeString(tmp)
 
-proc rsaOaepSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaOaepSha1*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaOaepSha1
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha1, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha1)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaOaepSha1")
     result = takeString(tmp)
 
-proc rsaOaepSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaOaepSha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaOaepSha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha256, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaOaepSha256")
     result = takeString(tmp)
 
-proc rsaOaepSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaOaepSha384*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaOaepSha384
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha384, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha384)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaOaepSha384")
     result = takeString(tmp)
 
-proc rsaOaepSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaOaepSha512*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaOaepSha512
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha512, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaOaepSha512)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaOaepSha512")
     result = takeString(tmp)
 
-proc ecdsaP256Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaP256Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaP256Sha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_EcdsaP256Sha256, Fn_IAsymmetricAlgorithmNamesStatics_get_EcdsaP256Sha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaP256Sha256")
     result = takeString(tmp)
 
-proc ecdsaP384Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaP384Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaP384Sha384
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_EcdsaP384Sha384, Fn_IAsymmetricAlgorithmNamesStatics_get_EcdsaP384Sha384)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaP384Sha384")
     result = takeString(tmp)
 
-proc ecdsaP521Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaP521Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaP521Sha512
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_EcdsaP521Sha512, Fn_IAsymmetricAlgorithmNamesStatics_get_EcdsaP521Sha512)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaP521Sha512")
     result = takeString(tmp)
 
-proc dsaSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc dsaSha1*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_DsaSha1
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_DsaSha1, Fn_IAsymmetricAlgorithmNamesStatics_get_DsaSha1)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_DsaSha1")
     result = takeString(tmp)
 
-proc dsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc dsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_DsaSha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_DsaSha256, Fn_IAsymmetricAlgorithmNamesStatics_get_DsaSha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_DsaSha256")
     result = takeString(tmp)
 
-proc rsaSignPkcs1Sha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPkcs1Sha1*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha1
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha1, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha1)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha1")
     result = takeString(tmp)
 
-proc rsaSignPkcs1Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPkcs1Sha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha256, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha256")
     result = takeString(tmp)
 
-proc rsaSignPkcs1Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPkcs1Sha384*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha384
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha384, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha384)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha384")
     result = takeString(tmp)
 
-proc rsaSignPkcs1Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPkcs1Sha512*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha512
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha512, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPkcs1Sha512)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPkcs1Sha512")
     result = takeString(tmp)
 
-proc rsaSignPssSha1*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPssSha1*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPssSha1
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha1, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha1)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPssSha1")
     result = takeString(tmp)
 
-proc rsaSignPssSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPssSha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPssSha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha256, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPssSha256")
     result = takeString(tmp)
 
-proc rsaSignPssSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPssSha384*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPssSha384
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha384, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha384)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPssSha384")
     result = takeString(tmp)
 
-proc rsaSignPssSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc rsaSignPssSha512*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_RsaSignPssSha512
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha512, Fn_IAsymmetricAlgorithmNamesStatics_get_RsaSignPssSha512)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_RsaSignPssSha512")
     result = takeString(tmp)
 
-proc ecdsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaSha256*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaSha256
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha256, Fn_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha256)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaSha256")
     result = takeString(tmp)
 
-proc ecdsaSha384*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaSha384*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaSha384
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha384, Fn_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha384)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaSha384")
     result = takeString(tmp)
 
-proc ecdsaSha512*(_: typedesc[AsymmetricAlgorithmNames]): string =
+proc ecdsaSha512*(_: typedesc[AsymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames.get_EcdsaSha512
   withStatics("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames", IID_IAsymmetricAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha512, Fn_IAsymmetricAlgorithmNamesStatics2_get_EcdsaSha512)(it, tmp.addr).check("AsymmetricAlgorithmNames.get_EcdsaSha512")
     result = takeString(tmp)
 
-proc algorithmName*(self: AsymmetricKeyAlgorithmProvider): string =
+proc algorithmName*(self: AsymmetricKeyAlgorithmProvider): string  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.get_AlgorithmName
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_get_AlgorithmName, Fn_IAsymmetricKeyAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("AsymmetricKeyAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc createKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: uint32): CryptographicKey =
+proc createKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: uint32): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.CreateKeyPair
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_CreateKeyPair, Fn_IAsymmetricKeyAlgorithmProvider_CreateKeyPair)(it, a1, tmp.addr).check("AsymmetricKeyAlgorithmProvider.CreateKeyPair")
     result = adopt[CryptographicKey](tmp)
 
-proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey =
+proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportKeyPair
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair)(it, a1, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
     result = adopt[CryptographicKey](tmp)
 
-proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: pointer, a2: CryptographicPrivateKeyBlobType): CryptographicKey =
+proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, a1: pointer, a2: CryptographicPrivateKeyBlobType): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportKeyPair
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2)(it, a1, a2, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
     result = adopt[CryptographicKey](tmp)
 
-proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey =
+proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportPublicKey
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey)(it, a1, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
     result = adopt[CryptographicKey](tmp)
 
-proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, a1: pointer, a2: CryptographicPublicKeyBlobType): CryptographicKey =
+proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, a1: pointer, a2: CryptographicPublicKeyBlobType): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportPublicKey
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2)(it, a1, a2, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
     result = adopt[CryptographicKey](tmp)
 
-proc createKeyPairWithCurveName*(self: AsymmetricKeyAlgorithmProvider, a1: string): CryptographicKey =
+proc createKeyPairWithCurveName*(self: AsymmetricKeyAlgorithmProvider, a1: string): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveName
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider2, "IAsymmetricKeyAlgorithmProvider2", it):
     withHString(a1, h0):
@@ -5793,7 +5822,7 @@ proc createKeyPairWithCurveName*(self: AsymmetricKeyAlgorithmProvider, a1: strin
       vcall(it, Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName, Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName)(it, h0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveName")
       result = adopt[CryptographicKey](tmp)
 
-proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider], a1: string): AsymmetricKeyAlgorithmProvider =
+proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider], a1: string): AsymmetricKeyAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.OpenAlgorithm
   withStatics("Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider", IID_IAsymmetricKeyAlgorithmProviderStatics, it):
     withHString(a1, h0):
@@ -5801,7 +5830,7 @@ proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider], a1: string): As
       vcall(it, Slot_IAsymmetricKeyAlgorithmProviderStatics_OpenAlgorithm, Fn_IAsymmetricKeyAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.OpenAlgorithm")
       result = adopt[AsymmetricKeyAlgorithmProvider](tmp)
 
-proc signHashedData*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer): pointer =
+proc signHashedData*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.SignHashedData
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5809,7 +5838,7 @@ proc signHashedData*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2:
       vcall(it, Slot_ICryptographicEngineStatics2_SignHashedData, Fn_ICryptographicEngineStatics2_SignHashedData)(it, p0, a2, tmp.addr).check("CryptographicEngine.SignHashedData")
       result = tmp
 
-proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): bool =
+proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): bool  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.VerifySignatureWithHashInput
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5817,7 +5846,7 @@ proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine], a1: Cryptog
       vcall(it, Slot_ICryptographicEngineStatics2_VerifySignatureWithHashInput, Fn_ICryptographicEngineStatics2_VerifySignatureWithHashInput)(it, p0, a2, a3, tmp.addr).check("CryptographicEngine.VerifySignatureWithHashInput")
       result = tmp
 
-proc encrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): pointer =
+proc encrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Encrypt
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5825,7 +5854,7 @@ proc encrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointe
       vcall(it, Slot_ICryptographicEngineStatics_Encrypt, Fn_ICryptographicEngineStatics_Encrypt)(it, p0, a2, a3, tmp.addr).check("CryptographicEngine.Encrypt")
       result = tmp
 
-proc decrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): pointer =
+proc decrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Decrypt
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5833,7 +5862,7 @@ proc decrypt*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointe
       vcall(it, Slot_ICryptographicEngineStatics_Decrypt, Fn_ICryptographicEngineStatics_Decrypt)(it, p0, a2, a3, tmp.addr).check("CryptographicEngine.Decrypt")
       result = tmp
 
-proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer, a4: pointer): EncryptedAndAuthenticatedData =
+proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer, a4: pointer): EncryptedAndAuthenticatedData  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.EncryptAndAuthenticate
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5841,7 +5870,7 @@ proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: Cryptographic
       vcall(it, Slot_ICryptographicEngineStatics_EncryptAndAuthenticate, Fn_ICryptographicEngineStatics_EncryptAndAuthenticate)(it, p0, a2, a3, a4, tmp.addr).check("CryptographicEngine.EncryptAndAuthenticate")
       result = adopt[EncryptedAndAuthenticatedData](tmp)
 
-proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer, a4: pointer, a5: pointer): pointer =
+proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer, a4: pointer, a5: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.DecryptAndAuthenticate
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5849,7 +5878,7 @@ proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine], a1: Cryptographic
       vcall(it, Slot_ICryptographicEngineStatics_DecryptAndAuthenticate, Fn_ICryptographicEngineStatics_DecryptAndAuthenticate)(it, p0, a2, a3, a4, a5, tmp.addr).check("CryptographicEngine.DecryptAndAuthenticate")
       result = tmp
 
-proc sign*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer): pointer =
+proc sign*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Sign
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5857,7 +5886,7 @@ proc sign*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer):
       vcall(it, Slot_ICryptographicEngineStatics_Sign, Fn_ICryptographicEngineStatics_Sign)(it, p0, a2, tmp.addr).check("CryptographicEngine.Sign")
       result = tmp
 
-proc verifySignature*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): bool =
+proc verifySignature*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: pointer, a3: pointer): bool  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.VerifySignature
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5865,7 +5894,7 @@ proc verifySignature*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2
       vcall(it, Slot_ICryptographicEngineStatics_VerifySignature, Fn_ICryptographicEngineStatics_VerifySignature)(it, p0, a2, a3, tmp.addr).check("CryptographicEngine.VerifySignature")
       result = tmp
 
-proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: KeyDerivationParameters, a3: uint32): pointer =
+proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], a1: CryptographicKey, a2: KeyDerivationParameters, a3: uint32): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.DeriveKeyMaterial
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(a1.p, IID_ICryptographicKey, "ICryptographicKey", p0):
@@ -5874,369 +5903,369 @@ proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], a1: CryptographicKey, 
         vcall(it, Slot_ICryptographicEngineStatics_DeriveKeyMaterial, Fn_ICryptographicEngineStatics_DeriveKeyMaterial)(it, p0, p1, a3, tmp.addr).check("CryptographicEngine.DeriveKeyMaterial")
         result = tmp
 
-proc append*(self: CryptographicHash, a1: pointer) =
+proc append*(self: CryptographicHash, a1: pointer)  =
   ## Windows.Security.Cryptography.Core.CryptographicHash.Append
   withIface(self.p, IID_IHashComputation, "IHashComputation", it):
     vcall(it, Slot_IHashComputation_Append, Fn_IHashComputation_Append)(it, a1).check("CryptographicHash.Append")
 
-proc getValueAndReset*(self: CryptographicHash): pointer =
+proc getValueAndReset*(self: CryptographicHash): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicHash.GetValueAndReset
   withIface(self.p, IID_IHashComputation, "IHashComputation", it):
     var tmp: pointer
     vcall(it, Slot_IHashComputation_GetValueAndReset, Fn_IHashComputation_GetValueAndReset)(it, tmp.addr).check("CryptographicHash.GetValueAndReset")
     result = tmp
 
-proc keySize*(self: CryptographicKey): uint32 =
+proc keySize*(self: CryptographicKey): uint32  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.get_KeySize
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: uint32
     vcall(it, Slot_ICryptographicKey_get_KeySize, Fn_ICryptographicKey_get_KeySize)(it, tmp.addr).check("CryptographicKey.get_KeySize")
     result = tmp
 
-proc `export`*(self: CryptographicKey): pointer =
+proc `export`*(self: CryptographicKey): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.Export
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_Export, Fn_ICryptographicKey_Export)(it, tmp.addr).check("CryptographicKey.Export")
     result = tmp
 
-proc `export`*(self: CryptographicKey, a1: CryptographicPrivateKeyBlobType): pointer =
+proc `export`*(self: CryptographicKey, a1: CryptographicPrivateKeyBlobType): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.Export
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_Export2, Fn_ICryptographicKey_Export2)(it, a1, tmp.addr).check("CryptographicKey.Export")
     result = tmp
 
-proc exportPublicKey*(self: CryptographicKey): pointer =
+proc exportPublicKey*(self: CryptographicKey): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.ExportPublicKey
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_ExportPublicKey, Fn_ICryptographicKey_ExportPublicKey)(it, tmp.addr).check("CryptographicKey.ExportPublicKey")
     result = tmp
 
-proc exportPublicKey*(self: CryptographicKey, a1: CryptographicPublicKeyBlobType): pointer =
+proc exportPublicKey*(self: CryptographicKey, a1: CryptographicPublicKeyBlobType): pointer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.ExportPublicKey
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_ExportPublicKey2, Fn_ICryptographicKey_ExportPublicKey2)(it, a1, tmp.addr).check("CryptographicKey.ExportPublicKey")
     result = tmp
 
-proc brainpoolP160r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP160r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP160r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP160r1, Fn_IEccCurveNamesStatics_get_BrainpoolP160r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP160r1")
     result = takeString(tmp)
 
-proc brainpoolP160t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP160t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP160t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP160t1, Fn_IEccCurveNamesStatics_get_BrainpoolP160t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP160t1")
     result = takeString(tmp)
 
-proc brainpoolP192r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP192r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP192r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP192r1, Fn_IEccCurveNamesStatics_get_BrainpoolP192r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP192r1")
     result = takeString(tmp)
 
-proc brainpoolP192t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP192t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP192t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP192t1, Fn_IEccCurveNamesStatics_get_BrainpoolP192t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP192t1")
     result = takeString(tmp)
 
-proc brainpoolP224r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP224r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP224r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP224r1, Fn_IEccCurveNamesStatics_get_BrainpoolP224r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP224r1")
     result = takeString(tmp)
 
-proc brainpoolP224t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP224t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP224t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP224t1, Fn_IEccCurveNamesStatics_get_BrainpoolP224t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP224t1")
     result = takeString(tmp)
 
-proc brainpoolP256r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP256r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP256r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP256r1, Fn_IEccCurveNamesStatics_get_BrainpoolP256r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP256r1")
     result = takeString(tmp)
 
-proc brainpoolP256t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP256t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP256t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP256t1, Fn_IEccCurveNamesStatics_get_BrainpoolP256t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP256t1")
     result = takeString(tmp)
 
-proc brainpoolP320r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP320r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP320r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP320r1, Fn_IEccCurveNamesStatics_get_BrainpoolP320r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP320r1")
     result = takeString(tmp)
 
-proc brainpoolP320t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP320t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP320t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP320t1, Fn_IEccCurveNamesStatics_get_BrainpoolP320t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP320t1")
     result = takeString(tmp)
 
-proc brainpoolP384r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP384r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP384r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP384r1, Fn_IEccCurveNamesStatics_get_BrainpoolP384r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP384r1")
     result = takeString(tmp)
 
-proc brainpoolP384t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP384t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP384t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP384t1, Fn_IEccCurveNamesStatics_get_BrainpoolP384t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP384t1")
     result = takeString(tmp)
 
-proc brainpoolP512r1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP512r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP512r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP512r1, Fn_IEccCurveNamesStatics_get_BrainpoolP512r1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP512r1")
     result = takeString(tmp)
 
-proc brainpoolP512t1*(_: typedesc[EccCurveNames]): string =
+proc brainpoolP512t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP512t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_BrainpoolP512t1, Fn_IEccCurveNamesStatics_get_BrainpoolP512t1)(it, tmp.addr).check("EccCurveNames.get_BrainpoolP512t1")
     result = takeString(tmp)
 
-proc curve25519*(_: typedesc[EccCurveNames]): string =
+proc curve25519*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_Curve25519
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_Curve25519, Fn_IEccCurveNamesStatics_get_Curve25519)(it, tmp.addr).check("EccCurveNames.get_Curve25519")
     result = takeString(tmp)
 
-proc ec192wapi*(_: typedesc[EccCurveNames]): string =
+proc ec192wapi*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_Ec192wapi
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_Ec192wapi, Fn_IEccCurveNamesStatics_get_Ec192wapi)(it, tmp.addr).check("EccCurveNames.get_Ec192wapi")
     result = takeString(tmp)
 
-proc nistP192*(_: typedesc[EccCurveNames]): string =
+proc nistP192*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NistP192
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NistP192, Fn_IEccCurveNamesStatics_get_NistP192)(it, tmp.addr).check("EccCurveNames.get_NistP192")
     result = takeString(tmp)
 
-proc nistP224*(_: typedesc[EccCurveNames]): string =
+proc nistP224*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NistP224
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NistP224, Fn_IEccCurveNamesStatics_get_NistP224)(it, tmp.addr).check("EccCurveNames.get_NistP224")
     result = takeString(tmp)
 
-proc nistP256*(_: typedesc[EccCurveNames]): string =
+proc nistP256*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NistP256
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NistP256, Fn_IEccCurveNamesStatics_get_NistP256)(it, tmp.addr).check("EccCurveNames.get_NistP256")
     result = takeString(tmp)
 
-proc nistP384*(_: typedesc[EccCurveNames]): string =
+proc nistP384*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NistP384
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NistP384, Fn_IEccCurveNamesStatics_get_NistP384)(it, tmp.addr).check("EccCurveNames.get_NistP384")
     result = takeString(tmp)
 
-proc nistP521*(_: typedesc[EccCurveNames]): string =
+proc nistP521*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NistP521
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NistP521, Fn_IEccCurveNamesStatics_get_NistP521)(it, tmp.addr).check("EccCurveNames.get_NistP521")
     result = takeString(tmp)
 
-proc numsP256t1*(_: typedesc[EccCurveNames]): string =
+proc numsP256t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NumsP256t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NumsP256t1, Fn_IEccCurveNamesStatics_get_NumsP256t1)(it, tmp.addr).check("EccCurveNames.get_NumsP256t1")
     result = takeString(tmp)
 
-proc numsP384t1*(_: typedesc[EccCurveNames]): string =
+proc numsP384t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NumsP384t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NumsP384t1, Fn_IEccCurveNamesStatics_get_NumsP384t1)(it, tmp.addr).check("EccCurveNames.get_NumsP384t1")
     result = takeString(tmp)
 
-proc numsP512t1*(_: typedesc[EccCurveNames]): string =
+proc numsP512t1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_NumsP512t1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_NumsP512t1, Fn_IEccCurveNamesStatics_get_NumsP512t1)(it, tmp.addr).check("EccCurveNames.get_NumsP512t1")
     result = takeString(tmp)
 
-proc secP160k1*(_: typedesc[EccCurveNames]): string =
+proc secP160k1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP160k1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP160k1, Fn_IEccCurveNamesStatics_get_SecP160k1)(it, tmp.addr).check("EccCurveNames.get_SecP160k1")
     result = takeString(tmp)
 
-proc secP160r1*(_: typedesc[EccCurveNames]): string =
+proc secP160r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP160r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP160r1, Fn_IEccCurveNamesStatics_get_SecP160r1)(it, tmp.addr).check("EccCurveNames.get_SecP160r1")
     result = takeString(tmp)
 
-proc secP160r2*(_: typedesc[EccCurveNames]): string =
+proc secP160r2*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP160r2
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP160r2, Fn_IEccCurveNamesStatics_get_SecP160r2)(it, tmp.addr).check("EccCurveNames.get_SecP160r2")
     result = takeString(tmp)
 
-proc secP192k1*(_: typedesc[EccCurveNames]): string =
+proc secP192k1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP192k1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP192k1, Fn_IEccCurveNamesStatics_get_SecP192k1)(it, tmp.addr).check("EccCurveNames.get_SecP192k1")
     result = takeString(tmp)
 
-proc secP192r1*(_: typedesc[EccCurveNames]): string =
+proc secP192r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP192r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP192r1, Fn_IEccCurveNamesStatics_get_SecP192r1)(it, tmp.addr).check("EccCurveNames.get_SecP192r1")
     result = takeString(tmp)
 
-proc secP224k1*(_: typedesc[EccCurveNames]): string =
+proc secP224k1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP224k1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP224k1, Fn_IEccCurveNamesStatics_get_SecP224k1)(it, tmp.addr).check("EccCurveNames.get_SecP224k1")
     result = takeString(tmp)
 
-proc secP224r1*(_: typedesc[EccCurveNames]): string =
+proc secP224r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP224r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP224r1, Fn_IEccCurveNamesStatics_get_SecP224r1)(it, tmp.addr).check("EccCurveNames.get_SecP224r1")
     result = takeString(tmp)
 
-proc secP256k1*(_: typedesc[EccCurveNames]): string =
+proc secP256k1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP256k1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP256k1, Fn_IEccCurveNamesStatics_get_SecP256k1)(it, tmp.addr).check("EccCurveNames.get_SecP256k1")
     result = takeString(tmp)
 
-proc secP256r1*(_: typedesc[EccCurveNames]): string =
+proc secP256r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP256r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP256r1, Fn_IEccCurveNamesStatics_get_SecP256r1)(it, tmp.addr).check("EccCurveNames.get_SecP256r1")
     result = takeString(tmp)
 
-proc secP384r1*(_: typedesc[EccCurveNames]): string =
+proc secP384r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP384r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP384r1, Fn_IEccCurveNamesStatics_get_SecP384r1)(it, tmp.addr).check("EccCurveNames.get_SecP384r1")
     result = takeString(tmp)
 
-proc secP521r1*(_: typedesc[EccCurveNames]): string =
+proc secP521r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_SecP521r1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_SecP521r1, Fn_IEccCurveNamesStatics_get_SecP521r1)(it, tmp.addr).check("EccCurveNames.get_SecP521r1")
     result = takeString(tmp)
 
-proc wtls7*(_: typedesc[EccCurveNames]): string =
+proc wtls7*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_Wtls7
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_Wtls7, Fn_IEccCurveNamesStatics_get_Wtls7)(it, tmp.addr).check("EccCurveNames.get_Wtls7")
     result = takeString(tmp)
 
-proc wtls9*(_: typedesc[EccCurveNames]): string =
+proc wtls9*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_Wtls9
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_Wtls9, Fn_IEccCurveNamesStatics_get_Wtls9)(it, tmp.addr).check("EccCurveNames.get_Wtls9")
     result = takeString(tmp)
 
-proc wtls12*(_: typedesc[EccCurveNames]): string =
+proc wtls12*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_Wtls12
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_Wtls12, Fn_IEccCurveNamesStatics_get_Wtls12)(it, tmp.addr).check("EccCurveNames.get_Wtls12")
     result = takeString(tmp)
 
-proc x962P192v1*(_: typedesc[EccCurveNames]): string =
+proc x962P192v1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P192v1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P192v1, Fn_IEccCurveNamesStatics_get_X962P192v1)(it, tmp.addr).check("EccCurveNames.get_X962P192v1")
     result = takeString(tmp)
 
-proc x962P192v2*(_: typedesc[EccCurveNames]): string =
+proc x962P192v2*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P192v2
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P192v2, Fn_IEccCurveNamesStatics_get_X962P192v2)(it, tmp.addr).check("EccCurveNames.get_X962P192v2")
     result = takeString(tmp)
 
-proc x962P192v3*(_: typedesc[EccCurveNames]): string =
+proc x962P192v3*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P192v3
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P192v3, Fn_IEccCurveNamesStatics_get_X962P192v3)(it, tmp.addr).check("EccCurveNames.get_X962P192v3")
     result = takeString(tmp)
 
-proc x962P239v1*(_: typedesc[EccCurveNames]): string =
+proc x962P239v1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P239v1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P239v1, Fn_IEccCurveNamesStatics_get_X962P239v1)(it, tmp.addr).check("EccCurveNames.get_X962P239v1")
     result = takeString(tmp)
 
-proc x962P239v2*(_: typedesc[EccCurveNames]): string =
+proc x962P239v2*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P239v2
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P239v2, Fn_IEccCurveNamesStatics_get_X962P239v2)(it, tmp.addr).check("EccCurveNames.get_X962P239v2")
     result = takeString(tmp)
 
-proc x962P239v3*(_: typedesc[EccCurveNames]): string =
+proc x962P239v3*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P239v3
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P239v3, Fn_IEccCurveNamesStatics_get_X962P239v3)(it, tmp.addr).check("EccCurveNames.get_X962P239v3")
     result = takeString(tmp)
 
-proc x962P256v1*(_: typedesc[EccCurveNames]): string =
+proc x962P256v1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_X962P256v1
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IEccCurveNamesStatics_get_X962P256v1, Fn_IEccCurveNamesStatics_get_X962P256v1)(it, tmp.addr).check("EccCurveNames.get_X962P256v1")
     result = takeString(tmp)
 
-proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string] =
+proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string]  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_AllEccCurveNames
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: pointer
@@ -6244,84 +6273,84 @@ proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc encryptedData*(self: EncryptedAndAuthenticatedData): pointer =
+proc encryptedData*(self: EncryptedAndAuthenticatedData): pointer  =
   ## Windows.Security.Cryptography.Core.EncryptedAndAuthenticatedData.get_EncryptedData
   withIface(self.p, IID_IEncryptedAndAuthenticatedData, "IEncryptedAndAuthenticatedData", it):
     var tmp: pointer
     vcall(it, Slot_IEncryptedAndAuthenticatedData_get_EncryptedData, Fn_IEncryptedAndAuthenticatedData_get_EncryptedData)(it, tmp.addr).check("EncryptedAndAuthenticatedData.get_EncryptedData")
     result = tmp
 
-proc authenticationTag*(self: EncryptedAndAuthenticatedData): pointer =
+proc authenticationTag*(self: EncryptedAndAuthenticatedData): pointer  =
   ## Windows.Security.Cryptography.Core.EncryptedAndAuthenticatedData.get_AuthenticationTag
   withIface(self.p, IID_IEncryptedAndAuthenticatedData, "IEncryptedAndAuthenticatedData", it):
     var tmp: pointer
     vcall(it, Slot_IEncryptedAndAuthenticatedData_get_AuthenticationTag, Fn_IEncryptedAndAuthenticatedData_get_AuthenticationTag)(it, tmp.addr).check("EncryptedAndAuthenticatedData.get_AuthenticationTag")
     result = tmp
 
-proc md5*(_: typedesc[HashAlgorithmNames]): string =
+proc md5*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Md5
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmNames", IID_IHashAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmNamesStatics_get_Md5, Fn_IHashAlgorithmNamesStatics_get_Md5)(it, tmp.addr).check("HashAlgorithmNames.get_Md5")
     result = takeString(tmp)
 
-proc sha1*(_: typedesc[HashAlgorithmNames]): string =
+proc sha1*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Sha1
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmNames", IID_IHashAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmNamesStatics_get_Sha1, Fn_IHashAlgorithmNamesStatics_get_Sha1)(it, tmp.addr).check("HashAlgorithmNames.get_Sha1")
     result = takeString(tmp)
 
-proc sha256*(_: typedesc[HashAlgorithmNames]): string =
+proc sha256*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Sha256
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmNames", IID_IHashAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmNamesStatics_get_Sha256, Fn_IHashAlgorithmNamesStatics_get_Sha256)(it, tmp.addr).check("HashAlgorithmNames.get_Sha256")
     result = takeString(tmp)
 
-proc sha384*(_: typedesc[HashAlgorithmNames]): string =
+proc sha384*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Sha384
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmNames", IID_IHashAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmNamesStatics_get_Sha384, Fn_IHashAlgorithmNamesStatics_get_Sha384)(it, tmp.addr).check("HashAlgorithmNames.get_Sha384")
     result = takeString(tmp)
 
-proc sha512*(_: typedesc[HashAlgorithmNames]): string =
+proc sha512*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Sha512
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmNames", IID_IHashAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmNamesStatics_get_Sha512, Fn_IHashAlgorithmNamesStatics_get_Sha512)(it, tmp.addr).check("HashAlgorithmNames.get_Sha512")
     result = takeString(tmp)
 
-proc algorithmName*(self: HashAlgorithmProvider): string =
+proc algorithmName*(self: HashAlgorithmProvider): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.get_AlgorithmName
   withIface(self.p, IID_IHashAlgorithmProvider, "IHashAlgorithmProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IHashAlgorithmProvider_get_AlgorithmName, Fn_IHashAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("HashAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc hashLength*(self: HashAlgorithmProvider): uint32 =
+proc hashLength*(self: HashAlgorithmProvider): uint32  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.get_HashLength
   withIface(self.p, IID_IHashAlgorithmProvider, "IHashAlgorithmProvider", it):
     var tmp: uint32
     vcall(it, Slot_IHashAlgorithmProvider_get_HashLength, Fn_IHashAlgorithmProvider_get_HashLength)(it, tmp.addr).check("HashAlgorithmProvider.get_HashLength")
     result = tmp
 
-proc hashData*(self: HashAlgorithmProvider, a1: pointer): pointer =
+proc hashData*(self: HashAlgorithmProvider, a1: pointer): pointer  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.HashData
   withIface(self.p, IID_IHashAlgorithmProvider, "IHashAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IHashAlgorithmProvider_HashData, Fn_IHashAlgorithmProvider_HashData)(it, a1, tmp.addr).check("HashAlgorithmProvider.HashData")
     result = tmp
 
-proc createHash*(self: HashAlgorithmProvider): CryptographicHash =
+proc createHash*(self: HashAlgorithmProvider): CryptographicHash  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.CreateHash
   withIface(self.p, IID_IHashAlgorithmProvider, "IHashAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IHashAlgorithmProvider_CreateHash, Fn_IHashAlgorithmProvider_CreateHash)(it, tmp.addr).check("HashAlgorithmProvider.CreateHash")
     result = adopt[CryptographicHash](tmp)
 
-proc openAlgorithm*(_: typedesc[HashAlgorithmProvider], a1: string): HashAlgorithmProvider =
+proc openAlgorithm*(_: typedesc[HashAlgorithmProvider], a1: string): HashAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.OpenAlgorithm
   withStatics("Windows.Security.Cryptography.Core.HashAlgorithmProvider", IID_IHashAlgorithmProviderStatics, it):
     withHString(a1, h0):
@@ -6329,161 +6358,161 @@ proc openAlgorithm*(_: typedesc[HashAlgorithmProvider], a1: string): HashAlgorit
       vcall(it, Slot_IHashAlgorithmProviderStatics_OpenAlgorithm, Fn_IHashAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("HashAlgorithmProvider.OpenAlgorithm")
       result = adopt[HashAlgorithmProvider](tmp)
 
-proc capiKdfMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc capiKdfMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_CapiKdfMd5
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfMd5, Fn_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfMd5)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_CapiKdfMd5")
     result = takeString(tmp)
 
-proc capiKdfSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc capiKdfSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_CapiKdfSha1
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha1, Fn_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha1)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_CapiKdfSha1")
     result = takeString(tmp)
 
-proc capiKdfSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc capiKdfSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_CapiKdfSha256
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha256, Fn_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha256)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_CapiKdfSha256")
     result = takeString(tmp)
 
-proc capiKdfSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc capiKdfSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_CapiKdfSha384
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha384, Fn_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha384)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_CapiKdfSha384")
     result = takeString(tmp)
 
-proc capiKdfSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc capiKdfSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_CapiKdfSha512
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics2, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha512, Fn_IKeyDerivationAlgorithmNamesStatics2_get_CapiKdfSha512)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_CapiKdfSha512")
     result = takeString(tmp)
 
-proc pbkdf2Md5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc pbkdf2Md5*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Pbkdf2Md5
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Md5, Fn_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Md5)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Pbkdf2Md5")
     result = takeString(tmp)
 
-proc pbkdf2Sha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc pbkdf2Sha1*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Pbkdf2Sha1
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha1, Fn_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha1)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Pbkdf2Sha1")
     result = takeString(tmp)
 
-proc pbkdf2Sha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc pbkdf2Sha256*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Pbkdf2Sha256
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha256, Fn_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha256)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Pbkdf2Sha256")
     result = takeString(tmp)
 
-proc pbkdf2Sha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc pbkdf2Sha384*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Pbkdf2Sha384
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha384, Fn_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha384)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Pbkdf2Sha384")
     result = takeString(tmp)
 
-proc pbkdf2Sha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc pbkdf2Sha512*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Pbkdf2Sha512
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha512, Fn_IKeyDerivationAlgorithmNamesStatics_get_Pbkdf2Sha512)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Pbkdf2Sha512")
     result = takeString(tmp)
 
-proc sp800108CtrHmacMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp800108CtrHmacMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp800108CtrHmacMd5
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacMd5, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacMd5)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp800108CtrHmacMd5")
     result = takeString(tmp)
 
-proc sp800108CtrHmacSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp800108CtrHmacSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha1
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha1, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha1)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha1")
     result = takeString(tmp)
 
-proc sp800108CtrHmacSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp800108CtrHmacSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha256
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha256, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha256)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha256")
     result = takeString(tmp)
 
-proc sp800108CtrHmacSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp800108CtrHmacSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha384
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha384, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha384)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha384")
     result = takeString(tmp)
 
-proc sp800108CtrHmacSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp800108CtrHmacSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha512
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha512, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp800108CtrHmacSha512)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp800108CtrHmacSha512")
     result = takeString(tmp)
 
-proc sp80056aConcatMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp80056aConcatMd5*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp80056aConcatMd5
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatMd5, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatMd5)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp80056aConcatMd5")
     result = takeString(tmp)
 
-proc sp80056aConcatSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp80056aConcatSha1*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp80056aConcatSha1
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha1, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha1)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp80056aConcatSha1")
     result = takeString(tmp)
 
-proc sp80056aConcatSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp80056aConcatSha256*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp80056aConcatSha256
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha256, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha256)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp80056aConcatSha256")
     result = takeString(tmp)
 
-proc sp80056aConcatSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp80056aConcatSha384*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp80056aConcatSha384
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha384, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha384)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp80056aConcatSha384")
     result = takeString(tmp)
 
-proc sp80056aConcatSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string =
+proc sp80056aConcatSha512*(_: typedesc[KeyDerivationAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames.get_Sp80056aConcatSha512
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames", IID_IKeyDerivationAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha512, Fn_IKeyDerivationAlgorithmNamesStatics_get_Sp80056aConcatSha512)(it, tmp.addr).check("KeyDerivationAlgorithmNames.get_Sp80056aConcatSha512")
     result = takeString(tmp)
 
-proc algorithmName*(self: KeyDerivationAlgorithmProvider): string =
+proc algorithmName*(self: KeyDerivationAlgorithmProvider): string  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.get_AlgorithmName
   withIface(self.p, IID_IKeyDerivationAlgorithmProvider, "IKeyDerivationAlgorithmProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IKeyDerivationAlgorithmProvider_get_AlgorithmName, Fn_IKeyDerivationAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("KeyDerivationAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc createKey*(self: KeyDerivationAlgorithmProvider, a1: pointer): CryptographicKey =
+proc createKey*(self: KeyDerivationAlgorithmProvider, a1: pointer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.CreateKey
   withIface(self.p, IID_IKeyDerivationAlgorithmProvider, "IKeyDerivationAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationAlgorithmProvider_CreateKey, Fn_IKeyDerivationAlgorithmProvider_CreateKey)(it, a1, tmp.addr).check("KeyDerivationAlgorithmProvider.CreateKey")
     result = adopt[CryptographicKey](tmp)
 
-proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider], a1: string): KeyDerivationAlgorithmProvider =
+proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider], a1: string): KeyDerivationAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.OpenAlgorithm
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider", IID_IKeyDerivationAlgorithmProviderStatics, it):
     withHString(a1, h0):
@@ -6491,136 +6520,136 @@ proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider], a1: string): Ke
       vcall(it, Slot_IKeyDerivationAlgorithmProviderStatics_OpenAlgorithm, Fn_IKeyDerivationAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("KeyDerivationAlgorithmProvider.OpenAlgorithm")
       result = adopt[KeyDerivationAlgorithmProvider](tmp)
 
-proc kdfGenericBinary*(self: KeyDerivationParameters): pointer =
+proc kdfGenericBinary*(self: KeyDerivationParameters): pointer  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.get_KdfGenericBinary
   withIface(self.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParameters_get_KdfGenericBinary, Fn_IKeyDerivationParameters_get_KdfGenericBinary)(it, tmp.addr).check("KeyDerivationParameters.get_KdfGenericBinary")
     result = tmp
 
-proc `kdfGenericBinary=`*(self: KeyDerivationParameters, value: pointer) =
+proc `kdfGenericBinary=`*(self: KeyDerivationParameters, value: pointer)  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.put_KdfGenericBinary
   withIface(self.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", it):
     vcall(it, Slot_IKeyDerivationParameters_put_KdfGenericBinary, Fn_IKeyDerivationParameters_put_KdfGenericBinary)(it, value).check("KeyDerivationParameters.put_KdfGenericBinary")
 
-proc iterationCount*(self: KeyDerivationParameters): uint32 =
+proc iterationCount*(self: KeyDerivationParameters): uint32  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.get_IterationCount
   withIface(self.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", it):
     var tmp: uint32
     vcall(it, Slot_IKeyDerivationParameters_get_IterationCount, Fn_IKeyDerivationParameters_get_IterationCount)(it, tmp.addr).check("KeyDerivationParameters.get_IterationCount")
     result = tmp
 
-proc capi1KdfTargetAlgorithm*(self: KeyDerivationParameters): Capi1KdfTargetAlgorithm =
+proc capi1KdfTargetAlgorithm*(self: KeyDerivationParameters): Capi1KdfTargetAlgorithm  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.get_Capi1KdfTargetAlgorithm
   withIface(self.p, IID_IKeyDerivationParameters2, "IKeyDerivationParameters2", it):
     var tmp: Capi1KdfTargetAlgorithm
     vcall(it, Slot_IKeyDerivationParameters2_get_Capi1KdfTargetAlgorithm, Fn_IKeyDerivationParameters2_get_Capi1KdfTargetAlgorithm)(it, tmp.addr).check("KeyDerivationParameters.get_Capi1KdfTargetAlgorithm")
     result = tmp
 
-proc `capi1KdfTargetAlgorithm=`*(self: KeyDerivationParameters, value: Capi1KdfTargetAlgorithm) =
+proc `capi1KdfTargetAlgorithm=`*(self: KeyDerivationParameters, value: Capi1KdfTargetAlgorithm)  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.put_Capi1KdfTargetAlgorithm
   withIface(self.p, IID_IKeyDerivationParameters2, "IKeyDerivationParameters2", it):
     vcall(it, Slot_IKeyDerivationParameters2_put_Capi1KdfTargetAlgorithm, Fn_IKeyDerivationParameters2_put_Capi1KdfTargetAlgorithm)(it, value).check("KeyDerivationParameters.put_Capi1KdfTargetAlgorithm")
 
-proc buildForCapi1Kdf*(_: typedesc[KeyDerivationParameters], a1: Capi1KdfTargetAlgorithm): KeyDerivationParameters =
+proc buildForCapi1Kdf*(_: typedesc[KeyDerivationParameters], a1: Capi1KdfTargetAlgorithm): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForCapi1Kdf
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParametersStatics2_BuildForCapi1Kdf, Fn_IKeyDerivationParametersStatics2_BuildForCapi1Kdf)(it, a1, tmp.addr).check("KeyDerivationParameters.BuildForCapi1Kdf")
     result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: uint32): KeyDerivationParameters =
+proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: uint32): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForPbkdf2
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParametersStatics_BuildForPbkdf2, Fn_IKeyDerivationParametersStatics_BuildForPbkdf2)(it, a1, a2, tmp.addr).check("KeyDerivationParameters.BuildForPbkdf2")
     result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForSP800108*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: pointer): KeyDerivationParameters =
+proc buildForSP800108*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: pointer): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForSP800108
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP800108, Fn_IKeyDerivationParametersStatics_BuildForSP800108)(it, a1, a2, tmp.addr).check("KeyDerivationParameters.BuildForSP800108")
     result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForSP80056a*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: pointer, a3: pointer, a4: pointer, a5: pointer): KeyDerivationParameters =
+proc buildForSP80056a*(_: typedesc[KeyDerivationParameters], a1: pointer, a2: pointer, a3: pointer, a4: pointer, a5: pointer): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForSP80056a
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP80056a, Fn_IKeyDerivationParametersStatics_BuildForSP80056a)(it, a1, a2, a3, a4, a5, tmp.addr).check("KeyDerivationParameters.BuildForSP80056a")
     result = adopt[KeyDerivationParameters](tmp)
 
-proc hmacMd5*(_: typedesc[MacAlgorithmNames]): string =
+proc hmacMd5*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacMd5
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_HmacMd5, Fn_IMacAlgorithmNamesStatics_get_HmacMd5)(it, tmp.addr).check("MacAlgorithmNames.get_HmacMd5")
     result = takeString(tmp)
 
-proc hmacSha1*(_: typedesc[MacAlgorithmNames]): string =
+proc hmacSha1*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacSha1
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_HmacSha1, Fn_IMacAlgorithmNamesStatics_get_HmacSha1)(it, tmp.addr).check("MacAlgorithmNames.get_HmacSha1")
     result = takeString(tmp)
 
-proc hmacSha256*(_: typedesc[MacAlgorithmNames]): string =
+proc hmacSha256*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacSha256
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_HmacSha256, Fn_IMacAlgorithmNamesStatics_get_HmacSha256)(it, tmp.addr).check("MacAlgorithmNames.get_HmacSha256")
     result = takeString(tmp)
 
-proc hmacSha384*(_: typedesc[MacAlgorithmNames]): string =
+proc hmacSha384*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacSha384
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_HmacSha384, Fn_IMacAlgorithmNamesStatics_get_HmacSha384)(it, tmp.addr).check("MacAlgorithmNames.get_HmacSha384")
     result = takeString(tmp)
 
-proc hmacSha512*(_: typedesc[MacAlgorithmNames]): string =
+proc hmacSha512*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacSha512
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_HmacSha512, Fn_IMacAlgorithmNamesStatics_get_HmacSha512)(it, tmp.addr).check("MacAlgorithmNames.get_HmacSha512")
     result = takeString(tmp)
 
-proc aesCmac*(_: typedesc[MacAlgorithmNames]): string =
+proc aesCmac*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_AesCmac
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmNames", IID_IMacAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmNamesStatics_get_AesCmac, Fn_IMacAlgorithmNamesStatics_get_AesCmac)(it, tmp.addr).check("MacAlgorithmNames.get_AesCmac")
     result = takeString(tmp)
 
-proc algorithmName*(self: MacAlgorithmProvider): string =
+proc algorithmName*(self: MacAlgorithmProvider): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.get_AlgorithmName
   withIface(self.p, IID_IMacAlgorithmProvider, "IMacAlgorithmProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_IMacAlgorithmProvider_get_AlgorithmName, Fn_IMacAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("MacAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc macLength*(self: MacAlgorithmProvider): uint32 =
+proc macLength*(self: MacAlgorithmProvider): uint32  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.get_MacLength
   withIface(self.p, IID_IMacAlgorithmProvider, "IMacAlgorithmProvider", it):
     var tmp: uint32
     vcall(it, Slot_IMacAlgorithmProvider_get_MacLength, Fn_IMacAlgorithmProvider_get_MacLength)(it, tmp.addr).check("MacAlgorithmProvider.get_MacLength")
     result = tmp
 
-proc createKey*(self: MacAlgorithmProvider, a1: pointer): CryptographicKey =
+proc createKey*(self: MacAlgorithmProvider, a1: pointer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.CreateKey
   withIface(self.p, IID_IMacAlgorithmProvider, "IMacAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_IMacAlgorithmProvider_CreateKey, Fn_IMacAlgorithmProvider_CreateKey)(it, a1, tmp.addr).check("MacAlgorithmProvider.CreateKey")
     result = adopt[CryptographicKey](tmp)
 
-proc createHash*(self: MacAlgorithmProvider, a1: pointer): CryptographicHash =
+proc createHash*(self: MacAlgorithmProvider, a1: pointer): CryptographicHash  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.CreateHash
   withIface(self.p, IID_IMacAlgorithmProvider2, "IMacAlgorithmProvider2", it):
     var tmp: pointer
     vcall(it, Slot_IMacAlgorithmProvider2_CreateHash, Fn_IMacAlgorithmProvider2_CreateHash)(it, a1, tmp.addr).check("MacAlgorithmProvider.CreateHash")
     result = adopt[CryptographicHash](tmp)
 
-proc openAlgorithm*(_: typedesc[MacAlgorithmProvider], a1: string): MacAlgorithmProvider =
+proc openAlgorithm*(_: typedesc[MacAlgorithmProvider], a1: string): MacAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.OpenAlgorithm
   withStatics("Windows.Security.Cryptography.Core.MacAlgorithmProvider", IID_IMacAlgorithmProviderStatics, it):
     withHString(a1, h0):
@@ -6628,17 +6657,16 @@ proc openAlgorithm*(_: typedesc[MacAlgorithmProvider], a1: string): MacAlgorithm
       vcall(it, Slot_IMacAlgorithmProviderStatics_OpenAlgorithm, Fn_IMacAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("MacAlgorithmProvider.OpenAlgorithm")
       result = adopt[MacAlgorithmProvider](tmp)
 
-proc openKeyPairFromCertificateAsync*(_: typedesc[PersistedKeyProvider], a1: Certificate, a2: string, a3: CryptographicPadding): CryptographicKey =
+proc openKeyPairFromCertificateAsync*(_: typedesc[PersistedKeyProvider], a1: Certificate, a2: string, a3: CryptographicPadding): Future[CryptographicKey] {.async.} =
   ## Windows.Security.Cryptography.Core.PersistedKeyProvider.OpenKeyPairFromCertificateAsync
+  var op: pointer
   withStatics("Windows.Security.Cryptography.Core.PersistedKeyProvider", IID_IPersistedKeyProviderStatics, it):
     withIface(a1.p, IID_ICertificate, "ICertificate", p0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync, Fn_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync)(it, p0, h1, a3, tmp.addr).check("PersistedKeyProvider.OpenKeyPairFromCertificateAsync")
-        result = adopt[CryptographicKey](awaitObject(tmp, IID_IAsyncOperation_1_CryptographicKey, "PersistedKeyProvider.OpenKeyPairFromCertificateAsync"))
-        release(tmp)
+        vcall(it, Slot_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync, Fn_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync)(it, p0, h1, a3, op.addr).check("PersistedKeyProvider.OpenKeyPairFromCertificateAsync")
+  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, "PersistedKeyProvider.OpenKeyPairFromCertificateAsync"))
 
-proc openPublicKeyFromCertificate*(_: typedesc[PersistedKeyProvider], a1: Certificate, a2: string, a3: CryptographicPadding): CryptographicKey =
+proc openPublicKeyFromCertificate*(_: typedesc[PersistedKeyProvider], a1: Certificate, a2: string, a3: CryptographicPadding): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.PersistedKeyProvider.OpenPublicKeyFromCertificate
   withStatics("Windows.Security.Cryptography.Core.PersistedKeyProvider", IID_IPersistedKeyProviderStatics, it):
     withIface(a1.p, IID_ICertificate, "ICertificate", p0):
@@ -6647,161 +6675,161 @@ proc openPublicKeyFromCertificate*(_: typedesc[PersistedKeyProvider], a1: Certif
         vcall(it, Slot_IPersistedKeyProviderStatics_OpenPublicKeyFromCertificate, Fn_IPersistedKeyProviderStatics_OpenPublicKeyFromCertificate)(it, p0, h1, a3, tmp.addr).check("PersistedKeyProvider.OpenPublicKeyFromCertificate")
         result = adopt[CryptographicKey](tmp)
 
-proc desCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc desCbc*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_DesCbc
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_DesCbc, Fn_ISymmetricAlgorithmNamesStatics_get_DesCbc)(it, tmp.addr).check("SymmetricAlgorithmNames.get_DesCbc")
     result = takeString(tmp)
 
-proc desEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc desEcb*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_DesEcb
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_DesEcb, Fn_ISymmetricAlgorithmNamesStatics_get_DesEcb)(it, tmp.addr).check("SymmetricAlgorithmNames.get_DesEcb")
     result = takeString(tmp)
 
-proc tripleDesCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc tripleDesCbc*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_TripleDesCbc
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_TripleDesCbc, Fn_ISymmetricAlgorithmNamesStatics_get_TripleDesCbc)(it, tmp.addr).check("SymmetricAlgorithmNames.get_TripleDesCbc")
     result = takeString(tmp)
 
-proc tripleDesEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc tripleDesEcb*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_TripleDesEcb
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_TripleDesEcb, Fn_ISymmetricAlgorithmNamesStatics_get_TripleDesEcb)(it, tmp.addr).check("SymmetricAlgorithmNames.get_TripleDesEcb")
     result = takeString(tmp)
 
-proc rc2Cbc*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc rc2Cbc*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_Rc2Cbc
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_Rc2Cbc, Fn_ISymmetricAlgorithmNamesStatics_get_Rc2Cbc)(it, tmp.addr).check("SymmetricAlgorithmNames.get_Rc2Cbc")
     result = takeString(tmp)
 
-proc rc2Ecb*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc rc2Ecb*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_Rc2Ecb
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_Rc2Ecb, Fn_ISymmetricAlgorithmNamesStatics_get_Rc2Ecb)(it, tmp.addr).check("SymmetricAlgorithmNames.get_Rc2Ecb")
     result = takeString(tmp)
 
-proc aesCbc*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesCbc*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesCbc
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesCbc, Fn_ISymmetricAlgorithmNamesStatics_get_AesCbc)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesCbc")
     result = takeString(tmp)
 
-proc aesEcb*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesEcb*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesEcb
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesEcb, Fn_ISymmetricAlgorithmNamesStatics_get_AesEcb)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesEcb")
     result = takeString(tmp)
 
-proc aesGcm*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesGcm*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesGcm
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesGcm, Fn_ISymmetricAlgorithmNamesStatics_get_AesGcm)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesGcm")
     result = takeString(tmp)
 
-proc aesCcm*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesCcm*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesCcm
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesCcm, Fn_ISymmetricAlgorithmNamesStatics_get_AesCcm)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesCcm")
     result = takeString(tmp)
 
-proc aesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesCbcPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesCbcPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_AesCbcPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesCbcPkcs7")
     result = takeString(tmp)
 
-proc aesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc aesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_AesEcbPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_AesEcbPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_AesEcbPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_AesEcbPkcs7")
     result = takeString(tmp)
 
-proc desCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc desCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_DesCbcPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_DesCbcPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_DesCbcPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_DesCbcPkcs7")
     result = takeString(tmp)
 
-proc desEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc desEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_DesEcbPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_DesEcbPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_DesEcbPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_DesEcbPkcs7")
     result = takeString(tmp)
 
-proc tripleDesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc tripleDesCbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_TripleDesCbcPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_TripleDesCbcPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_TripleDesCbcPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_TripleDesCbcPkcs7")
     result = takeString(tmp)
 
-proc tripleDesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc tripleDesEcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_TripleDesEcbPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_TripleDesEcbPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_TripleDesEcbPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_TripleDesEcbPkcs7")
     result = takeString(tmp)
 
-proc rc2CbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc rc2CbcPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_Rc2CbcPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_Rc2CbcPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_Rc2CbcPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_Rc2CbcPkcs7")
     result = takeString(tmp)
 
-proc rc2EcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc rc2EcbPkcs7*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_Rc2EcbPkcs7
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_Rc2EcbPkcs7, Fn_ISymmetricAlgorithmNamesStatics_get_Rc2EcbPkcs7)(it, tmp.addr).check("SymmetricAlgorithmNames.get_Rc2EcbPkcs7")
     result = takeString(tmp)
 
-proc rc4*(_: typedesc[SymmetricAlgorithmNames]): string =
+proc rc4*(_: typedesc[SymmetricAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.SymmetricAlgorithmNames.get_Rc4
   withStatics("Windows.Security.Cryptography.Core.SymmetricAlgorithmNames", IID_ISymmetricAlgorithmNamesStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricAlgorithmNamesStatics_get_Rc4, Fn_ISymmetricAlgorithmNamesStatics_get_Rc4)(it, tmp.addr).check("SymmetricAlgorithmNames.get_Rc4")
     result = takeString(tmp)
 
-proc algorithmName*(self: SymmetricKeyAlgorithmProvider): string =
+proc algorithmName*(self: SymmetricKeyAlgorithmProvider): string  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.get_AlgorithmName
   withIface(self.p, IID_ISymmetricKeyAlgorithmProvider, "ISymmetricKeyAlgorithmProvider", it):
     var tmp: HSTRING
     vcall(it, Slot_ISymmetricKeyAlgorithmProvider_get_AlgorithmName, Fn_ISymmetricKeyAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("SymmetricKeyAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc blockLength*(self: SymmetricKeyAlgorithmProvider): uint32 =
+proc blockLength*(self: SymmetricKeyAlgorithmProvider): uint32  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.get_BlockLength
   withIface(self.p, IID_ISymmetricKeyAlgorithmProvider, "ISymmetricKeyAlgorithmProvider", it):
     var tmp: uint32
     vcall(it, Slot_ISymmetricKeyAlgorithmProvider_get_BlockLength, Fn_ISymmetricKeyAlgorithmProvider_get_BlockLength)(it, tmp.addr).check("SymmetricKeyAlgorithmProvider.get_BlockLength")
     result = tmp
 
-proc createSymmetricKey*(self: SymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey =
+proc createSymmetricKey*(self: SymmetricKeyAlgorithmProvider, a1: pointer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.CreateSymmetricKey
   withIface(self.p, IID_ISymmetricKeyAlgorithmProvider, "ISymmetricKeyAlgorithmProvider", it):
     var tmp: pointer
     vcall(it, Slot_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey, Fn_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey)(it, a1, tmp.addr).check("SymmetricKeyAlgorithmProvider.CreateSymmetricKey")
     result = adopt[CryptographicKey](tmp)
 
-proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider], a1: string): SymmetricKeyAlgorithmProvider =
+proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider], a1: string): SymmetricKeyAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.OpenAlgorithm
   withStatics("Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider", IID_ISymmetricKeyAlgorithmProviderStatics, it):
     withHString(a1, h0):
@@ -6809,28 +6837,28 @@ proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider], a1: string): Sym
       vcall(it, Slot_ISymmetricKeyAlgorithmProviderStatics_OpenAlgorithm, Fn_ISymmetricKeyAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("SymmetricKeyAlgorithmProvider.OpenAlgorithm")
       result = adopt[SymmetricKeyAlgorithmProvider](tmp)
 
-proc compare*(_: typedesc[CryptographicBuffer], a1: pointer, a2: pointer): bool =
+proc compare*(_: typedesc[CryptographicBuffer], a1: pointer, a2: pointer): bool  =
   ## Windows.Security.Cryptography.CryptographicBuffer.Compare
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: bool
     vcall(it, Slot_ICryptographicBufferStatics_Compare, Fn_ICryptographicBufferStatics_Compare)(it, a1, a2, tmp.addr).check("CryptographicBuffer.Compare")
     result = tmp
 
-proc generateRandom*(_: typedesc[CryptographicBuffer], a1: uint32): pointer =
+proc generateRandom*(_: typedesc[CryptographicBuffer], a1: uint32): pointer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.GenerateRandom
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicBufferStatics_GenerateRandom, Fn_ICryptographicBufferStatics_GenerateRandom)(it, a1, tmp.addr).check("CryptographicBuffer.GenerateRandom")
     result = tmp
 
-proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32 =
+proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32  =
   ## Windows.Security.Cryptography.CryptographicBuffer.GenerateRandomNumber
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: uint32
     vcall(it, Slot_ICryptographicBufferStatics_GenerateRandomNumber, Fn_ICryptographicBufferStatics_GenerateRandomNumber)(it, tmp.addr).check("CryptographicBuffer.GenerateRandomNumber")
     result = tmp
 
-proc decodeFromHexString*(_: typedesc[CryptographicBuffer], a1: string): pointer =
+proc decodeFromHexString*(_: typedesc[CryptographicBuffer], a1: string): pointer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.DecodeFromHexString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(a1, h0):
@@ -6838,14 +6866,14 @@ proc decodeFromHexString*(_: typedesc[CryptographicBuffer], a1: string): pointer
       vcall(it, Slot_ICryptographicBufferStatics_DecodeFromHexString, Fn_ICryptographicBufferStatics_DecodeFromHexString)(it, h0, tmp.addr).check("CryptographicBuffer.DecodeFromHexString")
       result = tmp
 
-proc encodeToHexString*(_: typedesc[CryptographicBuffer], a1: pointer): string =
+proc encodeToHexString*(_: typedesc[CryptographicBuffer], a1: pointer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.EncodeToHexString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ICryptographicBufferStatics_EncodeToHexString, Fn_ICryptographicBufferStatics_EncodeToHexString)(it, a1, tmp.addr).check("CryptographicBuffer.EncodeToHexString")
     result = takeString(tmp)
 
-proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], a1: string): pointer =
+proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], a1: string): pointer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.DecodeFromBase64String
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(a1, h0):
@@ -6853,14 +6881,14 @@ proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], a1: string): poin
       vcall(it, Slot_ICryptographicBufferStatics_DecodeFromBase64String, Fn_ICryptographicBufferStatics_DecodeFromBase64String)(it, h0, tmp.addr).check("CryptographicBuffer.DecodeFromBase64String")
       result = tmp
 
-proc encodeToBase64String*(_: typedesc[CryptographicBuffer], a1: pointer): string =
+proc encodeToBase64String*(_: typedesc[CryptographicBuffer], a1: pointer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_ICryptographicBufferStatics_EncodeToBase64String, Fn_ICryptographicBufferStatics_EncodeToBase64String)(it, a1, tmp.addr).check("CryptographicBuffer.EncodeToBase64String")
     result = takeString(tmp)
 
-proc convertStringToBinary*(_: typedesc[CryptographicBuffer], a1: string, a2: BinaryStringEncoding): pointer =
+proc convertStringToBinary*(_: typedesc[CryptographicBuffer], a1: string, a2: BinaryStringEncoding): pointer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(a1, h0):
@@ -6868,7 +6896,7 @@ proc convertStringToBinary*(_: typedesc[CryptographicBuffer], a1: string, a2: Bi
       vcall(it, Slot_ICryptographicBufferStatics_ConvertStringToBinary, Fn_ICryptographicBufferStatics_ConvertStringToBinary)(it, h0, a2, tmp.addr).check("CryptographicBuffer.ConvertStringToBinary")
       result = tmp
 
-proc convertBinaryToString*(_: typedesc[CryptographicBuffer], a1: BinaryStringEncoding, a2: pointer): string =
+proc convertBinaryToString*(_: typedesc[CryptographicBuffer], a1: BinaryStringEncoding, a2: pointer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.ConvertBinaryToString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: HSTRING
@@ -6879,23 +6907,21 @@ proc newDataProtectionProvider*(): DataProtectionProvider =
   ## Activate a `Windows.Security.Cryptography.DataProtection.DataProtectionProvider`.
   adopt[DataProtectionProvider](activateAs("Windows.Security.Cryptography.DataProtection.DataProtectionProvider", IID_IDataProtectionProvider))
 
-proc protectStreamAsync*(self: DataProtectionProvider, a1: pointer, a2: pointer) =
+proc protectStreamAsync*(self: DataProtectionProvider, a1: pointer, a2: pointer) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.ProtectStreamAsync
+  var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionProvider_ProtectStreamAsync, Fn_IDataProtectionProvider_ProtectStreamAsync)(it, a1, a2, tmp.addr).check("DataProtectionProvider.ProtectStreamAsync")
-    awaitVoid(tmp, "DataProtectionProvider.ProtectStreamAsync")
-    release(tmp)
+    vcall(it, Slot_IDataProtectionProvider_ProtectStreamAsync, Fn_IDataProtectionProvider_ProtectStreamAsync)(it, a1, a2, op.addr).check("DataProtectionProvider.ProtectStreamAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.ProtectStreamAsync")
 
-proc unprotectStreamAsync*(self: DataProtectionProvider, a1: pointer, a2: pointer) =
+proc unprotectStreamAsync*(self: DataProtectionProvider, a1: pointer, a2: pointer) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.UnprotectStreamAsync
+  var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionProvider_UnprotectStreamAsync, Fn_IDataProtectionProvider_UnprotectStreamAsync)(it, a1, a2, tmp.addr).check("DataProtectionProvider.UnprotectStreamAsync")
-    awaitVoid(tmp, "DataProtectionProvider.UnprotectStreamAsync")
-    release(tmp)
+    vcall(it, Slot_IDataProtectionProvider_UnprotectStreamAsync, Fn_IDataProtectionProvider_UnprotectStreamAsync)(it, a1, a2, op.addr).check("DataProtectionProvider.UnprotectStreamAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.UnprotectStreamAsync")
 
-proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], a1: string): DataProtectionProvider =
+proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], a1: string): DataProtectionProvider  =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.CreateOverloadExplicit
   withStatics("Windows.Security.Cryptography.DataProtection.DataProtectionProvider", IID_IDataProtectionProviderFactory, it):
     withHString(a1, h0):
@@ -6903,37 +6929,35 @@ proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], a1: string): D
       vcall(it, Slot_IDataProtectionProviderFactory_CreateOverloadExplicit, Fn_IDataProtectionProviderFactory_CreateOverloadExplicit)(it, h0, tmp.addr).check("DataProtectionProvider.CreateOverloadExplicit")
       result = adopt[DataProtectionProvider](tmp)
 
-proc status*(self: UserDataBufferUnprotectResult): UserDataBufferUnprotectStatus =
+proc status*(self: UserDataBufferUnprotectResult): UserDataBufferUnprotectStatus  =
   ## Windows.Security.DataProtection.UserDataBufferUnprotectResult.get_Status
   withIface(self.p, IID_IUserDataBufferUnprotectResult, "IUserDataBufferUnprotectResult", it):
     var tmp: UserDataBufferUnprotectStatus
     vcall(it, Slot_IUserDataBufferUnprotectResult_get_Status, Fn_IUserDataBufferUnprotectResult_get_Status)(it, tmp.addr).check("UserDataBufferUnprotectResult.get_Status")
     result = tmp
 
-proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): pointer =
+proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): pointer  =
   ## Windows.Security.DataProtection.UserDataBufferUnprotectResult.get_UnprotectedBuffer
   withIface(self.p, IID_IUserDataBufferUnprotectResult, "IUserDataBufferUnprotectResult", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataBufferUnprotectResult_get_UnprotectedBuffer, Fn_IUserDataBufferUnprotectResult_get_UnprotectedBuffer)(it, tmp.addr).check("UserDataBufferUnprotectResult.get_UnprotectedBuffer")
     result = tmp
 
-proc getStorageItemProtectionInfoAsync*(self: UserDataProtectionManager, a1: pointer): UserDataStorageItemProtectionInfo =
+proc getStorageItemProtectionInfoAsync*(self: UserDataProtectionManager, a1: pointer): Future[UserDataStorageItemProtectionInfo] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.GetStorageItemProtectionInfoAsync
+  var op: pointer
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    var tmp: pointer
-    vcall(it, Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync, Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync)(it, a1, tmp.addr).check("UserDataProtectionManager.GetStorageItemProtectionInfoAsync")
-    result = adopt[UserDataStorageItemProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo, "UserDataProtectionManager.GetStorageItemProtectionInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync, Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync)(it, a1, op.addr).check("UserDataProtectionManager.GetStorageItemProtectionInfoAsync")
+  result = adopt[UserDataStorageItemProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo, "UserDataProtectionManager.GetStorageItemProtectionInfoAsync"))
 
-proc unprotectBufferAsync*(self: UserDataProtectionManager, a1: pointer): UserDataBufferUnprotectResult =
+proc unprotectBufferAsync*(self: UserDataProtectionManager, a1: pointer): Future[UserDataBufferUnprotectResult] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.UnprotectBufferAsync
+  var op: pointer
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    var tmp: pointer
-    vcall(it, Slot_IUserDataProtectionManager_UnprotectBufferAsync, Fn_IUserDataProtectionManager_UnprotectBufferAsync)(it, a1, tmp.addr).check("UserDataProtectionManager.UnprotectBufferAsync")
-    result = adopt[UserDataBufferUnprotectResult](awaitObject(tmp, IID_IAsyncOperation_1_UserDataBufferUnprotectResult, "UserDataProtectionManager.UnprotectBufferAsync"))
-    release(tmp)
+    vcall(it, Slot_IUserDataProtectionManager_UnprotectBufferAsync, Fn_IUserDataProtectionManager_UnprotectBufferAsync)(it, a1, op.addr).check("UserDataProtectionManager.UnprotectBufferAsync")
+  result = adopt[UserDataBufferUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_UserDataBufferUnprotectResult, IID_AsyncOperationCompletedHandler_1_UserDataBufferUnprotectResult, "UserDataProtectionManager.UnprotectBufferAsync"))
 
-proc isContinuedDataAvailabilityExpected*(self: UserDataProtectionManager, a1: UserDataAvailability): bool =
+proc isContinuedDataAvailabilityExpected*(self: UserDataProtectionManager, a1: UserDataAvailability): bool  =
   ## Windows.Security.DataProtection.UserDataProtectionManager.IsContinuedDataAvailabilityExpected
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
     var tmp: bool
@@ -6959,210 +6983,197 @@ proc removeDataAvailabilityStateChanged*(self: UserDataProtectionManager, token:
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
     vcall(it, Slot_IUserDataProtectionManager_remove_DataAvailabilityStateChanged, Fn_IUserDataProtectionManager_remove_DataAvailabilityStateChanged)(it, token).check("UserDataProtectionManager.remove_DataAvailabilityStateChanged")
 
-proc tryGetDefault*(_: typedesc[UserDataProtectionManager]): UserDataProtectionManager =
+proc tryGetDefault*(_: typedesc[UserDataProtectionManager]): UserDataProtectionManager  =
   ## Windows.Security.DataProtection.UserDataProtectionManager.TryGetDefault
   withStatics("Windows.Security.DataProtection.UserDataProtectionManager", IID_IUserDataProtectionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IUserDataProtectionManagerStatics_TryGetDefault, Fn_IUserDataProtectionManagerStatics_TryGetDefault)(it, tmp.addr).check("UserDataProtectionManager.TryGetDefault")
     result = adopt[UserDataProtectionManager](tmp)
 
-proc availability*(self: UserDataStorageItemProtectionInfo): UserDataAvailability =
+proc availability*(self: UserDataStorageItemProtectionInfo): UserDataAvailability  =
   ## Windows.Security.DataProtection.UserDataStorageItemProtectionInfo.get_Availability
   withIface(self.p, IID_IUserDataStorageItemProtectionInfo, "IUserDataStorageItemProtectionInfo", it):
     var tmp: UserDataAvailability
     vcall(it, Slot_IUserDataStorageItemProtectionInfo_get_Availability, Fn_IUserDataStorageItemProtectionInfo_get_Availability)(it, tmp.addr).check("UserDataStorageItemProtectionInfo.get_Availability")
     result = tmp
 
-proc buffer*(self: BufferProtectUnprotectResult): pointer =
+proc buffer*(self: BufferProtectUnprotectResult): pointer  =
   ## Windows.Security.EnterpriseData.BufferProtectUnprotectResult.get_Buffer
   withIface(self.p, IID_IBufferProtectUnprotectResult, "IBufferProtectUnprotectResult", it):
     var tmp: pointer
     vcall(it, Slot_IBufferProtectUnprotectResult_get_Buffer, Fn_IBufferProtectUnprotectResult_get_Buffer)(it, tmp.addr).check("BufferProtectUnprotectResult.get_Buffer")
     result = tmp
 
-proc protectionInfo*(self: BufferProtectUnprotectResult): DataProtectionInfo =
+proc protectionInfo*(self: BufferProtectUnprotectResult): DataProtectionInfo  =
   ## Windows.Security.EnterpriseData.BufferProtectUnprotectResult.get_ProtectionInfo
   withIface(self.p, IID_IBufferProtectUnprotectResult, "IBufferProtectUnprotectResult", it):
     var tmp: pointer
     vcall(it, Slot_IBufferProtectUnprotectResult_get_ProtectionInfo, Fn_IBufferProtectUnprotectResult_get_ProtectionInfo)(it, tmp.addr).check("BufferProtectUnprotectResult.get_ProtectionInfo")
     result = adopt[DataProtectionInfo](tmp)
 
-proc status*(self: DataProtectionInfo): DataProtectionStatus =
+proc status*(self: DataProtectionInfo): DataProtectionStatus  =
   ## Windows.Security.EnterpriseData.DataProtectionInfo.get_Status
   withIface(self.p, IID_IDataProtectionInfo, "IDataProtectionInfo", it):
     var tmp: DataProtectionStatus
     vcall(it, Slot_IDataProtectionInfo_get_Status, Fn_IDataProtectionInfo_get_Status)(it, tmp.addr).check("DataProtectionInfo.get_Status")
     result = tmp
 
-proc identity*(self: DataProtectionInfo): string =
+proc identity*(self: DataProtectionInfo): string  =
   ## Windows.Security.EnterpriseData.DataProtectionInfo.get_Identity
   withIface(self.p, IID_IDataProtectionInfo, "IDataProtectionInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IDataProtectionInfo_get_Identity, Fn_IDataProtectionInfo_get_Identity)(it, tmp.addr).check("DataProtectionInfo.get_Identity")
     result = takeString(tmp)
 
-proc protectAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: string): BufferProtectUnprotectResult =
+proc protectAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: string): Future[BufferProtectUnprotectResult] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.ProtectAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withHString(a2, h1):
-      var tmp: pointer
-      vcall(it, Slot_IDataProtectionManagerStatics_ProtectAsync, Fn_IDataProtectionManagerStatics_ProtectAsync)(it, a1, h1, tmp.addr).check("DataProtectionManager.ProtectAsync")
-      result = adopt[BufferProtectUnprotectResult](awaitObject(tmp, IID_IAsyncOperation_1_BufferProtectUnprotectResult, "DataProtectionManager.ProtectAsync"))
-      release(tmp)
+      vcall(it, Slot_IDataProtectionManagerStatics_ProtectAsync, Fn_IDataProtectionManagerStatics_ProtectAsync)(it, a1, h1, op.addr).check("DataProtectionManager.ProtectAsync")
+  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.ProtectAsync"))
 
-proc unprotectAsync*(_: typedesc[DataProtectionManager], a1: pointer): BufferProtectUnprotectResult =
+proc unprotectAsync*(_: typedesc[DataProtectionManager], a1: pointer): Future[BufferProtectUnprotectResult] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectAsync, Fn_IDataProtectionManagerStatics_UnprotectAsync)(it, a1, tmp.addr).check("DataProtectionManager.UnprotectAsync")
-    result = adopt[BufferProtectUnprotectResult](awaitObject(tmp, IID_IAsyncOperation_1_BufferProtectUnprotectResult, "DataProtectionManager.UnprotectAsync"))
-    release(tmp)
+    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectAsync, Fn_IDataProtectionManagerStatics_UnprotectAsync)(it, a1, op.addr).check("DataProtectionManager.UnprotectAsync")
+  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.UnprotectAsync"))
 
-proc protectStreamAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: string, a3: pointer): DataProtectionInfo =
+proc protectStreamAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: string, a3: pointer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.ProtectStreamAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withHString(a2, h1):
-      var tmp: pointer
-      vcall(it, Slot_IDataProtectionManagerStatics_ProtectStreamAsync, Fn_IDataProtectionManagerStatics_ProtectStreamAsync)(it, a1, h1, a3, tmp.addr).check("DataProtectionManager.ProtectStreamAsync")
-      result = adopt[DataProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_DataProtectionInfo, "DataProtectionManager.ProtectStreamAsync"))
-      release(tmp)
+      vcall(it, Slot_IDataProtectionManagerStatics_ProtectStreamAsync, Fn_IDataProtectionManagerStatics_ProtectStreamAsync)(it, a1, h1, a3, op.addr).check("DataProtectionManager.ProtectStreamAsync")
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.ProtectStreamAsync"))
 
-proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: pointer): DataProtectionInfo =
+proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], a1: pointer, a2: pointer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectStreamAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectStreamAsync, Fn_IDataProtectionManagerStatics_UnprotectStreamAsync)(it, a1, a2, tmp.addr).check("DataProtectionManager.UnprotectStreamAsync")
-    result = adopt[DataProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_DataProtectionInfo, "DataProtectionManager.UnprotectStreamAsync"))
-    release(tmp)
+    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectStreamAsync, Fn_IDataProtectionManagerStatics_UnprotectStreamAsync)(it, a1, a2, op.addr).check("DataProtectionManager.UnprotectStreamAsync")
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.UnprotectStreamAsync"))
 
-proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], a1: pointer): DataProtectionInfo =
+proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], a1: pointer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetProtectionInfoAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionManagerStatics_GetProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync)(it, a1, tmp.addr).check("DataProtectionManager.GetProtectionInfoAsync")
-    result = adopt[DataProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_DataProtectionInfo, "DataProtectionManager.GetProtectionInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IDataProtectionManagerStatics_GetProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync)(it, a1, op.addr).check("DataProtectionManager.GetProtectionInfoAsync")
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetProtectionInfoAsync"))
 
-proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], a1: pointer): DataProtectionInfo =
+proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], a1: pointer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetStreamProtectionInfoAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync)(it, a1, tmp.addr).check("DataProtectionManager.GetStreamProtectionInfoAsync")
-    result = adopt[DataProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_DataProtectionInfo, "DataProtectionManager.GetStreamProtectionInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync)(it, a1, op.addr).check("DataProtectionManager.GetStreamProtectionInfoAsync")
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetStreamProtectionInfoAsync"))
 
-proc status*(self: FileProtectionInfo): FileProtectionStatus =
+proc status*(self: FileProtectionInfo): FileProtectionStatus  =
   ## Windows.Security.EnterpriseData.FileProtectionInfo.get_Status
   withIface(self.p, IID_IFileProtectionInfo, "IFileProtectionInfo", it):
     var tmp: FileProtectionStatus
     vcall(it, Slot_IFileProtectionInfo_get_Status, Fn_IFileProtectionInfo_get_Status)(it, tmp.addr).check("FileProtectionInfo.get_Status")
     result = tmp
 
-proc isRoamable*(self: FileProtectionInfo): bool =
+proc isRoamable*(self: FileProtectionInfo): bool  =
   ## Windows.Security.EnterpriseData.FileProtectionInfo.get_IsRoamable
   withIface(self.p, IID_IFileProtectionInfo, "IFileProtectionInfo", it):
     var tmp: bool
     vcall(it, Slot_IFileProtectionInfo_get_IsRoamable, Fn_IFileProtectionInfo_get_IsRoamable)(it, tmp.addr).check("FileProtectionInfo.get_IsRoamable")
     result = tmp
 
-proc identity*(self: FileProtectionInfo): string =
+proc identity*(self: FileProtectionInfo): string  =
   ## Windows.Security.EnterpriseData.FileProtectionInfo.get_Identity
   withIface(self.p, IID_IFileProtectionInfo, "IFileProtectionInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IFileProtectionInfo_get_Identity, Fn_IFileProtectionInfo_get_Identity)(it, tmp.addr).check("FileProtectionInfo.get_Identity")
     result = takeString(tmp)
 
-proc isProtectWhileOpenSupported*(self: FileProtectionInfo): bool =
+proc isProtectWhileOpenSupported*(self: FileProtectionInfo): bool  =
   ## Windows.Security.EnterpriseData.FileProtectionInfo.get_IsProtectWhileOpenSupported
   withIface(self.p, IID_IFileProtectionInfo2, "IFileProtectionInfo2", it):
     var tmp: bool
     vcall(it, Slot_IFileProtectionInfo2_get_IsProtectWhileOpenSupported, Fn_IFileProtectionInfo2_get_IsProtectWhileOpenSupported)(it, tmp.addr).check("FileProtectionInfo.get_IsProtectWhileOpenSupported")
     result = tmp
 
-proc protectAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: string): FileProtectionInfo =
+proc protectAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: string): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.ProtectAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
     withHString(a2, h1):
-      var tmp: pointer
-      vcall(it, Slot_IFileProtectionManagerStatics_ProtectAsync, Fn_IFileProtectionManagerStatics_ProtectAsync)(it, a1, h1, tmp.addr).check("FileProtectionManager.ProtectAsync")
-      result = adopt[FileProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_FileProtectionInfo, "FileProtectionManager.ProtectAsync"))
-      release(tmp)
+      vcall(it, Slot_IFileProtectionManagerStatics_ProtectAsync, Fn_IFileProtectionManagerStatics_ProtectAsync)(it, a1, h1, op.addr).check("FileProtectionManager.ProtectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.ProtectAsync"))
 
-proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager], a1: pointer): FileProtectionInfo =
+proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager], a1: pointer): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.GetProtectionInfoAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync, Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync)(it, a1, tmp.addr).check("FileProtectionManager.GetProtectionInfoAsync")
-    result = adopt[FileProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_FileProtectionInfo, "FileProtectionManager.GetProtectionInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync, Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync)(it, a1, op.addr).check("FileProtectionManager.GetProtectionInfoAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.GetProtectionInfoAsync"))
 
-proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer): ProtectedContainerExportResult =
+proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer): Future[ProtectedContainerExportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync)(it, a1, tmp.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
-    result = adopt[ProtectedContainerExportResult](awaitObject(tmp, IID_IAsyncOperation_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
-    release(tmp)
+    vcall(it, Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync)(it, a1, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
+  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer): ProtectedContainerImportResult =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync)(it, a1, tmp.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
-    result = adopt[ProtectedContainerImportResult](awaitObject(tmp, IID_IAsyncOperation_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
-    release(tmp)
+    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync)(it, a1, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: pointer): ProtectedContainerImportResult =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: pointer): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, a1, a2, tmp.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
-    result = adopt[ProtectedContainerImportResult](awaitObject(tmp, IID_IAsyncOperation_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
-    release(tmp)
+    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, a1, a2, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
 
-proc unprotectAsync*(_: typedesc[FileProtectionManager], a1: pointer): FileProtectionInfo =
+proc unprotectAsync*(_: typedesc[FileProtectionManager], a1: pointer): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.UnprotectAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics3, it):
-    var tmp: pointer
-    vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync, Fn_IFileProtectionManagerStatics3_UnprotectAsync)(it, a1, tmp.addr).check("FileProtectionManager.UnprotectAsync")
-    result = adopt[FileProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
-    release(tmp)
+    vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync, Fn_IFileProtectionManagerStatics3_UnprotectAsync)(it, a1, op.addr).check("FileProtectionManager.UnprotectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
 
-proc unprotectAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: FileUnprotectOptions): FileProtectionInfo =
+proc unprotectAsync*(_: typedesc[FileProtectionManager], a1: pointer, a2: FileUnprotectOptions): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.UnprotectAsync
+  var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics3, it):
     withIface(a2.p, IID_IFileUnprotectOptions, "IFileUnprotectOptions", p1):
-      var tmp: pointer
-      vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync2, Fn_IFileProtectionManagerStatics3_UnprotectAsync2)(it, a1, p1, tmp.addr).check("FileProtectionManager.UnprotectAsync")
-      result = adopt[FileProtectionInfo](awaitObject(tmp, IID_IAsyncOperation_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
-      release(tmp)
+      vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync2, Fn_IFileProtectionManagerStatics3_UnprotectAsync2)(it, a1, p1, op.addr).check("FileProtectionManager.UnprotectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
 
-proc revoke*(_: typedesc[FileRevocationManager], a1: string) =
+proc revoke*(_: typedesc[FileRevocationManager], a1: string)  =
   ## Windows.Security.EnterpriseData.FileRevocationManager.Revoke
   withStatics("Windows.Security.EnterpriseData.FileRevocationManager", IID_IFileRevocationManagerStatics, it):
     withHString(a1, h0):
       vcall(it, Slot_IFileRevocationManagerStatics_Revoke, Fn_IFileRevocationManagerStatics_Revoke)(it, h0).check("FileRevocationManager.Revoke")
 
-proc `audit=`*(self: FileUnprotectOptions, value: bool) =
+proc `audit=`*(self: FileUnprotectOptions, value: bool)  =
   ## Windows.Security.EnterpriseData.FileUnprotectOptions.put_Audit
   withIface(self.p, IID_IFileUnprotectOptions, "IFileUnprotectOptions", it):
     vcall(it, Slot_IFileUnprotectOptions_put_Audit, Fn_IFileUnprotectOptions_put_Audit)(it, value).check("FileUnprotectOptions.put_Audit")
 
-proc audit*(self: FileUnprotectOptions): bool =
+proc audit*(self: FileUnprotectOptions): bool  =
   ## Windows.Security.EnterpriseData.FileUnprotectOptions.get_Audit
   withIface(self.p, IID_IFileUnprotectOptions, "IFileUnprotectOptions", it):
     var tmp: bool
     vcall(it, Slot_IFileUnprotectOptions_get_Audit, Fn_IFileUnprotectOptions_get_Audit)(it, tmp.addr).check("FileUnprotectOptions.get_Audit")
     result = tmp
 
-proc create*(_: typedesc[FileUnprotectOptions], a1: bool): FileUnprotectOptions =
+proc create*(_: typedesc[FileUnprotectOptions], a1: bool): FileUnprotectOptions  =
   ## Windows.Security.EnterpriseData.FileUnprotectOptions.Create
   withStatics("Windows.Security.EnterpriseData.FileUnprotectOptions", IID_IFileUnprotectOptionsFactory, it):
     var tmp: pointer
     vcall(it, Slot_IFileUnprotectOptionsFactory_Create, Fn_IFileUnprotectOptionsFactory_Create)(it, a1, tmp.addr).check("FileUnprotectOptions.Create")
     result = adopt[FileUnprotectOptions](tmp)
 
-proc identities*(self: ProtectedAccessResumedEventArgs): seq[string] =
+proc identities*(self: ProtectedAccessResumedEventArgs): seq[string]  =
   ## Windows.Security.EnterpriseData.ProtectedAccessResumedEventArgs.get_Identities
   withIface(self.p, IID_IProtectedAccessResumedEventArgs, "IProtectedAccessResumedEventArgs", it):
     var tmp: pointer
@@ -7170,7 +7181,7 @@ proc identities*(self: ProtectedAccessResumedEventArgs): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc identities*(self: ProtectedAccessSuspendingEventArgs): seq[string] =
+proc identities*(self: ProtectedAccessSuspendingEventArgs): seq[string]  =
   ## Windows.Security.EnterpriseData.ProtectedAccessSuspendingEventArgs.get_Identities
   withIface(self.p, IID_IProtectedAccessSuspendingEventArgs, "IProtectedAccessSuspendingEventArgs", it):
     var tmp: pointer
@@ -7178,28 +7189,28 @@ proc identities*(self: ProtectedAccessSuspendingEventArgs): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc deadline*(self: ProtectedAccessSuspendingEventArgs): DateTime =
+proc deadline*(self: ProtectedAccessSuspendingEventArgs): DateTime  =
   ## Windows.Security.EnterpriseData.ProtectedAccessSuspendingEventArgs.get_Deadline
   withIface(self.p, IID_IProtectedAccessSuspendingEventArgs, "IProtectedAccessSuspendingEventArgs", it):
     var tmp: DateTime
     vcall(it, Slot_IProtectedAccessSuspendingEventArgs_get_Deadline, Fn_IProtectedAccessSuspendingEventArgs_get_Deadline)(it, tmp.addr).check("ProtectedAccessSuspendingEventArgs.get_Deadline")
     result = tmp
 
-proc status*(self: ProtectedContainerExportResult): ProtectedImportExportStatus =
+proc status*(self: ProtectedContainerExportResult): ProtectedImportExportStatus  =
   ## Windows.Security.EnterpriseData.ProtectedContainerExportResult.get_Status
   withIface(self.p, IID_IProtectedContainerExportResult, "IProtectedContainerExportResult", it):
     var tmp: ProtectedImportExportStatus
     vcall(it, Slot_IProtectedContainerExportResult_get_Status, Fn_IProtectedContainerExportResult_get_Status)(it, tmp.addr).check("ProtectedContainerExportResult.get_Status")
     result = tmp
 
-proc status*(self: ProtectedContainerImportResult): ProtectedImportExportStatus =
+proc status*(self: ProtectedContainerImportResult): ProtectedImportExportStatus  =
   ## Windows.Security.EnterpriseData.ProtectedContainerImportResult.get_Status
   withIface(self.p, IID_IProtectedContainerImportResult, "IProtectedContainerImportResult", it):
     var tmp: ProtectedImportExportStatus
     vcall(it, Slot_IProtectedContainerImportResult_get_Status, Fn_IProtectedContainerImportResult_get_Status)(it, tmp.addr).check("ProtectedContainerImportResult.get_Status")
     result = tmp
 
-proc identities*(self: ProtectedContentRevokedEventArgs): seq[string] =
+proc identities*(self: ProtectedContentRevokedEventArgs): seq[string]  =
   ## Windows.Security.EnterpriseData.ProtectedContentRevokedEventArgs.get_Identities
   withIface(self.p, IID_IProtectedContentRevokedEventArgs, "IProtectedContentRevokedEventArgs", it):
     var tmp: pointer
@@ -7207,72 +7218,72 @@ proc identities*(self: ProtectedContentRevokedEventArgs): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc stream*(self: ProtectedFileCreateResult): pointer =
+proc stream*(self: ProtectedFileCreateResult): pointer  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_Stream
   withIface(self.p, IID_IProtectedFileCreateResult, "IProtectedFileCreateResult", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedFileCreateResult_get_Stream, Fn_IProtectedFileCreateResult_get_Stream)(it, tmp.addr).check("ProtectedFileCreateResult.get_Stream")
     result = tmp
 
-proc protectionInfo*(self: ProtectedFileCreateResult): FileProtectionInfo =
+proc protectionInfo*(self: ProtectedFileCreateResult): FileProtectionInfo  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_ProtectionInfo
   withIface(self.p, IID_IProtectedFileCreateResult, "IProtectedFileCreateResult", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedFileCreateResult_get_ProtectionInfo, Fn_IProtectedFileCreateResult_get_ProtectionInfo)(it, tmp.addr).check("ProtectedFileCreateResult.get_ProtectionInfo")
     result = adopt[FileProtectionInfo](tmp)
 
-proc `action=`*(self: ProtectionPolicyAuditInfo, value: ProtectionPolicyAuditAction) =
+proc `action=`*(self: ProtectionPolicyAuditInfo, value: ProtectionPolicyAuditAction)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.put_Action
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     vcall(it, Slot_IProtectionPolicyAuditInfo_put_Action, Fn_IProtectionPolicyAuditInfo_put_Action)(it, value).check("ProtectionPolicyAuditInfo.put_Action")
 
-proc action*(self: ProtectionPolicyAuditInfo): ProtectionPolicyAuditAction =
+proc action*(self: ProtectionPolicyAuditInfo): ProtectionPolicyAuditAction  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.get_Action
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     var tmp: ProtectionPolicyAuditAction
     vcall(it, Slot_IProtectionPolicyAuditInfo_get_Action, Fn_IProtectionPolicyAuditInfo_get_Action)(it, tmp.addr).check("ProtectionPolicyAuditInfo.get_Action")
     result = tmp
 
-proc `dataDescription=`*(self: ProtectionPolicyAuditInfo, value: string) =
+proc `dataDescription=`*(self: ProtectionPolicyAuditInfo, value: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.put_DataDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     withHString(value, h0):
       vcall(it, Slot_IProtectionPolicyAuditInfo_put_DataDescription, Fn_IProtectionPolicyAuditInfo_put_DataDescription)(it, h0).check("ProtectionPolicyAuditInfo.put_DataDescription")
 
-proc dataDescription*(self: ProtectionPolicyAuditInfo): string =
+proc dataDescription*(self: ProtectionPolicyAuditInfo): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.get_DataDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IProtectionPolicyAuditInfo_get_DataDescription, Fn_IProtectionPolicyAuditInfo_get_DataDescription)(it, tmp.addr).check("ProtectionPolicyAuditInfo.get_DataDescription")
     result = takeString(tmp)
 
-proc `sourceDescription=`*(self: ProtectionPolicyAuditInfo, value: string) =
+proc `sourceDescription=`*(self: ProtectionPolicyAuditInfo, value: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.put_SourceDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     withHString(value, h0):
       vcall(it, Slot_IProtectionPolicyAuditInfo_put_SourceDescription, Fn_IProtectionPolicyAuditInfo_put_SourceDescription)(it, h0).check("ProtectionPolicyAuditInfo.put_SourceDescription")
 
-proc sourceDescription*(self: ProtectionPolicyAuditInfo): string =
+proc sourceDescription*(self: ProtectionPolicyAuditInfo): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.get_SourceDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IProtectionPolicyAuditInfo_get_SourceDescription, Fn_IProtectionPolicyAuditInfo_get_SourceDescription)(it, tmp.addr).check("ProtectionPolicyAuditInfo.get_SourceDescription")
     result = takeString(tmp)
 
-proc `targetDescription=`*(self: ProtectionPolicyAuditInfo, value: string) =
+proc `targetDescription=`*(self: ProtectionPolicyAuditInfo, value: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.put_TargetDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     withHString(value, h0):
       vcall(it, Slot_IProtectionPolicyAuditInfo_put_TargetDescription, Fn_IProtectionPolicyAuditInfo_put_TargetDescription)(it, h0).check("ProtectionPolicyAuditInfo.put_TargetDescription")
 
-proc targetDescription*(self: ProtectionPolicyAuditInfo): string =
+proc targetDescription*(self: ProtectionPolicyAuditInfo): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.get_TargetDescription
   withIface(self.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IProtectionPolicyAuditInfo_get_TargetDescription, Fn_IProtectionPolicyAuditInfo_get_TargetDescription)(it, tmp.addr).check("ProtectionPolicyAuditInfo.get_TargetDescription")
     result = takeString(tmp)
 
-proc create*(_: typedesc[ProtectionPolicyAuditInfo], a1: ProtectionPolicyAuditAction, a2: string, a3: string, a4: string): ProtectionPolicyAuditInfo =
+proc create*(_: typedesc[ProtectionPolicyAuditInfo], a1: ProtectionPolicyAuditAction, a2: string, a3: string, a4: string): ProtectionPolicyAuditInfo  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.Create
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo", IID_IProtectionPolicyAuditInfoFactory, it):
     withHString(a2, h1):
@@ -7282,7 +7293,7 @@ proc create*(_: typedesc[ProtectionPolicyAuditInfo], a1: ProtectionPolicyAuditAc
           vcall(it, Slot_IProtectionPolicyAuditInfoFactory_Create, Fn_IProtectionPolicyAuditInfoFactory_Create)(it, a1, h1, h2, h3, tmp.addr).check("ProtectionPolicyAuditInfo.Create")
           result = adopt[ProtectionPolicyAuditInfo](tmp)
 
-proc createWithActionAndDataDescription*(_: typedesc[ProtectionPolicyAuditInfo], a1: ProtectionPolicyAuditAction, a2: string): ProtectionPolicyAuditInfo =
+proc createWithActionAndDataDescription*(_: typedesc[ProtectionPolicyAuditInfo], a1: ProtectionPolicyAuditAction, a2: string): ProtectionPolicyAuditInfo  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.CreateWithActionAndDataDescription
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo", IID_IProtectionPolicyAuditInfoFactory, it):
     withHString(a2, h1):
@@ -7290,32 +7301,32 @@ proc createWithActionAndDataDescription*(_: typedesc[ProtectionPolicyAuditInfo],
       vcall(it, Slot_IProtectionPolicyAuditInfoFactory_CreateWithActionAndDataDescription, Fn_IProtectionPolicyAuditInfoFactory_CreateWithActionAndDataDescription)(it, a1, h1, tmp.addr).check("ProtectionPolicyAuditInfo.CreateWithActionAndDataDescription")
       result = adopt[ProtectionPolicyAuditInfo](tmp)
 
-proc `identity=`*(self: ProtectionPolicyManager, value: string) =
+proc `identity=`*(self: ProtectionPolicyManager, value: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.put_Identity
   withIface(self.p, IID_IProtectionPolicyManager, "IProtectionPolicyManager", it):
     withHString(value, h0):
       vcall(it, Slot_IProtectionPolicyManager_put_Identity, Fn_IProtectionPolicyManager_put_Identity)(it, h0).check("ProtectionPolicyManager.put_Identity")
 
-proc identity*(self: ProtectionPolicyManager): string =
+proc identity*(self: ProtectionPolicyManager): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.get_Identity
   withIface(self.p, IID_IProtectionPolicyManager, "IProtectionPolicyManager", it):
     var tmp: HSTRING
     vcall(it, Slot_IProtectionPolicyManager_get_Identity, Fn_IProtectionPolicyManager_get_Identity)(it, tmp.addr).check("ProtectionPolicyManager.get_Identity")
     result = takeString(tmp)
 
-proc `showEnterpriseIndicator=`*(self: ProtectionPolicyManager, value: bool) =
+proc `showEnterpriseIndicator=`*(self: ProtectionPolicyManager, value: bool)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.put_ShowEnterpriseIndicator
   withIface(self.p, IID_IProtectionPolicyManager2, "IProtectionPolicyManager2", it):
     vcall(it, Slot_IProtectionPolicyManager2_put_ShowEnterpriseIndicator, Fn_IProtectionPolicyManager2_put_ShowEnterpriseIndicator)(it, value).check("ProtectionPolicyManager.put_ShowEnterpriseIndicator")
 
-proc showEnterpriseIndicator*(self: ProtectionPolicyManager): bool =
+proc showEnterpriseIndicator*(self: ProtectionPolicyManager): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.get_ShowEnterpriseIndicator
   withIface(self.p, IID_IProtectionPolicyManager2, "IProtectionPolicyManager2", it):
     var tmp: bool
     vcall(it, Slot_IProtectionPolicyManager2_get_ShowEnterpriseIndicator, Fn_IProtectionPolicyManager2_get_ShowEnterpriseIndicator)(it, tmp.addr).check("ProtectionPolicyManager.get_ShowEnterpriseIndicator")
     result = tmp
 
-proc isIdentityManaged*(_: typedesc[ProtectionPolicyManager], a1: string): bool =
+proc isIdentityManaged*(_: typedesc[ProtectionPolicyManager], a1: string): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsIdentityManaged
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withHString(a1, h0):
@@ -7323,7 +7334,7 @@ proc isIdentityManaged*(_: typedesc[ProtectionPolicyManager], a1: string): bool 
       vcall(it, Slot_IProtectionPolicyManagerStatics_IsIdentityManaged, Fn_IProtectionPolicyManagerStatics_IsIdentityManaged)(it, h0, tmp.addr).check("ProtectionPolicyManager.IsIdentityManaged")
       result = tmp
 
-proc tryApplyProcessUIPolicy*(_: typedesc[ProtectionPolicyManager], a1: string): bool =
+proc tryApplyProcessUIPolicy*(_: typedesc[ProtectionPolicyManager], a1: string): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.TryApplyProcessUIPolicy
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withHString(a1, h0):
@@ -7331,12 +7342,12 @@ proc tryApplyProcessUIPolicy*(_: typedesc[ProtectionPolicyManager], a1: string):
       vcall(it, Slot_IProtectionPolicyManagerStatics_TryApplyProcessUIPolicy, Fn_IProtectionPolicyManagerStatics_TryApplyProcessUIPolicy)(it, h0, tmp.addr).check("ProtectionPolicyManager.TryApplyProcessUIPolicy")
       result = tmp
 
-proc clearProcessUIPolicy*(_: typedesc[ProtectionPolicyManager]) =
+proc clearProcessUIPolicy*(_: typedesc[ProtectionPolicyManager])  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.ClearProcessUIPolicy
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     vcall(it, Slot_IProtectionPolicyManagerStatics_ClearProcessUIPolicy, Fn_IProtectionPolicyManagerStatics_ClearProcessUIPolicy)(it).check("ProtectionPolicyManager.ClearProcessUIPolicy")
 
-proc createCurrentThreadNetworkContext*(_: typedesc[ProtectionPolicyManager], a1: string): ThreadNetworkContext =
+proc createCurrentThreadNetworkContext*(_: typedesc[ProtectionPolicyManager], a1: string): ThreadNetworkContext  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.CreateCurrentThreadNetworkContext
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withHString(a1, h0):
@@ -7344,13 +7355,13 @@ proc createCurrentThreadNetworkContext*(_: typedesc[ProtectionPolicyManager], a1
       vcall(it, Slot_IProtectionPolicyManagerStatics_CreateCurrentThreadNetworkContext, Fn_IProtectionPolicyManagerStatics_CreateCurrentThreadNetworkContext)(it, h0, tmp.addr).check("ProtectionPolicyManager.CreateCurrentThreadNetworkContext")
       result = adopt[ThreadNetworkContext](tmp)
 
-proc revokeContent*(_: typedesc[ProtectionPolicyManager], a1: string) =
+proc revokeContent*(_: typedesc[ProtectionPolicyManager], a1: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RevokeContent
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withHString(a1, h0):
       vcall(it, Slot_IProtectionPolicyManagerStatics_RevokeContent, Fn_IProtectionPolicyManagerStatics_RevokeContent)(it, h0).check("ProtectionPolicyManager.RevokeContent")
 
-proc getForCurrentView*(_: typedesc[ProtectionPolicyManager]): ProtectionPolicyManager =
+proc getForCurrentView*(_: typedesc[ProtectionPolicyManager]): ProtectionPolicyManager  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.GetForCurrentView
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     var tmp: pointer
@@ -7414,7 +7425,7 @@ proc removeProtectedContentRevoked*(_: typedesc[ProtectionPolicyManager], token:
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     vcall(it, Slot_IProtectionPolicyManagerStatics_remove_ProtectedContentRevoked, Fn_IProtectionPolicyManagerStatics_remove_ProtectedContentRevoked)(it, token).check("ProtectionPolicyManager.remove_ProtectedContentRevoked")
 
-proc checkAccess*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string): ProtectionPolicyEvaluationResult =
+proc checkAccess*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string): ProtectionPolicyEvaluationResult  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.CheckAccess
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withHString(a1, h0):
@@ -7423,7 +7434,7 @@ proc checkAccess*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string):
         vcall(it, Slot_IProtectionPolicyManagerStatics_CheckAccess, Fn_IProtectionPolicyManagerStatics_CheckAccess)(it, h0, h1, tmp.addr).check("ProtectionPolicyManager.CheckAccess")
         result = tmp
 
-proc hasContentBeenRevokedSince*(_: typedesc[ProtectionPolicyManager], a1: string, a2: DateTime): bool =
+proc hasContentBeenRevokedSince*(_: typedesc[ProtectionPolicyManager], a1: string, a2: DateTime): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.HasContentBeenRevokedSince
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     withHString(a1, h0):
@@ -7431,7 +7442,7 @@ proc hasContentBeenRevokedSince*(_: typedesc[ProtectionPolicyManager], a1: strin
       vcall(it, Slot_IProtectionPolicyManagerStatics2_HasContentBeenRevokedSince, Fn_IProtectionPolicyManagerStatics2_HasContentBeenRevokedSince)(it, h0, a2, tmp.addr).check("ProtectionPolicyManager.HasContentBeenRevokedSince")
       result = tmp
 
-proc checkAccessForApp*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string): ProtectionPolicyEvaluationResult =
+proc checkAccessForApp*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string): ProtectionPolicyEvaluationResult  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.CheckAccessForApp
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     withHString(a1, h0):
@@ -7440,7 +7451,7 @@ proc checkAccessForApp*(_: typedesc[ProtectionPolicyManager], a1: string, a2: st
         vcall(it, Slot_IProtectionPolicyManagerStatics2_CheckAccessForApp, Fn_IProtectionPolicyManagerStatics2_CheckAccessForApp)(it, h0, h1, tmp.addr).check("ProtectionPolicyManager.CheckAccessForApp")
         result = tmp
 
-proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], a1: string): EnforcementLevel =
+proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], a1: string): EnforcementLevel  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.GetEnforcementLevel
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     withHString(a1, h0):
@@ -7448,7 +7459,7 @@ proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], a1: string): Enf
       vcall(it, Slot_IProtectionPolicyManagerStatics2_GetEnforcementLevel, Fn_IProtectionPolicyManagerStatics2_GetEnforcementLevel)(it, h0, tmp.addr).check("ProtectionPolicyManager.GetEnforcementLevel")
       result = tmp
 
-proc isUserDecryptionAllowed*(_: typedesc[ProtectionPolicyManager], a1: string): bool =
+proc isUserDecryptionAllowed*(_: typedesc[ProtectionPolicyManager], a1: string): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsUserDecryptionAllowed
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     withHString(a1, h0):
@@ -7456,7 +7467,7 @@ proc isUserDecryptionAllowed*(_: typedesc[ProtectionPolicyManager], a1: string):
       vcall(it, Slot_IProtectionPolicyManagerStatics2_IsUserDecryptionAllowed, Fn_IProtectionPolicyManagerStatics2_IsUserDecryptionAllowed)(it, h0, tmp.addr).check("ProtectionPolicyManager.IsUserDecryptionAllowed")
       result = tmp
 
-proc isProtectionUnderLockRequired*(_: typedesc[ProtectionPolicyManager], a1: string): bool =
+proc isProtectionUnderLockRequired*(_: typedesc[ProtectionPolicyManager], a1: string): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsProtectionUnderLockRequired
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     withHString(a1, h0):
@@ -7483,14 +7494,14 @@ proc removePolicyChanged*(_: typedesc[ProtectionPolicyManager], token: EventRegi
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     vcall(it, Slot_IProtectionPolicyManagerStatics2_remove_PolicyChanged, Fn_IProtectionPolicyManagerStatics2_remove_PolicyChanged)(it, token).check("ProtectionPolicyManager.remove_PolicyChanged")
 
-proc isProtectionEnabled*(_: typedesc[ProtectionPolicyManager]): bool =
+proc isProtectionEnabled*(_: typedesc[ProtectionPolicyManager]): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.get_IsProtectionEnabled
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
     var tmp: bool
     vcall(it, Slot_IProtectionPolicyManagerStatics2_get_IsProtectionEnabled, Fn_IProtectionPolicyManagerStatics2_get_IsProtectionEnabled)(it, tmp.addr).check("ProtectionPolicyManager.get_IsProtectionEnabled")
     result = tmp
 
-proc isRoamableProtectionEnabled*(_: typedesc[ProtectionPolicyManager], a1: string): bool =
+proc isRoamableProtectionEnabled*(_: typedesc[ProtectionPolicyManager], a1: string): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsRoamableProtectionEnabled
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
     withHString(a1, h0):
@@ -7498,14 +7509,14 @@ proc isRoamableProtectionEnabled*(_: typedesc[ProtectionPolicyManager], a1: stri
       vcall(it, Slot_IProtectionPolicyManagerStatics4_IsRoamableProtectionEnabled, Fn_IProtectionPolicyManagerStatics4_IsRoamableProtectionEnabled)(it, h0, tmp.addr).check("ProtectionPolicyManager.IsRoamableProtectionEnabled")
       result = tmp
 
-proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string =
+proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.get_PrimaryManagedIdentity
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
     var tmp: HSTRING
     vcall(it, Slot_IProtectionPolicyManagerStatics4_get_PrimaryManagedIdentity, Fn_IProtectionPolicyManagerStatics4_get_PrimaryManagedIdentity)(it, tmp.addr).check("ProtectionPolicyManager.get_PrimaryManagedIdentity")
     result = takeString(tmp)
 
-proc getPrimaryManagedIdentityForIdentity*(_: typedesc[ProtectionPolicyManager], a1: string): string =
+proc getPrimaryManagedIdentityForIdentity*(_: typedesc[ProtectionPolicyManager], a1: string): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.GetPrimaryManagedIdentityForIdentity
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
     withHString(a1, h0):
@@ -7513,7 +7524,7 @@ proc getPrimaryManagedIdentityForIdentity*(_: typedesc[ProtectionPolicyManager],
       vcall(it, Slot_IProtectionPolicyManagerStatics4_GetPrimaryManagedIdentityForIdentity, Fn_IProtectionPolicyManagerStatics4_GetPrimaryManagedIdentityForIdentity)(it, h0, tmp.addr).check("ProtectionPolicyManager.GetPrimaryManagedIdentityForIdentity")
       result = takeString(tmp)
 
-proc logAuditEvent*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string, a3: ProtectionPolicyAuditInfo) =
+proc logAuditEvent*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string, a3: ProtectionPolicyAuditInfo)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.LogAuditEvent
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics3, it):
     withHString(a1, h0):
@@ -7525,56 +7536,56 @@ proc newEasClientDeviceInformation*(): EasClientDeviceInformation =
   ## Activate a `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation`.
   adopt[EasClientDeviceInformation](activateAs("Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation", IID_IEasClientDeviceInformation))
 
-proc id*(self: EasClientDeviceInformation): GUID =
+proc id*(self: EasClientDeviceInformation): GUID  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_Id
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: GUID
     vcall(it, Slot_IEasClientDeviceInformation_get_Id, Fn_IEasClientDeviceInformation_get_Id)(it, tmp.addr).check("EasClientDeviceInformation.get_Id")
     result = tmp
 
-proc operatingSystem*(self: EasClientDeviceInformation): string =
+proc operatingSystem*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_OperatingSystem
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation_get_OperatingSystem, Fn_IEasClientDeviceInformation_get_OperatingSystem)(it, tmp.addr).check("EasClientDeviceInformation.get_OperatingSystem")
     result = takeString(tmp)
 
-proc friendlyName*(self: EasClientDeviceInformation): string =
+proc friendlyName*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_FriendlyName
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation_get_FriendlyName, Fn_IEasClientDeviceInformation_get_FriendlyName)(it, tmp.addr).check("EasClientDeviceInformation.get_FriendlyName")
     result = takeString(tmp)
 
-proc systemManufacturer*(self: EasClientDeviceInformation): string =
+proc systemManufacturer*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_SystemManufacturer
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation_get_SystemManufacturer, Fn_IEasClientDeviceInformation_get_SystemManufacturer)(it, tmp.addr).check("EasClientDeviceInformation.get_SystemManufacturer")
     result = takeString(tmp)
 
-proc systemProductName*(self: EasClientDeviceInformation): string =
+proc systemProductName*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_SystemProductName
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation_get_SystemProductName, Fn_IEasClientDeviceInformation_get_SystemProductName)(it, tmp.addr).check("EasClientDeviceInformation.get_SystemProductName")
     result = takeString(tmp)
 
-proc systemSku*(self: EasClientDeviceInformation): string =
+proc systemSku*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_SystemSku
   withIface(self.p, IID_IEasClientDeviceInformation, "IEasClientDeviceInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation_get_SystemSku, Fn_IEasClientDeviceInformation_get_SystemSku)(it, tmp.addr).check("EasClientDeviceInformation.get_SystemSku")
     result = takeString(tmp)
 
-proc systemHardwareVersion*(self: EasClientDeviceInformation): string =
+proc systemHardwareVersion*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_SystemHardwareVersion
   withIface(self.p, IID_IEasClientDeviceInformation2, "IEasClientDeviceInformation2", it):
     var tmp: HSTRING
     vcall(it, Slot_IEasClientDeviceInformation2_get_SystemHardwareVersion, Fn_IEasClientDeviceInformation2_get_SystemHardwareVersion)(it, tmp.addr).check("EasClientDeviceInformation.get_SystemHardwareVersion")
     result = takeString(tmp)
 
-proc systemFirmwareVersion*(self: EasClientDeviceInformation): string =
+proc systemFirmwareVersion*(self: EasClientDeviceInformation): string  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.get_SystemFirmwareVersion
   withIface(self.p, IID_IEasClientDeviceInformation2, "IEasClientDeviceInformation2", it):
     var tmp: HSTRING
@@ -7585,334 +7596,321 @@ proc newEasClientSecurityPolicy*(): EasClientSecurityPolicy =
   ## Activate a `Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy`.
   adopt[EasClientSecurityPolicy](activateAs("Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy", IID_IEasClientSecurityPolicy))
 
-proc requireEncryption*(self: EasClientSecurityPolicy): bool =
+proc requireEncryption*(self: EasClientSecurityPolicy): bool  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_RequireEncryption
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: bool
     vcall(it, Slot_IEasClientSecurityPolicy_get_RequireEncryption, Fn_IEasClientSecurityPolicy_get_RequireEncryption)(it, tmp.addr).check("EasClientSecurityPolicy.get_RequireEncryption")
     result = tmp
 
-proc `requireEncryption=`*(self: EasClientSecurityPolicy, value: bool) =
+proc `requireEncryption=`*(self: EasClientSecurityPolicy, value: bool)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_RequireEncryption
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_RequireEncryption, Fn_IEasClientSecurityPolicy_put_RequireEncryption)(it, value).check("EasClientSecurityPolicy.put_RequireEncryption")
 
-proc minPasswordLength*(self: EasClientSecurityPolicy): uint8 =
+proc minPasswordLength*(self: EasClientSecurityPolicy): uint8  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_MinPasswordLength
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: uint8
     vcall(it, Slot_IEasClientSecurityPolicy_get_MinPasswordLength, Fn_IEasClientSecurityPolicy_get_MinPasswordLength)(it, tmp.addr).check("EasClientSecurityPolicy.get_MinPasswordLength")
     result = tmp
 
-proc `minPasswordLength=`*(self: EasClientSecurityPolicy, value: uint8) =
+proc `minPasswordLength=`*(self: EasClientSecurityPolicy, value: uint8)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_MinPasswordLength
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_MinPasswordLength, Fn_IEasClientSecurityPolicy_put_MinPasswordLength)(it, value).check("EasClientSecurityPolicy.put_MinPasswordLength")
 
-proc disallowConvenienceLogon*(self: EasClientSecurityPolicy): bool =
+proc disallowConvenienceLogon*(self: EasClientSecurityPolicy): bool  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_DisallowConvenienceLogon
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: bool
     vcall(it, Slot_IEasClientSecurityPolicy_get_DisallowConvenienceLogon, Fn_IEasClientSecurityPolicy_get_DisallowConvenienceLogon)(it, tmp.addr).check("EasClientSecurityPolicy.get_DisallowConvenienceLogon")
     result = tmp
 
-proc `disallowConvenienceLogon=`*(self: EasClientSecurityPolicy, value: bool) =
+proc `disallowConvenienceLogon=`*(self: EasClientSecurityPolicy, value: bool)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_DisallowConvenienceLogon
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_DisallowConvenienceLogon, Fn_IEasClientSecurityPolicy_put_DisallowConvenienceLogon)(it, value).check("EasClientSecurityPolicy.put_DisallowConvenienceLogon")
 
-proc minPasswordComplexCharacters*(self: EasClientSecurityPolicy): uint8 =
+proc minPasswordComplexCharacters*(self: EasClientSecurityPolicy): uint8  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_MinPasswordComplexCharacters
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: uint8
     vcall(it, Slot_IEasClientSecurityPolicy_get_MinPasswordComplexCharacters, Fn_IEasClientSecurityPolicy_get_MinPasswordComplexCharacters)(it, tmp.addr).check("EasClientSecurityPolicy.get_MinPasswordComplexCharacters")
     result = tmp
 
-proc `minPasswordComplexCharacters=`*(self: EasClientSecurityPolicy, value: uint8) =
+proc `minPasswordComplexCharacters=`*(self: EasClientSecurityPolicy, value: uint8)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_MinPasswordComplexCharacters
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_MinPasswordComplexCharacters, Fn_IEasClientSecurityPolicy_put_MinPasswordComplexCharacters)(it, value).check("EasClientSecurityPolicy.put_MinPasswordComplexCharacters")
 
-proc passwordExpiration*(self: EasClientSecurityPolicy): TimeSpan =
+proc passwordExpiration*(self: EasClientSecurityPolicy): TimeSpan  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_PasswordExpiration
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: TimeSpan
     vcall(it, Slot_IEasClientSecurityPolicy_get_PasswordExpiration, Fn_IEasClientSecurityPolicy_get_PasswordExpiration)(it, tmp.addr).check("EasClientSecurityPolicy.get_PasswordExpiration")
     result = tmp
 
-proc `passwordExpiration=`*(self: EasClientSecurityPolicy, value: TimeSpan) =
+proc `passwordExpiration=`*(self: EasClientSecurityPolicy, value: TimeSpan)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_PasswordExpiration
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_PasswordExpiration, Fn_IEasClientSecurityPolicy_put_PasswordExpiration)(it, value).check("EasClientSecurityPolicy.put_PasswordExpiration")
 
-proc passwordHistory*(self: EasClientSecurityPolicy): uint32 =
+proc passwordHistory*(self: EasClientSecurityPolicy): uint32  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_PasswordHistory
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: uint32
     vcall(it, Slot_IEasClientSecurityPolicy_get_PasswordHistory, Fn_IEasClientSecurityPolicy_get_PasswordHistory)(it, tmp.addr).check("EasClientSecurityPolicy.get_PasswordHistory")
     result = tmp
 
-proc `passwordHistory=`*(self: EasClientSecurityPolicy, value: uint32) =
+proc `passwordHistory=`*(self: EasClientSecurityPolicy, value: uint32)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_PasswordHistory
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_PasswordHistory, Fn_IEasClientSecurityPolicy_put_PasswordHistory)(it, value).check("EasClientSecurityPolicy.put_PasswordHistory")
 
-proc maxPasswordFailedAttempts*(self: EasClientSecurityPolicy): uint8 =
+proc maxPasswordFailedAttempts*(self: EasClientSecurityPolicy): uint8  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_MaxPasswordFailedAttempts
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: uint8
     vcall(it, Slot_IEasClientSecurityPolicy_get_MaxPasswordFailedAttempts, Fn_IEasClientSecurityPolicy_get_MaxPasswordFailedAttempts)(it, tmp.addr).check("EasClientSecurityPolicy.get_MaxPasswordFailedAttempts")
     result = tmp
 
-proc `maxPasswordFailedAttempts=`*(self: EasClientSecurityPolicy, value: uint8) =
+proc `maxPasswordFailedAttempts=`*(self: EasClientSecurityPolicy, value: uint8)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_MaxPasswordFailedAttempts
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_MaxPasswordFailedAttempts, Fn_IEasClientSecurityPolicy_put_MaxPasswordFailedAttempts)(it, value).check("EasClientSecurityPolicy.put_MaxPasswordFailedAttempts")
 
-proc maxInactivityTimeLock*(self: EasClientSecurityPolicy): TimeSpan =
+proc maxInactivityTimeLock*(self: EasClientSecurityPolicy): TimeSpan  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.get_MaxInactivityTimeLock
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: TimeSpan
     vcall(it, Slot_IEasClientSecurityPolicy_get_MaxInactivityTimeLock, Fn_IEasClientSecurityPolicy_get_MaxInactivityTimeLock)(it, tmp.addr).check("EasClientSecurityPolicy.get_MaxInactivityTimeLock")
     result = tmp
 
-proc `maxInactivityTimeLock=`*(self: EasClientSecurityPolicy, value: TimeSpan) =
+proc `maxInactivityTimeLock=`*(self: EasClientSecurityPolicy, value: TimeSpan)  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.put_MaxInactivityTimeLock
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_put_MaxInactivityTimeLock, Fn_IEasClientSecurityPolicy_put_MaxInactivityTimeLock)(it, value).check("EasClientSecurityPolicy.put_MaxInactivityTimeLock")
 
-proc checkCompliance*(self: EasClientSecurityPolicy): EasComplianceResults =
+proc checkCompliance*(self: EasClientSecurityPolicy): EasComplianceResults  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.CheckCompliance
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     var tmp: pointer
     vcall(it, Slot_IEasClientSecurityPolicy_CheckCompliance, Fn_IEasClientSecurityPolicy_CheckCompliance)(it, tmp.addr).check("EasClientSecurityPolicy.CheckCompliance")
     result = adopt[EasComplianceResults](tmp)
 
-proc applyAsync*(self: EasClientSecurityPolicy): EasComplianceResults =
+proc applyAsync*(self: EasClientSecurityPolicy): Future[EasComplianceResults] {.async.} =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.ApplyAsync
+  var op: pointer
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
-    var tmp: pointer
-    vcall(it, Slot_IEasClientSecurityPolicy_ApplyAsync, Fn_IEasClientSecurityPolicy_ApplyAsync)(it, tmp.addr).check("EasClientSecurityPolicy.ApplyAsync")
-    result = adopt[EasComplianceResults](awaitObject(tmp, IID_IAsyncOperation_1_EasComplianceResults, "EasClientSecurityPolicy.ApplyAsync"))
-    release(tmp)
+    vcall(it, Slot_IEasClientSecurityPolicy_ApplyAsync, Fn_IEasClientSecurityPolicy_ApplyAsync)(it, op.addr).check("EasClientSecurityPolicy.ApplyAsync")
+  result = adopt[EasComplianceResults](await awaitObject(op, IID_IAsyncOperation_1_EasComplianceResults, IID_AsyncOperationCompletedHandler_1_EasComplianceResults, "EasClientSecurityPolicy.ApplyAsync"))
 
-proc compliant*(self: EasComplianceResults): bool =
+proc compliant*(self: EasComplianceResults): bool  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_Compliant
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: bool
     vcall(it, Slot_IEasComplianceResults_get_Compliant, Fn_IEasComplianceResults_get_Compliant)(it, tmp.addr).check("EasComplianceResults.get_Compliant")
     result = tmp
 
-proc requireEncryptionResult*(self: EasComplianceResults): EasRequireEncryptionResult =
+proc requireEncryptionResult*(self: EasComplianceResults): EasRequireEncryptionResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_RequireEncryptionResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasRequireEncryptionResult
     vcall(it, Slot_IEasComplianceResults_get_RequireEncryptionResult, Fn_IEasComplianceResults_get_RequireEncryptionResult)(it, tmp.addr).check("EasComplianceResults.get_RequireEncryptionResult")
     result = tmp
 
-proc minPasswordLengthResult*(self: EasComplianceResults): EasMinPasswordLengthResult =
+proc minPasswordLengthResult*(self: EasComplianceResults): EasMinPasswordLengthResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_MinPasswordLengthResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasMinPasswordLengthResult
     vcall(it, Slot_IEasComplianceResults_get_MinPasswordLengthResult, Fn_IEasComplianceResults_get_MinPasswordLengthResult)(it, tmp.addr).check("EasComplianceResults.get_MinPasswordLengthResult")
     result = tmp
 
-proc disallowConvenienceLogonResult*(self: EasComplianceResults): EasDisallowConvenienceLogonResult =
+proc disallowConvenienceLogonResult*(self: EasComplianceResults): EasDisallowConvenienceLogonResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_DisallowConvenienceLogonResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasDisallowConvenienceLogonResult
     vcall(it, Slot_IEasComplianceResults_get_DisallowConvenienceLogonResult, Fn_IEasComplianceResults_get_DisallowConvenienceLogonResult)(it, tmp.addr).check("EasComplianceResults.get_DisallowConvenienceLogonResult")
     result = tmp
 
-proc minPasswordComplexCharactersResult*(self: EasComplianceResults): EasMinPasswordComplexCharactersResult =
+proc minPasswordComplexCharactersResult*(self: EasComplianceResults): EasMinPasswordComplexCharactersResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_MinPasswordComplexCharactersResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasMinPasswordComplexCharactersResult
     vcall(it, Slot_IEasComplianceResults_get_MinPasswordComplexCharactersResult, Fn_IEasComplianceResults_get_MinPasswordComplexCharactersResult)(it, tmp.addr).check("EasComplianceResults.get_MinPasswordComplexCharactersResult")
     result = tmp
 
-proc passwordExpirationResult*(self: EasComplianceResults): EasPasswordExpirationResult =
+proc passwordExpirationResult*(self: EasComplianceResults): EasPasswordExpirationResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_PasswordExpirationResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasPasswordExpirationResult
     vcall(it, Slot_IEasComplianceResults_get_PasswordExpirationResult, Fn_IEasComplianceResults_get_PasswordExpirationResult)(it, tmp.addr).check("EasComplianceResults.get_PasswordExpirationResult")
     result = tmp
 
-proc passwordHistoryResult*(self: EasComplianceResults): EasPasswordHistoryResult =
+proc passwordHistoryResult*(self: EasComplianceResults): EasPasswordHistoryResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_PasswordHistoryResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasPasswordHistoryResult
     vcall(it, Slot_IEasComplianceResults_get_PasswordHistoryResult, Fn_IEasComplianceResults_get_PasswordHistoryResult)(it, tmp.addr).check("EasComplianceResults.get_PasswordHistoryResult")
     result = tmp
 
-proc maxPasswordFailedAttemptsResult*(self: EasComplianceResults): EasMaxPasswordFailedAttemptsResult =
+proc maxPasswordFailedAttemptsResult*(self: EasComplianceResults): EasMaxPasswordFailedAttemptsResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_MaxPasswordFailedAttemptsResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasMaxPasswordFailedAttemptsResult
     vcall(it, Slot_IEasComplianceResults_get_MaxPasswordFailedAttemptsResult, Fn_IEasComplianceResults_get_MaxPasswordFailedAttemptsResult)(it, tmp.addr).check("EasComplianceResults.get_MaxPasswordFailedAttemptsResult")
     result = tmp
 
-proc maxInactivityTimeLockResult*(self: EasComplianceResults): EasMaxInactivityTimeLockResult =
+proc maxInactivityTimeLockResult*(self: EasComplianceResults): EasMaxInactivityTimeLockResult  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_MaxInactivityTimeLockResult
   withIface(self.p, IID_IEasComplianceResults, "IEasComplianceResults", it):
     var tmp: EasMaxInactivityTimeLockResult
     vcall(it, Slot_IEasComplianceResults_get_MaxInactivityTimeLockResult, Fn_IEasComplianceResults_get_MaxInactivityTimeLockResult)(it, tmp.addr).check("EasComplianceResults.get_MaxInactivityTimeLockResult")
     result = tmp
 
-proc encryptionProviderType*(self: EasComplianceResults): EasEncryptionProviderType =
+proc encryptionProviderType*(self: EasComplianceResults): EasEncryptionProviderType  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_EncryptionProviderType
   withIface(self.p, IID_IEasComplianceResults2, "IEasComplianceResults2", it):
     var tmp: EasEncryptionProviderType
     vcall(it, Slot_IEasComplianceResults2_get_EncryptionProviderType, Fn_IEasComplianceResults2_get_EncryptionProviderType)(it, tmp.addr).check("EasComplianceResults.get_EncryptionProviderType")
     result = tmp
 
-proc id*(self: IsolatedWindowsEnvironment): string =
+proc id*(self: IsolatedWindowsEnvironment): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.get_Id
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironment_get_Id, Fn_IIsolatedWindowsEnvironment_get_Id)(it, tmp.addr).check("IsolatedWindowsEnvironment.get_Id")
     result = takeString(tmp)
 
-proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: IsolatedWindowsEnvironmentActivator): IsolatedWindowsEnvironmentStartProcessResult =
+proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: IsolatedWindowsEnvironmentActivator): Future[IsolatedWindowsEnvironmentStartProcessResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.StartProcessSilentlyAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withHString(a2, h1):
-        var tmp: pointer
-        vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync)(it, h0, h1, a3, tmp.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
-        result = adopt[IsolatedWindowsEnvironmentStartProcessResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
-        release(tmp)
+        vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync)(it, h0, h1, a3, op.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
+  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
 
-proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: IsolatedWindowsEnvironmentActivator, a4: IsolatedWindowsEnvironmentTelemetryParameters): IsolatedWindowsEnvironmentStartProcessResult =
+proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: IsolatedWindowsEnvironmentActivator, a4: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentStartProcessResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.StartProcessSilentlyAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withIface(a4.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p3):
-          var tmp: pointer
-          vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2)(it, h0, h1, a3, p3, tmp.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
-          result = adopt[IsolatedWindowsEnvironmentStartProcessResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
-          release(tmp)
+          vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2)(it, h0, h1, a3, p3, op.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
+  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
 
-proc shareFolderAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFolderRequestOptions): IsolatedWindowsEnvironmentShareFolderResult =
+proc shareFolderAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFolderRequestOptions): Future[IsolatedWindowsEnvironmentShareFolderResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFolderAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withIface(a2.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", p1):
-        var tmp: pointer
-        vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync)(it, h0, p1, tmp.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
-        result = adopt[IsolatedWindowsEnvironmentShareFolderResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
-        release(tmp)
+        vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync)(it, h0, p1, op.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
+  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
 
-proc shareFolderAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFolderRequestOptions, a3: IsolatedWindowsEnvironmentTelemetryParameters): IsolatedWindowsEnvironmentShareFolderResult =
+proc shareFolderAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFolderRequestOptions, a3: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentShareFolderResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFolderAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withIface(a2.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", p1):
         withIface(a3.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
-          var tmp: pointer
-          vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync2, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync2)(it, h0, p1, p2, tmp.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
-          result = adopt[IsolatedWindowsEnvironmentShareFolderResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
-          release(tmp)
+          vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync2, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync2)(it, h0, p1, p2, op.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
+  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
 
-proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: string): IsolatedWindowsEnvironmentLaunchFileResult =
+proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: string): Future[IsolatedWindowsEnvironmentLaunchFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.LaunchFileWithUIAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a3, h2):
-          var tmp: pointer
-          vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync)(it, h0, h1, h2, tmp.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
-          result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
-          release(tmp)
+          vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync)(it, h0, h1, h2, op.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
+  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
 
-proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: string, a4: IsolatedWindowsEnvironmentTelemetryParameters): IsolatedWindowsEnvironmentLaunchFileResult =
+proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: string, a3: string, a4: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentLaunchFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.LaunchFileWithUIAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withHString(a1, h0):
       withHString(a2, h1):
         withHString(a3, h2):
           withIface(a4.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p3):
-            var tmp: pointer
-            vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2)(it, h0, h1, h2, p3, tmp.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
-            result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
-            release(tmp)
+            vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2)(it, h0, h1, h2, p3, op.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
+  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
 
-proc terminateAsync*(self: IsolatedWindowsEnvironment) =
+proc terminateAsync*(self: IsolatedWindowsEnvironment) {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.TerminateAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
-    var tmp: pointer
-    vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync, Fn_IIsolatedWindowsEnvironment_TerminateAsync)(it, tmp.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
-    awaitVoid(tmp, "IsolatedWindowsEnvironment.TerminateAsync")
-    release(tmp)
+    vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync, Fn_IIsolatedWindowsEnvironment_TerminateAsync)(it, op.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironment.TerminateAsync")
 
-proc terminateAsync*(self: IsolatedWindowsEnvironment, a1: IsolatedWindowsEnvironmentTelemetryParameters) =
+proc terminateAsync*(self: IsolatedWindowsEnvironment, a1: IsolatedWindowsEnvironmentTelemetryParameters) {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.TerminateAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withIface(a1.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p0):
-      var tmp: pointer
-      vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync2, Fn_IIsolatedWindowsEnvironment_TerminateAsync2)(it, p0, tmp.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
-      awaitVoid(tmp, "IsolatedWindowsEnvironment.TerminateAsync")
-      release(tmp)
+      vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync2, Fn_IIsolatedWindowsEnvironment_TerminateAsync2)(it, p0, op.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironment.TerminateAsync")
 
-proc unregisterMessageReceiver*(self: IsolatedWindowsEnvironment, a1: GUID) =
+proc unregisterMessageReceiver*(self: IsolatedWindowsEnvironment, a1: GUID)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.UnregisterMessageReceiver
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     vcall(it, Slot_IIsolatedWindowsEnvironment_UnregisterMessageReceiver, Fn_IIsolatedWindowsEnvironment_UnregisterMessageReceiver)(it, a1).check("IsolatedWindowsEnvironment.UnregisterMessageReceiver")
 
-proc getUserInfo*(self: IsolatedWindowsEnvironment): IsolatedWindowsEnvironmentUserInfo =
+proc getUserInfo*(self: IsolatedWindowsEnvironment): IsolatedWindowsEnvironmentUserInfo  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.GetUserInfo
   withIface(self.p, IID_IIsolatedWindowsEnvironment3, "IIsolatedWindowsEnvironment3", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironment3_GetUserInfo, Fn_IIsolatedWindowsEnvironment3_GetUserInfo)(it, tmp.addr).check("IsolatedWindowsEnvironment.GetUserInfo")
     result = adopt[IsolatedWindowsEnvironmentUserInfo](tmp)
 
-proc shareFileAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFileRequestOptions): IsolatedWindowsEnvironmentShareFileResult =
+proc shareFileAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFileRequestOptions): Future[IsolatedWindowsEnvironmentShareFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFileAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment3, "IIsolatedWindowsEnvironment3", it):
     withHString(a1, h0):
       withIface(a2.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", p1):
-        var tmp: pointer
-        vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync)(it, h0, p1, tmp.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
-        result = adopt[IsolatedWindowsEnvironmentShareFileResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
-        release(tmp)
+        vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync)(it, h0, p1, op.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
+  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
 
-proc shareFileAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFileRequestOptions, a3: IsolatedWindowsEnvironmentTelemetryParameters): IsolatedWindowsEnvironmentShareFileResult =
+proc shareFileAsync*(self: IsolatedWindowsEnvironment, a1: string, a2: IsolatedWindowsEnvironmentShareFileRequestOptions, a3: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentShareFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFileAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment3, "IIsolatedWindowsEnvironment3", it):
     withHString(a1, h0):
       withIface(a2.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", p1):
         withIface(a3.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
-          var tmp: pointer
-          vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync2, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync2)(it, h0, p1, p2, tmp.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
-          result = adopt[IsolatedWindowsEnvironmentShareFileResult](awaitObject(tmp, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
-          release(tmp)
+          vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync2, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync2)(it, h0, p1, p2, op.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
+  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
 
-proc changePriority*(self: IsolatedWindowsEnvironment, a1: IsolatedWindowsEnvironmentCreationPriority) =
+proc changePriority*(self: IsolatedWindowsEnvironment, a1: IsolatedWindowsEnvironmentCreationPriority)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ChangePriority
   withIface(self.p, IID_IIsolatedWindowsEnvironment4, "IIsolatedWindowsEnvironment4", it):
     vcall(it, Slot_IIsolatedWindowsEnvironment4_ChangePriority, Fn_IIsolatedWindowsEnvironment4_ChangePriority)(it, a1).check("IsolatedWindowsEnvironment.ChangePriority")
 
-proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], a1: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentCreateResult =
+proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], a1: IsolatedWindowsEnvironmentOptions): Future[IsolatedWindowsEnvironmentCreateResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.CreateAsync
+  var op: pointer
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironment", IID_IIsolatedWindowsEnvironmentFactory, it):
     withIface(a1.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", p0):
-      var tmp: pointer
-      vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync)(it, p0, tmp.addr).check("IsolatedWindowsEnvironment.CreateAsync")
-      result = adopt[IsolatedWindowsEnvironmentCreateResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, "IsolatedWindowsEnvironment.CreateAsync"))
-      release(tmp)
+      vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync)(it, p0, op.addr).check("IsolatedWindowsEnvironment.CreateAsync")
+  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult, "IsolatedWindowsEnvironment.CreateAsync"))
 
-proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], a1: IsolatedWindowsEnvironmentOptions, a2: IsolatedWindowsEnvironmentTelemetryParameters): IsolatedWindowsEnvironmentCreateResult =
+proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], a1: IsolatedWindowsEnvironmentOptions, a2: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentCreateResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.CreateAsync
+  var op: pointer
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironment", IID_IIsolatedWindowsEnvironmentFactory, it):
     withIface(a1.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", p0):
       withIface(a2.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p1):
-        var tmp: pointer
-        vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync2, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync2)(it, p0, p1, tmp.addr).check("IsolatedWindowsEnvironment.CreateAsync")
-        result = adopt[IsolatedWindowsEnvironmentCreateResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, "IsolatedWindowsEnvironment.CreateAsync"))
-        release(tmp)
+        vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync2, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync2)(it, p0, p1, op.addr).check("IsolatedWindowsEnvironment.CreateAsync")
+  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult, "IsolatedWindowsEnvironment.CreateAsync"))
 
-proc getById*(_: typedesc[IsolatedWindowsEnvironment], a1: string): IsolatedWindowsEnvironment =
+proc getById*(_: typedesc[IsolatedWindowsEnvironment], a1: string): IsolatedWindowsEnvironment  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.GetById
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironment", IID_IIsolatedWindowsEnvironmentFactory, it):
     withHString(a1, h0):
@@ -7920,7 +7918,7 @@ proc getById*(_: typedesc[IsolatedWindowsEnvironment], a1: string): IsolatedWind
       vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_GetById, Fn_IIsolatedWindowsEnvironmentFactory_GetById)(it, h0, tmp.addr).check("IsolatedWindowsEnvironment.GetById")
       result = adopt[IsolatedWindowsEnvironment](tmp)
 
-proc findByOwnerId*(_: typedesc[IsolatedWindowsEnvironment], a1: string): seq[IsolatedWindowsEnvironment] =
+proc findByOwnerId*(_: typedesc[IsolatedWindowsEnvironment], a1: string): seq[IsolatedWindowsEnvironment]  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.FindByOwnerId
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironment", IID_IIsolatedWindowsEnvironmentFactory, it):
     withHString(a1, h0):
@@ -7929,87 +7927,87 @@ proc findByOwnerId*(_: typedesc[IsolatedWindowsEnvironment], a1: string): seq[Is
       result = toSeq[IsolatedWindowsEnvironment](tmp, IID_IVectorView_1_IsolatedWindowsEnvironment)
       release(tmp)
 
-proc status*(self: IsolatedWindowsEnvironmentCreateResult): IsolatedWindowsEnvironmentCreateStatus =
+proc status*(self: IsolatedWindowsEnvironmentCreateResult): IsolatedWindowsEnvironmentCreateStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentCreateResult, "IIsolatedWindowsEnvironmentCreateResult", it):
     var tmp: IsolatedWindowsEnvironmentCreateStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentCreateResult_get_Status, Fn_IIsolatedWindowsEnvironmentCreateResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentCreateResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentCreateResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentCreateResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentCreateResult, "IIsolatedWindowsEnvironmentCreateResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentCreateResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentCreateResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentCreateResult.get_ExtendedError")
     result = tmp
 
-proc environment*(self: IsolatedWindowsEnvironmentCreateResult): IsolatedWindowsEnvironment =
+proc environment*(self: IsolatedWindowsEnvironmentCreateResult): IsolatedWindowsEnvironment  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult.get_Environment
   withIface(self.p, IID_IIsolatedWindowsEnvironmentCreateResult, "IIsolatedWindowsEnvironmentCreateResult", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentCreateResult_get_Environment, Fn_IIsolatedWindowsEnvironmentCreateResult_get_Environment)(it, tmp.addr).check("IsolatedWindowsEnvironmentCreateResult.get_Environment")
     result = adopt[IsolatedWindowsEnvironment](tmp)
 
-proc changeCreationPriority*(self: IsolatedWindowsEnvironmentCreateResult, a1: IsolatedWindowsEnvironmentCreationPriority) =
+proc changeCreationPriority*(self: IsolatedWindowsEnvironmentCreateResult, a1: IsolatedWindowsEnvironmentCreationPriority)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult.ChangeCreationPriority
   withIface(self.p, IID_IIsolatedWindowsEnvironmentCreateResult2, "IIsolatedWindowsEnvironmentCreateResult2", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentCreateResult2_ChangeCreationPriority, Fn_IIsolatedWindowsEnvironmentCreateResult2_ChangeCreationPriority)(it, a1).check("IsolatedWindowsEnvironmentCreateResult.ChangeCreationPriority")
 
-proc id*(self: IsolatedWindowsEnvironmentFile): GUID =
+proc id*(self: IsolatedWindowsEnvironmentFile): GUID  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentFile.get_Id
   withIface(self.p, IID_IIsolatedWindowsEnvironmentFile, "IIsolatedWindowsEnvironmentFile", it):
     var tmp: GUID
     vcall(it, Slot_IIsolatedWindowsEnvironmentFile_get_Id, Fn_IIsolatedWindowsEnvironmentFile_get_Id)(it, tmp.addr).check("IsolatedWindowsEnvironmentFile.get_Id")
     result = tmp
 
-proc hostPath*(self: IsolatedWindowsEnvironmentFile): string =
+proc hostPath*(self: IsolatedWindowsEnvironmentFile): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentFile.get_HostPath
   withIface(self.p, IID_IIsolatedWindowsEnvironmentFile, "IIsolatedWindowsEnvironmentFile", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentFile_get_HostPath, Fn_IIsolatedWindowsEnvironmentFile_get_HostPath)(it, tmp.addr).check("IsolatedWindowsEnvironmentFile.get_HostPath")
     result = takeString(tmp)
 
-proc close*(self: IsolatedWindowsEnvironmentFile) =
+proc close*(self: IsolatedWindowsEnvironmentFile)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentFile.Close
   withIface(self.p, IID_IIsolatedWindowsEnvironmentFile, "IIsolatedWindowsEnvironmentFile", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentFile_Close, Fn_IIsolatedWindowsEnvironmentFile_Close)(it).check("IsolatedWindowsEnvironmentFile.Close")
 
-proc guestPath*(self: IsolatedWindowsEnvironmentFile): string =
+proc guestPath*(self: IsolatedWindowsEnvironmentFile): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentFile.get_GuestPath
   withIface(self.p, IID_IIsolatedWindowsEnvironmentFile2, "IIsolatedWindowsEnvironmentFile2", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentFile2_get_GuestPath, Fn_IIsolatedWindowsEnvironmentFile2_get_GuestPath)(it, tmp.addr).check("IsolatedWindowsEnvironmentFile.get_GuestPath")
     result = takeString(tmp)
 
-proc isReadOnly*(self: IsolatedWindowsEnvironmentFile): bool =
+proc isReadOnly*(self: IsolatedWindowsEnvironmentFile): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentFile.get_IsReadOnly
   withIface(self.p, IID_IIsolatedWindowsEnvironmentFile2, "IIsolatedWindowsEnvironmentFile2", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentFile2_get_IsReadOnly, Fn_IIsolatedWindowsEnvironmentFile2_get_IsReadOnly)(it, tmp.addr).check("IsolatedWindowsEnvironmentFile.get_IsReadOnly")
     result = tmp
 
-proc isReady*(_: typedesc[IsolatedWindowsEnvironmentHost]): bool =
+proc isReady*(_: typedesc[IsolatedWindowsEnvironmentHost]): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentHost.get_IsReady
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironmentHost", IID_IIsolatedWindowsEnvironmentHostStatics, it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentHostStatics_get_IsReady, Fn_IIsolatedWindowsEnvironmentHostStatics_get_IsReady)(it, tmp.addr).check("IsolatedWindowsEnvironmentHost.get_IsReady")
     result = tmp
 
-proc status*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentLaunchFileStatus =
+proc status*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentLaunchFileStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentLaunchFileResult, "IIsolatedWindowsEnvironmentLaunchFileResult", it):
     var tmp: IsolatedWindowsEnvironmentLaunchFileStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentLaunchFileResult_get_Status, Fn_IIsolatedWindowsEnvironmentLaunchFileResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentLaunchFileResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentLaunchFileResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentLaunchFileResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentLaunchFileResult, "IIsolatedWindowsEnvironmentLaunchFileResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentLaunchFileResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentLaunchFileResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentLaunchFileResult.get_ExtendedError")
     result = tmp
 
-proc file*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentFile =
+proc file*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentFile  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult.get_File
   withIface(self.p, IID_IIsolatedWindowsEnvironmentLaunchFileResult, "IIsolatedWindowsEnvironmentLaunchFileResult", it):
     var tmp: pointer
@@ -8020,162 +8018,162 @@ proc newIsolatedWindowsEnvironmentOptions*(): IsolatedWindowsEnvironmentOptions 
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions`.
   adopt[IsolatedWindowsEnvironmentOptions](activateAs("Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions", IID_IIsolatedWindowsEnvironmentOptions))
 
-proc environmentOwnerId*(self: IsolatedWindowsEnvironmentOptions): string =
+proc environmentOwnerId*(self: IsolatedWindowsEnvironmentOptions): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_EnvironmentOwnerId
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_EnvironmentOwnerId, Fn_IIsolatedWindowsEnvironmentOptions_get_EnvironmentOwnerId)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_EnvironmentOwnerId")
     result = takeString(tmp)
 
-proc `environmentOwnerId=`*(self: IsolatedWindowsEnvironmentOptions, value: string) =
+proc `environmentOwnerId=`*(self: IsolatedWindowsEnvironmentOptions, value: string)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_EnvironmentOwnerId
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     withHString(value, h0):
       vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_EnvironmentOwnerId, Fn_IIsolatedWindowsEnvironmentOptions_put_EnvironmentOwnerId)(it, h0).check("IsolatedWindowsEnvironmentOptions.put_EnvironmentOwnerId")
 
-proc allowedClipboardFormats*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats =
+proc allowedClipboardFormats*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormats
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: IsolatedWindowsEnvironmentAllowedClipboardFormats
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_AllowedClipboardFormats, Fn_IIsolatedWindowsEnvironmentOptions_get_AllowedClipboardFormats)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormats")
     result = tmp
 
-proc `allowedClipboardFormats=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats) =
+proc `allowedClipboardFormats=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormats
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_AllowedClipboardFormats, Fn_IIsolatedWindowsEnvironmentOptions_put_AllowedClipboardFormats)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormats")
 
-proc clipboardCopyPasteDirections*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentClipboardCopyPasteDirections =
+proc clipboardCopyPasteDirections*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentClipboardCopyPasteDirections  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_ClipboardCopyPasteDirections
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: IsolatedWindowsEnvironmentClipboardCopyPasteDirections
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_ClipboardCopyPasteDirections, Fn_IIsolatedWindowsEnvironmentOptions_get_ClipboardCopyPasteDirections)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_ClipboardCopyPasteDirections")
     result = tmp
 
-proc `clipboardCopyPasteDirections=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentClipboardCopyPasteDirections) =
+proc `clipboardCopyPasteDirections=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentClipboardCopyPasteDirections)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_ClipboardCopyPasteDirections
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_ClipboardCopyPasteDirections, Fn_IIsolatedWindowsEnvironmentOptions_put_ClipboardCopyPasteDirections)(it, value).check("IsolatedWindowsEnvironmentOptions.put_ClipboardCopyPasteDirections")
 
-proc availablePrinters*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAvailablePrinters =
+proc availablePrinters*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAvailablePrinters  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AvailablePrinters
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: IsolatedWindowsEnvironmentAvailablePrinters
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_AvailablePrinters, Fn_IIsolatedWindowsEnvironmentOptions_get_AvailablePrinters)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AvailablePrinters")
     result = tmp
 
-proc `availablePrinters=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAvailablePrinters) =
+proc `availablePrinters=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAvailablePrinters)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AvailablePrinters
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_AvailablePrinters, Fn_IIsolatedWindowsEnvironmentOptions_put_AvailablePrinters)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AvailablePrinters")
 
-proc sharedHostFolderPath*(self: IsolatedWindowsEnvironmentOptions): string =
+proc sharedHostFolderPath*(self: IsolatedWindowsEnvironmentOptions): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_SharedHostFolderPath
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_SharedHostFolderPath, Fn_IIsolatedWindowsEnvironmentOptions_get_SharedHostFolderPath)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_SharedHostFolderPath")
     result = takeString(tmp)
 
-proc sharedFolderNameInEnvironment*(self: IsolatedWindowsEnvironmentOptions): string =
+proc sharedFolderNameInEnvironment*(self: IsolatedWindowsEnvironmentOptions): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_SharedFolderNameInEnvironment
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_SharedFolderNameInEnvironment, Fn_IIsolatedWindowsEnvironmentOptions_get_SharedFolderNameInEnvironment)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_SharedFolderNameInEnvironment")
     result = takeString(tmp)
 
-proc shareHostFolderForUntrustedItems*(self: IsolatedWindowsEnvironmentOptions, a1: string, a2: string) =
+proc shareHostFolderForUntrustedItems*(self: IsolatedWindowsEnvironmentOptions, a1: string, a2: string)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.ShareHostFolderForUntrustedItems
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     withHString(a1, h0):
       withHString(a2, h1):
         vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_ShareHostFolderForUntrustedItems, Fn_IIsolatedWindowsEnvironmentOptions_ShareHostFolderForUntrustedItems)(it, h0, h1).check("IsolatedWindowsEnvironmentOptions.ShareHostFolderForUntrustedItems")
 
-proc persistUserProfile*(self: IsolatedWindowsEnvironmentOptions): bool =
+proc persistUserProfile*(self: IsolatedWindowsEnvironmentOptions): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_PersistUserProfile
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_PersistUserProfile, Fn_IIsolatedWindowsEnvironmentOptions_get_PersistUserProfile)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_PersistUserProfile")
     result = tmp
 
-proc `persistUserProfile=`*(self: IsolatedWindowsEnvironmentOptions, value: bool) =
+proc `persistUserProfile=`*(self: IsolatedWindowsEnvironmentOptions, value: bool)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_PersistUserProfile
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_PersistUserProfile, Fn_IIsolatedWindowsEnvironmentOptions_put_PersistUserProfile)(it, value).check("IsolatedWindowsEnvironmentOptions.put_PersistUserProfile")
 
-proc allowGraphicsHardwareAcceleration*(self: IsolatedWindowsEnvironmentOptions): bool =
+proc allowGraphicsHardwareAcceleration*(self: IsolatedWindowsEnvironmentOptions): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AllowGraphicsHardwareAcceleration
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_AllowGraphicsHardwareAcceleration, Fn_IIsolatedWindowsEnvironmentOptions_get_AllowGraphicsHardwareAcceleration)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AllowGraphicsHardwareAcceleration")
     result = tmp
 
-proc `allowGraphicsHardwareAcceleration=`*(self: IsolatedWindowsEnvironmentOptions, value: bool) =
+proc `allowGraphicsHardwareAcceleration=`*(self: IsolatedWindowsEnvironmentOptions, value: bool)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AllowGraphicsHardwareAcceleration
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_AllowGraphicsHardwareAcceleration, Fn_IIsolatedWindowsEnvironmentOptions_put_AllowGraphicsHardwareAcceleration)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AllowGraphicsHardwareAcceleration")
 
-proc allowCameraAndMicrophoneAccess*(self: IsolatedWindowsEnvironmentOptions): bool =
+proc allowCameraAndMicrophoneAccess*(self: IsolatedWindowsEnvironmentOptions): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AllowCameraAndMicrophoneAccess
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_get_AllowCameraAndMicrophoneAccess, Fn_IIsolatedWindowsEnvironmentOptions_get_AllowCameraAndMicrophoneAccess)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AllowCameraAndMicrophoneAccess")
     result = tmp
 
-proc `allowCameraAndMicrophoneAccess=`*(self: IsolatedWindowsEnvironmentOptions, value: bool) =
+proc `allowCameraAndMicrophoneAccess=`*(self: IsolatedWindowsEnvironmentOptions, value: bool)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AllowCameraAndMicrophoneAccess
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions_put_AllowCameraAndMicrophoneAccess, Fn_IIsolatedWindowsEnvironmentOptions_put_AllowCameraAndMicrophoneAccess)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AllowCameraAndMicrophoneAccess")
 
-proc windowAnnotationOverride*(self: IsolatedWindowsEnvironmentOptions): string =
+proc windowAnnotationOverride*(self: IsolatedWindowsEnvironmentOptions): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_WindowAnnotationOverride
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions2, "IIsolatedWindowsEnvironmentOptions2", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions2_get_WindowAnnotationOverride, Fn_IIsolatedWindowsEnvironmentOptions2_get_WindowAnnotationOverride)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_WindowAnnotationOverride")
     result = takeString(tmp)
 
-proc `windowAnnotationOverride=`*(self: IsolatedWindowsEnvironmentOptions, value: string) =
+proc `windowAnnotationOverride=`*(self: IsolatedWindowsEnvironmentOptions, value: string)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_WindowAnnotationOverride
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions2, "IIsolatedWindowsEnvironmentOptions2", it):
     withHString(value, h0):
       vcall(it, Slot_IIsolatedWindowsEnvironmentOptions2_put_WindowAnnotationOverride, Fn_IIsolatedWindowsEnvironmentOptions2_put_WindowAnnotationOverride)(it, h0).check("IsolatedWindowsEnvironmentOptions.put_WindowAnnotationOverride")
 
-proc allowedClipboardFormatsToEnvironment*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats =
+proc allowedClipboardFormatsToEnvironment*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormatsToEnvironment
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     var tmp: IsolatedWindowsEnvironmentAllowedClipboardFormats
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToEnvironment, Fn_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToEnvironment)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormatsToEnvironment")
     result = tmp
 
-proc `allowedClipboardFormatsToEnvironment=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats) =
+proc `allowedClipboardFormatsToEnvironment=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormatsToEnvironment
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToEnvironment, Fn_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToEnvironment)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormatsToEnvironment")
 
-proc allowedClipboardFormatsToHost*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats =
+proc allowedClipboardFormatsToHost*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentAllowedClipboardFormats  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormatsToHost
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     var tmp: IsolatedWindowsEnvironmentAllowedClipboardFormats
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToHost, Fn_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToHost)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_AllowedClipboardFormatsToHost")
     result = tmp
 
-proc `allowedClipboardFormatsToHost=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats) =
+proc `allowedClipboardFormatsToHost=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentAllowedClipboardFormats)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormatsToHost
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToHost, Fn_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToHost)(it, value).check("IsolatedWindowsEnvironmentOptions.put_AllowedClipboardFormatsToHost")
 
-proc creationPriority*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentCreationPriority =
+proc creationPriority*(self: IsolatedWindowsEnvironmentOptions): IsolatedWindowsEnvironmentCreationPriority  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.get_CreationPriority
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     var tmp: IsolatedWindowsEnvironmentCreationPriority
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_get_CreationPriority, Fn_IIsolatedWindowsEnvironmentOptions3_get_CreationPriority)(it, tmp.addr).check("IsolatedWindowsEnvironmentOptions.get_CreationPriority")
     result = tmp
 
-proc `creationPriority=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentCreationPriority) =
+proc `creationPriority=`*(self: IsolatedWindowsEnvironmentOptions, value: IsolatedWindowsEnvironmentCreationPriority)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.put_CreationPriority
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOptions3, "IIsolatedWindowsEnvironmentOptions3", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentOptions3_put_CreationPriority, Fn_IIsolatedWindowsEnvironmentOptions3_put_CreationPriority)(it, value).check("IsolatedWindowsEnvironmentOptions.put_CreationPriority")
 
-proc register*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration], a1: string, a2: IsolatedWindowsEnvironmentOwnerRegistrationData): IsolatedWindowsEnvironmentOwnerRegistrationResult =
+proc register*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration], a1: string, a2: IsolatedWindowsEnvironmentOwnerRegistrationData): IsolatedWindowsEnvironmentOwnerRegistrationResult  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration.Register
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration", IID_IIsolatedWindowsEnvironmentOwnerRegistrationStatics, it):
     withHString(a1, h0):
@@ -8184,7 +8182,7 @@ proc register*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration], a1: str
         vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationStatics_Register, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationStatics_Register)(it, h0, p1, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistration.Register")
         result = adopt[IsolatedWindowsEnvironmentOwnerRegistrationResult](tmp)
 
-proc unregister*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration], a1: string) =
+proc unregister*(_: typedesc[IsolatedWindowsEnvironmentOwnerRegistration], a1: string)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration.Unregister
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration", IID_IIsolatedWindowsEnvironmentOwnerRegistrationStatics, it):
     withHString(a1, h0):
@@ -8194,7 +8192,7 @@ proc newIsolatedWindowsEnvironmentOwnerRegistrationData*(): IsolatedWindowsEnvir
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData`.
   adopt[IsolatedWindowsEnvironmentOwnerRegistrationData](activateAs("Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData", IID_IIsolatedWindowsEnvironmentOwnerRegistrationData))
 
-proc shareableFolders*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string] =
+proc shareableFolders*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.get_ShareableFolders
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
@@ -8202,7 +8200,7 @@ proc shareableFolders*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): s
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc processesRunnableAsSystem*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string] =
+proc processesRunnableAsSystem*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.get_ProcessesRunnableAsSystem
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
@@ -8210,7 +8208,7 @@ proc processesRunnableAsSystem*(self: IsolatedWindowsEnvironmentOwnerRegistratio
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc processesRunnableAsUser*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string] =
+proc processesRunnableAsUser*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.get_ProcessesRunnableAsUser
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
@@ -8218,7 +8216,7 @@ proc processesRunnableAsUser*(self: IsolatedWindowsEnvironmentOwnerRegistrationD
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc activationFileExtensions*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string] =
+proc activationFileExtensions*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.get_ActivationFileExtensions
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
@@ -8226,97 +8224,96 @@ proc activationFileExtensions*(self: IsolatedWindowsEnvironmentOwnerRegistration
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc status*(self: IsolatedWindowsEnvironmentOwnerRegistrationResult): IsolatedWindowsEnvironmentOwnerRegistrationStatus =
+proc status*(self: IsolatedWindowsEnvironmentOwnerRegistrationResult): IsolatedWindowsEnvironmentOwnerRegistrationStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationResult, "IIsolatedWindowsEnvironmentOwnerRegistrationResult", it):
     var tmp: IsolatedWindowsEnvironmentOwnerRegistrationStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_Status, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentOwnerRegistrationResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentOwnerRegistrationResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationResult, "IIsolatedWindowsEnvironmentOwnerRegistrationResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationResult.get_ExtendedError")
     result = tmp
 
-proc status*(self: IsolatedWindowsEnvironmentPostMessageResult): IsolatedWindowsEnvironmentPostMessageStatus =
+proc status*(self: IsolatedWindowsEnvironmentPostMessageResult): IsolatedWindowsEnvironmentPostMessageStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentPostMessageResult, "IIsolatedWindowsEnvironmentPostMessageResult", it):
     var tmp: IsolatedWindowsEnvironmentPostMessageStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentPostMessageResult_get_Status, Fn_IIsolatedWindowsEnvironmentPostMessageResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentPostMessageResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentPostMessageResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentPostMessageResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentPostMessageResult, "IIsolatedWindowsEnvironmentPostMessageResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentPostMessageResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentPostMessageResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentPostMessageResult.get_ExtendedError")
     result = tmp
 
-proc state*(self: IsolatedWindowsEnvironmentProcess): IsolatedWindowsEnvironmentProcessState =
+proc state*(self: IsolatedWindowsEnvironmentProcess): IsolatedWindowsEnvironmentProcessState  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess.get_State
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
     var tmp: IsolatedWindowsEnvironmentProcessState
     vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_get_State, Fn_IIsolatedWindowsEnvironmentProcess_get_State)(it, tmp.addr).check("IsolatedWindowsEnvironmentProcess.get_State")
     result = tmp
 
-proc exitCode*(self: IsolatedWindowsEnvironmentProcess): uint32 =
+proc exitCode*(self: IsolatedWindowsEnvironmentProcess): uint32  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess.get_ExitCode
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
     var tmp: uint32
     vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_get_ExitCode, Fn_IIsolatedWindowsEnvironmentProcess_get_ExitCode)(it, tmp.addr).check("IsolatedWindowsEnvironmentProcess.get_ExitCode")
     result = tmp
 
-proc waitForExit*(self: IsolatedWindowsEnvironmentProcess) =
+proc waitForExit*(self: IsolatedWindowsEnvironmentProcess)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess.WaitForExit
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_WaitForExit, Fn_IIsolatedWindowsEnvironmentProcess_WaitForExit)(it).check("IsolatedWindowsEnvironmentProcess.WaitForExit")
 
-proc waitForExitWithTimeout*(self: IsolatedWindowsEnvironmentProcess, a1: uint32) =
+proc waitForExitWithTimeout*(self: IsolatedWindowsEnvironmentProcess, a1: uint32)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess.WaitForExitWithTimeout
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_WaitForExitWithTimeout, Fn_IIsolatedWindowsEnvironmentProcess_WaitForExitWithTimeout)(it, a1).check("IsolatedWindowsEnvironmentProcess.WaitForExitWithTimeout")
 
-proc waitForExitAsync*(self: IsolatedWindowsEnvironmentProcess) =
+proc waitForExitAsync*(self: IsolatedWindowsEnvironmentProcess) {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess.WaitForExitAsync
+  var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
-    var tmp: pointer
-    vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync, Fn_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync)(it, tmp.addr).check("IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
-    awaitVoid(tmp, "IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
-    release(tmp)
+    vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync, Fn_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync)(it, op.addr).check("IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
 
 proc newIsolatedWindowsEnvironmentShareFileRequestOptions*(): IsolatedWindowsEnvironmentShareFileRequestOptions =
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions`.
   adopt[IsolatedWindowsEnvironmentShareFileRequestOptions](activateAs("Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions", IID_IIsolatedWindowsEnvironmentShareFileRequestOptions))
 
-proc allowWrite*(self: IsolatedWindowsEnvironmentShareFileRequestOptions): bool =
+proc allowWrite*(self: IsolatedWindowsEnvironmentShareFileRequestOptions): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions.get_AllowWrite
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFileRequestOptions_get_AllowWrite, Fn_IIsolatedWindowsEnvironmentShareFileRequestOptions_get_AllowWrite)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFileRequestOptions.get_AllowWrite")
     result = tmp
 
-proc `allowWrite=`*(self: IsolatedWindowsEnvironmentShareFileRequestOptions, value: bool) =
+proc `allowWrite=`*(self: IsolatedWindowsEnvironmentShareFileRequestOptions, value: bool)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions.put_AllowWrite
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFileRequestOptions_put_AllowWrite, Fn_IIsolatedWindowsEnvironmentShareFileRequestOptions_put_AllowWrite)(it, value).check("IsolatedWindowsEnvironmentShareFileRequestOptions.put_AllowWrite")
 
-proc status*(self: IsolatedWindowsEnvironmentShareFileResult): IsolatedWindowsEnvironmentShareFileStatus =
+proc status*(self: IsolatedWindowsEnvironmentShareFileResult): IsolatedWindowsEnvironmentShareFileStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFileResult, "IIsolatedWindowsEnvironmentShareFileResult", it):
     var tmp: IsolatedWindowsEnvironmentShareFileStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFileResult_get_Status, Fn_IIsolatedWindowsEnvironmentShareFileResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFileResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentShareFileResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentShareFileResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFileResult, "IIsolatedWindowsEnvironmentShareFileResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFileResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentShareFileResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFileResult.get_ExtendedError")
     result = tmp
 
-proc file*(self: IsolatedWindowsEnvironmentShareFileResult): IsolatedWindowsEnvironmentFile =
+proc file*(self: IsolatedWindowsEnvironmentShareFileResult): IsolatedWindowsEnvironmentFile  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult.get_File
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFileResult, "IIsolatedWindowsEnvironmentShareFileResult", it):
     var tmp: pointer
@@ -8327,47 +8324,47 @@ proc newIsolatedWindowsEnvironmentShareFolderRequestOptions*(): IsolatedWindowsE
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions`.
   adopt[IsolatedWindowsEnvironmentShareFolderRequestOptions](activateAs("Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions", IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions))
 
-proc allowWrite*(self: IsolatedWindowsEnvironmentShareFolderRequestOptions): bool =
+proc allowWrite*(self: IsolatedWindowsEnvironmentShareFolderRequestOptions): bool  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions.get_AllowWrite
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", it):
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFolderRequestOptions_get_AllowWrite, Fn_IIsolatedWindowsEnvironmentShareFolderRequestOptions_get_AllowWrite)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFolderRequestOptions.get_AllowWrite")
     result = tmp
 
-proc `allowWrite=`*(self: IsolatedWindowsEnvironmentShareFolderRequestOptions, value: bool) =
+proc `allowWrite=`*(self: IsolatedWindowsEnvironmentShareFolderRequestOptions, value: bool)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions.put_AllowWrite
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFolderRequestOptions_put_AllowWrite, Fn_IIsolatedWindowsEnvironmentShareFolderRequestOptions_put_AllowWrite)(it, value).check("IsolatedWindowsEnvironmentShareFolderRequestOptions.put_AllowWrite")
 
-proc status*(self: IsolatedWindowsEnvironmentShareFolderResult): IsolatedWindowsEnvironmentShareFolderStatus =
+proc status*(self: IsolatedWindowsEnvironmentShareFolderResult): IsolatedWindowsEnvironmentShareFolderStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFolderResult, "IIsolatedWindowsEnvironmentShareFolderResult", it):
     var tmp: IsolatedWindowsEnvironmentShareFolderStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFolderResult_get_Status, Fn_IIsolatedWindowsEnvironmentShareFolderResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFolderResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentShareFolderResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentShareFolderResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentShareFolderResult, "IIsolatedWindowsEnvironmentShareFolderResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentShareFolderResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentShareFolderResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentShareFolderResult.get_ExtendedError")
     result = tmp
 
-proc status*(self: IsolatedWindowsEnvironmentStartProcessResult): IsolatedWindowsEnvironmentStartProcessStatus =
+proc status*(self: IsolatedWindowsEnvironmentStartProcessResult): IsolatedWindowsEnvironmentStartProcessStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessResult.get_Status
   withIface(self.p, IID_IIsolatedWindowsEnvironmentStartProcessResult, "IIsolatedWindowsEnvironmentStartProcessResult", it):
     var tmp: IsolatedWindowsEnvironmentStartProcessStatus
     vcall(it, Slot_IIsolatedWindowsEnvironmentStartProcessResult_get_Status, Fn_IIsolatedWindowsEnvironmentStartProcessResult_get_Status)(it, tmp.addr).check("IsolatedWindowsEnvironmentStartProcessResult.get_Status")
     result = tmp
 
-proc extendedError*(self: IsolatedWindowsEnvironmentStartProcessResult): HRESULT =
+proc extendedError*(self: IsolatedWindowsEnvironmentStartProcessResult): HRESULT  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessResult.get_ExtendedError
   withIface(self.p, IID_IIsolatedWindowsEnvironmentStartProcessResult, "IIsolatedWindowsEnvironmentStartProcessResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IIsolatedWindowsEnvironmentStartProcessResult_get_ExtendedError, Fn_IIsolatedWindowsEnvironmentStartProcessResult_get_ExtendedError)(it, tmp.addr).check("IsolatedWindowsEnvironmentStartProcessResult.get_ExtendedError")
     result = tmp
 
-proc process*(self: IsolatedWindowsEnvironmentStartProcessResult): IsolatedWindowsEnvironmentProcess =
+proc process*(self: IsolatedWindowsEnvironmentStartProcessResult): IsolatedWindowsEnvironmentProcess  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessResult.get_Process
   withIface(self.p, IID_IIsolatedWindowsEnvironmentStartProcessResult, "IIsolatedWindowsEnvironmentStartProcessResult", it):
     var tmp: pointer
@@ -8378,33 +8375,33 @@ proc newIsolatedWindowsEnvironmentTelemetryParameters*(): IsolatedWindowsEnviron
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters`.
   adopt[IsolatedWindowsEnvironmentTelemetryParameters](activateAs("Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters", IID_IIsolatedWindowsEnvironmentTelemetryParameters))
 
-proc correlationId*(self: IsolatedWindowsEnvironmentTelemetryParameters): GUID =
+proc correlationId*(self: IsolatedWindowsEnvironmentTelemetryParameters): GUID  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters.get_CorrelationId
   withIface(self.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", it):
     var tmp: GUID
     vcall(it, Slot_IIsolatedWindowsEnvironmentTelemetryParameters_get_CorrelationId, Fn_IIsolatedWindowsEnvironmentTelemetryParameters_get_CorrelationId)(it, tmp.addr).check("IsolatedWindowsEnvironmentTelemetryParameters.get_CorrelationId")
     result = tmp
 
-proc `correlationId=`*(self: IsolatedWindowsEnvironmentTelemetryParameters, value: GUID) =
+proc `correlationId=`*(self: IsolatedWindowsEnvironmentTelemetryParameters, value: GUID)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters.put_CorrelationId
   withIface(self.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentTelemetryParameters_put_CorrelationId, Fn_IIsolatedWindowsEnvironmentTelemetryParameters_put_CorrelationId)(it, value).check("IsolatedWindowsEnvironmentTelemetryParameters.put_CorrelationId")
 
-proc environmentUserSid*(self: IsolatedWindowsEnvironmentUserInfo): string =
+proc environmentUserSid*(self: IsolatedWindowsEnvironmentUserInfo): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo.get_EnvironmentUserSid
   withIface(self.p, IID_IIsolatedWindowsEnvironmentUserInfo, "IIsolatedWindowsEnvironmentUserInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentUserInfo_get_EnvironmentUserSid, Fn_IIsolatedWindowsEnvironmentUserInfo_get_EnvironmentUserSid)(it, tmp.addr).check("IsolatedWindowsEnvironmentUserInfo.get_EnvironmentUserSid")
     result = takeString(tmp)
 
-proc environmentUserName*(self: IsolatedWindowsEnvironmentUserInfo): string =
+proc environmentUserName*(self: IsolatedWindowsEnvironmentUserInfo): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo.get_EnvironmentUserName
   withIface(self.p, IID_IIsolatedWindowsEnvironmentUserInfo, "IIsolatedWindowsEnvironmentUserInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IIsolatedWindowsEnvironmentUserInfo_get_EnvironmentUserName, Fn_IIsolatedWindowsEnvironmentUserInfo_get_EnvironmentUserName)(it, tmp.addr).check("IsolatedWindowsEnvironmentUserInfo.get_EnvironmentUserName")
     result = takeString(tmp)
 
-proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], a1: string): GUID =
+proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], a1: string): GUID  =
   ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.GetFileId
   withStatics("Windows.Security.Isolation.IsolatedWindowsHostMessenger", IID_IIsolatedWindowsHostMessengerStatics, it):
     withHString(a1, h0):
@@ -8412,7 +8409,7 @@ proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], a1: string): GUID =
       vcall(it, Slot_IIsolatedWindowsHostMessengerStatics_GetFileId, Fn_IIsolatedWindowsHostMessengerStatics_GetFileId)(it, h0, tmp.addr).check("IsolatedWindowsHostMessenger.GetFileId")
       result = tmp
 
-proc unregisterHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger], a1: GUID) =
+proc unregisterHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger], a1: GUID)  =
   ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.UnregisterHostMessageReceiver
   withStatics("Windows.Security.Isolation.IsolatedWindowsHostMessenger", IID_IIsolatedWindowsHostMessengerStatics2, it):
     vcall(it, Slot_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver, Fn_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver)(it, a1).check("IsolatedWindowsHostMessenger.UnregisterHostMessageReceiver")

@@ -67,12 +67,6 @@ type
     refs: int32
     iid: GUID
     slot: int32              ## index into `handlers`
-
-const
-  IID_IUnknown* = GUID(
-    data1: 0x00000000'u32, data2: 0'u16, data3: 0'u16,
-    data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
-
 # Handlers live here so the GC can see them: a closure's environment is
 # GC-managed and the COM object is not, so burying one inside the other gives a
 # callback into freed memory some minutes after it starts working.

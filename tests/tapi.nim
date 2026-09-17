@@ -82,17 +82,32 @@ suite "generated API":
       last = TimeZoneSettings.supportedTimeZoneDisplayNames.len
     check last > 100
 
-  test "an async method blocks and hands back its result":
+  test "an async method is a Future, and waitFor settles it":
     # No ADC controller on a desktop, so this completes with a null result.
-    # The point is that it completes: a wait that never returns would hang the
-    # suite rather than fail it.
+    # The point is that it completes at all: a wait that never returns would
+    # hang the suite rather than fail it.
     let started = cpuTime()
-    let adc = AdcController.getDefaultAsync()
+    let adc = waitFor AdcController.getDefaultAsync()
     check cpuTime() - started < 10.0
     check adc.isNil
 
-  test "a failed async raises with the runtime's own error code":
+  test "await composes inside an async proc":
+    proc probe(): Future[bool] {.async.} =
+      let a = await AdcController.getDefaultAsync()
+      return a.isNil
+    check waitFor probe()
+
+  test "a failed async fails the Future with the runtime's error code":
     # The HRESULT comes from IAsyncInfo.get_ErrorCode, not from the call that
-    # started the operation — that one succeeded.
+    # started the operation — that one returned S_OK.
     expect WinRtError:
-      discard Print3DDevice.fromIdAsync("not-a-real-device-id")
+      discard waitFor Print3DDevice.fromIdAsync("not-a-real-device-id")
+
+  test "a completion handler reaches a single-threaded apartment":
+    # initApartment() puts this thread in an STA, and waitFor blocks it inside
+    # a poll that does not pump COM messages. A handler that was not agile
+    # would be marshalled back here and never arrive, so this hanging is the
+    # failure mode it guards against.
+    # `setup` put this thread in one; the default for initApartment is STA.
+    discard waitFor AdcController.getDefaultAsync()
+    check true

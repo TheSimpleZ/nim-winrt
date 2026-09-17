@@ -11,6 +11,8 @@ import ./core
 import ./abi/gaming
 import ./delegate
 export core, gaming
+import ./asyncops
+export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -23,6 +25,9 @@ const IID_EventHandler_1_ArcadeStick* = GUID(
 const IID_IVectorView_1_ArcadeStick* = GUID(
     data1: 0xBECACE75'u32, data2: 0xD0CD'u16, data3: 0x5A9C'u16,
     data4: [0x84'u8, 0x5F, 0x72, 0xF0, 0x85, 0x50, 0x3C, 0xDF])
+const IID_AsyncOperationCompletedHandler_1_GipFirmwareUpdateResult* = GUID(
+    data1: 0xC2DF253B'u32, data2: 0x191C'u16, data3: 0x5C70'u16,
+    data4: [0x91'u8, 0xDE, 0xFF, 0x8C, 0x06, 0xD0, 0x0E, 0x11])
 const IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress* = GUID(
     data1: 0xBFAA48BD'u32, data2: 0x155F'u16, data3: 0x5112'u16,
     data4: [0xBD'u8, 0x86, 0xE0, 0x1D, 0x6F, 0x7C, 0xD4, 0x05])
@@ -62,6 +67,9 @@ const IID_EventHandler_1_UINavigationController* = GUID(
 const IID_IVectorView_1_UINavigationController* = GUID(
     data1: 0x684B9E5A'u32, data2: 0x2DC2'u16, data3: 0x54FC'u16,
     data4: [0xAD'u8, 0xF5, 0x5C, 0xA8, 0xF6, 0x87, 0x14, 0x25])
+const IID_AsyncOperationCompletedHandler_1_GameListEntry* = GUID(
+    data1: 0xA77293E0'u32, data2: 0xD508'u16, data3: 0x5582'u16,
+    data4: [0xAC'u8, 0x76, 0x8C, 0x96, 0x05, 0xFA, 0x1D, 0xE9])
 const IID_IAsyncOperation_1_GameListEntry* = GUID(
     data1: 0x37BCB2E2'u32, data2: 0x9C6F'u16, data3: 0x5658'u16,
     data4: [0xA4'u8, 0x3B, 0xED, 0x28, 0xFE, 0x0C, 0x84, 0x58])
@@ -77,15 +85,24 @@ const IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceiv
 const IID_IVectorView_1_GameSaveBlobInfo* = GUID(
     data1: 0xB9C466A0'u32, data2: 0x2A3F'u16, data3: 0x5F28'u16,
     data4: [0xA1'u8, 0xC1, 0x9C, 0xB1, 0x92, 0xF6, 0xC7, 0x86])
+const IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult* = GUID(
+    data1: 0x9331E53A'u32, data2: 0xA414'u16, data3: 0x51E7'u16,
+    data4: [0xBF'u8, 0xBC, 0x77, 0x84, 0xDF, 0x83, 0xDC, 0x8E])
 const IID_IAsyncOperation_1_GameSaveBlobInfoGetResult* = GUID(
     data1: 0xD7B7F3B4'u32, data2: 0x6028'u16, data3: 0x522F'u16,
     data4: [0x84'u8, 0x9D, 0xA6, 0x94, 0x95, 0xE4, 0xDC, 0xD0])
 const IID_IVectorView_1_GameSaveContainerInfo* = GUID(
     data1: 0x9C490594'u32, data2: 0x0846'u16, data3: 0x50F5'u16,
     data4: [0xB2'u8, 0xEF, 0xC6, 0xF0, 0x3E, 0xE6, 0x86, 0x8A])
+const IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult* = GUID(
+    data1: 0x05F86A80'u32, data2: 0xBE5B'u16, data3: 0x5E7E'u16,
+    data4: [0xB9'u8, 0x77, 0x82, 0x57, 0xC5, 0xE4, 0x8A, 0xCC])
 const IID_IAsyncOperation_1_GameSaveContainerInfoGetResult* = GUID(
     data1: 0xCFF8AFEB'u32, data2: 0x5A18'u16, data3: 0x5F51'u16,
     data4: [0xB6'u8, 0x1B, 0x94, 0x38, 0x87, 0xF7, 0x29, 0xEE])
+const IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult* = GUID(
+    data1: 0xEE53E64F'u32, data2: 0x5319'u16, data3: 0x56FD'u16,
+    data4: [0xA2'u8, 0x8A, 0x2C, 0x47, 0x4F, 0xC4, 0x2E, 0x48])
 const IID_IAsyncOperation_1_GameSaveOperationResult* = GUID(
     data1: 0x1C27FB97'u32, data2: 0x1E1A'u16, data3: 0x516F'u16,
     data4: [0xAB'u8, 0xB2, 0x12, 0xC1, 0x8E, 0x18, 0x21, 0x8D])
@@ -658,14 +675,14 @@ func isNil*(x: GameSaveOperationResult): bool {.inline.} = x.p.isNil
 func isNil*(x: GameSaveProvider): bool {.inline.} = x.p.isNil
 func isNil*(x: GameSaveProviderGetResult): bool {.inline.} = x.p.isNil
 
-proc getButtonLabel*(self: ArcadeStick, a1: ArcadeStickButtons): GameControllerButtonLabel =
+proc getButtonLabel*(self: ArcadeStick, a1: ArcadeStickButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.ArcadeStick.GetButtonLabel
   withIface(self.p, IID_IArcadeStick, "IArcadeStick", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IArcadeStick_GetButtonLabel, Fn_IArcadeStick_GetButtonLabel)(it, a1, tmp.addr).check("ArcadeStick.GetButtonLabel")
     result = tmp
 
-proc getCurrentReading*(self: ArcadeStick): ArcadeStickReading =
+proc getCurrentReading*(self: ArcadeStick): ArcadeStickReading  =
   ## Windows.Gaming.Input.ArcadeStick.GetCurrentReading
   withIface(self.p, IID_IArcadeStick, "IArcadeStick", it):
     var tmp: ArcadeStickReading
@@ -714,21 +731,21 @@ proc removeUserChanged*(self: ArcadeStick, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("ArcadeStick.remove_UserChanged")
 
-proc headset*(self: ArcadeStick): Headset =
+proc headset*(self: ArcadeStick): Headset  =
   ## Windows.Gaming.Input.ArcadeStick.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("ArcadeStick.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: ArcadeStick): bool =
+proc isWireless*(self: ArcadeStick): bool  =
   ## Windows.Gaming.Input.ArcadeStick.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("ArcadeStick.get_IsWireless")
     result = tmp
 
-proc fromGameController*(_: typedesc[ArcadeStick], a1: pointer): ArcadeStick =
+proc fromGameController*(_: typedesc[ArcadeStick], a1: pointer): ArcadeStick  =
   ## Windows.Gaming.Input.ArcadeStick.FromGameController
   withStatics("Windows.Gaming.Input.ArcadeStick", IID_IArcadeStickStatics2, it):
     var tmp: pointer
@@ -773,7 +790,7 @@ proc removeArcadeStickRemoved*(_: typedesc[ArcadeStick], token: EventRegistratio
   withStatics("Windows.Gaming.Input.ArcadeStick", IID_IArcadeStickStatics, it):
     vcall(it, Slot_IArcadeStickStatics_remove_ArcadeStickRemoved, Fn_IArcadeStickStatics_remove_ArcadeStickRemoved)(it, token).check("ArcadeStick.remove_ArcadeStickRemoved")
 
-proc arcadeSticks*(_: typedesc[ArcadeStick]): seq[ArcadeStick] =
+proc arcadeSticks*(_: typedesc[ArcadeStick]): seq[ArcadeStick]  =
   ## Windows.Gaming.Input.ArcadeStick.get_ArcadeSticks
   withStatics("Windows.Gaming.Input.ArcadeStick", IID_IArcadeStickStatics, it):
     var tmp: pointer
@@ -781,196 +798,195 @@ proc arcadeSticks*(_: typedesc[ArcadeStick]): seq[ArcadeStick] =
     result = toSeq[ArcadeStick](tmp, IID_IVectorView_1_ArcadeStick)
     release(tmp)
 
-proc tryGetFactoryControllerFromGameController*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: pointer): pointer =
+proc tryGetFactoryControllerFromGameController*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: pointer): pointer  =
   ## Windows.Gaming.Input.Custom.GameControllerFactoryManager.TryGetFactoryControllerFromGameController
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager", IID_IGameControllerFactoryManagerStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IGameControllerFactoryManagerStatics2_TryGetFactoryControllerFromGameController, Fn_IGameControllerFactoryManagerStatics2_TryGetFactoryControllerFromGameController)(it, a1, a2, tmp.addr).check("GameControllerFactoryManager.TryGetFactoryControllerFromGameController")
     result = tmp
 
-proc registerCustomFactoryForGipInterface*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: GUID) =
+proc registerCustomFactoryForGipInterface*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: GUID)  =
   ## Windows.Gaming.Input.Custom.GameControllerFactoryManager.RegisterCustomFactoryForGipInterface
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager", IID_IGameControllerFactoryManagerStatics, it):
     vcall(it, Slot_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForGipInterface, Fn_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForGipInterface)(it, a1, a2).check("GameControllerFactoryManager.RegisterCustomFactoryForGipInterface")
 
-proc registerCustomFactoryForHardwareId*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: uint16, a3: uint16) =
+proc registerCustomFactoryForHardwareId*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: uint16, a3: uint16)  =
   ## Windows.Gaming.Input.Custom.GameControllerFactoryManager.RegisterCustomFactoryForHardwareId
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager", IID_IGameControllerFactoryManagerStatics, it):
     vcall(it, Slot_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForHardwareId, Fn_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForHardwareId)(it, a1, a2, a3).check("GameControllerFactoryManager.RegisterCustomFactoryForHardwareId")
 
-proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: XusbDeviceType, a3: XusbDeviceSubtype) =
+proc registerCustomFactoryForXusbType*(_: typedesc[GameControllerFactoryManager], a1: pointer, a2: XusbDeviceType, a3: XusbDeviceSubtype)  =
   ## Windows.Gaming.Input.Custom.GameControllerFactoryManager.RegisterCustomFactoryForXusbType
   withStatics("Windows.Gaming.Input.Custom.GameControllerFactoryManager", IID_IGameControllerFactoryManagerStatics, it):
     vcall(it, Slot_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForXusbType, Fn_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForXusbType)(it, a1, a2, a3).check("GameControllerFactoryManager.RegisterCustomFactoryForXusbType")
 
-proc extendedErrorCode*(self: GipFirmwareUpdateResult): uint32 =
+proc extendedErrorCode*(self: GipFirmwareUpdateResult): uint32  =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_ExtendedErrorCode
   withIface(self.p, IID_IGipFirmwareUpdateResult, "IGipFirmwareUpdateResult", it):
     var tmp: uint32
     vcall(it, Slot_IGipFirmwareUpdateResult_get_ExtendedErrorCode, Fn_IGipFirmwareUpdateResult_get_ExtendedErrorCode)(it, tmp.addr).check("GipFirmwareUpdateResult.get_ExtendedErrorCode")
     result = tmp
 
-proc finalComponentId*(self: GipFirmwareUpdateResult): uint32 =
+proc finalComponentId*(self: GipFirmwareUpdateResult): uint32  =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_FinalComponentId
   withIface(self.p, IID_IGipFirmwareUpdateResult, "IGipFirmwareUpdateResult", it):
     var tmp: uint32
     vcall(it, Slot_IGipFirmwareUpdateResult_get_FinalComponentId, Fn_IGipFirmwareUpdateResult_get_FinalComponentId)(it, tmp.addr).check("GipFirmwareUpdateResult.get_FinalComponentId")
     result = tmp
 
-proc status*(self: GipFirmwareUpdateResult): GipFirmwareUpdateStatus =
+proc status*(self: GipFirmwareUpdateResult): GipFirmwareUpdateStatus  =
   ## Windows.Gaming.Input.Custom.GipFirmwareUpdateResult.get_Status
   withIface(self.p, IID_IGipFirmwareUpdateResult, "IGipFirmwareUpdateResult", it):
     var tmp: GipFirmwareUpdateStatus
     vcall(it, Slot_IGipFirmwareUpdateResult_get_Status, Fn_IGipFirmwareUpdateResult_get_Status)(it, tmp.addr).check("GipFirmwareUpdateResult.get_Status")
     result = tmp
 
-proc updateFirmwareAsync*(self: GipGameControllerProvider, a1: pointer): GipFirmwareUpdateResult =
+proc updateFirmwareAsync*(self: GipGameControllerProvider, a1: pointer): Future[GipFirmwareUpdateResult] {.async.} =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.UpdateFirmwareAsync
+  var op: pointer
   withIface(self.p, IID_IGipGameControllerProvider, "IGipGameControllerProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IGipGameControllerProvider_UpdateFirmwareAsync, Fn_IGipGameControllerProvider_UpdateFirmwareAsync)(it, a1, tmp.addr).check("GipGameControllerProvider.UpdateFirmwareAsync")
-    result = adopt[GipFirmwareUpdateResult](awaitObject(tmp, IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress, "GipGameControllerProvider.UpdateFirmwareAsync"))
-    release(tmp)
+    vcall(it, Slot_IGipGameControllerProvider_UpdateFirmwareAsync, Fn_IGipGameControllerProvider_UpdateFirmwareAsync)(it, a1, op.addr).check("GipGameControllerProvider.UpdateFirmwareAsync")
+  result = adopt[GipFirmwareUpdateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress, IID_AsyncOperationCompletedHandler_1_GipFirmwareUpdateResult, "GipGameControllerProvider.UpdateFirmwareAsync"))
 
-proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
+proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_FirmwareVersionInfo, Fn_IGameControllerProvider_get_FirmwareVersionInfo)(it, tmp.addr).check("GipGameControllerProvider.get_FirmwareVersionInfo")
     result = tmp
 
-proc hardwareProductId*(self: GipGameControllerProvider): uint16 =
+proc hardwareProductId*(self: GipGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareProductId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareProductId, Fn_IGameControllerProvider_get_HardwareProductId)(it, tmp.addr).check("GipGameControllerProvider.get_HardwareProductId")
     result = tmp
 
-proc hardwareVendorId*(self: GipGameControllerProvider): uint16 =
+proc hardwareVendorId*(self: GipGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareVendorId, Fn_IGameControllerProvider_get_HardwareVendorId)(it, tmp.addr).check("GipGameControllerProvider.get_HardwareVendorId")
     result = tmp
 
-proc hardwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo =
+proc hardwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_HardwareVersionInfo, Fn_IGameControllerProvider_get_HardwareVersionInfo)(it, tmp.addr).check("GipGameControllerProvider.get_HardwareVersionInfo")
     result = tmp
 
-proc isConnected*(self: GipGameControllerProvider): bool =
+proc isConnected*(self: GipGameControllerProvider): bool  =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.get_IsConnected
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_IGameControllerProvider_get_IsConnected, Fn_IGameControllerProvider_get_IsConnected)(it, tmp.addr).check("GipGameControllerProvider.get_IsConnected")
     result = tmp
 
-proc usageId*(self: HidGameControllerProvider): uint16 =
+proc usageId*(self: HidGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_UsageId
   withIface(self.p, IID_IHidGameControllerProvider, "IHidGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IHidGameControllerProvider_get_UsageId, Fn_IHidGameControllerProvider_get_UsageId)(it, tmp.addr).check("HidGameControllerProvider.get_UsageId")
     result = tmp
 
-proc usagePage*(self: HidGameControllerProvider): uint16 =
+proc usagePage*(self: HidGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_UsagePage
   withIface(self.p, IID_IHidGameControllerProvider, "IHidGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IHidGameControllerProvider_get_UsagePage, Fn_IHidGameControllerProvider_get_UsagePage)(it, tmp.addr).check("HidGameControllerProvider.get_UsagePage")
     result = tmp
 
-proc firmwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo =
+proc firmwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_FirmwareVersionInfo, Fn_IGameControllerProvider_get_FirmwareVersionInfo)(it, tmp.addr).check("HidGameControllerProvider.get_FirmwareVersionInfo")
     result = tmp
 
-proc hardwareProductId*(self: HidGameControllerProvider): uint16 =
+proc hardwareProductId*(self: HidGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareProductId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareProductId, Fn_IGameControllerProvider_get_HardwareProductId)(it, tmp.addr).check("HidGameControllerProvider.get_HardwareProductId")
     result = tmp
 
-proc hardwareVendorId*(self: HidGameControllerProvider): uint16 =
+proc hardwareVendorId*(self: HidGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareVendorId, Fn_IGameControllerProvider_get_HardwareVendorId)(it, tmp.addr).check("HidGameControllerProvider.get_HardwareVendorId")
     result = tmp
 
-proc hardwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo =
+proc hardwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_HardwareVersionInfo, Fn_IGameControllerProvider_get_HardwareVersionInfo)(it, tmp.addr).check("HidGameControllerProvider.get_HardwareVersionInfo")
     result = tmp
 
-proc isConnected*(self: HidGameControllerProvider): bool =
+proc isConnected*(self: HidGameControllerProvider): bool  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_IsConnected
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_IGameControllerProvider_get_IsConnected, Fn_IGameControllerProvider_get_IsConnected)(it, tmp.addr).check("HidGameControllerProvider.get_IsConnected")
     result = tmp
 
-proc setVibration*(self: XusbGameControllerProvider, a1: float64, a2: float64) =
+proc setVibration*(self: XusbGameControllerProvider, a1: float64, a2: float64)  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.SetVibration
   withIface(self.p, IID_IXusbGameControllerProvider, "IXusbGameControllerProvider", it):
     vcall(it, Slot_IXusbGameControllerProvider_SetVibration, Fn_IXusbGameControllerProvider_SetVibration)(it, a1, a2).check("XusbGameControllerProvider.SetVibration")
 
-proc firmwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo =
+proc firmwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_FirmwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_FirmwareVersionInfo, Fn_IGameControllerProvider_get_FirmwareVersionInfo)(it, tmp.addr).check("XusbGameControllerProvider.get_FirmwareVersionInfo")
     result = tmp
 
-proc hardwareProductId*(self: XusbGameControllerProvider): uint16 =
+proc hardwareProductId*(self: XusbGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareProductId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareProductId, Fn_IGameControllerProvider_get_HardwareProductId)(it, tmp.addr).check("XusbGameControllerProvider.get_HardwareProductId")
     result = tmp
 
-proc hardwareVendorId*(self: XusbGameControllerProvider): uint16 =
+proc hardwareVendorId*(self: XusbGameControllerProvider): uint16  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareVendorId
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: uint16
     vcall(it, Slot_IGameControllerProvider_get_HardwareVendorId, Fn_IGameControllerProvider_get_HardwareVendorId)(it, tmp.addr).check("XusbGameControllerProvider.get_HardwareVendorId")
     result = tmp
 
-proc hardwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo =
+proc hardwareVersionInfo*(self: XusbGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_HardwareVersionInfo
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: GameControllerVersionInfo
     vcall(it, Slot_IGameControllerProvider_get_HardwareVersionInfo, Fn_IGameControllerProvider_get_HardwareVersionInfo)(it, tmp.addr).check("XusbGameControllerProvider.get_HardwareVersionInfo")
     result = tmp
 
-proc isConnected*(self: XusbGameControllerProvider): bool =
+proc isConnected*(self: XusbGameControllerProvider): bool  =
   ## Windows.Gaming.Input.Custom.XusbGameControllerProvider.get_IsConnected
   withIface(self.p, IID_IGameControllerProvider, "IGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_IGameControllerProvider_get_IsConnected, Fn_IGameControllerProvider_get_IsConnected)(it, tmp.addr).check("XusbGameControllerProvider.get_IsConnected")
     result = tmp
 
-proc hatSwitchKind*(self: FlightStick): GameControllerSwitchKind =
+proc hatSwitchKind*(self: FlightStick): GameControllerSwitchKind  =
   ## Windows.Gaming.Input.FlightStick.get_HatSwitchKind
   withIface(self.p, IID_IFlightStick, "IFlightStick", it):
     var tmp: GameControllerSwitchKind
     vcall(it, Slot_IFlightStick_get_HatSwitchKind, Fn_IFlightStick_get_HatSwitchKind)(it, tmp.addr).check("FlightStick.get_HatSwitchKind")
     result = tmp
 
-proc getButtonLabel*(self: FlightStick, a1: FlightStickButtons): GameControllerButtonLabel =
+proc getButtonLabel*(self: FlightStick, a1: FlightStickButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.FlightStick.GetButtonLabel
   withIface(self.p, IID_IFlightStick, "IFlightStick", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IFlightStick_GetButtonLabel, Fn_IFlightStick_GetButtonLabel)(it, a1, tmp.addr).check("FlightStick.GetButtonLabel")
     result = tmp
 
-proc getCurrentReading*(self: FlightStick): FlightStickReading =
+proc getCurrentReading*(self: FlightStick): FlightStickReading  =
   ## Windows.Gaming.Input.FlightStick.GetCurrentReading
   withIface(self.p, IID_IFlightStick, "IFlightStick", it):
     var tmp: FlightStickReading
@@ -1019,14 +1035,14 @@ proc removeUserChanged*(self: FlightStick, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("FlightStick.remove_UserChanged")
 
-proc headset*(self: FlightStick): Headset =
+proc headset*(self: FlightStick): Headset  =
   ## Windows.Gaming.Input.FlightStick.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("FlightStick.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: FlightStick): bool =
+proc isWireless*(self: FlightStick): bool  =
   ## Windows.Gaming.Input.FlightStick.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
@@ -1071,7 +1087,7 @@ proc removeFlightStickRemoved*(_: typedesc[FlightStick], token: EventRegistratio
   withStatics("Windows.Gaming.Input.FlightStick", IID_IFlightStickStatics, it):
     vcall(it, Slot_IFlightStickStatics_remove_FlightStickRemoved, Fn_IFlightStickStatics_remove_FlightStickRemoved)(it, token).check("FlightStick.remove_FlightStickRemoved")
 
-proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick] =
+proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick]  =
   ## Windows.Gaming.Input.FlightStick.get_FlightSticks
   withStatics("Windows.Gaming.Input.FlightStick", IID_IFlightStickStatics, it):
     var tmp: pointer
@@ -1079,55 +1095,55 @@ proc flightSticks*(_: typedesc[FlightStick]): seq[FlightStick] =
     result = toSeq[FlightStick](tmp, IID_IVectorView_1_FlightStick)
     release(tmp)
 
-proc fromGameController*(_: typedesc[FlightStick], a1: pointer): FlightStick =
+proc fromGameController*(_: typedesc[FlightStick], a1: pointer): FlightStick  =
   ## Windows.Gaming.Input.FlightStick.FromGameController
   withStatics("Windows.Gaming.Input.FlightStick", IID_IFlightStickStatics, it):
     var tmp: pointer
     vcall(it, Slot_IFlightStickStatics_FromGameController, Fn_IFlightStickStatics_FromGameController)(it, a1, tmp.addr).check("FlightStick.FromGameController")
     result = adopt[FlightStick](tmp)
 
-proc gain*(self: ConditionForceEffect): float64 =
+proc gain*(self: ConditionForceEffect): float64  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: float64
     vcall(it, Slot_IForceFeedbackEffect_get_Gain, Fn_IForceFeedbackEffect_get_Gain)(it, tmp.addr).check("ConditionForceEffect.get_Gain")
     result = tmp
 
-proc `gain=`*(self: ConditionForceEffect, value: float64) =
+proc `gain=`*(self: ConditionForceEffect, value: float64)  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.put_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_put_Gain, Fn_IForceFeedbackEffect_put_Gain)(it, value).check("ConditionForceEffect.put_Gain")
 
-proc state*(self: ConditionForceEffect): ForceFeedbackEffectState =
+proc state*(self: ConditionForceEffect): ForceFeedbackEffectState  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_State
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: ForceFeedbackEffectState
     vcall(it, Slot_IForceFeedbackEffect_get_State, Fn_IForceFeedbackEffect_get_State)(it, tmp.addr).check("ConditionForceEffect.get_State")
     result = tmp
 
-proc start*(self: ConditionForceEffect) =
+proc start*(self: ConditionForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.Start
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Start, Fn_IForceFeedbackEffect_Start)(it).check("ConditionForceEffect.Start")
 
-proc stop*(self: ConditionForceEffect) =
+proc stop*(self: ConditionForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.Stop
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Stop, Fn_IForceFeedbackEffect_Stop)(it).check("ConditionForceEffect.Stop")
 
-proc kind*(self: ConditionForceEffect): ConditionForceEffectKind =
+proc kind*(self: ConditionForceEffect): ConditionForceEffectKind  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.get_Kind
   withIface(self.p, IID_IConditionForceEffect, "IConditionForceEffect", it):
     var tmp: ConditionForceEffectKind
     vcall(it, Slot_IConditionForceEffect_get_Kind, Fn_IConditionForceEffect_get_Kind)(it, tmp.addr).check("ConditionForceEffect.get_Kind")
     result = tmp
 
-proc setParameters*(self: ConditionForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: float32, a6: float32, a7: float32) =
+proc setParameters*(self: ConditionForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: float32, a6: float32, a7: float32)  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.SetParameters
   withIface(self.p, IID_IConditionForceEffect, "IConditionForceEffect", it):
     vcall(it, Slot_IConditionForceEffect_SetParameters, Fn_IConditionForceEffect_SetParameters)(it, a1, a2, a3, a4, a5, a6, a7).check("ConditionForceEffect.SetParameters")
 
-proc createInstance*(_: typedesc[ConditionForceEffect], a1: ConditionForceEffectKind): ConditionForceEffect =
+proc createInstance*(_: typedesc[ConditionForceEffect], a1: ConditionForceEffectKind): ConditionForceEffect  =
   ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.CreateInstance
   withStatics("Windows.Gaming.Input.ForceFeedback.ConditionForceEffect", IID_IConditionForceEffectFactory, it):
     var tmp: pointer
@@ -1138,140 +1154,140 @@ proc newConstantForceEffect*(): ConstantForceEffect =
   ## Activate a `Windows.Gaming.Input.ForceFeedback.ConstantForceEffect`.
   adopt[ConstantForceEffect](activateAs("Windows.Gaming.Input.ForceFeedback.ConstantForceEffect", IID_IForceFeedbackEffect))
 
-proc gain*(self: ConstantForceEffect): float64 =
+proc gain*(self: ConstantForceEffect): float64  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.get_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: float64
     vcall(it, Slot_IForceFeedbackEffect_get_Gain, Fn_IForceFeedbackEffect_get_Gain)(it, tmp.addr).check("ConstantForceEffect.get_Gain")
     result = tmp
 
-proc `gain=`*(self: ConstantForceEffect, value: float64) =
+proc `gain=`*(self: ConstantForceEffect, value: float64)  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.put_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_put_Gain, Fn_IForceFeedbackEffect_put_Gain)(it, value).check("ConstantForceEffect.put_Gain")
 
-proc state*(self: ConstantForceEffect): ForceFeedbackEffectState =
+proc state*(self: ConstantForceEffect): ForceFeedbackEffectState  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.get_State
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: ForceFeedbackEffectState
     vcall(it, Slot_IForceFeedbackEffect_get_State, Fn_IForceFeedbackEffect_get_State)(it, tmp.addr).check("ConstantForceEffect.get_State")
     result = tmp
 
-proc start*(self: ConstantForceEffect) =
+proc start*(self: ConstantForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.Start
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Start, Fn_IForceFeedbackEffect_Start)(it).check("ConstantForceEffect.Start")
 
-proc stop*(self: ConstantForceEffect) =
+proc stop*(self: ConstantForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.Stop
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Stop, Fn_IForceFeedbackEffect_Stop)(it).check("ConstantForceEffect.Stop")
 
-proc setParameters*(self: ConstantForceEffect, a1: Vector3, a2: TimeSpan) =
+proc setParameters*(self: ConstantForceEffect, a1: Vector3, a2: TimeSpan)  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.SetParameters
   withIface(self.p, IID_IConstantForceEffect, "IConstantForceEffect", it):
     vcall(it, Slot_IConstantForceEffect_SetParameters, Fn_IConstantForceEffect_SetParameters)(it, a1, a2).check("ConstantForceEffect.SetParameters")
 
-proc setParametersWithEnvelope*(self: ConstantForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: TimeSpan, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: uint32) =
+proc setParametersWithEnvelope*(self: ConstantForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: TimeSpan, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: uint32)  =
   ## Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.SetParametersWithEnvelope
   withIface(self.p, IID_IConstantForceEffect, "IConstantForceEffect", it):
     vcall(it, Slot_IConstantForceEffect_SetParametersWithEnvelope, Fn_IConstantForceEffect_SetParametersWithEnvelope)(it, a1, a2, a3, a4, a5, a6, a7, a8, a9).check("ConstantForceEffect.SetParametersWithEnvelope")
 
-proc areEffectsPaused*(self: ForceFeedbackMotor): bool =
+proc areEffectsPaused*(self: ForceFeedbackMotor): bool  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_AreEffectsPaused
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     var tmp: bool
     vcall(it, Slot_IForceFeedbackMotor_get_AreEffectsPaused, Fn_IForceFeedbackMotor_get_AreEffectsPaused)(it, tmp.addr).check("ForceFeedbackMotor.get_AreEffectsPaused")
     result = tmp
 
-proc masterGain*(self: ForceFeedbackMotor): float64 =
+proc masterGain*(self: ForceFeedbackMotor): float64  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_MasterGain
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     var tmp: float64
     vcall(it, Slot_IForceFeedbackMotor_get_MasterGain, Fn_IForceFeedbackMotor_get_MasterGain)(it, tmp.addr).check("ForceFeedbackMotor.get_MasterGain")
     result = tmp
 
-proc `masterGain=`*(self: ForceFeedbackMotor, value: float64) =
+proc `masterGain=`*(self: ForceFeedbackMotor, value: float64)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.put_MasterGain
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     vcall(it, Slot_IForceFeedbackMotor_put_MasterGain, Fn_IForceFeedbackMotor_put_MasterGain)(it, value).check("ForceFeedbackMotor.put_MasterGain")
 
-proc isEnabled*(self: ForceFeedbackMotor): bool =
+proc isEnabled*(self: ForceFeedbackMotor): bool  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_IsEnabled
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     var tmp: bool
     vcall(it, Slot_IForceFeedbackMotor_get_IsEnabled, Fn_IForceFeedbackMotor_get_IsEnabled)(it, tmp.addr).check("ForceFeedbackMotor.get_IsEnabled")
     result = tmp
 
-proc supportedAxes*(self: ForceFeedbackMotor): ForceFeedbackEffectAxes =
+proc supportedAxes*(self: ForceFeedbackMotor): ForceFeedbackEffectAxes  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.get_SupportedAxes
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     var tmp: ForceFeedbackEffectAxes
     vcall(it, Slot_IForceFeedbackMotor_get_SupportedAxes, Fn_IForceFeedbackMotor_get_SupportedAxes)(it, tmp.addr).check("ForceFeedbackMotor.get_SupportedAxes")
     result = tmp
 
-proc pauseAllEffects*(self: ForceFeedbackMotor) =
+proc pauseAllEffects*(self: ForceFeedbackMotor)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.PauseAllEffects
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     vcall(it, Slot_IForceFeedbackMotor_PauseAllEffects, Fn_IForceFeedbackMotor_PauseAllEffects)(it).check("ForceFeedbackMotor.PauseAllEffects")
 
-proc resumeAllEffects*(self: ForceFeedbackMotor) =
+proc resumeAllEffects*(self: ForceFeedbackMotor)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.ResumeAllEffects
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     vcall(it, Slot_IForceFeedbackMotor_ResumeAllEffects, Fn_IForceFeedbackMotor_ResumeAllEffects)(it).check("ForceFeedbackMotor.ResumeAllEffects")
 
-proc stopAllEffects*(self: ForceFeedbackMotor) =
+proc stopAllEffects*(self: ForceFeedbackMotor)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.StopAllEffects
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     vcall(it, Slot_IForceFeedbackMotor_StopAllEffects, Fn_IForceFeedbackMotor_StopAllEffects)(it).check("ForceFeedbackMotor.StopAllEffects")
 
-proc gain*(self: PeriodicForceEffect): float64 =
+proc gain*(self: PeriodicForceEffect): float64  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: float64
     vcall(it, Slot_IForceFeedbackEffect_get_Gain, Fn_IForceFeedbackEffect_get_Gain)(it, tmp.addr).check("PeriodicForceEffect.get_Gain")
     result = tmp
 
-proc `gain=`*(self: PeriodicForceEffect, value: float64) =
+proc `gain=`*(self: PeriodicForceEffect, value: float64)  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.put_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_put_Gain, Fn_IForceFeedbackEffect_put_Gain)(it, value).check("PeriodicForceEffect.put_Gain")
 
-proc state*(self: PeriodicForceEffect): ForceFeedbackEffectState =
+proc state*(self: PeriodicForceEffect): ForceFeedbackEffectState  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_State
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: ForceFeedbackEffectState
     vcall(it, Slot_IForceFeedbackEffect_get_State, Fn_IForceFeedbackEffect_get_State)(it, tmp.addr).check("PeriodicForceEffect.get_State")
     result = tmp
 
-proc start*(self: PeriodicForceEffect) =
+proc start*(self: PeriodicForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.Start
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Start, Fn_IForceFeedbackEffect_Start)(it).check("PeriodicForceEffect.Start")
 
-proc stop*(self: PeriodicForceEffect) =
+proc stop*(self: PeriodicForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.Stop
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Stop, Fn_IForceFeedbackEffect_Stop)(it).check("PeriodicForceEffect.Stop")
 
-proc kind*(self: PeriodicForceEffect): PeriodicForceEffectKind =
+proc kind*(self: PeriodicForceEffect): PeriodicForceEffectKind  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Kind
   withIface(self.p, IID_IPeriodicForceEffect, "IPeriodicForceEffect", it):
     var tmp: PeriodicForceEffectKind
     vcall(it, Slot_IPeriodicForceEffect_get_Kind, Fn_IPeriodicForceEffect_get_Kind)(it, tmp.addr).check("PeriodicForceEffect.get_Kind")
     result = tmp
 
-proc setParameters*(self: PeriodicForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: TimeSpan) =
+proc setParameters*(self: PeriodicForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: TimeSpan)  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.SetParameters
   withIface(self.p, IID_IPeriodicForceEffect, "IPeriodicForceEffect", it):
     vcall(it, Slot_IPeriodicForceEffect_SetParameters, Fn_IPeriodicForceEffect_SetParameters)(it, a1, a2, a3, a4, a5).check("PeriodicForceEffect.SetParameters")
 
-proc setParametersWithEnvelope*(self: PeriodicForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: float32, a6: float32, a7: float32, a8: TimeSpan, a9: TimeSpan, a10: TimeSpan, a11: TimeSpan, a12: uint32) =
+proc setParametersWithEnvelope*(self: PeriodicForceEffect, a1: Vector3, a2: float32, a3: float32, a4: float32, a5: float32, a6: float32, a7: float32, a8: TimeSpan, a9: TimeSpan, a10: TimeSpan, a11: TimeSpan, a12: uint32)  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.SetParametersWithEnvelope
   withIface(self.p, IID_IPeriodicForceEffect, "IPeriodicForceEffect", it):
     vcall(it, Slot_IPeriodicForceEffect_SetParametersWithEnvelope, Fn_IPeriodicForceEffect_SetParametersWithEnvelope)(it, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12).check("PeriodicForceEffect.SetParametersWithEnvelope")
 
-proc createInstance*(_: typedesc[PeriodicForceEffect], a1: PeriodicForceEffectKind): PeriodicForceEffect =
+proc createInstance*(_: typedesc[PeriodicForceEffect], a1: PeriodicForceEffectKind): PeriodicForceEffect  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.CreateInstance
   withStatics("Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect", IID_IPeriodicForceEffectFactory, it):
     var tmp: pointer
@@ -1282,58 +1298,58 @@ proc newRampForceEffect*(): RampForceEffect =
   ## Activate a `Windows.Gaming.Input.ForceFeedback.RampForceEffect`.
   adopt[RampForceEffect](activateAs("Windows.Gaming.Input.ForceFeedback.RampForceEffect", IID_IForceFeedbackEffect))
 
-proc gain*(self: RampForceEffect): float64 =
+proc gain*(self: RampForceEffect): float64  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.get_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: float64
     vcall(it, Slot_IForceFeedbackEffect_get_Gain, Fn_IForceFeedbackEffect_get_Gain)(it, tmp.addr).check("RampForceEffect.get_Gain")
     result = tmp
 
-proc `gain=`*(self: RampForceEffect, value: float64) =
+proc `gain=`*(self: RampForceEffect, value: float64)  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.put_Gain
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_put_Gain, Fn_IForceFeedbackEffect_put_Gain)(it, value).check("RampForceEffect.put_Gain")
 
-proc state*(self: RampForceEffect): ForceFeedbackEffectState =
+proc state*(self: RampForceEffect): ForceFeedbackEffectState  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.get_State
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     var tmp: ForceFeedbackEffectState
     vcall(it, Slot_IForceFeedbackEffect_get_State, Fn_IForceFeedbackEffect_get_State)(it, tmp.addr).check("RampForceEffect.get_State")
     result = tmp
 
-proc start*(self: RampForceEffect) =
+proc start*(self: RampForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.Start
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Start, Fn_IForceFeedbackEffect_Start)(it).check("RampForceEffect.Start")
 
-proc stop*(self: RampForceEffect) =
+proc stop*(self: RampForceEffect)  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.Stop
   withIface(self.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", it):
     vcall(it, Slot_IForceFeedbackEffect_Stop, Fn_IForceFeedbackEffect_Stop)(it).check("RampForceEffect.Stop")
 
-proc setParameters*(self: RampForceEffect, a1: Vector3, a2: Vector3, a3: TimeSpan) =
+proc setParameters*(self: RampForceEffect, a1: Vector3, a2: Vector3, a3: TimeSpan)  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.SetParameters
   withIface(self.p, IID_IRampForceEffect, "IRampForceEffect", it):
     vcall(it, Slot_IRampForceEffect_SetParameters, Fn_IRampForceEffect_SetParameters)(it, a1, a2, a3).check("RampForceEffect.SetParameters")
 
-proc setParametersWithEnvelope*(self: RampForceEffect, a1: Vector3, a2: Vector3, a3: float32, a4: float32, a5: float32, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: TimeSpan, a10: uint32) =
+proc setParametersWithEnvelope*(self: RampForceEffect, a1: Vector3, a2: Vector3, a3: float32, a4: float32, a5: float32, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: TimeSpan, a10: uint32)  =
   ## Windows.Gaming.Input.ForceFeedback.RampForceEffect.SetParametersWithEnvelope
   withIface(self.p, IID_IRampForceEffect, "IRampForceEffect", it):
     vcall(it, Slot_IRampForceEffect_SetParametersWithEnvelope, Fn_IRampForceEffect_SetParametersWithEnvelope)(it, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10).check("RampForceEffect.SetParametersWithEnvelope")
 
-proc vibration*(self: Gamepad): GamepadVibration =
+proc vibration*(self: Gamepad): GamepadVibration  =
   ## Windows.Gaming.Input.Gamepad.get_Vibration
   withIface(self.p, IID_IGamepad, "IGamepad", it):
     var tmp: GamepadVibration
     vcall(it, Slot_IGamepad_get_Vibration, Fn_IGamepad_get_Vibration)(it, tmp.addr).check("Gamepad.get_Vibration")
     result = tmp
 
-proc `vibration=`*(self: Gamepad, value: GamepadVibration) =
+proc `vibration=`*(self: Gamepad, value: GamepadVibration)  =
   ## Windows.Gaming.Input.Gamepad.put_Vibration
   withIface(self.p, IID_IGamepad, "IGamepad", it):
     vcall(it, Slot_IGamepad_put_Vibration, Fn_IGamepad_put_Vibration)(it, value).check("Gamepad.put_Vibration")
 
-proc getCurrentReading*(self: Gamepad): GamepadReading =
+proc getCurrentReading*(self: Gamepad): GamepadReading  =
   ## Windows.Gaming.Input.Gamepad.GetCurrentReading
   withIface(self.p, IID_IGamepad, "IGamepad", it):
     var tmp: GamepadReading
@@ -1382,21 +1398,21 @@ proc removeUserChanged*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("Gamepad.remove_UserChanged")
 
-proc headset*(self: Gamepad): Headset =
+proc headset*(self: Gamepad): Headset  =
   ## Windows.Gaming.Input.Gamepad.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("Gamepad.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: Gamepad): bool =
+proc isWireless*(self: Gamepad): bool  =
   ## Windows.Gaming.Input.Gamepad.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("Gamepad.get_IsWireless")
     result = tmp
 
-proc getButtonLabel*(self: Gamepad, a1: GamepadButtons): GameControllerButtonLabel =
+proc getButtonLabel*(self: Gamepad, a1: GamepadButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.Gamepad.GetButtonLabel
   withIface(self.p, IID_IGamepad2, "IGamepad2", it):
     var tmp: GameControllerButtonLabel
@@ -1441,7 +1457,7 @@ proc removeGamepadRemoved*(_: typedesc[Gamepad], token: EventRegistrationToken) 
   withStatics("Windows.Gaming.Input.Gamepad", IID_IGamepadStatics, it):
     vcall(it, Slot_IGamepadStatics_remove_GamepadRemoved, Fn_IGamepadStatics_remove_GamepadRemoved)(it, token).check("Gamepad.remove_GamepadRemoved")
 
-proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad] =
+proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad]  =
   ## Windows.Gaming.Input.Gamepad.get_Gamepads
   withStatics("Windows.Gaming.Input.Gamepad", IID_IGamepadStatics, it):
     var tmp: pointer
@@ -1449,91 +1465,91 @@ proc gamepads*(_: typedesc[Gamepad]): seq[Gamepad] =
     result = toSeq[Gamepad](tmp, IID_IVectorView_1_Gamepad)
     release(tmp)
 
-proc fromGameController*(_: typedesc[Gamepad], a1: pointer): Gamepad =
+proc fromGameController*(_: typedesc[Gamepad], a1: pointer): Gamepad  =
   ## Windows.Gaming.Input.Gamepad.FromGameController
   withStatics("Windows.Gaming.Input.Gamepad", IID_IGamepadStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IGamepadStatics2_FromGameController, Fn_IGamepadStatics2_FromGameController)(it, a1, tmp.addr).check("Gamepad.FromGameController")
     result = adopt[Gamepad](tmp)
 
-proc captureDeviceId*(self: Headset): string =
+proc captureDeviceId*(self: Headset): string  =
   ## Windows.Gaming.Input.Headset.get_CaptureDeviceId
   withIface(self.p, IID_IHeadset, "IHeadset", it):
     var tmp: HSTRING
     vcall(it, Slot_IHeadset_get_CaptureDeviceId, Fn_IHeadset_get_CaptureDeviceId)(it, tmp.addr).check("Headset.get_CaptureDeviceId")
     result = takeString(tmp)
 
-proc renderDeviceId*(self: Headset): string =
+proc renderDeviceId*(self: Headset): string  =
   ## Windows.Gaming.Input.Headset.get_RenderDeviceId
   withIface(self.p, IID_IHeadset, "IHeadset", it):
     var tmp: HSTRING
     vcall(it, Slot_IHeadset_get_RenderDeviceId, Fn_IHeadset_get_RenderDeviceId)(it, tmp.addr).check("Headset.get_RenderDeviceId")
     result = takeString(tmp)
 
-proc getParentProviderId*(_: typedesc[GameControllerProviderInfo], a1: pointer): string =
+proc getParentProviderId*(_: typedesc[GameControllerProviderInfo], a1: pointer): string  =
   ## Windows.Gaming.Input.Preview.GameControllerProviderInfo.GetParentProviderId
   withStatics("Windows.Gaming.Input.Preview.GameControllerProviderInfo", IID_IGameControllerProviderInfoStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IGameControllerProviderInfoStatics_GetParentProviderId, Fn_IGameControllerProviderInfoStatics_GetParentProviderId)(it, a1, tmp.addr).check("GameControllerProviderInfo.GetParentProviderId")
     result = takeString(tmp)
 
-proc getProviderId*(_: typedesc[GameControllerProviderInfo], a1: pointer): string =
+proc getProviderId*(_: typedesc[GameControllerProviderInfo], a1: pointer): string  =
   ## Windows.Gaming.Input.Preview.GameControllerProviderInfo.GetProviderId
   withStatics("Windows.Gaming.Input.Preview.GameControllerProviderInfo", IID_IGameControllerProviderInfoStatics, it):
     var tmp: HSTRING
     vcall(it, Slot_IGameControllerProviderInfoStatics_GetProviderId, Fn_IGameControllerProviderInfoStatics_GetProviderId)(it, a1, tmp.addr).check("GameControllerProviderInfo.GetProviderId")
     result = takeString(tmp)
 
-proc batteryChargingState*(self: LegacyGipGameControllerProvider): GameControllerBatteryChargingState =
+proc batteryChargingState*(self: LegacyGipGameControllerProvider): GameControllerBatteryChargingState  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryChargingState
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: GameControllerBatteryChargingState
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_BatteryChargingState, Fn_ILegacyGipGameControllerProvider_get_BatteryChargingState)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_BatteryChargingState")
     result = tmp
 
-proc batteryKind*(self: LegacyGipGameControllerProvider): GameControllerBatteryKind =
+proc batteryKind*(self: LegacyGipGameControllerProvider): GameControllerBatteryKind  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryKind
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: GameControllerBatteryKind
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_BatteryKind, Fn_ILegacyGipGameControllerProvider_get_BatteryKind)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_BatteryKind")
     result = tmp
 
-proc batteryLevel*(self: LegacyGipGameControllerProvider): GameControllerBatteryLevel =
+proc batteryLevel*(self: LegacyGipGameControllerProvider): GameControllerBatteryLevel  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_BatteryLevel
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: GameControllerBatteryLevel
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_BatteryLevel, Fn_ILegacyGipGameControllerProvider_get_BatteryLevel)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_BatteryLevel")
     result = tmp
 
-proc getDeviceFirmwareCorruptionState*(self: LegacyGipGameControllerProvider): GameControllerFirmwareCorruptReason =
+proc getDeviceFirmwareCorruptionState*(self: LegacyGipGameControllerProvider): GameControllerFirmwareCorruptReason  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetDeviceFirmwareCorruptionState
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: GameControllerFirmwareCorruptReason
     vcall(it, Slot_ILegacyGipGameControllerProvider_GetDeviceFirmwareCorruptionState, Fn_ILegacyGipGameControllerProvider_GetDeviceFirmwareCorruptionState)(it, tmp.addr).check("LegacyGipGameControllerProvider.GetDeviceFirmwareCorruptionState")
     result = tmp
 
-proc isFirmwareCorrupted*(self: LegacyGipGameControllerProvider): bool =
+proc isFirmwareCorrupted*(self: LegacyGipGameControllerProvider): bool  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_IsFirmwareCorrupted
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_IsFirmwareCorrupted, Fn_ILegacyGipGameControllerProvider_get_IsFirmwareCorrupted)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_IsFirmwareCorrupted")
     result = tmp
 
-proc isInterfaceSupported*(self: LegacyGipGameControllerProvider, a1: GUID): bool =
+proc isInterfaceSupported*(self: LegacyGipGameControllerProvider, a1: GUID): bool  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.IsInterfaceSupported
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_ILegacyGipGameControllerProvider_IsInterfaceSupported, Fn_ILegacyGipGameControllerProvider_IsInterfaceSupported)(it, a1, tmp.addr).check("LegacyGipGameControllerProvider.IsInterfaceSupported")
     result = tmp
 
-proc isSyntheticDevice*(self: LegacyGipGameControllerProvider): bool =
+proc isSyntheticDevice*(self: LegacyGipGameControllerProvider): bool  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_IsSyntheticDevice
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: bool
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_IsSyntheticDevice, Fn_ILegacyGipGameControllerProvider_get_IsSyntheticDevice)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_IsSyntheticDevice")
     result = tmp
 
-proc preferredTypes*(self: LegacyGipGameControllerProvider): seq[string] =
+proc preferredTypes*(self: LegacyGipGameControllerProvider): seq[string]  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_PreferredTypes
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: pointer
@@ -1541,87 +1557,87 @@ proc preferredTypes*(self: LegacyGipGameControllerProvider): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc executeCommand*(self: LegacyGipGameControllerProvider, a1: DeviceCommand) =
+proc executeCommand*(self: LegacyGipGameControllerProvider, a1: DeviceCommand)  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.ExecuteCommand
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     vcall(it, Slot_ILegacyGipGameControllerProvider_ExecuteCommand, Fn_ILegacyGipGameControllerProvider_ExecuteCommand)(it, a1).check("LegacyGipGameControllerProvider.ExecuteCommand")
 
-proc setHomeLedIntensity*(self: LegacyGipGameControllerProvider, a1: uint8) =
+proc setHomeLedIntensity*(self: LegacyGipGameControllerProvider, a1: uint8)  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.SetHomeLedIntensity
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     vcall(it, Slot_ILegacyGipGameControllerProvider_SetHomeLedIntensity, Fn_ILegacyGipGameControllerProvider_SetHomeLedIntensity)(it, a1).check("LegacyGipGameControllerProvider.SetHomeLedIntensity")
 
-proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32 =
+proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_AppCompatVersion
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: uint32
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_AppCompatVersion, Fn_ILegacyGipGameControllerProvider_get_AppCompatVersion)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_AppCompatVersion")
     result = tmp
 
-proc fromGameController*(_: typedesc[LegacyGipGameControllerProvider], a1: pointer): LegacyGipGameControllerProvider =
+proc fromGameController*(_: typedesc[LegacyGipGameControllerProvider], a1: pointer): LegacyGipGameControllerProvider  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.FromGameController
   withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILegacyGipGameControllerProviderStatics_FromGameController, Fn_ILegacyGipGameControllerProviderStatics_FromGameController)(it, a1, tmp.addr).check("LegacyGipGameControllerProvider.FromGameController")
     result = adopt[LegacyGipGameControllerProvider](tmp)
 
-proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider], a1: pointer): LegacyGipGameControllerProvider =
+proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider], a1: pointer): LegacyGipGameControllerProvider  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.FromGameControllerProvider
   withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider, Fn_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider)(it, a1, tmp.addr).check("LegacyGipGameControllerProvider.FromGameControllerProvider")
     result = adopt[LegacyGipGameControllerProvider](tmp)
 
-proc hasClutch*(self: RacingWheel): bool =
+proc hasClutch*(self: RacingWheel): bool  =
   ## Windows.Gaming.Input.RacingWheel.get_HasClutch
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: bool
     vcall(it, Slot_IRacingWheel_get_HasClutch, Fn_IRacingWheel_get_HasClutch)(it, tmp.addr).check("RacingWheel.get_HasClutch")
     result = tmp
 
-proc hasHandbrake*(self: RacingWheel): bool =
+proc hasHandbrake*(self: RacingWheel): bool  =
   ## Windows.Gaming.Input.RacingWheel.get_HasHandbrake
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: bool
     vcall(it, Slot_IRacingWheel_get_HasHandbrake, Fn_IRacingWheel_get_HasHandbrake)(it, tmp.addr).check("RacingWheel.get_HasHandbrake")
     result = tmp
 
-proc hasPatternShifter*(self: RacingWheel): bool =
+proc hasPatternShifter*(self: RacingWheel): bool  =
   ## Windows.Gaming.Input.RacingWheel.get_HasPatternShifter
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: bool
     vcall(it, Slot_IRacingWheel_get_HasPatternShifter, Fn_IRacingWheel_get_HasPatternShifter)(it, tmp.addr).check("RacingWheel.get_HasPatternShifter")
     result = tmp
 
-proc maxPatternShifterGear*(self: RacingWheel): int32 =
+proc maxPatternShifterGear*(self: RacingWheel): int32  =
   ## Windows.Gaming.Input.RacingWheel.get_MaxPatternShifterGear
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: int32
     vcall(it, Slot_IRacingWheel_get_MaxPatternShifterGear, Fn_IRacingWheel_get_MaxPatternShifterGear)(it, tmp.addr).check("RacingWheel.get_MaxPatternShifterGear")
     result = tmp
 
-proc maxWheelAngle*(self: RacingWheel): float64 =
+proc maxWheelAngle*(self: RacingWheel): float64  =
   ## Windows.Gaming.Input.RacingWheel.get_MaxWheelAngle
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: float64
     vcall(it, Slot_IRacingWheel_get_MaxWheelAngle, Fn_IRacingWheel_get_MaxWheelAngle)(it, tmp.addr).check("RacingWheel.get_MaxWheelAngle")
     result = tmp
 
-proc wheelMotor*(self: RacingWheel): ForceFeedbackMotor =
+proc wheelMotor*(self: RacingWheel): ForceFeedbackMotor  =
   ## Windows.Gaming.Input.RacingWheel.get_WheelMotor
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: pointer
     vcall(it, Slot_IRacingWheel_get_WheelMotor, Fn_IRacingWheel_get_WheelMotor)(it, tmp.addr).check("RacingWheel.get_WheelMotor")
     result = adopt[ForceFeedbackMotor](tmp)
 
-proc getButtonLabel*(self: RacingWheel, a1: RacingWheelButtons): GameControllerButtonLabel =
+proc getButtonLabel*(self: RacingWheel, a1: RacingWheelButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.RacingWheel.GetButtonLabel
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IRacingWheel_GetButtonLabel, Fn_IRacingWheel_GetButtonLabel)(it, a1, tmp.addr).check("RacingWheel.GetButtonLabel")
     result = tmp
 
-proc getCurrentReading*(self: RacingWheel): RacingWheelReading =
+proc getCurrentReading*(self: RacingWheel): RacingWheelReading  =
   ## Windows.Gaming.Input.RacingWheel.GetCurrentReading
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
     var tmp: RacingWheelReading
@@ -1670,14 +1686,14 @@ proc removeUserChanged*(self: RacingWheel, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("RacingWheel.remove_UserChanged")
 
-proc headset*(self: RacingWheel): Headset =
+proc headset*(self: RacingWheel): Headset  =
   ## Windows.Gaming.Input.RacingWheel.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("RacingWheel.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: RacingWheel): bool =
+proc isWireless*(self: RacingWheel): bool  =
   ## Windows.Gaming.Input.RacingWheel.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
@@ -1722,7 +1738,7 @@ proc removeRacingWheelRemoved*(_: typedesc[RacingWheel], token: EventRegistratio
   withStatics("Windows.Gaming.Input.RacingWheel", IID_IRacingWheelStatics, it):
     vcall(it, Slot_IRacingWheelStatics_remove_RacingWheelRemoved, Fn_IRacingWheelStatics_remove_RacingWheelRemoved)(it, token).check("RacingWheel.remove_RacingWheelRemoved")
 
-proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel] =
+proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel]  =
   ## Windows.Gaming.Input.RacingWheel.get_RacingWheels
   withStatics("Windows.Gaming.Input.RacingWheel", IID_IRacingWheelStatics, it):
     var tmp: pointer
@@ -1730,28 +1746,28 @@ proc racingWheels*(_: typedesc[RacingWheel]): seq[RacingWheel] =
     result = toSeq[RacingWheel](tmp, IID_IVectorView_1_RacingWheel)
     release(tmp)
 
-proc fromGameController*(_: typedesc[RacingWheel], a1: pointer): RacingWheel =
+proc fromGameController*(_: typedesc[RacingWheel], a1: pointer): RacingWheel  =
   ## Windows.Gaming.Input.RacingWheel.FromGameController
   withStatics("Windows.Gaming.Input.RacingWheel", IID_IRacingWheelStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IRacingWheelStatics2_FromGameController, Fn_IRacingWheelStatics2_FromGameController)(it, a1, tmp.addr).check("RacingWheel.FromGameController")
     result = adopt[RacingWheel](tmp)
 
-proc axisCount*(self: RawGameController): int32 =
+proc axisCount*(self: RawGameController): int32  =
   ## Windows.Gaming.Input.RawGameController.get_AxisCount
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: int32
     vcall(it, Slot_IRawGameController_get_AxisCount, Fn_IRawGameController_get_AxisCount)(it, tmp.addr).check("RawGameController.get_AxisCount")
     result = tmp
 
-proc buttonCount*(self: RawGameController): int32 =
+proc buttonCount*(self: RawGameController): int32  =
   ## Windows.Gaming.Input.RawGameController.get_ButtonCount
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: int32
     vcall(it, Slot_IRawGameController_get_ButtonCount, Fn_IRawGameController_get_ButtonCount)(it, tmp.addr).check("RawGameController.get_ButtonCount")
     result = tmp
 
-proc forceFeedbackMotors*(self: RawGameController): seq[ForceFeedbackMotor] =
+proc forceFeedbackMotors*(self: RawGameController): seq[ForceFeedbackMotor]  =
   ## Windows.Gaming.Input.RawGameController.get_ForceFeedbackMotors
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: pointer
@@ -1759,35 +1775,35 @@ proc forceFeedbackMotors*(self: RawGameController): seq[ForceFeedbackMotor] =
     result = toSeq[ForceFeedbackMotor](tmp, IID_IVectorView_1_ForceFeedbackMotor)
     release(tmp)
 
-proc hardwareProductId*(self: RawGameController): uint16 =
+proc hardwareProductId*(self: RawGameController): uint16  =
   ## Windows.Gaming.Input.RawGameController.get_HardwareProductId
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: uint16
     vcall(it, Slot_IRawGameController_get_HardwareProductId, Fn_IRawGameController_get_HardwareProductId)(it, tmp.addr).check("RawGameController.get_HardwareProductId")
     result = tmp
 
-proc hardwareVendorId*(self: RawGameController): uint16 =
+proc hardwareVendorId*(self: RawGameController): uint16  =
   ## Windows.Gaming.Input.RawGameController.get_HardwareVendorId
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: uint16
     vcall(it, Slot_IRawGameController_get_HardwareVendorId, Fn_IRawGameController_get_HardwareVendorId)(it, tmp.addr).check("RawGameController.get_HardwareVendorId")
     result = tmp
 
-proc switchCount*(self: RawGameController): int32 =
+proc switchCount*(self: RawGameController): int32  =
   ## Windows.Gaming.Input.RawGameController.get_SwitchCount
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: int32
     vcall(it, Slot_IRawGameController_get_SwitchCount, Fn_IRawGameController_get_SwitchCount)(it, tmp.addr).check("RawGameController.get_SwitchCount")
     result = tmp
 
-proc getButtonLabel*(self: RawGameController, a1: int32): GameControllerButtonLabel =
+proc getButtonLabel*(self: RawGameController, a1: int32): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.RawGameController.GetButtonLabel
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IRawGameController_GetButtonLabel, Fn_IRawGameController_GetButtonLabel)(it, a1, tmp.addr).check("RawGameController.GetButtonLabel")
     result = tmp
 
-proc getSwitchKind*(self: RawGameController, a1: int32): GameControllerSwitchKind =
+proc getSwitchKind*(self: RawGameController, a1: int32): GameControllerSwitchKind  =
   ## Windows.Gaming.Input.RawGameController.GetSwitchKind
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: GameControllerSwitchKind
@@ -1836,28 +1852,28 @@ proc removeUserChanged*(self: RawGameController, token: EventRegistrationToken) 
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("RawGameController.remove_UserChanged")
 
-proc headset*(self: RawGameController): Headset =
+proc headset*(self: RawGameController): Headset  =
   ## Windows.Gaming.Input.RawGameController.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("RawGameController.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: RawGameController): bool =
+proc isWireless*(self: RawGameController): bool  =
   ## Windows.Gaming.Input.RawGameController.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("RawGameController.get_IsWireless")
     result = tmp
 
-proc nonRoamableId*(self: RawGameController): string =
+proc nonRoamableId*(self: RawGameController): string  =
   ## Windows.Gaming.Input.RawGameController.get_NonRoamableId
   withIface(self.p, IID_IRawGameController2, "IRawGameController2", it):
     var tmp: HSTRING
     vcall(it, Slot_IRawGameController2_get_NonRoamableId, Fn_IRawGameController2_get_NonRoamableId)(it, tmp.addr).check("RawGameController.get_NonRoamableId")
     result = takeString(tmp)
 
-proc displayName*(self: RawGameController): string =
+proc displayName*(self: RawGameController): string  =
   ## Windows.Gaming.Input.RawGameController.get_DisplayName
   withIface(self.p, IID_IRawGameController2, "IRawGameController2", it):
     var tmp: HSTRING
@@ -1902,7 +1918,7 @@ proc removeRawGameControllerRemoved*(_: typedesc[RawGameController], token: Even
   withStatics("Windows.Gaming.Input.RawGameController", IID_IRawGameControllerStatics, it):
     vcall(it, Slot_IRawGameControllerStatics_remove_RawGameControllerRemoved, Fn_IRawGameControllerStatics_remove_RawGameControllerRemoved)(it, token).check("RawGameController.remove_RawGameControllerRemoved")
 
-proc rawGameControllers*(_: typedesc[RawGameController]): seq[RawGameController] =
+proc rawGameControllers*(_: typedesc[RawGameController]): seq[RawGameController]  =
   ## Windows.Gaming.Input.RawGameController.get_RawGameControllers
   withStatics("Windows.Gaming.Input.RawGameController", IID_IRawGameControllerStatics, it):
     var tmp: pointer
@@ -1910,28 +1926,28 @@ proc rawGameControllers*(_: typedesc[RawGameController]): seq[RawGameController]
     result = toSeq[RawGameController](tmp, IID_IVectorView_1_RawGameController)
     release(tmp)
 
-proc fromGameController*(_: typedesc[RawGameController], a1: pointer): RawGameController =
+proc fromGameController*(_: typedesc[RawGameController], a1: pointer): RawGameController  =
   ## Windows.Gaming.Input.RawGameController.FromGameController
   withStatics("Windows.Gaming.Input.RawGameController", IID_IRawGameControllerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IRawGameControllerStatics_FromGameController, Fn_IRawGameControllerStatics_FromGameController)(it, a1, tmp.addr).check("RawGameController.FromGameController")
     result = adopt[RawGameController](tmp)
 
-proc getCurrentReading*(self: UINavigationController): UINavigationReading =
+proc getCurrentReading*(self: UINavigationController): UINavigationReading  =
   ## Windows.Gaming.Input.UINavigationController.GetCurrentReading
   withIface(self.p, IID_IUINavigationController, "IUINavigationController", it):
     var tmp: UINavigationReading
     vcall(it, Slot_IUINavigationController_GetCurrentReading, Fn_IUINavigationController_GetCurrentReading)(it, tmp.addr).check("UINavigationController.GetCurrentReading")
     result = tmp
 
-proc getOptionalButtonLabel*(self: UINavigationController, a1: OptionalUINavigationButtons): GameControllerButtonLabel =
+proc getOptionalButtonLabel*(self: UINavigationController, a1: OptionalUINavigationButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.UINavigationController.GetOptionalButtonLabel
   withIface(self.p, IID_IUINavigationController, "IUINavigationController", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IUINavigationController_GetOptionalButtonLabel, Fn_IUINavigationController_GetOptionalButtonLabel)(it, a1, tmp.addr).check("UINavigationController.GetOptionalButtonLabel")
     result = tmp
 
-proc getRequiredButtonLabel*(self: UINavigationController, a1: RequiredUINavigationButtons): GameControllerButtonLabel =
+proc getRequiredButtonLabel*(self: UINavigationController, a1: RequiredUINavigationButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.UINavigationController.GetRequiredButtonLabel
   withIface(self.p, IID_IUINavigationController, "IUINavigationController", it):
     var tmp: GameControllerButtonLabel
@@ -1980,21 +1996,21 @@ proc removeUserChanged*(self: UINavigationController, token: EventRegistrationTo
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("UINavigationController.remove_UserChanged")
 
-proc headset*(self: UINavigationController): Headset =
+proc headset*(self: UINavigationController): Headset  =
   ## Windows.Gaming.Input.UINavigationController.get_Headset
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: pointer
     vcall(it, Slot_IGameController_get_Headset, Fn_IGameController_get_Headset)(it, tmp.addr).check("UINavigationController.get_Headset")
     result = adopt[Headset](tmp)
 
-proc isWireless*(self: UINavigationController): bool =
+proc isWireless*(self: UINavigationController): bool  =
   ## Windows.Gaming.Input.UINavigationController.get_IsWireless
   withIface(self.p, IID_IGameController, "IGameController", it):
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("UINavigationController.get_IsWireless")
     result = tmp
 
-proc fromGameController*(_: typedesc[UINavigationController], a1: pointer): UINavigationController =
+proc fromGameController*(_: typedesc[UINavigationController], a1: pointer): UINavigationController  =
   ## Windows.Gaming.Input.UINavigationController.FromGameController
   withStatics("Windows.Gaming.Input.UINavigationController", IID_IUINavigationControllerStatics2, it):
     var tmp: pointer
@@ -2039,7 +2055,7 @@ proc removeUINavigationControllerRemoved*(_: typedesc[UINavigationController], t
   withStatics("Windows.Gaming.Input.UINavigationController", IID_IUINavigationControllerStatics, it):
     vcall(it, Slot_IUINavigationControllerStatics_remove_UINavigationControllerRemoved, Fn_IUINavigationControllerStatics_remove_UINavigationControllerRemoved)(it, token).check("UINavigationController.remove_UINavigationControllerRemoved")
 
-proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINavigationController] =
+proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINavigationController]  =
   ## Windows.Gaming.Input.UINavigationController.get_UINavigationControllers
   withStatics("Windows.Gaming.Input.UINavigationController", IID_IUINavigationControllerStatics, it):
     var tmp: pointer
@@ -2047,15 +2063,14 @@ proc uINavigationControllers*(_: typedesc[UINavigationController]): seq[UINaviga
     result = toSeq[UINavigationController](tmp, IID_IVectorView_1_UINavigationController)
     release(tmp)
 
-proc mergeEntriesAsync*(_: typedesc[GameList], a1: GameListEntry, a2: GameListEntry): GameListEntry =
+proc mergeEntriesAsync*(_: typedesc[GameList], a1: GameListEntry, a2: GameListEntry): Future[GameListEntry] {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameList.MergeEntriesAsync
+  var op: pointer
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics2, it):
     withIface(a1.p, IID_IGameListEntry, "IGameListEntry", p0):
       withIface(a2.p, IID_IGameListEntry, "IGameListEntry", p1):
-        var tmp: pointer
-        vcall(it, Slot_IGameListStatics2_MergeEntriesAsync, Fn_IGameListStatics2_MergeEntriesAsync)(it, p0, p1, tmp.addr).check("GameList.MergeEntriesAsync")
-        result = adopt[GameListEntry](awaitObject(tmp, IID_IAsyncOperation_1_GameListEntry, "GameList.MergeEntriesAsync"))
-        release(tmp)
+        vcall(it, Slot_IGameListStatics2_MergeEntriesAsync, Fn_IGameListStatics2_MergeEntriesAsync)(it, p0, p1, op.addr).check("GameList.MergeEntriesAsync")
+  result = adopt[GameListEntry](await awaitObject(op, IID_IAsyncOperation_1_GameListEntry, IID_AsyncOperationCompletedHandler_1_GameListEntry, "GameList.MergeEntriesAsync"))
 
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
@@ -2069,95 +2084,91 @@ proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameUpdated, Fn_IGameListStatics_remove_GameUpdated)(it, token).check("GameList.remove_GameUpdated")
 
-proc category*(self: GameListEntry): GameListCategory =
+proc category*(self: GameListEntry): GameListCategory  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Category
   withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
     var tmp: GameListCategory
     vcall(it, Slot_IGameListEntry_get_Category, Fn_IGameListEntry_get_Category)(it, tmp.addr).check("GameListEntry.get_Category")
     result = tmp
 
-proc setCategoryAsync*(self: GameListEntry, a1: GameListCategory) =
+proc setCategoryAsync*(self: GameListEntry, a1: GameListCategory) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetCategoryAsync
+  var op: pointer
   withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameListEntry_SetCategoryAsync, Fn_IGameListEntry_SetCategoryAsync)(it, a1, tmp.addr).check("GameListEntry.SetCategoryAsync")
-    awaitVoid(tmp, "GameListEntry.SetCategoryAsync")
-    release(tmp)
+    vcall(it, Slot_IGameListEntry_SetCategoryAsync, Fn_IGameListEntry_SetCategoryAsync)(it, a1, op.addr).check("GameListEntry.SetCategoryAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetCategoryAsync")
 
-proc launchableState*(self: GameListEntry): GameListEntryLaunchableState =
+proc launchableState*(self: GameListEntry): GameListEntryLaunchableState  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchableState
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: GameListEntryLaunchableState
     vcall(it, Slot_IGameListEntry2_get_LaunchableState, Fn_IGameListEntry2_get_LaunchableState)(it, tmp.addr).check("GameListEntry.get_LaunchableState")
     result = tmp
 
-proc launcherExecutable*(self: GameListEntry): pointer =
+proc launcherExecutable*(self: GameListEntry): pointer  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LauncherExecutable
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: pointer
     vcall(it, Slot_IGameListEntry2_get_LauncherExecutable, Fn_IGameListEntry2_get_LauncherExecutable)(it, tmp.addr).check("GameListEntry.get_LauncherExecutable")
     result = tmp
 
-proc launchParameters*(self: GameListEntry): string =
+proc launchParameters*(self: GameListEntry): string  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchParameters
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameListEntry2_get_LaunchParameters, Fn_IGameListEntry2_get_LaunchParameters)(it, tmp.addr).check("GameListEntry.get_LaunchParameters")
     result = takeString(tmp)
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer) =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
+  var op: pointer
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync, Fn_IGameListEntry2_SetLauncherExecutableFileAsync)(it, a1, tmp.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
-    awaitVoid(tmp, "GameListEntry.SetLauncherExecutableFileAsync")
-    release(tmp)
+    vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync, Fn_IGameListEntry2_SetLauncherExecutableFileAsync)(it, a1, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetLauncherExecutableFileAsync")
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer, a2: string) =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, a1: pointer, a2: string) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
+  var op: pointer
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     withHString(a2, h1):
-      var tmp: pointer
-      vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync2, Fn_IGameListEntry2_SetLauncherExecutableFileAsync2)(it, a1, h1, tmp.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
-      awaitVoid(tmp, "GameListEntry.SetLauncherExecutableFileAsync")
-      release(tmp)
+      vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync2, Fn_IGameListEntry2_SetLauncherExecutableFileAsync2)(it, a1, h1, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetLauncherExecutableFileAsync")
 
-proc titleId*(self: GameListEntry): string =
+proc titleId*(self: GameListEntry): string  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_TitleId
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameListEntry2_get_TitleId, Fn_IGameListEntry2_get_TitleId)(it, tmp.addr).check("GameListEntry.get_TitleId")
     result = takeString(tmp)
 
-proc setTitleIdAsync*(self: GameListEntry, a1: string) =
+proc setTitleIdAsync*(self: GameListEntry, a1: string) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetTitleIdAsync
+  var op: pointer
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IGameListEntry2_SetTitleIdAsync, Fn_IGameListEntry2_SetTitleIdAsync)(it, h0, tmp.addr).check("GameListEntry.SetTitleIdAsync")
-      awaitVoid(tmp, "GameListEntry.SetTitleIdAsync")
-      release(tmp)
+      vcall(it, Slot_IGameListEntry2_SetTitleIdAsync, Fn_IGameListEntry2_SetTitleIdAsync)(it, h0, op.addr).check("GameListEntry.SetTitleIdAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetTitleIdAsync")
 
-proc gameModeConfiguration*(self: GameListEntry): GameModeConfiguration =
+proc gameModeConfiguration*(self: GameListEntry): GameModeConfiguration  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_GameModeConfiguration
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: pointer
     vcall(it, Slot_IGameListEntry2_get_GameModeConfiguration, Fn_IGameListEntry2_get_GameModeConfiguration)(it, tmp.addr).check("GameListEntry.get_GameModeConfiguration")
     result = adopt[GameModeConfiguration](tmp)
 
-proc isEnabled*(self: GameModeConfiguration): bool =
+proc isEnabled*(self: GameModeConfiguration): bool  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_IsEnabled
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     var tmp: bool
     vcall(it, Slot_IGameModeConfiguration_get_IsEnabled, Fn_IGameModeConfiguration_get_IsEnabled)(it, tmp.addr).check("GameModeConfiguration.get_IsEnabled")
     result = tmp
 
-proc `isEnabled=`*(self: GameModeConfiguration, value: bool) =
+proc `isEnabled=`*(self: GameModeConfiguration, value: bool)  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_IsEnabled
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     vcall(it, Slot_IGameModeConfiguration_put_IsEnabled, Fn_IGameModeConfiguration_put_IsEnabled)(it, value).check("GameModeConfiguration.put_IsEnabled")
 
-proc relatedProcessNames*(self: GameModeConfiguration): seq[string] =
+proc relatedProcessNames*(self: GameModeConfiguration): seq[string]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_RelatedProcessNames
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     var tmp: pointer
@@ -2165,27 +2176,26 @@ proc relatedProcessNames*(self: GameModeConfiguration): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc affinitizeToExclusiveCpus*(self: GameModeConfiguration): bool =
+proc affinitizeToExclusiveCpus*(self: GameModeConfiguration): bool  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_AffinitizeToExclusiveCpus
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     var tmp: bool
     vcall(it, Slot_IGameModeConfiguration_get_AffinitizeToExclusiveCpus, Fn_IGameModeConfiguration_get_AffinitizeToExclusiveCpus)(it, tmp.addr).check("GameModeConfiguration.get_AffinitizeToExclusiveCpus")
     result = tmp
 
-proc `affinitizeToExclusiveCpus=`*(self: GameModeConfiguration, value: bool) =
+proc `affinitizeToExclusiveCpus=`*(self: GameModeConfiguration, value: bool)  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_AffinitizeToExclusiveCpus
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     vcall(it, Slot_IGameModeConfiguration_put_AffinitizeToExclusiveCpus, Fn_IGameModeConfiguration_put_AffinitizeToExclusiveCpus)(it, value).check("GameModeConfiguration.put_AffinitizeToExclusiveCpus")
 
-proc saveAsync*(self: GameModeConfiguration) =
+proc saveAsync*(self: GameModeConfiguration) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.SaveAsync
+  var op: pointer
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameModeConfiguration_SaveAsync, Fn_IGameModeConfiguration_SaveAsync)(it, tmp.addr).check("GameModeConfiguration.SaveAsync")
-    awaitVoid(tmp, "GameModeConfiguration.SaveAsync")
-    release(tmp)
+    vcall(it, Slot_IGameModeConfiguration_SaveAsync, Fn_IGameModeConfiguration_SaveAsync)(it, op.addr).check("GameModeConfiguration.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameModeConfiguration.SaveAsync")
 
-proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
+proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.get_GamingRelatedProcessNames
   withIface(self.p, IID_IGameModeUserConfiguration, "IGameModeUserConfiguration", it):
     var tmp: pointer
@@ -2193,15 +2203,14 @@ proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string] =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc saveAsync*(self: GameModeUserConfiguration) =
+proc saveAsync*(self: GameModeUserConfiguration) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.SaveAsync
+  var op: pointer
   withIface(self.p, IID_IGameModeUserConfiguration, "IGameModeUserConfiguration", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameModeUserConfiguration_SaveAsync, Fn_IGameModeUserConfiguration_SaveAsync)(it, tmp.addr).check("GameModeUserConfiguration.SaveAsync")
-    awaitVoid(tmp, "GameModeUserConfiguration.SaveAsync")
-    release(tmp)
+    vcall(it, Slot_IGameModeUserConfiguration_SaveAsync, Fn_IGameModeUserConfiguration_SaveAsync)(it, op.addr).check("GameModeUserConfiguration.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameModeUserConfiguration.SaveAsync")
 
-proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfiguration =
+proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfiguration  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration.GetDefault
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration", IID_IGameModeUserConfigurationStatics, it):
     var tmp: pointer
@@ -2246,75 +2255,75 @@ proc removeIsInputRedirectedChanged*(_: typedesc[GameBar], token: EventRegistrat
   withStatics("Windows.Gaming.UI.GameBar", IID_IGameBarStatics, it):
     vcall(it, Slot_IGameBarStatics_remove_IsInputRedirectedChanged, Fn_IGameBarStatics_remove_IsInputRedirectedChanged)(it, token).check("GameBar.remove_IsInputRedirectedChanged")
 
-proc visible*(_: typedesc[GameBar]): bool =
+proc visible*(_: typedesc[GameBar]): bool  =
   ## Windows.Gaming.UI.GameBar.get_Visible
   withStatics("Windows.Gaming.UI.GameBar", IID_IGameBarStatics, it):
     var tmp: bool
     vcall(it, Slot_IGameBarStatics_get_Visible, Fn_IGameBarStatics_get_Visible)(it, tmp.addr).check("GameBar.get_Visible")
     result = tmp
 
-proc isInputRedirected*(_: typedesc[GameBar]): bool =
+proc isInputRedirected*(_: typedesc[GameBar]): bool  =
   ## Windows.Gaming.UI.GameBar.get_IsInputRedirected
   withStatics("Windows.Gaming.UI.GameBar", IID_IGameBarStatics, it):
     var tmp: bool
     vcall(it, Slot_IGameBarStatics_get_IsInputRedirected, Fn_IGameBarStatics_get_IsInputRedirected)(it, tmp.addr).check("GameBar.get_IsInputRedirected")
     result = tmp
 
-proc appId*(self: GameChatMessageReceivedEventArgs): string =
+proc appId*(self: GameChatMessageReceivedEventArgs): string  =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_AppId
   withIface(self.p, IID_IGameChatMessageReceivedEventArgs, "IGameChatMessageReceivedEventArgs", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameChatMessageReceivedEventArgs_get_AppId, Fn_IGameChatMessageReceivedEventArgs_get_AppId)(it, tmp.addr).check("GameChatMessageReceivedEventArgs.get_AppId")
     result = takeString(tmp)
 
-proc appDisplayName*(self: GameChatMessageReceivedEventArgs): string =
+proc appDisplayName*(self: GameChatMessageReceivedEventArgs): string  =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_AppDisplayName
   withIface(self.p, IID_IGameChatMessageReceivedEventArgs, "IGameChatMessageReceivedEventArgs", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameChatMessageReceivedEventArgs_get_AppDisplayName, Fn_IGameChatMessageReceivedEventArgs_get_AppDisplayName)(it, tmp.addr).check("GameChatMessageReceivedEventArgs.get_AppDisplayName")
     result = takeString(tmp)
 
-proc senderName*(self: GameChatMessageReceivedEventArgs): string =
+proc senderName*(self: GameChatMessageReceivedEventArgs): string  =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_SenderName
   withIface(self.p, IID_IGameChatMessageReceivedEventArgs, "IGameChatMessageReceivedEventArgs", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameChatMessageReceivedEventArgs_get_SenderName, Fn_IGameChatMessageReceivedEventArgs_get_SenderName)(it, tmp.addr).check("GameChatMessageReceivedEventArgs.get_SenderName")
     result = takeString(tmp)
 
-proc message*(self: GameChatMessageReceivedEventArgs): string =
+proc message*(self: GameChatMessageReceivedEventArgs): string  =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_Message
   withIface(self.p, IID_IGameChatMessageReceivedEventArgs, "IGameChatMessageReceivedEventArgs", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameChatMessageReceivedEventArgs_get_Message, Fn_IGameChatMessageReceivedEventArgs_get_Message)(it, tmp.addr).check("GameChatMessageReceivedEventArgs.get_Message")
     result = takeString(tmp)
 
-proc origin*(self: GameChatMessageReceivedEventArgs): GameChatMessageOrigin =
+proc origin*(self: GameChatMessageReceivedEventArgs): GameChatMessageOrigin  =
   ## Windows.Gaming.UI.GameChatMessageReceivedEventArgs.get_Origin
   withIface(self.p, IID_IGameChatMessageReceivedEventArgs, "IGameChatMessageReceivedEventArgs", it):
     var tmp: GameChatMessageOrigin
     vcall(it, Slot_IGameChatMessageReceivedEventArgs_get_Origin, Fn_IGameChatMessageReceivedEventArgs_get_Origin)(it, tmp.addr).check("GameChatMessageReceivedEventArgs.get_Origin")
     result = tmp
 
-proc desiredPosition*(self: GameChatOverlay): GameChatOverlayPosition =
+proc desiredPosition*(self: GameChatOverlay): GameChatOverlayPosition  =
   ## Windows.Gaming.UI.GameChatOverlay.get_DesiredPosition
   withIface(self.p, IID_IGameChatOverlay, "IGameChatOverlay", it):
     var tmp: GameChatOverlayPosition
     vcall(it, Slot_IGameChatOverlay_get_DesiredPosition, Fn_IGameChatOverlay_get_DesiredPosition)(it, tmp.addr).check("GameChatOverlay.get_DesiredPosition")
     result = tmp
 
-proc `desiredPosition=`*(self: GameChatOverlay, value: GameChatOverlayPosition) =
+proc `desiredPosition=`*(self: GameChatOverlay, value: GameChatOverlayPosition)  =
   ## Windows.Gaming.UI.GameChatOverlay.put_DesiredPosition
   withIface(self.p, IID_IGameChatOverlay, "IGameChatOverlay", it):
     vcall(it, Slot_IGameChatOverlay_put_DesiredPosition, Fn_IGameChatOverlay_put_DesiredPosition)(it, value).check("GameChatOverlay.put_DesiredPosition")
 
-proc addMessage*(self: GameChatOverlay, a1: string, a2: string, a3: GameChatMessageOrigin) =
+proc addMessage*(self: GameChatOverlay, a1: string, a2: string, a3: GameChatMessageOrigin)  =
   ## Windows.Gaming.UI.GameChatOverlay.AddMessage
   withIface(self.p, IID_IGameChatOverlay, "IGameChatOverlay", it):
     withHString(a1, h0):
       withHString(a2, h1):
         vcall(it, Slot_IGameChatOverlay_AddMessage, Fn_IGameChatOverlay_AddMessage)(it, h0, h1, a3).check("GameChatOverlay.AddMessage")
 
-proc getDefault*(_: typedesc[GameChatOverlay]): GameChatOverlay =
+proc getDefault*(_: typedesc[GameChatOverlay]): GameChatOverlay  =
   ## Windows.Gaming.UI.GameChatOverlay.GetDefault
   withStatics("Windows.Gaming.UI.GameChatOverlay", IID_IGameChatOverlayStatics, it):
     var tmp: pointer
@@ -2344,40 +2353,40 @@ proc removeMessageReceived*(self: GameChatOverlayMessageSource, token: EventRegi
   withIface(self.p, IID_IGameChatOverlayMessageSource, "IGameChatOverlayMessageSource", it):
     vcall(it, Slot_IGameChatOverlayMessageSource_remove_MessageReceived, Fn_IGameChatOverlayMessageSource_remove_MessageReceived)(it, token).check("GameChatOverlayMessageSource.remove_MessageReceived")
 
-proc setDelayBeforeClosingAfterMessageReceived*(self: GameChatOverlayMessageSource, a1: TimeSpan) =
+proc setDelayBeforeClosingAfterMessageReceived*(self: GameChatOverlayMessageSource, a1: TimeSpan)  =
   ## Windows.Gaming.UI.GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived
   withIface(self.p, IID_IGameChatOverlayMessageSource, "IGameChatOverlayMessageSource", it):
     vcall(it, Slot_IGameChatOverlayMessageSource_SetDelayBeforeClosingAfterMessageReceived, Fn_IGameChatOverlayMessageSource_SetDelayBeforeClosingAfterMessageReceived)(it, a1).check("GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived")
 
-proc status*(self: GameSaveBlobGetResult): GameSaveErrorStatus =
+proc status*(self: GameSaveBlobGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Status
   withIface(self.p, IID_IGameSaveBlobGetResult, "IGameSaveBlobGetResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveBlobGetResult_get_Status, Fn_IGameSaveBlobGetResult_get_Status)(it, tmp.addr).check("GameSaveBlobGetResult.get_Status")
     result = tmp
 
-proc name*(self: GameSaveBlobInfo): string =
+proc name*(self: GameSaveBlobInfo): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfo.get_Name
   withIface(self.p, IID_IGameSaveBlobInfo, "IGameSaveBlobInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameSaveBlobInfo_get_Name, Fn_IGameSaveBlobInfo_get_Name)(it, tmp.addr).check("GameSaveBlobInfo.get_Name")
     result = takeString(tmp)
 
-proc size*(self: GameSaveBlobInfo): uint32 =
+proc size*(self: GameSaveBlobInfo): uint32  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfo.get_Size
   withIface(self.p, IID_IGameSaveBlobInfo, "IGameSaveBlobInfo", it):
     var tmp: uint32
     vcall(it, Slot_IGameSaveBlobInfo_get_Size, Fn_IGameSaveBlobInfo_get_Size)(it, tmp.addr).check("GameSaveBlobInfo.get_Size")
     result = tmp
 
-proc status*(self: GameSaveBlobInfoGetResult): GameSaveErrorStatus =
+proc status*(self: GameSaveBlobInfoGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoGetResult.get_Status
   withIface(self.p, IID_IGameSaveBlobInfoGetResult, "IGameSaveBlobInfoGetResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveBlobInfoGetResult_get_Status, Fn_IGameSaveBlobInfoGetResult_get_Status)(it, tmp.addr).check("GameSaveBlobInfoGetResult.get_Status")
     result = tmp
 
-proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo] =
+proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo]  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoGetResult.get_Value
   withIface(self.p, IID_IGameSaveBlobInfoGetResult, "IGameSaveBlobInfoGetResult", it):
     var tmp: pointer
@@ -2385,37 +2394,35 @@ proc value*(self: GameSaveBlobInfoGetResult): seq[GameSaveBlobInfo] =
     result = toSeq[GameSaveBlobInfo](tmp, IID_IVectorView_1_GameSaveBlobInfo)
     release(tmp)
 
-proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): GameSaveBlobInfoGetResult =
+proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery): Future[GameSaveBlobInfoGetResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
+  var op: pointer
   withIface(self.p, IID_IGameSaveBlobInfoQuery, "IGameSaveBlobInfoQuery", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync)(it, tmp.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
-    result = adopt[GameSaveBlobInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync)(it, op.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
+  result = adopt[GameSaveBlobInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
 
-proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, a1: uint32, a2: uint32): GameSaveBlobInfoGetResult =
+proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, a1: uint32, a2: uint32): Future[GameSaveBlobInfoGetResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetBlobInfoAsync
+  var op: pointer
   withIface(self.p, IID_IGameSaveBlobInfoQuery, "IGameSaveBlobInfoQuery", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync2, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync2)(it, a1, a2, tmp.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
-    result = adopt[GameSaveBlobInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync2, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync2)(it, a1, a2, op.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
+  result = adopt[GameSaveBlobInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
 
-proc name*(self: GameSaveContainer): string =
+proc name*(self: GameSaveContainer): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Name
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameSaveContainer_get_Name, Fn_IGameSaveContainer_get_Name)(it, tmp.addr).check("GameSaveContainer.get_Name")
     result = takeString(tmp)
 
-proc provider*(self: GameSaveContainer): GameSaveProvider =
+proc provider*(self: GameSaveContainer): GameSaveProvider  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Provider
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
     var tmp: pointer
     vcall(it, Slot_IGameSaveContainer_get_Provider, Fn_IGameSaveContainer_get_Provider)(it, tmp.addr).check("GameSaveContainer.get_Provider")
     result = adopt[GameSaveProvider](tmp)
 
-proc createBlobInfoQuery*(self: GameSaveContainer, a1: string): GameSaveBlobInfoQuery =
+proc createBlobInfoQuery*(self: GameSaveContainer, a1: string): GameSaveBlobInfoQuery  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.CreateBlobInfoQuery
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
     withHString(a1, h0):
@@ -2423,49 +2430,49 @@ proc createBlobInfoQuery*(self: GameSaveContainer, a1: string): GameSaveBlobInfo
       vcall(it, Slot_IGameSaveContainer_CreateBlobInfoQuery, Fn_IGameSaveContainer_CreateBlobInfoQuery)(it, h0, tmp.addr).check("GameSaveContainer.CreateBlobInfoQuery")
       result = adopt[GameSaveBlobInfoQuery](tmp)
 
-proc name*(self: GameSaveContainerInfo): string =
+proc name*(self: GameSaveContainerInfo): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_Name
   withIface(self.p, IID_IGameSaveContainerInfo, "IGameSaveContainerInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameSaveContainerInfo_get_Name, Fn_IGameSaveContainerInfo_get_Name)(it, tmp.addr).check("GameSaveContainerInfo.get_Name")
     result = takeString(tmp)
 
-proc totalSize*(self: GameSaveContainerInfo): uint64 =
+proc totalSize*(self: GameSaveContainerInfo): uint64  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_TotalSize
   withIface(self.p, IID_IGameSaveContainerInfo, "IGameSaveContainerInfo", it):
     var tmp: uint64
     vcall(it, Slot_IGameSaveContainerInfo_get_TotalSize, Fn_IGameSaveContainerInfo_get_TotalSize)(it, tmp.addr).check("GameSaveContainerInfo.get_TotalSize")
     result = tmp
 
-proc displayName*(self: GameSaveContainerInfo): string =
+proc displayName*(self: GameSaveContainerInfo): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_DisplayName
   withIface(self.p, IID_IGameSaveContainerInfo, "IGameSaveContainerInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IGameSaveContainerInfo_get_DisplayName, Fn_IGameSaveContainerInfo_get_DisplayName)(it, tmp.addr).check("GameSaveContainerInfo.get_DisplayName")
     result = takeString(tmp)
 
-proc lastModifiedTime*(self: GameSaveContainerInfo): DateTime =
+proc lastModifiedTime*(self: GameSaveContainerInfo): DateTime  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_LastModifiedTime
   withIface(self.p, IID_IGameSaveContainerInfo, "IGameSaveContainerInfo", it):
     var tmp: DateTime
     vcall(it, Slot_IGameSaveContainerInfo_get_LastModifiedTime, Fn_IGameSaveContainerInfo_get_LastModifiedTime)(it, tmp.addr).check("GameSaveContainerInfo.get_LastModifiedTime")
     result = tmp
 
-proc needsSync*(self: GameSaveContainerInfo): bool =
+proc needsSync*(self: GameSaveContainerInfo): bool  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfo.get_NeedsSync
   withIface(self.p, IID_IGameSaveContainerInfo, "IGameSaveContainerInfo", it):
     var tmp: bool
     vcall(it, Slot_IGameSaveContainerInfo_get_NeedsSync, Fn_IGameSaveContainerInfo_get_NeedsSync)(it, tmp.addr).check("GameSaveContainerInfo.get_NeedsSync")
     result = tmp
 
-proc status*(self: GameSaveContainerInfoGetResult): GameSaveErrorStatus =
+proc status*(self: GameSaveContainerInfoGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult.get_Status
   withIface(self.p, IID_IGameSaveContainerInfoGetResult, "IGameSaveContainerInfoGetResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveContainerInfoGetResult_get_Status, Fn_IGameSaveContainerInfoGetResult_get_Status)(it, tmp.addr).check("GameSaveContainerInfoGetResult.get_Status")
     result = tmp
 
-proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo] =
+proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo]  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoGetResult.get_Value
   withIface(self.p, IID_IGameSaveContainerInfoGetResult, "IGameSaveContainerInfoGetResult", it):
     var tmp: pointer
@@ -2473,30 +2480,28 @@ proc value*(self: GameSaveContainerInfoGetResult): seq[GameSaveContainerInfo] =
     result = toSeq[GameSaveContainerInfo](tmp, IID_IVectorView_1_GameSaveContainerInfo)
     release(tmp)
 
-proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): GameSaveContainerInfoGetResult =
+proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery): Future[GameSaveContainerInfoGetResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
+  var op: pointer
   withIface(self.p, IID_IGameSaveContainerInfoQuery, "IGameSaveContainerInfoQuery", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync)(it, tmp.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
-    result = adopt[GameSaveContainerInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync)(it, op.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
+  result = adopt[GameSaveContainerInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
 
-proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery, a1: uint32, a2: uint32): GameSaveContainerInfoGetResult =
+proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery, a1: uint32, a2: uint32): Future[GameSaveContainerInfoGetResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetContainerInfoAsync
+  var op: pointer
   withIface(self.p, IID_IGameSaveContainerInfoQuery, "IGameSaveContainerInfoQuery", it):
-    var tmp: pointer
-    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync2, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync2)(it, a1, a2, tmp.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
-    result = adopt[GameSaveContainerInfoGetResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
-    release(tmp)
+    vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync2, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync2)(it, a1, a2, op.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
+  result = adopt[GameSaveContainerInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
 
-proc status*(self: GameSaveOperationResult): GameSaveErrorStatus =
+proc status*(self: GameSaveOperationResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveOperationResult.get_Status
   withIface(self.p, IID_IGameSaveOperationResult, "IGameSaveOperationResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveOperationResult_get_Status, Fn_IGameSaveOperationResult_get_Status)(it, tmp.addr).check("GameSaveOperationResult.get_Status")
     result = tmp
 
-proc createContainer*(self: GameSaveProvider, a1: string): GameSaveContainer =
+proc createContainer*(self: GameSaveProvider, a1: string): GameSaveContainer  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainer
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     withHString(a1, h0):
@@ -2504,23 +2509,22 @@ proc createContainer*(self: GameSaveProvider, a1: string): GameSaveContainer =
       vcall(it, Slot_IGameSaveProvider_CreateContainer, Fn_IGameSaveProvider_CreateContainer)(it, h0, tmp.addr).check("GameSaveProvider.CreateContainer")
       result = adopt[GameSaveContainer](tmp)
 
-proc deleteContainerAsync*(self: GameSaveProvider, a1: string): GameSaveOperationResult =
+proc deleteContainerAsync*(self: GameSaveProvider, a1: string): Future[GameSaveOperationResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.DeleteContainerAsync
+  var op: pointer
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     withHString(a1, h0):
-      var tmp: pointer
-      vcall(it, Slot_IGameSaveProvider_DeleteContainerAsync, Fn_IGameSaveProvider_DeleteContainerAsync)(it, h0, tmp.addr).check("GameSaveProvider.DeleteContainerAsync")
-      result = adopt[GameSaveOperationResult](awaitObject(tmp, IID_IAsyncOperation_1_GameSaveOperationResult, "GameSaveProvider.DeleteContainerAsync"))
-      release(tmp)
+      vcall(it, Slot_IGameSaveProvider_DeleteContainerAsync, Fn_IGameSaveProvider_DeleteContainerAsync)(it, h0, op.addr).check("GameSaveProvider.DeleteContainerAsync")
+  result = adopt[GameSaveOperationResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult, IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult, "GameSaveProvider.DeleteContainerAsync"))
 
-proc createContainerInfoQuery*(self: GameSaveProvider): GameSaveContainerInfoQuery =
+proc createContainerInfoQuery*(self: GameSaveProvider): GameSaveContainerInfoQuery  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainerInfoQuery
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     var tmp: pointer
     vcall(it, Slot_IGameSaveProvider_CreateContainerInfoQuery, Fn_IGameSaveProvider_CreateContainerInfoQuery)(it, tmp.addr).check("GameSaveProvider.CreateContainerInfoQuery")
     result = adopt[GameSaveContainerInfoQuery](tmp)
 
-proc createContainerInfoQuery*(self: GameSaveProvider, a1: string): GameSaveContainerInfoQuery =
+proc createContainerInfoQuery*(self: GameSaveProvider, a1: string): GameSaveContainerInfoQuery  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainerInfoQuery
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     withHString(a1, h0):
@@ -2528,7 +2532,7 @@ proc createContainerInfoQuery*(self: GameSaveProvider, a1: string): GameSaveCont
       vcall(it, Slot_IGameSaveProvider_CreateContainerInfoQuery2, Fn_IGameSaveProvider_CreateContainerInfoQuery2)(it, h0, tmp.addr).check("GameSaveProvider.CreateContainerInfoQuery")
       result = adopt[GameSaveContainerInfoQuery](tmp)
 
-proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string] =
+proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string]  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_ContainersChangedSinceLastSync
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     var tmp: pointer
@@ -2536,14 +2540,14 @@ proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string] =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc status*(self: GameSaveProviderGetResult): GameSaveErrorStatus =
+proc status*(self: GameSaveProviderGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Status
   withIface(self.p, IID_IGameSaveProviderGetResult, "IGameSaveProviderGetResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveProviderGetResult_get_Status, Fn_IGameSaveProviderGetResult_get_Status)(it, tmp.addr).check("GameSaveProviderGetResult.get_Status")
     result = tmp
 
-proc value*(self: GameSaveProviderGetResult): GameSaveProvider =
+proc value*(self: GameSaveProviderGetResult): GameSaveProvider  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Value
   withIface(self.p, IID_IGameSaveProviderGetResult, "IGameSaveProviderGetResult", it):
     var tmp: pointer

@@ -134,6 +134,32 @@ concentrated in one module — measured against `import winrt` on a 2026 laptop,
 `winrt/gaming` adds 0.03s, `winrt/devices` 0.3s, `winrt/ui` 1.9s, and all
 eighteen together 2.0s, because `ui` already pulls in most of the rest.
 
+## Async
+
+A WinRT method that does anything slow hands back an operation object rather
+than a result. Those are ordinary Nim `Future`s here, so they compose with
+`std/asyncdispatch` and nothing else is needed:
+
+```nim
+import winrt, winrt/devices
+
+let adc = waitFor AdcController.getDefaultAsync()
+```
+
+or `await` them inside an `{.async.}` proc. There is no separate blocking
+spelling of each method: `waitFor` already is one.
+
+The Future is completed by the operation's own completion handler, not by
+polling it. Two details make that safe, and both are in `asyncops.nim`: the
+handler object answers `QueryInterface` for `IAgileObject`, so WinRT invokes it
+on the completing thread instead of marshalling back to a single-threaded
+apartment that is blocked in `waitFor`; and all it does there is signal an
+`AsyncEvent`, because `asyncdispatch` is single-threaded and completing a
+`Future` from a thread pool thread would be a data race.
+
+A module that has no async methods does not import `std/asyncdispatch`, so a
+program that never awaits does not pay for it.
+
 ## When you need the layer underneath
 
 The API layer covers most of the surface, and what it does not cover is
@@ -197,10 +223,10 @@ What the API layer does not reach, it says so rather than guessing:
 * **Collections.** `IVector<T>`, `IVectorView<T>` and `IMap<K, V>` are not Nim
   `seq`s or tables yet. A method taking or returning one is skipped, and the
   ABI still has it.
-* **Async.** A method returning `IAsyncOperation<T>` is skipped for the same
-  reason. Reaching one means dropping to the ABI, holding the operation object
-  and setting a completion handler yourself. This is the biggest gap — anything
-  file, device or network shaped is async.
+* **Async results that are a primitive or a nested collection.** A method
+  returning `IAsyncOperation<T>` is waited on and returns `Future[T]`, but only
+  where `T` is an object, a string or nothing. 667 whose `T` is an `int32` or
+  another collection are still skipped.
 * **Arrays.** A handful of methods take or return one; they have no generated
   signature at either layer.
 

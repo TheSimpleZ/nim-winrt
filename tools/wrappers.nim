@@ -40,6 +40,7 @@ import ./nimgen
 const tdInterface = 0x20'u32
 
 const GenericIidMarker = "##<computed-iids>##\n"
+const AsyncImportMarker = "##<async-import>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
   ## that names one, but are only discovered while those procs are emitted.
 
@@ -312,6 +313,7 @@ when isMainModule:
   var staticOnly: HashSet[string]
   var classOrder: seq[TypeRow]
   var takenNames: HashSet[string]
+  var usesAsync = false
   for t in md.types:
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
@@ -375,7 +377,12 @@ when isMainModule:
   buf.add &"import {corePath}\n"
   buf.add &"import {abiPath}\n"
   buf.add &"import {delegatePath}\n"
-  buf.add &"export {corePath.split('/')[^1]}, {abiPath.split('/')[^1]}\n\n"
+  buf.add &"export {corePath.split('/')[^1]}, {abiPath.split('/')[^1]}\n"
+  # Whether this namespace has any async method is only known once its members
+  # have been walked, so the import is spliced in at the end. A module without
+  # one does not drag `std/asyncdispatch` into programs that never await.
+  buf.add AsyncImportMarker
+  buf.add "\n"
   # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
   # `adopt` and `borrow` are not emitted here. They are the same in every
   # module, so eighteen copies collided the moment a program imported two of
@@ -711,30 +718,45 @@ when isMainModule:
 
         let what = &"{cls}.{raw}"
         if async.isAsync:
-          # The call itself is quick: it hands back an operation object, and
-          # the work happens elsewhere. `core` blocks on that object's status
-          # and then reads the result out of it. The wrapper is therefore
-          # synchronous, and named as the metadata names it — `...Async` — so
-          # it can still be found from Microsoft's documentation.
-          var opIid = ""
-          if sig.returns.kind == skUnsupported:
+          # Starting the operation is quick — it hands back an object and the
+          # work happens elsewhere — so the ABI call stays inside the dispatch
+          # scope and the wait happens after that scope closes. Nothing is held
+          # across the suspension: not the factory, not the narrowed interface,
+          # not a temporary HSTRING.
+          #
+          # Two IIDs are needed and neither is declared anywhere. `GetResults`
+          # is read through the operation's own instantiation, and the handler
+          # object has to answer QueryInterface for the completion handler's.
+          # WinRT derives both by hashing a signature string, which `piid` does
+          # here so nothing has to at run time.
+          var opIid, handlerIid = ""
+          if asyncVoid:
+            # An action's handler is not parameterised, so its IID is declared
+            # in the metadata like any other delegate's.
+            handlerIid = "IID_AsyncActionCompletedHandler"
+          else:
+            let hs = SigType(kind: skUnsupported, args: @[async.res],
+                             name: "Windows.Foundation.AsyncOperationCompletedHandler`1")
+            let hc = sigCtx.parameterizedIid(hs)
             let computed = sigCtx.parameterizedIid(sig.returns)
-            if computed.len == 0:
+            if hc.len == 0 or computed.len == 0:
               skipped.inc
               skipReasons.inc "an operation whose IID could not be computed"
               continue
+            handlerIid = genericIidConst(hc, hs)
             opIid = genericIidConst(computed, sig.returns)
-          lines.add &"{indent}var tmp: pointer"
+          usesAsync = true
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                    callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
+                    callArgs.join(", ") & &", op.addr).check(\"{what}\")"
+          # Back out to the proc body, past every scope the arguments opened.
           if asyncVoid:
-            lines.add &"{indent}awaitVoid(tmp, \"{what}\")"
+            lines.add &"  await awaitVoid(op, {handlerIid}, \"{what}\")"
           elif retType == "string":
-            lines.add &"{indent}result = awaitString(tmp, {opIid}, \"{what}\")"
+            lines.add &"  result = await awaitString(op, {opIid}, " &
+                      &"{handlerIid}, \"{what}\")"
           else:
-            lines.add &"{indent}result = adopt[{retType}](" &
-                      &"awaitObject(tmp, {opIid}, \"{what}\"))"
-          lines.add &"{indent}release(tmp)"
+            lines.add &"  result = adopt[{retType}](await awaitObject(" &
+                      &"op, {opIid}, {handlerIid}, \"{what}\"))"
         elif sig.returns.kind == skVoid:
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &").check(\"{what}\")"
@@ -780,9 +802,16 @@ when isMainModule:
               lines.add &"{indent}result = tmp"
           else: lines.add &"{indent}result = tmp"
 
-        buf.add &"proc {name}*(" & params.join(", ") & ")" &
-                (if retType.len > 0: ": " & retType else: "") & " =\n"
+        if async.isAsync:
+          let r = if retType.len > 0: &": Future[{retType}]" else: ""
+          buf.add &"proc {name}*(" & params.join(", ") &
+                  &"){r} {{.async.}} =\n"
+        else:
+          buf.add &"proc {name}*(" & params.join(", ") & ")" &
+                  (if retType.len > 0: ": " & retType else: "") & "  =\n"
         buf.add &"  ## {t.fullName}.{raw}\n"
+        if async.isAsync:
+          buf.add "  var op: pointer\n"
         for l in lines: buf.add l & "\n"
         buf.add "\n"
         procs.inc
@@ -797,6 +826,9 @@ when isMainModule:
       iidBlock.add "const " & name & "* = " & guidLiteral(iid) & "\n"
     iidBlock.add "\n"
   buf = buf.replace(GenericIidMarker, iidBlock)
+  let asyncPath = corePath.rsplit('/', 1)[0] & "/asyncops"
+  buf = buf.replace(AsyncImportMarker,
+    if usesAsync: &"import {asyncPath}\nexport asyncops\n" else: "")
 
   writeFile(outPath, buf)
   echo outPath
