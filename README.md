@@ -1,6 +1,6 @@
 # winrt
 
-[![CI](https://github.com/TheSimpleZ/winrt-nim/actions/workflows/ci.yml/badge.svg)](https://github.com/TheSimpleZ/winrt-nim/actions/workflows/ci.yml)
+[![CI](https://github.com/TheSimpleZ/nim-winrt/actions/workflows/ci.yml/badge.svg)](https://github.com/TheSimpleZ/nim-winrt/actions/workflows/ci.yml)
 
 The Windows Runtime, projected into Nim. 8,178 interfaces and 33,719 methods of
 it, generated from the SDK's own metadata and checked in, so using them is just
@@ -38,13 +38,13 @@ build step — the runtime lives in `combase.dll`, which is part of Windows.
 ## Install
 
 ```
-nimble install https://github.com/TheSimpleZ/winrt-nim
+nimble install https://github.com/TheSimpleZ/nim-winrt
 ```
 
 or in your `.nimble` file:
 
 ```nim
-requires "https://github.com/TheSimpleZ/winrt-nim >= 0.3.0"
+requires "https://github.com/TheSimpleZ/nim-winrt >= 0.3.0"
 ```
 
 ## A first program

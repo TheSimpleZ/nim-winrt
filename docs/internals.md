@@ -8,7 +8,7 @@ Windows.winmd ──> tools/winmd.nim ──> tools/generate.nim ──> src/win
  (ECMA-335)        the reader           the ABI emitter        checked in
                         │
                         └──────────────> tools/wrappers.nim ──> a friendly API
-                                          (used by winui3-nim)
+                                          (used by nim-winui3)
 ```
 
 Three properties are worth stating up front, because most of the design
@@ -271,8 +271,8 @@ the recycling actually happens.
 `tools/wrappers.nim` emits an idiomatic API on top of the ABI layer —
 `window.title = "Hi"` instead of a QueryInterface, a slot index and a manually
 released HSTRING. It is not used to build this package; it is here because
-[winui3-nim](https://github.com/TheSimpleZ/winui3-nim) builds it from
-`../winrt-nim/tools` and runs it over the XAML metadata.
+[nim-winui3](https://github.com/TheSimpleZ/nim-winui3) builds it from
+`../nim-winrt/tools` and runs it over the XAML metadata.
 
 Two decisions in it are worth recording:
 

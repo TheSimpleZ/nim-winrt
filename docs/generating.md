@@ -211,7 +211,7 @@ wrong yields an IID that matches nothing.
 ## Generating for another winmd
 
 `generate.nim` also runs in single-file mode, which is what
-[winui3-nim](https://github.com/TheSimpleZ/winui3-nim) uses over
+[nim-winui3](https://github.com/TheSimpleZ/nim-winui3) uses over
 `Microsoft.UI.Xaml.winmd`:
 
 ```
