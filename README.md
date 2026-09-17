@@ -256,6 +256,32 @@ API gets built on, and what makes one possible without hand-writing thousands
 of declarations. [winui3-nim](https://github.com/TheSimpleZ/winui3-nim) is an
 example of the layer above.
 
+## Troubleshooting
+
+**`Pointer size mismatch between Nim and C/C++ backend` in `nimbase.h`.** Your
+Nim is targeting 32-bit while your C compiler builds 64-bit — usually because
+`nimble` and a direct `nim c` are picking different Nim installations. Put
+
+```
+--cpu:amd64
+```
+
+in your project's `nim.cfg`.
+
+**`REGDB_E_CLASSNOTREG` from `activationFactory`.** The class is real but
+nothing in the process knows where to find it. For a class that ships in
+Windows this should not happen; for one belonging to a separate runtime, such
+as the Windows App SDK, that runtime is not deployed alongside your executable.
+Assign `activationHint` to add your own explanation to the error.
+
+**`ambiguous identifier`.** Two *different* declarations share a name. It will
+not come from importing a binding module and its dependency together — every
+module re-exports what it depends on, so `import winrt/gaming` already brings
+`winrt/foundation` with it and naming both is harmless. It comes from another
+package declaring its own version of a Windows type, which is a different Nim
+type even where the bytes match. Import one of them with `except`, or qualify
+the use.
+
 ## Documentation
 
 * [docs/internals.md](docs/internals.md) — how the bindings are produced: the
