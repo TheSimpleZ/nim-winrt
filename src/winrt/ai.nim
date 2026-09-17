@@ -23,6 +23,15 @@ const IID_TypedEventHandler_2_ActionCatalog_Object* = GUID(
 const IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs* = GUID(
     data1: 0x9154A3ED'u32, data2: 0xC383'u16, data3: 0x5BDD'u16,
     data4: [0xA8'u8, 0xAE, 0xFA, 0xB2, 0xC1, 0x38, 0x69, 0xD5])
+const IID_IIterable_1_ILearningModelVariableDescriptorPreview* = GUID(
+    data1: 0xDF23DB35'u32, data2: 0xF789'u16, data3: 0x51A1'u16,
+    data4: [0x85'u8, 0x6D, 0x87, 0xCD, 0x7C, 0xD0, 0x42, 0xF1])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 
 type
   ActionEntity* {.inheritable, pure.} = object
@@ -2133,6 +2142,22 @@ proc version*(self: LearningModelDescriptionPreview): int64 =
     vcall(it, Slot_ILearningModelDescriptionPreview_get_Version, Fn_ILearningModelDescriptionPreview_get_Version)(it, tmp.addr).check("LearningModelDescriptionPreview.get_Version")
     result = tmp
 
+proc inputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVariableDescriptorPreview] =
+  ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_InputFeatures
+  withIface(self.p, IID_ILearningModelDescriptionPreview, "ILearningModelDescriptionPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelDescriptionPreview_get_InputFeatures, Fn_ILearningModelDescriptionPreview_get_InputFeatures)(it, tmp.addr).check("LearningModelDescriptionPreview.get_InputFeatures")
+    result = toSeq[LearningModelVariableDescriptorPreview](tmp, IID_IIterable_1_ILearningModelVariableDescriptorPreview)
+    release(tmp)
+
+proc outputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVariableDescriptorPreview] =
+  ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_OutputFeatures
+  withIface(self.p, IID_ILearningModelDescriptionPreview, "ILearningModelDescriptionPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelDescriptionPreview_get_OutputFeatures, Fn_ILearningModelDescriptionPreview_get_OutputFeatures)(it, tmp.addr).check("LearningModelDescriptionPreview.get_OutputFeatures")
+    result = toSeq[LearningModelVariableDescriptorPreview](tmp, IID_IIterable_1_ILearningModelVariableDescriptorPreview)
+    release(tmp)
+
 proc correlationId*(self: LearningModelEvaluationResultPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview.get_CorrelationId
   withIface(self.p, IID_ILearningModelEvaluationResultPreview, "ILearningModelEvaluationResultPreview", it):
@@ -2194,6 +2219,14 @@ proc keyKind*(self: MapVariableDescriptorPreview): FeatureElementKindPreview =
     var tmp: FeatureElementKindPreview
     vcall(it, Slot_IMapVariableDescriptorPreview_get_KeyKind, Fn_IMapVariableDescriptorPreview_get_KeyKind)(it, tmp.addr).check("MapVariableDescriptorPreview.get_KeyKind")
     result = tmp
+
+proc validStringKeys*(self: MapVariableDescriptorPreview): seq[string] =
+  ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_ValidStringKeys
+  withIface(self.p, IID_IMapVariableDescriptorPreview, "IMapVariableDescriptorPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapVariableDescriptorPreview_get_ValidStringKeys, Fn_IMapVariableDescriptorPreview_get_ValidStringKeys)(it, tmp.addr).check("MapVariableDescriptorPreview.get_ValidStringKeys")
+    result = toSeqString(tmp, IID_IIterable_1_String)
+    release(tmp)
 
 proc fields*(self: MapVariableDescriptorPreview): LearningModelVariableDescriptorPreview =
   ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_Fields
@@ -2537,6 +2570,14 @@ proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit =
     var tmp: pointer
     vcall(it, Slot_ITensorInt8BitStatics_Create, Fn_ITensorInt8BitStatics_Create)(it, tmp.addr).check("TensorInt8Bit.Create")
     result = adopt[TensorInt8Bit](tmp)
+
+proc getAsVectorView*(self: TensorString): seq[string] =
+  ## Windows.AI.MachineLearning.TensorString.GetAsVectorView
+  withIface(self.p, IID_ITensorString, "ITensorString", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorString_GetAsVectorView, Fn_ITensorString_GetAsVectorView)(it, tmp.addr).check("TensorString.GetAsVectorView")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc tensorKind*(self: TensorString): TensorKind =
   ## Windows.AI.MachineLearning.TensorString.get_TensorKind

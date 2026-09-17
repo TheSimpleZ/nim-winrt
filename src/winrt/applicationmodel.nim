@@ -32,18 +32,36 @@ const IID_TypedEventHandler_2_AppExtensionCatalog_AppExtensionPackageUninstallin
 const IID_TypedEventHandler_2_AppExtensionCatalog_AppExtensionPackageStatusChangedEventArgs* = GUID(
     data1: 0x61A2A9C0'u32, data2: 0xD3BB'u16, data3: 0x5953'u16,
     data4: [0x8D'u8, 0xF7, 0x59, 0x1F, 0xDD, 0x5B, 0xD7, 0x4A])
+const IID_IVectorView_1_AppExtension* = GUID(
+    data1: 0x94520810'u32, data2: 0x7E9B'u16, data3: 0x5EFD'u16,
+    data4: [0xB7'u8, 0x4D, 0xE9, 0xD4, 0x17, 0x5F, 0xD9, 0x4A])
+const IID_IVector_1_AppInstance* = GUID(
+    data1: 0x7FF85C5E'u32, data2: 0x7752'u16, data3: 0x5EF0'u16,
+    data4: [0xBF'u8, 0x29, 0x02, 0x06, 0x48, 0xC1, 0x99, 0xE4])
 const IID_TypedEventHandler_2_AppServiceConnection_AppServiceRequestReceivedEventArgs* = GUID(
     data1: 0x18C67D61'u32, data2: 0x4176'u16, data3: 0x5553'u16,
     data4: [0xB1'u8, 0x8D, 0xD8, 0xF5, 0x7F, 0xE7, 0x95, 0x52])
 const IID_TypedEventHandler_2_AppServiceConnection_AppServiceClosedEventArgs* = GUID(
     data1: 0xE4EFA98D'u32, data2: 0x4BFC'u16, data3: 0x5E61'u16,
     data4: [0xA2'u8, 0x33, 0x68, 0x8F, 0x5F, 0x06, 0x52, 0x1F])
+const IID_IVector_1_AppointmentInvitee* = GUID(
+    data1: 0x70F4B32E'u32, data2: 0xF91E'u16, data3: 0x55BB'u16,
+    data4: [0x9A'u8, 0x92, 0x02, 0x46, 0xDA, 0x73, 0x4B, 0xB0])
 const IID_TypedEventHandler_2_AppointmentCalendarSyncManager_Object* = GUID(
     data1: 0xBD1308DE'u32, data2: 0x6D2E'u16, data3: 0x5541'u16,
     data4: [0xB2'u8, 0x54, 0xBD, 0xB6, 0x18, 0x39, 0xBA, 0xC1])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_AppointmentStore_AppointmentStoreChangedEventArgs* = GUID(
     data1: 0x9E628351'u32, data2: 0xC639'u16, data3: 0x5CEF'u16,
     data4: [0xAB'u8, 0x1D, 0x8B, 0xEA, 0xE9, 0xD7, 0x5D, 0x52])
+const IID_IVectorView_1_AppointmentInvitee* = GUID(
+    data1: 0xBA2F633A'u32, data2: 0x5182'u16, data3: 0x5EDA'u16,
+    data4: [0x8E'u8, 0x2E, 0xA6, 0x6E, 0x55, 0xB3, 0x20, 0xCE])
 const IID_TypedEventHandler_2_AppointmentDataProviderConnection_AppointmentCalendarSyncManagerSyncRequestEventArgs* = GUID(
     data1: 0x37F52677'u32, data2: 0x5F3A'u16, data3: 0x57E6'u16,
     data4: [0x82'u8, 0xF5, 0xCB, 0xAB, 0x2E, 0x4D, 0xBE, 0x8E])
@@ -77,6 +95,9 @@ const IID_TypedEventHandler_2_PhoneCall_Object* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IVectorView_1_PhoneCall* = GUID(
+    data1: 0x2C1D6D88'u32, data2: 0x1BA7'u16, data3: 0x5459'u16,
+    data4: [0x9D'u8, 0x9C, 0xEB, 0x83, 0x5C, 0x55, 0xCC, 0x4C])
 const IID_TypedEventHandler_2_PhoneLine_Object* = GUID(
     data1: 0x7C5F5192'u32, data2: 0x9FC0'u16, data3: 0x5543'u16,
     data4: [0x9B'u8, 0xC4, 0x41, 0x14, 0x82, 0xE4, 0xEA, 0x93])
@@ -104,18 +125,66 @@ const IID_TypedEventHandler_2_VoipPhoneCall_CallRejectEventArgs* = GUID(
 const IID_TypedEventHandler_2_ChatConversation_RemoteParticipantComposingChangedEventArgs* = GUID(
     data1: 0x09E43BB2'u32, data2: 0x692D'u16, data3: 0x5330'u16,
     data4: [0xB9'u8, 0xE7, 0xAD, 0xF6, 0x9A, 0xD5, 0xC1, 0xA9])
+const IID_IVector_1_ChatMessageAttachment* = GUID(
+    data1: 0xAD2127F1'u32, data2: 0x3216'u16, data3: 0x58FB'u16,
+    data4: [0x81'u8, 0x54, 0xB2, 0x41, 0xA6, 0x0B, 0x42, 0x52])
+const IID_IVector_1_ChatRecipientDeliveryInfo* = GUID(
+    data1: 0x14640361'u32, data2: 0x3F8D'u16, data3: 0x5606'u16,
+    data4: [0x8F'u8, 0xCB, 0x97, 0x32, 0x08, 0xB7, 0x6D, 0x72])
 const IID_TypedEventHandler_2_ChatMessageStore_ChatMessageChangedEventArgs* = GUID(
     data1: 0x2A4ED3D1'u32, data2: 0x0D01'u16, data3: 0x5133'u16,
     data4: [0xB9'u8, 0xE4, 0xDD, 0xF6, 0x8F, 0x09, 0x94, 0x85])
 const IID_TypedEventHandler_2_ChatMessageStore_ChatMessageStoreChangedEventArgs* = GUID(
     data1: 0x3B5903D7'u32, data2: 0xA037'u16, data3: 0x5C7C'u16,
     data4: [0x83'u8, 0x36, 0x88, 0x42, 0x3D, 0x81, 0xE4, 0x08])
+const IID_IVectorView_1_RcsEndUserMessageAction* = GUID(
+    data1: 0x9607E377'u32, data2: 0xE873'u16, data3: 0x5091'u16,
+    data4: [0x9E'u8, 0x32, 0x86, 0x95, 0xE8, 0xF5, 0x0E, 0x7A])
 const IID_TypedEventHandler_2_RcsEndUserMessageManager_RcsEndUserMessageAvailableEventArgs* = GUID(
     data1: 0x8D6BEB36'u32, data2: 0xF6CE'u16, data3: 0x5769'u16,
     data4: [0x96'u8, 0xC2, 0x25, 0x32, 0x6E, 0xB4, 0x63, 0xF6])
 const IID_TypedEventHandler_2_RcsTransport_RcsServiceKindSupportedChangedEventArgs* = GUID(
     data1: 0xE5F1C3A4'u32, data2: 0xE498'u16, data3: 0x50B0'u16,
     data4: [0x91'u8, 0xFE, 0x94, 0xEB, 0xB0, 0x1D, 0xE0, 0xAB])
+const IID_IVector_1_IContactField* = GUID(
+    data1: 0xF9DD472B'u32, data2: 0x4F50'u16, data3: 0x583A'u16,
+    data4: [0xA3'u8, 0xAA, 0xB7, 0x3A, 0xF5, 0x48, 0x06, 0xBE])
+const IID_IVector_1_ContactPhone* = GUID(
+    data1: 0x6D1F883A'u32, data2: 0x1F30'u16, data3: 0x5A87'u16,
+    data4: [0xB5'u8, 0x4A, 0x8E, 0x22, 0x45, 0xED, 0x10, 0x01])
+const IID_IVector_1_ContactEmail* = GUID(
+    data1: 0x4CE06787'u32, data2: 0xDEA1'u16, data3: 0x559F'u16,
+    data4: [0xA7'u8, 0x0A, 0xFC, 0xBE, 0x59, 0xDB, 0xD3, 0xA4])
+const IID_IVector_1_ContactAddress* = GUID(
+    data1: 0xD0C298EE'u32, data2: 0x1520'u16, data3: 0x539E'u16,
+    data4: [0x84'u8, 0xB3, 0xA2, 0x59, 0x09, 0x71, 0x7D, 0x20])
+const IID_IVector_1_ContactConnectedServiceAccount* = GUID(
+    data1: 0x2C55FB80'u32, data2: 0xA759'u16, data3: 0x5FAE'u16,
+    data4: [0xBC'u8, 0x29, 0x99, 0x07, 0xE0, 0x97, 0x60, 0x48])
+const IID_IVector_1_ContactDate* = GUID(
+    data1: 0x3135D944'u32, data2: 0xD914'u16, data3: 0x5A4F'u16,
+    data4: [0x84'u8, 0x3E, 0xA6, 0xD6, 0xCB, 0x69, 0xBC, 0xB1])
+const IID_IVector_1_ContactJobInfo* = GUID(
+    data1: 0xEA148F90'u32, data2: 0xBB89'u16, data3: 0x5604'u16,
+    data4: [0x97'u8, 0x57, 0xEC, 0xD1, 0xE7, 0xCE, 0x53, 0x11])
+const IID_IVector_1_ContactSignificantOther* = GUID(
+    data1: 0xCEC34450'u32, data2: 0x8143'u16, data3: 0x56E3'u16,
+    data4: [0x93'u8, 0x3A, 0xD3, 0x30, 0x51, 0xB7, 0x44, 0x37])
+const IID_IVector_1_ContactWebsite* = GUID(
+    data1: 0x1931848E'u32, data2: 0xE794'u16, data3: 0x5775'u16,
+    data4: [0xB3'u8, 0x93, 0x4A, 0x45, 0x18, 0xD6, 0x3B, 0x09])
+const IID_IVectorView_1_Contact* = GUID(
+    data1: 0x9BCA75B8'u32, data2: 0xB0FA'u16, data3: 0x5761'u16,
+    data4: [0xB9'u8, 0x59, 0x38, 0x19, 0x27, 0xA5, 0xF9, 0xD0])
+const IID_IVectorView_1_ContactField* = GUID(
+    data1: 0x9C1B3046'u32, data2: 0xF16A'u16, data3: 0x57D7'u16,
+    data4: [0x87'u8, 0xA7, 0xEA, 0xA2, 0xE8, 0x80, 0xD9, 0xA9])
+const IID_IVectorView_1_ContactLocationField* = GUID(
+    data1: 0x1FEBF4CA'u32, data2: 0x48DD'u16, data3: 0x5FAF'u16,
+    data4: [0xA2'u8, 0xD3, 0x74, 0x77, 0x0D, 0x8A, 0xA3, 0x30])
+const IID_IVectorView_1_ContactInstantMessageField* = GUID(
+    data1: 0xB65EFA04'u32, data2: 0xCDA8'u16, data3: 0x597A'u16,
+    data4: [0x8A'u8, 0xBB, 0xA6, 0xE1, 0xFE, 0x34, 0xC0, 0x0F])
 const IID_TypedEventHandler_2_ContactList_ContactChangedEventArgs* = GUID(
     data1: 0xC953DC00'u32, data2: 0x30BE'u16, data3: 0x5379'u16,
     data4: [0xBC'u8, 0xAC, 0x43, 0x5C, 0x6B, 0xAD, 0x3C, 0xE6])
@@ -128,6 +197,9 @@ const IID_TypedEventHandler_2_ContactPanel_ContactPanelLaunchFullAppRequestedEve
 const IID_TypedEventHandler_2_ContactPanel_ContactPanelClosingEventArgs* = GUID(
     data1: 0x4357954B'u32, data2: 0xBCE6'u16, data3: 0x5456'u16,
     data4: [0xA5'u8, 0x11, 0xFE, 0x89, 0x04, 0xE8, 0x09, 0x0B])
+const IID_IVectorView_1_ContactMatchReason* = GUID(
+    data1: 0xC82C0B6D'u32, data2: 0x28D6'u16, data3: 0x5C27'u16,
+    data4: [0x92'u8, 0x6D, 0x96, 0xD0, 0x27, 0x50, 0x88, 0x71])
 const IID_TypedEventHandler_2_ContactStore_ContactChangedEventArgs* = GUID(
     data1: 0x5DA35E68'u32, data2: 0x7513'u16, data3: 0x5EAD'u16,
     data4: [0xAA'u8, 0xD4, 0xCD, 0xD3, 0xDE, 0x4E, 0x5A, 0xE7])
@@ -149,6 +221,12 @@ const IID_TypedEventHandler_2_ContactPickerUI_ContactRemovedEventArgs* = GUID(
 const IID_TypedEventHandler_2_ActivationSignalDetectionConfiguration_DetectionConfigurationAvailabilityChangedEventArgs* = GUID(
     data1: 0x491146EA'u32, data2: 0x2BC6'u16, data3: 0x5F03'u16,
     data4: [0xA3'u8, 0x17, 0x09, 0x7A, 0xAE, 0x05, 0x51, 0x98])
+const IID_IVectorView_1_ActivationSignalDetectionConfiguration* = GUID(
+    data1: 0x2515803E'u32, data2: 0x4D85'u16, data3: 0x5DF7'u16,
+    data4: [0xA8'u8, 0x8A, 0x88, 0x38, 0x87, 0x30, 0xD6, 0x59])
+const IID_IVectorView_1_ActivationSignalDetector* = GUID(
+    data1: 0x6E514658'u32, data2: 0xDA3D'u16, data3: 0x5201'u16,
+    data4: [0x9E'u8, 0xB2, 0xB2, 0xEF, 0x1C, 0x8D, 0xD1, 0xBA])
 const IID_TypedEventHandler_2_ConversationalAgentSession_ConversationalAgentSessionInterruptedEventArgs* = GUID(
     data1: 0xE1C093F2'u32, data2: 0xC2F4'u16, data3: 0x58C6'u16,
     data4: [0x9F'u8, 0xD1, 0x3B, 0xEB, 0x13, 0xB1, 0x8E, 0xC8])
@@ -158,6 +236,9 @@ const IID_TypedEventHandler_2_ConversationalAgentSession_ConversationalAgentSign
 const IID_TypedEventHandler_2_ConversationalAgentSession_ConversationalAgentSystemStateChangedEventArgs* = GUID(
     data1: 0xAC7DA0C7'u32, data2: 0xD0D3'u16, data3: 0x5BAC'u16,
     data4: [0xBB'u8, 0xC9, 0x52, 0xAD, 0x49, 0x13, 0x1F, 0x1F])
+const IID_IVectorView_1_CoreApplicationView* = GUID(
+    data1: 0xDE9E16C4'u32, data2: 0x1B7C'u16, data3: 0x5126'u16,
+    data4: [0xB1'u8, 0xD8, 0x7C, 0xD0, 0x4F, 0x13, 0xBD, 0x08])
 const IID_EventHandler_1_SuspendingEventArgs* = GUID(
     data1: 0x338579BF'u32, data2: 0x1A35'u16, data3: 0x5CC4'u16,
     data4: [0xA6'u8, 0x22, 0xA6, 0xF3, 0x84, 0xFD, 0x89, 0x2C])
@@ -185,6 +266,9 @@ const IID_TypedEventHandler_2_CoreApplicationViewTitleBar_Object* = GUID(
 const IID_EventHandler_1_ClipboardHistoryChangedEventArgs* = GUID(
     data1: 0xDF4AAC23'u32, data2: 0x4002'u16, data3: 0x5D4C'u16,
     data4: [0xA2'u8, 0x37, 0x25, 0x26, 0xE3, 0x44, 0x97, 0x8D])
+const IID_IVectorView_1_ClipboardHistoryItem* = GUID(
+    data1: 0xC91DE16D'u32, data2: 0x13FF'u16, data3: 0x55B0'u16,
+    data4: [0x89'u8, 0x7D, 0x18, 0xA1, 0x31, 0xD5, 0x7A, 0xC9])
 const IID_TypedEventHandler_2_DataPackage_OperationCompletedEventArgs* = GUID(
     data1: 0xDD48AF6C'u32, data2: 0xEF9A'u16, data3: 0x59CB'u16,
     data4: [0xB3'u8, 0x26, 0x57, 0xD9, 0xE2, 0x41, 0x1F, 0x21])
@@ -206,6 +290,9 @@ const IID_TypedEventHandler_2_DataTransferManager_ShareProvidersRequestedEventAr
 const IID_TypedEventHandler_2_CoreDragDropManager_CoreDropOperationTargetRequestedEventArgs* = GUID(
     data1: 0xA4C3B1C1'u32, data2: 0xB8AD'u16, data3: 0x58CB'u16,
     data4: [0xAC'u8, 0xC0, 0x8E, 0xF3, 0x7E, 0xAE, 0x4E, 0xD4])
+const IID_IVector_1_ShareProvider* = GUID(
+    data1: 0xA1687865'u32, data2: 0x31E2'u16, data3: 0x5536'u16,
+    data4: [0x97'u8, 0xEC, 0x29, 0x22, 0x69, 0xA7, 0x80, 0x46])
 const IID_TypedEventHandler_2_TransferTargetWatcher_TransferTargetChangedEventArgs* = GUID(
     data1: 0x9EBD72FB'u32, data2: 0x43ED'u16, data3: 0x57A0'u16,
     data4: [0x86'u8, 0x2A, 0xCD, 0xA3, 0x66, 0xA6, 0x88, 0x27])
@@ -257,12 +344,30 @@ const IID_TypedEventHandler_2_EmailDataProviderConnection_EmailMailboxValidateCe
 const IID_TypedEventHandler_2_EmailDataProviderConnection_EmailMailboxServerSearchReadBatchRequestEventArgs* = GUID(
     data1: 0xF8BF9067'u32, data2: 0x7D11'u16, data3: 0x56A0'u16,
     data4: [0xA3'u8, 0x03, 0x16, 0x34, 0x35, 0xC1, 0x40, 0x16])
+const IID_IVectorView_1_EmailRecipient* = GUID(
+    data1: 0xF6D6AF60'u32, data2: 0xF11A'u16, data3: 0x5C03'u16,
+    data4: [0x80'u8, 0xCC, 0x47, 0x34, 0x07, 0xA5, 0xAA, 0xBF])
+const IID_IVectorView_1_EmailConversation* = GUID(
+    data1: 0x0A7C62D7'u32, data2: 0xFC19'u16, data3: 0x5BD7'u16,
+    data4: [0xB3'u8, 0x7A, 0x0D, 0x62, 0x42, 0xDF, 0x48, 0xC0])
 const IID_TypedEventHandler_2_EmailMailbox_EmailMailboxChangedEventArgs* = GUID(
     data1: 0x20789B0D'u32, data2: 0x1555'u16, data3: 0x51FC'u16,
     data4: [0x87'u8, 0xA5, 0x22, 0x22, 0x25, 0x0B, 0x9B, 0x06])
+const IID_IVector_1_EmailMailboxAction* = GUID(
+    data1: 0x4C954EB2'u32, data2: 0xF15C'u16, data3: 0x5869'u16,
+    data4: [0xAB'u8, 0xD7, 0x2E, 0x32, 0x8D, 0xE4, 0xA4, 0xAF])
 const IID_TypedEventHandler_2_EmailMailboxSyncManager_Object* = GUID(
     data1: 0x5CBE61BB'u32, data2: 0xD615'u16, data3: 0x5B82'u16,
     data4: [0xBB'u8, 0x11, 0x41, 0x2E, 0x32, 0x66, 0x4C, 0x07])
+const IID_IVector_1_EmailRecipient* = GUID(
+    data1: 0x1151F664'u32, data2: 0x39C5'u16, data3: 0x5AAA'u16,
+    data4: [0x8A'u8, 0x2E, 0x33, 0x50, 0xE6, 0x11, 0x62, 0x4B])
+const IID_IVector_1_EmailAttachment* = GUID(
+    data1: 0x07B0EBC8'u32, data2: 0x70AF'u16, data3: 0x5DEB'u16,
+    data4: [0x98'u8, 0x61, 0xDC, 0x93, 0xE2, 0xB0, 0x38, 0xE9])
+const IID_IVectorView_1_EmailMessage* = GUID(
+    data1: 0x51B8EDF2'u32, data2: 0x6CA6'u16, data3: 0x55DE'u16,
+    data4: [0xBE'u8, 0x45, 0x1D, 0x1F, 0xC5, 0x1D, 0xF0, 0x76])
 const IID_TypedEventHandler_2_Object_ExtendedExecutionRevokedEventArgs* = GUID(
     data1: 0xB6D68D9C'u32, data2: 0x9546'u16, data3: 0x50B3'u16,
     data4: [0x8A'u8, 0xF6, 0x9C, 0x98, 0x5A, 0x37, 0x2B, 0xA8])
@@ -275,6 +380,18 @@ const IID_TypedEventHandler_2_LockApplicationHost_LockScreenUnlockingEventArgs* 
 const IID_TypedEventHandler_2_LockScreenInfo_Object* = GUID(
     data1: 0x8BE9E6A3'u32, data2: 0xF88A'u16, data3: 0x5429'u16,
     data4: [0x8D'u8, 0xA3, 0x67, 0x6B, 0x7D, 0x4F, 0x1A, 0x5B])
+const IID_IVectorView_1_LockScreenBadge* = GUID(
+    data1: 0xA0734995'u32, data2: 0x94C2'u16, data3: 0x50C2'u16,
+    data4: [0x88'u8, 0xA2, 0xD0, 0x70, 0xFC, 0xD1, 0xD3, 0x38])
+const IID_IVectorView_1_Package* = GUID(
+    data1: 0x0263C4D4'u32, data2: 0x195C'u16, data3: 0x5DC5'u16,
+    data4: [0xA7'u8, 0xCA, 0x68, 0x06, 0xCE, 0xCA, 0x42, 0x0B])
+const IID_IVectorView_1_AppListEntry* = GUID(
+    data1: 0x920C8B92'u32, data2: 0xD5EF'u16, data3: 0x5899'u16,
+    data4: [0x87'u8, 0x76, 0x2A, 0xD9, 0x7A, 0xCA, 0x6E, 0x1D])
+const IID_IVector_1_Package* = GUID(
+    data1: 0xD1BB509E'u32, data2: 0x6989'u16, data3: 0x5C69'u16,
+    data4: [0xB1'u8, 0xFF, 0xD1, 0x70, 0x2F, 0xE8, 0xAC, 0xA3])
 const IID_TypedEventHandler_2_PackageCatalog_PackageStagingEventArgs* = GUID(
     data1: 0x1726F52D'u32, data2: 0x2B8C'u16, data3: 0x524A'u16,
     data4: [0x98'u8, 0xC6, 0xF2, 0xCF, 0x08, 0x93, 0xC0, 0xF2])
@@ -293,6 +410,9 @@ const IID_TypedEventHandler_2_PackageCatalog_PackageStatusChangedEventArgs* = GU
 const IID_TypedEventHandler_2_PackageCatalog_PackageContentGroupStagingEventArgs* = GUID(
     data1: 0xDF206861'u32, data2: 0x9D30'u16, data3: 0x5739'u16,
     data4: [0x88'u8, 0xB2, 0x97, 0xE0, 0x71, 0x7C, 0xC5, 0xF0])
+const IID_IVectorView_1_PackageExtension* = GUID(
+    data1: 0x6B8001C9'u32, data2: 0x1F6D'u16, data3: 0x593F'u16,
+    data4: [0xA1'u8, 0x63, 0x2B, 0x78, 0xB2, 0x0A, 0x65, 0xA3])
 const IID_TypedEventHandler_2_PackageExtensionCatalog_PackageExtensionPackageInstalledEventArgs* = GUID(
     data1: 0xF0D4B2DD'u32, data2: 0x52DE'u16, data3: 0x5F3A'u16,
     data4: [0x93'u8, 0xE3, 0x3A, 0x04, 0x96, 0x6B, 0x4C, 0xB3])
@@ -308,6 +428,18 @@ const IID_TypedEventHandler_2_PackageExtensionCatalog_PackageExtensionPackageUni
 const IID_TypedEventHandler_2_PackageExtensionCatalog_PackageExtensionPackageStatusChangedEventArgs* = GUID(
     data1: 0x6A2F2758'u32, data2: 0x898A'u16, data3: 0x5622'u16,
     data4: [0x8A'u8, 0x97, 0xBB, 0x2F, 0xC8, 0xA2, 0xD7, 0xDB])
+const IID_IVectorView_1_PaymentItem* = GUID(
+    data1: 0x6BAF1241'u32, data2: 0x1FA6'u16, data3: 0x5C22'u16,
+    data4: [0x83'u8, 0xEF, 0x41, 0x5E, 0x93, 0xCD, 0xF7, 0xB1])
+const IID_IVectorView_1_PaymentShippingOption* = GUID(
+    data1: 0x8C8128EB'u32, data2: 0x8C33'u16, data3: 0x56DD'u16,
+    data4: [0x96'u8, 0x48, 0x39, 0xE8, 0x04, 0x03, 0x12, 0xD4])
+const IID_IVectorView_1_PaymentDetailsModifier* = GUID(
+    data1: 0xDA7E871C'u32, data2: 0x6E0C'u16, data3: 0x5E32'u16,
+    data4: [0xBE'u8, 0x40, 0x10, 0x71, 0x5A, 0x9F, 0x75, 0xEB])
+const IID_IVectorView_1_PaymentMethodData* = GUID(
+    data1: 0x1011B9BA'u32, data2: 0x6A05'u16, data3: 0x5B16'u16,
+    data4: [0x82'u8, 0xCF, 0x01, 0x75, 0x08, 0x51, 0x05, 0xE0])
 const IID_TypedEventHandler_2_NotesWindowManagerPreview_Object* = GUID(
     data1: 0x6F2755FB'u32, data2: 0x6C33'u16, data3: 0x543C'u16,
     data4: [0x9A'u8, 0xB4, 0xDE, 0x48, 0x6B, 0xC7, 0xBF, 0xE2])
@@ -317,6 +449,24 @@ const IID_TypedEventHandler_2_NotesWindowManagerPreview_NotePlacementChangedPrev
 const IID_TypedEventHandler_2_NotesWindowManagerPreview_NoteVisibilityChangedPreviewEventArgs* = GUID(
     data1: 0x16D825C8'u32, data2: 0x5271'u16, data3: 0x51C8'u16,
     data4: [0xA0'u8, 0x0F, 0x0C, 0xFB, 0x1B, 0x02, 0x9A, 0xB6])
+const IID_IVectorView_1_StartupAppInfoPreview* = GUID(
+    data1: 0xBAE0507D'u32, data2: 0xEAC4'u16, data3: 0x5501'u16,
+    data4: [0xA7'u8, 0x7A, 0x58, 0x3C, 0x2E, 0x45, 0xE7, 0x35])
+const IID_IVectorView_1_ResourceCandidate* = GUID(
+    data1: 0xE28E92F0'u32, data2: 0x9FFB'u16, data3: 0x5EA7'u16,
+    data4: [0x9F'u8, 0xC9, 0xA7, 0x3B, 0xDA, 0x47, 0x18, 0x86])
+const IID_IVectorView_1_ResourceQualifier* = GUID(
+    data1: 0xB82C58DC'u32, data2: 0x1CC0'u16, data3: 0x53F0'u16,
+    data4: [0xB0'u8, 0xF4, 0x66, 0xEF, 0x39, 0xA8, 0x1C, 0xD6])
+const IID_IVectorView_1_NamedResource* = GUID(
+    data1: 0x66C9DA16'u32, data2: 0xD345'u16, data3: 0x5BDB'u16,
+    data4: [0xB9'u8, 0x53, 0xD8, 0x6D, 0xD9, 0xEA, 0x84, 0x09])
+const IID_IVectorView_1_ResourceMap* = GUID(
+    data1: 0xF2656EF5'u32, data2: 0xFC27'u16, data3: 0x5C24'u16,
+    data4: [0xA8'u8, 0xC2, 0x16, 0x97, 0xE0, 0xBE, 0x73, 0x6F])
+const IID_IVectorView_1_IndexedResourceQualifier* = GUID(
+    data1: 0x239DED48'u32, data2: 0xCE04'u16, data3: 0x51F2'u16,
+    data4: [0xB2'u8, 0xC9, 0xA5, 0xE5, 0xAB, 0x67, 0x1B, 0x8D])
 const IID_TypedEventHandler_2_SearchSuggestionManager_SearchSuggestionsRequestedEventArgs* = GUID(
     data1: 0x7E7F3CDF'u32, data2: 0x80D9'u16, data3: 0x5646'u16,
     data4: [0x87'u8, 0x43, 0xEC, 0x1E, 0x38, 0x64, 0x5D, 0x68])
@@ -338,15 +488,36 @@ const IID_TypedEventHandler_2_SearchPane_SearchPaneQuerySubmittedEventArgs* = GU
 const IID_TypedEventHandler_2_SearchPane_SearchPaneResultSuggestionChosenEventArgs* = GUID(
     data1: 0xEC31E5D4'u32, data2: 0x3B8C'u16, data3: 0x5757'u16,
     data4: [0x96'u8, 0xBF, 0x14, 0x09, 0x6B, 0xE9, 0x46, 0xCD])
+const IID_IVector_1_SocialFeedItem* = GUID(
+    data1: 0x36CD5297'u32, data2: 0x36C3'u16, data3: 0x56A7'u16,
+    data4: [0x96'u8, 0x56, 0xEC, 0x9D, 0x5B, 0xDE, 0x7A, 0xBA])
+const IID_IVector_1_SocialItemThumbnail* = GUID(
+    data1: 0xC210BBD7'u32, data2: 0x2F56'u16, data3: 0x5076'u16,
+    data4: [0xBB'u8, 0x0E, 0xB7, 0x49, 0x77, 0x26, 0xCF, 0x95])
 const IID_TypedEventHandler_2_AppInstallItem_Object* = GUID(
     data1: 0x92730467'u32, data2: 0x501E'u16, data3: 0x5B05'u16,
     data4: [0x88'u8, 0x26, 0x92, 0x6F, 0x86, 0x92, 0x5B, 0x03])
+const IID_IVectorView_1_AppInstallItem* = GUID(
+    data1: 0x48D7F874'u32, data2: 0xA83C'u16, data3: 0x55DB'u16,
+    data4: [0xB2'u8, 0xE6, 0x94, 0x0B, 0xE9, 0x56, 0x98, 0x69])
 const IID_TypedEventHandler_2_AppInstallManager_AppInstallManagerItemEventArgs* = GUID(
     data1: 0xABF1C837'u32, data2: 0xDACD'u16, data3: 0x5446'u16,
     data4: [0xA0'u8, 0x32, 0x3E, 0xE9, 0x02, 0x88, 0x02, 0x44])
+const IID_IVectorView_1_StorePreviewSkuInfo* = GUID(
+    data1: 0x47418723'u32, data2: 0xA671'u16, data3: 0x5FDC'u16,
+    data4: [0x86'u8, 0x47, 0x68, 0xF7, 0xD8, 0xC3, 0x14, 0x16])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IVector_1_UserActivity* = GUID(
+    data1: 0xE3004E95'u32, data2: 0x0B05'u16, data3: 0x55DC'u16,
+    data4: [0xBF'u8, 0x3B, 0xBE, 0x06, 0xFA, 0xE0, 0x31, 0x52])
 const IID_TypedEventHandler_2_UserActivityRequestManager_UserActivityRequestedEventArgs* = GUID(
     data1: 0xB71F6FDA'u32, data2: 0x21F5'u16, data3: 0x5BCD'u16,
     data4: [0xB8'u8, 0x3B, 0x6C, 0x9E, 0xAD, 0xFF, 0x24, 0x10])
+const IID_IVectorView_1_UserDataAccountPartnerAccountInfo* = GUID(
+    data1: 0xB730F093'u32, data2: 0xE2FB'u16, data3: 0x5B20'u16,
+    data4: [0x9D'u8, 0x9E, 0x4F, 0x9D, 0xEF, 0xE6, 0x47, 0xB0])
 const IID_TypedEventHandler_2_UserDataAccountStore_UserDataAccountStoreChangedEventArgs* = GUID(
     data1: 0x7B27AEC8'u32, data2: 0x0690'u16, data3: 0x5063'u16,
     data4: [0xBE'u8, 0xB0, 0xD9, 0xE2, 0xEB, 0x1A, 0x12, 0x01])
@@ -365,9 +536,15 @@ const IID_TypedEventHandler_2_UserDataTaskDataProviderConnection_UserDataTaskLis
 const IID_TypedEventHandler_2_UserDataTaskDataProviderConnection_UserDataTaskListDeleteTaskRequestEventArgs* = GUID(
     data1: 0x0B18E688'u32, data2: 0xB269'u16, data3: 0x5CA2'u16,
     data4: [0xA8'u8, 0xF3, 0xD6, 0xD1, 0x0F, 0x0F, 0xB3, 0x20])
+const IID_IVectorView_1_UserDataTask* = GUID(
+    data1: 0x0CFEAF9B'u32, data2: 0x8758'u16, data3: 0x5AA6'u16,
+    data4: [0x98'u8, 0x06, 0x32, 0xB0, 0xEA, 0x40, 0xD4, 0xB8])
 const IID_TypedEventHandler_2_UserDataTaskListSyncManager_Object* = GUID(
     data1: 0x03E790F2'u32, data2: 0xEACF'u16, data3: 0x53EB'u16,
     data4: [0x90'u8, 0x60, 0x6B, 0xFE, 0xEC, 0x5B, 0xC3, 0x75])
+const IID_IVector_1_VoiceCommandContentTile* = GUID(
+    data1: 0xE45FE700'u32, data2: 0xEA08'u16, data3: 0x5172'u16,
+    data4: [0xB8'u8, 0x8C, 0xC4, 0xB3, 0xE0, 0x48, 0xC3, 0xE8])
 const IID_TypedEventHandler_2_VoiceCommandServiceConnection_VoiceCommandCompletedEventArgs* = GUID(
     data1: 0x780A6352'u32, data2: 0xB400'u16, data3: 0x5767'u16,
     data4: [0x99'u8, 0x3B, 0x90, 0x87, 0x57, 0x10, 0xD9, 0x37])
@@ -11727,6 +11904,14 @@ proc removePackageStatusChanged*(self: AppExtensionCatalog, token: EventRegistra
   withIface(self.p, IID_IAppExtensionCatalog, "IAppExtensionCatalog", it):
     vcall(it, Slot_IAppExtensionCatalog_remove_PackageStatusChanged, Fn_IAppExtensionCatalog_remove_PackageStatusChanged)(it, token).check("AppExtensionCatalog.remove_PackageStatusChanged")
 
+proc findAll*(self: AppExtensionCatalog): seq[AppExtension] =
+  ## Windows.ApplicationModel.AppExtensions.AppExtensionCatalog.FindAll
+  withIface(self.p, IID_IAppExtensionCatalog2, "IAppExtensionCatalog2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppExtensionCatalog2_FindAll, Fn_IAppExtensionCatalog2_FindAll)(it, tmp.addr).check("AppExtensionCatalog.FindAll")
+    result = toSeq[AppExtension](tmp, IID_IVectorView_1_AppExtension)
+    release(tmp)
+
 proc open*(_: typedesc[AppExtensionCatalog], a1: string): AppExtensionCatalog =
   ## Windows.ApplicationModel.AppExtensions.AppExtensionCatalog.Open
   withStatics("Windows.ApplicationModel.AppExtensions.AppExtensionCatalog", IID_IAppExtensionCatalogStatics, it):
@@ -11748,6 +11933,14 @@ proc package*(self: AppExtensionPackageInstalledEventArgs): Package =
     var tmp: pointer
     vcall(it, Slot_IAppExtensionPackageInstalledEventArgs_get_Package, Fn_IAppExtensionPackageInstalledEventArgs_get_Package)(it, tmp.addr).check("AppExtensionPackageInstalledEventArgs.get_Package")
     result = adopt[Package](tmp)
+
+proc extensions*(self: AppExtensionPackageInstalledEventArgs): seq[AppExtension] =
+  ## Windows.ApplicationModel.AppExtensions.AppExtensionPackageInstalledEventArgs.get_Extensions
+  withIface(self.p, IID_IAppExtensionPackageInstalledEventArgs, "IAppExtensionPackageInstalledEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppExtensionPackageInstalledEventArgs_get_Extensions, Fn_IAppExtensionPackageInstalledEventArgs_get_Extensions)(it, tmp.addr).check("AppExtensionPackageInstalledEventArgs.get_Extensions")
+    result = toSeq[AppExtension](tmp, IID_IVectorView_1_AppExtension)
+    release(tmp)
 
 proc appExtensionName*(self: AppExtensionPackageStatusChangedEventArgs): string =
   ## Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs.get_AppExtensionName
@@ -11790,6 +11983,14 @@ proc package*(self: AppExtensionPackageUpdatedEventArgs): Package =
     var tmp: pointer
     vcall(it, Slot_IAppExtensionPackageUpdatedEventArgs_get_Package, Fn_IAppExtensionPackageUpdatedEventArgs_get_Package)(it, tmp.addr).check("AppExtensionPackageUpdatedEventArgs.get_Package")
     result = adopt[Package](tmp)
+
+proc extensions*(self: AppExtensionPackageUpdatedEventArgs): seq[AppExtension] =
+  ## Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatedEventArgs.get_Extensions
+  withIface(self.p, IID_IAppExtensionPackageUpdatedEventArgs, "IAppExtensionPackageUpdatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppExtensionPackageUpdatedEventArgs_get_Extensions, Fn_IAppExtensionPackageUpdatedEventArgs_get_Extensions)(it, tmp.addr).check("AppExtensionPackageUpdatedEventArgs.get_Extensions")
+    result = toSeq[AppExtension](tmp, IID_IVectorView_1_AppExtension)
+    release(tmp)
 
 proc appExtensionName*(self: AppExtensionPackageUpdatingEventArgs): string =
   ## Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatingEventArgs.get_AppExtensionName
@@ -11977,6 +12178,14 @@ proc unregister*(_: typedesc[AppInstance]) =
   ## Windows.ApplicationModel.AppInstance.Unregister
   withStatics("Windows.ApplicationModel.AppInstance", IID_IAppInstanceStatics, it):
     vcall(it, Slot_IAppInstanceStatics_Unregister, Fn_IAppInstanceStatics_Unregister)(it).check("AppInstance.Unregister")
+
+proc getInstances*(_: typedesc[AppInstance]): seq[AppInstance] =
+  ## Windows.ApplicationModel.AppInstance.GetInstances
+  withStatics("Windows.ApplicationModel.AppInstance", IID_IAppInstanceStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstanceStatics_GetInstances, Fn_IAppInstanceStatics_GetInstances)(it, tmp.addr).check("AppInstance.GetInstances")
+    result = toSeq[AppInstance](tmp, IID_IVector_1_AppInstance)
+    release(tmp)
 
 proc status*(self: AppServiceClosedEventArgs): AppServiceClosedStatus =
   ## Windows.ApplicationModel.AppService.AppServiceClosedEventArgs.get_Status
@@ -12200,6 +12409,14 @@ proc `organizer=`*(self: Appointment, value: AppointmentOrganizer) =
   withIface(self.p, IID_IAppointment, "IAppointment", it):
     withIface(value.p, IID_IAppointmentParticipant, "IAppointmentParticipant", p0):
       vcall(it, Slot_IAppointment_put_Organizer, Fn_IAppointment_put_Organizer)(it, p0).check("Appointment.put_Organizer")
+
+proc invitees*(self: Appointment): seq[AppointmentInvitee] =
+  ## Windows.ApplicationModel.Appointments.Appointment.get_Invitees
+  withIface(self.p, IID_IAppointment, "IAppointment", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointment_get_Invitees, Fn_IAppointment_get_Invitees)(it, tmp.addr).check("Appointment.get_Invitees")
+    result = toSeq[AppointmentInvitee](tmp, IID_IVector_1_AppointmentInvitee)
+    release(tmp)
 
 proc recurrence*(self: Appointment): AppointmentRecurrence =
   ## Windows.ApplicationModel.Appointments.Appointment.get_Recurrence
@@ -12707,6 +12924,14 @@ proc appointment*(self: AppointmentException): Appointment =
     vcall(it, Slot_IAppointmentException_get_Appointment, Fn_IAppointmentException_get_Appointment)(it, tmp.addr).check("AppointmentException.get_Appointment")
     result = adopt[Appointment](tmp)
 
+proc exceptionProperties*(self: AppointmentException): seq[string] =
+  ## Windows.ApplicationModel.Appointments.AppointmentException.get_ExceptionProperties
+  withIface(self.p, IID_IAppointmentException, "IAppointmentException", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentException_get_ExceptionProperties, Fn_IAppointmentException_get_ExceptionProperties)(it, tmp.addr).check("AppointmentException.get_ExceptionProperties")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc isDeleted*(self: AppointmentException): bool =
   ## Windows.ApplicationModel.Appointments.AppointmentException.get_IsDeleted
   withIface(self.p, IID_IAppointmentException, "IAppointmentException", it):
@@ -12997,6 +13222,14 @@ proc invitees*(_: typedesc[AppointmentProperties]): string =
     var tmp: HSTRING
     vcall(it, Slot_IAppointmentPropertiesStatics_get_Invitees, Fn_IAppointmentPropertiesStatics_get_Invitees)(it, tmp.addr).check("AppointmentProperties.get_Invitees")
     result = takeString(tmp)
+
+proc defaultProperties*(_: typedesc[AppointmentProperties]): seq[string] =
+  ## Windows.ApplicationModel.Appointments.AppointmentProperties.get_DefaultProperties
+  withStatics("Windows.ApplicationModel.Appointments.AppointmentProperties", IID_IAppointmentPropertiesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentPropertiesStatics_get_DefaultProperties, Fn_IAppointmentPropertiesStatics_get_DefaultProperties)(it, tmp.addr).check("AppointmentProperties.get_DefaultProperties")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc changeNumber*(_: typedesc[AppointmentProperties]): string =
   ## Windows.ApplicationModel.Appointments.AppointmentProperties.get_ChangeNumber
@@ -13475,6 +13708,14 @@ proc notifyInvitees*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest):
     vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_NotifyInvitees, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_NotifyInvitees)(it, tmp.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequest.get_NotifyInvitees")
     result = tmp
 
+proc changedProperties*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest): seq[string] =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest.get_ChangedProperties
+  withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_ChangedProperties, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_ChangedProperties)(it, tmp.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequest.get_ChangedProperties")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc reportCompletedAsync*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest, a1: Appointment): pointer =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportCompletedAsync
   withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
@@ -13510,6 +13751,14 @@ proc appointmentLocalId*(self: AppointmentCalendarForwardMeetingRequest): string
     var tmp: HSTRING
     vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_get_AppointmentLocalId, Fn_IAppointmentCalendarForwardMeetingRequest_get_AppointmentLocalId)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequest.get_AppointmentLocalId")
     result = takeString(tmp)
+
+proc invitees*(self: AppointmentCalendarForwardMeetingRequest): seq[AppointmentInvitee] =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.get_Invitees
+  withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequest, "IAppointmentCalendarForwardMeetingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_get_Invitees, Fn_IAppointmentCalendarForwardMeetingRequest_get_Invitees)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequest.get_Invitees")
+    result = toSeq[AppointmentInvitee](tmp, IID_IVectorView_1_AppointmentInvitee)
+    release(tmp)
 
 proc subject*(self: AppointmentCalendarForwardMeetingRequest): string =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.get_Subject
@@ -13836,6 +14085,22 @@ proc connection*(self: AppointmentDataProviderTriggerDetails): AppointmentDataPr
 proc newFindAppointmentsOptions*(): FindAppointmentsOptions =
   ## Activate a `Windows.ApplicationModel.Appointments.FindAppointmentsOptions`.
   adopt[FindAppointmentsOptions](activateAs("Windows.ApplicationModel.Appointments.FindAppointmentsOptions", IID_IFindAppointmentsOptions))
+
+proc calendarIds*(self: FindAppointmentsOptions): seq[string] =
+  ## Windows.ApplicationModel.Appointments.FindAppointmentsOptions.get_CalendarIds
+  withIface(self.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IFindAppointmentsOptions_get_CalendarIds, Fn_IFindAppointmentsOptions_get_CalendarIds)(it, tmp.addr).check("FindAppointmentsOptions.get_CalendarIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc fetchProperties*(self: FindAppointmentsOptions): seq[string] =
+  ## Windows.ApplicationModel.Appointments.FindAppointmentsOptions.get_FetchProperties
+  withIface(self.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IFindAppointmentsOptions_get_FetchProperties, Fn_IFindAppointmentsOptions_get_FetchProperties)(it, tmp.addr).check("FindAppointmentsOptions.get_FetchProperties")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc includeHidden*(self: FindAppointmentsOptions): bool =
   ## Windows.ApplicationModel.Appointments.FindAppointmentsOptions.get_IncludeHidden
@@ -14937,6 +15202,14 @@ proc `media=`*(self: AcceptedVoipPhoneCallOptions, value: VoipPhoneCallMedia) =
   withIface(self.p, IID_IAcceptedVoipPhoneCallOptions, "IAcceptedVoipPhoneCallOptions", it):
     vcall(it, Slot_IAcceptedVoipPhoneCallOptions_put_Media, Fn_IAcceptedVoipPhoneCallOptions_put_Media)(it, value).check("AcceptedVoipPhoneCallOptions.put_Media")
 
+proc associatedDeviceIds*(self: AcceptedVoipPhoneCallOptions): seq[string] =
+  ## Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions.get_AssociatedDeviceIds
+  withIface(self.p, IID_IAcceptedVoipPhoneCallOptions, "IAcceptedVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAcceptedVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IAcceptedVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("AcceptedVoipPhoneCallOptions.get_AssociatedDeviceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc newAppInitiatedVoipPhoneCallOptions*(): AppInitiatedVoipPhoneCallOptions =
   ## Activate a `Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions`.
   adopt[AppInitiatedVoipPhoneCallOptions](activateAs("Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions", IID_IAppInitiatedVoipPhoneCallOptions))
@@ -15004,6 +15277,14 @@ proc `media=`*(self: AppInitiatedVoipPhoneCallOptions, value: VoipPhoneCallMedia
   ## Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions.put_Media
   withIface(self.p, IID_IAppInitiatedVoipPhoneCallOptions, "IAppInitiatedVoipPhoneCallOptions", it):
     vcall(it, Slot_IAppInitiatedVoipPhoneCallOptions_put_Media, Fn_IAppInitiatedVoipPhoneCallOptions_put_Media)(it, value).check("AppInitiatedVoipPhoneCallOptions.put_Media")
+
+proc associatedDeviceIds*(self: AppInitiatedVoipPhoneCallOptions): seq[string] =
+  ## Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions.get_AssociatedDeviceIds
+  withIface(self.p, IID_IAppInitiatedVoipPhoneCallOptions, "IAppInitiatedVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("AppInitiatedVoipPhoneCallOptions.get_AssociatedDeviceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc phoneNumber*(self: PhoneCallBlockedTriggerDetails): string =
   ## Windows.ApplicationModel.Calls.Background.PhoneCallBlockedTriggerDetails.get_PhoneNumber
@@ -15272,6 +15553,14 @@ proc `contactRemoteId=`*(self: IncomingVoipPhoneCallOptions, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_ContactRemoteId, Fn_IIncomingVoipPhoneCallOptions_put_ContactRemoteId)(it, h0).check("IncomingVoipPhoneCallOptions.put_ContactRemoteId")
 
+proc associatedDeviceIds*(self: IncomingVoipPhoneCallOptions): seq[string] =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_AssociatedDeviceIds
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IIncomingVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IIncomingVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("IncomingVoipPhoneCallOptions.get_AssociatedDeviceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc complete*(self: LockScreenCallEndCallDeferral) =
   ## Windows.ApplicationModel.Calls.LockScreenCallEndCallDeferral.Complete
   withIface(self.p, IID_ILockScreenCallEndCallDeferral, "ILockScreenCallEndCallDeferral", it):
@@ -15408,6 +15697,14 @@ proc `media=`*(self: OutgoingVoipPhoneCallOptions, value: VoipPhoneCallMedia) =
   ## Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions.put_Media
   withIface(self.p, IID_IOutgoingVoipPhoneCallOptions, "IOutgoingVoipPhoneCallOptions", it):
     vcall(it, Slot_IOutgoingVoipPhoneCallOptions_put_Media, Fn_IOutgoingVoipPhoneCallOptions_put_Media)(it, value).check("OutgoingVoipPhoneCallOptions.put_Media")
+
+proc associatedDeviceIds*(self: OutgoingVoipPhoneCallOptions): seq[string] =
+  ## Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions.get_AssociatedDeviceIds
+  withIface(self.p, IID_IOutgoingVoipPhoneCallOptions, "IOutgoingVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("OutgoingVoipPhoneCallOptions.get_AssociatedDeviceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc onStatusChanged*(self: PhoneCall,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -15876,6 +16173,14 @@ proc `desiredMedia=`*(self: PhoneCallHistoryEntryQueryOptions, value: PhoneCallH
   withIface(self.p, IID_IPhoneCallHistoryEntryQueryOptions, "IPhoneCallHistoryEntryQueryOptions", it):
     vcall(it, Slot_IPhoneCallHistoryEntryQueryOptions_put_DesiredMedia, Fn_IPhoneCallHistoryEntryQueryOptions_put_DesiredMedia)(it, value).check("PhoneCallHistoryEntryQueryOptions.put_DesiredMedia")
 
+proc sourceIds*(self: PhoneCallHistoryEntryQueryOptions): seq[string] =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions.get_SourceIds
+  withIface(self.p, IID_IPhoneCallHistoryEntryQueryOptions, "IPhoneCallHistoryEntryQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhoneCallHistoryEntryQueryOptions_get_SourceIds, Fn_IPhoneCallHistoryEntryQueryOptions_get_SourceIds)(it, tmp.addr).check("PhoneCallHistoryEntryQueryOptions.get_SourceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc getEntryReader*(self: PhoneCallHistoryStore): PhoneCallHistoryEntryReader =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetEntryReader
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
@@ -16029,6 +16334,14 @@ proc operationStatus*(self: PhoneCallsResult): PhoneLineOperationStatus =
     var tmp: PhoneLineOperationStatus
     vcall(it, Slot_IPhoneCallsResult_get_OperationStatus, Fn_IPhoneCallsResult_get_OperationStatus)(it, tmp.addr).check("PhoneCallsResult.get_OperationStatus")
     result = tmp
+
+proc allActivePhoneCalls*(self: PhoneCallsResult): seq[PhoneCall] =
+  ## Windows.ApplicationModel.Calls.PhoneCallsResult.get_AllActivePhoneCalls
+  withIface(self.p, IID_IPhoneCallsResult, "IPhoneCallsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhoneCallsResult_get_AllActivePhoneCalls, Fn_IPhoneCallsResult_get_AllActivePhoneCalls)(it, tmp.addr).check("PhoneCallsResult.get_AllActivePhoneCalls")
+    result = toSeq[PhoneCall](tmp, IID_IVectorView_1_PhoneCall)
+    release(tmp)
 
 proc newPhoneDialOptions*(): PhoneDialOptions =
   ## Activate a `Windows.ApplicationModel.Calls.PhoneDialOptions`.
@@ -16965,6 +17278,14 @@ proc removeAssociatedCallControlDevice*(self: VoipPhoneCall, a1: string) =
     withHString(a1, h0):
       vcall(it, Slot_IVoipPhoneCall4_RemoveAssociatedCallControlDevice, Fn_IVoipPhoneCall4_RemoveAssociatedCallControlDevice)(it, h0).check("VoipPhoneCall.RemoveAssociatedCallControlDevice")
 
+proc getAssociatedCallControlDevices*(self: VoipPhoneCall): seq[string] =
+  ## Windows.ApplicationModel.Calls.VoipPhoneCall.GetAssociatedCallControlDevices
+  withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
+    var tmp: pointer
+    vcall(it, Slot_IVoipPhoneCall4_GetAssociatedCallControlDevices, Fn_IVoipPhoneCall4_GetAssociatedCallControlDevices)(it, tmp.addr).check("VoipPhoneCall.GetAssociatedCallControlDevices")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc isOnline*(self: ChatCapabilities): bool =
   ## Windows.ApplicationModel.Chat.ChatCapabilities.get_IsOnline
   withIface(self.p, IID_IChatCapabilities, "IChatCapabilities", it):
@@ -17045,6 +17366,14 @@ proc mostRecentMessageId*(self: ChatConversation): string =
     var tmp: HSTRING
     vcall(it, Slot_IChatConversation_get_MostRecentMessageId, Fn_IChatConversation_get_MostRecentMessageId)(it, tmp.addr).check("ChatConversation.get_MostRecentMessageId")
     result = takeString(tmp)
+
+proc participants*(self: ChatConversation): seq[string] =
+  ## Windows.ApplicationModel.Chat.ChatConversation.get_Participants
+  withIface(self.p, IID_IChatConversation, "IChatConversation", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatConversation_get_Participants, Fn_IChatConversation_get_Participants)(it, tmp.addr).check("ChatConversation.get_Participants")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc threadingInfo*(self: ChatConversation): ChatConversationThreadingInfo =
   ## Windows.ApplicationModel.Chat.ChatConversation.get_ThreadingInfo
@@ -17183,6 +17512,14 @@ proc `conversationId=`*(self: ChatConversationThreadingInfo, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IChatConversationThreadingInfo_put_ConversationId, Fn_IChatConversationThreadingInfo_put_ConversationId)(it, h0).check("ChatConversationThreadingInfo.put_ConversationId")
 
+proc participants*(self: ChatConversationThreadingInfo): seq[string] =
+  ## Windows.ApplicationModel.Chat.ChatConversationThreadingInfo.get_Participants
+  withIface(self.p, IID_IChatConversationThreadingInfo, "IChatConversationThreadingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatConversationThreadingInfo_get_Participants, Fn_IChatConversationThreadingInfo_get_Participants)(it, tmp.addr).check("ChatConversationThreadingInfo.get_Participants")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc kind*(self: ChatConversationThreadingInfo): ChatConversationThreadingKind =
   ## Windows.ApplicationModel.Chat.ChatConversationThreadingInfo.get_Kind
   withIface(self.p, IID_IChatConversationThreadingInfo, "IChatConversationThreadingInfo", it):
@@ -17198,6 +17535,14 @@ proc `kind=`*(self: ChatConversationThreadingInfo, value: ChatConversationThread
 proc newChatMessage*(): ChatMessage =
   ## Activate a `Windows.ApplicationModel.Chat.ChatMessage`.
   adopt[ChatMessage](activateAs("Windows.ApplicationModel.Chat.ChatMessage", IID_IChatMessage))
+
+proc attachments*(self: ChatMessage): seq[ChatMessageAttachment] =
+  ## Windows.ApplicationModel.Chat.ChatMessage.get_Attachments
+  withIface(self.p, IID_IChatMessage, "IChatMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessage_get_Attachments, Fn_IChatMessage_get_Attachments)(it, tmp.addr).check("ChatMessage.get_Attachments")
+    result = toSeq[ChatMessageAttachment](tmp, IID_IVector_1_ChatMessageAttachment)
+    release(tmp)
 
 proc body*(self: ChatMessage): string =
   ## Windows.ApplicationModel.Chat.ChatMessage.get_Body
@@ -17260,6 +17605,14 @@ proc networkTimestamp*(self: ChatMessage): DateTime =
     var tmp: DateTime
     vcall(it, Slot_IChatMessage_get_NetworkTimestamp, Fn_IChatMessage_get_NetworkTimestamp)(it, tmp.addr).check("ChatMessage.get_NetworkTimestamp")
     result = tmp
+
+proc recipients*(self: ChatMessage): seq[string] =
+  ## Windows.ApplicationModel.Chat.ChatMessage.get_Recipients
+  withIface(self.p, IID_IChatMessage, "IChatMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessage_get_Recipients, Fn_IChatMessage_get_Recipients)(it, tmp.addr).check("ChatMessage.get_Recipients")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc status*(self: ChatMessage): ChatMessageStatus =
   ## Windows.ApplicationModel.Chat.ChatMessage.get_Status
@@ -17453,6 +17806,14 @@ proc `threadingInfo=`*(self: ChatMessage, value: ChatConversationThreadingInfo) 
   withIface(self.p, IID_IChatMessage2, "IChatMessage2", it):
     withIface(value.p, IID_IChatConversationThreadingInfo, "IChatConversationThreadingInfo", p0):
       vcall(it, Slot_IChatMessage2_put_ThreadingInfo, Fn_IChatMessage2_put_ThreadingInfo)(it, p0).check("ChatMessage.put_ThreadingInfo")
+
+proc recipientsDeliveryInfos*(self: ChatMessage): seq[ChatRecipientDeliveryInfo] =
+  ## Windows.ApplicationModel.Chat.ChatMessage.get_RecipientsDeliveryInfos
+  withIface(self.p, IID_IChatMessage2, "IChatMessage2", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessage2_get_RecipientsDeliveryInfos, Fn_IChatMessage2_get_RecipientsDeliveryInfos)(it, tmp.addr).check("ChatMessage.get_RecipientsDeliveryInfos")
+    result = toSeq[ChatRecipientDeliveryInfo](tmp, IID_IVector_1_ChatRecipientDeliveryInfo)
+    release(tmp)
 
 proc remoteId*(self: ChatMessage): string =
   ## Windows.ApplicationModel.Chat.ChatMessage.get_RemoteId
@@ -18062,6 +18423,14 @@ proc isPinRequired*(self: RcsEndUserMessage): bool =
     vcall(it, Slot_IRcsEndUserMessage_get_IsPinRequired, Fn_IRcsEndUserMessage_get_IsPinRequired)(it, tmp.addr).check("RcsEndUserMessage.get_IsPinRequired")
     result = tmp
 
+proc actions*(self: RcsEndUserMessage): seq[RcsEndUserMessageAction] =
+  ## Windows.ApplicationModel.Chat.RcsEndUserMessage.get_Actions
+  withIface(self.p, IID_IRcsEndUserMessage, "IRcsEndUserMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IRcsEndUserMessage_get_Actions, Fn_IRcsEndUserMessage_get_Actions)(it, tmp.addr).check("RcsEndUserMessage.get_Actions")
+    result = toSeq[RcsEndUserMessageAction](tmp, IID_IVectorView_1_RcsEndUserMessageAction)
+    release(tmp)
+
 proc sendResponseAsync*(self: RcsEndUserMessage, a1: RcsEndUserMessageAction): pointer =
   ## Windows.ApplicationModel.Chat.RcsEndUserMessage.SendResponseAsync
   withIface(self.p, IID_IRcsEndUserMessage, "IRcsEndUserMessage", it):
@@ -18374,6 +18743,14 @@ proc `thumbnail=`*(self: Contact, value: pointer) =
   withIface(self.p, IID_IContact, "IContact", it):
     vcall(it, Slot_IContact_put_Thumbnail, Fn_IContact_put_Thumbnail)(it, value).check("Contact.put_Thumbnail")
 
+proc fields*(self: Contact): seq[ContactField] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_Fields
+  withIface(self.p, IID_IContact, "IContact", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact_get_Fields, Fn_IContact_get_Fields)(it, tmp.addr).check("Contact.get_Fields")
+    result = toSeq[ContactField](tmp, IID_IVector_1_IContactField)
+    release(tmp)
+
 proc id*(self: Contact): string =
   ## Windows.ApplicationModel.Contacts.Contact.get_Id
   withIface(self.p, IID_IContact2, "IContact2", it):
@@ -18399,6 +18776,78 @@ proc `notes=`*(self: Contact, value: string) =
   withIface(self.p, IID_IContact2, "IContact2", it):
     withHString(value, h0):
       vcall(it, Slot_IContact2_put_Notes, Fn_IContact2_put_Notes)(it, h0).check("Contact.put_Notes")
+
+proc phones*(self: Contact): seq[ContactPhone] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_Phones
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_Phones, Fn_IContact2_get_Phones)(it, tmp.addr).check("Contact.get_Phones")
+    result = toSeq[ContactPhone](tmp, IID_IVector_1_ContactPhone)
+    release(tmp)
+
+proc emails*(self: Contact): seq[ContactEmail] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_Emails
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_Emails, Fn_IContact2_get_Emails)(it, tmp.addr).check("Contact.get_Emails")
+    result = toSeq[ContactEmail](tmp, IID_IVector_1_ContactEmail)
+    release(tmp)
+
+proc addresses*(self: Contact): seq[ContactAddress] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_Addresses
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_Addresses, Fn_IContact2_get_Addresses)(it, tmp.addr).check("Contact.get_Addresses")
+    result = toSeq[ContactAddress](tmp, IID_IVector_1_ContactAddress)
+    release(tmp)
+
+proc connectedServiceAccounts*(self: Contact): seq[ContactConnectedServiceAccount] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_ConnectedServiceAccounts
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_ConnectedServiceAccounts, Fn_IContact2_get_ConnectedServiceAccounts)(it, tmp.addr).check("Contact.get_ConnectedServiceAccounts")
+    result = toSeq[ContactConnectedServiceAccount](tmp, IID_IVector_1_ContactConnectedServiceAccount)
+    release(tmp)
+
+proc importantDates*(self: Contact): seq[ContactDate] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_ImportantDates
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_ImportantDates, Fn_IContact2_get_ImportantDates)(it, tmp.addr).check("Contact.get_ImportantDates")
+    result = toSeq[ContactDate](tmp, IID_IVector_1_ContactDate)
+    release(tmp)
+
+proc dataSuppliers*(self: Contact): seq[string] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_DataSuppliers
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_DataSuppliers, Fn_IContact2_get_DataSuppliers)(it, tmp.addr).check("Contact.get_DataSuppliers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc jobInfo*(self: Contact): seq[ContactJobInfo] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_JobInfo
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_JobInfo, Fn_IContact2_get_JobInfo)(it, tmp.addr).check("Contact.get_JobInfo")
+    result = toSeq[ContactJobInfo](tmp, IID_IVector_1_ContactJobInfo)
+    release(tmp)
+
+proc significantOthers*(self: Contact): seq[ContactSignificantOther] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_SignificantOthers
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_SignificantOthers, Fn_IContact2_get_SignificantOthers)(it, tmp.addr).check("Contact.get_SignificantOthers")
+    result = toSeq[ContactSignificantOther](tmp, IID_IVector_1_ContactSignificantOther)
+    release(tmp)
+
+proc websites*(self: Contact): seq[ContactWebsite] =
+  ## Windows.ApplicationModel.Contacts.Contact.get_Websites
+  withIface(self.p, IID_IContact2, "IContact2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContact2_get_Websites, Fn_IContact2_get_Websites)(it, tmp.addr).check("Contact.get_Websites")
+    result = toSeq[ContactWebsite](tmp, IID_IVector_1_ContactWebsite)
+    release(tmp)
 
 proc providerProperties*(self: Contact): pointer =
   ## Windows.ApplicationModel.Contacts.Contact.get_ProviderProperties
@@ -18878,6 +19327,14 @@ proc disableAnnotationAsync*(self: ContactAnnotationStore, a1: ContactAnnotation
       vcall(it, Slot_IContactAnnotationStore_DisableAnnotationAsync, Fn_IContactAnnotationStore_DisableAnnotationAsync)(it, p0, tmp.addr).check("ContactAnnotationStore.DisableAnnotationAsync")
       result = tmp
 
+proc contacts*(self: ContactBatch): seq[Contact] =
+  ## Windows.ApplicationModel.Contacts.ContactBatch.get_Contacts
+  withIface(self.p, IID_IContactBatch, "IContactBatch", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactBatch_get_Contacts, Fn_IContactBatch_get_Contacts)(it, tmp.addr).check("ContactBatch.get_Contacts")
+    result = toSeq[Contact](tmp, IID_IVectorView_1_Contact)
+    release(tmp)
+
 proc status*(self: ContactBatch): ContactBatchStatus =
   ## Windows.ApplicationModel.Contacts.ContactBatch.get_Status
   withIface(self.p, IID_IContactBatch, "IContactBatch", it):
@@ -18918,6 +19375,14 @@ proc `initialTabKind=`*(self: ContactCardOptions, value: ContactCardTabKind) =
   ## Windows.ApplicationModel.Contacts.ContactCardOptions.put_InitialTabKind
   withIface(self.p, IID_IContactCardOptions, "IContactCardOptions", it):
     vcall(it, Slot_IContactCardOptions_put_InitialTabKind, Fn_IContactCardOptions_put_InitialTabKind)(it, value).check("ContactCardOptions.put_InitialTabKind")
+
+proc serverSearchContactListIds*(self: ContactCardOptions): seq[string] =
+  ## Windows.ApplicationModel.Contacts.ContactCardOptions.get_ServerSearchContactListIds
+  withIface(self.p, IID_IContactCardOptions2, "IContactCardOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactCardOptions2_get_ServerSearchContactListIds, Fn_IContactCardOptions2_get_ServerSearchContactListIds)(it, tmp.addr).check("ContactCardOptions.get_ServerSearchContactListIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc changeType*(self: ContactChange): ContactChangeType =
   ## Windows.ApplicationModel.Contacts.ContactChange.get_ChangeType
@@ -19214,6 +19679,55 @@ proc name*(self: ContactInformation): string =
     var tmp: HSTRING
     vcall(it, Slot_IContactInformation_get_Name, Fn_IContactInformation_get_Name)(it, tmp.addr).check("ContactInformation.get_Name")
     result = takeString(tmp)
+
+proc emails*(self: ContactInformation): seq[ContactField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.get_Emails
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInformation_get_Emails, Fn_IContactInformation_get_Emails)(it, tmp.addr).check("ContactInformation.get_Emails")
+    result = toSeq[ContactField](tmp, IID_IVectorView_1_ContactField)
+    release(tmp)
+
+proc phoneNumbers*(self: ContactInformation): seq[ContactField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.get_PhoneNumbers
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInformation_get_PhoneNumbers, Fn_IContactInformation_get_PhoneNumbers)(it, tmp.addr).check("ContactInformation.get_PhoneNumbers")
+    result = toSeq[ContactField](tmp, IID_IVectorView_1_ContactField)
+    release(tmp)
+
+proc locations*(self: ContactInformation): seq[ContactLocationField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.get_Locations
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInformation_get_Locations, Fn_IContactInformation_get_Locations)(it, tmp.addr).check("ContactInformation.get_Locations")
+    result = toSeq[ContactLocationField](tmp, IID_IVectorView_1_ContactLocationField)
+    release(tmp)
+
+proc instantMessages*(self: ContactInformation): seq[ContactInstantMessageField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.get_InstantMessages
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInformation_get_InstantMessages, Fn_IContactInformation_get_InstantMessages)(it, tmp.addr).check("ContactInformation.get_InstantMessages")
+    result = toSeq[ContactInstantMessageField](tmp, IID_IVectorView_1_ContactInstantMessageField)
+    release(tmp)
+
+proc customFields*(self: ContactInformation): seq[ContactField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.get_CustomFields
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInformation_get_CustomFields, Fn_IContactInformation_get_CustomFields)(it, tmp.addr).check("ContactInformation.get_CustomFields")
+    result = toSeq[ContactField](tmp, IID_IVectorView_1_ContactField)
+    release(tmp)
+
+proc queryCustomFields*(self: ContactInformation, a1: string): seq[ContactField] =
+  ## Windows.ApplicationModel.Contacts.ContactInformation.QueryCustomFields
+  withIface(self.p, IID_IContactInformation, "IContactInformation", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IContactInformation_QueryCustomFields, Fn_IContactInformation_QueryCustomFields)(it, h0, tmp.addr).check("ContactInformation.QueryCustomFields")
+      result = toSeq[ContactField](tmp, IID_IVectorView_1_ContactField)
+      release(tmp)
 
 proc userName*(self: ContactInstantMessageField): string =
   ## Windows.ApplicationModel.Contacts.ContactInstantMessageField.get_UserName
@@ -20012,6 +20526,14 @@ proc `selectionMode=`*(self: ContactPicker, value: ContactSelectionMode) =
   withIface(self.p, IID_IContactPicker, "IContactPicker", it):
     vcall(it, Slot_IContactPicker_put_SelectionMode, Fn_IContactPicker_put_SelectionMode)(it, value).check("ContactPicker.put_SelectionMode")
 
+proc desiredFields*(self: ContactPicker): seq[string] =
+  ## Windows.ApplicationModel.Contacts.ContactPicker.get_DesiredFields
+  withIface(self.p, IID_IContactPicker, "IContactPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactPicker_get_DesiredFields, Fn_IContactPicker_get_DesiredFields)(it, tmp.addr).check("ContactPicker.get_DesiredFields")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc newContactQueryOptions*(): ContactQueryOptions =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactQueryOptions`.
   adopt[ContactQueryOptions](activateAs("Windows.ApplicationModel.Contacts.ContactQueryOptions", IID_IContactQueryOptions))
@@ -20022,6 +20544,14 @@ proc textSearch*(self: ContactQueryOptions): ContactQueryTextSearch =
     var tmp: pointer
     vcall(it, Slot_IContactQueryOptions_get_TextSearch, Fn_IContactQueryOptions_get_TextSearch)(it, tmp.addr).check("ContactQueryOptions.get_TextSearch")
     result = adopt[ContactQueryTextSearch](tmp)
+
+proc contactListIds*(self: ContactQueryOptions): seq[string] =
+  ## Windows.ApplicationModel.Contacts.ContactQueryOptions.get_ContactListIds
+  withIface(self.p, IID_IContactQueryOptions, "IContactQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactQueryOptions_get_ContactListIds, Fn_IContactQueryOptions_get_ContactListIds)(it, tmp.addr).check("ContactQueryOptions.get_ContactListIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc includeContactsFromHiddenLists*(self: ContactQueryOptions): bool =
   ## Windows.ApplicationModel.Contacts.ContactQueryOptions.get_IncludeContactsFromHiddenLists
@@ -20058,6 +20588,14 @@ proc `desiredOperations=`*(self: ContactQueryOptions, value: ContactAnnotationOp
   ## Windows.ApplicationModel.Contacts.ContactQueryOptions.put_DesiredOperations
   withIface(self.p, IID_IContactQueryOptions, "IContactQueryOptions", it):
     vcall(it, Slot_IContactQueryOptions_put_DesiredOperations, Fn_IContactQueryOptions_put_DesiredOperations)(it, value).check("ContactQueryOptions.put_DesiredOperations")
+
+proc annotationListIds*(self: ContactQueryOptions): seq[string] =
+  ## Windows.ApplicationModel.Contacts.ContactQueryOptions.get_AnnotationListIds
+  withIface(self.p, IID_IContactQueryOptions, "IContactQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactQueryOptions_get_AnnotationListIds, Fn_IContactQueryOptions_get_AnnotationListIds)(it, tmp.addr).check("ContactQueryOptions.get_AnnotationListIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc createWithText*(_: typedesc[ContactQueryOptions], a1: string): ContactQueryOptions =
   ## Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateWithText
@@ -20111,6 +20649,15 @@ proc `searchScope=`*(self: ContactQueryTextSearch, value: ContactQuerySearchScop
   ## Windows.ApplicationModel.Contacts.ContactQueryTextSearch.put_SearchScope
   withIface(self.p, IID_IContactQueryTextSearch, "IContactQueryTextSearch", it):
     vcall(it, Slot_IContactQueryTextSearch_put_SearchScope, Fn_IContactQueryTextSearch_put_SearchScope)(it, value).check("ContactQueryTextSearch.put_SearchScope")
+
+proc getMatchingPropertiesWithMatchReason*(self: ContactReader, a1: Contact): seq[ContactMatchReason] =
+  ## Windows.ApplicationModel.Contacts.ContactReader.GetMatchingPropertiesWithMatchReason
+  withIface(self.p, IID_IContactReader, "IContactReader", it):
+    withIface(a1.p, IID_IContact, "IContact", p0):
+      var tmp: pointer
+      vcall(it, Slot_IContactReader_GetMatchingPropertiesWithMatchReason, Fn_IContactReader_GetMatchingPropertiesWithMatchReason)(it, p0, tmp.addr).check("ContactReader.GetMatchingPropertiesWithMatchReason")
+      result = toSeq[ContactMatchReason](tmp, IID_IVectorView_1_ContactMatchReason)
+      release(tmp)
 
 proc newContactSignificantOther*(): ContactSignificantOther =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactSignificantOther`.
@@ -20531,6 +21078,14 @@ proc convertTypeToName*(_: typedesc[KnownContactField], a1: ContactFieldType): s
     vcall(it, Slot_IKnownContactFieldStatics_ConvertTypeToName, Fn_IKnownContactFieldStatics_ConvertTypeToName)(it, a1, tmp.addr).check("KnownContactField.ConvertTypeToName")
     result = takeString(tmp)
 
+proc contactIds*(self: PinnedContactIdsQueryResult): seq[string] =
+  ## Windows.ApplicationModel.Contacts.PinnedContactIdsQueryResult.get_ContactIds
+  withIface(self.p, IID_IPinnedContactIdsQueryResult, "IPinnedContactIdsQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPinnedContactIdsQueryResult_get_ContactIds, Fn_IPinnedContactIdsQueryResult_get_ContactIds)(it, tmp.addr).check("PinnedContactIdsQueryResult.get_ContactIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc isPinSurfaceSupported*(self: PinnedContactManager, a1: PinnedContactSurface): bool =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.IsPinSurfaceSupported
   withIface(self.p, IID_IPinnedContactManager, "IPinnedContactManager", it):
@@ -20588,6 +21143,14 @@ proc containsContact*(self: ContactPickerUI, a1: string): bool =
       var tmp: bool
       vcall(it, Slot_IContactPickerUI_ContainsContact, Fn_IContactPickerUI_ContainsContact)(it, h0, tmp.addr).check("ContactPickerUI.ContainsContact")
       result = tmp
+
+proc desiredFields*(self: ContactPickerUI): seq[string] =
+  ## Windows.ApplicationModel.Contacts.Provider.ContactPickerUI.get_DesiredFields
+  withIface(self.p, IID_IContactPickerUI, "IContactPickerUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactPickerUI_get_DesiredFields, Fn_IContactPickerUI_get_DesiredFields)(it, tmp.addr).check("ContactPickerUI.get_DesiredFields")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc selectionMode*(self: ContactPickerUI): ContactSelectionMode =
   ## Windows.ApplicationModel.Contacts.Provider.ContactPickerUI.get_SelectionMode
@@ -20833,6 +21396,23 @@ proc canCreateConfigurations*(self: ActivationSignalDetector): bool =
     vcall(it, Slot_IActivationSignalDetector_get_CanCreateConfigurations, Fn_IActivationSignalDetector_get_CanCreateConfigurations)(it, tmp.addr).check("ActivationSignalDetector.get_CanCreateConfigurations")
     result = tmp
 
+proc supportedModelDataTypes*(self: ActivationSignalDetector): seq[string] =
+  ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.get_SupportedModelDataTypes
+  withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivationSignalDetector_get_SupportedModelDataTypes, Fn_IActivationSignalDetector_get_SupportedModelDataTypes)(it, tmp.addr).check("ActivationSignalDetector.get_SupportedModelDataTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc getSupportedModelIdsForSignalId*(self: ActivationSignalDetector, a1: string): seq[string] =
+  ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetSupportedModelIdsForSignalId
+  withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IActivationSignalDetector_GetSupportedModelIdsForSignalId, Fn_IActivationSignalDetector_GetSupportedModelIdsForSignalId)(it, h0, tmp.addr).check("ActivationSignalDetector.GetSupportedModelIdsForSignalId")
+      result = toSeqString(tmp, IID_IVectorView_1_String)
+      release(tmp)
+
 proc createConfiguration*(self: ActivationSignalDetector, a1: string, a2: string, a3: string) =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.CreateConfiguration
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
@@ -20850,6 +21430,14 @@ proc createConfigurationAsync*(self: ActivationSignalDetector, a1: string, a2: s
           var tmp: pointer
           vcall(it, Slot_IActivationSignalDetector_CreateConfigurationAsync, Fn_IActivationSignalDetector_CreateConfigurationAsync)(it, h0, h1, h2, tmp.addr).check("ActivationSignalDetector.CreateConfigurationAsync")
           result = tmp
+
+proc getConfigurations*(self: ActivationSignalDetector): seq[ActivationSignalDetectionConfiguration] =
+  ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetConfigurations
+  withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivationSignalDetector_GetConfigurations, Fn_IActivationSignalDetector_GetConfigurations)(it, tmp.addr).check("ActivationSignalDetector.GetConfigurations")
+    result = toSeq[ActivationSignalDetectionConfiguration](tmp, IID_IVectorView_1_ActivationSignalDetectionConfiguration)
+    release(tmp)
 
 proc getConfiguration*(self: ActivationSignalDetector, a1: string, a2: string): ActivationSignalDetectionConfiguration =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetConfiguration
@@ -20876,6 +21464,15 @@ proc removeConfigurationAsync*(self: ActivationSignalDetector, a1: string, a2: s
         vcall(it, Slot_IActivationSignalDetector_RemoveConfigurationAsync, Fn_IActivationSignalDetector_RemoveConfigurationAsync)(it, h0, h1, tmp.addr).check("ActivationSignalDetector.RemoveConfigurationAsync")
         result = tmp
 
+proc getAvailableModelIdsForSignalId*(self: ActivationSignalDetector, a1: string): seq[string] =
+  ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetAvailableModelIdsForSignalId
+  withIface(self.p, IID_IActivationSignalDetector2, "IActivationSignalDetector2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IActivationSignalDetector2_GetAvailableModelIdsForSignalId, Fn_IActivationSignalDetector2_GetAvailableModelIdsForSignalId)(it, h0, tmp.addr).check("ActivationSignalDetector.GetAvailableModelIdsForSignalId")
+      result = toSeqString(tmp, IID_IVector_1_String)
+      release(tmp)
+
 proc createConfigurationWithResult*(self: ActivationSignalDetector, a1: string, a2: string, a3: string): ActivationSignalDetectionConfigurationCreationResult =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.CreateConfigurationWithResult
   withIface(self.p, IID_IActivationSignalDetector2, "IActivationSignalDetector2", it):
@@ -20901,6 +21498,22 @@ proc detectorId*(self: ActivationSignalDetector): string =
     var tmp: HSTRING
     vcall(it, Slot_IActivationSignalDetector2_get_DetectorId, Fn_IActivationSignalDetector2_get_DetectorId)(it, tmp.addr).check("ActivationSignalDetector.get_DetectorId")
     result = takeString(tmp)
+
+proc getAllActivationSignalDetectors*(self: ConversationalAgentDetectorManager): seq[ActivationSignalDetector] =
+  ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager.GetAllActivationSignalDetectors
+  withIface(self.p, IID_IConversationalAgentDetectorManager, "IConversationalAgentDetectorManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IConversationalAgentDetectorManager_GetAllActivationSignalDetectors, Fn_IConversationalAgentDetectorManager_GetAllActivationSignalDetectors)(it, tmp.addr).check("ConversationalAgentDetectorManager.GetAllActivationSignalDetectors")
+    result = toSeq[ActivationSignalDetector](tmp, IID_IVectorView_1_ActivationSignalDetector)
+    release(tmp)
+
+proc getActivationSignalDetectors*(self: ConversationalAgentDetectorManager, a1: ActivationSignalDetectorKind): seq[ActivationSignalDetector] =
+  ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager.GetActivationSignalDetectors
+  withIface(self.p, IID_IConversationalAgentDetectorManager, "IConversationalAgentDetectorManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IConversationalAgentDetectorManager_GetActivationSignalDetectors, Fn_IConversationalAgentDetectorManager_GetActivationSignalDetectors)(it, a1, tmp.addr).check("ConversationalAgentDetectorManager.GetActivationSignalDetectors")
+    result = toSeq[ActivationSignalDetector](tmp, IID_IVectorView_1_ActivationSignalDetector)
+    release(tmp)
 
 proc getActivationSignalDetectorFromId*(self: ConversationalAgentDetectorManager, a1: string): ActivationSignalDetector =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager.GetActivationSignalDetectorFromId
@@ -21269,6 +21882,14 @@ proc createNewView*(_: typedesc[CoreApplication], a1: pointer): CoreApplicationV
     var tmp: pointer
     vcall(it, Slot_ICoreImmersiveApplication3_CreateNewView, Fn_ICoreImmersiveApplication3_CreateNewView)(it, a1, tmp.addr).check("CoreApplication.CreateNewView")
     result = adopt[CoreApplicationView](tmp)
+
+proc views*(_: typedesc[CoreApplication]): seq[CoreApplicationView] =
+  ## Windows.ApplicationModel.Core.CoreApplication.get_Views
+  withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreImmersiveApplication, it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreImmersiveApplication_get_Views, Fn_ICoreImmersiveApplication_get_Views)(it, tmp.addr).check("CoreApplication.get_Views")
+    result = toSeq[CoreApplicationView](tmp, IID_IVectorView_1_CoreApplicationView)
+    release(tmp)
 
 proc createNewView*(_: typedesc[CoreApplication], a1: string, a2: string): CoreApplicationView =
   ## Windows.ApplicationModel.Core.CoreApplication.CreateNewView
@@ -21820,6 +22441,22 @@ proc `isAllowedInHistory=`*(self: ClipboardContentOptions, value: bool) =
   withIface(self.p, IID_IClipboardContentOptions, "IClipboardContentOptions", it):
     vcall(it, Slot_IClipboardContentOptions_put_IsAllowedInHistory, Fn_IClipboardContentOptions_put_IsAllowedInHistory)(it, value).check("ClipboardContentOptions.put_IsAllowedInHistory")
 
+proc roamingFormats*(self: ClipboardContentOptions): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.ClipboardContentOptions.get_RoamingFormats
+  withIface(self.p, IID_IClipboardContentOptions, "IClipboardContentOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IClipboardContentOptions_get_RoamingFormats, Fn_IClipboardContentOptions_get_RoamingFormats)(it, tmp.addr).check("ClipboardContentOptions.get_RoamingFormats")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc historyFormats*(self: ClipboardContentOptions): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.ClipboardContentOptions.get_HistoryFormats
+  withIface(self.p, IID_IClipboardContentOptions, "IClipboardContentOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IClipboardContentOptions_get_HistoryFormats, Fn_IClipboardContentOptions_get_HistoryFormats)(it, tmp.addr).check("ClipboardContentOptions.get_HistoryFormats")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc id*(self: ClipboardHistoryItem): string =
   ## Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem.get_Id
   withIface(self.p, IID_IClipboardHistoryItem, "IClipboardHistoryItem", it):
@@ -21847,6 +22484,14 @@ proc status*(self: ClipboardHistoryItemsResult): ClipboardHistoryItemsResultStat
     var tmp: ClipboardHistoryItemsResultStatus
     vcall(it, Slot_IClipboardHistoryItemsResult_get_Status, Fn_IClipboardHistoryItemsResult_get_Status)(it, tmp.addr).check("ClipboardHistoryItemsResult.get_Status")
     result = tmp
+
+proc items*(self: ClipboardHistoryItemsResult): seq[ClipboardHistoryItem] =
+  ## Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResult.get_Items
+  withIface(self.p, IID_IClipboardHistoryItemsResult, "IClipboardHistoryItemsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IClipboardHistoryItemsResult_get_Items, Fn_IClipboardHistoryItemsResult_get_Items)(it, tmp.addr).check("ClipboardHistoryItemsResult.get_Items")
+    result = toSeq[ClipboardHistoryItem](tmp, IID_IVectorView_1_ClipboardHistoryItem)
+    release(tmp)
 
 proc newDataPackage*(): DataPackage =
   ## Activate a `Windows.ApplicationModel.DataTransfer.DataPackage`.
@@ -22016,6 +22661,14 @@ proc `thumbnail=`*(self: DataPackagePropertySet, value: pointer) =
   withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
     vcall(it, Slot_IDataPackagePropertySet_put_Thumbnail, Fn_IDataPackagePropertySet_put_Thumbnail)(it, value).check("DataPackagePropertySet.put_Thumbnail")
 
+proc fileTypes*(self: DataPackagePropertySet): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_FileTypes
+  withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySet_get_FileTypes, Fn_IDataPackagePropertySet_get_FileTypes)(it, tmp.addr).check("DataPackagePropertySet.get_FileTypes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc applicationName*(self: DataPackagePropertySet): string =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_ApplicationName
   withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
@@ -22106,6 +22759,14 @@ proc description*(self: DataPackagePropertySetView): string =
     vcall(it, Slot_IDataPackagePropertySetView_get_Description, Fn_IDataPackagePropertySetView_get_Description)(it, tmp.addr).check("DataPackagePropertySetView.get_Description")
     result = takeString(tmp)
 
+proc fileTypes*(self: DataPackagePropertySetView): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_FileTypes
+  withIface(self.p, IID_IDataPackagePropertySetView, "IDataPackagePropertySetView", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySetView_get_FileTypes, Fn_IDataPackagePropertySetView_get_FileTypes)(it, tmp.addr).check("DataPackagePropertySetView.get_FileTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc applicationName*(self: DataPackagePropertySetView): string =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_ApplicationName
   withIface(self.p, IID_IDataPackagePropertySetView, "IDataPackagePropertySetView", it):
@@ -22173,6 +22834,14 @@ proc reportOperationCompleted*(self: DataPackageView, a1: DataPackageOperation) 
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.ReportOperationCompleted
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_ReportOperationCompleted, Fn_IDataPackageView_ReportOperationCompleted)(it, a1).check("DataPackageView.ReportOperationCompleted")
+
+proc availableFormats*(self: DataPackageView): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.get_AvailableFormats
+  withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackageView_get_AvailableFormats, Fn_IDataPackageView_get_AvailableFormats)(it, tmp.addr).check("DataPackageView.get_AvailableFormats")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc contains*(self: DataPackageView, a1: string): bool =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.Contains
@@ -22593,6 +23262,14 @@ proc reportCompleted*(self: ShareProviderOperation) =
   withIface(self.p, IID_IShareProviderOperation, "IShareProviderOperation", it):
     vcall(it, Slot_IShareProviderOperation_ReportCompleted, Fn_IShareProviderOperation_ReportCompleted)(it).check("ShareProviderOperation.ReportCompleted")
 
+proc providers*(self: ShareProvidersRequestedEventArgs): seq[ShareProvider] =
+  ## Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs.get_Providers
+  withIface(self.p, IID_IShareProvidersRequestedEventArgs, "IShareProvidersRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IShareProvidersRequestedEventArgs_get_Providers, Fn_IShareProvidersRequestedEventArgs_get_Providers)(it, tmp.addr).check("ShareProvidersRequestedEventArgs.get_Providers")
+    result = toSeq[ShareProvider](tmp, IID_IVector_1_ShareProvider)
+    release(tmp)
+
 proc data*(self: ShareProvidersRequestedEventArgs): DataPackageView =
   ## Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs.get_Data
   withIface(self.p, IID_IShareProvidersRequestedEventArgs, "IShareProvidersRequestedEventArgs", it):
@@ -22629,6 +23306,22 @@ proc `id=`*(self: QuickLink, value: string) =
   withIface(self.p, IID_IQuickLink, "IQuickLink", it):
     withHString(value, h0):
       vcall(it, Slot_IQuickLink_put_Id, Fn_IQuickLink_put_Id)(it, h0).check("QuickLink.put_Id")
+
+proc supportedDataFormats*(self: QuickLink): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink.get_SupportedDataFormats
+  withIface(self.p, IID_IQuickLink, "IQuickLink", it):
+    var tmp: pointer
+    vcall(it, Slot_IQuickLink_get_SupportedDataFormats, Fn_IQuickLink_get_SupportedDataFormats)(it, tmp.addr).check("QuickLink.get_SupportedDataFormats")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc supportedFileTypes*(self: QuickLink): seq[string] =
+  ## Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink.get_SupportedFileTypes
+  withIface(self.p, IID_IQuickLink, "IQuickLink", it):
+    var tmp: pointer
+    vcall(it, Slot_IQuickLink_get_SupportedFileTypes, Fn_IQuickLink_get_SupportedFileTypes)(it, tmp.addr).check("QuickLink.get_SupportedFileTypes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc data*(self: ShareOperation): DataPackageView =
   ## Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation.get_Data
@@ -22685,6 +23378,14 @@ proc dismissUI*(self: ShareOperation) =
   ## Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation.DismissUI
   withIface(self.p, IID_IShareOperation2, "IShareOperation2", it):
     vcall(it, Slot_IShareOperation2_DismissUI, Fn_IShareOperation2_DismissUI)(it).check("ShareOperation.DismissUI")
+
+proc contacts*(self: ShareOperation): seq[Contact] =
+  ## Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation.get_Contacts
+  withIface(self.p, IID_IShareOperation3, "IShareOperation3", it):
+    var tmp: pointer
+    vcall(it, Slot_IShareOperation3_get_Contacts, Fn_IShareOperation3_get_Contacts)(it, tmp.addr).check("ShareOperation.get_Contacts")
+    result = toSeq[Contact](tmp, IID_IVectorView_1_Contact)
+    release(tmp)
 
 proc appUserModelId*(self: ShareTargetInfo): string =
   ## Windows.ApplicationModel.DataTransfer.ShareTargetInfo.get_AppUserModelId
@@ -23511,6 +24212,14 @@ proc emailMessageId*(self: EmailMailboxForwardMeetingRequest): string =
     vcall(it, Slot_IEmailMailboxForwardMeetingRequest_get_EmailMessageId, Fn_IEmailMailboxForwardMeetingRequest_get_EmailMessageId)(it, tmp.addr).check("EmailMailboxForwardMeetingRequest.get_EmailMessageId")
     result = takeString(tmp)
 
+proc recipients*(self: EmailMailboxForwardMeetingRequest): seq[EmailRecipient] =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest.get_Recipients
+  withIface(self.p, IID_IEmailMailboxForwardMeetingRequest, "IEmailMailboxForwardMeetingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxForwardMeetingRequest_get_Recipients, Fn_IEmailMailboxForwardMeetingRequest_get_Recipients)(it, tmp.addr).check("EmailMailboxForwardMeetingRequest.get_Recipients")
+    result = toSeq[EmailRecipient](tmp, IID_IVectorView_1_EmailRecipient)
+    release(tmp)
+
 proc subject*(self: EmailMailboxForwardMeetingRequest): string =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest.get_Subject
   withIface(self.p, IID_IEmailMailboxForwardMeetingRequest, "IEmailMailboxForwardMeetingRequest", it):
@@ -23714,6 +24423,14 @@ proc emailMailboxId*(self: EmailMailboxResolveRecipientsRequest): string =
     var tmp: HSTRING
     vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_get_EmailMailboxId, Fn_IEmailMailboxResolveRecipientsRequest_get_EmailMailboxId)(it, tmp.addr).check("EmailMailboxResolveRecipientsRequest.get_EmailMailboxId")
     result = takeString(tmp)
+
+proc recipients*(self: EmailMailboxResolveRecipientsRequest): seq[string] =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.get_Recipients
+  withIface(self.p, IID_IEmailMailboxResolveRecipientsRequest, "IEmailMailboxResolveRecipientsRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_get_Recipients, Fn_IEmailMailboxResolveRecipientsRequest_get_Recipients)(it, tmp.addr).check("EmailMailboxResolveRecipientsRequest.get_Recipients")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc reportFailedAsync*(self: EmailMailboxResolveRecipientsRequest): pointer =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.ReportFailedAsync
@@ -24166,6 +24883,14 @@ proc unreadMessageCount*(self: EmailConversation): uint32 =
     vcall(it, Slot_IEmailConversation_get_UnreadMessageCount, Fn_IEmailConversation_get_UnreadMessageCount)(it, tmp.addr).check("EmailConversation.get_UnreadMessageCount")
     result = tmp
 
+proc conversations*(self: EmailConversationBatch): seq[EmailConversation] =
+  ## Windows.ApplicationModel.Email.EmailConversationBatch.get_Conversations
+  withIface(self.p, IID_IEmailConversationBatch, "IEmailConversationBatch", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailConversationBatch_get_Conversations, Fn_IEmailConversationBatch_get_Conversations)(it, tmp.addr).check("EmailConversationBatch.get_Conversations")
+    result = toSeq[EmailConversation](tmp, IID_IVectorView_1_EmailConversation)
+    release(tmp)
+
 proc status*(self: EmailConversationBatch): EmailBatchStatus =
   ## Windows.ApplicationModel.Email.EmailConversationBatch.get_Status
   withIface(self.p, IID_IEmailConversationBatch, "IEmailConversationBatch", it):
@@ -24594,6 +25319,14 @@ proc `mailAddress=`*(self: EmailMailbox, value: string) =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(value, h0):
       vcall(it, Slot_IEmailMailbox_put_MailAddress, Fn_IEmailMailbox_put_MailAddress)(it, h0).check("EmailMailbox.put_MailAddress")
+
+proc mailAddressAliases*(self: EmailMailbox): seq[string] =
+  ## Windows.ApplicationModel.Email.EmailMailbox.get_MailAddressAliases
+  withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailbox_get_MailAddressAliases, Fn_IEmailMailbox_get_MailAddressAliases)(it, tmp.addr).check("EmailMailbox.get_MailAddressAliases")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc otherAppReadAccess*(self: EmailMailbox): EmailMailboxOtherAppReadAccess =
   ## Windows.ApplicationModel.Email.EmailMailbox.get_OtherAppReadAccess
@@ -25097,6 +25830,14 @@ proc changeType*(self: EmailMailboxChange): EmailMailboxChangeType =
     vcall(it, Slot_IEmailMailboxChange_get_ChangeType, Fn_IEmailMailboxChange_get_ChangeType)(it, tmp.addr).check("EmailMailboxChange.get_ChangeType")
     result = tmp
 
+proc mailboxActions*(self: EmailMailboxChange): seq[EmailMailboxAction] =
+  ## Windows.ApplicationModel.Email.EmailMailboxChange.get_MailboxActions
+  withIface(self.p, IID_IEmailMailboxChange, "IEmailMailboxChange", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxChange_get_MailboxActions, Fn_IEmailMailboxChange_get_MailboxActions)(it, tmp.addr).check("EmailMailboxChange.get_MailboxActions")
+    result = toSeq[EmailMailboxAction](tmp, IID_IVector_1_EmailMailboxAction)
+    release(tmp)
+
 proc message*(self: EmailMailboxChange): EmailMessage =
   ## Windows.ApplicationModel.Email.EmailMailboxChange.get_Message
   withIface(self.p, IID_IEmailMailboxChange, "IEmailMailboxChange", it):
@@ -25443,6 +26184,38 @@ proc `body=`*(self: EmailMessage, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IEmailMessage_put_Body, Fn_IEmailMessage_put_Body)(it, h0).check("EmailMessage.put_Body")
 
+proc to*(self: EmailMessage): seq[EmailRecipient] =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_To
+  withIface(self.p, IID_IEmailMessage, "IEmailMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage_get_To, Fn_IEmailMessage_get_To)(it, tmp.addr).check("EmailMessage.get_To")
+    result = toSeq[EmailRecipient](tmp, IID_IVector_1_EmailRecipient)
+    release(tmp)
+
+proc cC*(self: EmailMessage): seq[EmailRecipient] =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_CC
+  withIface(self.p, IID_IEmailMessage, "IEmailMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage_get_CC, Fn_IEmailMessage_get_CC)(it, tmp.addr).check("EmailMessage.get_CC")
+    result = toSeq[EmailRecipient](tmp, IID_IVector_1_EmailRecipient)
+    release(tmp)
+
+proc bcc*(self: EmailMessage): seq[EmailRecipient] =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_Bcc
+  withIface(self.p, IID_IEmailMessage, "IEmailMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage_get_Bcc, Fn_IEmailMessage_get_Bcc)(it, tmp.addr).check("EmailMessage.get_Bcc")
+    result = toSeq[EmailRecipient](tmp, IID_IVector_1_EmailRecipient)
+    release(tmp)
+
+proc attachments*(self: EmailMessage): seq[EmailAttachment] =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_Attachments
+  withIface(self.p, IID_IEmailMessage, "IEmailMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage_get_Attachments, Fn_IEmailMessage_get_Attachments)(it, tmp.addr).check("EmailMessage.get_Attachments")
+    result = toSeq[EmailAttachment](tmp, IID_IVector_1_EmailAttachment)
+    release(tmp)
+
 proc id*(self: EmailMessage): string =
   ## Windows.ApplicationModel.Email.EmailMessage.get_Id
   withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
@@ -25742,6 +26515,14 @@ proc `smimeKind=`*(self: EmailMessage, value: EmailMessageSmimeKind) =
   withIface(self.p, IID_IEmailMessage3, "IEmailMessage3", it):
     vcall(it, Slot_IEmailMessage3_put_SmimeKind, Fn_IEmailMessage3_put_SmimeKind)(it, value).check("EmailMessage.put_SmimeKind")
 
+proc replyTo*(self: EmailMessage): seq[EmailRecipient] =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_ReplyTo
+  withIface(self.p, IID_IEmailMessage4, "IEmailMessage4", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage4_get_ReplyTo, Fn_IEmailMessage4_get_ReplyTo)(it, tmp.addr).check("EmailMessage.get_ReplyTo")
+    result = toSeq[EmailRecipient](tmp, IID_IVector_1_EmailRecipient)
+    release(tmp)
+
 proc sentRepresenting*(self: EmailMessage): EmailRecipient =
   ## Windows.ApplicationModel.Email.EmailMessage.get_SentRepresenting
   withIface(self.p, IID_IEmailMessage4, "IEmailMessage4", it):
@@ -25754,6 +26535,14 @@ proc `sentRepresenting=`*(self: EmailMessage, value: EmailRecipient) =
   withIface(self.p, IID_IEmailMessage4, "IEmailMessage4", it):
     withIface(value.p, IID_IEmailRecipient, "IEmailRecipient", p0):
       vcall(it, Slot_IEmailMessage4_put_SentRepresenting, Fn_IEmailMessage4_put_SentRepresenting)(it, p0).check("EmailMessage.put_SentRepresenting")
+
+proc messages*(self: EmailMessageBatch): seq[EmailMessage] =
+  ## Windows.ApplicationModel.Email.EmailMessageBatch.get_Messages
+  withIface(self.p, IID_IEmailMessageBatch, "IEmailMessageBatch", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessageBatch_get_Messages, Fn_IEmailMessageBatch_get_Messages)(it, tmp.addr).check("EmailMessageBatch.get_Messages")
+    result = toSeq[EmailMessage](tmp, IID_IVectorView_1_EmailMessage)
+    release(tmp)
 
 proc status*(self: EmailMessageBatch): EmailBatchStatus =
   ## Windows.ApplicationModel.Email.EmailMessageBatch.get_Status
@@ -25808,6 +26597,14 @@ proc `kind=`*(self: EmailQueryOptions, value: EmailQueryKind) =
   ## Windows.ApplicationModel.Email.EmailQueryOptions.put_Kind
   withIface(self.p, IID_IEmailQueryOptions, "IEmailQueryOptions", it):
     vcall(it, Slot_IEmailQueryOptions_put_Kind, Fn_IEmailQueryOptions_put_Kind)(it, value).check("EmailQueryOptions.put_Kind")
+
+proc folderIds*(self: EmailQueryOptions): seq[string] =
+  ## Windows.ApplicationModel.Email.EmailQueryOptions.get_FolderIds
+  withIface(self.p, IID_IEmailQueryOptions, "IEmailQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailQueryOptions_get_FolderIds, Fn_IEmailQueryOptions_get_FolderIds)(it, tmp.addr).check("EmailQueryOptions.get_FolderIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc createWithText*(_: typedesc[EmailQueryOptions], a1: string): EmailQueryOptions =
   ## Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithText
@@ -26328,6 +27125,14 @@ proc removeBadgesChanged*(self: LockScreenInfo, token: EventRegistrationToken) =
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     vcall(it, Slot_ILockScreenInfo_remove_BadgesChanged, Fn_ILockScreenInfo_remove_BadgesChanged)(it, token).check("LockScreenInfo.remove_BadgesChanged")
 
+proc badges*(self: LockScreenInfo): seq[LockScreenBadge] =
+  ## Windows.ApplicationModel.LockScreen.LockScreenInfo.get_Badges
+  withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ILockScreenInfo_get_Badges, Fn_ILockScreenInfo_get_Badges)(it, tmp.addr).check("LockScreenInfo.get_Badges")
+    result = toSeq[LockScreenBadge](tmp, IID_IVectorView_1_LockScreenBadge)
+    release(tmp)
+
 proc onDetailTextChanged*(self: LockScreenInfo,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.LockScreen.LockScreenInfo.add_DetailTextChanged
@@ -26346,6 +27151,14 @@ proc onDetailTextChanged*(self: LockScreenInfo,
 proc removeDetailTextChanged*(self: LockScreenInfo, token: EventRegistrationToken) =
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     vcall(it, Slot_ILockScreenInfo_remove_DetailTextChanged, Fn_ILockScreenInfo_remove_DetailTextChanged)(it, token).check("LockScreenInfo.remove_DetailTextChanged")
+
+proc detailText*(self: LockScreenInfo): seq[string] =
+  ## Windows.ApplicationModel.LockScreen.LockScreenInfo.get_DetailText
+  withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ILockScreenInfo_get_DetailText, Fn_ILockScreenInfo_get_DetailText)(it, tmp.addr).check("LockScreenInfo.get_DetailText")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc onAlarmIconChanged*(self: LockScreenInfo,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -26405,6 +27218,14 @@ proc isFramework*(self: Package): bool =
     var tmp: bool
     vcall(it, Slot_IPackage_get_IsFramework, Fn_IPackage_get_IsFramework)(it, tmp.addr).check("Package.get_IsFramework")
     result = tmp
+
+proc dependencies*(self: Package): seq[Package] =
+  ## Windows.ApplicationModel.Package.get_Dependencies
+  withIface(self.p, IID_IPackage, "IPackage", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackage_get_Dependencies, Fn_IPackage_get_Dependencies)(it, tmp.addr).check("Package.get_Dependencies")
+    result = toSeq[Package](tmp, IID_IVectorView_1_Package)
+    release(tmp)
 
 proc displayName*(self: Package): string =
   ## Windows.ApplicationModel.Package.get_DisplayName
@@ -26545,12 +27366,29 @@ proc userExternalPath*(self: Package): string =
     vcall(it, Slot_IPackage8_get_UserExternalPath, Fn_IPackage8_get_UserExternalPath)(it, tmp.addr).check("Package.get_UserExternalPath")
     result = takeString(tmp)
 
+proc getAppListEntries*(self: Package): seq[AppListEntry] =
+  ## Windows.ApplicationModel.Package.GetAppListEntries
+  withIface(self.p, IID_IPackage8, "IPackage8", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackage8_GetAppListEntries, Fn_IPackage8_GetAppListEntries)(it, tmp.addr).check("Package.GetAppListEntries")
+    result = toSeq[AppListEntry](tmp, IID_IVectorView_1_AppListEntry)
+    release(tmp)
+
 proc isStub*(self: Package): bool =
   ## Windows.ApplicationModel.Package.get_IsStub
   withIface(self.p, IID_IPackage8, "IPackage8", it):
     var tmp: bool
     vcall(it, Slot_IPackage8_get_IsStub, Fn_IPackage8_get_IsStub)(it, tmp.addr).check("Package.get_IsStub")
     result = tmp
+
+proc findRelatedPackages*(self: Package, a1: FindRelatedPackagesOptions): seq[Package] =
+  ## Windows.ApplicationModel.Package.FindRelatedPackages
+  withIface(self.p, IID_IPackage9, "IPackage9", it):
+    withIface(a1.p, IID_IFindRelatedPackagesOptions, "IFindRelatedPackagesOptions", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPackage9_FindRelatedPackages, Fn_IPackage9_FindRelatedPackages)(it, p0, tmp.addr).check("Package.FindRelatedPackages")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
 
 proc sourceUriSchemeName*(self: Package): string =
   ## Windows.ApplicationModel.Package.get_SourceUriSchemeName
@@ -26737,12 +27575,28 @@ proc extendedError*(self: PackageCatalogAddResourcePackageResult): HRESULT =
     vcall(it, Slot_IPackageCatalogAddResourcePackageResult_get_ExtendedError, Fn_IPackageCatalogAddResourcePackageResult_get_ExtendedError)(it, tmp.addr).check("PackageCatalogAddResourcePackageResult.get_ExtendedError")
     result = tmp
 
+proc packagesRemoved*(self: PackageCatalogRemoveOptionalPackagesResult): seq[Package] =
+  ## Windows.ApplicationModel.PackageCatalogRemoveOptionalPackagesResult.get_PackagesRemoved
+  withIface(self.p, IID_IPackageCatalogRemoveOptionalPackagesResult, "IPackageCatalogRemoveOptionalPackagesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageCatalogRemoveOptionalPackagesResult_get_PackagesRemoved, Fn_IPackageCatalogRemoveOptionalPackagesResult_get_PackagesRemoved)(it, tmp.addr).check("PackageCatalogRemoveOptionalPackagesResult.get_PackagesRemoved")
+    result = toSeq[Package](tmp, IID_IVectorView_1_Package)
+    release(tmp)
+
 proc extendedError*(self: PackageCatalogRemoveOptionalPackagesResult): HRESULT =
   ## Windows.ApplicationModel.PackageCatalogRemoveOptionalPackagesResult.get_ExtendedError
   withIface(self.p, IID_IPackageCatalogRemoveOptionalPackagesResult, "IPackageCatalogRemoveOptionalPackagesResult", it):
     var tmp: HRESULT
     vcall(it, Slot_IPackageCatalogRemoveOptionalPackagesResult_get_ExtendedError, Fn_IPackageCatalogRemoveOptionalPackagesResult_get_ExtendedError)(it, tmp.addr).check("PackageCatalogRemoveOptionalPackagesResult.get_ExtendedError")
     result = tmp
+
+proc packagesRemoved*(self: PackageCatalogRemoveResourcePackagesResult): seq[Package] =
+  ## Windows.ApplicationModel.PackageCatalogRemoveResourcePackagesResult.get_PackagesRemoved
+  withIface(self.p, IID_IPackageCatalogRemoveResourcePackagesResult, "IPackageCatalogRemoveResourcePackagesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageCatalogRemoveResourcePackagesResult_get_PackagesRemoved, Fn_IPackageCatalogRemoveResourcePackagesResult_get_PackagesRemoved)(it, tmp.addr).check("PackageCatalogRemoveResourcePackagesResult.get_PackagesRemoved")
+    result = toSeq[Package](tmp, IID_IVectorView_1_Package)
+    release(tmp)
 
 proc extendedError*(self: PackageCatalogRemoveResourcePackagesResult): HRESULT =
   ## Windows.ApplicationModel.PackageCatalogRemoveResourcePackagesResult.get_ExtendedError
@@ -26877,6 +27731,14 @@ proc getPublicPath*(self: PackageExtension): string =
     vcall(it, Slot_IPackageExtension_GetPublicPath, Fn_IPackageExtension_GetPublicPath)(it, tmp.addr).check("PackageExtension.GetPublicPath")
     result = takeString(tmp)
 
+proc findAll*(self: PackageExtensionCatalog): seq[PackageExtension] =
+  ## Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog.FindAll
+  withIface(self.p, IID_IPackageExtensionCatalog, "IPackageExtensionCatalog", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageExtensionCatalog_FindAll, Fn_IPackageExtensionCatalog_FindAll)(it, tmp.addr).check("PackageExtensionCatalog.FindAll")
+    result = toSeq[PackageExtension](tmp, IID_IVectorView_1_PackageExtension)
+    release(tmp)
+
 proc onPackageInstalled*(self: PackageExtensionCatalog,
     handler: proc(sender: pointer, args: PackageExtensionPackageInstalledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog.add_PackageInstalled
@@ -26994,6 +27856,14 @@ proc package*(self: PackageExtensionPackageInstalledEventArgs): Package =
     vcall(it, Slot_IPackageExtensionPackageInstalledEventArgs_get_Package, Fn_IPackageExtensionPackageInstalledEventArgs_get_Package)(it, tmp.addr).check("PackageExtensionPackageInstalledEventArgs.get_Package")
     result = adopt[Package](tmp)
 
+proc extensions*(self: PackageExtensionPackageInstalledEventArgs): seq[PackageExtension] =
+  ## Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageInstalledEventArgs.get_Extensions
+  withIface(self.p, IID_IPackageExtensionPackageInstalledEventArgs, "IPackageExtensionPackageInstalledEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageExtensionPackageInstalledEventArgs_get_Extensions, Fn_IPackageExtensionPackageInstalledEventArgs_get_Extensions)(it, tmp.addr).check("PackageExtensionPackageInstalledEventArgs.get_Extensions")
+    result = toSeq[PackageExtension](tmp, IID_IVectorView_1_PackageExtension)
+    release(tmp)
+
 proc packageExtensionName*(self: PackageExtensionPackageStatusChangedEventArgs): string =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageStatusChangedEventArgs.get_PackageExtensionName
   withIface(self.p, IID_IPackageExtensionPackageStatusChangedEventArgs, "IPackageExtensionPackageStatusChangedEventArgs", it):
@@ -27035,6 +27905,14 @@ proc package*(self: PackageExtensionPackageUpdatedEventArgs): Package =
     var tmp: pointer
     vcall(it, Slot_IPackageExtensionPackageUpdatedEventArgs_get_Package, Fn_IPackageExtensionPackageUpdatedEventArgs_get_Package)(it, tmp.addr).check("PackageExtensionPackageUpdatedEventArgs.get_Package")
     result = adopt[Package](tmp)
+
+proc extensions*(self: PackageExtensionPackageUpdatedEventArgs): seq[PackageExtension] =
+  ## Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageUpdatedEventArgs.get_Extensions
+  withIface(self.p, IID_IPackageExtensionPackageUpdatedEventArgs, "IPackageExtensionPackageUpdatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageExtensionPackageUpdatedEventArgs_get_Extensions, Fn_IPackageExtensionPackageUpdatedEventArgs_get_Extensions)(it, tmp.addr).check("PackageExtensionPackageUpdatedEventArgs.get_Extensions")
+    result = toSeq[PackageExtension](tmp, IID_IVectorView_1_PackageExtension)
+    release(tmp)
 
 proc packageExtensionName*(self: PackageExtensionPackageUpdatingEventArgs): string =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageUpdatingEventArgs.get_PackageExtensionName
@@ -27389,6 +28267,14 @@ proc `country=`*(self: PaymentAddress, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IPaymentAddress_put_Country, Fn_IPaymentAddress_put_Country)(it, h0).check("PaymentAddress.put_Country")
 
+proc addressLines*(self: PaymentAddress): seq[string] =
+  ## Windows.ApplicationModel.Payments.PaymentAddress.get_AddressLines
+  withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentAddress_get_AddressLines, Fn_IPaymentAddress_get_AddressLines)(it, tmp.addr).check("PaymentAddress.get_AddressLines")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc region*(self: PaymentAddress): string =
   ## Windows.ApplicationModel.Payments.PaymentAddress.get_Region
   withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
@@ -27595,6 +28481,30 @@ proc `total=`*(self: PaymentDetails, value: PaymentItem) =
     withIface(value.p, IID_IPaymentItem, "IPaymentItem", p0):
       vcall(it, Slot_IPaymentDetails_put_Total, Fn_IPaymentDetails_put_Total)(it, p0).check("PaymentDetails.put_Total")
 
+proc displayItems*(self: PaymentDetails): seq[PaymentItem] =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.get_DisplayItems
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentDetails_get_DisplayItems, Fn_IPaymentDetails_get_DisplayItems)(it, tmp.addr).check("PaymentDetails.get_DisplayItems")
+    result = toSeq[PaymentItem](tmp, IID_IVectorView_1_PaymentItem)
+    release(tmp)
+
+proc shippingOptions*(self: PaymentDetails): seq[PaymentShippingOption] =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.get_ShippingOptions
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentDetails_get_ShippingOptions, Fn_IPaymentDetails_get_ShippingOptions)(it, tmp.addr).check("PaymentDetails.get_ShippingOptions")
+    result = toSeq[PaymentShippingOption](tmp, IID_IVectorView_1_PaymentShippingOption)
+    release(tmp)
+
+proc modifiers*(self: PaymentDetails): seq[PaymentDetailsModifier] =
+  ## Windows.ApplicationModel.Payments.PaymentDetails.get_Modifiers
+  withIface(self.p, IID_IPaymentDetails, "IPaymentDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentDetails_get_Modifiers, Fn_IPaymentDetails_get_Modifiers)(it, tmp.addr).check("PaymentDetails.get_Modifiers")
+    result = toSeq[PaymentDetailsModifier](tmp, IID_IVectorView_1_PaymentDetailsModifier)
+    release(tmp)
+
 proc create*(_: typedesc[PaymentDetails], a1: PaymentItem): PaymentDetails =
   ## Windows.ApplicationModel.Payments.PaymentDetails.Create
   withStatics("Windows.ApplicationModel.Payments.PaymentDetails", IID_IPaymentDetailsFactory, it):
@@ -27610,12 +28520,28 @@ proc jsonData*(self: PaymentDetailsModifier): string =
     vcall(it, Slot_IPaymentDetailsModifier_get_JsonData, Fn_IPaymentDetailsModifier_get_JsonData)(it, tmp.addr).check("PaymentDetailsModifier.get_JsonData")
     result = takeString(tmp)
 
+proc supportedMethodIds*(self: PaymentDetailsModifier): seq[string] =
+  ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.get_SupportedMethodIds
+  withIface(self.p, IID_IPaymentDetailsModifier, "IPaymentDetailsModifier", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentDetailsModifier_get_SupportedMethodIds, Fn_IPaymentDetailsModifier_get_SupportedMethodIds)(it, tmp.addr).check("PaymentDetailsModifier.get_SupportedMethodIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc total*(self: PaymentDetailsModifier): PaymentItem =
   ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.get_Total
   withIface(self.p, IID_IPaymentDetailsModifier, "IPaymentDetailsModifier", it):
     var tmp: pointer
     vcall(it, Slot_IPaymentDetailsModifier_get_Total, Fn_IPaymentDetailsModifier_get_Total)(it, tmp.addr).check("PaymentDetailsModifier.get_Total")
     result = adopt[PaymentItem](tmp)
+
+proc additionalDisplayItems*(self: PaymentDetailsModifier): seq[PaymentItem] =
+  ## Windows.ApplicationModel.Payments.PaymentDetailsModifier.get_AdditionalDisplayItems
+  withIface(self.p, IID_IPaymentDetailsModifier, "IPaymentDetailsModifier", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentDetailsModifier_get_AdditionalDisplayItems, Fn_IPaymentDetailsModifier_get_AdditionalDisplayItems)(it, tmp.addr).check("PaymentDetailsModifier.get_AdditionalDisplayItems")
+    result = toSeq[PaymentItem](tmp, IID_IVectorView_1_PaymentItem)
+    release(tmp)
 
 proc label*(self: PaymentItem): string =
   ## Windows.ApplicationModel.Payments.PaymentItem.get_Label
@@ -27678,6 +28604,14 @@ proc packageFullName*(self: PaymentMerchantInfo): string =
     var tmp: HSTRING
     vcall(it, Slot_IPaymentMerchantInfo_get_PackageFullName, Fn_IPaymentMerchantInfo_get_PackageFullName)(it, tmp.addr).check("PaymentMerchantInfo.get_PackageFullName")
     result = takeString(tmp)
+
+proc supportedMethodIds*(self: PaymentMethodData): seq[string] =
+  ## Windows.ApplicationModel.Payments.PaymentMethodData.get_SupportedMethodIds
+  withIface(self.p, IID_IPaymentMethodData, "IPaymentMethodData", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentMethodData_get_SupportedMethodIds, Fn_IPaymentMethodData_get_SupportedMethodIds)(it, tmp.addr).check("PaymentMethodData.get_SupportedMethodIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc jsonData*(self: PaymentMethodData): string =
   ## Windows.ApplicationModel.Payments.PaymentMethodData.get_JsonData
@@ -27763,6 +28697,14 @@ proc details*(self: PaymentRequest): PaymentDetails =
     var tmp: pointer
     vcall(it, Slot_IPaymentRequest_get_Details, Fn_IPaymentRequest_get_Details)(it, tmp.addr).check("PaymentRequest.get_Details")
     result = adopt[PaymentDetails](tmp)
+
+proc methodData*(self: PaymentRequest): seq[PaymentMethodData] =
+  ## Windows.ApplicationModel.Payments.PaymentRequest.get_MethodData
+  withIface(self.p, IID_IPaymentRequest, "IPaymentRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentRequest_get_MethodData, Fn_IPaymentRequest_get_MethodData)(it, tmp.addr).check("PaymentRequest.get_MethodData")
+    result = toSeq[PaymentMethodData](tmp, IID_IVectorView_1_PaymentMethodData)
+    release(tmp)
 
 proc options*(self: PaymentRequest): PaymentOptions =
   ## Windows.ApplicationModel.Payments.PaymentRequest.get_Options
@@ -28356,12 +29298,28 @@ proc executablePath*(self: StartupAppInfoPreview): string =
     vcall(it, Slot_IStartupAppInfoPreview_get_ExecutablePath, Fn_IStartupAppInfoPreview_get_ExecutablePath)(it, tmp.addr).check("StartupAppInfoPreview.get_ExecutablePath")
     result = takeString(tmp)
 
+proc getStartupAppInfos*(self: StartupAppsManagerPreview): seq[StartupAppInfoPreview] =
+  ## Windows.ApplicationModel.Preview.StartupAppsManagerPreview.GetStartupAppInfos
+  withIface(self.p, IID_IStartupAppsManagerPreview, "IStartupAppsManagerPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IStartupAppsManagerPreview_GetStartupAppInfos, Fn_IStartupAppsManagerPreview_GetStartupAppInfos)(it, tmp.addr).check("StartupAppsManagerPreview.GetStartupAppInfos")
+    result = toSeq[StartupAppInfoPreview](tmp, IID_IVectorView_1_StartupAppInfoPreview)
+    release(tmp)
+
 proc getDefault*(_: typedesc[StartupAppsManagerPreview]): StartupAppsManagerPreview =
   ## Windows.ApplicationModel.Preview.StartupAppsManagerPreview.GetDefault
   withStatics("Windows.ApplicationModel.Preview.StartupAppsManagerPreview", IID_IStartupAppsManagerPreviewStatics, it):
     var tmp: pointer
     vcall(it, Slot_IStartupAppsManagerPreviewStatics_GetDefault, Fn_IStartupAppsManagerPreviewStatics_GetDefault)(it, tmp.addr).check("StartupAppsManagerPreview.GetDefault")
     result = adopt[StartupAppsManagerPreview](tmp)
+
+proc candidates*(self: NamedResource): seq[ResourceCandidate] =
+  ## Windows.ApplicationModel.Resources.Core.NamedResource.get_Candidates
+  withIface(self.p, IID_INamedResource, "INamedResource", it):
+    var tmp: pointer
+    vcall(it, Slot_INamedResource_get_Candidates, Fn_INamedResource_get_Candidates)(it, tmp.addr).check("NamedResource.get_Candidates")
+    result = toSeq[ResourceCandidate](tmp, IID_IVectorView_1_ResourceCandidate)
+    release(tmp)
 
 proc resolve*(self: NamedResource): ResourceCandidate =
   ## Windows.ApplicationModel.Resources.Core.NamedResource.Resolve
@@ -28377,6 +29335,31 @@ proc resolve*(self: NamedResource, a1: ResourceContext): ResourceCandidate =
       var tmp: pointer
       vcall(it, Slot_INamedResource_Resolve2, Fn_INamedResource_Resolve2)(it, p0, tmp.addr).check("NamedResource.Resolve")
       result = adopt[ResourceCandidate](tmp)
+
+proc resolveAll*(self: NamedResource): seq[ResourceCandidate] =
+  ## Windows.ApplicationModel.Resources.Core.NamedResource.ResolveAll
+  withIface(self.p, IID_INamedResource, "INamedResource", it):
+    var tmp: pointer
+    vcall(it, Slot_INamedResource_ResolveAll, Fn_INamedResource_ResolveAll)(it, tmp.addr).check("NamedResource.ResolveAll")
+    result = toSeq[ResourceCandidate](tmp, IID_IVectorView_1_ResourceCandidate)
+    release(tmp)
+
+proc resolveAll*(self: NamedResource, a1: ResourceContext): seq[ResourceCandidate] =
+  ## Windows.ApplicationModel.Resources.Core.NamedResource.ResolveAll
+  withIface(self.p, IID_INamedResource, "INamedResource", it):
+    withIface(a1.p, IID_IResourceContext, "IResourceContext", p0):
+      var tmp: pointer
+      vcall(it, Slot_INamedResource_ResolveAll2, Fn_INamedResource_ResolveAll2)(it, p0, tmp.addr).check("NamedResource.ResolveAll")
+      result = toSeq[ResourceCandidate](tmp, IID_IVectorView_1_ResourceCandidate)
+      release(tmp)
+
+proc qualifiers*(self: ResourceCandidate): seq[ResourceQualifier] =
+  ## Windows.ApplicationModel.Resources.Core.ResourceCandidate.get_Qualifiers
+  withIface(self.p, IID_IResourceCandidate, "IResourceCandidate", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceCandidate_get_Qualifiers, Fn_IResourceCandidate_get_Qualifiers)(it, tmp.addr).check("ResourceCandidate.get_Qualifiers")
+    result = toSeq[ResourceQualifier](tmp, IID_IVectorView_1_ResourceQualifier)
+    release(tmp)
 
 proc isMatch*(self: ResourceCandidate): bool =
   ## Windows.ApplicationModel.Resources.Core.ResourceCandidate.get_IsMatch
@@ -28437,6 +29420,14 @@ proc clone*(self: ResourceContext): ResourceContext =
     vcall(it, Slot_IResourceContext_Clone, Fn_IResourceContext_Clone)(it, tmp.addr).check("ResourceContext.Clone")
     result = adopt[ResourceContext](tmp)
 
+proc languages*(self: ResourceContext): seq[string] =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.get_Languages
+  withIface(self.p, IID_IResourceContext, "IResourceContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceContext_get_Languages, Fn_IResourceContext_get_Languages)(it, tmp.addr).check("ResourceContext.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc setGlobalQualifierValue*(_: typedesc[ResourceContext], a1: string, a2: string, a3: ResourceQualifierPersistence) =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.SetGlobalQualifierValue
   withStatics("Windows.ApplicationModel.Resources.Core.ResourceContext", IID_IResourceContextStatics3, it):
@@ -28483,6 +29474,24 @@ proc defaultContext*(self: ResourceManager): ResourceContext =
     var tmp: pointer
     vcall(it, Slot_IResourceManager_get_DefaultContext, Fn_IResourceManager_get_DefaultContext)(it, tmp.addr).check("ResourceManager.get_DefaultContext")
     result = adopt[ResourceContext](tmp)
+
+proc getAllNamedResourcesForPackage*(self: ResourceManager, a1: string, a2: ResourceLayoutInfo): seq[NamedResource] =
+  ## Windows.ApplicationModel.Resources.Core.ResourceManager.GetAllNamedResourcesForPackage
+  withIface(self.p, IID_IResourceManager2, "IResourceManager2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IResourceManager2_GetAllNamedResourcesForPackage, Fn_IResourceManager2_GetAllNamedResourcesForPackage)(it, h0, a2, tmp.addr).check("ResourceManager.GetAllNamedResourcesForPackage")
+      result = toSeq[NamedResource](tmp, IID_IVectorView_1_NamedResource)
+      release(tmp)
+
+proc getAllSubtreesForPackage*(self: ResourceManager, a1: string, a2: ResourceLayoutInfo): seq[ResourceMap] =
+  ## Windows.ApplicationModel.Resources.Core.ResourceManager.GetAllSubtreesForPackage
+  withIface(self.p, IID_IResourceManager2, "IResourceManager2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IResourceManager2_GetAllSubtreesForPackage, Fn_IResourceManager2_GetAllSubtreesForPackage)(it, h0, a2, tmp.addr).check("ResourceManager.GetAllSubtreesForPackage")
+      result = toSeq[ResourceMap](tmp, IID_IVectorView_1_ResourceMap)
+      release(tmp)
 
 proc current*(_: typedesc[ResourceManager]): ResourceManager =
   ## Windows.ApplicationModel.Resources.Core.ResourceManager.get_Current
@@ -28565,6 +29574,14 @@ proc `type`*(self: IndexedResourceCandidate): IndexedResourceType =
     var tmp: IndexedResourceType
     vcall(it, Slot_IIndexedResourceCandidate_get_Type, Fn_IIndexedResourceCandidate_get_Type)(it, tmp.addr).check("IndexedResourceCandidate.get_Type")
     result = tmp
+
+proc qualifiers*(self: IndexedResourceCandidate): seq[IndexedResourceQualifier] =
+  ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_Qualifiers
+  withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
+    var tmp: pointer
+    vcall(it, Slot_IIndexedResourceCandidate_get_Qualifiers, Fn_IIndexedResourceCandidate_get_Qualifiers)(it, tmp.addr).check("IndexedResourceCandidate.get_Qualifiers")
+    result = toSeq[IndexedResourceQualifier](tmp, IID_IVectorView_1_IndexedResourceQualifier)
+    release(tmp)
 
 proc valueAsString*(self: IndexedResourceCandidate): string =
   ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_ValueAsString
@@ -28864,6 +29881,14 @@ proc aqsFilter*(self: LocalContentSuggestionSettings): string =
     vcall(it, Slot_ILocalContentSuggestionSettings_get_AqsFilter, Fn_ILocalContentSuggestionSettings_get_AqsFilter)(it, tmp.addr).check("LocalContentSuggestionSettings.get_AqsFilter")
     result = takeString(tmp)
 
+proc propertiesToMatch*(self: LocalContentSuggestionSettings): seq[string] =
+  ## Windows.ApplicationModel.Search.LocalContentSuggestionSettings.get_PropertiesToMatch
+  withIface(self.p, IID_ILocalContentSuggestionSettings, "ILocalContentSuggestionSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalContentSuggestionSettings_get_PropertiesToMatch, Fn_ILocalContentSuggestionSettings_get_PropertiesToMatch)(it, tmp.addr).check("LocalContentSuggestionSettings.get_PropertiesToMatch")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc `searchHistoryEnabled=`*(self: SearchPane, value: bool) =
   ## Windows.ApplicationModel.Search.SearchPane.put_SearchHistoryEnabled
   withIface(self.p, IID_ISearchPane, "ISearchPane", it):
@@ -29088,6 +30113,14 @@ proc linguisticDetails*(self: SearchPaneQueryChangedEventArgs): SearchPaneQueryL
     vcall(it, Slot_ISearchPaneQueryChangedEventArgs_get_LinguisticDetails, Fn_ISearchPaneQueryChangedEventArgs_get_LinguisticDetails)(it, tmp.addr).check("SearchPaneQueryChangedEventArgs.get_LinguisticDetails")
     result = adopt[SearchPaneQueryLinguisticDetails](tmp)
 
+proc queryTextAlternatives*(self: SearchPaneQueryLinguisticDetails): seq[string] =
+  ## Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails.get_QueryTextAlternatives
+  withIface(self.p, IID_ISearchPaneQueryLinguisticDetails, "ISearchPaneQueryLinguisticDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_ISearchPaneQueryLinguisticDetails_get_QueryTextAlternatives, Fn_ISearchPaneQueryLinguisticDetails_get_QueryTextAlternatives)(it, tmp.addr).check("SearchPaneQueryLinguisticDetails.get_QueryTextAlternatives")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc queryTextCompositionStart*(self: SearchPaneQueryLinguisticDetails): uint32 =
   ## Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails.get_QueryTextCompositionStart
   withIface(self.p, IID_ISearchPaneQueryLinguisticDetails, "ISearchPaneQueryLinguisticDetails", it):
@@ -29190,6 +30223,14 @@ proc visible*(self: SearchPaneVisibilityChangedEventArgs): bool =
     var tmp: bool
     vcall(it, Slot_ISearchPaneVisibilityChangedEventArgs_get_Visible, Fn_ISearchPaneVisibilityChangedEventArgs_get_Visible)(it, tmp.addr).check("SearchPaneVisibilityChangedEventArgs.get_Visible")
     result = tmp
+
+proc queryTextAlternatives*(self: SearchQueryLinguisticDetails): seq[string] =
+  ## Windows.ApplicationModel.Search.SearchQueryLinguisticDetails.get_QueryTextAlternatives
+  withIface(self.p, IID_ISearchQueryLinguisticDetails, "ISearchQueryLinguisticDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_ISearchQueryLinguisticDetails_get_QueryTextAlternatives, Fn_ISearchQueryLinguisticDetails_get_QueryTextAlternatives)(it, tmp.addr).check("SearchQueryLinguisticDetails.get_QueryTextAlternatives")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc queryTextCompositionStart*(self: SearchQueryLinguisticDetails): uint32 =
   ## Windows.ApplicationModel.Search.SearchQueryLinguisticDetails.get_QueryTextCompositionStart
@@ -29319,6 +30360,14 @@ proc kind*(self: SocialFeedUpdater): SocialFeedKind =
     vcall(it, Slot_ISocialFeedUpdater_get_Kind, Fn_ISocialFeedUpdater_get_Kind)(it, tmp.addr).check("SocialFeedUpdater.get_Kind")
     result = tmp
 
+proc items*(self: SocialFeedUpdater): seq[SocialFeedItem] =
+  ## Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater.get_Items
+  withIface(self.p, IID_ISocialFeedUpdater, "ISocialFeedUpdater", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedUpdater_get_Items, Fn_ISocialFeedUpdater_get_Items)(it, tmp.addr).check("SocialFeedUpdater.get_Items")
+    result = toSeq[SocialFeedItem](tmp, IID_IVector_1_SocialFeedItem)
+    release(tmp)
+
 proc commitAsync*(self: SocialFeedUpdater): pointer =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater.CommitAsync
   withIface(self.p, IID_ISocialFeedUpdater, "ISocialFeedUpdater", it):
@@ -29381,6 +30430,14 @@ proc `timestamp=`*(self: SocialFeedChildItem, value: DateTime) =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.put_Timestamp
   withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
     vcall(it, Slot_ISocialFeedChildItem_put_Timestamp, Fn_ISocialFeedChildItem_put_Timestamp)(it, value).check("SocialFeedChildItem.put_Timestamp")
+
+proc thumbnails*(self: SocialFeedChildItem): seq[SocialItemThumbnail] =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.get_Thumbnails
+  withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedChildItem_get_Thumbnails, Fn_ISocialFeedChildItem_get_Thumbnails)(it, tmp.addr).check("SocialFeedChildItem.get_Thumbnails")
+    result = toSeq[SocialItemThumbnail](tmp, IID_IVector_1_SocialItemThumbnail)
+    release(tmp)
 
 proc sharedItem*(self: SocialFeedChildItem): SocialFeedSharedItem =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.get_SharedItem
@@ -29457,6 +30514,14 @@ proc `timestamp=`*(self: SocialFeedItem, value: DateTime) =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.put_Timestamp
   withIface(self.p, IID_ISocialFeedItem, "ISocialFeedItem", it):
     vcall(it, Slot_ISocialFeedItem_put_Timestamp, Fn_ISocialFeedItem_put_Timestamp)(it, value).check("SocialFeedItem.put_Timestamp")
+
+proc thumbnails*(self: SocialFeedItem): seq[SocialItemThumbnail] =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.get_Thumbnails
+  withIface(self.p, IID_ISocialFeedItem, "ISocialFeedItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedItem_get_Thumbnails, Fn_ISocialFeedItem_get_Thumbnails)(it, tmp.addr).check("SocialFeedItem.get_Thumbnails")
+    result = toSeq[SocialItemThumbnail](tmp, IID_IVector_1_SocialItemThumbnail)
+    release(tmp)
 
 proc sharedItem*(self: SocialFeedItem): SocialFeedSharedItem =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.get_SharedItem
@@ -29957,6 +31022,14 @@ proc restart*(self: AppInstallItem, a1: string) =
     withHString(a1, h0):
       vcall(it, Slot_IAppInstallItem2_Restart, Fn_IAppInstallItem2_Restart)(it, h0).check("AppInstallItem.Restart")
 
+proc children*(self: AppInstallItem): seq[AppInstallItem] =
+  ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem.get_Children
+  withIface(self.p, IID_IAppInstallItem3, "IAppInstallItem3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallItem3_get_Children, Fn_IAppInstallItem3_get_Children)(it, tmp.addr).check("AppInstallItem.get_Children")
+    result = toSeq[AppInstallItem](tmp, IID_IVectorView_1_AppInstallItem)
+    release(tmp)
+
 proc itemOperationsMightAffectOtherItems*(self: AppInstallItem): bool =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem.get_ItemOperationsMightAffectOtherItems
   withIface(self.p, IID_IAppInstallItem3, "IAppInstallItem3", it):
@@ -30039,6 +31112,14 @@ proc `installInProgressToastNotificationMode=`*(self: AppInstallItem, value: App
 proc newAppInstallManager*(): AppInstallManager =
   ## Activate a `Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager`.
   adopt[AppInstallManager](activateAs("Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager", IID_IAppInstallManager))
+
+proc appInstallItems*(self: AppInstallManager): seq[AppInstallItem] =
+  ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.get_AppInstallItems
+  withIface(self.p, IID_IAppInstallManager, "IAppInstallManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallManager_get_AppInstallItems, Fn_IAppInstallManager_get_AppInstallItems)(it, tmp.addr).check("AppInstallManager.get_AppInstallItems")
+    result = toSeq[AppInstallItem](tmp, IID_IVectorView_1_AppInstallItem)
+    release(tmp)
 
 proc cancel*(self: AppInstallManager, a1: string) =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.Cancel
@@ -30148,6 +31229,14 @@ proc moveToFrontOfDownloadQueue*(self: AppInstallManager, a1: string, a2: string
     withHString(a1, h0):
       withHString(a2, h1):
         vcall(it, Slot_IAppInstallManager3_MoveToFrontOfDownloadQueue, Fn_IAppInstallManager3_MoveToFrontOfDownloadQueue)(it, h0, h1).check("AppInstallManager.MoveToFrontOfDownloadQueue")
+
+proc appInstallItemsWithGroupSupport*(self: AppInstallManager): seq[AppInstallItem] =
+  ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.get_AppInstallItemsWithGroupSupport
+  withIface(self.p, IID_IAppInstallManager5, "IAppInstallManager5", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallManager5_get_AppInstallItemsWithGroupSupport, Fn_IAppInstallManager5_get_AppInstallItemsWithGroupSupport)(it, tmp.addr).check("AppInstallManager.get_AppInstallItemsWithGroupSupport")
+    result = toSeq[AppInstallItem](tmp, IID_IVectorView_1_AppInstallItem)
+    release(tmp)
 
 proc canInstallForAllUsers*(self: AppInstallManager): bool =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.get_CanInstallForAllUsers
@@ -30615,6 +31704,14 @@ proc description*(self: StorePreviewProductInfo): string =
     vcall(it, Slot_IStorePreviewProductInfo_get_Description, Fn_IStorePreviewProductInfo_get_Description)(it, tmp.addr).check("StorePreviewProductInfo.get_Description")
     result = takeString(tmp)
 
+proc skuInfoList*(self: StorePreviewProductInfo): seq[StorePreviewSkuInfo] =
+  ## Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo.get_SkuInfoList
+  withIface(self.p, IID_IStorePreviewProductInfo, "IStorePreviewProductInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorePreviewProductInfo_get_SkuInfoList, Fn_IStorePreviewProductInfo_get_SkuInfoList)(it, tmp.addr).check("StorePreviewProductInfo.get_SkuInfoList")
+    result = toSeq[StorePreviewSkuInfo](tmp, IID_IVectorView_1_StorePreviewSkuInfo)
+    release(tmp)
+
 proc productPurchaseStatus*(self: StorePreviewPurchaseResults): StorePreviewProductPurchaseStatus =
   ## Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults.get_ProductPurchaseStatus
   withIface(self.p, IID_IStorePreviewPurchaseResults, "IStorePreviewPurchaseResults", it):
@@ -30740,6 +31837,14 @@ proc description*(self: ProductListing): string =
     var tmp: HSTRING
     vcall(it, Slot_IProductListingWithMetadata_get_Description, Fn_IProductListingWithMetadata_get_Description)(it, tmp.addr).check("ProductListing.get_Description")
     result = takeString(tmp)
+
+proc keywords*(self: ProductListing): seq[string] =
+  ## Windows.ApplicationModel.Store.ProductListing.get_Keywords
+  withIface(self.p, IID_IProductListingWithMetadata, "IProductListingWithMetadata", it):
+    var tmp: pointer
+    vcall(it, Slot_IProductListingWithMetadata_get_Keywords, Fn_IProductListingWithMetadata_get_Keywords)(it, tmp.addr).check("ProductListing.get_Keywords")
+    result = toSeqString(tmp, IID_IIterable_1_String)
+    release(tmp)
 
 proc productType*(self: ProductListing): ProductType =
   ## Windows.ApplicationModel.Store.ProductListing.get_ProductType
@@ -31000,6 +32105,15 @@ proc tryParseFromJson*(_: typedesc[UserActivity], a1: string): UserActivity =
       vcall(it, Slot_IUserActivityStatics_TryParseFromJson, Fn_IUserActivityStatics_TryParseFromJson)(it, h0, tmp.addr).check("UserActivity.TryParseFromJson")
       result = adopt[UserActivity](tmp)
 
+proc tryParseFromJsonArray*(_: typedesc[UserActivity], a1: string): seq[UserActivity] =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.TryParseFromJsonArray
+  withStatics("Windows.ApplicationModel.UserActivities.UserActivity", IID_IUserActivityStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IUserActivityStatics_TryParseFromJsonArray, Fn_IUserActivityStatics_TryParseFromJsonArray)(it, h0, tmp.addr).check("UserActivity.TryParseFromJsonArray")
+      result = toSeq[UserActivity](tmp, IID_IVector_1_UserActivity)
+      release(tmp)
+
 proc createWithActivityId*(_: typedesc[UserActivity], a1: string): UserActivity =
   ## Windows.ApplicationModel.UserActivities.UserActivity.CreateWithActivityId
   withStatics("Windows.ApplicationModel.UserActivities.UserActivity", IID_IUserActivityFactory, it):
@@ -31242,6 +32356,14 @@ proc contentKinds*(self: UserDataAccountProviderAddAccountOperation): UserDataAc
     var tmp: UserDataAccountContentKinds
     vcall(it, Slot_IUserDataAccountProviderAddAccountOperation_get_ContentKinds, Fn_IUserDataAccountProviderAddAccountOperation_get_ContentKinds)(it, tmp.addr).check("UserDataAccountProviderAddAccountOperation.get_ContentKinds")
     result = tmp
+
+proc partnerAccountInfos*(self: UserDataAccountProviderAddAccountOperation): seq[UserDataAccountPartnerAccountInfo] =
+  ## Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderAddAccountOperation.get_PartnerAccountInfos
+  withIface(self.p, IID_IUserDataAccountProviderAddAccountOperation, "IUserDataAccountProviderAddAccountOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataAccountProviderAddAccountOperation_get_PartnerAccountInfos, Fn_IUserDataAccountProviderAddAccountOperation_get_PartnerAccountInfos)(it, tmp.addr).check("UserDataAccountProviderAddAccountOperation.get_PartnerAccountInfos")
+    result = toSeq[UserDataAccountPartnerAccountInfo](tmp, IID_IVectorView_1_UserDataAccountPartnerAccountInfo)
+    release(tmp)
 
 proc reportCompleted*(self: UserDataAccountProviderAddAccountOperation, a1: string) =
   ## Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderAddAccountOperation.ReportCompleted
@@ -31890,6 +33012,14 @@ proc isProtectedUnderLock*(self: UserDataAccount): bool =
     vcall(it, Slot_IUserDataAccount2_get_IsProtectedUnderLock, Fn_IUserDataAccount2_get_IsProtectedUnderLock)(it, tmp.addr).check("UserDataAccount.get_IsProtectedUnderLock")
     result = tmp
 
+proc explictReadAccessPackageFamilyNames*(self: UserDataAccount): seq[string] =
+  ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_ExplictReadAccessPackageFamilyNames
+  withIface(self.p, IID_IUserDataAccount3, "IUserDataAccount3", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataAccount3_get_ExplictReadAccessPackageFamilyNames, Fn_IUserDataAccount3_get_ExplictReadAccessPackageFamilyNames)(it, tmp.addr).check("UserDataAccount.get_ExplictReadAccessPackageFamilyNames")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc displayName*(self: UserDataAccount): string =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_DisplayName
   withIface(self.p, IID_IUserDataAccount3, "IUserDataAccount3", it):
@@ -32370,6 +33500,14 @@ proc `subject=`*(self: UserDataTask, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IUserDataTask_put_Subject, Fn_IUserDataTask_put_Subject)(it, h0).check("UserDataTask.put_Subject")
 
+proc tasks*(self: UserDataTaskBatch): seq[UserDataTask] =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch.get_Tasks
+  withIface(self.p, IID_IUserDataTaskBatch, "IUserDataTaskBatch", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskBatch_get_Tasks, Fn_IUserDataTaskBatch_get_Tasks)(it, tmp.addr).check("UserDataTaskBatch.get_Tasks")
+    result = toSeq[UserDataTask](tmp, IID_IVectorView_1_UserDataTask)
+    release(tmp)
+
 proc id*(self: UserDataTaskList): string =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.get_Id
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
@@ -32825,6 +33963,14 @@ proc `appLaunchArgument=`*(self: VoiceCommandResponse, value: string) =
   withIface(self.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", it):
     withHString(value, h0):
       vcall(it, Slot_IVoiceCommandResponse_put_AppLaunchArgument, Fn_IVoiceCommandResponse_put_AppLaunchArgument)(it, h0).check("VoiceCommandResponse.put_AppLaunchArgument")
+
+proc voiceCommandContentTiles*(self: VoiceCommandResponse): seq[VoiceCommandContentTile] =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse.get_VoiceCommandContentTiles
+  withIface(self.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", it):
+    var tmp: pointer
+    vcall(it, Slot_IVoiceCommandResponse_get_VoiceCommandContentTiles, Fn_IVoiceCommandResponse_get_VoiceCommandContentTiles)(it, tmp.addr).check("VoiceCommandResponse.get_VoiceCommandContentTiles")
+    result = toSeq[VoiceCommandContentTile](tmp, IID_IVector_1_VoiceCommandContentTile)
+    release(tmp)
 
 proc maxSupportedVoiceCommandContentTiles*(_: typedesc[VoiceCommandResponse]): uint32 =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse.get_MaxSupportedVoiceCommandContentTiles

@@ -17,6 +17,18 @@ export core, media
 const IID_TypedEventHandler_2_AppBroadcastingMonitor_Object* = GUID(
     data1: 0xDC64118B'u32, data2: 0x04F9'u16, data3: 0x5161'u16,
     data4: [0xA7'u8, 0xC0, 0xE6, 0xA9, 0x60, 0x70, 0xA8, 0xD1])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_AppRecordingSavedScreenshotInfo* = GUID(
+    data1: 0x43C83783'u32, data2: 0xB36D'u16, data3: 0x5A8E'u16,
+    data4: [0xB9'u8, 0x93, 0xE1, 0x9C, 0x82, 0x3E, 0x6C, 0x1A])
+const IID_IVectorView_1_AudioGraphConnection* = GUID(
+    data1: 0x8485AED1'u32, data2: 0x9B0C'u16, data3: 0x59D2'u16,
+    data4: [0xA2'u8, 0x06, 0x69, 0x9B, 0xF7, 0x46, 0xC3, 0xFF])
+const IID_IVector_1_IAudioEffectDefinition* = GUID(
+    data1: 0x2828A982'u32, data2: 0xD849'u16, data3: 0x5FC9'u16,
+    data4: [0x84'u8, 0xCE, 0xF9, 0xA4, 0xB3, 0xB4, 0xD3, 0x41])
 const IID_TypedEventHandler_2_AudioEffectsPackConfiguration_Object* = GUID(
     data1: 0x41CDCF69'u32, data2: 0x8822'u16, data3: 0x5062'u16,
     data4: [0xAF'u8, 0x8B, 0x68, 0xE3, 0x2E, 0xF9, 0x88, 0x4D])
@@ -41,6 +53,9 @@ const IID_TypedEventHandler_2_AudioPlaybackConnection_Object* = GUID(
 const IID_TypedEventHandler_2_AudioStateMonitor_Object* = GUID(
     data1: 0x1333DF3F'u32, data2: 0xC55B'u16, data3: 0x5A23'u16,
     data4: [0x95'u8, 0x96, 0x34, 0x65, 0x7C, 0x2A, 0x34, 0x06])
+const IID_IVectorView_1_EqualizerBand* = GUID(
+    data1: 0x48F26053'u32, data2: 0xEA7D'u16, data3: 0x59E1'u16,
+    data4: [0x95'u8, 0x2B, 0xFB, 0x78, 0xAF, 0x42, 0xD2, 0xE2])
 const IID_TypedEventHandler_2_MediaSourceAudioInputNode_Object* = GUID(
     data1: 0xB78980BF'u32, data2: 0x7ACF'u16, data3: 0x5DC8'u16,
     data4: [0x9F'u8, 0xCD, 0x31, 0xD6, 0xAB, 0x2F, 0x92, 0xF1])
@@ -71,6 +86,9 @@ const IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_AppBroadca
 const IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object* = GUID(
     data1: 0x73C8EC4B'u32, data2: 0xF104'u16, data3: 0x5536'u16,
     data4: [0xB8'u8, 0xB4, 0x4D, 0x9A, 0xAD, 0x61, 0xC9, 0xB4])
+const IID_IVectorView_1_AppBroadcastPlugIn* = GUID(
+    data1: 0x05AFEE04'u32, data2: 0x1168'u16, data3: 0x5677'u16,
+    data4: [0xA0'u8, 0x5E, 0x98, 0x54, 0xB4, 0x6B, 0x31, 0x9B])
 const IID_TypedEventHandler_2_AppBroadcastPreview_AppBroadcastPreviewStateChangedEventArgs* = GUID(
     data1: 0x41D8B8E1'u32, data2: 0xDCE7'u16, data3: 0x5EBC'u16,
     data4: [0x94'u8, 0x0F, 0xDE, 0x7D, 0xD2, 0xA6, 0x2A, 0xB5])
@@ -128,9 +146,18 @@ const IID_TypedEventHandler_2_VariablePhotoSequenceCapture_Object* = GUID(
 const IID_TypedEventHandler_2_MediaFrameReader_MediaFrameArrivedEventArgs* = GUID(
     data1: 0xD3DD49CB'u32, data2: 0x8D25'u16, data3: 0x591A'u16,
     data4: [0x80'u8, 0xF7, 0x83, 0x63, 0xD5, 0xC0, 0x3E, 0xC9])
+const IID_IVectorView_1_MediaFrameFormat* = GUID(
+    data1: 0xBAE2547D'u32, data2: 0x3FAE'u16, data3: 0x55CD'u16,
+    data4: [0xB2'u8, 0x09, 0x45, 0xC3, 0xB5, 0xB2, 0xF8, 0x16])
 const IID_TypedEventHandler_2_MediaFrameSource_Object* = GUID(
     data1: 0xC7E61AA7'u32, data2: 0x4716'u16, data3: 0x5514'u16,
     data4: [0xA9'u8, 0x13, 0xEF, 0x17, 0x96, 0xB9, 0x8D, 0xBD])
+const IID_IVectorView_1_MediaFrameSourceInfo* = GUID(
+    data1: 0xDBDB7946'u32, data2: 0x9B30'u16, data3: 0x51D0'u16,
+    data4: [0x9C'u8, 0x8C, 0xC7, 0x10, 0x5A, 0xF6, 0x90, 0xE0])
+const IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription* = GUID(
+    data1: 0x726C7C8C'u32, data2: 0x789E'u16, data3: 0x5FCB'u16,
+    data4: [0xB3'u8, 0x1F, 0xF9, 0xD9, 0xD4, 0xA3, 0xAC, 0x42])
 const IID_TypedEventHandler_2_MultiSourceMediaFrameReader_MultiSourceMediaFrameArrivedEventArgs* = GUID(
     data1: 0x82B1AD4D'u32, data2: 0x9887'u16, data3: 0x56F4'u16,
     data4: [0x9A'u8, 0x9E, 0x3A, 0xB1, 0x8B, 0x02, 0x19, 0x8C])
@@ -155,6 +182,9 @@ const IID_TypedEventHandler_2_MediaCapture_Object* = GUID(
 const IID_TypedEventHandler_2_MediaCapture_MediaCaptureDeviceExclusiveControlStatusChangedEventArgs* = GUID(
     data1: 0x5C91F8BA'u32, data2: 0xB379'u16, data3: 0x53FF'u16,
     data4: [0xA2'u8, 0x88, 0x24, 0xE7, 0x88, 0x3B, 0xF5, 0x92])
+const IID_IVectorView_1_MediaCaptureVideoProfile* = GUID(
+    data1: 0x75626CF9'u32, data2: 0x1F99'u16, data3: 0x5E10'u16,
+    data4: [0xBD'u8, 0x03, 0xF2, 0x96, 0x1E, 0x85, 0xAF, 0x1F])
 const IID_TypedEventHandler_2_MediaCaptureRelativePanelWatcher_Object* = GUID(
     data1: 0xE4314CA0'u32, data2: 0x8288'u16, data3: 0x5965'u16,
     data4: [0xA0'u8, 0xD3, 0x67, 0xD0, 0xB5, 0x32, 0xBD, 0xC5])
@@ -170,9 +200,15 @@ const IID_TypedEventHandler_2_CastingDevicePicker_CastingDeviceSelectedEventArgs
 const IID_TypedEventHandler_2_CastingDevicePicker_Object* = GUID(
     data1: 0xA64B972B'u32, data2: 0xAA63'u16, data3: 0x5C61'u16,
     data4: [0x9C'u8, 0xDE, 0xCD, 0x6F, 0xFE, 0xA8, 0xA2, 0x47])
+const IID_IVector_1_CastingSource* = GUID(
+    data1: 0xC2E3DEA8'u32, data2: 0x92E0'u16, data3: 0x50AF'u16,
+    data4: [0x9C'u8, 0x93, 0x83, 0xB3, 0xE8, 0x6B, 0x73, 0xB4])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_TimelinePropertiesChangedEventArgs* = GUID(
     data1: 0xE8BF62AF'u32, data2: 0xFAC1'u16, data3: 0x5FFF'u16,
     data4: [0x90'u8, 0x53, 0x0B, 0xF1, 0x91, 0xAE, 0x77, 0x7E])
@@ -182,6 +218,9 @@ const IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_Playback
 const IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_MediaPropertiesChangedEventArgs* = GUID(
     data1: 0x0F2CE2B7'u32, data2: 0xAFA7'u16, data3: 0x5ED0'u16,
     data4: [0x8C'u8, 0xB6, 0x8C, 0x40, 0xCF, 0x9B, 0x3A, 0x5F])
+const IID_IVectorView_1_GlobalSystemMediaTransportControlsSession* = GUID(
+    data1: 0x9B2672DA'u32, data2: 0x5088'u16, data3: 0x5A1D'u16,
+    data4: [0xAC'u8, 0xD9, 0xA3, 0xFC, 0x5E, 0xF1, 0xCF, 0xA4])
 const IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSessionManager_CurrentSessionChangedEventArgs* = GUID(
     data1: 0x228BD0ED'u32, data2: 0x1FA2'u16, data3: 0x5E9B'u16,
     data4: [0xA6'u8, 0xEC, 0x42, 0x56, 0x61, 0x73, 0x10, 0x3B])
@@ -194,6 +233,12 @@ const IID_TypedEventHandler_2_AudioTrack_AudioTrackOpenFailedEventArgs* = GUID(
 const IID_TypedEventHandler_2_FaceDetectionEffect_FaceDetectedEventArgs* = GUID(
     data1: 0x01F0D7A6'u32, data2: 0xF9BD'u16, data3: 0x5BC1'u16,
     data4: [0xAA'u8, 0xA9, 0xDF, 0xF3, 0x96, 0xF7, 0x2F, 0x87])
+const IID_IVectorView_1_DetectedFace* = GUID(
+    data1: 0x39EF4411'u32, data2: 0x0618'u16, data3: 0x5B8D'u16,
+    data4: [0x8E'u8, 0xA2, 0x81, 0xC6, 0x37, 0xF8, 0x23, 0xF8])
+const IID_IVectorView_1_FrameController* = GUID(
+    data1: 0xFCD6A2A3'u32, data2: 0xB6FF'u16, data3: 0x5572'u16,
+    data4: [0x91'u8, 0x2B, 0x99, 0xEB, 0xAF, 0x95, 0x16, 0x5D])
 const IID_TypedEventHandler_2_MediaBinder_MediaBindingEventArgs* = GUID(
     data1: 0x5B133719'u32, data2: 0xEE98'u16, data3: 0x59B2'u16,
     data4: [0xB4'u8, 0x32, 0x1C, 0x9A, 0x5A, 0x56, 0xAB, 0x05])
@@ -236,6 +281,9 @@ const IID_TypedEventHandler_2_MseSourceBuffer_Object* = GUID(
 const IID_TypedEventHandler_2_MseSourceBufferList_Object* = GUID(
     data1: 0x0FF01695'u32, data2: 0xFBB2'u16, data3: 0x5E95'u16,
     data4: [0x8E'u8, 0xC7, 0xDA, 0x17, 0xD8, 0xE9, 0x9F, 0x16])
+const IID_IVectorView_1_MseSourceBuffer* = GUID(
+    data1: 0x85318263'u32, data2: 0x1360'u16, data3: 0x5C78'u16,
+    data4: [0xB0'u8, 0xAD, 0x52, 0xD6, 0xB4, 0x5B, 0x19, 0xF3])
 const IID_TypedEventHandler_2_MseStreamSource_Object* = GUID(
     data1: 0x724BF4EF'u32, data2: 0xDE7A'u16, data3: 0x5DBD'u16,
     data4: [0x81'u8, 0x5E, 0x52, 0x2A, 0x87, 0xBC, 0x33, 0x44])
@@ -248,9 +296,18 @@ const IID_TypedEventHandler_2_TimedMetadataTrack_MediaCueEventArgs* = GUID(
 const IID_TypedEventHandler_2_TimedMetadataTrack_TimedMetadataTrackFailedEventArgs* = GUID(
     data1: 0x8DC73162'u32, data2: 0x255B'u16, data3: 0x532E'u16,
     data4: [0xB0'u8, 0xC7, 0x9A, 0x6D, 0x70, 0xB4, 0xBB, 0x9E])
+const IID_IVector_1_TimedTextLine* = GUID(
+    data1: 0x284F0441'u32, data2: 0xE96D'u16, data3: 0x58AD'u16,
+    data4: [0x91'u8, 0x88, 0x7B, 0xF4, 0x65, 0x14, 0xDF, 0xCC])
+const IID_IVector_1_TimedTextSubformat* = GUID(
+    data1: 0x8786F392'u32, data2: 0xF369'u16, data3: 0x57EA'u16,
+    data4: [0xA1'u8, 0x6E, 0x75, 0x87, 0x02, 0x46, 0xA8, 0xC9])
 const IID_TypedEventHandler_2_TimedTextSource_TimedTextSourceResolveResultEventArgs* = GUID(
     data1: 0x0220562A'u32, data2: 0x5DE4'u16, data3: 0x5AD2'u16,
     data4: [0xAC'u8, 0x20, 0x6C, 0xD2, 0x6F, 0x11, 0x17, 0x45])
+const IID_IVectorView_1_TimedMetadataTrack* = GUID(
+    data1: 0x0313AE7A'u32, data2: 0x2803'u16, data3: 0x5D45'u16,
+    data4: [0xB5'u8, 0xA1, 0xA0, 0xFC, 0x5C, 0xD5, 0x5E, 0x7C])
 const IID_TypedEventHandler_2_VideoStabilizationEffect_VideoStabilizationEffectEnabledChangedEventArgs* = GUID(
     data1: 0x897592E2'u32, data2: 0xBFCC'u16, data3: 0x5F16'u16,
     data4: [0x88'u8, 0x34, 0x2C, 0x9C, 0x4F, 0x20, 0x55, 0x9B])
@@ -260,9 +317,18 @@ const IID_TypedEventHandler_2_VideoTrack_VideoTrackOpenFailedEventArgs* = GUID(
 const IID_TypedEventHandler_2_AudioDeviceModulesManager_AudioDeviceModuleNotificationEventArgs* = GUID(
     data1: 0xB2F6B1FD'u32, data2: 0x7092'u16, data3: 0x5724'u16,
     data4: [0xB2'u8, 0xCE, 0x91, 0xB1, 0x17, 0x6E, 0x80, 0xE1])
+const IID_IVectorView_1_AudioDeviceModule* = GUID(
+    data1: 0xB9F55617'u32, data2: 0x48EC'u16, data3: 0x5AD7'u16,
+    data4: [0x95'u8, 0xCA, 0x33, 0x39, 0x52, 0x84, 0xF2, 0x8B])
 const IID_TypedEventHandler_2_CameraOcclusionInfo_CameraOcclusionStateChangedEventArgs* = GUID(
     data1: 0x71561417'u32, data2: 0xE06E'u16, data3: 0x54E7'u16,
     data4: [0xB2'u8, 0x5E, 0x39, 0x21, 0x3C, 0x4E, 0x65, 0xD6])
+const IID_IVector_1_FrameController* = GUID(
+    data1: 0x1C8F8276'u32, data2: 0xB89A'u16, data3: 0x5093'u16,
+    data4: [0xA1'u8, 0xED, 0xAF, 0x49, 0xDF, 0xB7, 0x2A, 0x89])
+const IID_IVectorView_1_DigitalWindowCapability* = GUID(
+    data1: 0x18CB0C91'u32, data2: 0x2753'u16, data3: 0x542F'u16,
+    data4: [0xA3'u8, 0x3A, 0xE4, 0xF9, 0x41, 0x0F, 0x92, 0x3B])
 const IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs* = GUID(
     data1: 0x97D07327'u32, data2: 0x2C78'u16, data3: 0x57BC'u16,
     data4: [0x98'u8, 0xE6, 0xA2, 0x4C, 0xD0, 0x24, 0xCF, 0x5B])
@@ -278,18 +344,63 @@ const IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventA
 const IID_TypedEventHandler_2_DialDevicePicker_Object* = GUID(
     data1: 0xDAC94028'u32, data2: 0x1B44'u16, data3: 0x5F45'u16,
     data4: [0xB9'u8, 0xE3, 0xAB, 0xCF, 0x4A, 0xB0, 0x44, 0xBF])
+const IID_IVectorView_1_EmbeddedAudioTrack* = GUID(
+    data1: 0x63D85BD5'u32, data2: 0x4365'u16, data3: 0x5E56'u16,
+    data4: [0x9E'u8, 0x40, 0xE7, 0xCD, 0x30, 0x51, 0xAE, 0xBF])
+const IID_IVector_1_IVideoEffectDefinition* = GUID(
+    data1: 0x7CA161ED'u32, data2: 0xE201'u16, data3: 0x5615'u16,
+    data4: [0xAA'u8, 0xCC, 0x25, 0x34, 0x85, 0x64, 0xF0, 0xB3])
+const IID_IVector_1_MediaClip* = GUID(
+    data1: 0xE805688E'u32, data2: 0x3508'u16, data3: 0x57F3'u16,
+    data4: [0xBF'u8, 0x95, 0x61, 0x7F, 0x2D, 0x7A, 0x6F, 0x1A])
+const IID_IVector_1_BackgroundAudioTrack* = GUID(
+    data1: 0x56D62145'u32, data2: 0x6978'u16, data3: 0x5EBA'u16,
+    data4: [0x83'u8, 0xC9, 0xFC, 0x4A, 0xD6, 0xD4, 0x43, 0xBF])
+const IID_IVector_1_MediaOverlayLayer* = GUID(
+    data1: 0x6564EB2C'u32, data2: 0x2210'u16, data3: 0x5DFC'u16,
+    data4: [0xA8'u8, 0x4C, 0x26, 0x6C, 0x43, 0x49, 0xC2, 0xC6])
+const IID_IVector_1_MediaOverlay* = GUID(
+    data1: 0x5B913EC8'u32, data2: 0xED52'u16, data3: 0x5B2C'u16,
+    data4: [0xA7'u8, 0x10, 0x52, 0xC6, 0xE7, 0xAB, 0x3C, 0xB2])
 const IID_TypedEventHandler_2_AudioCaptureEffectsManager_Object* = GUID(
     data1: 0xA1C5E803'u32, data2: 0xA275'u16, data3: 0x5BB1'u16,
     data4: [0x9D'u8, 0x44, 0x2A, 0xC8, 0xAE, 0x9F, 0xFB, 0x89])
+const IID_IVectorView_1_AudioEffect* = GUID(
+    data1: 0xCDCBC9E7'u32, data2: 0x53D8'u16, data3: 0x5E66'u16,
+    data4: [0x9E'u8, 0x45, 0x31, 0xD5, 0xA2, 0x3F, 0xD0, 0x1D])
 const IID_TypedEventHandler_2_AudioRenderEffectsManager_Object* = GUID(
     data1: 0x4BE29C7E'u32, data2: 0x449C'u16, data3: 0x576E'u16,
     data4: [0xA7'u8, 0xB8, 0x3A, 0x40, 0xF2, 0xF0, 0x1D, 0xC8])
+const IID_IVectorView_1_PhotoImportItem* = GUID(
+    data1: 0x9A90A84E'u32, data2: 0x924B'u16, data3: 0x5879'u16,
+    data4: [0x88'u8, 0xF7, 0xBB, 0x2F, 0x7B, 0x13, 0x18, 0x98])
 const IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportSelectionChangedEventArgs* = GUID(
     data1: 0xE67279FE'u32, data2: 0x692F'u16, data3: 0x5602'u16,
     data4: [0x82'u8, 0x0B, 0x86, 0x50, 0x98, 0xD9, 0xB4, 0x3E])
 const IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportItemImportedEventArgs* = GUID(
     data1: 0xA3CCE94D'u32, data2: 0xF26E'u16, data3: 0x58D9'u16,
     data4: [0x81'u8, 0x38, 0x59, 0x9A, 0xD6, 0x3C, 0x70, 0x69])
+const IID_IVectorView_1_PhotoImportSidecar* = GUID(
+    data1: 0xA6FA3ABE'u32, data2: 0xCDB9'u16, data3: 0x5054'u16,
+    data4: [0xBF'u8, 0x3D, 0x52, 0x56, 0x07, 0xF9, 0xC2, 0xD2])
+const IID_IVectorView_1_PhotoImportVideoSegment* = GUID(
+    data1: 0xDB5493CD'u32, data2: 0x6915'u16, data3: 0x5682'u16,
+    data4: [0x8D'u8, 0xD5, 0x1D, 0xE1, 0x44, 0xEC, 0x59, 0x9D])
+const IID_IVectorView_1_PhotoImportOperation* = GUID(
+    data1: 0xA5B07808'u32, data2: 0x7D18'u16, data3: 0x5300'u16,
+    data4: [0x9F'u8, 0x01, 0x1D, 0x85, 0x14, 0x95, 0x46, 0xD2])
+const IID_IVectorView_1_PhotoImportStorageMedium* = GUID(
+    data1: 0x35499439'u32, data2: 0xE03E'u16, data3: 0x5711'u16,
+    data4: [0xA9'u8, 0x55, 0xF7, 0xC4, 0x59, 0x28, 0xBC, 0x90])
+const IID_IVector_1_AudioStreamDescriptor* = GUID(
+    data1: 0x45AFC129'u32, data2: 0x988C'u16, data3: 0x5F1E'u16,
+    data4: [0x9C'u8, 0x17, 0x6E, 0x34, 0xB9, 0x17, 0xCD, 0x1B])
+const IID_IVector_1_VideoStreamDescriptor* = GUID(
+    data1: 0x1FB064B3'u32, data2: 0x636C'u16, data3: 0x5988'u16,
+    data4: [0x9C'u8, 0x97, 0x02, 0xA9, 0xB7, 0x61, 0x50, 0xF6])
+const IID_IVector_1_TimedMetadataStreamDescriptor* = GUID(
+    data1: 0x07A8D080'u32, data2: 0x17ED'u16, data3: 0x5DD0'u16,
+    data4: [0xA0'u8, 0x02, 0xA9, 0x05, 0xAA, 0xC5, 0xA8, 0x5D])
 const IID_TypedEventHandler_2_MediaTimelineController_Object* = GUID(
     data1: 0x5C43E195'u32, data2: 0x7D39'u16, data3: 0x5D0D'u16,
     data4: [0xA3'u8, 0x09, 0x19, 0x91, 0xE6, 0x8A, 0xCD, 0xB7])
@@ -317,6 +428,18 @@ const IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverMediaSourc
 const IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverDisconnectedEventArgs* = GUID(
     data1: 0xA4964B5F'u32, data2: 0x147C'u16, data3: 0x57E3'u16,
     data4: [0x82'u8, 0xD0, 0xCC, 0x7D, 0xE5, 0xFF, 0x2D, 0xEF])
+const IID_IVectorView_1_MiracastTransmitter* = GUID(
+    data1: 0x4E1BF46C'u32, data2: 0x49F6'u16, data3: 0x5892'u16,
+    data4: [0xBC'u8, 0xF7, 0x80, 0x56, 0x4E, 0xA2, 0xB6, 0x06])
+const IID_IVectorView_1_MiracastReceiverConnection* = GUID(
+    data1: 0x98AC8F8C'u32, data2: 0x2322'u16, data3: 0x54CF'u16,
+    data4: [0xB2'u8, 0xC6, 0x7A, 0x56, 0xA9, 0xD2, 0x22, 0x0B])
+const IID_IVectorView_1_OcrWord* = GUID(
+    data1: 0x805A60C7'u32, data2: 0xDF4F'u16, data3: 0x527C'u16,
+    data4: [0x86'u8, 0xB2, 0xE2, 0x9E, 0x43, 0x9A, 0x83, 0xD2])
+const IID_IVectorView_1_OcrLine* = GUID(
+    data1: 0x60C76EAC'u32, data2: 0x8875'u16, data3: 0x5DDB'u16,
+    data4: [0xA1'u8, 0x9B, 0x65, 0xA3, 0x93, 0x62, 0x79, 0xEA])
 const IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionStateChangedEventArgs* = GUID(
     data1: 0xDEF77C1C'u32, data2: 0x9363'u16, data3: 0x5B47'u16,
     data4: [0xB9'u8, 0xF8, 0xA2, 0x36, 0xC5, 0x0D, 0x37, 0x2E])
@@ -365,6 +488,9 @@ const IID_TypedEventHandler_2_MediaBreakManager_MediaBreakSkippedEventArgs* = GU
 const IID_TypedEventHandler_2_MediaBreakSchedule_Object* = GUID(
     data1: 0x3C57ACBF'u32, data2: 0xCA07'u16, data3: 0x586A'u16,
     data4: [0x8A'u8, 0xDB, 0x80, 0x47, 0xDC, 0x91, 0x65, 0xA6])
+const IID_IVectorView_1_MediaBreak* = GUID(
+    data1: 0xC296F3F9'u32, data2: 0x1268'u16, data3: 0x59A2'u16,
+    data4: [0xB7'u8, 0xC3, 0x2F, 0x58, 0x8E, 0xD4, 0xA0, 0x17])
 const IID_TypedEventHandler_2_ISingleSelectMediaTrackList_Object* = GUID(
     data1: 0x21EB6E39'u32, data2: 0x728A'u16, data3: 0x56A9'u16,
     data4: [0x8D'u8, 0xCE, 0x06, 0x2B, 0xA4, 0xC8, 0x1B, 0xF5])
@@ -413,6 +539,9 @@ const IID_TypedEventHandler_2_MediaPlaybackList_CurrentMediaPlaybackItemChangedE
 const IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemOpenedEventArgs* = GUID(
     data1: 0x6732BBEF'u32, data2: 0x3311'u16, data3: 0x5F83'u16,
     data4: [0x9C'u8, 0x9D, 0x82, 0xA5, 0xCF, 0x3C, 0xD8, 0x2A])
+const IID_IVectorView_1_MediaPlaybackItem* = GUID(
+    data1: 0xB6A4C9FE'u32, data2: 0xC73D'u16, data3: 0x5EBA'u16,
+    data4: [0xB5'u8, 0xAB, 0x6F, 0x8D, 0xEA, 0xCA, 0x30, 0xB9])
 const IID_TypedEventHandler_2_MediaPlaybackSession_Object* = GUID(
     data1: 0x7C70F38D'u32, data2: 0x2AA1'u16, data3: 0x5522'u16,
     data4: [0xA6'u8, 0xD6, 0x34, 0xB5, 0x2B, 0x98, 0x8A, 0xE7])
@@ -449,12 +578,18 @@ const IID_TypedEventHandler_2_NDClient_Object* = GUID(
 const IID_TypedEventHandler_2_NDClient_INDClosedCaptionDataReceivedEventArgs* = GUID(
     data1: 0x36EC9E44'u32, data2: 0x25F6'u16, data3: 0x5D3D'u16,
     data4: [0x87'u8, 0xEE, 0x8A, 0xD1, 0x0A, 0x33, 0x5C, 0x83])
+const IID_IVector_1_RevocationAndRenewalItem* = GUID(
+    data1: 0x3623CC0C'u32, data2: 0xC765'u16, data3: 0x57FB'u16,
+    data4: [0x96'u8, 0x7D, 0xC7, 0xCB, 0x60, 0x97, 0xBD, 0x78])
 const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionCompletedEventArgs* = GUID(
     data1: 0x8103C018'u32, data2: 0x7952'u16, data3: 0x59F9'u16,
     data4: [0x9F'u8, 0x41, 0x23, 0xB1, 0x7D, 0x6E, 0x45, 0x2D])
 const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionResultGeneratedEventArgs* = GUID(
     data1: 0x26192073'u32, data2: 0xA2C9'u16, data3: 0x527D'u16,
     data4: [0x9B'u8, 0xD3, 0x91, 0x1C, 0x05, 0xE0, 0x01, 0x1E])
+const IID_IVectorView_1_SpeechRecognitionResult* = GUID(
+    data1: 0x0E37810F'u32, data2: 0x1DE6'u16, data3: 0x5199'u16,
+    data4: [0x83'u8, 0x3F, 0x5A, 0x6B, 0x0B, 0xD9, 0x1E, 0x23])
 const IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionQualityDegradingEventArgs* = GUID(
     data1: 0x15CA7918'u32, data2: 0x61D2'u16, data3: 0x57B2'u16,
     data4: [0xB9'u8, 0x33, 0x44, 0x06, 0x3E, 0x8B, 0xB6, 0x62])
@@ -464,6 +599,9 @@ const IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognizerStateChangedEvent
 const IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionHypothesisGeneratedEventArgs* = GUID(
     data1: 0x4CB45ABA'u32, data2: 0x7573'u16, data3: 0x545A'u16,
     data4: [0xB2'u8, 0x9A, 0xE9, 0xBE, 0x35, 0xBD, 0x46, 0x82])
+const IID_IVectorView_1_VoiceInformation* = GUID(
+    data1: 0xEE8D63CE'u32, data2: 0x51AC'u16, data3: 0x5984'u16,
+    data4: [0x89'u8, 0x1B, 0xD2, 0x32, 0xFA, 0x7F, 0x64, 0x53])
 const IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadBitrateChangedEventArgs* = GUID(
     data1: 0xAD268CAF'u32, data2: 0x7DA0'u16, data3: 0x5AD4'u16,
     data4: [0x85'u8, 0x85, 0xCE, 0xEB, 0x90, 0x3D, 0xBD, 0x50])
@@ -8656,6 +8794,14 @@ proc getStatus*(self: AppRecordingManager): AppRecordingStatus =
     vcall(it, Slot_IAppRecordingManager_GetStatus, Fn_IAppRecordingManager_GetStatus)(it, tmp.addr).check("AppRecordingManager.GetStatus")
     result = adopt[AppRecordingStatus](tmp)
 
+proc supportedScreenshotMediaEncodingSubtypes*(self: AppRecordingManager): seq[string] =
+  ## Windows.Media.AppRecording.AppRecordingManager.get_SupportedScreenshotMediaEncodingSubtypes
+  withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes, Fn_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes)(it, tmp.addr).check("AppRecordingManager.get_SupportedScreenshotMediaEncodingSubtypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc getDefault*(_: typedesc[AppRecordingManager]): AppRecordingManager =
   ## Windows.Media.AppRecording.AppRecordingManager.GetDefault
   withStatics("Windows.Media.AppRecording.AppRecordingManager", IID_IAppRecordingManagerStatics, it):
@@ -8704,6 +8850,14 @@ proc extendedError*(self: AppRecordingSaveScreenshotResult): HRESULT =
     var tmp: HRESULT
     vcall(it, Slot_IAppRecordingSaveScreenshotResult_get_ExtendedError, Fn_IAppRecordingSaveScreenshotResult_get_ExtendedError)(it, tmp.addr).check("AppRecordingSaveScreenshotResult.get_ExtendedError")
     result = tmp
+
+proc savedScreenshotInfos*(self: AppRecordingSaveScreenshotResult): seq[AppRecordingSavedScreenshotInfo] =
+  ## Windows.Media.AppRecording.AppRecordingSaveScreenshotResult.get_SavedScreenshotInfos
+  withIface(self.p, IID_IAppRecordingSaveScreenshotResult, "IAppRecordingSaveScreenshotResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppRecordingSaveScreenshotResult_get_SavedScreenshotInfos, Fn_IAppRecordingSaveScreenshotResult_get_SavedScreenshotInfos)(it, tmp.addr).check("AppRecordingSaveScreenshotResult.get_SavedScreenshotInfos")
+    result = toSeq[AppRecordingSavedScreenshotInfo](tmp, IID_IVectorView_1_AppRecordingSavedScreenshotInfo)
+    release(tmp)
 
 proc mediaEncodingSubtype*(self: AppRecordingSavedScreenshotInfo): string =
   ## Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo.get_MediaEncodingSubtype
@@ -8803,6 +8957,14 @@ proc isDisabledBySystem*(self: AppRecordingStatusDetails): bool =
     vcall(it, Slot_IAppRecordingStatusDetails_get_IsDisabledBySystem, Fn_IAppRecordingStatusDetails_get_IsDisabledBySystem)(it, tmp.addr).check("AppRecordingStatusDetails.get_IsDisabledBySystem")
     result = tmp
 
+proc outgoingConnections*(self: AudioDeviceInputNode): seq[AudioGraphConnection] =
+  ## Windows.Media.Audio.AudioDeviceInputNode.get_OutgoingConnections
+  withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioInputNode_get_OutgoingConnections, Fn_IAudioInputNode_get_OutgoingConnections)(it, tmp.addr).check("AudioDeviceInputNode.get_OutgoingConnections")
+    result = toSeq[AudioGraphConnection](tmp, IID_IVectorView_1_AudioGraphConnection)
+    release(tmp)
+
 proc addOutgoingConnection*(self: AudioDeviceInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioDeviceInputNode.AddOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
@@ -8817,6 +8979,14 @@ proc removeOutgoingConnection*(self: AudioDeviceInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioDeviceInputNode.RemoveOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
     vcall(it, Slot_IAudioInputNode_RemoveOutgoingConnection, Fn_IAudioInputNode_RemoveOutgoingConnection)(it, a1).check("AudioDeviceInputNode.RemoveOutgoingConnection")
+
+proc effectDefinitions*(self: AudioDeviceInputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioDeviceInputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioDeviceInputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioDeviceInputNode, value: float64) =
   ## Windows.Media.Audio.AudioDeviceInputNode.put_OutgoingGain
@@ -8882,6 +9052,14 @@ proc emitter*(self: AudioDeviceInputNode): AudioNodeEmitter =
     var tmp: pointer
     vcall(it, Slot_IAudioInputNode2_get_Emitter, Fn_IAudioInputNode2_get_Emitter)(it, tmp.addr).check("AudioDeviceInputNode.get_Emitter")
     result = adopt[AudioNodeEmitter](tmp)
+
+proc effectDefinitions*(self: AudioDeviceOutputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioDeviceOutputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioDeviceOutputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioDeviceOutputNode, value: float64) =
   ## Windows.Media.Audio.AudioDeviceOutputNode.put_OutgoingGain
@@ -9062,6 +9240,14 @@ proc removeFileCompleted*(self: AudioFileInputNode, token: EventRegistrationToke
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
     vcall(it, Slot_IAudioFileInputNode_remove_FileCompleted, Fn_IAudioFileInputNode_remove_FileCompleted)(it, token).check("AudioFileInputNode.remove_FileCompleted")
 
+proc outgoingConnections*(self: AudioFileInputNode): seq[AudioGraphConnection] =
+  ## Windows.Media.Audio.AudioFileInputNode.get_OutgoingConnections
+  withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioInputNode_get_OutgoingConnections, Fn_IAudioInputNode_get_OutgoingConnections)(it, tmp.addr).check("AudioFileInputNode.get_OutgoingConnections")
+    result = toSeq[AudioGraphConnection](tmp, IID_IVectorView_1_AudioGraphConnection)
+    release(tmp)
+
 proc addOutgoingConnection*(self: AudioFileInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioFileInputNode.AddOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
@@ -9076,6 +9262,14 @@ proc removeOutgoingConnection*(self: AudioFileInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioFileInputNode.RemoveOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
     vcall(it, Slot_IAudioInputNode_RemoveOutgoingConnection, Fn_IAudioInputNode_RemoveOutgoingConnection)(it, a1).check("AudioFileInputNode.RemoveOutgoingConnection")
+
+proc effectDefinitions*(self: AudioFileInputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioFileInputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioFileInputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioFileInputNode, value: float64) =
   ## Windows.Media.Audio.AudioFileInputNode.put_OutgoingGain
@@ -9155,6 +9349,14 @@ proc fileEncodingProfile*(self: AudioFileOutputNode): MediaEncodingProfile =
     var tmp: pointer
     vcall(it, Slot_IAudioFileOutputNode_get_FileEncodingProfile, Fn_IAudioFileOutputNode_get_FileEncodingProfile)(it, tmp.addr).check("AudioFileOutputNode.get_FileEncodingProfile")
     result = adopt[MediaEncodingProfile](tmp)
+
+proc effectDefinitions*(self: AudioFileOutputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioFileOutputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioFileOutputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioFileOutputNode, value: float64) =
   ## Windows.Media.Audio.AudioFileOutputNode.put_OutgoingGain
@@ -9289,6 +9491,14 @@ proc removeQuantumStarted*(self: AudioFrameInputNode, token: EventRegistrationTo
   withIface(self.p, IID_IAudioFrameInputNode, "IAudioFrameInputNode", it):
     vcall(it, Slot_IAudioFrameInputNode_remove_QuantumStarted, Fn_IAudioFrameInputNode_remove_QuantumStarted)(it, token).check("AudioFrameInputNode.remove_QuantumStarted")
 
+proc outgoingConnections*(self: AudioFrameInputNode): seq[AudioGraphConnection] =
+  ## Windows.Media.Audio.AudioFrameInputNode.get_OutgoingConnections
+  withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioInputNode_get_OutgoingConnections, Fn_IAudioInputNode_get_OutgoingConnections)(it, tmp.addr).check("AudioFrameInputNode.get_OutgoingConnections")
+    result = toSeq[AudioGraphConnection](tmp, IID_IVectorView_1_AudioGraphConnection)
+    release(tmp)
+
 proc addOutgoingConnection*(self: AudioFrameInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioFrameInputNode.AddOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
@@ -9303,6 +9513,14 @@ proc removeOutgoingConnection*(self: AudioFrameInputNode, a1: pointer) =
   ## Windows.Media.Audio.AudioFrameInputNode.RemoveOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
     vcall(it, Slot_IAudioInputNode_RemoveOutgoingConnection, Fn_IAudioInputNode_RemoveOutgoingConnection)(it, a1).check("AudioFrameInputNode.RemoveOutgoingConnection")
+
+proc effectDefinitions*(self: AudioFrameInputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioFrameInputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioFrameInputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioFrameInputNode, value: float64) =
   ## Windows.Media.Audio.AudioFrameInputNode.put_OutgoingGain
@@ -9375,6 +9593,14 @@ proc getFrame*(self: AudioFrameOutputNode): AudioFrame =
     var tmp: pointer
     vcall(it, Slot_IAudioFrameOutputNode_GetFrame, Fn_IAudioFrameOutputNode_GetFrame)(it, tmp.addr).check("AudioFrameOutputNode.GetFrame")
     result = adopt[AudioFrame](tmp)
+
+proc effectDefinitions*(self: AudioFrameOutputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioFrameOutputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioFrameOutputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioFrameOutputNode, value: float64) =
   ## Windows.Media.Audio.AudioFrameOutputNode.put_OutgoingGain
@@ -10150,6 +10376,14 @@ proc createForCaptureMonitoringWithCategoryAndDeviceId*(_: typedesc[AudioStateMo
       vcall(it, Slot_IAudioStateMonitorStatics_CreateForCaptureMonitoringWithCategoryAndDeviceId, Fn_IAudioStateMonitorStatics_CreateForCaptureMonitoringWithCategoryAndDeviceId)(it, a1, h1, tmp.addr).check("AudioStateMonitor.CreateForCaptureMonitoringWithCategoryAndDeviceId")
       result = adopt[AudioStateMonitor](tmp)
 
+proc outgoingConnections*(self: AudioSubmixNode): seq[AudioGraphConnection] =
+  ## Windows.Media.Audio.AudioSubmixNode.get_OutgoingConnections
+  withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioInputNode_get_OutgoingConnections, Fn_IAudioInputNode_get_OutgoingConnections)(it, tmp.addr).check("AudioSubmixNode.get_OutgoingConnections")
+    result = toSeq[AudioGraphConnection](tmp, IID_IVectorView_1_AudioGraphConnection)
+    release(tmp)
+
 proc addOutgoingConnection*(self: AudioSubmixNode, a1: pointer) =
   ## Windows.Media.Audio.AudioSubmixNode.AddOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
@@ -10164,6 +10398,14 @@ proc removeOutgoingConnection*(self: AudioSubmixNode, a1: pointer) =
   ## Windows.Media.Audio.AudioSubmixNode.RemoveOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
     vcall(it, Slot_IAudioInputNode_RemoveOutgoingConnection, Fn_IAudioInputNode_RemoveOutgoingConnection)(it, a1).check("AudioSubmixNode.RemoveOutgoingConnection")
+
+proc effectDefinitions*(self: AudioSubmixNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.AudioSubmixNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("AudioSubmixNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: AudioSubmixNode, value: float64) =
   ## Windows.Media.Audio.AudioSubmixNode.put_OutgoingGain
@@ -10450,6 +10692,14 @@ proc `gain=`*(self: EqualizerBand, value: float64) =
   withIface(self.p, IID_IEqualizerBand, "IEqualizerBand", it):
     vcall(it, Slot_IEqualizerBand_put_Gain, Fn_IEqualizerBand_put_Gain)(it, value).check("EqualizerBand.put_Gain")
 
+proc bands*(self: EqualizerEffectDefinition): seq[EqualizerBand] =
+  ## Windows.Media.Audio.EqualizerEffectDefinition.get_Bands
+  withIface(self.p, IID_IEqualizerEffectDefinition, "IEqualizerEffectDefinition", it):
+    var tmp: pointer
+    vcall(it, Slot_IEqualizerEffectDefinition_get_Bands, Fn_IEqualizerEffectDefinition_get_Bands)(it, tmp.addr).check("EqualizerEffectDefinition.get_Bands")
+    result = toSeq[EqualizerBand](tmp, IID_IVectorView_1_EqualizerBand)
+    release(tmp)
+
 proc activatableClassId*(self: EqualizerEffectDefinition): string =
   ## Windows.Media.Audio.EqualizerEffectDefinition.get_ActivatableClassId
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
@@ -10589,6 +10839,14 @@ proc emitter*(self: MediaSourceAudioInputNode): AudioNodeEmitter =
     vcall(it, Slot_IAudioInputNode2_get_Emitter, Fn_IAudioInputNode2_get_Emitter)(it, tmp.addr).check("MediaSourceAudioInputNode.get_Emitter")
     result = adopt[AudioNodeEmitter](tmp)
 
+proc outgoingConnections*(self: MediaSourceAudioInputNode): seq[AudioGraphConnection] =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.get_OutgoingConnections
+  withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioInputNode_get_OutgoingConnections, Fn_IAudioInputNode_get_OutgoingConnections)(it, tmp.addr).check("MediaSourceAudioInputNode.get_OutgoingConnections")
+    result = toSeq[AudioGraphConnection](tmp, IID_IVectorView_1_AudioGraphConnection)
+    release(tmp)
+
 proc addOutgoingConnection*(self: MediaSourceAudioInputNode, a1: pointer) =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.AddOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
@@ -10603,6 +10861,14 @@ proc removeOutgoingConnection*(self: MediaSourceAudioInputNode, a1: pointer) =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.RemoveOutgoingConnection
   withIface(self.p, IID_IAudioInputNode, "IAudioInputNode", it):
     vcall(it, Slot_IAudioInputNode_RemoveOutgoingConnection, Fn_IAudioInputNode_RemoveOutgoingConnection)(it, a1).check("MediaSourceAudioInputNode.RemoveOutgoingConnection")
+
+proc effectDefinitions*(self: MediaSourceAudioInputNode): seq[AudioEffectDefinition] =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.get_EffectDefinitions
+  withIface(self.p, IID_IAudioNode, "IAudioNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioNode_get_EffectDefinitions, Fn_IAudioNode_get_EffectDefinitions)(it, tmp.addr).check("MediaSourceAudioInputNode.get_EffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
 
 proc `outgoingGain=`*(self: MediaSourceAudioInputNode, value: float64) =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.put_OutgoingGain
@@ -11857,6 +12123,14 @@ proc isBroadcastProviderAvailable*(self: AppBroadcastPlugInManager): bool =
     var tmp: bool
     vcall(it, Slot_IAppBroadcastPlugInManager_get_IsBroadcastProviderAvailable, Fn_IAppBroadcastPlugInManager_get_IsBroadcastProviderAvailable)(it, tmp.addr).check("AppBroadcastPlugInManager.get_IsBroadcastProviderAvailable")
     result = tmp
+
+proc plugInList*(self: AppBroadcastPlugInManager): seq[AppBroadcastPlugIn] =
+  ## Windows.Media.Capture.AppBroadcastPlugInManager.get_PlugInList
+  withIface(self.p, IID_IAppBroadcastPlugInManager, "IAppBroadcastPlugInManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppBroadcastPlugInManager_get_PlugInList, Fn_IAppBroadcastPlugInManager_get_PlugInList)(it, tmp.addr).check("AppBroadcastPlugInManager.get_PlugInList")
+    result = toSeq[AppBroadcastPlugIn](tmp, IID_IVectorView_1_AppBroadcastPlugIn)
+    release(tmp)
 
 proc defaultPlugIn*(self: AppBroadcastPlugInManager): AppBroadcastPlugIn =
   ## Windows.Media.Capture.AppBroadcastPlugInManager.get_DefaultPlugIn
@@ -13825,6 +14099,14 @@ proc controller*(self: MediaFrameSource): MediaFrameSourceController =
     vcall(it, Slot_IMediaFrameSource_get_Controller, Fn_IMediaFrameSource_get_Controller)(it, tmp.addr).check("MediaFrameSource.get_Controller")
     result = adopt[MediaFrameSourceController](tmp)
 
+proc supportedFormats*(self: MediaFrameSource): seq[MediaFrameFormat] =
+  ## Windows.Media.Capture.Frames.MediaFrameSource.get_SupportedFormats
+  withIface(self.p, IID_IMediaFrameSource, "IMediaFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameSource_get_SupportedFormats, Fn_IMediaFrameSource_get_SupportedFormats)(it, tmp.addr).check("MediaFrameSource.get_SupportedFormats")
+    result = toSeq[MediaFrameFormat](tmp, IID_IVectorView_1_MediaFrameFormat)
+    release(tmp)
+
 proc currentFormat*(self: MediaFrameSource): MediaFrameFormat =
   ## Windows.Media.Capture.Frames.MediaFrameSource.get_CurrentFormat
   withIface(self.p, IID_IMediaFrameSource, "IMediaFrameSource", it):
@@ -13909,6 +14191,14 @@ proc displayName*(self: MediaFrameSourceGroup): string =
     vcall(it, Slot_IMediaFrameSourceGroup_get_DisplayName, Fn_IMediaFrameSourceGroup_get_DisplayName)(it, tmp.addr).check("MediaFrameSourceGroup.get_DisplayName")
     result = takeString(tmp)
 
+proc sourceInfos*(self: MediaFrameSourceGroup): seq[MediaFrameSourceInfo] =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceGroup.get_SourceInfos
+  withIface(self.p, IID_IMediaFrameSourceGroup, "IMediaFrameSourceGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameSourceGroup_get_SourceInfos, Fn_IMediaFrameSourceGroup_get_SourceInfos)(it, tmp.addr).check("MediaFrameSourceGroup.get_SourceInfos")
+    result = toSeq[MediaFrameSourceInfo](tmp, IID_IVectorView_1_MediaFrameSourceInfo)
+    release(tmp)
+
 proc getDeviceSelector*(_: typedesc[MediaFrameSourceGroup]): string =
   ## Windows.Media.Capture.Frames.MediaFrameSourceGroup.GetDeviceSelector
   withStatics("Windows.Media.Capture.Frames.MediaFrameSourceGroup", IID_IMediaFrameSourceGroupStatics, it):
@@ -13950,6 +14240,14 @@ proc profileId*(self: MediaFrameSourceInfo): string =
     var tmp: HSTRING
     vcall(it, Slot_IMediaFrameSourceInfo2_get_ProfileId, Fn_IMediaFrameSourceInfo2_get_ProfileId)(it, tmp.addr).check("MediaFrameSourceInfo.get_ProfileId")
     result = takeString(tmp)
+
+proc videoProfileMediaDescription*(self: MediaFrameSourceInfo): seq[MediaCaptureVideoProfileMediaDescription] =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_VideoProfileMediaDescription
+  withIface(self.p, IID_IMediaFrameSourceInfo2, "IMediaFrameSourceInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameSourceInfo2_get_VideoProfileMediaDescription, Fn_IMediaFrameSourceInfo2_get_VideoProfileMediaDescription)(it, tmp.addr).check("MediaFrameSourceInfo.get_VideoProfileMediaDescription")
+    result = toSeq[MediaCaptureVideoProfileMediaDescription](tmp, IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription)
+    release(tmp)
 
 proc isShareable*(self: MediaFrameSourceInfo): bool =
   ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_IsShareable
@@ -14660,6 +14958,33 @@ proc isVideoProfileSupported*(_: typedesc[MediaCapture], a1: string): bool =
       vcall(it, Slot_IMediaCaptureStatics_IsVideoProfileSupported, Fn_IMediaCaptureStatics_IsVideoProfileSupported)(it, h0, tmp.addr).check("MediaCapture.IsVideoProfileSupported")
       result = tmp
 
+proc findAllVideoProfiles*(_: typedesc[MediaCapture], a1: string): seq[MediaCaptureVideoProfile] =
+  ## Windows.Media.Capture.MediaCapture.FindAllVideoProfiles
+  withStatics("Windows.Media.Capture.MediaCapture", IID_IMediaCaptureStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaCaptureStatics_FindAllVideoProfiles, Fn_IMediaCaptureStatics_FindAllVideoProfiles)(it, h0, tmp.addr).check("MediaCapture.FindAllVideoProfiles")
+      result = toSeq[MediaCaptureVideoProfile](tmp, IID_IVectorView_1_MediaCaptureVideoProfile)
+      release(tmp)
+
+proc findConcurrentProfiles*(_: typedesc[MediaCapture], a1: string): seq[MediaCaptureVideoProfile] =
+  ## Windows.Media.Capture.MediaCapture.FindConcurrentProfiles
+  withStatics("Windows.Media.Capture.MediaCapture", IID_IMediaCaptureStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaCaptureStatics_FindConcurrentProfiles, Fn_IMediaCaptureStatics_FindConcurrentProfiles)(it, h0, tmp.addr).check("MediaCapture.FindConcurrentProfiles")
+      result = toSeq[MediaCaptureVideoProfile](tmp, IID_IVectorView_1_MediaCaptureVideoProfile)
+      release(tmp)
+
+proc findKnownVideoProfiles*(_: typedesc[MediaCapture], a1: string, a2: KnownVideoProfile): seq[MediaCaptureVideoProfile] =
+  ## Windows.Media.Capture.MediaCapture.FindKnownVideoProfiles
+  withStatics("Windows.Media.Capture.MediaCapture", IID_IMediaCaptureStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaCaptureStatics_FindKnownVideoProfiles, Fn_IMediaCaptureStatics_FindKnownVideoProfiles)(it, h0, a2, tmp.addr).check("MediaCapture.FindKnownVideoProfiles")
+      result = toSeq[MediaCaptureVideoProfile](tmp, IID_IVectorView_1_MediaCaptureVideoProfile)
+      release(tmp)
+
 proc deviceId*(self: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs): string =
   ## Windows.Media.Capture.MediaCaptureDeviceExclusiveControlStatusChangedEventArgs.get_DeviceId
   withIface(self.p, IID_IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs, "IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs", it):
@@ -15046,6 +15371,46 @@ proc videoDeviceId*(self: MediaCaptureVideoProfile): string =
     vcall(it, Slot_IMediaCaptureVideoProfile_get_VideoDeviceId, Fn_IMediaCaptureVideoProfile_get_VideoDeviceId)(it, tmp.addr).check("MediaCaptureVideoProfile.get_VideoDeviceId")
     result = takeString(tmp)
 
+proc supportedPreviewMediaDescription*(self: MediaCaptureVideoProfile): seq[MediaCaptureVideoProfileMediaDescription] =
+  ## Windows.Media.Capture.MediaCaptureVideoProfile.get_SupportedPreviewMediaDescription
+  withIface(self.p, IID_IMediaCaptureVideoProfile, "IMediaCaptureVideoProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureVideoProfile_get_SupportedPreviewMediaDescription, Fn_IMediaCaptureVideoProfile_get_SupportedPreviewMediaDescription)(it, tmp.addr).check("MediaCaptureVideoProfile.get_SupportedPreviewMediaDescription")
+    result = toSeq[MediaCaptureVideoProfileMediaDescription](tmp, IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription)
+    release(tmp)
+
+proc supportedRecordMediaDescription*(self: MediaCaptureVideoProfile): seq[MediaCaptureVideoProfileMediaDescription] =
+  ## Windows.Media.Capture.MediaCaptureVideoProfile.get_SupportedRecordMediaDescription
+  withIface(self.p, IID_IMediaCaptureVideoProfile, "IMediaCaptureVideoProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureVideoProfile_get_SupportedRecordMediaDescription, Fn_IMediaCaptureVideoProfile_get_SupportedRecordMediaDescription)(it, tmp.addr).check("MediaCaptureVideoProfile.get_SupportedRecordMediaDescription")
+    result = toSeq[MediaCaptureVideoProfileMediaDescription](tmp, IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription)
+    release(tmp)
+
+proc supportedPhotoMediaDescription*(self: MediaCaptureVideoProfile): seq[MediaCaptureVideoProfileMediaDescription] =
+  ## Windows.Media.Capture.MediaCaptureVideoProfile.get_SupportedPhotoMediaDescription
+  withIface(self.p, IID_IMediaCaptureVideoProfile, "IMediaCaptureVideoProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureVideoProfile_get_SupportedPhotoMediaDescription, Fn_IMediaCaptureVideoProfile_get_SupportedPhotoMediaDescription)(it, tmp.addr).check("MediaCaptureVideoProfile.get_SupportedPhotoMediaDescription")
+    result = toSeq[MediaCaptureVideoProfileMediaDescription](tmp, IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription)
+    release(tmp)
+
+proc getConcurrency*(self: MediaCaptureVideoProfile): seq[MediaCaptureVideoProfile] =
+  ## Windows.Media.Capture.MediaCaptureVideoProfile.GetConcurrency
+  withIface(self.p, IID_IMediaCaptureVideoProfile, "IMediaCaptureVideoProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureVideoProfile_GetConcurrency, Fn_IMediaCaptureVideoProfile_GetConcurrency)(it, tmp.addr).check("MediaCaptureVideoProfile.GetConcurrency")
+    result = toSeq[MediaCaptureVideoProfile](tmp, IID_IVectorView_1_MediaCaptureVideoProfile)
+    release(tmp)
+
+proc frameSourceInfos*(self: MediaCaptureVideoProfile): seq[MediaFrameSourceInfo] =
+  ## Windows.Media.Capture.MediaCaptureVideoProfile.get_FrameSourceInfos
+  withIface(self.p, IID_IMediaCaptureVideoProfile2, "IMediaCaptureVideoProfile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureVideoProfile2_get_FrameSourceInfos, Fn_IMediaCaptureVideoProfile2_get_FrameSourceInfos)(it, tmp.addr).check("MediaCaptureVideoProfile.get_FrameSourceInfos")
+    result = toSeq[MediaFrameSourceInfo](tmp, IID_IVectorView_1_MediaFrameSourceInfo)
+    release(tmp)
+
 proc width*(self: MediaCaptureVideoProfileMediaDescription): uint32 =
   ## Windows.Media.Capture.MediaCaptureVideoProfileMediaDescription.get_Width
   withIface(self.p, IID_IMediaCaptureVideoProfileMediaDescription, "IMediaCaptureVideoProfileMediaDescription", it):
@@ -15360,6 +15725,14 @@ proc `supportsPictures=`*(self: CastingDevicePickerFilter, value: bool) =
   withIface(self.p, IID_ICastingDevicePickerFilter, "ICastingDevicePickerFilter", it):
     vcall(it, Slot_ICastingDevicePickerFilter_put_SupportsPictures, Fn_ICastingDevicePickerFilter_put_SupportsPictures)(it, value).check("CastingDevicePickerFilter.put_SupportsPictures")
 
+proc supportedCastingSources*(self: CastingDevicePickerFilter): seq[CastingSource] =
+  ## Windows.Media.Casting.CastingDevicePickerFilter.get_SupportedCastingSources
+  withIface(self.p, IID_ICastingDevicePickerFilter, "ICastingDevicePickerFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_ICastingDevicePickerFilter_get_SupportedCastingSources, Fn_ICastingDevicePickerFilter_get_SupportedCastingSources)(it, tmp.addr).check("CastingDevicePickerFilter.get_SupportedCastingSources")
+    result = toSeq[CastingSource](tmp, IID_IVector_1_CastingSource)
+    release(tmp)
+
 proc selectedCastingDevice*(self: CastingDeviceSelectedEventArgs): CastingDevice =
   ## Windows.Media.Casting.CastingDeviceSelectedEventArgs.get_SelectedCastingDevice
   withIface(self.p, IID_ICastingDeviceSelectedEventArgs, "ICastingDeviceSelectedEventArgs", it):
@@ -15527,6 +15900,14 @@ proc `category=`*(self: RatedContentDescription, value: RatedContentCategory) =
   withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
     vcall(it, Slot_IRatedContentDescription_put_Category, Fn_IRatedContentDescription_put_Category)(it, value).check("RatedContentDescription.put_Category")
 
+proc ratings*(self: RatedContentDescription): seq[string] =
+  ## Windows.Media.ContentRestrictions.RatedContentDescription.get_Ratings
+  withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
+    var tmp: pointer
+    vcall(it, Slot_IRatedContentDescription_get_Ratings, Fn_IRatedContentDescription_get_Ratings)(it, tmp.addr).check("RatedContentDescription.get_Ratings")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc create*(_: typedesc[RatedContentDescription], a1: string, a2: string, a3: RatedContentCategory): RatedContentDescription =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.Create
   withStatics("Windows.Media.ContentRestrictions.RatedContentDescription", IID_IRatedContentDescriptionFactory, it):
@@ -15651,6 +16032,14 @@ proc getCurrentSession*(self: GlobalSystemMediaTransportControlsSessionManager):
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionManager_GetCurrentSession, Fn_IGlobalSystemMediaTransportControlsSessionManager_GetCurrentSession)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionManager.GetCurrentSession")
     result = adopt[GlobalSystemMediaTransportControlsSession](tmp)
 
+proc getSessions*(self: GlobalSystemMediaTransportControlsSessionManager): seq[GlobalSystemMediaTransportControlsSession] =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager.GetSessions
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionManager, "IGlobalSystemMediaTransportControlsSessionManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionManager_GetSessions, Fn_IGlobalSystemMediaTransportControlsSessionManager_GetSessions)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionManager.GetSessions")
+    result = toSeq[GlobalSystemMediaTransportControlsSession](tmp, IID_IVectorView_1_GlobalSystemMediaTransportControlsSession)
+    release(tmp)
+
 proc onCurrentSessionChanged*(self: GlobalSystemMediaTransportControlsSessionManager,
     handler: proc(sender: pointer, args: CurrentSessionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager.add_CurrentSessionChanged
@@ -15730,6 +16119,14 @@ proc trackNumber*(self: GlobalSystemMediaTransportControlsSessionMediaProperties
     var tmp: int32
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_TrackNumber, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_TrackNumber)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_TrackNumber")
     result = tmp
+
+proc genres*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): seq[string] =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties.get_Genres
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionMediaProperties, "IGlobalSystemMediaTransportControlsSessionMediaProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Genres, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Genres)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_Genres")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc albumTrackCount*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): int32 =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties.get_AlbumTrackCount
@@ -16157,6 +16554,14 @@ proc category*(self: CodecInfo): CodecCategory =
     var tmp: CodecCategory
     vcall(it, Slot_ICodecInfo_get_Category, Fn_ICodecInfo_get_Category)(it, tmp.addr).check("CodecInfo.get_Category")
     result = tmp
+
+proc subtypes*(self: CodecInfo): seq[string] =
+  ## Windows.Media.Core.CodecInfo.get_Subtypes
+  withIface(self.p, IID_ICodecInfo, "ICodecInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ICodecInfo_get_Subtypes, Fn_ICodecInfo_get_Subtypes)(it, tmp.addr).check("CodecInfo.get_Subtypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc displayName*(self: CodecInfo): string =
   ## Windows.Media.Core.CodecInfo.get_DisplayName
@@ -16690,6 +17095,14 @@ proc synchronousDetectionEnabled*(self: FaceDetectionEffectDefinition): bool =
     vcall(it, Slot_IFaceDetectionEffectDefinition_get_SynchronousDetectionEnabled, Fn_IFaceDetectionEffectDefinition_get_SynchronousDetectionEnabled)(it, tmp.addr).check("FaceDetectionEffectDefinition.get_SynchronousDetectionEnabled")
     result = tmp
 
+proc detectedFaces*(self: FaceDetectionEffectFrame): seq[DetectedFace] =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.get_DetectedFaces
+  withIface(self.p, IID_IFaceDetectionEffectFrame, "IFaceDetectionEffectFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IFaceDetectionEffectFrame_get_DetectedFaces, Fn_IFaceDetectionEffectFrame_get_DetectedFaces)(it, tmp.addr).check("FaceDetectionEffectFrame.get_DetectedFaces")
+    result = toSeq[DetectedFace](tmp, IID_IVectorView_1_DetectedFace)
+    release(tmp)
+
 proc `type`*(self: FaceDetectionEffectFrame): string =
   ## Windows.Media.Core.FaceDetectionEffectFrame.get_Type
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -16741,6 +17154,14 @@ proc certainty*(self: HighDynamicRangeOutput): float64 =
     var tmp: float64
     vcall(it, Slot_IHighDynamicRangeOutput_get_Certainty, Fn_IHighDynamicRangeOutput_get_Certainty)(it, tmp.addr).check("HighDynamicRangeOutput.get_Certainty")
     result = tmp
+
+proc frameControllers*(self: HighDynamicRangeOutput): seq[FrameController] =
+  ## Windows.Media.Core.HighDynamicRangeOutput.get_FrameControllers
+  withIface(self.p, IID_IHighDynamicRangeOutput, "IHighDynamicRangeOutput", it):
+    var tmp: pointer
+    vcall(it, Slot_IHighDynamicRangeOutput_get_FrameControllers, Fn_IHighDynamicRangeOutput_get_FrameControllers)(it, tmp.addr).check("HighDynamicRangeOutput.get_FrameControllers")
+    result = toSeq[FrameController](tmp, IID_IVectorView_1_FrameController)
+    release(tmp)
 
 proc newImageCue*(): ImageCue =
   ## Activate a `Windows.Media.Core.ImageCue`.
@@ -17770,6 +18191,14 @@ proc removeSourceBufferRemoved*(self: MseSourceBufferList, token: EventRegistrat
   withIface(self.p, IID_IMseSourceBufferList, "IMseSourceBufferList", it):
     vcall(it, Slot_IMseSourceBufferList_remove_SourceBufferRemoved, Fn_IMseSourceBufferList_remove_SourceBufferRemoved)(it, token).check("MseSourceBufferList.remove_SourceBufferRemoved")
 
+proc buffers*(self: MseSourceBufferList): seq[MseSourceBuffer] =
+  ## Windows.Media.Core.MseSourceBufferList.get_Buffers
+  withIface(self.p, IID_IMseSourceBufferList, "IMseSourceBufferList", it):
+    var tmp: pointer
+    vcall(it, Slot_IMseSourceBufferList_get_Buffers, Fn_IMseSourceBufferList_get_Buffers)(it, tmp.addr).check("MseSourceBufferList.get_Buffers")
+    result = toSeq[MseSourceBuffer](tmp, IID_IVectorView_1_MseSourceBuffer)
+    release(tmp)
+
 proc newMseStreamSource*(): MseStreamSource =
   ## Activate a `Windows.Media.Core.MseStreamSource`.
   adopt[MseStreamSource](activateAs("Windows.Media.Core.MseStreamSource", IID_IMseStreamSource))
@@ -18374,6 +18803,14 @@ proc `cueStyle=`*(self: TimedTextCue, value: TimedTextStyle) =
     withIface(value.p, IID_ITimedTextStyle, "ITimedTextStyle", p0):
       vcall(it, Slot_ITimedTextCue_put_CueStyle, Fn_ITimedTextCue_put_CueStyle)(it, p0).check("TimedTextCue.put_CueStyle")
 
+proc lines*(self: TimedTextCue): seq[TimedTextLine] =
+  ## Windows.Media.Core.TimedTextCue.get_Lines
+  withIface(self.p, IID_ITimedTextCue, "ITimedTextCue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimedTextCue_get_Lines, Fn_ITimedTextCue_get_Lines)(it, tmp.addr).check("TimedTextCue.get_Lines")
+    result = toSeq[TimedTextLine](tmp, IID_IVector_1_TimedTextLine)
+    release(tmp)
+
 proc `startTime=`*(self: TimedTextCue, value: TimeSpan) =
   ## Windows.Media.Core.TimedTextCue.put_StartTime
   withIface(self.p, IID_IMediaCue, "IMediaCue", it):
@@ -18427,6 +18864,14 @@ proc `text=`*(self: TimedTextLine, value: string) =
   withIface(self.p, IID_ITimedTextLine, "ITimedTextLine", it):
     withHString(value, h0):
       vcall(it, Slot_ITimedTextLine_put_Text, Fn_ITimedTextLine_put_Text)(it, h0).check("TimedTextLine.put_Text")
+
+proc subformats*(self: TimedTextLine): seq[TimedTextSubformat] =
+  ## Windows.Media.Core.TimedTextLine.get_Subformats
+  withIface(self.p, IID_ITimedTextLine, "ITimedTextLine", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimedTextLine_get_Subformats, Fn_ITimedTextLine_get_Subformats)(it, tmp.addr).check("TimedTextLine.get_Subformats")
+    result = toSeq[TimedTextSubformat](tmp, IID_IVector_1_TimedTextSubformat)
+    release(tmp)
 
 proc newTimedTextRegion*(): TimedTextRegion =
   ## Activate a `Windows.Media.Core.TimedTextRegion`.
@@ -18681,6 +19126,14 @@ proc error*(self: TimedTextSourceResolveResultEventArgs): TimedMetadataTrackErro
     var tmp: pointer
     vcall(it, Slot_ITimedTextSourceResolveResultEventArgs_get_Error, Fn_ITimedTextSourceResolveResultEventArgs_get_Error)(it, tmp.addr).check("TimedTextSourceResolveResultEventArgs.get_Error")
     result = adopt[TimedMetadataTrackError](tmp)
+
+proc tracks*(self: TimedTextSourceResolveResultEventArgs): seq[TimedMetadataTrack] =
+  ## Windows.Media.Core.TimedTextSourceResolveResultEventArgs.get_Tracks
+  withIface(self.p, IID_ITimedTextSourceResolveResultEventArgs, "ITimedTextSourceResolveResultEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimedTextSourceResolveResultEventArgs_get_Tracks, Fn_ITimedTextSourceResolveResultEventArgs_get_Tracks)(it, tmp.addr).check("TimedTextSourceResolveResultEventArgs.get_Tracks")
+    result = toSeq[TimedMetadataTrack](tmp, IID_IVectorView_1_TimedMetadataTrack)
+    release(tmp)
 
 proc newTimedTextStyle*(): TimedTextStyle =
   ## Activate a `Windows.Media.Core.TimedTextStyle`.
@@ -19348,6 +19801,23 @@ proc removeModuleNotificationReceived*(self: AudioDeviceModulesManager, token: E
   withIface(self.p, IID_IAudioDeviceModulesManager, "IAudioDeviceModulesManager", it):
     vcall(it, Slot_IAudioDeviceModulesManager_remove_ModuleNotificationReceived, Fn_IAudioDeviceModulesManager_remove_ModuleNotificationReceived)(it, token).check("AudioDeviceModulesManager.remove_ModuleNotificationReceived")
 
+proc findAllById*(self: AudioDeviceModulesManager, a1: string): seq[AudioDeviceModule] =
+  ## Windows.Media.Devices.AudioDeviceModulesManager.FindAllById
+  withIface(self.p, IID_IAudioDeviceModulesManager, "IAudioDeviceModulesManager", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IAudioDeviceModulesManager_FindAllById, Fn_IAudioDeviceModulesManager_FindAllById)(it, h0, tmp.addr).check("AudioDeviceModulesManager.FindAllById")
+      result = toSeq[AudioDeviceModule](tmp, IID_IVectorView_1_AudioDeviceModule)
+      release(tmp)
+
+proc findAll*(self: AudioDeviceModulesManager): seq[AudioDeviceModule] =
+  ## Windows.Media.Devices.AudioDeviceModulesManager.FindAll
+  withIface(self.p, IID_IAudioDeviceModulesManager, "IAudioDeviceModulesManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioDeviceModulesManager_FindAll, Fn_IAudioDeviceModulesManager_FindAll)(it, tmp.addr).check("AudioDeviceModulesManager.FindAll")
+    result = toSeq[AudioDeviceModule](tmp, IID_IVectorView_1_AudioDeviceModule)
+    release(tmp)
+
 proc create*(_: typedesc[AudioDeviceModulesManager], a1: string): AudioDeviceModulesManager =
   ## Windows.Media.Devices.AudioDeviceModulesManager.Create
   withStatics("Windows.Media.Devices.AudioDeviceModulesManager", IID_IAudioDeviceModulesManagerFactory, it):
@@ -19943,6 +20413,14 @@ proc frameCapabilities*(self: VariablePhotoSequenceController): FrameControlCapa
     vcall(it, Slot_IVariablePhotoSequenceController_get_FrameCapabilities, Fn_IVariablePhotoSequenceController_get_FrameCapabilities)(it, tmp.addr).check("VariablePhotoSequenceController.get_FrameCapabilities")
     result = adopt[FrameControlCapabilities](tmp)
 
+proc desiredFrameControllers*(self: VariablePhotoSequenceController): seq[FrameController] =
+  ## Windows.Media.Devices.Core.VariablePhotoSequenceController.get_DesiredFrameControllers
+  withIface(self.p, IID_IVariablePhotoSequenceController, "IVariablePhotoSequenceController", it):
+    var tmp: pointer
+    vcall(it, Slot_IVariablePhotoSequenceController_get_DesiredFrameControllers, Fn_IVariablePhotoSequenceController_get_DesiredFrameControllers)(it, tmp.addr).check("VariablePhotoSequenceController.get_DesiredFrameControllers")
+    result = toSeq[FrameController](tmp, IID_IVector_1_FrameController)
+    release(tmp)
+
 proc id*(self: DefaultAudioCaptureDeviceChangedEventArgs): string =
   ## Windows.Media.Devices.DefaultAudioCaptureDeviceChangedEventArgs.get_Id
   withIface(self.p, IID_IDefaultAudioDeviceChangedEventArgs, "IDefaultAudioDeviceChangedEventArgs", it):
@@ -20096,6 +20574,14 @@ proc configure*(self: DigitalWindowControl, a1: DigitalWindowMode, a2: DigitalWi
   withIface(self.p, IID_IDigitalWindowControl, "IDigitalWindowControl", it):
     withIface(a2.p, IID_IDigitalWindowBounds, "IDigitalWindowBounds", p1):
       vcall(it, Slot_IDigitalWindowControl_Configure2, Fn_IDigitalWindowControl_Configure2)(it, a1, p1).check("DigitalWindowControl.Configure")
+
+proc supportedCapabilities*(self: DigitalWindowControl): seq[DigitalWindowCapability] =
+  ## Windows.Media.Devices.DigitalWindowControl.get_SupportedCapabilities
+  withIface(self.p, IID_IDigitalWindowControl, "IDigitalWindowControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IDigitalWindowControl_get_SupportedCapabilities, Fn_IDigitalWindowControl_get_SupportedCapabilities)(it, tmp.addr).check("DigitalWindowControl.get_SupportedCapabilities")
+    result = toSeq[DigitalWindowCapability](tmp, IID_IVectorView_1_DigitalWindowCapability)
+    release(tmp)
 
 proc getCapabilityForSize*(self: DigitalWindowControl, a1: int32, a2: int32): DigitalWindowCapability =
   ## Windows.Media.Devices.DigitalWindowControl.GetCapabilityForSize
@@ -21805,6 +22291,14 @@ proc setDisplayStatus*(self: DialDevicePicker, a1: DialDevice, a2: DialDeviceDis
     withIface(a1.p, IID_IDialDevice, "IDialDevice", p0):
       vcall(it, Slot_IDialDevicePicker_SetDisplayStatus, Fn_IDialDevicePicker_SetDisplayStatus)(it, p0, a2).check("DialDevicePicker.SetDisplayStatus")
 
+proc supportedAppNames*(self: DialDevicePickerFilter): seq[string] =
+  ## Windows.Media.DialProtocol.DialDevicePickerFilter.get_SupportedAppNames
+  withIface(self.p, IID_IDialDevicePickerFilter, "IDialDevicePickerFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDialDevicePickerFilter_get_SupportedAppNames, Fn_IDialDevicePickerFilter_get_SupportedAppNames)(it, tmp.addr).check("DialDevicePickerFilter.get_SupportedAppNames")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc selectedDialDevice*(self: DialDeviceSelectedEventArgs): DialDevice =
   ## Windows.Media.DialProtocol.DialDeviceSelectedEventArgs.get_SelectedDialDevice
   withIface(self.p, IID_IDialDeviceSelectedEventArgs, "IDialDeviceSelectedEventArgs", it):
@@ -21902,6 +22396,14 @@ proc getAudioEncodingProperties*(self: BackgroundAudioTrack): AudioEncodingPrope
     vcall(it, Slot_IBackgroundAudioTrack_GetAudioEncodingProperties, Fn_IBackgroundAudioTrack_GetAudioEncodingProperties)(it, tmp.addr).check("BackgroundAudioTrack.GetAudioEncodingProperties")
     result = adopt[AudioEncodingProperties](tmp)
 
+proc audioEffectDefinitions*(self: BackgroundAudioTrack): seq[AudioEffectDefinition] =
+  ## Windows.Media.Editing.BackgroundAudioTrack.get_AudioEffectDefinitions
+  withIface(self.p, IID_IBackgroundAudioTrack, "IBackgroundAudioTrack", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundAudioTrack_get_AudioEffectDefinitions, Fn_IBackgroundAudioTrack_get_AudioEffectDefinitions)(it, tmp.addr).check("BackgroundAudioTrack.get_AudioEffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
+
 proc createFromEmbeddedAudioTrack*(_: typedesc[BackgroundAudioTrack], a1: EmbeddedAudioTrack): BackgroundAudioTrack =
   ## Windows.Media.Editing.BackgroundAudioTrack.CreateFromEmbeddedAudioTrack
   withStatics("Windows.Media.Editing.BackgroundAudioTrack", IID_IBackgroundAudioTrackStatics, it):
@@ -21976,6 +22478,14 @@ proc endTimeInComposition*(self: MediaClip): TimeSpan =
     vcall(it, Slot_IMediaClip_get_EndTimeInComposition, Fn_IMediaClip_get_EndTimeInComposition)(it, tmp.addr).check("MediaClip.get_EndTimeInComposition")
     result = tmp
 
+proc embeddedAudioTracks*(self: MediaClip): seq[EmbeddedAudioTrack] =
+  ## Windows.Media.Editing.MediaClip.get_EmbeddedAudioTracks
+  withIface(self.p, IID_IMediaClip, "IMediaClip", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaClip_get_EmbeddedAudioTracks, Fn_IMediaClip_get_EmbeddedAudioTracks)(it, tmp.addr).check("MediaClip.get_EmbeddedAudioTracks")
+    result = toSeq[EmbeddedAudioTrack](tmp, IID_IVectorView_1_EmbeddedAudioTrack)
+    release(tmp)
+
 proc selectedEmbeddedAudioTrackIndex*(self: MediaClip): uint32 =
   ## Windows.Media.Editing.MediaClip.get_SelectedEmbeddedAudioTrackIndex
   withIface(self.p, IID_IMediaClip, "IMediaClip", it):
@@ -22007,6 +22517,22 @@ proc getVideoEncodingProperties*(self: MediaClip): VideoEncodingProperties =
     vcall(it, Slot_IMediaClip_GetVideoEncodingProperties, Fn_IMediaClip_GetVideoEncodingProperties)(it, tmp.addr).check("MediaClip.GetVideoEncodingProperties")
     result = adopt[VideoEncodingProperties](tmp)
 
+proc audioEffectDefinitions*(self: MediaClip): seq[AudioEffectDefinition] =
+  ## Windows.Media.Editing.MediaClip.get_AudioEffectDefinitions
+  withIface(self.p, IID_IMediaClip, "IMediaClip", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaClip_get_AudioEffectDefinitions, Fn_IMediaClip_get_AudioEffectDefinitions)(it, tmp.addr).check("MediaClip.get_AudioEffectDefinitions")
+    result = toSeq[AudioEffectDefinition](tmp, IID_IVector_1_IAudioEffectDefinition)
+    release(tmp)
+
+proc videoEffectDefinitions*(self: MediaClip): seq[VideoTransformEffectDefinition] =
+  ## Windows.Media.Editing.MediaClip.get_VideoEffectDefinitions
+  withIface(self.p, IID_IMediaClip, "IMediaClip", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaClip_get_VideoEffectDefinitions, Fn_IMediaClip_get_VideoEffectDefinitions)(it, tmp.addr).check("MediaClip.get_VideoEffectDefinitions")
+    result = toSeq[VideoTransformEffectDefinition](tmp, IID_IVector_1_IVideoEffectDefinition)
+    release(tmp)
+
 proc createFromSurface*(_: typedesc[MediaClip], a1: pointer, a2: TimeSpan): MediaClip =
   ## Windows.Media.Editing.MediaClip.CreateFromSurface
   withStatics("Windows.Media.Editing.MediaClip", IID_IMediaClipStatics2, it):
@@ -22031,6 +22557,22 @@ proc duration*(self: MediaComposition): TimeSpan =
     var tmp: TimeSpan
     vcall(it, Slot_IMediaComposition_get_Duration, Fn_IMediaComposition_get_Duration)(it, tmp.addr).check("MediaComposition.get_Duration")
     result = tmp
+
+proc clips*(self: MediaComposition): seq[MediaClip] =
+  ## Windows.Media.Editing.MediaComposition.get_Clips
+  withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaComposition_get_Clips, Fn_IMediaComposition_get_Clips)(it, tmp.addr).check("MediaComposition.get_Clips")
+    result = toSeq[MediaClip](tmp, IID_IVector_1_MediaClip)
+    release(tmp)
+
+proc backgroundAudioTracks*(self: MediaComposition): seq[BackgroundAudioTrack] =
+  ## Windows.Media.Editing.MediaComposition.get_BackgroundAudioTracks
+  withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaComposition_get_BackgroundAudioTracks, Fn_IMediaComposition_get_BackgroundAudioTracks)(it, tmp.addr).check("MediaComposition.get_BackgroundAudioTracks")
+    result = toSeq[BackgroundAudioTrack](tmp, IID_IVector_1_BackgroundAudioTrack)
+    release(tmp)
 
 proc clone*(self: MediaComposition): MediaComposition =
   ## Windows.Media.Editing.MediaComposition.Clone
@@ -22074,6 +22616,14 @@ proc generatePreviewMediaStreamSource*(self: MediaComposition, a1: int32, a2: in
     var tmp: pointer
     vcall(it, Slot_IMediaComposition_GeneratePreviewMediaStreamSource, Fn_IMediaComposition_GeneratePreviewMediaStreamSource)(it, a1, a2, tmp.addr).check("MediaComposition.GeneratePreviewMediaStreamSource")
     result = adopt[MediaStreamSource](tmp)
+
+proc overlayLayers*(self: MediaComposition): seq[MediaOverlayLayer] =
+  ## Windows.Media.Editing.MediaComposition.get_OverlayLayers
+  withIface(self.p, IID_IMediaComposition2, "IMediaComposition2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaComposition2_get_OverlayLayers, Fn_IMediaComposition2_get_OverlayLayers)(it, tmp.addr).check("MediaComposition.get_OverlayLayers")
+    result = toSeq[MediaOverlayLayer](tmp, IID_IVector_1_MediaOverlayLayer)
+    release(tmp)
 
 proc position*(self: MediaOverlay): Rect =
   ## Windows.Media.Editing.MediaOverlay.get_Position
@@ -22164,6 +22714,14 @@ proc clone*(self: MediaOverlayLayer): MediaOverlayLayer =
     vcall(it, Slot_IMediaOverlayLayer_Clone, Fn_IMediaOverlayLayer_Clone)(it, tmp.addr).check("MediaOverlayLayer.Clone")
     result = adopt[MediaOverlayLayer](tmp)
 
+proc overlays*(self: MediaOverlayLayer): seq[MediaOverlay] =
+  ## Windows.Media.Editing.MediaOverlayLayer.get_Overlays
+  withIface(self.p, IID_IMediaOverlayLayer, "IMediaOverlayLayer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaOverlayLayer_get_Overlays, Fn_IMediaOverlayLayer_get_Overlays)(it, tmp.addr).check("MediaOverlayLayer.get_Overlays")
+    result = toSeq[MediaOverlay](tmp, IID_IVector_1_MediaOverlay)
+    release(tmp)
+
 proc customCompositorDefinition*(self: MediaOverlayLayer): VideoCompositorDefinition =
   ## Windows.Media.Editing.MediaOverlayLayer.get_CustomCompositorDefinition
   withIface(self.p, IID_IMediaOverlayLayer, "IMediaOverlayLayer", it):
@@ -22203,6 +22761,14 @@ proc onAudioCaptureEffectsChanged*(self: AudioCaptureEffectsManager,
 proc removeAudioCaptureEffectsChanged*(self: AudioCaptureEffectsManager, token: EventRegistrationToken) =
   withIface(self.p, IID_IAudioCaptureEffectsManager, "IAudioCaptureEffectsManager", it):
     vcall(it, Slot_IAudioCaptureEffectsManager_remove_AudioCaptureEffectsChanged, Fn_IAudioCaptureEffectsManager_remove_AudioCaptureEffectsChanged)(it, token).check("AudioCaptureEffectsManager.remove_AudioCaptureEffectsChanged")
+
+proc getAudioCaptureEffects*(self: AudioCaptureEffectsManager): seq[AudioEffect] =
+  ## Windows.Media.Effects.AudioCaptureEffectsManager.GetAudioCaptureEffects
+  withIface(self.p, IID_IAudioCaptureEffectsManager, "IAudioCaptureEffectsManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioCaptureEffectsManager_GetAudioCaptureEffects, Fn_IAudioCaptureEffectsManager_GetAudioCaptureEffects)(it, tmp.addr).check("AudioCaptureEffectsManager.GetAudioCaptureEffects")
+    result = toSeq[AudioEffect](tmp, IID_IVectorView_1_AudioEffect)
+    release(tmp)
 
 proc audioEffectType*(self: AudioEffect): AudioEffectType =
   ## Windows.Media.Effects.AudioEffect.get_AudioEffectType
@@ -22317,6 +22883,14 @@ proc onAudioRenderEffectsChanged*(self: AudioRenderEffectsManager,
 proc removeAudioRenderEffectsChanged*(self: AudioRenderEffectsManager, token: EventRegistrationToken) =
   withIface(self.p, IID_IAudioRenderEffectsManager, "IAudioRenderEffectsManager", it):
     vcall(it, Slot_IAudioRenderEffectsManager_remove_AudioRenderEffectsChanged, Fn_IAudioRenderEffectsManager_remove_AudioRenderEffectsChanged)(it, token).check("AudioRenderEffectsManager.remove_AudioRenderEffectsChanged")
+
+proc getAudioRenderEffects*(self: AudioRenderEffectsManager): seq[AudioEffect] =
+  ## Windows.Media.Effects.AudioRenderEffectsManager.GetAudioRenderEffects
+  withIface(self.p, IID_IAudioRenderEffectsManager, "IAudioRenderEffectsManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioRenderEffectsManager_GetAudioRenderEffects, Fn_IAudioRenderEffectsManager_GetAudioRenderEffects)(it, tmp.addr).check("AudioRenderEffectsManager.GetAudioRenderEffects")
+    result = toSeq[AudioEffect](tmp, IID_IVectorView_1_AudioEffect)
+    release(tmp)
 
 proc effectsProviderThumbnail*(self: AudioRenderEffectsManager): pointer =
   ## Windows.Media.Effects.AudioRenderEffectsManager.get_EffectsProviderThumbnail
@@ -22657,6 +23231,14 @@ proc hasSucceeded*(self: PhotoImportDeleteImportedItemsFromSourceResult): bool =
     vcall(it, Slot_IPhotoImportDeleteImportedItemsFromSourceResult_get_HasSucceeded, Fn_IPhotoImportDeleteImportedItemsFromSourceResult_get_HasSucceeded)(it, tmp.addr).check("PhotoImportDeleteImportedItemsFromSourceResult.get_HasSucceeded")
     result = tmp
 
+proc deletedItems*(self: PhotoImportDeleteImportedItemsFromSourceResult): seq[PhotoImportItem] =
+  ## Windows.Media.Import.PhotoImportDeleteImportedItemsFromSourceResult.get_DeletedItems
+  withIface(self.p, IID_IPhotoImportDeleteImportedItemsFromSourceResult, "IPhotoImportDeleteImportedItemsFromSourceResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportDeleteImportedItemsFromSourceResult_get_DeletedItems, Fn_IPhotoImportDeleteImportedItemsFromSourceResult_get_DeletedItems)(it, tmp.addr).check("PhotoImportDeleteImportedItemsFromSourceResult.get_DeletedItems")
+    result = toSeq[PhotoImportItem](tmp, IID_IVectorView_1_PhotoImportItem)
+    release(tmp)
+
 proc photosCount*(self: PhotoImportDeleteImportedItemsFromSourceResult): uint32 =
   ## Windows.Media.Import.PhotoImportDeleteImportedItemsFromSourceResult.get_PhotosCount
   withIface(self.p, IID_IPhotoImportDeleteImportedItemsFromSourceResult, "IPhotoImportDeleteImportedItemsFromSourceResult", it):
@@ -22740,6 +23322,14 @@ proc hasSucceeded*(self: PhotoImportFindItemsResult): bool =
     var tmp: bool
     vcall(it, Slot_IPhotoImportFindItemsResult_get_HasSucceeded, Fn_IPhotoImportFindItemsResult_get_HasSucceeded)(it, tmp.addr).check("PhotoImportFindItemsResult.get_HasSucceeded")
     result = tmp
+
+proc foundItems*(self: PhotoImportFindItemsResult): seq[PhotoImportItem] =
+  ## Windows.Media.Import.PhotoImportFindItemsResult.get_FoundItems
+  withIface(self.p, IID_IPhotoImportFindItemsResult, "IPhotoImportFindItemsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportFindItemsResult_get_FoundItems, Fn_IPhotoImportFindItemsResult_get_FoundItems)(it, tmp.addr).check("PhotoImportFindItemsResult.get_FoundItems")
+    result = toSeq[PhotoImportItem](tmp, IID_IVectorView_1_PhotoImportItem)
+    release(tmp)
 
 proc photosCount*(self: PhotoImportFindItemsResult): uint32 =
   ## Windows.Media.Import.PhotoImportFindItemsResult.get_PhotosCount
@@ -22967,6 +23557,14 @@ proc hasSucceeded*(self: PhotoImportImportItemsResult): bool =
     vcall(it, Slot_IPhotoImportImportItemsResult_get_HasSucceeded, Fn_IPhotoImportImportItemsResult_get_HasSucceeded)(it, tmp.addr).check("PhotoImportImportItemsResult.get_HasSucceeded")
     result = tmp
 
+proc importedItems*(self: PhotoImportImportItemsResult): seq[PhotoImportItem] =
+  ## Windows.Media.Import.PhotoImportImportItemsResult.get_ImportedItems
+  withIface(self.p, IID_IPhotoImportImportItemsResult, "IPhotoImportImportItemsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportImportItemsResult_get_ImportedItems, Fn_IPhotoImportImportItemsResult_get_ImportedItems)(it, tmp.addr).check("PhotoImportImportItemsResult.get_ImportedItems")
+    result = toSeq[PhotoImportItem](tmp, IID_IVectorView_1_PhotoImportItem)
+    release(tmp)
+
 proc photosCount*(self: PhotoImportImportItemsResult): uint32 =
   ## Windows.Media.Import.PhotoImportImportItemsResult.get_PhotosCount
   withIface(self.p, IID_IPhotoImportImportItemsResult, "IPhotoImportImportItemsResult", it):
@@ -23079,6 +23677,22 @@ proc sibling*(self: PhotoImportItem): PhotoImportSidecar =
     vcall(it, Slot_IPhotoImportItem_get_Sibling, Fn_IPhotoImportItem_get_Sibling)(it, tmp.addr).check("PhotoImportItem.get_Sibling")
     result = adopt[PhotoImportSidecar](tmp)
 
+proc sidecars*(self: PhotoImportItem): seq[PhotoImportSidecar] =
+  ## Windows.Media.Import.PhotoImportItem.get_Sidecars
+  withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportItem_get_Sidecars, Fn_IPhotoImportItem_get_Sidecars)(it, tmp.addr).check("PhotoImportItem.get_Sidecars")
+    result = toSeq[PhotoImportSidecar](tmp, IID_IVectorView_1_PhotoImportSidecar)
+    release(tmp)
+
+proc videoSegments*(self: PhotoImportItem): seq[PhotoImportVideoSegment] =
+  ## Windows.Media.Import.PhotoImportItem.get_VideoSegments
+  withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportItem_get_VideoSegments, Fn_IPhotoImportItem_get_VideoSegments)(it, tmp.addr).check("PhotoImportItem.get_VideoSegments")
+    result = toSeq[PhotoImportVideoSegment](tmp, IID_IVectorView_1_PhotoImportVideoSegment)
+    release(tmp)
+
 proc isSelected*(self: PhotoImportItem): bool =
   ## Windows.Media.Import.PhotoImportItem.get_IsSelected
   withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
@@ -23098,6 +23712,22 @@ proc thumbnail*(self: PhotoImportItem): pointer =
     vcall(it, Slot_IPhotoImportItem_get_Thumbnail, Fn_IPhotoImportItem_get_Thumbnail)(it, tmp.addr).check("PhotoImportItem.get_Thumbnail")
     result = tmp
 
+proc importedFileNames*(self: PhotoImportItem): seq[string] =
+  ## Windows.Media.Import.PhotoImportItem.get_ImportedFileNames
+  withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportItem_get_ImportedFileNames, Fn_IPhotoImportItem_get_ImportedFileNames)(it, tmp.addr).check("PhotoImportItem.get_ImportedFileNames")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc deletedFileNames*(self: PhotoImportItem): seq[string] =
+  ## Windows.Media.Import.PhotoImportItem.get_DeletedFileNames
+  withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportItem_get_DeletedFileNames, Fn_IPhotoImportItem_get_DeletedFileNames)(it, tmp.addr).check("PhotoImportItem.get_DeletedFileNames")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc path*(self: PhotoImportItem): string =
   ## Windows.Media.Import.PhotoImportItem.get_Path
   withIface(self.p, IID_IPhotoImportItem2, "IPhotoImportItem2", it):
@@ -23111,6 +23741,14 @@ proc importedItem*(self: PhotoImportItemImportedEventArgs): PhotoImportItem =
     var tmp: pointer
     vcall(it, Slot_IPhotoImportItemImportedEventArgs_get_ImportedItem, Fn_IPhotoImportItemImportedEventArgs_get_ImportedItem)(it, tmp.addr).check("PhotoImportItemImportedEventArgs.get_ImportedItem")
     result = adopt[PhotoImportItem](tmp)
+
+proc getPendingOperations*(_: typedesc[PhotoImportManager]): seq[PhotoImportOperation] =
+  ## Windows.Media.Import.PhotoImportManager.GetPendingOperations
+  withStatics("Windows.Media.Import.PhotoImportManager", IID_IPhotoImportManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportManagerStatics_GetPendingOperations, Fn_IPhotoImportManagerStatics_GetPendingOperations)(it, tmp.addr).check("PhotoImportManager.GetPendingOperations")
+    result = toSeq[PhotoImportOperation](tmp, IID_IVectorView_1_PhotoImportOperation)
+    release(tmp)
 
 proc stage*(self: PhotoImportOperation): PhotoImportStage =
   ## Windows.Media.Import.PhotoImportOperation.get_Stage
@@ -23311,6 +23949,14 @@ proc powerSource*(self: PhotoImportSource): PhotoImportPowerSource =
     vcall(it, Slot_IPhotoImportSource_get_PowerSource, Fn_IPhotoImportSource_get_PowerSource)(it, tmp.addr).check("PhotoImportSource.get_PowerSource")
     result = tmp
 
+proc storageMedia*(self: PhotoImportSource): seq[PhotoImportStorageMedium] =
+  ## Windows.Media.Import.PhotoImportSource.get_StorageMedia
+  withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportSource_get_StorageMedia, Fn_IPhotoImportSource_get_StorageMedia)(it, tmp.addr).check("PhotoImportSource.get_StorageMedia")
+    result = toSeq[PhotoImportStorageMedium](tmp, IID_IVectorView_1_PhotoImportStorageMedium)
+    release(tmp)
+
 proc isMassStorage*(self: PhotoImportSource): bool =
   ## Windows.Media.Import.PhotoImportSource.get_IsMassStorage
   withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
@@ -23413,6 +24059,14 @@ proc sibling*(self: PhotoImportVideoSegment): PhotoImportSidecar =
     var tmp: pointer
     vcall(it, Slot_IPhotoImportVideoSegment_get_Sibling, Fn_IPhotoImportVideoSegment_get_Sibling)(it, tmp.addr).check("PhotoImportVideoSegment.get_Sibling")
     result = adopt[PhotoImportSidecar](tmp)
+
+proc sidecars*(self: PhotoImportVideoSegment): seq[PhotoImportSidecar] =
+  ## Windows.Media.Import.PhotoImportVideoSegment.get_Sidecars
+  withIface(self.p, IID_IPhotoImportVideoSegment, "IPhotoImportVideoSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportVideoSegment_get_Sidecars, Fn_IPhotoImportVideoSegment_get_Sidecars)(it, tmp.addr).check("PhotoImportVideoSegment.get_Sidecars")
+    result = toSeq[PhotoImportSidecar](tmp, IID_IVectorView_1_PhotoImportSidecar)
+    release(tmp)
 
 proc onSoundLevelChanged*(_: typedesc[MediaControl],
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -24389,6 +25043,30 @@ proc container*(self: MediaEncodingProfile): ContainerEncodingProperties =
     var tmp: pointer
     vcall(it, Slot_IMediaEncodingProfile_get_Container, Fn_IMediaEncodingProfile_get_Container)(it, tmp.addr).check("MediaEncodingProfile.get_Container")
     result = adopt[ContainerEncodingProperties](tmp)
+
+proc getAudioTracks*(self: MediaEncodingProfile): seq[AudioStreamDescriptor] =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.GetAudioTracks
+  withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaEncodingProfile2_GetAudioTracks, Fn_IMediaEncodingProfile2_GetAudioTracks)(it, tmp.addr).check("MediaEncodingProfile.GetAudioTracks")
+    result = toSeq[AudioStreamDescriptor](tmp, IID_IVector_1_AudioStreamDescriptor)
+    release(tmp)
+
+proc getVideoTracks*(self: MediaEncodingProfile): seq[VideoStreamDescriptor] =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.GetVideoTracks
+  withIface(self.p, IID_IMediaEncodingProfile2, "IMediaEncodingProfile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaEncodingProfile2_GetVideoTracks, Fn_IMediaEncodingProfile2_GetVideoTracks)(it, tmp.addr).check("MediaEncodingProfile.GetVideoTracks")
+    result = toSeq[VideoStreamDescriptor](tmp, IID_IVector_1_VideoStreamDescriptor)
+    release(tmp)
+
+proc getTimedMetadataTracks*(self: MediaEncodingProfile): seq[TimedMetadataStreamDescriptor] =
+  ## Windows.Media.MediaProperties.MediaEncodingProfile.GetTimedMetadataTracks
+  withIface(self.p, IID_IMediaEncodingProfile3, "IMediaEncodingProfile3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaEncodingProfile3_GetTimedMetadataTracks, Fn_IMediaEncodingProfile3_GetTimedMetadataTracks)(it, tmp.addr).check("MediaEncodingProfile.GetTimedMetadataTracks")
+    result = toSeq[TimedMetadataStreamDescriptor](tmp, IID_IVector_1_TimedMetadataStreamDescriptor)
+    release(tmp)
 
 proc createVp9*(_: typedesc[MediaEncodingProfile], a1: VideoEncodingQuality): MediaEncodingProfile =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.CreateVp9
@@ -25820,6 +26498,14 @@ proc maxSimultaneousConnections*(self: MiracastReceiverStatus): int32 =
     vcall(it, Slot_IMiracastReceiverStatus_get_MaxSimultaneousConnections, Fn_IMiracastReceiverStatus_get_MaxSimultaneousConnections)(it, tmp.addr).check("MiracastReceiverStatus.get_MaxSimultaneousConnections")
     result = tmp
 
+proc knownTransmitters*(self: MiracastReceiverStatus): seq[MiracastTransmitter] =
+  ## Windows.Media.Miracast.MiracastReceiverStatus.get_KnownTransmitters
+  withIface(self.p, IID_IMiracastReceiverStatus, "IMiracastReceiverStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IMiracastReceiverStatus_get_KnownTransmitters, Fn_IMiracastReceiverStatus_get_KnownTransmitters)(it, tmp.addr).check("MiracastReceiverStatus.get_KnownTransmitters")
+    result = toSeq[MiracastTransmitter](tmp, IID_IVectorView_1_MiracastTransmitter)
+    release(tmp)
+
 proc getVideoStreamSettings*(self: MiracastReceiverStreamControl): MiracastReceiverVideoStreamSettings =
   ## Windows.Media.Miracast.MiracastReceiverStreamControl.GetVideoStreamSettings
   withIface(self.p, IID_IMiracastReceiverStreamControl, "IMiracastReceiverStreamControl", it):
@@ -25889,6 +26575,14 @@ proc `authorizationStatus=`*(self: MiracastTransmitter, value: MiracastTransmitt
   ## Windows.Media.Miracast.MiracastTransmitter.put_AuthorizationStatus
   withIface(self.p, IID_IMiracastTransmitter, "IMiracastTransmitter", it):
     vcall(it, Slot_IMiracastTransmitter_put_AuthorizationStatus, Fn_IMiracastTransmitter_put_AuthorizationStatus)(it, value).check("MiracastTransmitter.put_AuthorizationStatus")
+
+proc getConnections*(self: MiracastTransmitter): seq[MiracastReceiverConnection] =
+  ## Windows.Media.Miracast.MiracastTransmitter.GetConnections
+  withIface(self.p, IID_IMiracastTransmitter, "IMiracastTransmitter", it):
+    var tmp: pointer
+    vcall(it, Slot_IMiracastTransmitter_GetConnections, Fn_IMiracastTransmitter_GetConnections)(it, tmp.addr).check("MiracastTransmitter.GetConnections")
+    result = toSeq[MiracastReceiverConnection](tmp, IID_IVectorView_1_MiracastReceiverConnection)
+    release(tmp)
 
 proc macAddress*(self: MiracastTransmitter): string =
   ## Windows.Media.Miracast.MiracastTransmitter.get_MacAddress
@@ -25968,6 +26662,14 @@ proc `trackNumber=`*(self: MusicDisplayProperties, value: uint32) =
   withIface(self.p, IID_IMusicDisplayProperties2, "IMusicDisplayProperties2", it):
     vcall(it, Slot_IMusicDisplayProperties2_put_TrackNumber, Fn_IMusicDisplayProperties2_put_TrackNumber)(it, value).check("MusicDisplayProperties.put_TrackNumber")
 
+proc genres*(self: MusicDisplayProperties): seq[string] =
+  ## Windows.Media.MusicDisplayProperties.get_Genres
+  withIface(self.p, IID_IMusicDisplayProperties2, "IMusicDisplayProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicDisplayProperties2_get_Genres, Fn_IMusicDisplayProperties2_get_Genres)(it, tmp.addr).check("MusicDisplayProperties.get_Genres")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc albumTrackCount*(self: MusicDisplayProperties): uint32 =
   ## Windows.Media.MusicDisplayProperties.get_AlbumTrackCount
   withIface(self.p, IID_IMusicDisplayProperties3, "IMusicDisplayProperties3", it):
@@ -25994,12 +26696,28 @@ proc tryCreateFromUserProfileLanguages*(_: typedesc[OcrEngine]): OcrEngine =
     vcall(it, Slot_IOcrEngineStatics_TryCreateFromUserProfileLanguages, Fn_IOcrEngineStatics_TryCreateFromUserProfileLanguages)(it, tmp.addr).check("OcrEngine.TryCreateFromUserProfileLanguages")
     result = adopt[OcrEngine](tmp)
 
+proc words*(self: OcrLine): seq[OcrWord] =
+  ## Windows.Media.Ocr.OcrLine.get_Words
+  withIface(self.p, IID_IOcrLine, "IOcrLine", it):
+    var tmp: pointer
+    vcall(it, Slot_IOcrLine_get_Words, Fn_IOcrLine_get_Words)(it, tmp.addr).check("OcrLine.get_Words")
+    result = toSeq[OcrWord](tmp, IID_IVectorView_1_OcrWord)
+    release(tmp)
+
 proc text*(self: OcrLine): string =
   ## Windows.Media.Ocr.OcrLine.get_Text
   withIface(self.p, IID_IOcrLine, "IOcrLine", it):
     var tmp: HSTRING
     vcall(it, Slot_IOcrLine_get_Text, Fn_IOcrLine_get_Text)(it, tmp.addr).check("OcrLine.get_Text")
     result = takeString(tmp)
+
+proc lines*(self: OcrResult): seq[OcrLine] =
+  ## Windows.Media.Ocr.OcrResult.get_Lines
+  withIface(self.p, IID_IOcrResult, "IOcrResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IOcrResult_get_Lines, Fn_IOcrResult_get_Lines)(it, tmp.addr).check("OcrResult.get_Lines")
+    result = toSeq[OcrLine](tmp, IID_IVectorView_1_OcrLine)
+    release(tmp)
 
 proc text*(self: OcrResult): string =
   ## Windows.Media.Ocr.OcrResult.get_Text
@@ -26905,6 +27623,14 @@ proc removeMidrollBreak*(self: MediaBreakSchedule, a1: MediaBreak) =
     withIface(a1.p, IID_IMediaBreak, "IMediaBreak", p0):
       vcall(it, Slot_IMediaBreakSchedule_RemoveMidrollBreak, Fn_IMediaBreakSchedule_RemoveMidrollBreak)(it, p0).check("MediaBreakSchedule.RemoveMidrollBreak")
 
+proc midrollBreaks*(self: MediaBreakSchedule): seq[MediaBreak] =
+  ## Windows.Media.Playback.MediaBreakSchedule.get_MidrollBreaks
+  withIface(self.p, IID_IMediaBreakSchedule, "IMediaBreakSchedule", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaBreakSchedule_get_MidrollBreaks, Fn_IMediaBreakSchedule_get_MidrollBreaks)(it, tmp.addr).check("MediaBreakSchedule.get_MidrollBreaks")
+    result = toSeq[MediaBreak](tmp, IID_IVectorView_1_MediaBreak)
+    release(tmp)
+
 proc `prerollBreak=`*(self: MediaBreakSchedule, value: MediaBreak) =
   ## Windows.Media.Playback.MediaBreakSchedule.put_PrerollBreak
   withIface(self.p, IID_IMediaBreakSchedule, "IMediaBreakSchedule", it):
@@ -26937,6 +27663,14 @@ proc playbackItem*(self: MediaBreakSchedule): MediaPlaybackItem =
     var tmp: pointer
     vcall(it, Slot_IMediaBreakSchedule_get_PlaybackItem, Fn_IMediaBreakSchedule_get_PlaybackItem)(it, tmp.addr).check("MediaBreakSchedule.get_PlaybackItem")
     result = adopt[MediaPlaybackItem](tmp)
+
+proc seekedOverBreaks*(self: MediaBreakSeekedOverEventArgs): seq[MediaBreak] =
+  ## Windows.Media.Playback.MediaBreakSeekedOverEventArgs.get_SeekedOverBreaks
+  withIface(self.p, IID_IMediaBreakSeekedOverEventArgs, "IMediaBreakSeekedOverEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaBreakSeekedOverEventArgs_get_SeekedOverBreaks, Fn_IMediaBreakSeekedOverEventArgs_get_SeekedOverBreaks)(it, tmp.addr).check("MediaBreakSeekedOverEventArgs.get_SeekedOverBreaks")
+    result = toSeq[MediaBreak](tmp, IID_IVectorView_1_MediaBreak)
+    release(tmp)
 
 proc oldPosition*(self: MediaBreakSeekedOverEventArgs): TimeSpan =
   ## Windows.Media.Playback.MediaBreakSeekedOverEventArgs.get_OldPosition
@@ -27854,6 +28588,14 @@ proc `startingItem=`*(self: MediaPlaybackList, value: MediaPlaybackItem) =
   withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
     withIface(value.p, IID_IMediaPlaybackItem, "IMediaPlaybackItem", p0):
       vcall(it, Slot_IMediaPlaybackList2_put_StartingItem, Fn_IMediaPlaybackList2_put_StartingItem)(it, p0).check("MediaPlaybackList.put_StartingItem")
+
+proc shuffledItems*(self: MediaPlaybackList): seq[MediaPlaybackItem] =
+  ## Windows.Media.Playback.MediaPlaybackList.get_ShuffledItems
+  withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackList2_get_ShuffledItems, Fn_IMediaPlaybackList2_get_ShuffledItems)(it, tmp.addr).check("MediaPlaybackList.get_ShuffledItems")
+    result = toSeq[MediaPlaybackItem](tmp, IID_IVectorView_1_MediaPlaybackItem)
+    release(tmp)
 
 proc onPlaybackStateChanged*(self: MediaPlaybackSession,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -29492,6 +30234,14 @@ proc newNDStorageFileHelper*(): NDStorageFileHelper =
   ## Activate a `Windows.Media.Protection.PlayReady.NDStorageFileHelper`.
   adopt[NDStorageFileHelper](activateAs("Windows.Media.Protection.PlayReady.NDStorageFileHelper", IID_INDStorageFileHelper))
 
+proc getFileURLs*(self: NDStorageFileHelper, a1: pointer): seq[string] =
+  ## Windows.Media.Protection.PlayReady.NDStorageFileHelper.GetFileURLs
+  withIface(self.p, IID_INDStorageFileHelper, "INDStorageFileHelper", it):
+    var tmp: pointer
+    vcall(it, Slot_INDStorageFileHelper_GetFileURLs, Fn_INDStorageFileHelper_GetFileURLs)(it, a1, tmp.addr).check("NDStorageFileHelper.GetFileURLs")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc newNDStreamParserNotifier*(): NDStreamParserNotifier =
   ## Activate a `Windows.Media.Protection.PlayReady.NDStreamParserNotifier`.
   adopt[NDStreamParserNotifier](activateAs("Windows.Media.Protection.PlayReady.NDStreamParserNotifier", IID_INDStreamParserNotifier))
@@ -30343,6 +31093,14 @@ proc isTypeSupported*(self: ProtectionCapabilities, a1: string, a2: string): Pro
         vcall(it, Slot_IProtectionCapabilities_IsTypeSupported, Fn_IProtectionCapabilities_IsTypeSupported)(it, h0, h1, tmp.addr).check("ProtectionCapabilities.IsTypeSupported")
         result = tmp
 
+proc items*(self: RevocationAndRenewalInformation): seq[RevocationAndRenewalItem] =
+  ## Windows.Media.Protection.RevocationAndRenewalInformation.get_Items
+  withIface(self.p, IID_IRevocationAndRenewalInformation, "IRevocationAndRenewalInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IRevocationAndRenewalInformation_get_Items, Fn_IRevocationAndRenewalInformation_get_Items)(it, tmp.addr).check("RevocationAndRenewalInformation.get_Items")
+    result = toSeq[RevocationAndRenewalItem](tmp, IID_IVector_1_RevocationAndRenewalItem)
+    release(tmp)
+
 proc reasons*(self: RevocationAndRenewalItem): RevocationAndRenewalReasons =
   ## Windows.Media.Protection.RevocationAndRenewalItem.get_Reasons
   withIface(self.p, IID_IRevocationAndRenewalItem, "IRevocationAndRenewalItem", it):
@@ -30575,6 +31333,14 @@ proc hypothesis*(self: SpeechRecognitionHypothesisGeneratedEventArgs): SpeechRec
     vcall(it, Slot_ISpeechRecognitionHypothesisGeneratedEventArgs_get_Hypothesis, Fn_ISpeechRecognitionHypothesisGeneratedEventArgs_get_Hypothesis)(it, tmp.addr).check("SpeechRecognitionHypothesisGeneratedEventArgs.get_Hypothesis")
     result = adopt[SpeechRecognitionHypothesis](tmp)
 
+proc commands*(self: SpeechRecognitionListConstraint): seq[string] =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.get_Commands
+  withIface(self.p, IID_ISpeechRecognitionListConstraint, "ISpeechRecognitionListConstraint", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionListConstraint_get_Commands, Fn_ISpeechRecognitionListConstraint_get_Commands)(it, tmp.addr).check("SpeechRecognitionListConstraint.get_Commands")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc isEnabled*(self: SpeechRecognitionListConstraint): bool =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionListConstraint.get_IsEnabled
   withIface(self.p, IID_ISpeechRecognitionConstraint, "ISpeechRecognitionConstraint", it):
@@ -30654,12 +31420,28 @@ proc semanticInterpretation*(self: SpeechRecognitionResult): SpeechRecognitionSe
     vcall(it, Slot_ISpeechRecognitionResult_get_SemanticInterpretation, Fn_ISpeechRecognitionResult_get_SemanticInterpretation)(it, tmp.addr).check("SpeechRecognitionResult.get_SemanticInterpretation")
     result = adopt[SpeechRecognitionSemanticInterpretation](tmp)
 
+proc getAlternates*(self: SpeechRecognitionResult, a1: uint32): seq[SpeechRecognitionResult] =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionResult.GetAlternates
+  withIface(self.p, IID_ISpeechRecognitionResult, "ISpeechRecognitionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionResult_GetAlternates, Fn_ISpeechRecognitionResult_GetAlternates)(it, a1, tmp.addr).check("SpeechRecognitionResult.GetAlternates")
+    result = toSeq[SpeechRecognitionResult](tmp, IID_IVectorView_1_SpeechRecognitionResult)
+    release(tmp)
+
 proc constraint*(self: SpeechRecognitionResult): pointer =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionResult.get_Constraint
   withIface(self.p, IID_ISpeechRecognitionResult, "ISpeechRecognitionResult", it):
     var tmp: pointer
     vcall(it, Slot_ISpeechRecognitionResult_get_Constraint, Fn_ISpeechRecognitionResult_get_Constraint)(it, tmp.addr).check("SpeechRecognitionResult.get_Constraint")
     result = tmp
+
+proc rulePath*(self: SpeechRecognitionResult): seq[string] =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionResult.get_RulePath
+  withIface(self.p, IID_ISpeechRecognitionResult, "ISpeechRecognitionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionResult_get_RulePath, Fn_ISpeechRecognitionResult_get_RulePath)(it, tmp.addr).check("SpeechRecognitionResult.get_RulePath")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc rawConfidence*(self: SpeechRecognitionResult): float64 =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionResult.get_RawConfidence
@@ -30990,6 +31772,14 @@ proc `showConfirmation=`*(self: SpeechRecognizerUIOptions, value: bool) =
   withIface(self.p, IID_ISpeechRecognizerUIOptions, "ISpeechRecognizerUIOptions", it):
     vcall(it, Slot_ISpeechRecognizerUIOptions_put_ShowConfirmation, Fn_ISpeechRecognizerUIOptions_put_ShowConfirmation)(it, value).check("SpeechRecognizerUIOptions.put_ShowConfirmation")
 
+proc timedMetadataTracks*(self: SpeechSynthesisStream): seq[TimedMetadataTrack] =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_TimedMetadataTracks
+  withIface(self.p, IID_ITimedMetadataTrackProvider, "ITimedMetadataTrackProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimedMetadataTrackProvider_get_TimedMetadataTracks, Fn_ITimedMetadataTrackProvider_get_TimedMetadataTracks)(it, tmp.addr).check("SpeechSynthesisStream.get_TimedMetadataTracks")
+    result = toSeq[TimedMetadataTrack](tmp, IID_IVectorView_1_TimedMetadataTrack)
+    release(tmp)
+
 proc newSpeechSynthesizer*(): SpeechSynthesizer =
   ## Activate a `Windows.Media.SpeechSynthesis.SpeechSynthesizer`.
   adopt[SpeechSynthesizer](activateAs("Windows.Media.SpeechSynthesis.SpeechSynthesizer", IID_ISpeechSynthesizer))
@@ -31013,6 +31803,14 @@ proc options*(self: SpeechSynthesizer): SpeechSynthesizerOptions =
     var tmp: pointer
     vcall(it, Slot_ISpeechSynthesizer2_get_Options, Fn_ISpeechSynthesizer2_get_Options)(it, tmp.addr).check("SpeechSynthesizer.get_Options")
     result = adopt[SpeechSynthesizerOptions](tmp)
+
+proc allVoices*(_: typedesc[SpeechSynthesizer]): seq[VoiceInformation] =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesizer.get_AllVoices
+  withStatics("Windows.Media.SpeechSynthesis.SpeechSynthesizer", IID_IInstalledVoicesStatic, it):
+    var tmp: pointer
+    vcall(it, Slot_IInstalledVoicesStatic_get_AllVoices, Fn_IInstalledVoicesStatic_get_AllVoices)(it, tmp.addr).check("SpeechSynthesizer.get_AllVoices")
+    result = toSeq[VoiceInformation](tmp, IID_IVectorView_1_VoiceInformation)
+    release(tmp)
 
 proc defaultVoice*(_: typedesc[SpeechSynthesizer]): VoiceInformation =
   ## Windows.Media.SpeechSynthesis.SpeechSynthesizer.get_DefaultVoice
@@ -32196,6 +32994,14 @@ proc `subtitle=`*(self: VideoDisplayProperties, value: string) =
   withIface(self.p, IID_IVideoDisplayProperties, "IVideoDisplayProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IVideoDisplayProperties_put_Subtitle, Fn_IVideoDisplayProperties_put_Subtitle)(it, h0).check("VideoDisplayProperties.put_Subtitle")
+
+proc genres*(self: VideoDisplayProperties): seq[string] =
+  ## Windows.Media.VideoDisplayProperties.get_Genres
+  withIface(self.p, IID_IVideoDisplayProperties2, "IVideoDisplayProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoDisplayProperties2_get_Genres, Fn_IVideoDisplayProperties2_get_Genres)(it, tmp.addr).check("VideoDisplayProperties.get_Genres")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc videoStabilization*(_: typedesc[VideoEffects]): string =
   ## Windows.Media.VideoEffects.get_VideoStabilization

@@ -14,6 +14,9 @@ export core, services
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs* = GUID(
     data1: 0x82B3F7DF'u32, data2: 0xBF13'u16, data3: 0x5445'u16,
     data4: [0xAA'u8, 0xDC, 0xEC, 0x61, 0xB5, 0x0F, 0xBB, 0x46])
@@ -26,21 +29,78 @@ const IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs* = GUI
 const IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs* = GUID(
     data1: 0x743DB36F'u32, data2: 0xE9AA'u16, data3: 0x557A'u16,
     data4: [0x9F'u8, 0xD7, 0x30, 0x4C, 0x9B, 0x04, 0x99, 0xDF])
+const IID_IVectorView_1_GuidanceManeuver* = GUID(
+    data1: 0x875644D8'u32, data2: 0x57A4'u16, data3: 0x59D6'u16,
+    data4: [0x9D'u8, 0x2C, 0x5D, 0x45, 0x0D, 0x39, 0xD2, 0xF6])
+const IID_IVectorView_1_GuidanceRoadSegment* = GUID(
+    data1: 0xF04C7CC2'u32, data2: 0x4D54'u16, data3: 0x5244'u16,
+    data4: [0xBE'u8, 0xB2, 0x8F, 0x4F, 0x05, 0xC1, 0x84, 0xE6])
+const IID_IVectorView_1_GuidanceLaneInfo* = GUID(
+    data1: 0x81493670'u32, data2: 0xE515'u16, data3: 0x5C62'u16,
+    data4: [0xB3'u8, 0x4C, 0x6E, 0x3D, 0x99, 0x6C, 0xAD, 0x31])
+const IID_IVectorView_1_LocalLocationHoursOfOperationItem* = GUID(
+    data1: 0x65535172'u32, data2: 0xCD91'u16, data3: 0x5B4C'u16,
+    data4: [0xAA'u8, 0x60, 0xDA, 0xB1, 0x46, 0x30, 0x12, 0x84])
+const IID_IVectorView_1_LocalLocation* = GUID(
+    data1: 0x619192F2'u32, data2: 0x4F9D'u16, data3: 0x5629'u16,
+    data4: [0xAB'u8, 0x01, 0xB1, 0x85, 0x12, 0x50, 0x3D, 0x73])
+const IID_IVectorView_1_MapLocation* = GUID(
+    data1: 0x58D33D10'u32, data2: 0xE2EF'u16, data3: 0x59F1'u16,
+    data4: [0xB8'u8, 0x5E, 0xA8, 0x81, 0x9F, 0xF0, 0xD9, 0x26])
+const IID_IVectorView_1_MapRouteLeg* = GUID(
+    data1: 0xF9976360'u32, data2: 0xB3B0'u16, data3: 0x5A88'u16,
+    data4: [0xB1'u8, 0xB6, 0xF4, 0x33, 0x9B, 0xB8, 0x5B, 0xF0])
+const IID_IVectorView_1_MapRoute* = GUID(
+    data1: 0x265676A9'u32, data2: 0x4A33'u16, data3: 0x5D29'u16,
+    data4: [0x97'u8, 0x1E, 0x82, 0x44, 0xA0, 0x21, 0xB8, 0x4E])
+const IID_IVectorView_1_MapRouteManeuver* = GUID(
+    data1: 0xA3F56695'u32, data2: 0x468F'u16, data3: 0x55EF'u16,
+    data4: [0xB1'u8, 0x84, 0xC9, 0x8B, 0x4C, 0xC7, 0xE4, 0x84])
+const IID_IVectorView_1_ManeuverWarning* = GUID(
+    data1: 0x44C11B20'u32, data2: 0xC16D'u16, data3: 0x56E1'u16,
+    data4: [0xA0'u8, 0xA3, 0x6E, 0xB4, 0x4F, 0x24, 0x92, 0xEA])
 const IID_TypedEventHandler_2_OfflineMapPackage_Object* = GUID(
     data1: 0x2D2E0D20'u32, data2: 0x826F'u16, data3: 0x560C'u16,
     data4: [0xB1'u8, 0xC1, 0xB4, 0xBD, 0x6F, 0xBF, 0x32, 0x9A])
+const IID_IVectorView_1_OfflineMapPackage* = GUID(
+    data1: 0x2522EBC2'u32, data2: 0xBD9F'u16, data3: 0x551B'u16,
+    data4: [0xB9'u8, 0x0E, 0x6C, 0x28, 0x15, 0x29, 0x58, 0xA0])
 const IID_TypedEventHandler_2_StoreContext_Object* = GUID(
     data1: 0xD5A00AC7'u32, data2: 0x082D'u16, data3: 0x547C'u16,
     data4: [0xA0'u8, 0x4B, 0x25, 0x40, 0xC1, 0xCD, 0xE9, 0x7A])
 const IID_TypedEventHandler_2_StorePackageLicense_Object* = GUID(
     data1: 0x6C59D637'u32, data2: 0x2970'u16, data3: 0x5F64'u16,
     data4: [0x95'u8, 0x11, 0xD3, 0x9A, 0xC2, 0x45, 0xBC, 0x94])
+const IID_IVectorView_1_StoreQueueItem* = GUID(
+    data1: 0xB2D3E99F'u32, data2: 0xD3AC'u16, data3: 0x577D'u16,
+    data4: [0xB9'u8, 0x77, 0xFD, 0xB6, 0x67, 0xD2, 0x0D, 0xEF])
+const IID_IVectorView_1_StoreImage* = GUID(
+    data1: 0x7E1CEACE'u32, data2: 0x82BD'u16, data3: 0x5DB3'u16,
+    data4: [0x8F'u8, 0x35, 0x9B, 0xF0, 0xC8, 0x8E, 0xF8, 0x39])
+const IID_IVectorView_1_StoreVideo* = GUID(
+    data1: 0x6E31FCA5'u32, data2: 0x119E'u16, data3: 0x5799'u16,
+    data4: [0xA5'u8, 0x1B, 0xCD, 0x6A, 0xDD, 0xEC, 0xD8, 0x70])
+const IID_IVectorView_1_StoreSku* = GUID(
+    data1: 0x407C4593'u32, data2: 0x063D'u16, data3: 0x5C9B'u16,
+    data4: [0xB8'u8, 0xE0, 0x94, 0x9F, 0xE1, 0x38, 0x79, 0x63])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs* = GUID(
     data1: 0x2BAC2880'u32, data2: 0x78FD'u16, data3: 0x5CBE'u16,
     data4: [0x82'u8, 0x71, 0x7D, 0x58, 0x3E, 0x4E, 0xC2, 0xC4])
 const IID_TypedEventHandler_2_StoreQueueItem_Object* = GUID(
     data1: 0xF8AE3690'u32, data2: 0xF9DB'u16, data3: 0x57E8'u16,
     data4: [0x84'u8, 0x3E, 0x24, 0x4C, 0x0A, 0x6A, 0x13, 0xE0])
+const IID_IVectorView_1_StoreAvailability* = GUID(
+    data1: 0x01E5F751'u32, data2: 0x8C50'u16, data3: 0x52CB'u16,
+    data4: [0xAB'u8, 0xC2, 0xE9, 0x86, 0x24, 0x02, 0xC7, 0x8A])
+const IID_IVectorView_1_TargetedContentCollection* = GUID(
+    data1: 0xCEA4C859'u32, data2: 0x8736'u16, data3: 0x5C75'u16,
+    data4: [0xBB'u8, 0x83, 0xA6, 0x86, 0xBF, 0x7F, 0x7C, 0x6F])
+const IID_IVectorView_1_TargetedContentItem* = GUID(
+    data1: 0x31E3ED33'u32, data2: 0x8554'u16, data3: 0x5496'u16,
+    data4: [0x86'u8, 0xA4, 0xD7, 0x83, 0x92, 0x20, 0x4C, 0x8F])
 const IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs* = GUID(
     data1: 0xEF11D751'u32, data2: 0x9D56'u16, data3: 0x580D'u16,
     data4: [0x8A'u8, 0x9F, 0x51, 0xAE, 0x7E, 0x80, 0x36, 0xE3])
@@ -50,6 +110,12 @@ const IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailab
 const IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs* = GUID(
     data1: 0xC4D5ACBE'u32, data2: 0xF65B'u16, data3: 0x5FA4'u16,
     data4: [0x92'u8, 0x42, 0xD2, 0x86, 0x0D, 0xE8, 0x5D, 0x52])
+const IID_IVectorView_1_TargetedContentImage* = GUID(
+    data1: 0xF55AC7C6'u32, data2: 0x168D'u16, data3: 0x5010'u16,
+    data4: [0x84'u8, 0xCF, 0x36, 0xBF, 0x45, 0x1E, 0xDE, 0x38])
+const IID_IVectorView_1_TargetedContentAction* = GUID(
+    data1: 0x4299BD84'u32, data2: 0xE44E'u16, data3: 0x5FCB'u16,
+    data4: [0xA4'u8, 0x65, 0xE1, 0xBD, 0x43, 0x4A, 0x31, 0x7C])
 
 type
   CortanaActionableInsights* {.inheritable, pure.} = object
@@ -1412,6 +1478,14 @@ proc audioNotification*(self: GuidanceAudioNotificationRequestedEventArgs): Guid
     vcall(it, Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification, Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification)(it, tmp.addr).check("GuidanceAudioNotificationRequestedEventArgs.get_AudioNotification")
     result = tmp
 
+proc audioFilePaths*(self: GuidanceAudioNotificationRequestedEventArgs): seq[string] =
+  ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioFilePaths
+  withIface(self.p, IID_IGuidanceAudioNotificationRequestedEventArgs, "IGuidanceAudioNotificationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths, Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths)(it, tmp.addr).check("GuidanceAudioNotificationRequestedEventArgs.get_AudioFilePaths")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc audioText*(self: GuidanceAudioNotificationRequestedEventArgs): string =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioText
   withIface(self.p, IID_IGuidanceAudioNotificationRequestedEventArgs, "IGuidanceAudioNotificationRequestedEventArgs", it):
@@ -1881,6 +1955,14 @@ proc foregroundColor*(self: GuidanceRoadSignpost): Color =
     vcall(it, Slot_IGuidanceRoadSignpost_get_ForegroundColor, Fn_IGuidanceRoadSignpost_get_ForegroundColor)(it, tmp.addr).check("GuidanceRoadSignpost.get_ForegroundColor")
     result = tmp
 
+proc exitDirections*(self: GuidanceRoadSignpost): seq[string] =
+  ## Windows.Services.Maps.Guidance.GuidanceRoadSignpost.get_ExitDirections
+  withIface(self.p, IID_IGuidanceRoadSignpost, "IGuidanceRoadSignpost", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoadSignpost_get_ExitDirections, Fn_IGuidanceRoadSignpost_get_ExitDirections)(it, tmp.addr).check("GuidanceRoadSignpost.get_ExitDirections")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc duration*(self: GuidanceRoute): TimeSpan =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Duration
   withIface(self.p, IID_IGuidanceRoute, "IGuidanceRoute", it):
@@ -1894,6 +1976,22 @@ proc distance*(self: GuidanceRoute): int32 =
     var tmp: int32
     vcall(it, Slot_IGuidanceRoute_get_Distance, Fn_IGuidanceRoute_get_Distance)(it, tmp.addr).check("GuidanceRoute.get_Distance")
     result = tmp
+
+proc maneuvers*(self: GuidanceRoute): seq[GuidanceManeuver] =
+  ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Maneuvers
+  withIface(self.p, IID_IGuidanceRoute, "IGuidanceRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoute_get_Maneuvers, Fn_IGuidanceRoute_get_Maneuvers)(it, tmp.addr).check("GuidanceRoute.get_Maneuvers")
+    result = toSeq[GuidanceManeuver](tmp, IID_IVectorView_1_GuidanceManeuver)
+    release(tmp)
+
+proc roadSegments*(self: GuidanceRoute): seq[GuidanceRoadSegment] =
+  ## Windows.Services.Maps.Guidance.GuidanceRoute.get_RoadSegments
+  withIface(self.p, IID_IGuidanceRoute, "IGuidanceRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoute_get_RoadSegments, Fn_IGuidanceRoute_get_RoadSegments)(it, tmp.addr).check("GuidanceRoute.get_RoadSegments")
+    result = toSeq[GuidanceRoadSegment](tmp, IID_IVectorView_1_GuidanceRoadSegment)
+    release(tmp)
 
 proc convertToMapRoute*(self: GuidanceRoute): MapRoute =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.ConvertToMapRoute
@@ -2057,6 +2155,14 @@ proc isNewManeuver*(self: GuidanceUpdatedEventArgs): bool =
     vcall(it, Slot_IGuidanceUpdatedEventArgs_get_IsNewManeuver, Fn_IGuidanceUpdatedEventArgs_get_IsNewManeuver)(it, tmp.addr).check("GuidanceUpdatedEventArgs.get_IsNewManeuver")
     result = tmp
 
+proc laneInfo*(self: GuidanceUpdatedEventArgs): seq[GuidanceLaneInfo] =
+  ## Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs.get_LaneInfo
+  withIface(self.p, IID_IGuidanceUpdatedEventArgs, "IGuidanceUpdatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceUpdatedEventArgs_get_LaneInfo, Fn_IGuidanceUpdatedEventArgs_get_LaneInfo)(it, tmp.addr).check("GuidanceUpdatedEventArgs.get_LaneInfo")
+    result = toSeq[GuidanceLaneInfo](tmp, IID_IVectorView_1_GuidanceLaneInfo)
+    release(tmp)
+
 proc bankAndCreditUnions*(_: typedesc[LocalCategories]): string =
   ## Windows.Services.Maps.LocalSearch.LocalCategories.get_BankAndCreditUnions
   withStatics("Windows.Services.Maps.LocalSearch.LocalCategories", IID_ILocalCategoriesStatics, it):
@@ -2168,6 +2274,22 @@ proc ratingInfo*(self: LocalLocation): LocalLocationRatingInfo =
     var tmp: pointer
     vcall(it, Slot_ILocalLocation2_get_RatingInfo, Fn_ILocalLocation2_get_RatingInfo)(it, tmp.addr).check("LocalLocation.get_RatingInfo")
     result = adopt[LocalLocationRatingInfo](tmp)
+
+proc hoursOfOperation*(self: LocalLocation): seq[LocalLocationHoursOfOperationItem] =
+  ## Windows.Services.Maps.LocalSearch.LocalLocation.get_HoursOfOperation
+  withIface(self.p, IID_ILocalLocation2, "ILocalLocation2", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalLocation2_get_HoursOfOperation, Fn_ILocalLocation2_get_HoursOfOperation)(it, tmp.addr).check("LocalLocation.get_HoursOfOperation")
+    result = toSeq[LocalLocationHoursOfOperationItem](tmp, IID_IVectorView_1_LocalLocationHoursOfOperationItem)
+    release(tmp)
+
+proc localLocations*(self: LocalLocationFinderResult): seq[LocalLocation] =
+  ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_LocalLocations
+  withIface(self.p, IID_ILocalLocationFinderResult, "ILocalLocationFinderResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalLocationFinderResult_get_LocalLocations, Fn_ILocalLocationFinderResult_get_LocalLocations)(it, tmp.addr).check("LocalLocationFinderResult.get_LocalLocations")
+    result = toSeq[LocalLocation](tmp, IID_IVectorView_1_LocalLocation)
+    release(tmp)
 
 proc status*(self: LocalLocationFinderResult): LocalLocationFinderStatus =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_Status
@@ -2352,6 +2474,14 @@ proc address*(self: MapLocation): MapAddress =
     vcall(it, Slot_IMapLocation_get_Address, Fn_IMapLocation_get_Address)(it, tmp.addr).check("MapLocation.get_Address")
     result = adopt[MapAddress](tmp)
 
+proc locations*(self: MapLocationFinderResult): seq[MapLocation] =
+  ## Windows.Services.Maps.MapLocationFinderResult.get_Locations
+  withIface(self.p, IID_IMapLocationFinderResult, "IMapLocationFinderResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapLocationFinderResult_get_Locations, Fn_IMapLocationFinderResult_get_Locations)(it, tmp.addr).check("MapLocationFinderResult.get_Locations")
+    result = toSeq[MapLocation](tmp, IID_IVectorView_1_MapLocation)
+    release(tmp)
+
 proc status*(self: MapLocationFinderResult): MapLocationFinderStatus =
   ## Windows.Services.Maps.MapLocationFinderResult.get_Status
   withIface(self.p, IID_IMapLocationFinderResult, "IMapLocationFinderResult", it):
@@ -2382,6 +2512,14 @@ proc estimatedDuration*(self: MapRoute): TimeSpan =
     var tmp: TimeSpan
     vcall(it, Slot_IMapRoute_get_EstimatedDuration, Fn_IMapRoute_get_EstimatedDuration)(it, tmp.addr).check("MapRoute.get_EstimatedDuration")
     result = tmp
+
+proc legs*(self: MapRoute): seq[MapRouteLeg] =
+  ## Windows.Services.Maps.MapRoute.get_Legs
+  withIface(self.p, IID_IMapRoute, "IMapRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRoute_get_Legs, Fn_IMapRoute_get_Legs)(it, tmp.addr).check("MapRoute.get_Legs")
+    result = toSeq[MapRouteLeg](tmp, IID_IVectorView_1_MapRouteLeg)
+    release(tmp)
 
 proc isTrafficBased*(self: MapRoute): bool =
   ## Windows.Services.Maps.MapRoute.get_IsTrafficBased
@@ -2479,6 +2617,14 @@ proc status*(self: MapRouteFinderResult): MapRouteFinderStatus =
     vcall(it, Slot_IMapRouteFinderResult_get_Status, Fn_IMapRouteFinderResult_get_Status)(it, tmp.addr).check("MapRouteFinderResult.get_Status")
     result = tmp
 
+proc alternateRoutes*(self: MapRouteFinderResult): seq[MapRoute] =
+  ## Windows.Services.Maps.MapRouteFinderResult.get_AlternateRoutes
+  withIface(self.p, IID_IMapRouteFinderResult2, "IMapRouteFinderResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteFinderResult2_get_AlternateRoutes, Fn_IMapRouteFinderResult2_get_AlternateRoutes)(it, tmp.addr).check("MapRouteFinderResult.get_AlternateRoutes")
+    result = toSeq[MapRoute](tmp, IID_IVectorView_1_MapRoute)
+    release(tmp)
+
 proc lengthInMeters*(self: MapRouteLeg): float64 =
   ## Windows.Services.Maps.MapRouteLeg.get_LengthInMeters
   withIface(self.p, IID_IMapRouteLeg, "IMapRouteLeg", it):
@@ -2492,6 +2638,14 @@ proc estimatedDuration*(self: MapRouteLeg): TimeSpan =
     var tmp: TimeSpan
     vcall(it, Slot_IMapRouteLeg_get_EstimatedDuration, Fn_IMapRouteLeg_get_EstimatedDuration)(it, tmp.addr).check("MapRouteLeg.get_EstimatedDuration")
     result = tmp
+
+proc maneuvers*(self: MapRouteLeg): seq[MapRouteManeuver] =
+  ## Windows.Services.Maps.MapRouteLeg.get_Maneuvers
+  withIface(self.p, IID_IMapRouteLeg, "IMapRouteLeg", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteLeg_get_Maneuvers, Fn_IMapRouteLeg_get_Maneuvers)(it, tmp.addr).check("MapRouteLeg.get_Maneuvers")
+    result = toSeq[MapRouteManeuver](tmp, IID_IVectorView_1_MapRouteManeuver)
+    release(tmp)
 
 proc durationWithoutTraffic*(self: MapRouteLeg): TimeSpan =
   ## Windows.Services.Maps.MapRouteLeg.get_DurationWithoutTraffic
@@ -2562,6 +2716,14 @@ proc streetName*(self: MapRouteManeuver): string =
     var tmp: HSTRING
     vcall(it, Slot_IMapRouteManeuver2_get_StreetName, Fn_IMapRouteManeuver2_get_StreetName)(it, tmp.addr).check("MapRouteManeuver.get_StreetName")
     result = takeString(tmp)
+
+proc warnings*(self: MapRouteManeuver): seq[ManeuverWarning] =
+  ## Windows.Services.Maps.MapRouteManeuver.get_Warnings
+  withIface(self.p, IID_IMapRouteManeuver3, "IMapRouteManeuver3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteManeuver3_get_Warnings, Fn_IMapRouteManeuver3_get_Warnings)(it, tmp.addr).check("MapRouteManeuver.get_Warnings")
+    result = toSeq[ManeuverWarning](tmp, IID_IVectorView_1_ManeuverWarning)
+    release(tmp)
 
 proc `dataUsagePreference=`*(_: typedesc[MapService], value: MapServiceDataUsagePreference) =
   ## Windows.Services.Maps.MapService.put_DataUsagePreference
@@ -2655,6 +2817,14 @@ proc status*(self: OfflineMapPackageQueryResult): OfflineMapPackageQueryStatus =
     var tmp: OfflineMapPackageQueryStatus
     vcall(it, Slot_IOfflineMapPackageQueryResult_get_Status, Fn_IOfflineMapPackageQueryResult_get_Status)(it, tmp.addr).check("OfflineMapPackageQueryResult.get_Status")
     result = tmp
+
+proc packages*(self: OfflineMapPackageQueryResult): seq[OfflineMapPackage] =
+  ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult.get_Packages
+  withIface(self.p, IID_IOfflineMapPackageQueryResult, "IOfflineMapPackageQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IOfflineMapPackageQueryResult_get_Packages, Fn_IOfflineMapPackageQueryResult_get_Packages)(it, tmp.addr).check("OfflineMapPackageQueryResult.get_Packages")
+    result = toSeq[OfflineMapPackage](tmp, IID_IVectorView_1_OfflineMapPackage)
+    release(tmp)
 
 proc status*(self: OfflineMapPackageStartDownloadResult): OfflineMapPackageStartDownloadStatus =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult.get_Status
@@ -3133,6 +3303,14 @@ proc overallState*(self: StorePackageUpdateResult): StorePackageUpdateState =
     vcall(it, Slot_IStorePackageUpdateResult_get_OverallState, Fn_IStorePackageUpdateResult_get_OverallState)(it, tmp.addr).check("StorePackageUpdateResult.get_OverallState")
     result = tmp
 
+proc storeQueueItems*(self: StorePackageUpdateResult): seq[StoreQueueItem] =
+  ## Windows.Services.Store.StorePackageUpdateResult.get_StoreQueueItems
+  withIface(self.p, IID_IStorePackageUpdateResult2, "IStorePackageUpdateResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorePackageUpdateResult2_get_StoreQueueItems, Fn_IStorePackageUpdateResult2_get_StoreQueueItems)(it, tmp.addr).check("StorePackageUpdateResult.get_StoreQueueItems")
+    result = toSeq[StoreQueueItem](tmp, IID_IVectorView_1_StoreQueueItem)
+    release(tmp)
+
 proc formattedBasePrice*(self: StorePrice): string =
   ## Windows.Services.Store.StorePrice.get_FormattedBasePrice
   withIface(self.p, IID_IStorePrice, "IStorePrice", it):
@@ -3238,6 +3416,38 @@ proc hasDigitalDownload*(self: StoreProduct): bool =
     vcall(it, Slot_IStoreProduct_get_HasDigitalDownload, Fn_IStoreProduct_get_HasDigitalDownload)(it, tmp.addr).check("StoreProduct.get_HasDigitalDownload")
     result = tmp
 
+proc keywords*(self: StoreProduct): seq[string] =
+  ## Windows.Services.Store.StoreProduct.get_Keywords
+  withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProduct_get_Keywords, Fn_IStoreProduct_get_Keywords)(it, tmp.addr).check("StoreProduct.get_Keywords")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc images*(self: StoreProduct): seq[StoreImage] =
+  ## Windows.Services.Store.StoreProduct.get_Images
+  withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProduct_get_Images, Fn_IStoreProduct_get_Images)(it, tmp.addr).check("StoreProduct.get_Images")
+    result = toSeq[StoreImage](tmp, IID_IVectorView_1_StoreImage)
+    release(tmp)
+
+proc videos*(self: StoreProduct): seq[StoreVideo] =
+  ## Windows.Services.Store.StoreProduct.get_Videos
+  withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProduct_get_Videos, Fn_IStoreProduct_get_Videos)(it, tmp.addr).check("StoreProduct.get_Videos")
+    result = toSeq[StoreVideo](tmp, IID_IVectorView_1_StoreVideo)
+    release(tmp)
+
+proc skus*(self: StoreProduct): seq[StoreSku] =
+  ## Windows.Services.Store.StoreProduct.get_Skus
+  withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProduct_get_Skus, Fn_IStoreProduct_get_Skus)(it, tmp.addr).check("StoreProduct.get_Skus")
+    result = toSeq[StoreSku](tmp, IID_IVectorView_1_StoreSku)
+    release(tmp)
+
 proc isInUserCollection*(self: StoreProduct): bool =
   ## Windows.Services.Store.StoreProduct.get_IsInUserCollection
   withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
@@ -3269,6 +3479,14 @@ proc inAppOfferToken*(self: StoreProduct): string =
 proc newStoreProductOptions*(): StoreProductOptions =
   ## Activate a `Windows.Services.Store.StoreProductOptions`.
   adopt[StoreProductOptions](activateAs("Windows.Services.Store.StoreProductOptions", IID_IStoreProductOptions))
+
+proc actionFilters*(self: StoreProductOptions): seq[string] =
+  ## Windows.Services.Store.StoreProductOptions.get_ActionFilters
+  withIface(self.p, IID_IStoreProductOptions, "IStoreProductOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProductOptions_get_ActionFilters, Fn_IStoreProductOptions_get_ActionFilters)(it, tmp.addr).check("StoreProductOptions.get_ActionFilters")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc hasMoreResults*(self: StoreProductPagedQueryResult): bool =
   ## Windows.Services.Store.StoreProductPagedQueryResult.get_HasMoreResults
@@ -3563,6 +3781,30 @@ proc customDeveloperData*(self: StoreSku): string =
     vcall(it, Slot_IStoreSku_get_CustomDeveloperData, Fn_IStoreSku_get_CustomDeveloperData)(it, tmp.addr).check("StoreSku.get_CustomDeveloperData")
     result = takeString(tmp)
 
+proc images*(self: StoreSku): seq[StoreImage] =
+  ## Windows.Services.Store.StoreSku.get_Images
+  withIface(self.p, IID_IStoreSku, "IStoreSku", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreSku_get_Images, Fn_IStoreSku_get_Images)(it, tmp.addr).check("StoreSku.get_Images")
+    result = toSeq[StoreImage](tmp, IID_IVectorView_1_StoreImage)
+    release(tmp)
+
+proc videos*(self: StoreSku): seq[StoreVideo] =
+  ## Windows.Services.Store.StoreSku.get_Videos
+  withIface(self.p, IID_IStoreSku, "IStoreSku", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreSku_get_Videos, Fn_IStoreSku_get_Videos)(it, tmp.addr).check("StoreSku.get_Videos")
+    result = toSeq[StoreVideo](tmp, IID_IVectorView_1_StoreVideo)
+    release(tmp)
+
+proc availabilities*(self: StoreSku): seq[StoreAvailability] =
+  ## Windows.Services.Store.StoreSku.get_Availabilities
+  withIface(self.p, IID_IStoreSku, "IStoreSku", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreSku_get_Availabilities, Fn_IStoreSku_get_Availabilities)(it, tmp.addr).check("StoreSku.get_Availabilities")
+    result = toSeq[StoreAvailability](tmp, IID_IVectorView_1_StoreAvailability)
+    release(tmp)
+
 proc price*(self: StoreSku): StorePrice =
   ## Windows.Services.Store.StoreSku.get_Price
   withIface(self.p, IID_IStoreSku, "IStoreSku", it):
@@ -3583,6 +3825,14 @@ proc isInUserCollection*(self: StoreSku): bool =
     var tmp: bool
     vcall(it, Slot_IStoreSku_get_IsInUserCollection, Fn_IStoreSku_get_IsInUserCollection)(it, tmp.addr).check("StoreSku.get_IsInUserCollection")
     result = tmp
+
+proc bundledSkus*(self: StoreSku): seq[string] =
+  ## Windows.Services.Store.StoreSku.get_BundledSkus
+  withIface(self.p, IID_IStoreSku, "IStoreSku", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreSku_get_BundledSkus, Fn_IStoreSku_get_BundledSkus)(it, tmp.addr).check("StoreSku.get_BundledSkus")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc collectionData*(self: StoreSku): StoreCollectionData =
   ## Windows.Services.Store.StoreSku.get_CollectionData
@@ -3728,6 +3978,22 @@ proc path*(self: TargetedContentCollection): string =
     vcall(it, Slot_ITargetedContentCollection_get_Path, Fn_ITargetedContentCollection_get_Path)(it, tmp.addr).check("TargetedContentCollection.get_Path")
     result = takeString(tmp)
 
+proc collections*(self: TargetedContentCollection): seq[TargetedContentCollection] =
+  ## Windows.Services.TargetedContent.TargetedContentCollection.get_Collections
+  withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentCollection_get_Collections, Fn_ITargetedContentCollection_get_Collections)(it, tmp.addr).check("TargetedContentCollection.get_Collections")
+    result = toSeq[TargetedContentCollection](tmp, IID_IVectorView_1_TargetedContentCollection)
+    release(tmp)
+
+proc items*(self: TargetedContentCollection): seq[TargetedContentItem] =
+  ## Windows.Services.TargetedContent.TargetedContentCollection.get_Items
+  withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentCollection_get_Items, Fn_ITargetedContentCollection_get_Items)(it, tmp.addr).check("TargetedContentCollection.get_Items")
+    result = toSeq[TargetedContentItem](tmp, IID_IVectorView_1_TargetedContentItem)
+    release(tmp)
+
 proc id*(self: TargetedContentContainer): string =
   ## Windows.Services.TargetedContent.TargetedContentContainer.get_Id
   withIface(self.p, IID_ITargetedContentContainer, "ITargetedContentContainer", it):
@@ -3802,6 +4068,14 @@ proc state*(self: TargetedContentItem): TargetedContentItemState =
     var tmp: pointer
     vcall(it, Slot_ITargetedContentItem_get_State, Fn_ITargetedContentItem_get_State)(it, tmp.addr).check("TargetedContentItem.get_State")
     result = adopt[TargetedContentItemState](tmp)
+
+proc collections*(self: TargetedContentItem): seq[TargetedContentCollection] =
+  ## Windows.Services.TargetedContent.TargetedContentItem.get_Collections
+  withIface(self.p, IID_ITargetedContentItem, "ITargetedContentItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentItem_get_Collections, Fn_ITargetedContentItem_get_Collections)(it, tmp.addr).check("TargetedContentItem.get_Collections")
+    result = toSeq[TargetedContentCollection](tmp, IID_IVectorView_1_TargetedContentCollection)
+    release(tmp)
 
 proc shouldDisplay*(self: TargetedContentItemState): bool =
   ## Windows.Services.TargetedContent.TargetedContentItemState.get_ShouldDisplay
@@ -3936,6 +4210,14 @@ proc `allowPartialContentAvailability=`*(self: TargetedContentSubscriptionOption
   withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
     vcall(it, Slot_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability, Fn_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability)(it, value).check("TargetedContentSubscriptionOptions.put_AllowPartialContentAvailability")
 
+proc localFilters*(self: TargetedContentSubscriptionOptions): seq[string] =
+  ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_LocalFilters
+  withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentSubscriptionOptions_get_LocalFilters, Fn_ITargetedContentSubscriptionOptions_get_LocalFilters)(it, tmp.addr).check("TargetedContentSubscriptionOptions.get_LocalFilters")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc update*(self: TargetedContentSubscriptionOptions) =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.Update
   withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
@@ -3989,4 +4271,28 @@ proc action*(self: TargetedContentValue): TargetedContentAction =
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Action, Fn_ITargetedContentValue_get_Action)(it, tmp.addr).check("TargetedContentValue.get_Action")
     result = adopt[TargetedContentAction](tmp)
+
+proc strings*(self: TargetedContentValue): seq[string] =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Strings
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Strings, Fn_ITargetedContentValue_get_Strings)(it, tmp.addr).check("TargetedContentValue.get_Strings")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc imageFiles*(self: TargetedContentValue): seq[TargetedContentImage] =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_ImageFiles
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_ImageFiles, Fn_ITargetedContentValue_get_ImageFiles)(it, tmp.addr).check("TargetedContentValue.get_ImageFiles")
+    result = toSeq[TargetedContentImage](tmp, IID_IVectorView_1_TargetedContentImage)
+    release(tmp)
+
+proc actions*(self: TargetedContentValue): seq[TargetedContentAction] =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Actions
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Actions, Fn_ITargetedContentValue_get_Actions)(it, tmp.addr).check("TargetedContentValue.get_Actions")
+    result = toSeq[TargetedContentAction](tmp, IID_IVectorView_1_TargetedContentAction)
+    release(tmp)
 

@@ -20,6 +20,18 @@ const IID_TypedEventHandler_2_ScreenReaderService_ScreenReaderPositionChangedEve
 const IID_TypedEventHandler_2_AccountsSettingsPane_AccountsSettingsPaneCommandsRequestedEventArgs* = GUID(
     data1: 0x69B8847E'u32, data2: 0x7D72'u16, data3: 0x5A15'u16,
     data4: [0xBC'u8, 0x1C, 0x4C, 0xA3, 0x9C, 0x93, 0xB1, 0x62])
+const IID_IVector_1_WebAccountProviderCommand* = GUID(
+    data1: 0xD376ABF3'u32, data2: 0xF0C1'u16, data3: 0x5233'u16,
+    data4: [0x9F'u8, 0x42, 0xDE, 0x53, 0x18, 0x84, 0x96, 0x3E])
+const IID_IVector_1_WebAccountCommand* = GUID(
+    data1: 0x64E864C8'u32, data2: 0x7FEF'u16, data3: 0x5DF5'u16,
+    data4: [0xA6'u8, 0x24, 0x50, 0xB5, 0x77, 0xF4, 0x85, 0x54])
+const IID_IVector_1_CredentialCommand* = GUID(
+    data1: 0xB6AF1CB5'u32, data2: 0xF60E'u16, data3: 0x5B08'u16,
+    data4: [0xB3'u8, 0x12, 0x2E, 0xB5, 0x11, 0x35, 0xCF, 0xC6])
+const IID_IVector_1_SettingsCommand* = GUID(
+    data1: 0x10BD9CDD'u32, data2: 0x3767'u16, data3: 0x5E96'u16,
+    data4: [0x90'u8, 0x22, 0xF0, 0x0F, 0x9C, 0xBD, 0x62, 0x41])
 const IID_TypedEventHandler_2_SettingsPane_SettingsPaneCommandsRequestedEventArgs* = GUID(
     data1: 0xF39A56A2'u32, data2: 0x7DB1'u16, data3: 0x5C48'u16,
     data4: [0x9E'u8, 0x13, 0x7D, 0xC4, 0x85, 0xA4, 0xA9, 0x9E])
@@ -35,6 +47,9 @@ const IID_TypedEventHandler_2_CompositionGraphicsDevice_RenderingDeviceReplacedE
 const IID_TypedEventHandler_2_CompositorController_Object* = GUID(
     data1: 0xE60C8424'u32, data2: 0x3154'u16, data3: 0x566E'u16,
     data4: [0x9A'u8, 0xA2, 0xEE, 0xC4, 0x9F, 0xCE, 0x00, 0x4A])
+const IID_IVectorView_1_IPropertyAnimation* = GUID(
+    data1: 0x3A6ED95D'u32, data2: 0x6A50'u16, data3: 0x5EAD'u16,
+    data4: [0xA4'u8, 0xC6, 0x09, 0xF8, 0xBA, 0xBC, 0x63, 0x2C])
 const IID_TypedEventHandler_2_CoreDispatcher_AcceleratorKeyEventArgs* = GUID(
     data1: 0x136DFF0D'u32, data2: 0xF7E8'u16, data3: 0x5153'u16,
     data4: [0xB3'u8, 0x1C, 0x86, 0x39, 0x0C, 0x70, 0x18, 0x80])
@@ -101,6 +116,12 @@ const IID_TypedEventHandler_2_CoreWindow_Object* = GUID(
 const IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs* = GUID(
     data1: 0xB32D6422'u32, data2: 0x78B2'u16, data3: 0x5E00'u16,
     data4: [0x84'u8, 0xA8, 0x6E, 0x31, 0x67, 0xAA, 0xAB, 0xDE])
+const IID_IVector_1_IUICommand* = GUID(
+    data1: 0x105139A1'u32, data2: 0xDCB8'u16, data3: 0x5F65'u16,
+    data4: [0x97'u8, 0xEF, 0xCB, 0x1B, 0xF0, 0xB7, 0x5F, 0x9D])
+const IID_IVector_1_PointerPoint* = GUID(
+    data1: 0xDFA655CF'u32, data2: 0xFDE7'u16, data3: 0x5048'u16,
+    data4: [0xB4'u8, 0xBF, 0xC9, 0x09, 0x23, 0x1B, 0x7E, 0xDB])
 const IID_EventHandler_1_SystemNavigationCloseRequestedPreviewEventArgs* = GUID(
     data1: 0x01BCA043'u32, data2: 0x4D09'u16, data3: 0x59E4'u16,
     data4: [0xB1'u8, 0xB3, 0xA2, 0xCE, 0x24, 0x62, 0x9E, 0x41])
@@ -137,18 +158,42 @@ const IID_TypedEventHandler_2_GestureRecognizer_ManipulationCompletedEventArgs* 
 const IID_TypedEventHandler_2_GestureRecognizer_CrossSlidingEventArgs* = GUID(
     data1: 0x1FC1EB70'u32, data2: 0x0C26'u16, data3: 0x5CF0'u16,
     data4: [0x9E'u8, 0x50, 0x84, 0x3A, 0x34, 0x08, 0x36, 0x13])
+const IID_IVectorView_1_IInkAnalysisNode* = GUID(
+    data1: 0x2B3FEE11'u32, data2: 0x53B5'u16, data3: 0x55B0'u16,
+    data4: [0x8D'u8, 0x71, 0xC4, 0x0B, 0x42, 0x7D, 0xE0, 0x29])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs* = GUID(
     data1: 0xB83FBE98'u32, data2: 0x882A'u16, data3: 0x5B69'u16,
     data4: [0xBD'u8, 0x1C, 0xC6, 0x66, 0x90, 0x70, 0x7F, 0xEF])
+const IID_IVector_1_InkPoint* = GUID(
+    data1: 0x10C47202'u32, data2: 0x47AB'u16, data3: 0x58BC'u16,
+    data4: [0x91'u8, 0xDE, 0xD5, 0x00, 0x0F, 0x1A, 0x74, 0xC0])
 const IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs* = GUID(
     data1: 0x67FF75E8'u32, data2: 0x02A4'u16, data3: 0x5254'u16,
     data4: [0xA9'u8, 0x65, 0x0B, 0x25, 0x4C, 0x7D, 0x07, 0x88])
+const IID_IVectorView_1_InkRecognizer* = GUID(
+    data1: 0x8EADFA4F'u32, data2: 0x27EF'u16, data3: 0x5A5D'u16,
+    data4: [0xB0'u8, 0xB8, 0x7F, 0xD5, 0xC0, 0xCE, 0x6B, 0x39])
+const IID_IVectorView_1_InkStroke* = GUID(
+    data1: 0x6744F458'u32, data2: 0xB242'u16, data3: 0x5767'u16,
+    data4: [0xA6'u8, 0x43, 0x99, 0x6E, 0x01, 0xDF, 0xF0, 0xE4])
+const IID_IVectorView_1_InkRecognitionResult* = GUID(
+    data1: 0xECFC4F0B'u32, data2: 0x112C'u16, data3: 0x5CD3'u16,
+    data4: [0xAC'u8, 0xF0, 0xD7, 0x46, 0xD6, 0xBD, 0xFE, 0xB5])
 const IID_TypedEventHandler_2_InkPresenter_InkStrokesCollectedEventArgs* = GUID(
     data1: 0x176BFA8F'u32, data2: 0xC0DE'u16, data3: 0x5B3A'u16,
     data4: [0xB2'u8, 0x8C, 0x0F, 0x39, 0x31, 0xCA, 0x52, 0xD3])
 const IID_TypedEventHandler_2_InkPresenter_InkStrokesErasedEventArgs* = GUID(
     data1: 0x30FEC929'u32, data2: 0x14D0'u16, data3: 0x550F'u16,
     data4: [0x84'u8, 0xF2, 0x13, 0x7F, 0xC6, 0xA9, 0xF0, 0x8F])
+const IID_IVectorView_1_InkStrokeRenderingSegment* = GUID(
+    data1: 0xF39EA41D'u32, data2: 0x4714'u16, data3: 0x5D80'u16,
+    data4: [0x87'u8, 0xDE, 0x97, 0x3D, 0xD2, 0x6D, 0xA2, 0x69])
+const IID_IVectorView_1_InkPoint* = GUID(
+    data1: 0xD1AC414B'u32, data2: 0xC87D'u16, data3: 0x540F'u16,
+    data4: [0x8A'u8, 0xB1, 0x4E, 0x0D, 0x09, 0xD9, 0xD2, 0x83])
 const IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs* = GUID(
     data1: 0xBF66B962'u32, data2: 0x702D'u16, data3: 0x5C07'u16,
     data4: [0xA2'u8, 0xD5, 0x15, 0xF2, 0x15, 0x83, 0xC4, 0x3A])
@@ -242,6 +287,9 @@ const IID_TypedEventHandler_2_RadialController_RadialControllerButtonHoldingEven
 const IID_TypedEventHandler_2_RadialController_RadialControllerButtonReleasedEventArgs* = GUID(
     data1: 0xC22FF62C'u32, data2: 0xC642'u16, data3: 0x5D50'u16,
     data4: [0x93'u8, 0x40, 0xFE, 0x16, 0x31, 0x22, 0x72, 0x0C])
+const IID_IVector_1_RadialControllerMenuItem* = GUID(
+    data1: 0xBFDE94E7'u32, data2: 0x70F8'u16, data3: 0x5CC0'u16,
+    data4: [0x98'u8, 0xE2, 0x8C, 0x0F, 0x8C, 0xE5, 0x24, 0xAB])
 const IID_TypedEventHandler_2_RadialControllerMenuItem_Object* = GUID(
     data1: 0x5C90D6FB'u32, data2: 0xE4F8'u16, data3: 0x5BE2'u16,
     data4: [0x85'u8, 0x44, 0x9D, 0xE3, 0x3F, 0x82, 0xC4, 0x1A])
@@ -311,6 +359,15 @@ const IID_TypedEventHandler_2_TouchpadGesturesController_TouchpadGlobalActionEve
 const IID_TypedEventHandler_2_UserNotificationListener_UserNotificationChangedEventArgs* = GUID(
     data1: 0x10242902'u32, data2: 0xB897'u16, data3: 0x5507'u16,
     data4: [0x99'u8, 0x22, 0x2C, 0x0A, 0x7D, 0x34, 0x46, 0x4D])
+const IID_IVectorView_1_AdaptiveNotificationText* = GUID(
+    data1: 0xB60DE92B'u32, data2: 0x4E12'u16, data3: 0x55AF'u16,
+    data4: [0xB4'u8, 0x2F, 0xAF, 0xE2, 0xD7, 0x0B, 0xA2, 0x78])
+const IID_IVector_1_NotificationBinding* = GUID(
+    data1: 0x7F7D8AD7'u32, data2: 0xB4D2'u16, data3: 0x5A03'u16,
+    data4: [0xBE'u8, 0x6F, 0x2B, 0x89, 0x87, 0x5F, 0xB3, 0x2D])
+const IID_IVectorView_1_ScheduledTileNotification* = GUID(
+    data1: 0x4F729C64'u32, data2: 0xA213'u16, data3: 0x52E9'u16,
+    data4: [0xAF'u8, 0x8B, 0x58, 0xAD, 0xCA, 0x3E, 0x59, 0x7F])
 const IID_TypedEventHandler_2_ToastNotification_ToastDismissedEventArgs* = GUID(
     data1: 0x61C2402F'u32, data2: 0x0ED0'u16, data3: 0x5A18'u16,
     data4: [0xAB'u8, 0x69, 0x59, 0xF4, 0xAA, 0x99, 0xA3, 0x68])
@@ -320,9 +377,15 @@ const IID_TypedEventHandler_2_ToastNotification_Object* = GUID(
 const IID_TypedEventHandler_2_ToastNotification_ToastFailedEventArgs* = GUID(
     data1: 0x95E3E803'u32, data2: 0xC969'u16, data3: 0x5E3A'u16,
     data4: [0x97'u8, 0x53, 0xEA, 0x2A, 0xD2, 0x2A, 0x9A, 0x33])
+const IID_IVectorView_1_ToastNotification* = GUID(
+    data1: 0xA819F3DE'u32, data2: 0x60AA'u16, data3: 0x5159'u16,
+    data4: [0x84'u8, 0x07, 0xF0, 0xA7, 0xFB, 0x1F, 0x68, 0x32])
 const IID_TypedEventHandler_2_ToastNotificationManagerForUser_Object* = GUID(
     data1: 0x821BDF6B'u32, data2: 0x029A'u16, data3: 0x5299'u16,
     data4: [0x93'u8, 0xF3, 0x30, 0x77, 0xB2, 0xEE, 0x5E, 0x33])
+const IID_IVectorView_1_ScheduledToastNotification* = GUID(
+    data1: 0xBA0AFF1F'u32, data2: 0x6A8A'u16, data3: 0x5A7E'u16,
+    data4: [0xA9'u8, 0xF7, 0x50, 0x5B, 0x62, 0x66, 0xA4, 0x36])
 const IID_TypedEventHandler_2_ToastNotifier_ScheduledToastNotificationShowingEventArgs* = GUID(
     data1: 0xB1BB0CAB'u32, data2: 0xF8B9'u16, data3: 0x5909'u16,
     data4: [0xA8'u8, 0x72, 0xEF, 0x29, 0xE0, 0x5A, 0x8C, 0x7A])
@@ -347,9 +410,18 @@ const IID_TypedEventHandler_2_WindowTabManager_WindowTabTearOutRequestedEventArg
 const IID_TypedEventHandler_2_WindowTabManager_WindowTabThumbnailRequestedEventArgs* = GUID(
     data1: 0xF07B88F9'u32, data2: 0xF897'u16, data3: 0x5CE5'u16,
     data4: [0x9D'u8, 0x2A, 0x54, 0x77, 0x84, 0x47, 0xFB, 0xDB])
+const IID_IVector_1_JumpListItem* = GUID(
+    data1: 0xAF8F3FB2'u32, data2: 0xF179'u16, data3: 0x5F0A'u16,
+    data4: [0xAA'u8, 0x09, 0x28, 0x94, 0x2E, 0xED, 0xF6, 0x25])
 const IID_TypedEventHandler_2_SecondaryTile_VisualElementsRequestedEventArgs* = GUID(
     data1: 0x02D9F968'u32, data2: 0xFA76'u16, data3: 0x5D77'u16,
     data4: [0x93'u8, 0x4B, 0x66, 0x5E, 0x7C, 0x3B, 0xE7, 0xCF])
+const IID_IVectorView_1_SecondaryTileVisualElements* = GUID(
+    data1: 0x1CD2CC9B'u32, data2: 0xA41C'u16, data3: 0x5DC7'u16,
+    data4: [0x9D'u8, 0x95, 0x4C, 0xEF, 0x69, 0xA2, 0x93, 0xF4])
+const IID_IVectorView_1_CoreTextCompositionSegment* = GUID(
+    data1: 0x214B64FF'u32, data2: 0xCF4D'u16, data3: 0x5DD4'u16,
+    data4: [0x93'u8, 0x2A, 0x7B, 0xC6, 0x6E, 0x69, 0x03, 0x6E])
 const IID_TypedEventHandler_2_CoreTextEditContext_CoreTextTextRequestedEventArgs* = GUID(
     data1: 0xC7E08176'u32, data2: 0x4134'u16, data3: 0x50B7'u16,
     data4: [0xBC'u8, 0x73, 0x72, 0x9E, 0x9F, 0x9A, 0xD2, 0x2A])
@@ -395,12 +467,18 @@ const IID_TypedEventHandler_2_ApplicationView_ApplicationViewConsolidatedEventAr
 const IID_TypedEventHandler_2_ApplicationView_Object* = GUID(
     data1: 0x00C1F983'u32, data2: 0xC836'u16, data3: 0x565C'u16,
     data4: [0x8B'u8, 0xBF, 0x70, 0x53, 0x05, 0x5B, 0xDB, 0x4C])
+const IID_IVectorView_1_DisplayRegion* = GUID(
+    data1: 0x9460DEBB'u32, data2: 0xA0D6'u16, data3: 0x5AB8'u16,
+    data4: [0x84'u8, 0xF5, 0x90, 0x87, 0xF2, 0xA6, 0xBB, 0x67])
 const IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewAnimationStartingEventArgs* = GUID(
     data1: 0xCFD46669'u32, data2: 0x0E5A'u16, data3: 0x5C60'u16,
     data4: [0xA8'u8, 0xA2, 0xDC, 0x2D, 0x89, 0x97, 0x89, 0xDA])
 const IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewOcclusionsChangedEventArgs* = GUID(
     data1: 0xD081E63B'u32, data2: 0xB7C7'u16, data3: 0x5859'u16,
     data4: [0x8A'u8, 0x08, 0xBB, 0x19, 0xBF, 0x0C, 0x90, 0xB2])
+const IID_IVectorView_1_CoreInputViewOcclusion* = GUID(
+    data1: 0xE0963578'u32, data2: 0xA246'u16, data3: 0x5680'u16,
+    data4: [0x86'u8, 0xD1, 0x27, 0x51, 0x94, 0x23, 0xE2, 0x12])
 const IID_TypedEventHandler_2_CoreInputView_CoreInputViewOcclusionsChangedEventArgs* = GUID(
     data1: 0x5ADECF04'u32, data2: 0xEDD1'u16, data3: 0x5133'u16,
     data4: [0xAB'u8, 0xC7, 0x58, 0x2A, 0x02, 0x7F, 0x09, 0xBB])
@@ -458,12 +536,45 @@ const IID_TypedEventHandler_2_AppWindow_AppWindowClosedEventArgs* = GUID(
 const IID_TypedEventHandler_2_AppWindow_AppWindowCloseRequestedEventArgs* = GUID(
     data1: 0xC0359718'u32, data2: 0x173D'u16, data3: 0x5F19'u16,
     data4: [0xB7'u8, 0x6A, 0x91, 0x92, 0x9B, 0x2B, 0x04, 0x51])
+const IID_IVectorView_1_AppWindowTitleBarOcclusion* = GUID(
+    data1: 0x586D5577'u32, data2: 0x7D02'u16, data3: 0x5C77'u16,
+    data4: [0xBB'u8, 0x43, 0x39, 0x52, 0x2F, 0x80, 0x97, 0x2E])
 const IID_TypedEventHandler_2_DisplayRegion_Object* = GUID(
     data1: 0x2C40D18B'u32, data2: 0x7438'u16, data3: 0x5EB4'u16,
     data4: [0x93'u8, 0x59, 0x78, 0x97, 0xFC, 0xE7, 0xE3, 0xFC])
 const IID_TypedEventHandler_2_WindowingEnvironment_WindowingEnvironmentChangedEventArgs* = GUID(
     data1: 0x3AF2BD46'u32, data2: 0x4225'u16, data3: 0x5A93'u16,
     data4: [0x85'u8, 0xED, 0x73, 0xA0, 0x1E, 0x91, 0xD0, 0xB5])
+const IID_IVectorView_1_WindowingEnvironment* = GUID(
+    data1: 0xC833C1C0'u32, data2: 0x79C6'u16, data3: 0x522E'u16,
+    data4: [0xB7'u8, 0x1B, 0xD8, 0x45, 0xE0, 0xF6, 0x66, 0x8E])
+const IID_IVector_1_UIElement* = GUID(
+    data1: 0xB4C1E3AC'u32, data2: 0x8768'u16, data3: 0x5B9D'u16,
+    data4: [0xA6'u8, 0x61, 0xF6, 0x33, 0x30, 0xB8, 0x50, 0x7B])
+const IID_IVector_1_AutomationAnnotation* = GUID(
+    data1: 0x73596C82'u32, data2: 0xF6E5'u16, data3: 0x5B57'u16,
+    data4: [0x8D'u8, 0xC5, 0x55, 0x6C, 0xB7, 0xA8, 0xFB, 0xE6])
+const IID_IVector_1_DependencyObject* = GUID(
+    data1: 0x771B857E'u32, data2: 0xAB5C'u16, data3: 0x5DB8'u16,
+    data4: [0xA0'u8, 0x21, 0x39, 0x7C, 0x92, 0xCD, 0xC4, 0x4C])
+const IID_IVector_1_AutomationPeer* = GUID(
+    data1: 0xA8D8A409'u32, data2: 0x9130'u16, data3: 0x5E14'u16,
+    data4: [0x84'u8, 0x26, 0x07, 0x82, 0xAA, 0xF0, 0x16, 0x08])
+const IID_IVectorView_1_AutomationPeer* = GUID(
+    data1: 0xB56A6076'u32, data2: 0x19E2'u16, data3: 0x50C1'u16,
+    data4: [0x93'u8, 0x0F, 0x82, 0x5B, 0xFC, 0x39, 0x63, 0x5C])
+const IID_IVector_1_AutomationPeerAnnotation* = GUID(
+    data1: 0xD353F885'u32, data2: 0x4BF0'u16, data3: 0x5DC2'u16,
+    data4: [0x87'u8, 0x8E, 0xEC, 0x7A, 0x39, 0x4E, 0xE8, 0x80])
+const IID_IIterable_1_AutomationPeer* = GUID(
+    data1: 0x7F67A4E2'u32, data2: 0x96E0'u16, data3: 0x522B'u16,
+    data4: [0x87'u8, 0x10, 0x14, 0xC4, 0x2D, 0x83, 0x4F, 0x1E])
+const IID_IVector_1_ResourceDictionary* = GUID(
+    data1: 0xFE820A0C'u32, data2: 0x694D'u16, data3: 0x518B'u16,
+    data4: [0x8E'u8, 0xC5, 0x37, 0x29, 0x93, 0xF6, 0xCE, 0xAF])
+const IID_IVectorView_1_Pointer* = GUID(
+    data1: 0x6250F79F'u32, data2: 0x7668'u16, data3: 0x51E9'u16,
+    data4: [0x86'u8, 0xA3, 0x38, 0x21, 0x21, 0x7A, 0x66, 0x31])
 const IID_TypedEventHandler_2_UIElement_DragStartingEventArgs* = GUID(
     data1: 0xECC4B13B'u32, data2: 0x146C'u16, data3: 0x5963'u16,
     data4: [0xB8'u8, 0xB3, 0x02, 0x4C, 0x5B, 0x9B, 0x95, 0xE4])
@@ -485,6 +596,9 @@ const IID_TypedEventHandler_2_UIElement_AccessKeyDisplayDismissedEventArgs* = GU
 const IID_TypedEventHandler_2_UIElement_AccessKeyInvokedEventArgs* = GUID(
     data1: 0xA5C9A137'u32, data2: 0xF716'u16, data3: 0x5D8D'u16,
     data4: [0x92'u8, 0xC4, 0x02, 0xF1, 0x71, 0x93, 0x6F, 0xA1])
+const IID_IVector_1_XamlLight* = GUID(
+    data1: 0x883F90FF'u32, data2: 0x8F3E'u16, data3: 0x5DD2'u16,
+    data4: [0x94'u8, 0x7C, 0xD7, 0xB3, 0x05, 0xDA, 0xA5, 0x04])
 const IID_TypedEventHandler_2_UIElement_GettingFocusEventArgs* = GUID(
     data1: 0x34F34B77'u32, data2: 0xEC52'u16, data3: 0x5EB6'u16,
     data4: [0xAF'u8, 0xFC, 0x22, 0x0C, 0xB5, 0x2C, 0xA0, 0x93])
@@ -494,6 +608,9 @@ const IID_TypedEventHandler_2_UIElement_LosingFocusEventArgs* = GUID(
 const IID_TypedEventHandler_2_UIElement_NoFocusCandidateFoundEventArgs* = GUID(
     data1: 0xD5DE4415'u32, data2: 0xB53C'u16, data3: 0x5312'u16,
     data4: [0x9E'u8, 0x1B, 0xAC, 0x2A, 0x19, 0xF0, 0x4E, 0x71])
+const IID_IVector_1_KeyboardAccelerator* = GUID(
+    data1: 0xE4927FEB'u32, data2: 0x1E4A'u16, data3: 0x5BE3'u16,
+    data4: [0xBD'u8, 0xA3, 0x62, 0xCF, 0x4E, 0x52, 0x02, 0x58])
 const IID_TypedEventHandler_2_UIElement_CharacterReceivedRoutedEventArgs* = GUID(
     data1: 0x24330117'u32, data2: 0x55D4'u16, data3: 0x5789'u16,
     data4: [0x8A'u8, 0xA2, 0x6C, 0xAB, 0x1D, 0x06, 0x62, 0xA0])
@@ -503,6 +620,9 @@ const IID_TypedEventHandler_2_UIElement_ProcessKeyboardAcceleratorEventArgs* = G
 const IID_TypedEventHandler_2_UIElement_BringIntoViewRequestedEventArgs* = GUID(
     data1: 0x2126CF26'u32, data2: 0x9201'u16, data3: 0x5D6B'u16,
     data4: [0x84'u8, 0x5E, 0x97, 0xE1, 0xC4, 0x4B, 0x9F, 0xFD])
+const IID_IIterable_1_DependencyObject* = GUID(
+    data1: 0xF66C6BD3'u32, data2: 0x55B4'u16, data3: 0x5BBB'u16,
+    data4: [0xB8'u8, 0x2A, 0x6D, 0x9C, 0xE3, 0x83, 0x09, 0x1A])
 const IID_TypedEventHandler_2_FrameworkElement_DataContextChangedEventArgs* = GUID(
     data1: 0xB01C8A21'u32, data2: 0xDE6F'u16, data3: 0x5EDD'u16,
     data4: [0x87'u8, 0x96, 0x30, 0x0E, 0x3F, 0xE6, 0x63, 0x82])
@@ -569,9 +689,15 @@ const IID_TypedEventHandler_2_DatePicker_DatePickerSelectedValueChangedEventArgs
 const IID_TypedEventHandler_2_DatePickerFlyout_DatePickedEventArgs* = GUID(
     data1: 0x4D9C196F'u32, data2: 0xCDD3'u16, data3: 0x54D8'u16,
     data4: [0x98'u8, 0xD9, 0x4F, 0x29, 0xAB, 0xBA, 0xDE, 0x76])
+const IID_IVector_1_PageStackEntry* = GUID(
+    data1: 0xE561A13F'u32, data2: 0x89A1'u16, data3: 0x5EF2'u16,
+    data4: [0xA3'u8, 0xFE, 0xEB, 0xA1, 0xB4, 0x53, 0x9B, 0x46])
 const IID_TypedEventHandler_2_ListViewBase_ContainerContentChangingEventArgs* = GUID(
     data1: 0xD01FB083'u32, data2: 0x5E61'u16, data3: 0x5C12'u16,
     data4: [0xA1'u8, 0x8F, 0x62, 0x94, 0x71, 0x58, 0xFA, 0xA8])
+const IID_IVectorView_1_ItemIndexRange* = GUID(
+    data1: 0xD0B26B06'u32, data2: 0x16E8'u16, data3: 0x5767'u16,
+    data4: [0xA6'u8, 0x0B, 0xEE, 0x3E, 0x32, 0xE4, 0x3D, 0xFB])
 const IID_TypedEventHandler_2_ListViewBase_DragItemsCompletedEventArgs* = GUID(
     data1: 0x586D1C88'u32, data2: 0xE27E'u16, data3: 0x58AD'u16,
     data4: [0x8E'u8, 0x2F, 0x7E, 0x6E, 0x83, 0xD8, 0x1E, 0x40])
@@ -593,12 +719,18 @@ const IID_TypedEventHandler_2_HandwritingView_HandwritingViewCandidatesChangedEv
 const IID_TypedEventHandler_2_HandwritingView_HandwritingViewTextSubmittedEventArgs* = GUID(
     data1: 0xB4B367E1'u32, data2: 0xED5B'u16, data3: 0x5920'u16,
     data4: [0x8E'u8, 0x5E, 0x5E, 0x2A, 0xE4, 0xE9, 0x62, 0x1E])
+const IID_IVector_1_HubSection* = GUID(
+    data1: 0x8E47087A'u32, data2: 0x3CE3'u16, data3: 0x57DC'u16,
+    data4: [0xA5'u8, 0x83, 0x7D, 0xB9, 0xBF, 0x18, 0x8F, 0xC4])
 const IID_TypedEventHandler_2_InkToolbar_Object* = GUID(
     data1: 0xEEA8B7BE'u32, data2: 0x9CBA'u16, data3: 0x5129'u16,
     data4: [0x9B'u8, 0x75, 0x49, 0x30, 0xDC, 0x0C, 0x27, 0x05])
 const IID_TypedEventHandler_2_InkToolbar_InkToolbarIsStencilButtonCheckedChangedEventArgs* = GUID(
     data1: 0x80A45BD6'u32, data2: 0x7B40'u16, data3: 0x5410'u16,
     data4: [0x9C'u8, 0x65, 0xA8, 0xE0, 0x5F, 0xEE, 0x5E, 0x0F])
+const IID_IVector_1_Brush* = GUID(
+    data1: 0xA8CD84E4'u32, data2: 0x3EDF'u16, data3: 0x5172'u16,
+    data4: [0x8F'u8, 0x77, 0x10, 0xE9, 0x10, 0xE5, 0xDC, 0x5D])
 const IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object* = GUID(
     data1: 0x127A421C'u32, data2: 0xAE3F'u16, data3: 0x53DF'u16,
     data4: [0xB9'u8, 0xAD, 0x17, 0x68, 0x47, 0xF3, 0x2C, 0xDE])
@@ -614,6 +746,18 @@ const IID_TypedEventHandler_2_HttpMapTileDataSource_MapTileUriRequestedEventArgs
 const IID_TypedEventHandler_2_LocalMapTileDataSource_MapTileUriRequestedEventArgs* = GUID(
     data1: 0x76752FC4'u32, data2: 0xB240'u16, data3: 0x502C'u16,
     data4: [0x90'u8, 0x98, 0x62, 0x2C, 0x6C, 0x36, 0xE6, 0xA3])
+const IID_IVectorView_1_MapElement* = GUID(
+    data1: 0xCEC120D8'u32, data2: 0xEA73'u16, data3: 0x5AA3'u16,
+    data4: [0x91'u8, 0x4A, 0x37, 0xDD, 0x25, 0x54, 0xF6, 0x86])
+const IID_IVector_1_MapElement* = GUID(
+    data1: 0x02773F2D'u32, data2: 0xBB17'u16, data3: 0x56FD'u16,
+    data4: [0x96'u8, 0xCC, 0x89, 0xF1, 0xC4, 0x7F, 0x9E, 0x11])
+const IID_IVector_1_MapRouteView* = GUID(
+    data1: 0x8CE513B4'u32, data2: 0x0A7D'u16, data3: 0x5553'u16,
+    data4: [0xB7'u8, 0x35, 0x79, 0xCD, 0x5A, 0x7F, 0xEE, 0x3F])
+const IID_IVector_1_MapTileSource* = GUID(
+    data1: 0x19F78A46'u32, data2: 0x2C65'u16, data3: 0x5F94'u16,
+    data4: [0xBF'u8, 0x5B, 0x96, 0x33, 0x47, 0xA0, 0xA3, 0x18])
 const IID_TypedEventHandler_2_MapControl_Object* = GUID(
     data1: 0xF250DD93'u32, data2: 0xE636'u16, data3: 0x51EF'u16,
     data4: [0xBC'u8, 0x93, 0xEE, 0x78, 0xD4, 0x31, 0xA6, 0xBD])
@@ -647,6 +791,9 @@ const IID_TypedEventHandler_2_MapControl_MapRightTappedEventArgs* = GUID(
 const IID_TypedEventHandler_2_MapControl_MapContextRequestedEventArgs* = GUID(
     data1: 0xE5239641'u32, data2: 0xBA1F'u16, data3: 0x5D89'u16,
     data4: [0xAA'u8, 0xE1, 0xC7, 0xB4, 0x99, 0xA4, 0x7B, 0x0C])
+const IID_IVector_1_MapLayer* = GUID(
+    data1: 0x62782500'u32, data2: 0xA9CC'u16, data3: 0x57F1'u16,
+    data4: [0xB8'u8, 0x1B, 0x6E, 0xBC, 0xC9, 0x21, 0x22, 0x45])
 const IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkClickEventArgs* = GUID(
     data1: 0x3A9D75C2'u32, data2: 0xA41B'u16, data3: 0x5708'u16,
     data4: [0x8C'u8, 0x1B, 0x8E, 0x7C, 0x26, 0xE8, 0x57, 0xD0])
@@ -692,6 +839,12 @@ const IID_TypedEventHandler_2_MediaElement_PartialMediaFailureDetectedEventArgs*
 const IID_TypedEventHandler_2_MediaTransportControls_MediaTransportControlsThumbnailRequestedEventArgs* = GUID(
     data1: 0xC2925FF8'u32, data2: 0x71F0'u16, data3: 0x59D3'u16,
     data4: [0xBA'u8, 0x13, 0x86, 0x2B, 0x22, 0x6E, 0xEB, 0xA2])
+const IID_IVector_1_MenuBarItem* = GUID(
+    data1: 0xBBB89575'u32, data2: 0x54D3'u16, data3: 0x54AF'u16,
+    data4: [0x85'u8, 0x2B, 0xE0, 0x51, 0xDE, 0xD6, 0xF8, 0x67])
+const IID_IVector_1_MenuFlyoutItemBase* = GUID(
+    data1: 0xF7F1C37B'u32, data2: 0xB4DF'u16, data3: 0x5128'u16,
+    data4: [0xA4'u8, 0x76, 0xFC, 0x83, 0x99, 0xBC, 0x10, 0xAF])
 const IID_TypedEventHandler_2_NavigationView_NavigationViewSelectionChangedEventArgs* = GUID(
     data1: 0x17C78C17'u32, data2: 0x2850'u16, data3: 0x5DD4'u16,
     data4: [0x83'u8, 0xD6, 0xD4, 0x70, 0x32, 0x3C, 0x21, 0xC7])
@@ -764,6 +917,9 @@ const IID_TypedEventHandler_2_RichEditBox_ContentLinkInvokedEventArgs* = GUID(
 const IID_TypedEventHandler_2_RichEditBox_RichEditBoxSelectionChangingEventArgs* = GUID(
     data1: 0xA71CB2C7'u32, data2: 0x9BA0'u16, data3: 0x5E37'u16,
     data4: [0xB5'u8, 0xFE, 0x01, 0x5F, 0x85, 0x86, 0xBF, 0xD2])
+const IID_IVector_1_TextHighlighter* = GUID(
+    data1: 0x64905558'u32, data2: 0xD062'u16, data3: 0x5F31'u16,
+    data4: [0x84'u8, 0xAF, 0x4A, 0x5F, 0xA8, 0x96, 0xAE, 0x50])
 const IID_TypedEventHandler_2_RichTextBlock_IsTextTrimmedChangedEventArgs* = GUID(
     data1: 0x1E9D65A8'u32, data2: 0x7312'u16, data3: 0x5D13'u16,
     data4: [0xA3'u8, 0xB9, 0x27, 0xA9, 0x1B, 0x90, 0x63, 0x24])
@@ -851,6 +1007,9 @@ const IID_TypedEventHandler_2_TimePickerFlyout_TimePickedEventArgs* = GUID(
 const IID_TypedEventHandler_2_ToggleSplitButton_ToggleSplitButtonIsCheckedChangedEventArgs* = GUID(
     data1: 0xE5D095D6'u32, data2: 0x5BEE'u16, data3: 0x52F3'u16,
     data4: [0xBA'u8, 0x3A, 0xCA, 0x66, 0x84, 0x1A, 0x11, 0xDA])
+const IID_IVector_1_TreeViewNode* = GUID(
+    data1: 0x4FF347C9'u32, data2: 0x9738'u16, data3: 0x560D'u16,
+    data4: [0xB2'u8, 0x14, 0xDD, 0x7C, 0x23, 0x63, 0xC0, 0xED])
 const IID_TypedEventHandler_2_TreeView_TreeViewItemInvokedEventArgs* = GUID(
     data1: 0x2311DF32'u32, data2: 0xBE87'u16, data3: 0x54CF'u16,
     data4: [0xB2'u8, 0xE0, 0xD5, 0xA3, 0x7E, 0x0F, 0xED, 0xEF])
@@ -890,6 +1049,9 @@ const IID_TypedEventHandler_2_WebView_Object* = GUID(
 const IID_TypedEventHandler_2_WebView_WebViewUnviewableContentIdentifiedEventArgs* = GUID(
     data1: 0xF00E9FBF'u32, data2: 0xD30E'u16, data3: 0x5854'u16,
     data4: [0x89'u8, 0x27, 0xC9, 0x51, 0x2A, 0xBD, 0x81, 0x18])
+const IID_IVector_1_WebViewDeferredPermissionRequest* = GUID(
+    data1: 0xEE0E5BC7'u32, data2: 0x4440'u16, data3: 0x5970'u16,
+    data4: [0xA8'u8, 0x78, 0x2D, 0x35, 0x1E, 0x00, 0x93, 0x1A])
 const IID_TypedEventHandler_2_WebView_WebViewUnsupportedUriSchemeIdentifiedEventArgs* = GUID(
     data1: 0xD304027C'u32, data2: 0x5714'u16, data3: 0x502A'u16,
     data4: [0x93'u8, 0x12, 0x68, 0xCA, 0x86, 0x39, 0x71, 0x24])
@@ -944,6 +1106,9 @@ const IID_EventHandler_1_GettingFocusEventArgs* = GUID(
 const IID_EventHandler_1_LosingFocusEventArgs* = GUID(
     data1: 0xB17A4F5F'u32, data2: 0x1E9F'u16, data3: 0x5DE1'u16,
     data4: [0xAB'u8, 0x5D, 0x6F, 0x58, 0xDF, 0x7D, 0x0E, 0x47])
+const IID_IVector_1_InputScopeName* = GUID(
+    data1: 0x703FE123'u32, data2: 0xD766'u16, data3: 0x562F'u16,
+    data4: [0xB2'u8, 0x10, 0x19, 0x80, 0xBB, 0x2A, 0x0D, 0x33])
 const IID_TypedEventHandler_2_KeyboardAccelerator_KeyboardAcceleratorInvokedEventArgs* = GUID(
     data1: 0xF763F3AE'u32, data2: 0xB1EB'u16, data3: 0x5592'u16,
     data4: [0xA0'u8, 0x91, 0xD5, 0x08, 0xF3, 0x2B, 0x0B, 0x2C])
@@ -965,6 +1130,24 @@ const IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceFailedEventArgs* = GU
 const IID_TypedEventHandler_2_LoadedImageSurface_LoadedImageSourceLoadCompletedEventArgs* = GUID(
     data1: 0x0AA0C46E'u32, data2: 0x1DB6'u16, data3: 0x5850'u16,
     data4: [0xAE'u8, 0x17, 0xEC, 0x31, 0x0E, 0xA3, 0xFD, 0x2D])
+const IID_IVectorView_1_Popup* = GUID(
+    data1: 0x7D899FB2'u32, data2: 0x4666'u16, data3: 0x5A3E'u16,
+    data4: [0xB3'u8, 0x6C, 0x98, 0x86, 0xBC, 0xBC, 0x46, 0x63])
+const IID_IIterable_1_UIElement* = GUID(
+    data1: 0x42E26AE1'u32, data2: 0xD357'u16, data3: 0x57E8'u16,
+    data4: [0xBB'u8, 0x48, 0xF7, 0x5C, 0x9F, 0xF6, 0x9D, 0x91])
+const IID_IVector_1_StateTriggerBase* = GUID(
+    data1: 0x72DBAA30'u32, data2: 0x9016'u16, data3: 0x51D9'u16,
+    data4: [0x85'u8, 0x00, 0x4B, 0x21, 0x5B, 0x5C, 0xB4, 0x68])
+const IID_IVector_1_VisualTransition* = GUID(
+    data1: 0x5AEBEB8C'u32, data2: 0x7EF7'u16, data3: 0x5975'u16,
+    data4: [0xBA'u8, 0x0A, 0x6C, 0x19, 0xA5, 0x29, 0xBB, 0x72])
+const IID_IVector_1_VisualState* = GUID(
+    data1: 0x5B6D19B8'u32, data2: 0xBC0C'u16, data3: 0x5A77'u16,
+    data4: [0xA4'u8, 0x06, 0xC0, 0x1C, 0x12, 0xFD, 0x46, 0xC3])
+const IID_IVector_1_VisualStateGroup* = GUID(
+    data1: 0x729A0392'u32, data2: 0x675E'u16, data3: 0x58E4'u16,
+    data4: [0xB6'u8, 0xA3, 0x04, 0x57, 0xBB, 0x9E, 0xA9, 0x68])
 const IID_TypedEventHandler_2_XamlRoot_XamlRootChangedEventArgs* = GUID(
     data1: 0xB86311BB'u32, data2: 0x2EEF'u16, data3: 0x5B2C'u16,
     data4: [0x8D'u8, 0x0D, 0xC1, 0x78, 0xF3, 0x97, 0x9B, 0x6A])
@@ -13101,6 +13284,38 @@ proc showAddAccountAsync*(_: typedesc[AccountsSettingsPane]): pointer =
     vcall(it, Slot_IAccountsSettingsPaneStatics2_ShowAddAccountAsync, Fn_IAccountsSettingsPaneStatics2_ShowAddAccountAsync)(it, tmp.addr).check("AccountsSettingsPane.ShowAddAccountAsync")
     result = tmp
 
+proc webAccountProviderCommands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[WebAccountProviderCommand] =
+  ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountProviderCommands
+  withIface(self.p, IID_IAccountsSettingsPaneCommandsRequestedEventArgs, "IAccountsSettingsPaneCommandsRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccountsSettingsPaneCommandsRequestedEventArgs_get_WebAccountProviderCommands, Fn_IAccountsSettingsPaneCommandsRequestedEventArgs_get_WebAccountProviderCommands)(it, tmp.addr).check("AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountProviderCommands")
+    result = toSeq[WebAccountProviderCommand](tmp, IID_IVector_1_WebAccountProviderCommand)
+    release(tmp)
+
+proc webAccountCommands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[WebAccountCommand] =
+  ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountCommands
+  withIface(self.p, IID_IAccountsSettingsPaneCommandsRequestedEventArgs, "IAccountsSettingsPaneCommandsRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccountsSettingsPaneCommandsRequestedEventArgs_get_WebAccountCommands, Fn_IAccountsSettingsPaneCommandsRequestedEventArgs_get_WebAccountCommands)(it, tmp.addr).check("AccountsSettingsPaneCommandsRequestedEventArgs.get_WebAccountCommands")
+    result = toSeq[WebAccountCommand](tmp, IID_IVector_1_WebAccountCommand)
+    release(tmp)
+
+proc credentialCommands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[CredentialCommand] =
+  ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_CredentialCommands
+  withIface(self.p, IID_IAccountsSettingsPaneCommandsRequestedEventArgs, "IAccountsSettingsPaneCommandsRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccountsSettingsPaneCommandsRequestedEventArgs_get_CredentialCommands, Fn_IAccountsSettingsPaneCommandsRequestedEventArgs_get_CredentialCommands)(it, tmp.addr).check("AccountsSettingsPaneCommandsRequestedEventArgs.get_CredentialCommands")
+    result = toSeq[CredentialCommand](tmp, IID_IVector_1_CredentialCommand)
+    release(tmp)
+
+proc commands*(self: AccountsSettingsPaneCommandsRequestedEventArgs): seq[SettingsCommand] =
+  ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_Commands
+  withIface(self.p, IID_IAccountsSettingsPaneCommandsRequestedEventArgs, "IAccountsSettingsPaneCommandsRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccountsSettingsPaneCommandsRequestedEventArgs_get_Commands, Fn_IAccountsSettingsPaneCommandsRequestedEventArgs_get_Commands)(it, tmp.addr).check("AccountsSettingsPaneCommandsRequestedEventArgs.get_Commands")
+    result = toSeq[SettingsCommand](tmp, IID_IVector_1_SettingsCommand)
+    release(tmp)
+
 proc headerText*(self: AccountsSettingsPaneCommandsRequestedEventArgs): string =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs.get_HeaderText
   withIface(self.p, IID_IAccountsSettingsPaneCommandsRequestedEventArgs, "IAccountsSettingsPaneCommandsRequestedEventArgs", it):
@@ -13195,6 +13410,14 @@ proc edge*(_: typedesc[SettingsPane]): SettingsEdgeLocation =
     var tmp: SettingsEdgeLocation
     vcall(it, Slot_ISettingsPaneStatics_get_Edge, Fn_ISettingsPaneStatics_get_Edge)(it, tmp.addr).check("SettingsPane.get_Edge")
     result = tmp
+
+proc applicationCommands*(self: SettingsPaneCommandsRequest): seq[SettingsCommand] =
+  ## Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest.get_ApplicationCommands
+  withIface(self.p, IID_ISettingsPaneCommandsRequest, "ISettingsPaneCommandsRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_ISettingsPaneCommandsRequest_get_ApplicationCommands, Fn_ISettingsPaneCommandsRequest_get_ApplicationCommands)(it, tmp.addr).check("SettingsPaneCommandsRequest.get_ApplicationCommands")
+    result = toSeq[SettingsCommand](tmp, IID_IVector_1_SettingsCommand)
+    release(tmp)
 
 proc request*(self: SettingsPaneCommandsRequestedEventArgs): SettingsPaneCommandsRequest =
   ## Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs.get_Request
@@ -19836,6 +20059,14 @@ proc deviceId*(self: AcceleratorKeyEventArgs): string =
     vcall(it, Slot_IAcceleratorKeyEventArgs2_get_DeviceId, Fn_IAcceleratorKeyEventArgs2_get_DeviceId)(it, tmp.addr).check("AcceleratorKeyEventArgs.get_DeviceId")
     result = takeString(tmp)
 
+proc animations*(self: AnimationDescription): seq[TranslationAnimation] =
+  ## Windows.UI.Core.AnimationMetrics.AnimationDescription.get_Animations
+  withIface(self.p, IID_IAnimationDescription, "IAnimationDescription", it):
+    var tmp: pointer
+    vcall(it, Slot_IAnimationDescription_get_Animations, Fn_IAnimationDescription_get_Animations)(it, tmp.addr).check("AnimationDescription.get_Animations")
+    result = toSeq[TranslationAnimation](tmp, IID_IVectorView_1_IPropertyAnimation)
+    release(tmp)
+
 proc staggerDelay*(self: AnimationDescription): TimeSpan =
   ## Windows.UI.Core.AnimationMetrics.AnimationDescription.get_StaggerDelay
   withIface(self.p, IID_IAnimationDescription, "IAnimationDescription", it):
@@ -21536,6 +21767,14 @@ proc `isInteractionDelayed=`*(self: CoreWindowDialog, value: int32) =
   withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
     vcall(it, Slot_ICoreWindowDialog_put_IsInteractionDelayed, Fn_ICoreWindowDialog_put_IsInteractionDelayed)(it, value).check("CoreWindowDialog.put_IsInteractionDelayed")
 
+proc commands*(self: CoreWindowDialog): seq[UICommandSeparator] =
+  ## Windows.UI.Core.CoreWindowDialog.get_Commands
+  withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreWindowDialog_get_Commands, Fn_ICoreWindowDialog_get_Commands)(it, tmp.addr).check("CoreWindowDialog.get_Commands")
+    result = toSeq[UICommandSeparator](tmp, IID_IVector_1_IUICommand)
+    release(tmp)
+
 proc defaultCommandIndex*(self: CoreWindowDialog): uint32 =
   ## Windows.UI.Core.CoreWindowDialog.get_DefaultCommandIndex
   withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
@@ -21637,6 +21876,14 @@ proc `isInteractionDelayed=`*(self: CoreWindowFlyout, value: int32) =
   ## Windows.UI.Core.CoreWindowFlyout.put_IsInteractionDelayed
   withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
     vcall(it, Slot_ICoreWindowFlyout_put_IsInteractionDelayed, Fn_ICoreWindowFlyout_put_IsInteractionDelayed)(it, value).check("CoreWindowFlyout.put_IsInteractionDelayed")
+
+proc commands*(self: CoreWindowFlyout): seq[UICommandSeparator] =
+  ## Windows.UI.Core.CoreWindowFlyout.get_Commands
+  withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreWindowFlyout_get_Commands, Fn_ICoreWindowFlyout_get_Commands)(it, tmp.addr).check("CoreWindowFlyout.get_Commands")
+    result = toSeq[UICommandSeparator](tmp, IID_IVector_1_IUICommand)
+    release(tmp)
 
 proc defaultCommandIndex*(self: CoreWindowFlyout): uint32 =
   ## Windows.UI.Core.CoreWindowFlyout.get_DefaultCommandIndex
@@ -21752,6 +21999,14 @@ proc currentPoint*(self: PointerEventArgs): PointerPoint =
     var tmp: pointer
     vcall(it, Slot_IPointerEventArgs_get_CurrentPoint, Fn_IPointerEventArgs_get_CurrentPoint)(it, tmp.addr).check("PointerEventArgs.get_CurrentPoint")
     result = adopt[PointerPoint](tmp)
+
+proc getIntermediatePoints*(self: PointerEventArgs): seq[PointerPoint] =
+  ## Windows.UI.Core.PointerEventArgs.GetIntermediatePoints
+  withIface(self.p, IID_IPointerEventArgs, "IPointerEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerEventArgs_GetIntermediatePoints, Fn_IPointerEventArgs_GetIntermediatePoints)(it, tmp.addr).check("PointerEventArgs.GetIntermediatePoints")
+    result = toSeq[PointerPoint](tmp, IID_IVector_1_PointerPoint)
+    release(tmp)
 
 proc handled*(self: PointerEventArgs): bool =
   ## Windows.UI.Core.PointerEventArgs.get_Handled
@@ -22642,6 +22897,14 @@ proc boundingRect*(self: InkAnalysisInkBullet): Rect =
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisInkBullet.get_BoundingRect")
     result = tmp
 
+proc children*(self: InkAnalysisInkBullet): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkBullet.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisInkBullet.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc parent*(self: InkAnalysisInkBullet): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkBullet.get_Parent
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22684,6 +22947,14 @@ proc boundingRect*(self: InkAnalysisInkDrawing): Rect =
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisInkDrawing.get_BoundingRect")
     result = tmp
 
+proc children*(self: InkAnalysisInkDrawing): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkDrawing.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisInkDrawing.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc parent*(self: InkAnalysisInkDrawing): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkDrawing.get_Parent
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22697,6 +22968,14 @@ proc recognizedText*(self: InkAnalysisInkWord): string =
     var tmp: HSTRING
     vcall(it, Slot_IInkAnalysisInkWord_get_RecognizedText, Fn_IInkAnalysisInkWord_get_RecognizedText)(it, tmp.addr).check("InkAnalysisInkWord.get_RecognizedText")
     result = takeString(tmp)
+
+proc textAlternates*(self: InkAnalysisInkWord): seq[string] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord.get_TextAlternates
+  withIface(self.p, IID_IInkAnalysisInkWord, "IInkAnalysisInkWord", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisInkWord_get_TextAlternates, Fn_IInkAnalysisInkWord_get_TextAlternates)(it, tmp.addr).check("InkAnalysisInkWord.get_TextAlternates")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc id*(self: InkAnalysisInkWord): uint32 =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord.get_Id
@@ -22718,6 +22997,14 @@ proc boundingRect*(self: InkAnalysisInkWord): Rect =
     var tmp: Rect
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisInkWord.get_BoundingRect")
     result = tmp
+
+proc children*(self: InkAnalysisInkWord): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisInkWord.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
 
 proc parent*(self: InkAnalysisInkWord): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisInkWord.get_Parent
@@ -22761,6 +23048,14 @@ proc boundingRect*(self: InkAnalysisLine): Rect =
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisLine.get_BoundingRect")
     result = tmp
 
+proc children*(self: InkAnalysisLine): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisLine.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisLine.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc parent*(self: InkAnalysisLine): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisLine.get_Parent
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22796,6 +23091,14 @@ proc boundingRect*(self: InkAnalysisListItem): Rect =
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisListItem.get_BoundingRect")
     result = tmp
 
+proc children*(self: InkAnalysisListItem): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisListItem.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisListItem.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc parent*(self: InkAnalysisListItem): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisListItem.get_Parent
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22823,6 +23126,14 @@ proc boundingRect*(self: InkAnalysisNode): Rect =
     var tmp: Rect
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisNode.get_BoundingRect")
     result = tmp
+
+proc children*(self: InkAnalysisNode): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisNode.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisNode.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
 
 proc parent*(self: InkAnalysisNode): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisNode.get_Parent
@@ -22859,6 +23170,14 @@ proc boundingRect*(self: InkAnalysisParagraph): Rect =
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisParagraph.get_BoundingRect")
     result = tmp
 
+proc children*(self: InkAnalysisParagraph): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisParagraph.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisParagraph.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc parent*(self: InkAnalysisParagraph): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisParagraph.get_Parent
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22880,6 +23199,14 @@ proc recognizedText*(self: InkAnalysisRoot): string =
     vcall(it, Slot_IInkAnalysisRoot_get_RecognizedText, Fn_IInkAnalysisRoot_get_RecognizedText)(it, tmp.addr).check("InkAnalysisRoot.get_RecognizedText")
     result = takeString(tmp)
 
+proc findNodes*(self: InkAnalysisRoot, a1: InkAnalysisNodeKind): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisRoot.FindNodes
+  withIface(self.p, IID_IInkAnalysisRoot, "IInkAnalysisRoot", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisRoot_FindNodes, Fn_IInkAnalysisRoot_FindNodes)(it, a1, tmp.addr).check("InkAnalysisRoot.FindNodes")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
+
 proc id*(self: InkAnalysisRoot): uint32 =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisRoot.get_Id
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
@@ -22900,6 +23227,14 @@ proc boundingRect*(self: InkAnalysisRoot): Rect =
     var tmp: Rect
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisRoot.get_BoundingRect")
     result = tmp
+
+proc children*(self: InkAnalysisRoot): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisRoot.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisRoot.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
 
 proc parent*(self: InkAnalysisRoot): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisRoot.get_Parent
@@ -22935,6 +23270,14 @@ proc boundingRect*(self: InkAnalysisWritingRegion): Rect =
     var tmp: Rect
     vcall(it, Slot_IInkAnalysisNode_get_BoundingRect, Fn_IInkAnalysisNode_get_BoundingRect)(it, tmp.addr).check("InkAnalysisWritingRegion.get_BoundingRect")
     result = tmp
+
+proc children*(self: InkAnalysisWritingRegion): seq[InkAnalysisNode] =
+  ## Windows.UI.Input.Inking.Analysis.InkAnalysisWritingRegion.get_Children
+  withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkAnalysisNode_get_Children, Fn_IInkAnalysisNode_get_Children)(it, tmp.addr).check("InkAnalysisWritingRegion.get_Children")
+    result = toSeq[InkAnalysisNode](tmp, IID_IVectorView_1_IInkAnalysisNode)
+    release(tmp)
 
 proc parent*(self: InkAnalysisWritingRegion): InkAnalysisNode =
   ## Windows.UI.Input.Inking.Analysis.InkAnalysisWritingRegion.get_Parent
@@ -23193,6 +23536,14 @@ proc `rootVisual=`*(self: CoreInkPresenterHost, value: ContainerVisual) =
   withIface(self.p, IID_ICoreInkPresenterHost, "ICoreInkPresenterHost", it):
     withIface(value.p, IID_IContainerVisual, "IContainerVisual", p0):
       vcall(it, Slot_ICoreInkPresenterHost_put_RootVisual, Fn_ICoreInkPresenterHost_put_RootVisual)(it, p0).check("CoreInkPresenterHost.put_RootVisual")
+
+proc newInkPoints*(self: CoreWetStrokeUpdateEventArgs): seq[InkPoint] =
+  ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs.get_NewInkPoints
+  withIface(self.p, IID_ICoreWetStrokeUpdateEventArgs, "ICoreWetStrokeUpdateEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreWetStrokeUpdateEventArgs_get_NewInkPoints, Fn_ICoreWetStrokeUpdateEventArgs_get_NewInkPoints)(it, tmp.addr).check("CoreWetStrokeUpdateEventArgs.get_NewInkPoints")
+    result = toSeq[InkPoint](tmp, IID_IVector_1_InkPoint)
+    release(tmp)
 
 proc pointerId*(self: CoreWetStrokeUpdateEventArgs): uint32 =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs.get_PointerId
@@ -23561,6 +23912,14 @@ proc setDefaultRecognizer*(self: InkManager, a1: InkRecognizer) =
     withIface(a1.p, IID_IInkRecognizer, "IInkRecognizer", p0):
       vcall(it, Slot_IInkRecognizerContainer_SetDefaultRecognizer, Fn_IInkRecognizerContainer_SetDefaultRecognizer)(it, p0).check("InkManager.SetDefaultRecognizer")
 
+proc getRecognizers*(self: InkManager): seq[InkRecognizer] =
+  ## Windows.UI.Input.Inking.InkManager.GetRecognizers
+  withIface(self.p, IID_IInkRecognizerContainer, "IInkRecognizerContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkRecognizerContainer_GetRecognizers, Fn_IInkRecognizerContainer_GetRecognizers)(it, tmp.addr).check("InkManager.GetRecognizers")
+    result = toSeq[InkRecognizer](tmp, IID_IVectorView_1_InkRecognizer)
+    release(tmp)
+
 proc boundingRect*(self: InkManager): Rect =
   ## Windows.UI.Input.Inking.InkManager.get_BoundingRect
   withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
@@ -23613,6 +23972,22 @@ proc canPasteFromClipboard*(self: InkManager): bool =
     var tmp: bool
     vcall(it, Slot_IInkStrokeContainer_CanPasteFromClipboard, Fn_IInkStrokeContainer_CanPasteFromClipboard)(it, tmp.addr).check("InkManager.CanPasteFromClipboard")
     result = tmp
+
+proc getStrokes*(self: InkManager): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkManager.GetStrokes
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_GetStrokes, Fn_IInkStrokeContainer_GetStrokes)(it, tmp.addr).check("InkManager.GetStrokes")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
+
+proc getRecognitionResults*(self: InkManager): seq[InkRecognitionResult] =
+  ## Windows.UI.Input.Inking.InkManager.GetRecognitionResults
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_GetRecognitionResults, Fn_IInkStrokeContainer_GetRecognitionResults)(it, tmp.addr).check("InkManager.GetRecognitionResults")
+    result = toSeq[InkRecognitionResult](tmp, IID_IVectorView_1_InkRecognitionResult)
+    release(tmp)
 
 proc predictionTime*(self: InkModelerAttributes): TimeSpan =
   ## Windows.UI.Input.Inking.InkModelerAttributes.get_PredictionTime
@@ -24080,6 +24455,22 @@ proc boundingRect*(self: InkRecognitionResult): Rect =
     vcall(it, Slot_IInkRecognitionResult_get_BoundingRect, Fn_IInkRecognitionResult_get_BoundingRect)(it, tmp.addr).check("InkRecognitionResult.get_BoundingRect")
     result = tmp
 
+proc getTextCandidates*(self: InkRecognitionResult): seq[string] =
+  ## Windows.UI.Input.Inking.InkRecognitionResult.GetTextCandidates
+  withIface(self.p, IID_IInkRecognitionResult, "IInkRecognitionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkRecognitionResult_GetTextCandidates, Fn_IInkRecognitionResult_GetTextCandidates)(it, tmp.addr).check("InkRecognitionResult.GetTextCandidates")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc getStrokes*(self: InkRecognitionResult): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkRecognitionResult.GetStrokes
+  withIface(self.p, IID_IInkRecognitionResult, "IInkRecognitionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkRecognitionResult_GetStrokes, Fn_IInkRecognitionResult_GetStrokes)(it, tmp.addr).check("InkRecognitionResult.GetStrokes")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
+
 proc name*(self: InkRecognizer): string =
   ## Windows.UI.Input.Inking.InkRecognizer.get_Name
   withIface(self.p, IID_IInkRecognizer, "IInkRecognizer", it):
@@ -24096,6 +24487,14 @@ proc setDefaultRecognizer*(self: InkRecognizerContainer, a1: InkRecognizer) =
   withIface(self.p, IID_IInkRecognizerContainer, "IInkRecognizerContainer", it):
     withIface(a1.p, IID_IInkRecognizer, "IInkRecognizer", p0):
       vcall(it, Slot_IInkRecognizerContainer_SetDefaultRecognizer, Fn_IInkRecognizerContainer_SetDefaultRecognizer)(it, p0).check("InkRecognizerContainer.SetDefaultRecognizer")
+
+proc getRecognizers*(self: InkRecognizerContainer): seq[InkRecognizer] =
+  ## Windows.UI.Input.Inking.InkRecognizerContainer.GetRecognizers
+  withIface(self.p, IID_IInkRecognizerContainer, "IInkRecognizerContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkRecognizerContainer_GetRecognizers, Fn_IInkRecognizerContainer_GetRecognizers)(it, tmp.addr).check("InkRecognizerContainer.GetRecognizers")
+    result = toSeq[InkRecognizer](tmp, IID_IVectorView_1_InkRecognizer)
+    release(tmp)
 
 proc drawingAttributes*(self: InkStroke): InkDrawingAttributes =
   ## Windows.UI.Input.Inking.InkStroke.get_DrawingAttributes
@@ -24136,12 +24535,28 @@ proc recognized*(self: InkStroke): bool =
     vcall(it, Slot_IInkStroke_get_Recognized, Fn_IInkStroke_get_Recognized)(it, tmp.addr).check("InkStroke.get_Recognized")
     result = tmp
 
+proc getRenderingSegments*(self: InkStroke): seq[InkStrokeRenderingSegment] =
+  ## Windows.UI.Input.Inking.InkStroke.GetRenderingSegments
+  withIface(self.p, IID_IInkStroke, "IInkStroke", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStroke_GetRenderingSegments, Fn_IInkStroke_GetRenderingSegments)(it, tmp.addr).check("InkStroke.GetRenderingSegments")
+    result = toSeq[InkStrokeRenderingSegment](tmp, IID_IVectorView_1_InkStrokeRenderingSegment)
+    release(tmp)
+
 proc clone*(self: InkStroke): InkStroke =
   ## Windows.UI.Input.Inking.InkStroke.Clone
   withIface(self.p, IID_IInkStroke, "IInkStroke", it):
     var tmp: pointer
     vcall(it, Slot_IInkStroke_Clone, Fn_IInkStroke_Clone)(it, tmp.addr).check("InkStroke.Clone")
     result = adopt[InkStroke](tmp)
+
+proc getInkPoints*(self: InkStroke): seq[InkPoint] =
+  ## Windows.UI.Input.Inking.InkStroke.GetInkPoints
+  withIface(self.p, IID_IInkStroke2, "IInkStroke2", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStroke2_GetInkPoints, Fn_IInkStroke2_GetInkPoints)(it, tmp.addr).check("InkStroke.GetInkPoints")
+    result = toSeq[InkPoint](tmp, IID_IVectorView_1_InkPoint)
+    release(tmp)
 
 proc id*(self: InkStroke): uint32 =
   ## Windows.UI.Input.Inking.InkStroke.get_Id
@@ -24245,6 +24660,22 @@ proc canPasteFromClipboard*(self: InkStrokeContainer): bool =
     var tmp: bool
     vcall(it, Slot_IInkStrokeContainer_CanPasteFromClipboard, Fn_IInkStrokeContainer_CanPasteFromClipboard)(it, tmp.addr).check("InkStrokeContainer.CanPasteFromClipboard")
     result = tmp
+
+proc getStrokes*(self: InkStrokeContainer): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkStrokeContainer.GetStrokes
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_GetStrokes, Fn_IInkStrokeContainer_GetStrokes)(it, tmp.addr).check("InkStrokeContainer.GetStrokes")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
+
+proc getRecognitionResults*(self: InkStrokeContainer): seq[InkRecognitionResult] =
+  ## Windows.UI.Input.Inking.InkStrokeContainer.GetRecognitionResults
+  withIface(self.p, IID_IInkStrokeContainer, "IInkStrokeContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokeContainer_GetRecognitionResults, Fn_IInkStrokeContainer_GetRecognitionResults)(it, tmp.addr).check("InkStrokeContainer.GetRecognitionResults")
+    result = toSeq[InkRecognitionResult](tmp, IID_IVectorView_1_InkRecognitionResult)
+    release(tmp)
 
 proc clear*(self: InkStrokeContainer) =
   ## Windows.UI.Input.Inking.InkStrokeContainer.Clear
@@ -24389,6 +24820,30 @@ proc twist*(self: InkStrokeRenderingSegment): float32 =
     var tmp: float32
     vcall(it, Slot_IInkStrokeRenderingSegment_get_Twist, Fn_IInkStrokeRenderingSegment_get_Twist)(it, tmp.addr).check("InkStrokeRenderingSegment.get_Twist")
     result = tmp
+
+proc strokes*(self: InkStrokesCollectedEventArgs): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkStrokesCollectedEventArgs.get_Strokes
+  withIface(self.p, IID_IInkStrokesCollectedEventArgs, "IInkStrokesCollectedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokesCollectedEventArgs_get_Strokes, Fn_IInkStrokesCollectedEventArgs_get_Strokes)(it, tmp.addr).check("InkStrokesCollectedEventArgs.get_Strokes")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
+
+proc strokes*(self: InkStrokesErasedEventArgs): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkStrokesErasedEventArgs.get_Strokes
+  withIface(self.p, IID_IInkStrokesErasedEventArgs, "IInkStrokesErasedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStrokesErasedEventArgs_get_Strokes, Fn_IInkStrokesErasedEventArgs_get_Strokes)(it, tmp.addr).check("InkStrokesErasedEventArgs.get_Strokes")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
+
+proc beginDry*(self: InkSynchronizer): seq[InkStroke] =
+  ## Windows.UI.Input.Inking.InkSynchronizer.BeginDry
+  withIface(self.p, IID_IInkSynchronizer, "IInkSynchronizer", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkSynchronizer_BeginDry, Fn_IInkSynchronizer_BeginDry)(it, tmp.addr).check("InkSynchronizer.BeginDry")
+    result = toSeq[InkStroke](tmp, IID_IVectorView_1_InkStroke)
+    release(tmp)
 
 proc endDry*(self: InkSynchronizer) =
   ## Windows.UI.Input.Inking.InkSynchronizer.EndDry
@@ -25178,12 +25633,28 @@ proc getCurrentPoint*(_: typedesc[PointerPoint], a1: uint32): PointerPoint =
     vcall(it, Slot_IPointerPointStatics_GetCurrentPoint, Fn_IPointerPointStatics_GetCurrentPoint)(it, a1, tmp.addr).check("PointerPoint.GetCurrentPoint")
     result = adopt[PointerPoint](tmp)
 
+proc getIntermediatePoints*(_: typedesc[PointerPoint], a1: uint32): seq[PointerPoint] =
+  ## Windows.UI.Input.PointerPoint.GetIntermediatePoints
+  withStatics("Windows.UI.Input.PointerPoint", IID_IPointerPointStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerPointStatics_GetIntermediatePoints, Fn_IPointerPointStatics_GetIntermediatePoints)(it, a1, tmp.addr).check("PointerPoint.GetIntermediatePoints")
+    result = toSeq[PointerPoint](tmp, IID_IVector_1_PointerPoint)
+    release(tmp)
+
 proc getCurrentPoint*(_: typedesc[PointerPoint], a1: uint32, a2: pointer): PointerPoint =
   ## Windows.UI.Input.PointerPoint.GetCurrentPoint
   withStatics("Windows.UI.Input.PointerPoint", IID_IPointerPointStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPointerPointStatics_GetCurrentPoint2, Fn_IPointerPointStatics_GetCurrentPoint2)(it, a1, a2, tmp.addr).check("PointerPoint.GetCurrentPoint")
     result = adopt[PointerPoint](tmp)
+
+proc getIntermediatePoints*(_: typedesc[PointerPoint], a1: uint32, a2: pointer): seq[PointerPoint] =
+  ## Windows.UI.Input.PointerPoint.GetIntermediatePoints
+  withStatics("Windows.UI.Input.PointerPoint", IID_IPointerPointStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerPointStatics_GetIntermediatePoints2, Fn_IPointerPointStatics_GetIntermediatePoints2)(it, a1, a2, tmp.addr).check("PointerPoint.GetIntermediatePoints")
+    result = toSeq[PointerPoint](tmp, IID_IVector_1_PointerPoint)
+    release(tmp)
 
 proc pressure*(self: PointerPointProperties): float32 =
   ## Windows.UI.Input.PointerPointProperties.get_Pressure
@@ -26951,6 +27422,14 @@ proc isButtonPressed*(self: RadialControllerControlAcquiredEventArgs): bool =
     vcall(it, Slot_IRadialControllerControlAcquiredEventArgs2_get_IsButtonPressed, Fn_IRadialControllerControlAcquiredEventArgs2_get_IsButtonPressed)(it, tmp.addr).check("RadialControllerControlAcquiredEventArgs.get_IsButtonPressed")
     result = tmp
 
+proc items*(self: RadialControllerMenu): seq[RadialControllerMenuItem] =
+  ## Windows.UI.Input.RadialControllerMenu.get_Items
+  withIface(self.p, IID_IRadialControllerMenu, "IRadialControllerMenu", it):
+    var tmp: pointer
+    vcall(it, Slot_IRadialControllerMenu_get_Items, Fn_IRadialControllerMenu_get_Items)(it, tmp.addr).check("RadialControllerMenu.get_Items")
+    result = toSeq[RadialControllerMenuItem](tmp, IID_IVector_1_RadialControllerMenuItem)
+    release(tmp)
+
 proc isEnabled*(self: RadialControllerMenu): bool =
   ## Windows.UI.Input.RadialControllerMenu.get_IsEnabled
   withIface(self.p, IID_IRadialControllerMenu, "IRadialControllerMenu", it):
@@ -28668,6 +29147,14 @@ proc `language=`*(self: NotificationBinding, value: string) =
     withHString(value, h0):
       vcall(it, Slot_INotificationBinding_put_Language, Fn_INotificationBinding_put_Language)(it, h0).check("NotificationBinding.put_Language")
 
+proc getTextElements*(self: NotificationBinding): seq[AdaptiveNotificationText] =
+  ## Windows.UI.Notifications.NotificationBinding.GetTextElements
+  withIface(self.p, IID_INotificationBinding, "INotificationBinding", it):
+    var tmp: pointer
+    vcall(it, Slot_INotificationBinding_GetTextElements, Fn_INotificationBinding_GetTextElements)(it, tmp.addr).check("NotificationBinding.GetTextElements")
+    result = toSeq[AdaptiveNotificationText](tmp, IID_IVectorView_1_AdaptiveNotificationText)
+    release(tmp)
+
 proc newNotificationData*(): NotificationData =
   ## Activate a `Windows.UI.Notifications.NotificationData`.
   adopt[NotificationData](activateAs("Windows.UI.Notifications.NotificationData", IID_INotificationData))
@@ -28696,6 +29183,14 @@ proc `language=`*(self: NotificationVisual, value: string) =
   withIface(self.p, IID_INotificationVisual, "INotificationVisual", it):
     withHString(value, h0):
       vcall(it, Slot_INotificationVisual_put_Language, Fn_INotificationVisual_put_Language)(it, h0).check("NotificationVisual.put_Language")
+
+proc bindings*(self: NotificationVisual): seq[NotificationBinding] =
+  ## Windows.UI.Notifications.NotificationVisual.get_Bindings
+  withIface(self.p, IID_INotificationVisual, "INotificationVisual", it):
+    var tmp: pointer
+    vcall(it, Slot_INotificationVisual_get_Bindings, Fn_INotificationVisual_get_Bindings)(it, tmp.addr).check("NotificationVisual.get_Bindings")
+    result = toSeq[NotificationBinding](tmp, IID_IVector_1_NotificationBinding)
+    release(tmp)
 
 proc getBinding*(self: NotificationVisual, a1: string): NotificationBinding =
   ## Windows.UI.Notifications.NotificationVisual.GetBinding
@@ -28999,6 +29494,14 @@ proc removeFromSchedule*(self: TileUpdater, a1: ScheduledTileNotification) =
     withIface(a1.p, IID_IScheduledTileNotification, "IScheduledTileNotification", p0):
       vcall(it, Slot_ITileUpdater_RemoveFromSchedule, Fn_ITileUpdater_RemoveFromSchedule)(it, p0).check("TileUpdater.RemoveFromSchedule")
 
+proc getScheduledTileNotifications*(self: TileUpdater): seq[ScheduledTileNotification] =
+  ## Windows.UI.Notifications.TileUpdater.GetScheduledTileNotifications
+  withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
+    var tmp: pointer
+    vcall(it, Slot_ITileUpdater_GetScheduledTileNotifications, Fn_ITileUpdater_GetScheduledTileNotifications)(it, tmp.addr).check("TileUpdater.GetScheduledTileNotifications")
+    result = toSeq[ScheduledTileNotification](tmp, IID_IVectorView_1_ScheduledTileNotification)
+    release(tmp)
+
 proc stopPeriodicUpdate*(self: TileUpdater) =
   ## Windows.UI.Notifications.TileUpdater.StopPeriodicUpdate
   withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
@@ -29267,6 +29770,23 @@ proc argument*(self: ToastNotificationActionTriggerDetail): string =
     vcall(it, Slot_IToastNotificationActionTriggerDetail_get_Argument, Fn_IToastNotificationActionTriggerDetail_get_Argument)(it, tmp.addr).check("ToastNotificationActionTriggerDetail.get_Argument")
     result = takeString(tmp)
 
+proc getHistory*(self: ToastNotificationHistory): seq[ToastNotification] =
+  ## Windows.UI.Notifications.ToastNotificationHistory.GetHistory
+  withIface(self.p, IID_IToastNotificationHistory2, "IToastNotificationHistory2", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastNotificationHistory2_GetHistory, Fn_IToastNotificationHistory2_GetHistory)(it, tmp.addr).check("ToastNotificationHistory.GetHistory")
+    result = toSeq[ToastNotification](tmp, IID_IVectorView_1_ToastNotification)
+    release(tmp)
+
+proc getHistory*(self: ToastNotificationHistory, a1: string): seq[ToastNotification] =
+  ## Windows.UI.Notifications.ToastNotificationHistory.GetHistory
+  withIface(self.p, IID_IToastNotificationHistory2, "IToastNotificationHistory2", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IToastNotificationHistory2_GetHistory2, Fn_IToastNotificationHistory2_GetHistory2)(it, h0, tmp.addr).check("ToastNotificationHistory.GetHistory")
+      result = toSeq[ToastNotification](tmp, IID_IVectorView_1_ToastNotification)
+      release(tmp)
+
 proc removeGroup*(self: ToastNotificationHistory, a1: string) =
   ## Windows.UI.Notifications.ToastNotificationHistory.RemoveGroup
   withIface(self.p, IID_IToastNotificationHistory, "IToastNotificationHistory", it):
@@ -29454,6 +29974,14 @@ proc removeFromSchedule*(self: ToastNotifier, a1: ScheduledToastNotification) =
     withIface(a1.p, IID_IScheduledToastNotification, "IScheduledToastNotification", p0):
       vcall(it, Slot_IToastNotifier_RemoveFromSchedule, Fn_IToastNotifier_RemoveFromSchedule)(it, p0).check("ToastNotifier.RemoveFromSchedule")
 
+proc getScheduledToastNotifications*(self: ToastNotifier): seq[ScheduledToastNotification] =
+  ## Windows.UI.Notifications.ToastNotifier.GetScheduledToastNotifications
+  withIface(self.p, IID_IToastNotifier, "IToastNotifier", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastNotifier_GetScheduledToastNotifications, Fn_IToastNotifier_GetScheduledToastNotifications)(it, tmp.addr).check("ToastNotifier.GetScheduledToastNotifications")
+    result = toSeq[ScheduledToastNotification](tmp, IID_IVectorView_1_ScheduledToastNotification)
+    release(tmp)
+
 proc update*(self: ToastNotifier, a1: NotificationData, a2: string, a3: string): NotificationUpdateResult =
   ## Windows.UI.Notifications.ToastNotifier.Update
   withIface(self.p, IID_IToastNotifier2, "IToastNotifier2", it):
@@ -29540,6 +30068,14 @@ proc `title=`*(self: MessageDialog, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IMessageDialog_put_Title, Fn_IMessageDialog_put_Title)(it, h0).check("MessageDialog.put_Title")
 
+proc commands*(self: MessageDialog): seq[UICommandSeparator] =
+  ## Windows.UI.Popups.MessageDialog.get_Commands
+  withIface(self.p, IID_IMessageDialog, "IMessageDialog", it):
+    var tmp: pointer
+    vcall(it, Slot_IMessageDialog_get_Commands, Fn_IMessageDialog_get_Commands)(it, tmp.addr).check("MessageDialog.get_Commands")
+    result = toSeq[UICommandSeparator](tmp, IID_IVector_1_IUICommand)
+    release(tmp)
+
 proc defaultCommandIndex*(self: MessageDialog): uint32 =
   ## Windows.UI.Popups.MessageDialog.get_DefaultCommandIndex
   withIface(self.p, IID_IMessageDialog, "IMessageDialog", it):
@@ -29609,6 +30145,14 @@ proc createWithTitle*(_: typedesc[MessageDialog], a1: string, a2: string): Messa
 proc newPopupMenu*(): PopupMenu =
   ## Activate a `Windows.UI.Popups.PopupMenu`.
   adopt[PopupMenu](activateAs("Windows.UI.Popups.PopupMenu", IID_IPopupMenu))
+
+proc commands*(self: PopupMenu): seq[UICommandSeparator] =
+  ## Windows.UI.Popups.PopupMenu.get_Commands
+  withIface(self.p, IID_IPopupMenu, "IPopupMenu", it):
+    var tmp: pointer
+    vcall(it, Slot_IPopupMenu_get_Commands, Fn_IPopupMenu_get_Commands)(it, tmp.addr).check("PopupMenu.get_Commands")
+    result = toSeq[UICommandSeparator](tmp, IID_IVector_1_IUICommand)
+    release(tmp)
 
 proc newUICommand*(): UICommand =
   ## Activate a `Windows.UI.Popups.UICommand`.
@@ -30358,6 +30902,14 @@ proc isCompositedOnWindow*(self: WindowTabThumbnailRequestedEventArgs): bool =
     vcall(it, Slot_IWindowTabThumbnailRequestedEventArgs_get_IsCompositedOnWindow, Fn_IWindowTabThumbnailRequestedEventArgs_get_IsCompositedOnWindow)(it, tmp.addr).check("WindowTabThumbnailRequestedEventArgs.get_IsCompositedOnWindow")
     result = tmp
 
+proc items*(self: JumpList): seq[JumpListItem] =
+  ## Windows.UI.StartScreen.JumpList.get_Items
+  withIface(self.p, IID_IJumpList, "IJumpList", it):
+    var tmp: pointer
+    vcall(it, Slot_IJumpList_get_Items, Fn_IJumpList_get_Items)(it, tmp.addr).check("JumpList.get_Items")
+    result = toSeq[JumpListItem](tmp, IID_IVector_1_JumpListItem)
+    release(tmp)
+
 proc systemGroupKind*(self: JumpList): JumpListSystemGroupKind =
   ## Windows.UI.StartScreen.JumpList.get_SystemGroupKind
   withIface(self.p, IID_IJumpList, "IJumpList", it):
@@ -30724,6 +31276,14 @@ proc visualElements*(self: VisualElementsRequest): SecondaryTileVisualElements =
     vcall(it, Slot_IVisualElementsRequest_get_VisualElements, Fn_IVisualElementsRequest_get_VisualElements)(it, tmp.addr).check("VisualElementsRequest.get_VisualElements")
     result = adopt[SecondaryTileVisualElements](tmp)
 
+proc alternateVisualElements*(self: VisualElementsRequest): seq[SecondaryTileVisualElements] =
+  ## Windows.UI.StartScreen.VisualElementsRequest.get_AlternateVisualElements
+  withIface(self.p, IID_IVisualElementsRequest, "IVisualElementsRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IVisualElementsRequest_get_AlternateVisualElements, Fn_IVisualElementsRequest_get_AlternateVisualElements)(it, tmp.addr).check("VisualElementsRequest.get_AlternateVisualElements")
+    result = toSeq[SecondaryTileVisualElements](tmp, IID_IVectorView_1_SecondaryTileVisualElements)
+    release(tmp)
+
 proc deadline*(self: VisualElementsRequest): DateTime =
   ## Windows.UI.StartScreen.VisualElementsRequest.get_Deadline
   withIface(self.p, IID_IVisualElementsRequest, "IVisualElementsRequest", it):
@@ -30811,6 +31371,14 @@ proc isCanceled*(self: CoreTextCompositionCompletedEventArgs): bool =
     var tmp: bool
     vcall(it, Slot_ICoreTextCompositionCompletedEventArgs_get_IsCanceled, Fn_ICoreTextCompositionCompletedEventArgs_get_IsCanceled)(it, tmp.addr).check("CoreTextCompositionCompletedEventArgs.get_IsCanceled")
     result = tmp
+
+proc compositionSegments*(self: CoreTextCompositionCompletedEventArgs): seq[CoreTextCompositionSegment] =
+  ## Windows.UI.Text.Core.CoreTextCompositionCompletedEventArgs.get_CompositionSegments
+  withIface(self.p, IID_ICoreTextCompositionCompletedEventArgs, "ICoreTextCompositionCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextCompositionCompletedEventArgs_get_CompositionSegments, Fn_ICoreTextCompositionCompletedEventArgs_get_CompositionSegments)(it, tmp.addr).check("CoreTextCompositionCompletedEventArgs.get_CompositionSegments")
+    result = toSeq[CoreTextCompositionSegment](tmp, IID_IVectorView_1_CoreTextCompositionSegment)
+    release(tmp)
 
 proc preconversionString*(self: CoreTextCompositionSegment): string =
   ## Windows.UI.Text.Core.CoreTextCompositionSegment.get_PreconversionString
@@ -32545,6 +33113,14 @@ proc windowingEnvironment*(self: ApplicationView): WindowingEnvironment =
     vcall(it, Slot_IApplicationView9_get_WindowingEnvironment, Fn_IApplicationView9_get_WindowingEnvironment)(it, tmp.addr).check("ApplicationView.get_WindowingEnvironment")
     result = adopt[WindowingEnvironment](tmp)
 
+proc getDisplayRegions*(self: ApplicationView): seq[DisplayRegion] =
+  ## Windows.UI.ViewManagement.ApplicationView.GetDisplayRegions
+  withIface(self.p, IID_IApplicationView9, "IApplicationView9", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationView9_GetDisplayRegions, Fn_IApplicationView9_GetDisplayRegions)(it, tmp.addr).check("ApplicationView.GetDisplayRegions")
+    result = toSeq[DisplayRegion](tmp, IID_IVectorView_1_DisplayRegion)
+    release(tmp)
+
 proc uIContext*(self: ApplicationView): UIContext =
   ## Windows.UI.ViewManagement.ApplicationView.get_UIContext
   withIface(self.p, IID_IApplicationViewWithContext, "IApplicationViewWithContext", it):
@@ -32770,6 +33346,14 @@ proc getForCurrentView*(_: typedesc[CoreFrameworkInputView]): CoreFrameworkInput
     vcall(it, Slot_ICoreFrameworkInputViewStatics_GetForCurrentView, Fn_ICoreFrameworkInputViewStatics_GetForCurrentView)(it, tmp.addr).check("CoreFrameworkInputView.GetForCurrentView")
     result = adopt[CoreFrameworkInputView](tmp)
 
+proc occlusions*(self: CoreFrameworkInputViewAnimationStartingEventArgs): seq[CoreInputViewOcclusion] =
+  ## Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs.get_Occlusions
+  withIface(self.p, IID_ICoreFrameworkInputViewAnimationStartingEventArgs, "ICoreFrameworkInputViewAnimationStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreFrameworkInputViewAnimationStartingEventArgs_get_Occlusions, Fn_ICoreFrameworkInputViewAnimationStartingEventArgs_get_Occlusions)(it, tmp.addr).check("CoreFrameworkInputViewAnimationStartingEventArgs.get_Occlusions")
+    result = toSeq[CoreInputViewOcclusion](tmp, IID_IVectorView_1_CoreInputViewOcclusion)
+    release(tmp)
+
 proc frameworkAnimationRecommended*(self: CoreFrameworkInputViewAnimationStartingEventArgs): bool =
   ## Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs.get_FrameworkAnimationRecommended
   withIface(self.p, IID_ICoreFrameworkInputViewAnimationStartingEventArgs, "ICoreFrameworkInputViewAnimationStartingEventArgs", it):
@@ -32783,6 +33367,14 @@ proc animationDuration*(self: CoreFrameworkInputViewAnimationStartingEventArgs):
     var tmp: TimeSpan
     vcall(it, Slot_ICoreFrameworkInputViewAnimationStartingEventArgs_get_AnimationDuration, Fn_ICoreFrameworkInputViewAnimationStartingEventArgs_get_AnimationDuration)(it, tmp.addr).check("CoreFrameworkInputViewAnimationStartingEventArgs.get_AnimationDuration")
     result = tmp
+
+proc occlusions*(self: CoreFrameworkInputViewOcclusionsChangedEventArgs): seq[CoreInputViewOcclusion] =
+  ## Windows.UI.ViewManagement.Core.CoreFrameworkInputViewOcclusionsChangedEventArgs.get_Occlusions
+  withIface(self.p, IID_ICoreFrameworkInputViewOcclusionsChangedEventArgs, "ICoreFrameworkInputViewOcclusionsChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreFrameworkInputViewOcclusionsChangedEventArgs_get_Occlusions, Fn_ICoreFrameworkInputViewOcclusionsChangedEventArgs_get_Occlusions)(it, tmp.addr).check("CoreFrameworkInputViewOcclusionsChangedEventArgs.get_Occlusions")
+    result = toSeq[CoreInputViewOcclusion](tmp, IID_IVectorView_1_CoreInputViewOcclusion)
+    release(tmp)
 
 proc handled*(self: CoreFrameworkInputViewOcclusionsChangedEventArgs): bool =
   ## Windows.UI.ViewManagement.Core.CoreFrameworkInputViewOcclusionsChangedEventArgs.get_Handled
@@ -32809,6 +33401,14 @@ proc onOcclusionsChanged*(self: CoreInputView,
 proc removeOcclusionsChanged*(self: CoreInputView, token: EventRegistrationToken) =
   withIface(self.p, IID_ICoreInputView, "ICoreInputView", it):
     vcall(it, Slot_ICoreInputView_remove_OcclusionsChanged, Fn_ICoreInputView_remove_OcclusionsChanged)(it, token).check("CoreInputView.remove_OcclusionsChanged")
+
+proc getCoreInputViewOcclusions*(self: CoreInputView): seq[CoreInputViewOcclusion] =
+  ## Windows.UI.ViewManagement.Core.CoreInputView.GetCoreInputViewOcclusions
+  withIface(self.p, IID_ICoreInputView, "ICoreInputView", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreInputView_GetCoreInputViewOcclusions, Fn_ICoreInputView_GetCoreInputViewOcclusions)(it, tmp.addr).check("CoreInputView.GetCoreInputViewOcclusions")
+    result = toSeq[CoreInputViewOcclusion](tmp, IID_IVectorView_1_CoreInputViewOcclusion)
+    release(tmp)
 
 proc tryShowPrimaryView*(self: CoreInputView): bool =
   ## Windows.UI.ViewManagement.Core.CoreInputView.TryShowPrimaryView
@@ -32988,6 +33588,14 @@ proc getForCurrentView*(_: typedesc[CoreInputView]): CoreInputView =
     vcall(it, Slot_ICoreInputViewStatics_GetForCurrentView, Fn_ICoreInputViewStatics_GetForCurrentView)(it, tmp.addr).check("CoreInputView.GetForCurrentView")
     result = adopt[CoreInputView](tmp)
 
+proc occlusions*(self: CoreInputViewAnimationStartingEventArgs): seq[CoreInputViewOcclusion] =
+  ## Windows.UI.ViewManagement.Core.CoreInputViewAnimationStartingEventArgs.get_Occlusions
+  withIface(self.p, IID_ICoreInputViewAnimationStartingEventArgs, "ICoreInputViewAnimationStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreInputViewAnimationStartingEventArgs_get_Occlusions, Fn_ICoreInputViewAnimationStartingEventArgs_get_Occlusions)(it, tmp.addr).check("CoreInputViewAnimationStartingEventArgs.get_Occlusions")
+    result = toSeq[CoreInputViewOcclusion](tmp, IID_IVectorView_1_CoreInputViewOcclusion)
+    release(tmp)
+
 proc handled*(self: CoreInputViewAnimationStartingEventArgs): bool =
   ## Windows.UI.ViewManagement.Core.CoreInputViewAnimationStartingEventArgs.get_Handled
   withIface(self.p, IID_ICoreInputViewAnimationStartingEventArgs, "ICoreInputViewAnimationStartingEventArgs", it):
@@ -33027,6 +33635,14 @@ proc occlusionKind*(self: CoreInputViewOcclusion): CoreInputViewOcclusionKind =
     var tmp: CoreInputViewOcclusionKind
     vcall(it, Slot_ICoreInputViewOcclusion_get_OcclusionKind, Fn_ICoreInputViewOcclusion_get_OcclusionKind)(it, tmp.addr).check("CoreInputViewOcclusion.get_OcclusionKind")
     result = tmp
+
+proc occlusions*(self: CoreInputViewOcclusionsChangedEventArgs): seq[CoreInputViewOcclusion] =
+  ## Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs.get_Occlusions
+  withIface(self.p, IID_ICoreInputViewOcclusionsChangedEventArgs, "ICoreInputViewOcclusionsChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreInputViewOcclusionsChangedEventArgs_get_Occlusions, Fn_ICoreInputViewOcclusionsChangedEventArgs_get_Occlusions)(it, tmp.addr).check("CoreInputViewOcclusionsChangedEventArgs.get_Occlusions")
+    result = toSeq[CoreInputViewOcclusion](tmp, IID_IVectorView_1_CoreInputViewOcclusion)
+    release(tmp)
 
 proc handled*(self: CoreInputViewOcclusionsChangedEventArgs): bool =
   ## Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs.get_Handled
@@ -34355,6 +34971,14 @@ proc getPlacement*(self: AppWindow): AppWindowPlacement =
     vcall(it, Slot_IAppWindow_GetPlacement, Fn_IAppWindow_GetPlacement)(it, tmp.addr).check("AppWindow.GetPlacement")
     result = adopt[AppWindowPlacement](tmp)
 
+proc getDisplayRegions*(self: AppWindow): seq[DisplayRegion] =
+  ## Windows.UI.WindowManagement.AppWindow.GetDisplayRegions
+  withIface(self.p, IID_IAppWindow, "IAppWindow", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindow_GetDisplayRegions, Fn_IAppWindow_GetDisplayRegions)(it, tmp.addr).check("AppWindow.GetDisplayRegions")
+    result = toSeq[DisplayRegion](tmp, IID_IVectorView_1_DisplayRegion)
+    release(tmp)
+
 proc requestMoveToDisplayRegion*(self: AppWindow, a1: DisplayRegion) =
   ## Windows.UI.WindowManagement.AppWindow.RequestMoveToDisplayRegion
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
@@ -34637,6 +35261,14 @@ proc isVisible*(self: AppWindowTitleBar): bool =
     vcall(it, Slot_IAppWindowTitleBar_get_IsVisible, Fn_IAppWindowTitleBar_get_IsVisible)(it, tmp.addr).check("AppWindowTitleBar.get_IsVisible")
     result = tmp
 
+proc getTitleBarOcclusions*(self: AppWindowTitleBar): seq[AppWindowTitleBarOcclusion] =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.GetTitleBarOcclusions
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_GetTitleBarOcclusions, Fn_IAppWindowTitleBar_GetTitleBarOcclusions)(it, tmp.addr).check("AppWindowTitleBar.GetTitleBarOcclusions")
+    result = toSeq[AppWindowTitleBarOcclusion](tmp, IID_IVectorView_1_AppWindowTitleBarOcclusion)
+    release(tmp)
+
 proc occludingRect*(self: AppWindowTitleBarOcclusion): Rect =
   ## Windows.UI.WindowManagement.AppWindowTitleBarOcclusion.get_OccludingRect
   withIface(self.p, IID_IAppWindowTitleBarOcclusion, "IAppWindowTitleBarOcclusion", it):
@@ -34742,6 +35374,14 @@ proc kind*(self: WindowingEnvironment): WindowingEnvironmentKind =
     vcall(it, Slot_IWindowingEnvironment_get_Kind, Fn_IWindowingEnvironment_get_Kind)(it, tmp.addr).check("WindowingEnvironment.get_Kind")
     result = tmp
 
+proc getDisplayRegions*(self: WindowingEnvironment): seq[DisplayRegion] =
+  ## Windows.UI.WindowManagement.WindowingEnvironment.GetDisplayRegions
+  withIface(self.p, IID_IWindowingEnvironment, "IWindowingEnvironment", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowingEnvironment_GetDisplayRegions, Fn_IWindowingEnvironment_GetDisplayRegions)(it, tmp.addr).check("WindowingEnvironment.GetDisplayRegions")
+    result = toSeq[DisplayRegion](tmp, IID_IVectorView_1_DisplayRegion)
+    release(tmp)
+
 proc onChanged*(self: WindowingEnvironment,
     handler: proc(sender: pointer, args: WindowingEnvironmentChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.WindowingEnvironment.add_Changed
@@ -34760,6 +35400,22 @@ proc onChanged*(self: WindowingEnvironment,
 proc removeChanged*(self: WindowingEnvironment, token: EventRegistrationToken) =
   withIface(self.p, IID_IWindowingEnvironment, "IWindowingEnvironment", it):
     vcall(it, Slot_IWindowingEnvironment_remove_Changed, Fn_IWindowingEnvironment_remove_Changed)(it, token).check("WindowingEnvironment.remove_Changed")
+
+proc findAll*(_: typedesc[WindowingEnvironment]): seq[WindowingEnvironment] =
+  ## Windows.UI.WindowManagement.WindowingEnvironment.FindAll
+  withStatics("Windows.UI.WindowManagement.WindowingEnvironment", IID_IWindowingEnvironmentStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowingEnvironmentStatics_FindAll, Fn_IWindowingEnvironmentStatics_FindAll)(it, tmp.addr).check("WindowingEnvironment.FindAll")
+    result = toSeq[WindowingEnvironment](tmp, IID_IVectorView_1_WindowingEnvironment)
+    release(tmp)
+
+proc findAll*(_: typedesc[WindowingEnvironment], a1: WindowingEnvironmentKind): seq[WindowingEnvironment] =
+  ## Windows.UI.WindowManagement.WindowingEnvironment.FindAll
+  withStatics("Windows.UI.WindowManagement.WindowingEnvironment", IID_IWindowingEnvironmentStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowingEnvironmentStatics_FindAll2, Fn_IWindowingEnvironmentStatics_FindAll2)(it, a1, tmp.addr).check("WindowingEnvironment.FindAll")
+    result = toSeq[WindowingEnvironment](tmp, IID_IVectorView_1_WindowingEnvironment)
+    release(tmp)
 
 proc windowingEnvironment*(self: WindowingEnvironmentAddedEventArgs): WindowingEnvironment =
   ## Windows.UI.WindowManagement.WindowingEnvironmentAddedEventArgs.get_WindowingEnvironment
@@ -35791,6 +36447,15 @@ proc controlledPeersProperty*(_: typedesc[AutomationProperties]): DependencyProp
     vcall(it, Slot_IAutomationPropertiesStatics2_get_ControlledPeersProperty, Fn_IAutomationPropertiesStatics2_get_ControlledPeersProperty)(it, tmp.addr).check("AutomationProperties.get_ControlledPeersProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc getControlledPeers*(_: typedesc[AutomationProperties], a1: DependencyObject): seq[UIElement] =
+  ## Windows.UI.Xaml.Automation.AutomationProperties.GetControlledPeers
+  withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics2, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutomationPropertiesStatics2_GetControlledPeers, Fn_IAutomationPropertiesStatics2_GetControlledPeers)(it, p0, tmp.addr).check("AutomationProperties.GetControlledPeers")
+      result = toSeq[UIElement](tmp, IID_IVector_1_UIElement)
+      release(tmp)
+
 proc headingLevelProperty*(_: typedesc[AutomationProperties]): DependencyProperty =
   ## Windows.UI.Xaml.Automation.AutomationProperties.get_HeadingLevelProperty
   withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics7, it):
@@ -35881,6 +36546,15 @@ proc annotationsProperty*(_: typedesc[AutomationProperties]): DependencyProperty
     var tmp: pointer
     vcall(it, Slot_IAutomationPropertiesStatics3_get_AnnotationsProperty, Fn_IAutomationPropertiesStatics3_get_AnnotationsProperty)(it, tmp.addr).check("AutomationProperties.get_AnnotationsProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc getAnnotations*(_: typedesc[AutomationProperties], a1: DependencyObject): seq[AutomationAnnotation] =
+  ## Windows.UI.Xaml.Automation.AutomationProperties.GetAnnotations
+  withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics3, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutomationPropertiesStatics3_GetAnnotations, Fn_IAutomationPropertiesStatics3_GetAnnotations)(it, p0, tmp.addr).check("AutomationProperties.GetAnnotations")
+      result = toSeq[AutomationAnnotation](tmp, IID_IVector_1_AutomationAnnotation)
+      release(tmp)
 
 proc isPeripheralProperty*(_: typedesc[AutomationProperties]): DependencyProperty =
   ## Windows.UI.Xaml.Automation.AutomationProperties.get_IsPeripheralProperty
@@ -35975,6 +36649,15 @@ proc describedByProperty*(_: typedesc[AutomationProperties]): DependencyProperty
     vcall(it, Slot_IAutomationPropertiesStatics5_get_DescribedByProperty, Fn_IAutomationPropertiesStatics5_get_DescribedByProperty)(it, tmp.addr).check("AutomationProperties.get_DescribedByProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc getDescribedBy*(_: typedesc[AutomationProperties], a1: DependencyObject): seq[DependencyObject] =
+  ## Windows.UI.Xaml.Automation.AutomationProperties.GetDescribedBy
+  withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics5, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutomationPropertiesStatics5_GetDescribedBy, Fn_IAutomationPropertiesStatics5_GetDescribedBy)(it, p0, tmp.addr).check("AutomationProperties.GetDescribedBy")
+      result = toSeq[DependencyObject](tmp, IID_IVector_1_DependencyObject)
+      release(tmp)
+
 proc flowsToProperty*(_: typedesc[AutomationProperties]): DependencyProperty =
   ## Windows.UI.Xaml.Automation.AutomationProperties.get_FlowsToProperty
   withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics5, it):
@@ -35982,12 +36665,30 @@ proc flowsToProperty*(_: typedesc[AutomationProperties]): DependencyProperty =
     vcall(it, Slot_IAutomationPropertiesStatics5_get_FlowsToProperty, Fn_IAutomationPropertiesStatics5_get_FlowsToProperty)(it, tmp.addr).check("AutomationProperties.get_FlowsToProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc getFlowsTo*(_: typedesc[AutomationProperties], a1: DependencyObject): seq[DependencyObject] =
+  ## Windows.UI.Xaml.Automation.AutomationProperties.GetFlowsTo
+  withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics5, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutomationPropertiesStatics5_GetFlowsTo, Fn_IAutomationPropertiesStatics5_GetFlowsTo)(it, p0, tmp.addr).check("AutomationProperties.GetFlowsTo")
+      result = toSeq[DependencyObject](tmp, IID_IVector_1_DependencyObject)
+      release(tmp)
+
 proc flowsFromProperty*(_: typedesc[AutomationProperties]): DependencyProperty =
   ## Windows.UI.Xaml.Automation.AutomationProperties.get_FlowsFromProperty
   withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics5, it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPropertiesStatics5_get_FlowsFromProperty, Fn_IAutomationPropertiesStatics5_get_FlowsFromProperty)(it, tmp.addr).check("AutomationProperties.get_FlowsFromProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc getFlowsFrom*(_: typedesc[AutomationProperties], a1: DependencyObject): seq[DependencyObject] =
+  ## Windows.UI.Xaml.Automation.AutomationProperties.GetFlowsFrom
+  withStatics("Windows.UI.Xaml.Automation.AutomationProperties", IID_IAutomationPropertiesStatics5, it):
+    withIface(a1.p, IID_IDependencyObject, "IDependencyObject", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutomationPropertiesStatics5_GetFlowsFrom, Fn_IAutomationPropertiesStatics5_GetFlowsFrom)(it, p0, tmp.addr).check("AutomationProperties.GetFlowsFrom")
+      result = toSeq[DependencyObject](tmp, IID_IVector_1_DependencyObject)
+      release(tmp)
 
 proc dockPositionProperty*(_: typedesc[DockPatternIdentifiers]): AutomationProperty =
   ## Windows.UI.Xaml.Automation.DockPatternIdentifiers.get_DockPositionProperty
@@ -36179,6 +36880,14 @@ proc getBoundingRectangle*(self: AutomationPeer): Rect =
     vcall(it, Slot_IAutomationPeer_GetBoundingRectangle, Fn_IAutomationPeer_GetBoundingRectangle)(it, tmp.addr).check("AutomationPeer.GetBoundingRectangle")
     result = tmp
 
+proc getChildren*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetChildren
+  withIface(self.p, IID_IAutomationPeer, "IAutomationPeer", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeer_GetChildren, Fn_IAutomationPeer_GetChildren)(it, tmp.addr).check("AutomationPeer.GetChildren")
+    result = toSeq[AutomationPeer](tmp, IID_IVector_1_AutomationPeer)
+    release(tmp)
+
 proc getClassName*(self: AutomationPeer): string =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetClassName
   withIface(self.p, IID_IAutomationPeer, "IAutomationPeer", it):
@@ -36355,6 +37064,22 @@ proc showContextMenu*(self: AutomationPeer) =
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
     vcall(it, Slot_IAutomationPeer3_ShowContextMenu, Fn_IAutomationPeer3_ShowContextMenu)(it).check("AutomationPeer.ShowContextMenu")
 
+proc getControlledPeers*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetControlledPeers
+  withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeer3_GetControlledPeers, Fn_IAutomationPeer3_GetControlledPeers)(it, tmp.addr).check("AutomationPeer.GetControlledPeers")
+    result = toSeq[AutomationPeer](tmp, IID_IVectorView_1_AutomationPeer)
+    release(tmp)
+
+proc getAnnotations*(self: AutomationPeer): seq[AutomationPeerAnnotation] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetAnnotations
+  withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeer3_GetAnnotations, Fn_IAutomationPeer3_GetAnnotations)(it, tmp.addr).check("AutomationPeer.GetAnnotations")
+    result = toSeq[AutomationPeerAnnotation](tmp, IID_IVector_1_AutomationPeerAnnotation)
+    release(tmp)
+
 proc setParent*(self: AutomationPeer, a1: AutomationPeer) =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.SetParent
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
@@ -36509,6 +37234,14 @@ proc getBoundingRectangleCore*(self: AutomationPeer): Rect =
     vcall(it, Slot_IAutomationPeerOverrides_GetBoundingRectangleCore, Fn_IAutomationPeerOverrides_GetBoundingRectangleCore)(it, tmp.addr).check("AutomationPeer.GetBoundingRectangleCore")
     result = tmp
 
+proc getChildrenCore*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetChildrenCore
+  withIface(self.p, IID_IAutomationPeerOverrides, "IAutomationPeerOverrides", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides_GetChildrenCore, Fn_IAutomationPeerOverrides_GetChildrenCore)(it, tmp.addr).check("AutomationPeer.GetChildrenCore")
+    result = toSeq[AutomationPeer](tmp, IID_IVector_1_AutomationPeer)
+    release(tmp)
+
 proc getClassNameCore*(self: AutomationPeer): string =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetClassNameCore
   withIface(self.p, IID_IAutomationPeerOverrides, "IAutomationPeerOverrides", it):
@@ -36652,6 +37385,14 @@ proc showContextMenuCore*(self: AutomationPeer) =
   withIface(self.p, IID_IAutomationPeerOverrides2, "IAutomationPeerOverrides2", it):
     vcall(it, Slot_IAutomationPeerOverrides2_ShowContextMenuCore, Fn_IAutomationPeerOverrides2_ShowContextMenuCore)(it).check("AutomationPeer.ShowContextMenuCore")
 
+proc getControlledPeersCore*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetControlledPeersCore
+  withIface(self.p, IID_IAutomationPeerOverrides2, "IAutomationPeerOverrides2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides2_GetControlledPeersCore, Fn_IAutomationPeerOverrides2_GetControlledPeersCore)(it, tmp.addr).check("AutomationPeer.GetControlledPeersCore")
+    result = toSeq[AutomationPeer](tmp, IID_IVectorView_1_AutomationPeer)
+    release(tmp)
+
 proc navigateCore*(self: AutomationPeer, a1: AutomationNavigationDirection): pointer =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.NavigateCore
   withIface(self.p, IID_IAutomationPeerOverrides3, "IAutomationPeerOverrides3", it):
@@ -36672,6 +37413,14 @@ proc getFocusedElementCore*(self: AutomationPeer): pointer =
     var tmp: pointer
     vcall(it, Slot_IAutomationPeerOverrides3_GetFocusedElementCore, Fn_IAutomationPeerOverrides3_GetFocusedElementCore)(it, tmp.addr).check("AutomationPeer.GetFocusedElementCore")
     result = tmp
+
+proc getAnnotationsCore*(self: AutomationPeer): seq[AutomationPeerAnnotation] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetAnnotationsCore
+  withIface(self.p, IID_IAutomationPeerOverrides3, "IAutomationPeerOverrides3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides3_GetAnnotationsCore, Fn_IAutomationPeerOverrides3_GetAnnotationsCore)(it, tmp.addr).check("AutomationPeer.GetAnnotationsCore")
+    result = toSeq[AutomationPeerAnnotation](tmp, IID_IVector_1_AutomationPeerAnnotation)
+    release(tmp)
 
 proc getPositionInSetCore*(self: AutomationPeer): int32 =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetPositionInSetCore
@@ -36728,6 +37477,30 @@ proc getFullDescriptionCore*(self: AutomationPeer): string =
     var tmp: HSTRING
     vcall(it, Slot_IAutomationPeerOverrides5_GetFullDescriptionCore, Fn_IAutomationPeerOverrides5_GetFullDescriptionCore)(it, tmp.addr).check("AutomationPeer.GetFullDescriptionCore")
     result = takeString(tmp)
+
+proc getDescribedByCore*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetDescribedByCore
+  withIface(self.p, IID_IAutomationPeerOverrides5, "IAutomationPeerOverrides5", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides5_GetDescribedByCore, Fn_IAutomationPeerOverrides5_GetDescribedByCore)(it, tmp.addr).check("AutomationPeer.GetDescribedByCore")
+    result = toSeq[AutomationPeer](tmp, IID_IIterable_1_AutomationPeer)
+    release(tmp)
+
+proc getFlowsToCore*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetFlowsToCore
+  withIface(self.p, IID_IAutomationPeerOverrides5, "IAutomationPeerOverrides5", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides5_GetFlowsToCore, Fn_IAutomationPeerOverrides5_GetFlowsToCore)(it, tmp.addr).check("AutomationPeer.GetFlowsToCore")
+    result = toSeq[AutomationPeer](tmp, IID_IIterable_1_AutomationPeer)
+    release(tmp)
+
+proc getFlowsFromCore*(self: AutomationPeer): seq[AutomationPeer] =
+  ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetFlowsFromCore
+  withIface(self.p, IID_IAutomationPeerOverrides5, "IAutomationPeerOverrides5", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutomationPeerOverrides5_GetFlowsFromCore, Fn_IAutomationPeerOverrides5_GetFlowsFromCore)(it, tmp.addr).check("AutomationPeer.GetFlowsFromCore")
+    result = toSeq[AutomationPeer](tmp, IID_IIterable_1_AutomationPeer)
+    release(tmp)
 
 proc getCultureCore*(self: AutomationPeer): int32 =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetCultureCore
@@ -38358,6 +39131,14 @@ proc newResourceDictionary*(): ResourceDictionary =
   adopt[ResourceDictionary](composeAs("Windows.UI.Xaml.ResourceDictionary", IID_IResourceDictionaryFactory,
                      IID_IResourceDictionary, 6))
 
+proc mergedDictionaries*(self: ResourceDictionary): seq[ResourceDictionary] =
+  ## Windows.UI.Xaml.ResourceDictionary.get_MergedDictionaries
+  withIface(self.p, IID_IResourceDictionary, "IResourceDictionary", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceDictionary_get_MergedDictionaries, Fn_IResourceDictionary_get_MergedDictionaries)(it, tmp.addr).check("ResourceDictionary.get_MergedDictionaries")
+    result = toSeq[ResourceDictionary](tmp, IID_IVector_1_ResourceDictionary)
+    release(tmp)
+
 proc newColorPaletteResources*(): ColorPaletteResources =
   ## Compose a `Windows.UI.Xaml.ColorPaletteResources`.
   adopt[ColorPaletteResources](composeAs("Windows.UI.Xaml.ColorPaletteResources", IID_IColorPaletteResourcesFactory,
@@ -38375,6 +39156,14 @@ proc `anchor=`*(self: AnchorRequestedEventArgs, value: UIElement) =
   withIface(self.p, IID_IAnchorRequestedEventArgs, "IAnchorRequestedEventArgs", it):
     withIface(value.p, IID_IUIElement, "IUIElement", p0):
       vcall(it, Slot_IAnchorRequestedEventArgs_put_Anchor, Fn_IAnchorRequestedEventArgs_put_Anchor)(it, p0).check("AnchorRequestedEventArgs.put_Anchor")
+
+proc anchorCandidates*(self: AnchorRequestedEventArgs): seq[UIElement] =
+  ## Windows.UI.Xaml.Controls.AnchorRequestedEventArgs.get_AnchorCandidates
+  withIface(self.p, IID_IAnchorRequestedEventArgs, "IAnchorRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAnchorRequestedEventArgs_get_AnchorCandidates, Fn_IAnchorRequestedEventArgs_get_AnchorCandidates)(it, tmp.addr).check("AnchorRequestedEventArgs.get_AnchorCandidates")
+    result = toSeq[UIElement](tmp, IID_IVector_1_UIElement)
+    release(tmp)
 
 proc desiredSize*(self: UIElement): Size =
   ## Windows.UI.Xaml.UIElement.get_DesiredSize
@@ -38573,6 +39362,14 @@ proc `manipulationMode=`*(self: UIElement, value: ManipulationModes) =
   ## Windows.UI.Xaml.UIElement.put_ManipulationMode
   withIface(self.p, IID_IUIElement, "IUIElement", it):
     vcall(it, Slot_IUIElement_put_ManipulationMode, Fn_IUIElement_put_ManipulationMode)(it, value).check("UIElement.put_ManipulationMode")
+
+proc pointerCaptures*(self: UIElement): seq[Pointer] =
+  ## Windows.UI.Xaml.UIElement.get_PointerCaptures
+  withIface(self.p, IID_IUIElement, "IUIElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElement_get_PointerCaptures, Fn_IUIElement_get_PointerCaptures)(it, tmp.addr).check("UIElement.get_PointerCaptures")
+    result = toSeq[Pointer](tmp, IID_IVectorView_1_Pointer)
+    release(tmp)
 
 proc onKeyUp*(self: UIElement,
     handler: proc(sender: pointer, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -39353,6 +40150,14 @@ proc removeAccessKeyInvoked*(self: UIElement, token: EventRegistrationToken) =
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
     vcall(it, Slot_IUIElement4_remove_AccessKeyInvoked, Fn_IUIElement4_remove_AccessKeyInvoked)(it, token).check("UIElement.remove_AccessKeyInvoked")
 
+proc lights*(self: UIElement): seq[XamlLight] =
+  ## Windows.UI.Xaml.UIElement.get_Lights
+  withIface(self.p, IID_IUIElement5, "IUIElement5", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElement5_get_Lights, Fn_IUIElement5_get_Lights)(it, tmp.addr).check("UIElement.get_Lights")
+    result = toSeq[XamlLight](tmp, IID_IVector_1_XamlLight)
+    release(tmp)
+
 proc keyTipPlacementMode*(self: UIElement): KeyTipPlacementMode =
   ## Windows.UI.Xaml.UIElement.get_KeyTipPlacementMode
   withIface(self.p, IID_IUIElement5, "IUIElement5", it):
@@ -39540,6 +40345,14 @@ proc startBringIntoView*(self: UIElement, a1: BringIntoViewOptions) =
   withIface(self.p, IID_IUIElement5, "IUIElement5", it):
     withIface(a1.p, IID_IBringIntoViewOptions, "IBringIntoViewOptions", p0):
       vcall(it, Slot_IUIElement5_StartBringIntoView2, Fn_IUIElement5_StartBringIntoView2)(it, p0).check("UIElement.StartBringIntoView")
+
+proc keyboardAccelerators*(self: UIElement): seq[KeyboardAccelerator] =
+  ## Windows.UI.Xaml.UIElement.get_KeyboardAccelerators
+  withIface(self.p, IID_IUIElement7, "IUIElement7", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElement7_get_KeyboardAccelerators, Fn_IUIElement7_get_KeyboardAccelerators)(it, tmp.addr).check("UIElement.get_KeyboardAccelerators")
+    result = toSeq[KeyboardAccelerator](tmp, IID_IVector_1_KeyboardAccelerator)
+    release(tmp)
 
 proc onCharacterReceived*(self: UIElement,
     handler: proc(sender: pointer, args: CharacterReceivedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -39884,6 +40697,14 @@ proc onDisconnectVisualChildren*(self: UIElement) =
   ## Windows.UI.Xaml.UIElement.OnDisconnectVisualChildren
   withIface(self.p, IID_IUIElementOverrides, "IUIElementOverrides", it):
     vcall(it, Slot_IUIElementOverrides_OnDisconnectVisualChildren, Fn_IUIElementOverrides_OnDisconnectVisualChildren)(it).check("UIElement.OnDisconnectVisualChildren")
+
+proc getChildrenInTabFocusOrder*(self: UIElement): seq[DependencyObject] =
+  ## Windows.UI.Xaml.UIElement.GetChildrenInTabFocusOrder
+  withIface(self.p, IID_IUIElementOverrides7, "IUIElementOverrides7", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElementOverrides7_GetChildrenInTabFocusOrder, Fn_IUIElementOverrides7_GetChildrenInTabFocusOrder)(it, tmp.addr).check("UIElement.GetChildrenInTabFocusOrder")
+    result = toSeq[DependencyObject](tmp, IID_IIterable_1_DependencyObject)
+    release(tmp)
 
 proc onProcessKeyboardAccelerators*(self: UIElement, a1: ProcessKeyboardAcceleratorEventArgs) =
   ## Windows.UI.Xaml.UIElement.OnProcessKeyboardAccelerators
@@ -50179,6 +51000,22 @@ proc setNavigationState*(self: Frame, a1: string) =
     withHString(a1, h0):
       vcall(it, Slot_IFrame_SetNavigationState, Fn_IFrame_SetNavigationState)(it, h0).check("Frame.SetNavigationState")
 
+proc backStack*(self: Frame): seq[PageStackEntry] =
+  ## Windows.UI.Xaml.Controls.Frame.get_BackStack
+  withIface(self.p, IID_IFrame2, "IFrame2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrame2_get_BackStack, Fn_IFrame2_get_BackStack)(it, tmp.addr).check("Frame.get_BackStack")
+    result = toSeq[PageStackEntry](tmp, IID_IVector_1_PageStackEntry)
+    release(tmp)
+
+proc forwardStack*(self: Frame): seq[PageStackEntry] =
+  ## Windows.UI.Xaml.Controls.Frame.get_ForwardStack
+  withIface(self.p, IID_IFrame2, "IFrame2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrame2_get_ForwardStack, Fn_IFrame2_get_ForwardStack)(it, tmp.addr).check("Frame.get_ForwardStack")
+    result = toSeq[PageStackEntry](tmp, IID_IVector_1_PageStackEntry)
+    release(tmp)
+
 proc navigate*(self: Frame, a1: TypeName, a2: pointer, a3: NavigationTransitionInfo): bool =
   ## Windows.UI.Xaml.Controls.Frame.Navigate
   withIface(self.p, IID_IFrame2, "IFrame2", it):
@@ -50763,6 +51600,14 @@ proc `reorderMode=`*(self: ListViewBase, value: ListViewReorderMode) =
   ## Windows.UI.Xaml.Controls.ListViewBase.put_ReorderMode
   withIface(self.p, IID_IListViewBase3, "IListViewBase3", it):
     vcall(it, Slot_IListViewBase3_put_ReorderMode, Fn_IListViewBase3_put_ReorderMode)(it, value).check("ListViewBase.put_ReorderMode")
+
+proc selectedRanges*(self: ListViewBase): seq[ItemIndexRange] =
+  ## Windows.UI.Xaml.Controls.ListViewBase.get_SelectedRanges
+  withIface(self.p, IID_IListViewBase4, "IListViewBase4", it):
+    var tmp: pointer
+    vcall(it, Slot_IListViewBase4_get_SelectedRanges, Fn_IListViewBase4_get_SelectedRanges)(it, tmp.addr).check("ListViewBase.get_SelectedRanges")
+    result = toSeq[ItemIndexRange](tmp, IID_IVectorView_1_ItemIndexRange)
+    release(tmp)
 
 proc isMultiSelectCheckBoxEnabled*(self: ListViewBase): bool =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_IsMultiSelectCheckBoxEnabled
@@ -51436,6 +52281,14 @@ proc removeTextSubmitted*(self: HandwritingView, token: EventRegistrationToken) 
   withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
     vcall(it, Slot_IHandwritingView2_remove_TextSubmitted, Fn_IHandwritingView2_remove_TextSubmitted)(it, token).check("HandwritingView.remove_TextSubmitted")
 
+proc getCandidates*(self: HandwritingView, a1: uint32): seq[string] =
+  ## Windows.UI.Xaml.Controls.HandwritingView.GetCandidates
+  withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
+    var tmp: pointer
+    vcall(it, Slot_IHandwritingView2_GetCandidates, Fn_IHandwritingView2_GetCandidates)(it, a1, tmp.addr).check("HandwritingView.GetCandidates")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc selectCandidate*(self: HandwritingView, a1: uint32, a2: uint32) =
   ## Windows.UI.Xaml.Controls.HandwritingView.SelectCandidate
   withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
@@ -51543,6 +52396,22 @@ proc `defaultSectionIndex=`*(self: Hub, value: int32) =
   ## Windows.UI.Xaml.Controls.Hub.put_DefaultSectionIndex
   withIface(self.p, IID_IHub, "IHub", it):
     vcall(it, Slot_IHub_put_DefaultSectionIndex, Fn_IHub_put_DefaultSectionIndex)(it, value).check("Hub.put_DefaultSectionIndex")
+
+proc sections*(self: Hub): seq[HubSection] =
+  ## Windows.UI.Xaml.Controls.Hub.get_Sections
+  withIface(self.p, IID_IHub, "IHub", it):
+    var tmp: pointer
+    vcall(it, Slot_IHub_get_Sections, Fn_IHub_get_Sections)(it, tmp.addr).check("Hub.get_Sections")
+    result = toSeq[HubSection](tmp, IID_IVector_1_HubSection)
+    release(tmp)
+
+proc sectionsInView*(self: Hub): seq[HubSection] =
+  ## Windows.UI.Xaml.Controls.Hub.get_SectionsInView
+  withIface(self.p, IID_IHub, "IHub", it):
+    var tmp: pointer
+    vcall(it, Slot_IHub_get_SectionsInView, Fn_IHub_get_SectionsInView)(it, tmp.addr).check("Hub.get_SectionsInView")
+    result = toSeq[HubSection](tmp, IID_IVector_1_HubSection)
+    release(tmp)
 
 proc onSectionHeaderClick*(self: Hub,
     handler: proc(sender: pointer, args: HubSectionHeaderClickEventArgs)): EventRegistrationToken {.discardable.} =
@@ -52329,6 +53198,14 @@ proc isExtensionGlyphShownProperty*(_: typedesc[InkToolbarToolButton]): Dependen
     var tmp: pointer
     vcall(it, Slot_IInkToolbarToolButtonStatics_get_IsExtensionGlyphShownProperty, Fn_IInkToolbarToolButtonStatics_get_IsExtensionGlyphShownProperty)(it, tmp.addr).check("InkToolbarToolButton.get_IsExtensionGlyphShownProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc palette*(self: InkToolbarPenButton): seq[Brush] =
+  ## Windows.UI.Xaml.Controls.InkToolbarPenButton.get_Palette
+  withIface(self.p, IID_IInkToolbarPenButton, "IInkToolbarPenButton", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkToolbarPenButton_get_Palette, Fn_IInkToolbarPenButton_get_Palette)(it, tmp.addr).check("InkToolbarPenButton.get_Palette")
+    result = toSeq[Brush](tmp, IID_IVector_1_Brush)
+    release(tmp)
 
 proc minStrokeWidth*(self: InkToolbarPenButton): float64 =
   ## Windows.UI.Xaml.Controls.InkToolbarPenButton.get_MinStrokeWidth
@@ -54127,9 +55004,25 @@ proc position*(self: MapContextRequestedEventArgs): Point =
     vcall(it, Slot_IMapContextRequestedEventArgs_get_Position, Fn_IMapContextRequestedEventArgs_get_Position)(it, tmp.addr).check("MapContextRequestedEventArgs.get_Position")
     result = tmp
 
+proc mapElements*(self: MapContextRequestedEventArgs): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs.get_MapElements
+  withIface(self.p, IID_IMapContextRequestedEventArgs, "IMapContextRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapContextRequestedEventArgs_get_MapElements, Fn_IMapContextRequestedEventArgs_get_MapElements)(it, tmp.addr).check("MapContextRequestedEventArgs.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVectorView_1_MapElement)
+    release(tmp)
+
 proc newMapControl*(): MapControl =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapControl`.
   adopt[MapControl](activateAs("Windows.UI.Xaml.Controls.Maps.MapControl", IID_IMapControl))
+
+proc children*(self: MapControl): seq[DependencyObject] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.get_Children
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl_get_Children, Fn_IMapControl_get_Children)(it, tmp.addr).check("MapControl.get_Children")
+    result = toSeq[DependencyObject](tmp, IID_IVector_1_DependencyObject)
+    release(tmp)
 
 proc colorScheme*(self: MapControl): MapColorScheme =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.get_ColorScheme
@@ -54291,6 +55184,30 @@ proc `zoomLevel=`*(self: MapControl, value: float64) =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.put_ZoomLevel
   withIface(self.p, IID_IMapControl, "IMapControl", it):
     vcall(it, Slot_IMapControl_put_ZoomLevel, Fn_IMapControl_put_ZoomLevel)(it, value).check("MapControl.put_ZoomLevel")
+
+proc mapElements*(self: MapControl): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.get_MapElements
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl_get_MapElements, Fn_IMapControl_get_MapElements)(it, tmp.addr).check("MapControl.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVector_1_MapElement)
+    release(tmp)
+
+proc routes*(self: MapControl): seq[MapRouteView] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.get_Routes
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl_get_Routes, Fn_IMapControl_get_Routes)(it, tmp.addr).check("MapControl.get_Routes")
+    result = toSeq[MapRouteView](tmp, IID_IVector_1_MapRouteView)
+    release(tmp)
+
+proc tileSources*(self: MapControl): seq[MapTileSource] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.get_TileSources
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl_get_TileSources, Fn_IMapControl_get_TileSources)(it, tmp.addr).check("MapControl.get_TileSources")
+    result = toSeq[MapTileSource](tmp, IID_IVector_1_MapTileSource)
+    release(tmp)
 
 proc onCenterChanged*(self: MapControl,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -54462,6 +55379,14 @@ proc onZoomLevelChanged*(self: MapControl,
 proc removeZoomLevelChanged*(self: MapControl, token: EventRegistrationToken) =
   withIface(self.p, IID_IMapControl, "IMapControl", it):
     vcall(it, Slot_IMapControl_remove_ZoomLevelChanged, Fn_IMapControl_remove_ZoomLevelChanged)(it, token).check("MapControl.remove_ZoomLevelChanged")
+
+proc findMapElementsAtOffset*(self: MapControl, a1: Point): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.FindMapElementsAtOffset
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl_FindMapElementsAtOffset, Fn_IMapControl_FindMapElementsAtOffset)(it, a1, tmp.addr).check("MapControl.FindMapElementsAtOffset")
+    result = toSeq[MapElement](tmp, IID_IVectorView_1_MapElement)
+    release(tmp)
 
 proc businessLandmarksVisible*(self: MapControl): bool =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.get_BusinessLandmarksVisible
@@ -54851,6 +55776,14 @@ proc removeMapContextRequested*(self: MapControl, token: EventRegistrationToken)
   withIface(self.p, IID_IMapControl5, "IMapControl5", it):
     vcall(it, Slot_IMapControl5_remove_MapContextRequested, Fn_IMapControl5_remove_MapContextRequested)(it, token).check("MapControl.remove_MapContextRequested")
 
+proc findMapElementsAtOffset*(self: MapControl, a1: Point, a2: float64): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.FindMapElementsAtOffset
+  withIface(self.p, IID_IMapControl5, "IMapControl5", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl5_FindMapElementsAtOffset, Fn_IMapControl5_FindMapElementsAtOffset)(it, a1, a2, tmp.addr).check("MapControl.FindMapElementsAtOffset")
+    result = toSeq[MapElement](tmp, IID_IVectorView_1_MapElement)
+    release(tmp)
+
 proc startContinuousPan*(self: MapControl, a1: float64, a2: float64) =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.StartContinuousPan
   withIface(self.p, IID_IMapControl5, "IMapControl5", it):
@@ -54860,6 +55793,14 @@ proc stopContinuousPan*(self: MapControl) =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.StopContinuousPan
   withIface(self.p, IID_IMapControl5, "IMapControl5", it):
     vcall(it, Slot_IMapControl5_StopContinuousPan, Fn_IMapControl5_StopContinuousPan)(it).check("MapControl.StopContinuousPan")
+
+proc layers*(self: MapControl): seq[MapLayer] =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.get_Layers
+  withIface(self.p, IID_IMapControl6, "IMapControl6", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControl6_get_Layers, Fn_IMapControl6_get_Layers)(it, tmp.addr).check("MapControl.get_Layers")
+    result = toSeq[MapLayer](tmp, IID_IVector_1_MapLayer)
+    release(tmp)
 
 proc region*(self: MapControl): string =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.get_Region
@@ -55543,6 +56484,14 @@ proc position*(self: MapElementClickEventArgs): Point =
     vcall(it, Slot_IMapElementClickEventArgs_get_Position, Fn_IMapElementClickEventArgs_get_Position)(it, tmp.addr).check("MapElementClickEventArgs.get_Position")
     result = tmp
 
+proc mapElements*(self: MapElementClickEventArgs): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs.get_MapElements
+  withIface(self.p, IID_IMapElementClickEventArgs, "IMapElementClickEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapElementClickEventArgs_get_MapElements, Fn_IMapElementClickEventArgs_get_MapElements)(it, tmp.addr).check("MapElementClickEventArgs.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVector_1_MapElement)
+    release(tmp)
+
 proc newMapElementPointerEnteredEventArgs*(): MapElementPointerEnteredEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs`.
   adopt[MapElementPointerEnteredEventArgs](activateAs("Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs", IID_IMapElementPointerEnteredEventArgs))
@@ -55645,6 +56594,14 @@ proc newMapElementsLayer*(): MapElementsLayer =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapElementsLayer`.
   adopt[MapElementsLayer](activateAs("Windows.UI.Xaml.Controls.Maps.MapElementsLayer", IID_IMapElementsLayer))
 
+proc mapElements*(self: MapElementsLayer): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.get_MapElements
+  withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapElementsLayer_get_MapElements, Fn_IMapElementsLayer_get_MapElements)(it, tmp.addr).check("MapElementsLayer.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVector_1_MapElement)
+    release(tmp)
+
 proc onMapElementClick*(self: MapElementsLayer,
     handler: proc(sender: pointer, args: MapElementsLayerClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.add_MapElementClick
@@ -55739,6 +56696,14 @@ proc position*(self: MapElementsLayerClickEventArgs): Point =
     vcall(it, Slot_IMapElementsLayerClickEventArgs_get_Position, Fn_IMapElementsLayerClickEventArgs_get_Position)(it, tmp.addr).check("MapElementsLayerClickEventArgs.get_Position")
     result = tmp
 
+proc mapElements*(self: MapElementsLayerClickEventArgs): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs.get_MapElements
+  withIface(self.p, IID_IMapElementsLayerClickEventArgs, "IMapElementsLayerClickEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapElementsLayerClickEventArgs_get_MapElements, Fn_IMapElementsLayerClickEventArgs_get_MapElements)(it, tmp.addr).check("MapElementsLayerClickEventArgs.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVector_1_MapElement)
+    release(tmp)
+
 proc newMapElementsLayerContextRequestedEventArgs*(): MapElementsLayerContextRequestedEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs`.
   adopt[MapElementsLayerContextRequestedEventArgs](activateAs("Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs", IID_IMapElementsLayerContextRequestedEventArgs))
@@ -55749,6 +56714,14 @@ proc position*(self: MapElementsLayerContextRequestedEventArgs): Point =
     var tmp: Point
     vcall(it, Slot_IMapElementsLayerContextRequestedEventArgs_get_Position, Fn_IMapElementsLayerContextRequestedEventArgs_get_Position)(it, tmp.addr).check("MapElementsLayerContextRequestedEventArgs.get_Position")
     result = tmp
+
+proc mapElements*(self: MapElementsLayerContextRequestedEventArgs): seq[MapElement] =
+  ## Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs.get_MapElements
+  withIface(self.p, IID_IMapElementsLayerContextRequestedEventArgs, "IMapElementsLayerContextRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapElementsLayerContextRequestedEventArgs_get_MapElements, Fn_IMapElementsLayerContextRequestedEventArgs_get_MapElements)(it, tmp.addr).check("MapElementsLayerContextRequestedEventArgs.get_MapElements")
+    result = toSeq[MapElement](tmp, IID_IVectorView_1_MapElement)
+    release(tmp)
 
 proc newMapElementsLayerPointerEnteredEventArgs*(): MapElementsLayerPointerEnteredEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs`.
@@ -55893,6 +56866,14 @@ proc `itemsSource=`*(self: MapItemsControl, value: pointer) =
   ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.put_ItemsSource
   withIface(self.p, IID_IMapItemsControl, "IMapItemsControl", it):
     vcall(it, Slot_IMapItemsControl_put_ItemsSource, Fn_IMapItemsControl_put_ItemsSource)(it, value).check("MapItemsControl.put_ItemsSource")
+
+proc items*(self: MapItemsControl): seq[DependencyObject] =
+  ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.get_Items
+  withIface(self.p, IID_IMapItemsControl, "IMapItemsControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapItemsControl_get_Items, Fn_IMapItemsControl_get_Items)(it, tmp.addr).check("MapItemsControl.get_Items")
+    result = toSeq[DependencyObject](tmp, IID_IVector_1_DependencyObject)
+    release(tmp)
 
 proc itemTemplate*(self: MapItemsControl): DataTemplate =
   ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.get_ItemTemplate
@@ -58811,6 +59792,14 @@ proc newMenuBar*(): MenuBar =
   adopt[MenuBar](composeAs("Windows.UI.Xaml.Controls.MenuBar", IID_IMenuBarFactory,
                      IID_IMenuBar, 6))
 
+proc items*(self: MenuBar): seq[MenuBarItem] =
+  ## Windows.UI.Xaml.Controls.MenuBar.get_Items
+  withIface(self.p, IID_IMenuBar, "IMenuBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IMenuBar_get_Items, Fn_IMenuBar_get_Items)(it, tmp.addr).check("MenuBar.get_Items")
+    result = toSeq[MenuBarItem](tmp, IID_IVector_1_MenuBarItem)
+    release(tmp)
+
 proc itemsProperty*(_: typedesc[MenuBar]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.MenuBar.get_ItemsProperty
   withStatics("Windows.UI.Xaml.Controls.MenuBar", IID_IMenuBarStatics, it):
@@ -58836,6 +59825,14 @@ proc `title=`*(self: MenuBarItem, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IMenuBarItem_put_Title, Fn_IMenuBarItem_put_Title)(it, h0).check("MenuBarItem.put_Title")
 
+proc items*(self: MenuBarItem): seq[MenuFlyoutItemBase] =
+  ## Windows.UI.Xaml.Controls.MenuBarItem.get_Items
+  withIface(self.p, IID_IMenuBarItem, "IMenuBarItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IMenuBarItem_get_Items, Fn_IMenuBarItem_get_Items)(it, tmp.addr).check("MenuBarItem.get_Items")
+    result = toSeq[MenuFlyoutItemBase](tmp, IID_IVector_1_MenuFlyoutItemBase)
+    release(tmp)
+
 proc titleProperty*(_: typedesc[MenuBarItem]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.MenuBarItem.get_TitleProperty
   withStatics("Windows.UI.Xaml.Controls.MenuBarItem", IID_IMenuBarItemStatics, it):
@@ -58854,6 +59851,14 @@ proc newMenuFlyout*(): MenuFlyout =
   ## Compose a `Windows.UI.Xaml.Controls.MenuFlyout`.
   adopt[MenuFlyout](composeAs("Windows.UI.Xaml.Controls.MenuFlyout", IID_IMenuFlyoutFactory,
                      IID_IMenuFlyout, 6))
+
+proc items*(self: MenuFlyout): seq[MenuFlyoutItemBase] =
+  ## Windows.UI.Xaml.Controls.MenuFlyout.get_Items
+  withIface(self.p, IID_IMenuFlyout, "IMenuFlyout", it):
+    var tmp: pointer
+    vcall(it, Slot_IMenuFlyout_get_Items, Fn_IMenuFlyout_get_Items)(it, tmp.addr).check("MenuFlyout.get_Items")
+    result = toSeq[MenuFlyoutItemBase](tmp, IID_IVector_1_MenuFlyoutItemBase)
+    release(tmp)
 
 proc menuFlyoutPresenterStyle*(self: MenuFlyout): Style =
   ## Windows.UI.Xaml.Controls.MenuFlyout.get_MenuFlyoutPresenterStyle
@@ -59054,6 +60059,14 @@ proc newMenuFlyoutSeparator*(): MenuFlyoutSeparator =
 proc newMenuFlyoutSubItem*(): MenuFlyoutSubItem =
   ## Activate a `Windows.UI.Xaml.Controls.MenuFlyoutSubItem`.
   adopt[MenuFlyoutSubItem](activateAs("Windows.UI.Xaml.Controls.MenuFlyoutSubItem", IID_IMenuFlyoutSubItem))
+
+proc items*(self: MenuFlyoutSubItem): seq[MenuFlyoutItemBase] =
+  ## Windows.UI.Xaml.Controls.MenuFlyoutSubItem.get_Items
+  withIface(self.p, IID_IMenuFlyoutSubItem, "IMenuFlyoutSubItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IMenuFlyoutSubItem_get_Items, Fn_IMenuFlyoutSubItem_get_Items)(it, tmp.addr).check("MenuFlyoutSubItem.get_Items")
+    result = toSeq[MenuFlyoutItemBase](tmp, IID_IVector_1_MenuFlyoutItemBase)
+    release(tmp)
 
 proc text*(self: MenuFlyoutSubItem): string =
   ## Windows.UI.Xaml.Controls.MenuFlyoutSubItem.get_Text
@@ -68532,6 +69545,14 @@ proc `horizontalTextAlignment=`*(self: RichTextBlock, value: TextAlignment) =
   withIface(self.p, IID_IRichTextBlock5, "IRichTextBlock5", it):
     vcall(it, Slot_IRichTextBlock5_put_HorizontalTextAlignment, Fn_IRichTextBlock5_put_HorizontalTextAlignment)(it, value).check("RichTextBlock.put_HorizontalTextAlignment")
 
+proc textHighlighters*(self: RichTextBlock): seq[TextHighlighter] =
+  ## Windows.UI.Xaml.Controls.RichTextBlock.get_TextHighlighters
+  withIface(self.p, IID_IRichTextBlock5, "IRichTextBlock5", it):
+    var tmp: pointer
+    vcall(it, Slot_IRichTextBlock5_get_TextHighlighters, Fn_IRichTextBlock5_get_TextHighlighters)(it, tmp.addr).check("RichTextBlock.get_TextHighlighters")
+    result = toSeq[TextHighlighter](tmp, IID_IVector_1_TextHighlighter)
+    release(tmp)
+
 proc onIsTextTrimmedChanged*(self: RichTextBlock,
     handler: proc(sender: pointer, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichTextBlock.add_IsTextTrimmedChanged
@@ -70556,6 +71577,22 @@ proc language*(self: SearchBoxSuggestionsRequestedEventArgs): string =
     vcall(it, Slot_ISearchBoxSuggestionsRequestedEventArgs_get_Language, Fn_ISearchBoxSuggestionsRequestedEventArgs_get_Language)(it, tmp.addr).check("SearchBoxSuggestionsRequestedEventArgs.get_Language")
     result = takeString(tmp)
 
+proc addedSections*(self: SectionsInViewChangedEventArgs): seq[HubSection] =
+  ## Windows.UI.Xaml.Controls.SectionsInViewChangedEventArgs.get_AddedSections
+  withIface(self.p, IID_ISectionsInViewChangedEventArgs, "ISectionsInViewChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISectionsInViewChangedEventArgs_get_AddedSections, Fn_ISectionsInViewChangedEventArgs_get_AddedSections)(it, tmp.addr).check("SectionsInViewChangedEventArgs.get_AddedSections")
+    result = toSeq[HubSection](tmp, IID_IVector_1_HubSection)
+    release(tmp)
+
+proc removedSections*(self: SectionsInViewChangedEventArgs): seq[HubSection] =
+  ## Windows.UI.Xaml.Controls.SectionsInViewChangedEventArgs.get_RemovedSections
+  withIface(self.p, IID_ISectionsInViewChangedEventArgs, "ISectionsInViewChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISectionsInViewChangedEventArgs_get_RemovedSections, Fn_ISectionsInViewChangedEventArgs_get_RemovedSections)(it, tmp.addr).check("SectionsInViewChangedEventArgs.get_RemovedSections")
+    result = toSeq[HubSection](tmp, IID_IVector_1_HubSection)
+    release(tmp)
+
 proc newSemanticZoom*(): SemanticZoom =
   ## Activate a `Windows.UI.Xaml.Controls.SemanticZoom`.
   adopt[SemanticZoom](activateAs("Windows.UI.Xaml.Controls.SemanticZoom", IID_ISemanticZoom))
@@ -72330,6 +73367,14 @@ proc `horizontalTextAlignment=`*(self: TextBlock, value: TextAlignment) =
   ## Windows.UI.Xaml.Controls.TextBlock.put_HorizontalTextAlignment
   withIface(self.p, IID_ITextBlock6, "ITextBlock6", it):
     vcall(it, Slot_ITextBlock6_put_HorizontalTextAlignment, Fn_ITextBlock6_put_HorizontalTextAlignment)(it, value).check("TextBlock.put_HorizontalTextAlignment")
+
+proc textHighlighters*(self: TextBlock): seq[TextHighlighter] =
+  ## Windows.UI.Xaml.Controls.TextBlock.get_TextHighlighters
+  withIface(self.p, IID_ITextBlock6, "ITextBlock6", it):
+    var tmp: pointer
+    vcall(it, Slot_ITextBlock6_get_TextHighlighters, Fn_ITextBlock6_get_TextHighlighters)(it, tmp.addr).check("TextBlock.get_TextHighlighters")
+    result = toSeq[TextHighlighter](tmp, IID_IVector_1_TextHighlighter)
+    release(tmp)
 
 proc onIsTextTrimmedChanged*(self: TextBlock,
     handler: proc(sender: pointer, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -74368,6 +75413,14 @@ proc newTreeView*(): TreeView =
   adopt[TreeView](composeAs("Windows.UI.Xaml.Controls.TreeView", IID_ITreeViewFactory,
                      IID_ITreeView, 6))
 
+proc rootNodes*(self: TreeView): seq[TreeViewNode] =
+  ## Windows.UI.Xaml.Controls.TreeView.get_RootNodes
+  withIface(self.p, IID_ITreeView, "ITreeView", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeView_get_RootNodes, Fn_ITreeView_get_RootNodes)(it, tmp.addr).check("TreeView.get_RootNodes")
+    result = toSeq[TreeViewNode](tmp, IID_IVector_1_TreeViewNode)
+    release(tmp)
+
 proc selectionMode*(self: TreeView): TreeViewSelectionMode =
   ## Windows.UI.Xaml.Controls.TreeView.get_SelectionMode
   withIface(self.p, IID_ITreeView, "ITreeView", it):
@@ -74379,6 +75432,14 @@ proc `selectionMode=`*(self: TreeView, value: TreeViewSelectionMode) =
   ## Windows.UI.Xaml.Controls.TreeView.put_SelectionMode
   withIface(self.p, IID_ITreeView, "ITreeView", it):
     vcall(it, Slot_ITreeView_put_SelectionMode, Fn_ITreeView_put_SelectionMode)(it, value).check("TreeView.put_SelectionMode")
+
+proc selectedNodes*(self: TreeView): seq[TreeViewNode] =
+  ## Windows.UI.Xaml.Controls.TreeView.get_SelectedNodes
+  withIface(self.p, IID_ITreeView, "ITreeView", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeView_get_SelectedNodes, Fn_ITreeView_get_SelectedNodes)(it, tmp.addr).check("TreeView.get_SelectedNodes")
+    result = toSeq[TreeViewNode](tmp, IID_IVector_1_TreeViewNode)
+    release(tmp)
 
 proc expand*(self: TreeView, a1: TreeViewNode) =
   ## Windows.UI.Xaml.Controls.TreeView.Expand
@@ -75034,6 +76095,14 @@ proc `hasUnrealizedChildren=`*(self: TreeViewNode, value: bool) =
   ## Windows.UI.Xaml.Controls.TreeViewNode.put_HasUnrealizedChildren
   withIface(self.p, IID_ITreeViewNode, "ITreeViewNode", it):
     vcall(it, Slot_ITreeViewNode_put_HasUnrealizedChildren, Fn_ITreeViewNode_put_HasUnrealizedChildren)(it, value).check("TreeViewNode.put_HasUnrealizedChildren")
+
+proc children*(self: TreeViewNode): seq[TreeViewNode] =
+  ## Windows.UI.Xaml.Controls.TreeViewNode.get_Children
+  withIface(self.p, IID_ITreeViewNode, "ITreeViewNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeViewNode_get_Children, Fn_ITreeViewNode_get_Children)(it, tmp.addr).check("TreeViewNode.get_Children")
+    result = toSeq[TreeViewNode](tmp, IID_IVector_1_TreeViewNode)
+    release(tmp)
 
 proc contentProperty*(_: typedesc[TreeViewNode]): DependencyProperty =
   ## Windows.UI.Xaml.Controls.TreeViewNode.get_ContentProperty
@@ -75972,6 +77041,14 @@ proc executionMode*(self: WebView): WebViewExecutionMode =
     var tmp: WebViewExecutionMode
     vcall(it, Slot_IWebView4_get_ExecutionMode, Fn_IWebView4_get_ExecutionMode)(it, tmp.addr).check("WebView.get_ExecutionMode")
     result = tmp
+
+proc deferredPermissionRequests*(self: WebView): seq[WebViewDeferredPermissionRequest] =
+  ## Windows.UI.Xaml.Controls.WebView.get_DeferredPermissionRequests
+  withIface(self.p, IID_IWebView4, "IWebView4", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebView4_get_DeferredPermissionRequests, Fn_IWebView4_get_DeferredPermissionRequests)(it, tmp.addr).check("WebView.get_DeferredPermissionRequests")
+    result = toSeq[WebViewDeferredPermissionRequest](tmp, IID_IVector_1_WebViewDeferredPermissionRequest)
+    release(tmp)
 
 proc settings*(self: WebView): WebViewSettings =
   ## Windows.UI.Xaml.Controls.WebView.get_Settings
@@ -81587,6 +82664,14 @@ proc newInputScope*(): InputScope =
   ## Activate a `Windows.UI.Xaml.Input.InputScope`.
   adopt[InputScope](activateAs("Windows.UI.Xaml.Input.InputScope", IID_IInputScope))
 
+proc names*(self: InputScope): seq[InputScopeName] =
+  ## Windows.UI.Xaml.Input.InputScope.get_Names
+  withIface(self.p, IID_IInputScope, "IInputScope", it):
+    var tmp: pointer
+    vcall(it, Slot_IInputScope_get_Names, Fn_IInputScope_get_Names)(it, tmp.addr).check("InputScope.get_Names")
+    result = toSeq[InputScopeName](tmp, IID_IVector_1_InputScopeName)
+    release(tmp)
+
 proc newInputScopeName*(): InputScopeName =
   ## Activate a `Windows.UI.Xaml.Input.InputScopeName`.
   adopt[InputScopeName](activateAs("Windows.UI.Xaml.Input.InputScopeName", IID_IInputScopeName))
@@ -82229,6 +83314,15 @@ proc getCurrentPoint*(self: PointerRoutedEventArgs, a1: UIElement): PointerPoint
       vcall(it, Slot_IPointerRoutedEventArgs_GetCurrentPoint, Fn_IPointerRoutedEventArgs_GetCurrentPoint)(it, p0, tmp.addr).check("PointerRoutedEventArgs.GetCurrentPoint")
       result = adopt[PointerPoint](tmp)
 
+proc getIntermediatePoints*(self: PointerRoutedEventArgs, a1: UIElement): seq[PointerPoint] =
+  ## Windows.UI.Xaml.Input.PointerRoutedEventArgs.GetIntermediatePoints
+  withIface(self.p, IID_IPointerRoutedEventArgs, "IPointerRoutedEventArgs", it):
+    withIface(a1.p, IID_IUIElement, "IUIElement", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPointerRoutedEventArgs_GetIntermediatePoints, Fn_IPointerRoutedEventArgs_GetIntermediatePoints)(it, p0, tmp.addr).check("PointerRoutedEventArgs.GetIntermediatePoints")
+      result = toSeq[PointerPoint](tmp, IID_IVector_1_PointerPoint)
+      release(tmp)
+
 proc isGenerated*(self: PointerRoutedEventArgs): bool =
   ## Windows.UI.Xaml.Input.PointerRoutedEventArgs.get_IsGenerated
   withIface(self.p, IID_IPointerRoutedEventArgs2, "IPointerRoutedEventArgs2", it):
@@ -82302,6 +83396,14 @@ proc `iconSource=`*(self: XamlUICommand, value: IconSource) =
   withIface(self.p, IID_IXamlUICommand, "IXamlUICommand", it):
     withIface(value.p, IID_IIconSource, "IIconSource", p0):
       vcall(it, Slot_IXamlUICommand_put_IconSource, Fn_IXamlUICommand_put_IconSource)(it, p0).check("XamlUICommand.put_IconSource")
+
+proc keyboardAccelerators*(self: XamlUICommand): seq[KeyboardAccelerator] =
+  ## Windows.UI.Xaml.Input.XamlUICommand.get_KeyboardAccelerators
+  withIface(self.p, IID_IXamlUICommand, "IXamlUICommand", it):
+    var tmp: pointer
+    vcall(it, Slot_IXamlUICommand_get_KeyboardAccelerators, Fn_IXamlUICommand_get_KeyboardAccelerators)(it, tmp.addr).check("XamlUICommand.get_KeyboardAccelerators")
+    result = toSeq[KeyboardAccelerator](tmp, IID_IVector_1_KeyboardAccelerator)
+    release(tmp)
 
 proc accessKey*(self: XamlUICommand): string =
   ## Windows.UI.Xaml.Input.XamlUICommand.get_AccessKey
@@ -88386,6 +89488,60 @@ proc yProperty*(_: typedesc[TranslateTransform]): DependencyProperty =
     vcall(it, Slot_ITranslateTransformStatics_get_YProperty, Fn_ITranslateTransformStatics_get_YProperty)(it, tmp.addr).check("TranslateTransform.get_YProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc getOpenPopups*(_: typedesc[VisualTreeHelper], a1: Window): seq[Popup] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.GetOpenPopups
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics2, it):
+    withIface(a1.p, IID_IWindow, "IWindow", p0):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics2_GetOpenPopups, Fn_IVisualTreeHelperStatics2_GetOpenPopups)(it, p0, tmp.addr).check("VisualTreeHelper.GetOpenPopups")
+      result = toSeq[Popup](tmp, IID_IVectorView_1_Popup)
+      release(tmp)
+
+proc getOpenPopupsForXamlRoot*(_: typedesc[VisualTreeHelper], a1: XamlRoot): seq[Popup] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.GetOpenPopupsForXamlRoot
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics3, it):
+    withIface(a1.p, IID_IXamlRoot, "IXamlRoot", p0):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics3_GetOpenPopupsForXamlRoot, Fn_IVisualTreeHelperStatics3_GetOpenPopupsForXamlRoot)(it, p0, tmp.addr).check("VisualTreeHelper.GetOpenPopupsForXamlRoot")
+      result = toSeq[Popup](tmp, IID_IVectorView_1_Popup)
+      release(tmp)
+
+proc findElementsInHostCoordinates*(_: typedesc[VisualTreeHelper], a1: Point, a2: UIElement): seq[UIElement] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.FindElementsInHostCoordinates
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics, it):
+    withIface(a2.p, IID_IUIElement, "IUIElement", p1):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates, Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates)(it, a1, p1, tmp.addr).check("VisualTreeHelper.FindElementsInHostCoordinates")
+      result = toSeq[UIElement](tmp, IID_IIterable_1_UIElement)
+      release(tmp)
+
+proc findElementsInHostCoordinates*(_: typedesc[VisualTreeHelper], a1: Rect, a2: UIElement): seq[UIElement] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.FindElementsInHostCoordinates
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics, it):
+    withIface(a2.p, IID_IUIElement, "IUIElement", p1):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates2, Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates2)(it, a1, p1, tmp.addr).check("VisualTreeHelper.FindElementsInHostCoordinates")
+      result = toSeq[UIElement](tmp, IID_IIterable_1_UIElement)
+      release(tmp)
+
+proc findElementsInHostCoordinates*(_: typedesc[VisualTreeHelper], a1: Point, a2: UIElement, a3: bool): seq[UIElement] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.FindElementsInHostCoordinates
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics, it):
+    withIface(a2.p, IID_IUIElement, "IUIElement", p1):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates3, Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates3)(it, a1, p1, a3, tmp.addr).check("VisualTreeHelper.FindElementsInHostCoordinates")
+      result = toSeq[UIElement](tmp, IID_IIterable_1_UIElement)
+      release(tmp)
+
+proc findElementsInHostCoordinates*(_: typedesc[VisualTreeHelper], a1: Rect, a2: UIElement, a3: bool): seq[UIElement] =
+  ## Windows.UI.Xaml.Media.VisualTreeHelper.FindElementsInHostCoordinates
+  withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics, it):
+    withIface(a2.p, IID_IUIElement, "IUIElement", p1):
+      var tmp: pointer
+      vcall(it, Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates4, Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates4)(it, a1, p1, a3, tmp.addr).check("VisualTreeHelper.FindElementsInHostCoordinates")
+      result = toSeq[UIElement](tmp, IID_IIterable_1_UIElement)
+      release(tmp)
+
 proc getChild*(_: typedesc[VisualTreeHelper], a1: DependencyObject, a2: int32): DependencyObject =
   ## Windows.UI.Xaml.Media.VisualTreeHelper.GetChild
   withStatics("Windows.UI.Xaml.Media.VisualTreeHelper", IID_IVisualTreeHelperStatics, it):
@@ -89723,6 +90879,14 @@ proc setters*(self: VisualState): SetterBaseCollection =
     vcall(it, Slot_IVisualState2_get_Setters, Fn_IVisualState2_get_Setters)(it, tmp.addr).check("VisualState.get_Setters")
     result = adopt[SetterBaseCollection](tmp)
 
+proc stateTriggers*(self: VisualState): seq[StateTriggerBase] =
+  ## Windows.UI.Xaml.VisualState.get_StateTriggers
+  withIface(self.p, IID_IVisualState2, "IVisualState2", it):
+    var tmp: pointer
+    vcall(it, Slot_IVisualState2_get_StateTriggers, Fn_IVisualState2_get_StateTriggers)(it, tmp.addr).check("VisualState.get_StateTriggers")
+    result = toSeq[StateTriggerBase](tmp, IID_IVector_1_StateTriggerBase)
+    release(tmp)
+
 proc newVisualStateChangedEventArgs*(): VisualStateChangedEventArgs =
   ## Activate a `Windows.UI.Xaml.VisualStateChangedEventArgs`.
   adopt[VisualStateChangedEventArgs](activateAs("Windows.UI.Xaml.VisualStateChangedEventArgs", IID_IVisualStateChangedEventArgs))
@@ -89776,6 +90940,22 @@ proc name*(self: VisualStateGroup): string =
     var tmp: HSTRING
     vcall(it, Slot_IVisualStateGroup_get_Name, Fn_IVisualStateGroup_get_Name)(it, tmp.addr).check("VisualStateGroup.get_Name")
     result = takeString(tmp)
+
+proc transitions*(self: VisualStateGroup): seq[VisualTransition] =
+  ## Windows.UI.Xaml.VisualStateGroup.get_Transitions
+  withIface(self.p, IID_IVisualStateGroup, "IVisualStateGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IVisualStateGroup_get_Transitions, Fn_IVisualStateGroup_get_Transitions)(it, tmp.addr).check("VisualStateGroup.get_Transitions")
+    result = toSeq[VisualTransition](tmp, IID_IVector_1_VisualTransition)
+    release(tmp)
+
+proc states*(self: VisualStateGroup): seq[VisualState] =
+  ## Windows.UI.Xaml.VisualStateGroup.get_States
+  withIface(self.p, IID_IVisualStateGroup, "IVisualStateGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IVisualStateGroup_get_States, Fn_IVisualStateGroup_get_States)(it, tmp.addr).check("VisualStateGroup.get_States")
+    result = toSeq[VisualState](tmp, IID_IVector_1_VisualState)
+    release(tmp)
 
 proc currentState*(self: VisualStateGroup): VisualState =
   ## Windows.UI.Xaml.VisualStateGroup.get_CurrentState
@@ -89856,6 +91036,15 @@ proc goToStateCore*(self: VisualStateManager, a1: Control, a2: FrameworkElement,
               var tmp: bool
               vcall(it, Slot_IVisualStateManagerOverrides_GoToStateCore, Fn_IVisualStateManagerOverrides_GoToStateCore)(it, p0, p1, h2, p3, p4, a6, tmp.addr).check("VisualStateManager.GoToStateCore")
               result = tmp
+
+proc getVisualStateGroups*(_: typedesc[VisualStateManager], a1: FrameworkElement): seq[VisualStateGroup] =
+  ## Windows.UI.Xaml.VisualStateManager.GetVisualStateGroups
+  withStatics("Windows.UI.Xaml.VisualStateManager", IID_IVisualStateManagerStatics, it):
+    withIface(a1.p, IID_IFrameworkElement, "IFrameworkElement", p0):
+      var tmp: pointer
+      vcall(it, Slot_IVisualStateManagerStatics_GetVisualStateGroups, Fn_IVisualStateManagerStatics_GetVisualStateGroups)(it, p0, tmp.addr).check("VisualStateManager.GetVisualStateGroups")
+      result = toSeq[VisualStateGroup](tmp, IID_IVector_1_VisualStateGroup)
+      release(tmp)
 
 proc customVisualStateManagerProperty*(_: typedesc[VisualStateManager]): DependencyProperty =
   ## Windows.UI.Xaml.VisualStateManager.get_CustomVisualStateManagerProperty

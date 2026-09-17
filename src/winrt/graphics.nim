@@ -23,6 +23,9 @@ const IID_TypedEventHandler_2_GraphicsCaptureItem_Object* = GUID(
 const IID_TypedEventHandler_2_BrightnessOverride_Object* = GUID(
     data1: 0xA460214E'u32, data2: 0x6620'u16, data3: 0x521D'u16,
     data4: [0x9C'u8, 0xB9, 0xA0, 0xA0, 0xF7, 0x32, 0xCE, 0x90])
+const IID_IVectorView_1_HdmiDisplayMode* = GUID(
+    data1: 0x7D0E7C64'u32, data2: 0xDF0E'u16, data3: 0x539A'u16,
+    data4: [0xAB'u8, 0x5F, 0x3C, 0x26, 0x00, 0x26, 0xC5, 0xCE])
 const IID_TypedEventHandler_2_HdmiDisplayInformation_Object* = GUID(
     data1: 0xD109932B'u32, data2: 0x9CE1'u16, data3: 0x5CDD'u16,
     data4: [0x94'u8, 0xC7, 0x93, 0xC6, 0x0C, 0x83, 0x3A, 0xA3])
@@ -35,6 +38,21 @@ const IID_TypedEventHandler_2_DisplayEnhancementOverride_DisplayEnhancementOverr
 const IID_TypedEventHandler_2_DisplayInformation_Object* = GUID(
     data1: 0x86C4F619'u32, data2: 0x67B6'u16, data3: 0x51C7'u16,
     data4: [0xB3'u8, 0x0D, 0xD8, 0xCF, 0x13, 0x62, 0x53, 0x27])
+const IID_IVector_1_HolographicQuadLayer* = GUID(
+    data1: 0xDA24DFCC'u32, data2: 0x4C54'u16, data3: 0x5193'u16,
+    data4: [0x92'u8, 0x1D, 0xC6, 0x85, 0xB5, 0x7D, 0xE5, 0x59])
+const IID_IVectorView_1_HolographicCamera* = GUID(
+    data1: 0x01D6C0AE'u32, data2: 0xADA5'u16, data3: 0x50B0'u16,
+    data4: [0x85'u8, 0x62, 0x41, 0xFB, 0x12, 0x05, 0xBB, 0x4A])
+const IID_IVectorView_1_HolographicCameraPose* = GUID(
+    data1: 0x17C5DFB1'u32, data2: 0x6E87'u16, data3: 0x5A17'u16,
+    data4: [0xA7'u8, 0x91, 0xAC, 0x07, 0xF8, 0xEE, 0x92, 0x92])
+const IID_IVectorView_1_HolographicFramePresentationReport* = GUID(
+    data1: 0x014F37BA'u32, data2: 0xABC1'u16, data3: 0x5D85'u16,
+    data4: [0x85'u8, 0x5E, 0xEC, 0x05, 0x31, 0x83, 0xA6, 0x35])
+const IID_IVector_1_HolographicFrameScanoutReport* = GUID(
+    data1: 0xA8081E2B'u32, data2: 0x440D'u16, data3: 0x53FC'u16,
+    data4: [0xA3'u8, 0x10, 0xCF, 0x8A, 0x07, 0xEA, 0x09, 0x35])
 const IID_TypedEventHandler_2_HolographicSpace_HolographicSpaceCameraAddedEventArgs* = GUID(
     data1: 0x71D80B7C'u32, data2: 0x1D27'u16, data3: 0x5102'u16,
     data4: [0x83'u8, 0xD1, 0x4F, 0x0E, 0xFC, 0x7C, 0x9D, 0x6F])
@@ -47,12 +65,21 @@ const IID_TypedEventHandler_2_HolographicSpace_Object* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_BitmapCodecInformation* = GUID(
+    data1: 0x97DFDE96'u32, data2: 0xFF1D'u16, data3: 0x5AA1'u16,
+    data4: [0x86'u8, 0x3A, 0x90, 0x11, 0x6A, 0x31, 0xB8, 0x6B])
 const IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs* = GUID(
     data1: 0x1B1F456B'u32, data2: 0x8821'u16, data3: 0x592E'u16,
     data4: [0xB4'u8, 0xA7, 0x9B, 0x4C, 0x37, 0x12, 0x51, 0x8E])
 const IID_TypedEventHandler_2_PrintTaskOptionDetails_Object* = GUID(
     data1: 0x5C88455C'u32, data2: 0x5B59'u16, data3: 0x557C'u16,
     data4: [0x80'u8, 0x64, 0x5E, 0x4F, 0x3D, 0x59, 0xA8, 0xEC])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_PrintManager_PrintTaskRequestedEventArgs* = GUID(
     data1: 0x8A8CB877'u32, data2: 0x70C5'u16, data3: 0x54CE'u16,
     data4: [0x8B'u8, 0x42, 0xD7, 0x90, 0xE2, 0x91, 0x48, 0x59])
@@ -77,6 +104,12 @@ const IID_TypedEventHandler_2_PrintTask_PrintTaskProgressingEventArgs* = GUID(
 const IID_TypedEventHandler_2_PrintTask_PrintTaskCompletedEventArgs* = GUID(
     data1: 0xB0B02549'u32, data2: 0xB9AD'u16, data3: 0x5226'u16,
     data4: [0x89'u8, 0x8A, 0x7B, 0x56, 0x3B, 0x46, 0x64, 0x0C])
+const IID_IVector_1_PrintPageRange* = GUID(
+    data1: 0x1D314A18'u32, data2: 0x2A16'u16, data3: 0x542F'u16,
+    data4: [0xA9'u8, 0x86, 0x1B, 0x78, 0x41, 0xB8, 0x78, 0xAA])
+const IID_IVectorView_1_PrintTicketOption* = GUID(
+    data1: 0xC80B48EF'u32, data2: 0x2A4C'u16, data3: 0x5685'u16,
+    data4: [0xB7'u8, 0xA4, 0x88, 0xCC, 0x79, 0x6C, 0xA2, 0x74])
 const IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowBackgroundSetupRequestedEventArgs* = GUID(
     data1: 0xBB5C0591'u32, data2: 0x4B11'u16, data3: 0x511C'u16,
     data4: [0x8E'u8, 0xF3, 0x18, 0x22, 0xCB, 0x71, 0x42, 0x7C])
@@ -125,6 +158,51 @@ const IID_TypedEventHandler_2_Print3DTask_Print3DTaskCompletedEventArgs* = GUID(
 const IID_TypedEventHandler_2_Print3DTask_Print3DTaskSourceChangedEventArgs* = GUID(
     data1: 0x58D36055'u32, data2: 0x0241'u16, data3: 0x555D'u16,
     data4: [0xAF'u8, 0x7B, 0x9F, 0x05, 0xE5, 0xDA, 0xA4, 0x12])
+const IID_IVector_1_Printing3DTextureResource* = GUID(
+    data1: 0x120948C9'u32, data2: 0xAAA5'u16, data3: 0x5EE5'u16,
+    data4: [0xA1'u8, 0x33, 0x32, 0x15, 0xD0, 0x56, 0x14, 0x04])
+const IID_IVector_1_Printing3DBaseMaterial* = GUID(
+    data1: 0x6A5AA59F'u32, data2: 0xFE10'u16, data3: 0x517B'u16,
+    data4: [0xB1'u8, 0xA9, 0xC6, 0x85, 0xEC, 0xCE, 0x16, 0x44])
+const IID_IVector_1_Printing3DColorMaterial* = GUID(
+    data1: 0x606166FD'u32, data2: 0x6BF5'u16, data3: 0x53A1'u16,
+    data4: [0xB1'u8, 0xAE, 0xC3, 0x48, 0x92, 0xEF, 0x16, 0x63])
+const IID_IVector_1_Printing3DComponentWithMatrix* = GUID(
+    data1: 0xF09F3DD7'u32, data2: 0x61E6'u16, data3: 0x5A8D'u16,
+    data4: [0x9D'u8, 0xDF, 0x57, 0x00, 0x1F, 0x70, 0x5D, 0xE7])
+const IID_IVector_1_Printing3DCompositeMaterial* = GUID(
+    data1: 0xC3B27A95'u32, data2: 0x5EFC'u16, data3: 0x52C7'u16,
+    data4: [0xB5'u8, 0xDE, 0xE8, 0x2E, 0x05, 0x9A, 0x72, 0x2E])
+const IID_IVector_1_Printing3DBaseMaterialGroup* = GUID(
+    data1: 0x2B80D2CF'u32, data2: 0x5449'u16, data3: 0x5C81'u16,
+    data4: [0x82'u8, 0x26, 0xEB, 0xFC, 0x7D, 0x72, 0xF5, 0x79])
+const IID_IVector_1_Printing3DColorMaterialGroup* = GUID(
+    data1: 0x7C8017F3'u32, data2: 0x8365'u16, data3: 0x5AA8'u16,
+    data4: [0x9F'u8, 0xD0, 0xA7, 0x69, 0xF2, 0x6E, 0x3F, 0xEF])
+const IID_IVector_1_Printing3DTexture2CoordMaterialGroup* = GUID(
+    data1: 0x7DC68E96'u32, data2: 0x2A62'u16, data3: 0x5E7A'u16,
+    data4: [0x85'u8, 0xD5, 0x48, 0x64, 0xD0, 0x35, 0x91, 0xEB])
+const IID_IVector_1_Printing3DCompositeMaterialGroup* = GUID(
+    data1: 0x1E4CCD78'u32, data2: 0xB6C0'u16, data3: 0x51B1'u16,
+    data4: [0xAB'u8, 0x2B, 0xC3, 0x42, 0x2F, 0x02, 0xC2, 0x4E])
+const IID_IVector_1_Printing3DMultiplePropertyMaterialGroup* = GUID(
+    data1: 0x22585B94'u32, data2: 0x34A1'u16, data3: 0x5B6A'u16,
+    data4: [0xBA'u8, 0xE3, 0xBF, 0x44, 0x65, 0x98, 0x12, 0xF3])
+const IID_IVector_1_Printing3DModelTexture* = GUID(
+    data1: 0x4E72578F'u32, data2: 0x9BEA'u16, data3: 0x5663'u16,
+    data4: [0x86'u8, 0x99, 0xE7, 0xFC, 0xAD, 0x35, 0x47, 0xA7])
+const IID_IVector_1_Printing3DMesh* = GUID(
+    data1: 0xBB11BE6E'u32, data2: 0xB592'u16, data3: 0x5BC2'u16,
+    data4: [0x9A'u8, 0x53, 0x01, 0x27, 0xA9, 0xB3, 0x21, 0x72])
+const IID_IVector_1_Printing3DComponent* = GUID(
+    data1: 0x49E654C2'u32, data2: 0xF372'u16, data3: 0x582E'u16,
+    data4: [0x97'u8, 0xCC, 0xCB, 0x6B, 0x0F, 0xA3, 0xBA, 0x62])
+const IID_IVector_1_Printing3DMultiplePropertyMaterial* = GUID(
+    data1: 0xE2196DA6'u32, data2: 0x6A29'u16, data3: 0x59A2'u16,
+    data4: [0x9D'u8, 0xD6, 0x93, 0x06, 0x2F, 0x44, 0xBA, 0xAD])
+const IID_IVector_1_Printing3DTexture2CoordMaterial* = GUID(
+    data1: 0xF16FBF2C'u32, data2: 0xC783'u16, data3: 0x5EDF'u16,
+    data4: [0xAD'u8, 0x7B, 0x7F, 0xB7, 0xEA, 0xCF, 0x15, 0x01])
 
 type
   Direct3D11CaptureFrame* {.inheritable, pure.} = object
@@ -3200,6 +3278,14 @@ proc createFromDisplayColorOverrideScenario*(_: typedesc[ColorOverrideSettings],
     vcall(it, Slot_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario, Fn_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario)(it, a1, tmp.addr).check("ColorOverrideSettings.CreateFromDisplayColorOverrideScenario")
     result = adopt[ColorOverrideSettings](tmp)
 
+proc getSupportedDisplayModes*(self: HdmiDisplayInformation): seq[HdmiDisplayMode] =
+  ## Windows.Graphics.Display.Core.HdmiDisplayInformation.GetSupportedDisplayModes
+  withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHdmiDisplayInformation_GetSupportedDisplayModes, Fn_IHdmiDisplayInformation_GetSupportedDisplayModes)(it, tmp.addr).check("HdmiDisplayInformation.GetSupportedDisplayModes")
+    result = toSeq[HdmiDisplayMode](tmp, IID_IVectorView_1_HdmiDisplayMode)
+    release(tmp)
+
 proc getCurrentDisplayMode*(self: HdmiDisplayInformation): HdmiDisplayMode =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.GetCurrentDisplayMode
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
@@ -3827,6 +3913,14 @@ proc maxQuadLayerCount*(self: HolographicCamera): uint32 =
     vcall(it, Slot_IHolographicCamera3_get_MaxQuadLayerCount, Fn_IHolographicCamera3_get_MaxQuadLayerCount)(it, tmp.addr).check("HolographicCamera.get_MaxQuadLayerCount")
     result = tmp
 
+proc quadLayers*(self: HolographicCamera): seq[HolographicQuadLayer] =
+  ## Windows.Graphics.Holographic.HolographicCamera.get_QuadLayers
+  withIface(self.p, IID_IHolographicCamera3, "IHolographicCamera3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicCamera3_get_QuadLayers, Fn_IHolographicCamera3_get_QuadLayers)(it, tmp.addr).check("HolographicCamera.get_QuadLayers")
+    result = toSeq[HolographicQuadLayer](tmp, IID_IVector_1_HolographicQuadLayer)
+    release(tmp)
+
 proc canOverrideViewport*(self: HolographicCamera): bool =
   ## Windows.Graphics.Holographic.HolographicCamera.get_CanOverrideViewport
   withIface(self.p, IID_IHolographicCamera4, "IHolographicCamera4", it):
@@ -4016,6 +4110,22 @@ proc getDefault*(_: typedesc[HolographicDisplay]): HolographicDisplay =
     vcall(it, Slot_IHolographicDisplayStatics_GetDefault, Fn_IHolographicDisplayStatics_GetDefault)(it, tmp.addr).check("HolographicDisplay.GetDefault")
     result = adopt[HolographicDisplay](tmp)
 
+proc addedCameras*(self: HolographicFrame): seq[HolographicCamera] =
+  ## Windows.Graphics.Holographic.HolographicFrame.get_AddedCameras
+  withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFrame_get_AddedCameras, Fn_IHolographicFrame_get_AddedCameras)(it, tmp.addr).check("HolographicFrame.get_AddedCameras")
+    result = toSeq[HolographicCamera](tmp, IID_IVectorView_1_HolographicCamera)
+    release(tmp)
+
+proc removedCameras*(self: HolographicFrame): seq[HolographicCamera] =
+  ## Windows.Graphics.Holographic.HolographicFrame.get_RemovedCameras
+  withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFrame_get_RemovedCameras, Fn_IHolographicFrame_get_RemovedCameras)(it, tmp.addr).check("HolographicFrame.get_RemovedCameras")
+    result = toSeq[HolographicCamera](tmp, IID_IVectorView_1_HolographicCamera)
+    release(tmp)
+
 proc getRenderingParameters*(self: HolographicFrame, a1: HolographicCameraPose): HolographicCameraRenderingParameters =
   ## Windows.Graphics.Holographic.HolographicFrame.GetRenderingParameters
   withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
@@ -4076,6 +4186,22 @@ proc id*(self: HolographicFrame): HolographicFrameId =
     var tmp: HolographicFrameId
     vcall(it, Slot_IHolographicFrame3_get_Id, Fn_IHolographicFrame3_get_Id)(it, tmp.addr).check("HolographicFrame.get_Id")
     result = tmp
+
+proc cameraPoses*(self: HolographicFramePrediction): seq[HolographicCameraPose] =
+  ## Windows.Graphics.Holographic.HolographicFramePrediction.get_CameraPoses
+  withIface(self.p, IID_IHolographicFramePrediction, "IHolographicFramePrediction", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFramePrediction_get_CameraPoses, Fn_IHolographicFramePrediction_get_CameraPoses)(it, tmp.addr).check("HolographicFramePrediction.get_CameraPoses")
+    result = toSeq[HolographicCameraPose](tmp, IID_IVectorView_1_HolographicCameraPose)
+    release(tmp)
+
+proc readReports*(self: HolographicFramePresentationMonitor): seq[HolographicFramePresentationReport] =
+  ## Windows.Graphics.Holographic.HolographicFramePresentationMonitor.ReadReports
+  withIface(self.p, IID_IHolographicFramePresentationMonitor, "IHolographicFramePresentationMonitor", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFramePresentationMonitor_ReadReports, Fn_IHolographicFramePresentationMonitor_ReadReports)(it, tmp.addr).check("HolographicFramePresentationMonitor.ReadReports")
+    result = toSeq[HolographicFramePresentationReport](tmp, IID_IVectorView_1_HolographicFramePresentationReport)
+    release(tmp)
 
 proc compositorGpuDuration*(self: HolographicFramePresentationReport): TimeSpan =
   ## Windows.Graphics.Holographic.HolographicFramePresentationReport.get_CompositorGpuDuration
@@ -4146,6 +4272,14 @@ proc systemRelativeTargetLatchTime*(self: HolographicFrameRenderingReport): Time
     var tmp: TimeSpan
     vcall(it, Slot_IHolographicFrameRenderingReport_get_SystemRelativeTargetLatchTime, Fn_IHolographicFrameRenderingReport_get_SystemRelativeTargetLatchTime)(it, tmp.addr).check("HolographicFrameRenderingReport.get_SystemRelativeTargetLatchTime")
     result = tmp
+
+proc readReports*(self: HolographicFrameScanoutMonitor): seq[HolographicFrameScanoutReport] =
+  ## Windows.Graphics.Holographic.HolographicFrameScanoutMonitor.ReadReports
+  withIface(self.p, IID_IHolographicFrameScanoutMonitor, "IHolographicFrameScanoutMonitor", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFrameScanoutMonitor_ReadReports, Fn_IHolographicFrameScanoutMonitor_ReadReports)(it, tmp.addr).check("HolographicFrameScanoutMonitor.ReadReports")
+    result = toSeq[HolographicFrameScanoutReport](tmp, IID_IVector_1_HolographicFrameScanoutReport)
+    release(tmp)
 
 proc renderingReport*(self: HolographicFrameScanoutReport): HolographicFrameRenderingReport =
   ## Windows.Graphics.Holographic.HolographicFrameScanoutReport.get_RenderingReport
@@ -4506,12 +4640,28 @@ proc codecId*(self: BitmapCodecInformation): GUID =
     vcall(it, Slot_IBitmapCodecInformation_get_CodecId, Fn_IBitmapCodecInformation_get_CodecId)(it, tmp.addr).check("BitmapCodecInformation.get_CodecId")
     result = tmp
 
+proc fileExtensions*(self: BitmapCodecInformation): seq[string] =
+  ## Windows.Graphics.Imaging.BitmapCodecInformation.get_FileExtensions
+  withIface(self.p, IID_IBitmapCodecInformation, "IBitmapCodecInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapCodecInformation_get_FileExtensions, Fn_IBitmapCodecInformation_get_FileExtensions)(it, tmp.addr).check("BitmapCodecInformation.get_FileExtensions")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc friendlyName*(self: BitmapCodecInformation): string =
   ## Windows.Graphics.Imaging.BitmapCodecInformation.get_FriendlyName
   withIface(self.p, IID_IBitmapCodecInformation, "IBitmapCodecInformation", it):
     var tmp: HSTRING
     vcall(it, Slot_IBitmapCodecInformation_get_FriendlyName, Fn_IBitmapCodecInformation_get_FriendlyName)(it, tmp.addr).check("BitmapCodecInformation.get_FriendlyName")
     result = takeString(tmp)
+
+proc mimeTypes*(self: BitmapCodecInformation): seq[string] =
+  ## Windows.Graphics.Imaging.BitmapCodecInformation.get_MimeTypes
+  withIface(self.p, IID_IBitmapCodecInformation, "IBitmapCodecInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapCodecInformation_get_MimeTypes, Fn_IBitmapCodecInformation_get_MimeTypes)(it, tmp.addr).check("BitmapCodecInformation.get_MimeTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc bitmapContainerProperties*(self: BitmapDecoder): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapDecoder.get_BitmapContainerProperties
@@ -4660,6 +4810,14 @@ proc icoDecoderId*(_: typedesc[BitmapDecoder]): GUID =
     vcall(it, Slot_IBitmapDecoderStatics_get_IcoDecoderId, Fn_IBitmapDecoderStatics_get_IcoDecoderId)(it, tmp.addr).check("BitmapDecoder.get_IcoDecoderId")
     result = tmp
 
+proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCodecInformation] =
+  ## Windows.Graphics.Imaging.BitmapDecoder.GetDecoderInformationEnumerator
+  withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapDecoderStatics_GetDecoderInformationEnumerator, Fn_IBitmapDecoderStatics_GetDecoderInformationEnumerator)(it, tmp.addr).check("BitmapDecoder.GetDecoderInformationEnumerator")
+    result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
+    release(tmp)
+
 proc encoderInformation*(self: BitmapEncoder): BitmapCodecInformation =
   ## Windows.Graphics.Imaging.BitmapEncoder.get_EncoderInformation
   withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
@@ -4792,6 +4950,14 @@ proc jpegXREncoderId*(_: typedesc[BitmapEncoder]): GUID =
     var tmp: GUID
     vcall(it, Slot_IBitmapEncoderStatics_get_JpegXREncoderId, Fn_IBitmapEncoderStatics_get_JpegXREncoderId)(it, tmp.addr).check("BitmapEncoder.get_JpegXREncoderId")
     result = tmp
+
+proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCodecInformation] =
+  ## Windows.Graphics.Imaging.BitmapEncoder.GetEncoderInformationEnumerator
+  withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapEncoderStatics_GetEncoderInformationEnumerator, Fn_IBitmapEncoderStatics_GetEncoderInformationEnumerator)(it, tmp.addr).check("BitmapEncoder.GetEncoderInformationEnumerator")
+    result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
+    release(tmp)
 
 proc bitmapProperties*(self: BitmapFrame): BitmapPropertiesView =
   ## Windows.Graphics.Imaging.BitmapFrame.get_BitmapProperties
@@ -6514,6 +6680,14 @@ proc getPageDescription*(self: PrintTaskOptionDetails, a1: uint32): PrintPageDes
     vcall(it, Slot_IPrintTaskOptionsCore_GetPageDescription, Fn_IPrintTaskOptionsCore_GetPageDescription)(it, a1, tmp.addr).check("PrintTaskOptionDetails.GetPageDescription")
     result = tmp
 
+proc displayedOptions*(self: PrintTaskOptionDetails): seq[string] =
+  ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.get_DisplayedOptions
+  withIface(self.p, IID_IPrintTaskOptionsCoreUIConfiguration, "IPrintTaskOptionsCoreUIConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions, Fn_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions)(it, tmp.addr).check("PrintTaskOptionDetails.get_DisplayedOptions")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc createToggleOption*(self: PrintTaskOptionDetails, a1: string, a2: string): PrintCustomToggleOptionDetails =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.CreateToggleOption
   withIface(self.p, IID_IPrintTaskOptionDetails2, "IPrintTaskOptionDetails2", it):
@@ -7404,6 +7578,14 @@ proc numberOfCopies*(self: PrintTaskOptions): uint32 =
     vcall(it, Slot_IPrintTaskOptionsCoreProperties_get_NumberOfCopies, Fn_IPrintTaskOptionsCoreProperties_get_NumberOfCopies)(it, tmp.addr).check("PrintTaskOptions.get_NumberOfCopies")
     result = tmp
 
+proc displayedOptions*(self: PrintTaskOptions): seq[string] =
+  ## Windows.Graphics.Printing.PrintTaskOptions.get_DisplayedOptions
+  withIface(self.p, IID_IPrintTaskOptionsCoreUIConfiguration, "IPrintTaskOptionsCoreUIConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions, Fn_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions)(it, tmp.addr).check("PrintTaskOptions.get_DisplayedOptions")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc `bordering=`*(self: PrintTaskOptions, value: PrintBordering) =
   ## Windows.Graphics.Printing.PrintTaskOptions.put_Bordering
   withIface(self.p, IID_IPrintTaskOptions, "IPrintTaskOptions", it):
@@ -7430,6 +7612,14 @@ proc pageRangeOptions*(self: PrintTaskOptions): PrintPageRangeOptions =
     var tmp: pointer
     vcall(it, Slot_IPrintTaskOptions2_get_PageRangeOptions, Fn_IPrintTaskOptions2_get_PageRangeOptions)(it, tmp.addr).check("PrintTaskOptions.get_PageRangeOptions")
     result = adopt[PrintPageRangeOptions](tmp)
+
+proc customPageRanges*(self: PrintTaskOptions): seq[PrintPageRange] =
+  ## Windows.Graphics.Printing.PrintTaskOptions.get_CustomPageRanges
+  withIface(self.p, IID_IPrintTaskOptions2, "IPrintTaskOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTaskOptions2_get_CustomPageRanges, Fn_IPrintTaskOptions2_get_CustomPageRanges)(it, tmp.addr).check("PrintTaskOptions.get_CustomPageRanges")
+    result = toSeq[PrintPageRange](tmp, IID_IVector_1_PrintPageRange)
+    release(tmp)
 
 proc documentPageCount*(self: PrintTaskProgressingEventArgs): uint32 =
   ## Windows.Graphics.Printing.PrintTaskProgressingEventArgs.get_DocumentPageCount
@@ -7668,6 +7858,14 @@ proc getOption*(self: PrintTicketFeature, a1: string, a2: string): PrintTicketOp
         var tmp: pointer
         vcall(it, Slot_IPrintTicketFeature_GetOption, Fn_IPrintTicketFeature_GetOption)(it, h0, h1, tmp.addr).check("PrintTicketFeature.GetOption")
         result = adopt[PrintTicketOption](tmp)
+
+proc options*(self: PrintTicketFeature): seq[PrintTicketOption] =
+  ## Windows.Graphics.Printing.PrintTicket.PrintTicketFeature.get_Options
+  withIface(self.p, IID_IPrintTicketFeature, "IPrintTicketFeature", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTicketFeature_get_Options, Fn_IPrintTicketFeature_get_Options)(it, tmp.addr).check("PrintTicketFeature.get_Options")
+    result = toSeq[PrintTicketOption](tmp, IID_IVectorView_1_PrintTicketOption)
+    release(tmp)
 
 proc getSelectedOption*(self: PrintTicketFeature): PrintTicketOption =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketFeature.GetSelectedOption
@@ -9138,6 +9336,14 @@ proc `thumbnail=`*(self: Printing3D3MFPackage, value: Printing3DTextureResource)
     withIface(value.p, IID_IPrinting3DTextureResource, "IPrinting3DTextureResource", p0):
       vcall(it, Slot_IPrinting3D3MFPackage_put_Thumbnail, Fn_IPrinting3D3MFPackage_put_Thumbnail)(it, p0).check("Printing3D3MFPackage.put_Thumbnail")
 
+proc textures*(self: Printing3D3MFPackage): seq[Printing3DTextureResource] =
+  ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_Textures
+  withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3D3MFPackage_get_Textures, Fn_IPrinting3D3MFPackage_get_Textures)(it, tmp.addr).check("Printing3D3MFPackage.get_Textures")
+    result = toSeq[Printing3DTextureResource](tmp, IID_IVector_1_Printing3DTextureResource)
+    release(tmp)
+
 proc saveModelToPackageAsync*(self: Printing3D3MFPackage, a1: Printing3DModel): pointer =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveModelToPackageAsync
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
@@ -9202,6 +9408,14 @@ proc pla*(_: typedesc[Printing3DBaseMaterial]): string =
     vcall(it, Slot_IPrinting3DBaseMaterialStatics_get_Pla, Fn_IPrinting3DBaseMaterialStatics_get_Pla)(it, tmp.addr).check("Printing3DBaseMaterial.get_Pla")
     result = takeString(tmp)
 
+proc bases*(self: Printing3DBaseMaterialGroup): seq[Printing3DBaseMaterial] =
+  ## Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup.get_Bases
+  withIface(self.p, IID_IPrinting3DBaseMaterialGroup, "IPrinting3DBaseMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DBaseMaterialGroup_get_Bases, Fn_IPrinting3DBaseMaterialGroup_get_Bases)(it, tmp.addr).check("Printing3DBaseMaterialGroup.get_Bases")
+    result = toSeq[Printing3DBaseMaterial](tmp, IID_IVector_1_Printing3DBaseMaterial)
+    release(tmp)
+
 proc materialGroupId*(self: Printing3DBaseMaterialGroup): uint32 =
   ## Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup.get_MaterialGroupId
   withIface(self.p, IID_IPrinting3DBaseMaterialGroup, "IPrinting3DBaseMaterialGroup", it):
@@ -9244,6 +9458,14 @@ proc `color=`*(self: Printing3DColorMaterial, value: Color) =
   withIface(self.p, IID_IPrinting3DColorMaterial2, "IPrinting3DColorMaterial2", it):
     vcall(it, Slot_IPrinting3DColorMaterial2_put_Color, Fn_IPrinting3DColorMaterial2_put_Color)(it, value).check("Printing3DColorMaterial.put_Color")
 
+proc colors*(self: Printing3DColorMaterialGroup): seq[Printing3DColorMaterial] =
+  ## Windows.Graphics.Printing3D.Printing3DColorMaterialGroup.get_Colors
+  withIface(self.p, IID_IPrinting3DColorMaterialGroup, "IPrinting3DColorMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DColorMaterialGroup_get_Colors, Fn_IPrinting3DColorMaterialGroup_get_Colors)(it, tmp.addr).check("Printing3DColorMaterialGroup.get_Colors")
+    result = toSeq[Printing3DColorMaterial](tmp, IID_IVector_1_Printing3DColorMaterial)
+    release(tmp)
+
 proc materialGroupId*(self: Printing3DColorMaterialGroup): uint32 =
   ## Windows.Graphics.Printing3D.Printing3DColorMaterialGroup.get_MaterialGroupId
   withIface(self.p, IID_IPrinting3DColorMaterialGroup, "IPrinting3DColorMaterialGroup", it):
@@ -9274,6 +9496,14 @@ proc `mesh=`*(self: Printing3DComponent, value: Printing3DMesh) =
   withIface(self.p, IID_IPrinting3DComponent, "IPrinting3DComponent", it):
     withIface(value.p, IID_IPrinting3DMesh, "IPrinting3DMesh", p0):
       vcall(it, Slot_IPrinting3DComponent_put_Mesh, Fn_IPrinting3DComponent_put_Mesh)(it, p0).check("Printing3DComponent.put_Mesh")
+
+proc components*(self: Printing3DComponent): seq[Printing3DComponentWithMatrix] =
+  ## Windows.Graphics.Printing3D.Printing3DComponent.get_Components
+  withIface(self.p, IID_IPrinting3DComponent, "IPrinting3DComponent", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DComponent_get_Components, Fn_IPrinting3DComponent_get_Components)(it, tmp.addr).check("Printing3DComponent.get_Components")
+    result = toSeq[Printing3DComponentWithMatrix](tmp, IID_IVector_1_Printing3DComponentWithMatrix)
+    release(tmp)
 
 proc thumbnail*(self: Printing3DComponent): Printing3DTextureResource =
   ## Windows.Graphics.Printing3D.Printing3DComponent.get_Thumbnail
@@ -9359,6 +9589,14 @@ proc newPrinting3DCompositeMaterial*(): Printing3DCompositeMaterial =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DCompositeMaterial`.
   adopt[Printing3DCompositeMaterial](activateAs("Windows.Graphics.Printing3D.Printing3DCompositeMaterial", IID_IPrinting3DCompositeMaterial))
 
+proc composites*(self: Printing3DCompositeMaterialGroup): seq[Printing3DCompositeMaterial] =
+  ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.get_Composites
+  withIface(self.p, IID_IPrinting3DCompositeMaterialGroup, "IPrinting3DCompositeMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DCompositeMaterialGroup_get_Composites, Fn_IPrinting3DCompositeMaterialGroup_get_Composites)(it, tmp.addr).check("Printing3DCompositeMaterialGroup.get_Composites")
+    result = toSeq[Printing3DCompositeMaterial](tmp, IID_IVector_1_Printing3DCompositeMaterial)
+    release(tmp)
+
 proc materialGroupId*(self: Printing3DCompositeMaterialGroup): uint32 =
   ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.get_MaterialGroupId
   withIface(self.p, IID_IPrinting3DCompositeMaterialGroup, "IPrinting3DCompositeMaterialGroup", it):
@@ -9429,6 +9667,46 @@ proc `maxEdgeLength=`*(self: Printing3DFaceReductionOptions, value: float64) =
 proc newPrinting3DMaterial*(): Printing3DMaterial =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DMaterial`.
   adopt[Printing3DMaterial](activateAs("Windows.Graphics.Printing3D.Printing3DMaterial", IID_IPrinting3DMaterial))
+
+proc baseGroups*(self: Printing3DMaterial): seq[Printing3DBaseMaterialGroup] =
+  ## Windows.Graphics.Printing3D.Printing3DMaterial.get_BaseGroups
+  withIface(self.p, IID_IPrinting3DMaterial, "IPrinting3DMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMaterial_get_BaseGroups, Fn_IPrinting3DMaterial_get_BaseGroups)(it, tmp.addr).check("Printing3DMaterial.get_BaseGroups")
+    result = toSeq[Printing3DBaseMaterialGroup](tmp, IID_IVector_1_Printing3DBaseMaterialGroup)
+    release(tmp)
+
+proc colorGroups*(self: Printing3DMaterial): seq[Printing3DColorMaterialGroup] =
+  ## Windows.Graphics.Printing3D.Printing3DMaterial.get_ColorGroups
+  withIface(self.p, IID_IPrinting3DMaterial, "IPrinting3DMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMaterial_get_ColorGroups, Fn_IPrinting3DMaterial_get_ColorGroups)(it, tmp.addr).check("Printing3DMaterial.get_ColorGroups")
+    result = toSeq[Printing3DColorMaterialGroup](tmp, IID_IVector_1_Printing3DColorMaterialGroup)
+    release(tmp)
+
+proc texture2CoordGroups*(self: Printing3DMaterial): seq[Printing3DTexture2CoordMaterialGroup] =
+  ## Windows.Graphics.Printing3D.Printing3DMaterial.get_Texture2CoordGroups
+  withIface(self.p, IID_IPrinting3DMaterial, "IPrinting3DMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMaterial_get_Texture2CoordGroups, Fn_IPrinting3DMaterial_get_Texture2CoordGroups)(it, tmp.addr).check("Printing3DMaterial.get_Texture2CoordGroups")
+    result = toSeq[Printing3DTexture2CoordMaterialGroup](tmp, IID_IVector_1_Printing3DTexture2CoordMaterialGroup)
+    release(tmp)
+
+proc compositeGroups*(self: Printing3DMaterial): seq[Printing3DCompositeMaterialGroup] =
+  ## Windows.Graphics.Printing3D.Printing3DMaterial.get_CompositeGroups
+  withIface(self.p, IID_IPrinting3DMaterial, "IPrinting3DMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMaterial_get_CompositeGroups, Fn_IPrinting3DMaterial_get_CompositeGroups)(it, tmp.addr).check("Printing3DMaterial.get_CompositeGroups")
+    result = toSeq[Printing3DCompositeMaterialGroup](tmp, IID_IVector_1_Printing3DCompositeMaterialGroup)
+    release(tmp)
+
+proc multiplePropertyGroups*(self: Printing3DMaterial): seq[Printing3DMultiplePropertyMaterialGroup] =
+  ## Windows.Graphics.Printing3D.Printing3DMaterial.get_MultiplePropertyGroups
+  withIface(self.p, IID_IPrinting3DMaterial, "IPrinting3DMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMaterial_get_MultiplePropertyGroups, Fn_IPrinting3DMaterial_get_MultiplePropertyGroups)(it, tmp.addr).check("Printing3DMaterial.get_MultiplePropertyGroups")
+    result = toSeq[Printing3DMultiplePropertyMaterialGroup](tmp, IID_IVector_1_Printing3DMultiplePropertyMaterialGroup)
+    release(tmp)
 
 proc newPrinting3DMesh*(): Printing3DMesh =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DMesh`.
@@ -9591,6 +9869,30 @@ proc `unit=`*(self: Printing3DModel, value: Printing3DModelUnit) =
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     vcall(it, Slot_IPrinting3DModel_put_Unit, Fn_IPrinting3DModel_put_Unit)(it, value).check("Printing3DModel.put_Unit")
 
+proc textures*(self: Printing3DModel): seq[Printing3DModelTexture] =
+  ## Windows.Graphics.Printing3D.Printing3DModel.get_Textures
+  withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DModel_get_Textures, Fn_IPrinting3DModel_get_Textures)(it, tmp.addr).check("Printing3DModel.get_Textures")
+    result = toSeq[Printing3DModelTexture](tmp, IID_IVector_1_Printing3DModelTexture)
+    release(tmp)
+
+proc meshes*(self: Printing3DModel): seq[Printing3DMesh] =
+  ## Windows.Graphics.Printing3D.Printing3DModel.get_Meshes
+  withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DModel_get_Meshes, Fn_IPrinting3DModel_get_Meshes)(it, tmp.addr).check("Printing3DModel.get_Meshes")
+    result = toSeq[Printing3DMesh](tmp, IID_IVector_1_Printing3DMesh)
+    release(tmp)
+
+proc components*(self: Printing3DModel): seq[Printing3DComponent] =
+  ## Windows.Graphics.Printing3D.Printing3DModel.get_Components
+  withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DModel_get_Components, Fn_IPrinting3DModel_get_Components)(it, tmp.addr).check("Printing3DModel.get_Components")
+    result = toSeq[Printing3DComponent](tmp, IID_IVector_1_Printing3DComponent)
+    release(tmp)
+
 proc material*(self: Printing3DModel): Printing3DMaterial =
   ## Windows.Graphics.Printing3D.Printing3DModel.get_Material
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
@@ -9629,6 +9931,14 @@ proc `version=`*(self: Printing3DModel, value: string) =
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     withHString(value, h0):
       vcall(it, Slot_IPrinting3DModel_put_Version, Fn_IPrinting3DModel_put_Version)(it, h0).check("Printing3DModel.put_Version")
+
+proc requiredExtensions*(self: Printing3DModel): seq[string] =
+  ## Windows.Graphics.Printing3D.Printing3DModel.get_RequiredExtensions
+  withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DModel_get_RequiredExtensions, Fn_IPrinting3DModel_get_RequiredExtensions)(it, tmp.addr).check("Printing3DModel.get_RequiredExtensions")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc repairAsync*(self: Printing3DModel): pointer =
   ## Windows.Graphics.Printing3D.Printing3DModel.RepairAsync
@@ -9689,6 +9999,14 @@ proc newPrinting3DMultiplePropertyMaterial*(): Printing3DMultiplePropertyMateria
   ## Activate a `Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial`.
   adopt[Printing3DMultiplePropertyMaterial](activateAs("Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial", IID_IPrinting3DMultiplePropertyMaterial))
 
+proc multipleProperties*(self: Printing3DMultiplePropertyMaterialGroup): seq[Printing3DMultiplePropertyMaterial] =
+  ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.get_MultipleProperties
+  withIface(self.p, IID_IPrinting3DMultiplePropertyMaterialGroup, "IPrinting3DMultiplePropertyMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroup_get_MultipleProperties, Fn_IPrinting3DMultiplePropertyMaterialGroup_get_MultipleProperties)(it, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.get_MultipleProperties")
+    result = toSeq[Printing3DMultiplePropertyMaterial](tmp, IID_IVector_1_Printing3DMultiplePropertyMaterial)
+    release(tmp)
+
 proc materialGroupId*(self: Printing3DMultiplePropertyMaterialGroup): uint32 =
   ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.get_MaterialGroupId
   withIface(self.p, IID_IPrinting3DMultiplePropertyMaterialGroup, "IPrinting3DMultiplePropertyMaterialGroup", it):
@@ -9743,6 +10061,14 @@ proc `v=`*(self: Printing3DTexture2CoordMaterial, value: float64) =
   ## Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial.put_V
   withIface(self.p, IID_IPrinting3DTexture2CoordMaterial, "IPrinting3DTexture2CoordMaterial", it):
     vcall(it, Slot_IPrinting3DTexture2CoordMaterial_put_V, Fn_IPrinting3DTexture2CoordMaterial_put_V)(it, value).check("Printing3DTexture2CoordMaterial.put_V")
+
+proc texture2Coords*(self: Printing3DTexture2CoordMaterialGroup): seq[Printing3DTexture2CoordMaterial] =
+  ## Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup.get_Texture2Coords
+  withIface(self.p, IID_IPrinting3DTexture2CoordMaterialGroup, "IPrinting3DTexture2CoordMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DTexture2CoordMaterialGroup_get_Texture2Coords, Fn_IPrinting3DTexture2CoordMaterialGroup_get_Texture2Coords)(it, tmp.addr).check("Printing3DTexture2CoordMaterialGroup.get_Texture2Coords")
+    result = toSeq[Printing3DTexture2CoordMaterial](tmp, IID_IVector_1_Printing3DTexture2CoordMaterial)
+    release(tmp)
 
 proc materialGroupId*(self: Printing3DTexture2CoordMaterialGroup): uint32 =
   ## Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup.get_MaterialGroupId

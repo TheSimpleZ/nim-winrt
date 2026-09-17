@@ -14,12 +14,36 @@ export core, networking
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_DownloadOperation* = GUID(
+    data1: 0xF87D9755'u32, data2: 0x2A7D'u16, data3: 0x59FC'u16,
+    data4: [0xBC'u8, 0x92, 0xB4, 0x86, 0x36, 0xF4, 0xD9, 0x55])
+const IID_IVectorView_1_UploadOperation* = GUID(
+    data1: 0x8E96D4B0'u32, data2: 0xF0AE'u16, data3: 0x51CB'u16,
+    data4: [0xB7'u8, 0xC4, 0x02, 0x42, 0x51, 0xBD, 0x16, 0xD8])
 const IID_TypedEventHandler_2_DownloadOperation_BackgroundTransferRangesDownloadedEventArgs* = GUID(
     data1: 0x93A20D85'u32, data2: 0xBDFC'u16, data3: 0x5195'u16,
     data4: [0x90'u8, 0xD9, 0x8C, 0xB5, 0x6C, 0xBC, 0xB3, 0xD8])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_ConnectionProfile* = GUID(
+    data1: 0x6DB1B492'u32, data2: 0x3852'u16, data3: 0x5DF8'u16,
+    data4: [0xA2'u8, 0x9D, 0x69, 0x44, 0x00, 0x2F, 0x58, 0xD4])
+const IID_IVectorView_1_LanIdentifier* = GUID(
+    data1: 0x41286159'u32, data2: 0xB91D'u16, data3: 0x5736'u16,
+    data4: [0xAD'u8, 0x8B, 0xE1, 0x6F, 0xCF, 0x8A, 0xCE, 0xD0])
+const IID_IVectorView_1_HostName* = GUID(
+    data1: 0xF4706AB1'u32, data2: 0x55A3'u16, data3: 0x5270'u16,
+    data4: [0xAF'u8, 0xB2, 0x73, 0x29, 0x88, 0xFE, 0x82, 0x27])
+const IID_IVectorView_1_ESimProfile* = GUID(
+    data1: 0xC776F3A9'u32, data2: 0x6E7F'u16, data3: 0x5144'u16,
+    data4: [0x89'u8, 0xF7, 0x8F, 0x5E, 0xC1, 0x16, 0x5B, 0xA4])
 const IID_TypedEventHandler_2_ESim_Object* = GUID(
     data1: 0x9CA277DB'u32, data2: 0xFE42'u16, data3: 0x53B1'u16,
     data4: [0xAE'u8, 0x3B, 0x09, 0x8E, 0x51, 0xFA, 0x6A, 0x9B])
+const IID_IVectorView_1_ESimDiscoverEvent* = GUID(
+    data1: 0x21277446'u32, data2: 0xC556'u16, data3: 0x5FCF'u16,
+    data4: [0x8D'u8, 0x2D, 0xF2, 0xCD, 0x06, 0x1F, 0x26, 0x03])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
@@ -47,24 +71,66 @@ const IID_TypedEventHandler_2_MobileBroadbandAccountWatcher_MobileBroadbandAccou
 const IID_TypedEventHandler_2_MobileBroadbandAccountWatcher_Object* = GUID(
     data1: 0xE4DC9CFC'u32, data2: 0xF462'u16, data3: 0x5AFD'u16,
     data4: [0x85'u8, 0x6D, 0x04, 0xAC, 0xE2, 0x29, 0xD0, 0x0E])
+const IID_IVectorView_1_MobileBroadbandCellCdma* = GUID(
+    data1: 0x2896BC34'u32, data2: 0x7401'u16, data3: 0x5D22'u16,
+    data4: [0xBF'u8, 0x9F, 0xDB, 0x82, 0x5D, 0x09, 0xC9, 0x51])
+const IID_IVectorView_1_MobileBroadbandCellGsm* = GUID(
+    data1: 0xF77A0168'u32, data2: 0x0396'u16, data3: 0x5111'u16,
+    data4: [0xA4'u8, 0x87, 0xA7, 0x95, 0xF2, 0x46, 0x46, 0xB7])
+const IID_IVectorView_1_MobileBroadbandCellLte* = GUID(
+    data1: 0x2270AD53'u32, data2: 0x49A0'u16, data3: 0x55B3'u16,
+    data4: [0x93'u8, 0x56, 0x00, 0x7C, 0x3B, 0x8C, 0x2D, 0xE3])
+const IID_IVectorView_1_MobileBroadbandCellTdscdma* = GUID(
+    data1: 0x4AE9135F'u32, data2: 0x6029'u16, data3: 0x54AF'u16,
+    data4: [0x8A'u8, 0xE6, 0x43, 0x2C, 0x12, 0xAF, 0xCE, 0xDF])
+const IID_IVectorView_1_MobileBroadbandCellUmts* = GUID(
+    data1: 0xB0E94BD2'u32, data2: 0x2DD2'u16, data3: 0x532D'u16,
+    data4: [0x96'u8, 0x0F, 0x4D, 0x1A, 0x81, 0x85, 0xB0, 0x21])
+const IID_IVectorView_1_MobileBroadbandCellNR* = GUID(
+    data1: 0x66A9879F'u32, data2: 0x9612'u16, data3: 0x5E02'u16,
+    data4: [0x9C'u8, 0x3D, 0x94, 0x3B, 0x09, 0xDB, 0x4D, 0x35])
 const IID_TypedEventHandler_2_MobileBroadbandDeviceServiceCommandSession_MobileBroadbandDeviceServiceCommandEventArgs* = GUID(
     data1: 0xFB669E9D'u32, data2: 0xA7F8'u16, data3: 0x5B7A'u16,
     data4: [0x84'u8, 0xFC, 0x20, 0xA4, 0xCA, 0xDD, 0xEC, 0xEF])
 const IID_TypedEventHandler_2_MobileBroadbandDeviceServiceDataSession_MobileBroadbandDeviceServiceDataReceivedEventArgs* = GUID(
     data1: 0x31F89CA6'u32, data2: 0xDD7F'u16, data3: 0x5325'u16,
     data4: [0x90'u8, 0x20, 0x62, 0x7D, 0x8B, 0x47, 0xEA, 0x02])
+const IID_IVectorView_1_MobileBroadbandDeviceServiceInformation* = GUID(
+    data1: 0xACA7EE14'u32, data2: 0x414A'u16, data3: 0x509C'u16,
+    data4: [0x9D'u8, 0x63, 0x36, 0x1E, 0x66, 0x31, 0xFC, 0x84])
 const IID_TypedEventHandler_2_MobileBroadbandModem_Object* = GUID(
     data1: 0xF2DF3C8F'u32, data2: 0x20B5'u16, data3: 0x555C'u16,
     data4: [0xA3'u8, 0x81, 0x7E, 0x29, 0xD5, 0xAB, 0x51, 0xD7])
+const IID_IVectorView_1_MobileBroadbandUiccApp* = GUID(
+    data1: 0xD1E341F3'u32, data2: 0x4E36'u16, data3: 0x58C5'u16,
+    data4: [0x92'u8, 0xBF, 0xDD, 0x33, 0x09, 0x2E, 0x39, 0x0C])
+const IID_IVectorView_1_MobileBroadbandNetworkRegistrationStateChange* = GUID(
+    data1: 0x077679F5'u32, data2: 0x6948'u16, data3: 0x5328'u16,
+    data4: [0x8A'u8, 0xB4, 0x72, 0xE6, 0x3A, 0x75, 0x29, 0xBD])
+const IID_IVectorView_1_MobileBroadbandPinLockStateChange* = GUID(
+    data1: 0x2078B5F0'u32, data2: 0x9FA1'u16, data3: 0x5056'u16,
+    data4: [0x81'u8, 0xC7, 0x49, 0x02, 0x46, 0xA5, 0xBC, 0x13])
+const IID_IVectorView_1_MobileBroadbandRadioStateChange* = GUID(
+    data1: 0xCA3D0221'u32, data2: 0x58C8'u16, data3: 0x516A'u16,
+    data4: [0xAD'u8, 0xDF, 0xD0, 0xA8, 0x69, 0xFB, 0xAA, 0x49])
+const IID_IVectorView_1_MobileBroadbandAntennaSar* = GUID(
+    data1: 0x8A4AD36C'u32, data2: 0x8B24'u16, data3: 0x5F2C'u16,
+    data4: [0xAD'u8, 0x6F, 0x6A, 0x93, 0x6A, 0x17, 0xBF, 0xC6])
 const IID_TypedEventHandler_2_MobileBroadbandSarManager_MobileBroadbandTransmissionStateChangedEventArgs* = GUID(
     data1: 0x540C4534'u32, data2: 0xCD85'u16, data3: 0x5ABE'u16,
     data4: [0x80'u8, 0x13, 0x13, 0xCB, 0x14, 0x0E, 0xD1, 0x8B])
+const IID_IVectorView_1_MobileBroadbandSlotInfo* = GUID(
+    data1: 0xC72D12EE'u32, data2: 0x6A4A'u16, data3: 0x5980'u16,
+    data4: [0xAD'u8, 0x00, 0x8B, 0xF7, 0xFC, 0x85, 0x48, 0x55])
 const IID_TypedEventHandler_2_MobileBroadbandSlotManager_MobileBroadbandSlotInfoChangedEventArgs* = GUID(
     data1: 0xE3DEB611'u32, data2: 0x51AC'u16, data3: 0x58C9'u16,
     data4: [0x9E'u8, 0x72, 0xEB, 0xFF, 0xDF, 0x14, 0x9F, 0x69])
 const IID_TypedEventHandler_2_MobileBroadbandSlotManager_MobileBroadbandCurrentSlotIndexChangedEventArgs* = GUID(
     data1: 0x67A52E4E'u32, data2: 0xA996'u16, data3: 0x5861'u16,
     data4: [0x97'u8, 0x6A, 0x76, 0x2D, 0x06, 0x68, 0x70, 0x28])
+const IID_IVectorView_1_NetworkOperatorTetheringClient* = GUID(
+    data1: 0xE21D6797'u32, data2: 0x4EF6'u16, data3: 0x553F'u16,
+    data4: [0xB7'u8, 0xF9, 0x5E, 0xD7, 0x4B, 0xCE, 0xBD, 0x7E])
 const IID_TypedEventHandler_2_Object_TriggeredConnectionStateChangedEventArgs* = GUID(
     data1: 0x2E5AD6FA'u32, data2: 0x3CA6'u16, data3: 0x5518'u16,
     data4: [0xBD'u8, 0x4D, 0xFE, 0xFC, 0x45, 0x35, 0x58, 0x0E])
@@ -101,6 +167,9 @@ const IID_TypedEventHandler_2_IWebSocket_WebSocketClosedEventArgs* = GUID(
 const IID_TypedEventHandler_2_MessageWebSocket_WebSocketServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0x2C34C585'u32, data2: 0x9CF6'u16, data3: 0x56C7'u16,
     data4: [0x8D'u8, 0xD1, 0x5D, 0xA2, 0x6E, 0x32, 0x20, 0x78])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_ServerMessageWebSocket_MessageWebSocketMessageReceivedEventArgs* = GUID(
     data1: 0x6E66714B'u32, data2: 0x94D1'u16, data3: 0x5C08'u16,
     data4: [0xB2'u8, 0xB3, 0x10, 0xB8, 0x91, 0xD0, 0x87, 0x47])
@@ -122,6 +191,24 @@ const IID_TypedEventHandler_2_VpnChannel_VpnChannelActivityEventArgs* = GUID(
 const IID_TypedEventHandler_2_VpnChannel_VpnChannelActivityStateChangedArgs* = GUID(
     data1: 0x2CFCF1BA'u32, data2: 0xBFFC'u16, data3: 0x5746'u16,
     data4: [0xB8'u8, 0x68, 0x2E, 0x45, 0xA4, 0x6D, 0x29, 0x58])
+const IID_IVector_1_VpnDomainNameInfo* = GUID(
+    data1: 0x8179B6F2'u32, data2: 0x7273'u16, data3: 0x5CA3'u16,
+    data4: [0xA8'u8, 0x1B, 0x53, 0xE9, 0x02, 0xCA, 0x20, 0x9B])
+const IID_IVector_1_HostName* = GUID(
+    data1: 0x90C71C29'u32, data2: 0xA9B5'u16, data3: 0x5267'u16,
+    data4: [0xA5'u8, 0xAD, 0x8B, 0x75, 0x67, 0x36, 0x31, 0x7C])
+const IID_IVector_1_VpnNamespaceInfo* = GUID(
+    data1: 0x056BDDF2'u32, data2: 0x135D'u16, data3: 0x542E'u16,
+    data4: [0xA3'u8, 0x22, 0x36, 0xAA, 0x4C, 0xA0, 0xE6, 0x0D])
+const IID_IVector_1_VpnAppId* = GUID(
+    data1: 0x89097D58'u32, data2: 0xEDB8'u16, data3: 0x5AD4'u16,
+    data4: [0xAB'u8, 0xC5, 0x60, 0x3F, 0x21, 0xDD, 0x4B, 0x15])
+const IID_IVector_1_VpnRoute* = GUID(
+    data1: 0x5B026BD8'u32, data2: 0x2CC5'u16, data3: 0x5570'u16,
+    data4: [0xBD'u8, 0xE5, 0x0D, 0xB7, 0xC4, 0x33, 0x12, 0x79])
+const IID_IVector_1_VpnTrafficFilter* = GUID(
+    data1: 0x2A5B9AD8'u32, data2: 0xF005'u16, data3: 0x5F69'u16,
+    data4: [0xAD'u8, 0x81, 0x30, 0x06, 0x42, 0xE7, 0xC6, 0x67])
 const IID_TypedEventHandler_2_XboxLiveDeviceAddress_Object* = GUID(
     data1: 0x7FA76199'u32, data2: 0xD1B8'u16, data3: 0x5494'u16,
     data4: [0xA0'u8, 0x42, 0x70, 0x02, 0xA4, 0x16, 0xAD, 0xC3])
@@ -131,6 +218,21 @@ const IID_TypedEventHandler_2_XboxLiveEndpointPair_XboxLiveEndpointPairStateChan
 const IID_TypedEventHandler_2_XboxLiveEndpointPairTemplate_XboxLiveInboundEndpointPairCreatedEventArgs* = GUID(
     data1: 0x2AEF5136'u32, data2: 0x6E7A'u16, data3: 0x51F8'u16,
     data4: [0x88'u8, 0x53, 0xCC, 0x0C, 0xE4, 0x66, 0xFE, 0xF9])
+const IID_IVectorView_1_XboxLiveEndpointPair* = GUID(
+    data1: 0xC88CAA17'u32, data2: 0xAE4A'u16, data3: 0x5E4C'u16,
+    data4: [0x84'u8, 0x35, 0xD6, 0xDB, 0x6B, 0x12, 0x04, 0x64])
+const IID_IVectorView_1_XboxLiveEndpointPairTemplate* = GUID(
+    data1: 0x1128B50B'u32, data2: 0x3AC4'u16, data3: 0x543E'u16,
+    data4: [0x9D'u8, 0x7E, 0xD7, 0x96, 0xC6, 0x22, 0x66, 0x69])
+const IID_IVectorView_1_XboxLiveQualityOfServiceMetricResult* = GUID(
+    data1: 0xFD58662F'u32, data2: 0xD206'u16, data3: 0x5D57'u16,
+    data4: [0xA6'u8, 0xAD, 0xA8, 0x45, 0x67, 0x18, 0x7F, 0x30])
+const IID_IVector_1_XboxLiveDeviceAddress* = GUID(
+    data1: 0x8AACB2DA'u32, data2: 0xC37E'u16, data3: 0x5BE0'u16,
+    data4: [0xAB'u8, 0x46, 0xBA, 0x44, 0x59, 0x10, 0xB9, 0xCB])
+const IID_IVectorView_1_XboxLiveQualityOfServicePrivatePayloadResult* = GUID(
+    data1: 0x821B8135'u32, data2: 0x7801'u16, data3: 0x5CB5'u16,
+    data4: [0xBA'u8, 0xA4, 0xFD, 0x74, 0x77, 0x2F, 0xB9, 0x1C])
 
 type
   BackgroundDownloader* {.inheritable, pure.} = object
@@ -3433,6 +3535,22 @@ proc enable*(self: BackgroundTransferCompletionGroup) =
   withIface(self.p, IID_IBackgroundTransferCompletionGroup, "IBackgroundTransferCompletionGroup", it):
     vcall(it, Slot_IBackgroundTransferCompletionGroup_Enable, Fn_IBackgroundTransferCompletionGroup_Enable)(it).check("BackgroundTransferCompletionGroup.Enable")
 
+proc downloads*(self: BackgroundTransferCompletionGroupTriggerDetails): seq[DownloadOperation] =
+  ## Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroupTriggerDetails.get_Downloads
+  withIface(self.p, IID_IBackgroundTransferCompletionGroupTriggerDetails, "IBackgroundTransferCompletionGroupTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferCompletionGroupTriggerDetails_get_Downloads, Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Downloads)(it, tmp.addr).check("BackgroundTransferCompletionGroupTriggerDetails.get_Downloads")
+    result = toSeq[DownloadOperation](tmp, IID_IVectorView_1_DownloadOperation)
+    release(tmp)
+
+proc uploads*(self: BackgroundTransferCompletionGroupTriggerDetails): seq[UploadOperation] =
+  ## Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroupTriggerDetails.get_Uploads
+  withIface(self.p, IID_IBackgroundTransferCompletionGroupTriggerDetails, "IBackgroundTransferCompletionGroupTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferCompletionGroupTriggerDetails_get_Uploads, Fn_IBackgroundTransferCompletionGroupTriggerDetails_get_Uploads)(it, tmp.addr).check("BackgroundTransferCompletionGroupTriggerDetails.get_Uploads")
+    result = toSeq[UploadOperation](tmp, IID_IVectorView_1_UploadOperation)
+    release(tmp)
+
 proc newBackgroundTransferContentPart*(): BackgroundTransferContentPart =
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart`.
   adopt[BackgroundTransferContentPart](activateAs("Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart", IID_IBackgroundTransferContentPart))
@@ -4025,6 +4143,14 @@ proc getNetworkConnectivityLevel*(self: ConnectionProfile): NetworkConnectivityL
     vcall(it, Slot_IConnectionProfile_GetNetworkConnectivityLevel, Fn_IConnectionProfile_GetNetworkConnectivityLevel)(it, tmp.addr).check("ConnectionProfile.GetNetworkConnectivityLevel")
     result = tmp
 
+proc getNetworkNames*(self: ConnectionProfile): seq[string] =
+  ## Windows.Networking.Connectivity.ConnectionProfile.GetNetworkNames
+  withIface(self.p, IID_IConnectionProfile, "IConnectionProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfile_GetNetworkNames, Fn_IConnectionProfile_GetNetworkNames)(it, tmp.addr).check("ConnectionProfile.GetNetworkNames")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc getConnectionCost*(self: ConnectionProfile): ConnectionCost =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetConnectionCost
   withIface(self.p, IID_IConnectionProfile, "IConnectionProfile", it):
@@ -4313,12 +4439,36 @@ proc networkAdapterId*(self: NetworkAdapter): GUID =
     vcall(it, Slot_INetworkAdapter_get_NetworkAdapterId, Fn_INetworkAdapter_get_NetworkAdapterId)(it, tmp.addr).check("NetworkAdapter.get_NetworkAdapterId")
     result = tmp
 
+proc getConnectionProfiles*(_: typedesc[NetworkInformation]): seq[ConnectionProfile] =
+  ## Windows.Networking.Connectivity.NetworkInformation.GetConnectionProfiles
+  withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_INetworkInformationStatics_GetConnectionProfiles, Fn_INetworkInformationStatics_GetConnectionProfiles)(it, tmp.addr).check("NetworkInformation.GetConnectionProfiles")
+    result = toSeq[ConnectionProfile](tmp, IID_IVectorView_1_ConnectionProfile)
+    release(tmp)
+
 proc getInternetConnectionProfile*(_: typedesc[NetworkInformation]): ConnectionProfile =
   ## Windows.Networking.Connectivity.NetworkInformation.GetInternetConnectionProfile
   withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
     var tmp: pointer
     vcall(it, Slot_INetworkInformationStatics_GetInternetConnectionProfile, Fn_INetworkInformationStatics_GetInternetConnectionProfile)(it, tmp.addr).check("NetworkInformation.GetInternetConnectionProfile")
     result = adopt[ConnectionProfile](tmp)
+
+proc getLanIdentifiers*(_: typedesc[NetworkInformation]): seq[LanIdentifier] =
+  ## Windows.Networking.Connectivity.NetworkInformation.GetLanIdentifiers
+  withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_INetworkInformationStatics_GetLanIdentifiers, Fn_INetworkInformationStatics_GetLanIdentifiers)(it, tmp.addr).check("NetworkInformation.GetLanIdentifiers")
+    result = toSeq[LanIdentifier](tmp, IID_IVectorView_1_LanIdentifier)
+    release(tmp)
+
+proc getHostNames*(_: typedesc[NetworkInformation]): seq[HostName] =
+  ## Windows.Networking.Connectivity.NetworkInformation.GetHostNames
+  withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_INetworkInformationStatics_GetHostNames, Fn_INetworkInformationStatics_GetHostNames)(it, tmp.addr).check("NetworkInformation.GetHostNames")
+    result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
+    release(tmp)
 
 proc removeNetworkStatusChanged*(_: typedesc[NetworkInformation], token: EventRegistrationToken) =
   withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
@@ -4687,6 +4837,14 @@ proc state*(self: ESim): ESimState =
     vcall(it, Slot_IESim_get_State, Fn_IESim_get_State)(it, tmp.addr).check("ESim.get_State")
     result = tmp
 
+proc getProfiles*(self: ESim): seq[ESimProfile] =
+  ## Windows.Networking.NetworkOperators.ESim.GetProfiles
+  withIface(self.p, IID_IESim, "IESim", it):
+    var tmp: pointer
+    vcall(it, Slot_IESim_GetProfiles, Fn_IESim_GetProfiles)(it, tmp.addr).check("ESim.GetProfiles")
+    result = toSeq[ESimProfile](tmp, IID_IVectorView_1_ESimProfile)
+    release(tmp)
+
 proc onProfileChanged*(self: ESim,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Networking.NetworkOperators.ESim.add_ProfileChanged
@@ -4742,6 +4900,14 @@ proc rspServerAddress*(self: ESimDiscoverEvent): string =
     var tmp: HSTRING
     vcall(it, Slot_IESimDiscoverEvent_get_RspServerAddress, Fn_IESimDiscoverEvent_get_RspServerAddress)(it, tmp.addr).check("ESimDiscoverEvent.get_RspServerAddress")
     result = takeString(tmp)
+
+proc events*(self: ESimDiscoverResult): seq[ESimDiscoverEvent] =
+  ## Windows.Networking.NetworkOperators.ESimDiscoverResult.get_Events
+  withIface(self.p, IID_IESimDiscoverResult, "IESimDiscoverResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IESimDiscoverResult_get_Events, Fn_IESimDiscoverResult_get_Events)(it, tmp.addr).check("ESimDiscoverResult.get_Events")
+    result = toSeq[ESimDiscoverEvent](tmp, IID_IVectorView_1_ESimDiscoverEvent)
+    release(tmp)
 
 proc kind*(self: ESimDiscoverResult): ESimDiscoverResultKind =
   ## Windows.Networking.NetworkOperators.ESimDiscoverResult.get_Kind
@@ -5198,6 +5364,22 @@ proc currentDeviceInformation*(self: MobileBroadbandAccount): MobileBroadbandDev
     vcall(it, Slot_IMobileBroadbandAccount_get_CurrentDeviceInformation, Fn_IMobileBroadbandAccount_get_CurrentDeviceInformation)(it, tmp.addr).check("MobileBroadbandAccount.get_CurrentDeviceInformation")
     result = adopt[MobileBroadbandDeviceInformation](tmp)
 
+proc getConnectionProfiles*(self: MobileBroadbandAccount): seq[ConnectionProfile] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.GetConnectionProfiles
+  withIface(self.p, IID_IMobileBroadbandAccount2, "IMobileBroadbandAccount2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandAccount2_GetConnectionProfiles, Fn_IMobileBroadbandAccount2_GetConnectionProfiles)(it, tmp.addr).check("MobileBroadbandAccount.GetConnectionProfiles")
+    result = toSeq[ConnectionProfile](tmp, IID_IVectorView_1_ConnectionProfile)
+    release(tmp)
+
+proc availableNetworkAccountIds*(_: typedesc[MobileBroadbandAccount]): seq[string] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.get_AvailableNetworkAccountIds
+  withStatics("Windows.Networking.NetworkOperators.MobileBroadbandAccount", IID_IMobileBroadbandAccountStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds, Fn_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds)(it, tmp.addr).check("MobileBroadbandAccount.get_AvailableNetworkAccountIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc createFromNetworkAccountId*(_: typedesc[MobileBroadbandAccount], a1: string): MobileBroadbandAccount =
   ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.CreateFromNetworkAccountId
   withStatics("Windows.Networking.NetworkOperators.MobileBroadbandAccount", IID_IMobileBroadbandAccountStatics, it):
@@ -5406,6 +5588,102 @@ proc providerId*(self: MobileBroadbandCellUmts): string =
     vcall(it, Slot_IMobileBroadbandCellUmts_get_ProviderId, Fn_IMobileBroadbandCellUmts_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellUmts.get_ProviderId")
     result = takeString(tmp)
 
+proc neighboringCellsCdma*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellCdma] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsCdma
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsCdma, Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsCdma)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsCdma")
+    result = toSeq[MobileBroadbandCellCdma](tmp, IID_IVectorView_1_MobileBroadbandCellCdma)
+    release(tmp)
+
+proc neighboringCellsGsm*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellGsm] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsGsm
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsGsm, Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsGsm)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsGsm")
+    result = toSeq[MobileBroadbandCellGsm](tmp, IID_IVectorView_1_MobileBroadbandCellGsm)
+    release(tmp)
+
+proc neighboringCellsLte*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellLte] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsLte
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsLte, Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsLte)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsLte")
+    result = toSeq[MobileBroadbandCellLte](tmp, IID_IVectorView_1_MobileBroadbandCellLte)
+    release(tmp)
+
+proc neighboringCellsTdscdma*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellTdscdma] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsTdscdma
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsTdscdma, Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsTdscdma)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsTdscdma")
+    result = toSeq[MobileBroadbandCellTdscdma](tmp, IID_IVectorView_1_MobileBroadbandCellTdscdma)
+    release(tmp)
+
+proc neighboringCellsUmts*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellUmts] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsUmts
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_NeighboringCellsUmts, Fn_IMobileBroadbandCellsInfo_get_NeighboringCellsUmts)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsUmts")
+    result = toSeq[MobileBroadbandCellUmts](tmp, IID_IVectorView_1_MobileBroadbandCellUmts)
+    release(tmp)
+
+proc servingCellsCdma*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellCdma] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsCdma
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_ServingCellsCdma, Fn_IMobileBroadbandCellsInfo_get_ServingCellsCdma)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsCdma")
+    result = toSeq[MobileBroadbandCellCdma](tmp, IID_IVectorView_1_MobileBroadbandCellCdma)
+    release(tmp)
+
+proc servingCellsGsm*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellGsm] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsGsm
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_ServingCellsGsm, Fn_IMobileBroadbandCellsInfo_get_ServingCellsGsm)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsGsm")
+    result = toSeq[MobileBroadbandCellGsm](tmp, IID_IVectorView_1_MobileBroadbandCellGsm)
+    release(tmp)
+
+proc servingCellsLte*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellLte] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsLte
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_ServingCellsLte, Fn_IMobileBroadbandCellsInfo_get_ServingCellsLte)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsLte")
+    result = toSeq[MobileBroadbandCellLte](tmp, IID_IVectorView_1_MobileBroadbandCellLte)
+    release(tmp)
+
+proc servingCellsTdscdma*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellTdscdma] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsTdscdma
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_ServingCellsTdscdma, Fn_IMobileBroadbandCellsInfo_get_ServingCellsTdscdma)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsTdscdma")
+    result = toSeq[MobileBroadbandCellTdscdma](tmp, IID_IVectorView_1_MobileBroadbandCellTdscdma)
+    release(tmp)
+
+proc servingCellsUmts*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellUmts] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsUmts
+  withIface(self.p, IID_IMobileBroadbandCellsInfo, "IMobileBroadbandCellsInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo_get_ServingCellsUmts, Fn_IMobileBroadbandCellsInfo_get_ServingCellsUmts)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsUmts")
+    result = toSeq[MobileBroadbandCellUmts](tmp, IID_IVectorView_1_MobileBroadbandCellUmts)
+    release(tmp)
+
+proc neighboringCellsNR*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellNR] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsNR
+  withIface(self.p, IID_IMobileBroadbandCellsInfo2, "IMobileBroadbandCellsInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo2_get_NeighboringCellsNR, Fn_IMobileBroadbandCellsInfo2_get_NeighboringCellsNR)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_NeighboringCellsNR")
+    result = toSeq[MobileBroadbandCellNR](tmp, IID_IVectorView_1_MobileBroadbandCellNR)
+    release(tmp)
+
+proc servingCellsNR*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellNR] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_ServingCellsNR
+  withIface(self.p, IID_IMobileBroadbandCellsInfo2, "IMobileBroadbandCellsInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellsInfo2_get_ServingCellsNR, Fn_IMobileBroadbandCellsInfo2_get_ServingCellsNR)(it, tmp.addr).check("MobileBroadbandCellsInfo.get_ServingCellsNR")
+    result = toSeq[MobileBroadbandCellNR](tmp, IID_IVectorView_1_MobileBroadbandCellNR)
+    release(tmp)
+
 proc currentSlotIndex*(self: MobileBroadbandCurrentSlotIndexChangedEventArgs): int32 =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCurrentSlotIndexChangedEventArgs.get_CurrentSlotIndex
   withIface(self.p, IID_IMobileBroadbandCurrentSlotIndexChangedEventArgs, "IMobileBroadbandCurrentSlotIndexChangedEventArgs", it):
@@ -5461,6 +5739,14 @@ proc mobileEquipmentId*(self: MobileBroadbandDeviceInformation): string =
     var tmp: HSTRING
     vcall(it, Slot_IMobileBroadbandDeviceInformation_get_MobileEquipmentId, Fn_IMobileBroadbandDeviceInformation_get_MobileEquipmentId)(it, tmp.addr).check("MobileBroadbandDeviceInformation.get_MobileEquipmentId")
     result = takeString(tmp)
+
+proc telephoneNumbers*(self: MobileBroadbandDeviceInformation): seq[string] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceInformation.get_TelephoneNumbers
+  withIface(self.p, IID_IMobileBroadbandDeviceInformation, "IMobileBroadbandDeviceInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandDeviceInformation_get_TelephoneNumbers, Fn_IMobileBroadbandDeviceInformation_get_TelephoneNumbers)(it, tmp.addr).check("MobileBroadbandDeviceInformation.get_TelephoneNumbers")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc subscriberId*(self: MobileBroadbandDeviceInformation): string =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceInformation.get_SubscriberId
@@ -5748,6 +6034,14 @@ proc maxDeviceServiceDataSizeInBytes*(self: MobileBroadbandModem): uint32 =
     vcall(it, Slot_IMobileBroadbandModem_get_MaxDeviceServiceDataSizeInBytes, Fn_IMobileBroadbandModem_get_MaxDeviceServiceDataSizeInBytes)(it, tmp.addr).check("MobileBroadbandModem.get_MaxDeviceServiceDataSizeInBytes")
     result = tmp
 
+proc deviceServices*(self: MobileBroadbandModem): seq[MobileBroadbandDeviceServiceInformation] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandModem.get_DeviceServices
+  withIface(self.p, IID_IMobileBroadbandModem, "IMobileBroadbandModem", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandModem_get_DeviceServices, Fn_IMobileBroadbandModem_get_DeviceServices)(it, tmp.addr).check("MobileBroadbandModem.get_DeviceServices")
+    result = toSeq[MobileBroadbandDeviceServiceInformation](tmp, IID_IVectorView_1_MobileBroadbandDeviceServiceInformation)
+    release(tmp)
+
 proc getDeviceService*(self: MobileBroadbandModem, a1: GUID): MobileBroadbandDeviceService =
   ## Windows.Networking.NetworkOperators.MobileBroadbandModem.GetDeviceService
   withIface(self.p, IID_IMobileBroadbandModem, "IMobileBroadbandModem", it):
@@ -5970,6 +6264,14 @@ proc showConnectionUI*(self: MobileBroadbandNetwork) =
   withIface(self.p, IID_IMobileBroadbandNetwork, "IMobileBroadbandNetwork", it):
     vcall(it, Slot_IMobileBroadbandNetwork_ShowConnectionUI, Fn_IMobileBroadbandNetwork_ShowConnectionUI)(it).check("MobileBroadbandNetwork.ShowConnectionUI")
 
+proc registrationUiccApps*(self: MobileBroadbandNetwork): seq[MobileBroadbandUiccApp] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandNetwork.get_RegistrationUiccApps
+  withIface(self.p, IID_IMobileBroadbandNetwork2, "IMobileBroadbandNetwork2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandNetwork2_get_RegistrationUiccApps, Fn_IMobileBroadbandNetwork2_get_RegistrationUiccApps)(it, tmp.addr).check("MobileBroadbandNetwork.get_RegistrationUiccApps")
+    result = toSeq[MobileBroadbandUiccApp](tmp, IID_IVectorView_1_MobileBroadbandUiccApp)
+    release(tmp)
+
 proc deviceId*(self: MobileBroadbandNetworkRegistrationStateChange): string =
   ## Windows.Networking.NetworkOperators.MobileBroadbandNetworkRegistrationStateChange.get_DeviceId
   withIface(self.p, IID_IMobileBroadbandNetworkRegistrationStateChange, "IMobileBroadbandNetworkRegistrationStateChange", it):
@@ -5983,6 +6285,14 @@ proc network*(self: MobileBroadbandNetworkRegistrationStateChange): MobileBroadb
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandNetworkRegistrationStateChange_get_Network, Fn_IMobileBroadbandNetworkRegistrationStateChange_get_Network)(it, tmp.addr).check("MobileBroadbandNetworkRegistrationStateChange.get_Network")
     result = adopt[MobileBroadbandNetwork](tmp)
+
+proc networkRegistrationStateChanges*(self: MobileBroadbandNetworkRegistrationStateChangeTriggerDetails): seq[MobileBroadbandNetworkRegistrationStateChange] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandNetworkRegistrationStateChangeTriggerDetails.get_NetworkRegistrationStateChanges
+  withIface(self.p, IID_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails, "IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails_get_NetworkRegistrationStateChanges, Fn_IMobileBroadbandNetworkRegistrationStateChangeTriggerDetails_get_NetworkRegistrationStateChanges)(it, tmp.addr).check("MobileBroadbandNetworkRegistrationStateChangeTriggerDetails.get_NetworkRegistrationStateChanges")
+    result = toSeq[MobileBroadbandNetworkRegistrationStateChange](tmp, IID_IVectorView_1_MobileBroadbandNetworkRegistrationStateChange)
+    release(tmp)
 
 proc data*(self: MobileBroadbandPco): pointer =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPco.get_Data
@@ -6082,6 +6392,14 @@ proc pinLockState*(self: MobileBroadbandPinLockStateChange): MobileBroadbandPinL
     vcall(it, Slot_IMobileBroadbandPinLockStateChange_get_PinLockState, Fn_IMobileBroadbandPinLockStateChange_get_PinLockState)(it, tmp.addr).check("MobileBroadbandPinLockStateChange.get_PinLockState")
     result = tmp
 
+proc pinLockStateChanges*(self: MobileBroadbandPinLockStateChangeTriggerDetails): seq[MobileBroadbandPinLockStateChange] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandPinLockStateChangeTriggerDetails.get_PinLockStateChanges
+  withIface(self.p, IID_IMobileBroadbandPinLockStateChangeTriggerDetails, "IMobileBroadbandPinLockStateChangeTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges, Fn_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges)(it, tmp.addr).check("MobileBroadbandPinLockStateChangeTriggerDetails.get_PinLockStateChanges")
+    result = toSeq[MobileBroadbandPinLockStateChange](tmp, IID_IVectorView_1_MobileBroadbandPinLockStateChange)
+    release(tmp)
+
 proc getPin*(self: MobileBroadbandPinManager, a1: MobileBroadbandPinType): MobileBroadbandPin =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPinManager.GetPin
   withIface(self.p, IID_IMobileBroadbandPinManager, "IMobileBroadbandPinManager", it):
@@ -6117,6 +6435,14 @@ proc radioState*(self: MobileBroadbandRadioStateChange): MobileBroadbandRadioSta
     vcall(it, Slot_IMobileBroadbandRadioStateChange_get_RadioState, Fn_IMobileBroadbandRadioStateChange_get_RadioState)(it, tmp.addr).check("MobileBroadbandRadioStateChange.get_RadioState")
     result = tmp
 
+proc radioStateChanges*(self: MobileBroadbandRadioStateChangeTriggerDetails): seq[MobileBroadbandRadioStateChange] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandRadioStateChangeTriggerDetails.get_RadioStateChanges
+  withIface(self.p, IID_IMobileBroadbandRadioStateChangeTriggerDetails, "IMobileBroadbandRadioStateChangeTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandRadioStateChangeTriggerDetails_get_RadioStateChanges, Fn_IMobileBroadbandRadioStateChangeTriggerDetails_get_RadioStateChanges)(it, tmp.addr).check("MobileBroadbandRadioStateChangeTriggerDetails.get_RadioStateChanges")
+    result = toSeq[MobileBroadbandRadioStateChange](tmp, IID_IVectorView_1_MobileBroadbandRadioStateChange)
+    release(tmp)
+
 proc isBackoffEnabled*(self: MobileBroadbandSarManager): bool =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.get_IsBackoffEnabled
   withIface(self.p, IID_IMobileBroadbandSarManager, "IMobileBroadbandSarManager", it):
@@ -6137,6 +6463,14 @@ proc isSarControlledByHardware*(self: MobileBroadbandSarManager): bool =
     var tmp: bool
     vcall(it, Slot_IMobileBroadbandSarManager_get_IsSarControlledByHardware, Fn_IMobileBroadbandSarManager_get_IsSarControlledByHardware)(it, tmp.addr).check("MobileBroadbandSarManager.get_IsSarControlledByHardware")
     result = tmp
+
+proc antennas*(self: MobileBroadbandSarManager): seq[MobileBroadbandAntennaSar] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.get_Antennas
+  withIface(self.p, IID_IMobileBroadbandSarManager, "IMobileBroadbandSarManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandSarManager_get_Antennas, Fn_IMobileBroadbandSarManager_get_Antennas)(it, tmp.addr).check("MobileBroadbandSarManager.get_Antennas")
+    result = toSeq[MobileBroadbandAntennaSar](tmp, IID_IVectorView_1_MobileBroadbandAntennaSar)
+    release(tmp)
 
 proc hysteresisTimerPeriod*(self: MobileBroadbandSarManager): TimeSpan =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSarManager.get_HysteresisTimerPeriod
@@ -6229,6 +6563,14 @@ proc slotInfo*(self: MobileBroadbandSlotInfoChangedEventArgs): MobileBroadbandSl
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandSlotInfoChangedEventArgs_get_SlotInfo, Fn_IMobileBroadbandSlotInfoChangedEventArgs_get_SlotInfo)(it, tmp.addr).check("MobileBroadbandSlotInfoChangedEventArgs.get_SlotInfo")
     result = adopt[MobileBroadbandSlotInfo](tmp)
+
+proc slotInfos*(self: MobileBroadbandSlotManager): seq[MobileBroadbandSlotInfo] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandSlotManager.get_SlotInfos
+  withIface(self.p, IID_IMobileBroadbandSlotManager, "IMobileBroadbandSlotManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandSlotManager_get_SlotInfos, Fn_IMobileBroadbandSlotManager_get_SlotInfos)(it, tmp.addr).check("MobileBroadbandSlotManager.get_SlotInfos")
+    result = toSeq[MobileBroadbandSlotInfo](tmp, IID_IVectorView_1_MobileBroadbandSlotInfo)
+    release(tmp)
 
 proc currentSlotIndex*(self: MobileBroadbandSlotManager): int32 =
   ## Windows.Networking.NetworkOperators.MobileBroadbandSlotManager.get_CurrentSlotIndex
@@ -6373,6 +6715,14 @@ proc status*(self: MobileBroadbandUiccAppsResult): MobileBroadbandUiccAppOperati
     vcall(it, Slot_IMobileBroadbandUiccAppsResult_get_Status, Fn_IMobileBroadbandUiccAppsResult_get_Status)(it, tmp.addr).check("MobileBroadbandUiccAppsResult.get_Status")
     result = tmp
 
+proc uiccApps*(self: MobileBroadbandUiccAppsResult): seq[MobileBroadbandUiccApp] =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppsResult.get_UiccApps
+  withIface(self.p, IID_IMobileBroadbandUiccAppsResult, "IMobileBroadbandUiccAppsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandUiccAppsResult_get_UiccApps, Fn_IMobileBroadbandUiccAppsResult_get_UiccApps)(it, tmp.addr).check("MobileBroadbandUiccAppsResult.get_UiccApps")
+    result = toSeq[MobileBroadbandUiccApp](tmp, IID_IVectorView_1_MobileBroadbandUiccApp)
+    release(tmp)
+
 proc notificationKind*(self: NetworkOperatorDataUsageTriggerDetails): NetworkOperatorDataUsageNotificationKind =
   ## Windows.Networking.NetworkOperators.NetworkOperatorDataUsageTriggerDetails.get_NotificationKind
   withIface(self.p, IID_INetworkOperatorDataUsageTriggerDetails, "INetworkOperatorDataUsageTriggerDetails", it):
@@ -6503,6 +6853,14 @@ proc macAddress*(self: NetworkOperatorTetheringClient): string =
     vcall(it, Slot_INetworkOperatorTetheringClient_get_MacAddress, Fn_INetworkOperatorTetheringClient_get_MacAddress)(it, tmp.addr).check("NetworkOperatorTetheringClient.get_MacAddress")
     result = takeString(tmp)
 
+proc hostNames*(self: NetworkOperatorTetheringClient): seq[HostName] =
+  ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringClient.get_HostNames
+  withIface(self.p, IID_INetworkOperatorTetheringClient, "INetworkOperatorTetheringClient", it):
+    var tmp: pointer
+    vcall(it, Slot_INetworkOperatorTetheringClient_get_HostNames, Fn_INetworkOperatorTetheringClient_get_HostNames)(it, tmp.addr).check("NetworkOperatorTetheringClient.get_HostNames")
+    result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
+    release(tmp)
+
 proc maxClientCount*(self: NetworkOperatorTetheringManager): uint32 =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.get_MaxClientCount
   withIface(self.p, IID_INetworkOperatorTetheringManager, "INetworkOperatorTetheringManager", it):
@@ -6538,6 +6896,14 @@ proc configureAccessPointAsync*(self: NetworkOperatorTetheringManager, a1: Netwo
       var tmp: pointer
       vcall(it, Slot_INetworkOperatorTetheringManager_ConfigureAccessPointAsync, Fn_INetworkOperatorTetheringManager_ConfigureAccessPointAsync)(it, p0, tmp.addr).check("NetworkOperatorTetheringManager.ConfigureAccessPointAsync")
       result = tmp
+
+proc getTetheringClients*(self: NetworkOperatorTetheringManager): seq[NetworkOperatorTetheringClient] =
+  ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.GetTetheringClients
+  withIface(self.p, IID_INetworkOperatorTetheringClientManager, "INetworkOperatorTetheringClientManager", it):
+    var tmp: pointer
+    vcall(it, Slot_INetworkOperatorTetheringClientManager_GetTetheringClients, Fn_INetworkOperatorTetheringClientManager_GetTetheringClients)(it, tmp.addr).check("NetworkOperatorTetheringManager.GetTetheringClients")
+    result = toSeq[NetworkOperatorTetheringClient](tmp, IID_IVectorView_1_NetworkOperatorTetheringClient)
+    release(tmp)
 
 proc isNoConnectionsTimeoutEnabled*(_: typedesc[NetworkOperatorTetheringManager]): bool =
   ## Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager.IsNoConnectionsTimeoutEnabled
@@ -8007,6 +8373,14 @@ proc `outboundBufferSizeInBytes=`*(self: MessageWebSocketControl, value: uint32)
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     vcall(it, Slot_IWebSocketControl_put_OutboundBufferSizeInBytes, Fn_IWebSocketControl_put_OutboundBufferSizeInBytes)(it, value).check("MessageWebSocketControl.put_OutboundBufferSizeInBytes")
 
+proc supportedProtocols*(self: MessageWebSocketControl): seq[string] =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.get_SupportedProtocols
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("MessageWebSocketControl.get_SupportedProtocols")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc desiredUnsolicitedPongInterval*(self: MessageWebSocketControl): TimeSpan =
   ## Windows.Networking.Sockets.MessageWebSocketControl.get_DesiredUnsolicitedPongInterval
   withIface(self.p, IID_IMessageWebSocketControl2, "IMessageWebSocketControl2", it):
@@ -8900,6 +9274,14 @@ proc `outboundBufferSizeInBytes=`*(self: StreamWebSocketControl, value: uint32) 
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     vcall(it, Slot_IWebSocketControl_put_OutboundBufferSizeInBytes, Fn_IWebSocketControl_put_OutboundBufferSizeInBytes)(it, value).check("StreamWebSocketControl.put_OutboundBufferSizeInBytes")
 
+proc supportedProtocols*(self: StreamWebSocketControl): seq[string] =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.get_SupportedProtocols
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("StreamWebSocketControl.get_SupportedProtocols")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc desiredUnsolicitedPongInterval*(self: StreamWebSocketControl): TimeSpan =
   ## Windows.Networking.Sockets.StreamWebSocketControl.get_DesiredUnsolicitedPongInterval
   withIface(self.p, IID_IStreamWebSocketControl2, "IStreamWebSocketControl2", it):
@@ -9201,6 +9583,14 @@ proc serverServiceName*(self: VpnChannelConfiguration): string =
     vcall(it, Slot_IVpnChannelConfiguration_get_ServerServiceName, Fn_IVpnChannelConfiguration_get_ServerServiceName)(it, tmp.addr).check("VpnChannelConfiguration.get_ServerServiceName")
     result = takeString(tmp)
 
+proc serverHostNameList*(self: VpnChannelConfiguration): seq[HostName] =
+  ## Windows.Networking.Vpn.VpnChannelConfiguration.get_ServerHostNameList
+  withIface(self.p, IID_IVpnChannelConfiguration, "IVpnChannelConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnChannelConfiguration_get_ServerHostNameList, Fn_IVpnChannelConfiguration_get_ServerHostNameList)(it, tmp.addr).check("VpnChannelConfiguration.get_ServerHostNameList")
+    result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
+    release(tmp)
+
 proc customField*(self: VpnChannelConfiguration): string =
   ## Windows.Networking.Vpn.VpnChannelConfiguration.get_CustomField
   withIface(self.p, IID_IVpnChannelConfiguration, "IVpnChannelConfiguration", it):
@@ -9278,6 +9668,14 @@ proc bordered*(self: VpnCustomCheckBox): bool =
 proc newVpnCustomComboBox*(): VpnCustomComboBox =
   ## Activate a `Windows.Networking.Vpn.VpnCustomComboBox`.
   adopt[VpnCustomComboBox](activateAs("Windows.Networking.Vpn.VpnCustomComboBox", IID_IVpnCustomComboBox))
+
+proc optionsText*(self: VpnCustomComboBox): seq[string] =
+  ## Windows.Networking.Vpn.VpnCustomComboBox.get_OptionsText
+  withIface(self.p, IID_IVpnCustomComboBox, "IVpnCustomComboBox", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnCustomComboBox_get_OptionsText, Fn_IVpnCustomComboBox_get_OptionsText)(it, tmp.addr).check("VpnCustomComboBox.get_OptionsText")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc selected*(self: VpnCustomComboBox): uint32 =
   ## Windows.Networking.Vpn.VpnCustomComboBox.get_Selected
@@ -9500,6 +9898,14 @@ proc emphasized*(self: VpnCustomPromptBooleanInput): bool =
 proc newVpnCustomPromptOptionSelector*(): VpnCustomPromptOptionSelector =
   ## Activate a `Windows.Networking.Vpn.VpnCustomPromptOptionSelector`.
   adopt[VpnCustomPromptOptionSelector](activateAs("Windows.Networking.Vpn.VpnCustomPromptOptionSelector", IID_IVpnCustomPromptOptionSelector))
+
+proc options*(self: VpnCustomPromptOptionSelector): seq[string] =
+  ## Windows.Networking.Vpn.VpnCustomPromptOptionSelector.get_Options
+  withIface(self.p, IID_IVpnCustomPromptOptionSelector, "IVpnCustomPromptOptionSelector", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnCustomPromptOptionSelector_get_Options, Fn_IVpnCustomPromptOptionSelector_get_Options)(it, tmp.addr).check("VpnCustomPromptOptionSelector.get_Options")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc selectedIndex*(self: VpnCustomPromptOptionSelector): uint32 =
   ## Windows.Networking.Vpn.VpnCustomPromptOptionSelector.get_SelectedIndex
@@ -9730,6 +10136,14 @@ proc newVpnDomainNameAssignment*(): VpnDomainNameAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnDomainNameAssignment`.
   adopt[VpnDomainNameAssignment](activateAs("Windows.Networking.Vpn.VpnDomainNameAssignment", IID_IVpnDomainNameAssignment))
 
+proc domainNameList*(self: VpnDomainNameAssignment): seq[VpnDomainNameInfo] =
+  ## Windows.Networking.Vpn.VpnDomainNameAssignment.get_DomainNameList
+  withIface(self.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnDomainNameAssignment_get_DomainNameList, Fn_IVpnDomainNameAssignment_get_DomainNameList)(it, tmp.addr).check("VpnDomainNameAssignment.get_DomainNameList")
+    result = toSeq[VpnDomainNameInfo](tmp, IID_IVector_1_VpnDomainNameInfo)
+    release(tmp)
+
 proc `domainName=`*(self: VpnDomainNameInfo, value: HostName) =
   ## Windows.Networking.Vpn.VpnDomainNameInfo.put_DomainName
   withIface(self.p, IID_IVpnDomainNameInfo, "IVpnDomainNameInfo", it):
@@ -9755,6 +10169,22 @@ proc domainNameType*(self: VpnDomainNameInfo): VpnDomainNameType =
     vcall(it, Slot_IVpnDomainNameInfo_get_DomainNameType, Fn_IVpnDomainNameInfo_get_DomainNameType)(it, tmp.addr).check("VpnDomainNameInfo.get_DomainNameType")
     result = tmp
 
+proc dnsServers*(self: VpnDomainNameInfo): seq[HostName] =
+  ## Windows.Networking.Vpn.VpnDomainNameInfo.get_DnsServers
+  withIface(self.p, IID_IVpnDomainNameInfo, "IVpnDomainNameInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnDomainNameInfo_get_DnsServers, Fn_IVpnDomainNameInfo_get_DnsServers)(it, tmp.addr).check("VpnDomainNameInfo.get_DnsServers")
+    result = toSeq[HostName](tmp, IID_IVector_1_HostName)
+    release(tmp)
+
+proc webProxyServers*(self: VpnDomainNameInfo): seq[HostName] =
+  ## Windows.Networking.Vpn.VpnDomainNameInfo.get_WebProxyServers
+  withIface(self.p, IID_IVpnDomainNameInfo, "IVpnDomainNameInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnDomainNameInfo_get_WebProxyServers, Fn_IVpnDomainNameInfo_get_WebProxyServers)(it, tmp.addr).check("VpnDomainNameInfo.get_WebProxyServers")
+    result = toSeq[HostName](tmp, IID_IVector_1_HostName)
+    release(tmp)
+
 proc profileName*(self: VpnForegroundActivatedEventArgs): string =
   ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_ProfileName
   withIface(self.p, IID_IVpnForegroundActivatedEventArgs, "IVpnForegroundActivatedEventArgs", it):
@@ -9777,6 +10207,14 @@ proc newVpnNamespaceAssignment*(): VpnNamespaceAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnNamespaceAssignment`.
   adopt[VpnNamespaceAssignment](activateAs("Windows.Networking.Vpn.VpnNamespaceAssignment", IID_IVpnNamespaceAssignment))
 
+proc namespaceList*(self: VpnNamespaceAssignment): seq[VpnNamespaceInfo] =
+  ## Windows.Networking.Vpn.VpnNamespaceAssignment.get_NamespaceList
+  withIface(self.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnNamespaceAssignment_get_NamespaceList, Fn_IVpnNamespaceAssignment_get_NamespaceList)(it, tmp.addr).check("VpnNamespaceAssignment.get_NamespaceList")
+    result = toSeq[VpnNamespaceInfo](tmp, IID_IVector_1_VpnNamespaceInfo)
+    release(tmp)
+
 proc `namespace=`*(self: VpnNamespaceInfo, value: string) =
   ## Windows.Networking.Vpn.VpnNamespaceInfo.put_Namespace
   withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
@@ -9790,9 +10228,33 @@ proc namespace*(self: VpnNamespaceInfo): string =
     vcall(it, Slot_IVpnNamespaceInfo_get_Namespace, Fn_IVpnNamespaceInfo_get_Namespace)(it, tmp.addr).check("VpnNamespaceInfo.get_Namespace")
     result = takeString(tmp)
 
+proc dnsServers*(self: VpnNamespaceInfo): seq[HostName] =
+  ## Windows.Networking.Vpn.VpnNamespaceInfo.get_DnsServers
+  withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnNamespaceInfo_get_DnsServers, Fn_IVpnNamespaceInfo_get_DnsServers)(it, tmp.addr).check("VpnNamespaceInfo.get_DnsServers")
+    result = toSeq[HostName](tmp, IID_IVector_1_HostName)
+    release(tmp)
+
+proc webProxyServers*(self: VpnNamespaceInfo): seq[HostName] =
+  ## Windows.Networking.Vpn.VpnNamespaceInfo.get_WebProxyServers
+  withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnNamespaceInfo_get_WebProxyServers, Fn_IVpnNamespaceInfo_get_WebProxyServers)(it, tmp.addr).check("VpnNamespaceInfo.get_WebProxyServers")
+    result = toSeq[HostName](tmp, IID_IVector_1_HostName)
+    release(tmp)
+
 proc newVpnNativeProfile*(): VpnNativeProfile =
   ## Activate a `Windows.Networking.Vpn.VpnNativeProfile`.
   adopt[VpnNativeProfile](activateAs("Windows.Networking.Vpn.VpnNativeProfile", IID_IVpnNativeProfile))
+
+proc servers*(self: VpnNativeProfile): seq[string] =
+  ## Windows.Networking.Vpn.VpnNativeProfile.get_Servers
+  withIface(self.p, IID_IVpnNativeProfile, "IVpnNativeProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnNativeProfile_get_Servers, Fn_IVpnNativeProfile_get_Servers)(it, tmp.addr).check("VpnNativeProfile.get_Servers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc routingPolicyType*(self: VpnNativeProfile): VpnRoutingPolicyType =
   ## Windows.Networking.Vpn.VpnNativeProfile.get_RoutingPolicyType
@@ -9867,6 +10329,38 @@ proc `profileName=`*(self: VpnNativeProfile, value: string) =
   withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
     withHString(value, h0):
       vcall(it, Slot_IVpnProfile_put_ProfileName, Fn_IVpnProfile_put_ProfileName)(it, h0).check("VpnNativeProfile.put_ProfileName")
+
+proc appTriggers*(self: VpnNativeProfile): seq[VpnAppId] =
+  ## Windows.Networking.Vpn.VpnNativeProfile.get_AppTriggers
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_AppTriggers, Fn_IVpnProfile_get_AppTriggers)(it, tmp.addr).check("VpnNativeProfile.get_AppTriggers")
+    result = toSeq[VpnAppId](tmp, IID_IVector_1_VpnAppId)
+    release(tmp)
+
+proc routes*(self: VpnNativeProfile): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnNativeProfile.get_Routes
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_Routes, Fn_IVpnProfile_get_Routes)(it, tmp.addr).check("VpnNativeProfile.get_Routes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
+proc domainNameInfoList*(self: VpnNativeProfile): seq[VpnDomainNameInfo] =
+  ## Windows.Networking.Vpn.VpnNativeProfile.get_DomainNameInfoList
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_DomainNameInfoList, Fn_IVpnProfile_get_DomainNameInfoList)(it, tmp.addr).check("VpnNativeProfile.get_DomainNameInfoList")
+    result = toSeq[VpnDomainNameInfo](tmp, IID_IVector_1_VpnDomainNameInfo)
+    release(tmp)
+
+proc trafficFilters*(self: VpnNativeProfile): seq[VpnTrafficFilter] =
+  ## Windows.Networking.Vpn.VpnNativeProfile.get_TrafficFilters
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_TrafficFilters, Fn_IVpnProfile_get_TrafficFilters)(it, tmp.addr).check("VpnNativeProfile.get_TrafficFilters")
+    result = toSeq[VpnTrafficFilter](tmp, IID_IVector_1_VpnTrafficFilter)
+    release(tmp)
 
 proc rememberCredentials*(self: VpnNativeProfile): bool =
   ## Windows.Networking.Vpn.VpnNativeProfile.get_RememberCredentials
@@ -10062,6 +10556,38 @@ proc `profileName=`*(self: VpnPlugInProfile, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IVpnProfile_put_ProfileName, Fn_IVpnProfile_put_ProfileName)(it, h0).check("VpnPlugInProfile.put_ProfileName")
 
+proc appTriggers*(self: VpnPlugInProfile): seq[VpnAppId] =
+  ## Windows.Networking.Vpn.VpnPlugInProfile.get_AppTriggers
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_AppTriggers, Fn_IVpnProfile_get_AppTriggers)(it, tmp.addr).check("VpnPlugInProfile.get_AppTriggers")
+    result = toSeq[VpnAppId](tmp, IID_IVector_1_VpnAppId)
+    release(tmp)
+
+proc routes*(self: VpnPlugInProfile): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnPlugInProfile.get_Routes
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_Routes, Fn_IVpnProfile_get_Routes)(it, tmp.addr).check("VpnPlugInProfile.get_Routes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
+proc domainNameInfoList*(self: VpnPlugInProfile): seq[VpnDomainNameInfo] =
+  ## Windows.Networking.Vpn.VpnPlugInProfile.get_DomainNameInfoList
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_DomainNameInfoList, Fn_IVpnProfile_get_DomainNameInfoList)(it, tmp.addr).check("VpnPlugInProfile.get_DomainNameInfoList")
+    result = toSeq[VpnDomainNameInfo](tmp, IID_IVector_1_VpnDomainNameInfo)
+    release(tmp)
+
+proc trafficFilters*(self: VpnPlugInProfile): seq[VpnTrafficFilter] =
+  ## Windows.Networking.Vpn.VpnPlugInProfile.get_TrafficFilters
+  withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnProfile_get_TrafficFilters, Fn_IVpnProfile_get_TrafficFilters)(it, tmp.addr).check("VpnPlugInProfile.get_TrafficFilters")
+    result = toSeq[VpnTrafficFilter](tmp, IID_IVector_1_VpnTrafficFilter)
+    release(tmp)
+
 proc rememberCredentials*(self: VpnPlugInProfile): bool =
   ## Windows.Networking.Vpn.VpnPlugInProfile.get_RememberCredentials
   withIface(self.p, IID_IVpnProfile, "IVpnProfile", it):
@@ -10142,6 +10668,38 @@ proc newVpnRouteAssignment*(): VpnRouteAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnRouteAssignment`.
   adopt[VpnRouteAssignment](activateAs("Windows.Networking.Vpn.VpnRouteAssignment", IID_IVpnRouteAssignment))
 
+proc ipv4InclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv4InclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnRouteAssignment_get_Ipv4InclusionRoutes, Fn_IVpnRouteAssignment_get_Ipv4InclusionRoutes)(it, tmp.addr).check("VpnRouteAssignment.get_Ipv4InclusionRoutes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
+proc ipv6InclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv6InclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnRouteAssignment_get_Ipv6InclusionRoutes, Fn_IVpnRouteAssignment_get_Ipv6InclusionRoutes)(it, tmp.addr).check("VpnRouteAssignment.get_Ipv6InclusionRoutes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
+proc ipv4ExclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv4ExclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnRouteAssignment_get_Ipv4ExclusionRoutes, Fn_IVpnRouteAssignment_get_Ipv4ExclusionRoutes)(it, tmp.addr).check("VpnRouteAssignment.get_Ipv4ExclusionRoutes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
+proc ipv6ExclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute] =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv6ExclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnRouteAssignment_get_Ipv6ExclusionRoutes, Fn_IVpnRouteAssignment_get_Ipv6ExclusionRoutes)(it, tmp.addr).check("VpnRouteAssignment.get_Ipv6ExclusionRoutes")
+    result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
+    release(tmp)
+
 proc `excludeLocalSubnets=`*(self: VpnRouteAssignment, value: bool) =
   ## Windows.Networking.Vpn.VpnRouteAssignment.put_ExcludeLocalSubnets
   withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
@@ -10167,6 +10725,14 @@ proc `appId=`*(self: VpnTrafficFilter, value: VpnAppId) =
     withIface(value.p, IID_IVpnAppId, "IVpnAppId", p0):
       vcall(it, Slot_IVpnTrafficFilter_put_AppId, Fn_IVpnTrafficFilter_put_AppId)(it, p0).check("VpnTrafficFilter.put_AppId")
 
+proc appClaims*(self: VpnTrafficFilter): seq[string] =
+  ## Windows.Networking.Vpn.VpnTrafficFilter.get_AppClaims
+  withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilter_get_AppClaims, Fn_IVpnTrafficFilter_get_AppClaims)(it, tmp.addr).check("VpnTrafficFilter.get_AppClaims")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc protocol*(self: VpnTrafficFilter): VpnIPProtocol =
   ## Windows.Networking.Vpn.VpnTrafficFilter.get_Protocol
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
@@ -10178,6 +10744,38 @@ proc `protocol=`*(self: VpnTrafficFilter, value: VpnIPProtocol) =
   ## Windows.Networking.Vpn.VpnTrafficFilter.put_Protocol
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     vcall(it, Slot_IVpnTrafficFilter_put_Protocol, Fn_IVpnTrafficFilter_put_Protocol)(it, value).check("VpnTrafficFilter.put_Protocol")
+
+proc localPortRanges*(self: VpnTrafficFilter): seq[string] =
+  ## Windows.Networking.Vpn.VpnTrafficFilter.get_LocalPortRanges
+  withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilter_get_LocalPortRanges, Fn_IVpnTrafficFilter_get_LocalPortRanges)(it, tmp.addr).check("VpnTrafficFilter.get_LocalPortRanges")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc remotePortRanges*(self: VpnTrafficFilter): seq[string] =
+  ## Windows.Networking.Vpn.VpnTrafficFilter.get_RemotePortRanges
+  withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilter_get_RemotePortRanges, Fn_IVpnTrafficFilter_get_RemotePortRanges)(it, tmp.addr).check("VpnTrafficFilter.get_RemotePortRanges")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc localAddressRanges*(self: VpnTrafficFilter): seq[string] =
+  ## Windows.Networking.Vpn.VpnTrafficFilter.get_LocalAddressRanges
+  withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilter_get_LocalAddressRanges, Fn_IVpnTrafficFilter_get_LocalAddressRanges)(it, tmp.addr).check("VpnTrafficFilter.get_LocalAddressRanges")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc remoteAddressRanges*(self: VpnTrafficFilter): seq[string] =
+  ## Windows.Networking.Vpn.VpnTrafficFilter.get_RemoteAddressRanges
+  withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilter_get_RemoteAddressRanges, Fn_IVpnTrafficFilter_get_RemoteAddressRanges)(it, tmp.addr).check("VpnTrafficFilter.get_RemoteAddressRanges")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc routingPolicyType*(self: VpnTrafficFilter): VpnRoutingPolicyType =
   ## Windows.Networking.Vpn.VpnTrafficFilter.get_RoutingPolicyType
@@ -10202,6 +10800,14 @@ proc create*(_: typedesc[VpnTrafficFilter], a1: VpnAppId): VpnTrafficFilter =
 proc newVpnTrafficFilterAssignment*(): VpnTrafficFilterAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnTrafficFilterAssignment`.
   adopt[VpnTrafficFilterAssignment](activateAs("Windows.Networking.Vpn.VpnTrafficFilterAssignment", IID_IVpnTrafficFilterAssignment))
+
+proc trafficFilterList*(self: VpnTrafficFilterAssignment): seq[VpnTrafficFilter] =
+  ## Windows.Networking.Vpn.VpnTrafficFilterAssignment.get_TrafficFilterList
+  withIface(self.p, IID_IVpnTrafficFilterAssignment, "IVpnTrafficFilterAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnTrafficFilterAssignment_get_TrafficFilterList, Fn_IVpnTrafficFilterAssignment_get_TrafficFilterList)(it, tmp.addr).check("VpnTrafficFilterAssignment.get_TrafficFilterList")
+    result = toSeq[VpnTrafficFilter](tmp, IID_IVector_1_VpnTrafficFilter)
+    release(tmp)
 
 proc allowOutbound*(self: VpnTrafficFilterAssignment): bool =
   ## Windows.Networking.Vpn.VpnTrafficFilterAssignment.get_AllowOutbound
@@ -10507,6 +11113,14 @@ proc acceptorBoundPortRangeUpper*(self: XboxLiveEndpointPairTemplate): uint16 =
     vcall(it, Slot_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeUpper, Fn_IXboxLiveEndpointPairTemplate_get_AcceptorBoundPortRangeUpper)(it, tmp.addr).check("XboxLiveEndpointPairTemplate.get_AcceptorBoundPortRangeUpper")
     result = tmp
 
+proc endpointPairs*(self: XboxLiveEndpointPairTemplate): seq[XboxLiveEndpointPair] =
+  ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.get_EndpointPairs
+  withIface(self.p, IID_IXboxLiveEndpointPairTemplate, "IXboxLiveEndpointPairTemplate", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveEndpointPairTemplate_get_EndpointPairs, Fn_IXboxLiveEndpointPairTemplate_get_EndpointPairs)(it, tmp.addr).check("XboxLiveEndpointPairTemplate.get_EndpointPairs")
+    result = toSeq[XboxLiveEndpointPair](tmp, IID_IVectorView_1_XboxLiveEndpointPair)
+    release(tmp)
+
 proc getTemplateByName*(_: typedesc[XboxLiveEndpointPairTemplate], a1: string): XboxLiveEndpointPairTemplate =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.GetTemplateByName
   withStatics("Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate", IID_IXboxLiveEndpointPairTemplateStatics, it):
@@ -10514,6 +11128,14 @@ proc getTemplateByName*(_: typedesc[XboxLiveEndpointPairTemplate], a1: string): 
       var tmp: pointer
       vcall(it, Slot_IXboxLiveEndpointPairTemplateStatics_GetTemplateByName, Fn_IXboxLiveEndpointPairTemplateStatics_GetTemplateByName)(it, h0, tmp.addr).check("XboxLiveEndpointPairTemplate.GetTemplateByName")
       result = adopt[XboxLiveEndpointPairTemplate](tmp)
+
+proc templates*(_: typedesc[XboxLiveEndpointPairTemplate]): seq[XboxLiveEndpointPairTemplate] =
+  ## Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate.get_Templates
+  withStatics("Windows.Networking.XboxLive.XboxLiveEndpointPairTemplate", IID_IXboxLiveEndpointPairTemplateStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveEndpointPairTemplateStatics_get_Templates, Fn_IXboxLiveEndpointPairTemplateStatics_get_Templates)(it, tmp.addr).check("XboxLiveEndpointPairTemplate.get_Templates")
+    result = toSeq[XboxLiveEndpointPairTemplate](tmp, IID_IVectorView_1_XboxLiveEndpointPairTemplate)
+    release(tmp)
 
 proc endpointPair*(self: XboxLiveInboundEndpointPairCreatedEventArgs): XboxLiveEndpointPair =
   ## Windows.Networking.XboxLive.XboxLiveInboundEndpointPairCreatedEventArgs.get_EndpointPair
@@ -10533,6 +11155,23 @@ proc measureAsync*(self: XboxLiveQualityOfServiceMeasurement): pointer =
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_MeasureAsync, Fn_IXboxLiveQualityOfServiceMeasurement_MeasureAsync)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.MeasureAsync")
     result = tmp
 
+proc getMetricResultsForDevice*(self: XboxLiveQualityOfServiceMeasurement, a1: XboxLiveDeviceAddress): seq[XboxLiveQualityOfServiceMetricResult] =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.GetMetricResultsForDevice
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    withIface(a1.p, IID_IXboxLiveDeviceAddress, "IXboxLiveDeviceAddress", p0):
+      var tmp: pointer
+      vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice, Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice)(it, p0, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.GetMetricResultsForDevice")
+      result = toSeq[XboxLiveQualityOfServiceMetricResult](tmp, IID_IVectorView_1_XboxLiveQualityOfServiceMetricResult)
+      release(tmp)
+
+proc getMetricResultsForMetric*(self: XboxLiveQualityOfServiceMeasurement, a1: XboxLiveQualityOfServiceMetric): seq[XboxLiveQualityOfServiceMetricResult] =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.GetMetricResultsForMetric
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric, Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric)(it, a1, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.GetMetricResultsForMetric")
+    result = toSeq[XboxLiveQualityOfServiceMetricResult](tmp, IID_IVectorView_1_XboxLiveQualityOfServiceMetricResult)
+    release(tmp)
+
 proc getMetricResult*(self: XboxLiveQualityOfServiceMeasurement, a1: XboxLiveDeviceAddress, a2: XboxLiveQualityOfServiceMetric): XboxLiveQualityOfServiceMetricResult =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.GetMetricResult
   withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
@@ -10548,6 +11187,14 @@ proc getPrivatePayloadResult*(self: XboxLiveQualityOfServiceMeasurement, a1: Xbo
       var tmp: pointer
       vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult, Fn_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult)(it, p0, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.GetPrivatePayloadResult")
       result = adopt[XboxLiveQualityOfServicePrivatePayloadResult](tmp)
+
+proc deviceAddresses*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveDeviceAddress] =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_DeviceAddresses
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_DeviceAddresses, Fn_IXboxLiveQualityOfServiceMeasurement_get_DeviceAddresses)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_DeviceAddresses")
+    result = toSeq[XboxLiveDeviceAddress](tmp, IID_IVector_1_XboxLiveDeviceAddress)
+    release(tmp)
 
 proc shouldRequestPrivatePayloads*(self: XboxLiveQualityOfServiceMeasurement): bool =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_ShouldRequestPrivatePayloads
@@ -10591,6 +11238,22 @@ proc numberOfResultsPending*(self: XboxLiveQualityOfServiceMeasurement): uint32 
     var tmp: uint32
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_NumberOfResultsPending, Fn_IXboxLiveQualityOfServiceMeasurement_get_NumberOfResultsPending)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_NumberOfResultsPending")
     result = tmp
+
+proc metricResults*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveQualityOfServiceMetricResult] =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_MetricResults
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_MetricResults, Fn_IXboxLiveQualityOfServiceMeasurement_get_MetricResults)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_MetricResults")
+    result = toSeq[XboxLiveQualityOfServiceMetricResult](tmp, IID_IVectorView_1_XboxLiveQualityOfServiceMetricResult)
+    release(tmp)
+
+proc privatePayloadResults*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveQualityOfServicePrivatePayloadResult] =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_PrivatePayloadResults
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults, Fn_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_PrivatePayloadResults")
+    result = toSeq[XboxLiveQualityOfServicePrivatePayloadResult](tmp, IID_IVectorView_1_XboxLiveQualityOfServicePrivatePayloadResult)
+    release(tmp)
 
 proc clearPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]) =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.ClearPrivatePayload

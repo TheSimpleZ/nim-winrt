@@ -12,6 +12,15 @@ import ./abi/globalization
 import ./delegate
 export core, globalization
 
+# IIDs of parameterised interfaces, computed from a signature
+# string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_JapanesePhoneme* = GUID(
+    data1: 0x4CDC5BD0'u32, data2: 0xD4AA'u16, data3: 0x5B60'u16,
+    data4: [0xBF'u8, 0x25, 0x71, 0x44, 0x90, 0x50, 0x50, 0xF9])
+
 type
   ApplicationLanguages* = object
   Calendar* {.inheritable, pure.} = object
@@ -339,6 +348,22 @@ proc `primaryLanguageOverride=`*(_: typedesc[ApplicationLanguages], value: strin
     withHString(value, h0):
       vcall(it, Slot_IApplicationLanguagesStatics_put_PrimaryLanguageOverride, Fn_IApplicationLanguagesStatics_put_PrimaryLanguageOverride)(it, h0).check("ApplicationLanguages.put_PrimaryLanguageOverride")
 
+proc languages*(_: typedesc[ApplicationLanguages]): seq[string] =
+  ## Windows.Globalization.ApplicationLanguages.get_Languages
+  withStatics("Windows.Globalization.ApplicationLanguages", IID_IApplicationLanguagesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationLanguagesStatics_get_Languages, Fn_IApplicationLanguagesStatics_get_Languages)(it, tmp.addr).check("ApplicationLanguages.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string] =
+  ## Windows.Globalization.ApplicationLanguages.get_ManifestLanguages
+  withStatics("Windows.Globalization.ApplicationLanguages", IID_IApplicationLanguagesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationLanguagesStatics_get_ManifestLanguages, Fn_IApplicationLanguagesStatics_get_ManifestLanguages)(it, tmp.addr).check("ApplicationLanguages.get_ManifestLanguages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc newCalendar*(): Calendar =
   ## Activate a `Windows.Globalization.Calendar`.
   adopt[Calendar](activateAs("Windows.Globalization.Calendar", IID_ICalendar))
@@ -359,6 +384,14 @@ proc setToMax*(self: Calendar) =
   ## Windows.Globalization.Calendar.SetToMax
   withIface(self.p, IID_ICalendar, "ICalendar", it):
     vcall(it, Slot_ICalendar_SetToMax, Fn_ICalendar_SetToMax)(it).check("Calendar.SetToMax")
+
+proc languages*(self: Calendar): seq[string] =
+  ## Windows.Globalization.Calendar.get_Languages
+  withIface(self.p, IID_ICalendar, "ICalendar", it):
+    var tmp: pointer
+    vcall(it, Slot_ICalendar_get_Languages, Fn_ICalendar_get_Languages)(it, tmp.addr).check("Calendar.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc numeralSystem*(self: Calendar): string =
   ## Windows.Globalization.Calendar.get_NumeralSystem
@@ -2310,6 +2343,14 @@ proc bYN*(_: typedesc[CurrencyIdentifiers]): string =
     vcall(it, Slot_ICurrencyIdentifiersStatics2_get_BYN, Fn_ICurrencyIdentifiersStatics2_get_BYN)(it, tmp.addr).check("CurrencyIdentifiers.get_BYN")
     result = takeString(tmp)
 
+proc languages*(self: DateTimeFormatter): seq[string] =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Languages
+  withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDateTimeFormatter_get_Languages, Fn_IDateTimeFormatter_get_Languages)(it, tmp.addr).check("DateTimeFormatter.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc geographicRegion*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_GeographicRegion
   withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
@@ -2343,6 +2384,14 @@ proc `numeralSystem=`*(self: DateTimeFormatter, value: string) =
   withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
     withHString(value, h0):
       vcall(it, Slot_IDateTimeFormatter_put_NumeralSystem, Fn_IDateTimeFormatter_put_NumeralSystem)(it, h0).check("DateTimeFormatter.put_NumeralSystem")
+
+proc patterns*(self: DateTimeFormatter): seq[string] =
+  ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Patterns
+  withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDateTimeFormatter_get_Patterns, Fn_IDateTimeFormatter_get_Patterns)(it, tmp.addr).check("DateTimeFormatter.get_Patterns")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc `template`*(self: DateTimeFormatter): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.get_Template
@@ -2631,6 +2680,14 @@ proc nativeName*(self: GeographicRegion): string =
     vcall(it, Slot_IGeographicRegion_get_NativeName, Fn_IGeographicRegion_get_NativeName)(it, tmp.addr).check("GeographicRegion.get_NativeName")
     result = takeString(tmp)
 
+proc currenciesInUse*(self: GeographicRegion): seq[string] =
+  ## Windows.Globalization.GeographicRegion.get_CurrenciesInUse
+  withIface(self.p, IID_IGeographicRegion, "IGeographicRegion", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeographicRegion_get_CurrenciesInUse, Fn_IGeographicRegion_get_CurrenciesInUse)(it, tmp.addr).check("GeographicRegion.get_CurrenciesInUse")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc isSupported*(_: typedesc[GeographicRegion], a1: string): bool =
   ## Windows.Globalization.GeographicRegion.IsSupported
   withStatics("Windows.Globalization.GeographicRegion", IID_IGeographicRegionStatics, it):
@@ -2668,6 +2725,24 @@ proc isPhraseStart*(self: JapanesePhoneme): bool =
     vcall(it, Slot_IJapanesePhoneme_get_IsPhraseStart, Fn_IJapanesePhoneme_get_IsPhraseStart)(it, tmp.addr).check("JapanesePhoneme.get_IsPhraseStart")
     result = tmp
 
+proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], a1: string): seq[JapanesePhoneme] =
+  ## Windows.Globalization.JapanesePhoneticAnalyzer.GetWords
+  withStatics("Windows.Globalization.JapanesePhoneticAnalyzer", IID_IJapanesePhoneticAnalyzerStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IJapanesePhoneticAnalyzerStatics_GetWords, Fn_IJapanesePhoneticAnalyzerStatics_GetWords)(it, h0, tmp.addr).check("JapanesePhoneticAnalyzer.GetWords")
+      result = toSeq[JapanesePhoneme](tmp, IID_IVectorView_1_JapanesePhoneme)
+      release(tmp)
+
+proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], a1: string, a2: bool): seq[JapanesePhoneme] =
+  ## Windows.Globalization.JapanesePhoneticAnalyzer.GetWords
+  withStatics("Windows.Globalization.JapanesePhoneticAnalyzer", IID_IJapanesePhoneticAnalyzerStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IJapanesePhoneticAnalyzerStatics_GetWords2, Fn_IJapanesePhoneticAnalyzerStatics_GetWords2)(it, h0, a2, tmp.addr).check("JapanesePhoneticAnalyzer.GetWords")
+      result = toSeq[JapanesePhoneme](tmp, IID_IVectorView_1_JapanesePhoneme)
+      release(tmp)
+
 proc languageTag*(self: Language): string =
   ## Windows.Globalization.Language.get_LanguageTag
   withIface(self.p, IID_ILanguage, "ILanguage", it):
@@ -2695,6 +2770,15 @@ proc script*(self: Language): string =
     var tmp: HSTRING
     vcall(it, Slot_ILanguage_get_Script, Fn_ILanguage_get_Script)(it, tmp.addr).check("Language.get_Script")
     result = takeString(tmp)
+
+proc getExtensionSubtags*(self: Language, a1: string): seq[string] =
+  ## Windows.Globalization.Language.GetExtensionSubtags
+  withIface(self.p, IID_ILanguageExtensionSubtags, "ILanguageExtensionSubtags", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_ILanguageExtensionSubtags_GetExtensionSubtags, Fn_ILanguageExtensionSubtags_GetExtensionSubtags)(it, h0, tmp.addr).check("Language.GetExtensionSubtags")
+      result = toSeqString(tmp, IID_IVectorView_1_String)
+      release(tmp)
 
 proc layoutDirection*(self: Language): LanguageLayoutDirection =
   ## Windows.Globalization.Language.get_LayoutDirection
@@ -2795,6 +2879,14 @@ proc format*(self: CurrencyFormatter, a1: float64): string =
     var tmp: HSTRING
     vcall(it, Slot_INumberFormatter_Format3, Fn_INumberFormatter_Format3)(it, a1, tmp.addr).check("CurrencyFormatter.Format")
     result = takeString(tmp)
+
+proc languages*(self: CurrencyFormatter): seq[string] =
+  ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_Languages
+  withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("CurrencyFormatter.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc geographicRegion*(self: CurrencyFormatter): string =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_GeographicRegion
@@ -2943,6 +3035,14 @@ proc createCurrencyFormatterCode*(_: typedesc[CurrencyFormatter], a1: string): C
 proc newDecimalFormatter*(): DecimalFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.DecimalFormatter`.
   adopt[DecimalFormatter](activateAs("Windows.Globalization.NumberFormatting.DecimalFormatter", IID_INumberFormatterOptions))
+
+proc languages*(self: DecimalFormatter): seq[string] =
+  ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_Languages
+  withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("DecimalFormatter.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc geographicRegion*(self: DecimalFormatter): string =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_GeographicRegion
@@ -3179,6 +3279,14 @@ proc newNumeralSystemTranslator*(): NumeralSystemTranslator =
   ## Activate a `Windows.Globalization.NumberFormatting.NumeralSystemTranslator`.
   adopt[NumeralSystemTranslator](activateAs("Windows.Globalization.NumberFormatting.NumeralSystemTranslator", IID_INumeralSystemTranslator))
 
+proc languages*(self: NumeralSystemTranslator): seq[string] =
+  ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.get_Languages
+  withIface(self.p, IID_INumeralSystemTranslator, "INumeralSystemTranslator", it):
+    var tmp: pointer
+    vcall(it, Slot_INumeralSystemTranslator_get_Languages, Fn_INumeralSystemTranslator_get_Languages)(it, tmp.addr).check("NumeralSystemTranslator.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc resolvedLanguage*(self: NumeralSystemTranslator): string =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.get_ResolvedLanguage
   withIface(self.p, IID_INumeralSystemTranslator, "INumeralSystemTranslator", it):
@@ -3210,6 +3318,14 @@ proc translateNumerals*(self: NumeralSystemTranslator, a1: string): string =
 proc newPercentFormatter*(): PercentFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.PercentFormatter`.
   adopt[PercentFormatter](activateAs("Windows.Globalization.NumberFormatting.PercentFormatter", IID_INumberFormatterOptions))
+
+proc languages*(self: PercentFormatter): seq[string] =
+  ## Windows.Globalization.NumberFormatting.PercentFormatter.get_Languages
+  withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("PercentFormatter.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc geographicRegion*(self: PercentFormatter): string =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_GeographicRegion
@@ -3375,6 +3491,14 @@ proc `isZeroSigned=`*(self: PercentFormatter, value: bool) =
 proc newPermilleFormatter*(): PermilleFormatter =
   ## Activate a `Windows.Globalization.NumberFormatting.PermilleFormatter`.
   adopt[PermilleFormatter](activateAs("Windows.Globalization.NumberFormatting.PermilleFormatter", IID_INumberFormatterOptions))
+
+proc languages*(self: PermilleFormatter): seq[string] =
+  ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_Languages
+  withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("PermilleFormatter.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc geographicRegion*(self: PermilleFormatter): string =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_GeographicRegion

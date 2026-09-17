@@ -14,6 +14,21 @@ export core, devices
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVector_1_BluetoothLEManufacturerData* = GUID(
+    data1: 0x52D75B45'u32, data2: 0x1D24'u16, data3: 0x5EEB'u16,
+    data4: [0xBA'u8, 0xBB, 0x65, 0xEF, 0xFA, 0xE4, 0x5E, 0x46])
+const IID_IVector_1_BluetoothLEAdvertisementDataSection* = GUID(
+    data1: 0xB6F71AD2'u32, data2: 0xE2CF'u16, data3: 0x5D54'u16,
+    data4: [0xB6'u8, 0xF1, 0x90, 0x96, 0x4E, 0xE5, 0xD4, 0xDA])
+const IID_IVectorView_1_BluetoothLEManufacturerData* = GUID(
+    data1: 0x78AB070E'u32, data2: 0xAD7E'u16, data3: 0x5912'u16,
+    data4: [0xA4'u8, 0xF1, 0x7B, 0xE3, 0x3E, 0x45, 0x60, 0xAF])
+const IID_IVectorView_1_BluetoothLEAdvertisementDataSection* = GUID(
+    data1: 0xC4F2B8EA'u32, data2: 0x11A8'u16, data3: 0x5109'u16,
+    data4: [0x90'u8, 0x13, 0x40, 0x47, 0xE1, 0x2C, 0x72, 0xE8])
+const IID_IVector_1_BluetoothLEAdvertisementBytePattern* = GUID(
+    data1: 0x8DD461B7'u32, data2: 0x9775'u16, data3: 0x5E82'u16,
+    data4: [0xA0'u8, 0xA6, 0x66, 0x27, 0xAB, 0xD0, 0xD0, 0x10])
 const IID_TypedEventHandler_2_BluetoothLEAdvertisementPublisher_BluetoothLEAdvertisementPublisherStatusChangedEventArgs* = GUID(
     data1: 0xC2FFA4F1'u32, data2: 0x5893'u16, data3: 0x54A8'u16,
     data4: [0xBD'u8, 0x94, 0xAA, 0x11, 0x98, 0xB0, 0x5D, 0x07])
@@ -23,15 +38,42 @@ const IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdverti
 const IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementWatcherStoppedEventArgs* = GUID(
     data1: 0x9936A4DB'u32, data2: 0xDC99'u16, data3: 0x55C3'u16,
     data4: [0x9E'u8, 0x9B, 0xBF, 0x48, 0x54, 0xBD, 0x9E, 0xAB])
+const IID_IVectorView_1_BluetoothLEAdvertisementReceivedEventArgs* = GUID(
+    data1: 0x8AEF9BCA'u32, data2: 0xFE7D'u16, data3: 0x5966'u16,
+    data4: [0x97'u8, 0x89, 0xFE, 0xDE, 0x24, 0xCB, 0x41, 0xC4])
+const IID_IVectorView_1_GattValueChangedEventArgs* = GUID(
+    data1: 0x3F96E85F'u32, data2: 0xCA51'u16, data3: 0x5303'u16,
+    data4: [0xBD'u8, 0x1B, 0xAC, 0xEC, 0x77, 0x73, 0xBA, 0xF6])
+const IID_IVectorView_1_RfcommDeviceService* = GUID(
+    data1: 0x97DF6B82'u32, data2: 0xD15C'u16, data3: 0x597E'u16,
+    data4: [0xBA'u8, 0x69, 0x49, 0x22, 0x07, 0xA1, 0xC1, 0x08])
 const IID_TypedEventHandler_2_BluetoothDevice_Object* = GUID(
     data1: 0xDB56CE1C'u32, data2: 0x5E9F'u16, data3: 0x5138'u16,
     data4: [0x92'u8, 0x27, 0xB1, 0xA6, 0x6D, 0x60, 0xBC, 0x1B])
+const IID_IVectorView_1_GattDeviceService* = GUID(
+    data1: 0x7C8E7FDD'u32, data2: 0xA1A1'u16, data3: 0x528A'u16,
+    data4: [0x81'u8, 0xD1, 0x29, 0x67, 0x69, 0x22, 0x7A, 0x08])
 const IID_TypedEventHandler_2_BluetoothLEDevice_Object* = GUID(
     data1: 0xA90661E2'u32, data2: 0x372E'u16, data3: 0x5D1E'u16,
     data4: [0xBB'u8, 0xBB, 0xB8, 0xA2, 0xCE, 0x0E, 0x7C, 0x4D])
+const IID_IVectorView_1_GattDescriptor* = GUID(
+    data1: 0x19605EA8'u32, data2: 0x73D6'u16, data3: 0x5760'u16,
+    data4: [0x84'u8, 0x9B, 0xFE, 0x5F, 0x8A, 0x2B, 0xD0, 0x5C])
+const IID_IVectorView_1_GattPresentationFormat* = GUID(
+    data1: 0x0EA2C154'u32, data2: 0x22B8'u16, data3: 0x5C8E'u16,
+    data4: [0x92'u8, 0x5D, 0xD4, 0x7E, 0x1A, 0xAD, 0x31, 0xBB])
 const IID_TypedEventHandler_2_GattCharacteristic_GattValueChangedEventArgs* = GUID(
     data1: 0xC1F420F6'u32, data2: 0x6292'u16, data3: 0x5760'u16,
     data4: [0xA2'u8, 0xC9, 0x9D, 0xDF, 0x98, 0x68, 0x3C, 0xFC])
+const IID_IVectorView_1_GattCharacteristic* = GUID(
+    data1: 0xCB3AB3AE'u32, data2: 0xB561'u16, data3: 0x504F'u16,
+    data4: [0xA8'u8, 0x08, 0x59, 0x9D, 0xEC, 0xEB, 0x2D, 0xF4])
+const IID_IVectorView_1_GattLocalDescriptor* = GUID(
+    data1: 0x7F4688CC'u32, data2: 0x0BBC'u16, data3: 0x5070'u16,
+    data4: [0x89'u8, 0x74, 0x19, 0xFC, 0xB1, 0xAC, 0xBF, 0x6C])
+const IID_IVectorView_1_GattSubscribedClient* = GUID(
+    data1: 0x63391D79'u32, data2: 0x4BA7'u16, data3: 0x5F45'u16,
+    data4: [0x96'u8, 0x81, 0x3A, 0x68, 0x30, 0x89, 0x35, 0x3B])
 const IID_TypedEventHandler_2_GattLocalCharacteristic_Object* = GUID(
     data1: 0x8087ACD6'u32, data2: 0xAED7'u16, data3: 0x53EB'u16,
     data4: [0x9B'u8, 0x23, 0x48, 0x08, 0xBB, 0x91, 0x0C, 0x17])
@@ -41,12 +83,18 @@ const IID_TypedEventHandler_2_GattLocalCharacteristic_GattReadRequestedEventArgs
 const IID_TypedEventHandler_2_GattLocalCharacteristic_GattWriteRequestedEventArgs* = GUID(
     data1: 0xED61A2FB'u32, data2: 0x7D2A'u16, data3: 0x5BA3'u16,
     data4: [0x8E'u8, 0xBF, 0x8A, 0xD8, 0x78, 0xE5, 0x39, 0xA9])
+const IID_IVector_1_GattPresentationFormat* = GUID(
+    data1: 0xCBA635EF'u32, data2: 0x1C70'u16, data3: 0x5412'u16,
+    data4: [0x8E'u8, 0xDE, 0x73, 0x16, 0x27, 0x6B, 0x9E, 0xE4])
 const IID_TypedEventHandler_2_GattLocalDescriptor_GattReadRequestedEventArgs* = GUID(
     data1: 0x252DCA5C'u32, data2: 0x86E7'u16, data3: 0x5BE1'u16,
     data4: [0xAE'u8, 0xED, 0xF7, 0x8C, 0x6E, 0xD4, 0x66, 0xAB])
 const IID_TypedEventHandler_2_GattLocalDescriptor_GattWriteRequestedEventArgs* = GUID(
     data1: 0x6CF5B169'u32, data2: 0x3731'u16, data3: 0x591B'u16,
     data4: [0xAE'u8, 0x7C, 0xD9, 0x39, 0xFA, 0xAA, 0x8A, 0x71])
+const IID_IVectorView_1_GattLocalCharacteristic* = GUID(
+    data1: 0xE4865EBA'u32, data2: 0x6DE3'u16, data3: 0x5A99'u16,
+    data4: [0x9A'u8, 0x75, 0x7E, 0xFD, 0x8E, 0x3C, 0xB0, 0x96])
 const IID_TypedEventHandler_2_GattReadRequest_GattRequestStateChangedEventArgs* = GUID(
     data1: 0x0246E199'u32, data2: 0x5199'u16, data3: 0x5BDB'u16,
     data4: [0x91'u8, 0x9D, 0x85, 0x44, 0xCE, 0x30, 0xFD, 0x71])
@@ -65,6 +113,12 @@ const IID_TypedEventHandler_2_GattSubscribedClient_Object* = GUID(
 const IID_TypedEventHandler_2_GattWriteRequest_GattRequestStateChangedEventArgs* = GUID(
     data1: 0x7744C6BC'u32, data2: 0xCDCD'u16, data3: 0x5283'u16,
     data4: [0x9E'u8, 0x4F, 0x2E, 0x21, 0xB4, 0x9A, 0x2E, 0xF2])
+const IID_IVectorView_1_DisplayTarget* = GUID(
+    data1: 0x5011224D'u32, data2: 0x182D'u16, data3: 0x5D88'u16,
+    data4: [0xA5'u8, 0x6B, 0xD5, 0x43, 0xC6, 0xBE, 0x36, 0x21])
+const IID_IVectorView_1_DisplayAdapter* = GUID(
+    data1: 0xB491B91F'u32, data2: 0x2107'u16, data3: 0x5C1C'u16,
+    data4: [0xAA'u8, 0x64, 0x07, 0xF3, 0x98, 0x03, 0xE6, 0x4C])
 const IID_TypedEventHandler_2_DisplayManager_DisplayManagerEnabledEventArgs* = GUID(
     data1: 0xA92A0C2B'u32, data2: 0xF309'u16, data3: 0x5BC8'u16,
     data4: [0xBF'u8, 0x69, 0x47, 0xC8, 0x44, 0xD6, 0xDA, 0x41])
@@ -80,9 +134,18 @@ const IID_TypedEventHandler_2_DisplayManager_DisplayManagerPathsFailedOrInvalida
 const IID_TypedEventHandler_2_DisplayMuxDevice_Object* = GUID(
     data1: 0xF63ED5F6'u32, data2: 0xC9FB'u16, data3: 0x5876'u16,
     data4: [0x9E'u8, 0x02, 0xA3, 0x1A, 0x9F, 0xEE, 0x11, 0x57])
+const IID_IVectorView_1_DisplayModeInfo* = GUID(
+    data1: 0x339BE624'u32, data2: 0xF7DC'u16, data3: 0x562C'u16,
+    data4: [0xB5'u8, 0xD2, 0x1B, 0x44, 0x05, 0xBD, 0xB7, 0xE2])
 const IID_TypedEventHandler_2_DisplaySource_Object* = GUID(
     data1: 0x65F431E8'u32, data2: 0xEFC4'u16, data3: 0x552F'u16,
     data4: [0x84'u8, 0x04, 0x32, 0x15, 0x31, 0x58, 0x38, 0x39])
+const IID_IVectorView_1_DisplayView* = GUID(
+    data1: 0x442A33F9'u32, data2: 0x7B39'u16, data3: 0x5C9E'u16,
+    data4: [0x84'u8, 0xD7, 0xB4, 0x3C, 0xF5, 0x51, 0x71, 0xD4])
+const IID_IVectorView_1_DisplayPath* = GUID(
+    data1: 0xEB9B91C4'u32, data2: 0x3D7A'u16, data3: 0x52F6'u16,
+    data4: [0x88'u8, 0x2B, 0x4B, 0x85, 0x01, 0x56, 0xE1, 0x2B])
 const IID_TypedEventHandler_2_DeviceAccessInformation_DeviceAccessChangedEventArgs* = GUID(
     data1: 0x4C71D028'u32, data2: 0xB793'u16, data3: 0x5BCE'u16,
     data4: [0xAE'u8, 0x59, 0xFA, 0x77, 0xF4, 0x5A, 0x40, 0xD8])
@@ -92,6 +155,12 @@ const IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingReques
 const IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingSetMembersRequestedEventArgs* = GUID(
     data1: 0x5CC01096'u32, data2: 0xB025'u16, data3: 0x5D93'u16,
     data4: [0x8C'u8, 0xB2, 0x5C, 0x4D, 0xFA, 0x99, 0x2E, 0x07])
+const IID_IVectorView_1_DeviceInformation* = GUID(
+    data1: 0xE170688F'u32, data2: 0x3495'u16, data3: 0x5BF6'u16,
+    data4: [0xAA'u8, 0xB5, 0x9C, 0xAC, 0x17, 0xE0, 0xF1, 0x0F])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
 const IID_TypedEventHandler_2_DevicePicker_DeviceSelectedEventArgs* = GUID(
     data1: 0x47E48C88'u32, data2: 0x1C56'u16, data3: 0x5B58'u16,
     data4: [0x96'u8, 0xA2, 0x8E, 0x81, 0x3D, 0x25, 0x07, 0x7A])
@@ -110,6 +179,9 @@ const IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate* = GUID(
 const IID_TypedEventHandler_2_DeviceWatcher_Object* = GUID(
     data1: 0x9234630F'u32, data2: 0x1FF4'u16, data3: 0x54F6'u16,
     data4: [0x9E'u8, 0x3F, 0xAC, 0x20, 0x36, 0x9B, 0x77, 0x25])
+const IID_IVectorView_1_DeviceWatcherEvent* = GUID(
+    data1: 0x8F994D37'u32, data2: 0x8FAB'u16, data3: 0x51C6'u16,
+    data4: [0xA1'u8, 0xE0, 0xC9, 0x3F, 0x68, 0xA2, 0x0E, 0xF0])
 const IID_TypedEventHandler_2_PnpObjectWatcher_PnpObject* = GUID(
     data1: 0xD578EED2'u32, data2: 0x58E5'u16, data3: 0x5825'u16,
     data4: [0x8A'u8, 0xF2, 0x12, 0xF8, 0x93, 0x87, 0xB6, 0x56])
@@ -119,9 +191,15 @@ const IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate* = GUID(
 const IID_TypedEventHandler_2_PnpObjectWatcher_Object* = GUID(
     data1: 0x2EE2B4C9'u32, data2: 0xB696'u16, data3: 0x5ECC'u16,
     data4: [0xB2'u8, 0x9B, 0xF1, 0xE0, 0xEF, 0x5F, 0xE1, 0xF7])
+const IID_IVector_1_Geofence* = GUID(
+    data1: 0x096DC936'u32, data2: 0x5F66'u16, data3: 0x5C6E'u16,
+    data4: [0x95'u8, 0xCE, 0xEF, 0x55, 0x41, 0xFB, 0xF4, 0xC4])
 const IID_TypedEventHandler_2_GeofenceMonitor_Object* = GUID(
     data1: 0xECC5AF2C'u32, data2: 0xE47A'u16, data3: 0x59CE'u16,
     data4: [0x86'u8, 0xBE, 0x9C, 0x30, 0x66, 0xFE, 0x26, 0xF7])
+const IID_IVectorView_1_GeofenceStateChangeReport* = GUID(
+    data1: 0xEA91593D'u32, data2: 0xECF4'u16, data3: 0x5041'u16,
+    data4: [0x86'u8, 0xF2, 0x83, 0x7A, 0x28, 0x2C, 0x4D, 0x94])
 const IID_TypedEventHandler_2_Geolocator_PositionChangedEventArgs* = GUID(
     data1: 0xDF3C6164'u32, data2: 0x4E7B'u16, data3: 0x5E8E'u16,
     data4: [0x9A'u8, 0x7E, 0x13, 0xDA, 0x05, 0x9D, 0xEC, 0x1E])
@@ -131,15 +209,33 @@ const IID_TypedEventHandler_2_Geolocator_StatusChangedEventArgs* = GUID(
 const IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs* = GUID(
     data1: 0x76ABC5EA'u32, data2: 0xEE4F'u16, data3: 0x5391'u16,
     data4: [0x9B'u8, 0x50, 0xDE, 0xCA, 0x5D, 0x43, 0x11, 0xC9])
+const IID_IVectorView_1_Geovisit* = GUID(
+    data1: 0x90AD35E9'u32, data2: 0xF1DE'u16, data3: 0x5BA7'u16,
+    data4: [0xAB'u8, 0xBF, 0x04, 0xA2, 0x19, 0x76, 0xD3, 0x62])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
 const IID_TypedEventHandler_2_GpioPin_GpioPinValueChangedEventArgs* = GUID(
     data1: 0x44BA689B'u32, data2: 0x7D42'u16, data3: 0x5374'u16,
     data4: [0xAD'u8, 0xD9, 0xAB, 0x41, 0xE8, 0x77, 0xA3, 0x4B])
+const IID_IVectorView_1_SimpleHapticsControllerFeedback* = GUID(
+    data1: 0x51F54B04'u32, data2: 0xBB9D'u16, data3: 0x5C7B'u16,
+    data4: [0x8F'u8, 0x5F, 0x67, 0xF8, 0xCA, 0xF4, 0xB0, 0x03])
+const IID_IVectorView_1_HidCollection* = GUID(
+    data1: 0x96F1FAAC'u32, data2: 0x348F'u16, data3: 0x5B8F'u16,
+    data4: [0xA7'u8, 0x1D, 0x2D, 0x65, 0x0E, 0x0B, 0x11, 0xF2])
+const IID_IVectorView_1_HidBooleanControlDescription* = GUID(
+    data1: 0xAAB72786'u32, data2: 0xEC34'u16, data3: 0x536F'u16,
+    data4: [0xA7'u8, 0xC5, 0x27, 0x39, 0x47, 0x53, 0xDF, 0x2C])
+const IID_IVectorView_1_HidNumericControlDescription* = GUID(
+    data1: 0xE02CA66C'u32, data2: 0x610A'u16, data3: 0x51B4'u16,
+    data4: [0xAE'u8, 0xF9, 0x37, 0x07, 0xB6, 0x97, 0xB9, 0x85])
 const IID_TypedEventHandler_2_HidDevice_HidInputReportReceivedEventArgs* = GUID(
     data1: 0x31E757C8'u32, data2: 0x8F6A'u16, data3: 0x540B'u16,
     data4: [0x93'u8, 0x8B, 0xAB, 0xA7, 0x9B, 0x6F, 0x03, 0xEC])
+const IID_IVectorView_1_HidBooleanControl* = GUID(
+    data1: 0x0E417DAC'u32, data2: 0x591A'u16, data3: 0x5DE0'u16,
+    data4: [0xAF'u8, 0xD6, 0x0B, 0x2C, 0x04, 0xC3, 0x04, 0xE7])
 const IID_TypedEventHandler_2_MouseDevice_MouseEventArgs* = GUID(
     data1: 0x5D72E594'u32, data2: 0x28E4'u16, data3: 0x5895'u16,
     data4: [0xA3'u8, 0x4B, 0xEA, 0x91, 0x0F, 0x70, 0xFD, 0xBB])
@@ -164,6 +260,9 @@ const IID_TypedEventHandler_2_PenDockListener_PenDockedEventArgs* = GUID(
 const IID_TypedEventHandler_2_PenDockListener_PenUndockedEventArgs* = GUID(
     data1: 0x51DBA508'u32, data2: 0x3194'u16, data3: 0x5C91'u16,
     data4: [0xA2'u8, 0xE7, 0xF9, 0x46, 0x37, 0xE7, 0x5A, 0x13])
+const IID_IVectorView_1_PointerDevice* = GUID(
+    data1: 0xCF5674F1'u32, data2: 0x9808'u16, data3: 0x5A2B'u16,
+    data4: [0x80'u8, 0xB8, 0x56, 0x84, 0xED, 0x0E, 0xA8, 0x16])
 const IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherAddedPreviewEventArgs* = GUID(
     data1: 0x5BF95725'u32, data2: 0x6889'u16, data3: 0x544F'u16,
     data4: [0xBA'u8, 0x3B, 0xDD, 0xA9, 0x86, 0xAD, 0xD8, 0xAE])
@@ -185,6 +284,9 @@ const IID_TypedEventHandler_2_GazeInputSourcePreview_GazeEnteredPreviewEventArgs
 const IID_TypedEventHandler_2_GazeInputSourcePreview_GazeExitedPreviewEventArgs* = GUID(
     data1: 0x0F19B16C'u32, data2: 0x73D9'u16, data3: 0x5775'u16,
     data4: [0x92'u8, 0xA3, 0x0F, 0x6F, 0x94, 0x2E, 0x4E, 0xB0])
+const IID_IVector_1_GazePointPreview* = GUID(
+    data1: 0x446A643D'u32, data2: 0x387C'u16, data3: 0x5EF6'u16,
+    data4: [0xA8'u8, 0xAC, 0xCC, 0xA9, 0xD8, 0xA7, 0x93, 0xB4])
 const IID_TypedEventHandler_2_LampArrayBitmapEffect_LampArrayBitmapRequestedEventArgs* = GUID(
     data1: 0x24B5818B'u32, data2: 0x448E'u16, data3: 0x53FA'u16,
     data4: [0xAB'u8, 0x4C, 0x66, 0x30, 0x08, 0xC5, 0xD4, 0xCF])
@@ -209,6 +311,9 @@ const IID_TypedEventHandler_2_PerceptionColorFrameSource_Object* = GUID(
 const IID_TypedEventHandler_2_PerceptionColorFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs* = GUID(
     data1: 0xB2C3A488'u32, data2: 0x7ED9'u16, data3: 0x5110'u16,
     data4: [0x80'u8, 0x4A, 0x97, 0x92, 0xEF, 0x7F, 0x26, 0xBE])
+const IID_IVectorView_1_PerceptionVideoProfile* = GUID(
+    data1: 0x8DCB30E8'u32, data2: 0x4EC1'u16, data3: 0x51B7'u16,
+    data4: [0x99'u8, 0x97, 0x10, 0xF3, 0x25, 0xF0, 0x3D, 0x47])
 const IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_PerceptionColorFrameSourceAddedEventArgs* = GUID(
     data1: 0x7202E817'u32, data2: 0x22B8'u16, data3: 0x5E7B'u16,
     data4: [0x86'u8, 0xB5, 0xC4, 0xA9, 0x0C, 0xCC, 0x23, 0xAA])
@@ -257,6 +362,12 @@ const IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInf
 const IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object* = GUID(
     data1: 0x1555A628'u32, data2: 0x3DFF'u16, data3: 0x5FD0'u16,
     data4: [0xB1'u8, 0x0A, 0xCA, 0x6A, 0xDB, 0x24, 0x40, 0xC6])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_PerceptionCorrelation* = GUID(
+    data1: 0x244CAD66'u32, data2: 0xAFBE'u16, data3: 0x5394'u16,
+    data4: [0xB7'u8, 0xB7, 0x43, 0xA6, 0x1F, 0xCB, 0xFC, 0x6D])
 const IID_TypedEventHandler_2_BarcodeScanner_BarcodeScannerStatusUpdatedEventArgs* = GUID(
     data1: 0xCFC8A053'u32, data2: 0xF611'u16, data3: 0x521A'u16,
     data4: [0x8A'u8, 0xB0, 0xA4, 0x60, 0xE1, 0xF7, 0x16, 0x4D])
@@ -362,6 +473,9 @@ const IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerHid
 const IID_TypedEventHandler_2_Battery_Object* = GUID(
     data1: 0x4D4AA646'u32, data2: 0x767F'u16, data3: 0x5645'u16,
     data4: [0xAF'u8, 0x5C, 0x54, 0x64, 0x64, 0xD3, 0xEC, 0x09])
+const IID_IVectorView_1_PowerGridData* = GUID(
+    data1: 0xE204EE85'u32, data2: 0x7062'u16, data3: 0x5207'u16,
+    data4: [0xBA'u8, 0x91, 0x71, 0x03, 0x38, 0x4D, 0x5B, 0x97])
 const IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrintRequestedEventArgs* = GUID(
     data1: 0x5F4C6603'u32, data2: 0x5512'u16, data3: 0x59AA'u16,
     data4: [0x8D'u8, 0x96, 0xB1, 0x38, 0x9D, 0x8B, 0x57, 0x96])
@@ -371,6 +485,21 @@ const IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrinterChangedEvent
 const IID_TypedEventHandler_2_PrintTaskConfiguration_PrintTaskConfigurationSaveRequestedEventArgs* = GUID(
     data1: 0x0363F57A'u32, data2: 0xB7A2'u16, data3: 0x5E20'u16,
     data4: [0xA1'u8, 0x56, 0x25, 0x34, 0x23, 0xE7, 0xEE, 0x40])
+const IID_IVectorView_1_IppAttributeValue* = GUID(
+    data1: 0xB47B6F27'u32, data2: 0xEF3B'u16, data3: 0x55C4'u16,
+    data4: [0x82'u8, 0x5F, 0xA8, 0x76, 0x6D, 0x13, 0xC7, 0x25])
+const IID_IVector_1_IppResolution* = GUID(
+    data1: 0x992F8CA5'u32, data2: 0x0E6C'u16, data3: 0x5873'u16,
+    data4: [0xAF'u8, 0x3D, 0xB0, 0x92, 0x7F, 0x27, 0x5A, 0x69])
+const IID_IVector_1_IppIntegerRange* = GUID(
+    data1: 0xC9CACF28'u32, data2: 0xEF27'u16, data3: 0x5753'u16,
+    data4: [0x83'u8, 0x82, 0x7D, 0x7D, 0xF1, 0x36, 0x29, 0x4D])
+const IID_IVector_1_IppTextWithLanguage* = GUID(
+    data1: 0xA2E47775'u32, data2: 0xC458'u16, data3: 0x53FD'u16,
+    data4: [0xA8'u8, 0x5B, 0x0F, 0xC6, 0x5F, 0x02, 0x1E, 0xA6])
+const IID_IVector_1_VirtualPrinterSupportedFormat* = GUID(
+    data1: 0x3E936EC1'u32, data2: 0x51EE'u16, data3: 0x5061'u16,
+    data4: [0xAB'u8, 0x5C, 0x80, 0xE4, 0x4B, 0x8F, 0x71, 0x02])
 const IID_TypedEventHandler_2_Radio_Object* = GUID(
     data1: 0xFC6AA329'u32, data2: 0xB586'u16, data3: 0x5EBB'u16,
     data4: [0x9E'u8, 0x85, 0x3F, 0x6B, 0x84, 0xEB, 0xDF, 0x18])
@@ -383,6 +512,9 @@ const IID_TypedEventHandler_2_Accelerometer_AccelerometerShakenEventArgs* = GUID
 const IID_TypedEventHandler_2_ActivitySensor_ActivitySensorReadingChangedEventArgs* = GUID(
     data1: 0xA5B72E01'u32, data2: 0x546C'u16, data3: 0x5FBB'u16,
     data4: [0xB8'u8, 0x47, 0x49, 0x20, 0x0A, 0xAA, 0xAA, 0xC5])
+const IID_IVectorView_1_ActivitySensorReadingChangeReport* = GUID(
+    data1: 0x10E48A80'u32, data2: 0xDD6A'u16, data3: 0x5704'u16,
+    data4: [0x8F'u8, 0x3D, 0x3D, 0x46, 0x11, 0x1F, 0x39, 0x1E])
 const IID_TypedEventHandler_2_Altimeter_AltimeterReadingChangedEventArgs* = GUID(
     data1: 0xD775D699'u32, data2: 0x9D74'u16, data3: 0x5473'u16,
     data4: [0x9C'u8, 0x1B, 0xD5, 0x1A, 0x89, 0xDB, 0x66, 0x42])
@@ -404,6 +536,9 @@ const IID_TypedEventHandler_2_HingeAngleSensor_HingeAngleSensorReadingChangedEve
 const IID_TypedEventHandler_2_HumanPresenceSensor_HumanPresenceSensorReadingChangedEventArgs* = GUID(
     data1: 0x329678BC'u32, data2: 0x3D7C'u16, data3: 0x5FF3'u16,
     data4: [0x87'u8, 0xCB, 0x4F, 0xC5, 0xE9, 0xFE, 0xCF, 0x72])
+const IID_IVectorView_1_DetectedPerson* = GUID(
+    data1: 0x1DE993D5'u32, data2: 0x739B'u16, data3: 0x5F05'u16,
+    data4: [0x99'u8, 0x85, 0xC3, 0x63, 0x76, 0xDF, 0x9F, 0x39])
 const IID_TypedEventHandler_2_Inclinometer_InclinometerReadingChangedEventArgs* = GUID(
     data1: 0x6F3B411F'u32, data2: 0xD147'u16, data3: 0x59F1'u16,
     data4: [0xBB'u8, 0xE4, 0x7B, 0xEC, 0x39, 0x6C, 0x7B, 0x6E])
@@ -419,9 +554,15 @@ const IID_TypedEventHandler_2_OrientationSensor_OrientationSensorReadingChangedE
 const IID_TypedEventHandler_2_Pedometer_PedometerReadingChangedEventArgs* = GUID(
     data1: 0xDCD47693'u32, data2: 0xAAD5'u16, data3: 0x5B3C'u16,
     data4: [0x9C'u8, 0x8D, 0x14, 0x0B, 0x8B, 0xC2, 0x12, 0x2B])
+const IID_IVectorView_1_PedometerReading* = GUID(
+    data1: 0x52076F5C'u32, data2: 0x7838'u16, data3: 0x54D9'u16,
+    data4: [0x95'u8, 0x17, 0x55, 0x11, 0xEB, 0x62, 0x79, 0x52])
 const IID_TypedEventHandler_2_ProximitySensor_ProximitySensorReadingChangedEventArgs* = GUID(
     data1: 0x9F7E222B'u32, data2: 0x892A'u16, data3: 0x5E68'u16,
     data4: [0xB0'u8, 0x8A, 0x10, 0x38, 0x4B, 0x5F, 0x92, 0xB9])
+const IID_IVectorView_1_ProximitySensorReading* = GUID(
+    data1: 0x7A09D76C'u32, data2: 0x8CED'u16, data3: 0x5E30'u16,
+    data4: [0xB7'u8, 0xFE, 0x1F, 0xF7, 0x4D, 0x4D, 0x98, 0x14])
 const IID_TypedEventHandler_2_SimpleOrientationSensor_SimpleOrientationSensorOrientationChangedEventArgs* = GUID(
     data1: 0x92437FA7'u32, data2: 0xEA7B'u16, data3: 0x5FC5'u16,
     data4: [0x8E'u8, 0xCF, 0x1B, 0x91, 0x1B, 0xEA, 0x2B, 0xFC])
@@ -431,6 +572,15 @@ const IID_TypedEventHandler_2_SerialDevice_ErrorReceivedEventArgs* = GUID(
 const IID_TypedEventHandler_2_SerialDevice_PinChangedEventArgs* = GUID(
     data1: 0xE496C3EF'u32, data2: 0x5802'u16, data3: 0x5AC4'u16,
     data4: [0xAC'u8, 0x2E, 0x96, 0xBC, 0x23, 0xFA, 0x94, 0x47])
+const IID_IVectorView_1_SmartCardCryptogramMaterialCharacteristics* = GUID(
+    data1: 0x6E5E4447'u32, data2: 0x1552'u16, data3: 0x591B'u16,
+    data4: [0xAF'u8, 0xA0, 0x38, 0x7B, 0x26, 0xB7, 0xAC, 0x93])
+const IID_IVectorView_1_SmartCardCryptogramMaterialPackageCharacteristics* = GUID(
+    data1: 0x94D937E9'u32, data2: 0x0EDC'u16, data3: 0x5DAD'u16,
+    data4: [0xA3'u8, 0xAD, 0xB2, 0xEB, 0x5A, 0xB8, 0x86, 0x71])
+const IID_IVectorView_1_SmartCardCryptogramStorageKeyCharacteristics* = GUID(
+    data1: 0xF14872B9'u32, data2: 0x7F4C'u16, data3: 0x58F8'u16,
+    data4: [0x8B'u8, 0xFA, 0xAF, 0x76, 0x7F, 0x58, 0x97, 0x1A])
 const IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorApduReceivedEventArgs* = GUID(
     data1: 0x146F9403'u32, data2: 0x42F4'u16, data3: 0x59A2'u16,
     data4: [0xA8'u8, 0x5A, 0x82, 0x94, 0xAF, 0x3E, 0x3E, 0x78])
@@ -446,15 +596,60 @@ const IID_TypedEventHandler_2_SmartCardReader_CardRemovedEventArgs* = GUID(
 const IID_TypedEventHandler_2_SmsDevice2_Object* = GUID(
     data1: 0x3F3808E6'u32, data2: 0x3DEE'u16, data3: 0x57A6'u16,
     data4: [0xA8'u8, 0x8D, 0xBA, 0xCF, 0xB0, 0x66, 0xC7, 0xFB])
+const IID_IVector_1_SmsFilterRule* = GUID(
+    data1: 0x8E72FA52'u32, data2: 0x4867'u16, data3: 0x5696'u16,
+    data4: [0xB4'u8, 0xD9, 0x4C, 0xA2, 0x3F, 0x19, 0xE1, 0x77])
 const IID_TypedEventHandler_2_SmsMessageRegistration_SmsMessageReceivedTriggerDetails* = GUID(
     data1: 0x33F985C7'u32, data2: 0xDCFA'u16, data3: 0x531F'u16,
     data4: [0x9C'u8, 0xCE, 0xEE, 0x5E, 0x6C, 0x26, 0xB1, 0xE6])
+const IID_IVectorView_1_SmsMessageRegistration* = GUID(
+    data1: 0x23AAA815'u32, data2: 0x24EF'u16, data3: 0x57C4'u16,
+    data4: [0xB1'u8, 0xBC, 0x94, 0xD6, 0x2C, 0x0A, 0x59, 0xA3])
+const IID_IVectorView_1_ISmsBinaryMessage* = GUID(
+    data1: 0x6EA176EA'u32, data2: 0x99EA'u16, data3: 0x5C79'u16,
+    data4: [0x87'u8, 0x6A, 0xF4, 0xC4, 0x37, 0xB8, 0x3D, 0xF6])
+const IID_IVectorView_1_UsbInterface* = GUID(
+    data1: 0x9C69EC7F'u32, data2: 0x2E42'u16, data3: 0x58CD'u16,
+    data4: [0xA7'u8, 0x4A, 0xF4, 0x97, 0x48, 0x11, 0x13, 0x4D])
+const IID_IVectorView_1_UsbDescriptor* = GUID(
+    data1: 0x5408BAA2'u32, data2: 0x291E'u16, data3: 0x537A'u16,
+    data4: [0xB6'u8, 0x1F, 0x13, 0x70, 0x62, 0xF7, 0xFF, 0x7D])
+const IID_IVectorView_1_UsbBulkInPipe* = GUID(
+    data1: 0xA93C84BC'u32, data2: 0x6484'u16, data3: 0x5959'u16,
+    data4: [0xB6'u8, 0x1A, 0x70, 0x3C, 0xC7, 0x11, 0x5F, 0x6F])
+const IID_IVectorView_1_UsbInterruptInPipe* = GUID(
+    data1: 0x37469574'u32, data2: 0xB4C5'u16, data3: 0x5BA0'u16,
+    data4: [0x96'u8, 0x16, 0x89, 0x4D, 0xD8, 0x22, 0xFF, 0x5B])
+const IID_IVectorView_1_UsbBulkOutPipe* = GUID(
+    data1: 0x0A873512'u32, data2: 0x15F1'u16, data3: 0x5E8E'u16,
+    data4: [0xA7'u8, 0x2A, 0x04, 0x5C, 0xFD, 0x7A, 0x5E, 0x83])
+const IID_IVectorView_1_UsbInterruptOutPipe* = GUID(
+    data1: 0x748196C8'u32, data2: 0x83BF'u16, data3: 0x5EC3'u16,
+    data4: [0x8D'u8, 0x28, 0xA3, 0x11, 0x2B, 0x3E, 0xE3, 0xCC])
+const IID_IVectorView_1_UsbInterfaceSetting* = GUID(
+    data1: 0x71194AF7'u32, data2: 0x77C2'u16, data3: 0x54D5'u16,
+    data4: [0xA1'u8, 0x16, 0x28, 0x7F, 0x0B, 0x7F, 0xD5, 0x3F])
+const IID_IVectorView_1_UsbBulkInEndpointDescriptor* = GUID(
+    data1: 0x9C69AC78'u32, data2: 0x309E'u16, data3: 0x5763'u16,
+    data4: [0xAF'u8, 0x26, 0x97, 0x06, 0xFF, 0xA4, 0x7E, 0xC0])
+const IID_IVectorView_1_UsbInterruptInEndpointDescriptor* = GUID(
+    data1: 0x3FC7F890'u32, data2: 0x218E'u16, data3: 0x5057'u16,
+    data4: [0x90'u8, 0x4D, 0x63, 0x87, 0xC5, 0x91, 0xCC, 0x93])
+const IID_IVectorView_1_UsbBulkOutEndpointDescriptor* = GUID(
+    data1: 0x22A53676'u32, data2: 0xA3EA'u16, data3: 0x5DCD'u16,
+    data4: [0xBB'u8, 0x39, 0xB2, 0x8A, 0x53, 0x27, 0xC4, 0xA3])
+const IID_IVectorView_1_UsbInterruptOutEndpointDescriptor* = GUID(
+    data1: 0x984E7E15'u32, data2: 0xC5AC'u16, data3: 0x5140'u16,
+    data4: [0xA3'u8, 0xC0, 0xB5, 0x83, 0x19, 0x00, 0x85, 0xD7])
 const IID_TypedEventHandler_2_UsbInterruptInPipe_UsbInterruptInEventArgs* = GUID(
     data1: 0xE6DB9449'u32, data2: 0xF36A'u16, data3: 0x50F2'u16,
     data4: [0x92'u8, 0x6C, 0x2A, 0xFD, 0x85, 0xC4, 0x9F, 0x01])
 const IID_TypedEventHandler_2_WiFiAdapter_Object* = GUID(
     data1: 0xF6C02D1B'u32, data2: 0x43E8'u16, data3: 0x5FC8'u16,
     data4: [0x8E'u8, 0x8E, 0xEE, 0x7B, 0x80, 0x94, 0xB6, 0x83])
+const IID_IVectorView_1_WiFiAvailableNetwork* = GUID(
+    data1: 0x7C65D286'u32, data2: 0x7285'u16, data3: 0x5D63'u16,
+    data4: [0xBD'u8, 0xEA, 0x5E, 0xF9, 0x51, 0xBD, 0xF6, 0x18])
 const IID_TypedEventHandler_2_WiFiDirectService_WiFiDirectServiceSessionDeferredEventArgs* = GUID(
     data1: 0xFC3DFC2C'u32, data2: 0x9CFA'u16, data3: 0x5822'u16,
     data4: [0xBA'u8, 0x3F, 0xFF, 0x3A, 0xFB, 0x65, 0x77, 0x7E])
@@ -473,6 +668,9 @@ const IID_TypedEventHandler_2_WiFiDirectServiceSession_Object* = GUID(
 const IID_TypedEventHandler_2_WiFiDirectServiceSession_WiFiDirectServiceRemotePortAddedEventArgs* = GUID(
     data1: 0x8326A337'u32, data2: 0x3C19'u16, data3: 0x57A7'u16,
     data4: [0x80'u8, 0xEC, 0xCC, 0xA2, 0xEA, 0x62, 0xEF, 0x12])
+const IID_IVector_1_WiFiDirectInformationElement* = GUID(
+    data1: 0xB8C55492'u32, data2: 0xE4DE'u16, data3: 0x5BA7'u16,
+    data4: [0x84'u8, 0x76, 0xD3, 0xBA, 0xB5, 0x57, 0xCD, 0xD6])
 const IID_TypedEventHandler_2_WiFiDirectAdvertisementPublisher_WiFiDirectAdvertisementPublisherStatusChangedEventArgs* = GUID(
     data1: 0xDE73CBA7'u32, data2: 0x370D'u16, data3: 0x550C'u16,
     data4: [0xB2'u8, 0x3A, 0x53, 0xDD, 0x0B, 0x4E, 0x48, 0x0D])
@@ -9588,6 +9786,38 @@ proc `localName=`*(self: BluetoothLEAdvertisement, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IBluetoothLEAdvertisement_put_LocalName, Fn_IBluetoothLEAdvertisement_put_LocalName)(it, h0).check("BluetoothLEAdvertisement.put_LocalName")
 
+proc manufacturerData*(self: BluetoothLEAdvertisement): seq[BluetoothLEManufacturerData] =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_ManufacturerData
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_get_ManufacturerData, Fn_IBluetoothLEAdvertisement_get_ManufacturerData)(it, tmp.addr).check("BluetoothLEAdvertisement.get_ManufacturerData")
+    result = toSeq[BluetoothLEManufacturerData](tmp, IID_IVector_1_BluetoothLEManufacturerData)
+    release(tmp)
+
+proc dataSections*(self: BluetoothLEAdvertisement): seq[BluetoothLEAdvertisementDataSection] =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_DataSections
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_get_DataSections, Fn_IBluetoothLEAdvertisement_get_DataSections)(it, tmp.addr).check("BluetoothLEAdvertisement.get_DataSections")
+    result = toSeq[BluetoothLEAdvertisementDataSection](tmp, IID_IVector_1_BluetoothLEAdvertisementDataSection)
+    release(tmp)
+
+proc getManufacturerDataByCompanyId*(self: BluetoothLEAdvertisement, a1: uint16): seq[BluetoothLEManufacturerData] =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetManufacturerDataByCompanyId
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId, Fn_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId)(it, a1, tmp.addr).check("BluetoothLEAdvertisement.GetManufacturerDataByCompanyId")
+    result = toSeq[BluetoothLEManufacturerData](tmp, IID_IVectorView_1_BluetoothLEManufacturerData)
+    release(tmp)
+
+proc getSectionsByType*(self: BluetoothLEAdvertisement, a1: uint8): seq[BluetoothLEAdvertisementDataSection] =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetSectionsByType
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_GetSectionsByType, Fn_IBluetoothLEAdvertisement_GetSectionsByType)(it, a1, tmp.addr).check("BluetoothLEAdvertisement.GetSectionsByType")
+    result = toSeq[BluetoothLEAdvertisementDataSection](tmp, IID_IVectorView_1_BluetoothLEAdvertisementDataSection)
+    release(tmp)
+
 proc newBluetoothLEAdvertisementBytePattern*(): BluetoothLEAdvertisementBytePattern =
   ## Activate a `Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern`.
   adopt[BluetoothLEAdvertisementBytePattern](activateAs("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern", IID_IBluetoothLEAdvertisementBytePattern))
@@ -9840,6 +10070,14 @@ proc `advertisement=`*(self: BluetoothLEAdvertisementFilter, value: BluetoothLEA
   withIface(self.p, IID_IBluetoothLEAdvertisementFilter, "IBluetoothLEAdvertisementFilter", it):
     withIface(value.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", p0):
       vcall(it, Slot_IBluetoothLEAdvertisementFilter_put_Advertisement, Fn_IBluetoothLEAdvertisementFilter_put_Advertisement)(it, p0).check("BluetoothLEAdvertisementFilter.put_Advertisement")
+
+proc bytePatterns*(self: BluetoothLEAdvertisementFilter): seq[BluetoothLEAdvertisementBytePattern] =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter.get_BytePatterns
+  withIface(self.p, IID_IBluetoothLEAdvertisementFilter, "IBluetoothLEAdvertisementFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementFilter_get_BytePatterns, Fn_IBluetoothLEAdvertisementFilter_get_BytePatterns)(it, tmp.addr).check("BluetoothLEAdvertisementFilter.get_BytePatterns")
+    result = toSeq[BluetoothLEAdvertisementBytePattern](tmp, IID_IVector_1_BluetoothLEAdvertisementBytePattern)
+    release(tmp)
 
 proc newBluetoothLEAdvertisementPublisher*(): BluetoothLEAdvertisementPublisher =
   ## Activate a `Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher`.
@@ -10346,6 +10584,14 @@ proc error*(self: BluetoothLEAdvertisementWatcherTriggerDetails): BluetoothError
     vcall(it, Slot_IBluetoothLEAdvertisementWatcherTriggerDetails_get_Error, Fn_IBluetoothLEAdvertisementWatcherTriggerDetails_get_Error)(it, tmp.addr).check("BluetoothLEAdvertisementWatcherTriggerDetails.get_Error")
     result = tmp
 
+proc advertisements*(self: BluetoothLEAdvertisementWatcherTriggerDetails): seq[BluetoothLEAdvertisementReceivedEventArgs] =
+  ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementWatcherTriggerDetails.get_Advertisements
+  withIface(self.p, IID_IBluetoothLEAdvertisementWatcherTriggerDetails, "IBluetoothLEAdvertisementWatcherTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementWatcherTriggerDetails_get_Advertisements, Fn_IBluetoothLEAdvertisementWatcherTriggerDetails_get_Advertisements)(it, tmp.addr).check("BluetoothLEAdvertisementWatcherTriggerDetails.get_Advertisements")
+    result = toSeq[BluetoothLEAdvertisementReceivedEventArgs](tmp, IID_IVectorView_1_BluetoothLEAdvertisementReceivedEventArgs)
+    release(tmp)
+
 proc signalStrengthFilter*(self: BluetoothLEAdvertisementWatcherTriggerDetails): BluetoothSignalStrengthFilter =
   ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementWatcherTriggerDetails.get_SignalStrengthFilter
   withIface(self.p, IID_IBluetoothLEAdvertisementWatcherTriggerDetails, "IBluetoothLEAdvertisementWatcherTriggerDetails", it):
@@ -10380,6 +10626,14 @@ proc eventTriggeringMode*(self: GattCharacteristicNotificationTriggerDetails): B
     var tmp: BluetoothEventTriggeringMode
     vcall(it, Slot_IGattCharacteristicNotificationTriggerDetails2_get_EventTriggeringMode, Fn_IGattCharacteristicNotificationTriggerDetails2_get_EventTriggeringMode)(it, tmp.addr).check("GattCharacteristicNotificationTriggerDetails.get_EventTriggeringMode")
     result = tmp
+
+proc valueChangedEvents*(self: GattCharacteristicNotificationTriggerDetails): seq[GattValueChangedEventArgs] =
+  ## Windows.Devices.Bluetooth.Background.GattCharacteristicNotificationTriggerDetails.get_ValueChangedEvents
+  withIface(self.p, IID_IGattCharacteristicNotificationTriggerDetails2, "IGattCharacteristicNotificationTriggerDetails2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristicNotificationTriggerDetails2_get_ValueChangedEvents, Fn_IGattCharacteristicNotificationTriggerDetails2_get_ValueChangedEvents)(it, tmp.addr).check("GattCharacteristicNotificationTriggerDetails.get_ValueChangedEvents")
+    result = toSeq[GattValueChangedEventArgs](tmp, IID_IVectorView_1_GattValueChangedEventArgs)
+    release(tmp)
 
 proc triggerId*(self: GattServiceProviderConnection): string =
   ## Windows.Devices.Bluetooth.Background.GattServiceProviderConnection.get_TriggerId
@@ -10637,6 +10891,14 @@ proc classOfDevice*(self: BluetoothDevice): BluetoothClassOfDevice =
     var tmp: pointer
     vcall(it, Slot_IBluetoothDevice_get_ClassOfDevice, Fn_IBluetoothDevice_get_ClassOfDevice)(it, tmp.addr).check("BluetoothDevice.get_ClassOfDevice")
     result = adopt[BluetoothClassOfDevice](tmp)
+
+proc rfcommServices*(self: BluetoothDevice): seq[RfcommDeviceService] =
+  ## Windows.Devices.Bluetooth.BluetoothDevice.get_RfcommServices
+  withIface(self.p, IID_IBluetoothDevice, "IBluetoothDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothDevice_get_RfcommServices, Fn_IBluetoothDevice_get_RfcommServices)(it, tmp.addr).check("BluetoothDevice.get_RfcommServices")
+    result = toSeq[RfcommDeviceService](tmp, IID_IVectorView_1_RfcommDeviceService)
+    release(tmp)
 
 proc connectionStatus*(self: BluetoothDevice): BluetoothConnectionStatus =
   ## Windows.Devices.Bluetooth.BluetoothDevice.get_ConnectionStatus
@@ -11265,6 +11527,14 @@ proc name*(self: BluetoothLEDevice): string =
     vcall(it, Slot_IBluetoothLEDevice_get_Name, Fn_IBluetoothLEDevice_get_Name)(it, tmp.addr).check("BluetoothLEDevice.get_Name")
     result = takeString(tmp)
 
+proc gattServices*(self: BluetoothLEDevice): seq[GattDeviceService] =
+  ## Windows.Devices.Bluetooth.BluetoothLEDevice.get_GattServices
+  withIface(self.p, IID_IBluetoothLEDevice, "IBluetoothLEDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEDevice_get_GattServices, Fn_IBluetoothLEDevice_get_GattServices)(it, tmp.addr).check("BluetoothLEDevice.get_GattServices")
+    result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
+    release(tmp)
+
 proc connectionStatus*(self: BluetoothLEDevice): BluetoothConnectionStatus =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.get_ConnectionStatus
   withIface(self.p, IID_IBluetoothLEDevice, "IBluetoothLEDevice", it):
@@ -11563,6 +11833,14 @@ proc fromShortId*(_: typedesc[BluetoothUuidHelper], a1: uint32): GUID =
     vcall(it, Slot_IBluetoothUuidHelperStatics_FromShortId, Fn_IBluetoothUuidHelperStatics_FromShortId)(it, a1, tmp.addr).check("BluetoothUuidHelper.FromShortId")
     result = tmp
 
+proc getDescriptors*(self: GattCharacteristic, a1: GUID): seq[GattDescriptor] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptors
+  withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristic_GetDescriptors, Fn_IGattCharacteristic_GetDescriptors)(it, a1, tmp.addr).check("GattCharacteristic.GetDescriptors")
+    result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
+    release(tmp)
+
 proc characteristicProperties*(self: GattCharacteristic): GattCharacteristicProperties =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.get_CharacteristicProperties
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
@@ -11603,6 +11881,14 @@ proc attributeHandle*(self: GattCharacteristic): uint16 =
     vcall(it, Slot_IGattCharacteristic_get_AttributeHandle, Fn_IGattCharacteristic_get_AttributeHandle)(it, tmp.addr).check("GattCharacteristic.get_AttributeHandle")
     result = tmp
 
+proc presentationFormats*(self: GattCharacteristic): seq[GattPresentationFormat] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.get_PresentationFormats
+  withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristic_get_PresentationFormats, Fn_IGattCharacteristic_get_PresentationFormats)(it, tmp.addr).check("GattCharacteristic.get_PresentationFormats")
+    result = toSeq[GattPresentationFormat](tmp, IID_IVectorView_1_GattPresentationFormat)
+    release(tmp)
+
 proc onValueChanged*(self: GattCharacteristic,
     handler: proc(sender: pointer, args: GattValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.add_ValueChanged
@@ -11628,6 +11914,14 @@ proc service*(self: GattCharacteristic): GattDeviceService =
     var tmp: pointer
     vcall(it, Slot_IGattCharacteristic2_get_Service, Fn_IGattCharacteristic2_get_Service)(it, tmp.addr).check("GattCharacteristic.get_Service")
     result = adopt[GattDeviceService](tmp)
+
+proc getAllDescriptors*(self: GattCharacteristic): seq[GattDescriptor] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetAllDescriptors
+  withIface(self.p, IID_IGattCharacteristic2, "IGattCharacteristic2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristic2_GetAllDescriptors, Fn_IGattCharacteristic2_GetAllDescriptors)(it, tmp.addr).check("GattCharacteristic.GetAllDescriptors")
+    result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
+    release(tmp)
 
 proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], a1: uint16): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ConvertShortIdToUuid
@@ -12210,6 +12504,14 @@ proc status*(self: GattCharacteristicsResult): GattCommunicationStatus =
     vcall(it, Slot_IGattCharacteristicsResult_get_Status, Fn_IGattCharacteristicsResult_get_Status)(it, tmp.addr).check("GattCharacteristicsResult.get_Status")
     result = tmp
 
+proc characteristics*(self: GattCharacteristicsResult): seq[GattCharacteristic] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult.get_Characteristics
+  withIface(self.p, IID_IGattCharacteristicsResult, "IGattCharacteristicsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristicsResult_get_Characteristics, Fn_IGattCharacteristicsResult_get_Characteristics)(it, tmp.addr).check("GattCharacteristicsResult.get_Characteristics")
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    release(tmp)
+
 proc subscribedClient*(self: GattClientNotificationResult): GattSubscribedClient =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult.get_SubscribedClient
   withIface(self.p, IID_IGattClientNotificationResult, "IGattClientNotificationResult", it):
@@ -12313,6 +12615,30 @@ proc status*(self: GattDescriptorsResult): GattCommunicationStatus =
     vcall(it, Slot_IGattDescriptorsResult_get_Status, Fn_IGattDescriptorsResult_get_Status)(it, tmp.addr).check("GattDescriptorsResult.get_Status")
     result = tmp
 
+proc descriptors*(self: GattDescriptorsResult): seq[GattDescriptor] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorsResult.get_Descriptors
+  withIface(self.p, IID_IGattDescriptorsResult, "IGattDescriptorsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDescriptorsResult_get_Descriptors, Fn_IGattDescriptorsResult_get_Descriptors)(it, tmp.addr).check("GattDescriptorsResult.get_Descriptors")
+    result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
+    release(tmp)
+
+proc getCharacteristics*(self: GattDeviceService, a1: GUID): seq[GattCharacteristic] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristics
+  withIface(self.p, IID_IGattDeviceService, "IGattDeviceService", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceService_GetCharacteristics, Fn_IGattDeviceService_GetCharacteristics)(it, a1, tmp.addr).check("GattDeviceService.GetCharacteristics")
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    release(tmp)
+
+proc getIncludedServices*(self: GattDeviceService, a1: GUID): seq[GattDeviceService] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServices
+  withIface(self.p, IID_IGattDeviceService, "IGattDeviceService", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceService_GetIncludedServices, Fn_IGattDeviceService_GetIncludedServices)(it, a1, tmp.addr).check("GattDeviceService.GetIncludedServices")
+    result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
+    release(tmp)
+
 proc deviceId*(self: GattDeviceService): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.get_DeviceId
   withIface(self.p, IID_IGattDeviceService, "IGattDeviceService", it):
@@ -12340,6 +12666,30 @@ proc device*(self: GattDeviceService): BluetoothLEDevice =
     var tmp: pointer
     vcall(it, Slot_IGattDeviceService2_get_Device, Fn_IGattDeviceService2_get_Device)(it, tmp.addr).check("GattDeviceService.get_Device")
     result = adopt[BluetoothLEDevice](tmp)
+
+proc parentServices*(self: GattDeviceService): seq[GattDeviceService] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.get_ParentServices
+  withIface(self.p, IID_IGattDeviceService2, "IGattDeviceService2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceService2_get_ParentServices, Fn_IGattDeviceService2_get_ParentServices)(it, tmp.addr).check("GattDeviceService.get_ParentServices")
+    result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
+    release(tmp)
+
+proc getAllCharacteristics*(self: GattDeviceService): seq[GattCharacteristic] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetAllCharacteristics
+  withIface(self.p, IID_IGattDeviceService2, "IGattDeviceService2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceService2_GetAllCharacteristics, Fn_IGattDeviceService2_GetAllCharacteristics)(it, tmp.addr).check("GattDeviceService.GetAllCharacteristics")
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    release(tmp)
+
+proc getAllIncludedServices*(self: GattDeviceService): seq[GattDeviceService] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetAllIncludedServices
+  withIface(self.p, IID_IGattDeviceService2, "IGattDeviceService2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceService2_GetAllIncludedServices, Fn_IGattDeviceService2_GetAllIncludedServices)(it, tmp.addr).check("GattDeviceService.GetAllIncludedServices")
+    result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
+    release(tmp)
 
 proc deviceAccessInformation*(self: GattDeviceService): DeviceAccessInformation =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.get_DeviceAccessInformation
@@ -12422,6 +12772,14 @@ proc status*(self: GattDeviceServicesResult): GattCommunicationStatus =
     vcall(it, Slot_IGattDeviceServicesResult_get_Status, Fn_IGattDeviceServicesResult_get_Status)(it, tmp.addr).check("GattDeviceServicesResult.get_Status")
     result = tmp
 
+proc services*(self: GattDeviceServicesResult): seq[GattDeviceService] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult.get_Services
+  withIface(self.p, IID_IGattDeviceServicesResult, "IGattDeviceServicesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceServicesResult_get_Services, Fn_IGattDeviceServicesResult_get_Services)(it, tmp.addr).check("GattDeviceServicesResult.get_Services")
+    result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
+    release(tmp)
+
 proc uuid*(self: GattLocalCharacteristic): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_Uuid
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
@@ -12457,12 +12815,36 @@ proc writeProtectionLevel*(self: GattLocalCharacteristic): GattProtectionLevel =
     vcall(it, Slot_IGattLocalCharacteristic_get_WriteProtectionLevel, Fn_IGattLocalCharacteristic_get_WriteProtectionLevel)(it, tmp.addr).check("GattLocalCharacteristic.get_WriteProtectionLevel")
     result = tmp
 
+proc descriptors*(self: GattLocalCharacteristic): seq[GattLocalDescriptor] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_Descriptors
+  withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattLocalCharacteristic_get_Descriptors, Fn_IGattLocalCharacteristic_get_Descriptors)(it, tmp.addr).check("GattLocalCharacteristic.get_Descriptors")
+    result = toSeq[GattLocalDescriptor](tmp, IID_IVectorView_1_GattLocalDescriptor)
+    release(tmp)
+
 proc userDescription*(self: GattLocalCharacteristic): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_UserDescription
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
     var tmp: HSTRING
     vcall(it, Slot_IGattLocalCharacteristic_get_UserDescription, Fn_IGattLocalCharacteristic_get_UserDescription)(it, tmp.addr).check("GattLocalCharacteristic.get_UserDescription")
     result = takeString(tmp)
+
+proc presentationFormats*(self: GattLocalCharacteristic): seq[GattPresentationFormat] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_PresentationFormats
+  withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattLocalCharacteristic_get_PresentationFormats, Fn_IGattLocalCharacteristic_get_PresentationFormats)(it, tmp.addr).check("GattLocalCharacteristic.get_PresentationFormats")
+    result = toSeq[GattPresentationFormat](tmp, IID_IVectorView_1_GattPresentationFormat)
+    release(tmp)
+
+proc subscribedClients*(self: GattLocalCharacteristic): seq[GattSubscribedClient] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_SubscribedClients
+  withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattLocalCharacteristic_get_SubscribedClients, Fn_IGattLocalCharacteristic_get_SubscribedClients)(it, tmp.addr).check("GattLocalCharacteristic.get_SubscribedClients")
+    result = toSeq[GattSubscribedClient](tmp, IID_IVectorView_1_GattSubscribedClient)
+    release(tmp)
 
 proc onSubscribedClientsChanged*(self: GattLocalCharacteristic,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -12585,6 +12967,14 @@ proc userDescription*(self: GattLocalCharacteristicParameters): string =
     var tmp: HSTRING
     vcall(it, Slot_IGattLocalCharacteristicParameters_get_UserDescription, Fn_IGattLocalCharacteristicParameters_get_UserDescription)(it, tmp.addr).check("GattLocalCharacteristicParameters.get_UserDescription")
     result = takeString(tmp)
+
+proc presentationFormats*(self: GattLocalCharacteristicParameters): seq[GattPresentationFormat] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.get_PresentationFormats
+  withIface(self.p, IID_IGattLocalCharacteristicParameters, "IGattLocalCharacteristicParameters", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattLocalCharacteristicParameters_get_PresentationFormats, Fn_IGattLocalCharacteristicParameters_get_PresentationFormats)(it, tmp.addr).check("GattLocalCharacteristicParameters.get_PresentationFormats")
+    result = toSeq[GattPresentationFormat](tmp, IID_IVector_1_GattPresentationFormat)
+    release(tmp)
 
 proc characteristic*(self: GattLocalCharacteristicResult): GattLocalCharacteristic =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicResult.get_Characteristic
@@ -12726,6 +13116,14 @@ proc uuid*(self: GattLocalService): GUID =
     var tmp: GUID
     vcall(it, Slot_IGattLocalService_get_Uuid, Fn_IGattLocalService_get_Uuid)(it, tmp.addr).check("GattLocalService.get_Uuid")
     result = tmp
+
+proc characteristics*(self: GattLocalService): seq[GattLocalCharacteristic] =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService.get_Characteristics
+  withIface(self.p, IID_IGattLocalService, "IGattLocalService", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattLocalService_get_Characteristics, Fn_IGattLocalService_get_Characteristics)(it, tmp.addr).check("GattLocalService.get_Characteristics")
+    result = toSeq[GattLocalCharacteristic](tmp, IID_IVectorView_1_GattLocalCharacteristic)
+    release(tmp)
 
 proc formatType*(self: GattPresentationFormat): uint8 =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat.get_FormatType
@@ -13781,6 +14179,14 @@ proc error*(self: RfcommDeviceServicesResult): BluetoothError =
     vcall(it, Slot_IRfcommDeviceServicesResult_get_Error, Fn_IRfcommDeviceServicesResult_get_Error)(it, tmp.addr).check("RfcommDeviceServicesResult.get_Error")
     result = tmp
 
+proc services*(self: RfcommDeviceServicesResult): seq[RfcommDeviceService] =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceServicesResult.get_Services
+  withIface(self.p, IID_IRfcommDeviceServicesResult, "IRfcommDeviceServicesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IRfcommDeviceServicesResult_get_Services, Fn_IRfcommDeviceServicesResult_get_Services)(it, tmp.addr).check("RfcommDeviceServicesResult.get_Services")
+    result = toSeq[RfcommDeviceService](tmp, IID_IVectorView_1_RfcommDeviceService)
+    release(tmp)
+
 proc uuid*(self: RfcommServiceId): GUID =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId.get_Uuid
   withIface(self.p, IID_IRfcommServiceId, "IRfcommServiceId", it):
@@ -14050,6 +14456,22 @@ proc isCapabilitySupported*(self: DisplayDevice, a1: DisplayDeviceCapability): b
     vcall(it, Slot_IDisplayDevice_IsCapabilitySupported, Fn_IDisplayDevice_IsCapabilitySupported)(it, a1, tmp.addr).check("DisplayDevice.IsCapabilitySupported")
     result = tmp
 
+proc getCurrentTargets*(self: DisplayManager): seq[DisplayTarget] =
+  ## Windows.Devices.Display.Core.DisplayManager.GetCurrentTargets
+  withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayManager_GetCurrentTargets, Fn_IDisplayManager_GetCurrentTargets)(it, tmp.addr).check("DisplayManager.GetCurrentTargets")
+    result = toSeq[DisplayTarget](tmp, IID_IVectorView_1_DisplayTarget)
+    release(tmp)
+
+proc getCurrentAdapters*(self: DisplayManager): seq[DisplayAdapter] =
+  ## Windows.Devices.Display.Core.DisplayManager.GetCurrentAdapters
+  withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayManager_GetCurrentAdapters, Fn_IDisplayManager_GetCurrentAdapters)(it, tmp.addr).check("DisplayManager.GetCurrentAdapters")
+    result = toSeq[DisplayAdapter](tmp, IID_IVectorView_1_DisplayAdapter)
+    release(tmp)
+
 proc tryAcquireTarget*(self: DisplayManager, a1: DisplayTarget): DisplayManagerResult =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTarget
   withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
@@ -14314,6 +14736,14 @@ proc isActive*(self: DisplayMuxDevice): bool =
     vcall(it, Slot_IDisplayMuxDevice_get_IsActive, Fn_IDisplayMuxDevice_get_IsActive)(it, tmp.addr).check("DisplayMuxDevice.get_IsActive")
     result = tmp
 
+proc getAvailableMuxTargets*(self: DisplayMuxDevice): seq[DisplayTarget] =
+  ## Windows.Devices.Display.Core.DisplayMuxDevice.GetAvailableMuxTargets
+  withIface(self.p, IID_IDisplayMuxDevice, "IDisplayMuxDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayMuxDevice_GetAvailableMuxTargets, Fn_IDisplayMuxDevice_GetAvailableMuxTargets)(it, tmp.addr).check("DisplayMuxDevice.GetAvailableMuxTargets")
+    result = toSeq[DisplayTarget](tmp, IID_IVectorView_1_DisplayTarget)
+    release(tmp)
+
 proc currentTarget*(self: DisplayMuxDevice): DisplayTarget =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.get_CurrentTarget
   withIface(self.p, IID_IDisplayMuxDevice, "IDisplayMuxDevice", it):
@@ -14446,6 +14876,14 @@ proc `scaling=`*(self: DisplayPath, value: DisplayPathScaling) =
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     vcall(it, Slot_IDisplayPath_put_Scaling, Fn_IDisplayPath_put_Scaling)(it, value).check("DisplayPath.put_Scaling")
 
+proc findModes*(self: DisplayPath, a1: DisplayModeQueryOptions): seq[DisplayModeInfo] =
+  ## Windows.Devices.Display.Core.DisplayPath.FindModes
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath_FindModes, Fn_IDisplayPath_FindModes)(it, a1, tmp.addr).check("DisplayPath.FindModes")
+    result = toSeq[DisplayModeInfo](tmp, IID_IVectorView_1_DisplayModeInfo)
+    release(tmp)
+
 proc applyPropertiesFromMode*(self: DisplayPath, a1: DisplayModeInfo) =
   ## Windows.Devices.Display.Core.DisplayPath.ApplyPropertiesFromMode
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -14526,6 +14964,22 @@ proc isStale*(self: DisplayState): bool =
     var tmp: bool
     vcall(it, Slot_IDisplayState_get_IsStale, Fn_IDisplayState_get_IsStale)(it, tmp.addr).check("DisplayState.get_IsStale")
     result = tmp
+
+proc targets*(self: DisplayState): seq[DisplayTarget] =
+  ## Windows.Devices.Display.Core.DisplayState.get_Targets
+  withIface(self.p, IID_IDisplayState, "IDisplayState", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayState_get_Targets, Fn_IDisplayState_get_Targets)(it, tmp.addr).check("DisplayState.get_Targets")
+    result = toSeq[DisplayTarget](tmp, IID_IVectorView_1_DisplayTarget)
+    release(tmp)
+
+proc views*(self: DisplayState): seq[DisplayView] =
+  ## Windows.Devices.Display.Core.DisplayState.get_Views
+  withIface(self.p, IID_IDisplayState, "IDisplayState", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayState_get_Views, Fn_IDisplayState_get_Views)(it, tmp.addr).check("DisplayState.get_Views")
+    result = toSeq[DisplayView](tmp, IID_IVectorView_1_DisplayView)
+    release(tmp)
 
 proc connectTarget*(self: DisplayState, a1: DisplayTarget): DisplayPath =
   ## Windows.Devices.Display.Core.DisplayState.ConnectTarget
@@ -14762,6 +15216,14 @@ proc sourceStatus*(self: DisplayTaskResult): DisplaySourceStatus =
     var tmp: DisplaySourceStatus
     vcall(it, Slot_IDisplayTaskResult_get_SourceStatus, Fn_IDisplayTaskResult_get_SourceStatus)(it, tmp.addr).check("DisplayTaskResult.get_SourceStatus")
     result = tmp
+
+proc paths*(self: DisplayView): seq[DisplayPath] =
+  ## Windows.Devices.Display.Core.DisplayView.get_Paths
+  withIface(self.p, IID_IDisplayView, "IDisplayView", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayView_get_Paths, Fn_IDisplayView_get_Paths)(it, tmp.addr).check("DisplayView.get_Paths")
+    result = toSeq[DisplayPath](tmp, IID_IVectorView_1_DisplayPath)
+    release(tmp)
 
 proc setPrimaryPath*(self: DisplayView, a1: DisplayPath) =
   ## Windows.Devices.Display.Core.DisplayView.SetPrimaryPath
@@ -15277,6 +15739,14 @@ proc parentDeviceInformation*(self: DevicePairingSetMembersRequestedEventArgs): 
     vcall(it, Slot_IDevicePairingSetMembersRequestedEventArgs_get_ParentDeviceInformation, Fn_IDevicePairingSetMembersRequestedEventArgs_get_ParentDeviceInformation)(it, tmp.addr).check("DevicePairingSetMembersRequestedEventArgs.get_ParentDeviceInformation")
     result = adopt[DeviceInformation](tmp)
 
+proc pairingSetMembers*(self: DevicePairingSetMembersRequestedEventArgs): seq[DeviceInformation] =
+  ## Windows.Devices.Enumeration.DevicePairingSetMembersRequestedEventArgs.get_PairingSetMembers
+  withIface(self.p, IID_IDevicePairingSetMembersRequestedEventArgs, "IDevicePairingSetMembersRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePairingSetMembersRequestedEventArgs_get_PairingSetMembers, Fn_IDevicePairingSetMembersRequestedEventArgs_get_PairingSetMembers)(it, tmp.addr).check("DevicePairingSetMembersRequestedEventArgs.get_PairingSetMembers")
+    result = toSeq[DeviceInformation](tmp, IID_IVectorView_1_DeviceInformation)
+    release(tmp)
+
 proc newDevicePicker*(): DevicePicker =
   ## Activate a `Windows.Devices.Enumeration.DevicePicker`.
   adopt[DevicePicker](activateAs("Windows.Devices.Enumeration.DevicePicker", IID_IDevicePicker))
@@ -15294,6 +15764,14 @@ proc appearance*(self: DevicePicker): DevicePickerAppearance =
     var tmp: pointer
     vcall(it, Slot_IDevicePicker_get_Appearance, Fn_IDevicePicker_get_Appearance)(it, tmp.addr).check("DevicePicker.get_Appearance")
     result = adopt[DevicePickerAppearance](tmp)
+
+proc requestedProperties*(self: DevicePicker): seq[string] =
+  ## Windows.Devices.Enumeration.DevicePicker.get_RequestedProperties
+  withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePicker_get_RequestedProperties, Fn_IDevicePicker_get_RequestedProperties)(it, tmp.addr).check("DevicePicker.get_RequestedProperties")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc onDeviceSelected*(self: DevicePicker,
     handler: proc(sender: pointer, args: DeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -15454,6 +15932,14 @@ proc `selectedAccentColor=`*(self: DevicePickerAppearance, value: Color) =
   withIface(self.p, IID_IDevicePickerAppearance, "IDevicePickerAppearance", it):
     vcall(it, Slot_IDevicePickerAppearance_put_SelectedAccentColor, Fn_IDevicePickerAppearance_put_SelectedAccentColor)(it, value).check("DevicePickerAppearance.put_SelectedAccentColor")
 
+proc supportedDeviceSelectors*(self: DevicePickerFilter): seq[string] =
+  ## Windows.Devices.Enumeration.DevicePickerFilter.get_SupportedDeviceSelectors
+  withIface(self.p, IID_IDevicePickerFilter, "IDevicePickerFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePickerFilter_get_SupportedDeviceSelectors, Fn_IDevicePickerFilter_get_SupportedDeviceSelectors)(it, tmp.addr).check("DevicePickerFilter.get_SupportedDeviceSelectors")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc selectedDevice*(self: DeviceSelectedEventArgs): DeviceInformation =
   ## Windows.Devices.Enumeration.DeviceSelectedEventArgs.get_SelectedDevice
   withIface(self.p, IID_IDeviceSelectedEventArgs, "IDeviceSelectedEventArgs", it):
@@ -15600,6 +16086,14 @@ proc deviceInformationUpdate*(self: DeviceWatcherEvent): DeviceInformationUpdate
     var tmp: pointer
     vcall(it, Slot_IDeviceWatcherEvent_get_DeviceInformationUpdate, Fn_IDeviceWatcherEvent_get_DeviceInformationUpdate)(it, tmp.addr).check("DeviceWatcherEvent.get_DeviceInformationUpdate")
     result = adopt[DeviceInformationUpdate](tmp)
+
+proc deviceWatcherEvents*(self: DeviceWatcherTriggerDetails): seq[DeviceWatcherEvent] =
+  ## Windows.Devices.Enumeration.DeviceWatcherTriggerDetails.get_DeviceWatcherEvents
+  withIface(self.p, IID_IDeviceWatcherTriggerDetails, "IDeviceWatcherTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeviceWatcherTriggerDetails_get_DeviceWatcherEvents, Fn_IDeviceWatcherTriggerDetails_get_DeviceWatcherEvents)(it, tmp.addr).check("DeviceWatcherTriggerDetails.get_DeviceWatcherEvents")
+    result = toSeq[DeviceWatcherEvent](tmp, IID_IVectorView_1_DeviceWatcherEvent)
+    release(tmp)
 
 proc inDock*(self: EnclosureLocation): bool =
   ## Windows.Devices.Enumeration.EnclosureLocation.get_InDock
@@ -16087,6 +16581,14 @@ proc status*(self: GeofenceMonitor): GeofenceMonitorStatus =
     vcall(it, Slot_IGeofenceMonitor_get_Status, Fn_IGeofenceMonitor_get_Status)(it, tmp.addr).check("GeofenceMonitor.get_Status")
     result = tmp
 
+proc geofences*(self: GeofenceMonitor): seq[Geofence] =
+  ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitor.get_Geofences
+  withIface(self.p, IID_IGeofenceMonitor, "IGeofenceMonitor", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeofenceMonitor_get_Geofences, Fn_IGeofenceMonitor_get_Geofences)(it, tmp.addr).check("GeofenceMonitor.get_Geofences")
+    result = toSeq[Geofence](tmp, IID_IVector_1_Geofence)
+    release(tmp)
+
 proc lastKnownGeoposition*(self: GeofenceMonitor): Geoposition =
   ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitor.get_LastKnownGeoposition
   withIface(self.p, IID_IGeofenceMonitor, "IGeofenceMonitor", it):
@@ -16112,6 +16614,14 @@ proc onGeofenceStateChanged*(self: GeofenceMonitor,
 proc removeGeofenceStateChanged*(self: GeofenceMonitor, token: EventRegistrationToken) =
   withIface(self.p, IID_IGeofenceMonitor, "IGeofenceMonitor", it):
     vcall(it, Slot_IGeofenceMonitor_remove_GeofenceStateChanged, Fn_IGeofenceMonitor_remove_GeofenceStateChanged)(it, token).check("GeofenceMonitor.remove_GeofenceStateChanged")
+
+proc readReports*(self: GeofenceMonitor): seq[GeofenceStateChangeReport] =
+  ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitor.ReadReports
+  withIface(self.p, IID_IGeofenceMonitor, "IGeofenceMonitor", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeofenceMonitor_ReadReports, Fn_IGeofenceMonitor_ReadReports)(it, tmp.addr).check("GeofenceMonitor.ReadReports")
+    result = toSeq[GeofenceStateChangeReport](tmp, IID_IVectorView_1_GeofenceStateChangeReport)
+    release(tmp)
 
 proc onStatusChanged*(self: GeofenceMonitor,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -16422,6 +16932,14 @@ proc visit*(self: GeovisitStateChangedEventArgs): Geovisit =
     var tmp: pointer
     vcall(it, Slot_IGeovisitStateChangedEventArgs_get_Visit, Fn_IGeovisitStateChangedEventArgs_get_Visit)(it, tmp.addr).check("GeovisitStateChangedEventArgs.get_Visit")
     result = adopt[Geovisit](tmp)
+
+proc readReports*(self: GeovisitTriggerDetails): seq[Geovisit] =
+  ## Windows.Devices.Geolocation.GeovisitTriggerDetails.ReadReports
+  withIface(self.p, IID_IGeovisitTriggerDetails, "IGeovisitTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeovisitTriggerDetails_ReadReports, Fn_IGeovisitTriggerDetails_ReadReports)(it, tmp.addr).check("GeovisitTriggerDetails.ReadReports")
+    result = toSeq[Geovisit](tmp, IID_IVectorView_1_Geovisit)
+    release(tmp)
 
 proc position*(self: PositionChangedEventArgs): Geoposition =
   ## Windows.Devices.Geolocation.PositionChangedEventArgs.get_Position
@@ -16977,6 +17495,14 @@ proc id*(self: SimpleHapticsController): string =
     vcall(it, Slot_ISimpleHapticsController_get_Id, Fn_ISimpleHapticsController_get_Id)(it, tmp.addr).check("SimpleHapticsController.get_Id")
     result = takeString(tmp)
 
+proc supportedFeedback*(self: SimpleHapticsController): seq[SimpleHapticsControllerFeedback] =
+  ## Windows.Devices.Haptics.SimpleHapticsController.get_SupportedFeedback
+  withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
+    var tmp: pointer
+    vcall(it, Slot_ISimpleHapticsController_get_SupportedFeedback, Fn_ISimpleHapticsController_get_SupportedFeedback)(it, tmp.addr).check("SimpleHapticsController.get_SupportedFeedback")
+    result = toSeq[SimpleHapticsControllerFeedback](tmp, IID_IVectorView_1_SimpleHapticsControllerFeedback)
+    release(tmp)
+
 proc isIntensitySupported*(self: SimpleHapticsController): bool =
   ## Windows.Devices.Haptics.SimpleHapticsController.get_IsIntensitySupported
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
@@ -17144,6 +17670,14 @@ proc usageId*(self: HidBooleanControlDescription): uint16 =
     vcall(it, Slot_IHidBooleanControlDescription_get_UsageId, Fn_IHidBooleanControlDescription_get_UsageId)(it, tmp.addr).check("HidBooleanControlDescription.get_UsageId")
     result = tmp
 
+proc parentCollections*(self: HidBooleanControlDescription): seq[HidCollection] =
+  ## Windows.Devices.HumanInterfaceDevice.HidBooleanControlDescription.get_ParentCollections
+  withIface(self.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidBooleanControlDescription_get_ParentCollections, Fn_IHidBooleanControlDescription_get_ParentCollections)(it, tmp.addr).check("HidBooleanControlDescription.get_ParentCollections")
+    result = toSeq[HidCollection](tmp, IID_IVectorView_1_HidCollection)
+    release(tmp)
+
 proc isAbsolute*(self: HidBooleanControlDescription): bool =
   ## Windows.Devices.HumanInterfaceDevice.HidBooleanControlDescription.get_IsAbsolute
   withIface(self.p, IID_IHidBooleanControlDescription2, "IHidBooleanControlDescription2", it):
@@ -17242,6 +17776,22 @@ proc createFeatureReport*(self: HidDevice, a1: uint16): HidFeatureReport =
     vcall(it, Slot_IHidDevice_CreateFeatureReport2, Fn_IHidDevice_CreateFeatureReport2)(it, a1, tmp.addr).check("HidDevice.CreateFeatureReport")
     result = adopt[HidFeatureReport](tmp)
 
+proc getBooleanControlDescriptions*(self: HidDevice, a1: HidReportType, a2: uint16, a3: uint16): seq[HidBooleanControlDescription] =
+  ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetBooleanControlDescriptions
+  withIface(self.p, IID_IHidDevice, "IHidDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidDevice_GetBooleanControlDescriptions, Fn_IHidDevice_GetBooleanControlDescriptions)(it, a1, a2, a3, tmp.addr).check("HidDevice.GetBooleanControlDescriptions")
+    result = toSeq[HidBooleanControlDescription](tmp, IID_IVectorView_1_HidBooleanControlDescription)
+    release(tmp)
+
+proc getNumericControlDescriptions*(self: HidDevice, a1: HidReportType, a2: uint16, a3: uint16): seq[HidNumericControlDescription] =
+  ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetNumericControlDescriptions
+  withIface(self.p, IID_IHidDevice, "IHidDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidDevice_GetNumericControlDescriptions, Fn_IHidDevice_GetNumericControlDescriptions)(it, a1, a2, a3, tmp.addr).check("HidDevice.GetNumericControlDescriptions")
+    result = toSeq[HidNumericControlDescription](tmp, IID_IVectorView_1_HidNumericControlDescription)
+    release(tmp)
+
 proc onInputReportReceived*(self: HidDevice,
     handler: proc(sender: pointer, args: HidInputReportReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.add_InputReportReceived
@@ -17337,6 +17887,22 @@ proc data*(self: HidInputReport): pointer =
     var tmp: pointer
     vcall(it, Slot_IHidInputReport_get_Data, Fn_IHidInputReport_get_Data)(it, tmp.addr).check("HidInputReport.get_Data")
     result = tmp
+
+proc activatedBooleanControls*(self: HidInputReport): seq[HidBooleanControl] =
+  ## Windows.Devices.HumanInterfaceDevice.HidInputReport.get_ActivatedBooleanControls
+  withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidInputReport_get_ActivatedBooleanControls, Fn_IHidInputReport_get_ActivatedBooleanControls)(it, tmp.addr).check("HidInputReport.get_ActivatedBooleanControls")
+    result = toSeq[HidBooleanControl](tmp, IID_IVectorView_1_HidBooleanControl)
+    release(tmp)
+
+proc transitionedBooleanControls*(self: HidInputReport): seq[HidBooleanControl] =
+  ## Windows.Devices.HumanInterfaceDevice.HidInputReport.get_TransitionedBooleanControls
+  withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidInputReport_get_TransitionedBooleanControls, Fn_IHidInputReport_get_TransitionedBooleanControls)(it, tmp.addr).check("HidInputReport.get_TransitionedBooleanControls")
+    result = toSeq[HidBooleanControl](tmp, IID_IVectorView_1_HidBooleanControl)
+    release(tmp)
 
 proc getBooleanControl*(self: HidInputReport, a1: uint16, a2: uint16): HidBooleanControl =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetBooleanControl
@@ -17538,6 +18104,14 @@ proc hasNull*(self: HidNumericControlDescription): bool =
     var tmp: bool
     vcall(it, Slot_IHidNumericControlDescription_get_HasNull, Fn_IHidNumericControlDescription_get_HasNull)(it, tmp.addr).check("HidNumericControlDescription.get_HasNull")
     result = tmp
+
+proc parentCollections*(self: HidNumericControlDescription): seq[HidCollection] =
+  ## Windows.Devices.HumanInterfaceDevice.HidNumericControlDescription.get_ParentCollections
+  withIface(self.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", it):
+    var tmp: pointer
+    vcall(it, Slot_IHidNumericControlDescription_get_ParentCollections, Fn_IHidNumericControlDescription_get_ParentCollections)(it, tmp.addr).check("HidNumericControlDescription.get_ParentCollections")
+    result = toSeq[HidCollection](tmp, IID_IVectorView_1_HidCollection)
+    release(tmp)
 
 proc id*(self: HidOutputReport): uint16 =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.get_Id
@@ -18018,6 +18592,14 @@ proc getPointerDevice*(_: typedesc[PointerDevice], a1: uint32): PointerDevice =
     vcall(it, Slot_IPointerDeviceStatics_GetPointerDevice, Fn_IPointerDeviceStatics_GetPointerDevice)(it, a1, tmp.addr).check("PointerDevice.GetPointerDevice")
     result = adopt[PointerDevice](tmp)
 
+proc getPointerDevices*(_: typedesc[PointerDevice]): seq[PointerDevice] =
+  ## Windows.Devices.Input.PointerDevice.GetPointerDevices
+  withStatics("Windows.Devices.Input.PointerDevice", IID_IPointerDeviceStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerDeviceStatics_GetPointerDevices, Fn_IPointerDeviceStatics_GetPointerDevices)(it, tmp.addr).check("PointerDevice.GetPointerDevices")
+    result = toSeq[PointerDevice](tmp, IID_IVectorView_1_PointerDevice)
+    release(tmp)
+
 proc id*(self: GazeDevicePreview): uint32 =
   ## Windows.Devices.Input.Preview.GazeDevicePreview.get_Id
   withIface(self.p, IID_IGazeDevicePreview, "IGazeDevicePreview", it):
@@ -18045,6 +18627,22 @@ proc configurationState*(self: GazeDevicePreview): GazeDeviceConfigurationStateP
     var tmp: GazeDeviceConfigurationStatePreview
     vcall(it, Slot_IGazeDevicePreview_get_ConfigurationState, Fn_IGazeDevicePreview_get_ConfigurationState)(it, tmp.addr).check("GazeDevicePreview.get_ConfigurationState")
     result = tmp
+
+proc getNumericControlDescriptions*(self: GazeDevicePreview, a1: uint16, a2: uint16): seq[HidNumericControlDescription] =
+  ## Windows.Devices.Input.Preview.GazeDevicePreview.GetNumericControlDescriptions
+  withIface(self.p, IID_IGazeDevicePreview, "IGazeDevicePreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IGazeDevicePreview_GetNumericControlDescriptions, Fn_IGazeDevicePreview_GetNumericControlDescriptions)(it, a1, a2, tmp.addr).check("GazeDevicePreview.GetNumericControlDescriptions")
+    result = toSeq[HidNumericControlDescription](tmp, IID_IVectorView_1_HidNumericControlDescription)
+    release(tmp)
+
+proc getBooleanControlDescriptions*(self: GazeDevicePreview, a1: uint16, a2: uint16): seq[HidBooleanControlDescription] =
+  ## Windows.Devices.Input.Preview.GazeDevicePreview.GetBooleanControlDescriptions
+  withIface(self.p, IID_IGazeDevicePreview, "IGazeDevicePreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IGazeDevicePreview_GetBooleanControlDescriptions, Fn_IGazeDevicePreview_GetBooleanControlDescriptions)(it, a1, a2, tmp.addr).check("GazeDevicePreview.GetBooleanControlDescriptions")
+    result = toSeq[HidBooleanControlDescription](tmp, IID_IVectorView_1_HidBooleanControlDescription)
+    release(tmp)
 
 proc device*(self: GazeDeviceWatcherAddedPreviewEventArgs): GazeDevicePreview =
   ## Windows.Devices.Input.Preview.GazeDeviceWatcherAddedPreviewEventArgs.get_Device
@@ -18280,6 +18878,14 @@ proc currentPoint*(self: GazeMovedPreviewEventArgs): GazePointPreview =
     var tmp: pointer
     vcall(it, Slot_IGazeMovedPreviewEventArgs_get_CurrentPoint, Fn_IGazeMovedPreviewEventArgs_get_CurrentPoint)(it, tmp.addr).check("GazeMovedPreviewEventArgs.get_CurrentPoint")
     result = adopt[GazePointPreview](tmp)
+
+proc getIntermediatePoints*(self: GazeMovedPreviewEventArgs): seq[GazePointPreview] =
+  ## Windows.Devices.Input.Preview.GazeMovedPreviewEventArgs.GetIntermediatePoints
+  withIface(self.p, IID_IGazeMovedPreviewEventArgs, "IGazeMovedPreviewEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IGazeMovedPreviewEventArgs_GetIntermediatePoints, Fn_IGazeMovedPreviewEventArgs_GetIntermediatePoints)(it, tmp.addr).check("GazeMovedPreviewEventArgs.GetIntermediatePoints")
+    result = toSeq[GazePointPreview](tmp, IID_IVector_1_GazePointPreview)
+    release(tmp)
 
 proc sourceDevice*(self: GazePointPreview): GazeDevicePreview =
   ## Windows.Devices.Input.Preview.GazePointPreview.get_SourceDevice
@@ -20290,6 +20896,22 @@ proc isControlled*(self: PerceptionColorFrameSource): bool =
     vcall(it, Slot_IPerceptionColorFrameSource_get_IsControlled, Fn_IPerceptionColorFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionColorFrameSource.get_IsControlled")
     result = tmp
 
+proc supportedVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionColorFrameSource.get_SupportedVideoProfiles
+  withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionColorFrameSource_get_SupportedVideoProfiles, Fn_IPerceptionColorFrameSource_get_SupportedVideoProfiles)(it, tmp.addr).check("PerceptionColorFrameSource.get_SupportedVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
+proc availableVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionColorFrameSource.get_AvailableVideoProfiles
+  withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionColorFrameSource_get_AvailableVideoProfiles, Fn_IPerceptionColorFrameSource_get_AvailableVideoProfiles)(it, tmp.addr).check("PerceptionColorFrameSource.get_AvailableVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
 proc videoProfile*(self: PerceptionColorFrameSource): PerceptionVideoProfile =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.get_VideoProfile
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
@@ -20679,6 +21301,22 @@ proc isControlled*(self: PerceptionDepthFrameSource): bool =
     vcall(it, Slot_IPerceptionDepthFrameSource_get_IsControlled, Fn_IPerceptionDepthFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionDepthFrameSource.get_IsControlled")
     result = tmp
 
+proc supportedVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_SupportedVideoProfiles
+  withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionDepthFrameSource_get_SupportedVideoProfiles, Fn_IPerceptionDepthFrameSource_get_SupportedVideoProfiles)(it, tmp.addr).check("PerceptionDepthFrameSource.get_SupportedVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
+proc availableVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_AvailableVideoProfiles
+  withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionDepthFrameSource_get_AvailableVideoProfiles, Fn_IPerceptionDepthFrameSource_get_AvailableVideoProfiles)(it, tmp.addr).check("PerceptionDepthFrameSource.get_AvailableVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
 proc videoProfile*(self: PerceptionDepthFrameSource): PerceptionVideoProfile =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_VideoProfile
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
@@ -21054,6 +21692,22 @@ proc isControlled*(self: PerceptionInfraredFrameSource): bool =
     vcall(it, Slot_IPerceptionInfraredFrameSource_get_IsControlled, Fn_IPerceptionInfraredFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_IsControlled")
     result = tmp
 
+proc supportedVideoProfiles*(self: PerceptionInfraredFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_SupportedVideoProfiles
+  withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionInfraredFrameSource_get_SupportedVideoProfiles, Fn_IPerceptionInfraredFrameSource_get_SupportedVideoProfiles)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_SupportedVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
+proc availableVideoProfiles*(self: PerceptionInfraredFrameSource): seq[PerceptionVideoProfile] =
+  ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_AvailableVideoProfiles
+  withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionInfraredFrameSource_get_AvailableVideoProfiles, Fn_IPerceptionInfraredFrameSource_get_AvailableVideoProfiles)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_AvailableVideoProfiles")
+    result = toSeq[PerceptionVideoProfile](tmp, IID_IVectorView_1_PerceptionVideoProfile)
+    release(tmp)
+
 proc videoProfile*(self: PerceptionInfraredFrameSource): PerceptionVideoProfile =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_VideoProfile
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
@@ -21262,6 +21916,14 @@ proc infrared*(_: typedesc[KnownPerceptionFrameKind]): string =
     vcall(it, Slot_IKnownPerceptionFrameKindStatics_get_Infrared, Fn_IKnownPerceptionFrameKindStatics_get_Infrared)(it, tmp.addr).check("KnownPerceptionFrameKind.get_Infrared")
     result = takeString(tmp)
 
+proc frameProviderIds*(self: PerceptionControlGroup): seq[string] =
+  ## Windows.Devices.Perception.Provider.PerceptionControlGroup.get_FrameProviderIds
+  withIface(self.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionControlGroup_get_FrameProviderIds, Fn_IPerceptionControlGroup_get_FrameProviderIds)(it, tmp.addr).check("PerceptionControlGroup.get_FrameProviderIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc targetId*(self: PerceptionCorrelation): string =
   ## Windows.Devices.Perception.Provider.PerceptionCorrelation.get_TargetId
   withIface(self.p, IID_IPerceptionCorrelation, "IPerceptionCorrelation", it):
@@ -21290,6 +21952,22 @@ proc create*(_: typedesc[PerceptionCorrelation], a1: string, a2: Vector3, a3: Qu
       var tmp: pointer
       vcall(it, Slot_IPerceptionCorrelationFactory_Create, Fn_IPerceptionCorrelationFactory_Create)(it, h0, a2, a3, tmp.addr).check("PerceptionCorrelation.Create")
       result = adopt[PerceptionCorrelation](tmp)
+
+proc relativeLocations*(self: PerceptionCorrelationGroup): seq[PerceptionCorrelation] =
+  ## Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.get_RelativeLocations
+  withIface(self.p, IID_IPerceptionCorrelationGroup, "IPerceptionCorrelationGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionCorrelationGroup_get_RelativeLocations, Fn_IPerceptionCorrelationGroup_get_RelativeLocations)(it, tmp.addr).check("PerceptionCorrelationGroup.get_RelativeLocations")
+    result = toSeq[PerceptionCorrelation](tmp, IID_IVectorView_1_PerceptionCorrelation)
+    release(tmp)
+
+proc frameProviderIds*(self: PerceptionFaceAuthenticationGroup): seq[string] =
+  ## Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.get_FrameProviderIds
+  withIface(self.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionFaceAuthenticationGroup_get_FrameProviderIds, Fn_IPerceptionFaceAuthenticationGroup_get_FrameProviderIds)(it, tmp.addr).check("PerceptionFaceAuthenticationGroup.get_FrameProviderIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc relativeTime*(self: PerceptionFrame): TimeSpan =
   ## Windows.Devices.Perception.Provider.PerceptionFrame.get_RelativeTime
@@ -21483,6 +22161,14 @@ proc capabilities*(self: BarcodeScanner): BarcodeScannerCapabilities =
     var tmp: pointer
     vcall(it, Slot_IBarcodeScanner_get_Capabilities, Fn_IBarcodeScanner_get_Capabilities)(it, tmp.addr).check("BarcodeScanner.get_Capabilities")
     result = adopt[BarcodeScannerCapabilities](tmp)
+
+proc getSupportedProfiles*(self: BarcodeScanner): seq[string] =
+  ## Windows.Devices.PointOfService.BarcodeScanner.GetSupportedProfiles
+  withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
+    var tmp: pointer
+    vcall(it, Slot_IBarcodeScanner_GetSupportedProfiles, Fn_IBarcodeScanner_GetSupportedProfiles)(it, tmp.addr).check("BarcodeScanner.GetSupportedProfiles")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc isProfileSupported*(self: BarcodeScanner, a1: string): bool =
   ## Windows.Devices.PointOfService.BarcodeScanner.IsProfileSupported
@@ -25124,6 +25810,14 @@ proc capabilities*(self: PosPrinter): PosPrinterCapabilities =
     vcall(it, Slot_IPosPrinter_get_Capabilities, Fn_IPosPrinter_get_Capabilities)(it, tmp.addr).check("PosPrinter.get_Capabilities")
     result = adopt[PosPrinterCapabilities](tmp)
 
+proc supportedTypeFaces*(self: PosPrinter): seq[string] =
+  ## Windows.Devices.PointOfService.PosPrinter.get_SupportedTypeFaces
+  withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
+    var tmp: pointer
+    vcall(it, Slot_IPosPrinter_get_SupportedTypeFaces, Fn_IPosPrinter_get_SupportedTypeFaces)(it, tmp.addr).check("PosPrinter.get_SupportedTypeFaces")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc status*(self: PosPrinter): PosPrinterStatus =
   ## Windows.Devices.PointOfService.PosPrinter.get_Status
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
@@ -26800,6 +27494,14 @@ proc blockDuration*(self: PowerGridForecast): TimeSpan =
     vcall(it, Slot_IPowerGridForecast_get_BlockDuration, Fn_IPowerGridForecast_get_BlockDuration)(it, tmp.addr).check("PowerGridForecast.get_BlockDuration")
     result = tmp
 
+proc forecast*(self: PowerGridForecast): seq[PowerGridData] =
+  ## Windows.Devices.Power.PowerGridForecast.get_Forecast
+  withIface(self.p, IID_IPowerGridForecast, "IPowerGridForecast", it):
+    var tmp: pointer
+    vcall(it, Slot_IPowerGridForecast_get_Forecast, Fn_IPowerGridForecast_get_Forecast)(it, tmp.addr).check("PowerGridForecast.get_Forecast")
+    result = toSeq[PowerGridData](tmp, IID_IVectorView_1_PowerGridData)
+    release(tmp)
+
 proc getForecast*(_: typedesc[PowerGridForecast]): PowerGridForecast =
   ## Windows.Devices.Power.PowerGridForecast.GetForecast
   withStatics("Windows.Devices.Power.PowerGridForecast", IID_IPowerGridForecastStatics, it):
@@ -27023,12 +27725,108 @@ proc extendedError*(self: IppAttributeError): HRESULT =
     vcall(it, Slot_IIppAttributeError_get_ExtendedError, Fn_IIppAttributeError_get_ExtendedError)(it, tmp.addr).check("IppAttributeError.get_ExtendedError")
     result = tmp
 
+proc getUnsupportedValues*(self: IppAttributeError): seq[IppAttributeValue] =
+  ## Windows.Devices.Printers.IppAttributeError.GetUnsupportedValues
+  withIface(self.p, IID_IIppAttributeError, "IIppAttributeError", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeError_GetUnsupportedValues, Fn_IIppAttributeError_GetUnsupportedValues)(it, tmp.addr).check("IppAttributeError.GetUnsupportedValues")
+    result = toSeq[IppAttributeValue](tmp, IID_IVectorView_1_IppAttributeValue)
+    release(tmp)
+
 proc kind*(self: IppAttributeValue): IppAttributeValueKind =
   ## Windows.Devices.Printers.IppAttributeValue.get_Kind
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: IppAttributeValueKind
     vcall(it, Slot_IIppAttributeValue_get_Kind, Fn_IIppAttributeValue_get_Kind)(it, tmp.addr).check("IppAttributeValue.get_Kind")
     result = tmp
+
+proc getResolutionArray*(self: IppAttributeValue): seq[IppResolution] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetResolutionArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetResolutionArray, Fn_IIppAttributeValue_GetResolutionArray)(it, tmp.addr).check("IppAttributeValue.GetResolutionArray")
+    result = toSeq[IppResolution](tmp, IID_IVector_1_IppResolution)
+    release(tmp)
+
+proc getRangeOfIntegerArray*(self: IppAttributeValue): seq[IppIntegerRange] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetRangeOfIntegerArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetRangeOfIntegerArray, Fn_IIppAttributeValue_GetRangeOfIntegerArray)(it, tmp.addr).check("IppAttributeValue.GetRangeOfIntegerArray")
+    result = toSeq[IppIntegerRange](tmp, IID_IVector_1_IppIntegerRange)
+    release(tmp)
+
+proc getTextWithLanguageArray*(self: IppAttributeValue): seq[IppTextWithLanguage] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetTextWithLanguageArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetTextWithLanguageArray, Fn_IIppAttributeValue_GetTextWithLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetTextWithLanguageArray")
+    result = toSeq[IppTextWithLanguage](tmp, IID_IVector_1_IppTextWithLanguage)
+    release(tmp)
+
+proc getNameWithLanguageArray*(self: IppAttributeValue): seq[IppTextWithLanguage] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetNameWithLanguageArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetNameWithLanguageArray, Fn_IIppAttributeValue_GetNameWithLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetNameWithLanguageArray")
+    result = toSeq[IppTextWithLanguage](tmp, IID_IVector_1_IppTextWithLanguage)
+    release(tmp)
+
+proc getTextWithoutLanguageArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetTextWithoutLanguageArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetTextWithoutLanguageArray, Fn_IIppAttributeValue_GetTextWithoutLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetTextWithoutLanguageArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getNameWithoutLanguageArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetNameWithoutLanguageArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetNameWithoutLanguageArray, Fn_IIppAttributeValue_GetNameWithoutLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetNameWithoutLanguageArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getKeywordArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetKeywordArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetKeywordArray, Fn_IIppAttributeValue_GetKeywordArray)(it, tmp.addr).check("IppAttributeValue.GetKeywordArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getUriSchemaArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetUriSchemaArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetUriSchemaArray, Fn_IIppAttributeValue_GetUriSchemaArray)(it, tmp.addr).check("IppAttributeValue.GetUriSchemaArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getCharsetArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetCharsetArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetCharsetArray, Fn_IIppAttributeValue_GetCharsetArray)(it, tmp.addr).check("IppAttributeValue.GetCharsetArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getNaturalLanguageArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetNaturalLanguageArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetNaturalLanguageArray, Fn_IIppAttributeValue_GetNaturalLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetNaturalLanguageArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc getMimeMediaTypeArray*(self: IppAttributeValue): seq[string] =
+  ## Windows.Devices.Printers.IppAttributeValue.GetMimeMediaTypeArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetMimeMediaTypeArray, Fn_IIppAttributeValue_GetMimeMediaTypeArray)(it, tmp.addr).check("IppAttributeValue.GetMimeMediaTypeArray")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc createUnsupported*(_: typedesc[IppAttributeValue]): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUnsupported
@@ -27417,6 +28215,14 @@ proc `sizeSource=`*(self: PageConfigurationSettings, value: PageConfigurationSou
   withIface(self.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", it):
     vcall(it, Slot_IPageConfigurationSettings_put_SizeSource, Fn_IPageConfigurationSettings_put_SizeSource)(it, value).check("PageConfigurationSettings.put_SizeSource")
 
+proc supportedPdlContentTypes*(self: PdlPassthroughProvider): seq[string] =
+  ## Windows.Devices.Printers.PdlPassthroughProvider.get_SupportedPdlContentTypes
+  withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_IPdlPassthroughProvider_get_SupportedPdlContentTypes, Fn_IPdlPassthroughProvider_get_SupportedPdlContentTypes)(it, tmp.addr).check("PdlPassthroughProvider.get_SupportedPdlContentTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider, a1: string, a2: string, a3: pointer, a4: PageConfigurationSettings): PdlPassthroughTarget =
   ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithPrintTicket
   withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
@@ -27491,6 +28297,22 @@ proc `printerName=`*(self: VirtualPrinterInstallationParameters, value: string) 
     withHString(value, h0):
       vcall(it, Slot_IVirtualPrinterInstallationParameters_put_PrinterName, Fn_IVirtualPrinterInstallationParameters_put_PrinterName)(it, h0).check("VirtualPrinterInstallationParameters.put_PrinterName")
 
+proc outputFileExtensions*(self: VirtualPrinterInstallationParameters): seq[string] =
+  ## Windows.Devices.Printers.VirtualPrinterInstallationParameters.get_OutputFileExtensions
+  withIface(self.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", it):
+    var tmp: pointer
+    vcall(it, Slot_IVirtualPrinterInstallationParameters_get_OutputFileExtensions, Fn_IVirtualPrinterInstallationParameters_get_OutputFileExtensions)(it, tmp.addr).check("VirtualPrinterInstallationParameters.get_OutputFileExtensions")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc supportedInputFormats*(self: VirtualPrinterInstallationParameters): seq[VirtualPrinterSupportedFormat] =
+  ## Windows.Devices.Printers.VirtualPrinterInstallationParameters.get_SupportedInputFormats
+  withIface(self.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", it):
+    var tmp: pointer
+    vcall(it, Slot_IVirtualPrinterInstallationParameters_get_SupportedInputFormats, Fn_IVirtualPrinterInstallationParameters_get_SupportedInputFormats)(it, tmp.addr).check("VirtualPrinterInstallationParameters.get_SupportedInputFormats")
+    result = toSeq[VirtualPrinterSupportedFormat](tmp, IID_IVector_1_VirtualPrinterSupportedFormat)
+    release(tmp)
+
 proc printDeviceCapabilitiesPackageRelativeFilePath*(self: VirtualPrinterInstallationParameters): string =
   ## Windows.Devices.Printers.VirtualPrinterInstallationParameters.get_PrintDeviceCapabilitiesPackageRelativeFilePath
   withIface(self.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", it):
@@ -27555,6 +28377,23 @@ proc extendedError*(self: VirtualPrinterInstallationResult): HRESULT =
     var tmp: HRESULT
     vcall(it, Slot_IVirtualPrinterInstallationResult_get_ExtendedError, Fn_IVirtualPrinterInstallationResult_get_ExtendedError)(it, tmp.addr).check("VirtualPrinterInstallationResult.get_ExtendedError")
     result = tmp
+
+proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string] =
+  ## Windows.Devices.Printers.VirtualPrinterManager.FindAllVirtualPrinters
+  withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IVirtualPrinterManagerStatics_FindAllVirtualPrinters, Fn_IVirtualPrinterManagerStatics_FindAllVirtualPrinters)(it, tmp.addr).check("VirtualPrinterManager.FindAllVirtualPrinters")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager], a1: string): seq[string] =
+  ## Windows.Devices.Printers.VirtualPrinterManager.FindAllVirtualPrinters
+  withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2, Fn_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2)(it, h0, tmp.addr).check("VirtualPrinterManager.FindAllVirtualPrinters")
+      result = toSeqString(tmp, IID_IVectorView_1_String)
+      release(tmp)
 
 proc contentType*(self: VirtualPrinterSupportedFormat): string =
   ## Windows.Devices.Printers.VirtualPrinterSupportedFormat.get_ContentType
@@ -28634,6 +29473,14 @@ proc reading*(self: ActivitySensorReadingChangedEventArgs): ActivitySensorReadin
     vcall(it, Slot_IActivitySensorReadingChangedEventArgs_get_Reading, Fn_IActivitySensorReadingChangedEventArgs_get_Reading)(it, tmp.addr).check("ActivitySensorReadingChangedEventArgs.get_Reading")
     result = adopt[ActivitySensorReading](tmp)
 
+proc readReports*(self: ActivitySensorTriggerDetails): seq[ActivitySensorReadingChangeReport] =
+  ## Windows.Devices.Sensors.ActivitySensorTriggerDetails.ReadReports
+  withIface(self.p, IID_IActivitySensorTriggerDetails, "IActivitySensorTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivitySensorTriggerDetails_ReadReports, Fn_IActivitySensorTriggerDetails_ReadReports)(it, tmp.addr).check("ActivitySensorTriggerDetails.ReadReports")
+    result = toSeq[ActivitySensorReadingChangeReport](tmp, IID_IVectorView_1_ActivitySensorReadingChangeReport)
+    release(tmp)
+
 proc allowWhenExternalDisplayConnected*(self: AdaptiveDimmingOptions): bool =
   ## Windows.Devices.Sensors.AdaptiveDimmingOptions.get_AllowWhenExternalDisplayConnected
   withIface(self.p, IID_IAdaptiveDimmingOptions, "IAdaptiveDimmingOptions", it):
@@ -29496,6 +30343,14 @@ proc onlookerPresence*(self: HumanPresenceSensorReading): HumanPresence =
     var tmp: HumanPresence
     vcall(it, Slot_IHumanPresenceSensorReading3_get_OnlookerPresence, Fn_IHumanPresenceSensorReading3_get_OnlookerPresence)(it, tmp.addr).check("HumanPresenceSensorReading.get_OnlookerPresence")
     result = tmp
+
+proc detectedPersons*(self: HumanPresenceSensorReading): seq[DetectedPerson] =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReading.get_DetectedPersons
+  withIface(self.p, IID_IHumanPresenceSensorReading3, "IHumanPresenceSensorReading3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReading3_get_DetectedPersons, Fn_IHumanPresenceSensorReading3_get_DetectedPersons)(it, tmp.addr).check("HumanPresenceSensorReading.get_DetectedPersons")
+    result = toSeq[DetectedPerson](tmp, IID_IVectorView_1_DetectedPerson)
+    release(tmp)
 
 proc reading*(self: HumanPresenceSensorReadingChangedEventArgs): HumanPresenceSensorReading =
   ## Windows.Devices.Sensors.HumanPresenceSensorReadingChangedEventArgs.get_Reading
@@ -30443,6 +31298,15 @@ proc getDeviceSelector*(_: typedesc[Pedometer]): string =
     vcall(it, Slot_IPedometerStatics_GetDeviceSelector, Fn_IPedometerStatics_GetDeviceSelector)(it, tmp.addr).check("Pedometer.GetDeviceSelector")
     result = takeString(tmp)
 
+proc getReadingsFromTriggerDetails*(_: typedesc[Pedometer], a1: SensorDataThresholdTriggerDetails): seq[PedometerReading] =
+  ## Windows.Devices.Sensors.Pedometer.GetReadingsFromTriggerDetails
+  withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics2, it):
+    withIface(a1.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPedometerStatics2_GetReadingsFromTriggerDetails, Fn_IPedometerStatics2_GetReadingsFromTriggerDetails)(it, p0, tmp.addr).check("Pedometer.GetReadingsFromTriggerDetails")
+      result = toSeq[PedometerReading](tmp, IID_IVectorView_1_PedometerReading)
+      release(tmp)
+
 proc create*(_: typedesc[PedometerDataThreshold], a1: Pedometer, a2: int32): PedometerDataThreshold =
   ## Windows.Devices.Sensors.PedometerDataThreshold.Create
   withStatics("Windows.Devices.Sensors.PedometerDataThreshold", IID_IPedometerDataThresholdFactory, it):
@@ -30533,6 +31397,15 @@ proc fromId*(_: typedesc[ProximitySensor], a1: string): ProximitySensor =
       var tmp: pointer
       vcall(it, Slot_IProximitySensorStatics_FromId, Fn_IProximitySensorStatics_FromId)(it, h0, tmp.addr).check("ProximitySensor.FromId")
       result = adopt[ProximitySensor](tmp)
+
+proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor], a1: SensorDataThresholdTriggerDetails): seq[ProximitySensorReading] =
+  ## Windows.Devices.Sensors.ProximitySensor.GetReadingsFromTriggerDetails
+  withStatics("Windows.Devices.Sensors.ProximitySensor", IID_IProximitySensorStatics2, it):
+    withIface(a1.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
+      var tmp: pointer
+      vcall(it, Slot_IProximitySensorStatics2_GetReadingsFromTriggerDetails, Fn_IProximitySensorStatics2_GetReadingsFromTriggerDetails)(it, p0, tmp.addr).check("ProximitySensor.GetReadingsFromTriggerDetails")
+      result = toSeq[ProximitySensorReading](tmp, IID_IVectorView_1_ProximitySensorReading)
+      release(tmp)
 
 proc create*(_: typedesc[ProximitySensorDataThreshold], a1: ProximitySensor): ProximitySensorDataThreshold =
   ## Windows.Devices.Sensors.ProximitySensorDataThreshold.Create
@@ -31295,6 +32168,14 @@ proc operationStatus*(self: SmartCardCryptogramGetAllCryptogramMaterialCharacter
     vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_OperationStatus, Fn_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_OperationStatus)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult.get_OperationStatus")
     result = tmp
 
+proc characteristics*(self: SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult): seq[SmartCardCryptogramMaterialCharacteristics] =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult.get_Characteristics
+  withIface(self.p, IID_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult, "ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Characteristics, Fn_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Characteristics)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult.get_Characteristics")
+    result = toSeq[SmartCardCryptogramMaterialCharacteristics](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialCharacteristics)
+    release(tmp)
+
 proc newSmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult*(): SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult =
   ## Activate a `Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult`.
   adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](activateAs("Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult", IID_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult))
@@ -31306,6 +32187,14 @@ proc operationStatus*(self: SmartCardCryptogramGetAllCryptogramMaterialPackageCh
     vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_OperationStatus, Fn_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_OperationStatus)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult.get_OperationStatus")
     result = tmp
 
+proc characteristics*(self: SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult): seq[SmartCardCryptogramMaterialPackageCharacteristics] =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult.get_Characteristics
+  withIface(self.p, IID_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, "ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_Characteristics, Fn_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_Characteristics)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult.get_Characteristics")
+    result = toSeq[SmartCardCryptogramMaterialPackageCharacteristics](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageCharacteristics)
+    release(tmp)
+
 proc newSmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult*(): SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult =
   ## Activate a `Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult`.
   adopt[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult](activateAs("Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult", IID_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult))
@@ -31316,6 +32205,14 @@ proc operationStatus*(self: SmartCardCryptogramGetAllCryptogramStorageKeyCharact
     var tmp: SmartCardCryptogramGeneratorOperationStatus
     vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_OperationStatus, Fn_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_OperationStatus)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult.get_OperationStatus")
     result = tmp
+
+proc characteristics*(self: SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult): seq[SmartCardCryptogramStorageKeyCharacteristics] =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult.get_Characteristics
+  withIface(self.p, IID_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult, "ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_Characteristics, Fn_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_Characteristics)(it, tmp.addr).check("SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult.get_Characteristics")
+    result = toSeq[SmartCardCryptogramStorageKeyCharacteristics](tmp, IID_IVectorView_1_SmartCardCryptogramStorageKeyCharacteristics)
+    release(tmp)
 
 proc newSmartCardCryptogramMaterialCharacteristics*(): SmartCardCryptogramMaterialCharacteristics =
   ## Activate a `Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics`.
@@ -32464,6 +33361,38 @@ proc messageType*(self: SmsFilterRule): SmsMessageType =
     vcall(it, Slot_ISmsFilterRule_get_MessageType, Fn_ISmsFilterRule_get_MessageType)(it, tmp.addr).check("SmsFilterRule.get_MessageType")
     result = tmp
 
+proc imsiPrefixes*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_ImsiPrefixes
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_ImsiPrefixes, Fn_ISmsFilterRule_get_ImsiPrefixes)(it, tmp.addr).check("SmsFilterRule.get_ImsiPrefixes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc deviceIds*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_DeviceIds
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_DeviceIds, Fn_ISmsFilterRule_get_DeviceIds)(it, tmp.addr).check("SmsFilterRule.get_DeviceIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc senderNumbers*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_SenderNumbers
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_SenderNumbers, Fn_ISmsFilterRule_get_SenderNumbers)(it, tmp.addr).check("SmsFilterRule.get_SenderNumbers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc textMessagePrefixes*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_TextMessagePrefixes
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_TextMessagePrefixes, Fn_ISmsFilterRule_get_TextMessagePrefixes)(it, tmp.addr).check("SmsFilterRule.get_TextMessagePrefixes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc cellularClass*(self: SmsFilterRule): CellularClass =
   ## Windows.Devices.Sms.SmsFilterRule.get_CellularClass
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
@@ -32475,6 +33404,22 @@ proc `cellularClass=`*(self: SmsFilterRule, value: CellularClass) =
   ## Windows.Devices.Sms.SmsFilterRule.put_CellularClass
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     vcall(it, Slot_ISmsFilterRule_put_CellularClass, Fn_ISmsFilterRule_put_CellularClass)(it, value).check("SmsFilterRule.put_CellularClass")
+
+proc wapApplicationIds*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_WapApplicationIds
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_WapApplicationIds, Fn_ISmsFilterRule_get_WapApplicationIds)(it, tmp.addr).check("SmsFilterRule.get_WapApplicationIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc wapContentTypes*(self: SmsFilterRule): seq[string] =
+  ## Windows.Devices.Sms.SmsFilterRule.get_WapContentTypes
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_WapContentTypes, Fn_ISmsFilterRule_get_WapContentTypes)(it, tmp.addr).check("SmsFilterRule.get_WapContentTypes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc createFilterRule*(_: typedesc[SmsFilterRule], a1: SmsMessageType): SmsFilterRule =
   ## Windows.Devices.Sms.SmsFilterRule.CreateFilterRule
@@ -32489,6 +33434,14 @@ proc actionType*(self: SmsFilterRules): SmsFilterActionType =
     var tmp: SmsFilterActionType
     vcall(it, Slot_ISmsFilterRules_get_ActionType, Fn_ISmsFilterRules_get_ActionType)(it, tmp.addr).check("SmsFilterRules.get_ActionType")
     result = tmp
+
+proc rules*(self: SmsFilterRules): seq[SmsFilterRule] =
+  ## Windows.Devices.Sms.SmsFilterRules.get_Rules
+  withIface(self.p, IID_ISmsFilterRules, "ISmsFilterRules", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRules_get_Rules, Fn_ISmsFilterRules_get_Rules)(it, tmp.addr).check("SmsFilterRules.get_Rules")
+    result = toSeq[SmsFilterRule](tmp, IID_IVector_1_SmsFilterRule)
+    release(tmp)
 
 proc createFilterRules*(_: typedesc[SmsFilterRules], a1: SmsFilterActionType): SmsFilterRules =
   ## Windows.Devices.Sms.SmsFilterRules.CreateFilterRules
@@ -32600,6 +33553,14 @@ proc onMessageReceived*(self: SmsMessageRegistration,
 proc removeMessageReceived*(self: SmsMessageRegistration, token: EventRegistrationToken) =
   withIface(self.p, IID_ISmsMessageRegistration, "ISmsMessageRegistration", it):
     vcall(it, Slot_ISmsMessageRegistration_remove_MessageReceived, Fn_ISmsMessageRegistration_remove_MessageReceived)(it, token).check("SmsMessageRegistration.remove_MessageReceived")
+
+proc allRegistrations*(_: typedesc[SmsMessageRegistration]): seq[SmsMessageRegistration] =
+  ## Windows.Devices.Sms.SmsMessageRegistration.get_AllRegistrations
+  withStatics("Windows.Devices.Sms.SmsMessageRegistration", IID_ISmsMessageRegistrationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsMessageRegistrationStatics_get_AllRegistrations, Fn_ISmsMessageRegistrationStatics_get_AllRegistrations)(it, tmp.addr).check("SmsMessageRegistration.get_AllRegistrations")
+    result = toSeq[SmsMessageRegistration](tmp, IID_IVectorView_1_SmsMessageRegistration)
+    release(tmp)
 
 proc register*(_: typedesc[SmsMessageRegistration], a1: string, a2: SmsFilterRules): SmsMessageRegistration =
   ## Windows.Devices.Sms.SmsMessageRegistration.Register
@@ -32846,6 +33807,14 @@ proc `encoding=`*(self: SmsTextMessage, value: SmsEncoding) =
   ## Windows.Devices.Sms.SmsTextMessage.put_Encoding
   withIface(self.p, IID_ISmsTextMessage, "ISmsTextMessage", it):
     vcall(it, Slot_ISmsTextMessage_put_Encoding, Fn_ISmsTextMessage_put_Encoding)(it, value).check("SmsTextMessage.put_Encoding")
+
+proc toBinaryMessages*(self: SmsTextMessage, a1: SmsDataFormat): seq[SmsBinaryMessage] =
+  ## Windows.Devices.Sms.SmsTextMessage.ToBinaryMessages
+  withIface(self.p, IID_ISmsTextMessage, "ISmsTextMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsTextMessage_ToBinaryMessages, Fn_ISmsTextMessage_ToBinaryMessages)(it, a1, tmp.addr).check("SmsTextMessage.ToBinaryMessages")
+    result = toSeq[SmsBinaryMessage](tmp, IID_IVectorView_1_ISmsBinaryMessage)
+    release(tmp)
 
 proc id*(self: SmsTextMessage): uint32 =
   ## Windows.Devices.Sms.SmsTextMessage.get_Id
@@ -33464,12 +34433,28 @@ proc outputStream*(self: UsbBulkOutPipe): pointer =
     vcall(it, Slot_IUsbBulkOutPipe_get_OutputStream, Fn_IUsbBulkOutPipe_get_OutputStream)(it, tmp.addr).check("UsbBulkOutPipe.get_OutputStream")
     result = tmp
 
+proc usbInterfaces*(self: UsbConfiguration): seq[UsbInterface] =
+  ## Windows.Devices.Usb.UsbConfiguration.get_UsbInterfaces
+  withIface(self.p, IID_IUsbConfiguration, "IUsbConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbConfiguration_get_UsbInterfaces, Fn_IUsbConfiguration_get_UsbInterfaces)(it, tmp.addr).check("UsbConfiguration.get_UsbInterfaces")
+    result = toSeq[UsbInterface](tmp, IID_IVectorView_1_UsbInterface)
+    release(tmp)
+
 proc configurationDescriptor*(self: UsbConfiguration): UsbConfigurationDescriptor =
   ## Windows.Devices.Usb.UsbConfiguration.get_ConfigurationDescriptor
   withIface(self.p, IID_IUsbConfiguration, "IUsbConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IUsbConfiguration_get_ConfigurationDescriptor, Fn_IUsbConfiguration_get_ConfigurationDescriptor)(it, tmp.addr).check("UsbConfiguration.get_ConfigurationDescriptor")
     result = adopt[UsbConfigurationDescriptor](tmp)
+
+proc descriptors*(self: UsbConfiguration): seq[UsbDescriptor] =
+  ## Windows.Devices.Usb.UsbConfiguration.get_Descriptors
+  withIface(self.p, IID_IUsbConfiguration, "IUsbConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbConfiguration_get_Descriptors, Fn_IUsbConfiguration_get_Descriptors)(it, tmp.addr).check("UsbConfiguration.get_Descriptors")
+    result = toSeq[UsbDescriptor](tmp, IID_IVectorView_1_UsbDescriptor)
+    release(tmp)
 
 proc configurationValue*(self: UsbConfigurationDescriptor): uint8 =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.get_ConfigurationValue
@@ -33806,12 +34791,60 @@ proc parse*(_: typedesc[UsbEndpointDescriptor], a1: UsbDescriptor): UsbEndpointD
       vcall(it, Slot_IUsbEndpointDescriptorStatics_Parse, Fn_IUsbEndpointDescriptorStatics_Parse)(it, p0, tmp.addr).check("UsbEndpointDescriptor.Parse")
       result = adopt[UsbEndpointDescriptor](tmp)
 
+proc bulkInPipes*(self: UsbInterface): seq[UsbBulkInPipe] =
+  ## Windows.Devices.Usb.UsbInterface.get_BulkInPipes
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_BulkInPipes, Fn_IUsbInterface_get_BulkInPipes)(it, tmp.addr).check("UsbInterface.get_BulkInPipes")
+    result = toSeq[UsbBulkInPipe](tmp, IID_IVectorView_1_UsbBulkInPipe)
+    release(tmp)
+
+proc interruptInPipes*(self: UsbInterface): seq[UsbInterruptInPipe] =
+  ## Windows.Devices.Usb.UsbInterface.get_InterruptInPipes
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_InterruptInPipes, Fn_IUsbInterface_get_InterruptInPipes)(it, tmp.addr).check("UsbInterface.get_InterruptInPipes")
+    result = toSeq[UsbInterruptInPipe](tmp, IID_IVectorView_1_UsbInterruptInPipe)
+    release(tmp)
+
+proc bulkOutPipes*(self: UsbInterface): seq[UsbBulkOutPipe] =
+  ## Windows.Devices.Usb.UsbInterface.get_BulkOutPipes
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_BulkOutPipes, Fn_IUsbInterface_get_BulkOutPipes)(it, tmp.addr).check("UsbInterface.get_BulkOutPipes")
+    result = toSeq[UsbBulkOutPipe](tmp, IID_IVectorView_1_UsbBulkOutPipe)
+    release(tmp)
+
+proc interruptOutPipes*(self: UsbInterface): seq[UsbInterruptOutPipe] =
+  ## Windows.Devices.Usb.UsbInterface.get_InterruptOutPipes
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_InterruptOutPipes, Fn_IUsbInterface_get_InterruptOutPipes)(it, tmp.addr).check("UsbInterface.get_InterruptOutPipes")
+    result = toSeq[UsbInterruptOutPipe](tmp, IID_IVectorView_1_UsbInterruptOutPipe)
+    release(tmp)
+
+proc interfaceSettings*(self: UsbInterface): seq[UsbInterfaceSetting] =
+  ## Windows.Devices.Usb.UsbInterface.get_InterfaceSettings
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_InterfaceSettings, Fn_IUsbInterface_get_InterfaceSettings)(it, tmp.addr).check("UsbInterface.get_InterfaceSettings")
+    result = toSeq[UsbInterfaceSetting](tmp, IID_IVectorView_1_UsbInterfaceSetting)
+    release(tmp)
+
 proc interfaceNumber*(self: UsbInterface): uint8 =
   ## Windows.Devices.Usb.UsbInterface.get_InterfaceNumber
   withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
     var tmp: uint8
     vcall(it, Slot_IUsbInterface_get_InterfaceNumber, Fn_IUsbInterface_get_InterfaceNumber)(it, tmp.addr).check("UsbInterface.get_InterfaceNumber")
     result = tmp
+
+proc descriptors*(self: UsbInterface): seq[UsbDescriptor] =
+  ## Windows.Devices.Usb.UsbInterface.get_Descriptors
+  withIface(self.p, IID_IUsbInterface, "IUsbInterface", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterface_get_Descriptors, Fn_IUsbInterface_get_Descriptors)(it, tmp.addr).check("UsbInterface.get_Descriptors")
+    result = toSeq[UsbDescriptor](tmp, IID_IVectorView_1_UsbDescriptor)
+    release(tmp)
 
 proc classCode*(self: UsbInterfaceDescriptor): uint8 =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.get_ClassCode
@@ -33856,6 +34889,38 @@ proc parse*(_: typedesc[UsbInterfaceDescriptor], a1: UsbDescriptor): UsbInterfac
       vcall(it, Slot_IUsbInterfaceDescriptorStatics_Parse, Fn_IUsbInterfaceDescriptorStatics_Parse)(it, p0, tmp.addr).check("UsbInterfaceDescriptor.Parse")
       result = adopt[UsbInterfaceDescriptor](tmp)
 
+proc bulkInEndpoints*(self: UsbInterfaceSetting): seq[UsbBulkInEndpointDescriptor] =
+  ## Windows.Devices.Usb.UsbInterfaceSetting.get_BulkInEndpoints
+  withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterfaceSetting_get_BulkInEndpoints, Fn_IUsbInterfaceSetting_get_BulkInEndpoints)(it, tmp.addr).check("UsbInterfaceSetting.get_BulkInEndpoints")
+    result = toSeq[UsbBulkInEndpointDescriptor](tmp, IID_IVectorView_1_UsbBulkInEndpointDescriptor)
+    release(tmp)
+
+proc interruptInEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptInEndpointDescriptor] =
+  ## Windows.Devices.Usb.UsbInterfaceSetting.get_InterruptInEndpoints
+  withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterfaceSetting_get_InterruptInEndpoints, Fn_IUsbInterfaceSetting_get_InterruptInEndpoints)(it, tmp.addr).check("UsbInterfaceSetting.get_InterruptInEndpoints")
+    result = toSeq[UsbInterruptInEndpointDescriptor](tmp, IID_IVectorView_1_UsbInterruptInEndpointDescriptor)
+    release(tmp)
+
+proc bulkOutEndpoints*(self: UsbInterfaceSetting): seq[UsbBulkOutEndpointDescriptor] =
+  ## Windows.Devices.Usb.UsbInterfaceSetting.get_BulkOutEndpoints
+  withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterfaceSetting_get_BulkOutEndpoints, Fn_IUsbInterfaceSetting_get_BulkOutEndpoints)(it, tmp.addr).check("UsbInterfaceSetting.get_BulkOutEndpoints")
+    result = toSeq[UsbBulkOutEndpointDescriptor](tmp, IID_IVectorView_1_UsbBulkOutEndpointDescriptor)
+    release(tmp)
+
+proc interruptOutEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptOutEndpointDescriptor] =
+  ## Windows.Devices.Usb.UsbInterfaceSetting.get_InterruptOutEndpoints
+  withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterfaceSetting_get_InterruptOutEndpoints, Fn_IUsbInterfaceSetting_get_InterruptOutEndpoints)(it, tmp.addr).check("UsbInterfaceSetting.get_InterruptOutEndpoints")
+    result = toSeq[UsbInterruptOutEndpointDescriptor](tmp, IID_IVectorView_1_UsbInterruptOutEndpointDescriptor)
+    release(tmp)
+
 proc selected*(self: UsbInterfaceSetting): bool =
   ## Windows.Devices.Usb.UsbInterfaceSetting.get_Selected
   withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
@@ -33876,6 +34941,14 @@ proc interfaceDescriptor*(self: UsbInterfaceSetting): UsbInterfaceDescriptor =
     var tmp: pointer
     vcall(it, Slot_IUsbInterfaceSetting_get_InterfaceDescriptor, Fn_IUsbInterfaceSetting_get_InterfaceDescriptor)(it, tmp.addr).check("UsbInterfaceSetting.get_InterfaceDescriptor")
     result = adopt[UsbInterfaceDescriptor](tmp)
+
+proc descriptors*(self: UsbInterfaceSetting): seq[UsbDescriptor] =
+  ## Windows.Devices.Usb.UsbInterfaceSetting.get_Descriptors
+  withIface(self.p, IID_IUsbInterfaceSetting, "IUsbInterfaceSetting", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbInterfaceSetting_get_Descriptors, Fn_IUsbInterfaceSetting_get_Descriptors)(it, tmp.addr).check("UsbInterfaceSetting.get_Descriptors")
+    result = toSeq[UsbDescriptor](tmp, IID_IVectorView_1_UsbDescriptor)
+    release(tmp)
 
 proc maxPacketSize*(self: UsbInterruptInEndpointDescriptor): uint32 =
   ## Windows.Devices.Usb.UsbInterruptInEndpointDescriptor.get_MaxPacketSize
@@ -34207,6 +35280,14 @@ proc timestamp*(self: WiFiNetworkReport): DateTime =
     vcall(it, Slot_IWiFiNetworkReport_get_Timestamp, Fn_IWiFiNetworkReport_get_Timestamp)(it, tmp.addr).check("WiFiNetworkReport.get_Timestamp")
     result = tmp
 
+proc availableNetworks*(self: WiFiNetworkReport): seq[WiFiAvailableNetwork] =
+  ## Windows.Devices.WiFi.WiFiNetworkReport.get_AvailableNetworks
+  withIface(self.p, IID_IWiFiNetworkReport, "IWiFiNetworkReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiNetworkReport_get_AvailableNetworks, Fn_IWiFiNetworkReport_get_AvailableNetworks)(it, tmp.addr).check("WiFiNetworkReport.get_AvailableNetworks")
+    result = toSeq[WiFiAvailableNetwork](tmp, IID_IVectorView_1_WiFiAvailableNetwork)
+    release(tmp)
+
 proc requestedNetwork*(self: WiFiOnDemandHotspotConnectTriggerDetails): WiFiOnDemandHotspotNetwork =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotConnectTriggerDetails.get_RequestedNetwork
   withIface(self.p, IID_IWiFiOnDemandHotspotConnectTriggerDetails, "IWiFiOnDemandHotspotConnectTriggerDetails", it):
@@ -34396,6 +35477,14 @@ proc serviceName*(self: WiFiDirectServiceAdvertiser): string =
     var tmp: HSTRING
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_ServiceName, Fn_IWiFiDirectServiceAdvertiser_get_ServiceName)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_ServiceName")
     result = takeString(tmp)
+
+proc serviceNamePrefixes*(self: WiFiDirectServiceAdvertiser): seq[string] =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_ServiceNamePrefixes
+  withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_ServiceNamePrefixes, Fn_IWiFiDirectServiceAdvertiser_get_ServiceNamePrefixes)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_ServiceNamePrefixes")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc serviceInfo*(self: WiFiDirectServiceAdvertiser): pointer =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_ServiceInfo
@@ -34715,6 +35804,14 @@ proc getSessionRequest*(self: WiFiDirectServiceSessionRequestedEventArgs): WiFiD
     vcall(it, Slot_IWiFiDirectServiceSessionRequestedEventArgs_GetSessionRequest, Fn_IWiFiDirectServiceSessionRequestedEventArgs_GetSessionRequest)(it, tmp.addr).check("WiFiDirectServiceSessionRequestedEventArgs.GetSessionRequest")
     result = adopt[WiFiDirectServiceSessionRequest](tmp)
 
+proc informationElements*(self: WiFiDirectAdvertisement): seq[WiFiDirectInformationElement] =
+  ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.get_InformationElements
+  withIface(self.p, IID_IWiFiDirectAdvertisement, "IWiFiDirectAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectAdvertisement_get_InformationElements, Fn_IWiFiDirectAdvertisement_get_InformationElements)(it, tmp.addr).check("WiFiDirectAdvertisement.get_InformationElements")
+    result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
+    release(tmp)
+
 proc listenStateDiscoverability*(self: WiFiDirectAdvertisement): WiFiDirectAdvertisementListenStateDiscoverability =
   ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.get_ListenStateDiscoverability
   withIface(self.p, IID_IWiFiDirectAdvertisement, "IWiFiDirectAdvertisement", it):
@@ -34965,6 +36062,23 @@ proc `value=`*(self: WiFiDirectInformationElement, value: pointer) =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.put_Value
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
     vcall(it, Slot_IWiFiDirectInformationElement_put_Value, Fn_IWiFiDirectInformationElement_put_Value)(it, value).check("WiFiDirectInformationElement.put_Value")
+
+proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], a1: pointer): seq[WiFiDirectInformationElement] =
+  ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromBuffer
+  withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElementStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromBuffer, Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer)(it, a1, tmp.addr).check("WiFiDirectInformationElement.CreateFromBuffer")
+    result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
+    release(tmp)
+
+proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement], a1: DeviceInformation): seq[WiFiDirectInformationElement] =
+  ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromDeviceInformation
+  withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElementStatics, it):
+    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      var tmp: pointer
+      vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation, Fn_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation)(it, p0, tmp.addr).check("WiFiDirectInformationElement.CreateFromDeviceInformation")
+      result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
+      release(tmp)
 
 proc isEnabled*(self: WiFiDirectLegacySettings): bool =
   ## Windows.Devices.WiFiDirect.WiFiDirectLegacySettings.get_IsEnabled

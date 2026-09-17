@@ -72,12 +72,46 @@ type
     aliases: Table[string, string]       ## metadata name -> existing Nim type
     defaultIface: Table[string, string]  ## class -> its default interface
 
-func skipReason(c: Ctx, t: SigType): string =
+const CollectionIfaces = [
+  "Windows.Foundation.Collections.IVectorView`1",
+  "Windows.Foundation.Collections.IVector`1",
+  "Windows.Foundation.Collections.IIterable`1",
+]
+
+func collectionElement(c: Ctx, t: SigType): SigType =
+  ## The element type, if `t` is a read-only-walkable WinRT collection.
+  ##
+  ## `IVector` and `IVectorView` number `GetAt` and `get_Size` identically, and
+  ## `IIterable` is what both narrow from, so one shape covers all three as far
+  ## as reading goes. Writing to a vector is a different matter and is not
+  ## claimed here.
+  if t.kind == skUnsupported and t.args.len == 1 and t.name in CollectionIfaces:
+    t.args[0]
+  else:
+    SigType(kind: skVoid)
+
+func elementSpelling(c: Ctx, e: SigType): string =
+  ## How an element arrives: a class, a string, or nothing we can carry.
+  case e.kind
+  of skString: "string"
+  of skInterface:
+    if e.name in c.classes: shortName(e.name)
+    elif e.name in c.classOfIface: shortName(c.classOfIface[e.name])
+    else: ""
+  else: ""
+
+func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## Why this type has no wrapper spelling. "" means it has one.
+  ##
+  ## `inReturn` matters for collections: reading one into a `seq` is
+  ## straightforward, and building a WinRT collection out of a Nim `seq` to
+  ## pass *in* is not, so they are carried one way only.
   if t.byRef: return "a second out-parameter"
   case t.kind
   of skUnsupported:
-    if t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
+    let e = c.collectionElement(t)
+    if inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
+    elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
   of skArray: "an array"
   of skEnum:
@@ -90,15 +124,19 @@ func skipReason(c: Ctx, t: SigType): string =
     else: "a struct with no layout"
   else: ""
 
-func nimTypeOf(c: Ctx, t: SigType): string =
+func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   ## The Nim spelling for a wrapper parameter or result, or "" if unsupported.
   ##
-  ## A generic instantiation is deliberately *not* mapped here, even though the
-  ## ABI layer spells it `pointer`. At this level a bare pointer would be worse
-  ## than nothing: it reads as a typed API while giving none of the safety, and
-  ## the honest mapping is a typed collection or an optional, which is work this
-  ## does not do yet.
+  ## A generic instantiation is mapped only where there is an honest Nim
+  ## spelling for it. A readable collection becomes a `seq`; everything else —
+  ## `IReference<T>`, the async operations, the maps — is left unmapped rather
+  ## than spelled `pointer`, which would read as a typed API while giving none
+  ## of the safety.
   if t.byRef: return ""   # out-parameters beyond the return value are unmapped
+  let elem = c.collectionElement(t)
+  if elem.kind != skVoid:
+    let e = c.elementSpelling(elem)
+    return if inReturn and e.len > 0: "seq[" & e & "]" else: ""
   case t.kind
   of skBool: "bool"
   of skChar: "uint16"
@@ -386,7 +424,7 @@ when isMainModule:
       if r.len > 0:
         skipReasons.inc r
         return
-    let r = c.skipReason(sig.returns)
+    let r = c.skipReason(sig.returns, inReturn = true)
     skipReasons.inc (if r.len > 0: r else: "already emitted, or a duplicate name")
 
   for t in classOrder:
@@ -560,7 +598,7 @@ when isMainModule:
           continue
         let retType =
           if sig.returns.kind == skVoid: ""
-          else: c.nimTypeOf(sig.returns)
+          else: c.nimTypeOf(sig.returns, inReturn = true)
         if sig.returns.kind != skVoid and retType.len == 0:
           skipped.inc
           noteSkip(sig)
@@ -623,9 +661,23 @@ when isMainModule:
                     callArgs.join(", ") & &").check(\"{what}\")"
         else:
           # The declared return is a trailing out-parameter at the ABI.
+          let retElem = c.collectionElement(sig.returns)
+          var collectionIid = ""
+          if retElem.kind != skVoid:
+            # The IID of `IVectorView<Gamepad>` is declared nowhere: WinRT
+            # derives it by hashing a signature string, which `piid` does at
+            # generation time so nothing has to at run time.
+            let computed = sigCtx.parameterizedIid(sig.returns)
+            if computed.len == 0:
+              skipped.inc
+              skipReasons.inc "a collection whose IID could not be computed"
+              continue
+            collectionIid = genericIidConst(computed, sig.returns)
+
           case sig.returns.kind
           of skString: lines.add &"{indent}var tmp: HSTRING"
           of skInterface, skObject: lines.add &"{indent}var tmp: pointer"
+          of skUnsupported: lines.add &"{indent}var tmp: pointer"
           of skEnum: lines.add &"{indent}var tmp: {retType}"
           else: lines.add &"{indent}var tmp: {retType}"
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
@@ -633,6 +685,15 @@ when isMainModule:
           case sig.returns.kind
           of skString: lines.add &"{indent}result = takeString(tmp)"
           of skEnum: lines.add &"{indent}result = tmp"
+          of skUnsupported:
+            # The collection itself is ours to release; its elements were
+            # adopted while walking it.
+            let elemType = c.elementSpelling(retElem)
+            if elemType == "string":
+              lines.add &"{indent}result = toSeqString(tmp, {collectionIid})"
+            else:
+              lines.add &"{indent}result = toSeq[{elemType}](tmp, {collectionIid})"
+            lines.add &"{indent}release(tmp)"
           of skInterface:
             if asClass(sig.returns.name).len > 0:
               lines.add &"{indent}result = adopt[{retType}](tmp)"

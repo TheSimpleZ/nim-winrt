@@ -12,6 +12,18 @@ import ./abi/data
 import ./delegate
 export core, data
 
+# IIDs of parameterised interfaces, computed from a signature
+# string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_SelectableWordSegment* = GUID(
+    data1: 0x33F90A72'u32, data2: 0x86F4'u16, data3: 0x5027'u16,
+    data4: [0xB5'u8, 0x0A, 0x69, 0x39, 0xA1, 0xF9, 0xD5, 0x60])
+const IID_IVectorView_1_AlternateWordForm* = GUID(
+    data1: 0x6B742FF2'u32, data2: 0x746A'u16, data3: 0x5545'u16,
+    data4: [0xA6'u8, 0xED, 0x3B, 0xBA, 0x45, 0x3C, 0xF5, 0xD9])
+const IID_IVectorView_1_WordSegment* = GUID(
+    data1: 0xC706749A'u32, data2: 0xE11D'u16, data3: 0x5E07'u16,
+    data4: [0x85'u8, 0x34, 0x2B, 0xD2, 0x3E, 0xC2, 0x10, 0xF9])
+
 type
   HtmlUtilities* = object
   JsonArray* {.inheritable, pure.} = object
@@ -1167,6 +1179,15 @@ proc getTokenAt*(self: SelectableWordsSegmenter, a1: string, a2: uint32): Select
       vcall(it, Slot_ISelectableWordsSegmenter_GetTokenAt, Fn_ISelectableWordsSegmenter_GetTokenAt)(it, h0, a2, tmp.addr).check("SelectableWordsSegmenter.GetTokenAt")
       result = adopt[SelectableWordSegment](tmp)
 
+proc getTokens*(self: SelectableWordsSegmenter, a1: string): seq[SelectableWordSegment] =
+  ## Windows.Data.Text.SelectableWordsSegmenter.GetTokens
+  withIface(self.p, IID_ISelectableWordsSegmenter, "ISelectableWordsSegmenter", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_ISelectableWordsSegmenter_GetTokens, Fn_ISelectableWordsSegmenter_GetTokens)(it, h0, tmp.addr).check("SelectableWordsSegmenter.GetTokens")
+      result = toSeq[SelectableWordSegment](tmp, IID_IVectorView_1_SelectableWordSegment)
+      release(tmp)
+
 proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], a1: string): SelectableWordsSegmenter =
   ## Windows.Data.Text.SelectableWordsSegmenter.CreateWithLanguage
   withStatics("Windows.Data.Text.SelectableWordsSegmenter", IID_ISelectableWordsSegmenterFactory, it):
@@ -1398,6 +1419,14 @@ proc sourceTextSegment*(self: WordSegment): TextSegment =
     vcall(it, Slot_IWordSegment_get_SourceTextSegment, Fn_IWordSegment_get_SourceTextSegment)(it, tmp.addr).check("WordSegment.get_SourceTextSegment")
     result = tmp
 
+proc alternateForms*(self: WordSegment): seq[AlternateWordForm] =
+  ## Windows.Data.Text.WordSegment.get_AlternateForms
+  withIface(self.p, IID_IWordSegment, "IWordSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IWordSegment_get_AlternateForms, Fn_IWordSegment_get_AlternateForms)(it, tmp.addr).check("WordSegment.get_AlternateForms")
+    result = toSeq[AlternateWordForm](tmp, IID_IVectorView_1_AlternateWordForm)
+    release(tmp)
+
 proc resolvedLanguage*(self: WordsSegmenter): string =
   ## Windows.Data.Text.WordsSegmenter.get_ResolvedLanguage
   withIface(self.p, IID_IWordsSegmenter, "IWordsSegmenter", it):
@@ -1412,6 +1441,15 @@ proc getTokenAt*(self: WordsSegmenter, a1: string, a2: uint32): WordSegment =
       var tmp: pointer
       vcall(it, Slot_IWordsSegmenter_GetTokenAt, Fn_IWordsSegmenter_GetTokenAt)(it, h0, a2, tmp.addr).check("WordsSegmenter.GetTokenAt")
       result = adopt[WordSegment](tmp)
+
+proc getTokens*(self: WordsSegmenter, a1: string): seq[WordSegment] =
+  ## Windows.Data.Text.WordsSegmenter.GetTokens
+  withIface(self.p, IID_IWordsSegmenter, "IWordsSegmenter", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_IWordsSegmenter_GetTokens, Fn_IWordsSegmenter_GetTokens)(it, h0, tmp.addr).check("WordsSegmenter.GetTokens")
+      result = toSeq[WordSegment](tmp, IID_IVectorView_1_WordSegment)
+      release(tmp)
 
 proc createWithLanguage*(_: typedesc[WordsSegmenter], a1: string): WordsSegmenter =
   ## Windows.Data.Text.WordsSegmenter.CreateWithLanguage

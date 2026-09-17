@@ -14,12 +14,21 @@ export core, system
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVector_1_AppResourceGroupInfo* = GUID(
+    data1: 0xBD7D69A0'u32, data2: 0x0D57'u16, data3: 0x5148'u16,
+    data4: [0x8B'u8, 0x23, 0x49, 0xA0, 0x86, 0x54, 0xF0, 0xC7])
 const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs* = GUID(
     data1: 0x7C8C6F9F'u32, data2: 0xD6BF'u16, data3: 0x5566'u16,
     data4: [0xB0'u8, 0x13, 0x39, 0xC1, 0x41, 0xE0, 0xFF, 0x8C])
 const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object* = GUID(
     data1: 0x895DEE2F'u32, data2: 0xE0F2'u16, data3: 0x5304'u16,
     data4: [0xA4'u8, 0x0E, 0x1C, 0x67, 0xA2, 0xC0, 0x58, 0xAA])
+const IID_IVector_1_AppResourceGroupBackgroundTaskReport* = GUID(
+    data1: 0x80F1820A'u32, data2: 0xDB02'u16, data3: 0x5CB2'u16,
+    data4: [0xA1'u8, 0x28, 0x51, 0x72, 0x15, 0x1D, 0x14, 0x44])
+const IID_IVector_1_ProcessDiagnosticInfo* = GUID(
+    data1: 0xF62E2D01'u32, data2: 0xC1DD'u16, data3: 0x5B60'u16,
+    data4: [0xB5'u8, 0xDA, 0x16, 0x51, 0x8C, 0xBA, 0x0B, 0xB0])
 const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs* = GUID(
     data1: 0xA7E14BAE'u32, data2: 0xC778'u16, data3: 0x5661'u16,
     data4: [0xA4'u8, 0x1C, 0x1A, 0xC3, 0xAC, 0x63, 0x5F, 0x79])
@@ -29,12 +38,30 @@ const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object* = GUID(
 const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherExecutionStateChangedEventArgs* = GUID(
     data1: 0x93F9724C'u32, data2: 0x17F8'u16, data3: 0x5DF5'u16,
     data4: [0xA6'u8, 0xCF, 0x2F, 0x0A, 0xB9, 0x0C, 0x0A, 0x27])
+const IID_IVectorView_1_AppDiagnosticInfo* = GUID(
+    data1: 0xB0C2C7A4'u32, data2: 0x78BA'u16, data3: 0x50FD'u16,
+    data4: [0x84'u8, 0xFE, 0x00, 0xE0, 0x2A, 0x6C, 0x1D, 0x42])
+const IID_IVector_1_AppUriHandlerHost* = GUID(
+    data1: 0x4A226614'u32, data2: 0x2197'u16, data3: 0x526A'u16,
+    data4: [0xA9'u8, 0xFF, 0x03, 0x02, 0x5D, 0x18, 0xE3, 0x22])
 const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs* = GUID(
     data1: 0x2AAD93A8'u32, data2: 0x52FA'u16, data3: 0x54B3'u16,
     data4: [0x95'u8, 0x56, 0x15, 0xD6, 0x51, 0x20, 0x8B, 0x3F])
 const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionRequestReceivedEventArgs* = GUID(
     data1: 0xD8E33FF8'u32, data2: 0x8AC4'u16, data3: 0x5FD9'u16,
     data4: [0xB1'u8, 0x84, 0x8A, 0xE8, 0x7D, 0x82, 0x8E, 0xB9])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVector_1_AppDiagnosticInfo* = GUID(
+    data1: 0x9CFFA2C3'u32, data2: 0x7EEB'u16, data3: 0x599C'u16,
+    data4: [0xB9'u8, 0x4D, 0xC7, 0x94, 0xB1, 0x1F, 0x80, 0x7F])
+const IID_IVectorView_1_ProcessDiagnosticInfo* = GUID(
+    data1: 0x74AB2473'u32, data2: 0x9624'u16, data3: 0x5A06'u16,
+    data4: [0x90'u8, 0x25, 0x6D, 0x91, 0xE6, 0x22, 0xBF, 0x8E])
+const IID_IVectorView_1_PlatformDiagnosticTraceInfo* = GUID(
+    data1: 0x8F1B3397'u32, data2: 0x4DC3'u16, data3: 0x5B72'u16,
+    data4: [0x91'u8, 0xFA, 0x0F, 0xDC, 0x91, 0x5D, 0x95, 0x0C])
 const IID_TypedEventHandler_2_DispatcherQueue_DispatcherQueueShutdownStartingEventArgs* = GUID(
     data1: 0xB58B5E24'u32, data2: 0xE1C6'u16, data3: 0x528E'u16,
     data4: [0x9D'u8, 0x99, 0x07, 0xEC, 0x88, 0x29, 0xDE, 0xA5])
@@ -68,6 +95,15 @@ const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
 const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_PerformLocalActionRequestedEventArgs* = GUID(
     data1: 0x6BF735E4'u32, data2: 0x8EAF'u16, data3: 0x53AC'u16,
     data4: [0x90'u8, 0x53, 0x4B, 0x2A, 0x41, 0x54, 0x28, 0xA3])
+const IID_IVector_1_RemoteDesktopInfo* = GUID(
+    data1: 0x0D009032'u32, data2: 0xEC6B'u16, data3: 0x5789'u16,
+    data4: [0x9A'u8, 0x69, 0xEB, 0x76, 0x9E, 0x0A, 0x16, 0x44])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IVectorView_1_RemoteSystemApp* = GUID(
+    data1: 0x40011F82'u32, data2: 0xE7E8'u16, data3: 0x5A96'u16,
+    data4: [0xB7'u8, 0x67, 0x39, 0x9C, 0x6A, 0x4B, 0xE1, 0x01])
 const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = GUID(
     data1: 0xFBA14773'u32, data2: 0x5038'u16, data3: 0x511A'u16,
     data4: [0x95'u8, 0xA3, 0x4B, 0xA4, 0x53, 0x49, 0x10, 0x0A])
@@ -113,6 +149,9 @@ const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemEnumerationComplet
 const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemWatcherErrorOccurredEventArgs* = GUID(
     data1: 0xA4A023B4'u32, data2: 0x567B'u16, data3: 0x5D4B'u16,
     data4: [0xA4'u8, 0xC8, 0x5C, 0xA4, 0xF8, 0x86, 0xD3, 0xA3])
+const IID_IVectorView_1_SystemUpdateItem* = GUID(
+    data1: 0x7C77B64C'u32, data2: 0x8BE2'u16, data3: 0x50E0'u16,
+    data4: [0x8C'u8, 0xA5, 0xD8, 0x26, 0x5D, 0x80, 0x90, 0x2B])
 const IID_EventHandler_1_UserDeviceAssociationChangedEventArgs* = GUID(
     data1: 0xD3A3D4C5'u32, data2: 0xD8B6'u16, data3: 0x5A0E'u16,
     data4: [0x88'u8, 0xED, 0xA5, 0x49, 0x9C, 0x37, 0x7B, 0xE3])
@@ -2250,6 +2289,14 @@ proc appResourceGroupInfo*(self: AppActivationResult): AppResourceGroupInfo =
     vcall(it, Slot_IAppActivationResult_get_AppResourceGroupInfo, Fn_IAppActivationResult_get_AppResourceGroupInfo)(it, tmp.addr).check("AppActivationResult.get_AppResourceGroupInfo")
     result = adopt[AppResourceGroupInfo](tmp)
 
+proc getResourceGroups*(self: AppDiagnosticInfo): seq[AppResourceGroupInfo] =
+  ## Windows.System.AppDiagnosticInfo.GetResourceGroups
+  withIface(self.p, IID_IAppDiagnosticInfo2, "IAppDiagnosticInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppDiagnosticInfo2_GetResourceGroups, Fn_IAppDiagnosticInfo2_GetResourceGroups)(it, tmp.addr).check("AppDiagnosticInfo.GetResourceGroups")
+    result = toSeq[AppResourceGroupInfo](tmp, IID_IVector_1_AppResourceGroupInfo)
+    release(tmp)
+
 proc createResourceGroupWatcher*(self: AppDiagnosticInfo): AppResourceGroupInfoWatcher =
   ## Windows.System.AppDiagnosticInfo.CreateResourceGroupWatcher
   withIface(self.p, IID_IAppDiagnosticInfo2, "IAppDiagnosticInfo2", it):
@@ -2462,12 +2509,28 @@ proc isShared*(self: AppResourceGroupInfo): bool =
     vcall(it, Slot_IAppResourceGroupInfo_get_IsShared, Fn_IAppResourceGroupInfo_get_IsShared)(it, tmp.addr).check("AppResourceGroupInfo.get_IsShared")
     result = tmp
 
+proc getBackgroundTaskReports*(self: AppResourceGroupInfo): seq[AppResourceGroupBackgroundTaskReport] =
+  ## Windows.System.AppResourceGroupInfo.GetBackgroundTaskReports
+  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfo_GetBackgroundTaskReports, Fn_IAppResourceGroupInfo_GetBackgroundTaskReports)(it, tmp.addr).check("AppResourceGroupInfo.GetBackgroundTaskReports")
+    result = toSeq[AppResourceGroupBackgroundTaskReport](tmp, IID_IVector_1_AppResourceGroupBackgroundTaskReport)
+    release(tmp)
+
 proc getMemoryReport*(self: AppResourceGroupInfo): AppResourceGroupMemoryReport =
   ## Windows.System.AppResourceGroupInfo.GetMemoryReport
   withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
     var tmp: pointer
     vcall(it, Slot_IAppResourceGroupInfo_GetMemoryReport, Fn_IAppResourceGroupInfo_GetMemoryReport)(it, tmp.addr).check("AppResourceGroupInfo.GetMemoryReport")
     result = adopt[AppResourceGroupMemoryReport](tmp)
+
+proc getProcessDiagnosticInfos*(self: AppResourceGroupInfo): seq[ProcessDiagnosticInfo] =
+  ## Windows.System.AppResourceGroupInfo.GetProcessDiagnosticInfos
+  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfo_GetProcessDiagnosticInfos, Fn_IAppResourceGroupInfo_GetProcessDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfo.GetProcessDiagnosticInfos")
+    result = toSeq[ProcessDiagnosticInfo](tmp, IID_IVector_1_ProcessDiagnosticInfo)
+    release(tmp)
 
 proc getStateReport*(self: AppResourceGroupInfo): AppResourceGroupStateReport =
   ## Windows.System.AppResourceGroupInfo.GetStateReport
@@ -2588,12 +2651,28 @@ proc stop*(self: AppResourceGroupInfoWatcher) =
   withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
     vcall(it, Slot_IAppResourceGroupInfoWatcher_Stop, Fn_IAppResourceGroupInfoWatcher_Stop)(it).check("AppResourceGroupInfoWatcher.Stop")
 
+proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherEventArgs): seq[AppDiagnosticInfo] =
+  ## Windows.System.AppResourceGroupInfoWatcherEventArgs.get_AppDiagnosticInfos
+  withIface(self.p, IID_IAppResourceGroupInfoWatcherEventArgs, "IAppResourceGroupInfoWatcherEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos, Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfoWatcherEventArgs.get_AppDiagnosticInfos")
+    result = toSeq[AppDiagnosticInfo](tmp, IID_IVectorView_1_AppDiagnosticInfo)
+    release(tmp)
+
 proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherEventArgs): AppResourceGroupInfo =
   ## Windows.System.AppResourceGroupInfoWatcherEventArgs.get_AppResourceGroupInfo
   withIface(self.p, IID_IAppResourceGroupInfoWatcherEventArgs, "IAppResourceGroupInfoWatcherEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo, Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo)(it, tmp.addr).check("AppResourceGroupInfoWatcherEventArgs.get_AppResourceGroupInfo")
     result = adopt[AppResourceGroupInfo](tmp)
+
+proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): seq[AppDiagnosticInfo] =
+  ## Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppDiagnosticInfos
+  withIface(self.p, IID_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs, "IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos, Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppDiagnosticInfos")
+    result = toSeq[AppDiagnosticInfo](tmp, IID_IVectorView_1_AppDiagnosticInfo)
+    release(tmp)
 
 proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): AppResourceGroupInfo =
   ## Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppResourceGroupInfo
@@ -2694,6 +2773,14 @@ proc user*(self: AppUriHandlerRegistration): User =
     var tmp: pointer
     vcall(it, Slot_IAppUriHandlerRegistration_get_User, Fn_IAppUriHandlerRegistration_get_User)(it, tmp.addr).check("AppUriHandlerRegistration.get_User")
     result = adopt[User](tmp)
+
+proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost] =
+  ## Windows.System.AppUriHandlerRegistration.GetAllHosts
+  withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppUriHandlerRegistration2_GetAllHosts, Fn_IAppUriHandlerRegistration2_GetAllHosts)(it, tmp.addr).check("AppUriHandlerRegistration.GetAllHosts")
+    result = toSeq[AppUriHandlerHost](tmp, IID_IVector_1_AppUriHandlerHost)
+    release(tmp)
 
 proc packageFamilyName*(self: AppUriHandlerRegistration): string =
   ## Windows.System.AppUriHandlerRegistration.get_PackageFamilyName
@@ -2813,6 +2900,14 @@ proc isWebSocketUpgradeRequest*(self: DevicePortalConnectionRequestReceivedEvent
     vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_IsWebSocketUpgradeRequest")
     result = tmp
 
+proc webSocketProtocolsRequested*(self: DevicePortalConnectionRequestReceivedEventArgs): seq[string] =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_WebSocketProtocolsRequested
+  withIface(self.p, IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs, "IDevicePortalWebSocketConnectionRequestReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_WebSocketProtocolsRequested")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc extendedError*(self: DiagnosticActionResult): HRESULT =
   ## Windows.System.Diagnostics.DiagnosticActionResult.get_ExtendedError
   withIface(self.p, IID_IDiagnosticActionResult, "IDiagnosticActionResult", it):
@@ -2912,12 +3007,28 @@ proc cpuUsage*(self: ProcessDiagnosticInfo): ProcessCpuUsage =
     vcall(it, Slot_IProcessDiagnosticInfo_get_CpuUsage, Fn_IProcessDiagnosticInfo_get_CpuUsage)(it, tmp.addr).check("ProcessDiagnosticInfo.get_CpuUsage")
     result = adopt[ProcessCpuUsage](tmp)
 
+proc getAppDiagnosticInfos*(self: ProcessDiagnosticInfo): seq[AppDiagnosticInfo] =
+  ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetAppDiagnosticInfos
+  withIface(self.p, IID_IProcessDiagnosticInfo2, "IProcessDiagnosticInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IProcessDiagnosticInfo2_GetAppDiagnosticInfos, Fn_IProcessDiagnosticInfo2_GetAppDiagnosticInfos)(it, tmp.addr).check("ProcessDiagnosticInfo.GetAppDiagnosticInfos")
+    result = toSeq[AppDiagnosticInfo](tmp, IID_IVector_1_AppDiagnosticInfo)
+    release(tmp)
+
 proc isPackaged*(self: ProcessDiagnosticInfo): bool =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_IsPackaged
   withIface(self.p, IID_IProcessDiagnosticInfo2, "IProcessDiagnosticInfo2", it):
     var tmp: bool
     vcall(it, Slot_IProcessDiagnosticInfo2_get_IsPackaged, Fn_IProcessDiagnosticInfo2_get_IsPackaged)(it, tmp.addr).check("ProcessDiagnosticInfo.get_IsPackaged")
     result = tmp
+
+proc getForProcesses*(_: typedesc[ProcessDiagnosticInfo]): seq[ProcessDiagnosticInfo] =
+  ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetForProcesses
+  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo", IID_IProcessDiagnosticInfoStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IProcessDiagnosticInfoStatics_GetForProcesses, Fn_IProcessDiagnosticInfoStatics_GetForProcesses)(it, tmp.addr).check("ProcessDiagnosticInfo.GetForProcesses")
+    result = toSeq[ProcessDiagnosticInfo](tmp, IID_IVectorView_1_ProcessDiagnosticInfo)
+    release(tmp)
 
 proc getForCurrentProcess*(_: typedesc[ProcessDiagnosticInfo]): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetForCurrentProcess
@@ -3252,6 +3363,14 @@ proc getActiveTraceRuntime*(_: typedesc[PlatformDiagnosticActions], a1: Platform
     var tmp: pointer
     vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime, Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime)(it, a1, tmp.addr).check("PlatformDiagnosticActions.GetActiveTraceRuntime")
     result = adopt[PlatformDiagnosticTraceRuntimeInfo](tmp)
+
+proc getKnownTraceList*(_: typedesc[PlatformDiagnosticActions], a1: PlatformDiagnosticTraceSlotType): seq[PlatformDiagnosticTraceInfo] =
+  ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.GetKnownTraceList
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetKnownTraceList, Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList)(it, a1, tmp.addr).check("PlatformDiagnosticActions.GetKnownTraceList")
+    result = toSeq[PlatformDiagnosticTraceInfo](tmp, IID_IVectorView_1_PlatformDiagnosticTraceInfo)
+    release(tmp)
 
 proc scenarioId*(self: PlatformDiagnosticTraceInfo): GUID =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_ScenarioId
@@ -5031,6 +5150,14 @@ proc createInstance*(_: typedesc[RemoteDesktopInfo], a1: string, a2: string): Re
         vcall(it, Slot_IRemoteDesktopInfoFactory_CreateInstance, Fn_IRemoteDesktopInfoFactory_CreateInstance)(it, h0, h1, tmp.addr).check("RemoteDesktopInfo.CreateInstance")
         result = adopt[RemoteDesktopInfo](tmp)
 
+proc desktopInfos*(_: typedesc[RemoteDesktopRegistrar]): seq[RemoteDesktopInfo] =
+  ## Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar.get_DesktopInfos
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar", IID_IRemoteDesktopRegistrarStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteDesktopRegistrarStatics_get_DesktopInfos, Fn_IRemoteDesktopRegistrarStatics_get_DesktopInfos)(it, tmp.addr).check("RemoteDesktopRegistrar.get_DesktopInfos")
+    result = toSeq[RemoteDesktopInfo](tmp, IID_IVector_1_RemoteDesktopInfo)
+    release(tmp)
+
 proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar.IsSwitchToLocalSessionEnabled
   withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar", IID_IRemoteDesktopRegistrarStatics, it):
@@ -5041,6 +5168,14 @@ proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool =
 proc newRemoteLauncherOptions*(): RemoteLauncherOptions =
   ## Activate a `Windows.System.RemoteLauncherOptions`.
   adopt[RemoteLauncherOptions](activateAs("Windows.System.RemoteLauncherOptions", IID_IRemoteLauncherOptions))
+
+proc preferredAppIds*(self: RemoteLauncherOptions): seq[string] =
+  ## Windows.System.RemoteLauncherOptions.get_PreferredAppIds
+  withIface(self.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteLauncherOptions_get_PreferredAppIds, Fn_IRemoteLauncherOptions_get_PreferredAppIds)(it, tmp.addr).check("RemoteLauncherOptions.get_PreferredAppIds")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.KnownRemoteSystemCapabilities.get_AppService
@@ -5132,6 +5267,14 @@ proc platform*(self: RemoteSystem): RemoteSystemPlatform =
     var tmp: RemoteSystemPlatform
     vcall(it, Slot_IRemoteSystem4_get_Platform, Fn_IRemoteSystem4_get_Platform)(it, tmp.addr).check("RemoteSystem.get_Platform")
     result = tmp
+
+proc apps*(self: RemoteSystem): seq[RemoteSystemApp] =
+  ## Windows.System.RemoteSystems.RemoteSystem.get_Apps
+  withIface(self.p, IID_IRemoteSystem5, "IRemoteSystem5", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystem5_get_Apps, Fn_IRemoteSystem5_get_Apps)(it, tmp.addr).check("RemoteSystem.get_Apps")
+    result = toSeq[RemoteSystemApp](tmp, IID_IVectorView_1_RemoteSystemApp)
+    release(tmp)
 
 proc user*(self: RemoteSystem): User =
   ## Windows.System.RemoteSystems.RemoteSystem.get_User
@@ -5321,6 +5464,14 @@ proc create*(_: typedesc[RemoteSystemDiscoveryTypeFilter], a1: RemoteSystemDisco
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemDiscoveryTypeFilterFactory_Create, Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create)(it, a1, tmp.addr).check("RemoteSystemDiscoveryTypeFilter.Create")
     result = adopt[RemoteSystemDiscoveryTypeFilter](tmp)
+
+proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string] =
+  ## Windows.System.RemoteSystems.RemoteSystemKindFilter.get_RemoteSystemKinds
+  withIface(self.p, IID_IRemoteSystemKindFilter, "IRemoteSystemKindFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemKindFilter_get_RemoteSystemKinds, Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds)(it, tmp.addr).check("RemoteSystemKindFilter.get_RemoteSystemKinds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc iot*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Iot
@@ -6054,6 +6205,14 @@ proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string =
     vcall(it, Slot_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName, Fn_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName)(it, tmp.addr).check("TimeZoneSettings.get_CurrentTimeZoneDisplayName")
     result = takeString(tmp)
 
+proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string] =
+  ## Windows.System.TimeZoneSettings.get_SupportedTimeZoneDisplayNames
+  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames, Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames)(it, tmp.addr).check("TimeZoneSettings.get_SupportedTimeZoneDisplayNames")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool =
   ## Windows.System.TimeZoneSettings.get_CanChangeTimeZone
   withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
@@ -6240,12 +6399,28 @@ proc lastErrorInfo*(_: typedesc[SystemUpdateManager]): SystemUpdateLastErrorInfo
     vcall(it, Slot_ISystemUpdateManagerStatics_get_LastErrorInfo, Fn_ISystemUpdateManagerStatics_get_LastErrorInfo)(it, tmp.addr).check("SystemUpdateManager.get_LastErrorInfo")
     result = adopt[SystemUpdateLastErrorInfo](tmp)
 
+proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] =
+  ## Windows.System.Update.SystemUpdateManager.GetAutomaticRebootBlockIds
+  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds, Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds)(it, tmp.addr).check("SystemUpdateManager.GetAutomaticRebootBlockIds")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT =
   ## Windows.System.Update.SystemUpdateManager.get_ExtendedError
   withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
     var tmp: HRESULT
     vcall(it, Slot_ISystemUpdateManagerStatics_get_ExtendedError, Fn_ISystemUpdateManagerStatics_get_ExtendedError)(it, tmp.addr).check("SystemUpdateManager.get_ExtendedError")
     result = tmp
+
+proc getUpdateItems*(_: typedesc[SystemUpdateManager]): seq[SystemUpdateItem] =
+  ## Windows.System.Update.SystemUpdateManager.GetUpdateItems
+  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISystemUpdateManagerStatics_GetUpdateItems, Fn_ISystemUpdateManagerStatics_GetUpdateItems)(it, tmp.addr).check("SystemUpdateManager.GetUpdateItems")
+    result = toSeq[SystemUpdateItem](tmp, IID_IVectorView_1_SystemUpdateItem)
+    release(tmp)
 
 proc attentionRequiredReason*(_: typedesc[SystemUpdateManager]): SystemUpdateAttentionRequiredReason =
   ## Windows.System.Update.SystemUpdateManager.get_AttentionRequiredReason
@@ -6560,6 +6735,38 @@ proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences], a1: stri
       vcall(it, Slot_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion, Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion)(it, h0, tmp.addr).check("GlobalizationPreferences.TrySetHomeGeographicRegion")
       result = tmp
 
+proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferences.get_Calendars
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Calendars, Fn_IGlobalizationPreferencesStatics_get_Calendars)(it, tmp.addr).check("GlobalizationPreferences.get_Calendars")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferences.get_Clocks
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Clocks, Fn_IGlobalizationPreferencesStatics_get_Clocks)(it, tmp.addr).check("GlobalizationPreferences.get_Clocks")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferences.get_Currencies
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Currencies, Fn_IGlobalizationPreferencesStatics_get_Currencies)(it, tmp.addr).check("GlobalizationPreferences.get_Currencies")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc languages*(_: typedesc[GlobalizationPreferences]): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferences.get_Languages
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Languages, Fn_IGlobalizationPreferencesStatics_get_Languages)(it, tmp.addr).check("GlobalizationPreferences.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_HomeGeographicRegion
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
@@ -6581,6 +6788,38 @@ proc user*(self: GlobalizationPreferencesForUser): User =
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_User, Fn_IGlobalizationPreferencesForUser_get_User)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_User")
     result = adopt[User](tmp)
+
+proc calendars*(self: GlobalizationPreferencesForUser): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Calendars
+  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Calendars, Fn_IGlobalizationPreferencesForUser_get_Calendars)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Calendars")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc clocks*(self: GlobalizationPreferencesForUser): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Clocks
+  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Clocks, Fn_IGlobalizationPreferencesForUser_get_Clocks)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Clocks")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc currencies*(self: GlobalizationPreferencesForUser): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Currencies
+  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Currencies, Fn_IGlobalizationPreferencesForUser_get_Currencies)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Currencies")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc languages*(self: GlobalizationPreferencesForUser): seq[string] =
+  ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Languages
+  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Languages, Fn_IGlobalizationPreferencesForUser_get_Languages)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Languages")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc homeGeographicRegion*(self: GlobalizationPreferencesForUser): string =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_HomeGeographicRegion

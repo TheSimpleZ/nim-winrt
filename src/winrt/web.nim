@@ -14,6 +14,24 @@ export core, web
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_SyndicationCategory* = GUID(
+    data1: 0xA1AC007C'u32, data2: 0x9D94'u16, data3: 0x552E'u16,
+    data4: [0x84'u8, 0x0E, 0x13, 0x9F, 0x10, 0x9A, 0x9B, 0x88])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVector_1_SyndicationAttribute* = GUID(
+    data1: 0x2FE84E7B'u32, data2: 0x2350'u16, data3: 0x5941'u16,
+    data4: [0x94'u8, 0xB5, 0xA6, 0x46, 0x77, 0xB5, 0x85, 0xD1])
+const IID_IVector_1_ISyndicationNode* = GUID(
+    data1: 0xF4508AFA'u32, data2: 0x9F02'u16, data3: 0x5EB8'u16,
+    data4: [0xA3'u8, 0x89, 0x14, 0xBB, 0xE5, 0x19, 0x3A, 0xC0])
+const IID_IVectorView_1_Workspace* = GUID(
+    data1: 0xD0D7B58D'u32, data2: 0xD97E'u16, data3: 0x5761'u16,
+    data4: [0xBE'u8, 0x66, 0x42, 0xB8, 0x5B, 0x3D, 0x19, 0xC8])
+const IID_IVectorView_1_ResourceCollection* = GUID(
+    data1: 0x32F021C7'u32, data2: 0x368B'u16, data3: 0x5CFA'u16,
+    data4: [0x82'u8, 0x9C, 0x4A, 0xCF, 0x8A, 0x36, 0xC8, 0x10])
 const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs* = GUID(
     data1: 0xF8E10321'u32, data2: 0x47BD'u16, data3: 0x526A'u16,
     data4: [0xA9'u8, 0xB2, 0x3B, 0xF1, 0x2F, 0x72, 0x5F, 0x8B])
@@ -23,9 +41,30 @@ const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRespo
 const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs* = GUID(
     data1: 0x2281AD23'u32, data2: 0x9C8D'u16, data3: 0x5D82'u16,
     data4: [0x9B'u8, 0x20, 0xBC, 0xF1, 0x57, 0xB0, 0x4F, 0xD9])
+const IID_IVectorView_1_HttpDiagnosticSourceLocation* = GUID(
+    data1: 0xE9AF27D3'u32, data2: 0x80E8'u16, data3: 0x5AFF'u16,
+    data4: [0xA7'u8, 0xE5, 0x1B, 0x22, 0x17, 0x87, 0xF0, 0x96])
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
     data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
+const IID_IVector_1_HttpNameValueHeaderValue* = GUID(
+    data1: 0x2CF800D4'u32, data2: 0x35D0'u16, data3: 0x545C'u16,
+    data4: [0xAB'u8, 0x82, 0xF6, 0x79, 0x3B, 0xE7, 0x4C, 0xBA])
+const IID_IVector_1_SyndicationPerson* = GUID(
+    data1: 0xAB772CD6'u32, data2: 0x8CE7'u16, data3: 0x5DB9'u16,
+    data4: [0x83'u8, 0xAC, 0x0D, 0xB9, 0xE4, 0x4A, 0x1B, 0x0C])
+const IID_IVector_1_SyndicationCategory* = GUID(
+    data1: 0x72E456E4'u32, data2: 0x0E52'u16, data3: 0x52CB'u16,
+    data4: [0xB3'u8, 0x63, 0xF3, 0x58, 0x13, 0x27, 0xF0, 0x33])
+const IID_IVector_1_SyndicationItem* = GUID(
+    data1: 0xAA01130B'u32, data2: 0x4631'u16, data3: 0x5117'u16,
+    data4: [0x8C'u8, 0x48, 0xDC, 0x21, 0xB0, 0x29, 0x50, 0x96])
+const IID_IVector_1_SyndicationLink* = GUID(
+    data1: 0xB8FB25A5'u32, data2: 0x01C3'u16, data3: 0x5207'u16,
+    data4: [0x81'u8, 0x4E, 0x89, 0x2B, 0x2B, 0x53, 0x43, 0xF7])
+const IID_IVectorView_1_WebViewControlDeferredPermissionRequest* = GUID(
+    data1: 0xBFFD3DCF'u32, data2: 0x1974'u16, data3: 0x53A2'u16,
+    data4: [0x8D'u8, 0x88, 0x96, 0x6D, 0x84, 0xBA, 0x98, 0xE0])
 const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs* = GUID(
     data1: 0xE92E0BCC'u32, data2: 0x9AE9'u16, data3: 0x5B9B'u16,
     data4: [0xA6'u8, 0x84, 0x83, 0xDD, 0x8E, 0xE5, 0x77, 0x75])
@@ -71,6 +110,9 @@ const IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressed
 const IID_TypedEventHandler_2_WebViewControl_Object* = GUID(
     data1: 0x34A6446F'u32, data2: 0x5467'u16, data3: 0x5063'u16,
     data4: [0xBD'u8, 0xC0, 0x7F, 0xB0, 0x65, 0x75, 0x10, 0xD1])
+const IID_IVectorView_1_WebViewControl* = GUID(
+    data1: 0x5ECBD5C0'u32, data2: 0x8282'u16, data3: 0x5FE1'u16,
+    data4: [0xAD'u8, 0x39, 0x37, 0x4C, 0xDE, 0x70, 0xE0, 0xCD])
 const IID_TypedEventHandler_2_WebViewControlProcess_Object* = GUID(
     data1: 0x0C4182F4'u32, data2: 0xCC4C'u16, data3: 0x55F3'u16,
     data4: [0xB4'u8, 0x21, 0xD4, 0xE7, 0x49, 0xEB, 0x80, 0xA1])
@@ -1628,6 +1670,22 @@ proc title*(self: ResourceCollection): SyndicationText =
     vcall(it, Slot_IResourceCollection_get_Title, Fn_IResourceCollection_get_Title)(it, tmp.addr).check("ResourceCollection.get_Title")
     result = adopt[SyndicationText](tmp)
 
+proc categories*(self: ResourceCollection): seq[SyndicationCategory] =
+  ## Windows.Web.AtomPub.ResourceCollection.get_Categories
+  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceCollection_get_Categories, Fn_IResourceCollection_get_Categories)(it, tmp.addr).check("ResourceCollection.get_Categories")
+    result = toSeq[SyndicationCategory](tmp, IID_IVectorView_1_SyndicationCategory)
+    release(tmp)
+
+proc accepts*(self: ResourceCollection): seq[string] =
+  ## Windows.Web.AtomPub.ResourceCollection.get_Accepts
+  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceCollection_get_Accepts, Fn_IResourceCollection_get_Accepts)(it, tmp.addr).check("ResourceCollection.get_Accepts")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc nodeName*(self: ResourceCollection): string =
   ## Windows.Web.AtomPub.ResourceCollection.get_NodeName
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
@@ -1679,6 +1737,30 @@ proc `language=`*(self: ResourceCollection, value: string) =
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("ResourceCollection.put_Language")
+
+proc attributeExtensions*(self: ResourceCollection): seq[SyndicationAttribute] =
+  ## Windows.Web.AtomPub.ResourceCollection.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("ResourceCollection.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: ResourceCollection): seq[SyndicationNode] =
+  ## Windows.Web.AtomPub.ResourceCollection.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("ResourceCollection.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
+proc workspaces*(self: ServiceDocument): seq[Workspace] =
+  ## Windows.Web.AtomPub.ServiceDocument.get_Workspaces
+  withIface(self.p, IID_IServiceDocument, "IServiceDocument", it):
+    var tmp: pointer
+    vcall(it, Slot_IServiceDocument_get_Workspaces, Fn_IServiceDocument_get_Workspaces)(it, tmp.addr).check("ServiceDocument.get_Workspaces")
+    result = toSeq[Workspace](tmp, IID_IVectorView_1_Workspace)
+    release(tmp)
 
 proc nodeName*(self: ServiceDocument): string =
   ## Windows.Web.AtomPub.ServiceDocument.get_NodeName
@@ -1732,12 +1814,36 @@ proc `language=`*(self: ServiceDocument, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("ServiceDocument.put_Language")
 
+proc attributeExtensions*(self: ServiceDocument): seq[SyndicationAttribute] =
+  ## Windows.Web.AtomPub.ServiceDocument.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("ServiceDocument.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: ServiceDocument): seq[SyndicationNode] =
+  ## Windows.Web.AtomPub.ServiceDocument.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("ServiceDocument.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc title*(self: Workspace): SyndicationText =
   ## Windows.Web.AtomPub.Workspace.get_Title
   withIface(self.p, IID_IWorkspace, "IWorkspace", it):
     var tmp: pointer
     vcall(it, Slot_IWorkspace_get_Title, Fn_IWorkspace_get_Title)(it, tmp.addr).check("Workspace.get_Title")
     result = adopt[SyndicationText](tmp)
+
+proc collections*(self: Workspace): seq[ResourceCollection] =
+  ## Windows.Web.AtomPub.Workspace.get_Collections
+  withIface(self.p, IID_IWorkspace, "IWorkspace", it):
+    var tmp: pointer
+    vcall(it, Slot_IWorkspace_get_Collections, Fn_IWorkspace_get_Collections)(it, tmp.addr).check("Workspace.get_Collections")
+    result = toSeq[ResourceCollection](tmp, IID_IVectorView_1_ResourceCollection)
+    release(tmp)
 
 proc nodeName*(self: Workspace): string =
   ## Windows.Web.AtomPub.Workspace.get_NodeName
@@ -1790,6 +1896,22 @@ proc `language=`*(self: Workspace, value: string) =
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("Workspace.put_Language")
+
+proc attributeExtensions*(self: Workspace): seq[SyndicationAttribute] =
+  ## Windows.Web.AtomPub.Workspace.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("Workspace.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: Workspace): seq[SyndicationNode] =
+  ## Windows.Web.AtomPub.Workspace.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("Workspace.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
 
 proc start*(self: HttpDiagnosticProvider) =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.Start
@@ -1893,6 +2015,14 @@ proc initiator*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): 
     vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_Initiator")
     result = tmp
 
+proc sourceLocations*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): seq[HttpDiagnosticSourceLocation] =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_SourceLocations
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_SourceLocations")
+    result = toSeq[HttpDiagnosticSourceLocation](tmp, IID_IVectorView_1_HttpDiagnosticSourceLocation)
+    release(tmp)
+
 proc timestamp*(self: HttpDiagnosticProviderRequestSentEventArgs): DateTime =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_Timestamp
   withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
@@ -1934,6 +2064,14 @@ proc initiator*(self: HttpDiagnosticProviderRequestSentEventArgs): HttpDiagnosti
     var tmp: HttpDiagnosticRequestInitiator
     vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_Initiator")
     result = tmp
+
+proc sourceLocations*(self: HttpDiagnosticProviderRequestSentEventArgs): seq[HttpDiagnosticSourceLocation] =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_SourceLocations
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_SourceLocations")
+    result = toSeq[HttpDiagnosticSourceLocation](tmp, IID_IVectorView_1_HttpDiagnosticSourceLocation)
+    release(tmp)
 
 proc timestamp*(self: HttpDiagnosticProviderResponseReceivedEventArgs): DateTime =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderResponseReceivedEventArgs.get_Timestamp
@@ -2145,6 +2283,14 @@ proc tryParseAdd*(self: HttpCacheDirectiveHeaderValueCollection, a1: string): bo
       var tmp: bool
       vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd, Fn_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.TryParseAdd")
       result = tmp
+
+proc parameters*(self: HttpChallengeHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpChallengeHeaderValue, "IHttpChallengeHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpChallengeHeaderValue_get_Parameters, Fn_IHttpChallengeHeaderValue_get_Parameters)(it, tmp.addr).check("HttpChallengeHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
 
 proc scheme*(self: HttpChallengeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.get_Scheme
@@ -2370,6 +2516,14 @@ proc `name=`*(self: HttpContentDispositionHeaderValue, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IHttpContentDispositionHeaderValue_put_Name, Fn_IHttpContentDispositionHeaderValue_put_Name)(it, h0).check("HttpContentDispositionHeaderValue.put_Name")
 
+proc parameters*(self: HttpContentDispositionHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_Parameters, Fn_IHttpContentDispositionHeaderValue_get_Parameters)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
+
 proc parse*(_: typedesc[HttpContentDispositionHeaderValue], a1: string): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Parse
   withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue", IID_IHttpContentDispositionHeaderValueStatics, it):
@@ -2572,6 +2726,14 @@ proc tryParseAdd*(self: HttpCookiePairHeaderValueCollection, a1: string): bool =
       vcall(it, Slot_IHttpCookiePairHeaderValueCollection_TryParseAdd, Fn_IHttpCookiePairHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpCookiePairHeaderValueCollection.TryParseAdd")
       result = tmp
 
+proc parameters*(self: HttpCredentialsHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCredentialsHeaderValue_get_Parameters, Fn_IHttpCredentialsHeaderValue_get_Parameters)(it, tmp.addr).check("HttpCredentialsHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
+
 proc scheme*(self: HttpCredentialsHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.get_Scheme
   withIface(self.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", it):
@@ -2638,6 +2800,14 @@ proc `value=`*(self: HttpExpectationHeaderValue, value: string) =
   withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
     withHString(value, h0):
       vcall(it, Slot_IHttpExpectationHeaderValue_put_Value, Fn_IHttpExpectationHeaderValue_put_Value)(it, h0).check("HttpExpectationHeaderValue.put_Value")
+
+proc parameters*(self: HttpExpectationHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpExpectationHeaderValue_get_Parameters, Fn_IHttpExpectationHeaderValue_get_Parameters)(it, tmp.addr).check("HttpExpectationHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
 
 proc parse*(_: typedesc[HttpExpectationHeaderValue], a1: string): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.Parse
@@ -2763,6 +2933,14 @@ proc `mediaType=`*(self: HttpMediaTypeHeaderValue, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IHttpMediaTypeHeaderValue_put_MediaType, Fn_IHttpMediaTypeHeaderValue_put_MediaType)(it, h0).check("HttpMediaTypeHeaderValue.put_MediaType")
 
+proc parameters*(self: HttpMediaTypeHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpMediaTypeHeaderValue_get_Parameters, Fn_IHttpMediaTypeHeaderValue_get_Parameters)(it, tmp.addr).check("HttpMediaTypeHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
+
 proc parse*(_: typedesc[HttpMediaTypeHeaderValue], a1: string): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Parse
   withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue", IID_IHttpMediaTypeHeaderValueStatics, it):
@@ -2804,6 +2982,14 @@ proc `mediaType=`*(self: HttpMediaTypeWithQualityHeaderValue, value: string) =
   withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
     withHString(value, h0):
       vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_put_MediaType, Fn_IHttpMediaTypeWithQualityHeaderValue_put_MediaType)(it, h0).check("HttpMediaTypeWithQualityHeaderValue.put_MediaType")
+
+proc parameters*(self: HttpMediaTypeWithQualityHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_Parameters, Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
 
 proc parse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], a1: string): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.Parse
@@ -3182,6 +3368,14 @@ proc tryAppendWithoutValidation*(self: HttpResponseHeaderCollection, a1: string,
         var tmp: bool
         vcall(it, Slot_IHttpResponseHeaderCollection_TryAppendWithoutValidation, Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation)(it, h0, h1, tmp.addr).check("HttpResponseHeaderCollection.TryAppendWithoutValidation")
         result = tmp
+
+proc parameters*(self: HttpTransferCodingHeaderValue): seq[HttpNameValueHeaderValue] =
+  ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.get_Parameters
+  withIface(self.p, IID_IHttpTransferCodingHeaderValue, "IHttpTransferCodingHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpTransferCodingHeaderValue_get_Parameters, Fn_IHttpTransferCodingHeaderValue_get_Parameters)(it, tmp.addr).check("HttpTransferCodingHeaderValue.get_Parameters")
+    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
 
 proc value*(self: HttpTransferCodingHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.get_Value
@@ -3981,6 +4175,22 @@ proc `language=`*(self: SyndicationCategory, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationCategory.put_Language")
 
+proc attributeExtensions*(self: SyndicationCategory): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationCategory.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationCategory.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationCategory): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationCategory.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationCategory.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc createSyndicationCategory*(_: typedesc[SyndicationCategory], a1: string): SyndicationCategory =
   ## Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategory
   withStatics("Windows.Web.Syndication.SyndicationCategory", IID_ISyndicationCategoryFactory, it):
@@ -4128,6 +4338,22 @@ proc `language=`*(self: SyndicationContent, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationContent.put_Language")
 
+proc attributeExtensions*(self: SyndicationContent): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationContent.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationContent.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationContent): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationContent.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationContent.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc createSyndicationContent*(_: typedesc[SyndicationContent], a1: string, a2: SyndicationTextType): SyndicationContent =
   ## Windows.Web.Syndication.SyndicationContent.CreateSyndicationContent
   withStatics("Windows.Web.Syndication.SyndicationContent", IID_ISyndicationContentFactory, it):
@@ -4146,6 +4372,30 @@ proc getStatus*(_: typedesc[SyndicationError], a1: int32): SyndicationErrorStatu
 proc newSyndicationFeed*(): SyndicationFeed =
   ## Activate a `Windows.Web.Syndication.SyndicationFeed`.
   adopt[SyndicationFeed](activateAs("Windows.Web.Syndication.SyndicationFeed", IID_ISyndicationFeed))
+
+proc authors*(self: SyndicationFeed): seq[SyndicationPerson] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_Authors
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationFeed_get_Authors, Fn_ISyndicationFeed_get_Authors)(it, tmp.addr).check("SyndicationFeed.get_Authors")
+    result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
+    release(tmp)
+
+proc categories*(self: SyndicationFeed): seq[SyndicationCategory] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_Categories
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationFeed_get_Categories, Fn_ISyndicationFeed_get_Categories)(it, tmp.addr).check("SyndicationFeed.get_Categories")
+    result = toSeq[SyndicationCategory](tmp, IID_IVector_1_SyndicationCategory)
+    release(tmp)
+
+proc contributors*(self: SyndicationFeed): seq[SyndicationPerson] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_Contributors
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationFeed_get_Contributors, Fn_ISyndicationFeed_get_Contributors)(it, tmp.addr).check("SyndicationFeed.get_Contributors")
+    result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
+    release(tmp)
 
 proc generator*(self: SyndicationFeed): SyndicationGenerator =
   ## Windows.Web.Syndication.SyndicationFeed.get_Generator
@@ -4173,6 +4423,14 @@ proc `id=`*(self: SyndicationFeed, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationFeed_put_Id, Fn_ISyndicationFeed_put_Id)(it, h0).check("SyndicationFeed.put_Id")
 
+proc items*(self: SyndicationFeed): seq[SyndicationItem] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_Items
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationFeed_get_Items, Fn_ISyndicationFeed_get_Items)(it, tmp.addr).check("SyndicationFeed.get_Items")
+    result = toSeq[SyndicationItem](tmp, IID_IVector_1_SyndicationItem)
+    release(tmp)
+
 proc lastUpdatedTime*(self: SyndicationFeed): DateTime =
   ## Windows.Web.Syndication.SyndicationFeed.get_LastUpdatedTime
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
@@ -4184,6 +4442,14 @@ proc `lastUpdatedTime=`*(self: SyndicationFeed, value: DateTime) =
   ## Windows.Web.Syndication.SyndicationFeed.put_LastUpdatedTime
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     vcall(it, Slot_ISyndicationFeed_put_LastUpdatedTime, Fn_ISyndicationFeed_put_LastUpdatedTime)(it, value).check("SyndicationFeed.put_LastUpdatedTime")
+
+proc links*(self: SyndicationFeed): seq[SyndicationLink] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_Links
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationFeed_get_Links, Fn_ISyndicationFeed_get_Links)(it, tmp.addr).check("SyndicationFeed.get_Links")
+    result = toSeq[SyndicationLink](tmp, IID_IVector_1_SyndicationLink)
+    release(tmp)
 
 proc rights*(self: SyndicationFeed): SyndicationText =
   ## Windows.Web.Syndication.SyndicationFeed.get_Rights
@@ -4289,6 +4555,22 @@ proc `language=`*(self: SyndicationFeed, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationFeed.put_Language")
 
+proc attributeExtensions*(self: SyndicationFeed): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationFeed.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationFeed): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationFeed.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationFeed.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc newSyndicationGenerator*(): SyndicationGenerator =
   ## Activate a `Windows.Web.Syndication.SyndicationGenerator`.
   adopt[SyndicationGenerator](activateAs("Windows.Web.Syndication.SyndicationGenerator", IID_ISyndicationGenerator))
@@ -4371,6 +4653,22 @@ proc `language=`*(self: SyndicationGenerator, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationGenerator.put_Language")
 
+proc attributeExtensions*(self: SyndicationGenerator): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationGenerator.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationGenerator.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationGenerator): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationGenerator.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationGenerator.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc createSyndicationGenerator*(_: typedesc[SyndicationGenerator], a1: string): SyndicationGenerator =
   ## Windows.Web.Syndication.SyndicationGenerator.CreateSyndicationGenerator
   withStatics("Windows.Web.Syndication.SyndicationGenerator", IID_ISyndicationGeneratorFactory, it):
@@ -4382,6 +4680,30 @@ proc createSyndicationGenerator*(_: typedesc[SyndicationGenerator], a1: string):
 proc newSyndicationItem*(): SyndicationItem =
   ## Activate a `Windows.Web.Syndication.SyndicationItem`.
   adopt[SyndicationItem](activateAs("Windows.Web.Syndication.SyndicationItem", IID_ISyndicationItem))
+
+proc authors*(self: SyndicationItem): seq[SyndicationPerson] =
+  ## Windows.Web.Syndication.SyndicationItem.get_Authors
+  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationItem_get_Authors, Fn_ISyndicationItem_get_Authors)(it, tmp.addr).check("SyndicationItem.get_Authors")
+    result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
+    release(tmp)
+
+proc categories*(self: SyndicationItem): seq[SyndicationCategory] =
+  ## Windows.Web.Syndication.SyndicationItem.get_Categories
+  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationItem_get_Categories, Fn_ISyndicationItem_get_Categories)(it, tmp.addr).check("SyndicationItem.get_Categories")
+    result = toSeq[SyndicationCategory](tmp, IID_IVector_1_SyndicationCategory)
+    release(tmp)
+
+proc contributors*(self: SyndicationItem): seq[SyndicationPerson] =
+  ## Windows.Web.Syndication.SyndicationItem.get_Contributors
+  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationItem_get_Contributors, Fn_ISyndicationItem_get_Contributors)(it, tmp.addr).check("SyndicationItem.get_Contributors")
+    result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
+    release(tmp)
 
 proc content*(self: SyndicationItem): SyndicationContent =
   ## Windows.Web.Syndication.SyndicationItem.get_Content
@@ -4420,6 +4742,14 @@ proc `lastUpdatedTime=`*(self: SyndicationItem, value: DateTime) =
   ## Windows.Web.Syndication.SyndicationItem.put_LastUpdatedTime
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     vcall(it, Slot_ISyndicationItem_put_LastUpdatedTime, Fn_ISyndicationItem_put_LastUpdatedTime)(it, value).check("SyndicationItem.put_LastUpdatedTime")
+
+proc links*(self: SyndicationItem): seq[SyndicationLink] =
+  ## Windows.Web.Syndication.SyndicationItem.get_Links
+  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationItem_get_Links, Fn_ISyndicationItem_get_Links)(it, tmp.addr).check("SyndicationItem.get_Links")
+    result = toSeq[SyndicationLink](tmp, IID_IVector_1_SyndicationLink)
+    release(tmp)
 
 proc publishedDate*(self: SyndicationItem): DateTime =
   ## Windows.Web.Syndication.SyndicationItem.get_PublishedDate
@@ -4550,6 +4880,22 @@ proc `language=`*(self: SyndicationItem, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationItem.put_Language")
 
+proc attributeExtensions*(self: SyndicationItem): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationItem.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationItem.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationItem): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationItem.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationItem.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc newSyndicationLink*(): SyndicationLink =
   ## Activate a `Windows.Web.Syndication.SyndicationLink`.
   adopt[SyndicationLink](activateAs("Windows.Web.Syndication.SyndicationLink", IID_ISyndicationLink))
@@ -4670,6 +5016,22 @@ proc `language=`*(self: SyndicationLink, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationLink.put_Language")
 
+proc attributeExtensions*(self: SyndicationLink): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationLink.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationLink.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationLink): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationLink.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationLink.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc newSyndicationNode*(): SyndicationNode =
   ## Activate a `Windows.Web.Syndication.SyndicationNode`.
   adopt[SyndicationNode](activateAs("Windows.Web.Syndication.SyndicationNode", IID_ISyndicationNode))
@@ -4725,6 +5087,22 @@ proc `language=`*(self: SyndicationNode, value: string) =
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationNode.put_Language")
+
+proc attributeExtensions*(self: SyndicationNode): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationNode.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationNode.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationNode): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationNode.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationNode.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
 
 proc createSyndicationNode*(_: typedesc[SyndicationNode], a1: string, a2: string, a3: string): SyndicationNode =
   ## Windows.Web.Syndication.SyndicationNode.CreateSyndicationNode
@@ -4818,6 +5196,22 @@ proc `language=`*(self: SyndicationPerson, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationPerson.put_Language")
 
+proc attributeExtensions*(self: SyndicationPerson): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationPerson.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationPerson.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationPerson): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationPerson.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationPerson.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc createSyndicationPerson*(_: typedesc[SyndicationPerson], a1: string): SyndicationPerson =
   ## Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPerson
   withStatics("Windows.Web.Syndication.SyndicationPerson", IID_ISyndicationPersonFactory, it):
@@ -4908,6 +5302,22 @@ proc `language=`*(self: SyndicationText, value: string) =
     withHString(value, h0):
       vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationText.put_Language")
 
+proc attributeExtensions*(self: SyndicationText): seq[SyndicationAttribute] =
+  ## Windows.Web.Syndication.SyndicationText.get_AttributeExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationText.get_AttributeExtensions")
+    result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
+    release(tmp)
+
+proc elementExtensions*(self: SyndicationText): seq[SyndicationNode] =
+  ## Windows.Web.Syndication.SyndicationText.get_ElementExtensions
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationText.get_ElementExtensions")
+    result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
+    release(tmp)
+
 proc createSyndicationText*(_: typedesc[SyndicationText], a1: string): SyndicationText =
   ## Windows.Web.Syndication.SyndicationText.CreateSyndicationText
   withStatics("Windows.Web.Syndication.SyndicationText", IID_ISyndicationTextFactory, it):
@@ -4970,6 +5380,14 @@ proc settings*(self: WebViewControl): WebViewControlSettings =
     var tmp: pointer
     vcall(it, Slot_IWebViewControl_get_Settings, Fn_IWebViewControl_get_Settings)(it, tmp.addr).check("WebViewControl.get_Settings")
     result = adopt[WebViewControlSettings](tmp)
+
+proc deferredPermissionRequests*(self: WebViewControl): seq[WebViewControlDeferredPermissionRequest] =
+  ## Windows.Web.UI.Interop.WebViewControl.get_DeferredPermissionRequests
+  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewControl_get_DeferredPermissionRequests, Fn_IWebViewControl_get_DeferredPermissionRequests)(it, tmp.addr).check("WebViewControl.get_DeferredPermissionRequests")
+    result = toSeq[WebViewControlDeferredPermissionRequest](tmp, IID_IVectorView_1_WebViewControlDeferredPermissionRequest)
+    release(tmp)
 
 proc goForward*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.GoForward
@@ -5525,6 +5943,14 @@ proc isPrivateNetworkClientServerCapabilityEnabled*(self: WebViewControlProcess)
     var tmp: bool
     vcall(it, Slot_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled, Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled)(it, tmp.addr).check("WebViewControlProcess.get_IsPrivateNetworkClientServerCapabilityEnabled")
     result = tmp
+
+proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl] =
+  ## Windows.Web.UI.Interop.WebViewControlProcess.GetWebViewControls
+  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewControlProcess_GetWebViewControls, Fn_IWebViewControlProcess_GetWebViewControls)(it, tmp.addr).check("WebViewControlProcess.GetWebViewControls")
+    result = toSeq[WebViewControl](tmp, IID_IVectorView_1_WebViewControl)
+    release(tmp)
 
 proc terminate*(self: WebViewControlProcess) =
   ## Windows.Web.UI.Interop.WebViewControlProcess.Terminate

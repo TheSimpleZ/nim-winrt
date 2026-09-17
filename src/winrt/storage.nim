@@ -23,6 +23,12 @@ const IID_TypedEventHandler_2_ApplicationData_Object* = GUID(
 const IID_TypedEventHandler_2_IStorageItemInformation_Object* = GUID(
     data1: 0x5B98B352'u32, data2: 0xE0CF'u16, data3: 0x58DE'u16,
     data4: [0xB2'u8, 0xEC, 0x4F, 0xD7, 0x86, 0xBB, 0xB5, 0xA7])
+const IID_IVector_1_String* = GUID(
+    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
+    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs* = GUID(
     data1: 0xF1FB2939'u32, data2: 0x695B'u16, data3: 0x5F56'u16,
     data4: [0x84'u8, 0x1A, 0xA5, 0x2A, 0x7D, 0x14, 0x85, 0x72])
@@ -41,6 +47,18 @@ const IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs* 
 const IID_TypedEventHandler_2_CachedFileUpdaterUI_Object* = GUID(
     data1: 0x45FDD443'u32, data2: 0xC0B9'u16, data3: 0x57B0'u16,
     data4: [0xA8'u8, 0x4F, 0x7D, 0x87, 0x6E, 0xDC, 0x31, 0x49])
+const IID_IVector_1_StorageProviderKnownFolderEntry* = GUID(
+    data1: 0xB4EA581C'u32, data2: 0x4B58'u16, data3: 0x5A27'u16,
+    data4: [0x84'u8, 0x8E, 0xC3, 0x3D, 0x15, 0x3E, 0xCE, 0x60])
+const IID_IVector_1_StorageProviderItemPropertyDefinition* = GUID(
+    data1: 0xF839FCFF'u32, data2: 0x87DF'u16, data3: 0x53A7'u16,
+    data4: [0x94'u8, 0xD4, 0xB5, 0x07, 0x10, 0x1E, 0x7E, 0x63])
+const IID_IVector_1_StorageProviderFileTypeInfo* = GUID(
+    data1: 0x9172E4AB'u32, data2: 0xA9CA'u16, data3: 0x5CC4'u16,
+    data4: [0x93'u8, 0x11, 0x36, 0x3F, 0x9F, 0x09, 0x7D, 0xA5])
+const IID_IVectorView_1_StorageProviderSyncRootInfo* = GUID(
+    data1: 0x211521E5'u32, data2: 0x217C'u16, data3: 0x5FF3'u16,
+    data4: [0xBF'u8, 0x9E, 0x8D, 0xC4, 0xD6, 0x75, 0x17, 0x7F])
 const IID_TypedEventHandler_2_IStorageQueryResultBase_Object* = GUID(
     data1: 0x4BA22861'u32, data2: 0x00C4'u16, data3: 0x597F'u16,
     data4: [0xB6'u8, 0xBF, 0x3A, 0xF5, 0x16, 0xF3, 0xB8, 0x70])
@@ -2658,6 +2676,14 @@ proc savePropertiesAsync*(self: BasicProperties): pointer =
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, tmp.addr).check("BasicProperties.SavePropertiesAsync")
     result = tmp
 
+proc author*(self: DocumentProperties): seq[string] =
+  ## Windows.Storage.FileProperties.DocumentProperties.get_Author
+  withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IDocumentProperties_get_Author, Fn_IDocumentProperties_get_Author)(it, tmp.addr).check("DocumentProperties.get_Author")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc title*(self: DocumentProperties): string =
   ## Windows.Storage.FileProperties.DocumentProperties.get_Title
   withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
@@ -2670,6 +2696,14 @@ proc `title=`*(self: DocumentProperties, value: string) =
   withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IDocumentProperties_put_Title, Fn_IDocumentProperties_put_Title)(it, h0).check("DocumentProperties.put_Title")
+
+proc keywords*(self: DocumentProperties): seq[string] =
+  ## Windows.Storage.FileProperties.DocumentProperties.get_Keywords
+  withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IDocumentProperties_get_Keywords, Fn_IDocumentProperties_get_Keywords)(it, tmp.addr).check("DocumentProperties.get_Keywords")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc comment*(self: DocumentProperties): string =
   ## Windows.Storage.FileProperties.DocumentProperties.get_Comment
@@ -2702,6 +2736,14 @@ proc `rating=`*(self: ImageProperties, value: uint32) =
   ## Windows.Storage.FileProperties.ImageProperties.put_Rating
   withIface(self.p, IID_IImageProperties, "IImageProperties", it):
     vcall(it, Slot_IImageProperties_put_Rating, Fn_IImageProperties_put_Rating)(it, value).check("ImageProperties.put_Rating")
+
+proc keywords*(self: ImageProperties): seq[string] =
+  ## Windows.Storage.FileProperties.ImageProperties.get_Keywords
+  withIface(self.p, IID_IImageProperties, "IImageProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageProperties_get_Keywords, Fn_IImageProperties_get_Keywords)(it, tmp.addr).check("ImageProperties.get_Keywords")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc dateTaken*(self: ImageProperties): DateTime =
   ## Windows.Storage.FileProperties.ImageProperties.get_DateTaken
@@ -2775,6 +2817,14 @@ proc orientation*(self: ImageProperties): PhotoOrientation =
     vcall(it, Slot_IImageProperties_get_Orientation, Fn_IImageProperties_get_Orientation)(it, tmp.addr).check("ImageProperties.get_Orientation")
     result = tmp
 
+proc peopleNames*(self: ImageProperties): seq[string] =
+  ## Windows.Storage.FileProperties.ImageProperties.get_PeopleNames
+  withIface(self.p, IID_IImageProperties, "IImageProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageProperties_get_PeopleNames, Fn_IImageProperties_get_PeopleNames)(it, tmp.addr).check("ImageProperties.get_PeopleNames")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc savePropertiesAsync*(self: ImageProperties): pointer =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
@@ -2807,6 +2857,14 @@ proc `artist=`*(self: MusicProperties, value: string) =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IMusicProperties_put_Artist, Fn_IMusicProperties_put_Artist)(it, h0).check("MusicProperties.put_Artist")
+
+proc genre*(self: MusicProperties): seq[string] =
+  ## Windows.Storage.FileProperties.MusicProperties.get_Genre
+  withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicProperties_get_Genre, Fn_IMusicProperties_get_Genre)(it, tmp.addr).check("MusicProperties.get_Genre")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc trackNumber*(self: MusicProperties): uint32 =
   ## Windows.Storage.FileProperties.MusicProperties.get_TrackNumber
@@ -2872,6 +2930,22 @@ proc `albumArtist=`*(self: MusicProperties, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IMusicProperties_put_AlbumArtist, Fn_IMusicProperties_put_AlbumArtist)(it, h0).check("MusicProperties.put_AlbumArtist")
 
+proc composers*(self: MusicProperties): seq[string] =
+  ## Windows.Storage.FileProperties.MusicProperties.get_Composers
+  withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicProperties_get_Composers, Fn_IMusicProperties_get_Composers)(it, tmp.addr).check("MusicProperties.get_Composers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc conductors*(self: MusicProperties): seq[string] =
+  ## Windows.Storage.FileProperties.MusicProperties.get_Conductors
+  withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicProperties_get_Conductors, Fn_IMusicProperties_get_Conductors)(it, tmp.addr).check("MusicProperties.get_Conductors")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc subtitle*(self: MusicProperties): string =
   ## Windows.Storage.FileProperties.MusicProperties.get_Subtitle
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
@@ -2885,6 +2959,14 @@ proc `subtitle=`*(self: MusicProperties, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IMusicProperties_put_Subtitle, Fn_IMusicProperties_put_Subtitle)(it, h0).check("MusicProperties.put_Subtitle")
 
+proc producers*(self: MusicProperties): seq[string] =
+  ## Windows.Storage.FileProperties.MusicProperties.get_Producers
+  withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicProperties_get_Producers, Fn_IMusicProperties_get_Producers)(it, tmp.addr).check("MusicProperties.get_Producers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc publisher*(self: MusicProperties): string =
   ## Windows.Storage.FileProperties.MusicProperties.get_Publisher
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
@@ -2897,6 +2979,14 @@ proc `publisher=`*(self: MusicProperties, value: string) =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IMusicProperties_put_Publisher, Fn_IMusicProperties_put_Publisher)(it, h0).check("MusicProperties.put_Publisher")
+
+proc writers*(self: MusicProperties): seq[string] =
+  ## Windows.Storage.FileProperties.MusicProperties.get_Writers
+  withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMusicProperties_get_Writers, Fn_IMusicProperties_get_Writers)(it, tmp.addr).check("MusicProperties.get_Writers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc year*(self: MusicProperties): uint32 =
   ## Windows.Storage.FileProperties.MusicProperties.get_Year
@@ -3030,6 +3120,14 @@ proc `rating=`*(self: VideoProperties, value: uint32) =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     vcall(it, Slot_IVideoProperties_put_Rating, Fn_IVideoProperties_put_Rating)(it, value).check("VideoProperties.put_Rating")
 
+proc keywords*(self: VideoProperties): seq[string] =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Keywords
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Keywords, Fn_IVideoProperties_get_Keywords)(it, tmp.addr).check("VideoProperties.get_Keywords")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc width*(self: VideoProperties): uint32 =
   ## Windows.Storage.FileProperties.VideoProperties.get_Width
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
@@ -3077,6 +3175,14 @@ proc `subtitle=`*(self: VideoProperties, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IVideoProperties_put_Subtitle, Fn_IVideoProperties_put_Subtitle)(it, h0).check("VideoProperties.put_Subtitle")
 
+proc producers*(self: VideoProperties): seq[string] =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Producers
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Producers, Fn_IVideoProperties_get_Producers)(it, tmp.addr).check("VideoProperties.get_Producers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc publisher*(self: VideoProperties): string =
   ## Windows.Storage.FileProperties.VideoProperties.get_Publisher
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
@@ -3089,6 +3195,14 @@ proc `publisher=`*(self: VideoProperties, value: string) =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IVideoProperties_put_Publisher, Fn_IVideoProperties_put_Publisher)(it, h0).check("VideoProperties.put_Publisher")
+
+proc writers*(self: VideoProperties): seq[string] =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Writers
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Writers, Fn_IVideoProperties_get_Writers)(it, tmp.addr).check("VideoProperties.get_Writers")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc year*(self: VideoProperties): uint32 =
   ## Windows.Storage.FileProperties.VideoProperties.get_Year
@@ -3108,6 +3222,14 @@ proc bitrate*(self: VideoProperties): uint32 =
     var tmp: uint32
     vcall(it, Slot_IVideoProperties_get_Bitrate, Fn_IVideoProperties_get_Bitrate)(it, tmp.addr).check("VideoProperties.get_Bitrate")
     result = tmp
+
+proc directors*(self: VideoProperties): seq[string] =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Directors
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Directors, Fn_IVideoProperties_get_Directors)(it, tmp.addr).check("VideoProperties.get_Directors")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc orientation*(self: VideoProperties): VideoOrientation =
   ## Windows.Storage.FileProperties.VideoProperties.get_Orientation
@@ -3323,6 +3445,14 @@ proc `commitButtonText=`*(self: FileOpenPicker, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IFileOpenPicker_put_CommitButtonText, Fn_IFileOpenPicker_put_CommitButtonText)(it, h0).check("FileOpenPicker.put_CommitButtonText")
 
+proc fileTypeFilter*(self: FileOpenPicker): seq[string] =
+  ## Windows.Storage.Pickers.FileOpenPicker.get_FileTypeFilter
+  withIface(self.p, IID_IFileOpenPicker, "IFileOpenPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPicker_get_FileTypeFilter, Fn_IFileOpenPicker_get_FileTypeFilter)(it, tmp.addr).check("FileOpenPicker.get_FileTypeFilter")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc newFileSavePicker*(): FileSavePicker =
   ## Activate a `Windows.Storage.Pickers.FileSavePicker`.
   adopt[FileSavePicker](activateAs("Windows.Storage.Pickers.FileSavePicker", IID_IFileSavePicker2))
@@ -3481,6 +3611,14 @@ proc `commitButtonText=`*(self: FolderPicker, value: string) =
     withHString(value, h0):
       vcall(it, Slot_IFolderPicker_put_CommitButtonText, Fn_IFolderPicker_put_CommitButtonText)(it, h0).check("FolderPicker.put_CommitButtonText")
 
+proc fileTypeFilter*(self: FolderPicker): seq[string] =
+  ## Windows.Storage.Pickers.FolderPicker.get_FileTypeFilter
+  withIface(self.p, IID_IFolderPicker, "IFolderPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFolderPicker_get_FileTypeFilter, Fn_IFolderPicker_get_FileTypeFilter)(it, tmp.addr).check("FolderPicker.get_FileTypeFilter")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc addFile*(self: FileOpenPickerUI, a1: string, a2: StorageFile): AddFileResult =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.AddFile
   withIface(self.p, IID_IFileOpenPickerUI, "IFileOpenPickerUI", it):
@@ -3511,6 +3649,14 @@ proc canAddFile*(self: FileOpenPickerUI, a1: StorageFile): bool =
       var tmp: bool
       vcall(it, Slot_IFileOpenPickerUI_CanAddFile, Fn_IFileOpenPickerUI_CanAddFile)(it, p0, tmp.addr).check("FileOpenPickerUI.CanAddFile")
       result = tmp
+
+proc allowedFileTypes*(self: FileOpenPickerUI): seq[string] =
+  ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.get_AllowedFileTypes
+  withIface(self.p, IID_IFileOpenPickerUI, "IFileOpenPickerUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPickerUI_get_AllowedFileTypes, Fn_IFileOpenPickerUI_get_AllowedFileTypes)(it, tmp.addr).check("FileOpenPickerUI.get_AllowedFileTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc selectionMode*(self: FileOpenPickerUI): FileSelectionMode =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.get_SelectionMode
@@ -3596,6 +3742,14 @@ proc `title=`*(self: FileSavePickerUI, value: string) =
   withIface(self.p, IID_IFileSavePickerUI, "IFileSavePickerUI", it):
     withHString(value, h0):
       vcall(it, Slot_IFileSavePickerUI_put_Title, Fn_IFileSavePickerUI_put_Title)(it, h0).check("FileSavePickerUI.put_Title")
+
+proc allowedFileTypes*(self: FileSavePickerUI): seq[string] =
+  ## Windows.Storage.Pickers.Provider.FileSavePickerUI.get_AllowedFileTypes
+  withIface(self.p, IID_IFileSavePickerUI, "IFileSavePickerUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileSavePickerUI_get_AllowedFileTypes, Fn_IFileSavePickerUI_get_AllowedFileTypes)(it, tmp.addr).check("FileSavePickerUI.get_AllowedFileTypes")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc settingsIdentifier*(self: FileSavePickerUI): string =
   ## Windows.Storage.Pickers.Provider.FileSavePickerUI.get_SettingsIdentifier
@@ -4082,6 +4236,14 @@ proc `providerDisplayName=`*(self: StorageProviderKnownFolderSyncInfo, value: st
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderKnownFolderSyncInfo_put_ProviderDisplayName, Fn_IStorageProviderKnownFolderSyncInfo_put_ProviderDisplayName)(it, h0).check("StorageProviderKnownFolderSyncInfo.put_ProviderDisplayName")
 
+proc knownFolderEntries*(self: StorageProviderKnownFolderSyncInfo): seq[StorageProviderKnownFolderEntry] =
+  ## Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo.get_KnownFolderEntries
+  withIface(self.p, IID_IStorageProviderKnownFolderSyncInfo, "IStorageProviderKnownFolderSyncInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries, Fn_IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries)(it, tmp.addr).check("StorageProviderKnownFolderSyncInfo.get_KnownFolderEntries")
+    result = toSeq[StorageProviderKnownFolderEntry](tmp, IID_IVector_1_StorageProviderKnownFolderEntry)
+    release(tmp)
+
 proc source*(self: StorageProviderKnownFolderSyncRequestArgs): StorageFolder =
   ## Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs.get_Source
   withIface(self.p, IID_IStorageProviderKnownFolderSyncRequestArgs, "IStorageProviderKnownFolderSyncRequestArgs", it):
@@ -4225,6 +4387,14 @@ proc queryId*(self: StorageProviderSearchQueryOptions): string =
     var tmp: HSTRING
     vcall(it, Slot_IStorageProviderSearchQueryOptions_get_QueryId, Fn_IStorageProviderSearchQueryOptions_get_QueryId)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_QueryId")
     result = takeString(tmp)
+
+proc propertiesToFetch*(self: StorageProviderSearchQueryOptions): seq[string] =
+  ## Windows.Storage.Provider.StorageProviderSearchQueryOptions.get_PropertiesToFetch
+  withIface(self.p, IID_IStorageProviderSearchQueryOptions, "IStorageProviderSearchQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSearchQueryOptions_get_PropertiesToFetch, Fn_IStorageProviderSearchQueryOptions_get_PropertiesToFetch)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_PropertiesToFetch")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
 
 proc newStorageProviderSearchResult*(): StorageProviderSearchResult =
   ## Activate a `Windows.Storage.Provider.StorageProviderSearchResult`.
@@ -4480,6 +4650,14 @@ proc queryId*(self: StorageProviderSuggestionsQueryOptions): string =
     vcall(it, Slot_IStorageProviderSuggestionsQueryOptions_get_QueryId, Fn_IStorageProviderSuggestionsQueryOptions_get_QueryId)(it, tmp.addr).check("StorageProviderSuggestionsQueryOptions.get_QueryId")
     result = takeString(tmp)
 
+proc propertiesToFetch*(self: StorageProviderSuggestionsQueryOptions): seq[string] =
+  ## Windows.Storage.Provider.StorageProviderSuggestionsQueryOptions.get_PropertiesToFetch
+  withIface(self.p, IID_IStorageProviderSuggestionsQueryOptions, "IStorageProviderSuggestionsQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch, Fn_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch)(it, tmp.addr).check("StorageProviderSuggestionsQueryOptions.get_PropertiesToFetch")
+    result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
 proc newStorageProviderSyncRootInfo*(): StorageProviderSyncRootInfo =
   ## Activate a `Windows.Storage.Provider.StorageProviderSyncRootInfo`.
   adopt[StorageProviderSyncRootInfo](activateAs("Windows.Storage.Provider.StorageProviderSyncRootInfo", IID_IStorageProviderSyncRootInfo))
@@ -4658,6 +4836,14 @@ proc `allowPinning=`*(self: StorageProviderSyncRootInfo, value: bool) =
   withIface(self.p, IID_IStorageProviderSyncRootInfo, "IStorageProviderSyncRootInfo", it):
     vcall(it, Slot_IStorageProviderSyncRootInfo_put_AllowPinning, Fn_IStorageProviderSyncRootInfo_put_AllowPinning)(it, value).check("StorageProviderSyncRootInfo.put_AllowPinning")
 
+proc storageProviderItemPropertyDefinitions*(self: StorageProviderSyncRootInfo): seq[StorageProviderItemPropertyDefinition] =
+  ## Windows.Storage.Provider.StorageProviderSyncRootInfo.get_StorageProviderItemPropertyDefinitions
+  withIface(self.p, IID_IStorageProviderSyncRootInfo, "IStorageProviderSyncRootInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions, Fn_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions)(it, tmp.addr).check("StorageProviderSyncRootInfo.get_StorageProviderItemPropertyDefinitions")
+    result = toSeq[StorageProviderItemPropertyDefinition](tmp, IID_IVector_1_StorageProviderItemPropertyDefinition)
+    release(tmp)
+
 proc providerId*(self: StorageProviderSyncRootInfo): GUID =
   ## Windows.Storage.Provider.StorageProviderSyncRootInfo.get_ProviderId
   withIface(self.p, IID_IStorageProviderSyncRootInfo2, "IStorageProviderSyncRootInfo2", it):
@@ -4669,6 +4855,14 @@ proc `providerId=`*(self: StorageProviderSyncRootInfo, value: GUID) =
   ## Windows.Storage.Provider.StorageProviderSyncRootInfo.put_ProviderId
   withIface(self.p, IID_IStorageProviderSyncRootInfo2, "IStorageProviderSyncRootInfo2", it):
     vcall(it, Slot_IStorageProviderSyncRootInfo2_put_ProviderId, Fn_IStorageProviderSyncRootInfo2_put_ProviderId)(it, value).check("StorageProviderSyncRootInfo.put_ProviderId")
+
+proc fallbackFileTypeInfo*(self: StorageProviderSyncRootInfo): seq[StorageProviderFileTypeInfo] =
+  ## Windows.Storage.Provider.StorageProviderSyncRootInfo.get_FallbackFileTypeInfo
+  withIface(self.p, IID_IStorageProviderSyncRootInfo3, "IStorageProviderSyncRootInfo3", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo, Fn_IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo)(it, tmp.addr).check("StorageProviderSyncRootInfo.get_FallbackFileTypeInfo")
+    result = toSeq[StorageProviderFileTypeInfo](tmp, IID_IVector_1_StorageProviderFileTypeInfo)
+    release(tmp)
 
 proc register*(_: typedesc[StorageProviderSyncRootManager], a1: StorageProviderSyncRootInfo) =
   ## Windows.Storage.Provider.StorageProviderSyncRootManager.Register
@@ -4697,6 +4891,14 @@ proc getSyncRootInformationForId*(_: typedesc[StorageProviderSyncRootManager], a
       var tmp: pointer
       vcall(it, Slot_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForId, Fn_IStorageProviderSyncRootManagerStatics_GetSyncRootInformationForId)(it, h0, tmp.addr).check("StorageProviderSyncRootManager.GetSyncRootInformationForId")
       result = adopt[StorageProviderSyncRootInfo](tmp)
+
+proc getCurrentSyncRoots*(_: typedesc[StorageProviderSyncRootManager]): seq[StorageProviderSyncRootInfo] =
+  ## Windows.Storage.Provider.StorageProviderSyncRootManager.GetCurrentSyncRoots
+  withStatics("Windows.Storage.Provider.StorageProviderSyncRootManager", IID_IStorageProviderSyncRootManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots, Fn_IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots)(it, tmp.addr).check("StorageProviderSyncRootManager.GetCurrentSyncRoots")
+    result = toSeq[StorageProviderSyncRootInfo](tmp, IID_IVectorView_1_StorageProviderSyncRootInfo)
+    release(tmp)
 
 proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
   ## Windows.Storage.Provider.StorageProviderSyncRootManager.IsSupported
@@ -4812,6 +5014,14 @@ proc newQueryOptions*(): QueryOptions =
   ## Activate a `Windows.Storage.Search.QueryOptions`.
   adopt[QueryOptions](activateAs("Windows.Storage.Search.QueryOptions", IID_IQueryOptions))
 
+proc fileTypeFilter*(self: QueryOptions): seq[string] =
+  ## Windows.Storage.Search.QueryOptions.get_FileTypeFilter
+  withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IQueryOptions_get_FileTypeFilter, Fn_IQueryOptions_get_FileTypeFilter)(it, tmp.addr).check("QueryOptions.get_FileTypeFilter")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
 proc folderDepth*(self: QueryOptions): FolderDepth =
   ## Windows.Storage.Search.QueryOptions.get_FolderDepth
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
@@ -4906,6 +5116,14 @@ proc setThumbnailPrefetch*(self: QueryOptions, a1: ThumbnailMode, a2: uint32, a3
   ## Windows.Storage.Search.QueryOptions.SetThumbnailPrefetch
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
     vcall(it, Slot_IQueryOptions_SetThumbnailPrefetch, Fn_IQueryOptions_SetThumbnailPrefetch)(it, a1, a2, a3).check("QueryOptions.SetThumbnailPrefetch")
+
+proc storageProviderIdFilter*(self: QueryOptions): seq[string] =
+  ## Windows.Storage.Search.QueryOptions.get_StorageProviderIdFilter
+  withIface(self.p, IID_IQueryOptionsWithProviderFilter, "IQueryOptionsWithProviderFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter, Fn_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter)(it, tmp.addr).check("QueryOptions.get_StorageProviderIdFilter")
+    result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
 
 proc createCommonFolderQuery*(_: typedesc[QueryOptions], a1: CommonFolderQuery): QueryOptions =
   ## Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery

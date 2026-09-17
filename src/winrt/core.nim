@@ -498,3 +498,60 @@ proc borrow*[T](p: pointer): T =
   ## is wrapped directly instead.
   if not p.isNil: addRef(p)
   T(p: p)
+
+# --------------------------------------------------------------- collections
+
+# `IVector<T>` and `IVectorView<T>` number their slots identically whatever `T`
+# is — `GetAt` at 6 and `get_Size` at 7, after IInspectable's six — because a
+# parameterised interface has one vtable layout and many instantiations. What
+# differs per instantiation is the IID, and WinRT computes that by hashing a
+# signature string rather than declaring it anywhere, so it arrives here as an
+# argument the generator worked out.
+const
+  SlotCollectionGetAt = 6
+  SlotCollectionSize = 7
+
+type
+  FnCollectionGetAt = proc(self: pointer, index: uint32,
+                           item: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnCollectionGetAtString = proc(self: pointer, index: uint32,
+                                 item: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+  FnCollectionSize = proc(self: pointer,
+                          size: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+
+template eachItem(collection: pointer, iid: GUID, body: untyped) =
+  ## Walk a collection, with `view` and `i` bound inside `body`.
+  ##
+  ## Narrowing first is not optional: slots are numbered per interface, and the
+  ## pointer a method handed back may be for a different one.
+  let view {.inject.} = queryInterface(collection, iid)
+  if not view.isNil:
+    try:
+      var count: uint32
+      vcall(view, SlotCollectionSize, FnCollectionSize)(view, count.addr)
+        .check("collection.get_Size")
+      for i {.inject.} in 0'u32 ..< count:
+        body
+    finally:
+      release(view)
+
+proc toSeq*[T](collection: pointer, iid: GUID): seq[T] =
+  ## Every element of a WinRT collection, as objects.
+  ##
+  ## Each `GetAt` hands over a reference, so the elements are adopted rather
+  ## than retained again, and the collection itself stays the caller's to
+  ## release.
+  eachItem(collection, iid):
+    var item: pointer
+    vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
+      .check("collection.GetAt")
+    result.add adopt[T](item)
+
+proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
+  ## The same for a collection of strings, whose `GetAt` yields an HSTRING that
+  ## is the caller's to delete.
+  eachItem(collection, iid):
+    var item: HSTRING
+    vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(view, i, item.addr)
+      .check("collection.GetAt")
+    result.add takeString(item)

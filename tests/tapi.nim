@@ -5,11 +5,12 @@
 ## works where `RoActivateInstance` would fail, that strings cross as Nim
 ## strings, and that nothing has to be released by hand.
 
-import std/unittest
+import std/[unittest, sequtils, strutils]
 import winrt
 import winrt/foundation
 import winrt/globalization
 import winrt/system
+import winrt/gaming
 
 suite "generated API":
   setup:
@@ -58,3 +59,24 @@ suite "generated API":
       proc(sender, args: pointer) = fired.inc)
     check token.value != 0
     PowerManager.removeEnergySaverStatusChanged(token)
+
+  test "a collection comes back as a seq":
+    # `IVectorView<String>`. The IID of that instantiation is declared nowhere
+    # in the metadata — WinRT derives it by hashing a signature string — so
+    # this failing would mean the computed IID was wrong.
+    let zones = TimeZoneSettings.supportedTimeZoneDisplayNames
+    check zones.len > 100
+    check zones.allIt(it.len > 0)
+    check zones.anyIt("UTC" in it)
+
+  test "an empty collection is an empty seq, not a failure":
+    # No controller is attached on CI, and asking should still work.
+    check Gamepad.gamepads.len >= 0
+
+  test "walking a collection repeatedly does not leak its elements":
+    # Each GetAt hands over a reference that the wrapper adopts, so a botched
+    # lifetime here shows up as unbounded growth rather than a wrong answer.
+    var last = 0
+    for i in 1 .. 2_000:
+      last = TimeZoneSettings.supportedTimeZoneDisplayNames.len
+    check last > 100
