@@ -39,6 +39,14 @@ suite "bindings":
     check GamepadButtons_B notin held
     check $held == "Menu or A"
 
+  test "a [Flags] enum is unsigned, as the type system requires":
+    # "An enum with an underlying type of UInt32 must carry the FlagsAttribute.
+    # An enum with an underlying type of Int32 must not." Signed is not just
+    # untidy: `All` is 0xFFFFFFFF, and as an int32 that reads back as -1.
+    check sizeof(ContactQuerySearchFields) == 4
+    check uint32(ContactQuerySearchFields_All) == 0xFFFFFFFF'u32
+    check $ContactQuerySearchFields_All != "-1"
+
   test "a hoisted type lands in foundation, not ui":
     # `Windows.UI.Color` is pulled forward so that anything visual can name it
     # without importing the 52,000-line `ui` module; see `hoisted` in

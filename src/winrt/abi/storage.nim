@@ -16,42 +16,42 @@ import ./foundation
 export foundation
 
 ## Windows.Storage.AccessCache.AccessCacheOptions  (enum)
-type AccessCacheOptions* = distinct int32
+type AccessCacheOptions* = distinct uint32
 proc `==`*(a, b: AccessCacheOptions): bool {.borrow.}
 proc `or`*(a, b: AccessCacheOptions): AccessCacheOptions {.borrow.}
 proc `and`*(a, b: AccessCacheOptions): AccessCacheOptions {.borrow.}
 proc `not`*(a: AccessCacheOptions): AccessCacheOptions {.borrow.}
 proc contains*(a, b: AccessCacheOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AccessCacheOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "DisallowUserInput"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "FastLocationsOnly"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UseReadOnlyCachedCopy"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "SuppressAccessTimeUpdate"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AccessCacheOptions(" & $rest & ")"
-const AccessCacheOptions_None* = AccessCacheOptions(0'i32)
-const AccessCacheOptions_DisallowUserInput* = AccessCacheOptions(1'i32)
-const AccessCacheOptions_FastLocationsOnly* = AccessCacheOptions(2'i32)
-const AccessCacheOptions_UseReadOnlyCachedCopy* = AccessCacheOptions(4'i32)
-const AccessCacheOptions_SuppressAccessTimeUpdate* = AccessCacheOptions(8'i32)
+const AccessCacheOptions_None* = AccessCacheOptions(0'u32)
+const AccessCacheOptions_DisallowUserInput* = AccessCacheOptions(1'u32)
+const AccessCacheOptions_FastLocationsOnly* = AccessCacheOptions(2'u32)
+const AccessCacheOptions_UseReadOnlyCachedCopy* = AccessCacheOptions(4'u32)
+const AccessCacheOptions_SuppressAccessTimeUpdate* = AccessCacheOptions(8'u32)
 
 ## Windows.Storage.AccessCache.RecentStorageItemVisibility  (enum)
 type RecentStorageItemVisibility* {.pure, size: 4.} = enum
@@ -132,47 +132,47 @@ proc `$`*(v: FileAccessMode): string =
   else: "FileAccessMode(" & $ord(v) & ")"
 
 ## Windows.Storage.FileAttributes  (enum)
-type FileAttributes* = distinct int32
+type FileAttributes* = distinct uint32
 proc `==`*(a, b: FileAttributes): bool {.borrow.}
 proc `or`*(a, b: FileAttributes): FileAttributes {.borrow.}
 proc `and`*(a, b: FileAttributes): FileAttributes {.borrow.}
 proc `not`*(a: FileAttributes): FileAttributes {.borrow.}
 proc contains*(a, b: FileAttributes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: FileAttributes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ReadOnly"
-    rest = rest and not 1'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 1'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Directory"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Archive"
-    rest = rest and not 32'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 32'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Temporary"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "LocallyIncomplete"
-    rest = rest and not 512'i32
+    rest = rest and not 512'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "FileAttributes(" & $rest & ")"
-const FileAttributes_Normal* = FileAttributes(0'i32)
-const FileAttributes_ReadOnly* = FileAttributes(1'i32)
-const FileAttributes_Directory* = FileAttributes(16'i32)
-const FileAttributes_Archive* = FileAttributes(32'i32)
-const FileAttributes_Temporary* = FileAttributes(256'i32)
-const FileAttributes_LocallyIncomplete* = FileAttributes(512'i32)
+const FileAttributes_Normal* = FileAttributes(0'u32)
+const FileAttributes_ReadOnly* = FileAttributes(1'u32)
+const FileAttributes_Directory* = FileAttributes(16'u32)
+const FileAttributes_Archive* = FileAttributes(32'u32)
+const FileAttributes_Temporary* = FileAttributes(256'u32)
+const FileAttributes_LocallyIncomplete* = FileAttributes(512'u32)
 
 ## Windows.Storage.FileProperties.PhotoOrientation  (enum)
 type PhotoOrientation* {.pure, size: 4.} = enum
@@ -199,47 +199,47 @@ proc `$`*(v: PhotoOrientation): string =
   else: "PhotoOrientation(" & $ord(v) & ")"
 
 ## Windows.Storage.FileProperties.PropertyPrefetchOptions  (enum)
-type PropertyPrefetchOptions* = distinct int32
+type PropertyPrefetchOptions* = distinct uint32
 proc `==`*(a, b: PropertyPrefetchOptions): bool {.borrow.}
 proc `or`*(a, b: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
 proc `and`*(a, b: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
 proc `not`*(a: PropertyPrefetchOptions): PropertyPrefetchOptions {.borrow.}
 proc contains*(a, b: PropertyPrefetchOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PropertyPrefetchOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "MusicProperties"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "VideoProperties"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ImageProperties"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "DocumentProperties"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "BasicProperties"
-    rest = rest and not 16'i32
+    rest = rest and not 16'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PropertyPrefetchOptions(" & $rest & ")"
-const PropertyPrefetchOptions_None* = PropertyPrefetchOptions(0'i32)
-const PropertyPrefetchOptions_MusicProperties* = PropertyPrefetchOptions(1'i32)
-const PropertyPrefetchOptions_VideoProperties* = PropertyPrefetchOptions(2'i32)
-const PropertyPrefetchOptions_ImageProperties* = PropertyPrefetchOptions(4'i32)
-const PropertyPrefetchOptions_DocumentProperties* = PropertyPrefetchOptions(8'i32)
-const PropertyPrefetchOptions_BasicProperties* = PropertyPrefetchOptions(16'i32)
+const PropertyPrefetchOptions_None* = PropertyPrefetchOptions(0'u32)
+const PropertyPrefetchOptions_MusicProperties* = PropertyPrefetchOptions(1'u32)
+const PropertyPrefetchOptions_VideoProperties* = PropertyPrefetchOptions(2'u32)
+const PropertyPrefetchOptions_ImageProperties* = PropertyPrefetchOptions(4'u32)
+const PropertyPrefetchOptions_DocumentProperties* = PropertyPrefetchOptions(8'u32)
+const PropertyPrefetchOptions_BasicProperties* = PropertyPrefetchOptions(16'u32)
 
 ## Windows.Storage.FileProperties.ThumbnailMode  (enum)
 type ThumbnailMode* {.pure, size: 4.} = enum
@@ -260,37 +260,37 @@ proc `$`*(v: ThumbnailMode): string =
   else: "ThumbnailMode(" & $ord(v) & ")"
 
 ## Windows.Storage.FileProperties.ThumbnailOptions  (enum)
-type ThumbnailOptions* = distinct int32
+type ThumbnailOptions* = distinct uint32
 proc `==`*(a, b: ThumbnailOptions): bool {.borrow.}
 proc `or`*(a, b: ThumbnailOptions): ThumbnailOptions {.borrow.}
 proc `and`*(a, b: ThumbnailOptions): ThumbnailOptions {.borrow.}
 proc `not`*(a: ThumbnailOptions): ThumbnailOptions {.borrow.}
 proc contains*(a, b: ThumbnailOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ThumbnailOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ReturnOnlyIfCached"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ResizeThumbnail"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UseCurrentScale"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ThumbnailOptions(" & $rest & ")"
-const ThumbnailOptions_None* = ThumbnailOptions(0'i32)
-const ThumbnailOptions_ReturnOnlyIfCached* = ThumbnailOptions(1'i32)
-const ThumbnailOptions_ResizeThumbnail* = ThumbnailOptions(2'i32)
-const ThumbnailOptions_UseCurrentScale* = ThumbnailOptions(4'i32)
+const ThumbnailOptions_None* = ThumbnailOptions(0'u32)
+const ThumbnailOptions_ReturnOnlyIfCached* = ThumbnailOptions(1'u32)
+const ThumbnailOptions_ResizeThumbnail* = ThumbnailOptions(2'u32)
+const ThumbnailOptions_UseCurrentScale* = ThumbnailOptions(4'u32)
 
 ## Windows.Storage.FileProperties.ThumbnailType  (enum)
 type ThumbnailType* {.pure, size: 4.} = enum
@@ -473,37 +473,37 @@ proc `$`*(v: SetFileNameResult): string =
   else: "SetFileNameResult(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.CachedFileOptions  (enum)
-type CachedFileOptions* = distinct int32
+type CachedFileOptions* = distinct uint32
 proc `==`*(a, b: CachedFileOptions): bool {.borrow.}
 proc `or`*(a, b: CachedFileOptions): CachedFileOptions {.borrow.}
 proc `and`*(a, b: CachedFileOptions): CachedFileOptions {.borrow.}
 proc `not`*(a: CachedFileOptions): CachedFileOptions {.borrow.}
 proc contains*(a, b: CachedFileOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CachedFileOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "RequireUpdateOnAccess"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "UseCachedFileWhenOffline"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "DenyAccessWhenOffline"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CachedFileOptions(" & $rest & ")"
-const CachedFileOptions_None* = CachedFileOptions(0'i32)
-const CachedFileOptions_RequireUpdateOnAccess* = CachedFileOptions(1'i32)
-const CachedFileOptions_UseCachedFileWhenOffline* = CachedFileOptions(2'i32)
-const CachedFileOptions_DenyAccessWhenOffline* = CachedFileOptions(4'i32)
+const CachedFileOptions_None* = CachedFileOptions(0'u32)
+const CachedFileOptions_RequireUpdateOnAccess* = CachedFileOptions(1'u32)
+const CachedFileOptions_UseCachedFileWhenOffline* = CachedFileOptions(2'u32)
+const CachedFileOptions_DenyAccessWhenOffline* = CachedFileOptions(4'u32)
 
 ## Windows.Storage.Provider.CachedFileTarget  (enum)
 type CachedFileTarget* {.pure, size: 4.} = enum
@@ -544,27 +544,27 @@ proc `$`*(v: ReadActivationMode): string =
   else: "ReadActivationMode(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderHardlinkPolicy  (enum)
-type StorageProviderHardlinkPolicy* = distinct int32
+type StorageProviderHardlinkPolicy* = distinct uint32
 proc `==`*(a, b: StorageProviderHardlinkPolicy): bool {.borrow.}
 proc `or`*(a, b: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
 proc `and`*(a, b: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
 proc `not`*(a: StorageProviderHardlinkPolicy): StorageProviderHardlinkPolicy {.borrow.}
 proc contains*(a, b: StorageProviderHardlinkPolicy): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StorageProviderHardlinkPolicy): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Allowed"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StorageProviderHardlinkPolicy(" & $rest & ")"
-const StorageProviderHardlinkPolicy_None* = StorageProviderHardlinkPolicy(0'i32)
-const StorageProviderHardlinkPolicy_Allowed* = StorageProviderHardlinkPolicy(1'i32)
+const StorageProviderHardlinkPolicy_None* = StorageProviderHardlinkPolicy(0'u32)
+const StorageProviderHardlinkPolicy_Allowed* = StorageProviderHardlinkPolicy(1'u32)
 
 ## Windows.Storage.Provider.StorageProviderHydrationPolicy  (enum)
 type StorageProviderHydrationPolicy* {.pure, size: 4.} = enum
@@ -581,115 +581,115 @@ proc `$`*(v: StorageProviderHydrationPolicy): string =
   else: "StorageProviderHydrationPolicy(" & $ord(v) & ")"
 
 ## Windows.Storage.Provider.StorageProviderHydrationPolicyModifier  (enum)
-type StorageProviderHydrationPolicyModifier* = distinct int32
+type StorageProviderHydrationPolicyModifier* = distinct uint32
 proc `==`*(a, b: StorageProviderHydrationPolicyModifier): bool {.borrow.}
 proc `or`*(a, b: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
 proc `and`*(a, b: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
 proc `not`*(a: StorageProviderHydrationPolicyModifier): StorageProviderHydrationPolicyModifier {.borrow.}
 proc contains*(a, b: StorageProviderHydrationPolicyModifier): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StorageProviderHydrationPolicyModifier): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ValidationRequired"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "StreamingAllowed"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "AutoDehydrationAllowed"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "AllowFullRestartHydration"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StorageProviderHydrationPolicyModifier(" & $rest & ")"
-const StorageProviderHydrationPolicyModifier_None* = StorageProviderHydrationPolicyModifier(0'i32)
-const StorageProviderHydrationPolicyModifier_ValidationRequired* = StorageProviderHydrationPolicyModifier(1'i32)
-const StorageProviderHydrationPolicyModifier_StreamingAllowed* = StorageProviderHydrationPolicyModifier(2'i32)
-const StorageProviderHydrationPolicyModifier_AutoDehydrationAllowed* = StorageProviderHydrationPolicyModifier(4'i32)
-const StorageProviderHydrationPolicyModifier_AllowFullRestartHydration* = StorageProviderHydrationPolicyModifier(8'i32)
+const StorageProviderHydrationPolicyModifier_None* = StorageProviderHydrationPolicyModifier(0'u32)
+const StorageProviderHydrationPolicyModifier_ValidationRequired* = StorageProviderHydrationPolicyModifier(1'u32)
+const StorageProviderHydrationPolicyModifier_StreamingAllowed* = StorageProviderHydrationPolicyModifier(2'u32)
+const StorageProviderHydrationPolicyModifier_AutoDehydrationAllowed* = StorageProviderHydrationPolicyModifier(4'u32)
+const StorageProviderHydrationPolicyModifier_AllowFullRestartHydration* = StorageProviderHydrationPolicyModifier(8'u32)
 
 ## Windows.Storage.Provider.StorageProviderInSyncPolicy  (enum)
-type StorageProviderInSyncPolicy* = distinct int32
+type StorageProviderInSyncPolicy* = distinct uint32
 proc `==`*(a, b: StorageProviderInSyncPolicy): bool {.borrow.}
 proc `or`*(a, b: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
 proc `and`*(a, b: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
 proc `not`*(a: StorageProviderInSyncPolicy): StorageProviderInSyncPolicy {.borrow.}
 proc contains*(a, b: StorageProviderInSyncPolicy): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StorageProviderInSyncPolicy): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "FileCreationTime"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "FileReadOnlyAttribute"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "FileHiddenAttribute"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "FileSystemAttribute"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "DirectoryCreationTime"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "DirectoryReadOnlyAttribute"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "DirectoryHiddenAttribute"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "DirectorySystemAttribute"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "FileLastWriteTime"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "DirectoryLastWriteTime"
-    rest = rest and not 512'i32
-  if (rest and -2147483648'i32) == -2147483648'i32:
+    rest = rest and not 512'u32
+  if (rest and 2147483648'u32) == 2147483648'u32:
     if result.len > 0: result.add " or "
     result.add "PreserveInsyncForSyncEngine"
-    rest = rest and not -2147483648'i32
+    rest = rest and not 2147483648'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StorageProviderInSyncPolicy(" & $rest & ")"
-const StorageProviderInSyncPolicy_Default* = StorageProviderInSyncPolicy(0'i32)
-const StorageProviderInSyncPolicy_FileCreationTime* = StorageProviderInSyncPolicy(1'i32)
-const StorageProviderInSyncPolicy_FileReadOnlyAttribute* = StorageProviderInSyncPolicy(2'i32)
-const StorageProviderInSyncPolicy_FileHiddenAttribute* = StorageProviderInSyncPolicy(4'i32)
-const StorageProviderInSyncPolicy_FileSystemAttribute* = StorageProviderInSyncPolicy(8'i32)
-const StorageProviderInSyncPolicy_DirectoryCreationTime* = StorageProviderInSyncPolicy(16'i32)
-const StorageProviderInSyncPolicy_DirectoryReadOnlyAttribute* = StorageProviderInSyncPolicy(32'i32)
-const StorageProviderInSyncPolicy_DirectoryHiddenAttribute* = StorageProviderInSyncPolicy(64'i32)
-const StorageProviderInSyncPolicy_DirectorySystemAttribute* = StorageProviderInSyncPolicy(128'i32)
-const StorageProviderInSyncPolicy_FileLastWriteTime* = StorageProviderInSyncPolicy(256'i32)
-const StorageProviderInSyncPolicy_DirectoryLastWriteTime* = StorageProviderInSyncPolicy(512'i32)
-const StorageProviderInSyncPolicy_PreserveInsyncForSyncEngine* = StorageProviderInSyncPolicy(-2147483648'i32)
+const StorageProviderInSyncPolicy_Default* = StorageProviderInSyncPolicy(0'u32)
+const StorageProviderInSyncPolicy_FileCreationTime* = StorageProviderInSyncPolicy(1'u32)
+const StorageProviderInSyncPolicy_FileReadOnlyAttribute* = StorageProviderInSyncPolicy(2'u32)
+const StorageProviderInSyncPolicy_FileHiddenAttribute* = StorageProviderInSyncPolicy(4'u32)
+const StorageProviderInSyncPolicy_FileSystemAttribute* = StorageProviderInSyncPolicy(8'u32)
+const StorageProviderInSyncPolicy_DirectoryCreationTime* = StorageProviderInSyncPolicy(16'u32)
+const StorageProviderInSyncPolicy_DirectoryReadOnlyAttribute* = StorageProviderInSyncPolicy(32'u32)
+const StorageProviderInSyncPolicy_DirectoryHiddenAttribute* = StorageProviderInSyncPolicy(64'u32)
+const StorageProviderInSyncPolicy_DirectorySystemAttribute* = StorageProviderInSyncPolicy(128'u32)
+const StorageProviderInSyncPolicy_FileLastWriteTime* = StorageProviderInSyncPolicy(256'u32)
+const StorageProviderInSyncPolicy_DirectoryLastWriteTime* = StorageProviderInSyncPolicy(512'u32)
+const StorageProviderInSyncPolicy_PreserveInsyncForSyncEngine* = StorageProviderInSyncPolicy(2147483648'u32)
 
 ## Windows.Storage.Provider.StorageProviderKnownFolderSyncStatus  (enum)
 type StorageProviderKnownFolderSyncStatus* {.pure, size: 4.} = enum
@@ -976,32 +976,32 @@ proc `$`*(v: StorageDeleteOption): string =
   else: "StorageDeleteOption(" & $ord(v) & ")"
 
 ## Windows.Storage.StorageItemTypes  (enum)
-type StorageItemTypes* = distinct int32
+type StorageItemTypes* = distinct uint32
 proc `==`*(a, b: StorageItemTypes): bool {.borrow.}
 proc `or`*(a, b: StorageItemTypes): StorageItemTypes {.borrow.}
 proc `and`*(a, b: StorageItemTypes): StorageItemTypes {.borrow.}
 proc `not`*(a: StorageItemTypes): StorageItemTypes {.borrow.}
 proc contains*(a, b: StorageItemTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StorageItemTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "File"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Folder"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StorageItemTypes(" & $rest & ")"
-const StorageItemTypes_None* = StorageItemTypes(0'i32)
-const StorageItemTypes_File* = StorageItemTypes(1'i32)
-const StorageItemTypes_Folder* = StorageItemTypes(2'i32)
+const StorageItemTypes_None* = StorageItemTypes(0'u32)
+const StorageItemTypes_File* = StorageItemTypes(1'u32)
+const StorageItemTypes_Folder* = StorageItemTypes(2'u32)
 
 ## Windows.Storage.StorageLibraryChangeType  (enum)
 type StorageLibraryChangeType* {.pure, size: 4.} = enum
@@ -1030,32 +1030,32 @@ proc `$`*(v: StorageLibraryChangeType): string =
   else: "StorageLibraryChangeType(" & $ord(v) & ")"
 
 ## Windows.Storage.StorageOpenOptions  (enum)
-type StorageOpenOptions* = distinct int32
+type StorageOpenOptions* = distinct uint32
 proc `==`*(a, b: StorageOpenOptions): bool {.borrow.}
 proc `or`*(a, b: StorageOpenOptions): StorageOpenOptions {.borrow.}
 proc `and`*(a, b: StorageOpenOptions): StorageOpenOptions {.borrow.}
 proc `not`*(a: StorageOpenOptions): StorageOpenOptions {.borrow.}
 proc contains*(a, b: StorageOpenOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StorageOpenOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "AllowOnlyReaders"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "AllowReadersAndWriters"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StorageOpenOptions(" & $rest & ")"
-const StorageOpenOptions_None* = StorageOpenOptions(0'i32)
-const StorageOpenOptions_AllowOnlyReaders* = StorageOpenOptions(1'i32)
-const StorageOpenOptions_AllowReadersAndWriters* = StorageOpenOptions(2'i32)
+const StorageOpenOptions_None* = StorageOpenOptions(0'u32)
+const StorageOpenOptions_AllowOnlyReaders* = StorageOpenOptions(1'u32)
+const StorageOpenOptions_AllowReadersAndWriters* = StorageOpenOptions(2'u32)
 
 ## Windows.Storage.StreamedFileFailureMode  (enum)
 type StreamedFileFailureMode* {.pure, size: 4.} = enum
@@ -1096,32 +1096,32 @@ proc `$`*(v: FileOpenDisposition): string =
   else: "FileOpenDisposition(" & $ord(v) & ")"
 
 ## Windows.Storage.Streams.InputStreamOptions  (enum)
-type InputStreamOptions* = distinct int32
+type InputStreamOptions* = distinct uint32
 proc `==`*(a, b: InputStreamOptions): bool {.borrow.}
 proc `or`*(a, b: InputStreamOptions): InputStreamOptions {.borrow.}
 proc `and`*(a, b: InputStreamOptions): InputStreamOptions {.borrow.}
 proc `not`*(a: InputStreamOptions): InputStreamOptions {.borrow.}
 proc contains*(a, b: InputStreamOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InputStreamOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Partial"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ReadAhead"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InputStreamOptions(" & $rest & ")"
-const InputStreamOptions_None* = InputStreamOptions(0'i32)
-const InputStreamOptions_Partial* = InputStreamOptions(1'i32)
-const InputStreamOptions_ReadAhead* = InputStreamOptions(2'i32)
+const InputStreamOptions_None* = InputStreamOptions(0'u32)
+const InputStreamOptions_Partial* = InputStreamOptions(1'u32)
+const InputStreamOptions_ReadAhead* = InputStreamOptions(2'u32)
 
 ## Windows.Storage.Streams.UnicodeEncoding  (enum)
 type UnicodeEncoding* {.pure, size: 4.} = enum

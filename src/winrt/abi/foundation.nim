@@ -94,42 +94,42 @@ proc `$`*(v: CausalityTraceLevel): string =
   else: "CausalityTraceLevel(" & $ord(v) & ")"
 
 ## Windows.Foundation.Diagnostics.ErrorOptions  (enum)
-type ErrorOptions* = distinct int32
+type ErrorOptions* = distinct uint32
 proc `==`*(a, b: ErrorOptions): bool {.borrow.}
 proc `or`*(a, b: ErrorOptions): ErrorOptions {.borrow.}
 proc `and`*(a, b: ErrorOptions): ErrorOptions {.borrow.}
 proc `not`*(a: ErrorOptions): ErrorOptions {.borrow.}
 proc contains*(a, b: ErrorOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ErrorOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "SuppressExceptions"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ForceExceptions"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UseSetErrorInfo"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "SuppressSetErrorInfo"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ErrorOptions(" & $rest & ")"
-const ErrorOptions_None* = ErrorOptions(0'i32)
-const ErrorOptions_SuppressExceptions* = ErrorOptions(1'i32)
-const ErrorOptions_ForceExceptions* = ErrorOptions(2'i32)
-const ErrorOptions_UseSetErrorInfo* = ErrorOptions(4'i32)
-const ErrorOptions_SuppressSetErrorInfo* = ErrorOptions(8'i32)
+const ErrorOptions_None* = ErrorOptions(0'u32)
+const ErrorOptions_SuppressExceptions* = ErrorOptions(1'u32)
+const ErrorOptions_ForceExceptions* = ErrorOptions(2'u32)
+const ErrorOptions_UseSetErrorInfo* = ErrorOptions(4'u32)
+const ErrorOptions_SuppressSetErrorInfo* = ErrorOptions(8'u32)
 
 ## Windows.Foundation.Diagnostics.LoggingFieldFormat  (enum)
 type LoggingFieldFormat* {.pure, size: 4.} = enum
@@ -212,86 +212,86 @@ proc `$`*(v: LoggingOpcode): string =
   else: "LoggingOpcode(" & $ord(v) & ")"
 
 ## Windows.Foundation.Metadata.AttributeTargets  (enum)
-type AttributeTargets* = distinct int32
+type AttributeTargets* = distinct uint32
 proc `==`*(a, b: AttributeTargets): bool {.borrow.}
 proc `or`*(a, b: AttributeTargets): AttributeTargets {.borrow.}
 proc `and`*(a, b: AttributeTargets): AttributeTargets {.borrow.}
 proc `not`*(a: AttributeTargets): AttributeTargets {.borrow.}
 proc contains*(a, b: AttributeTargets): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AttributeTargets): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and -1'i32) == -1'i32:
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
-  if (rest and 1'i32) == 1'i32:
+    rest = rest and not 4294967295'u32
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Delegate"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Enum"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Event"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Field"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Interface"
-    rest = rest and not 16'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 16'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Method"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Parameter"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Property"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "RuntimeClass"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "Struct"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "InterfaceImpl"
-    rest = rest and not 2048'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 2048'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "ApiContract"
-    rest = rest and not 8192'i32
+    rest = rest and not 8192'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AttributeTargets(" & $rest & ")"
-const AttributeTargets_All* = AttributeTargets(-1'i32)
-const AttributeTargets_Delegate* = AttributeTargets(1'i32)
-const AttributeTargets_Enum* = AttributeTargets(2'i32)
-const AttributeTargets_Event* = AttributeTargets(4'i32)
-const AttributeTargets_Field* = AttributeTargets(8'i32)
-const AttributeTargets_Interface* = AttributeTargets(16'i32)
-const AttributeTargets_Method* = AttributeTargets(64'i32)
-const AttributeTargets_Parameter* = AttributeTargets(128'i32)
-const AttributeTargets_Property* = AttributeTargets(256'i32)
-const AttributeTargets_RuntimeClass* = AttributeTargets(512'i32)
-const AttributeTargets_Struct* = AttributeTargets(1024'i32)
-const AttributeTargets_InterfaceImpl* = AttributeTargets(2048'i32)
-const AttributeTargets_ApiContract* = AttributeTargets(8192'i32)
+const AttributeTargets_All* = AttributeTargets(4294967295'u32)
+const AttributeTargets_Delegate* = AttributeTargets(1'u32)
+const AttributeTargets_Enum* = AttributeTargets(2'u32)
+const AttributeTargets_Event* = AttributeTargets(4'u32)
+const AttributeTargets_Field* = AttributeTargets(8'u32)
+const AttributeTargets_Interface* = AttributeTargets(16'u32)
+const AttributeTargets_Method* = AttributeTargets(64'u32)
+const AttributeTargets_Parameter* = AttributeTargets(128'u32)
+const AttributeTargets_Property* = AttributeTargets(256'u32)
+const AttributeTargets_RuntimeClass* = AttributeTargets(512'u32)
+const AttributeTargets_Struct* = AttributeTargets(1024'u32)
+const AttributeTargets_InterfaceImpl* = AttributeTargets(2048'u32)
+const AttributeTargets_ApiContract* = AttributeTargets(8192'u32)
 
 ## Windows.Foundation.Metadata.CompositionType  (enum)
 type CompositionType* {.pure, size: 4.} = enum

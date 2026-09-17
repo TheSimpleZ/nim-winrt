@@ -88,120 +88,120 @@ proc `$`*(v: GuidanceAudioNotificationKind): string =
   else: "GuidanceAudioNotificationKind(" & $ord(v) & ")"
 
 ## Windows.Services.Maps.Guidance.GuidanceAudioNotifications  (enum)
-type GuidanceAudioNotifications* = distinct int32
+type GuidanceAudioNotifications* = distinct uint32
 proc `==`*(a, b: GuidanceAudioNotifications): bool {.borrow.}
 proc `or`*(a, b: GuidanceAudioNotifications): GuidanceAudioNotifications {.borrow.}
 proc `and`*(a, b: GuidanceAudioNotifications): GuidanceAudioNotifications {.borrow.}
 proc `not`*(a: GuidanceAudioNotifications): GuidanceAudioNotifications {.borrow.}
 proc contains*(a, b: GuidanceAudioNotifications): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GuidanceAudioNotifications): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Maneuver"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Route"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Gps"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "SpeedLimit"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Traffic"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "TrafficCamera"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GuidanceAudioNotifications(" & $rest & ")"
-const GuidanceAudioNotifications_None* = GuidanceAudioNotifications(0'i32)
-const GuidanceAudioNotifications_Maneuver* = GuidanceAudioNotifications(1'i32)
-const GuidanceAudioNotifications_Route* = GuidanceAudioNotifications(2'i32)
-const GuidanceAudioNotifications_Gps* = GuidanceAudioNotifications(4'i32)
-const GuidanceAudioNotifications_SpeedLimit* = GuidanceAudioNotifications(8'i32)
-const GuidanceAudioNotifications_Traffic* = GuidanceAudioNotifications(16'i32)
-const GuidanceAudioNotifications_TrafficCamera* = GuidanceAudioNotifications(32'i32)
+const GuidanceAudioNotifications_None* = GuidanceAudioNotifications(0'u32)
+const GuidanceAudioNotifications_Maneuver* = GuidanceAudioNotifications(1'u32)
+const GuidanceAudioNotifications_Route* = GuidanceAudioNotifications(2'u32)
+const GuidanceAudioNotifications_Gps* = GuidanceAudioNotifications(4'u32)
+const GuidanceAudioNotifications_SpeedLimit* = GuidanceAudioNotifications(8'u32)
+const GuidanceAudioNotifications_Traffic* = GuidanceAudioNotifications(16'u32)
+const GuidanceAudioNotifications_TrafficCamera* = GuidanceAudioNotifications(32'u32)
 
 ## Windows.Services.Maps.Guidance.GuidanceLaneMarkers  (enum)
-type GuidanceLaneMarkers* = distinct int32
+type GuidanceLaneMarkers* = distinct uint32
 proc `==`*(a, b: GuidanceLaneMarkers): bool {.borrow.}
 proc `or`*(a, b: GuidanceLaneMarkers): GuidanceLaneMarkers {.borrow.}
 proc `and`*(a, b: GuidanceLaneMarkers): GuidanceLaneMarkers {.borrow.}
 proc `not`*(a: GuidanceLaneMarkers): GuidanceLaneMarkers {.borrow.}
 proc contains*(a, b: GuidanceLaneMarkers): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GuidanceLaneMarkers): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "LightRight"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Right"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "HardRight"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Straight"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "UTurnLeft"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "HardLeft"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Left"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "LightLeft"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "UTurnRight"
-    rest = rest and not 256'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 256'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "Unknown"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GuidanceLaneMarkers(" & $rest & ")"
-const GuidanceLaneMarkers_None* = GuidanceLaneMarkers(0'i32)
-const GuidanceLaneMarkers_LightRight* = GuidanceLaneMarkers(1'i32)
-const GuidanceLaneMarkers_Right* = GuidanceLaneMarkers(2'i32)
-const GuidanceLaneMarkers_HardRight* = GuidanceLaneMarkers(4'i32)
-const GuidanceLaneMarkers_Straight* = GuidanceLaneMarkers(8'i32)
-const GuidanceLaneMarkers_UTurnLeft* = GuidanceLaneMarkers(16'i32)
-const GuidanceLaneMarkers_HardLeft* = GuidanceLaneMarkers(32'i32)
-const GuidanceLaneMarkers_Left* = GuidanceLaneMarkers(64'i32)
-const GuidanceLaneMarkers_LightLeft* = GuidanceLaneMarkers(128'i32)
-const GuidanceLaneMarkers_UTurnRight* = GuidanceLaneMarkers(256'i32)
-const GuidanceLaneMarkers_Unknown* = GuidanceLaneMarkers(-1'i32)
+const GuidanceLaneMarkers_None* = GuidanceLaneMarkers(0'u32)
+const GuidanceLaneMarkers_LightRight* = GuidanceLaneMarkers(1'u32)
+const GuidanceLaneMarkers_Right* = GuidanceLaneMarkers(2'u32)
+const GuidanceLaneMarkers_HardRight* = GuidanceLaneMarkers(4'u32)
+const GuidanceLaneMarkers_Straight* = GuidanceLaneMarkers(8'u32)
+const GuidanceLaneMarkers_UTurnLeft* = GuidanceLaneMarkers(16'u32)
+const GuidanceLaneMarkers_HardLeft* = GuidanceLaneMarkers(32'u32)
+const GuidanceLaneMarkers_Left* = GuidanceLaneMarkers(64'u32)
+const GuidanceLaneMarkers_LightLeft* = GuidanceLaneMarkers(128'u32)
+const GuidanceLaneMarkers_UTurnRight* = GuidanceLaneMarkers(256'u32)
+const GuidanceLaneMarkers_Unknown* = GuidanceLaneMarkers(4294967295'u32)
 
 ## Windows.Services.Maps.Guidance.GuidanceManeuverKind  (enum)
 type GuidanceManeuverKind* {.pure, size: 4.} = enum
@@ -466,32 +466,32 @@ proc `$`*(v: MapLocationFinderStatus): string =
   else: "MapLocationFinderStatus(" & $ord(v) & ")"
 
 ## Windows.Services.Maps.MapManeuverNotices  (enum)
-type MapManeuverNotices* = distinct int32
+type MapManeuverNotices* = distinct uint32
 proc `==`*(a, b: MapManeuverNotices): bool {.borrow.}
 proc `or`*(a, b: MapManeuverNotices): MapManeuverNotices {.borrow.}
 proc `and`*(a, b: MapManeuverNotices): MapManeuverNotices {.borrow.}
 proc `not`*(a: MapManeuverNotices): MapManeuverNotices {.borrow.}
 proc contains*(a, b: MapManeuverNotices): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: MapManeuverNotices): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Toll"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Unpaved"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "MapManeuverNotices(" & $rest & ")"
-const MapManeuverNotices_None* = MapManeuverNotices(0'i32)
-const MapManeuverNotices_Toll* = MapManeuverNotices(1'i32)
-const MapManeuverNotices_Unpaved* = MapManeuverNotices(2'i32)
+const MapManeuverNotices_None* = MapManeuverNotices(0'u32)
+const MapManeuverNotices_Toll* = MapManeuverNotices(1'u32)
+const MapManeuverNotices_Unpaved* = MapManeuverNotices(2'u32)
 
 ## Windows.Services.Maps.MapRouteFinderStatus  (enum)
 type MapRouteFinderStatus* {.pure, size: 4.} = enum
@@ -590,52 +590,52 @@ proc `$`*(v: MapRouteOptimization): string =
   else: "MapRouteOptimization(" & $ord(v) & ")"
 
 ## Windows.Services.Maps.MapRouteRestrictions  (enum)
-type MapRouteRestrictions* = distinct int32
+type MapRouteRestrictions* = distinct uint32
 proc `==`*(a, b: MapRouteRestrictions): bool {.borrow.}
 proc `or`*(a, b: MapRouteRestrictions): MapRouteRestrictions {.borrow.}
 proc `and`*(a, b: MapRouteRestrictions): MapRouteRestrictions {.borrow.}
 proc `not`*(a: MapRouteRestrictions): MapRouteRestrictions {.borrow.}
 proc contains*(a, b: MapRouteRestrictions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: MapRouteRestrictions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Highways"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "TollRoads"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Ferries"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Tunnels"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "DirtRoads"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Motorail"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "MapRouteRestrictions(" & $rest & ")"
-const MapRouteRestrictions_None* = MapRouteRestrictions(0'i32)
-const MapRouteRestrictions_Highways* = MapRouteRestrictions(1'i32)
-const MapRouteRestrictions_TollRoads* = MapRouteRestrictions(2'i32)
-const MapRouteRestrictions_Ferries* = MapRouteRestrictions(4'i32)
-const MapRouteRestrictions_Tunnels* = MapRouteRestrictions(8'i32)
-const MapRouteRestrictions_DirtRoads* = MapRouteRestrictions(16'i32)
-const MapRouteRestrictions_Motorail* = MapRouteRestrictions(32'i32)
+const MapRouteRestrictions_None* = MapRouteRestrictions(0'u32)
+const MapRouteRestrictions_Highways* = MapRouteRestrictions(1'u32)
+const MapRouteRestrictions_TollRoads* = MapRouteRestrictions(2'u32)
+const MapRouteRestrictions_Ferries* = MapRouteRestrictions(4'u32)
+const MapRouteRestrictions_Tunnels* = MapRouteRestrictions(8'u32)
+const MapRouteRestrictions_DirtRoads* = MapRouteRestrictions(16'u32)
+const MapRouteRestrictions_Motorail* = MapRouteRestrictions(32'u32)
 
 ## Windows.Services.Maps.MapServiceDataUsagePreference  (enum)
 type MapServiceDataUsagePreference* {.pure, size: 4.} = enum

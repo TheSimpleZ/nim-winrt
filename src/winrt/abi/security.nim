@@ -214,57 +214,57 @@ proc `$`*(v: SecondaryAuthenticationFactorAuthenticationStatus): string =
   else: "SecondaryAuthenticationFactorAuthenticationStatus(" & $ord(v) & ")"
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDeviceCapabilities  (enum)
-type SecondaryAuthenticationFactorDeviceCapabilities* = distinct int32
+type SecondaryAuthenticationFactorDeviceCapabilities* = distinct uint32
 proc `==`*(a, b: SecondaryAuthenticationFactorDeviceCapabilities): bool {.borrow.}
 proc `or`*(a, b: SecondaryAuthenticationFactorDeviceCapabilities): SecondaryAuthenticationFactorDeviceCapabilities {.borrow.}
 proc `and`*(a, b: SecondaryAuthenticationFactorDeviceCapabilities): SecondaryAuthenticationFactorDeviceCapabilities {.borrow.}
 proc `not`*(a: SecondaryAuthenticationFactorDeviceCapabilities): SecondaryAuthenticationFactorDeviceCapabilities {.borrow.}
 proc contains*(a, b: SecondaryAuthenticationFactorDeviceCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SecondaryAuthenticationFactorDeviceCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "SecureStorage"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "StoreKeys"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ConfirmUserIntentToAuthenticate"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "SupportSecureUserPresenceCheck"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "TransmittedDataIsEncrypted"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "HMacSha256"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "CloseRangeDataTransmission"
-    rest = rest and not 64'i32
+    rest = rest and not 64'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SecondaryAuthenticationFactorDeviceCapabilities(" & $rest & ")"
-const SecondaryAuthenticationFactorDeviceCapabilities_None* = SecondaryAuthenticationFactorDeviceCapabilities(0'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_SecureStorage* = SecondaryAuthenticationFactorDeviceCapabilities(1'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_StoreKeys* = SecondaryAuthenticationFactorDeviceCapabilities(2'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_ConfirmUserIntentToAuthenticate* = SecondaryAuthenticationFactorDeviceCapabilities(4'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_SupportSecureUserPresenceCheck* = SecondaryAuthenticationFactorDeviceCapabilities(8'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_TransmittedDataIsEncrypted* = SecondaryAuthenticationFactorDeviceCapabilities(16'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_HMacSha256* = SecondaryAuthenticationFactorDeviceCapabilities(32'i32)
-const SecondaryAuthenticationFactorDeviceCapabilities_CloseRangeDataTransmission* = SecondaryAuthenticationFactorDeviceCapabilities(64'i32)
+const SecondaryAuthenticationFactorDeviceCapabilities_None* = SecondaryAuthenticationFactorDeviceCapabilities(0'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_SecureStorage* = SecondaryAuthenticationFactorDeviceCapabilities(1'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_StoreKeys* = SecondaryAuthenticationFactorDeviceCapabilities(2'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_ConfirmUserIntentToAuthenticate* = SecondaryAuthenticationFactorDeviceCapabilities(4'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_SupportSecureUserPresenceCheck* = SecondaryAuthenticationFactorDeviceCapabilities(8'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_TransmittedDataIsEncrypted* = SecondaryAuthenticationFactorDeviceCapabilities(16'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_HMacSha256* = SecondaryAuthenticationFactorDeviceCapabilities(32'u32)
+const SecondaryAuthenticationFactorDeviceCapabilities_CloseRangeDataTransmission* = SecondaryAuthenticationFactorDeviceCapabilities(64'u32)
 
 ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorDeviceFindScope  (enum)
 type SecondaryAuthenticationFactorDeviceFindScope* {.pure, size: 4.} = enum
@@ -461,27 +461,27 @@ proc `$`*(v: WebAccountScope): string =
   else: "WebAccountScope(" & $ord(v) & ")"
 
 ## Windows.Security.Authentication.Web.Provider.WebAccountSelectionOptions  (enum)
-type WebAccountSelectionOptions* = distinct int32
+type WebAccountSelectionOptions* = distinct uint32
 proc `==`*(a, b: WebAccountSelectionOptions): bool {.borrow.}
 proc `or`*(a, b: WebAccountSelectionOptions): WebAccountSelectionOptions {.borrow.}
 proc `and`*(a, b: WebAccountSelectionOptions): WebAccountSelectionOptions {.borrow.}
 proc `not`*(a: WebAccountSelectionOptions): WebAccountSelectionOptions {.borrow.}
 proc contains*(a, b: WebAccountSelectionOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: WebAccountSelectionOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "New"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "WebAccountSelectionOptions(" & $rest & ")"
-const WebAccountSelectionOptions_Default* = WebAccountSelectionOptions(0'i32)
-const WebAccountSelectionOptions_New* = WebAccountSelectionOptions(1'i32)
+const WebAccountSelectionOptions_Default* = WebAccountSelectionOptions(0'u32)
+const WebAccountSelectionOptions_New* = WebAccountSelectionOptions(1'u32)
 
 ## Windows.Security.Authentication.Web.TokenBindingKeyType  (enum)
 type TokenBindingKeyType* {.pure, size: 4.} = enum
@@ -496,42 +496,42 @@ proc `$`*(v: TokenBindingKeyType): string =
   else: "TokenBindingKeyType(" & $ord(v) & ")"
 
 ## Windows.Security.Authentication.Web.WebAuthenticationOptions  (enum)
-type WebAuthenticationOptions* = distinct int32
+type WebAuthenticationOptions* = distinct uint32
 proc `==`*(a, b: WebAuthenticationOptions): bool {.borrow.}
 proc `or`*(a, b: WebAuthenticationOptions): WebAuthenticationOptions {.borrow.}
 proc `and`*(a, b: WebAuthenticationOptions): WebAuthenticationOptions {.borrow.}
 proc `not`*(a: WebAuthenticationOptions): WebAuthenticationOptions {.borrow.}
 proc contains*(a, b: WebAuthenticationOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: WebAuthenticationOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "SilentMode"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "UseTitle"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UseHttpPost"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "UseCorporateNetwork"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "WebAuthenticationOptions(" & $rest & ")"
-const WebAuthenticationOptions_None* = WebAuthenticationOptions(0'i32)
-const WebAuthenticationOptions_SilentMode* = WebAuthenticationOptions(1'i32)
-const WebAuthenticationOptions_UseTitle* = WebAuthenticationOptions(2'i32)
-const WebAuthenticationOptions_UseHttpPost* = WebAuthenticationOptions(4'i32)
-const WebAuthenticationOptions_UseCorporateNetwork* = WebAuthenticationOptions(8'i32)
+const WebAuthenticationOptions_None* = WebAuthenticationOptions(0'u32)
+const WebAuthenticationOptions_SilentMode* = WebAuthenticationOptions(1'u32)
+const WebAuthenticationOptions_UseTitle* = WebAuthenticationOptions(2'u32)
+const WebAuthenticationOptions_UseHttpPost* = WebAuthenticationOptions(4'u32)
+const WebAuthenticationOptions_UseCorporateNetwork* = WebAuthenticationOptions(8'u32)
 
 ## Windows.Security.Authentication.Web.WebAuthenticationStatus  (enum)
 type WebAuthenticationStatus* {.pure, size: 4.} = enum
@@ -780,42 +780,42 @@ proc `$`*(v: ChainValidationResult): string =
   else: "ChainValidationResult(" & $ord(v) & ")"
 
 ## Windows.Security.Cryptography.Certificates.EnrollKeyUsages  (enum)
-type EnrollKeyUsages* = distinct int32
+type EnrollKeyUsages* = distinct uint32
 proc `==`*(a, b: EnrollKeyUsages): bool {.borrow.}
 proc `or`*(a, b: EnrollKeyUsages): EnrollKeyUsages {.borrow.}
 proc `and`*(a, b: EnrollKeyUsages): EnrollKeyUsages {.borrow.}
 proc `not`*(a: EnrollKeyUsages): EnrollKeyUsages {.borrow.}
 proc contains*(a, b: EnrollKeyUsages): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: EnrollKeyUsages): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Decryption"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Signing"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "KeyAgreement"
-    rest = rest and not 4'i32
-  if (rest and 16777215'i32) == 16777215'i32:
+    rest = rest and not 4'u32
+  if (rest and 16777215'u32) == 16777215'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not 16777215'i32
+    rest = rest and not 16777215'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "EnrollKeyUsages(" & $rest & ")"
-const EnrollKeyUsages_None* = EnrollKeyUsages(0'i32)
-const EnrollKeyUsages_Decryption* = EnrollKeyUsages(1'i32)
-const EnrollKeyUsages_Signing* = EnrollKeyUsages(2'i32)
-const EnrollKeyUsages_KeyAgreement* = EnrollKeyUsages(4'i32)
-const EnrollKeyUsages_All* = EnrollKeyUsages(16777215'i32)
+const EnrollKeyUsages_None* = EnrollKeyUsages(0'u32)
+const EnrollKeyUsages_Decryption* = EnrollKeyUsages(1'u32)
+const EnrollKeyUsages_Signing* = EnrollKeyUsages(2'u32)
+const EnrollKeyUsages_KeyAgreement* = EnrollKeyUsages(4'u32)
+const EnrollKeyUsages_All* = EnrollKeyUsages(16777215'u32)
 
 ## Windows.Security.Cryptography.Certificates.ExportOption  (enum)
 type ExportOption* {.pure, size: 4.} = enum
@@ -828,27 +828,27 @@ proc `$`*(v: ExportOption): string =
   else: "ExportOption(" & $ord(v) & ")"
 
 ## Windows.Security.Cryptography.Certificates.InstallOptions  (enum)
-type InstallOptions* = distinct int32
+type InstallOptions* = distinct uint32
 proc `==`*(a, b: InstallOptions): bool {.borrow.}
 proc `or`*(a, b: InstallOptions): InstallOptions {.borrow.}
 proc `and`*(a, b: InstallOptions): InstallOptions {.borrow.}
 proc `not`*(a: InstallOptions): InstallOptions {.borrow.}
 proc contains*(a, b: InstallOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InstallOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "DeleteExpired"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InstallOptions(" & $rest & ")"
-const InstallOptions_None* = InstallOptions(0'i32)
-const InstallOptions_DeleteExpired* = InstallOptions(1'i32)
+const InstallOptions_None* = InstallOptions(0'u32)
+const InstallOptions_DeleteExpired* = InstallOptions(1'u32)
 
 ## Windows.Security.Cryptography.Certificates.KeyProtectionLevel  (enum)
 type KeyProtectionLevel* {.pure, size: 4.} = enum
@@ -1320,103 +1320,103 @@ proc `$`*(v: IsolatedWindowsEnvironmentActivator): string =
   else: "IsolatedWindowsEnvironmentActivator(" & $ord(v) & ")"
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentAllowedClipboardFormats  (enum)
-type IsolatedWindowsEnvironmentAllowedClipboardFormats* = distinct int32
+type IsolatedWindowsEnvironmentAllowedClipboardFormats* = distinct uint32
 proc `==`*(a, b: IsolatedWindowsEnvironmentAllowedClipboardFormats): bool {.borrow.}
 proc `or`*(a, b: IsolatedWindowsEnvironmentAllowedClipboardFormats): IsolatedWindowsEnvironmentAllowedClipboardFormats {.borrow.}
 proc `and`*(a, b: IsolatedWindowsEnvironmentAllowedClipboardFormats): IsolatedWindowsEnvironmentAllowedClipboardFormats {.borrow.}
 proc `not`*(a: IsolatedWindowsEnvironmentAllowedClipboardFormats): IsolatedWindowsEnvironmentAllowedClipboardFormats {.borrow.}
 proc contains*(a, b: IsolatedWindowsEnvironmentAllowedClipboardFormats): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: IsolatedWindowsEnvironmentAllowedClipboardFormats): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Text"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Image"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Rtf"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "IsolatedWindowsEnvironmentAllowedClipboardFormats(" & $rest & ")"
-const IsolatedWindowsEnvironmentAllowedClipboardFormats_None* = IsolatedWindowsEnvironmentAllowedClipboardFormats(0'i32)
-const IsolatedWindowsEnvironmentAllowedClipboardFormats_Text* = IsolatedWindowsEnvironmentAllowedClipboardFormats(1'i32)
-const IsolatedWindowsEnvironmentAllowedClipboardFormats_Image* = IsolatedWindowsEnvironmentAllowedClipboardFormats(2'i32)
-const IsolatedWindowsEnvironmentAllowedClipboardFormats_Rtf* = IsolatedWindowsEnvironmentAllowedClipboardFormats(4'i32)
+const IsolatedWindowsEnvironmentAllowedClipboardFormats_None* = IsolatedWindowsEnvironmentAllowedClipboardFormats(0'u32)
+const IsolatedWindowsEnvironmentAllowedClipboardFormats_Text* = IsolatedWindowsEnvironmentAllowedClipboardFormats(1'u32)
+const IsolatedWindowsEnvironmentAllowedClipboardFormats_Image* = IsolatedWindowsEnvironmentAllowedClipboardFormats(2'u32)
+const IsolatedWindowsEnvironmentAllowedClipboardFormats_Rtf* = IsolatedWindowsEnvironmentAllowedClipboardFormats(4'u32)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentAvailablePrinters  (enum)
-type IsolatedWindowsEnvironmentAvailablePrinters* = distinct int32
+type IsolatedWindowsEnvironmentAvailablePrinters* = distinct uint32
 proc `==`*(a, b: IsolatedWindowsEnvironmentAvailablePrinters): bool {.borrow.}
 proc `or`*(a, b: IsolatedWindowsEnvironmentAvailablePrinters): IsolatedWindowsEnvironmentAvailablePrinters {.borrow.}
 proc `and`*(a, b: IsolatedWindowsEnvironmentAvailablePrinters): IsolatedWindowsEnvironmentAvailablePrinters {.borrow.}
 proc `not`*(a: IsolatedWindowsEnvironmentAvailablePrinters): IsolatedWindowsEnvironmentAvailablePrinters {.borrow.}
 proc contains*(a, b: IsolatedWindowsEnvironmentAvailablePrinters): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: IsolatedWindowsEnvironmentAvailablePrinters): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Local"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Network"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "SystemPrintToPdf"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "SystemPrintToXps"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "IsolatedWindowsEnvironmentAvailablePrinters(" & $rest & ")"
-const IsolatedWindowsEnvironmentAvailablePrinters_None* = IsolatedWindowsEnvironmentAvailablePrinters(0'i32)
-const IsolatedWindowsEnvironmentAvailablePrinters_Local* = IsolatedWindowsEnvironmentAvailablePrinters(1'i32)
-const IsolatedWindowsEnvironmentAvailablePrinters_Network* = IsolatedWindowsEnvironmentAvailablePrinters(2'i32)
-const IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToPdf* = IsolatedWindowsEnvironmentAvailablePrinters(4'i32)
-const IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToXps* = IsolatedWindowsEnvironmentAvailablePrinters(8'i32)
+const IsolatedWindowsEnvironmentAvailablePrinters_None* = IsolatedWindowsEnvironmentAvailablePrinters(0'u32)
+const IsolatedWindowsEnvironmentAvailablePrinters_Local* = IsolatedWindowsEnvironmentAvailablePrinters(1'u32)
+const IsolatedWindowsEnvironmentAvailablePrinters_Network* = IsolatedWindowsEnvironmentAvailablePrinters(2'u32)
+const IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToPdf* = IsolatedWindowsEnvironmentAvailablePrinters(4'u32)
+const IsolatedWindowsEnvironmentAvailablePrinters_SystemPrintToXps* = IsolatedWindowsEnvironmentAvailablePrinters(8'u32)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentClipboardCopyPasteDirections  (enum)
-type IsolatedWindowsEnvironmentClipboardCopyPasteDirections* = distinct int32
+type IsolatedWindowsEnvironmentClipboardCopyPasteDirections* = distinct uint32
 proc `==`*(a, b: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): bool {.borrow.}
 proc `or`*(a, b: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): IsolatedWindowsEnvironmentClipboardCopyPasteDirections {.borrow.}
 proc `and`*(a, b: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): IsolatedWindowsEnvironmentClipboardCopyPasteDirections {.borrow.}
 proc `not`*(a: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): IsolatedWindowsEnvironmentClipboardCopyPasteDirections {.borrow.}
 proc contains*(a, b: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "HostToIsolatedWindowsEnvironment"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "IsolatedWindowsEnvironmentToHost"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "IsolatedWindowsEnvironmentClipboardCopyPasteDirections(" & $rest & ")"
-const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_None* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(0'i32)
-const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_HostToIsolatedWindowsEnvironment* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(1'i32)
-const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_IsolatedWindowsEnvironmentToHost* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(2'i32)
+const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_None* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(0'u32)
+const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_HostToIsolatedWindowsEnvironment* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(1'u32)
+const IsolatedWindowsEnvironmentClipboardCopyPasteDirections_IsolatedWindowsEnvironmentToHost* = IsolatedWindowsEnvironmentClipboardCopyPasteDirections(2'u32)
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateStatus  (enum)
 type IsolatedWindowsEnvironmentCreateStatus* {.pure, size: 4.} = enum

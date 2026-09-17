@@ -16,82 +16,82 @@ import ./foundation
 export foundation
 
 ## Windows.Gaming.Input.ArcadeStickButtons  (enum)
-type ArcadeStickButtons* = distinct int32
+type ArcadeStickButtons* = distinct uint32
 proc `==`*(a, b: ArcadeStickButtons): bool {.borrow.}
 proc `or`*(a, b: ArcadeStickButtons): ArcadeStickButtons {.borrow.}
 proc `and`*(a, b: ArcadeStickButtons): ArcadeStickButtons {.borrow.}
 proc `not`*(a: ArcadeStickButtons): ArcadeStickButtons {.borrow.}
 proc contains*(a, b: ArcadeStickButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ArcadeStickButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "StickUp"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "StickDown"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "StickLeft"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "StickRight"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Action1"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Action2"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Action3"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Action4"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Action5"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "Action6"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "Special1"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "Special2"
-    rest = rest and not 2048'i32
+    rest = rest and not 2048'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ArcadeStickButtons(" & $rest & ")"
-const ArcadeStickButtons_None* = ArcadeStickButtons(0'i32)
-const ArcadeStickButtons_StickUp* = ArcadeStickButtons(1'i32)
-const ArcadeStickButtons_StickDown* = ArcadeStickButtons(2'i32)
-const ArcadeStickButtons_StickLeft* = ArcadeStickButtons(4'i32)
-const ArcadeStickButtons_StickRight* = ArcadeStickButtons(8'i32)
-const ArcadeStickButtons_Action1* = ArcadeStickButtons(16'i32)
-const ArcadeStickButtons_Action2* = ArcadeStickButtons(32'i32)
-const ArcadeStickButtons_Action3* = ArcadeStickButtons(64'i32)
-const ArcadeStickButtons_Action4* = ArcadeStickButtons(128'i32)
-const ArcadeStickButtons_Action5* = ArcadeStickButtons(256'i32)
-const ArcadeStickButtons_Action6* = ArcadeStickButtons(512'i32)
-const ArcadeStickButtons_Special1* = ArcadeStickButtons(1024'i32)
-const ArcadeStickButtons_Special2* = ArcadeStickButtons(2048'i32)
+const ArcadeStickButtons_None* = ArcadeStickButtons(0'u32)
+const ArcadeStickButtons_StickUp* = ArcadeStickButtons(1'u32)
+const ArcadeStickButtons_StickDown* = ArcadeStickButtons(2'u32)
+const ArcadeStickButtons_StickLeft* = ArcadeStickButtons(4'u32)
+const ArcadeStickButtons_StickRight* = ArcadeStickButtons(8'u32)
+const ArcadeStickButtons_Action1* = ArcadeStickButtons(16'u32)
+const ArcadeStickButtons_Action2* = ArcadeStickButtons(32'u32)
+const ArcadeStickButtons_Action3* = ArcadeStickButtons(64'u32)
+const ArcadeStickButtons_Action4* = ArcadeStickButtons(128'u32)
+const ArcadeStickButtons_Action5* = ArcadeStickButtons(256'u32)
+const ArcadeStickButtons_Action6* = ArcadeStickButtons(512'u32)
+const ArcadeStickButtons_Special1* = ArcadeStickButtons(1024'u32)
+const ArcadeStickButtons_Special2* = ArcadeStickButtons(2048'u32)
 
 ## Windows.Gaming.Input.Custom.GipFirmwareUpdateStatus  (enum)
 type GipFirmwareUpdateStatus* {.pure, size: 4.} = enum
@@ -156,32 +156,32 @@ proc `$`*(v: XusbDeviceType): string =
   else: "XusbDeviceType(" & $ord(v) & ")"
 
 ## Windows.Gaming.Input.FlightStickButtons  (enum)
-type FlightStickButtons* = distinct int32
+type FlightStickButtons* = distinct uint32
 proc `==`*(a, b: FlightStickButtons): bool {.borrow.}
 proc `or`*(a, b: FlightStickButtons): FlightStickButtons {.borrow.}
 proc `and`*(a, b: FlightStickButtons): FlightStickButtons {.borrow.}
 proc `not`*(a: FlightStickButtons): FlightStickButtons {.borrow.}
 proc contains*(a, b: FlightStickButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: FlightStickButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "FirePrimary"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "FireSecondary"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "FlightStickButtons(" & $rest & ")"
-const FlightStickButtons_None* = FlightStickButtons(0'i32)
-const FlightStickButtons_FirePrimary* = FlightStickButtons(1'i32)
-const FlightStickButtons_FireSecondary* = FlightStickButtons(2'i32)
+const FlightStickButtons_None* = FlightStickButtons(0'u32)
+const FlightStickButtons_FirePrimary* = FlightStickButtons(1'u32)
+const FlightStickButtons_FireSecondary* = FlightStickButtons(2'u32)
 
 ## Windows.Gaming.Input.ForceFeedback.ConditionForceEffectKind  (enum)
 type ConditionForceEffectKind* {.pure, size: 4.} = enum
@@ -198,37 +198,37 @@ proc `$`*(v: ConditionForceEffectKind): string =
   else: "ConditionForceEffectKind(" & $ord(v) & ")"
 
 ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackEffectAxes  (enum)
-type ForceFeedbackEffectAxes* = distinct int32
+type ForceFeedbackEffectAxes* = distinct uint32
 proc `==`*(a, b: ForceFeedbackEffectAxes): bool {.borrow.}
 proc `or`*(a, b: ForceFeedbackEffectAxes): ForceFeedbackEffectAxes {.borrow.}
 proc `and`*(a, b: ForceFeedbackEffectAxes): ForceFeedbackEffectAxes {.borrow.}
 proc `not`*(a: ForceFeedbackEffectAxes): ForceFeedbackEffectAxes {.borrow.}
 proc contains*(a, b: ForceFeedbackEffectAxes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ForceFeedbackEffectAxes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "X"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Y"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Z"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ForceFeedbackEffectAxes(" & $rest & ")"
-const ForceFeedbackEffectAxes_None* = ForceFeedbackEffectAxes(0'i32)
-const ForceFeedbackEffectAxes_X* = ForceFeedbackEffectAxes(1'i32)
-const ForceFeedbackEffectAxes_Y* = ForceFeedbackEffectAxes(2'i32)
-const ForceFeedbackEffectAxes_Z* = ForceFeedbackEffectAxes(4'i32)
+const ForceFeedbackEffectAxes_None* = ForceFeedbackEffectAxes(0'u32)
+const ForceFeedbackEffectAxes_X* = ForceFeedbackEffectAxes(1'u32)
+const ForceFeedbackEffectAxes_Y* = ForceFeedbackEffectAxes(2'u32)
+const ForceFeedbackEffectAxes_Z* = ForceFeedbackEffectAxes(4'u32)
 
 ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackEffectState  (enum)
 type ForceFeedbackEffectState* {.pure, size: 4.} = enum
@@ -453,190 +453,190 @@ proc `$`*(v: GameControllerSwitchPosition): string =
   else: "GameControllerSwitchPosition(" & $ord(v) & ")"
 
 ## Windows.Gaming.Input.GamepadButtons  (enum)
-type GamepadButtons* = distinct int32
+type GamepadButtons* = distinct uint32
 proc `==`*(a, b: GamepadButtons): bool {.borrow.}
 proc `or`*(a, b: GamepadButtons): GamepadButtons {.borrow.}
 proc `and`*(a, b: GamepadButtons): GamepadButtons {.borrow.}
 proc `not`*(a: GamepadButtons): GamepadButtons {.borrow.}
 proc contains*(a, b: GamepadButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GamepadButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Menu"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "View"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "A"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "B"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "X"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Y"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "DPadUp"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "DPadDown"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "DPadLeft"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "DPadRight"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "LeftShoulder"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "RightShoulder"
-    rest = rest and not 2048'i32
-  if (rest and 4096'i32) == 4096'i32:
+    rest = rest and not 2048'u32
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "LeftThumbstick"
-    rest = rest and not 4096'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 4096'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "RightThumbstick"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "Paddle1"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "Paddle2"
-    rest = rest and not 32768'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 32768'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "Paddle3"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "Paddle4"
-    rest = rest and not 131072'i32
+    rest = rest and not 131072'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GamepadButtons(" & $rest & ")"
-const GamepadButtons_None* = GamepadButtons(0'i32)
-const GamepadButtons_Menu* = GamepadButtons(1'i32)
-const GamepadButtons_View* = GamepadButtons(2'i32)
-const GamepadButtons_A* = GamepadButtons(4'i32)
-const GamepadButtons_B* = GamepadButtons(8'i32)
-const GamepadButtons_X* = GamepadButtons(16'i32)
-const GamepadButtons_Y* = GamepadButtons(32'i32)
-const GamepadButtons_DPadUp* = GamepadButtons(64'i32)
-const GamepadButtons_DPadDown* = GamepadButtons(128'i32)
-const GamepadButtons_DPadLeft* = GamepadButtons(256'i32)
-const GamepadButtons_DPadRight* = GamepadButtons(512'i32)
-const GamepadButtons_LeftShoulder* = GamepadButtons(1024'i32)
-const GamepadButtons_RightShoulder* = GamepadButtons(2048'i32)
-const GamepadButtons_LeftThumbstick* = GamepadButtons(4096'i32)
-const GamepadButtons_RightThumbstick* = GamepadButtons(8192'i32)
-const GamepadButtons_Paddle1* = GamepadButtons(16384'i32)
-const GamepadButtons_Paddle2* = GamepadButtons(32768'i32)
-const GamepadButtons_Paddle3* = GamepadButtons(65536'i32)
-const GamepadButtons_Paddle4* = GamepadButtons(131072'i32)
+const GamepadButtons_None* = GamepadButtons(0'u32)
+const GamepadButtons_Menu* = GamepadButtons(1'u32)
+const GamepadButtons_View* = GamepadButtons(2'u32)
+const GamepadButtons_A* = GamepadButtons(4'u32)
+const GamepadButtons_B* = GamepadButtons(8'u32)
+const GamepadButtons_X* = GamepadButtons(16'u32)
+const GamepadButtons_Y* = GamepadButtons(32'u32)
+const GamepadButtons_DPadUp* = GamepadButtons(64'u32)
+const GamepadButtons_DPadDown* = GamepadButtons(128'u32)
+const GamepadButtons_DPadLeft* = GamepadButtons(256'u32)
+const GamepadButtons_DPadRight* = GamepadButtons(512'u32)
+const GamepadButtons_LeftShoulder* = GamepadButtons(1024'u32)
+const GamepadButtons_RightShoulder* = GamepadButtons(2048'u32)
+const GamepadButtons_LeftThumbstick* = GamepadButtons(4096'u32)
+const GamepadButtons_RightThumbstick* = GamepadButtons(8192'u32)
+const GamepadButtons_Paddle1* = GamepadButtons(16384'u32)
+const GamepadButtons_Paddle2* = GamepadButtons(32768'u32)
+const GamepadButtons_Paddle3* = GamepadButtons(65536'u32)
+const GamepadButtons_Paddle4* = GamepadButtons(131072'u32)
 
 ## Windows.Gaming.Input.OptionalUINavigationButtons  (enum)
-type OptionalUINavigationButtons* = distinct int32
+type OptionalUINavigationButtons* = distinct uint32
 proc `==`*(a, b: OptionalUINavigationButtons): bool {.borrow.}
 proc `or`*(a, b: OptionalUINavigationButtons): OptionalUINavigationButtons {.borrow.}
 proc `and`*(a, b: OptionalUINavigationButtons): OptionalUINavigationButtons {.borrow.}
 proc `not`*(a: OptionalUINavigationButtons): OptionalUINavigationButtons {.borrow.}
 proc contains*(a, b: OptionalUINavigationButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: OptionalUINavigationButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Context1"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Context2"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Context3"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Context4"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "PageUp"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "PageDown"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "PageLeft"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "PageRight"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "ScrollUp"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "ScrollDown"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "ScrollLeft"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "ScrollRight"
-    rest = rest and not 2048'i32
+    rest = rest and not 2048'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "OptionalUINavigationButtons(" & $rest & ")"
-const OptionalUINavigationButtons_None* = OptionalUINavigationButtons(0'i32)
-const OptionalUINavigationButtons_Context1* = OptionalUINavigationButtons(1'i32)
-const OptionalUINavigationButtons_Context2* = OptionalUINavigationButtons(2'i32)
-const OptionalUINavigationButtons_Context3* = OptionalUINavigationButtons(4'i32)
-const OptionalUINavigationButtons_Context4* = OptionalUINavigationButtons(8'i32)
-const OptionalUINavigationButtons_PageUp* = OptionalUINavigationButtons(16'i32)
-const OptionalUINavigationButtons_PageDown* = OptionalUINavigationButtons(32'i32)
-const OptionalUINavigationButtons_PageLeft* = OptionalUINavigationButtons(64'i32)
-const OptionalUINavigationButtons_PageRight* = OptionalUINavigationButtons(128'i32)
-const OptionalUINavigationButtons_ScrollUp* = OptionalUINavigationButtons(256'i32)
-const OptionalUINavigationButtons_ScrollDown* = OptionalUINavigationButtons(512'i32)
-const OptionalUINavigationButtons_ScrollLeft* = OptionalUINavigationButtons(1024'i32)
-const OptionalUINavigationButtons_ScrollRight* = OptionalUINavigationButtons(2048'i32)
+const OptionalUINavigationButtons_None* = OptionalUINavigationButtons(0'u32)
+const OptionalUINavigationButtons_Context1* = OptionalUINavigationButtons(1'u32)
+const OptionalUINavigationButtons_Context2* = OptionalUINavigationButtons(2'u32)
+const OptionalUINavigationButtons_Context3* = OptionalUINavigationButtons(4'u32)
+const OptionalUINavigationButtons_Context4* = OptionalUINavigationButtons(8'u32)
+const OptionalUINavigationButtons_PageUp* = OptionalUINavigationButtons(16'u32)
+const OptionalUINavigationButtons_PageDown* = OptionalUINavigationButtons(32'u32)
+const OptionalUINavigationButtons_PageLeft* = OptionalUINavigationButtons(64'u32)
+const OptionalUINavigationButtons_PageRight* = OptionalUINavigationButtons(128'u32)
+const OptionalUINavigationButtons_ScrollUp* = OptionalUINavigationButtons(256'u32)
+const OptionalUINavigationButtons_ScrollDown* = OptionalUINavigationButtons(512'u32)
+const OptionalUINavigationButtons_ScrollLeft* = OptionalUINavigationButtons(1024'u32)
+const OptionalUINavigationButtons_ScrollRight* = OptionalUINavigationButtons(2048'u32)
 
 ## Windows.Gaming.Input.Preview.DeviceCommand  (enum)
 type DeviceCommand* {.pure, size: 4.} = enum
@@ -773,190 +773,190 @@ proc `$`*(v: RemappingButtonCategory): string =
   else: "RemappingButtonCategory(" & $ord(v) & ")"
 
 ## Windows.Gaming.Input.RacingWheelButtons  (enum)
-type RacingWheelButtons* = distinct int32
+type RacingWheelButtons* = distinct uint32
 proc `==`*(a, b: RacingWheelButtons): bool {.borrow.}
 proc `or`*(a, b: RacingWheelButtons): RacingWheelButtons {.borrow.}
 proc `and`*(a, b: RacingWheelButtons): RacingWheelButtons {.borrow.}
 proc `not`*(a: RacingWheelButtons): RacingWheelButtons {.borrow.}
 proc contains*(a, b: RacingWheelButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RacingWheelButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "PreviousGear"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "NextGear"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "DPadUp"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "DPadDown"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "DPadLeft"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "DPadRight"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Button1"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Button2"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Button3"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "Button4"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "Button5"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "Button6"
-    rest = rest and not 2048'i32
-  if (rest and 4096'i32) == 4096'i32:
+    rest = rest and not 2048'u32
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "Button7"
-    rest = rest and not 4096'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 4096'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "Button8"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "Button9"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "Button10"
-    rest = rest and not 32768'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 32768'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "Button11"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "Button12"
-    rest = rest and not 131072'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 131072'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "Button13"
-    rest = rest and not 262144'i32
-  if (rest and 524288'i32) == 524288'i32:
+    rest = rest and not 262144'u32
+  if (rest and 524288'u32) == 524288'u32:
     if result.len > 0: result.add " or "
     result.add "Button14"
-    rest = rest and not 524288'i32
-  if (rest and 1048576'i32) == 1048576'i32:
+    rest = rest and not 524288'u32
+  if (rest and 1048576'u32) == 1048576'u32:
     if result.len > 0: result.add " or "
     result.add "Button15"
-    rest = rest and not 1048576'i32
-  if (rest and 2097152'i32) == 2097152'i32:
+    rest = rest and not 1048576'u32
+  if (rest and 2097152'u32) == 2097152'u32:
     if result.len > 0: result.add " or "
     result.add "Button16"
-    rest = rest and not 2097152'i32
+    rest = rest and not 2097152'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RacingWheelButtons(" & $rest & ")"
-const RacingWheelButtons_None* = RacingWheelButtons(0'i32)
-const RacingWheelButtons_PreviousGear* = RacingWheelButtons(1'i32)
-const RacingWheelButtons_NextGear* = RacingWheelButtons(2'i32)
-const RacingWheelButtons_DPadUp* = RacingWheelButtons(4'i32)
-const RacingWheelButtons_DPadDown* = RacingWheelButtons(8'i32)
-const RacingWheelButtons_DPadLeft* = RacingWheelButtons(16'i32)
-const RacingWheelButtons_DPadRight* = RacingWheelButtons(32'i32)
-const RacingWheelButtons_Button1* = RacingWheelButtons(64'i32)
-const RacingWheelButtons_Button2* = RacingWheelButtons(128'i32)
-const RacingWheelButtons_Button3* = RacingWheelButtons(256'i32)
-const RacingWheelButtons_Button4* = RacingWheelButtons(512'i32)
-const RacingWheelButtons_Button5* = RacingWheelButtons(1024'i32)
-const RacingWheelButtons_Button6* = RacingWheelButtons(2048'i32)
-const RacingWheelButtons_Button7* = RacingWheelButtons(4096'i32)
-const RacingWheelButtons_Button8* = RacingWheelButtons(8192'i32)
-const RacingWheelButtons_Button9* = RacingWheelButtons(16384'i32)
-const RacingWheelButtons_Button10* = RacingWheelButtons(32768'i32)
-const RacingWheelButtons_Button11* = RacingWheelButtons(65536'i32)
-const RacingWheelButtons_Button12* = RacingWheelButtons(131072'i32)
-const RacingWheelButtons_Button13* = RacingWheelButtons(262144'i32)
-const RacingWheelButtons_Button14* = RacingWheelButtons(524288'i32)
-const RacingWheelButtons_Button15* = RacingWheelButtons(1048576'i32)
-const RacingWheelButtons_Button16* = RacingWheelButtons(2097152'i32)
+const RacingWheelButtons_None* = RacingWheelButtons(0'u32)
+const RacingWheelButtons_PreviousGear* = RacingWheelButtons(1'u32)
+const RacingWheelButtons_NextGear* = RacingWheelButtons(2'u32)
+const RacingWheelButtons_DPadUp* = RacingWheelButtons(4'u32)
+const RacingWheelButtons_DPadDown* = RacingWheelButtons(8'u32)
+const RacingWheelButtons_DPadLeft* = RacingWheelButtons(16'u32)
+const RacingWheelButtons_DPadRight* = RacingWheelButtons(32'u32)
+const RacingWheelButtons_Button1* = RacingWheelButtons(64'u32)
+const RacingWheelButtons_Button2* = RacingWheelButtons(128'u32)
+const RacingWheelButtons_Button3* = RacingWheelButtons(256'u32)
+const RacingWheelButtons_Button4* = RacingWheelButtons(512'u32)
+const RacingWheelButtons_Button5* = RacingWheelButtons(1024'u32)
+const RacingWheelButtons_Button6* = RacingWheelButtons(2048'u32)
+const RacingWheelButtons_Button7* = RacingWheelButtons(4096'u32)
+const RacingWheelButtons_Button8* = RacingWheelButtons(8192'u32)
+const RacingWheelButtons_Button9* = RacingWheelButtons(16384'u32)
+const RacingWheelButtons_Button10* = RacingWheelButtons(32768'u32)
+const RacingWheelButtons_Button11* = RacingWheelButtons(65536'u32)
+const RacingWheelButtons_Button12* = RacingWheelButtons(131072'u32)
+const RacingWheelButtons_Button13* = RacingWheelButtons(262144'u32)
+const RacingWheelButtons_Button14* = RacingWheelButtons(524288'u32)
+const RacingWheelButtons_Button15* = RacingWheelButtons(1048576'u32)
+const RacingWheelButtons_Button16* = RacingWheelButtons(2097152'u32)
 
 ## Windows.Gaming.Input.RequiredUINavigationButtons  (enum)
-type RequiredUINavigationButtons* = distinct int32
+type RequiredUINavigationButtons* = distinct uint32
 proc `==`*(a, b: RequiredUINavigationButtons): bool {.borrow.}
 proc `or`*(a, b: RequiredUINavigationButtons): RequiredUINavigationButtons {.borrow.}
 proc `and`*(a, b: RequiredUINavigationButtons): RequiredUINavigationButtons {.borrow.}
 proc `not`*(a: RequiredUINavigationButtons): RequiredUINavigationButtons {.borrow.}
 proc contains*(a, b: RequiredUINavigationButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RequiredUINavigationButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Menu"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "View"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Accept"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Cancel"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Up"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Down"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Left"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Right"
-    rest = rest and not 128'i32
+    rest = rest and not 128'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RequiredUINavigationButtons(" & $rest & ")"
-const RequiredUINavigationButtons_None* = RequiredUINavigationButtons(0'i32)
-const RequiredUINavigationButtons_Menu* = RequiredUINavigationButtons(1'i32)
-const RequiredUINavigationButtons_View* = RequiredUINavigationButtons(2'i32)
-const RequiredUINavigationButtons_Accept* = RequiredUINavigationButtons(4'i32)
-const RequiredUINavigationButtons_Cancel* = RequiredUINavigationButtons(8'i32)
-const RequiredUINavigationButtons_Up* = RequiredUINavigationButtons(16'i32)
-const RequiredUINavigationButtons_Down* = RequiredUINavigationButtons(32'i32)
-const RequiredUINavigationButtons_Left* = RequiredUINavigationButtons(64'i32)
-const RequiredUINavigationButtons_Right* = RequiredUINavigationButtons(128'i32)
+const RequiredUINavigationButtons_None* = RequiredUINavigationButtons(0'u32)
+const RequiredUINavigationButtons_Menu* = RequiredUINavigationButtons(1'u32)
+const RequiredUINavigationButtons_View* = RequiredUINavigationButtons(2'u32)
+const RequiredUINavigationButtons_Accept* = RequiredUINavigationButtons(4'u32)
+const RequiredUINavigationButtons_Cancel* = RequiredUINavigationButtons(8'u32)
+const RequiredUINavigationButtons_Up* = RequiredUINavigationButtons(16'u32)
+const RequiredUINavigationButtons_Down* = RequiredUINavigationButtons(32'u32)
+const RequiredUINavigationButtons_Left* = RequiredUINavigationButtons(64'u32)
+const RequiredUINavigationButtons_Right* = RequiredUINavigationButtons(128'u32)
 
 ## Windows.Gaming.Preview.GamesEnumeration.GameListCategory  (enum)
 type GameListCategory* {.pure, size: 4.} = enum

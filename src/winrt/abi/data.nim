@@ -80,32 +80,32 @@ proc `$`*(v: AlternateNormalizationFormat): string =
   else: "AlternateNormalizationFormat(" & $ord(v) & ")"
 
 ## Windows.Data.Text.TextPredictionOptions  (enum)
-type TextPredictionOptions* = distinct int32
+type TextPredictionOptions* = distinct uint32
 proc `==`*(a, b: TextPredictionOptions): bool {.borrow.}
 proc `or`*(a, b: TextPredictionOptions): TextPredictionOptions {.borrow.}
 proc `and`*(a, b: TextPredictionOptions): TextPredictionOptions {.borrow.}
 proc `not`*(a: TextPredictionOptions): TextPredictionOptions {.borrow.}
 proc contains*(a, b: TextPredictionOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextPredictionOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Predictions"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Corrections"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextPredictionOptions(" & $rest & ")"
-const TextPredictionOptions_None* = TextPredictionOptions(0'i32)
-const TextPredictionOptions_Predictions* = TextPredictionOptions(1'i32)
-const TextPredictionOptions_Corrections* = TextPredictionOptions(2'i32)
+const TextPredictionOptions_None* = TextPredictionOptions(0'u32)
+const TextPredictionOptions_Predictions* = TextPredictionOptions(1'u32)
+const TextPredictionOptions_Corrections* = TextPredictionOptions(2'u32)
 
 ## Windows.Data.Text.UnicodeGeneralCategory  (enum)
 type UnicodeGeneralCategory* {.pure, size: 4.} = enum

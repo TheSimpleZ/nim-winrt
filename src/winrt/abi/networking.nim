@@ -235,60 +235,60 @@ proc `$`*(v: NetworkEncryptionType): string =
   else: "NetworkEncryptionType(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.NetworkTypes  (enum)
-type NetworkTypes* = distinct int32
+type NetworkTypes* = distinct uint32
 proc `==`*(a, b: NetworkTypes): bool {.borrow.}
 proc `or`*(a, b: NetworkTypes): NetworkTypes {.borrow.}
 proc `and`*(a, b: NetworkTypes): NetworkTypes {.borrow.}
 proc `not`*(a: NetworkTypes): NetworkTypes {.borrow.}
 proc contains*(a, b: NetworkTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: NetworkTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Internet"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "PrivateNetwork"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "NetworkTypes(" & $rest & ")"
-const NetworkTypes_None* = NetworkTypes(0'i32)
-const NetworkTypes_Internet* = NetworkTypes(1'i32)
-const NetworkTypes_PrivateNetwork* = NetworkTypes(2'i32)
+const NetworkTypes_None* = NetworkTypes(0'u32)
+const NetworkTypes_Internet* = NetworkTypes(1'u32)
+const NetworkTypes_PrivateNetwork* = NetworkTypes(2'u32)
 
 ## Windows.Networking.Connectivity.RoamingStates  (enum)
-type RoamingStates* = distinct int32
+type RoamingStates* = distinct uint32
 proc `==`*(a, b: RoamingStates): bool {.borrow.}
 proc `or`*(a, b: RoamingStates): RoamingStates {.borrow.}
 proc `and`*(a, b: RoamingStates): RoamingStates {.borrow.}
 proc `not`*(a: RoamingStates): RoamingStates {.borrow.}
 proc contains*(a, b: RoamingStates): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RoamingStates): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "NotRoaming"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Roaming"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RoamingStates(" & $rest & ")"
-const RoamingStates_None* = RoamingStates(0'i32)
-const RoamingStates_NotRoaming* = RoamingStates(1'i32)
-const RoamingStates_Roaming* = RoamingStates(2'i32)
+const RoamingStates_None* = RoamingStates(0'u32)
+const RoamingStates_NotRoaming* = RoamingStates(1'u32)
+const RoamingStates_Roaming* = RoamingStates(2'u32)
 
 ## Windows.Networking.Connectivity.TriStates  (enum)
 type TriStates* {.pure, size: 4.} = enum
@@ -303,102 +303,102 @@ proc `$`*(v: TriStates): string =
   else: "TriStates(" & $ord(v) & ")"
 
 ## Windows.Networking.Connectivity.WwanDataClass  (enum)
-type WwanDataClass* = distinct int32
+type WwanDataClass* = distinct uint32
 proc `==`*(a, b: WwanDataClass): bool {.borrow.}
 proc `or`*(a, b: WwanDataClass): WwanDataClass {.borrow.}
 proc `and`*(a, b: WwanDataClass): WwanDataClass {.borrow.}
 proc `not`*(a: WwanDataClass): WwanDataClass {.borrow.}
 proc contains*(a, b: WwanDataClass): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: WwanDataClass): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Gprs"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Edge"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Umts"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Hsdpa"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Hsupa"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "LteAdvanced"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "NewRadioNonStandalone"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "NewRadioStandalone"
-    rest = rest and not 128'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 128'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xRtt"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdo"
-    rest = rest and not 131072'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 131072'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdoRevA"
-    rest = rest and not 262144'i32
-  if (rest and 524288'i32) == 524288'i32:
+    rest = rest and not 262144'u32
+  if (rest and 524288'u32) == 524288'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdv"
-    rest = rest and not 524288'i32
-  if (rest and 1048576'i32) == 1048576'i32:
+    rest = rest and not 524288'u32
+  if (rest and 1048576'u32) == 1048576'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma3xRtt"
-    rest = rest and not 1048576'i32
-  if (rest and 2097152'i32) == 2097152'i32:
+    rest = rest and not 1048576'u32
+  if (rest and 2097152'u32) == 2097152'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdoRevB"
-    rest = rest and not 2097152'i32
-  if (rest and 4194304'i32) == 4194304'i32:
+    rest = rest and not 2097152'u32
+  if (rest and 4194304'u32) == 4194304'u32:
     if result.len > 0: result.add " or "
     result.add "CdmaUmb"
-    rest = rest and not 4194304'i32
-  if (rest and -2147483648'i32) == -2147483648'i32:
+    rest = rest and not 4194304'u32
+  if (rest and 2147483648'u32) == 2147483648'u32:
     if result.len > 0: result.add " or "
     result.add "Custom"
-    rest = rest and not -2147483648'i32
+    rest = rest and not 2147483648'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "WwanDataClass(" & $rest & ")"
-const WwanDataClass_None* = WwanDataClass(0'i32)
-const WwanDataClass_Gprs* = WwanDataClass(1'i32)
-const WwanDataClass_Edge* = WwanDataClass(2'i32)
-const WwanDataClass_Umts* = WwanDataClass(4'i32)
-const WwanDataClass_Hsdpa* = WwanDataClass(8'i32)
-const WwanDataClass_Hsupa* = WwanDataClass(16'i32)
-const WwanDataClass_LteAdvanced* = WwanDataClass(32'i32)
-const WwanDataClass_NewRadioNonStandalone* = WwanDataClass(64'i32)
-const WwanDataClass_NewRadioStandalone* = WwanDataClass(128'i32)
-const WwanDataClass_Cdma1xRtt* = WwanDataClass(65536'i32)
-const WwanDataClass_Cdma1xEvdo* = WwanDataClass(131072'i32)
-const WwanDataClass_Cdma1xEvdoRevA* = WwanDataClass(262144'i32)
-const WwanDataClass_Cdma1xEvdv* = WwanDataClass(524288'i32)
-const WwanDataClass_Cdma3xRtt* = WwanDataClass(1048576'i32)
-const WwanDataClass_Cdma1xEvdoRevB* = WwanDataClass(2097152'i32)
-const WwanDataClass_CdmaUmb* = WwanDataClass(4194304'i32)
-const WwanDataClass_Custom* = WwanDataClass(-2147483648'i32)
+const WwanDataClass_None* = WwanDataClass(0'u32)
+const WwanDataClass_Gprs* = WwanDataClass(1'u32)
+const WwanDataClass_Edge* = WwanDataClass(2'u32)
+const WwanDataClass_Umts* = WwanDataClass(4'u32)
+const WwanDataClass_Hsdpa* = WwanDataClass(8'u32)
+const WwanDataClass_Hsupa* = WwanDataClass(16'u32)
+const WwanDataClass_LteAdvanced* = WwanDataClass(32'u32)
+const WwanDataClass_NewRadioNonStandalone* = WwanDataClass(64'u32)
+const WwanDataClass_NewRadioStandalone* = WwanDataClass(128'u32)
+const WwanDataClass_Cdma1xRtt* = WwanDataClass(65536'u32)
+const WwanDataClass_Cdma1xEvdo* = WwanDataClass(131072'u32)
+const WwanDataClass_Cdma1xEvdoRevA* = WwanDataClass(262144'u32)
+const WwanDataClass_Cdma1xEvdv* = WwanDataClass(524288'u32)
+const WwanDataClass_Cdma3xRtt* = WwanDataClass(1048576'u32)
+const WwanDataClass_Cdma1xEvdoRevB* = WwanDataClass(2097152'u32)
+const WwanDataClass_CdmaUmb* = WwanDataClass(4194304'u32)
+const WwanDataClass_Custom* = WwanDataClass(2147483648'u32)
 
 ## Windows.Networking.Connectivity.WwanNetworkIPKind  (enum)
 type WwanNetworkIPKind* {.pure, size: 4.} = enum
@@ -447,27 +447,27 @@ proc `$`*(v: DomainNameType): string =
   else: "DomainNameType(" & $ord(v) & ")"
 
 ## Windows.Networking.HostNameSortOptions  (enum)
-type HostNameSortOptions* = distinct int32
+type HostNameSortOptions* = distinct uint32
 proc `==`*(a, b: HostNameSortOptions): bool {.borrow.}
 proc `or`*(a, b: HostNameSortOptions): HostNameSortOptions {.borrow.}
 proc `and`*(a, b: HostNameSortOptions): HostNameSortOptions {.borrow.}
 proc `not`*(a: HostNameSortOptions): HostNameSortOptions {.borrow.}
 proc contains*(a, b: HostNameSortOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: HostNameSortOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 2'i32) == 2'i32:
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "OptimizeForLongConnections"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "HostNameSortOptions(" & $rest & ")"
-const HostNameSortOptions_None* = HostNameSortOptions(0'i32)
-const HostNameSortOptions_OptimizeForLongConnections* = HostNameSortOptions(2'i32)
+const HostNameSortOptions_None* = HostNameSortOptions(0'u32)
+const HostNameSortOptions_OptimizeForLongConnections* = HostNameSortOptions(2'u32)
 
 ## Windows.Networking.HostNameType  (enum)
 type HostNameType* {.pure, size: 4.} = enum
@@ -484,102 +484,102 @@ proc `$`*(v: HostNameType): string =
   else: "HostNameType(" & $ord(v) & ")"
 
 ## Windows.Networking.NetworkOperators.DataClasses  (enum)
-type DataClasses* = distinct int32
+type DataClasses* = distinct uint32
 proc `==`*(a, b: DataClasses): bool {.borrow.}
 proc `or`*(a, b: DataClasses): DataClasses {.borrow.}
 proc `and`*(a, b: DataClasses): DataClasses {.borrow.}
 proc `not`*(a: DataClasses): DataClasses {.borrow.}
 proc contains*(a, b: DataClasses): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DataClasses): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Gprs"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Edge"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Umts"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Hsdpa"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Hsupa"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "LteAdvanced"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "NewRadioNonStandalone"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "NewRadioStandalone"
-    rest = rest and not 128'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 128'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xRtt"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdo"
-    rest = rest and not 131072'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 131072'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdoRevA"
-    rest = rest and not 262144'i32
-  if (rest and 524288'i32) == 524288'i32:
+    rest = rest and not 262144'u32
+  if (rest and 524288'u32) == 524288'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdv"
-    rest = rest and not 524288'i32
-  if (rest and 1048576'i32) == 1048576'i32:
+    rest = rest and not 524288'u32
+  if (rest and 1048576'u32) == 1048576'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma3xRtt"
-    rest = rest and not 1048576'i32
-  if (rest and 2097152'i32) == 2097152'i32:
+    rest = rest and not 1048576'u32
+  if (rest and 2097152'u32) == 2097152'u32:
     if result.len > 0: result.add " or "
     result.add "Cdma1xEvdoRevB"
-    rest = rest and not 2097152'i32
-  if (rest and 4194304'i32) == 4194304'i32:
+    rest = rest and not 2097152'u32
+  if (rest and 4194304'u32) == 4194304'u32:
     if result.len > 0: result.add " or "
     result.add "CdmaUmb"
-    rest = rest and not 4194304'i32
-  if (rest and -2147483648'i32) == -2147483648'i32:
+    rest = rest and not 4194304'u32
+  if (rest and 2147483648'u32) == 2147483648'u32:
     if result.len > 0: result.add " or "
     result.add "Custom"
-    rest = rest and not -2147483648'i32
+    rest = rest and not 2147483648'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DataClasses(" & $rest & ")"
-const DataClasses_None* = DataClasses(0'i32)
-const DataClasses_Gprs* = DataClasses(1'i32)
-const DataClasses_Edge* = DataClasses(2'i32)
-const DataClasses_Umts* = DataClasses(4'i32)
-const DataClasses_Hsdpa* = DataClasses(8'i32)
-const DataClasses_Hsupa* = DataClasses(16'i32)
-const DataClasses_LteAdvanced* = DataClasses(32'i32)
-const DataClasses_NewRadioNonStandalone* = DataClasses(64'i32)
-const DataClasses_NewRadioStandalone* = DataClasses(128'i32)
-const DataClasses_Cdma1xRtt* = DataClasses(65536'i32)
-const DataClasses_Cdma1xEvdo* = DataClasses(131072'i32)
-const DataClasses_Cdma1xEvdoRevA* = DataClasses(262144'i32)
-const DataClasses_Cdma1xEvdv* = DataClasses(524288'i32)
-const DataClasses_Cdma3xRtt* = DataClasses(1048576'i32)
-const DataClasses_Cdma1xEvdoRevB* = DataClasses(2097152'i32)
-const DataClasses_CdmaUmb* = DataClasses(4194304'i32)
-const DataClasses_Custom* = DataClasses(-2147483648'i32)
+const DataClasses_None* = DataClasses(0'u32)
+const DataClasses_Gprs* = DataClasses(1'u32)
+const DataClasses_Edge* = DataClasses(2'u32)
+const DataClasses_Umts* = DataClasses(4'u32)
+const DataClasses_Hsdpa* = DataClasses(8'u32)
+const DataClasses_Hsupa* = DataClasses(16'u32)
+const DataClasses_LteAdvanced* = DataClasses(32'u32)
+const DataClasses_NewRadioNonStandalone* = DataClasses(64'u32)
+const DataClasses_NewRadioStandalone* = DataClasses(128'u32)
+const DataClasses_Cdma1xRtt* = DataClasses(65536'u32)
+const DataClasses_Cdma1xEvdo* = DataClasses(131072'u32)
+const DataClasses_Cdma1xEvdoRevA* = DataClasses(262144'u32)
+const DataClasses_Cdma1xEvdv* = DataClasses(524288'u32)
+const DataClasses_Cdma3xRtt* = DataClasses(1048576'u32)
+const DataClasses_Cdma1xEvdoRevB* = DataClasses(2097152'u32)
+const DataClasses_CdmaUmb* = DataClasses(4194304'u32)
+const DataClasses_Custom* = DataClasses(2147483648'u32)
 
 ## Windows.Networking.NetworkOperators.ESimAuthenticationPreference  (enum)
 type ESimAuthenticationPreference* {.pure, size: 4.} = enum
@@ -1182,32 +1182,32 @@ proc `$`*(v: UssdResultCode): string =
   else: "UssdResultCode(" & $ord(v) & ")"
 
 ## Windows.Networking.Proximity.PeerDiscoveryTypes  (enum)
-type PeerDiscoveryTypes* = distinct int32
+type PeerDiscoveryTypes* = distinct uint32
 proc `==`*(a, b: PeerDiscoveryTypes): bool {.borrow.}
 proc `or`*(a, b: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
 proc `and`*(a, b: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
 proc `not`*(a: PeerDiscoveryTypes): PeerDiscoveryTypes {.borrow.}
 proc contains*(a, b: PeerDiscoveryTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PeerDiscoveryTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Browse"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Triggered"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PeerDiscoveryTypes(" & $rest & ")"
-const PeerDiscoveryTypes_None* = PeerDiscoveryTypes(0'i32)
-const PeerDiscoveryTypes_Browse* = PeerDiscoveryTypes(1'i32)
-const PeerDiscoveryTypes_Triggered* = PeerDiscoveryTypes(2'i32)
+const PeerDiscoveryTypes_None* = PeerDiscoveryTypes(0'u32)
+const PeerDiscoveryTypes_Browse* = PeerDiscoveryTypes(1'u32)
+const PeerDiscoveryTypes_Triggered* = PeerDiscoveryTypes(2'u32)
 
 ## Windows.Networking.Proximity.PeerRole  (enum)
 type PeerRole* {.pure, size: 4.} = enum
@@ -1564,32 +1564,32 @@ proc `$`*(v: VpnChannelActivityEventType): string =
   else: "VpnChannelActivityEventType(" & $ord(v) & ")"
 
 ## Windows.Networking.Vpn.VpnChannelRequestCredentialsOptions  (enum)
-type VpnChannelRequestCredentialsOptions* = distinct int32
+type VpnChannelRequestCredentialsOptions* = distinct uint32
 proc `==`*(a, b: VpnChannelRequestCredentialsOptions): bool {.borrow.}
 proc `or`*(a, b: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
 proc `and`*(a, b: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
 proc `not`*(a: VpnChannelRequestCredentialsOptions): VpnChannelRequestCredentialsOptions {.borrow.}
 proc contains*(a, b: VpnChannelRequestCredentialsOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: VpnChannelRequestCredentialsOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Retrying"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "UseForSingleSignIn"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "VpnChannelRequestCredentialsOptions(" & $rest & ")"
-const VpnChannelRequestCredentialsOptions_None* = VpnChannelRequestCredentialsOptions(0'i32)
-const VpnChannelRequestCredentialsOptions_Retrying* = VpnChannelRequestCredentialsOptions(1'i32)
-const VpnChannelRequestCredentialsOptions_UseForSingleSignIn* = VpnChannelRequestCredentialsOptions(2'i32)
+const VpnChannelRequestCredentialsOptions_None* = VpnChannelRequestCredentialsOptions(0'u32)
+const VpnChannelRequestCredentialsOptions_Retrying* = VpnChannelRequestCredentialsOptions(1'u32)
+const VpnChannelRequestCredentialsOptions_UseForSingleSignIn* = VpnChannelRequestCredentialsOptions(2'u32)
 
 ## Windows.Networking.Vpn.VpnCredentialType  (enum)
 type VpnCredentialType* {.pure, size: 4.} = enum
@@ -1744,27 +1744,27 @@ proc `$`*(v: VpnRoutingPolicyType): string =
   else: "VpnRoutingPolicyType(" & $ord(v) & ")"
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairCreationBehaviors  (enum)
-type XboxLiveEndpointPairCreationBehaviors* = distinct int32
+type XboxLiveEndpointPairCreationBehaviors* = distinct uint32
 proc `==`*(a, b: XboxLiveEndpointPairCreationBehaviors): bool {.borrow.}
 proc `or`*(a, b: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
 proc `and`*(a, b: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
 proc `not`*(a: XboxLiveEndpointPairCreationBehaviors): XboxLiveEndpointPairCreationBehaviors {.borrow.}
 proc contains*(a, b: XboxLiveEndpointPairCreationBehaviors): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: XboxLiveEndpointPairCreationBehaviors): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ReevaluatePath"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "XboxLiveEndpointPairCreationBehaviors(" & $rest & ")"
-const XboxLiveEndpointPairCreationBehaviors_None* = XboxLiveEndpointPairCreationBehaviors(0'i32)
-const XboxLiveEndpointPairCreationBehaviors_ReevaluatePath* = XboxLiveEndpointPairCreationBehaviors(1'i32)
+const XboxLiveEndpointPairCreationBehaviors_None* = XboxLiveEndpointPairCreationBehaviors(0'u32)
+const XboxLiveEndpointPairCreationBehaviors_ReevaluatePath* = XboxLiveEndpointPairCreationBehaviors(1'u32)
 
 ## Windows.Networking.XboxLive.XboxLiveEndpointPairCreationStatus  (enum)
 type XboxLiveEndpointPairCreationStatus* {.pure, size: 4.} = enum

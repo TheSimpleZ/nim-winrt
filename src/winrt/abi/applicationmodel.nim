@@ -140,32 +140,32 @@ proc `$`*(v: ApplicationExecutionState): string =
   else: "ApplicationExecutionState(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.AddResourcePackageOptions  (enum)
-type AddResourcePackageOptions* = distinct int32
+type AddResourcePackageOptions* = distinct uint32
 proc `==`*(a, b: AddResourcePackageOptions): bool {.borrow.}
 proc `or`*(a, b: AddResourcePackageOptions): AddResourcePackageOptions {.borrow.}
 proc `and`*(a, b: AddResourcePackageOptions): AddResourcePackageOptions {.borrow.}
 proc `not`*(a: AddResourcePackageOptions): AddResourcePackageOptions {.borrow.}
 proc contains*(a, b: AddResourcePackageOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AddResourcePackageOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ForceTargetAppShutdown"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ApplyUpdateIfAvailable"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AddResourcePackageOptions(" & $rest & ")"
-const AddResourcePackageOptions_None* = AddResourcePackageOptions(0'i32)
-const AddResourcePackageOptions_ForceTargetAppShutdown* = AddResourcePackageOptions(1'i32)
-const AddResourcePackageOptions_ApplyUpdateIfAvailable* = AddResourcePackageOptions(2'i32)
+const AddResourcePackageOptions_None* = AddResourcePackageOptions(0'u32)
+const AddResourcePackageOptions_ForceTargetAppShutdown* = AddResourcePackageOptions(1'u32)
+const AddResourcePackageOptions_ApplyUpdateIfAvailable* = AddResourcePackageOptions(2'u32)
 
 ## Windows.ApplicationModel.AppExecutionContext  (enum)
 type AppExecutionContext* {.pure, size: 4.} = enum
@@ -372,57 +372,57 @@ proc `$`*(v: AppointmentConflictType): string =
   else: "AppointmentConflictType(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Appointments.AppointmentDaysOfWeek  (enum)
-type AppointmentDaysOfWeek* = distinct int32
+type AppointmentDaysOfWeek* = distinct uint32
 proc `==`*(a, b: AppointmentDaysOfWeek): bool {.borrow.}
 proc `or`*(a, b: AppointmentDaysOfWeek): AppointmentDaysOfWeek {.borrow.}
 proc `and`*(a, b: AppointmentDaysOfWeek): AppointmentDaysOfWeek {.borrow.}
 proc `not`*(a: AppointmentDaysOfWeek): AppointmentDaysOfWeek {.borrow.}
 proc contains*(a, b: AppointmentDaysOfWeek): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AppointmentDaysOfWeek): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Sunday"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Monday"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Tuesday"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Wednesday"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Thursday"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Friday"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Saturday"
-    rest = rest and not 64'i32
+    rest = rest and not 64'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AppointmentDaysOfWeek(" & $rest & ")"
-const AppointmentDaysOfWeek_None* = AppointmentDaysOfWeek(0'i32)
-const AppointmentDaysOfWeek_Sunday* = AppointmentDaysOfWeek(1'i32)
-const AppointmentDaysOfWeek_Monday* = AppointmentDaysOfWeek(2'i32)
-const AppointmentDaysOfWeek_Tuesday* = AppointmentDaysOfWeek(4'i32)
-const AppointmentDaysOfWeek_Wednesday* = AppointmentDaysOfWeek(8'i32)
-const AppointmentDaysOfWeek_Thursday* = AppointmentDaysOfWeek(16'i32)
-const AppointmentDaysOfWeek_Friday* = AppointmentDaysOfWeek(32'i32)
-const AppointmentDaysOfWeek_Saturday* = AppointmentDaysOfWeek(64'i32)
+const AppointmentDaysOfWeek_None* = AppointmentDaysOfWeek(0'u32)
+const AppointmentDaysOfWeek_Sunday* = AppointmentDaysOfWeek(1'u32)
+const AppointmentDaysOfWeek_Monday* = AppointmentDaysOfWeek(2'u32)
+const AppointmentDaysOfWeek_Tuesday* = AppointmentDaysOfWeek(4'u32)
+const AppointmentDaysOfWeek_Wednesday* = AppointmentDaysOfWeek(8'u32)
+const AppointmentDaysOfWeek_Thursday* = AppointmentDaysOfWeek(16'u32)
+const AppointmentDaysOfWeek_Friday* = AppointmentDaysOfWeek(32'u32)
+const AppointmentDaysOfWeek_Saturday* = AppointmentDaysOfWeek(64'u32)
 
 ## Windows.ApplicationModel.Appointments.AppointmentDetailsKind  (enum)
 type AppointmentDetailsKind* {.pure, size: 4.} = enum
@@ -549,27 +549,27 @@ proc `$`*(v: AppointmentWeekOfMonth): string =
   else: "AppointmentWeekOfMonth(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Appointments.FindAppointmentCalendarsOptions  (enum)
-type FindAppointmentCalendarsOptions* = distinct int32
+type FindAppointmentCalendarsOptions* = distinct uint32
 proc `==`*(a, b: FindAppointmentCalendarsOptions): bool {.borrow.}
 proc `or`*(a, b: FindAppointmentCalendarsOptions): FindAppointmentCalendarsOptions {.borrow.}
 proc `and`*(a, b: FindAppointmentCalendarsOptions): FindAppointmentCalendarsOptions {.borrow.}
 proc `not`*(a: FindAppointmentCalendarsOptions): FindAppointmentCalendarsOptions {.borrow.}
 proc contains*(a, b: FindAppointmentCalendarsOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: FindAppointmentCalendarsOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "IncludeHidden"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "FindAppointmentCalendarsOptions(" & $rest & ")"
-const FindAppointmentCalendarsOptions_None* = FindAppointmentCalendarsOptions(0'i32)
-const FindAppointmentCalendarsOptions_IncludeHidden* = FindAppointmentCalendarsOptions(1'i32)
+const FindAppointmentCalendarsOptions_None* = FindAppointmentCalendarsOptions(0'u32)
+const FindAppointmentCalendarsOptions_IncludeHidden* = FindAppointmentCalendarsOptions(1'u32)
 
 ## Windows.ApplicationModel.Appointments.RecurrenceType  (enum)
 type RecurrenceType* {.pure, size: 4.} = enum
@@ -858,67 +858,67 @@ proc `$`*(v: PhoneLineChangeKind): string =
   else: "PhoneLineChangeKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Calls.Background.PhoneLineProperties  (enum)
-type PhoneLineProperties* = distinct int32
+type PhoneLineProperties* = distinct uint32
 proc `==`*(a, b: PhoneLineProperties): bool {.borrow.}
 proc `or`*(a, b: PhoneLineProperties): PhoneLineProperties {.borrow.}
 proc `and`*(a, b: PhoneLineProperties): PhoneLineProperties {.borrow.}
 proc `not`*(a: PhoneLineProperties): PhoneLineProperties {.borrow.}
 proc contains*(a, b: PhoneLineProperties): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PhoneLineProperties): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "BrandingOptions"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "CanDial"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "CellularDetails"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "DisplayColor"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "DisplayName"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "NetworkName"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "NetworkState"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Transport"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Voicemail"
-    rest = rest and not 256'i32
+    rest = rest and not 256'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PhoneLineProperties(" & $rest & ")"
-const PhoneLineProperties_None* = PhoneLineProperties(0'i32)
-const PhoneLineProperties_BrandingOptions* = PhoneLineProperties(1'i32)
-const PhoneLineProperties_CanDial* = PhoneLineProperties(2'i32)
-const PhoneLineProperties_CellularDetails* = PhoneLineProperties(4'i32)
-const PhoneLineProperties_DisplayColor* = PhoneLineProperties(8'i32)
-const PhoneLineProperties_DisplayName* = PhoneLineProperties(16'i32)
-const PhoneLineProperties_NetworkName* = PhoneLineProperties(32'i32)
-const PhoneLineProperties_NetworkState* = PhoneLineProperties(64'i32)
-const PhoneLineProperties_Transport* = PhoneLineProperties(128'i32)
-const PhoneLineProperties_Voicemail* = PhoneLineProperties(256'i32)
+const PhoneLineProperties_None* = PhoneLineProperties(0'u32)
+const PhoneLineProperties_BrandingOptions* = PhoneLineProperties(1'u32)
+const PhoneLineProperties_CanDial* = PhoneLineProperties(2'u32)
+const PhoneLineProperties_CellularDetails* = PhoneLineProperties(4'u32)
+const PhoneLineProperties_DisplayColor* = PhoneLineProperties(8'u32)
+const PhoneLineProperties_DisplayName* = PhoneLineProperties(16'u32)
+const PhoneLineProperties_NetworkName* = PhoneLineProperties(32'u32)
+const PhoneLineProperties_NetworkState* = PhoneLineProperties(64'u32)
+const PhoneLineProperties_Transport* = PhoneLineProperties(128'u32)
+const PhoneLineProperties_Voicemail* = PhoneLineProperties(256'u32)
 
 ## Windows.ApplicationModel.Calls.Background.PhoneTriggerType  (enum)
 type PhoneTriggerType* {.pure, size: 4.} = enum
@@ -1049,37 +1049,37 @@ proc `$`*(v: PhoneCallHistoryEntryOtherAppReadAccess): string =
   else: "PhoneCallHistoryEntryOtherAppReadAccess(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryDesiredMedia  (enum)
-type PhoneCallHistoryEntryQueryDesiredMedia* = distinct int32
+type PhoneCallHistoryEntryQueryDesiredMedia* = distinct uint32
 proc `==`*(a, b: PhoneCallHistoryEntryQueryDesiredMedia): bool {.borrow.}
 proc `or`*(a, b: PhoneCallHistoryEntryQueryDesiredMedia): PhoneCallHistoryEntryQueryDesiredMedia {.borrow.}
 proc `and`*(a, b: PhoneCallHistoryEntryQueryDesiredMedia): PhoneCallHistoryEntryQueryDesiredMedia {.borrow.}
 proc `not`*(a: PhoneCallHistoryEntryQueryDesiredMedia): PhoneCallHistoryEntryQueryDesiredMedia {.borrow.}
 proc contains*(a, b: PhoneCallHistoryEntryQueryDesiredMedia): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PhoneCallHistoryEntryQueryDesiredMedia): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Audio"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Video"
-    rest = rest and not 2'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 2'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PhoneCallHistoryEntryQueryDesiredMedia(" & $rest & ")"
-const PhoneCallHistoryEntryQueryDesiredMedia_None* = PhoneCallHistoryEntryQueryDesiredMedia(0'i32)
-const PhoneCallHistoryEntryQueryDesiredMedia_Audio* = PhoneCallHistoryEntryQueryDesiredMedia(1'i32)
-const PhoneCallHistoryEntryQueryDesiredMedia_Video* = PhoneCallHistoryEntryQueryDesiredMedia(2'i32)
-const PhoneCallHistoryEntryQueryDesiredMedia_All* = PhoneCallHistoryEntryQueryDesiredMedia(-1'i32)
+const PhoneCallHistoryEntryQueryDesiredMedia_None* = PhoneCallHistoryEntryQueryDesiredMedia(0'u32)
+const PhoneCallHistoryEntryQueryDesiredMedia_Audio* = PhoneCallHistoryEntryQueryDesiredMedia(1'u32)
+const PhoneCallHistoryEntryQueryDesiredMedia_Video* = PhoneCallHistoryEntryQueryDesiredMedia(2'u32)
+const PhoneCallHistoryEntryQueryDesiredMedia_All* = PhoneCallHistoryEntryQueryDesiredMedia(4294967295'u32)
 
 ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntryRawAddressKind  (enum)
 type PhoneCallHistoryEntryRawAddressKind* {.pure, size: 4.} = enum
@@ -1294,32 +1294,32 @@ proc `$`*(v: VoipCallControlDeviceKind): string =
   else: "VoipCallControlDeviceKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Calls.VoipPhoneCallMedia  (enum)
-type VoipPhoneCallMedia* = distinct int32
+type VoipPhoneCallMedia* = distinct uint32
 proc `==`*(a, b: VoipPhoneCallMedia): bool {.borrow.}
 proc `or`*(a, b: VoipPhoneCallMedia): VoipPhoneCallMedia {.borrow.}
 proc `and`*(a, b: VoipPhoneCallMedia): VoipPhoneCallMedia {.borrow.}
 proc `not`*(a: VoipPhoneCallMedia): VoipPhoneCallMedia {.borrow.}
 proc contains*(a, b: VoipPhoneCallMedia): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: VoipPhoneCallMedia): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Audio"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Video"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "VoipPhoneCallMedia(" & $rest & ")"
-const VoipPhoneCallMedia_None* = VoipPhoneCallMedia(0'i32)
-const VoipPhoneCallMedia_Audio* = VoipPhoneCallMedia(1'i32)
-const VoipPhoneCallMedia_Video* = VoipPhoneCallMedia(2'i32)
+const VoipPhoneCallMedia_None* = VoipPhoneCallMedia(0'u32)
+const VoipPhoneCallMedia_Audio* = VoipPhoneCallMedia(1'u32)
+const VoipPhoneCallMedia_Video* = VoipPhoneCallMedia(2'u32)
 
 ## Windows.ApplicationModel.Calls.VoipPhoneCallRejectReason  (enum)
 type VoipPhoneCallRejectReason* {.pure, size: 4.} = enum
@@ -1610,57 +1610,57 @@ proc `$`*(v: ContactAddressKind): string =
   else: "ContactAddressKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Contacts.ContactAnnotationOperations  (enum)
-type ContactAnnotationOperations* = distinct int32
+type ContactAnnotationOperations* = distinct uint32
 proc `==`*(a, b: ContactAnnotationOperations): bool {.borrow.}
 proc `or`*(a, b: ContactAnnotationOperations): ContactAnnotationOperations {.borrow.}
 proc `and`*(a, b: ContactAnnotationOperations): ContactAnnotationOperations {.borrow.}
 proc `not`*(a: ContactAnnotationOperations): ContactAnnotationOperations {.borrow.}
 proc contains*(a, b: ContactAnnotationOperations): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ContactAnnotationOperations): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ContactProfile"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Message"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "AudioCall"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "VideoCall"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "SocialFeeds"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Share"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Activity"
-    rest = rest and not 64'i32
+    rest = rest and not 64'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ContactAnnotationOperations(" & $rest & ")"
-const ContactAnnotationOperations_None* = ContactAnnotationOperations(0'i32)
-const ContactAnnotationOperations_ContactProfile* = ContactAnnotationOperations(1'i32)
-const ContactAnnotationOperations_Message* = ContactAnnotationOperations(2'i32)
-const ContactAnnotationOperations_AudioCall* = ContactAnnotationOperations(4'i32)
-const ContactAnnotationOperations_VideoCall* = ContactAnnotationOperations(8'i32)
-const ContactAnnotationOperations_SocialFeeds* = ContactAnnotationOperations(16'i32)
-const ContactAnnotationOperations_Share* = ContactAnnotationOperations(32'i32)
-const ContactAnnotationOperations_Activity* = ContactAnnotationOperations(64'i32)
+const ContactAnnotationOperations_None* = ContactAnnotationOperations(0'u32)
+const ContactAnnotationOperations_ContactProfile* = ContactAnnotationOperations(1'u32)
+const ContactAnnotationOperations_Message* = ContactAnnotationOperations(2'u32)
+const ContactAnnotationOperations_AudioCall* = ContactAnnotationOperations(4'u32)
+const ContactAnnotationOperations_VideoCall* = ContactAnnotationOperations(8'u32)
+const ContactAnnotationOperations_SocialFeeds* = ContactAnnotationOperations(16'u32)
+const ContactAnnotationOperations_Share* = ContactAnnotationOperations(32'u32)
+const ContactAnnotationOperations_Activity* = ContactAnnotationOperations(64'u32)
 
 ## Windows.ApplicationModel.Contacts.ContactAnnotationStoreAccessType  (enum)
 type ContactAnnotationStoreAccessType* {.pure, size: 4.} = enum
@@ -1899,75 +1899,75 @@ proc `$`*(v: ContactPhoneKind): string =
   else: "ContactPhoneKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Contacts.ContactQueryDesiredFields  (enum)
-type ContactQueryDesiredFields* = distinct int32
+type ContactQueryDesiredFields* = distinct uint32
 proc `==`*(a, b: ContactQueryDesiredFields): bool {.borrow.}
 proc `or`*(a, b: ContactQueryDesiredFields): ContactQueryDesiredFields {.borrow.}
 proc `and`*(a, b: ContactQueryDesiredFields): ContactQueryDesiredFields {.borrow.}
 proc `not`*(a: ContactQueryDesiredFields): ContactQueryDesiredFields {.borrow.}
 proc contains*(a, b: ContactQueryDesiredFields): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ContactQueryDesiredFields): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "PhoneNumber"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "EmailAddress"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "PostalAddress"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ContactQueryDesiredFields(" & $rest & ")"
-const ContactQueryDesiredFields_None* = ContactQueryDesiredFields(0'i32)
-const ContactQueryDesiredFields_PhoneNumber* = ContactQueryDesiredFields(1'i32)
-const ContactQueryDesiredFields_EmailAddress* = ContactQueryDesiredFields(2'i32)
-const ContactQueryDesiredFields_PostalAddress* = ContactQueryDesiredFields(4'i32)
+const ContactQueryDesiredFields_None* = ContactQueryDesiredFields(0'u32)
+const ContactQueryDesiredFields_PhoneNumber* = ContactQueryDesiredFields(1'u32)
+const ContactQueryDesiredFields_EmailAddress* = ContactQueryDesiredFields(2'u32)
+const ContactQueryDesiredFields_PostalAddress* = ContactQueryDesiredFields(4'u32)
 
 ## Windows.ApplicationModel.Contacts.ContactQuerySearchFields  (enum)
-type ContactQuerySearchFields* = distinct int32
+type ContactQuerySearchFields* = distinct uint32
 proc `==`*(a, b: ContactQuerySearchFields): bool {.borrow.}
 proc `or`*(a, b: ContactQuerySearchFields): ContactQuerySearchFields {.borrow.}
 proc `and`*(a, b: ContactQuerySearchFields): ContactQuerySearchFields {.borrow.}
 proc `not`*(a: ContactQuerySearchFields): ContactQuerySearchFields {.borrow.}
 proc contains*(a, b: ContactQuerySearchFields): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ContactQuerySearchFields): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Name"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Email"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Phone"
-    rest = rest and not 4'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 4'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ContactQuerySearchFields(" & $rest & ")"
-const ContactQuerySearchFields_None* = ContactQuerySearchFields(0'i32)
-const ContactQuerySearchFields_Name* = ContactQuerySearchFields(1'i32)
-const ContactQuerySearchFields_Email* = ContactQuerySearchFields(2'i32)
-const ContactQuerySearchFields_Phone* = ContactQuerySearchFields(4'i32)
-const ContactQuerySearchFields_All* = ContactQuerySearchFields(-1'i32)
+const ContactQuerySearchFields_None* = ContactQuerySearchFields(0'u32)
+const ContactQuerySearchFields_Name* = ContactQuerySearchFields(1'u32)
+const ContactQuerySearchFields_Email* = ContactQuerySearchFields(2'u32)
+const ContactQuerySearchFields_Phone* = ContactQuerySearchFields(4'u32)
+const ContactQuerySearchFields_All* = ContactQuerySearchFields(4294967295'u32)
 
 ## Windows.ApplicationModel.Contacts.ContactQuerySearchScope  (enum)
 type ContactQuerySearchScope* {.pure, size: 4.} = enum
@@ -2346,108 +2346,108 @@ proc `$`*(v: ClipboardHistoryItemsResultStatus): string =
   else: "ClipboardHistoryItemsResultStatus(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.DataTransfer.DataPackageOperation  (enum)
-type DataPackageOperation* = distinct int32
+type DataPackageOperation* = distinct uint32
 proc `==`*(a, b: DataPackageOperation): bool {.borrow.}
 proc `or`*(a, b: DataPackageOperation): DataPackageOperation {.borrow.}
 proc `and`*(a, b: DataPackageOperation): DataPackageOperation {.borrow.}
 proc `not`*(a: DataPackageOperation): DataPackageOperation {.borrow.}
 proc contains*(a, b: DataPackageOperation): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DataPackageOperation): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Copy"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Move"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Link"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DataPackageOperation(" & $rest & ")"
-const DataPackageOperation_None* = DataPackageOperation(0'i32)
-const DataPackageOperation_Copy* = DataPackageOperation(1'i32)
-const DataPackageOperation_Move* = DataPackageOperation(2'i32)
-const DataPackageOperation_Link* = DataPackageOperation(4'i32)
+const DataPackageOperation_None* = DataPackageOperation(0'u32)
+const DataPackageOperation_Copy* = DataPackageOperation(1'u32)
+const DataPackageOperation_Move* = DataPackageOperation(2'u32)
+const DataPackageOperation_Link* = DataPackageOperation(4'u32)
 
 ## Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIContentMode  (enum)
-type CoreDragUIContentMode* = distinct int32
+type CoreDragUIContentMode* = distinct uint32
 proc `==`*(a, b: CoreDragUIContentMode): bool {.borrow.}
 proc `or`*(a, b: CoreDragUIContentMode): CoreDragUIContentMode {.borrow.}
 proc `and`*(a, b: CoreDragUIContentMode): CoreDragUIContentMode {.borrow.}
 proc `not`*(a: CoreDragUIContentMode): CoreDragUIContentMode {.borrow.}
 proc contains*(a, b: CoreDragUIContentMode): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CoreDragUIContentMode): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Deferred"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CoreDragUIContentMode(" & $rest & ")"
-const CoreDragUIContentMode_Auto* = CoreDragUIContentMode(0'i32)
-const CoreDragUIContentMode_Deferred* = CoreDragUIContentMode(1'i32)
+const CoreDragUIContentMode_Auto* = CoreDragUIContentMode(0'u32)
+const CoreDragUIContentMode_Deferred* = CoreDragUIContentMode(1'u32)
 
 ## Windows.ApplicationModel.DataTransfer.DragDrop.DragDropModifiers  (enum)
-type DragDropModifiers* = distinct int32
+type DragDropModifiers* = distinct uint32
 proc `==`*(a, b: DragDropModifiers): bool {.borrow.}
 proc `or`*(a, b: DragDropModifiers): DragDropModifiers {.borrow.}
 proc `and`*(a, b: DragDropModifiers): DragDropModifiers {.borrow.}
 proc `not`*(a: DragDropModifiers): DragDropModifiers {.borrow.}
 proc contains*(a, b: DragDropModifiers): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DragDropModifiers): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Shift"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Control"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Alt"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "LeftButton"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "MiddleButton"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "RightButton"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DragDropModifiers(" & $rest & ")"
-const DragDropModifiers_None* = DragDropModifiers(0'i32)
-const DragDropModifiers_Shift* = DragDropModifiers(1'i32)
-const DragDropModifiers_Control* = DragDropModifiers(2'i32)
-const DragDropModifiers_Alt* = DragDropModifiers(4'i32)
-const DragDropModifiers_LeftButton* = DragDropModifiers(8'i32)
-const DragDropModifiers_MiddleButton* = DragDropModifiers(16'i32)
-const DragDropModifiers_RightButton* = DragDropModifiers(32'i32)
+const DragDropModifiers_None* = DragDropModifiers(0'u32)
+const DragDropModifiers_Shift* = DragDropModifiers(1'u32)
+const DragDropModifiers_Control* = DragDropModifiers(2'u32)
+const DragDropModifiers_Alt* = DragDropModifiers(4'u32)
+const DragDropModifiers_LeftButton* = DragDropModifiers(8'u32)
+const DragDropModifiers_MiddleButton* = DragDropModifiers(16'u32)
+const DragDropModifiers_RightButton* = DragDropModifiers(32'u32)
 
 ## Windows.ApplicationModel.DataTransfer.SetHistoryItemAsContentStatus  (enum)
 type SetHistoryItemAsContentStatus* {.pure, size: 4.} = enum
@@ -2834,47 +2834,47 @@ proc `$`*(v: EmailQueryKind): string =
   else: "EmailQueryKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Email.EmailQuerySearchFields  (enum)
-type EmailQuerySearchFields* = distinct int32
+type EmailQuerySearchFields* = distinct uint32
 proc `==`*(a, b: EmailQuerySearchFields): bool {.borrow.}
 proc `or`*(a, b: EmailQuerySearchFields): EmailQuerySearchFields {.borrow.}
 proc `and`*(a, b: EmailQuerySearchFields): EmailQuerySearchFields {.borrow.}
 proc `not`*(a: EmailQuerySearchFields): EmailQuerySearchFields {.borrow.}
 proc contains*(a, b: EmailQuerySearchFields): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: EmailQuerySearchFields): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Subject"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Sender"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Preview"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Recipients"
-    rest = rest and not 8'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 8'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "EmailQuerySearchFields(" & $rest & ")"
-const EmailQuerySearchFields_None* = EmailQuerySearchFields(0'i32)
-const EmailQuerySearchFields_Subject* = EmailQuerySearchFields(1'i32)
-const EmailQuerySearchFields_Sender* = EmailQuerySearchFields(2'i32)
-const EmailQuerySearchFields_Preview* = EmailQuerySearchFields(4'i32)
-const EmailQuerySearchFields_Recipients* = EmailQuerySearchFields(8'i32)
-const EmailQuerySearchFields_All* = EmailQuerySearchFields(-1'i32)
+const EmailQuerySearchFields_None* = EmailQuerySearchFields(0'u32)
+const EmailQuerySearchFields_Subject* = EmailQuerySearchFields(1'u32)
+const EmailQuerySearchFields_Sender* = EmailQuerySearchFields(2'u32)
+const EmailQuerySearchFields_Preview* = EmailQuerySearchFields(4'u32)
+const EmailQuerySearchFields_Recipients* = EmailQuerySearchFields(8'u32)
+const EmailQuerySearchFields_All* = EmailQuerySearchFields(4294967295'u32)
 
 ## Windows.ApplicationModel.Email.EmailQuerySearchScope  (enum)
 type EmailQuerySearchScope* {.pure, size: 4.} = enum
@@ -3451,27 +3451,27 @@ proc `$`*(v: GetEntitlementStatus): string =
   else: "GetEntitlementStatus(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.Store.Preview.StoreLogOptions  (enum)
-type StoreLogOptions* = distinct int32
+type StoreLogOptions* = distinct uint32
 proc `==`*(a, b: StoreLogOptions): bool {.borrow.}
 proc `or`*(a, b: StoreLogOptions): StoreLogOptions {.borrow.}
 proc `and`*(a, b: StoreLogOptions): StoreLogOptions {.borrow.}
 proc `not`*(a: StoreLogOptions): StoreLogOptions {.borrow.}
 proc contains*(a, b: StoreLogOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: StoreLogOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "TryElevate"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "StoreLogOptions(" & $rest & ")"
-const StoreLogOptions_None* = StoreLogOptions(0'i32)
-const StoreLogOptions_TryElevate* = StoreLogOptions(1'i32)
+const StoreLogOptions_None* = StoreLogOptions(0'u32)
+const StoreLogOptions_TryElevate* = StoreLogOptions(1'u32)
 
 ## Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus  (enum)
 type StorePreviewProductPurchaseStatus* {.pure, size: 4.} = enum
@@ -3700,36 +3700,36 @@ proc `$`*(v: DeviceAccountSyncScheduleKind): string =
   else: "DeviceAccountSyncScheduleKind(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountContentKinds  (enum)
-type UserDataAccountContentKinds* = distinct int32
+type UserDataAccountContentKinds* = distinct uint32
 proc `==`*(a, b: UserDataAccountContentKinds): bool {.borrow.}
 proc `or`*(a, b: UserDataAccountContentKinds): UserDataAccountContentKinds {.borrow.}
 proc `and`*(a, b: UserDataAccountContentKinds): UserDataAccountContentKinds {.borrow.}
 proc `not`*(a: UserDataAccountContentKinds): UserDataAccountContentKinds {.borrow.}
 proc contains*(a, b: UserDataAccountContentKinds): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: UserDataAccountContentKinds): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Email"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Contact"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Appointment"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "UserDataAccountContentKinds(" & $rest & ")"
-const UserDataAccountContentKinds_Email* = UserDataAccountContentKinds(1'i32)
-const UserDataAccountContentKinds_Contact* = UserDataAccountContentKinds(2'i32)
-const UserDataAccountContentKinds_Appointment* = UserDataAccountContentKinds(4'i32)
+const UserDataAccountContentKinds_Email* = UserDataAccountContentKinds(1'u32)
+const UserDataAccountContentKinds_Contact* = UserDataAccountContentKinds(2'u32)
+const UserDataAccountContentKinds_Appointment* = UserDataAccountContentKinds(4'u32)
 
 ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountOtherAppReadAccess  (enum)
 type UserDataAccountOtherAppReadAccess* {.pure, size: 4.} = enum
@@ -3754,57 +3754,57 @@ proc `$`*(v: UserDataAccountStoreAccessType): string =
   else: "UserDataAccountStoreAccessType(" & $ord(v) & ")"
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskDaysOfWeek  (enum)
-type UserDataTaskDaysOfWeek* = distinct int32
+type UserDataTaskDaysOfWeek* = distinct uint32
 proc `==`*(a, b: UserDataTaskDaysOfWeek): bool {.borrow.}
 proc `or`*(a, b: UserDataTaskDaysOfWeek): UserDataTaskDaysOfWeek {.borrow.}
 proc `and`*(a, b: UserDataTaskDaysOfWeek): UserDataTaskDaysOfWeek {.borrow.}
 proc `not`*(a: UserDataTaskDaysOfWeek): UserDataTaskDaysOfWeek {.borrow.}
 proc contains*(a, b: UserDataTaskDaysOfWeek): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: UserDataTaskDaysOfWeek): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Sunday"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Monday"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Tuesday"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Wednesday"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Thursday"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Friday"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Saturday"
-    rest = rest and not 64'i32
+    rest = rest and not 64'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "UserDataTaskDaysOfWeek(" & $rest & ")"
-const UserDataTaskDaysOfWeek_None* = UserDataTaskDaysOfWeek(0'i32)
-const UserDataTaskDaysOfWeek_Sunday* = UserDataTaskDaysOfWeek(1'i32)
-const UserDataTaskDaysOfWeek_Monday* = UserDataTaskDaysOfWeek(2'i32)
-const UserDataTaskDaysOfWeek_Tuesday* = UserDataTaskDaysOfWeek(4'i32)
-const UserDataTaskDaysOfWeek_Wednesday* = UserDataTaskDaysOfWeek(8'i32)
-const UserDataTaskDaysOfWeek_Thursday* = UserDataTaskDaysOfWeek(16'i32)
-const UserDataTaskDaysOfWeek_Friday* = UserDataTaskDaysOfWeek(32'i32)
-const UserDataTaskDaysOfWeek_Saturday* = UserDataTaskDaysOfWeek(64'i32)
+const UserDataTaskDaysOfWeek_None* = UserDataTaskDaysOfWeek(0'u32)
+const UserDataTaskDaysOfWeek_Sunday* = UserDataTaskDaysOfWeek(1'u32)
+const UserDataTaskDaysOfWeek_Monday* = UserDataTaskDaysOfWeek(2'u32)
+const UserDataTaskDaysOfWeek_Tuesday* = UserDataTaskDaysOfWeek(4'u32)
+const UserDataTaskDaysOfWeek_Wednesday* = UserDataTaskDaysOfWeek(8'u32)
+const UserDataTaskDaysOfWeek_Thursday* = UserDataTaskDaysOfWeek(16'u32)
+const UserDataTaskDaysOfWeek_Friday* = UserDataTaskDaysOfWeek(32'u32)
+const UserDataTaskDaysOfWeek_Saturday* = UserDataTaskDaysOfWeek(64'u32)
 
 ## Windows.ApplicationModel.UserDataTasks.UserDataTaskDetailsKind  (enum)
 type UserDataTaskDetailsKind* {.pure, size: 4.} = enum

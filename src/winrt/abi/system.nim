@@ -198,36 +198,36 @@ proc `$`*(v: PlatformDiagnosticEscalationType): string =
   else: "PlatformDiagnosticEscalationType(" & $ord(v) & ")"
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticEventBufferLatencies  (enum)
-type PlatformDiagnosticEventBufferLatencies* = distinct int32
+type PlatformDiagnosticEventBufferLatencies* = distinct uint32
 proc `==`*(a, b: PlatformDiagnosticEventBufferLatencies): bool {.borrow.}
 proc `or`*(a, b: PlatformDiagnosticEventBufferLatencies): PlatformDiagnosticEventBufferLatencies {.borrow.}
 proc `and`*(a, b: PlatformDiagnosticEventBufferLatencies): PlatformDiagnosticEventBufferLatencies {.borrow.}
 proc `not`*(a: PlatformDiagnosticEventBufferLatencies): PlatformDiagnosticEventBufferLatencies {.borrow.}
 proc contains*(a, b: PlatformDiagnosticEventBufferLatencies): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PlatformDiagnosticEventBufferLatencies): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Normal"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "CostDeferred"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Realtime"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PlatformDiagnosticEventBufferLatencies(" & $rest & ")"
-const PlatformDiagnosticEventBufferLatencies_Normal* = PlatformDiagnosticEventBufferLatencies(1'i32)
-const PlatformDiagnosticEventBufferLatencies_CostDeferred* = PlatformDiagnosticEventBufferLatencies(2'i32)
-const PlatformDiagnosticEventBufferLatencies_Realtime* = PlatformDiagnosticEventBufferLatencies(4'i32)
+const PlatformDiagnosticEventBufferLatencies_Normal* = PlatformDiagnosticEventBufferLatencies(1'u32)
+const PlatformDiagnosticEventBufferLatencies_CostDeferred* = PlatformDiagnosticEventBufferLatencies(2'u32)
+const PlatformDiagnosticEventBufferLatencies_Realtime* = PlatformDiagnosticEventBufferLatencies(4'u32)
 
 ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTracePriority  (enum)
 type PlatformDiagnosticTracePriority* {.pure, size: 4.} = enum
@@ -480,88 +480,88 @@ proc `$`*(v: SystemOutOfBoxExperienceState): string =
   else: "SystemOutOfBoxExperienceState(" & $ord(v) & ")"
 
 ## Windows.System.Profile.UnsupportedAppRequirementReasons  (enum)
-type UnsupportedAppRequirementReasons* = distinct int32
+type UnsupportedAppRequirementReasons* = distinct uint32
 proc `==`*(a, b: UnsupportedAppRequirementReasons): bool {.borrow.}
 proc `or`*(a, b: UnsupportedAppRequirementReasons): UnsupportedAppRequirementReasons {.borrow.}
 proc `and`*(a, b: UnsupportedAppRequirementReasons): UnsupportedAppRequirementReasons {.borrow.}
 proc `not`*(a: UnsupportedAppRequirementReasons): UnsupportedAppRequirementReasons {.borrow.}
 proc contains*(a, b: UnsupportedAppRequirementReasons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: UnsupportedAppRequirementReasons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "DeniedBySystem"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "UnsupportedAppRequirementReasons(" & $rest & ")"
-const UnsupportedAppRequirementReasons_Unknown* = UnsupportedAppRequirementReasons(0'i32)
-const UnsupportedAppRequirementReasons_DeniedBySystem* = UnsupportedAppRequirementReasons(1'i32)
+const UnsupportedAppRequirementReasons_Unknown* = UnsupportedAppRequirementReasons(0'u32)
+const UnsupportedAppRequirementReasons_DeniedBySystem* = UnsupportedAppRequirementReasons(1'u32)
 
 ## Windows.System.RemoteDesktop.Input.RemoteKeyEventAttributes  (enum)
-type RemoteKeyEventAttributes* = distinct int32
+type RemoteKeyEventAttributes* = distinct uint32
 proc `==`*(a, b: RemoteKeyEventAttributes): bool {.borrow.}
 proc `or`*(a, b: RemoteKeyEventAttributes): RemoteKeyEventAttributes {.borrow.}
 proc `and`*(a, b: RemoteKeyEventAttributes): RemoteKeyEventAttributes {.borrow.}
 proc `not`*(a: RemoteKeyEventAttributes): RemoteKeyEventAttributes {.borrow.}
 proc contains*(a, b: RemoteKeyEventAttributes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RemoteKeyEventAttributes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "KeyUp"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Repeat"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Extended"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Extended1"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RemoteKeyEventAttributes(" & $rest & ")"
-const RemoteKeyEventAttributes_None* = RemoteKeyEventAttributes(0'i32)
-const RemoteKeyEventAttributes_KeyUp* = RemoteKeyEventAttributes(1'i32)
-const RemoteKeyEventAttributes_Repeat* = RemoteKeyEventAttributes(2'i32)
-const RemoteKeyEventAttributes_Extended* = RemoteKeyEventAttributes(4'i32)
-const RemoteKeyEventAttributes_Extended1* = RemoteKeyEventAttributes(8'i32)
+const RemoteKeyEventAttributes_None* = RemoteKeyEventAttributes(0'u32)
+const RemoteKeyEventAttributes_KeyUp* = RemoteKeyEventAttributes(1'u32)
+const RemoteKeyEventAttributes_Repeat* = RemoteKeyEventAttributes(2'u32)
+const RemoteKeyEventAttributes_Extended* = RemoteKeyEventAttributes(4'u32)
+const RemoteKeyEventAttributes_Extended1* = RemoteKeyEventAttributes(8'u32)
 
 ## Windows.System.RemoteDesktop.Input.RemoteTextConnectionOptions  (enum)
-type RemoteTextConnectionOptions* = distinct int32
+type RemoteTextConnectionOptions* = distinct uint32
 proc `==`*(a, b: RemoteTextConnectionOptions): bool {.borrow.}
 proc `or`*(a, b: RemoteTextConnectionOptions): RemoteTextConnectionOptions {.borrow.}
 proc `and`*(a, b: RemoteTextConnectionOptions): RemoteTextConnectionOptions {.borrow.}
 proc `not`*(a: RemoteTextConnectionOptions): RemoteTextConnectionOptions {.borrow.}
 proc contains*(a, b: RemoteTextConnectionOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RemoteTextConnectionOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "EnablePredictedKeyReporting"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RemoteTextConnectionOptions(" & $rest & ")"
-const RemoteTextConnectionOptions_None* = RemoteTextConnectionOptions(0'i32)
-const RemoteTextConnectionOptions_EnablePredictedKeyReporting* = RemoteTextConnectionOptions(1'i32)
+const RemoteTextConnectionOptions_None* = RemoteTextConnectionOptions(0'u32)
+const RemoteTextConnectionOptions_EnablePredictedKeyReporting* = RemoteTextConnectionOptions(1'u32)
 
 ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionStatus  (enum)
 type RemoteDesktopConnectionStatus* {.pure, size: 4.} = enum
@@ -804,27 +804,27 @@ proc `$`*(v: ShutdownKind): string =
   else: "ShutdownKind(" & $ord(v) & ")"
 
 ## Windows.System.Threading.WorkItemOptions  (enum)
-type WorkItemOptions* = distinct int32
+type WorkItemOptions* = distinct uint32
 proc `==`*(a, b: WorkItemOptions): bool {.borrow.}
 proc `or`*(a, b: WorkItemOptions): WorkItemOptions {.borrow.}
 proc `and`*(a, b: WorkItemOptions): WorkItemOptions {.borrow.}
 proc `not`*(a: WorkItemOptions): WorkItemOptions {.borrow.}
 proc contains*(a, b: WorkItemOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: WorkItemOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "TimeSliced"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "WorkItemOptions(" & $rest & ")"
-const WorkItemOptions_None* = WorkItemOptions(0'i32)
-const WorkItemOptions_TimeSliced* = WorkItemOptions(1'i32)
+const WorkItemOptions_None* = WorkItemOptions(0'u32)
+const WorkItemOptions_TimeSliced* = WorkItemOptions(1'u32)
 
 ## Windows.System.Threading.WorkItemPriority  (enum)
 type WorkItemPriority* {.pure, size: 4.} = enum
@@ -1407,42 +1407,42 @@ proc `$`*(v: VirtualKey): string =
   else: "VirtualKey(" & $ord(v) & ")"
 
 ## Windows.System.VirtualKeyModifiers  (enum)
-type VirtualKeyModifiers* = distinct int32
+type VirtualKeyModifiers* = distinct uint32
 proc `==`*(a, b: VirtualKeyModifiers): bool {.borrow.}
 proc `or`*(a, b: VirtualKeyModifiers): VirtualKeyModifiers {.borrow.}
 proc `and`*(a, b: VirtualKeyModifiers): VirtualKeyModifiers {.borrow.}
 proc `not`*(a: VirtualKeyModifiers): VirtualKeyModifiers {.borrow.}
 proc contains*(a, b: VirtualKeyModifiers): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: VirtualKeyModifiers): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Control"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Menu"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Shift"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Windows"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "VirtualKeyModifiers(" & $rest & ")"
-const VirtualKeyModifiers_None* = VirtualKeyModifiers(0'i32)
-const VirtualKeyModifiers_Control* = VirtualKeyModifiers(1'i32)
-const VirtualKeyModifiers_Menu* = VirtualKeyModifiers(2'i32)
-const VirtualKeyModifiers_Shift* = VirtualKeyModifiers(4'i32)
-const VirtualKeyModifiers_Windows* = VirtualKeyModifiers(8'i32)
+const VirtualKeyModifiers_None* = VirtualKeyModifiers(0'u32)
+const VirtualKeyModifiers_Control* = VirtualKeyModifiers(1'u32)
+const VirtualKeyModifiers_Menu* = VirtualKeyModifiers(2'u32)
+const VirtualKeyModifiers_Shift* = VirtualKeyModifiers(4'u32)
+const VirtualKeyModifiers_Windows* = VirtualKeyModifiers(8'u32)
 
 ## Windows.System.Power.Thermal.PowerThermalChannelId  (struct)
 type PowerThermalChannelId* {.pure.} = object

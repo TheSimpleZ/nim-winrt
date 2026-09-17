@@ -16,100 +16,100 @@ import ./foundation
 export foundation
 
 ## Windows.Management.Deployment.AddPackageByAppInstallerOptions  (enum)
-type AddPackageByAppInstallerOptions* = distinct int32
+type AddPackageByAppInstallerOptions* = distinct uint32
 proc `==`*(a, b: AddPackageByAppInstallerOptions): bool {.borrow.}
 proc `or`*(a, b: AddPackageByAppInstallerOptions): AddPackageByAppInstallerOptions {.borrow.}
 proc `and`*(a, b: AddPackageByAppInstallerOptions): AddPackageByAppInstallerOptions {.borrow.}
 proc `not`*(a: AddPackageByAppInstallerOptions): AddPackageByAppInstallerOptions {.borrow.}
 proc contains*(a, b: AddPackageByAppInstallerOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AddPackageByAppInstallerOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 32'i32) == 32'i32:
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "InstallAllResources"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "ForceTargetAppShutdown"
-    rest = rest and not 64'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 64'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "RequiredContentGroupOnly"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "LimitToExistingPackages"
-    rest = rest and not 512'i32
+    rest = rest and not 512'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AddPackageByAppInstallerOptions(" & $rest & ")"
-const AddPackageByAppInstallerOptions_None* = AddPackageByAppInstallerOptions(0'i32)
-const AddPackageByAppInstallerOptions_InstallAllResources* = AddPackageByAppInstallerOptions(32'i32)
-const AddPackageByAppInstallerOptions_ForceTargetAppShutdown* = AddPackageByAppInstallerOptions(64'i32)
-const AddPackageByAppInstallerOptions_RequiredContentGroupOnly* = AddPackageByAppInstallerOptions(256'i32)
-const AddPackageByAppInstallerOptions_LimitToExistingPackages* = AddPackageByAppInstallerOptions(512'i32)
+const AddPackageByAppInstallerOptions_None* = AddPackageByAppInstallerOptions(0'u32)
+const AddPackageByAppInstallerOptions_InstallAllResources* = AddPackageByAppInstallerOptions(32'u32)
+const AddPackageByAppInstallerOptions_ForceTargetAppShutdown* = AddPackageByAppInstallerOptions(64'u32)
+const AddPackageByAppInstallerOptions_RequiredContentGroupOnly* = AddPackageByAppInstallerOptions(256'u32)
+const AddPackageByAppInstallerOptions_LimitToExistingPackages* = AddPackageByAppInstallerOptions(512'u32)
 
 ## Windows.Management.Deployment.DeploymentOptions  (enum)
-type DeploymentOptions* = distinct int32
+type DeploymentOptions* = distinct uint32
 proc `==`*(a, b: DeploymentOptions): bool {.borrow.}
 proc `or`*(a, b: DeploymentOptions): DeploymentOptions {.borrow.}
 proc `and`*(a, b: DeploymentOptions): DeploymentOptions {.borrow.}
 proc `not`*(a: DeploymentOptions): DeploymentOptions {.borrow.}
 proc contains*(a, b: DeploymentOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DeploymentOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ForceApplicationShutdown"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "DevelopmentMode"
-    rest = rest and not 2'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 2'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "InstallAllResources"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "ForceTargetApplicationShutdown"
-    rest = rest and not 64'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 64'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "RequiredContentGroupOnly"
-    rest = rest and not 256'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 256'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "ForceUpdateFromAnyVersion"
-    rest = rest and not 262144'i32
-  if (rest and 2097152'i32) == 2097152'i32:
+    rest = rest and not 262144'u32
+  if (rest and 2097152'u32) == 2097152'u32:
     if result.len > 0: result.add " or "
     result.add "RetainFilesOnFailure"
-    rest = rest and not 2097152'i32
-  if (rest and 4194304'i32) == 4194304'i32:
+    rest = rest and not 2097152'u32
+  if (rest and 4194304'u32) == 4194304'u32:
     if result.len > 0: result.add " or "
     result.add "StageInPlace"
-    rest = rest and not 4194304'i32
+    rest = rest and not 4194304'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DeploymentOptions(" & $rest & ")"
-const DeploymentOptions_None* = DeploymentOptions(0'i32)
-const DeploymentOptions_ForceApplicationShutdown* = DeploymentOptions(1'i32)
-const DeploymentOptions_DevelopmentMode* = DeploymentOptions(2'i32)
-const DeploymentOptions_InstallAllResources* = DeploymentOptions(32'i32)
-const DeploymentOptions_ForceTargetApplicationShutdown* = DeploymentOptions(64'i32)
-const DeploymentOptions_RequiredContentGroupOnly* = DeploymentOptions(256'i32)
-const DeploymentOptions_ForceUpdateFromAnyVersion* = DeploymentOptions(262144'i32)
-const DeploymentOptions_RetainFilesOnFailure* = DeploymentOptions(2097152'i32)
-const DeploymentOptions_StageInPlace* = DeploymentOptions(4194304'i32)
+const DeploymentOptions_None* = DeploymentOptions(0'u32)
+const DeploymentOptions_ForceApplicationShutdown* = DeploymentOptions(1'u32)
+const DeploymentOptions_DevelopmentMode* = DeploymentOptions(2'u32)
+const DeploymentOptions_InstallAllResources* = DeploymentOptions(32'u32)
+const DeploymentOptions_ForceTargetApplicationShutdown* = DeploymentOptions(64'u32)
+const DeploymentOptions_RequiredContentGroupOnly* = DeploymentOptions(256'u32)
+const DeploymentOptions_ForceUpdateFromAnyVersion* = DeploymentOptions(262144'u32)
+const DeploymentOptions_RetainFilesOnFailure* = DeploymentOptions(2097152'u32)
+const DeploymentOptions_StageInPlace* = DeploymentOptions(4194304'u32)
 
 ## Windows.Management.Deployment.DeploymentProgressState  (enum)
 type DeploymentProgressState* {.pure, size: 4.} = enum
@@ -162,42 +162,42 @@ proc `$`*(v: PackageState): string =
   else: "PackageState(" & $ord(v) & ")"
 
 ## Windows.Management.Deployment.PackageStatus  (enum)
-type PackageStatus* = distinct int32
+type PackageStatus* = distinct uint32
 proc `==`*(a, b: PackageStatus): bool {.borrow.}
 proc `or`*(a, b: PackageStatus): PackageStatus {.borrow.}
 proc `and`*(a, b: PackageStatus): PackageStatus {.borrow.}
 proc `not`*(a: PackageStatus): PackageStatus {.borrow.}
 proc contains*(a, b: PackageStatus): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PackageStatus): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "LicenseIssue"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Modified"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Tampered"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Disabled"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PackageStatus(" & $rest & ")"
-const PackageStatus_OK* = PackageStatus(0'i32)
-const PackageStatus_LicenseIssue* = PackageStatus(1'i32)
-const PackageStatus_Modified* = PackageStatus(2'i32)
-const PackageStatus_Tampered* = PackageStatus(4'i32)
-const PackageStatus_Disabled* = PackageStatus(8'i32)
+const PackageStatus_OK* = PackageStatus(0'u32)
+const PackageStatus_LicenseIssue* = PackageStatus(1'u32)
+const PackageStatus_Modified* = PackageStatus(2'u32)
+const PackageStatus_Tampered* = PackageStatus(4'u32)
+const PackageStatus_Disabled* = PackageStatus(8'u32)
 
 ## Windows.Management.Deployment.PackageStubPreference  (enum)
 type PackageStubPreference* {.pure, size: 4.} = enum
@@ -210,95 +210,95 @@ proc `$`*(v: PackageStubPreference): string =
   else: "PackageStubPreference(" & $ord(v) & ")"
 
 ## Windows.Management.Deployment.PackageTypes  (enum)
-type PackageTypes* = distinct int32
+type PackageTypes* = distinct uint32
 proc `==`*(a, b: PackageTypes): bool {.borrow.}
 proc `or`*(a, b: PackageTypes): PackageTypes {.borrow.}
 proc `and`*(a, b: PackageTypes): PackageTypes {.borrow.}
 proc `not`*(a: PackageTypes): PackageTypes {.borrow.}
 proc contains*(a, b: PackageTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PackageTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Main"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Framework"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Resource"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Bundle"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Xap"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Optional"
-    rest = rest and not 32'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 32'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PackageTypes(" & $rest & ")"
-const PackageTypes_None* = PackageTypes(0'i32)
-const PackageTypes_Main* = PackageTypes(1'i32)
-const PackageTypes_Framework* = PackageTypes(2'i32)
-const PackageTypes_Resource* = PackageTypes(4'i32)
-const PackageTypes_Bundle* = PackageTypes(8'i32)
-const PackageTypes_Xap* = PackageTypes(16'i32)
-const PackageTypes_Optional* = PackageTypes(32'i32)
-const PackageTypes_All* = PackageTypes(-1'i32)
+const PackageTypes_None* = PackageTypes(0'u32)
+const PackageTypes_Main* = PackageTypes(1'u32)
+const PackageTypes_Framework* = PackageTypes(2'u32)
+const PackageTypes_Resource* = PackageTypes(4'u32)
+const PackageTypes_Bundle* = PackageTypes(8'u32)
+const PackageTypes_Xap* = PackageTypes(16'u32)
+const PackageTypes_Optional* = PackageTypes(32'u32)
+const PackageTypes_All* = PackageTypes(4294967295'u32)
 
 ## Windows.Management.Deployment.RemovalOptions  (enum)
-type RemovalOptions* = distinct int32
+type RemovalOptions* = distinct uint32
 proc `==`*(a, b: RemovalOptions): bool {.borrow.}
 proc `or`*(a, b: RemovalOptions): RemovalOptions {.borrow.}
 proc `and`*(a, b: RemovalOptions): RemovalOptions {.borrow.}
 proc `not`*(a: RemovalOptions): RemovalOptions {.borrow.}
 proc contains*(a, b: RemovalOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RemovalOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 4096'i32) == 4096'i32:
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "PreserveApplicationData"
-    rest = rest and not 4096'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 4096'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "PreserveRoamableApplicationData"
-    rest = rest and not 128'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 128'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "DeferRemovalWhenPackagesAreInUse"
-    rest = rest and not 8192'i32
-  if (rest and 524288'i32) == 524288'i32:
+    rest = rest and not 8192'u32
+  if (rest and 524288'u32) == 524288'u32:
     if result.len > 0: result.add " or "
     result.add "RemoveForAllUsers"
-    rest = rest and not 524288'i32
+    rest = rest and not 524288'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RemovalOptions(" & $rest & ")"
-const RemovalOptions_None* = RemovalOptions(0'i32)
-const RemovalOptions_PreserveApplicationData* = RemovalOptions(4096'i32)
-const RemovalOptions_PreserveRoamableApplicationData* = RemovalOptions(128'i32)
-const RemovalOptions_DeferRemovalWhenPackagesAreInUse* = RemovalOptions(8192'i32)
-const RemovalOptions_RemoveForAllUsers* = RemovalOptions(524288'i32)
+const RemovalOptions_None* = RemovalOptions(0'u32)
+const RemovalOptions_PreserveApplicationData* = RemovalOptions(4096'u32)
+const RemovalOptions_PreserveRoamableApplicationData* = RemovalOptions(128'u32)
+const RemovalOptions_DeferRemovalWhenPackagesAreInUse* = RemovalOptions(8192'u32)
+const RemovalOptions_RemoveForAllUsers* = RemovalOptions(524288'u32)
 
 ## Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions  (enum)
 type SharedPackageContainerCreationCollisionOptions* {.pure, size: 4.} = enum
@@ -605,37 +605,37 @@ proc `$`*(v: WindowsSoftwareUpdateRestartReason): string =
   else: "WindowsSoftwareUpdateRestartReason(" & $ord(v) & ")"
 
 ## Windows.Management.Update.WindowsUpdateAdministratorOptions  (enum)
-type WindowsUpdateAdministratorOptions* = distinct int32
+type WindowsUpdateAdministratorOptions* = distinct uint32
 proc `==`*(a, b: WindowsUpdateAdministratorOptions): bool {.borrow.}
 proc `or`*(a, b: WindowsUpdateAdministratorOptions): WindowsUpdateAdministratorOptions {.borrow.}
 proc `and`*(a, b: WindowsUpdateAdministratorOptions): WindowsUpdateAdministratorOptions {.borrow.}
 proc `not`*(a: WindowsUpdateAdministratorOptions): WindowsUpdateAdministratorOptions {.borrow.}
 proc contains*(a, b: WindowsUpdateAdministratorOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: WindowsUpdateAdministratorOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "RequireAdministratorApprovalForScans"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "RequireAdministratorApprovalForUpdates"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "RequireAdministratorApprovalForActions"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "WindowsUpdateAdministratorOptions(" & $rest & ")"
-const WindowsUpdateAdministratorOptions_None* = WindowsUpdateAdministratorOptions(0'i32)
-const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForScans* = WindowsUpdateAdministratorOptions(1'i32)
-const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForUpdates* = WindowsUpdateAdministratorOptions(2'i32)
-const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForActions* = WindowsUpdateAdministratorOptions(4'i32)
+const WindowsUpdateAdministratorOptions_None* = WindowsUpdateAdministratorOptions(0'u32)
+const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForScans* = WindowsUpdateAdministratorOptions(1'u32)
+const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForUpdates* = WindowsUpdateAdministratorOptions(2'u32)
+const WindowsUpdateAdministratorOptions_RequireAdministratorApprovalForActions* = WindowsUpdateAdministratorOptions(4'u32)
 
 ## Windows.Management.Update.WindowsUpdateAdministratorStatus  (enum)
 type WindowsUpdateAdministratorStatus* {.pure, size: 4.} = enum

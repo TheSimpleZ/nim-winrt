@@ -44,47 +44,47 @@ proc `$`*(v: ProviderAdcChannelMode): string =
   else: "ProviderAdcChannelMode(" & $ord(v) & ")"
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags  (enum)
-type BluetoothLEAdvertisementFlags* = distinct int32
+type BluetoothLEAdvertisementFlags* = distinct uint32
 proc `==`*(a, b: BluetoothLEAdvertisementFlags): bool {.borrow.}
 proc `or`*(a, b: BluetoothLEAdvertisementFlags): BluetoothLEAdvertisementFlags {.borrow.}
 proc `and`*(a, b: BluetoothLEAdvertisementFlags): BluetoothLEAdvertisementFlags {.borrow.}
 proc `not`*(a: BluetoothLEAdvertisementFlags): BluetoothLEAdvertisementFlags {.borrow.}
 proc contains*(a, b: BluetoothLEAdvertisementFlags): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: BluetoothLEAdvertisementFlags): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "LimitedDiscoverableMode"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "GeneralDiscoverableMode"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ClassicNotSupported"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "DualModeControllerCapable"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "DualModeHostCapable"
-    rest = rest and not 16'i32
+    rest = rest and not 16'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "BluetoothLEAdvertisementFlags(" & $rest & ")"
-const BluetoothLEAdvertisementFlags_None* = BluetoothLEAdvertisementFlags(0'i32)
-const BluetoothLEAdvertisementFlags_LimitedDiscoverableMode* = BluetoothLEAdvertisementFlags(1'i32)
-const BluetoothLEAdvertisementFlags_GeneralDiscoverableMode* = BluetoothLEAdvertisementFlags(2'i32)
-const BluetoothLEAdvertisementFlags_ClassicNotSupported* = BluetoothLEAdvertisementFlags(4'i32)
-const BluetoothLEAdvertisementFlags_DualModeControllerCapable* = BluetoothLEAdvertisementFlags(8'i32)
-const BluetoothLEAdvertisementFlags_DualModeHostCapable* = BluetoothLEAdvertisementFlags(16'i32)
+const BluetoothLEAdvertisementFlags_None* = BluetoothLEAdvertisementFlags(0'u32)
+const BluetoothLEAdvertisementFlags_LimitedDiscoverableMode* = BluetoothLEAdvertisementFlags(1'u32)
+const BluetoothLEAdvertisementFlags_GeneralDiscoverableMode* = BluetoothLEAdvertisementFlags(2'u32)
+const BluetoothLEAdvertisementFlags_ClassicNotSupported* = BluetoothLEAdvertisementFlags(4'u32)
+const BluetoothLEAdvertisementFlags_DualModeControllerCapable* = BluetoothLEAdvertisementFlags(8'u32)
+const BluetoothLEAdvertisementFlags_DualModeHostCapable* = BluetoothLEAdvertisementFlags(16'u32)
 
 ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType  (enum)
 type BluetoothLEAdvertisementPhyType* {.pure, size: 4.} = enum
@@ -375,135 +375,135 @@ proc `$`*(v: BluetoothMinorClass): string =
   else: "BluetoothMinorClass(" & $ord(v) & ")"
 
 ## Windows.Devices.Bluetooth.BluetoothServiceCapabilities  (enum)
-type BluetoothServiceCapabilities* = distinct int32
+type BluetoothServiceCapabilities* = distinct uint32
 proc `==`*(a, b: BluetoothServiceCapabilities): bool {.borrow.}
 proc `or`*(a, b: BluetoothServiceCapabilities): BluetoothServiceCapabilities {.borrow.}
 proc `and`*(a, b: BluetoothServiceCapabilities): BluetoothServiceCapabilities {.borrow.}
 proc `not`*(a: BluetoothServiceCapabilities): BluetoothServiceCapabilities {.borrow.}
 proc contains*(a, b: BluetoothServiceCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: BluetoothServiceCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "LimitedDiscoverableMode"
-    rest = rest and not 1'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 1'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "PositioningService"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "NetworkingService"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "RenderingService"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "CapturingService"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "ObjectTransferService"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "AudioService"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "TelephoneService"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "InformationService"
-    rest = rest and not 1024'i32
+    rest = rest and not 1024'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "BluetoothServiceCapabilities(" & $rest & ")"
-const BluetoothServiceCapabilities_None* = BluetoothServiceCapabilities(0'i32)
-const BluetoothServiceCapabilities_LimitedDiscoverableMode* = BluetoothServiceCapabilities(1'i32)
-const BluetoothServiceCapabilities_PositioningService* = BluetoothServiceCapabilities(8'i32)
-const BluetoothServiceCapabilities_NetworkingService* = BluetoothServiceCapabilities(16'i32)
-const BluetoothServiceCapabilities_RenderingService* = BluetoothServiceCapabilities(32'i32)
-const BluetoothServiceCapabilities_CapturingService* = BluetoothServiceCapabilities(64'i32)
-const BluetoothServiceCapabilities_ObjectTransferService* = BluetoothServiceCapabilities(128'i32)
-const BluetoothServiceCapabilities_AudioService* = BluetoothServiceCapabilities(256'i32)
-const BluetoothServiceCapabilities_TelephoneService* = BluetoothServiceCapabilities(512'i32)
-const BluetoothServiceCapabilities_InformationService* = BluetoothServiceCapabilities(1024'i32)
+const BluetoothServiceCapabilities_None* = BluetoothServiceCapabilities(0'u32)
+const BluetoothServiceCapabilities_LimitedDiscoverableMode* = BluetoothServiceCapabilities(1'u32)
+const BluetoothServiceCapabilities_PositioningService* = BluetoothServiceCapabilities(8'u32)
+const BluetoothServiceCapabilities_NetworkingService* = BluetoothServiceCapabilities(16'u32)
+const BluetoothServiceCapabilities_RenderingService* = BluetoothServiceCapabilities(32'u32)
+const BluetoothServiceCapabilities_CapturingService* = BluetoothServiceCapabilities(64'u32)
+const BluetoothServiceCapabilities_ObjectTransferService* = BluetoothServiceCapabilities(128'u32)
+const BluetoothServiceCapabilities_AudioService* = BluetoothServiceCapabilities(256'u32)
+const BluetoothServiceCapabilities_TelephoneService* = BluetoothServiceCapabilities(512'u32)
+const BluetoothServiceCapabilities_InformationService* = BluetoothServiceCapabilities(1024'u32)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicProperties  (enum)
-type GattCharacteristicProperties* = distinct int32
+type GattCharacteristicProperties* = distinct uint32
 proc `==`*(a, b: GattCharacteristicProperties): bool {.borrow.}
 proc `or`*(a, b: GattCharacteristicProperties): GattCharacteristicProperties {.borrow.}
 proc `and`*(a, b: GattCharacteristicProperties): GattCharacteristicProperties {.borrow.}
 proc `not`*(a: GattCharacteristicProperties): GattCharacteristicProperties {.borrow.}
 proc contains*(a, b: GattCharacteristicProperties): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GattCharacteristicProperties): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Broadcast"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Read"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "WriteWithoutResponse"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Write"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Notify"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Indicate"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "AuthenticatedSignedWrites"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "ExtendedProperties"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "ReliableWrites"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "WritableAuxiliaries"
-    rest = rest and not 512'i32
+    rest = rest and not 512'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GattCharacteristicProperties(" & $rest & ")"
-const GattCharacteristicProperties_None* = GattCharacteristicProperties(0'i32)
-const GattCharacteristicProperties_Broadcast* = GattCharacteristicProperties(1'i32)
-const GattCharacteristicProperties_Read* = GattCharacteristicProperties(2'i32)
-const GattCharacteristicProperties_WriteWithoutResponse* = GattCharacteristicProperties(4'i32)
-const GattCharacteristicProperties_Write* = GattCharacteristicProperties(8'i32)
-const GattCharacteristicProperties_Notify* = GattCharacteristicProperties(16'i32)
-const GattCharacteristicProperties_Indicate* = GattCharacteristicProperties(32'i32)
-const GattCharacteristicProperties_AuthenticatedSignedWrites* = GattCharacteristicProperties(64'i32)
-const GattCharacteristicProperties_ExtendedProperties* = GattCharacteristicProperties(128'i32)
-const GattCharacteristicProperties_ReliableWrites* = GattCharacteristicProperties(256'i32)
-const GattCharacteristicProperties_WritableAuxiliaries* = GattCharacteristicProperties(512'i32)
+const GattCharacteristicProperties_None* = GattCharacteristicProperties(0'u32)
+const GattCharacteristicProperties_Broadcast* = GattCharacteristicProperties(1'u32)
+const GattCharacteristicProperties_Read* = GattCharacteristicProperties(2'u32)
+const GattCharacteristicProperties_WriteWithoutResponse* = GattCharacteristicProperties(4'u32)
+const GattCharacteristicProperties_Write* = GattCharacteristicProperties(8'u32)
+const GattCharacteristicProperties_Notify* = GattCharacteristicProperties(16'u32)
+const GattCharacteristicProperties_Indicate* = GattCharacteristicProperties(32'u32)
+const GattCharacteristicProperties_AuthenticatedSignedWrites* = GattCharacteristicProperties(64'u32)
+const GattCharacteristicProperties_ExtendedProperties* = GattCharacteristicProperties(128'u32)
+const GattCharacteristicProperties_ReliableWrites* = GattCharacteristicProperties(256'u32)
+const GattCharacteristicProperties_WritableAuxiliaries* = GattCharacteristicProperties(512'u32)
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue  (enum)
 type GattClientCharacteristicConfigurationDescriptorValue* {.pure, size: 4.} = enum
@@ -676,52 +676,52 @@ proc `$`*(v: IOControlBufferingMethod): string =
   else: "IOControlBufferingMethod(" & $ord(v) & ")"
 
 ## Windows.Devices.Display.Core.DisplayBitsPerChannel  (enum)
-type DisplayBitsPerChannel* = distinct int32
+type DisplayBitsPerChannel* = distinct uint32
 proc `==`*(a, b: DisplayBitsPerChannel): bool {.borrow.}
 proc `or`*(a, b: DisplayBitsPerChannel): DisplayBitsPerChannel {.borrow.}
 proc `and`*(a, b: DisplayBitsPerChannel): DisplayBitsPerChannel {.borrow.}
 proc `not`*(a: DisplayBitsPerChannel): DisplayBitsPerChannel {.borrow.}
 proc contains*(a, b: DisplayBitsPerChannel): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayBitsPerChannel): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc6"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc8"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc10"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc12"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc14"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Bpc16"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayBitsPerChannel(" & $rest & ")"
-const DisplayBitsPerChannel_None* = DisplayBitsPerChannel(0'i32)
-const DisplayBitsPerChannel_Bpc6* = DisplayBitsPerChannel(1'i32)
-const DisplayBitsPerChannel_Bpc8* = DisplayBitsPerChannel(2'i32)
-const DisplayBitsPerChannel_Bpc10* = DisplayBitsPerChannel(4'i32)
-const DisplayBitsPerChannel_Bpc12* = DisplayBitsPerChannel(8'i32)
-const DisplayBitsPerChannel_Bpc14* = DisplayBitsPerChannel(16'i32)
-const DisplayBitsPerChannel_Bpc16* = DisplayBitsPerChannel(32'i32)
+const DisplayBitsPerChannel_None* = DisplayBitsPerChannel(0'u32)
+const DisplayBitsPerChannel_Bpc6* = DisplayBitsPerChannel(1'u32)
+const DisplayBitsPerChannel_Bpc8* = DisplayBitsPerChannel(2'u32)
+const DisplayBitsPerChannel_Bpc10* = DisplayBitsPerChannel(4'u32)
+const DisplayBitsPerChannel_Bpc12* = DisplayBitsPerChannel(8'u32)
+const DisplayBitsPerChannel_Bpc14* = DisplayBitsPerChannel(16'u32)
+const DisplayBitsPerChannel_Bpc16* = DisplayBitsPerChannel(32'u32)
 
 ## Windows.Devices.Display.Core.DisplayDeviceCapability  (enum)
 type DisplayDeviceCapability* {.pure, size: 4.} = enum
@@ -732,32 +732,32 @@ proc `$`*(v: DisplayDeviceCapability): string =
   else: "DisplayDeviceCapability(" & $ord(v) & ")"
 
 ## Windows.Devices.Display.Core.DisplayManagerOptions  (enum)
-type DisplayManagerOptions* = distinct int32
+type DisplayManagerOptions* = distinct uint32
 proc `==`*(a, b: DisplayManagerOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayManagerOptions): DisplayManagerOptions {.borrow.}
 proc `and`*(a, b: DisplayManagerOptions): DisplayManagerOptions {.borrow.}
 proc `not`*(a: DisplayManagerOptions): DisplayManagerOptions {.borrow.}
 proc contains*(a, b: DisplayManagerOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayManagerOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "EnforceSourceOwnership"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "VirtualRefreshRateAware"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayManagerOptions(" & $rest & ")"
-const DisplayManagerOptions_None* = DisplayManagerOptions(0'i32)
-const DisplayManagerOptions_EnforceSourceOwnership* = DisplayManagerOptions(1'i32)
-const DisplayManagerOptions_VirtualRefreshRateAware* = DisplayManagerOptions(2'i32)
+const DisplayManagerOptions_None* = DisplayManagerOptions(0'u32)
+const DisplayManagerOptions_EnforceSourceOwnership* = DisplayManagerOptions(1'u32)
+const DisplayManagerOptions_VirtualRefreshRateAware* = DisplayManagerOptions(2'u32)
 
 ## Windows.Devices.Display.Core.DisplayManagerResult  (enum)
 type DisplayManagerResult* {.pure, size: 4.} = enum
@@ -776,27 +776,27 @@ proc `$`*(v: DisplayManagerResult): string =
   else: "DisplayManagerResult(" & $ord(v) & ")"
 
 ## Windows.Devices.Display.Core.DisplayModeQueryOptions  (enum)
-type DisplayModeQueryOptions* = distinct int32
+type DisplayModeQueryOptions* = distinct uint32
 proc `==`*(a, b: DisplayModeQueryOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayModeQueryOptions): DisplayModeQueryOptions {.borrow.}
 proc `and`*(a, b: DisplayModeQueryOptions): DisplayModeQueryOptions {.borrow.}
 proc `not`*(a: DisplayModeQueryOptions): DisplayModeQueryOptions {.borrow.}
 proc contains*(a, b: DisplayModeQueryOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayModeQueryOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "OnlyPreferredResolution"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayModeQueryOptions(" & $rest & ")"
-const DisplayModeQueryOptions_None* = DisplayModeQueryOptions(0'i32)
-const DisplayModeQueryOptions_OnlyPreferredResolution* = DisplayModeQueryOptions(1'i32)
+const DisplayModeQueryOptions_None* = DisplayModeQueryOptions(0'u32)
+const DisplayModeQueryOptions_OnlyPreferredResolution* = DisplayModeQueryOptions(1'u32)
 
 ## Windows.Devices.Display.Core.DisplayPathScaling  (enum)
 type DisplayPathScaling* {.pure, size: 4.} = enum
@@ -867,27 +867,27 @@ proc `$`*(v: DisplayRotation): string =
   else: "DisplayRotation(" & $ord(v) & ")"
 
 ## Windows.Devices.Display.Core.DisplayScanoutOptions  (enum)
-type DisplayScanoutOptions* = distinct int32
+type DisplayScanoutOptions* = distinct uint32
 proc `==`*(a, b: DisplayScanoutOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayScanoutOptions): DisplayScanoutOptions {.borrow.}
 proc `and`*(a, b: DisplayScanoutOptions): DisplayScanoutOptions {.borrow.}
 proc `not`*(a: DisplayScanoutOptions): DisplayScanoutOptions {.borrow.}
 proc contains*(a, b: DisplayScanoutOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayScanoutOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 2'i32) == 2'i32:
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "AllowTearing"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayScanoutOptions(" & $rest & ")"
-const DisplayScanoutOptions_None* = DisplayScanoutOptions(0'i32)
-const DisplayScanoutOptions_AllowTearing* = DisplayScanoutOptions(2'i32)
+const DisplayScanoutOptions_None* = DisplayScanoutOptions(0'u32)
+const DisplayScanoutOptions_AllowTearing* = DisplayScanoutOptions(2'u32)
 
 ## Windows.Devices.Display.Core.DisplaySourceStatus  (enum)
 type DisplaySourceStatus* {.pure, size: 4.} = enum
@@ -906,65 +906,65 @@ proc `$`*(v: DisplaySourceStatus): string =
   else: "DisplaySourceStatus(" & $ord(v) & ")"
 
 ## Windows.Devices.Display.Core.DisplayStateApplyOptions  (enum)
-type DisplayStateApplyOptions* = distinct int32
+type DisplayStateApplyOptions* = distinct uint32
 proc `==`*(a, b: DisplayStateApplyOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayStateApplyOptions): DisplayStateApplyOptions {.borrow.}
 proc `and`*(a, b: DisplayStateApplyOptions): DisplayStateApplyOptions {.borrow.}
 proc `not`*(a: DisplayStateApplyOptions): DisplayStateApplyOptions {.borrow.}
 proc contains*(a, b: DisplayStateApplyOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayStateApplyOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "FailIfStateChanged"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ForceReapply"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ForceModeEnumeration"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayStateApplyOptions(" & $rest & ")"
-const DisplayStateApplyOptions_None* = DisplayStateApplyOptions(0'i32)
-const DisplayStateApplyOptions_FailIfStateChanged* = DisplayStateApplyOptions(1'i32)
-const DisplayStateApplyOptions_ForceReapply* = DisplayStateApplyOptions(2'i32)
-const DisplayStateApplyOptions_ForceModeEnumeration* = DisplayStateApplyOptions(4'i32)
+const DisplayStateApplyOptions_None* = DisplayStateApplyOptions(0'u32)
+const DisplayStateApplyOptions_FailIfStateChanged* = DisplayStateApplyOptions(1'u32)
+const DisplayStateApplyOptions_ForceReapply* = DisplayStateApplyOptions(2'u32)
+const DisplayStateApplyOptions_ForceModeEnumeration* = DisplayStateApplyOptions(4'u32)
 
 ## Windows.Devices.Display.Core.DisplayStateFunctionalizeOptions  (enum)
-type DisplayStateFunctionalizeOptions* = distinct int32
+type DisplayStateFunctionalizeOptions* = distinct uint32
 proc `==`*(a, b: DisplayStateFunctionalizeOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayStateFunctionalizeOptions): DisplayStateFunctionalizeOptions {.borrow.}
 proc `and`*(a, b: DisplayStateFunctionalizeOptions): DisplayStateFunctionalizeOptions {.borrow.}
 proc `not`*(a: DisplayStateFunctionalizeOptions): DisplayStateFunctionalizeOptions {.borrow.}
 proc contains*(a, b: DisplayStateFunctionalizeOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayStateFunctionalizeOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "FailIfStateChanged"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ValidateTopologyOnly"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayStateFunctionalizeOptions(" & $rest & ")"
-const DisplayStateFunctionalizeOptions_None* = DisplayStateFunctionalizeOptions(0'i32)
-const DisplayStateFunctionalizeOptions_FailIfStateChanged* = DisplayStateFunctionalizeOptions(1'i32)
-const DisplayStateFunctionalizeOptions_ValidateTopologyOnly* = DisplayStateFunctionalizeOptions(2'i32)
+const DisplayStateFunctionalizeOptions_None* = DisplayStateFunctionalizeOptions(0'u32)
+const DisplayStateFunctionalizeOptions_FailIfStateChanged* = DisplayStateFunctionalizeOptions(1'u32)
+const DisplayStateFunctionalizeOptions_ValidateTopologyOnly* = DisplayStateFunctionalizeOptions(2'u32)
 
 ## Windows.Devices.Display.Core.DisplayStateOperationStatus  (enum)
 type DisplayStateOperationStatus* {.pure, size: 4.} = enum
@@ -1201,52 +1201,52 @@ proc `$`*(v: DevicePairingAddPairingSetMemberStatus): string =
   else: "DevicePairingAddPairingSetMemberStatus(" & $ord(v) & ")"
 
 ## Windows.Devices.Enumeration.DevicePairingKinds  (enum)
-type DevicePairingKinds* = distinct int32
+type DevicePairingKinds* = distinct uint32
 proc `==`*(a, b: DevicePairingKinds): bool {.borrow.}
 proc `or`*(a, b: DevicePairingKinds): DevicePairingKinds {.borrow.}
 proc `and`*(a, b: DevicePairingKinds): DevicePairingKinds {.borrow.}
 proc `not`*(a: DevicePairingKinds): DevicePairingKinds {.borrow.}
 proc contains*(a, b: DevicePairingKinds): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DevicePairingKinds): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ConfirmOnly"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "DisplayPin"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ProvidePin"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ConfirmPinMatch"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "ProvidePasswordCredential"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "ProvideAddress"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DevicePairingKinds(" & $rest & ")"
-const DevicePairingKinds_None* = DevicePairingKinds(0'i32)
-const DevicePairingKinds_ConfirmOnly* = DevicePairingKinds(1'i32)
-const DevicePairingKinds_DisplayPin* = DevicePairingKinds(2'i32)
-const DevicePairingKinds_ProvidePin* = DevicePairingKinds(4'i32)
-const DevicePairingKinds_ConfirmPinMatch* = DevicePairingKinds(8'i32)
-const DevicePairingKinds_ProvidePasswordCredential* = DevicePairingKinds(16'i32)
-const DevicePairingKinds_ProvideAddress* = DevicePairingKinds(32'i32)
+const DevicePairingKinds_None* = DevicePairingKinds(0'u32)
+const DevicePairingKinds_ConfirmOnly* = DevicePairingKinds(1'u32)
+const DevicePairingKinds_DisplayPin* = DevicePairingKinds(2'u32)
+const DevicePairingKinds_ProvidePin* = DevicePairingKinds(4'u32)
+const DevicePairingKinds_ConfirmPinMatch* = DevicePairingKinds(8'u32)
+const DevicePairingKinds_ProvidePasswordCredential* = DevicePairingKinds(16'u32)
+const DevicePairingKinds_ProvideAddress* = DevicePairingKinds(32'u32)
 
 ## Windows.Devices.Enumeration.DevicePairingProtectionLevel  (enum)
 type DevicePairingProtectionLevel* {.pure, size: 4.} = enum
@@ -1309,37 +1309,37 @@ proc `$`*(v: DevicePairingResultStatus): string =
   else: "DevicePairingResultStatus(" & $ord(v) & ")"
 
 ## Windows.Devices.Enumeration.DevicePickerDisplayStatusOptions  (enum)
-type DevicePickerDisplayStatusOptions* = distinct int32
+type DevicePickerDisplayStatusOptions* = distinct uint32
 proc `==`*(a, b: DevicePickerDisplayStatusOptions): bool {.borrow.}
 proc `or`*(a, b: DevicePickerDisplayStatusOptions): DevicePickerDisplayStatusOptions {.borrow.}
 proc `and`*(a, b: DevicePickerDisplayStatusOptions): DevicePickerDisplayStatusOptions {.borrow.}
 proc `not`*(a: DevicePickerDisplayStatusOptions): DevicePickerDisplayStatusOptions {.borrow.}
 proc contains*(a, b: DevicePickerDisplayStatusOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DevicePickerDisplayStatusOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ShowProgress"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ShowDisconnectButton"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ShowRetryButton"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DevicePickerDisplayStatusOptions(" & $rest & ")"
-const DevicePickerDisplayStatusOptions_None* = DevicePickerDisplayStatusOptions(0'i32)
-const DevicePickerDisplayStatusOptions_ShowProgress* = DevicePickerDisplayStatusOptions(1'i32)
-const DevicePickerDisplayStatusOptions_ShowDisconnectButton* = DevicePickerDisplayStatusOptions(2'i32)
-const DevicePickerDisplayStatusOptions_ShowRetryButton* = DevicePickerDisplayStatusOptions(4'i32)
+const DevicePickerDisplayStatusOptions_None* = DevicePickerDisplayStatusOptions(0'u32)
+const DevicePickerDisplayStatusOptions_ShowProgress* = DevicePickerDisplayStatusOptions(1'u32)
+const DevicePickerDisplayStatusOptions_ShowDisconnectButton* = DevicePickerDisplayStatusOptions(2'u32)
+const DevicePickerDisplayStatusOptions_ShowRetryButton* = DevicePickerDisplayStatusOptions(4'u32)
 
 ## Windows.Devices.Enumeration.DeviceUnpairingResultStatus  (enum)
 type DeviceUnpairingResultStatus* {.pure, size: 4.} = enum
@@ -1478,70 +1478,70 @@ proc `$`*(v: GeofenceRemovalReason): string =
   else: "GeofenceRemovalReason(" & $ord(v) & ")"
 
 ## Windows.Devices.Geolocation.Geofencing.GeofenceState  (enum)
-type GeofenceState* = distinct int32
+type GeofenceState* = distinct uint32
 proc `==`*(a, b: GeofenceState): bool {.borrow.}
 proc `or`*(a, b: GeofenceState): GeofenceState {.borrow.}
 proc `and`*(a, b: GeofenceState): GeofenceState {.borrow.}
 proc `not`*(a: GeofenceState): GeofenceState {.borrow.}
 proc contains*(a, b: GeofenceState): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GeofenceState): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Entered"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Exited"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Removed"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GeofenceState(" & $rest & ")"
-const GeofenceState_None* = GeofenceState(0'i32)
-const GeofenceState_Entered* = GeofenceState(1'i32)
-const GeofenceState_Exited* = GeofenceState(2'i32)
-const GeofenceState_Removed* = GeofenceState(4'i32)
+const GeofenceState_None* = GeofenceState(0'u32)
+const GeofenceState_Entered* = GeofenceState(1'u32)
+const GeofenceState_Exited* = GeofenceState(2'u32)
+const GeofenceState_Removed* = GeofenceState(4'u32)
 
 ## Windows.Devices.Geolocation.Geofencing.MonitoredGeofenceStates  (enum)
-type MonitoredGeofenceStates* = distinct int32
+type MonitoredGeofenceStates* = distinct uint32
 proc `==`*(a, b: MonitoredGeofenceStates): bool {.borrow.}
 proc `or`*(a, b: MonitoredGeofenceStates): MonitoredGeofenceStates {.borrow.}
 proc `and`*(a, b: MonitoredGeofenceStates): MonitoredGeofenceStates {.borrow.}
 proc `not`*(a: MonitoredGeofenceStates): MonitoredGeofenceStates {.borrow.}
 proc contains*(a, b: MonitoredGeofenceStates): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: MonitoredGeofenceStates): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Entered"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Exited"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Removed"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "MonitoredGeofenceStates(" & $rest & ")"
-const MonitoredGeofenceStates_None* = MonitoredGeofenceStates(0'i32)
-const MonitoredGeofenceStates_Entered* = MonitoredGeofenceStates(1'i32)
-const MonitoredGeofenceStates_Exited* = MonitoredGeofenceStates(2'i32)
-const MonitoredGeofenceStates_Removed* = MonitoredGeofenceStates(4'i32)
+const MonitoredGeofenceStates_None* = MonitoredGeofenceStates(0'u32)
+const MonitoredGeofenceStates_Entered* = MonitoredGeofenceStates(1'u32)
+const MonitoredGeofenceStates_Exited* = MonitoredGeofenceStates(2'u32)
+const MonitoredGeofenceStates_Removed* = MonitoredGeofenceStates(4'u32)
 
 ## Windows.Devices.Geolocation.GeolocationAccessStatus  (enum)
 type GeolocationAccessStatus* {.pure, size: 4.} = enum
@@ -2014,52 +2014,52 @@ proc `$`*(v: LampArrayKind): string =
   else: "LampArrayKind(" & $ord(v) & ")"
 
 ## Windows.Devices.Lights.LampPurposes  (enum)
-type LampPurposes* = distinct int32
+type LampPurposes* = distinct uint32
 proc `==`*(a, b: LampPurposes): bool {.borrow.}
 proc `or`*(a, b: LampPurposes): LampPurposes {.borrow.}
 proc `and`*(a, b: LampPurposes): LampPurposes {.borrow.}
 proc `not`*(a: LampPurposes): LampPurposes {.borrow.}
 proc contains*(a, b: LampPurposes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: LampPurposes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Control"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Accent"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Branding"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Status"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Illumination"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Presentation"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "LampPurposes(" & $rest & ")"
-const LampPurposes_Undefined* = LampPurposes(0'i32)
-const LampPurposes_Control* = LampPurposes(1'i32)
-const LampPurposes_Accent* = LampPurposes(2'i32)
-const LampPurposes_Branding* = LampPurposes(4'i32)
-const LampPurposes_Status* = LampPurposes(8'i32)
-const LampPurposes_Illumination* = LampPurposes(16'i32)
-const LampPurposes_Presentation* = LampPurposes(32'i32)
+const LampPurposes_Undefined* = LampPurposes(0'u32)
+const LampPurposes_Control* = LampPurposes(1'u32)
+const LampPurposes_Accent* = LampPurposes(2'u32)
+const LampPurposes_Branding* = LampPurposes(4'u32)
+const LampPurposes_Status* = LampPurposes(8'u32)
+const LampPurposes_Illumination* = LampPurposes(16'u32)
+const LampPurposes_Presentation* = LampPurposes(32'u32)
 
 ## Windows.Devices.Midi.MidiMessageType  (enum)
 type MidiMessageType* {.pure, size: 4.} = enum
@@ -2384,41 +2384,41 @@ proc `$`*(v: MagneticStripeReaderTrackIds): string =
   else: "MagneticStripeReaderTrackIds(" & $ord(v) & ")"
 
 ## Windows.Devices.PointOfService.PosConnectionTypes  (enum)
-type PosConnectionTypes* = distinct int32
+type PosConnectionTypes* = distinct uint32
 proc `==`*(a, b: PosConnectionTypes): bool {.borrow.}
 proc `or`*(a, b: PosConnectionTypes): PosConnectionTypes {.borrow.}
 proc `and`*(a, b: PosConnectionTypes): PosConnectionTypes {.borrow.}
 proc `not`*(a: PosConnectionTypes): PosConnectionTypes {.borrow.}
 proc contains*(a, b: PosConnectionTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PosConnectionTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Local"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "IP"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Bluetooth"
-    rest = rest and not 4'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 4'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PosConnectionTypes(" & $rest & ")"
-const PosConnectionTypes_Local* = PosConnectionTypes(1'i32)
-const PosConnectionTypes_IP* = PosConnectionTypes(2'i32)
-const PosConnectionTypes_Bluetooth* = PosConnectionTypes(4'i32)
-const PosConnectionTypes_All* = PosConnectionTypes(-1'i32)
+const PosConnectionTypes_Local* = PosConnectionTypes(1'u32)
+const PosConnectionTypes_IP* = PosConnectionTypes(2'u32)
+const PosConnectionTypes_Bluetooth* = PosConnectionTypes(4'u32)
+const PosConnectionTypes_All* = PosConnectionTypes(4294967295'u32)
 
 ## Windows.Devices.PointOfService.PosPrinterAlignment  (enum)
 type PosPrinterAlignment* {.pure, size: 4.} = enum
@@ -2445,115 +2445,115 @@ proc `$`*(v: PosPrinterBarcodeTextPosition): string =
   else: "PosPrinterBarcodeTextPosition(" & $ord(v) & ")"
 
 ## Windows.Devices.PointOfService.PosPrinterCartridgeSensors  (enum)
-type PosPrinterCartridgeSensors* = distinct int32
+type PosPrinterCartridgeSensors* = distinct uint32
 proc `==`*(a, b: PosPrinterCartridgeSensors): bool {.borrow.}
 proc `or`*(a, b: PosPrinterCartridgeSensors): PosPrinterCartridgeSensors {.borrow.}
 proc `and`*(a, b: PosPrinterCartridgeSensors): PosPrinterCartridgeSensors {.borrow.}
 proc `not`*(a: PosPrinterCartridgeSensors): PosPrinterCartridgeSensors {.borrow.}
 proc contains*(a, b: PosPrinterCartridgeSensors): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PosPrinterCartridgeSensors): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Removed"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Empty"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "HeadCleaning"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "NearEnd"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PosPrinterCartridgeSensors(" & $rest & ")"
-const PosPrinterCartridgeSensors_None* = PosPrinterCartridgeSensors(0'i32)
-const PosPrinterCartridgeSensors_Removed* = PosPrinterCartridgeSensors(1'i32)
-const PosPrinterCartridgeSensors_Empty* = PosPrinterCartridgeSensors(2'i32)
-const PosPrinterCartridgeSensors_HeadCleaning* = PosPrinterCartridgeSensors(4'i32)
-const PosPrinterCartridgeSensors_NearEnd* = PosPrinterCartridgeSensors(8'i32)
+const PosPrinterCartridgeSensors_None* = PosPrinterCartridgeSensors(0'u32)
+const PosPrinterCartridgeSensors_Removed* = PosPrinterCartridgeSensors(1'u32)
+const PosPrinterCartridgeSensors_Empty* = PosPrinterCartridgeSensors(2'u32)
+const PosPrinterCartridgeSensors_HeadCleaning* = PosPrinterCartridgeSensors(4'u32)
+const PosPrinterCartridgeSensors_NearEnd* = PosPrinterCartridgeSensors(8'u32)
 
 ## Windows.Devices.PointOfService.PosPrinterColorCapabilities  (enum)
-type PosPrinterColorCapabilities* = distinct int32
+type PosPrinterColorCapabilities* = distinct uint32
 proc `==`*(a, b: PosPrinterColorCapabilities): bool {.borrow.}
 proc `or`*(a, b: PosPrinterColorCapabilities): PosPrinterColorCapabilities {.borrow.}
 proc `and`*(a, b: PosPrinterColorCapabilities): PosPrinterColorCapabilities {.borrow.}
 proc `not`*(a: PosPrinterColorCapabilities): PosPrinterColorCapabilities {.borrow.}
 proc contains*(a, b: PosPrinterColorCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PosPrinterColorCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Primary"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Custom1"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Custom2"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Custom3"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Custom4"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Custom5"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "Custom6"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "Cyan"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "Magenta"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "Yellow"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "Full"
-    rest = rest and not 1024'i32
+    rest = rest and not 1024'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PosPrinterColorCapabilities(" & $rest & ")"
-const PosPrinterColorCapabilities_None* = PosPrinterColorCapabilities(0'i32)
-const PosPrinterColorCapabilities_Primary* = PosPrinterColorCapabilities(1'i32)
-const PosPrinterColorCapabilities_Custom1* = PosPrinterColorCapabilities(2'i32)
-const PosPrinterColorCapabilities_Custom2* = PosPrinterColorCapabilities(4'i32)
-const PosPrinterColorCapabilities_Custom3* = PosPrinterColorCapabilities(8'i32)
-const PosPrinterColorCapabilities_Custom4* = PosPrinterColorCapabilities(16'i32)
-const PosPrinterColorCapabilities_Custom5* = PosPrinterColorCapabilities(32'i32)
-const PosPrinterColorCapabilities_Custom6* = PosPrinterColorCapabilities(64'i32)
-const PosPrinterColorCapabilities_Cyan* = PosPrinterColorCapabilities(128'i32)
-const PosPrinterColorCapabilities_Magenta* = PosPrinterColorCapabilities(256'i32)
-const PosPrinterColorCapabilities_Yellow* = PosPrinterColorCapabilities(512'i32)
-const PosPrinterColorCapabilities_Full* = PosPrinterColorCapabilities(1024'i32)
+const PosPrinterColorCapabilities_None* = PosPrinterColorCapabilities(0'u32)
+const PosPrinterColorCapabilities_Primary* = PosPrinterColorCapabilities(1'u32)
+const PosPrinterColorCapabilities_Custom1* = PosPrinterColorCapabilities(2'u32)
+const PosPrinterColorCapabilities_Custom2* = PosPrinterColorCapabilities(4'u32)
+const PosPrinterColorCapabilities_Custom3* = PosPrinterColorCapabilities(8'u32)
+const PosPrinterColorCapabilities_Custom4* = PosPrinterColorCapabilities(16'u32)
+const PosPrinterColorCapabilities_Custom5* = PosPrinterColorCapabilities(32'u32)
+const PosPrinterColorCapabilities_Custom6* = PosPrinterColorCapabilities(64'u32)
+const PosPrinterColorCapabilities_Cyan* = PosPrinterColorCapabilities(128'u32)
+const PosPrinterColorCapabilities_Magenta* = PosPrinterColorCapabilities(256'u32)
+const PosPrinterColorCapabilities_Yellow* = PosPrinterColorCapabilities(512'u32)
+const PosPrinterColorCapabilities_Full* = PosPrinterColorCapabilities(1024'u32)
 
 ## Windows.Devices.PointOfService.PosPrinterColorCartridge  (enum)
 type PosPrinterColorCartridge* {.pure, size: 4.} = enum
@@ -2622,42 +2622,42 @@ proc `$`*(v: PosPrinterMapMode): string =
   else: "PosPrinterMapMode(" & $ord(v) & ")"
 
 ## Windows.Devices.PointOfService.PosPrinterMarkFeedCapabilities  (enum)
-type PosPrinterMarkFeedCapabilities* = distinct int32
+type PosPrinterMarkFeedCapabilities* = distinct uint32
 proc `==`*(a, b: PosPrinterMarkFeedCapabilities): bool {.borrow.}
 proc `or`*(a, b: PosPrinterMarkFeedCapabilities): PosPrinterMarkFeedCapabilities {.borrow.}
 proc `and`*(a, b: PosPrinterMarkFeedCapabilities): PosPrinterMarkFeedCapabilities {.borrow.}
 proc `not`*(a: PosPrinterMarkFeedCapabilities): PosPrinterMarkFeedCapabilities {.borrow.}
 proc contains*(a, b: PosPrinterMarkFeedCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PosPrinterMarkFeedCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ToTakeUp"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ToCutter"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ToCurrentTopOfForm"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ToNextTopOfForm"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PosPrinterMarkFeedCapabilities(" & $rest & ")"
-const PosPrinterMarkFeedCapabilities_None* = PosPrinterMarkFeedCapabilities(0'i32)
-const PosPrinterMarkFeedCapabilities_ToTakeUp* = PosPrinterMarkFeedCapabilities(1'i32)
-const PosPrinterMarkFeedCapabilities_ToCutter* = PosPrinterMarkFeedCapabilities(2'i32)
-const PosPrinterMarkFeedCapabilities_ToCurrentTopOfForm* = PosPrinterMarkFeedCapabilities(4'i32)
-const PosPrinterMarkFeedCapabilities_ToNextTopOfForm* = PosPrinterMarkFeedCapabilities(8'i32)
+const PosPrinterMarkFeedCapabilities_None* = PosPrinterMarkFeedCapabilities(0'u32)
+const PosPrinterMarkFeedCapabilities_ToTakeUp* = PosPrinterMarkFeedCapabilities(1'u32)
+const PosPrinterMarkFeedCapabilities_ToCutter* = PosPrinterMarkFeedCapabilities(2'u32)
+const PosPrinterMarkFeedCapabilities_ToCurrentTopOfForm* = PosPrinterMarkFeedCapabilities(4'u32)
+const PosPrinterMarkFeedCapabilities_ToNextTopOfForm* = PosPrinterMarkFeedCapabilities(8'u32)
 
 ## Windows.Devices.PointOfService.PosPrinterMarkFeedKind  (enum)
 type PosPrinterMarkFeedKind* {.pure, size: 4.} = enum
@@ -2700,32 +2700,32 @@ proc `$`*(v: PosPrinterRotation): string =
   else: "PosPrinterRotation(" & $ord(v) & ")"
 
 ## Windows.Devices.PointOfService.PosPrinterRuledLineCapabilities  (enum)
-type PosPrinterRuledLineCapabilities* = distinct int32
+type PosPrinterRuledLineCapabilities* = distinct uint32
 proc `==`*(a, b: PosPrinterRuledLineCapabilities): bool {.borrow.}
 proc `or`*(a, b: PosPrinterRuledLineCapabilities): PosPrinterRuledLineCapabilities {.borrow.}
 proc `and`*(a, b: PosPrinterRuledLineCapabilities): PosPrinterRuledLineCapabilities {.borrow.}
 proc `not`*(a: PosPrinterRuledLineCapabilities): PosPrinterRuledLineCapabilities {.borrow.}
 proc contains*(a, b: PosPrinterRuledLineCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PosPrinterRuledLineCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Horizontal"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Vertical"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PosPrinterRuledLineCapabilities(" & $rest & ")"
-const PosPrinterRuledLineCapabilities_None* = PosPrinterRuledLineCapabilities(0'i32)
-const PosPrinterRuledLineCapabilities_Horizontal* = PosPrinterRuledLineCapabilities(1'i32)
-const PosPrinterRuledLineCapabilities_Vertical* = PosPrinterRuledLineCapabilities(2'i32)
+const PosPrinterRuledLineCapabilities_None* = PosPrinterRuledLineCapabilities(0'u32)
+const PosPrinterRuledLineCapabilities_Horizontal* = PosPrinterRuledLineCapabilities(1'u32)
+const PosPrinterRuledLineCapabilities_Vertical* = PosPrinterRuledLineCapabilities(2'u32)
 
 ## Windows.Devices.PointOfService.PosPrinterStatusKind  (enum)
 type PosPrinterStatusKind* {.pure, size: 4.} = enum
@@ -3546,32 +3546,32 @@ proc `$`*(v: SmartCardCryptogramMaterialType): string =
   else: "SmartCardCryptogramMaterialType(" & $ord(v) & ")"
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementOptions  (enum)
-type SmartCardCryptogramPlacementOptions* = distinct int32
+type SmartCardCryptogramPlacementOptions* = distinct uint32
 proc `==`*(a, b: SmartCardCryptogramPlacementOptions): bool {.borrow.}
 proc `or`*(a, b: SmartCardCryptogramPlacementOptions): SmartCardCryptogramPlacementOptions {.borrow.}
 proc `and`*(a, b: SmartCardCryptogramPlacementOptions): SmartCardCryptogramPlacementOptions {.borrow.}
 proc `not`*(a: SmartCardCryptogramPlacementOptions): SmartCardCryptogramPlacementOptions {.borrow.}
 proc contains*(a, b: SmartCardCryptogramPlacementOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SmartCardCryptogramPlacementOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "UnitsAreInNibbles"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ChainOutput"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SmartCardCryptogramPlacementOptions(" & $rest & ")"
-const SmartCardCryptogramPlacementOptions_None* = SmartCardCryptogramPlacementOptions(0'i32)
-const SmartCardCryptogramPlacementOptions_UnitsAreInNibbles* = SmartCardCryptogramPlacementOptions(1'i32)
-const SmartCardCryptogramPlacementOptions_ChainOutput* = SmartCardCryptogramPlacementOptions(2'i32)
+const SmartCardCryptogramPlacementOptions_None* = SmartCardCryptogramPlacementOptions(0'u32)
+const SmartCardCryptogramPlacementOptions_UnitsAreInNibbles* = SmartCardCryptogramPlacementOptions(1'u32)
+const SmartCardCryptogramPlacementOptions_ChainOutput* = SmartCardCryptogramPlacementOptions(2'u32)
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyAlgorithm  (enum)
 type SmartCardCryptogramStorageKeyAlgorithm* {.pure, size: 4.} = enum
@@ -3584,32 +3584,32 @@ proc `$`*(v: SmartCardCryptogramStorageKeyAlgorithm): string =
   else: "SmartCardCryptogramStorageKeyAlgorithm(" & $ord(v) & ")"
 
 ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCapabilities  (enum)
-type SmartCardCryptogramStorageKeyCapabilities* = distinct int32
+type SmartCardCryptogramStorageKeyCapabilities* = distinct uint32
 proc `==`*(a, b: SmartCardCryptogramStorageKeyCapabilities): bool {.borrow.}
 proc `or`*(a, b: SmartCardCryptogramStorageKeyCapabilities): SmartCardCryptogramStorageKeyCapabilities {.borrow.}
 proc `and`*(a, b: SmartCardCryptogramStorageKeyCapabilities): SmartCardCryptogramStorageKeyCapabilities {.borrow.}
 proc `not`*(a: SmartCardCryptogramStorageKeyCapabilities): SmartCardCryptogramStorageKeyCapabilities {.borrow.}
 proc contains*(a, b: SmartCardCryptogramStorageKeyCapabilities): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SmartCardCryptogramStorageKeyCapabilities): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "HardwareProtection"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "UnlockPrompt"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SmartCardCryptogramStorageKeyCapabilities(" & $rest & ")"
-const SmartCardCryptogramStorageKeyCapabilities_None* = SmartCardCryptogramStorageKeyCapabilities(0'i32)
-const SmartCardCryptogramStorageKeyCapabilities_HardwareProtection* = SmartCardCryptogramStorageKeyCapabilities(1'i32)
-const SmartCardCryptogramStorageKeyCapabilities_UnlockPrompt* = SmartCardCryptogramStorageKeyCapabilities(2'i32)
+const SmartCardCryptogramStorageKeyCapabilities_None* = SmartCardCryptogramStorageKeyCapabilities(0'u32)
+const SmartCardCryptogramStorageKeyCapabilities_HardwareProtection* = SmartCardCryptogramStorageKeyCapabilities(1'u32)
+const SmartCardCryptogramStorageKeyCapabilities_UnlockPrompt* = SmartCardCryptogramStorageKeyCapabilities(2'u32)
 
 ## Windows.Devices.SmartCards.SmartCardCryptographicKeyAttestationStatus  (enum)
 type SmartCardCryptographicKeyAttestationStatus* {.pure, size: 4.} = enum
@@ -4104,42 +4104,42 @@ proc `$`*(v: UsbEndpointType): string =
   else: "UsbEndpointType(" & $ord(v) & ")"
 
 ## Windows.Devices.Usb.UsbReadOptions  (enum)
-type UsbReadOptions* = distinct int32
+type UsbReadOptions* = distinct uint32
 proc `==`*(a, b: UsbReadOptions): bool {.borrow.}
 proc `or`*(a, b: UsbReadOptions): UsbReadOptions {.borrow.}
 proc `and`*(a, b: UsbReadOptions): UsbReadOptions {.borrow.}
 proc `not`*(a: UsbReadOptions): UsbReadOptions {.borrow.}
 proc contains*(a, b: UsbReadOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: UsbReadOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "AutoClearStall"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "OverrideAutomaticBufferManagement"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "IgnoreShortPacket"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "AllowPartialReads"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "UsbReadOptions(" & $rest & ")"
-const UsbReadOptions_None* = UsbReadOptions(0'i32)
-const UsbReadOptions_AutoClearStall* = UsbReadOptions(1'i32)
-const UsbReadOptions_OverrideAutomaticBufferManagement* = UsbReadOptions(2'i32)
-const UsbReadOptions_IgnoreShortPacket* = UsbReadOptions(4'i32)
-const UsbReadOptions_AllowPartialReads* = UsbReadOptions(8'i32)
+const UsbReadOptions_None* = UsbReadOptions(0'u32)
+const UsbReadOptions_AutoClearStall* = UsbReadOptions(1'u32)
+const UsbReadOptions_OverrideAutomaticBufferManagement* = UsbReadOptions(2'u32)
+const UsbReadOptions_IgnoreShortPacket* = UsbReadOptions(4'u32)
+const UsbReadOptions_AllowPartialReads* = UsbReadOptions(8'u32)
 
 ## Windows.Devices.Usb.UsbTransferDirection  (enum)
 type UsbTransferDirection* {.pure, size: 4.} = enum
@@ -4152,32 +4152,32 @@ proc `$`*(v: UsbTransferDirection): string =
   else: "UsbTransferDirection(" & $ord(v) & ")"
 
 ## Windows.Devices.Usb.UsbWriteOptions  (enum)
-type UsbWriteOptions* = distinct int32
+type UsbWriteOptions* = distinct uint32
 proc `==`*(a, b: UsbWriteOptions): bool {.borrow.}
 proc `or`*(a, b: UsbWriteOptions): UsbWriteOptions {.borrow.}
 proc `and`*(a, b: UsbWriteOptions): UsbWriteOptions {.borrow.}
 proc `not`*(a: UsbWriteOptions): UsbWriteOptions {.borrow.}
 proc contains*(a, b: UsbWriteOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: UsbWriteOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "AutoClearStall"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ShortPacketTerminate"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "UsbWriteOptions(" & $rest & ")"
-const UsbWriteOptions_None* = UsbWriteOptions(0'i32)
-const UsbWriteOptions_AutoClearStall* = UsbWriteOptions(1'i32)
-const UsbWriteOptions_ShortPacketTerminate* = UsbWriteOptions(2'i32)
+const UsbWriteOptions_None* = UsbWriteOptions(0'u32)
+const UsbWriteOptions_AutoClearStall* = UsbWriteOptions(1'u32)
+const UsbWriteOptions_ShortPacketTerminate* = UsbWriteOptions(2'u32)
 
 ## Windows.Devices.WiFi.WiFiAccessStatus  (enum)
 type WiFiAccessStatus* {.pure, size: 4.} = enum

@@ -40,6 +40,12 @@ import ./nimgen
 const
   tdInterface = 0x20'u32
 
+func asUint32(v: int64): uint32 =
+  ## A flags enum's underlying type is UInt32, so its values stay unsigned —
+  ## `ContactQuerySearchFields.All` is 0xFFFFFFFF, and as an int32 that reads
+  ## back as -1.
+  uint32(v)
+
 func asInt32(v: int64): int32 =
   ## WinRT enums are backed by int32 *or* uint32, and a uint32-backed one can
   ## hold values above `int32.high` — `ApplicationHighContrastAdjustment.Auto`
@@ -229,29 +235,34 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
 
     buf.add &"## {t.fullName}  (enum)\n"
     if isFlags:
-      buf.add &"type {ident}* = distinct int32\n"
+      # Unsigned, because the type system says so: "an enum with an underlying
+      # type of UInt32 must carry the FlagsAttribute. An enum with an
+      # underlying type of Int32 must not." Signed is not merely untidy here —
+      # `ContactQuerySearchFields.All` is 0xFFFFFFFF, which as an int32 reads
+      # back as -1.
+      buf.add &"type {ident}* = distinct uint32\n"
       buf.add &"proc `==`*(a, b: {ident}): bool {{.borrow.}}\n"
       buf.add &"proc `or`*(a, b: {ident}): {ident} {{.borrow.}}\n"
       buf.add &"proc `and`*(a, b: {ident}): {ident} {{.borrow.}}\n"
       buf.add &"proc `not`*(a: {ident}): {ident} {{.borrow.}}\n"
       buf.add &"proc contains*(a, b: {ident}): bool =\n"
       buf.add  "  ## Is every bit of `b` set in `a`?\n"
-      buf.add &"  (int32(a) and int32(b)) == int32(b)\n"
+      buf.add &"  (uint32(a) and uint32(b)) == uint32(b)\n"
       buf.add &"proc `$`*(v: {ident}): string =\n"
       buf.add  "  ## The set bits by name, or the number if none match.\n"
-      buf.add &"  var rest = int32(v)\n"
+      buf.add &"  var rest = uint32(v)\n"
       buf.add  "  result = \"\"\n"
       for (name, value) in members:
-        if asInt32(value) == 0: continue
-        buf.add &"  if (rest and {asInt32(value)}'i32) == {asInt32(value)}'i32:\n"
+        if asUint32(value) == 0: continue
+        buf.add &"  if (rest and {asUint32(value)}'u32) == {asUint32(value)}'u32:\n"
         buf.add  "    if result.len > 0: result.add \" or \"\n"
         buf.add &"    result.add \"{name}\"\n"
-        buf.add &"    rest = rest and not {asInt32(value)}'i32\n"
+        buf.add &"    rest = rest and not {asUint32(value)}'u32\n"
       buf.add  "  if rest != 0 or result.len == 0:\n"
       buf.add &"    if result.len > 0: result.add \" or \"\n"
       buf.add &"    result.add \"{ident}(\" & $rest & \")\"\n"
       for (name, value) in members:
-        buf.add &"const {ident}_{sanitize(name)}* = {ident}({asInt32(value)}'i32)\n"
+        buf.add &"const {ident}_{sanitize(name)}* = {ident}({asUint32(value)}'u32)\n"
         enumMembers.inc
     else:
       # Sorted, because Nim needs ascending values and the metadata is in

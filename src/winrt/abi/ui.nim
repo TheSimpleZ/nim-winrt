@@ -42,47 +42,47 @@ proc `$`*(v: SettingsEdgeLocation): string =
   else: "SettingsEdgeLocation(" & $ord(v) & ")"
 
 ## Windows.UI.ApplicationSettings.SupportedWebAccountActions  (enum)
-type SupportedWebAccountActions* = distinct int32
+type SupportedWebAccountActions* = distinct uint32
 proc `==`*(a, b: SupportedWebAccountActions): bool {.borrow.}
 proc `or`*(a, b: SupportedWebAccountActions): SupportedWebAccountActions {.borrow.}
 proc `and`*(a, b: SupportedWebAccountActions): SupportedWebAccountActions {.borrow.}
 proc `not`*(a: SupportedWebAccountActions): SupportedWebAccountActions {.borrow.}
 proc contains*(a, b: SupportedWebAccountActions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SupportedWebAccountActions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Reconnect"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Remove"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ViewDetails"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Manage"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "More"
-    rest = rest and not 16'i32
+    rest = rest and not 16'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SupportedWebAccountActions(" & $rest & ")"
-const SupportedWebAccountActions_None* = SupportedWebAccountActions(0'i32)
-const SupportedWebAccountActions_Reconnect* = SupportedWebAccountActions(1'i32)
-const SupportedWebAccountActions_Remove* = SupportedWebAccountActions(2'i32)
-const SupportedWebAccountActions_ViewDetails* = SupportedWebAccountActions(4'i32)
-const SupportedWebAccountActions_Manage* = SupportedWebAccountActions(8'i32)
-const SupportedWebAccountActions_More* = SupportedWebAccountActions(16'i32)
+const SupportedWebAccountActions_None* = SupportedWebAccountActions(0'u32)
+const SupportedWebAccountActions_Reconnect* = SupportedWebAccountActions(1'u32)
+const SupportedWebAccountActions_Remove* = SupportedWebAccountActions(2'u32)
+const SupportedWebAccountActions_ViewDetails* = SupportedWebAccountActions(4'u32)
+const SupportedWebAccountActions_Manage* = SupportedWebAccountActions(8'u32)
+const SupportedWebAccountActions_More* = SupportedWebAccountActions(16'u32)
 
 ## Windows.UI.ApplicationSettings.WebAccountAction  (enum)
 type WebAccountAction* {.pure, size: 4.} = enum
@@ -183,42 +183,42 @@ proc `$`*(v: CompositionBackfaceVisibility): string =
   else: "CompositionBackfaceVisibility(" & $ord(v) & ")"
 
 ## Windows.UI.Composition.CompositionBatchTypes  (enum)
-type CompositionBatchTypes* = distinct int32
+type CompositionBatchTypes* = distinct uint32
 proc `==`*(a, b: CompositionBatchTypes): bool {.borrow.}
 proc `or`*(a, b: CompositionBatchTypes): CompositionBatchTypes {.borrow.}
 proc `and`*(a, b: CompositionBatchTypes): CompositionBatchTypes {.borrow.}
 proc `not`*(a: CompositionBatchTypes): CompositionBatchTypes {.borrow.}
 proc contains*(a, b: CompositionBatchTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CompositionBatchTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Animation"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Effect"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "InfiniteAnimation"
-    rest = rest and not 4'i32
-  if (rest and 5'i32) == 5'i32:
+    rest = rest and not 4'u32
+  if (rest and 5'u32) == 5'u32:
     if result.len > 0: result.add " or "
     result.add "AllAnimations"
-    rest = rest and not 5'i32
+    rest = rest and not 5'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CompositionBatchTypes(" & $rest & ")"
-const CompositionBatchTypes_None* = CompositionBatchTypes(0'i32)
-const CompositionBatchTypes_Animation* = CompositionBatchTypes(1'i32)
-const CompositionBatchTypes_Effect* = CompositionBatchTypes(2'i32)
-const CompositionBatchTypes_InfiniteAnimation* = CompositionBatchTypes(4'i32)
-const CompositionBatchTypes_AllAnimations* = CompositionBatchTypes(5'i32)
+const CompositionBatchTypes_None* = CompositionBatchTypes(0'u32)
+const CompositionBatchTypes_Animation* = CompositionBatchTypes(1'u32)
+const CompositionBatchTypes_Effect* = CompositionBatchTypes(2'u32)
+const CompositionBatchTypes_InfiniteAnimation* = CompositionBatchTypes(4'u32)
+const CompositionBatchTypes_AllAnimations* = CompositionBatchTypes(5'u32)
 
 ## Windows.UI.Composition.CompositionBitmapInterpolationMode  (enum)
 type CompositionBitmapInterpolationMode* {.pure, size: 4.} = enum
@@ -401,62 +401,62 @@ proc `$`*(v: CompositionStrokeLineJoin): string =
   else: "CompositionStrokeLineJoin(" & $ord(v) & ")"
 
 ## Windows.UI.Composition.Diagnostics.CompositionDebugOverdrawContentKinds  (enum)
-type CompositionDebugOverdrawContentKinds* = distinct int32
+type CompositionDebugOverdrawContentKinds* = distinct uint32
 proc `==`*(a, b: CompositionDebugOverdrawContentKinds): bool {.borrow.}
 proc `or`*(a, b: CompositionDebugOverdrawContentKinds): CompositionDebugOverdrawContentKinds {.borrow.}
 proc `and`*(a, b: CompositionDebugOverdrawContentKinds): CompositionDebugOverdrawContentKinds {.borrow.}
 proc `not`*(a: CompositionDebugOverdrawContentKinds): CompositionDebugOverdrawContentKinds {.borrow.}
 proc contains*(a, b: CompositionDebugOverdrawContentKinds): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CompositionDebugOverdrawContentKinds): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "OffscreenRendered"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Colors"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Effects"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Shadows"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Lights"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Surfaces"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "SwapChains"
-    rest = rest and not 64'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 64'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CompositionDebugOverdrawContentKinds(" & $rest & ")"
-const CompositionDebugOverdrawContentKinds_None* = CompositionDebugOverdrawContentKinds(0'i32)
-const CompositionDebugOverdrawContentKinds_OffscreenRendered* = CompositionDebugOverdrawContentKinds(1'i32)
-const CompositionDebugOverdrawContentKinds_Colors* = CompositionDebugOverdrawContentKinds(2'i32)
-const CompositionDebugOverdrawContentKinds_Effects* = CompositionDebugOverdrawContentKinds(4'i32)
-const CompositionDebugOverdrawContentKinds_Shadows* = CompositionDebugOverdrawContentKinds(8'i32)
-const CompositionDebugOverdrawContentKinds_Lights* = CompositionDebugOverdrawContentKinds(16'i32)
-const CompositionDebugOverdrawContentKinds_Surfaces* = CompositionDebugOverdrawContentKinds(32'i32)
-const CompositionDebugOverdrawContentKinds_SwapChains* = CompositionDebugOverdrawContentKinds(64'i32)
-const CompositionDebugOverdrawContentKinds_All* = CompositionDebugOverdrawContentKinds(-1'i32)
+const CompositionDebugOverdrawContentKinds_None* = CompositionDebugOverdrawContentKinds(0'u32)
+const CompositionDebugOverdrawContentKinds_OffscreenRendered* = CompositionDebugOverdrawContentKinds(1'u32)
+const CompositionDebugOverdrawContentKinds_Colors* = CompositionDebugOverdrawContentKinds(2'u32)
+const CompositionDebugOverdrawContentKinds_Effects* = CompositionDebugOverdrawContentKinds(4'u32)
+const CompositionDebugOverdrawContentKinds_Shadows* = CompositionDebugOverdrawContentKinds(8'u32)
+const CompositionDebugOverdrawContentKinds_Lights* = CompositionDebugOverdrawContentKinds(16'u32)
+const CompositionDebugOverdrawContentKinds_Surfaces* = CompositionDebugOverdrawContentKinds(32'u32)
+const CompositionDebugOverdrawContentKinds_SwapChains* = CompositionDebugOverdrawContentKinds(64'u32)
+const CompositionDebugOverdrawContentKinds_All* = CompositionDebugOverdrawContentKinds(4294967295'u32)
 
 ## Windows.UI.Composition.Effects.SceneLightingEffectReflectanceModel  (enum)
 type SceneLightingEffectReflectanceModel* {.pure, size: 4.} = enum
@@ -469,37 +469,37 @@ proc `$`*(v: SceneLightingEffectReflectanceModel): string =
   else: "SceneLightingEffectReflectanceModel(" & $ord(v) & ")"
 
 ## Windows.UI.Composition.Interactions.InteractionBindingAxisModes  (enum)
-type InteractionBindingAxisModes* = distinct int32
+type InteractionBindingAxisModes* = distinct uint32
 proc `==`*(a, b: InteractionBindingAxisModes): bool {.borrow.}
 proc `or`*(a, b: InteractionBindingAxisModes): InteractionBindingAxisModes {.borrow.}
 proc `and`*(a, b: InteractionBindingAxisModes): InteractionBindingAxisModes {.borrow.}
 proc `not`*(a: InteractionBindingAxisModes): InteractionBindingAxisModes {.borrow.}
 proc contains*(a, b: InteractionBindingAxisModes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InteractionBindingAxisModes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "PositionX"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "PositionY"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Scale"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InteractionBindingAxisModes(" & $rest & ")"
-const InteractionBindingAxisModes_None* = InteractionBindingAxisModes(0'i32)
-const InteractionBindingAxisModes_PositionX* = InteractionBindingAxisModes(1'i32)
-const InteractionBindingAxisModes_PositionY* = InteractionBindingAxisModes(2'i32)
-const InteractionBindingAxisModes_Scale* = InteractionBindingAxisModes(4'i32)
+const InteractionBindingAxisModes_None* = InteractionBindingAxisModes(0'u32)
+const InteractionBindingAxisModes_PositionX* = InteractionBindingAxisModes(1'u32)
+const InteractionBindingAxisModes_PositionY* = InteractionBindingAxisModes(2'u32)
+const InteractionBindingAxisModes_Scale* = InteractionBindingAxisModes(4'u32)
 
 ## Windows.UI.Composition.Interactions.InteractionChainingMode  (enum)
 type InteractionChainingMode* {.pure, size: 4.} = enum
@@ -846,80 +846,80 @@ proc `$`*(v: CoreDispatcherPriority): string =
   else: "CoreDispatcherPriority(" & $ord(v) & ")"
 
 ## Windows.UI.Core.CoreIndependentInputFilters  (enum)
-type CoreIndependentInputFilters* = distinct int32
+type CoreIndependentInputFilters* = distinct uint32
 proc `==`*(a, b: CoreIndependentInputFilters): bool {.borrow.}
 proc `or`*(a, b: CoreIndependentInputFilters): CoreIndependentInputFilters {.borrow.}
 proc `and`*(a, b: CoreIndependentInputFilters): CoreIndependentInputFilters {.borrow.}
 proc `not`*(a: CoreIndependentInputFilters): CoreIndependentInputFilters {.borrow.}
 proc contains*(a, b: CoreIndependentInputFilters): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CoreIndependentInputFilters): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "MouseButton"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "MouseWheel"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "MouseHover"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "PenWithBarrel"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "PenInverted"
-    rest = rest and not 16'i32
+    rest = rest and not 16'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CoreIndependentInputFilters(" & $rest & ")"
-const CoreIndependentInputFilters_None* = CoreIndependentInputFilters(0'i32)
-const CoreIndependentInputFilters_MouseButton* = CoreIndependentInputFilters(1'i32)
-const CoreIndependentInputFilters_MouseWheel* = CoreIndependentInputFilters(2'i32)
-const CoreIndependentInputFilters_MouseHover* = CoreIndependentInputFilters(4'i32)
-const CoreIndependentInputFilters_PenWithBarrel* = CoreIndependentInputFilters(8'i32)
-const CoreIndependentInputFilters_PenInverted* = CoreIndependentInputFilters(16'i32)
+const CoreIndependentInputFilters_None* = CoreIndependentInputFilters(0'u32)
+const CoreIndependentInputFilters_MouseButton* = CoreIndependentInputFilters(1'u32)
+const CoreIndependentInputFilters_MouseWheel* = CoreIndependentInputFilters(2'u32)
+const CoreIndependentInputFilters_MouseHover* = CoreIndependentInputFilters(4'u32)
+const CoreIndependentInputFilters_PenWithBarrel* = CoreIndependentInputFilters(8'u32)
+const CoreIndependentInputFilters_PenInverted* = CoreIndependentInputFilters(16'u32)
 
 ## Windows.UI.Core.CoreInputDeviceTypes  (enum)
-type CoreInputDeviceTypes* = distinct int32
+type CoreInputDeviceTypes* = distinct uint32
 proc `==`*(a, b: CoreInputDeviceTypes): bool {.borrow.}
 proc `or`*(a, b: CoreInputDeviceTypes): CoreInputDeviceTypes {.borrow.}
 proc `and`*(a, b: CoreInputDeviceTypes): CoreInputDeviceTypes {.borrow.}
 proc `not`*(a: CoreInputDeviceTypes): CoreInputDeviceTypes {.borrow.}
 proc contains*(a, b: CoreInputDeviceTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CoreInputDeviceTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Touch"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Pen"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Mouse"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CoreInputDeviceTypes(" & $rest & ")"
-const CoreInputDeviceTypes_None* = CoreInputDeviceTypes(0'i32)
-const CoreInputDeviceTypes_Touch* = CoreInputDeviceTypes(1'i32)
-const CoreInputDeviceTypes_Pen* = CoreInputDeviceTypes(2'i32)
-const CoreInputDeviceTypes_Mouse* = CoreInputDeviceTypes(4'i32)
+const CoreInputDeviceTypes_None* = CoreInputDeviceTypes(0'u32)
+const CoreInputDeviceTypes_Touch* = CoreInputDeviceTypes(1'u32)
+const CoreInputDeviceTypes_Pen* = CoreInputDeviceTypes(2'u32)
+const CoreInputDeviceTypes_Mouse* = CoreInputDeviceTypes(4'u32)
 
 ## Windows.UI.Core.CoreProcessEventsOption  (enum)
 type CoreProcessEventsOption* {.pure, size: 4.} = enum
@@ -946,32 +946,32 @@ proc `$`*(v: CoreProximityEvaluationScore): string =
   else: "CoreProximityEvaluationScore(" & $ord(v) & ")"
 
 ## Windows.UI.Core.CoreVirtualKeyStates  (enum)
-type CoreVirtualKeyStates* = distinct int32
+type CoreVirtualKeyStates* = distinct uint32
 proc `==`*(a, b: CoreVirtualKeyStates): bool {.borrow.}
 proc `or`*(a, b: CoreVirtualKeyStates): CoreVirtualKeyStates {.borrow.}
 proc `and`*(a, b: CoreVirtualKeyStates): CoreVirtualKeyStates {.borrow.}
 proc `not`*(a: CoreVirtualKeyStates): CoreVirtualKeyStates {.borrow.}
 proc contains*(a, b: CoreVirtualKeyStates): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CoreVirtualKeyStates): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Down"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Locked"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CoreVirtualKeyStates(" & $rest & ")"
-const CoreVirtualKeyStates_None* = CoreVirtualKeyStates(0'i32)
-const CoreVirtualKeyStates_Down* = CoreVirtualKeyStates(1'i32)
-const CoreVirtualKeyStates_Locked* = CoreVirtualKeyStates(2'i32)
+const CoreVirtualKeyStates_None* = CoreVirtualKeyStates(0'u32)
+const CoreVirtualKeyStates_Down* = CoreVirtualKeyStates(1'u32)
+const CoreVirtualKeyStates_Locked* = CoreVirtualKeyStates(2'u32)
 
 ## Windows.UI.Core.CoreWindowActivationMode  (enum)
 type CoreWindowActivationMode* {.pure, size: 4.} = enum
@@ -1068,107 +1068,107 @@ proc `$`*(v: GazeInputAccessStatus): string =
   else: "GazeInputAccessStatus(" & $ord(v) & ")"
 
 ## Windows.UI.Input.GestureSettings  (enum)
-type GestureSettings* = distinct int32
+type GestureSettings* = distinct uint32
 proc `==`*(a, b: GestureSettings): bool {.borrow.}
 proc `or`*(a, b: GestureSettings): GestureSettings {.borrow.}
 proc `and`*(a, b: GestureSettings): GestureSettings {.borrow.}
 proc `not`*(a: GestureSettings): GestureSettings {.borrow.}
 proc contains*(a, b: GestureSettings): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: GestureSettings): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Tap"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "DoubleTap"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Hold"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "HoldWithMouse"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "RightTap"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Drag"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslateX"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslateY"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslateRailsX"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslateRailsY"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationRotate"
-    rest = rest and not 1024'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 1024'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationScale"
-    rest = rest and not 2048'i32
-  if (rest and 4096'i32) == 4096'i32:
+    rest = rest and not 2048'u32
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslateInertia"
-    rest = rest and not 4096'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 4096'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationRotateInertia"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationScaleInertia"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "CrossSlide"
-    rest = rest and not 32768'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 32768'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationMultipleFingerPanning"
-    rest = rest and not 65536'i32
+    rest = rest and not 65536'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "GestureSettings(" & $rest & ")"
-const GestureSettings_None* = GestureSettings(0'i32)
-const GestureSettings_Tap* = GestureSettings(1'i32)
-const GestureSettings_DoubleTap* = GestureSettings(2'i32)
-const GestureSettings_Hold* = GestureSettings(4'i32)
-const GestureSettings_HoldWithMouse* = GestureSettings(8'i32)
-const GestureSettings_RightTap* = GestureSettings(16'i32)
-const GestureSettings_Drag* = GestureSettings(32'i32)
-const GestureSettings_ManipulationTranslateX* = GestureSettings(64'i32)
-const GestureSettings_ManipulationTranslateY* = GestureSettings(128'i32)
-const GestureSettings_ManipulationTranslateRailsX* = GestureSettings(256'i32)
-const GestureSettings_ManipulationTranslateRailsY* = GestureSettings(512'i32)
-const GestureSettings_ManipulationRotate* = GestureSettings(1024'i32)
-const GestureSettings_ManipulationScale* = GestureSettings(2048'i32)
-const GestureSettings_ManipulationTranslateInertia* = GestureSettings(4096'i32)
-const GestureSettings_ManipulationRotateInertia* = GestureSettings(8192'i32)
-const GestureSettings_ManipulationScaleInertia* = GestureSettings(16384'i32)
-const GestureSettings_CrossSlide* = GestureSettings(32768'i32)
-const GestureSettings_ManipulationMultipleFingerPanning* = GestureSettings(65536'i32)
+const GestureSettings_None* = GestureSettings(0'u32)
+const GestureSettings_Tap* = GestureSettings(1'u32)
+const GestureSettings_DoubleTap* = GestureSettings(2'u32)
+const GestureSettings_Hold* = GestureSettings(4'u32)
+const GestureSettings_HoldWithMouse* = GestureSettings(8'u32)
+const GestureSettings_RightTap* = GestureSettings(16'u32)
+const GestureSettings_Drag* = GestureSettings(32'u32)
+const GestureSettings_ManipulationTranslateX* = GestureSettings(64'u32)
+const GestureSettings_ManipulationTranslateY* = GestureSettings(128'u32)
+const GestureSettings_ManipulationTranslateRailsX* = GestureSettings(256'u32)
+const GestureSettings_ManipulationTranslateRailsY* = GestureSettings(512'u32)
+const GestureSettings_ManipulationRotate* = GestureSettings(1024'u32)
+const GestureSettings_ManipulationScale* = GestureSettings(2048'u32)
+const GestureSettings_ManipulationTranslateInertia* = GestureSettings(4096'u32)
+const GestureSettings_ManipulationRotateInertia* = GestureSettings(8192'u32)
+const GestureSettings_ManipulationScaleInertia* = GestureSettings(16384'u32)
+const GestureSettings_CrossSlide* = GestureSettings(32768'u32)
+const GestureSettings_ManipulationMultipleFingerPanning* = GestureSettings(65536'u32)
 
 ## Windows.UI.Input.HoldingState  (enum)
 type HoldingState* {.pure, size: 4.} = enum
@@ -1479,279 +1479,279 @@ proc `$`*(v: InjectedInputButtonChangeKind): string =
   else: "InjectedInputButtonChangeKind(" & $ord(v) & ")"
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputKeyOptions  (enum)
-type InjectedInputKeyOptions* = distinct int32
+type InjectedInputKeyOptions* = distinct uint32
 proc `==`*(a, b: InjectedInputKeyOptions): bool {.borrow.}
 proc `or`*(a, b: InjectedInputKeyOptions): InjectedInputKeyOptions {.borrow.}
 proc `and`*(a, b: InjectedInputKeyOptions): InjectedInputKeyOptions {.borrow.}
 proc `not`*(a: InjectedInputKeyOptions): InjectedInputKeyOptions {.borrow.}
 proc contains*(a, b: InjectedInputKeyOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputKeyOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ExtendedKey"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "KeyUp"
-    rest = rest and not 2'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 2'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ScanCode"
-    rest = rest and not 8'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 8'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Unicode"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputKeyOptions(" & $rest & ")"
-const InjectedInputKeyOptions_None* = InjectedInputKeyOptions(0'i32)
-const InjectedInputKeyOptions_ExtendedKey* = InjectedInputKeyOptions(1'i32)
-const InjectedInputKeyOptions_KeyUp* = InjectedInputKeyOptions(2'i32)
-const InjectedInputKeyOptions_ScanCode* = InjectedInputKeyOptions(8'i32)
-const InjectedInputKeyOptions_Unicode* = InjectedInputKeyOptions(4'i32)
+const InjectedInputKeyOptions_None* = InjectedInputKeyOptions(0'u32)
+const InjectedInputKeyOptions_ExtendedKey* = InjectedInputKeyOptions(1'u32)
+const InjectedInputKeyOptions_KeyUp* = InjectedInputKeyOptions(2'u32)
+const InjectedInputKeyOptions_ScanCode* = InjectedInputKeyOptions(8'u32)
+const InjectedInputKeyOptions_Unicode* = InjectedInputKeyOptions(4'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputMouseOptions  (enum)
-type InjectedInputMouseOptions* = distinct int32
+type InjectedInputMouseOptions* = distinct uint32
 proc `==`*(a, b: InjectedInputMouseOptions): bool {.borrow.}
 proc `or`*(a, b: InjectedInputMouseOptions): InjectedInputMouseOptions {.borrow.}
 proc `and`*(a, b: InjectedInputMouseOptions): InjectedInputMouseOptions {.borrow.}
 proc `not`*(a: InjectedInputMouseOptions): InjectedInputMouseOptions {.borrow.}
 proc contains*(a, b: InjectedInputMouseOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputMouseOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Move"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "LeftDown"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "LeftUp"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "RightDown"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "RightUp"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "MiddleDown"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "MiddleUp"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "XDown"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "XUp"
-    rest = rest and not 256'i32
-  if (rest and 2048'i32) == 2048'i32:
+    rest = rest and not 256'u32
+  if (rest and 2048'u32) == 2048'u32:
     if result.len > 0: result.add " or "
     result.add "Wheel"
-    rest = rest and not 2048'i32
-  if (rest and 4096'i32) == 4096'i32:
+    rest = rest and not 2048'u32
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "HWheel"
-    rest = rest and not 4096'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 4096'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "MoveNoCoalesce"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "VirtualDesk"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "Absolute"
-    rest = rest and not 32768'i32
+    rest = rest and not 32768'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputMouseOptions(" & $rest & ")"
-const InjectedInputMouseOptions_None* = InjectedInputMouseOptions(0'i32)
-const InjectedInputMouseOptions_Move* = InjectedInputMouseOptions(1'i32)
-const InjectedInputMouseOptions_LeftDown* = InjectedInputMouseOptions(2'i32)
-const InjectedInputMouseOptions_LeftUp* = InjectedInputMouseOptions(4'i32)
-const InjectedInputMouseOptions_RightDown* = InjectedInputMouseOptions(8'i32)
-const InjectedInputMouseOptions_RightUp* = InjectedInputMouseOptions(16'i32)
-const InjectedInputMouseOptions_MiddleDown* = InjectedInputMouseOptions(32'i32)
-const InjectedInputMouseOptions_MiddleUp* = InjectedInputMouseOptions(64'i32)
-const InjectedInputMouseOptions_XDown* = InjectedInputMouseOptions(128'i32)
-const InjectedInputMouseOptions_XUp* = InjectedInputMouseOptions(256'i32)
-const InjectedInputMouseOptions_Wheel* = InjectedInputMouseOptions(2048'i32)
-const InjectedInputMouseOptions_HWheel* = InjectedInputMouseOptions(4096'i32)
-const InjectedInputMouseOptions_MoveNoCoalesce* = InjectedInputMouseOptions(8192'i32)
-const InjectedInputMouseOptions_VirtualDesk* = InjectedInputMouseOptions(16384'i32)
-const InjectedInputMouseOptions_Absolute* = InjectedInputMouseOptions(32768'i32)
+const InjectedInputMouseOptions_None* = InjectedInputMouseOptions(0'u32)
+const InjectedInputMouseOptions_Move* = InjectedInputMouseOptions(1'u32)
+const InjectedInputMouseOptions_LeftDown* = InjectedInputMouseOptions(2'u32)
+const InjectedInputMouseOptions_LeftUp* = InjectedInputMouseOptions(4'u32)
+const InjectedInputMouseOptions_RightDown* = InjectedInputMouseOptions(8'u32)
+const InjectedInputMouseOptions_RightUp* = InjectedInputMouseOptions(16'u32)
+const InjectedInputMouseOptions_MiddleDown* = InjectedInputMouseOptions(32'u32)
+const InjectedInputMouseOptions_MiddleUp* = InjectedInputMouseOptions(64'u32)
+const InjectedInputMouseOptions_XDown* = InjectedInputMouseOptions(128'u32)
+const InjectedInputMouseOptions_XUp* = InjectedInputMouseOptions(256'u32)
+const InjectedInputMouseOptions_Wheel* = InjectedInputMouseOptions(2048'u32)
+const InjectedInputMouseOptions_HWheel* = InjectedInputMouseOptions(4096'u32)
+const InjectedInputMouseOptions_MoveNoCoalesce* = InjectedInputMouseOptions(8192'u32)
+const InjectedInputMouseOptions_VirtualDesk* = InjectedInputMouseOptions(16384'u32)
+const InjectedInputMouseOptions_Absolute* = InjectedInputMouseOptions(32768'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputPenButtons  (enum)
-type InjectedInputPenButtons* = distinct int32
+type InjectedInputPenButtons* = distinct uint32
 proc `==`*(a, b: InjectedInputPenButtons): bool {.borrow.}
 proc `or`*(a, b: InjectedInputPenButtons): InjectedInputPenButtons {.borrow.}
 proc `and`*(a, b: InjectedInputPenButtons): InjectedInputPenButtons {.borrow.}
 proc `not`*(a: InjectedInputPenButtons): InjectedInputPenButtons {.borrow.}
 proc contains*(a, b: InjectedInputPenButtons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputPenButtons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Barrel"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Inverted"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Eraser"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputPenButtons(" & $rest & ")"
-const InjectedInputPenButtons_None* = InjectedInputPenButtons(0'i32)
-const InjectedInputPenButtons_Barrel* = InjectedInputPenButtons(1'i32)
-const InjectedInputPenButtons_Inverted* = InjectedInputPenButtons(2'i32)
-const InjectedInputPenButtons_Eraser* = InjectedInputPenButtons(4'i32)
+const InjectedInputPenButtons_None* = InjectedInputPenButtons(0'u32)
+const InjectedInputPenButtons_Barrel* = InjectedInputPenButtons(1'u32)
+const InjectedInputPenButtons_Inverted* = InjectedInputPenButtons(2'u32)
+const InjectedInputPenButtons_Eraser* = InjectedInputPenButtons(4'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputPenParameters  (enum)
-type InjectedInputPenParameters* = distinct int32
+type InjectedInputPenParameters* = distinct uint32
 proc `==`*(a, b: InjectedInputPenParameters): bool {.borrow.}
 proc `or`*(a, b: InjectedInputPenParameters): InjectedInputPenParameters {.borrow.}
 proc `and`*(a, b: InjectedInputPenParameters): InjectedInputPenParameters {.borrow.}
 proc `not`*(a: InjectedInputPenParameters): InjectedInputPenParameters {.borrow.}
 proc contains*(a, b: InjectedInputPenParameters): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputPenParameters): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Pressure"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Rotation"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "TiltX"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "TiltY"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputPenParameters(" & $rest & ")"
-const InjectedInputPenParameters_None* = InjectedInputPenParameters(0'i32)
-const InjectedInputPenParameters_Pressure* = InjectedInputPenParameters(1'i32)
-const InjectedInputPenParameters_Rotation* = InjectedInputPenParameters(2'i32)
-const InjectedInputPenParameters_TiltX* = InjectedInputPenParameters(4'i32)
-const InjectedInputPenParameters_TiltY* = InjectedInputPenParameters(8'i32)
+const InjectedInputPenParameters_None* = InjectedInputPenParameters(0'u32)
+const InjectedInputPenParameters_Pressure* = InjectedInputPenParameters(1'u32)
+const InjectedInputPenParameters_Rotation* = InjectedInputPenParameters(2'u32)
+const InjectedInputPenParameters_TiltX* = InjectedInputPenParameters(4'u32)
+const InjectedInputPenParameters_TiltY* = InjectedInputPenParameters(8'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputPointerOptions  (enum)
-type InjectedInputPointerOptions* = distinct int32
+type InjectedInputPointerOptions* = distinct uint32
 proc `==`*(a, b: InjectedInputPointerOptions): bool {.borrow.}
 proc `or`*(a, b: InjectedInputPointerOptions): InjectedInputPointerOptions {.borrow.}
 proc `and`*(a, b: InjectedInputPointerOptions): InjectedInputPointerOptions {.borrow.}
 proc `not`*(a: InjectedInputPointerOptions): InjectedInputPointerOptions {.borrow.}
 proc contains*(a, b: InjectedInputPointerOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputPointerOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "New"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "InRange"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "InContact"
-    rest = rest and not 4'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 4'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "FirstButton"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "SecondButton"
-    rest = rest and not 32'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 32'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "Primary"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "Confidence"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "Canceled"
-    rest = rest and not 32768'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 32768'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "PointerDown"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "Update"
-    rest = rest and not 131072'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 131072'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "PointerUp"
-    rest = rest and not 262144'i32
-  if (rest and 2097152'i32) == 2097152'i32:
+    rest = rest and not 262144'u32
+  if (rest and 2097152'u32) == 2097152'u32:
     if result.len > 0: result.add " or "
     result.add "CaptureChanged"
-    rest = rest and not 2097152'i32
+    rest = rest and not 2097152'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputPointerOptions(" & $rest & ")"
-const InjectedInputPointerOptions_None* = InjectedInputPointerOptions(0'i32)
-const InjectedInputPointerOptions_New* = InjectedInputPointerOptions(1'i32)
-const InjectedInputPointerOptions_InRange* = InjectedInputPointerOptions(2'i32)
-const InjectedInputPointerOptions_InContact* = InjectedInputPointerOptions(4'i32)
-const InjectedInputPointerOptions_FirstButton* = InjectedInputPointerOptions(16'i32)
-const InjectedInputPointerOptions_SecondButton* = InjectedInputPointerOptions(32'i32)
-const InjectedInputPointerOptions_Primary* = InjectedInputPointerOptions(8192'i32)
-const InjectedInputPointerOptions_Confidence* = InjectedInputPointerOptions(16384'i32)
-const InjectedInputPointerOptions_Canceled* = InjectedInputPointerOptions(32768'i32)
-const InjectedInputPointerOptions_PointerDown* = InjectedInputPointerOptions(65536'i32)
-const InjectedInputPointerOptions_Update* = InjectedInputPointerOptions(131072'i32)
-const InjectedInputPointerOptions_PointerUp* = InjectedInputPointerOptions(262144'i32)
-const InjectedInputPointerOptions_CaptureChanged* = InjectedInputPointerOptions(2097152'i32)
+const InjectedInputPointerOptions_None* = InjectedInputPointerOptions(0'u32)
+const InjectedInputPointerOptions_New* = InjectedInputPointerOptions(1'u32)
+const InjectedInputPointerOptions_InRange* = InjectedInputPointerOptions(2'u32)
+const InjectedInputPointerOptions_InContact* = InjectedInputPointerOptions(4'u32)
+const InjectedInputPointerOptions_FirstButton* = InjectedInputPointerOptions(16'u32)
+const InjectedInputPointerOptions_SecondButton* = InjectedInputPointerOptions(32'u32)
+const InjectedInputPointerOptions_Primary* = InjectedInputPointerOptions(8192'u32)
+const InjectedInputPointerOptions_Confidence* = InjectedInputPointerOptions(16384'u32)
+const InjectedInputPointerOptions_Canceled* = InjectedInputPointerOptions(32768'u32)
+const InjectedInputPointerOptions_PointerDown* = InjectedInputPointerOptions(65536'u32)
+const InjectedInputPointerOptions_Update* = InjectedInputPointerOptions(131072'u32)
+const InjectedInputPointerOptions_PointerUp* = InjectedInputPointerOptions(262144'u32)
+const InjectedInputPointerOptions_CaptureChanged* = InjectedInputPointerOptions(2097152'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputShortcut  (enum)
 type InjectedInputShortcut* {.pure, size: 4.} = enum
@@ -1766,37 +1766,37 @@ proc `$`*(v: InjectedInputShortcut): string =
   else: "InjectedInputShortcut(" & $ord(v) & ")"
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputTouchParameters  (enum)
-type InjectedInputTouchParameters* = distinct int32
+type InjectedInputTouchParameters* = distinct uint32
 proc `==`*(a, b: InjectedInputTouchParameters): bool {.borrow.}
 proc `or`*(a, b: InjectedInputTouchParameters): InjectedInputTouchParameters {.borrow.}
 proc `and`*(a, b: InjectedInputTouchParameters): InjectedInputTouchParameters {.borrow.}
 proc `not`*(a: InjectedInputTouchParameters): InjectedInputTouchParameters {.borrow.}
 proc contains*(a, b: InjectedInputTouchParameters): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: InjectedInputTouchParameters): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Contact"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Orientation"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Pressure"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "InjectedInputTouchParameters(" & $rest & ")"
-const InjectedInputTouchParameters_None* = InjectedInputTouchParameters(0'i32)
-const InjectedInputTouchParameters_Contact* = InjectedInputTouchParameters(1'i32)
-const InjectedInputTouchParameters_Orientation* = InjectedInputTouchParameters(2'i32)
-const InjectedInputTouchParameters_Pressure* = InjectedInputTouchParameters(4'i32)
+const InjectedInputTouchParameters_None* = InjectedInputTouchParameters(0'u32)
+const InjectedInputTouchParameters_Contact* = InjectedInputTouchParameters(1'u32)
+const InjectedInputTouchParameters_Orientation* = InjectedInputTouchParameters(2'u32)
+const InjectedInputTouchParameters_Pressure* = InjectedInputTouchParameters(4'u32)
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputVisualizationMode  (enum)
 type InjectedInputVisualizationMode* {.pure, size: 4.} = enum
@@ -1863,70 +1863,70 @@ proc `$`*(v: TextBoxContentAttribute): string =
   else: "TextBoxContentAttribute(" & $ord(v) & ")"
 
 ## Windows.UI.Input.Preview.Text.TextBoxFeatures  (enum)
-type TextBoxFeatures* = distinct int32
+type TextBoxFeatures* = distinct uint32
 proc `==`*(a, b: TextBoxFeatures): bool {.borrow.}
 proc `or`*(a, b: TextBoxFeatures): TextBoxFeatures {.borrow.}
 proc `and`*(a, b: TextBoxFeatures): TextBoxFeatures {.borrow.}
 proc `not`*(a: TextBoxFeatures): TextBoxFeatures {.borrow.}
 proc contains*(a, b: TextBoxFeatures): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextBoxFeatures): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ReadText"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "WriteText"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "AugmentText"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextBoxFeatures(" & $rest & ")"
-const TextBoxFeatures_None* = TextBoxFeatures(0'i32)
-const TextBoxFeatures_ReadText* = TextBoxFeatures(1'i32)
-const TextBoxFeatures_WriteText* = TextBoxFeatures(2'i32)
-const TextBoxFeatures_AugmentText* = TextBoxFeatures(4'i32)
+const TextBoxFeatures_None* = TextBoxFeatures(0'u32)
+const TextBoxFeatures_ReadText* = TextBoxFeatures(1'u32)
+const TextBoxFeatures_WriteText* = TextBoxFeatures(2'u32)
+const TextBoxFeatures_AugmentText* = TextBoxFeatures(4'u32)
 
 ## Windows.UI.Input.Preview.Text.TextBoxSettings  (enum)
-type TextBoxSettings* = distinct int32
+type TextBoxSettings* = distinct uint32
 proc `==`*(a, b: TextBoxSettings): bool {.borrow.}
 proc `or`*(a, b: TextBoxSettings): TextBoxSettings {.borrow.}
 proc `and`*(a, b: TextBoxSettings): TextBoxSettings {.borrow.}
 proc `not`*(a: TextBoxSettings): TextBoxSettings {.borrow.}
 proc contains*(a, b: TextBoxSettings): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextBoxSettings): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Private"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Multiline"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "VerticalWriting"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextBoxSettings(" & $rest & ")"
-const TextBoxSettings_None* = TextBoxSettings(0'i32)
-const TextBoxSettings_Private* = TextBoxSettings(1'i32)
-const TextBoxSettings_Multiline* = TextBoxSettings(2'i32)
-const TextBoxSettings_VerticalWriting* = TextBoxSettings(4'i32)
+const TextBoxSettings_None* = TextBoxSettings(0'u32)
+const TextBoxSettings_Private* = TextBoxSettings(1'u32)
+const TextBoxSettings_Multiline* = TextBoxSettings(2'u32)
+const TextBoxSettings_VerticalWriting* = TextBoxSettings(4'u32)
 
 ## Windows.UI.Input.Preview.Text.TextChangeSource  (enum)
 type TextChangeSource* {.pure, size: 4.} = enum
@@ -1981,42 +1981,42 @@ proc `$`*(v: TextConversionMode): string =
   else: "TextConversionMode(" & $ord(v) & ")"
 
 ## Windows.UI.Input.Preview.Text.TextStyleAttributes  (enum)
-type TextStyleAttributes* = distinct int32
+type TextStyleAttributes* = distinct uint32
 proc `==`*(a, b: TextStyleAttributes): bool {.borrow.}
 proc `or`*(a, b: TextStyleAttributes): TextStyleAttributes {.borrow.}
 proc `and`*(a, b: TextStyleAttributes): TextStyleAttributes {.borrow.}
 proc `not`*(a: TextStyleAttributes): TextStyleAttributes {.borrow.}
 proc contains*(a, b: TextStyleAttributes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextStyleAttributes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "TextColor"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "BackgroundColor"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UnderlineColor"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "UnderlineType"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextStyleAttributes(" & $rest & ")"
-const TextStyleAttributes_None* = TextStyleAttributes(0'i32)
-const TextStyleAttributes_TextColor* = TextStyleAttributes(1'i32)
-const TextStyleAttributes_BackgroundColor* = TextStyleAttributes(2'i32)
-const TextStyleAttributes_UnderlineColor* = TextStyleAttributes(4'i32)
-const TextStyleAttributes_UnderlineType* = TextStyleAttributes(8'i32)
+const TextStyleAttributes_None* = TextStyleAttributes(0'u32)
+const TextStyleAttributes_TextColor* = TextStyleAttributes(1'u32)
+const TextStyleAttributes_BackgroundColor* = TextStyleAttributes(2'u32)
+const TextStyleAttributes_UnderlineColor* = TextStyleAttributes(4'u32)
+const TextStyleAttributes_UnderlineType* = TextStyleAttributes(8'u32)
 
 ## Windows.UI.Input.RadialControllerMenuKnownIcon  (enum)
 type RadialControllerMenuKnownIcon* {.pure, size: 4.} = enum
@@ -2059,72 +2059,72 @@ proc `$`*(v: RadialControllerSystemMenuItemKind): string =
   else: "RadialControllerSystemMenuItemKind(" & $ord(v) & ")"
 
 ## Windows.UI.Input.Spatial.SpatialGestureSettings  (enum)
-type SpatialGestureSettings* = distinct int32
+type SpatialGestureSettings* = distinct uint32
 proc `==`*(a, b: SpatialGestureSettings): bool {.borrow.}
 proc `or`*(a, b: SpatialGestureSettings): SpatialGestureSettings {.borrow.}
 proc `and`*(a, b: SpatialGestureSettings): SpatialGestureSettings {.borrow.}
 proc `not`*(a: SpatialGestureSettings): SpatialGestureSettings {.borrow.}
 proc contains*(a, b: SpatialGestureSettings): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SpatialGestureSettings): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Tap"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "DoubleTap"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Hold"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ManipulationTranslate"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationX"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationY"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationZ"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationRailsX"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationRailsY"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "NavigationRailsZ"
-    rest = rest and not 512'i32
+    rest = rest and not 512'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SpatialGestureSettings(" & $rest & ")"
-const SpatialGestureSettings_None* = SpatialGestureSettings(0'i32)
-const SpatialGestureSettings_Tap* = SpatialGestureSettings(1'i32)
-const SpatialGestureSettings_DoubleTap* = SpatialGestureSettings(2'i32)
-const SpatialGestureSettings_Hold* = SpatialGestureSettings(4'i32)
-const SpatialGestureSettings_ManipulationTranslate* = SpatialGestureSettings(8'i32)
-const SpatialGestureSettings_NavigationX* = SpatialGestureSettings(16'i32)
-const SpatialGestureSettings_NavigationY* = SpatialGestureSettings(32'i32)
-const SpatialGestureSettings_NavigationZ* = SpatialGestureSettings(64'i32)
-const SpatialGestureSettings_NavigationRailsX* = SpatialGestureSettings(128'i32)
-const SpatialGestureSettings_NavigationRailsY* = SpatialGestureSettings(256'i32)
-const SpatialGestureSettings_NavigationRailsZ* = SpatialGestureSettings(512'i32)
+const SpatialGestureSettings_None* = SpatialGestureSettings(0'u32)
+const SpatialGestureSettings_Tap* = SpatialGestureSettings(1'u32)
+const SpatialGestureSettings_DoubleTap* = SpatialGestureSettings(2'u32)
+const SpatialGestureSettings_Hold* = SpatialGestureSettings(4'u32)
+const SpatialGestureSettings_ManipulationTranslate* = SpatialGestureSettings(8'u32)
+const SpatialGestureSettings_NavigationX* = SpatialGestureSettings(16'u32)
+const SpatialGestureSettings_NavigationY* = SpatialGestureSettings(32'u32)
+const SpatialGestureSettings_NavigationZ* = SpatialGestureSettings(64'u32)
+const SpatialGestureSettings_NavigationRailsX* = SpatialGestureSettings(128'u32)
+const SpatialGestureSettings_NavigationRailsY* = SpatialGestureSettings(256'u32)
+const SpatialGestureSettings_NavigationRailsZ* = SpatialGestureSettings(512'u32)
 
 ## Windows.UI.Input.Spatial.SpatialInteractionPressKind  (enum)
 type SpatialInteractionPressKind* {.pure, size: 4.} = enum
@@ -2205,52 +2205,52 @@ proc `$`*(v: TouchpadGlobalAction): string =
   else: "TouchpadGlobalAction(" & $ord(v) & ")"
 
 ## Windows.UI.Input.TouchpadGlobalGestureKinds  (enum)
-type TouchpadGlobalGestureKinds* = distinct int32
+type TouchpadGlobalGestureKinds* = distinct uint32
 proc `==`*(a, b: TouchpadGlobalGestureKinds): bool {.borrow.}
 proc `or`*(a, b: TouchpadGlobalGestureKinds): TouchpadGlobalGestureKinds {.borrow.}
 proc `and`*(a, b: TouchpadGlobalGestureKinds): TouchpadGlobalGestureKinds {.borrow.}
 proc `not`*(a: TouchpadGlobalGestureKinds): TouchpadGlobalGestureKinds {.borrow.}
 proc contains*(a, b: TouchpadGlobalGestureKinds): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TouchpadGlobalGestureKinds): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ThreeFingerManipulations"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "FourFingerManipulations"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "FiveFingerManipulations"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ThreeFingerActions"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "FourFingerActions"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "FiveFingerActions"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TouchpadGlobalGestureKinds(" & $rest & ")"
-const TouchpadGlobalGestureKinds_None* = TouchpadGlobalGestureKinds(0'i32)
-const TouchpadGlobalGestureKinds_ThreeFingerManipulations* = TouchpadGlobalGestureKinds(1'i32)
-const TouchpadGlobalGestureKinds_FourFingerManipulations* = TouchpadGlobalGestureKinds(2'i32)
-const TouchpadGlobalGestureKinds_FiveFingerManipulations* = TouchpadGlobalGestureKinds(4'i32)
-const TouchpadGlobalGestureKinds_ThreeFingerActions* = TouchpadGlobalGestureKinds(8'i32)
-const TouchpadGlobalGestureKinds_FourFingerActions* = TouchpadGlobalGestureKinds(16'i32)
-const TouchpadGlobalGestureKinds_FiveFingerActions* = TouchpadGlobalGestureKinds(32'i32)
+const TouchpadGlobalGestureKinds_None* = TouchpadGlobalGestureKinds(0'u32)
+const TouchpadGlobalGestureKinds_ThreeFingerManipulations* = TouchpadGlobalGestureKinds(1'u32)
+const TouchpadGlobalGestureKinds_FourFingerManipulations* = TouchpadGlobalGestureKinds(2'u32)
+const TouchpadGlobalGestureKinds_FiveFingerManipulations* = TouchpadGlobalGestureKinds(4'u32)
+const TouchpadGlobalGestureKinds_ThreeFingerActions* = TouchpadGlobalGestureKinds(8'u32)
+const TouchpadGlobalGestureKinds_FourFingerActions* = TouchpadGlobalGestureKinds(16'u32)
+const TouchpadGlobalGestureKinds_FiveFingerActions* = TouchpadGlobalGestureKinds(32'u32)
 
 ## Windows.UI.Notifications.AdaptiveNotificationContentKind  (enum)
 type AdaptiveNotificationContentKind* {.pure, size: 4.} = enum
@@ -2283,27 +2283,27 @@ proc `$`*(v: UserNotificationListenerAccessStatus): string =
   else: "UserNotificationListenerAccessStatus(" & $ord(v) & ")"
 
 ## Windows.UI.Notifications.NotificationKinds  (enum)
-type NotificationKinds* = distinct int32
+type NotificationKinds* = distinct uint32
 proc `==`*(a, b: NotificationKinds): bool {.borrow.}
 proc `or`*(a, b: NotificationKinds): NotificationKinds {.borrow.}
 proc `and`*(a, b: NotificationKinds): NotificationKinds {.borrow.}
 proc `not`*(a: NotificationKinds): NotificationKinds {.borrow.}
 proc contains*(a, b: NotificationKinds): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: NotificationKinds): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Toast"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "NotificationKinds(" & $rest & ")"
-const NotificationKinds_Unknown* = NotificationKinds(0'i32)
-const NotificationKinds_Toast* = NotificationKinds(1'i32)
+const NotificationKinds_Unknown* = NotificationKinds(0'u32)
+const NotificationKinds_Toast* = NotificationKinds(1'u32)
 
 ## Windows.UI.Notifications.NotificationMirroring  (enum)
 type NotificationMirroring* {.pure, size: 4.} = enum
@@ -2660,27 +2660,27 @@ proc `$`*(v: UserNotificationChangedKind): string =
   else: "UserNotificationChangedKind(" & $ord(v) & ")"
 
 ## Windows.UI.Popups.MessageDialogOptions  (enum)
-type MessageDialogOptions* = distinct int32
+type MessageDialogOptions* = distinct uint32
 proc `==`*(a, b: MessageDialogOptions): bool {.borrow.}
 proc `or`*(a, b: MessageDialogOptions): MessageDialogOptions {.borrow.}
 proc `and`*(a, b: MessageDialogOptions): MessageDialogOptions {.borrow.}
 proc `not`*(a: MessageDialogOptions): MessageDialogOptions {.borrow.}
 proc contains*(a, b: MessageDialogOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: MessageDialogOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "AcceptUserInputAfterDelay"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "MessageDialogOptions(" & $rest & ")"
-const MessageDialogOptions_None* = MessageDialogOptions(0'i32)
-const MessageDialogOptions_AcceptUserInputAfterDelay* = MessageDialogOptions(1'i32)
+const MessageDialogOptions_None* = MessageDialogOptions(0'u32)
+const MessageDialogOptions_AcceptUserInputAfterDelay* = MessageDialogOptions(1'u32)
 
 ## Windows.UI.Popups.Placement  (enum)
 type Placement* {.pure, size: 4.} = enum
@@ -2817,37 +2817,37 @@ proc `$`*(v: TileMixedRealityModelActivationBehavior): string =
   else: "TileMixedRealityModelActivationBehavior(" & $ord(v) & ")"
 
 ## Windows.UI.StartScreen.TileOptions  (enum)
-type TileOptions* = distinct int32
+type TileOptions* = distinct uint32
 proc `==`*(a, b: TileOptions): bool {.borrow.}
 proc `or`*(a, b: TileOptions): TileOptions {.borrow.}
 proc `and`*(a, b: TileOptions): TileOptions {.borrow.}
 proc `not`*(a: TileOptions): TileOptions {.borrow.}
 proc contains*(a, b: TileOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TileOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "ShowNameOnLogo"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ShowNameOnWideLogo"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "CopyOnDeployment"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TileOptions(" & $rest & ")"
-const TileOptions_None* = TileOptions(0'i32)
-const TileOptions_ShowNameOnLogo* = TileOptions(1'i32)
-const TileOptions_ShowNameOnWideLogo* = TileOptions(2'i32)
-const TileOptions_CopyOnDeployment* = TileOptions(4'i32)
+const TileOptions_None* = TileOptions(0'u32)
+const TileOptions_ShowNameOnLogo* = TileOptions(1'u32)
+const TileOptions_ShowNameOnWideLogo* = TileOptions(2'u32)
+const TileOptions_CopyOnDeployment* = TileOptions(4'u32)
 
 ## Windows.UI.StartScreen.TileSize  (enum)
 type TileSize* {.pure, size: 4.} = enum
@@ -3078,32 +3078,32 @@ proc `$`*(v: CoreTextTextUpdatingResult): string =
   else: "CoreTextTextUpdatingResult(" & $ord(v) & ")"
 
 ## Windows.UI.Text.FindOptions  (enum)
-type FindOptions* = distinct int32
+type FindOptions* = distinct uint32
 proc `==`*(a, b: FindOptions): bool {.borrow.}
 proc `or`*(a, b: FindOptions): FindOptions {.borrow.}
 proc `and`*(a, b: FindOptions): FindOptions {.borrow.}
 proc `not`*(a: FindOptions): FindOptions {.borrow.}
 proc contains*(a, b: FindOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: FindOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 2'i32) == 2'i32:
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Word"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Case"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "FindOptions(" & $rest & ")"
-const FindOptions_None* = FindOptions(0'i32)
-const FindOptions_Word* = FindOptions(2'i32)
-const FindOptions_Case* = FindOptions(4'i32)
+const FindOptions_None* = FindOptions(0'u32)
+const FindOptions_Word* = FindOptions(2'u32)
+const FindOptions_Case* = FindOptions(4'u32)
 
 ## Windows.UI.Text.FontStretch  (enum)
 type FontStretch* {.pure, size: 4.} = enum
@@ -3362,57 +3362,57 @@ proc `$`*(v: ParagraphStyle): string =
   else: "ParagraphStyle(" & $ord(v) & ")"
 
 ## Windows.UI.Text.PointOptions  (enum)
-type PointOptions* = distinct int32
+type PointOptions* = distinct uint32
 proc `==`*(a, b: PointOptions): bool {.borrow.}
 proc `or`*(a, b: PointOptions): PointOptions {.borrow.}
 proc `and`*(a, b: PointOptions): PointOptions {.borrow.}
 proc `not`*(a: PointOptions): PointOptions {.borrow.}
 proc contains*(a, b: PointOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PointOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "IncludeInset"
-    rest = rest and not 1'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 1'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Start"
-    rest = rest and not 32'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 32'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "ClientCoordinates"
-    rest = rest and not 256'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 256'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "AllowOffClient"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "Transform"
-    rest = rest and not 1024'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 1024'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "NoHorizontalScroll"
-    rest = rest and not 65536'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 65536'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "NoVerticalScroll"
-    rest = rest and not 262144'i32
+    rest = rest and not 262144'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PointOptions(" & $rest & ")"
-const PointOptions_None* = PointOptions(0'i32)
-const PointOptions_IncludeInset* = PointOptions(1'i32)
-const PointOptions_Start* = PointOptions(32'i32)
-const PointOptions_ClientCoordinates* = PointOptions(256'i32)
-const PointOptions_AllowOffClient* = PointOptions(512'i32)
-const PointOptions_Transform* = PointOptions(1024'i32)
-const PointOptions_NoHorizontalScroll* = PointOptions(65536'i32)
-const PointOptions_NoVerticalScroll* = PointOptions(262144'i32)
+const PointOptions_None* = PointOptions(0'u32)
+const PointOptions_IncludeInset* = PointOptions(1'u32)
+const PointOptions_Start* = PointOptions(32'u32)
+const PointOptions_ClientCoordinates* = PointOptions(256'u32)
+const PointOptions_AllowOffClient* = PointOptions(512'u32)
+const PointOptions_Transform* = PointOptions(1024'u32)
+const PointOptions_NoHorizontalScroll* = PointOptions(65536'u32)
+const PointOptions_NoVerticalScroll* = PointOptions(262144'u32)
 
 ## Windows.UI.Text.RangeGravity  (enum)
 type RangeGravity* {.pure, size: 4.} = enum
@@ -3441,46 +3441,46 @@ proc `$`*(v: RichEditMathMode): string =
   else: "RichEditMathMode(" & $ord(v) & ")"
 
 ## Windows.UI.Text.SelectionOptions  (enum)
-type SelectionOptions* = distinct int32
+type SelectionOptions* = distinct uint32
 proc `==`*(a, b: SelectionOptions): bool {.borrow.}
 proc `or`*(a, b: SelectionOptions): SelectionOptions {.borrow.}
 proc `and`*(a, b: SelectionOptions): SelectionOptions {.borrow.}
 proc `not`*(a: SelectionOptions): SelectionOptions {.borrow.}
 proc contains*(a, b: SelectionOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: SelectionOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "StartActive"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "AtEndOfLine"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Overtype"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Active"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Replace"
-    rest = rest and not 16'i32
+    rest = rest and not 16'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "SelectionOptions(" & $rest & ")"
-const SelectionOptions_StartActive* = SelectionOptions(1'i32)
-const SelectionOptions_AtEndOfLine* = SelectionOptions(2'i32)
-const SelectionOptions_Overtype* = SelectionOptions(4'i32)
-const SelectionOptions_Active* = SelectionOptions(8'i32)
-const SelectionOptions_Replace* = SelectionOptions(16'i32)
+const SelectionOptions_StartActive* = SelectionOptions(1'u32)
+const SelectionOptions_AtEndOfLine* = SelectionOptions(2'u32)
+const SelectionOptions_Overtype* = SelectionOptions(4'u32)
+const SelectionOptions_Active* = SelectionOptions(8'u32)
+const SelectionOptions_Replace* = SelectionOptions(16'u32)
 
 ## Windows.UI.Text.SelectionType  (enum)
 type SelectionType* {.pure, size: 4.} = enum
@@ -3533,90 +3533,90 @@ proc `$`*(v: TabLeader): string =
   else: "TabLeader(" & $ord(v) & ")"
 
 ## Windows.UI.Text.TextDecorations  (enum)
-type TextDecorations* = distinct int32
+type TextDecorations* = distinct uint32
 proc `==`*(a, b: TextDecorations): bool {.borrow.}
 proc `or`*(a, b: TextDecorations): TextDecorations {.borrow.}
 proc `and`*(a, b: TextDecorations): TextDecorations {.borrow.}
 proc `not`*(a: TextDecorations): TextDecorations {.borrow.}
 proc contains*(a, b: TextDecorations): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextDecorations): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Underline"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Strikethrough"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextDecorations(" & $rest & ")"
-const TextDecorations_None* = TextDecorations(0'i32)
-const TextDecorations_Underline* = TextDecorations(1'i32)
-const TextDecorations_Strikethrough* = TextDecorations(2'i32)
+const TextDecorations_None* = TextDecorations(0'u32)
+const TextDecorations_Underline* = TextDecorations(1'u32)
+const TextDecorations_Strikethrough* = TextDecorations(2'u32)
 
 ## Windows.UI.Text.TextGetOptions  (enum)
-type TextGetOptions* = distinct int32
+type TextGetOptions* = distinct uint32
 proc `==`*(a, b: TextGetOptions): bool {.borrow.}
 proc `or`*(a, b: TextGetOptions): TextGetOptions {.borrow.}
 proc `and`*(a, b: TextGetOptions): TextGetOptions {.borrow.}
 proc `not`*(a: TextGetOptions): TextGetOptions {.borrow.}
 proc contains*(a, b: TextGetOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextGetOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "AdjustCrlf"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "UseCrlf"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "UseObjectText"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "AllowFinalEop"
-    rest = rest and not 8'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 8'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "NoHidden"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "IncludeNumbering"
-    rest = rest and not 64'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 64'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "FormatRtf"
-    rest = rest and not 8192'i32
-  if (rest and 16777216'i32) == 16777216'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16777216'u32) == 16777216'u32:
     if result.len > 0: result.add " or "
     result.add "UseLf"
-    rest = rest and not 16777216'i32
+    rest = rest and not 16777216'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextGetOptions(" & $rest & ")"
-const TextGetOptions_None* = TextGetOptions(0'i32)
-const TextGetOptions_AdjustCrlf* = TextGetOptions(1'i32)
-const TextGetOptions_UseCrlf* = TextGetOptions(2'i32)
-const TextGetOptions_UseObjectText* = TextGetOptions(4'i32)
-const TextGetOptions_AllowFinalEop* = TextGetOptions(8'i32)
-const TextGetOptions_NoHidden* = TextGetOptions(32'i32)
-const TextGetOptions_IncludeNumbering* = TextGetOptions(64'i32)
-const TextGetOptions_FormatRtf* = TextGetOptions(8192'i32)
-const TextGetOptions_UseLf* = TextGetOptions(16777216'i32)
+const TextGetOptions_None* = TextGetOptions(0'u32)
+const TextGetOptions_AdjustCrlf* = TextGetOptions(1'u32)
+const TextGetOptions_UseCrlf* = TextGetOptions(2'u32)
+const TextGetOptions_UseObjectText* = TextGetOptions(4'u32)
+const TextGetOptions_AllowFinalEop* = TextGetOptions(8'u32)
+const TextGetOptions_NoHidden* = TextGetOptions(32'u32)
+const TextGetOptions_IncludeNumbering* = TextGetOptions(64'u32)
+const TextGetOptions_FormatRtf* = TextGetOptions(8192'u32)
+const TextGetOptions_UseLf* = TextGetOptions(16777216'u32)
 
 ## Windows.UI.Text.TextRangeUnit  (enum)
 type TextRangeUnit* {.pure, size: 4.} = enum
@@ -3825,52 +3825,52 @@ proc `$`*(v: TextScript): string =
   else: "TextScript(" & $ord(v) & ")"
 
 ## Windows.UI.Text.TextSetOptions  (enum)
-type TextSetOptions* = distinct int32
+type TextSetOptions* = distinct uint32
 proc `==`*(a, b: TextSetOptions): bool {.borrow.}
 proc `or`*(a, b: TextSetOptions): TextSetOptions {.borrow.}
 proc `and`*(a, b: TextSetOptions): TextSetOptions {.borrow.}
 proc `not`*(a: TextSetOptions): TextSetOptions {.borrow.}
 proc contains*(a, b: TextSetOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: TextSetOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "UnicodeBidi"
-    rest = rest and not 1'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 1'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "Unlink"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Unhide"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "CheckTextLimit"
-    rest = rest and not 32'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 32'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "FormatRtf"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "ApplyRtfDocumentDefaults"
-    rest = rest and not 16384'i32
+    rest = rest and not 16384'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "TextSetOptions(" & $rest & ")"
-const TextSetOptions_None* = TextSetOptions(0'i32)
-const TextSetOptions_UnicodeBidi* = TextSetOptions(1'i32)
-const TextSetOptions_Unlink* = TextSetOptions(8'i32)
-const TextSetOptions_Unhide* = TextSetOptions(16'i32)
-const TextSetOptions_CheckTextLimit* = TextSetOptions(32'i32)
-const TextSetOptions_FormatRtf* = TextSetOptions(8192'i32)
-const TextSetOptions_ApplyRtfDocumentDefaults* = TextSetOptions(16384'i32)
+const TextSetOptions_None* = TextSetOptions(0'u32)
+const TextSetOptions_UnicodeBidi* = TextSetOptions(1'u32)
+const TextSetOptions_Unlink* = TextSetOptions(8'u32)
+const TextSetOptions_Unhide* = TextSetOptions(16'u32)
+const TextSetOptions_CheckTextLimit* = TextSetOptions(32'u32)
+const TextSetOptions_FormatRtf* = TextSetOptions(8192'u32)
+const TextSetOptions_ApplyRtfDocumentDefaults* = TextSetOptions(16384'u32)
 
 ## Windows.UI.Text.UnderlineType  (enum)
 type UnderlineType* {.pure, size: 4.} = enum
@@ -3991,32 +3991,32 @@ proc `$`*(v: ApplicationViewState): string =
   else: "ApplicationViewState(" & $ord(v) & ")"
 
 ## Windows.UI.ViewManagement.ApplicationViewSwitchingOptions  (enum)
-type ApplicationViewSwitchingOptions* = distinct int32
+type ApplicationViewSwitchingOptions* = distinct uint32
 proc `==`*(a, b: ApplicationViewSwitchingOptions): bool {.borrow.}
 proc `or`*(a, b: ApplicationViewSwitchingOptions): ApplicationViewSwitchingOptions {.borrow.}
 proc `and`*(a, b: ApplicationViewSwitchingOptions): ApplicationViewSwitchingOptions {.borrow.}
 proc `not`*(a: ApplicationViewSwitchingOptions): ApplicationViewSwitchingOptions {.borrow.}
 proc contains*(a, b: ApplicationViewSwitchingOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ApplicationViewSwitchingOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "SkipAnimation"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "ConsolidateViews"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ApplicationViewSwitchingOptions(" & $rest & ")"
-const ApplicationViewSwitchingOptions_Default* = ApplicationViewSwitchingOptions(0'i32)
-const ApplicationViewSwitchingOptions_SkipAnimation* = ApplicationViewSwitchingOptions(1'i32)
-const ApplicationViewSwitchingOptions_ConsolidateViews* = ApplicationViewSwitchingOptions(2'i32)
+const ApplicationViewSwitchingOptions_Default* = ApplicationViewSwitchingOptions(0'u32)
+const ApplicationViewSwitchingOptions_SkipAnimation* = ApplicationViewSwitchingOptions(1'u32)
+const ApplicationViewSwitchingOptions_ConsolidateViews* = ApplicationViewSwitchingOptions(2'u32)
 
 ## Windows.UI.ViewManagement.ApplicationViewWindowingMode  (enum)
 type ApplicationViewWindowingMode* {.pure, size: 4.} = enum
@@ -4297,27 +4297,27 @@ proc `$`*(v: WindowingEnvironmentKind): string =
   else: "WindowingEnvironmentKind(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.ApplicationHighContrastAdjustment  (enum)
-type ApplicationHighContrastAdjustment* = distinct int32
+type ApplicationHighContrastAdjustment* = distinct uint32
 proc `==`*(a, b: ApplicationHighContrastAdjustment): bool {.borrow.}
 proc `or`*(a, b: ApplicationHighContrastAdjustment): ApplicationHighContrastAdjustment {.borrow.}
 proc `and`*(a, b: ApplicationHighContrastAdjustment): ApplicationHighContrastAdjustment {.borrow.}
 proc `not`*(a: ApplicationHighContrastAdjustment): ApplicationHighContrastAdjustment {.borrow.}
 proc contains*(a, b: ApplicationHighContrastAdjustment): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ApplicationHighContrastAdjustment): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and -1'i32) == -1'i32:
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "Auto"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ApplicationHighContrastAdjustment(" & $rest & ")"
-const ApplicationHighContrastAdjustment_None* = ApplicationHighContrastAdjustment(0'i32)
-const ApplicationHighContrastAdjustment_Auto* = ApplicationHighContrastAdjustment(-1'i32)
+const ApplicationHighContrastAdjustment_None* = ApplicationHighContrastAdjustment(0'u32)
+const ApplicationHighContrastAdjustment_Auto* = ApplicationHighContrastAdjustment(4294967295'u32)
 
 ## Windows.UI.Xaml.ApplicationRequiresPointerMode  (enum)
 type ApplicationRequiresPointerMode* {.pure, size: 4.} = enum
@@ -5464,42 +5464,42 @@ proc `$`*(v: ContentLinkChangeKind): string =
   else: "ContentLinkChangeKind(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.Controls.DisabledFormattingAccelerators  (enum)
-type DisabledFormattingAccelerators* = distinct int32
+type DisabledFormattingAccelerators* = distinct uint32
 proc `==`*(a, b: DisabledFormattingAccelerators): bool {.borrow.}
 proc `or`*(a, b: DisabledFormattingAccelerators): DisabledFormattingAccelerators {.borrow.}
 proc `and`*(a, b: DisabledFormattingAccelerators): DisabledFormattingAccelerators {.borrow.}
 proc `not`*(a: DisabledFormattingAccelerators): DisabledFormattingAccelerators {.borrow.}
 proc contains*(a, b: DisabledFormattingAccelerators): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisabledFormattingAccelerators): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Bold"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Italic"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Underline"
-    rest = rest and not 4'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 4'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisabledFormattingAccelerators(" & $rest & ")"
-const DisabledFormattingAccelerators_None* = DisabledFormattingAccelerators(0'i32)
-const DisabledFormattingAccelerators_Bold* = DisabledFormattingAccelerators(1'i32)
-const DisabledFormattingAccelerators_Italic* = DisabledFormattingAccelerators(2'i32)
-const DisabledFormattingAccelerators_Underline* = DisabledFormattingAccelerators(4'i32)
-const DisabledFormattingAccelerators_All* = DisabledFormattingAccelerators(-1'i32)
+const DisabledFormattingAccelerators_None* = DisabledFormattingAccelerators(0'u32)
+const DisabledFormattingAccelerators_Bold* = DisabledFormattingAccelerators(1'u32)
+const DisabledFormattingAccelerators_Italic* = DisabledFormattingAccelerators(2'u32)
+const DisabledFormattingAccelerators_Underline* = DisabledFormattingAccelerators(4'u32)
+const DisabledFormattingAccelerators_All* = DisabledFormattingAccelerators(4294967295'u32)
 
 ## Windows.UI.Xaml.Controls.HandwritingPanelPlacementAlignment  (enum)
 type HandwritingPanelPlacementAlignment* {.pure, size: 4.} = enum
@@ -11146,32 +11146,32 @@ proc `$`*(v: DurationType): string =
   else: "DurationType(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.ElementHighContrastAdjustment  (enum)
-type ElementHighContrastAdjustment* = distinct int32
+type ElementHighContrastAdjustment* = distinct uint32
 proc `==`*(a, b: ElementHighContrastAdjustment): bool {.borrow.}
 proc `or`*(a, b: ElementHighContrastAdjustment): ElementHighContrastAdjustment {.borrow.}
 proc `and`*(a, b: ElementHighContrastAdjustment): ElementHighContrastAdjustment {.borrow.}
 proc `not`*(a: ElementHighContrastAdjustment): ElementHighContrastAdjustment {.borrow.}
 proc contains*(a, b: ElementHighContrastAdjustment): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ElementHighContrastAdjustment): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and -2147483648'i32) == -2147483648'i32:
+  if (rest and 2147483648'u32) == 2147483648'u32:
     if result.len > 0: result.add " or "
     result.add "Application"
-    rest = rest and not -2147483648'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 2147483648'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "Auto"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ElementHighContrastAdjustment(" & $rest & ")"
-const ElementHighContrastAdjustment_None* = ElementHighContrastAdjustment(0'i32)
-const ElementHighContrastAdjustment_Application* = ElementHighContrastAdjustment(-2147483648'i32)
-const ElementHighContrastAdjustment_Auto* = ElementHighContrastAdjustment(-1'i32)
+const ElementHighContrastAdjustment_None* = ElementHighContrastAdjustment(0'u32)
+const ElementHighContrastAdjustment_Application* = ElementHighContrastAdjustment(2147483648'u32)
+const ElementHighContrastAdjustment_Auto* = ElementHighContrastAdjustment(4294967295'u32)
 
 ## Windows.UI.Xaml.ElementSoundKind  (enum)
 type ElementSoundKind* {.pure, size: 4.} = enum
@@ -11628,77 +11628,77 @@ proc `$`*(v: KeyboardNavigationMode): string =
   else: "KeyboardNavigationMode(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.Input.ManipulationModes  (enum)
-type ManipulationModes* = distinct int32
+type ManipulationModes* = distinct uint32
 proc `==`*(a, b: ManipulationModes): bool {.borrow.}
 proc `or`*(a, b: ManipulationModes): ManipulationModes {.borrow.}
 proc `and`*(a, b: ManipulationModes): ManipulationModes {.borrow.}
 proc `not`*(a: ManipulationModes): ManipulationModes {.borrow.}
 proc contains*(a, b: ManipulationModes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: ManipulationModes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "TranslateX"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "TranslateY"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "TranslateRailsX"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "TranslateRailsY"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "Rotate"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "Scale"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "TranslateInertia"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "RotateInertia"
-    rest = rest and not 128'i32
-  if (rest and 256'i32) == 256'i32:
+    rest = rest and not 128'u32
+  if (rest and 256'u32) == 256'u32:
     if result.len > 0: result.add " or "
     result.add "ScaleInertia"
-    rest = rest and not 256'i32
-  if (rest and 65535'i32) == 65535'i32:
+    rest = rest and not 256'u32
+  if (rest and 65535'u32) == 65535'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not 65535'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 65535'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "System"
-    rest = rest and not 65536'i32
+    rest = rest and not 65536'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "ManipulationModes(" & $rest & ")"
-const ManipulationModes_None* = ManipulationModes(0'i32)
-const ManipulationModes_TranslateX* = ManipulationModes(1'i32)
-const ManipulationModes_TranslateY* = ManipulationModes(2'i32)
-const ManipulationModes_TranslateRailsX* = ManipulationModes(4'i32)
-const ManipulationModes_TranslateRailsY* = ManipulationModes(8'i32)
-const ManipulationModes_Rotate* = ManipulationModes(16'i32)
-const ManipulationModes_Scale* = ManipulationModes(32'i32)
-const ManipulationModes_TranslateInertia* = ManipulationModes(64'i32)
-const ManipulationModes_RotateInertia* = ManipulationModes(128'i32)
-const ManipulationModes_ScaleInertia* = ManipulationModes(256'i32)
-const ManipulationModes_All* = ManipulationModes(65535'i32)
-const ManipulationModes_System* = ManipulationModes(65536'i32)
+const ManipulationModes_None* = ManipulationModes(0'u32)
+const ManipulationModes_TranslateX* = ManipulationModes(1'u32)
+const ManipulationModes_TranslateY* = ManipulationModes(2'u32)
+const ManipulationModes_TranslateRailsX* = ManipulationModes(4'u32)
+const ManipulationModes_TranslateRailsY* = ManipulationModes(8'u32)
+const ManipulationModes_Rotate* = ManipulationModes(16'u32)
+const ManipulationModes_Scale* = ManipulationModes(32'u32)
+const ManipulationModes_TranslateInertia* = ManipulationModes(64'u32)
+const ManipulationModes_RotateInertia* = ManipulationModes(128'u32)
+const ManipulationModes_ScaleInertia* = ManipulationModes(256'u32)
+const ManipulationModes_All* = ManipulationModes(65535'u32)
+const ManipulationModes_System* = ManipulationModes(65536'u32)
 
 ## Windows.UI.Xaml.Input.StandardUICommandKind  (enum)
 type StandardUICommandKind* {.pure, size: 4.} = enum
@@ -12037,27 +12037,27 @@ proc `$`*(v: GradientSpreadMethod): string =
   else: "GradientSpreadMethod(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.Media.Imaging.BitmapCreateOptions  (enum)
-type BitmapCreateOptions* = distinct int32
+type BitmapCreateOptions* = distinct uint32
 proc `==`*(a, b: BitmapCreateOptions): bool {.borrow.}
 proc `or`*(a, b: BitmapCreateOptions): BitmapCreateOptions {.borrow.}
 proc `and`*(a, b: BitmapCreateOptions): BitmapCreateOptions {.borrow.}
 proc `not`*(a: BitmapCreateOptions): BitmapCreateOptions {.borrow.}
 proc contains*(a, b: BitmapCreateOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: BitmapCreateOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 8'i32) == 8'i32:
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "IgnoreImageCache"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "BitmapCreateOptions(" & $rest & ")"
-const BitmapCreateOptions_None* = BitmapCreateOptions(0'i32)
-const BitmapCreateOptions_IgnoreImageCache* = BitmapCreateOptions(8'i32)
+const BitmapCreateOptions_None* = BitmapCreateOptions(0'u32)
+const BitmapCreateOptions_IgnoreImageCache* = BitmapCreateOptions(8'u32)
 
 ## Windows.UI.Xaml.Media.Imaging.DecodePixelType  (enum)
 type DecodePixelType* {.pure, size: 4.} = enum
@@ -12341,36 +12341,36 @@ proc `$`*(v: TextWrapping): string =
   else: "TextWrapping(" & $ord(v) & ")"
 
 ## Windows.UI.Xaml.Vector3TransitionComponents  (enum)
-type Vector3TransitionComponents* = distinct int32
+type Vector3TransitionComponents* = distinct uint32
 proc `==`*(a, b: Vector3TransitionComponents): bool {.borrow.}
 proc `or`*(a, b: Vector3TransitionComponents): Vector3TransitionComponents {.borrow.}
 proc `and`*(a, b: Vector3TransitionComponents): Vector3TransitionComponents {.borrow.}
 proc `not`*(a: Vector3TransitionComponents): Vector3TransitionComponents {.borrow.}
 proc contains*(a, b: Vector3TransitionComponents): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: Vector3TransitionComponents): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "X"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Y"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Z"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "Vector3TransitionComponents(" & $rest & ")"
-const Vector3TransitionComponents_X* = Vector3TransitionComponents(1'i32)
-const Vector3TransitionComponents_Y* = Vector3TransitionComponents(2'i32)
-const Vector3TransitionComponents_Z* = Vector3TransitionComponents(4'i32)
+const Vector3TransitionComponents_X* = Vector3TransitionComponents(1'u32)
+const Vector3TransitionComponents_Y* = Vector3TransitionComponents(2'u32)
+const Vector3TransitionComponents_Z* = Vector3TransitionComponents(4'u32)
 
 ## Windows.UI.Xaml.VerticalAlignment  (enum)
 type VerticalAlignment* {.pure, size: 4.} = enum

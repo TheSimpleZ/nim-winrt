@@ -116,27 +116,27 @@ proc `$`*(v: AudioNodeEmitterDecayKind): string =
   else: "AudioNodeEmitterDecayKind(" & $ord(v) & ")"
 
 ## Windows.Media.Audio.AudioNodeEmitterSettings  (enum)
-type AudioNodeEmitterSettings* = distinct int32
+type AudioNodeEmitterSettings* = distinct uint32
 proc `==`*(a, b: AudioNodeEmitterSettings): bool {.borrow.}
 proc `or`*(a, b: AudioNodeEmitterSettings): AudioNodeEmitterSettings {.borrow.}
 proc `and`*(a, b: AudioNodeEmitterSettings): AudioNodeEmitterSettings {.borrow.}
 proc `not`*(a: AudioNodeEmitterSettings): AudioNodeEmitterSettings {.borrow.}
 proc contains*(a, b: AudioNodeEmitterSettings): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: AudioNodeEmitterSettings): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "DisableDoppler"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "AudioNodeEmitterSettings(" & $rest & ")"
-const AudioNodeEmitterSettings_None* = AudioNodeEmitterSettings(0'i32)
-const AudioNodeEmitterSettings_DisableDoppler* = AudioNodeEmitterSettings(1'i32)
+const AudioNodeEmitterSettings_None* = AudioNodeEmitterSettings(0'u32)
+const AudioNodeEmitterSettings_DisableDoppler* = AudioNodeEmitterSettings(1'u32)
 
 ## Windows.Media.Audio.AudioNodeEmitterShapeKind  (enum)
 type AudioNodeEmitterShapeKind* {.pure, size: 4.} = enum
@@ -1013,37 +1013,37 @@ proc `$`*(v: CastingConnectionState): string =
   else: "CastingConnectionState(" & $ord(v) & ")"
 
 ## Windows.Media.Casting.CastingPlaybackTypes  (enum)
-type CastingPlaybackTypes* = distinct int32
+type CastingPlaybackTypes* = distinct uint32
 proc `==`*(a, b: CastingPlaybackTypes): bool {.borrow.}
 proc `or`*(a, b: CastingPlaybackTypes): CastingPlaybackTypes {.borrow.}
 proc `and`*(a, b: CastingPlaybackTypes): CastingPlaybackTypes {.borrow.}
 proc `not`*(a: CastingPlaybackTypes): CastingPlaybackTypes {.borrow.}
 proc contains*(a, b: CastingPlaybackTypes): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: CastingPlaybackTypes): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Audio"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Video"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Picture"
-    rest = rest and not 4'i32
+    rest = rest and not 4'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "CastingPlaybackTypes(" & $rest & ")"
-const CastingPlaybackTypes_None* = CastingPlaybackTypes(0'i32)
-const CastingPlaybackTypes_Audio* = CastingPlaybackTypes(1'i32)
-const CastingPlaybackTypes_Video* = CastingPlaybackTypes(2'i32)
-const CastingPlaybackTypes_Picture* = CastingPlaybackTypes(4'i32)
+const CastingPlaybackTypes_None* = CastingPlaybackTypes(0'u32)
+const CastingPlaybackTypes_Audio* = CastingPlaybackTypes(1'u32)
+const CastingPlaybackTypes_Video* = CastingPlaybackTypes(2'u32)
+const CastingPlaybackTypes_Picture* = CastingPlaybackTypes(4'u32)
 
 ## Windows.Media.ClosedCaptioning.ClosedCaptionColor  (enum)
 type ClosedCaptionColor* {.pure, size: 4.} = enum
@@ -2432,32 +2432,32 @@ proc `$`*(v: AudioEncodingQuality): string =
   else: "AudioEncodingQuality(" & $ord(v) & ")"
 
 ## Windows.Media.MediaProperties.MediaMirroringOptions  (enum)
-type MediaMirroringOptions* = distinct int32
+type MediaMirroringOptions* = distinct uint32
 proc `==`*(a, b: MediaMirroringOptions): bool {.borrow.}
 proc `or`*(a, b: MediaMirroringOptions): MediaMirroringOptions {.borrow.}
 proc `and`*(a, b: MediaMirroringOptions): MediaMirroringOptions {.borrow.}
 proc `not`*(a: MediaMirroringOptions): MediaMirroringOptions {.borrow.}
 proc contains*(a, b: MediaMirroringOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: MediaMirroringOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Horizontal"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Vertical"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "MediaMirroringOptions(" & $rest & ")"
-const MediaMirroringOptions_None* = MediaMirroringOptions(0'i32)
-const MediaMirroringOptions_Horizontal* = MediaMirroringOptions(1'i32)
-const MediaMirroringOptions_Vertical* = MediaMirroringOptions(2'i32)
+const MediaMirroringOptions_None* = MediaMirroringOptions(0'u32)
+const MediaMirroringOptions_Horizontal* = MediaMirroringOptions(1'u32)
+const MediaMirroringOptions_Vertical* = MediaMirroringOptions(2'u32)
 
 ## Windows.Media.MediaProperties.MediaPixelFormat  (enum)
 type MediaPixelFormat* {.pure, size: 4.} = enum
@@ -3210,96 +3210,96 @@ proc `$`*(v: RenewalStatus): string =
   else: "RenewalStatus(" & $ord(v) & ")"
 
 ## Windows.Media.Protection.RevocationAndRenewalReasons  (enum)
-type RevocationAndRenewalReasons* = distinct int32
+type RevocationAndRenewalReasons* = distinct uint32
 proc `==`*(a, b: RevocationAndRenewalReasons): bool {.borrow.}
 proc `or`*(a, b: RevocationAndRenewalReasons): RevocationAndRenewalReasons {.borrow.}
 proc `and`*(a, b: RevocationAndRenewalReasons): RevocationAndRenewalReasons {.borrow.}
 proc `not`*(a: RevocationAndRenewalReasons): RevocationAndRenewalReasons {.borrow.}
 proc contains*(a, b: RevocationAndRenewalReasons): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: RevocationAndRenewalReasons): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "UserModeComponentLoad"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "KernelModeComponentLoad"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "AppComponent"
-    rest = rest and not 4'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 4'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "GlobalRevocationListLoadFailed"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "InvalidGlobalRevocationListSignature"
-    rest = rest and not 32'i32
-  if (rest and 4096'i32) == 4096'i32:
+    rest = rest and not 32'u32
+  if (rest and 4096'u32) == 4096'u32:
     if result.len > 0: result.add " or "
     result.add "GlobalRevocationListAbsent"
-    rest = rest and not 4096'i32
-  if (rest and 8192'i32) == 8192'i32:
+    rest = rest and not 4096'u32
+  if (rest and 8192'u32) == 8192'u32:
     if result.len > 0: result.add " or "
     result.add "ComponentRevoked"
-    rest = rest and not 8192'i32
-  if (rest and 16384'i32) == 16384'i32:
+    rest = rest and not 8192'u32
+  if (rest and 16384'u32) == 16384'u32:
     if result.len > 0: result.add " or "
     result.add "InvalidComponentCertificateExtendedKeyUse"
-    rest = rest and not 16384'i32
-  if (rest and 32768'i32) == 32768'i32:
+    rest = rest and not 16384'u32
+  if (rest and 32768'u32) == 32768'u32:
     if result.len > 0: result.add " or "
     result.add "ComponentCertificateRevoked"
-    rest = rest and not 32768'i32
-  if (rest and 65536'i32) == 65536'i32:
+    rest = rest and not 32768'u32
+  if (rest and 65536'u32) == 65536'u32:
     if result.len > 0: result.add " or "
     result.add "InvalidComponentCertificateRoot"
-    rest = rest and not 65536'i32
-  if (rest and 131072'i32) == 131072'i32:
+    rest = rest and not 65536'u32
+  if (rest and 131072'u32) == 131072'u32:
     if result.len > 0: result.add " or "
     result.add "ComponentHighSecurityCertificateRevoked"
-    rest = rest and not 131072'i32
-  if (rest and 262144'i32) == 262144'i32:
+    rest = rest and not 131072'u32
+  if (rest and 262144'u32) == 262144'u32:
     if result.len > 0: result.add " or "
     result.add "ComponentLowSecurityCertificateRevoked"
-    rest = rest and not 262144'i32
-  if (rest and 1048576'i32) == 1048576'i32:
+    rest = rest and not 262144'u32
+  if (rest and 1048576'u32) == 1048576'u32:
     if result.len > 0: result.add " or "
     result.add "BootDriverVerificationFailed"
-    rest = rest and not 1048576'i32
-  if (rest and 16777216'i32) == 16777216'i32:
+    rest = rest and not 1048576'u32
+  if (rest and 16777216'u32) == 16777216'u32:
     if result.len > 0: result.add " or "
     result.add "ComponentSignedWithTestCertificate"
-    rest = rest and not 16777216'i32
-  if (rest and 268435456'i32) == 268435456'i32:
+    rest = rest and not 16777216'u32
+  if (rest and 268435456'u32) == 268435456'u32:
     if result.len > 0: result.add " or "
     result.add "EncryptionFailure"
-    rest = rest and not 268435456'i32
+    rest = rest and not 268435456'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "RevocationAndRenewalReasons(" & $rest & ")"
-const RevocationAndRenewalReasons_UserModeComponentLoad* = RevocationAndRenewalReasons(1'i32)
-const RevocationAndRenewalReasons_KernelModeComponentLoad* = RevocationAndRenewalReasons(2'i32)
-const RevocationAndRenewalReasons_AppComponent* = RevocationAndRenewalReasons(4'i32)
-const RevocationAndRenewalReasons_GlobalRevocationListLoadFailed* = RevocationAndRenewalReasons(16'i32)
-const RevocationAndRenewalReasons_InvalidGlobalRevocationListSignature* = RevocationAndRenewalReasons(32'i32)
-const RevocationAndRenewalReasons_GlobalRevocationListAbsent* = RevocationAndRenewalReasons(4096'i32)
-const RevocationAndRenewalReasons_ComponentRevoked* = RevocationAndRenewalReasons(8192'i32)
-const RevocationAndRenewalReasons_InvalidComponentCertificateExtendedKeyUse* = RevocationAndRenewalReasons(16384'i32)
-const RevocationAndRenewalReasons_ComponentCertificateRevoked* = RevocationAndRenewalReasons(32768'i32)
-const RevocationAndRenewalReasons_InvalidComponentCertificateRoot* = RevocationAndRenewalReasons(65536'i32)
-const RevocationAndRenewalReasons_ComponentHighSecurityCertificateRevoked* = RevocationAndRenewalReasons(131072'i32)
-const RevocationAndRenewalReasons_ComponentLowSecurityCertificateRevoked* = RevocationAndRenewalReasons(262144'i32)
-const RevocationAndRenewalReasons_BootDriverVerificationFailed* = RevocationAndRenewalReasons(1048576'i32)
-const RevocationAndRenewalReasons_ComponentSignedWithTestCertificate* = RevocationAndRenewalReasons(16777216'i32)
-const RevocationAndRenewalReasons_EncryptionFailure* = RevocationAndRenewalReasons(268435456'i32)
+const RevocationAndRenewalReasons_UserModeComponentLoad* = RevocationAndRenewalReasons(1'u32)
+const RevocationAndRenewalReasons_KernelModeComponentLoad* = RevocationAndRenewalReasons(2'u32)
+const RevocationAndRenewalReasons_AppComponent* = RevocationAndRenewalReasons(4'u32)
+const RevocationAndRenewalReasons_GlobalRevocationListLoadFailed* = RevocationAndRenewalReasons(16'u32)
+const RevocationAndRenewalReasons_InvalidGlobalRevocationListSignature* = RevocationAndRenewalReasons(32'u32)
+const RevocationAndRenewalReasons_GlobalRevocationListAbsent* = RevocationAndRenewalReasons(4096'u32)
+const RevocationAndRenewalReasons_ComponentRevoked* = RevocationAndRenewalReasons(8192'u32)
+const RevocationAndRenewalReasons_InvalidComponentCertificateExtendedKeyUse* = RevocationAndRenewalReasons(16384'u32)
+const RevocationAndRenewalReasons_ComponentCertificateRevoked* = RevocationAndRenewalReasons(32768'u32)
+const RevocationAndRenewalReasons_InvalidComponentCertificateRoot* = RevocationAndRenewalReasons(65536'u32)
+const RevocationAndRenewalReasons_ComponentHighSecurityCertificateRevoked* = RevocationAndRenewalReasons(131072'u32)
+const RevocationAndRenewalReasons_ComponentLowSecurityCertificateRevoked* = RevocationAndRenewalReasons(262144'u32)
+const RevocationAndRenewalReasons_BootDriverVerificationFailed* = RevocationAndRenewalReasons(1048576'u32)
+const RevocationAndRenewalReasons_ComponentSignedWithTestCertificate* = RevocationAndRenewalReasons(16777216'u32)
+const RevocationAndRenewalReasons_EncryptionFailure* = RevocationAndRenewalReasons(268435456'u32)
 
 ## Windows.Media.Render.AudioRenderCategory  (enum)
 type AudioRenderCategory* {.pure, size: 4.} = enum

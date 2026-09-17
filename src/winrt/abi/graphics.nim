@@ -38,71 +38,71 @@ proc `$`*(v: GraphicsCaptureDirtyRegionMode): string =
   else: "GraphicsCaptureDirtyRegionMode(" & $ord(v) & ")"
 
 ## Windows.Graphics.DirectX.Direct3D11.Direct3DBindings  (enum)
-type Direct3DBindings* = distinct int32
+type Direct3DBindings* = distinct uint32
 proc `==`*(a, b: Direct3DBindings): bool {.borrow.}
 proc `or`*(a, b: Direct3DBindings): Direct3DBindings {.borrow.}
 proc `and`*(a, b: Direct3DBindings): Direct3DBindings {.borrow.}
 proc `not`*(a: Direct3DBindings): Direct3DBindings {.borrow.}
 proc contains*(a, b: Direct3DBindings): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: Direct3DBindings): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "VertexBuffer"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "IndexBuffer"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "ConstantBuffer"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "ShaderResource"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "StreamOutput"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "RenderTarget"
-    rest = rest and not 32'i32
-  if (rest and 64'i32) == 64'i32:
+    rest = rest and not 32'u32
+  if (rest and 64'u32) == 64'u32:
     if result.len > 0: result.add " or "
     result.add "DepthStencil"
-    rest = rest and not 64'i32
-  if (rest and 128'i32) == 128'i32:
+    rest = rest and not 64'u32
+  if (rest and 128'u32) == 128'u32:
     if result.len > 0: result.add " or "
     result.add "UnorderedAccess"
-    rest = rest and not 128'i32
-  if (rest and 512'i32) == 512'i32:
+    rest = rest and not 128'u32
+  if (rest and 512'u32) == 512'u32:
     if result.len > 0: result.add " or "
     result.add "Decoder"
-    rest = rest and not 512'i32
-  if (rest and 1024'i32) == 1024'i32:
+    rest = rest and not 512'u32
+  if (rest and 1024'u32) == 1024'u32:
     if result.len > 0: result.add " or "
     result.add "VideoEncoder"
-    rest = rest and not 1024'i32
+    rest = rest and not 1024'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "Direct3DBindings(" & $rest & ")"
-const Direct3DBindings_VertexBuffer* = Direct3DBindings(1'i32)
-const Direct3DBindings_IndexBuffer* = Direct3DBindings(2'i32)
-const Direct3DBindings_ConstantBuffer* = Direct3DBindings(4'i32)
-const Direct3DBindings_ShaderResource* = Direct3DBindings(8'i32)
-const Direct3DBindings_StreamOutput* = Direct3DBindings(16'i32)
-const Direct3DBindings_RenderTarget* = Direct3DBindings(32'i32)
-const Direct3DBindings_DepthStencil* = Direct3DBindings(64'i32)
-const Direct3DBindings_UnorderedAccess* = Direct3DBindings(128'i32)
-const Direct3DBindings_Decoder* = Direct3DBindings(512'i32)
-const Direct3DBindings_VideoEncoder* = Direct3DBindings(1024'i32)
+const Direct3DBindings_VertexBuffer* = Direct3DBindings(1'u32)
+const Direct3DBindings_IndexBuffer* = Direct3DBindings(2'u32)
+const Direct3DBindings_ConstantBuffer* = Direct3DBindings(4'u32)
+const Direct3DBindings_ShaderResource* = Direct3DBindings(8'u32)
+const Direct3DBindings_StreamOutput* = Direct3DBindings(16'u32)
+const Direct3DBindings_RenderTarget* = Direct3DBindings(32'u32)
+const Direct3DBindings_DepthStencil* = Direct3DBindings(64'u32)
+const Direct3DBindings_UnorderedAccess* = Direct3DBindings(128'u32)
+const Direct3DBindings_Decoder* = Direct3DBindings(512'u32)
+const Direct3DBindings_VideoEncoder* = Direct3DBindings(1024'u32)
 
 ## Windows.Graphics.DirectX.Direct3D11.Direct3DUsage  (enum)
 type Direct3DUsage* {.pure, size: 4.} = enum
@@ -511,27 +511,27 @@ proc `$`*(v: HdmiDisplayPixelEncoding): string =
   else: "HdmiDisplayPixelEncoding(" & $ord(v) & ")"
 
 ## Windows.Graphics.Display.DisplayBrightnessOverrideOptions  (enum)
-type DisplayBrightnessOverrideOptions* = distinct int32
+type DisplayBrightnessOverrideOptions* = distinct uint32
 proc `==`*(a, b: DisplayBrightnessOverrideOptions): bool {.borrow.}
 proc `or`*(a, b: DisplayBrightnessOverrideOptions): DisplayBrightnessOverrideOptions {.borrow.}
 proc `and`*(a, b: DisplayBrightnessOverrideOptions): DisplayBrightnessOverrideOptions {.borrow.}
 proc `not`*(a: DisplayBrightnessOverrideOptions): DisplayBrightnessOverrideOptions {.borrow.}
 proc contains*(a, b: DisplayBrightnessOverrideOptions): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayBrightnessOverrideOptions): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "UseDimmedPolicyWhenBatteryIsLow"
-    rest = rest and not 1'i32
+    rest = rest and not 1'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayBrightnessOverrideOptions(" & $rest & ")"
-const DisplayBrightnessOverrideOptions_None* = DisplayBrightnessOverrideOptions(0'i32)
-const DisplayBrightnessOverrideOptions_UseDimmedPolicyWhenBatteryIsLow* = DisplayBrightnessOverrideOptions(1'i32)
+const DisplayBrightnessOverrideOptions_None* = DisplayBrightnessOverrideOptions(0'u32)
+const DisplayBrightnessOverrideOptions_UseDimmedPolicyWhenBatteryIsLow* = DisplayBrightnessOverrideOptions(1'u32)
 
 ## Windows.Graphics.Display.DisplayBrightnessOverrideScenario  (enum)
 type DisplayBrightnessOverrideScenario* {.pure, size: 4.} = enum
@@ -568,42 +568,42 @@ proc `$`*(v: DisplayColorOverrideScenario): string =
   else: "DisplayColorOverrideScenario(" & $ord(v) & ")"
 
 ## Windows.Graphics.Display.DisplayOrientations  (enum)
-type DisplayOrientations* = distinct int32
+type DisplayOrientations* = distinct uint32
 proc `==`*(a, b: DisplayOrientations): bool {.borrow.}
 proc `or`*(a, b: DisplayOrientations): DisplayOrientations {.borrow.}
 proc `and`*(a, b: DisplayOrientations): DisplayOrientations {.borrow.}
 proc `not`*(a: DisplayOrientations): DisplayOrientations {.borrow.}
 proc contains*(a, b: DisplayOrientations): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: DisplayOrientations): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Landscape"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Portrait"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "LandscapeFlipped"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "PortraitFlipped"
-    rest = rest and not 8'i32
+    rest = rest and not 8'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "DisplayOrientations(" & $rest & ")"
-const DisplayOrientations_None* = DisplayOrientations(0'i32)
-const DisplayOrientations_Landscape* = DisplayOrientations(1'i32)
-const DisplayOrientations_Portrait* = DisplayOrientations(2'i32)
-const DisplayOrientations_LandscapeFlipped* = DisplayOrientations(4'i32)
-const DisplayOrientations_PortraitFlipped* = DisplayOrientations(8'i32)
+const DisplayOrientations_None* = DisplayOrientations(0'u32)
+const DisplayOrientations_Landscape* = DisplayOrientations(1'u32)
+const DisplayOrientations_Portrait* = DisplayOrientations(2'u32)
+const DisplayOrientations_LandscapeFlipped* = DisplayOrientations(4'u32)
+const DisplayOrientations_PortraitFlipped* = DisplayOrientations(8'u32)
 
 ## Windows.Graphics.Display.HdrMetadataFormat  (enum)
 type HdrMetadataFormat* {.pure, size: 4.} = enum
@@ -884,32 +884,32 @@ proc `$`*(v: TiffCompressionMode): string =
   else: "TiffCompressionMode(" & $ord(v) & ")"
 
 ## Windows.Graphics.Printing.OptionDetails.PrintOptionStates  (enum)
-type PrintOptionStates* = distinct int32
+type PrintOptionStates* = distinct uint32
 proc `==`*(a, b: PrintOptionStates): bool {.borrow.}
 proc `or`*(a, b: PrintOptionStates): PrintOptionStates {.borrow.}
 proc `and`*(a, b: PrintOptionStates): PrintOptionStates {.borrow.}
 proc `not`*(a: PrintOptionStates): PrintOptionStates {.borrow.}
 proc contains*(a, b: PrintOptionStates): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PrintOptionStates): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "Enabled"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "Constrained"
-    rest = rest and not 2'i32
+    rest = rest and not 2'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PrintOptionStates(" & $rest & ")"
-const PrintOptionStates_None* = PrintOptionStates(0'i32)
-const PrintOptionStates_Enabled* = PrintOptionStates(1'i32)
-const PrintOptionStates_Constrained* = PrintOptionStates(2'i32)
+const PrintOptionStates_None* = PrintOptionStates(0'u32)
+const PrintOptionStates_Enabled* = PrintOptionStates(1'u32)
+const PrintOptionStates_Constrained* = PrintOptionStates(2'u32)
 
 ## Windows.Graphics.Printing.OptionDetails.PrintOptionType  (enum)
 type PrintOptionType* {.pure, size: 4.} = enum
@@ -1590,52 +1590,52 @@ proc `$`*(v: IppPrinterCommunicationKind): string =
   else: "IppPrinterCommunicationKind(" & $ord(v) & ")"
 
 ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppContracts  (enum)
-type PrintSupportAppContracts* = distinct int32
+type PrintSupportAppContracts* = distinct uint32
 proc `==`*(a, b: PrintSupportAppContracts): bool {.borrow.}
 proc `or`*(a, b: PrintSupportAppContracts): PrintSupportAppContracts {.borrow.}
 proc `and`*(a, b: PrintSupportAppContracts): PrintSupportAppContracts {.borrow.}
 proc `not`*(a: PrintSupportAppContracts): PrintSupportAppContracts {.borrow.}
 proc contains*(a, b: PrintSupportAppContracts): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PrintSupportAppContracts): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "JobBackgroundSession"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "SettingsUI"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Extension"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "JobUI"
-    rest = rest and not 8'i32
-  if (rest and 16'i32) == 16'i32:
+    rest = rest and not 8'u32
+  if (rest and 16'u32) == 16'u32:
     if result.len > 0: result.add " or "
     result.add "VirtualPrinterBackgroundSession"
-    rest = rest and not 16'i32
-  if (rest and 32'i32) == 32'i32:
+    rest = rest and not 16'u32
+  if (rest and 32'u32) == 32'u32:
     if result.len > 0: result.add " or "
     result.add "EnterpriseManagementUI"
-    rest = rest and not 32'i32
+    rest = rest and not 32'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PrintSupportAppContracts(" & $rest & ")"
-const PrintSupportAppContracts_None* = PrintSupportAppContracts(0'i32)
-const PrintSupportAppContracts_JobBackgroundSession* = PrintSupportAppContracts(1'i32)
-const PrintSupportAppContracts_SettingsUI* = PrintSupportAppContracts(2'i32)
-const PrintSupportAppContracts_Extension* = PrintSupportAppContracts(4'i32)
-const PrintSupportAppContracts_JobUI* = PrintSupportAppContracts(8'i32)
-const PrintSupportAppContracts_VirtualPrinterBackgroundSession* = PrintSupportAppContracts(16'i32)
-const PrintSupportAppContracts_EnterpriseManagementUI* = PrintSupportAppContracts(32'i32)
+const PrintSupportAppContracts_None* = PrintSupportAppContracts(0'u32)
+const PrintSupportAppContracts_JobBackgroundSession* = PrintSupportAppContracts(1'u32)
+const PrintSupportAppContracts_SettingsUI* = PrintSupportAppContracts(2'u32)
+const PrintSupportAppContracts_Extension* = PrintSupportAppContracts(4'u32)
+const PrintSupportAppContracts_JobUI* = PrintSupportAppContracts(8'u32)
+const PrintSupportAppContracts_VirtualPrinterBackgroundSession* = PrintSupportAppContracts(16'u32)
+const PrintSupportAppContracts_EnterpriseManagementUI* = PrintSupportAppContracts(32'u32)
 
 ## Windows.Graphics.Printing.PrintSupport.SettingsLaunchKind  (enum)
 type SettingsLaunchKind* {.pure, size: 4.} = enum
@@ -1722,47 +1722,47 @@ proc `$`*(v: PrintTicketValueType): string =
   else: "PrintTicketValueType(" & $ord(v) & ")"
 
 ## Windows.Graphics.Printing.Workflow.PdlConversionHostBasedProcessingOperations  (enum)
-type PdlConversionHostBasedProcessingOperations* = distinct int32
+type PdlConversionHostBasedProcessingOperations* = distinct uint32
 proc `==`*(a, b: PdlConversionHostBasedProcessingOperations): bool {.borrow.}
 proc `or`*(a, b: PdlConversionHostBasedProcessingOperations): PdlConversionHostBasedProcessingOperations {.borrow.}
 proc `and`*(a, b: PdlConversionHostBasedProcessingOperations): PdlConversionHostBasedProcessingOperations {.borrow.}
 proc `not`*(a: PdlConversionHostBasedProcessingOperations): PdlConversionHostBasedProcessingOperations {.borrow.}
 proc contains*(a, b: PdlConversionHostBasedProcessingOperations): bool =
   ## Is every bit of `b` set in `a`?
-  (int32(a) and int32(b)) == int32(b)
+  (uint32(a) and uint32(b)) == uint32(b)
 proc `$`*(v: PdlConversionHostBasedProcessingOperations): string =
   ## The set bits by name, or the number if none match.
-  var rest = int32(v)
+  var rest = uint32(v)
   result = ""
-  if (rest and 1'i32) == 1'i32:
+  if (rest and 1'u32) == 1'u32:
     if result.len > 0: result.add " or "
     result.add "PageRotation"
-    rest = rest and not 1'i32
-  if (rest and 2'i32) == 2'i32:
+    rest = rest and not 1'u32
+  if (rest and 2'u32) == 2'u32:
     if result.len > 0: result.add " or "
     result.add "PageOrdering"
-    rest = rest and not 2'i32
-  if (rest and 4'i32) == 4'i32:
+    rest = rest and not 2'u32
+  if (rest and 4'u32) == 4'u32:
     if result.len > 0: result.add " or "
     result.add "Copies"
-    rest = rest and not 4'i32
-  if (rest and 8'i32) == 8'i32:
+    rest = rest and not 4'u32
+  if (rest and 8'u32) == 8'u32:
     if result.len > 0: result.add " or "
     result.add "BlankPageInsertion"
-    rest = rest and not 8'i32
-  if (rest and -1'i32) == -1'i32:
+    rest = rest and not 8'u32
+  if (rest and 4294967295'u32) == 4294967295'u32:
     if result.len > 0: result.add " or "
     result.add "All"
-    rest = rest and not -1'i32
+    rest = rest and not 4294967295'u32
   if rest != 0 or result.len == 0:
     if result.len > 0: result.add " or "
     result.add "PdlConversionHostBasedProcessingOperations(" & $rest & ")"
-const PdlConversionHostBasedProcessingOperations_None* = PdlConversionHostBasedProcessingOperations(0'i32)
-const PdlConversionHostBasedProcessingOperations_PageRotation* = PdlConversionHostBasedProcessingOperations(1'i32)
-const PdlConversionHostBasedProcessingOperations_PageOrdering* = PdlConversionHostBasedProcessingOperations(2'i32)
-const PdlConversionHostBasedProcessingOperations_Copies* = PdlConversionHostBasedProcessingOperations(4'i32)
-const PdlConversionHostBasedProcessingOperations_BlankPageInsertion* = PdlConversionHostBasedProcessingOperations(8'i32)
-const PdlConversionHostBasedProcessingOperations_All* = PdlConversionHostBasedProcessingOperations(-1'i32)
+const PdlConversionHostBasedProcessingOperations_None* = PdlConversionHostBasedProcessingOperations(0'u32)
+const PdlConversionHostBasedProcessingOperations_PageRotation* = PdlConversionHostBasedProcessingOperations(1'u32)
+const PdlConversionHostBasedProcessingOperations_PageOrdering* = PdlConversionHostBasedProcessingOperations(2'u32)
+const PdlConversionHostBasedProcessingOperations_Copies* = PdlConversionHostBasedProcessingOperations(4'u32)
+const PdlConversionHostBasedProcessingOperations_BlankPageInsertion* = PdlConversionHostBasedProcessingOperations(8'u32)
+const PdlConversionHostBasedProcessingOperations_All* = PdlConversionHostBasedProcessingOperations(4294967295'u32)
 
 ## Windows.Graphics.Printing.Workflow.PrintWorkflowAttributesMergePolicy  (enum)
 type PrintWorkflowAttributesMergePolicy* {.pure, size: 4.} = enum
