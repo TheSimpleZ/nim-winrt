@@ -15,7 +15,7 @@ through WinRT. There is no Win32 call for these:
 | --- | --- |
 | Bluetooth and Bluetooth LE | `winrt/devices` |
 | gamepads, racing wheels, flight sticks | `winrt/gaming` |
-| toast notifications, the tray, badges | `winrt/ui` |
+| toast notifications, tiles, badges | `winrt/ui` |
 | geolocation | `winrt/devices` |
 | the camera, media playback, speech | `winrt/media` |
 | app packaging, background tasks, app data | `winrt/applicationmodel` |
@@ -23,6 +23,13 @@ through WinRT. There is no Win32 call for these:
 | Wi-Fi, mobile broadband, sockets | `winrt/networking` |
 | the power and battery state | `winrt/system` |
 | sensors: accelerometer, light, pedometer | `winrt/devices` |
+
+Not everything Windows can do is in here, and the notification-area tray icon
+is the one people expect and do not find: that is `Shell_NotifyIcon` in
+shell32, a Win32 call with no WinRT equivalent. `Windows.UI.Notifications`
+covers toasts, tiles and badges, which are a different thing. For Win32 use
+[winim](https://github.com/khchen/winim) alongside this — a tray application
+that reads a gamepad needs one call from each.
 
 WinRT is COM plus a metadata file describing every interface in it. Every
 language reaches it the same way — C++/WinRT, C#/WinRT and windows-rs all
