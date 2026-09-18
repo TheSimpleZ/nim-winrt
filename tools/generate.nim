@@ -150,7 +150,7 @@ proc abiProc(sig: MethodSig): string =
     let r = nimType(sig.returns)
     if r.len == 0: return ""
     parts.add &"value: ptr {r}"
-  "proc(" & parts.join(", ") & "): HRESULT {.stdcall, raises: [], gcsafe.}"
+  "proc(" & parts.join(", ") & "): HRESULT {.abi.}"
 
 type Emission = tuple
   enums, enumMembers, structs, interfaces, slots, typed, untyped: int
@@ -185,6 +185,9 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   # another one defines, and someone who imports this module to use that
   # signature needs the type to come with it.
   buf.add &"import {corePath}\n"
+  # The calling contract, written once and included rather than imported:
+  # a user pragma does not cross a module boundary in Nim.
+  buf.add &"include {corePath.rsplit('/', 1)[0]}/abidef\n"
   buf.add &"export {corePath.split('/')[^1]}\n"
   if provider.len > 0:
     buf.add &"import {provider}\n"

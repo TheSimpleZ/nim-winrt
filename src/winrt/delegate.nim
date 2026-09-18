@@ -12,9 +12,9 @@
 ##   `GetRuntimeClassName`. Assuming the usual six puts `Invoke` at slot 6 and
 ##   calls into whatever happens to follow the table.
 ##
-## * **The vtable pointer must be the first field.** The caller receives a pointer
-##   to the object and immediately dereferences it as a pointer to a pointer to
-##   the table.
+## * **The vtable pointer must be the first field.** The caller receives a
+##   pointer to the object and immediately dereferences it as a pointer to a
+##   pointer to the table.
 ##
 ## * **An event handler must not report failure.** XAML treats a failing
 ##   HRESULT out of its own event dispatch as fatal and tears the process down,
@@ -36,6 +36,7 @@
 ## written twice, and a fix to one copy is a fix missing from the other.
 
 import ./core
+include ./abidef
 
 type
   DelegateProc* = proc(args: pointer) {.closure.}
@@ -49,17 +50,17 @@ type
 
   DelegateVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.stdcall, raises: [].}
-    addRef: proc(self: pointer): uint32 {.stdcall, raises: [].}
-    release: proc(self: pointer): uint32 {.stdcall, raises: [].}
-    invoke: proc(self: pointer, args: pointer): HRESULT {.stdcall, raises: [].}
+                         ppv: ptr pointer): HRESULT {.callback.}
+    addRef: proc(self: pointer): uint32 {.callback.}
+    release: proc(self: pointer): uint32 {.callback.}
+    invoke: proc(self: pointer, args: pointer): HRESULT {.callback.}
 
   EventVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.stdcall, raises: [].}
-    addRef: proc(self: pointer): uint32 {.stdcall, raises: [].}
-    release: proc(self: pointer): uint32 {.stdcall, raises: [].}
-    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.stdcall, raises: [].}
+                         ppv: ptr pointer): HRESULT {.callback.}
+    addRef: proc(self: pointer): uint32 {.callback.}
+    release: proc(self: pointer): uint32 {.callback.}
+    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.callback.}
 
   DelegateImpl {.pure.} = object
     ## Manually allocated, because its lifetime belongs to COM and not to Nim.
@@ -113,12 +114,12 @@ proc report(what, msg: string) =
 
 # ------------------------------------------------------------- IUnknown
 
-proc addRef(self: pointer): uint32 {.stdcall, raises: [].} =
+proc addRef(self: pointer): uint32 {.callback.} =
   let d = cast[ptr DelegateImpl](self)
   d.refs.inc
   uint32(d.refs)
 
-proc release(self: pointer): uint32 {.stdcall, raises: [].} =
+proc release(self: pointer): uint32 {.callback.} =
   let d = cast[ptr DelegateImpl](self)
   d.refs.dec
   if d.refs <= 0:
@@ -129,7 +130,7 @@ proc release(self: pointer): uint32 {.stdcall, raises: [].} =
   uint32(d.refs)
 
 proc queryInterface(self: pointer, riid: ptr GUID,
-                    ppv: ptr pointer): HRESULT {.stdcall, raises: [].} =
+                    ppv: ptr pointer): HRESULT {.callback.} =
   if ppv.isNil:
     return E_POINTER
   let d = cast[ptr DelegateImpl](self)
@@ -143,7 +144,7 @@ proc queryInterface(self: pointer, riid: ptr GUID,
 
 # --------------------------------------------------------------- Invoke
 
-proc plainInvoke(self: pointer, args: pointer): HRESULT {.stdcall, raises: [].} =
+proc plainInvoke(self: pointer, args: pointer): HRESULT {.callback.} =
   ## The one-argument shape, used for lifecycle callbacks.
   ##
   ## This one *does* report failure, unlike `eventInvoke`: if the application's
@@ -162,14 +163,14 @@ proc plainInvoke(self: pointer, args: pointer): HRESULT {.stdcall, raises: [].} 
     report("handler (defect)", e.msg)
     E_FAIL
 
-proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.stdcall, raises: [].} =
+proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.callback.} =
   ## The two-argument shape, and it always returns S_OK.
   ##
   ## A failing HRESULT out of an event handler is not a neutral way to report a
   ## problem: XAML treats a failure returned from its own event dispatch as
   ## fatal and tears the application down, so one bug in one handler ends the
-  ## process with nothing in the log. There is nothing useful the runtime could do
-  ## with the failure in any case — the event has been delivered either way. So
+  ## process with nothing in the log. There is nothing useful the runtime
+  ## could do with it in any case — the event has been delivered either way. So
   ## the exception is contained, reported, and the event reported as handled.
   let handler = handlerAt(self)
   if handler.isNil:

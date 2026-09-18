@@ -11,6 +11,7 @@
 ## a trailing out-parameter.
 
 import ../core
+include ../abidef
 export core
 import ./foundation
 export foundation
@@ -527,2273 +528,2273 @@ const IID_IAtomPubClient* = GUID(
     data1: 0x35392C38'u32, data2: 0xCDED'u16, data3: 0x4D4C'u16,
     data4: [0x96'u8, 0x37, 0x05, 0xF1, 0x5C, 0x1C, 0x94, 0x06])
 const Slot_IAtomPubClient_RetrieveServiceDocumentAsync* = 6
-type Fn_IAtomPubClient_RetrieveServiceDocumentAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_RetrieveServiceDocumentAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_RetrieveMediaResourceAsync* = 7
-type Fn_IAtomPubClient_RetrieveMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_RetrieveMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_RetrieveResourceAsync* = 8
-type Fn_IAtomPubClient_RetrieveResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_RetrieveResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_CreateResourceAsync* = 9
-type Fn_IAtomPubClient_CreateResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3SyndicationItem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_CreateResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_CreateMediaResourceAsync* = 10
-type Fn_IAtomPubClient_CreateMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING, a4IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_CreateMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING, a4IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_UpdateMediaResourceAsync* = 11
-type Fn_IAtomPubClient_UpdateMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_UpdateMediaResourceAsync* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_UpdateResourceAsync* = 12
-type Fn_IAtomPubClient_UpdateResourceAsync* = proc(self: pointer, a1Uri: pointer, a2SyndicationItem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_UpdateResourceAsync* = proc(self: pointer, a1Uri: pointer, a2SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_UpdateResourceItemAsync* = 13
-type Fn_IAtomPubClient_UpdateResourceItemAsync* = proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_UpdateResourceItemAsync* = proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_DeleteResourceAsync* = 14
-type Fn_IAtomPubClient_DeleteResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_DeleteResourceAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_DeleteResourceItemAsync* = 15
-type Fn_IAtomPubClient_DeleteResourceItemAsync* = proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_DeleteResourceItemAsync* = proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_CancelAsyncOperations* = 16
-type Fn_IAtomPubClient_CancelAsyncOperations* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClient_CancelAsyncOperations* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IAtomPubClientFactory
 const IID_IAtomPubClientFactory* = GUID(
     data1: 0x49D55012'u32, data2: 0x57CB'u16, data3: 0x4BDE'u16,
     data4: [0xAB'u8, 0x9F, 0x26, 0x10, 0xB1, 0x72, 0x77, 0x7B])
 const Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* = 6
-type Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* = proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* = proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IResourceCollection
 const IID_IResourceCollection* = GUID(
     data1: 0x7F5FD609'u32, data2: 0xBC88'u16, data3: 0x41D4'u16,
     data4: [0x88'u8, 0xFA, 0x3D, 0xE6, 0x70, 0x4D, 0x42, 0x8E])
 const Slot_IResourceCollection_get_Title* = 6
-type Fn_IResourceCollection_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IResourceCollection_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IResourceCollection_get_Uri* = 7
-type Fn_IResourceCollection_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IResourceCollection_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IResourceCollection_get_Categories* = 8
-type Fn_IResourceCollection_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IResourceCollection_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IResourceCollection_get_Accepts* = 9
-type Fn_IResourceCollection_get_Accepts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IResourceCollection_get_Accepts* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IServiceDocument
 const IID_IServiceDocument* = GUID(
     data1: 0x8B7EC771'u32, data2: 0x2AB3'u16, data3: 0x4DBE'u16,
     data4: [0x8B'u8, 0xCC, 0x77, 0x8F, 0x92, 0xB7, 0x5E, 0x51])
 const Slot_IServiceDocument_get_Workspaces* = 6
-type Fn_IServiceDocument_get_Workspaces* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IServiceDocument_get_Workspaces* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IWorkspace
 const IID_IWorkspace* = GUID(
     data1: 0xB41DA63B'u32, data2: 0xA4B8'u16, data3: 0x4036'u16,
     data4: [0x89'u8, 0xC5, 0x83, 0xC3, 0x12, 0x66, 0xBA, 0x49])
 const Slot_IWorkspace_get_Title* = 6
-type Fn_IWorkspace_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWorkspace_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWorkspace_get_Collections* = 7
-type Fn_IWorkspace_get_Collections* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWorkspace_get_Collections* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProvider
 const IID_IHttpDiagnosticProvider* = GUID(
     data1: 0xBD811501'u32, data2: 0xA056'u16, data3: 0x4D39'u16,
     data4: [0xB1'u8, 0x74, 0x83, 0x3B, 0x7B, 0x03, 0xB0, 0x2C])
 const Slot_IHttpDiagnosticProvider_Start* = 6
-type Fn_IHttpDiagnosticProvider_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_Stop* = 7
-type Fn_IHttpDiagnosticProvider_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_RequestSent* = 8
-type Fn_IHttpDiagnosticProvider_add_RequestSent* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_add_RequestSent* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_RequestSent* = 9
-type Fn_IHttpDiagnosticProvider_remove_RequestSent* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_remove_RequestSent* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_ResponseReceived* = 10
-type Fn_IHttpDiagnosticProvider_add_ResponseReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_add_ResponseReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_ResponseReceived* = 11
-type Fn_IHttpDiagnosticProvider_remove_ResponseReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_remove_ResponseReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_RequestResponseCompleted* = 12
-type Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_RequestResponseCompleted* = 13
-type Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseCompletedEventArgs
 const IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs* = GUID(
     data1: 0x735F98EE'u32, data2: 0x94F6'u16, data3: 0x4532'u16,
     data4: [0xB2'u8, 0x6E, 0x61, 0xE1, 0xB1, 0xE4, 0xEF, 0xD4])
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId* = 6
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps* = 7
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri* = 8
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId* = 9
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* = 10
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* = 11
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* = proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* = proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* = 12
-type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestResponseTimestamps
 const IID_IHttpDiagnosticProviderRequestResponseTimestamps* = GUID(
     data1: 0xE0AFDE10'u32, data2: 0x55CF'u16, data3: 0x4C01'u16,
     data4: [0x91'u8, 0xD4, 0xA2, 0x05, 0x57, 0xD8, 0x49, 0xF0])
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp* = 6
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp* = 7
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp* = 8
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp* = 9
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp* = 10
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp* = 11
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp* = 12
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp* = 13
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp* = 14
-type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderRequestSentEventArgs
 const IID_IHttpDiagnosticProviderRequestSentEventArgs* = GUID(
     data1: 0x3F5196D0'u32, data2: 0x4C1F'u16, data3: 0x4EBE'u16,
     data4: [0xA5'u8, 0x7A, 0x06, 0x93, 0x07, 0x71, 0xC5, 0x0D])
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp* = 6
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId* = 7
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Message* = 8
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId* = 9
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* = 10
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* = 11
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* = proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* = proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* = 12
-type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderResponseReceivedEventArgs
 const IID_IHttpDiagnosticProviderResponseReceivedEventArgs* = GUID(
     data1: 0xA0A2566C'u32, data2: 0xAB5F'u16, data3: 0x4D66'u16,
     data4: [0xBB'u8, 0x2D, 0x08, 0x4C, 0xF4, 0x16, 0x35, 0xD0])
 const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp* = 6
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId* = 7
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* = 8
-type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticProviderStatics
 const IID_IHttpDiagnosticProviderStatics* = GUID(
     data1: 0x5B824EC1'u32, data2: 0x6A6C'u16, data3: 0x47CC'u16,
     data4: [0xAF'u8, 0xEC, 0x1E, 0x86, 0xBC, 0x26, 0x05, 0x3B])
 const Slot_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* = 6
-type Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* = proc(self: pointer, a1ProcessDiagnosticInfo: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* = proc(self: pointer, a1ProcessDiagnosticInfo: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation
 const IID_IHttpDiagnosticSourceLocation* = GUID(
     data1: 0x54A9D260'u32, data2: 0x8860'u16, data3: 0x423F'u16,
     data4: [0xB6'u8, 0xFA, 0xD7, 0x77, 0x16, 0xF6, 0x47, 0xA7])
 const Slot_IHttpDiagnosticSourceLocation_get_SourceUri* = 6
-type Fn_IHttpDiagnosticSourceLocation_get_SourceUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticSourceLocation_get_SourceUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticSourceLocation_get_LineNumber* = 7
-type Fn_IHttpDiagnosticSourceLocation_get_LineNumber* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticSourceLocation_get_LineNumber* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IHttpDiagnosticSourceLocation_get_ColumnNumber* = 8
-type Fn_IHttpDiagnosticSourceLocation_get_ColumnNumber* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDiagnosticSourceLocation_get_ColumnNumber* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter
 const IID_IHttpBaseProtocolFilter* = GUID(
     data1: 0x71C89B09'u32, data2: 0xE131'u16, data3: 0x4B54'u16,
     data4: [0xA5'u8, 0x3C, 0xEB, 0x43, 0xFF, 0x37, 0xE9, 0xBB])
 const Slot_IHttpBaseProtocolFilter_get_AllowAutoRedirect* = 6
-type Fn_IHttpBaseProtocolFilter_get_AllowAutoRedirect* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_AllowAutoRedirect* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_AllowAutoRedirect* = 7
-type Fn_IHttpBaseProtocolFilter_put_AllowAutoRedirect* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_AllowAutoRedirect* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_AllowUI* = 8
-type Fn_IHttpBaseProtocolFilter_get_AllowUI* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_AllowUI* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_AllowUI* = 9
-type Fn_IHttpBaseProtocolFilter_put_AllowUI* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_AllowUI* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_AutomaticDecompression* = 10
-type Fn_IHttpBaseProtocolFilter_get_AutomaticDecompression* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_AutomaticDecompression* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_AutomaticDecompression* = 11
-type Fn_IHttpBaseProtocolFilter_put_AutomaticDecompression* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_AutomaticDecompression* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_CacheControl* = 12
-type Fn_IHttpBaseProtocolFilter_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_CookieManager* = 13
-type Fn_IHttpBaseProtocolFilter_get_CookieManager* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_CookieManager* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_ClientCertificate* = 14
-type Fn_IHttpBaseProtocolFilter_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_ClientCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_ClientCertificate* = 15
-type Fn_IHttpBaseProtocolFilter_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_ClientCertificate* = proc(self: pointer, a1Certificate: pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors* = 16
-type Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer* = 17
-type Fn_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer* = 18
-type Fn_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_ProxyCredential* = 19
-type Fn_IHttpBaseProtocolFilter_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_ProxyCredential* = 20
-type Fn_IHttpBaseProtocolFilter_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_ServerCredential* = 21
-type Fn_IHttpBaseProtocolFilter_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_ServerCredential* = 22
-type Fn_IHttpBaseProtocolFilter_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_get_UseProxy* = 23
-type Fn_IHttpBaseProtocolFilter_get_UseProxy* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_get_UseProxy* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter_put_UseProxy* = 24
-type Fn_IHttpBaseProtocolFilter_put_UseProxy* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter_put_UseProxy* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter2
 const IID_IHttpBaseProtocolFilter2* = GUID(
     data1: 0x2EC30013'u32, data2: 0x9427'u16, data3: 0x4900'u16,
     data4: [0xA0'u8, 0x17, 0xFA, 0x7D, 0xA3, 0xB5, 0xC9, 0xAE])
 const Slot_IHttpBaseProtocolFilter2_get_MaxVersion* = 6
-type Fn_IHttpBaseProtocolFilter2_get_MaxVersion* = proc(self: pointer, value: ptr HttpVersion): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter2_get_MaxVersion* = proc(self: pointer, value: ptr HttpVersion): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter2_put_MaxVersion* = 7
-type Fn_IHttpBaseProtocolFilter2_put_MaxVersion* = proc(self: pointer, a1: HttpVersion): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter2_put_MaxVersion* = proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter3
 const IID_IHttpBaseProtocolFilter3* = GUID(
     data1: 0xD43F4D4C'u32, data2: 0xBD42'u16, data3: 0x43AE'u16,
     data4: [0x87'u8, 0x17, 0xAD, 0x2C, 0x8F, 0x4B, 0x29, 0x37])
 const Slot_IHttpBaseProtocolFilter3_get_CookieUsageBehavior* = 6
-type Fn_IHttpBaseProtocolFilter3_get_CookieUsageBehavior* = proc(self: pointer, value: ptr HttpCookieUsageBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter3_get_CookieUsageBehavior* = proc(self: pointer, value: ptr HttpCookieUsageBehavior): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* = 7
-type Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* = proc(self: pointer, a1: HttpCookieUsageBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* = proc(self: pointer, a1: HttpCookieUsageBehavior): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter4
 const IID_IHttpBaseProtocolFilter4* = GUID(
     data1: 0x9FE36CCF'u32, data2: 0x2983'u16, data3: 0x4893'u16,
     data4: [0x94'u8, 0x1F, 0xEB, 0x51, 0x8C, 0xA8, 0xCE, 0xF9])
 const Slot_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* = 6
-type Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* = 7
-type Fn_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter4_ClearAuthenticationCache* = 8
-type Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilter5
 const IID_IHttpBaseProtocolFilter5* = GUID(
     data1: 0x416E4993'u32, data2: 0x31E3'u16, data3: 0x4816'u16,
     data4: [0xBF'u8, 0x09, 0xE0, 0x18, 0xEE, 0x8D, 0xC1, 0xF5])
 const Slot_IHttpBaseProtocolFilter5_get_User* = 6
-type Fn_IHttpBaseProtocolFilter5_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilter5_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpBaseProtocolFilterStatics
 const IID_IHttpBaseProtocolFilterStatics* = GUID(
     data1: 0x6D4DEE0C'u32, data2: 0xE908'u16, data3: 0x494E'u16,
     data4: [0xB5'u8, 0xA3, 0x12, 0x63, 0xC9, 0xB8, 0x24, 0x2A])
 const Slot_IHttpBaseProtocolFilterStatics_CreateForUser* = 6
-type Fn_IHttpBaseProtocolFilterStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBaseProtocolFilterStatics_CreateForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpCacheControl
 const IID_IHttpCacheControl* = GUID(
     data1: 0xC77E1CB4'u32, data2: 0x3CEA'u16, data3: 0x4EB5'u16,
     data4: [0xAC'u8, 0x85, 0x04, 0xE1, 0x86, 0xE6, 0x3A, 0xB7])
 const Slot_IHttpCacheControl_get_ReadBehavior* = 6
-type Fn_IHttpCacheControl_get_ReadBehavior* = proc(self: pointer, value: ptr HttpCacheReadBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheControl_get_ReadBehavior* = proc(self: pointer, value: ptr HttpCacheReadBehavior): HRESULT {.abi.}
 const Slot_IHttpCacheControl_put_ReadBehavior* = 7
-type Fn_IHttpCacheControl_put_ReadBehavior* = proc(self: pointer, a1: HttpCacheReadBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheControl_put_ReadBehavior* = proc(self: pointer, a1: HttpCacheReadBehavior): HRESULT {.abi.}
 const Slot_IHttpCacheControl_get_WriteBehavior* = 8
-type Fn_IHttpCacheControl_get_WriteBehavior* = proc(self: pointer, value: ptr HttpCacheWriteBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheControl_get_WriteBehavior* = proc(self: pointer, value: ptr HttpCacheWriteBehavior): HRESULT {.abi.}
 const Slot_IHttpCacheControl_put_WriteBehavior* = 9
-type Fn_IHttpCacheControl_put_WriteBehavior* = proc(self: pointer, a1: HttpCacheWriteBehavior): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheControl_put_WriteBehavior* = proc(self: pointer, a1: HttpCacheWriteBehavior): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpFilter
 const IID_IHttpFilter* = GUID(
     data1: 0xA4CB6DD5'u32, data2: 0x0902'u16, data3: 0x439E'u16,
     data4: [0xBF'u8, 0xD7, 0xE1, 0x25, 0x52, 0xB1, 0x65, 0xCE])
 const Slot_IHttpFilter_SendRequestAsync* = 6
-type Fn_IHttpFilter_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpFilter_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpServerCustomValidationRequestedEventArgs
 const IID_IHttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0x3165FE32'u32, data2: 0xE7DD'u16, data3: 0x48B7'u16,
     data4: [0xA3'u8, 0x61, 0x93, 0x9C, 0x75, 0x0E, 0x63, 0xCC])
 const Slot_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage* = 6
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate* = 7
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = 8
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = 9
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = 10
-type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_Reject* = 11
-type Fn_IHttpServerCustomValidationRequestedEventArgs_Reject* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_Reject* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IHttpServerCustomValidationRequestedEventArgs_GetDeferral* = 12
-type Fn_IHttpServerCustomValidationRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpServerCustomValidationRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCacheDirectiveHeaderValueCollection
 const IID_IHttpCacheDirectiveHeaderValueCollection* = GUID(
     data1: 0x9A586B89'u32, data2: 0xD5D0'u16, data3: 0x4FBE'u16,
     data4: [0xBD'u8, 0x9D, 0xB5, 0xB3, 0x63, 0x68, 0x11, 0xB4])
 const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge* = 6
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge* = 7
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale* = 8
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale* = 9
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh* = 10
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh* = 11
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge* = 12
-type Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge* = 13
-type Fn_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_ParseAdd* = 14
-type Fn_IHttpCacheDirectiveHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd* = 15
-type Fn_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValue
 const IID_IHttpChallengeHeaderValue* = GUID(
     data1: 0x393361AF'u32, data2: 0x0F7D'u16, data3: 0x4820'u16,
     data4: [0x9F'u8, 0xDD, 0xA2, 0xB9, 0x56, 0xEE, 0xAE, 0xAB])
 const Slot_IHttpChallengeHeaderValue_get_Parameters* = 6
-type Fn_IHttpChallengeHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValue_get_Scheme* = 7
-type Fn_IHttpChallengeHeaderValue_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValue_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValue_get_Token* = 8
-type Fn_IHttpChallengeHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueCollection
 const IID_IHttpChallengeHeaderValueCollection* = GUID(
     data1: 0xCA9E5F81'u32, data2: 0xAEE0'u16, data3: 0x4353'u16,
     data4: [0xA1'u8, 0x0B, 0xE6, 0x25, 0xBA, 0xBD, 0x64, 0xC2])
 const Slot_IHttpChallengeHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpChallengeHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpChallengeHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory
 const IID_IHttpChallengeHeaderValueFactory* = GUID(
     data1: 0xC452C451'u32, data2: 0xD99C'u16, data3: 0x40AA'u16,
     data4: [0x93'u8, 0x99, 0x90, 0xEE, 0xB9, 0x8F, 0xC6, 0x13])
 const Slot_IHttpChallengeHeaderValueFactory_CreateFromScheme* = 6
-type Fn_IHttpChallengeHeaderValueFactory_CreateFromScheme* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueFactory_CreateFromScheme* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* = 7
-type Fn_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueStatics
 const IID_IHttpChallengeHeaderValueStatics* = GUID(
     data1: 0xF3D38A72'u32, data2: 0xFC01'u16, data3: 0x4D01'u16,
     data4: [0xA0'u8, 0x08, 0xFC, 0xB7, 0xC4, 0x59, 0xD6, 0x35])
 const Slot_IHttpChallengeHeaderValueStatics_Parse* = 6
-type Fn_IHttpChallengeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpChallengeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpChallengeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpChallengeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpChallengeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValue
 const IID_IHttpConnectionOptionHeaderValue* = GUID(
     data1: 0xCB4AF27A'u32, data2: 0x4E90'u16, data3: 0x45EB'u16,
     data4: [0x8D'u8, 0xCD, 0xFD, 0x14, 0x08, 0xF4, 0xC4, 0x4F])
 const Slot_IHttpConnectionOptionHeaderValue_get_Token* = 6
-type Fn_IHttpConnectionOptionHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueCollection
 const IID_IHttpConnectionOptionHeaderValueCollection* = GUID(
     data1: 0xE4F56C1D'u32, data2: 0x5142'u16, data3: 0x4E00'u16,
     data4: [0x8E'u8, 0x0F, 0x01, 0x95, 0x09, 0x33, 0x76, 0x29])
 const Slot_IHttpConnectionOptionHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpConnectionOptionHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpConnectionOptionHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpConnectionOptionHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueFactory
 const IID_IHttpConnectionOptionHeaderValueFactory* = GUID(
     data1: 0xD93CCC1E'u32, data2: 0x0B7D'u16, data3: 0x4C3F'u16,
     data4: [0xA5'u8, 0x8D, 0xA2, 0xA1, 0xBD, 0xEA, 0xBC, 0x0A])
 const Slot_IHttpConnectionOptionHeaderValueFactory_Create* = 6
-type Fn_IHttpConnectionOptionHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueStatics
 const IID_IHttpConnectionOptionHeaderValueStatics* = GUID(
     data1: 0xAAA75D37'u32, data2: 0xA946'u16, data3: 0x4B1F'u16,
     data4: [0x85'u8, 0xAF, 0x48, 0xB6, 0x8B, 0x3C, 0x50, 0xBD])
 const Slot_IHttpConnectionOptionHeaderValueStatics_Parse* = 6
-type Fn_IHttpConnectionOptionHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpConnectionOptionHeaderValueStatics_TryParse* = 7
-type Fn_IHttpConnectionOptionHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpConnectionOptionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpConnectionOptionHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpConnectionOptionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValue
 const IID_IHttpContentCodingHeaderValue* = GUID(
     data1: 0xBCF7F92A'u32, data2: 0x9376'u16, data3: 0x4D85'u16,
     data4: [0xBC'u8, 0xCC, 0x9F, 0x4F, 0x9A, 0xCA, 0xB4, 0x34])
 const Slot_IHttpContentCodingHeaderValue_get_ContentCoding* = 6
-type Fn_IHttpContentCodingHeaderValue_get_ContentCoding* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValue_get_ContentCoding* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueCollection
 const IID_IHttpContentCodingHeaderValueCollection* = GUID(
     data1: 0x7D221721'u32, data2: 0xA6DB'u16, data3: 0x436E'u16,
     data4: [0x8E'u8, 0x83, 0x91, 0x59, 0x61, 0x92, 0x81, 0x9C])
 const Slot_IHttpContentCodingHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpContentCodingHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentCodingHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpContentCodingHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueFactory
 const IID_IHttpContentCodingHeaderValueFactory* = GUID(
     data1: 0xC53D2BD7'u32, data2: 0x332B'u16, data3: 0x4350'u16,
     data4: [0x85'u8, 0x10, 0x2E, 0x67, 0xA2, 0x28, 0x9A, 0x5A])
 const Slot_IHttpContentCodingHeaderValueFactory_Create* = 6
-type Fn_IHttpContentCodingHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValueStatics
 const IID_IHttpContentCodingHeaderValueStatics* = GUID(
     data1: 0x94D8602E'u32, data2: 0xF9BF'u16, data3: 0x42F7'u16,
     data4: [0xAA'u8, 0x46, 0xED, 0x27, 0x2A, 0x41, 0xE2, 0x12])
 const Slot_IHttpContentCodingHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentCodingHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentCodingHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentCodingHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValue
 const IID_IHttpContentCodingWithQualityHeaderValue* = GUID(
     data1: 0x94531CD5'u32, data2: 0x8B13'u16, data3: 0x4D73'u16,
     data4: [0x86'u8, 0x51, 0xF7, 0x6B, 0x38, 0xF8, 0x84, 0x95])
 const Slot_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentCodingWithQualityHeaderValue_get_Quality* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueCollection
 const IID_IHttpContentCodingWithQualityHeaderValueCollection* = GUID(
     data1: 0x7C0D753E'u32, data2: 0xE899'u16, data3: 0x4378'u16,
     data4: [0xB5'u8, 0xC8, 0x41, 0x2D, 0x82, 0x07, 0x11, 0xCC])
 const Slot_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory
 const IID_IHttpContentCodingWithQualityHeaderValueFactory* = GUID(
     data1: 0xC45EEE1A'u32, data2: 0xC553'u16, data3: 0x46FC'u16,
     data4: [0xAD'u8, 0xE2, 0xD7, 0x5C, 0x1D, 0x53, 0xDF, 0x7B])
 const Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics
 const IID_IHttpContentCodingWithQualityHeaderValueStatics* = GUID(
     data1: 0xE8C9357C'u32, data2: 0x8F89'u16, data3: 0x4801'u16,
     data4: [0x8E'u8, 0x75, 0x4C, 0x9A, 0xBF, 0xC3, 0xDE, 0x71])
 const Slot_IHttpContentCodingWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentCodingWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentCodingWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentCodingWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValue
 const IID_IHttpContentDispositionHeaderValue* = GUID(
     data1: 0xF2A2EEDC'u32, data2: 0x2629'u16, data3: 0x4B49'u16,
     data4: [0x99'u8, 0x08, 0x96, 0xA1, 0x68, 0xE9, 0x36, 0x5E])
 const Slot_IHttpContentDispositionHeaderValue_get_DispositionType* = 6
-type Fn_IHttpContentDispositionHeaderValue_get_DispositionType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_DispositionType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_put_DispositionType* = 7
-type Fn_IHttpContentDispositionHeaderValue_put_DispositionType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_put_DispositionType* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_get_FileName* = 8
-type Fn_IHttpContentDispositionHeaderValue_get_FileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_FileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_put_FileName* = 9
-type Fn_IHttpContentDispositionHeaderValue_put_FileName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_put_FileName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_get_FileNameStar* = 10
-type Fn_IHttpContentDispositionHeaderValue_get_FileNameStar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_FileNameStar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_put_FileNameStar* = 11
-type Fn_IHttpContentDispositionHeaderValue_put_FileNameStar* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_put_FileNameStar* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_get_Name* = 12
-type Fn_IHttpContentDispositionHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_put_Name* = 13
-type Fn_IHttpContentDispositionHeaderValue_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_get_Parameters* = 14
-type Fn_IHttpContentDispositionHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_get_Size* = 15
-type Fn_IHttpContentDispositionHeaderValue_get_Size* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_get_Size* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValue_put_Size* = 16
-type Fn_IHttpContentDispositionHeaderValue_put_Size* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValue_put_Size* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueFactory
 const IID_IHttpContentDispositionHeaderValueFactory* = GUID(
     data1: 0x9915BBC4'u32, data2: 0x456C'u16, data3: 0x4E81'u16,
     data4: [0x82'u8, 0x95, 0xB2, 0xAB, 0x3C, 0xBC, 0xF5, 0x45])
 const Slot_IHttpContentDispositionHeaderValueFactory_Create* = 6
-type Fn_IHttpContentDispositionHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueStatics
 const IID_IHttpContentDispositionHeaderValueStatics* = GUID(
     data1: 0x29C56067'u32, data2: 0x5A37'u16, data3: 0x46E4'u16,
     data4: [0xB0'u8, 0x74, 0xC5, 0x17, 0x7D, 0x69, 0xCA, 0x66])
 const Slot_IHttpContentDispositionHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentDispositionHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentDispositionHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentDispositionHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentDispositionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentDispositionHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentDispositionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentHeaderCollection
 const IID_IHttpContentHeaderCollection* = GUID(
     data1: 0x40612A44'u32, data2: 0x47AE'u16, data3: 0x4B7E'u16,
     data4: [0x91'u8, 0x24, 0x69, 0x62, 0x8B, 0x64, 0xAA, 0x18])
 const Slot_IHttpContentHeaderCollection_get_ContentDisposition* = 6
-type Fn_IHttpContentHeaderCollection_get_ContentDisposition* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentDisposition* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentDisposition* = 7
-type Fn_IHttpContentHeaderCollection_put_ContentDisposition* = proc(self: pointer, a1HttpContentDispositionHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentDisposition* = proc(self: pointer, a1HttpContentDispositionHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentEncoding* = 8
-type Fn_IHttpContentHeaderCollection_get_ContentEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentLanguage* = 9
-type Fn_IHttpContentHeaderCollection_get_ContentLanguage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentLanguage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentLength* = 10
-type Fn_IHttpContentHeaderCollection_get_ContentLength* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentLength* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentLength* = 11
-type Fn_IHttpContentHeaderCollection_put_ContentLength* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentLength* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentLocation* = 12
-type Fn_IHttpContentHeaderCollection_get_ContentLocation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentLocation* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentLocation* = 13
-type Fn_IHttpContentHeaderCollection_put_ContentLocation* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentLocation* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentMD5* = 14
-type Fn_IHttpContentHeaderCollection_get_ContentMD5* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentMD5* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentMD5* = 15
-type Fn_IHttpContentHeaderCollection_put_ContentMD5* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentMD5* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentRange* = 16
-type Fn_IHttpContentHeaderCollection_get_ContentRange* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentRange* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentRange* = 17
-type Fn_IHttpContentHeaderCollection_put_ContentRange* = proc(self: pointer, a1HttpContentRangeHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentRange* = proc(self: pointer, a1HttpContentRangeHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentType* = 18
-type Fn_IHttpContentHeaderCollection_get_ContentType* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_ContentType* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentType* = 19
-type Fn_IHttpContentHeaderCollection_put_ContentType* = proc(self: pointer, a1HttpMediaTypeHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_ContentType* = proc(self: pointer, a1HttpMediaTypeHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_Expires* = 20
-type Fn_IHttpContentHeaderCollection_get_Expires* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_Expires* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_Expires* = 21
-type Fn_IHttpContentHeaderCollection_put_Expires* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_Expires* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_LastModified* = 22
-type Fn_IHttpContentHeaderCollection_get_LastModified* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_get_LastModified* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_LastModified* = 23
-type Fn_IHttpContentHeaderCollection_put_LastModified* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_put_LastModified* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_Append* = 24
-type Fn_IHttpContentHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_TryAppendWithoutValidation* = 25
-type Fn_IHttpContentHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValue
 const IID_IHttpContentRangeHeaderValue* = GUID(
     data1: 0x04D967D3'u32, data2: 0xA4F6'u16, data3: 0x495C'u16,
     data4: [0x95'u8, 0x30, 0x85, 0x79, 0xFC, 0xBA, 0x8A, 0xA9])
 const Slot_IHttpContentRangeHeaderValue_get_FirstBytePosition* = 6
-type Fn_IHttpContentRangeHeaderValue_get_FirstBytePosition* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValue_get_FirstBytePosition* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValue_get_LastBytePosition* = 7
-type Fn_IHttpContentRangeHeaderValue_get_LastBytePosition* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValue_get_LastBytePosition* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValue_get_Length* = 8
-type Fn_IHttpContentRangeHeaderValue_get_Length* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValue_get_Length* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValue_get_Unit* = 9
-type Fn_IHttpContentRangeHeaderValue_get_Unit* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValue_get_Unit* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValue_put_Unit* = 10
-type Fn_IHttpContentRangeHeaderValue_put_Unit* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValue_put_Unit* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory
 const IID_IHttpContentRangeHeaderValueFactory* = GUID(
     data1: 0x3F5BD691'u32, data2: 0xA03C'u16, data3: 0x4456'u16,
     data4: [0x9A'u8, 0x6F, 0xEF, 0x27, 0xEC, 0xD0, 0x3C, 0xAE])
 const Slot_IHttpContentRangeHeaderValueFactory_CreateFromLength* = 6
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromLength* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValueFactory_CreateFromLength* = proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRange* = 7
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRange* = proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRange* = proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* = 8
-type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* = proc(self: pointer, a1: uint64, a2: uint64, a3: uint64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* = proc(self: pointer, a1: uint64, a2: uint64, a3: uint64, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueStatics
 const IID_IHttpContentRangeHeaderValueStatics* = GUID(
     data1: 0x80A346CA'u32, data2: 0x174C'u16, data3: 0x4FAE'u16,
     data4: [0x82'u8, 0x1C, 0x13, 0x4C, 0xD2, 0x94, 0xAA, 0x38])
 const Slot_IHttpContentRangeHeaderValueStatics_Parse* = 6
-type Fn_IHttpContentRangeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpContentRangeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentRangeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContentRangeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpContentRangeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValue
 const IID_IHttpCookiePairHeaderValue* = GUID(
     data1: 0xCBD46217'u32, data2: 0x4B29'u16, data3: 0x412B'u16,
     data4: [0xBD'u8, 0x90, 0xB3, 0xD8, 0x14, 0xAB, 0x8E, 0x1B])
 const Slot_IHttpCookiePairHeaderValue_get_Name* = 6
-type Fn_IHttpCookiePairHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValue_get_Value* = 7
-type Fn_IHttpCookiePairHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValue_put_Value* = 8
-type Fn_IHttpCookiePairHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueCollection
 const IID_IHttpCookiePairHeaderValueCollection* = GUID(
     data1: 0xF3F44350'u32, data2: 0x581E'u16, data3: 0x4ECC'u16,
     data4: [0x9F'u8, 0x59, 0xE5, 0x07, 0xD0, 0x4F, 0x06, 0xE6])
 const Slot_IHttpCookiePairHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpCookiePairHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpCookiePairHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory
 const IID_IHttpCookiePairHeaderValueFactory* = GUID(
     data1: 0x635E326F'u32, data2: 0x146F'u16, data3: 0x4F56'u16,
     data4: [0xAA'u8, 0x21, 0x2C, 0xB7, 0xD6, 0xD5, 0x8B, 0x1E])
 const Slot_IHttpCookiePairHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpCookiePairHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics
 const IID_IHttpCookiePairHeaderValueStatics* = GUID(
     data1: 0x6E866D48'u32, data2: 0x06AF'u16, data3: 0x4462'u16,
     data4: [0x81'u8, 0x58, 0x99, 0x38, 0x8D, 0x5D, 0xCA, 0x81])
 const Slot_IHttpCookiePairHeaderValueStatics_Parse* = 6
-type Fn_IHttpCookiePairHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValueStatics_TryParse* = 7
-type Fn_IHttpCookiePairHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpCookiePairHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookiePairHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpCookiePairHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValue
 const IID_IHttpCredentialsHeaderValue* = GUID(
     data1: 0xC34CC3CB'u32, data2: 0x542E'u16, data3: 0x4177'u16,
     data4: [0xA6'u8, 0xC7, 0xB6, 0x74, 0xCE, 0x19, 0x3F, 0xBF])
 const Slot_IHttpCredentialsHeaderValue_get_Parameters* = 6
-type Fn_IHttpCredentialsHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCredentialsHeaderValue_get_Scheme* = 7
-type Fn_IHttpCredentialsHeaderValue_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValue_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCredentialsHeaderValue_get_Token* = 8
-type Fn_IHttpCredentialsHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValue_get_Token* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory
 const IID_IHttpCredentialsHeaderValueFactory* = GUID(
     data1: 0xF21D9E91'u32, data2: 0x4D1C'u16, data3: 0x4182'u16,
     data4: [0xBF'u8, 0xD1, 0x34, 0x47, 0x0A, 0x62, 0xF9, 0x50])
 const Slot_IHttpCredentialsHeaderValueFactory_CreateFromScheme* = 6
-type Fn_IHttpCredentialsHeaderValueFactory_CreateFromScheme* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValueFactory_CreateFromScheme* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* = 7
-type Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueStatics
 const IID_IHttpCredentialsHeaderValueStatics* = GUID(
     data1: 0xA69B2BE6'u32, data2: 0xCE8C'u16, data3: 0x4443'u16,
     data4: [0xA3'u8, 0x5A, 0x1B, 0x72, 0x7B, 0x13, 0x10, 0x36])
 const Slot_IHttpCredentialsHeaderValueStatics_Parse* = 6
-type Fn_IHttpCredentialsHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCredentialsHeaderValueStatics_TryParse* = 7
-type Fn_IHttpCredentialsHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpCredentialsHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCredentialsHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpCredentialsHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValue
 const IID_IHttpDateOrDeltaHeaderValue* = GUID(
     data1: 0xEAFCAA6A'u32, data2: 0xC4DC'u16, data3: 0x49E2'u16,
     data4: [0xA2'u8, 0x7D, 0x04, 0x3A, 0xDF, 0x58, 0x67, 0xA3])
 const Slot_IHttpDateOrDeltaHeaderValue_get_Date* = 6
-type Fn_IHttpDateOrDeltaHeaderValue_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDateOrDeltaHeaderValue_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDateOrDeltaHeaderValue_get_Delta* = 7
-type Fn_IHttpDateOrDeltaHeaderValue_get_Delta* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDateOrDeltaHeaderValue_get_Delta* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValueStatics
 const IID_IHttpDateOrDeltaHeaderValueStatics* = GUID(
     data1: 0x7C2659A8'u32, data2: 0x6672'u16, data3: 0x4E90'u16,
     data4: [0x9A'u8, 0x9A, 0xF3, 0x97, 0x66, 0xF7, 0xF5, 0x76])
 const Slot_IHttpDateOrDeltaHeaderValueStatics_Parse* = 6
-type Fn_IHttpDateOrDeltaHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDateOrDeltaHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpDateOrDeltaHeaderValueStatics_TryParse* = 7
-type Fn_IHttpDateOrDeltaHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpDateOrDeltaHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpDateOrDeltaHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpDateOrDeltaHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValue
 const IID_IHttpExpectationHeaderValue* = GUID(
     data1: 0x4CE585CD'u32, data2: 0x3A99'u16, data3: 0x43AF'u16,
     data4: [0xA2'u8, 0xE6, 0xEC, 0x23, 0x2F, 0xEA, 0x96, 0x58])
 const Slot_IHttpExpectationHeaderValue_get_Name* = 6
-type Fn_IHttpExpectationHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValue_get_Value* = 7
-type Fn_IHttpExpectationHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValue_put_Value* = 8
-type Fn_IHttpExpectationHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValue_get_Parameters* = 9
-type Fn_IHttpExpectationHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection
 const IID_IHttpExpectationHeaderValueCollection* = GUID(
     data1: 0xE78521B3'u32, data2: 0xA0E2'u16, data3: 0x4AC4'u16,
     data4: [0x9E'u8, 0x66, 0x79, 0x70, 0x6C, 0xB9, 0xFD, 0x58])
 const Slot_IHttpExpectationHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpExpectationHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpExpectationHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory
 const IID_IHttpExpectationHeaderValueFactory* = GUID(
     data1: 0x4EA275CB'u32, data2: 0xD53E'u16, data3: 0x4868'u16,
     data4: [0x88'u8, 0x56, 0x1E, 0x21, 0xA5, 0x03, 0x0D, 0xC0])
 const Slot_IHttpExpectationHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpExpectationHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics
 const IID_IHttpExpectationHeaderValueStatics* = GUID(
     data1: 0x3019ABE2'u32, data2: 0xCFE5'u16, data3: 0x473B'u16,
     data4: [0xA5'u8, 0x7F, 0xFB, 0xA5, 0xB1, 0x4E, 0xB2, 0x57])
 const Slot_IHttpExpectationHeaderValueStatics_Parse* = 6
-type Fn_IHttpExpectationHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValueStatics_TryParse* = 7
-type Fn_IHttpExpectationHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpExpectationHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpExpectationHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpExpectationHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageHeaderValueCollection
 const IID_IHttpLanguageHeaderValueCollection* = GUID(
     data1: 0x9EBD7CA3'u32, data2: 0x8219'u16, data3: 0x44F6'u16,
     data4: [0x99'u8, 0x02, 0x8C, 0x56, 0xDF, 0xD3, 0x34, 0x0C])
 const Slot_IHttpLanguageHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpLanguageHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpLanguageHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpLanguageHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValue
 const IID_IHttpLanguageRangeWithQualityHeaderValue* = GUID(
     data1: 0x7256E102'u32, data2: 0x0080'u16, data3: 0x4DB4'u16,
     data4: [0xA0'u8, 0x83, 0x7D, 0xE7, 0xB2, 0xE5, 0xBA, 0x4C])
 const Slot_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpLanguageRangeWithQualityHeaderValue_get_Quality* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueCollection
 const IID_IHttpLanguageRangeWithQualityHeaderValueCollection* = GUID(
     data1: 0x885D5ABD'u32, data2: 0x4B4F'u16, data3: 0x480A'u16,
     data4: [0x89'u8, 0xCE, 0x8A, 0xED, 0xCE, 0xE6, 0xE3, 0xA0])
 const Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory
 const IID_IHttpLanguageRangeWithQualityHeaderValueFactory* = GUID(
     data1: 0x7BB83970'u32, data2: 0x780F'u16, data3: 0x4C83'u16,
     data4: [0x9F'u8, 0xE4, 0xDC, 0x30, 0x87, 0xF6, 0xBD, 0x55])
 const Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics
 const IID_IHttpLanguageRangeWithQualityHeaderValueStatics* = GUID(
     data1: 0x2541E146'u32, data2: 0xF308'u16, data3: 0x46F5'u16,
     data4: [0xB6'u8, 0x95, 0x42, 0xF5, 0x40, 0x24, 0xEC, 0x68])
 const Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValue
 const IID_IHttpMediaTypeHeaderValue* = GUID(
     data1: 0x16B28533'u32, data2: 0xE728'u16, data3: 0x4FCB'u16,
     data4: [0xBD'u8, 0xB0, 0x08, 0xA4, 0x31, 0xA1, 0x48, 0x44])
 const Slot_IHttpMediaTypeHeaderValue_get_CharSet* = 6
-type Fn_IHttpMediaTypeHeaderValue_get_CharSet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValue_get_CharSet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeHeaderValue_put_CharSet* = 7
-type Fn_IHttpMediaTypeHeaderValue_put_CharSet* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValue_put_CharSet* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeHeaderValue_get_MediaType* = 8
-type Fn_IHttpMediaTypeHeaderValue_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValue_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeHeaderValue_put_MediaType* = 9
-type Fn_IHttpMediaTypeHeaderValue_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValue_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeHeaderValue_get_Parameters* = 10
-type Fn_IHttpMediaTypeHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueFactory
 const IID_IHttpMediaTypeHeaderValueFactory* = GUID(
     data1: 0xBED747A8'u32, data2: 0xCD17'u16, data3: 0x42DD'u16,
     data4: [0x93'u8, 0x67, 0xAB, 0x9C, 0x5B, 0x56, 0xDD, 0x7D])
 const Slot_IHttpMediaTypeHeaderValueFactory_Create* = 6
-type Fn_IHttpMediaTypeHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueStatics
 const IID_IHttpMediaTypeHeaderValueStatics* = GUID(
     data1: 0xE04D83DF'u32, data2: 0x1D41'u16, data3: 0x4D8C'u16,
     data4: [0xA2'u8, 0xDE, 0x6F, 0xD2, 0xED, 0x87, 0x39, 0x9B])
 const Slot_IHttpMediaTypeHeaderValueStatics_Parse* = 6
-type Fn_IHttpMediaTypeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeHeaderValueStatics_TryParse* = 7
-type Fn_IHttpMediaTypeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpMediaTypeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpMediaTypeHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValue
 const IID_IHttpMediaTypeWithQualityHeaderValue* = GUID(
     data1: 0x188D5E32'u32, data2: 0x76BE'u16, data3: 0x44A0'u16,
     data4: [0xB1'u8, 0xCD, 0x20, 0x74, 0xBD, 0xED, 0x2D, 0xDE])
 const Slot_IHttpMediaTypeWithQualityHeaderValue_get_CharSet* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_CharSet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_get_CharSet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_put_CharSet* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_CharSet* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_put_CharSet* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_get_MediaType* = 8
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_put_MediaType* = 9
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_get_Parameters* = 10
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_get_Quality* = 11
-type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_get_Quality* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValue_put_Quality* = 12
-type Fn_IHttpMediaTypeWithQualityHeaderValue_put_Quality* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValue_put_Quality* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueCollection
 const IID_IHttpMediaTypeWithQualityHeaderValueCollection* = GUID(
     data1: 0x3C0C6B73'u32, data2: 0x1342'u16, data3: 0x4587'u16,
     data4: [0xA0'u8, 0x56, 0x18, 0xD0, 0x2F, 0xF6, 0x71, 0x65])
 const Slot_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory
 const IID_IHttpMediaTypeWithQualityHeaderValueFactory* = GUID(
     data1: 0x4C6D20F4'u32, data2: 0x9457'u16, data3: 0x44E6'u16,
     data4: [0xA3'u8, 0x23, 0xD1, 0x22, 0xB9, 0x58, 0x78, 0x0B])
 const Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* = proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueStatics
 const IID_IHttpMediaTypeWithQualityHeaderValueStatics* = GUID(
     data1: 0x5B070CD9'u32, data2: 0xB560'u16, data3: 0x4FC8'u16,
     data4: [0x98'u8, 0x35, 0x7E, 0x6C, 0x0A, 0x65, 0x7B, 0x24])
 const Slot_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* = 6
-type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* = 7
-type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpMediaTypeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpMediaTypeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMethodHeaderValueCollection
 const IID_IHttpMethodHeaderValueCollection* = GUID(
     data1: 0x43BC3FF4'u32, data2: 0x6119'u16, data3: 0x4ADF'u16,
     data4: [0x93'u8, 0x8C, 0x34, 0xBF, 0xFF, 0xCF, 0x92, 0xED])
 const Slot_IHttpMethodHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpMethodHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMethodHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpMethodHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValue
 const IID_IHttpNameValueHeaderValue* = GUID(
     data1: 0xD8BA7463'u32, data2: 0x5B9A'u16, data3: 0x4D1B'u16,
     data4: [0x93'u8, 0xF9, 0xAA, 0x5B, 0x44, 0xEC, 0xFD, 0xDF])
 const Slot_IHttpNameValueHeaderValue_get_Name* = 6
-type Fn_IHttpNameValueHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpNameValueHeaderValue_get_Value* = 7
-type Fn_IHttpNameValueHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpNameValueHeaderValue_put_Value* = 8
-type Fn_IHttpNameValueHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValue_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory
 const IID_IHttpNameValueHeaderValueFactory* = GUID(
     data1: 0x770E2267'u32, data2: 0xCBF8'u16, data3: 0x4736'u16,
     data4: [0xA9'u8, 0x25, 0x93, 0xFB, 0xE1, 0x0C, 0x7C, 0xA8])
 const Slot_IHttpNameValueHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpNameValueHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* = 7
-type Fn_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics
 const IID_IHttpNameValueHeaderValueStatics* = GUID(
     data1: 0xFFD4030F'u32, data2: 0x1130'u16, data3: 0x4152'u16,
     data4: [0x86'u8, 0x59, 0x25, 0x69, 0x09, 0xA9, 0xD1, 0x15])
 const Slot_IHttpNameValueHeaderValueStatics_Parse* = 6
-type Fn_IHttpNameValueHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpNameValueHeaderValueStatics_TryParse* = 7
-type Fn_IHttpNameValueHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpNameValueHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpNameValueHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpNameValueHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValue
 const IID_IHttpProductHeaderValue* = GUID(
     data1: 0xF4FEEE03'u32, data2: 0xEBD4'u16, data3: 0x4160'u16,
     data4: [0xB9'u8, 0xFF, 0x80, 0x7C, 0x51, 0x83, 0xB6, 0xE6])
 const Slot_IHttpProductHeaderValue_get_Name* = 6
-type Fn_IHttpProductHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValue_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpProductHeaderValue_get_Version* = 7
-type Fn_IHttpProductHeaderValue_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValue_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValueFactory
 const IID_IHttpProductHeaderValueFactory* = GUID(
     data1: 0x611AA4F5'u32, data2: 0x82BC'u16, data3: 0x42FB'u16,
     data4: [0x97'u8, 0x7B, 0xDC, 0x00, 0x53, 0x6E, 0x5E, 0x86])
 const Slot_IHttpProductHeaderValueFactory_CreateFromName* = 6
-type Fn_IHttpProductHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValueFactory_CreateFromName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* = 7
-type Fn_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValueStatics
 const IID_IHttpProductHeaderValueStatics* = GUID(
     data1: 0x90C33E29'u32, data2: 0xBEFC'u16, data3: 0x4337'u16,
     data4: [0xBE'u8, 0x62, 0x49, 0xF0, 0x97, 0x97, 0x5F, 0x53])
 const Slot_IHttpProductHeaderValueStatics_Parse* = 6
-type Fn_IHttpProductHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductHeaderValueStatics_TryParse* = 7
-type Fn_IHttpProductHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpProductHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpProductHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValue
 const IID_IHttpProductInfoHeaderValue* = GUID(
     data1: 0x1B1A8732'u32, data2: 0x4C35'u16, data3: 0x486A'u16,
     data4: [0x96'u8, 0x6F, 0x64, 0x64, 0x89, 0x19, 0x8E, 0x4D])
 const Slot_IHttpProductInfoHeaderValue_get_Product* = 6
-type Fn_IHttpProductInfoHeaderValue_get_Product* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValue_get_Product* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductInfoHeaderValue_get_Comment* = 7
-type Fn_IHttpProductInfoHeaderValue_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValue_get_Comment* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection
 const IID_IHttpProductInfoHeaderValueCollection* = GUID(
     data1: 0x877DF74A'u32, data2: 0xD69B'u16, data3: 0x44F8'u16,
     data4: [0xAD'u8, 0x4F, 0x45, 0x3A, 0xF9, 0xC4, 0x2E, 0xD0])
 const Slot_IHttpProductInfoHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpProductInfoHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpProductInfoHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpProductInfoHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory
 const IID_IHttpProductInfoHeaderValueFactory* = GUID(
     data1: 0x24220FBE'u32, data2: 0xEABE'u16, data3: 0x4464'u16,
     data4: [0xB4'u8, 0x60, 0xEC, 0x01, 0x0B, 0x7C, 0x41, 0xE2])
 const Slot_IHttpProductInfoHeaderValueFactory_CreateFromComment* = 6
-type Fn_IHttpProductInfoHeaderValueFactory_CreateFromComment* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueFactory_CreateFromComment* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* = 7
-type Fn_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics
 const IID_IHttpProductInfoHeaderValueStatics* = GUID(
     data1: 0xDB7FD857'u32, data2: 0x327A'u16, data3: 0x4E73'u16,
     data4: [0x81'u8, 0xE5, 0x70, 0x59, 0xA3, 0x02, 0xB0, 0x42])
 const Slot_IHttpProductInfoHeaderValueStatics_Parse* = 6
-type Fn_IHttpProductInfoHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductInfoHeaderValueStatics_TryParse* = 7
-type Fn_IHttpProductInfoHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpProductInfoHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpProductInfoHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpProductInfoHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpRequestHeaderCollection
 const IID_IHttpRequestHeaderCollection* = GUID(
     data1: 0xAF40329B'u32, data2: 0xB544'u16, data3: 0x469B'u16,
     data4: [0x86'u8, 0xB9, 0xAC, 0x3D, 0x46, 0x6F, 0xEA, 0x36])
 const Slot_IHttpRequestHeaderCollection_get_Accept* = 6
-type Fn_IHttpRequestHeaderCollection_get_Accept* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Accept* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_AcceptEncoding* = 7
-type Fn_IHttpRequestHeaderCollection_get_AcceptEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_AcceptEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_AcceptLanguage* = 8
-type Fn_IHttpRequestHeaderCollection_get_AcceptLanguage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_AcceptLanguage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Authorization* = 9
-type Fn_IHttpRequestHeaderCollection_get_Authorization* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Authorization* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_Authorization* = 10
-type Fn_IHttpRequestHeaderCollection_put_Authorization* = proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_Authorization* = proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_CacheControl* = 11
-type Fn_IHttpRequestHeaderCollection_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Connection* = 12
-type Fn_IHttpRequestHeaderCollection_get_Connection* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Connection* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Cookie* = 13
-type Fn_IHttpRequestHeaderCollection_get_Cookie* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Cookie* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Date* = 14
-type Fn_IHttpRequestHeaderCollection_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_Date* = 15
-type Fn_IHttpRequestHeaderCollection_put_Date* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_Date* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Expect* = 16
-type Fn_IHttpRequestHeaderCollection_get_Expect* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Expect* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_From* = 17
-type Fn_IHttpRequestHeaderCollection_get_From* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_From* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_From* = 18
-type Fn_IHttpRequestHeaderCollection_put_From* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_From* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Host* = 19
-type Fn_IHttpRequestHeaderCollection_get_Host* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Host* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_Host* = 20
-type Fn_IHttpRequestHeaderCollection_put_Host* = proc(self: pointer, a1HostName: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_Host* = proc(self: pointer, a1HostName: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_IfModifiedSince* = 21
-type Fn_IHttpRequestHeaderCollection_get_IfModifiedSince* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_IfModifiedSince* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_IfModifiedSince* = 22
-type Fn_IHttpRequestHeaderCollection_put_IfModifiedSince* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_IfModifiedSince* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_IfUnmodifiedSince* = 23
-type Fn_IHttpRequestHeaderCollection_get_IfUnmodifiedSince* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_IfUnmodifiedSince* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_IfUnmodifiedSince* = 24
-type Fn_IHttpRequestHeaderCollection_put_IfUnmodifiedSince* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_IfUnmodifiedSince* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_MaxForwards* = 25
-type Fn_IHttpRequestHeaderCollection_get_MaxForwards* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_MaxForwards* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_MaxForwards* = 26
-type Fn_IHttpRequestHeaderCollection_put_MaxForwards* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_MaxForwards* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_ProxyAuthorization* = 27
-type Fn_IHttpRequestHeaderCollection_get_ProxyAuthorization* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_ProxyAuthorization* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_ProxyAuthorization* = 28
-type Fn_IHttpRequestHeaderCollection_put_ProxyAuthorization* = proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_ProxyAuthorization* = proc(self: pointer, a1HttpCredentialsHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_Referer* = 29
-type Fn_IHttpRequestHeaderCollection_get_Referer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_Referer* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_put_Referer* = 30
-type Fn_IHttpRequestHeaderCollection_put_Referer* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_put_Referer* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_TransferEncoding* = 31
-type Fn_IHttpRequestHeaderCollection_get_TransferEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_TransferEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_get_UserAgent* = 32
-type Fn_IHttpRequestHeaderCollection_get_UserAgent* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_get_UserAgent* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_Append* = 33
-type Fn_IHttpRequestHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_TryAppendWithoutValidation* = 34
-type Fn_IHttpRequestHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpResponseHeaderCollection
 const IID_IHttpResponseHeaderCollection* = GUID(
     data1: 0x7A990969'u32, data2: 0xFA3F'u16, data3: 0x41ED'u16,
     data4: [0xAA'u8, 0xC6, 0xBF, 0x95, 0x79, 0x75, 0xC1, 0x6B])
 const Slot_IHttpResponseHeaderCollection_get_Age* = 6
-type Fn_IHttpResponseHeaderCollection_get_Age* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_Age* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_put_Age* = 7
-type Fn_IHttpResponseHeaderCollection_put_Age* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_put_Age* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_Allow* = 8
-type Fn_IHttpResponseHeaderCollection_get_Allow* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_Allow* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_CacheControl* = 9
-type Fn_IHttpResponseHeaderCollection_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_CacheControl* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_Connection* = 10
-type Fn_IHttpResponseHeaderCollection_get_Connection* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_Connection* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_Date* = 11
-type Fn_IHttpResponseHeaderCollection_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_Date* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_put_Date* = 12
-type Fn_IHttpResponseHeaderCollection_put_Date* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_put_Date* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_Location* = 13
-type Fn_IHttpResponseHeaderCollection_get_Location* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_Location* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_put_Location* = 14
-type Fn_IHttpResponseHeaderCollection_put_Location* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_put_Location* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_ProxyAuthenticate* = 15
-type Fn_IHttpResponseHeaderCollection_get_ProxyAuthenticate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_ProxyAuthenticate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_RetryAfter* = 16
-type Fn_IHttpResponseHeaderCollection_get_RetryAfter* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_RetryAfter* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_put_RetryAfter* = 17
-type Fn_IHttpResponseHeaderCollection_put_RetryAfter* = proc(self: pointer, a1HttpDateOrDeltaHeaderValue: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_put_RetryAfter* = proc(self: pointer, a1HttpDateOrDeltaHeaderValue: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_TransferEncoding* = 18
-type Fn_IHttpResponseHeaderCollection_get_TransferEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_TransferEncoding* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_get_WwwAuthenticate* = 19
-type Fn_IHttpResponseHeaderCollection_get_WwwAuthenticate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_get_WwwAuthenticate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_Append* = 20
-type Fn_IHttpResponseHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_Append* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_TryAppendWithoutValidation* = 21
-type Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
 const IID_IHttpTransferCodingHeaderValue* = GUID(
     data1: 0x436F32F9'u32, data2: 0x3DED'u16, data3: 0x42BD'u16,
     data4: [0xB3'u8, 0x8A, 0x54, 0x96, 0xA2, 0x51, 0x1C, 0xE6])
 const Slot_IHttpTransferCodingHeaderValue_get_Parameters* = 6
-type Fn_IHttpTransferCodingHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValue_get_Parameters* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpTransferCodingHeaderValue_get_Value* = 7
-type Fn_IHttpTransferCodingHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValue_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueCollection
 const IID_IHttpTransferCodingHeaderValueCollection* = GUID(
     data1: 0x202C8C34'u32, data2: 0x2C03'u16, data3: 0x49B8'u16,
     data4: [0x96'u8, 0x65, 0x73, 0xE2, 0x7C, 0xB2, 0xFC, 0x79])
 const Slot_IHttpTransferCodingHeaderValueCollection_ParseAdd* = 6
-type Fn_IHttpTransferCodingHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValueCollection_ParseAdd* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpTransferCodingHeaderValueCollection_TryParseAdd* = 7
-type Fn_IHttpTransferCodingHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValueCollection_TryParseAdd* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueFactory
 const IID_IHttpTransferCodingHeaderValueFactory* = GUID(
     data1: 0xBB62DFFC'u32, data2: 0xE361'u16, data3: 0x4F08'u16,
     data4: [0x8E'u8, 0x4F, 0xC9, 0xE7, 0x23, 0xDE, 0x70, 0x3B])
 const Slot_IHttpTransferCodingHeaderValueFactory_Create* = 6
-type Fn_IHttpTransferCodingHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValueFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueStatics
 const IID_IHttpTransferCodingHeaderValueStatics* = GUID(
     data1: 0x6AB8892A'u32, data2: 0x1A98'u16, data3: 0x4D32'u16,
     data4: [0xA9'u8, 0x06, 0x74, 0x70, 0xA9, 0x87, 0x5C, 0xE5])
 const Slot_IHttpTransferCodingHeaderValueStatics_Parse* = 6
-type Fn_IHttpTransferCodingHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValueStatics_Parse* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpTransferCodingHeaderValueStatics_TryParse* = 7
-type Fn_IHttpTransferCodingHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpTransferCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransferCodingHeaderValueStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2HttpTransferCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpBufferContentFactory
 const IID_IHttpBufferContentFactory* = GUID(
     data1: 0xBC20C193'u32, data2: 0xC41F'u16, data3: 0x4FF7'u16,
     data4: [0x91'u8, 0x23, 0x64, 0x35, 0x73, 0x6E, 0xAD, 0xC2])
 const Slot_IHttpBufferContentFactory_CreateFromBuffer* = 6
-type Fn_IHttpBufferContentFactory_CreateFromBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBufferContentFactory_CreateFromBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpBufferContentFactory_CreateFromBufferWithOffset* = 7
-type Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset* = proc(self: pointer, a1IBuffer: pointer, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient
 const IID_IHttpClient* = GUID(
     data1: 0x7FDA1151'u32, data2: 0x3574'u16, data3: 0x4880'u16,
     data4: [0xA8'u8, 0xBA, 0xE6, 0xB1, 0xE0, 0x06, 0x1F, 0x3D])
 const Slot_IHttpClient_DeleteAsync* = 6
-type Fn_IHttpClient_DeleteAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_DeleteAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_GetAsync* = 7
-type Fn_IHttpClient_GetAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_GetAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_GetAsync2* = 8
-type Fn_IHttpClient_GetAsync2* = proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_GetAsync2* = proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_GetBufferAsync* = 9
-type Fn_IHttpClient_GetBufferAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_GetBufferAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_GetInputStreamAsync* = 10
-type Fn_IHttpClient_GetInputStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_GetInputStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_GetStringAsync* = 11
-type Fn_IHttpClient_GetStringAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_GetStringAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_PostAsync* = 12
-type Fn_IHttpClient_PostAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_PostAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_PutAsync* = 13
-type Fn_IHttpClient_PutAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_PutAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_SendRequestAsync* = 14
-type Fn_IHttpClient_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_SendRequestAsync2* = 15
-type Fn_IHttpClient_SendRequestAsync2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_SendRequestAsync2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_get_DefaultRequestHeaders* = 16
-type Fn_IHttpClient_get_DefaultRequestHeaders* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient_get_DefaultRequestHeaders* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient2
 const IID_IHttpClient2* = GUID(
     data1: 0xCDD83348'u32, data2: 0xE8B7'u16, data3: 0x4CEC'u16,
     data4: [0xB1'u8, 0xB0, 0xDC, 0x45, 0x5F, 0xE7, 0x2C, 0x92])
 const Slot_IHttpClient2_TryDeleteAsync* = 6
-type Fn_IHttpClient2_TryDeleteAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryDeleteAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryGetAsync* = 7
-type Fn_IHttpClient2_TryGetAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryGetAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryGetAsync2* = 8
-type Fn_IHttpClient2_TryGetAsync2* = proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryGetAsync2* = proc(self: pointer, a1Uri: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryGetBufferAsync* = 9
-type Fn_IHttpClient2_TryGetBufferAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryGetBufferAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryGetInputStreamAsync* = 10
-type Fn_IHttpClient2_TryGetInputStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryGetInputStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryGetStringAsync* = 11
-type Fn_IHttpClient2_TryGetStringAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryGetStringAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryPostAsync* = 12
-type Fn_IHttpClient2_TryPostAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryPostAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TryPutAsync* = 13
-type Fn_IHttpClient2_TryPutAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TryPutAsync* = proc(self: pointer, a1Uri: pointer, a2IHttpContent: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TrySendRequestAsync* = 14
-type Fn_IHttpClient2_TrySendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TrySendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TrySendRequestAsync2* = 15
-type Fn_IHttpClient2_TrySendRequestAsync2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient2_TrySendRequestAsync2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClient3
 const IID_IHttpClient3* = GUID(
     data1: 0x1172FD01'u32, data2: 0x9899'u16, data3: 0x4194'u16,
     data4: [0x96'u8, 0x3F, 0x8F, 0x9D, 0x72, 0xA7, 0xEC, 0x15])
 const Slot_IHttpClient3_get_DefaultPrivacyAnnotation* = 6
-type Fn_IHttpClient3_get_DefaultPrivacyAnnotation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient3_get_DefaultPrivacyAnnotation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpClient3_put_DefaultPrivacyAnnotation* = 7
-type Fn_IHttpClient3_put_DefaultPrivacyAnnotation* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClient3_put_DefaultPrivacyAnnotation* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpClientFactory
 const IID_IHttpClientFactory* = GUID(
     data1: 0xC30C4ECA'u32, data2: 0xE3FA'u16, data3: 0x4F99'u16,
     data4: [0xAF'u8, 0xB4, 0x63, 0xCC, 0x65, 0x00, 0x94, 0x62])
 const Slot_IHttpClientFactory_Create* = 6
-type Fn_IHttpClientFactory_Create* = proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpClientFactory_Create* = proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpContent
 const IID_IHttpContent* = GUID(
     data1: 0x6B14A441'u32, data2: 0xFBA7'u16, data3: 0x4BD2'u16,
     data4: [0xAF'u8, 0x0A, 0x83, 0x9D, 0xE7, 0xC2, 0x95, 0xDA])
 const Slot_IHttpContent_get_Headers* = 6
-type Fn_IHttpContent_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContent_BufferAllAsync* = 7
-type Fn_IHttpContent_BufferAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_BufferAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContent_ReadAsBufferAsync* = 8
-type Fn_IHttpContent_ReadAsBufferAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_ReadAsBufferAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContent_ReadAsInputStreamAsync* = 9
-type Fn_IHttpContent_ReadAsInputStreamAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_ReadAsInputStreamAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContent_ReadAsStringAsync* = 10
-type Fn_IHttpContent_ReadAsStringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_ReadAsStringAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContent_TryComputeLength* = 11
-type Fn_IHttpContent_TryComputeLength* = proc(self: pointer, a1: ptr uint64, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_TryComputeLength* = proc(self: pointer, a1: ptr uint64, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpContent_WriteToStreamAsync* = 12
-type Fn_IHttpContent_WriteToStreamAsync* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpContent_WriteToStreamAsync* = proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookie
 const IID_IHttpCookie* = GUID(
     data1: 0x1F5488E2'u32, data2: 0xCC2D'u16, data3: 0x4779'u16,
     data4: [0x86'u8, 0xA7, 0x88, 0xF1, 0x06, 0x87, 0xD2, 0x49])
 const Slot_IHttpCookie_get_Name* = 6
-type Fn_IHttpCookie_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookie_get_Domain* = 7
-type Fn_IHttpCookie_get_Domain* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Domain* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookie_get_Path* = 8
-type Fn_IHttpCookie_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Path* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookie_get_Expires* = 9
-type Fn_IHttpCookie_get_Expires* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Expires* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCookie_put_Expires* = 10
-type Fn_IHttpCookie_put_Expires* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_put_Expires* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IHttpCookie_get_HttpOnly* = 11
-type Fn_IHttpCookie_get_HttpOnly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_HttpOnly* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpCookie_put_HttpOnly* = 12
-type Fn_IHttpCookie_put_HttpOnly* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_put_HttpOnly* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpCookie_get_Secure* = 13
-type Fn_IHttpCookie_get_Secure* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Secure* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpCookie_put_Secure* = 14
-type Fn_IHttpCookie_put_Secure* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_put_Secure* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpCookie_get_Value* = 15
-type Fn_IHttpCookie_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpCookie_put_Value* = 16
-type Fn_IHttpCookie_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookie_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookieFactory
 const IID_IHttpCookieFactory* = GUID(
     data1: 0x6A0585A9'u32, data2: 0x931C'u16, data3: 0x4CD1'u16,
     data4: [0xA9'u8, 0x6D, 0xC2, 0x17, 0x01, 0x78, 0x5C, 0x5F])
 const Slot_IHttpCookieFactory_Create* = 6
-type Fn_IHttpCookieFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookieFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookieManager
 const IID_IHttpCookieManager* = GUID(
     data1: 0x7A431780'u32, data2: 0xCD4F'u16, data3: 0x4E57'u16,
     data4: [0xA8'u8, 0x4A, 0x5B, 0x0A, 0x53, 0xD6, 0xBB, 0x96])
 const Slot_IHttpCookieManager_SetCookie* = 6
-type Fn_IHttpCookieManager_SetCookie* = proc(self: pointer, a1HttpCookie: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookieManager_SetCookie* = proc(self: pointer, a1HttpCookie: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpCookieManager_SetCookie2* = 7
-type Fn_IHttpCookieManager_SetCookie2* = proc(self: pointer, a1HttpCookie: pointer, a2: bool, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookieManager_SetCookie2* = proc(self: pointer, a1HttpCookie: pointer, a2: bool, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpCookieManager_DeleteCookie* = 8
-type Fn_IHttpCookieManager_DeleteCookie* = proc(self: pointer, a1HttpCookie: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookieManager_DeleteCookie* = proc(self: pointer, a1HttpCookie: pointer): HRESULT {.abi.}
 const Slot_IHttpCookieManager_GetCookies* = 9
-type Fn_IHttpCookieManager_GetCookies* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpCookieManager_GetCookies* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpFormUrlEncodedContentFactory
 const IID_IHttpFormUrlEncodedContentFactory* = GUID(
     data1: 0x43F0138C'u32, data2: 0x2F73'u16, data3: 0x4302'u16,
     data4: [0xB5'u8, 0xF3, 0xEA, 0xE9, 0x23, 0x8A, 0x5E, 0x01])
 const Slot_IHttpFormUrlEncodedContentFactory_Create* = 6
-type Fn_IHttpFormUrlEncodedContentFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpFormUrlEncodedContentFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetBufferResult
 const IID_IHttpGetBufferResult* = GUID(
     data1: 0x53D08E7C'u32, data2: 0xE209'u16, data3: 0x404E'u16,
     data4: [0x9A'u8, 0x49, 0x74, 0x2D, 0x82, 0x36, 0xFD, 0x3A])
 const Slot_IHttpGetBufferResult_get_ExtendedError* = 6
-type Fn_IHttpGetBufferResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetBufferResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IHttpGetBufferResult_get_RequestMessage* = 7
-type Fn_IHttpGetBufferResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetBufferResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetBufferResult_get_ResponseMessage* = 8
-type Fn_IHttpGetBufferResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetBufferResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetBufferResult_get_Succeeded* = 9
-type Fn_IHttpGetBufferResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetBufferResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpGetBufferResult_get_Value* = 10
-type Fn_IHttpGetBufferResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetBufferResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetInputStreamResult
 const IID_IHttpGetInputStreamResult* = GUID(
     data1: 0xD5D63463'u32, data2: 0x13AA'u16, data3: 0x4EE0'u16,
     data4: [0xBE'u8, 0x95, 0xA0, 0xC3, 0x9F, 0xE9, 0x12, 0x03])
 const Slot_IHttpGetInputStreamResult_get_ExtendedError* = 6
-type Fn_IHttpGetInputStreamResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetInputStreamResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IHttpGetInputStreamResult_get_RequestMessage* = 7
-type Fn_IHttpGetInputStreamResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetInputStreamResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetInputStreamResult_get_ResponseMessage* = 8
-type Fn_IHttpGetInputStreamResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetInputStreamResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetInputStreamResult_get_Succeeded* = 9
-type Fn_IHttpGetInputStreamResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetInputStreamResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpGetInputStreamResult_get_Value* = 10
-type Fn_IHttpGetInputStreamResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetInputStreamResult_get_Value* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpGetStringResult
 const IID_IHttpGetStringResult* = GUID(
     data1: 0x9BAC466D'u32, data2: 0x8509'u16, data3: 0x4775'u16,
     data4: [0xB1'u8, 0x6D, 0x89, 0x53, 0xF4, 0x7A, 0x7F, 0x5F])
 const Slot_IHttpGetStringResult_get_ExtendedError* = 6
-type Fn_IHttpGetStringResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetStringResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IHttpGetStringResult_get_RequestMessage* = 7
-type Fn_IHttpGetStringResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetStringResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetStringResult_get_ResponseMessage* = 8
-type Fn_IHttpGetStringResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetStringResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpGetStringResult_get_Succeeded* = 9
-type Fn_IHttpGetStringResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetStringResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpGetStringResult_get_Value* = 10
-type Fn_IHttpGetStringResult_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpGetStringResult_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethod
 const IID_IHttpMethod* = GUID(
     data1: 0x728D4022'u32, data2: 0x700D'u16, data3: 0x4FE0'u16,
     data4: [0xAF'u8, 0xA5, 0x40, 0x29, 0x9C, 0x58, 0xDB, 0xFD])
 const Slot_IHttpMethod_get_Method* = 6
-type Fn_IHttpMethod_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethod_get_Method* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethodFactory
 const IID_IHttpMethodFactory* = GUID(
     data1: 0x3C51D10D'u32, data2: 0x36D7'u16, data3: 0x40F8'u16,
     data4: [0xA8'u8, 0x6D, 0xE7, 0x59, 0xCA, 0xF2, 0xF8, 0x3F])
 const Slot_IHttpMethodFactory_Create* = 6
-type Fn_IHttpMethodFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMethodStatics
 const IID_IHttpMethodStatics* = GUID(
     data1: 0x64D171F0'u32, data2: 0xD99A'u16, data3: 0x4153'u16,
     data4: [0x8D'u8, 0xC6, 0xD6, 0x8C, 0xC4, 0xCC, 0xE3, 0x17])
 const Slot_IHttpMethodStatics_get_Delete* = 6
-type Fn_IHttpMethodStatics_get_Delete* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Delete* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Get* = 7
-type Fn_IHttpMethodStatics_get_Get* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Get* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Head* = 8
-type Fn_IHttpMethodStatics_get_Head* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Head* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Options* = 9
-type Fn_IHttpMethodStatics_get_Options* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Options* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Patch* = 10
-type Fn_IHttpMethodStatics_get_Patch* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Patch* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Post* = 11
-type Fn_IHttpMethodStatics_get_Post* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Post* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMethodStatics_get_Put* = 12
-type Fn_IHttpMethodStatics_get_Put* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMethodStatics_get_Put* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartContent
 const IID_IHttpMultipartContent* = GUID(
     data1: 0xDF916AFF'u32, data2: 0x9926'u16, data3: 0x4AC9'u16,
     data4: [0xAA'u8, 0xF1, 0xE0, 0xD0, 0x4E, 0xF0, 0x9B, 0xB9])
 const Slot_IHttpMultipartContent_Add* = 6
-type Fn_IHttpMultipartContent_Add* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartContent_Add* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartContentFactory
 const IID_IHttpMultipartContentFactory* = GUID(
     data1: 0x7EB42E62'u32, data2: 0x0222'u16, data3: 0x4F20'u16,
     data4: [0xB3'u8, 0x72, 0x47, 0xD5, 0xDB, 0x5D, 0x33, 0xB4])
 const Slot_IHttpMultipartContentFactory_CreateWithSubtype* = 6
-type Fn_IHttpMultipartContentFactory_CreateWithSubtype* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartContentFactory_CreateWithSubtype* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* = 7
-type Fn_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContent
 const IID_IHttpMultipartFormDataContent* = GUID(
     data1: 0x64D337E2'u32, data2: 0xE967'u16, data3: 0x4624'u16,
     data4: [0xB6'u8, 0xD1, 0xCF, 0x74, 0x60, 0x4A, 0x4A, 0x42])
 const Slot_IHttpMultipartFormDataContent_Add* = 6
-type Fn_IHttpMultipartFormDataContent_Add* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartFormDataContent_Add* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
 const Slot_IHttpMultipartFormDataContent_Add2* = 7
-type Fn_IHttpMultipartFormDataContent_Add2* = proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartFormDataContent_Add2* = proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMultipartFormDataContent_Add3* = 8
-type Fn_IHttpMultipartFormDataContent_Add3* = proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartFormDataContent_Add3* = proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContentFactory
 const IID_IHttpMultipartFormDataContentFactory* = GUID(
     data1: 0xA04D7311'u32, data2: 0x5017'u16, data3: 0x4622'u16,
     data4: [0x93'u8, 0xA8, 0x49, 0xB2, 0x4A, 0x4F, 0xCB, 0xFC])
 const Slot_IHttpMultipartFormDataContentFactory_CreateWithBoundary* = 6
-type Fn_IHttpMultipartFormDataContentFactory_CreateWithBoundary* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpMultipartFormDataContentFactory_CreateWithBoundary* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessage
 const IID_IHttpRequestMessage* = GUID(
     data1: 0xF5762B3C'u32, data2: 0x74D4'u16, data3: 0x4811'u16,
     data4: [0xB5'u8, 0xDC, 0x9F, 0x8B, 0x4E, 0x2F, 0x9A, 0xBF])
 const Slot_IHttpRequestMessage_get_Content* = 6
-type Fn_IHttpRequestMessage_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_put_Content* = 7
-type Fn_IHttpRequestMessage_put_Content* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_put_Content* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_get_Headers* = 8
-type Fn_IHttpRequestMessage_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_get_Method* = 9
-type Fn_IHttpRequestMessage_get_Method* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_Method* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_put_Method* = 10
-type Fn_IHttpRequestMessage_put_Method* = proc(self: pointer, a1HttpMethod: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_put_Method* = proc(self: pointer, a1HttpMethod: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_get_Properties* = 11
-type Fn_IHttpRequestMessage_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_get_RequestUri* = 12
-type Fn_IHttpRequestMessage_get_RequestUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_RequestUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_put_RequestUri* = 13
-type Fn_IHttpRequestMessage_put_RequestUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_put_RequestUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IHttpRequestMessage_get_TransportInformation* = 14
-type Fn_IHttpRequestMessage_get_TransportInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage_get_TransportInformation* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessage2
 const IID_IHttpRequestMessage2* = GUID(
     data1: 0xC3C60489'u32, data2: 0x62C2'u16, data3: 0x4A3F'u16,
     data4: [0x95'u8, 0x54, 0x22, 0x6E, 0x7C, 0x60, 0xBD, 0x96])
 const Slot_IHttpRequestMessage2_get_PrivacyAnnotation* = 6
-type Fn_IHttpRequestMessage2_get_PrivacyAnnotation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage2_get_PrivacyAnnotation* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpRequestMessage2_put_PrivacyAnnotation* = 7
-type Fn_IHttpRequestMessage2_put_PrivacyAnnotation* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessage2_put_PrivacyAnnotation* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestMessageFactory
 const IID_IHttpRequestMessageFactory* = GUID(
     data1: 0x5BAC994E'u32, data2: 0x3886'u16, data3: 0x412E'u16,
     data4: [0xAE'u8, 0xC3, 0x52, 0xEC, 0x7F, 0x25, 0x61, 0x6F])
 const Slot_IHttpRequestMessageFactory_Create* = 6
-type Fn_IHttpRequestMessageFactory_Create* = proc(self: pointer, a1HttpMethod: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestMessageFactory_Create* = proc(self: pointer, a1HttpMethod: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpRequestResult
 const IID_IHttpRequestResult* = GUID(
     data1: 0x6ACF4DA8'u32, data2: 0xB5EB'u16, data3: 0x4A35'u16,
     data4: [0xA9'u8, 0x02, 0x42, 0x17, 0xFB, 0xE8, 0x20, 0xC5])
 const Slot_IHttpRequestResult_get_ExtendedError* = 6
-type Fn_IHttpRequestResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IHttpRequestResult_get_RequestMessage* = 7
-type Fn_IHttpRequestResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestResult_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestResult_get_ResponseMessage* = 8
-type Fn_IHttpRequestResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestResult_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpRequestResult_get_Succeeded* = 9
-type Fn_IHttpRequestResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpRequestResult_get_Succeeded* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpResponseMessage
 const IID_IHttpResponseMessage* = GUID(
     data1: 0xFEE200FB'u32, data2: 0x8664'u16, data3: 0x44E0'u16,
     data4: [0x95'u8, 0xD9, 0x42, 0x69, 0x61, 0x99, 0xBF, 0xFC])
 const Slot_IHttpResponseMessage_get_Content* = 6
-type Fn_IHttpResponseMessage_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_Content* = 7
-type Fn_IHttpResponseMessage_put_Content* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_Content* = proc(self: pointer, a1IHttpContent: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_Headers* = 8
-type Fn_IHttpResponseMessage_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_Headers* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_IsSuccessStatusCode* = 9
-type Fn_IHttpResponseMessage_get_IsSuccessStatusCode* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_IsSuccessStatusCode* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_ReasonPhrase* = 10
-type Fn_IHttpResponseMessage_get_ReasonPhrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_ReasonPhrase* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_ReasonPhrase* = 11
-type Fn_IHttpResponseMessage_put_ReasonPhrase* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_ReasonPhrase* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_RequestMessage* = 12
-type Fn_IHttpResponseMessage_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_RequestMessage* = 13
-type Fn_IHttpResponseMessage_put_RequestMessage* = proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_RequestMessage* = proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_Source* = 14
-type Fn_IHttpResponseMessage_get_Source* = proc(self: pointer, value: ptr HttpResponseMessageSource): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_Source* = proc(self: pointer, value: ptr HttpResponseMessageSource): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_Source* = 15
-type Fn_IHttpResponseMessage_put_Source* = proc(self: pointer, a1: HttpResponseMessageSource): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_Source* = proc(self: pointer, a1: HttpResponseMessageSource): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_StatusCode* = 16
-type Fn_IHttpResponseMessage_get_StatusCode* = proc(self: pointer, value: ptr HttpStatusCode): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_StatusCode* = proc(self: pointer, value: ptr HttpStatusCode): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_StatusCode* = 17
-type Fn_IHttpResponseMessage_put_StatusCode* = proc(self: pointer, a1: HttpStatusCode): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_StatusCode* = proc(self: pointer, a1: HttpStatusCode): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_get_Version* = 18
-type Fn_IHttpResponseMessage_get_Version* = proc(self: pointer, value: ptr HttpVersion): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_get_Version* = proc(self: pointer, value: ptr HttpVersion): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_put_Version* = 19
-type Fn_IHttpResponseMessage_put_Version* = proc(self: pointer, a1: HttpVersion): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_put_Version* = proc(self: pointer, a1: HttpVersion): HRESULT {.abi.}
 const Slot_IHttpResponseMessage_EnsureSuccessStatusCode* = 20
-type Fn_IHttpResponseMessage_EnsureSuccessStatusCode* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessage_EnsureSuccessStatusCode* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpResponseMessageFactory
 const IID_IHttpResponseMessageFactory* = GUID(
     data1: 0x52A8AF99'u32, data2: 0xF095'u16, data3: 0x43DA'u16,
     data4: [0xB6'u8, 0x0F, 0x7C, 0xFC, 0x2B, 0xC7, 0xEA, 0x2F])
 const Slot_IHttpResponseMessageFactory_Create* = 6
-type Fn_IHttpResponseMessageFactory_Create* = proc(self: pointer, a1: HttpStatusCode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpResponseMessageFactory_Create* = proc(self: pointer, a1: HttpStatusCode, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpStreamContentFactory
 const IID_IHttpStreamContentFactory* = GUID(
     data1: 0xF3E64D9D'u32, data2: 0xF725'u16, data3: 0x407E'u16,
     data4: [0x94'u8, 0x2F, 0x0E, 0xDA, 0x18, 0x98, 0x09, 0xF4])
 const Slot_IHttpStreamContentFactory_CreateFromInputStream* = 6
-type Fn_IHttpStreamContentFactory_CreateFromInputStream* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpStreamContentFactory_CreateFromInputStream* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpStringContentFactory
 const IID_IHttpStringContentFactory* = GUID(
     data1: 0x46649D5B'u32, data2: 0x2E93'u16, data3: 0x48EB'u16,
     data4: [0x8E'u8, 0x61, 0x19, 0x67, 0x78, 0x78, 0xE5, 0x7F])
 const Slot_IHttpStringContentFactory_CreateFromString* = 6
-type Fn_IHttpStringContentFactory_CreateFromString* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpStringContentFactory_CreateFromString* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpStringContentFactory_CreateFromStringWithEncoding* = 7
-type Fn_IHttpStringContentFactory_CreateFromStringWithEncoding* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpStringContentFactory_CreateFromStringWithEncoding* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* = 8
-type Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* = proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpTransportInformation
 const IID_IHttpTransportInformation* = GUID(
     data1: 0x70127198'u32, data2: 0xC6A7'u16, data3: 0x4ED0'u16,
     data4: [0x83'u8, 0x3A, 0x83, 0xFD, 0x8B, 0x8F, 0x17, 0x8D])
 const Slot_IHttpTransportInformation_get_ServerCertificate* = 6
-type Fn_IHttpTransportInformation_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransportInformation_get_ServerCertificate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpTransportInformation_get_ServerCertificateErrorSeverity* = 7
-type Fn_IHttpTransportInformation_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransportInformation_get_ServerCertificateErrorSeverity* = proc(self: pointer, value: ptr SocketSslErrorSeverity): HRESULT {.abi.}
 const Slot_IHttpTransportInformation_get_ServerCertificateErrors* = 8
-type Fn_IHttpTransportInformation_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransportInformation_get_ServerCertificateErrors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpTransportInformation_get_ServerIntermediateCertificates* = 9
-type Fn_IHttpTransportInformation_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHttpTransportInformation_get_ServerIntermediateCertificates* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.IUriToStreamResolver
 const IID_IUriToStreamResolver* = GUID(
     data1: 0xB0ABA86A'u32, data2: 0x9AEB'u16, data3: 0x4D3A'u16,
     data4: [0x95'u8, 0x90, 0x00, 0x3E, 0x3C, 0xA7, 0xE2, 0x90])
 const Slot_IUriToStreamResolver_UriToStreamAsync* = 6
-type Fn_IUriToStreamResolver_UriToStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUriToStreamResolver_UriToStreamAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.IWebErrorStatics
 const IID_IWebErrorStatics* = GUID(
     data1: 0xFE616766'u32, data2: 0xBF27'u16, data3: 0x4064'u16,
     data4: [0x87'u8, 0xB7, 0x65, 0x63, 0xBB, 0x11, 0xCE, 0x2E])
 const Slot_IWebErrorStatics_GetStatus* = 6
-type Fn_IWebErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr WebErrorStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr WebErrorStatus): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationAttribute
 const IID_ISyndicationAttribute* = GUID(
     data1: 0x71E8F969'u32, data2: 0x526E'u16, data3: 0x4001'u16,
     data4: [0x9A'u8, 0x91, 0xE8, 0x4F, 0x83, 0x16, 0x1A, 0xB1])
 const Slot_ISyndicationAttribute_get_Name* = 6
-type Fn_ISyndicationAttribute_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationAttribute_put_Name* = 7
-type Fn_ISyndicationAttribute_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationAttribute_get_Namespace* = 8
-type Fn_ISyndicationAttribute_get_Namespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_get_Namespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationAttribute_put_Namespace* = 9
-type Fn_ISyndicationAttribute_put_Namespace* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_put_Namespace* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationAttribute_get_Value* = 10
-type Fn_ISyndicationAttribute_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationAttribute_put_Value* = 11
-type Fn_ISyndicationAttribute_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttribute_put_Value* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationAttributeFactory
 const IID_ISyndicationAttributeFactory* = GUID(
     data1: 0x624F1599'u32, data2: 0xED3E'u16, data3: 0x420F'u16,
     data4: [0xBE'u8, 0x86, 0x64, 0x04, 0x14, 0x88, 0x6E, 0x4B])
 const Slot_ISyndicationAttributeFactory_CreateSyndicationAttribute* = 6
-type Fn_ISyndicationAttributeFactory_CreateSyndicationAttribute* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationAttributeFactory_CreateSyndicationAttribute* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationCategory
 const IID_ISyndicationCategory* = GUID(
     data1: 0x8715626F'u32, data2: 0x0CBA'u16, data3: 0x4A7F'u16,
     data4: [0x89'u8, 0xFF, 0xEC, 0xB5, 0x28, 0x14, 0x23, 0xB6])
 const Slot_ISyndicationCategory_get_Label* = 6
-type Fn_ISyndicationCategory_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationCategory_put_Label* = 7
-type Fn_ISyndicationCategory_put_Label* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_put_Label* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationCategory_get_Scheme* = 8
-type Fn_ISyndicationCategory_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_get_Scheme* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationCategory_put_Scheme* = 9
-type Fn_ISyndicationCategory_put_Scheme* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_put_Scheme* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationCategory_get_Term* = 10
-type Fn_ISyndicationCategory_get_Term* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_get_Term* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationCategory_put_Term* = 11
-type Fn_ISyndicationCategory_put_Term* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategory_put_Term* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationCategoryFactory
 const IID_ISyndicationCategoryFactory* = GUID(
     data1: 0xAB42802F'u32, data2: 0x49E0'u16, data3: 0x4525'u16,
     data4: [0x8A'u8, 0xB2, 0xAB, 0x45, 0xC0, 0x25, 0x28, 0xFF])
 const Slot_ISyndicationCategoryFactory_CreateSyndicationCategory* = 6
-type Fn_ISyndicationCategoryFactory_CreateSyndicationCategory* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategoryFactory_CreateSyndicationCategory* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationCategoryFactory_CreateSyndicationCategoryEx* = 7
-type Fn_ISyndicationCategoryFactory_CreateSyndicationCategoryEx* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationCategoryFactory_CreateSyndicationCategoryEx* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationClient
 const IID_ISyndicationClient* = GUID(
     data1: 0x9E18A9B7'u32, data2: 0x7249'u16, data3: 0x4B45'u16,
     data4: [0xB2'u8, 0x29, 0x7D, 0xF8, 0x95, 0xA5, 0xA1, 0xF5])
 const Slot_ISyndicationClient_get_ServerCredential* = 6
-type Fn_ISyndicationClient_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_get_ServerCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationClient_put_ServerCredential* = 7
-type Fn_ISyndicationClient_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_put_ServerCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
 const Slot_ISyndicationClient_get_ProxyCredential* = 8
-type Fn_ISyndicationClient_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_get_ProxyCredential* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationClient_put_ProxyCredential* = 9
-type Fn_ISyndicationClient_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_put_ProxyCredential* = proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
 const Slot_ISyndicationClient_get_MaxResponseBufferSize* = 10
-type Fn_ISyndicationClient_get_MaxResponseBufferSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_get_MaxResponseBufferSize* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISyndicationClient_put_MaxResponseBufferSize* = 11
-type Fn_ISyndicationClient_put_MaxResponseBufferSize* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_put_MaxResponseBufferSize* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_ISyndicationClient_get_Timeout* = 12
-type Fn_ISyndicationClient_get_Timeout* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_get_Timeout* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISyndicationClient_put_Timeout* = 13
-type Fn_ISyndicationClient_put_Timeout* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_put_Timeout* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_ISyndicationClient_get_BypassCacheOnRetrieve* = 14
-type Fn_ISyndicationClient_get_BypassCacheOnRetrieve* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_get_BypassCacheOnRetrieve* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISyndicationClient_put_BypassCacheOnRetrieve* = 15
-type Fn_ISyndicationClient_put_BypassCacheOnRetrieve* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_put_BypassCacheOnRetrieve* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ISyndicationClient_SetRequestHeader* = 16
-type Fn_ISyndicationClient_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_SetRequestHeader* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationClient_RetrieveFeedAsync* = 17
-type Fn_ISyndicationClient_RetrieveFeedAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClient_RetrieveFeedAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationClientFactory
 const IID_ISyndicationClientFactory* = GUID(
     data1: 0x2EC4B32C'u32, data2: 0xA79B'u16, data3: 0x4114'u16,
     data4: [0xB2'u8, 0x9A, 0x05, 0xDF, 0xFB, 0xAF, 0xB9, 0xA4])
 const Slot_ISyndicationClientFactory_CreateSyndicationClient* = 6
-type Fn_ISyndicationClientFactory_CreateSyndicationClient* = proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationClientFactory_CreateSyndicationClient* = proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationContent
 const IID_ISyndicationContent* = GUID(
     data1: 0x4641FEFE'u32, data2: 0x0E55'u16, data3: 0x40D0'u16,
     data4: [0xB8'u8, 0xD0, 0x6A, 0x2C, 0xCB, 0xA9, 0xFC, 0x7C])
 const Slot_ISyndicationContent_get_SourceUri* = 6
-type Fn_ISyndicationContent_get_SourceUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationContent_get_SourceUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationContent_put_SourceUri* = 7
-type Fn_ISyndicationContent_put_SourceUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationContent_put_SourceUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationContentFactory
 const IID_ISyndicationContentFactory* = GUID(
     data1: 0x3D2FBB93'u32, data2: 0x9520'u16, data3: 0x4173'u16,
     data4: [0x93'u8, 0x88, 0x7E, 0x2D, 0xF3, 0x24, 0xA8, 0xA0])
 const Slot_ISyndicationContentFactory_CreateSyndicationContent* = 6
-type Fn_ISyndicationContentFactory_CreateSyndicationContent* = proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationContentFactory_CreateSyndicationContent* = proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* = 7
-type Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationErrorStatics
 const IID_ISyndicationErrorStatics* = GUID(
     data1: 0x1FBB2361'u32, data2: 0x45C7'u16, data3: 0x4833'u16,
     data4: [0x8A'u8, 0xA0, 0xBE, 0x5F, 0x3B, 0x58, 0xA7, 0xF4])
 const Slot_ISyndicationErrorStatics_GetStatus* = 6
-type Fn_ISyndicationErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationErrorStatics_GetStatus* = proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationFeed
 const IID_ISyndicationFeed* = GUID(
     data1: 0x7FFE3CD2'u32, data2: 0x5B66'u16, data3: 0x4D62'u16,
     data4: [0x84'u8, 0x03, 0x1B, 0xC1, 0x0D, 0x91, 0x0D, 0x6B])
 const Slot_ISyndicationFeed_get_Authors* = 6
-type Fn_ISyndicationFeed_get_Authors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Authors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Categories* = 7
-type Fn_ISyndicationFeed_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Contributors* = 8
-type Fn_ISyndicationFeed_get_Contributors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Contributors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Generator* = 9
-type Fn_ISyndicationFeed_get_Generator* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Generator* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_Generator* = 10
-type Fn_ISyndicationFeed_put_Generator* = proc(self: pointer, a1SyndicationGenerator: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_Generator* = proc(self: pointer, a1SyndicationGenerator: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_IconUri* = 11
-type Fn_ISyndicationFeed_get_IconUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_IconUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_IconUri* = 12
-type Fn_ISyndicationFeed_put_IconUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_IconUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Id* = 13
-type Fn_ISyndicationFeed_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_Id* = 14
-type Fn_ISyndicationFeed_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Items* = 15
-type Fn_ISyndicationFeed_get_Items* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Items* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_LastUpdatedTime* = 16
-type Fn_ISyndicationFeed_get_LastUpdatedTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_LastUpdatedTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_LastUpdatedTime* = 17
-type Fn_ISyndicationFeed_put_LastUpdatedTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_LastUpdatedTime* = proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Links* = 18
-type Fn_ISyndicationFeed_get_Links* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Links* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_ImageUri* = 19
-type Fn_ISyndicationFeed_get_ImageUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_ImageUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_ImageUri* = 20
-type Fn_ISyndicationFeed_put_ImageUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_ImageUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Rights* = 21
-type Fn_ISyndicationFeed_get_Rights* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Rights* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_Rights* = 22
-type Fn_ISyndicationFeed_put_Rights* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_Rights* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Subtitle* = 23
-type Fn_ISyndicationFeed_get_Subtitle* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Subtitle* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_Subtitle* = 24
-type Fn_ISyndicationFeed_put_Subtitle* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_Subtitle* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_Title* = 25
-type Fn_ISyndicationFeed_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_put_Title* = 26
-type Fn_ISyndicationFeed_put_Title* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_put_Title* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_FirstUri* = 27
-type Fn_ISyndicationFeed_get_FirstUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_FirstUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_LastUri* = 28
-type Fn_ISyndicationFeed_get_LastUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_LastUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_NextUri* = 29
-type Fn_ISyndicationFeed_get_NextUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_NextUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_PreviousUri* = 30
-type Fn_ISyndicationFeed_get_PreviousUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_PreviousUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationFeed_get_SourceFormat* = 31
-type Fn_ISyndicationFeed_get_SourceFormat* = proc(self: pointer, value: ptr SyndicationFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_get_SourceFormat* = proc(self: pointer, value: ptr SyndicationFormat): HRESULT {.abi.}
 const Slot_ISyndicationFeed_Load* = 32
-type Fn_ISyndicationFeed_Load* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_Load* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationFeed_LoadFromXml* = 33
-type Fn_ISyndicationFeed_LoadFromXml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeed_LoadFromXml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationFeedFactory
 const IID_ISyndicationFeedFactory* = GUID(
     data1: 0x23472232'u32, data2: 0x8BE9'u16, data3: 0x48B7'u16,
     data4: [0x89'u8, 0x34, 0x62, 0x05, 0x13, 0x1D, 0x93, 0x57])
 const Slot_ISyndicationFeedFactory_CreateSyndicationFeed* = 6
-type Fn_ISyndicationFeedFactory_CreateSyndicationFeed* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationFeedFactory_CreateSyndicationFeed* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationGenerator
 const IID_ISyndicationGenerator* = GUID(
     data1: 0x9768B379'u32, data2: 0xFB2B'u16, data3: 0x4F6D'u16,
     data4: [0xB4'u8, 0x1C, 0x08, 0x8A, 0x58, 0x68, 0x82, 0x5C])
 const Slot_ISyndicationGenerator_get_Text* = 6
-type Fn_ISyndicationGenerator_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationGenerator_put_Text* = 7
-type Fn_ISyndicationGenerator_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationGenerator_get_Uri* = 8
-type Fn_ISyndicationGenerator_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationGenerator_put_Uri* = 9
-type Fn_ISyndicationGenerator_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationGenerator_get_Version* = 10
-type Fn_ISyndicationGenerator_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_get_Version* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationGenerator_put_Version* = 11
-type Fn_ISyndicationGenerator_put_Version* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGenerator_put_Version* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationGeneratorFactory
 const IID_ISyndicationGeneratorFactory* = GUID(
     data1: 0xA34083E3'u32, data2: 0x1E26'u16, data3: 0x4DBC'u16,
     data4: [0xBA'u8, 0x9D, 0x1A, 0xB8, 0x4B, 0xEF, 0xF9, 0x7B])
 const Slot_ISyndicationGeneratorFactory_CreateSyndicationGenerator* = 6
-type Fn_ISyndicationGeneratorFactory_CreateSyndicationGenerator* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationGeneratorFactory_CreateSyndicationGenerator* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationItem
 const IID_ISyndicationItem* = GUID(
     data1: 0x548DB883'u32, data2: 0xC384'u16, data3: 0x45C1'u16,
     data4: [0x8A'u8, 0xE8, 0xA3, 0x78, 0xC4, 0xEC, 0x48, 0x6C])
 const Slot_ISyndicationItem_get_Authors* = 6
-type Fn_ISyndicationItem_get_Authors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Authors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Categories* = 7
-type Fn_ISyndicationItem_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Categories* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Contributors* = 8
-type Fn_ISyndicationItem_get_Contributors* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Contributors* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Content* = 9
-type Fn_ISyndicationItem_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Content* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Content* = 10
-type Fn_ISyndicationItem_put_Content* = proc(self: pointer, a1SyndicationContent: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Content* = proc(self: pointer, a1SyndicationContent: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Id* = 11
-type Fn_ISyndicationItem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Id* = 12
-type Fn_ISyndicationItem_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Id* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_LastUpdatedTime* = 13
-type Fn_ISyndicationItem_get_LastUpdatedTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_LastUpdatedTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_LastUpdatedTime* = 14
-type Fn_ISyndicationItem_put_LastUpdatedTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_LastUpdatedTime* = proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Links* = 15
-type Fn_ISyndicationItem_get_Links* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Links* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_PublishedDate* = 16
-type Fn_ISyndicationItem_get_PublishedDate* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_PublishedDate* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_PublishedDate* = 17
-type Fn_ISyndicationItem_put_PublishedDate* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_PublishedDate* = proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Rights* = 18
-type Fn_ISyndicationItem_get_Rights* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Rights* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Rights* = 19
-type Fn_ISyndicationItem_put_Rights* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Rights* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Source* = 20
-type Fn_ISyndicationItem_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Source* = 21
-type Fn_ISyndicationItem_put_Source* = proc(self: pointer, a1SyndicationFeed: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Source* = proc(self: pointer, a1SyndicationFeed: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Summary* = 22
-type Fn_ISyndicationItem_get_Summary* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Summary* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Summary* = 23
-type Fn_ISyndicationItem_put_Summary* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Summary* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_Title* = 24
-type Fn_ISyndicationItem_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_Title* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_Title* = 25
-type Fn_ISyndicationItem_put_Title* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_Title* = proc(self: pointer, a1ISyndicationText: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_CommentsUri* = 26
-type Fn_ISyndicationItem_get_CommentsUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_CommentsUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_put_CommentsUri* = 27
-type Fn_ISyndicationItem_put_CommentsUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_put_CommentsUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_EditUri* = 28
-type Fn_ISyndicationItem_get_EditUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_EditUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_EditMediaUri* = 29
-type Fn_ISyndicationItem_get_EditMediaUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_EditMediaUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_ETag* = 30
-type Fn_ISyndicationItem_get_ETag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_ETag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationItem_get_ItemUri* = 31
-type Fn_ISyndicationItem_get_ItemUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_get_ItemUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationItem_Load* = 32
-type Fn_ISyndicationItem_Load* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_Load* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationItem_LoadFromXml* = 33
-type Fn_ISyndicationItem_LoadFromXml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItem_LoadFromXml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationItemFactory
 const IID_ISyndicationItemFactory* = GUID(
     data1: 0x251D434F'u32, data2: 0x7DB8'u16, data3: 0x487A'u16,
     data4: [0x85'u8, 0xE4, 0x10, 0xD1, 0x91, 0xE6, 0x6E, 0xBB])
 const Slot_ISyndicationItemFactory_CreateSyndicationItem* = 6
-type Fn_ISyndicationItemFactory_CreateSyndicationItem* = proc(self: pointer, a1: HSTRING, a2SyndicationContent: pointer, a3Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationItemFactory_CreateSyndicationItem* = proc(self: pointer, a1: HSTRING, a2SyndicationContent: pointer, a3Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationLink
 const IID_ISyndicationLink* = GUID(
     data1: 0x27553ABD'u32, data2: 0xA10E'u16, data3: 0x41B5'u16,
     data4: [0x86'u8, 0xBD, 0x97, 0x59, 0x08, 0x6E, 0xB0, 0xC5])
 const Slot_ISyndicationLink_get_Length* = 6
-type Fn_ISyndicationLink_get_Length* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_Length* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_Length* = 7
-type Fn_ISyndicationLink_put_Length* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_Length* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_ISyndicationLink_get_MediaType* = 8
-type Fn_ISyndicationLink_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_MediaType* = 9
-type Fn_ISyndicationLink_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_MediaType* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_get_Relationship* = 10
-type Fn_ISyndicationLink_get_Relationship* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_Relationship* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_Relationship* = 11
-type Fn_ISyndicationLink_put_Relationship* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_Relationship* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_get_Title* = 12
-type Fn_ISyndicationLink_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_Title* = 13
-type Fn_ISyndicationLink_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_Title* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_get_Uri* = 14
-type Fn_ISyndicationLink_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_Uri* = 15
-type Fn_ISyndicationLink_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationLink_get_ResourceLanguage* = 16
-type Fn_ISyndicationLink_get_ResourceLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_get_ResourceLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationLink_put_ResourceLanguage* = 17
-type Fn_ISyndicationLink_put_ResourceLanguage* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLink_put_ResourceLanguage* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationLinkFactory
 const IID_ISyndicationLinkFactory* = GUID(
     data1: 0x5ED863D4'u32, data2: 0x5535'u16, data3: 0x48AC'u16,
     data4: [0x98'u8, 0xD4, 0xC1, 0x90, 0x99, 0x50, 0x80, 0xB3])
 const Slot_ISyndicationLinkFactory_CreateSyndicationLink* = 6
-type Fn_ISyndicationLinkFactory_CreateSyndicationLink* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLinkFactory_CreateSyndicationLink* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationLinkFactory_CreateSyndicationLinkEx* = 7
-type Fn_ISyndicationLinkFactory_CreateSyndicationLinkEx* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING, a4: HSTRING, a5: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationLinkFactory_CreateSyndicationLinkEx* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, a3: HSTRING, a4: HSTRING, a5: uint32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationNode
 const IID_ISyndicationNode* = GUID(
     data1: 0x753CEF78'u32, data2: 0x51F8'u16, data3: 0x45C0'u16,
     data4: [0xA9'u8, 0xF5, 0xF1, 0x71, 0x9D, 0xEC, 0x3F, 0xB2])
 const Slot_ISyndicationNode_get_NodeName* = 6
-type Fn_ISyndicationNode_get_NodeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_NodeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_put_NodeName* = 7
-type Fn_ISyndicationNode_put_NodeName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_put_NodeName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_NodeNamespace* = 8
-type Fn_ISyndicationNode_get_NodeNamespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_NodeNamespace* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_put_NodeNamespace* = 9
-type Fn_ISyndicationNode_put_NodeNamespace* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_put_NodeNamespace* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_NodeValue* = 10
-type Fn_ISyndicationNode_get_NodeValue* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_NodeValue* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_put_NodeValue* = 11
-type Fn_ISyndicationNode_put_NodeValue* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_put_NodeValue* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_Language* = 12
-type Fn_ISyndicationNode_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_Language* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_put_Language* = 13
-type Fn_ISyndicationNode_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_put_Language* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_BaseUri* = 14
-type Fn_ISyndicationNode_get_BaseUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_BaseUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationNode_put_BaseUri* = 15
-type Fn_ISyndicationNode_put_BaseUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_put_BaseUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_AttributeExtensions* = 16
-type Fn_ISyndicationNode_get_AttributeExtensions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_AttributeExtensions* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationNode_get_ElementExtensions* = 17
-type Fn_ISyndicationNode_get_ElementExtensions* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_get_ElementExtensions* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationNode_GetXmlDocument* = 18
-type Fn_ISyndicationNode_GetXmlDocument* = proc(self: pointer, a1: SyndicationFormat, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNode_GetXmlDocument* = proc(self: pointer, a1: SyndicationFormat, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationNodeFactory
 const IID_ISyndicationNodeFactory* = GUID(
     data1: 0x12902188'u32, data2: 0x4ACB'u16, data3: 0x49A8'u16,
     data4: [0xB7'u8, 0x77, 0xA5, 0xEB, 0x92, 0xE1, 0x8A, 0x79])
 const Slot_ISyndicationNodeFactory_CreateSyndicationNode* = 6
-type Fn_ISyndicationNodeFactory_CreateSyndicationNode* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationNodeFactory_CreateSyndicationNode* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationPerson
 const IID_ISyndicationPerson* = GUID(
     data1: 0xFA1EE5DA'u32, data2: 0xA7C6'u16, data3: 0x4517'u16,
     data4: [0xA0'u8, 0x96, 0x01, 0x43, 0xFA, 0xF2, 0x93, 0x27])
 const Slot_ISyndicationPerson_get_Email* = 6
-type Fn_ISyndicationPerson_get_Email* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_get_Email* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationPerson_put_Email* = 7
-type Fn_ISyndicationPerson_put_Email* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_put_Email* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationPerson_get_Name* = 8
-type Fn_ISyndicationPerson_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationPerson_put_Name* = 9
-type Fn_ISyndicationPerson_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationPerson_get_Uri* = 10
-type Fn_ISyndicationPerson_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationPerson_put_Uri* = 11
-type Fn_ISyndicationPerson_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPerson_put_Uri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationPersonFactory
 const IID_ISyndicationPersonFactory* = GUID(
     data1: 0xDCF4886D'u32, data2: 0x229D'u16, data3: 0x4B58'u16,
     data4: [0xA4'u8, 0x9B, 0xF3, 0xD2, 0xF0, 0xF5, 0xC9, 0x9F])
 const Slot_ISyndicationPersonFactory_CreateSyndicationPerson* = 6
-type Fn_ISyndicationPersonFactory_CreateSyndicationPerson* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPersonFactory_CreateSyndicationPerson* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationPersonFactory_CreateSyndicationPersonEx* = 7
-type Fn_ISyndicationPersonFactory_CreateSyndicationPersonEx* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationPersonFactory_CreateSyndicationPersonEx* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationText
 const IID_ISyndicationText* = GUID(
     data1: 0xB9CC5E80'u32, data2: 0x313A'u16, data3: 0x4091'u16,
     data4: [0xA2'u8, 0xA6, 0x24, 0x3E, 0x0E, 0xE9, 0x23, 0xF9])
 const Slot_ISyndicationText_get_Text* = 6
-type Fn_ISyndicationText_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_get_Text* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationText_put_Text* = 7
-type Fn_ISyndicationText_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_put_Text* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationText_get_Type* = 8
-type Fn_ISyndicationText_get_Type* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_get_Type* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationText_put_Type* = 9
-type Fn_ISyndicationText_put_Type* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_put_Type* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISyndicationText_get_Xml* = 10
-type Fn_ISyndicationText_get_Xml* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_get_Xml* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationText_put_Xml* = 11
-type Fn_ISyndicationText_put_Xml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationText_put_Xml* = proc(self: pointer, a1XmlDocument: pointer): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationTextFactory
 const IID_ISyndicationTextFactory* = GUID(
     data1: 0xEE7342F7'u32, data2: 0x11C6'u16, data3: 0x4B25'u16,
     data4: [0xAB'u8, 0x62, 0xE5, 0x96, 0xBD, 0x16, 0x29, 0x46])
 const Slot_ISyndicationTextFactory_CreateSyndicationText* = 6
-type Fn_ISyndicationTextFactory_CreateSyndicationText* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationTextFactory_CreateSyndicationText* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationTextFactory_CreateSyndicationTextEx* = 7
-type Fn_ISyndicationTextFactory_CreateSyndicationTextEx* = proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISyndicationTextFactory_CreateSyndicationTextEx* = proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControl
 const IID_IWebViewControl* = GUID(
     data1: 0x3F921316'u32, data2: 0xBC70'u16, data3: 0x4BDA'u16,
     data4: [0x91'u8, 0x36, 0xC9, 0x43, 0x70, 0x89, 0x9F, 0xAB])
 const Slot_IWebViewControl_get_Source* = 6
-type Fn_IWebViewControl_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_Source* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_put_Source* = 7
-type Fn_IWebViewControl_put_Source* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_put_Source* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_get_DocumentTitle* = 8
-type Fn_IWebViewControl_get_DocumentTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_DocumentTitle* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControl_get_CanGoBack* = 9
-type Fn_IWebViewControl_get_CanGoBack* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_CanGoBack* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControl_get_CanGoForward* = 10
-type Fn_IWebViewControl_get_CanGoForward* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_CanGoForward* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControl_put_DefaultBackgroundColor* = 11
-type Fn_IWebViewControl_put_DefaultBackgroundColor* = proc(self: pointer, a1: Color): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_put_DefaultBackgroundColor* = proc(self: pointer, a1: Color): HRESULT {.abi.}
 const Slot_IWebViewControl_get_DefaultBackgroundColor* = 12
-type Fn_IWebViewControl_get_DefaultBackgroundColor* = proc(self: pointer, value: ptr Color): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_DefaultBackgroundColor* = proc(self: pointer, value: ptr Color): HRESULT {.abi.}
 const Slot_IWebViewControl_get_ContainsFullScreenElement* = 13
-type Fn_IWebViewControl_get_ContainsFullScreenElement* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_ContainsFullScreenElement* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControl_get_Settings* = 14
-type Fn_IWebViewControl_get_Settings* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_Settings* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_get_DeferredPermissionRequests* = 15
-type Fn_IWebViewControl_get_DeferredPermissionRequests* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_get_DeferredPermissionRequests* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_GoForward* = 16
-type Fn_IWebViewControl_GoForward* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_GoForward* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_GoBack* = 17
-type Fn_IWebViewControl_GoBack* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_GoBack* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_Refresh* = 18
-type Fn_IWebViewControl_Refresh* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_Refresh* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_Stop* = 19
-type Fn_IWebViewControl_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_Navigate* = 20
-type Fn_IWebViewControl_Navigate* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_Navigate* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_NavigateToString* = 21
-type Fn_IWebViewControl_NavigateToString* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_NavigateToString* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControl_NavigateToLocalStreamUri* = 22
-type Fn_IWebViewControl_NavigateToLocalStreamUri* = proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_NavigateToLocalStreamUri* = proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_NavigateWithHttpRequestMessage* = 23
-type Fn_IWebViewControl_NavigateWithHttpRequestMessage* = proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_NavigateWithHttpRequestMessage* = proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_InvokeScriptAsync* = 24
-type Fn_IWebViewControl_InvokeScriptAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_InvokeScriptAsync* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_CapturePreviewToStreamAsync* = 25
-type Fn_IWebViewControl_CapturePreviewToStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_CapturePreviewToStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync* = 26
-type Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_BuildLocalStreamUri* = 27
-type Fn_IWebViewControl_BuildLocalStreamUri* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_BuildLocalStreamUri* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_GetDeferredPermissionRequestById* = 28
-type Fn_IWebViewControl_GetDeferredPermissionRequestById* = proc(self: pointer, a1: uint32, a2WebViewControlDeferredPermissionRequest: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_GetDeferredPermissionRequestById* = proc(self: pointer, a1: uint32, a2WebViewControlDeferredPermissionRequest: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NavigationStarting* = 29
-type Fn_IWebViewControl_add_NavigationStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_NavigationStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NavigationStarting* = 30
-type Fn_IWebViewControl_remove_NavigationStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_NavigationStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ContentLoading* = 31
-type Fn_IWebViewControl_add_ContentLoading* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_ContentLoading* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ContentLoading* = 32
-type Fn_IWebViewControl_remove_ContentLoading* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_ContentLoading* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_DOMContentLoaded* = 33
-type Fn_IWebViewControl_add_DOMContentLoaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_DOMContentLoaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_DOMContentLoaded* = 34
-type Fn_IWebViewControl_remove_DOMContentLoaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_DOMContentLoaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NavigationCompleted* = 35
-type Fn_IWebViewControl_add_NavigationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_NavigationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NavigationCompleted* = 36
-type Fn_IWebViewControl_remove_NavigationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_NavigationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameNavigationStarting* = 37
-type Fn_IWebViewControl_add_FrameNavigationStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_FrameNavigationStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameNavigationStarting* = 38
-type Fn_IWebViewControl_remove_FrameNavigationStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_FrameNavigationStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameContentLoading* = 39
-type Fn_IWebViewControl_add_FrameContentLoading* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_FrameContentLoading* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameContentLoading* = 40
-type Fn_IWebViewControl_remove_FrameContentLoading* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_FrameContentLoading* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameDOMContentLoaded* = 41
-type Fn_IWebViewControl_add_FrameDOMContentLoaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_FrameDOMContentLoaded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameDOMContentLoaded* = 42
-type Fn_IWebViewControl_remove_FrameDOMContentLoaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_FrameDOMContentLoaded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameNavigationCompleted* = 43
-type Fn_IWebViewControl_add_FrameNavigationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_FrameNavigationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameNavigationCompleted* = 44
-type Fn_IWebViewControl_remove_FrameNavigationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_FrameNavigationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ScriptNotify* = 45
-type Fn_IWebViewControl_add_ScriptNotify* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_ScriptNotify* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ScriptNotify* = 46
-type Fn_IWebViewControl_remove_ScriptNotify* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_ScriptNotify* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_LongRunningScriptDetected* = 47
-type Fn_IWebViewControl_add_LongRunningScriptDetected* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_LongRunningScriptDetected* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_LongRunningScriptDetected* = 48
-type Fn_IWebViewControl_remove_LongRunningScriptDetected* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_LongRunningScriptDetected* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnsafeContentWarningDisplaying* = 49
-type Fn_IWebViewControl_add_UnsafeContentWarningDisplaying* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_UnsafeContentWarningDisplaying* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying* = 50
-type Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnviewableContentIdentified* = 51
-type Fn_IWebViewControl_add_UnviewableContentIdentified* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_UnviewableContentIdentified* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnviewableContentIdentified* = 52
-type Fn_IWebViewControl_remove_UnviewableContentIdentified* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_UnviewableContentIdentified* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_PermissionRequested* = 53
-type Fn_IWebViewControl_add_PermissionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_PermissionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_PermissionRequested* = 54
-type Fn_IWebViewControl_remove_PermissionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_PermissionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified* = 55
-type Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified* = 56
-type Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NewWindowRequested* = 57
-type Fn_IWebViewControl_add_NewWindowRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_NewWindowRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NewWindowRequested* = 58
-type Fn_IWebViewControl_remove_NewWindowRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_NewWindowRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ContainsFullScreenElementChanged* = 59
-type Fn_IWebViewControl_add_ContainsFullScreenElementChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_ContainsFullScreenElementChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ContainsFullScreenElementChanged* = 60
-type Fn_IWebViewControl_remove_ContainsFullScreenElementChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_ContainsFullScreenElementChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_WebResourceRequested* = 61
-type Fn_IWebViewControl_add_WebResourceRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_add_WebResourceRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_WebResourceRequested* = 62
-type Fn_IWebViewControl_remove_WebResourceRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl_remove_WebResourceRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControl2
 const IID_IWebViewControl2* = GUID(
     data1: 0x4D3C06F9'u32, data2: 0xC8DF'u16, data3: 0x41CC'u16,
     data4: [0x8B'u8, 0xD5, 0x2A, 0x94, 0x7B, 0x20, 0x45, 0x03])
 const Slot_IWebViewControl2_AddInitializeScript* = 6
-type Fn_IWebViewControl2_AddInitializeScript* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControl2_AddInitializeScript* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlContentLoadingEventArgs
 const IID_IWebViewControlContentLoadingEventArgs* = GUID(
     data1: 0x9A3FCCB2'u32, data2: 0xB9BB'u16, data3: 0x404B'u16,
     data4: [0xA2'u8, 0x2B, 0x66, 0xDC, 0xCD, 0x12, 0x50, 0xC6])
 const Slot_IWebViewControlContentLoadingEventArgs_get_Uri* = 6
-type Fn_IWebViewControlContentLoadingEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlContentLoadingEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlDOMContentLoadedEventArgs
 const IID_IWebViewControlDOMContentLoadedEventArgs* = GUID(
     data1: 0xBE8BC008'u32, data2: 0x9541'u16, data3: 0x4545'u16,
     data4: [0x9F'u8, 0xF2, 0x2D, 0xF5, 0x85, 0xB2, 0x9F, 0x7D])
 const Slot_IWebViewControlDOMContentLoadedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlDOMContentLoadedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDOMContentLoadedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlDeferredPermissionRequest
 const IID_IWebViewControlDeferredPermissionRequest* = GUID(
     data1: 0x2CE349E0'u32, data2: 0xD759'u16, data3: 0x445C'u16,
     data4: [0x99'u8, 0x26, 0x89, 0x95, 0x29, 0x8F, 0x15, 0x2B])
 const Slot_IWebViewControlDeferredPermissionRequest_get_Id* = 6
-type Fn_IWebViewControlDeferredPermissionRequest_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDeferredPermissionRequest_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_get_Uri* = 7
-type Fn_IWebViewControlDeferredPermissionRequest_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDeferredPermissionRequest_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_get_PermissionType* = 8
-type Fn_IWebViewControlDeferredPermissionRequest_get_PermissionType* = proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDeferredPermissionRequest_get_PermissionType* = proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_Allow* = 9
-type Fn_IWebViewControlDeferredPermissionRequest_Allow* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDeferredPermissionRequest_Allow* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_Deny* = 10
-type Fn_IWebViewControlDeferredPermissionRequest_Deny* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlDeferredPermissionRequest_Deny* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlLongRunningScriptDetectedEventArgs
 const IID_IWebViewControlLongRunningScriptDetectedEventArgs* = GUID(
     data1: 0x2A6E5BBA'u32, data2: 0x98B4'u16, data3: 0x45BC'u16,
     data4: [0xBB'u8, 0xEB, 0x0F, 0x69, 0xCE, 0x49, 0xC5, 0x99])
 const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime* = 6
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution* = 7
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution* = 8
-type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNavigationCompletedEventArgs
 const IID_IWebViewControlNavigationCompletedEventArgs* = GUID(
     data1: 0x20409918'u32, data2: 0x4A15'u16, data3: 0x4C46'u16,
     data4: [0xA5'u8, 0x5D, 0xF7, 0x9E, 0xDB, 0x0B, 0xDE, 0x8B])
 const Slot_IWebViewControlNavigationCompletedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationCompletedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess* = 7
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus* = 8
-type Fn_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus* = proc(self: pointer, value: ptr WebErrorStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus* = proc(self: pointer, value: ptr WebErrorStatus): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNavigationStartingEventArgs
 const IID_IWebViewControlNavigationStartingEventArgs* = GUID(
     data1: 0x0C9057C5'u32, data2: 0x0A08'u16, data3: 0x41C7'u16,
     data4: [0x86'u8, 0x3B, 0x71, 0xE3, 0xA9, 0x54, 0x91, 0x37])
 const Slot_IWebViewControlNavigationStartingEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNavigationStartingEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationStartingEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNavigationStartingEventArgs_get_Cancel* = 7
-type Fn_IWebViewControlNavigationStartingEventArgs_get_Cancel* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationStartingEventArgs_get_Cancel* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlNavigationStartingEventArgs_put_Cancel* = 8
-type Fn_IWebViewControlNavigationStartingEventArgs_put_Cancel* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNavigationStartingEventArgs_put_Cancel* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNewWindowRequestedEventArgs
 const IID_IWebViewControlNewWindowRequestedEventArgs* = GUID(
     data1: 0x3DF44BBB'u32, data2: 0xA124'u16, data3: 0x46D5'u16,
     data4: [0xA0'u8, 0x83, 0xD0, 0x2C, 0xAC, 0xDF, 0xF5, 0xAD])
 const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Referrer* = 7
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Referrer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Referrer* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNewWindowRequestedEventArgs_get_Handled* = 8
-type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlNewWindowRequestedEventArgs_put_Handled* = 9
-type Fn_IWebViewControlNewWindowRequestedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlNewWindowRequestedEventArgs2
 const IID_IWebViewControlNewWindowRequestedEventArgs2* = GUID(
     data1: 0xB53C5CA6'u32, data2: 0x2AAE'u16, data3: 0x4BFC'u16,
     data4: [0x92'u8, 0xB9, 0xC3, 0x0E, 0x92, 0xB4, 0x80, 0x98])
 const Slot_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow* = 6
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow* = 7
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow* = proc(self: pointer, a1IWebViewControl: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow* = proc(self: pointer, a1IWebViewControl: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral* = 8
-type Fn_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlPermissionRequest
 const IID_IWebViewControlPermissionRequest* = GUID(
     data1: 0xE5BC836C'u32, data2: 0xF22F'u16, data3: 0x40E2'u16,
     data4: [0x95'u8, 0xB2, 0x77, 0x29, 0xF8, 0x40, 0xEB, 0x7F])
 const Slot_IWebViewControlPermissionRequest_get_Id* = 6
-type Fn_IWebViewControlPermissionRequest_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_get_Id* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_get_Uri* = 7
-type Fn_IWebViewControlPermissionRequest_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_get_PermissionType* = 8
-type Fn_IWebViewControlPermissionRequest_get_PermissionType* = proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_get_PermissionType* = proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_get_State* = 9
-type Fn_IWebViewControlPermissionRequest_get_State* = proc(self: pointer, value: ptr WebViewControlPermissionState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_get_State* = proc(self: pointer, value: ptr WebViewControlPermissionState): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_Defer* = 10
-type Fn_IWebViewControlPermissionRequest_Defer* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_Defer* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_Allow* = 11
-type Fn_IWebViewControlPermissionRequest_Allow* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_Allow* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_Deny* = 12
-type Fn_IWebViewControlPermissionRequest_Deny* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequest_Deny* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlPermissionRequestedEventArgs
 const IID_IWebViewControlPermissionRequestedEventArgs* = GUID(
     data1: 0x27204D51'u32, data2: 0x2488'u16, data3: 0x4CC5'u16,
     data4: [0x96'u8, 0x8E, 0x0A, 0x77, 0x1E, 0x59, 0xC1, 0x47])
 const Slot_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest* = 6
-type Fn_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlScriptNotifyEventArgs
 const IID_IWebViewControlScriptNotifyEventArgs* = GUID(
     data1: 0x491DE57B'u32, data2: 0x6F49'u16, data3: 0x41BB'u16,
     data4: [0xB5'u8, 0x91, 0x51, 0xB8, 0x5B, 0x81, 0x70, 0x37])
 const Slot_IWebViewControlScriptNotifyEventArgs_get_Uri* = 6
-type Fn_IWebViewControlScriptNotifyEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlScriptNotifyEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlScriptNotifyEventArgs_get_Value* = 7
-type Fn_IWebViewControlScriptNotifyEventArgs_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlScriptNotifyEventArgs_get_Value* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlSettings
 const IID_IWebViewControlSettings* = GUID(
     data1: 0xC9967FBF'u32, data2: 0x5E98'u16, data3: 0x4CFD'u16,
     data4: [0x8C'u8, 0xCE, 0x27, 0xB0, 0x91, 0x1E, 0x3D, 0xE8])
 const Slot_IWebViewControlSettings_put_IsJavaScriptEnabled* = 6
-type Fn_IWebViewControlSettings_put_IsJavaScriptEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_put_IsJavaScriptEnabled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IWebViewControlSettings_get_IsJavaScriptEnabled* = 7
-type Fn_IWebViewControlSettings_get_IsJavaScriptEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_get_IsJavaScriptEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlSettings_put_IsIndexedDBEnabled* = 8
-type Fn_IWebViewControlSettings_put_IsIndexedDBEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_put_IsIndexedDBEnabled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IWebViewControlSettings_get_IsIndexedDBEnabled* = 9
-type Fn_IWebViewControlSettings_get_IsIndexedDBEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_get_IsIndexedDBEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlSettings_put_IsScriptNotifyAllowed* = 10
-type Fn_IWebViewControlSettings_put_IsScriptNotifyAllowed* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_put_IsScriptNotifyAllowed* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IWebViewControlSettings_get_IsScriptNotifyAllowed* = 11
-type Fn_IWebViewControlSettings_get_IsScriptNotifyAllowed* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSettings_get_IsScriptNotifyAllowed* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs
 const IID_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs* = GUID(
     data1: 0xE3B81944'u32, data2: 0xE4FC'u16, data3: 0x43DC'u16,
     data4: [0x94'u8, 0xCA, 0xF9, 0x80, 0xF3, 0x0B, 0xC5, 0x1D])
 const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled* = 7
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled* = 8
-type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlUnviewableContentIdentifiedEventArgs
 const IID_IWebViewControlUnviewableContentIdentifiedEventArgs* = GUID(
     data1: 0x4A9680DB'u32, data2: 0x88F2'u16, data3: 0x4E20'u16,
     data4: [0xB6'u8, 0x93, 0xB4, 0xE2, 0xDF, 0x4A, 0xA5, 0x81])
 const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri* = 6
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer* = 7
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType* = 8
-type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControlWebResourceRequestedEventArgs
 const IID_IWebViewControlWebResourceRequestedEventArgs* = GUID(
     data1: 0x44D6524D'u32, data2: 0x55A4'u16, data3: 0x4D8B'u16,
     data4: [0x89'u8, 0x1C, 0x93, 0x1D, 0x8E, 0x25, 0xD4, 0x2E])
 const Slot_IWebViewControlWebResourceRequestedEventArgs_GetDeferral* = 6
-type Fn_IWebViewControlWebResourceRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlWebResourceRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlWebResourceRequestedEventArgs_get_Request* = 7
-type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Request* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlWebResourceRequestedEventArgs_put_Response* = 8
-type Fn_IWebViewControlWebResourceRequestedEventArgs_put_Response* = proc(self: pointer, a1HttpResponseMessage: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlWebResourceRequestedEventArgs_put_Response* = proc(self: pointer, a1HttpResponseMessage: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlWebResourceRequestedEventArgs_get_Response* = 9
-type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Response* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlWebResourceRequestedEventArgs_get_Response* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
 const IID_IWebViewControlAcceleratorKeyPressedEventArgs* = GUID(
     data1: 0x77A2A53E'u32, data2: 0x7C74'u16, data3: 0x437D'u16,
     data4: [0xA2'u8, 0x90, 0x3A, 0xC0, 0xD8, 0xCD, 0x56, 0x55])
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType* = 6
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey* = 7
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* = 8
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* = proc(self: pointer, value: ptr CorePhysicalKeyStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* = proc(self: pointer, value: ptr CorePhysicalKeyStatus): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* = 9
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* = proc(self: pointer, value: ptr WebViewControlAcceleratorKeyRoutingStage): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* = proc(self: pointer, value: ptr WebViewControlAcceleratorKeyRoutingStage): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* = 10
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* = 11
-type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs
 const IID_IWebViewControlMoveFocusRequestedEventArgs* = GUID(
     data1: 0x6B2A340D'u32, data2: 0x4BD0'u16, data3: 0x405E'u16,
     data4: [0xB7'u8, 0xC1, 0x1E, 0x72, 0xA4, 0x92, 0xF4, 0x46])
 const Slot_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* = 6
-type Fn_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* = proc(self: pointer, value: ptr WebViewControlMoveFocusReason): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* = proc(self: pointer, value: ptr WebViewControlMoveFocusReason): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcess
 const IID_IWebViewControlProcess* = GUID(
     data1: 0x02C723EC'u32, data2: 0x98D6'u16, data3: 0x424A'u16,
     data4: [0xB6'u8, 0x3E, 0xC6, 0x13, 0x6C, 0x36, 0xA0, 0xF2])
 const Slot_IWebViewControlProcess_get_ProcessId* = 6
-type Fn_IWebViewControlProcess_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_get_EnterpriseId* = 7
-type Fn_IWebViewControlProcess_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled* = 8
-type Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_CreateWebViewControlAsync* = 9
-type Fn_IWebViewControlProcess_CreateWebViewControlAsync* = proc(self: pointer, a1: int64, a2: Rect, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_CreateWebViewControlAsync* = proc(self: pointer, a1: int64, a2: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_GetWebViewControls* = 10
-type Fn_IWebViewControlProcess_GetWebViewControls* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_GetWebViewControls* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_Terminate* = 11
-type Fn_IWebViewControlProcess_Terminate* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_Terminate* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_add_ProcessExited* = 12
-type Fn_IWebViewControlProcess_add_ProcessExited* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_add_ProcessExited* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_remove_ProcessExited* = 13
-type Fn_IWebViewControlProcess_remove_ProcessExited* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcess_remove_ProcessExited* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcessFactory
 const IID_IWebViewControlProcessFactory* = GUID(
     data1: 0x47B65CF9'u32, data2: 0xA2D2'u16, data3: 0x453C'u16,
     data4: [0xB0'u8, 0x97, 0xF6, 0x77, 0x9D, 0x4B, 0x8E, 0x02])
 const Slot_IWebViewControlProcessFactory_CreateWithOptions* = 6
-type Fn_IWebViewControlProcessFactory_CreateWithOptions* = proc(self: pointer, a1WebViewControlProcessOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcessFactory_CreateWithOptions* = proc(self: pointer, a1WebViewControlProcessOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcessOptions
 const IID_IWebViewControlProcessOptions* = GUID(
     data1: 0x1CCA72A7'u32, data2: 0x3BD6'u16, data3: 0x4826'u16,
     data4: [0x82'u8, 0x61, 0x6C, 0x81, 0x89, 0x50, 0x5D, 0x89])
 const Slot_IWebViewControlProcessOptions_put_EnterpriseId* = 6
-type Fn_IWebViewControlProcessOptions_put_EnterpriseId* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcessOptions_put_EnterpriseId* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControlProcessOptions_get_EnterpriseId* = 7
-type Fn_IWebViewControlProcessOptions_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcessOptions_get_EnterpriseId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* = 8
-type Fn_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* = proc(self: pointer, a1: WebViewControlProcessCapabilityState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* = proc(self: pointer, a1: WebViewControlProcessCapabilityState): HRESULT {.abi.}
 const Slot_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* = 9
-type Fn_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* = proc(self: pointer, value: ptr WebViewControlProcessCapabilityState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* = proc(self: pointer, value: ptr WebViewControlProcessCapabilityState): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlSite
 const IID_IWebViewControlSite* = GUID(
     data1: 0x133F47C6'u32, data2: 0x12DC'u16, data3: 0x4898'u16,
     data4: [0xBD'u8, 0x47, 0x04, 0x96, 0x7D, 0xE6, 0x48, 0xBA])
 const Slot_IWebViewControlSite_get_Process* = 6
-type Fn_IWebViewControlSite_get_Process* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_get_Process* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlSite_put_Scale* = 7
-type Fn_IWebViewControlSite_put_Scale* = proc(self: pointer, a1: float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_put_Scale* = proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IWebViewControlSite_get_Scale* = 8
-type Fn_IWebViewControlSite_get_Scale* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_get_Scale* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IWebViewControlSite_put_Bounds* = 9
-type Fn_IWebViewControlSite_put_Bounds* = proc(self: pointer, a1: Rect): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_put_Bounds* = proc(self: pointer, a1: Rect): HRESULT {.abi.}
 const Slot_IWebViewControlSite_get_Bounds* = 10
-type Fn_IWebViewControlSite_get_Bounds* = proc(self: pointer, value: ptr Rect): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_get_Bounds* = proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_IWebViewControlSite_put_IsVisible* = 11
-type Fn_IWebViewControlSite_put_IsVisible* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_put_IsVisible* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IWebViewControlSite_get_IsVisible* = 12
-type Fn_IWebViewControlSite_get_IsVisible* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_get_IsVisible* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlSite_Close* = 13
-type Fn_IWebViewControlSite_Close* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_Close* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlSite_MoveFocus* = 14
-type Fn_IWebViewControlSite_MoveFocus* = proc(self: pointer, a1: WebViewControlMoveFocusReason): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_MoveFocus* = proc(self: pointer, a1: WebViewControlMoveFocusReason): HRESULT {.abi.}
 const Slot_IWebViewControlSite_add_MoveFocusRequested* = 15
-type Fn_IWebViewControlSite_add_MoveFocusRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_add_MoveFocusRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite_remove_MoveFocusRequested* = 16
-type Fn_IWebViewControlSite_remove_MoveFocusRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_remove_MoveFocusRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite_add_AcceleratorKeyPressed* = 17
-type Fn_IWebViewControlSite_add_AcceleratorKeyPressed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_add_AcceleratorKeyPressed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite_remove_AcceleratorKeyPressed* = 18
-type Fn_IWebViewControlSite_remove_AcceleratorKeyPressed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite_remove_AcceleratorKeyPressed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlSite2
 const IID_IWebViewControlSite2* = GUID(
     data1: 0xD13B2E3F'u32, data2: 0x48EE'u16, data3: 0x4730'u16,
     data4: [0x82'u8, 0x43, 0xD2, 0xED, 0x0C, 0x05, 0x60, 0x6A])
 const Slot_IWebViewControlSite2_add_GotFocus* = 6
-type Fn_IWebViewControlSite2_add_GotFocus* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite2_add_GotFocus* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_remove_GotFocus* = 7
-type Fn_IWebViewControlSite2_remove_GotFocus* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite2_remove_GotFocus* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_add_LostFocus* = 8
-type Fn_IWebViewControlSite2_add_LostFocus* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite2_add_LostFocus* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_remove_LostFocus* = 9
-type Fn_IWebViewControlSite2_remove_LostFocus* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWebViewControlSite2_remove_LostFocus* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 

@@ -11,6 +11,7 @@
 ## a trailing out-parameter.
 
 import ../core
+include ../abidef
 export core
 import ./foundation
 export foundation
@@ -250,1305 +251,1305 @@ const IID_ICharacterGrouping* = GUID(
     data1: 0xFAE761BB'u32, data2: 0x805D'u16, data3: 0x4BB0'u16,
     data4: [0x95'u8, 0xBB, 0xC1, 0xF7, 0xC3, 0xE8, 0xEB, 0x8E])
 const Slot_ICharacterGrouping_get_First* = 6
-type Fn_ICharacterGrouping_get_First* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICharacterGrouping_get_First* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICharacterGrouping_get_Label* = 7
-type Fn_ICharacterGrouping_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICharacterGrouping_get_Label* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.Collation.ICharacterGroupings
 const IID_ICharacterGroupings* = GUID(
     data1: 0xB8D20A75'u32, data2: 0xD4CF'u16, data3: 0x4055'u16,
     data4: [0x80'u8, 0xE5, 0xCE, 0x16, 0x9C, 0x22, 0x64, 0x96])
 const Slot_ICharacterGroupings_Lookup* = 6
-type Fn_ICharacterGroupings_Lookup* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICharacterGroupings_Lookup* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.Collation.ICharacterGroupingsFactory
 const IID_ICharacterGroupingsFactory* = GUID(
     data1: 0x99EA9FD9'u32, data2: 0x886D'u16, data3: 0x4401'u16,
     data4: [0x9F'u8, 0x98, 0x69, 0xC8, 0x2D, 0x4C, 0x2F, 0x78])
 const Slot_ICharacterGroupingsFactory_Create* = 6
-type Fn_ICharacterGroupingsFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICharacterGroupingsFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatter
 const IID_IDateTimeFormatter* = GUID(
     data1: 0x95EECA10'u32, data2: 0x73E0'u16, data3: 0x4E4B'u16,
     data4: [0xA1'u8, 0x83, 0x3D, 0x6A, 0xD0, 0xBA, 0x35, 0xEC])
 const Slot_IDateTimeFormatter_get_Languages* = 6
-type Fn_IDateTimeFormatter_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_GeographicRegion* = 7
-type Fn_IDateTimeFormatter_get_GeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_GeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_Calendar* = 8
-type Fn_IDateTimeFormatter_get_Calendar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_Calendar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_Clock* = 9
-type Fn_IDateTimeFormatter_get_Clock* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_Clock* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_NumeralSystem* = 10
-type Fn_IDateTimeFormatter_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_put_NumeralSystem* = 11
-type Fn_IDateTimeFormatter_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_Patterns* = 12
-type Fn_IDateTimeFormatter_get_Patterns* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_Patterns* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_Template* = 13
-type Fn_IDateTimeFormatter_get_Template* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_Template* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_Format* = 14
-type Fn_IDateTimeFormatter_Format* = proc(self: pointer, a1: DateTime, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_Format* = proc(self: pointer, a1: DateTime, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeYear* = 15
-type Fn_IDateTimeFormatter_get_IncludeYear* = proc(self: pointer, value: ptr YearFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeYear* = proc(self: pointer, value: ptr YearFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeMonth* = 16
-type Fn_IDateTimeFormatter_get_IncludeMonth* = proc(self: pointer, value: ptr MonthFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeMonth* = proc(self: pointer, value: ptr MonthFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeDayOfWeek* = 17
-type Fn_IDateTimeFormatter_get_IncludeDayOfWeek* = proc(self: pointer, value: ptr DayOfWeekFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeDayOfWeek* = proc(self: pointer, value: ptr DayOfWeekFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeDay* = 18
-type Fn_IDateTimeFormatter_get_IncludeDay* = proc(self: pointer, value: ptr DayFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeDay* = proc(self: pointer, value: ptr DayFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeHour* = 19
-type Fn_IDateTimeFormatter_get_IncludeHour* = proc(self: pointer, value: ptr HourFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeHour* = proc(self: pointer, value: ptr HourFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeMinute* = 20
-type Fn_IDateTimeFormatter_get_IncludeMinute* = proc(self: pointer, value: ptr MinuteFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeMinute* = proc(self: pointer, value: ptr MinuteFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_IncludeSecond* = 21
-type Fn_IDateTimeFormatter_get_IncludeSecond* = proc(self: pointer, value: ptr SecondFormat): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_IncludeSecond* = proc(self: pointer, value: ptr SecondFormat): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_ResolvedLanguage* = 22
-type Fn_IDateTimeFormatter_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDateTimeFormatter_get_ResolvedGeographicRegion* = 23
-type Fn_IDateTimeFormatter_get_ResolvedGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter_get_ResolvedGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatter2
 const IID_IDateTimeFormatter2* = GUID(
     data1: 0x27C91A86'u32, data2: 0xBDAA'u16, data3: 0x4FD0'u16,
     data4: [0x9E'u8, 0x36, 0x67, 0x1D, 0x5A, 0xA5, 0xEE, 0x03])
 const Slot_IDateTimeFormatter2_Format* = 6
-type Fn_IDateTimeFormatter2_Format* = proc(self: pointer, a1: DateTime, a2: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatter2_Format* = proc(self: pointer, a1: DateTime, a2: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory
 const IID_IDateTimeFormatterFactory* = GUID(
     data1: 0xEC8D8A53'u32, data2: 0x1A2E'u16, data3: 0x412D'u16,
     data4: [0x88'u8, 0x15, 0x3B, 0x74, 0x5F, 0xB1, 0xA2, 0xA0])
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatter* = 6
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatter* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatter* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages* = 7
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterContext* = 8
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterContext* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: HSTRING, a4: HSTRING, a5: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterContext* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: HSTRING, a4: HSTRING, a5: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterDate* = 9
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDate* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDate* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterTime* = 10
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterTime* = proc(self: pointer, a1: HourFormat, a2: MinuteFormat, a3: SecondFormat, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterTime* = proc(self: pointer, a1: HourFormat, a2: MinuteFormat, a3: SecondFormat, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages* = 11
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, a5: HourFormat, a6: MinuteFormat, a7: SecondFormat, a8: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeLanguages* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, a5: HourFormat, a6: MinuteFormat, a7: SecondFormat, a8: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext* = 12
-type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, a5: HourFormat, a6: MinuteFormat, a7: SecondFormat, a8: pointer, a9: HSTRING, a10: HSTRING, a11: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterDateTimeContext* = proc(self: pointer, a1: YearFormat, a2: MonthFormat, a3: DayFormat, a4: DayOfWeekFormat, a5: HourFormat, a6: MinuteFormat, a7: SecondFormat, a8: pointer, a9: HSTRING, a10: HSTRING, a11: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics
 const IID_IDateTimeFormatterStatics* = GUID(
     data1: 0xBFCDE7C0'u32, data2: 0xDF4C'u16, data3: 0x4A2E'u16,
     data4: [0x90'u8, 0x12, 0xF4, 0x7D, 0xAF, 0x3F, 0x12, 0x12])
 const Slot_IDateTimeFormatterStatics_get_LongDate* = 6
-type Fn_IDateTimeFormatterStatics_get_LongDate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterStatics_get_LongDate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterStatics_get_LongTime* = 7
-type Fn_IDateTimeFormatterStatics_get_LongTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterStatics_get_LongTime* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterStatics_get_ShortDate* = 8
-type Fn_IDateTimeFormatterStatics_get_ShortDate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterStatics_get_ShortDate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterStatics_get_ShortTime* = 9
-type Fn_IDateTimeFormatterStatics_get_ShortTime* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeFormatterStatics_get_ShortTime* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.Fonts.ILanguageFont
 const IID_ILanguageFont* = GUID(
     data1: 0xB12E5C3A'u32, data2: 0xB76D'u16, data3: 0x459B'u16,
     data4: [0xBE'u8, 0xEB, 0x90, 0x11, 0x51, 0xCD, 0x77, 0xD1])
 const Slot_ILanguageFont_get_FontFamily* = 6
-type Fn_ILanguageFont_get_FontFamily* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFont_get_FontFamily* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILanguageFont_get_FontWeight* = 7
-type Fn_ILanguageFont_get_FontWeight* = proc(self: pointer, value: ptr FontWeight): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFont_get_FontWeight* = proc(self: pointer, value: ptr FontWeight): HRESULT {.abi.}
 const Slot_ILanguageFont_get_FontStretch* = 8
-type Fn_ILanguageFont_get_FontStretch* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFont_get_FontStretch* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ILanguageFont_get_FontStyle* = 9
-type Fn_ILanguageFont_get_FontStyle* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFont_get_FontStyle* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ILanguageFont_get_ScaleFactor* = 10
-type Fn_ILanguageFont_get_ScaleFactor* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFont_get_ScaleFactor* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 
 ## Windows.Globalization.Fonts.ILanguageFontGroup
 const IID_ILanguageFontGroup* = GUID(
     data1: 0xF33A7FC3'u32, data2: 0x3A5C'u16, data3: 0x4AEA'u16,
     data4: [0xB9'u8, 0xFF, 0xB3, 0x9F, 0xB2, 0x42, 0xF7, 0xF6])
 const Slot_ILanguageFontGroup_get_UITextFont* = 6
-type Fn_ILanguageFontGroup_get_UITextFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_UITextFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_UIHeadingFont* = 7
-type Fn_ILanguageFontGroup_get_UIHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_UIHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_UITitleFont* = 8
-type Fn_ILanguageFontGroup_get_UITitleFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_UITitleFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_UICaptionFont* = 9
-type Fn_ILanguageFontGroup_get_UICaptionFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_UICaptionFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_UINotificationHeadingFont* = 10
-type Fn_ILanguageFontGroup_get_UINotificationHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_UINotificationHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_TraditionalDocumentFont* = 11
-type Fn_ILanguageFontGroup_get_TraditionalDocumentFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_TraditionalDocumentFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_ModernDocumentFont* = 12
-type Fn_ILanguageFontGroup_get_ModernDocumentFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_ModernDocumentFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_DocumentHeadingFont* = 13
-type Fn_ILanguageFontGroup_get_DocumentHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_DocumentHeadingFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_FixedWidthTextFont* = 14
-type Fn_ILanguageFontGroup_get_FixedWidthTextFont* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_FixedWidthTextFont* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_DocumentAlternate1Font* = 15
-type Fn_ILanguageFontGroup_get_DocumentAlternate1Font* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_DocumentAlternate1Font* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILanguageFontGroup_get_DocumentAlternate2Font* = 16
-type Fn_ILanguageFontGroup_get_DocumentAlternate2Font* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroup_get_DocumentAlternate2Font* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.Fonts.ILanguageFontGroupFactory
 const IID_ILanguageFontGroupFactory* = GUID(
     data1: 0xFCAEAC67'u32, data2: 0x4E77'u16, data3: 0x49C7'u16,
     data4: [0xB8'u8, 0x56, 0xDD, 0xE9, 0x34, 0xFC, 0x73, 0x5B])
 const Slot_ILanguageFontGroupFactory_CreateLanguageFontGroup* = 6
-type Fn_ILanguageFontGroupFactory_CreateLanguageFontGroup* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFontGroupFactory_CreateLanguageFontGroup* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.IApplicationLanguagesStatics
 const IID_IApplicationLanguagesStatics* = GUID(
     data1: 0x75B40847'u32, data2: 0x0A4C'u16, data3: 0x4A92'u16,
     data4: [0x95'u8, 0x65, 0xFD, 0x63, 0xC9, 0x5F, 0x7A, 0xED])
 const Slot_IApplicationLanguagesStatics_get_PrimaryLanguageOverride* = 6
-type Fn_IApplicationLanguagesStatics_get_PrimaryLanguageOverride* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IApplicationLanguagesStatics_get_PrimaryLanguageOverride* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IApplicationLanguagesStatics_put_PrimaryLanguageOverride* = 7
-type Fn_IApplicationLanguagesStatics_put_PrimaryLanguageOverride* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IApplicationLanguagesStatics_put_PrimaryLanguageOverride* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IApplicationLanguagesStatics_get_Languages* = 8
-type Fn_IApplicationLanguagesStatics_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IApplicationLanguagesStatics_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IApplicationLanguagesStatics_get_ManifestLanguages* = 9
-type Fn_IApplicationLanguagesStatics_get_ManifestLanguages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IApplicationLanguagesStatics_get_ManifestLanguages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.IApplicationLanguagesStatics2
 const IID_IApplicationLanguagesStatics2* = GUID(
     data1: 0x1DF0DE4F'u32, data2: 0x072B'u16, data3: 0x4D7B'u16,
     data4: [0x8F'u8, 0x06, 0xCB, 0x2D, 0xB4, 0x0F, 0x2B, 0xB5])
 const Slot_IApplicationLanguagesStatics2_GetLanguagesForUser* = 6
-type Fn_IApplicationLanguagesStatics2_GetLanguagesForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IApplicationLanguagesStatics2_GetLanguagesForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendar
 const IID_ICalendar* = GUID(
     data1: 0xCA30221D'u32, data2: 0x86D9'u16, data3: 0x40FB'u16,
     data4: [0xA2'u8, 0x6B, 0xD4, 0x4E, 0xB7, 0xCF, 0x08, 0xEA])
 const Slot_ICalendar_Clone* = 6
-type Fn_ICalendar_Clone* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_Clone* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICalendar_SetToMin* = 7
-type Fn_ICalendar_SetToMin* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SetToMin* = proc(self: pointer): HRESULT {.abi.}
 const Slot_ICalendar_SetToMax* = 8
-type Fn_ICalendar_SetToMax* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SetToMax* = proc(self: pointer): HRESULT {.abi.}
 const Slot_ICalendar_get_Languages* = 9
-type Fn_ICalendar_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICalendar_get_NumeralSystem* = 10
-type Fn_ICalendar_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_put_NumeralSystem* = 11
-type Fn_ICalendar_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_GetCalendarSystem* = 12
-type Fn_ICalendar_GetCalendarSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_GetCalendarSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_ChangeCalendarSystem* = 13
-type Fn_ICalendar_ChangeCalendarSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_ChangeCalendarSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_GetClock* = 14
-type Fn_ICalendar_GetClock* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_GetClock* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_ChangeClock* = 15
-type Fn_ICalendar_ChangeClock* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_ChangeClock* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_GetDateTime* = 16
-type Fn_ICalendar_GetDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_GetDateTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ICalendar_SetDateTime* = 17
-type Fn_ICalendar_SetDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SetDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 const Slot_ICalendar_SetToNow* = 18
-type Fn_ICalendar_SetToNow* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SetToNow* = proc(self: pointer): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstEra* = 19
-type Fn_ICalendar_get_FirstEra* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstEra* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastEra* = 20
-type Fn_ICalendar_get_LastEra* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastEra* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfEras* = 21
-type Fn_ICalendar_get_NumberOfEras* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfEras* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Era* = 22
-type Fn_ICalendar_get_Era* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Era* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Era* = 23
-type Fn_ICalendar_put_Era* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Era* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddEras* = 24
-type Fn_ICalendar_AddEras* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddEras* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_EraAsString* = 25
-type Fn_ICalendar_EraAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_EraAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_EraAsString2* = 26
-type Fn_ICalendar_EraAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_EraAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstYearInThisEra* = 27
-type Fn_ICalendar_get_FirstYearInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstYearInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastYearInThisEra* = 28
-type Fn_ICalendar_get_LastYearInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastYearInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfYearsInThisEra* = 29
-type Fn_ICalendar_get_NumberOfYearsInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfYearsInThisEra* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Year* = 30
-type Fn_ICalendar_get_Year* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Year* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Year* = 31
-type Fn_ICalendar_put_Year* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Year* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddYears* = 32
-type Fn_ICalendar_AddYears* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddYears* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_YearAsString* = 33
-type Fn_ICalendar_YearAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_YearAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_YearAsTruncatedString* = 34
-type Fn_ICalendar_YearAsTruncatedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_YearAsTruncatedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_YearAsPaddedString* = 35
-type Fn_ICalendar_YearAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_YearAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstMonthInThisYear* = 36
-type Fn_ICalendar_get_FirstMonthInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstMonthInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastMonthInThisYear* = 37
-type Fn_ICalendar_get_LastMonthInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastMonthInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfMonthsInThisYear* = 38
-type Fn_ICalendar_get_NumberOfMonthsInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfMonthsInThisYear* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Month* = 39
-type Fn_ICalendar_get_Month* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Month* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Month* = 40
-type Fn_ICalendar_put_Month* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Month* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddMonths* = 41
-type Fn_ICalendar_AddMonths* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddMonths* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsString* = 42
-type Fn_ICalendar_MonthAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsString2* = 43
-type Fn_ICalendar_MonthAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsSoloString* = 44
-type Fn_ICalendar_MonthAsSoloString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsSoloString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsSoloString2* = 45
-type Fn_ICalendar_MonthAsSoloString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsSoloString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsNumericString* = 46
-type Fn_ICalendar_MonthAsNumericString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsNumericString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MonthAsPaddedNumericString* = 47
-type Fn_ICalendar_MonthAsPaddedNumericString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MonthAsPaddedNumericString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_AddWeeks* = 48
-type Fn_ICalendar_AddWeeks* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddWeeks* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstDayInThisMonth* = 49
-type Fn_ICalendar_get_FirstDayInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstDayInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastDayInThisMonth* = 50
-type Fn_ICalendar_get_LastDayInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastDayInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfDaysInThisMonth* = 51
-type Fn_ICalendar_get_NumberOfDaysInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfDaysInThisMonth* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Day* = 52
-type Fn_ICalendar_get_Day* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Day* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Day* = 53
-type Fn_ICalendar_put_Day* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Day* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddDays* = 54
-type Fn_ICalendar_AddDays* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddDays* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_DayAsString* = 55
-type Fn_ICalendar_DayAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_DayAsPaddedString* = 56
-type Fn_ICalendar_DayAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_DayOfWeek* = 57
-type Fn_ICalendar_get_DayOfWeek* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_DayOfWeek* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
 const Slot_ICalendar_DayOfWeekAsString* = 58
-type Fn_ICalendar_DayOfWeekAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayOfWeekAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_DayOfWeekAsString2* = 59
-type Fn_ICalendar_DayOfWeekAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayOfWeekAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_DayOfWeekAsSoloString* = 60
-type Fn_ICalendar_DayOfWeekAsSoloString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayOfWeekAsSoloString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_DayOfWeekAsSoloString2* = 61
-type Fn_ICalendar_DayOfWeekAsSoloString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_DayOfWeekAsSoloString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstPeriodInThisDay* = 62
-type Fn_ICalendar_get_FirstPeriodInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstPeriodInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastPeriodInThisDay* = 63
-type Fn_ICalendar_get_LastPeriodInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastPeriodInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfPeriodsInThisDay* = 64
-type Fn_ICalendar_get_NumberOfPeriodsInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfPeriodsInThisDay* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Period* = 65
-type Fn_ICalendar_get_Period* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Period* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Period* = 66
-type Fn_ICalendar_put_Period* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Period* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddPeriods* = 67
-type Fn_ICalendar_AddPeriods* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddPeriods* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_PeriodAsString* = 68
-type Fn_ICalendar_PeriodAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_PeriodAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_PeriodAsString2* = 69
-type Fn_ICalendar_PeriodAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_PeriodAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstHourInThisPeriod* = 70
-type Fn_ICalendar_get_FirstHourInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstHourInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastHourInThisPeriod* = 71
-type Fn_ICalendar_get_LastHourInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastHourInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfHoursInThisPeriod* = 72
-type Fn_ICalendar_get_NumberOfHoursInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfHoursInThisPeriod* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_Hour* = 73
-type Fn_ICalendar_get_Hour* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Hour* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Hour* = 74
-type Fn_ICalendar_put_Hour* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Hour* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddHours* = 75
-type Fn_ICalendar_AddHours* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddHours* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_HourAsString* = 76
-type Fn_ICalendar_HourAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_HourAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_HourAsPaddedString* = 77
-type Fn_ICalendar_HourAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_HourAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_Minute* = 78
-type Fn_ICalendar_get_Minute* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Minute* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Minute* = 79
-type Fn_ICalendar_put_Minute* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Minute* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddMinutes* = 80
-type Fn_ICalendar_AddMinutes* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddMinutes* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_MinuteAsString* = 81
-type Fn_ICalendar_MinuteAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MinuteAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_MinuteAsPaddedString* = 82
-type Fn_ICalendar_MinuteAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_MinuteAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_Second* = 83
-type Fn_ICalendar_get_Second* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Second* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Second* = 84
-type Fn_ICalendar_put_Second* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Second* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddSeconds* = 85
-type Fn_ICalendar_AddSeconds* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddSeconds* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_SecondAsString* = 86
-type Fn_ICalendar_SecondAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SecondAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_SecondAsPaddedString* = 87
-type Fn_ICalendar_SecondAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_SecondAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_Nanosecond* = 88
-type Fn_ICalendar_get_Nanosecond* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_Nanosecond* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_put_Nanosecond* = 89
-type Fn_ICalendar_put_Nanosecond* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_put_Nanosecond* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_AddNanoseconds* = 90
-type Fn_ICalendar_AddNanoseconds* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_AddNanoseconds* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ICalendar_NanosecondAsString* = 91
-type Fn_ICalendar_NanosecondAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_NanosecondAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_NanosecondAsPaddedString* = 92
-type Fn_ICalendar_NanosecondAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_NanosecondAsPaddedString* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_Compare* = 93
-type Fn_ICalendar_Compare* = proc(self: pointer, a1Calendar: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_Compare* = proc(self: pointer, a1Calendar: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_CompareDateTime* = 94
-type Fn_ICalendar_CompareDateTime* = proc(self: pointer, a1: DateTime, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_CompareDateTime* = proc(self: pointer, a1: DateTime, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_CopyTo* = 95
-type Fn_ICalendar_CopyTo* = proc(self: pointer, a1Calendar: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_CopyTo* = proc(self: pointer, a1Calendar: pointer): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstMinuteInThisHour* = 96
-type Fn_ICalendar_get_FirstMinuteInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstMinuteInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastMinuteInThisHour* = 97
-type Fn_ICalendar_get_LastMinuteInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastMinuteInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfMinutesInThisHour* = 98
-type Fn_ICalendar_get_NumberOfMinutesInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfMinutesInThisHour* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_FirstSecondInThisMinute* = 99
-type Fn_ICalendar_get_FirstSecondInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_FirstSecondInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_LastSecondInThisMinute* = 100
-type Fn_ICalendar_get_LastSecondInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_LastSecondInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_NumberOfSecondsInThisMinute* = 101
-type Fn_ICalendar_get_NumberOfSecondsInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_NumberOfSecondsInThisMinute* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICalendar_get_ResolvedLanguage* = 102
-type Fn_ICalendar_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendar_get_IsDaylightSavingTime* = 103
-type Fn_ICalendar_get_IsDaylightSavingTime* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendar_get_IsDaylightSavingTime* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendarFactory
 const IID_ICalendarFactory* = GUID(
     data1: 0x83F58412'u32, data2: 0xE56B'u16, data3: 0x4C75'u16,
     data4: [0xA6'u8, 0x6E, 0x0F, 0x63, 0xD5, 0x77, 0x58, 0xA6])
 const Slot_ICalendarFactory_CreateCalendarDefaultCalendarAndClock* = 6
-type Fn_ICalendarFactory_CreateCalendarDefaultCalendarAndClock* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarFactory_CreateCalendarDefaultCalendarAndClock* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICalendarFactory_CreateCalendar* = 7
-type Fn_ICalendarFactory_CreateCalendar* = proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarFactory_CreateCalendar* = proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendarFactory2
 const IID_ICalendarFactory2* = GUID(
     data1: 0xB44B378C'u32, data2: 0xCA7E'u16, data3: 0x4590'u16,
     data4: [0x9E'u8, 0x72, 0xEA, 0x2B, 0xEC, 0x1A, 0x51, 0x15])
 const Slot_ICalendarFactory2_CreateCalendarWithTimeZone* = 6
-type Fn_ICalendarFactory2_CreateCalendarWithTimeZone* = proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING, a4: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarFactory2_CreateCalendarWithTimeZone* = proc(self: pointer, a1: pointer, a2: HSTRING, a3: HSTRING, a4: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendarIdentifiersStatics
 const IID_ICalendarIdentifiersStatics* = GUID(
     data1: 0x80653F68'u32, data2: 0x2CB2'u16, data3: 0x4C1F'u16,
     data4: [0xB5'u8, 0x90, 0xF0, 0xF5, 0x2B, 0xF4, 0xFD, 0x1A])
 const Slot_ICalendarIdentifiersStatics_get_Gregorian* = 6
-type Fn_ICalendarIdentifiersStatics_get_Gregorian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Gregorian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Hebrew* = 7
-type Fn_ICalendarIdentifiersStatics_get_Hebrew* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Hebrew* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Hijri* = 8
-type Fn_ICalendarIdentifiersStatics_get_Hijri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Hijri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Japanese* = 9
-type Fn_ICalendarIdentifiersStatics_get_Japanese* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Japanese* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Julian* = 10
-type Fn_ICalendarIdentifiersStatics_get_Julian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Julian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Korean* = 11
-type Fn_ICalendarIdentifiersStatics_get_Korean* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Korean* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Taiwan* = 12
-type Fn_ICalendarIdentifiersStatics_get_Taiwan* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Taiwan* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_Thai* = 13
-type Fn_ICalendarIdentifiersStatics_get_Thai* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_Thai* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics_get_UmAlQura* = 14
-type Fn_ICalendarIdentifiersStatics_get_UmAlQura* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics_get_UmAlQura* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendarIdentifiersStatics2
 const IID_ICalendarIdentifiersStatics2* = GUID(
     data1: 0x7DF4D488'u32, data2: 0x5FD0'u16, data3: 0x42A7'u16,
     data4: [0x95'u8, 0xB5, 0x7D, 0x98, 0xD8, 0x23, 0x07, 0x5F])
 const Slot_ICalendarIdentifiersStatics2_get_Persian* = 6
-type Fn_ICalendarIdentifiersStatics2_get_Persian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics2_get_Persian* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICalendarIdentifiersStatics3
 const IID_ICalendarIdentifiersStatics3* = GUID(
     data1: 0x2C225423'u32, data2: 0x1FAD'u16, data3: 0x40C0'u16,
     data4: [0x93'u8, 0x34, 0xA8, 0xEB, 0x90, 0xDB, 0x04, 0xF5])
 const Slot_ICalendarIdentifiersStatics3_get_ChineseLunar* = 6
-type Fn_ICalendarIdentifiersStatics3_get_ChineseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics3_get_ChineseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics3_get_JapaneseLunar* = 7
-type Fn_ICalendarIdentifiersStatics3_get_JapaneseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics3_get_JapaneseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics3_get_KoreanLunar* = 8
-type Fn_ICalendarIdentifiersStatics3_get_KoreanLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics3_get_KoreanLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics3_get_TaiwanLunar* = 9
-type Fn_ICalendarIdentifiersStatics3_get_TaiwanLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics3_get_TaiwanLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICalendarIdentifiersStatics3_get_VietnameseLunar* = 10
-type Fn_ICalendarIdentifiersStatics3_get_VietnameseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICalendarIdentifiersStatics3_get_VietnameseLunar* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.IClockIdentifiersStatics
 const IID_IClockIdentifiersStatics* = GUID(
     data1: 0x523805BB'u32, data2: 0x12EC'u16, data3: 0x4F83'u16,
     data4: [0xBC'u8, 0x31, 0xB1, 0xB4, 0x37, 0x6B, 0x08, 0x08])
 const Slot_IClockIdentifiersStatics_get_TwelveHour* = 6
-type Fn_IClockIdentifiersStatics_get_TwelveHour* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IClockIdentifiersStatics_get_TwelveHour* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IClockIdentifiersStatics_get_TwentyFourHour* = 7
-type Fn_IClockIdentifiersStatics_get_TwentyFourHour* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IClockIdentifiersStatics_get_TwentyFourHour* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyAmount
 const IID_ICurrencyAmount* = GUID(
     data1: 0x74B49942'u32, data2: 0xEB75'u16, data3: 0x443A'u16,
     data4: [0x95'u8, 0xB3, 0x7D, 0x72, 0x3F, 0x56, 0xF9, 0x3C])
 const Slot_ICurrencyAmount_get_Amount* = 6
-type Fn_ICurrencyAmount_get_Amount* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyAmount_get_Amount* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyAmount_get_Currency* = 7
-type Fn_ICurrencyAmount_get_Currency* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyAmount_get_Currency* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyAmountFactory
 const IID_ICurrencyAmountFactory* = GUID(
     data1: 0x48D7168F'u32, data2: 0xEF3B'u16, data3: 0x4AEE'u16,
     data4: [0xA6'u8, 0xA1, 0x4B, 0x03, 0x6F, 0xE0, 0x3F, 0xF0])
 const Slot_ICurrencyAmountFactory_Create* = 6
-type Fn_ICurrencyAmountFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyAmountFactory_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyIdentifiersStatics
 const IID_ICurrencyIdentifiersStatics* = GUID(
     data1: 0x9F1D091B'u32, data2: 0xD586'u16, data3: 0x4913'u16,
     data4: [0x9B'u8, 0x6A, 0xA9, 0xBD, 0x2D, 0xC1, 0x28, 0x74])
 const Slot_ICurrencyIdentifiersStatics_get_AED* = 6
-type Fn_ICurrencyIdentifiersStatics_get_AED* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AED* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AFN* = 7
-type Fn_ICurrencyIdentifiersStatics_get_AFN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AFN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ALL* = 8
-type Fn_ICurrencyIdentifiersStatics_get_ALL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ALL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AMD* = 9
-type Fn_ICurrencyIdentifiersStatics_get_AMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ANG* = 10
-type Fn_ICurrencyIdentifiersStatics_get_ANG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ANG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AOA* = 11
-type Fn_ICurrencyIdentifiersStatics_get_AOA* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AOA* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ARS* = 12
-type Fn_ICurrencyIdentifiersStatics_get_ARS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ARS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AUD* = 13
-type Fn_ICurrencyIdentifiersStatics_get_AUD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AUD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AWG* = 14
-type Fn_ICurrencyIdentifiersStatics_get_AWG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AWG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_AZN* = 15
-type Fn_ICurrencyIdentifiersStatics_get_AZN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_AZN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BAM* = 16
-type Fn_ICurrencyIdentifiersStatics_get_BAM* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BAM* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BBD* = 17
-type Fn_ICurrencyIdentifiersStatics_get_BBD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BBD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BDT* = 18
-type Fn_ICurrencyIdentifiersStatics_get_BDT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BDT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BGN* = 19
-type Fn_ICurrencyIdentifiersStatics_get_BGN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BGN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BHD* = 20
-type Fn_ICurrencyIdentifiersStatics_get_BHD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BHD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BIF* = 21
-type Fn_ICurrencyIdentifiersStatics_get_BIF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BIF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BMD* = 22
-type Fn_ICurrencyIdentifiersStatics_get_BMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BND* = 23
-type Fn_ICurrencyIdentifiersStatics_get_BND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BOB* = 24
-type Fn_ICurrencyIdentifiersStatics_get_BOB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BOB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BRL* = 25
-type Fn_ICurrencyIdentifiersStatics_get_BRL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BRL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BSD* = 26
-type Fn_ICurrencyIdentifiersStatics_get_BSD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BSD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BTN* = 27
-type Fn_ICurrencyIdentifiersStatics_get_BTN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BTN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BWP* = 28
-type Fn_ICurrencyIdentifiersStatics_get_BWP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BWP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BYR* = 29
-type Fn_ICurrencyIdentifiersStatics_get_BYR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BYR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_BZD* = 30
-type Fn_ICurrencyIdentifiersStatics_get_BZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_BZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CAD* = 31
-type Fn_ICurrencyIdentifiersStatics_get_CAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CDF* = 32
-type Fn_ICurrencyIdentifiersStatics_get_CDF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CDF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CHF* = 33
-type Fn_ICurrencyIdentifiersStatics_get_CHF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CHF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CLP* = 34
-type Fn_ICurrencyIdentifiersStatics_get_CLP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CLP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CNY* = 35
-type Fn_ICurrencyIdentifiersStatics_get_CNY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CNY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_COP* = 36
-type Fn_ICurrencyIdentifiersStatics_get_COP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_COP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CRC* = 37
-type Fn_ICurrencyIdentifiersStatics_get_CRC* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CRC* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CUP* = 38
-type Fn_ICurrencyIdentifiersStatics_get_CUP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CUP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CVE* = 39
-type Fn_ICurrencyIdentifiersStatics_get_CVE* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CVE* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_CZK* = 40
-type Fn_ICurrencyIdentifiersStatics_get_CZK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_CZK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_DJF* = 41
-type Fn_ICurrencyIdentifiersStatics_get_DJF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_DJF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_DKK* = 42
-type Fn_ICurrencyIdentifiersStatics_get_DKK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_DKK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_DOP* = 43
-type Fn_ICurrencyIdentifiersStatics_get_DOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_DOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_DZD* = 44
-type Fn_ICurrencyIdentifiersStatics_get_DZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_DZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_EGP* = 45
-type Fn_ICurrencyIdentifiersStatics_get_EGP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_EGP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ERN* = 46
-type Fn_ICurrencyIdentifiersStatics_get_ERN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ERN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ETB* = 47
-type Fn_ICurrencyIdentifiersStatics_get_ETB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ETB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_EUR* = 48
-type Fn_ICurrencyIdentifiersStatics_get_EUR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_EUR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_FJD* = 49
-type Fn_ICurrencyIdentifiersStatics_get_FJD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_FJD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_FKP* = 50
-type Fn_ICurrencyIdentifiersStatics_get_FKP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_FKP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GBP* = 51
-type Fn_ICurrencyIdentifiersStatics_get_GBP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GBP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GEL* = 52
-type Fn_ICurrencyIdentifiersStatics_get_GEL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GEL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GHS* = 53
-type Fn_ICurrencyIdentifiersStatics_get_GHS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GHS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GIP* = 54
-type Fn_ICurrencyIdentifiersStatics_get_GIP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GIP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GMD* = 55
-type Fn_ICurrencyIdentifiersStatics_get_GMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GNF* = 56
-type Fn_ICurrencyIdentifiersStatics_get_GNF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GNF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GTQ* = 57
-type Fn_ICurrencyIdentifiersStatics_get_GTQ* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GTQ* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_GYD* = 58
-type Fn_ICurrencyIdentifiersStatics_get_GYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_GYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_HKD* = 59
-type Fn_ICurrencyIdentifiersStatics_get_HKD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_HKD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_HNL* = 60
-type Fn_ICurrencyIdentifiersStatics_get_HNL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_HNL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_HRK* = 61
-type Fn_ICurrencyIdentifiersStatics_get_HRK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_HRK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_HTG* = 62
-type Fn_ICurrencyIdentifiersStatics_get_HTG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_HTG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_HUF* = 63
-type Fn_ICurrencyIdentifiersStatics_get_HUF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_HUF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_IDR* = 64
-type Fn_ICurrencyIdentifiersStatics_get_IDR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_IDR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ILS* = 65
-type Fn_ICurrencyIdentifiersStatics_get_ILS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ILS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_INR* = 66
-type Fn_ICurrencyIdentifiersStatics_get_INR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_INR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_IQD* = 67
-type Fn_ICurrencyIdentifiersStatics_get_IQD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_IQD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_IRR* = 68
-type Fn_ICurrencyIdentifiersStatics_get_IRR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_IRR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ISK* = 69
-type Fn_ICurrencyIdentifiersStatics_get_ISK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ISK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_JMD* = 70
-type Fn_ICurrencyIdentifiersStatics_get_JMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_JMD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_JOD* = 71
-type Fn_ICurrencyIdentifiersStatics_get_JOD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_JOD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_JPY* = 72
-type Fn_ICurrencyIdentifiersStatics_get_JPY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_JPY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KES* = 73
-type Fn_ICurrencyIdentifiersStatics_get_KES* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KES* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KGS* = 74
-type Fn_ICurrencyIdentifiersStatics_get_KGS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KGS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KHR* = 75
-type Fn_ICurrencyIdentifiersStatics_get_KHR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KHR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KMF* = 76
-type Fn_ICurrencyIdentifiersStatics_get_KMF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KMF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KPW* = 77
-type Fn_ICurrencyIdentifiersStatics_get_KPW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KPW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KRW* = 78
-type Fn_ICurrencyIdentifiersStatics_get_KRW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KRW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KWD* = 79
-type Fn_ICurrencyIdentifiersStatics_get_KWD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KWD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KYD* = 80
-type Fn_ICurrencyIdentifiersStatics_get_KYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_KZT* = 81
-type Fn_ICurrencyIdentifiersStatics_get_KZT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_KZT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LAK* = 82
-type Fn_ICurrencyIdentifiersStatics_get_LAK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LAK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LBP* = 83
-type Fn_ICurrencyIdentifiersStatics_get_LBP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LBP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LKR* = 84
-type Fn_ICurrencyIdentifiersStatics_get_LKR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LKR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LRD* = 85
-type Fn_ICurrencyIdentifiersStatics_get_LRD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LRD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LSL* = 86
-type Fn_ICurrencyIdentifiersStatics_get_LSL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LSL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LTL* = 87
-type Fn_ICurrencyIdentifiersStatics_get_LTL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LTL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LVL* = 88
-type Fn_ICurrencyIdentifiersStatics_get_LVL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LVL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_LYD* = 89
-type Fn_ICurrencyIdentifiersStatics_get_LYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_LYD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MAD* = 90
-type Fn_ICurrencyIdentifiersStatics_get_MAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MDL* = 91
-type Fn_ICurrencyIdentifiersStatics_get_MDL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MDL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MGA* = 92
-type Fn_ICurrencyIdentifiersStatics_get_MGA* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MGA* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MKD* = 93
-type Fn_ICurrencyIdentifiersStatics_get_MKD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MKD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MMK* = 94
-type Fn_ICurrencyIdentifiersStatics_get_MMK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MMK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MNT* = 95
-type Fn_ICurrencyIdentifiersStatics_get_MNT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MNT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MOP* = 96
-type Fn_ICurrencyIdentifiersStatics_get_MOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MRO* = 97
-type Fn_ICurrencyIdentifiersStatics_get_MRO* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MRO* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MUR* = 98
-type Fn_ICurrencyIdentifiersStatics_get_MUR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MUR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MVR* = 99
-type Fn_ICurrencyIdentifiersStatics_get_MVR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MVR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MWK* = 100
-type Fn_ICurrencyIdentifiersStatics_get_MWK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MWK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MXN* = 101
-type Fn_ICurrencyIdentifiersStatics_get_MXN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MXN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MYR* = 102
-type Fn_ICurrencyIdentifiersStatics_get_MYR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MYR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_MZN* = 103
-type Fn_ICurrencyIdentifiersStatics_get_MZN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_MZN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NAD* = 104
-type Fn_ICurrencyIdentifiersStatics_get_NAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NAD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NGN* = 105
-type Fn_ICurrencyIdentifiersStatics_get_NGN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NGN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NIO* = 106
-type Fn_ICurrencyIdentifiersStatics_get_NIO* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NIO* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NOK* = 107
-type Fn_ICurrencyIdentifiersStatics_get_NOK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NOK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NPR* = 108
-type Fn_ICurrencyIdentifiersStatics_get_NPR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NPR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_NZD* = 109
-type Fn_ICurrencyIdentifiersStatics_get_NZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_NZD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_OMR* = 110
-type Fn_ICurrencyIdentifiersStatics_get_OMR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_OMR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PAB* = 111
-type Fn_ICurrencyIdentifiersStatics_get_PAB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PAB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PEN* = 112
-type Fn_ICurrencyIdentifiersStatics_get_PEN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PEN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PGK* = 113
-type Fn_ICurrencyIdentifiersStatics_get_PGK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PGK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PHP* = 114
-type Fn_ICurrencyIdentifiersStatics_get_PHP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PHP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PKR* = 115
-type Fn_ICurrencyIdentifiersStatics_get_PKR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PKR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PLN* = 116
-type Fn_ICurrencyIdentifiersStatics_get_PLN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PLN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_PYG* = 117
-type Fn_ICurrencyIdentifiersStatics_get_PYG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_PYG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_QAR* = 118
-type Fn_ICurrencyIdentifiersStatics_get_QAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_QAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_RON* = 119
-type Fn_ICurrencyIdentifiersStatics_get_RON* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_RON* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_RSD* = 120
-type Fn_ICurrencyIdentifiersStatics_get_RSD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_RSD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_RUB* = 121
-type Fn_ICurrencyIdentifiersStatics_get_RUB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_RUB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_RWF* = 122
-type Fn_ICurrencyIdentifiersStatics_get_RWF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_RWF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SAR* = 123
-type Fn_ICurrencyIdentifiersStatics_get_SAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SBD* = 124
-type Fn_ICurrencyIdentifiersStatics_get_SBD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SBD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SCR* = 125
-type Fn_ICurrencyIdentifiersStatics_get_SCR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SCR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SDG* = 126
-type Fn_ICurrencyIdentifiersStatics_get_SDG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SDG* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SEK* = 127
-type Fn_ICurrencyIdentifiersStatics_get_SEK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SEK* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SGD* = 128
-type Fn_ICurrencyIdentifiersStatics_get_SGD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SGD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SHP* = 129
-type Fn_ICurrencyIdentifiersStatics_get_SHP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SHP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SLL* = 130
-type Fn_ICurrencyIdentifiersStatics_get_SLL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SLL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SOS* = 131
-type Fn_ICurrencyIdentifiersStatics_get_SOS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SOS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SRD* = 132
-type Fn_ICurrencyIdentifiersStatics_get_SRD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SRD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_STD* = 133
-type Fn_ICurrencyIdentifiersStatics_get_STD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_STD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SYP* = 134
-type Fn_ICurrencyIdentifiersStatics_get_SYP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SYP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_SZL* = 135
-type Fn_ICurrencyIdentifiersStatics_get_SZL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_SZL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_THB* = 136
-type Fn_ICurrencyIdentifiersStatics_get_THB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_THB* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TJS* = 137
-type Fn_ICurrencyIdentifiersStatics_get_TJS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TJS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TMT* = 138
-type Fn_ICurrencyIdentifiersStatics_get_TMT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TMT* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TND* = 139
-type Fn_ICurrencyIdentifiersStatics_get_TND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TOP* = 140
-type Fn_ICurrencyIdentifiersStatics_get_TOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TOP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TRY* = 141
-type Fn_ICurrencyIdentifiersStatics_get_TRY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TRY* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TTD* = 142
-type Fn_ICurrencyIdentifiersStatics_get_TTD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TTD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TWD* = 143
-type Fn_ICurrencyIdentifiersStatics_get_TWD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TWD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_TZS* = 144
-type Fn_ICurrencyIdentifiersStatics_get_TZS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_TZS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_UAH* = 145
-type Fn_ICurrencyIdentifiersStatics_get_UAH* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_UAH* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_UGX* = 146
-type Fn_ICurrencyIdentifiersStatics_get_UGX* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_UGX* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_USD* = 147
-type Fn_ICurrencyIdentifiersStatics_get_USD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_USD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_UYU* = 148
-type Fn_ICurrencyIdentifiersStatics_get_UYU* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_UYU* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_UZS* = 149
-type Fn_ICurrencyIdentifiersStatics_get_UZS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_UZS* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_VEF* = 150
-type Fn_ICurrencyIdentifiersStatics_get_VEF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_VEF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_VND* = 151
-type Fn_ICurrencyIdentifiersStatics_get_VND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_VND* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_VUV* = 152
-type Fn_ICurrencyIdentifiersStatics_get_VUV* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_VUV* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_WST* = 153
-type Fn_ICurrencyIdentifiersStatics_get_WST* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_WST* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_XAF* = 154
-type Fn_ICurrencyIdentifiersStatics_get_XAF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_XAF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_XCD* = 155
-type Fn_ICurrencyIdentifiersStatics_get_XCD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_XCD* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_XOF* = 156
-type Fn_ICurrencyIdentifiersStatics_get_XOF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_XOF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_XPF* = 157
-type Fn_ICurrencyIdentifiersStatics_get_XPF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_XPF* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_XXX* = 158
-type Fn_ICurrencyIdentifiersStatics_get_XXX* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_XXX* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_YER* = 159
-type Fn_ICurrencyIdentifiersStatics_get_YER* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_YER* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ZAR* = 160
-type Fn_ICurrencyIdentifiersStatics_get_ZAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ZAR* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ZMW* = 161
-type Fn_ICurrencyIdentifiersStatics_get_ZMW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ZMW* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics_get_ZWL* = 162
-type Fn_ICurrencyIdentifiersStatics_get_ZWL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics_get_ZWL* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyIdentifiersStatics2
 const IID_ICurrencyIdentifiersStatics2* = GUID(
     data1: 0x1814797F'u32, data2: 0xC3B2'u16, data3: 0x4C33'u16,
     data4: [0x95'u8, 0x91, 0x98, 0x00, 0x11, 0x95, 0x0D, 0x37])
 const Slot_ICurrencyIdentifiersStatics2_get_BYN* = 6
-type Fn_ICurrencyIdentifiersStatics2_get_BYN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics2_get_BYN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyIdentifiersStatics3
 const IID_ICurrencyIdentifiersStatics3* = GUID(
     data1: 0x4FB23BFA'u32, data2: 0xED25'u16, data3: 0x4F4D'u16,
     data4: [0x85'u8, 0x7F, 0x23, 0x7F, 0x17, 0x48, 0xC2, 0x1C])
 const Slot_ICurrencyIdentifiersStatics3_get_MRU* = 6
-type Fn_ICurrencyIdentifiersStatics3_get_MRU* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics3_get_MRU* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics3_get_SSP* = 7
-type Fn_ICurrencyIdentifiersStatics3_get_SSP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics3_get_SSP* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics3_get_STN* = 8
-type Fn_ICurrencyIdentifiersStatics3_get_STN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics3_get_STN* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyIdentifiersStatics3_get_VES* = 9
-type Fn_ICurrencyIdentifiersStatics3_get_VES* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyIdentifiersStatics3_get_VES* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.IGeographicRegion
 const IID_IGeographicRegion* = GUID(
     data1: 0x01E9A621'u32, data2: 0x4A64'u16, data3: 0x4ED9'u16,
     data4: [0x95'u8, 0x4F, 0x9E, 0xDE, 0xB0, 0x7B, 0xD9, 0x03])
 const Slot_IGeographicRegion_get_Code* = 6
-type Fn_IGeographicRegion_get_Code* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_Code* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_CodeTwoLetter* = 7
-type Fn_IGeographicRegion_get_CodeTwoLetter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_CodeTwoLetter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_CodeThreeLetter* = 8
-type Fn_IGeographicRegion_get_CodeThreeLetter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_CodeThreeLetter* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_CodeThreeDigit* = 9
-type Fn_IGeographicRegion_get_CodeThreeDigit* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_CodeThreeDigit* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_DisplayName* = 10
-type Fn_IGeographicRegion_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_NativeName* = 11
-type Fn_IGeographicRegion_get_NativeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_NativeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGeographicRegion_get_CurrenciesInUse* = 12
-type Fn_IGeographicRegion_get_CurrenciesInUse* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegion_get_CurrenciesInUse* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.IGeographicRegionFactory
 const IID_IGeographicRegionFactory* = GUID(
     data1: 0x53425270'u32, data2: 0x77B4'u16, data3: 0x426B'u16,
     data4: [0x85'u8, 0x9F, 0x81, 0xE1, 0x9D, 0x51, 0x25, 0x46])
 const Slot_IGeographicRegionFactory_CreateGeographicRegion* = 6
-type Fn_IGeographicRegionFactory_CreateGeographicRegion* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegionFactory_CreateGeographicRegion* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.IGeographicRegionStatics
 const IID_IGeographicRegionStatics* = GUID(
     data1: 0x29E28974'u32, data2: 0x7AD9'u16, data3: 0x4EF4'u16,
     data4: [0x87'u8, 0x99, 0xB3, 0xB4, 0x4F, 0xAD, 0xEC, 0x08])
 const Slot_IGeographicRegionStatics_IsSupported* = 6
-type Fn_IGeographicRegionStatics_IsSupported* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGeographicRegionStatics_IsSupported* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Globalization.IJapanesePhoneme
 const IID_IJapanesePhoneme* = GUID(
     data1: 0x2F6A9300'u32, data2: 0xE85B'u16, data3: 0x43E6'u16,
     data4: [0x89'u8, 0x7D, 0x5D, 0x82, 0xF8, 0x62, 0xDF, 0x21])
 const Slot_IJapanesePhoneme_get_DisplayText* = 6
-type Fn_IJapanesePhoneme_get_DisplayText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IJapanesePhoneme_get_DisplayText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IJapanesePhoneme_get_YomiText* = 7
-type Fn_IJapanesePhoneme_get_YomiText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IJapanesePhoneme_get_YomiText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IJapanesePhoneme_get_IsPhraseStart* = 8
-type Fn_IJapanesePhoneme_get_IsPhraseStart* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IJapanesePhoneme_get_IsPhraseStart* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Globalization.IJapanesePhoneticAnalyzerStatics
 const IID_IJapanesePhoneticAnalyzerStatics* = GUID(
     data1: 0x88AB9E90'u32, data2: 0x93DE'u16, data3: 0x41B2'u16,
     data4: [0xB4'u8, 0xD5, 0x8E, 0xDB, 0x22, 0x7F, 0xD1, 0xC2])
 const Slot_IJapanesePhoneticAnalyzerStatics_GetWords* = 6
-type Fn_IJapanesePhoneticAnalyzerStatics_GetWords* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IJapanesePhoneticAnalyzerStatics_GetWords* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IJapanesePhoneticAnalyzerStatics_GetWords2* = 7
-type Fn_IJapanesePhoneticAnalyzerStatics_GetWords2* = proc(self: pointer, a1: HSTRING, a2: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IJapanesePhoneticAnalyzerStatics_GetWords2* = proc(self: pointer, a1: HSTRING, a2: bool, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguage
 const IID_ILanguage* = GUID(
     data1: 0xEA79A752'u32, data2: 0xF7C2'u16, data3: 0x4265'u16,
     data4: [0xB1'u8, 0xBD, 0xC4, 0xDE, 0xC4, 0xE4, 0xF0, 0x80])
 const Slot_ILanguage_get_LanguageTag* = 6
-type Fn_ILanguage_get_LanguageTag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage_get_LanguageTag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILanguage_get_DisplayName* = 7
-type Fn_ILanguage_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILanguage_get_NativeName* = 8
-type Fn_ILanguage_get_NativeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage_get_NativeName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILanguage_get_Script* = 9
-type Fn_ILanguage_get_Script* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage_get_Script* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguage2
 const IID_ILanguage2* = GUID(
     data1: 0x6A47E5B5'u32, data2: 0xD94D'u16, data3: 0x4886'u16,
     data4: [0xA4'u8, 0x04, 0xA5, 0xA5, 0xB9, 0xD5, 0xB4, 0x94])
 const Slot_ILanguage2_get_LayoutDirection* = 6
-type Fn_ILanguage2_get_LayoutDirection* = proc(self: pointer, value: ptr LanguageLayoutDirection): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage2_get_LayoutDirection* = proc(self: pointer, value: ptr LanguageLayoutDirection): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguage3
 const IID_ILanguage3* = GUID(
     data1: 0xC6AF3D10'u32, data2: 0x641A'u16, data3: 0x5BA4'u16,
     data4: [0xBB'u8, 0x43, 0x5E, 0x12, 0xAE, 0xD7, 0x59, 0x54])
 const Slot_ILanguage3_get_AbbreviatedName* = 6
-type Fn_ILanguage3_get_AbbreviatedName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguage3_get_AbbreviatedName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguageExtensionSubtags
 const IID_ILanguageExtensionSubtags* = GUID(
     data1: 0x7D7DAF45'u32, data2: 0x368D'u16, data3: 0x4364'u16,
     data4: [0x85'u8, 0x2B, 0xDE, 0xC9, 0x27, 0x03, 0x7B, 0x85])
 const Slot_ILanguageExtensionSubtags_GetExtensionSubtags* = 6
-type Fn_ILanguageExtensionSubtags_GetExtensionSubtags* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageExtensionSubtags_GetExtensionSubtags* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguageFactory
 const IID_ILanguageFactory* = GUID(
     data1: 0x9B0252AC'u32, data2: 0x0C27'u16, data3: 0x44F8'u16,
     data4: [0xB7'u8, 0x92, 0x97, 0x93, 0xFB, 0x66, 0xC6, 0x3E])
 const Slot_ILanguageFactory_CreateLanguage* = 6
-type Fn_ILanguageFactory_CreateLanguage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageFactory_CreateLanguage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguageStatics
 const IID_ILanguageStatics* = GUID(
     data1: 0xB23CD557'u32, data2: 0x0865'u16, data3: 0x46D4'u16,
     data4: [0x89'u8, 0xB8, 0xD5, 0x9B, 0xE8, 0x99, 0x0F, 0x0D])
 const Slot_ILanguageStatics_IsWellFormed* = 6
-type Fn_ILanguageStatics_IsWellFormed* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageStatics_IsWellFormed* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_ILanguageStatics_get_CurrentInputMethodLanguageTag* = 7
-type Fn_ILanguageStatics_get_CurrentInputMethodLanguageTag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageStatics_get_CurrentInputMethodLanguageTag* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguageStatics2
 const IID_ILanguageStatics2* = GUID(
     data1: 0x30199F6E'u32, data2: 0x914B'u16, data3: 0x4B2A'u16,
     data4: [0x9D'u8, 0x6E, 0xE3, 0xB0, 0xE2, 0x7D, 0xBE, 0x4F])
 const Slot_ILanguageStatics2_TrySetInputMethodLanguageTag* = 6
-type Fn_ILanguageStatics2_TrySetInputMethodLanguageTag* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageStatics2_TrySetInputMethodLanguageTag* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguageStatics3
 const IID_ILanguageStatics3* = GUID(
     data1: 0xD15ECB5A'u32, data2: 0x71DE'u16, data3: 0x5752'u16,
     data4: [0x95'u8, 0x42, 0xFA, 0xC5, 0xB4, 0xF2, 0x72, 0x61])
 const Slot_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags* = 6
-type Fn_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.INumeralSystemIdentifiersStatics
 const IID_INumeralSystemIdentifiersStatics* = GUID(
     data1: 0xA5C662C3'u32, data2: 0x68C9'u16, data3: 0x4D3D'u16,
     data4: [0xB7'u8, 0x65, 0x97, 0x20, 0x29, 0xE2, 0x1D, 0xEC])
 const Slot_INumeralSystemIdentifiersStatics_get_Arab* = 6
-type Fn_INumeralSystemIdentifiersStatics_get_Arab* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Arab* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_ArabExt* = 7
-type Fn_INumeralSystemIdentifiersStatics_get_ArabExt* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_ArabExt* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Bali* = 8
-type Fn_INumeralSystemIdentifiersStatics_get_Bali* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Bali* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Beng* = 9
-type Fn_INumeralSystemIdentifiersStatics_get_Beng* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Beng* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Cham* = 10
-type Fn_INumeralSystemIdentifiersStatics_get_Cham* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Cham* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Deva* = 11
-type Fn_INumeralSystemIdentifiersStatics_get_Deva* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Deva* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_FullWide* = 12
-type Fn_INumeralSystemIdentifiersStatics_get_FullWide* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_FullWide* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Gujr* = 13
-type Fn_INumeralSystemIdentifiersStatics_get_Gujr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Gujr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Guru* = 14
-type Fn_INumeralSystemIdentifiersStatics_get_Guru* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Guru* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_HaniDec* = 15
-type Fn_INumeralSystemIdentifiersStatics_get_HaniDec* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_HaniDec* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Java* = 16
-type Fn_INumeralSystemIdentifiersStatics_get_Java* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Java* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Kali* = 17
-type Fn_INumeralSystemIdentifiersStatics_get_Kali* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Kali* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Khmr* = 18
-type Fn_INumeralSystemIdentifiersStatics_get_Khmr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Khmr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Knda* = 19
-type Fn_INumeralSystemIdentifiersStatics_get_Knda* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Knda* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Lana* = 20
-type Fn_INumeralSystemIdentifiersStatics_get_Lana* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Lana* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_LanaTham* = 21
-type Fn_INumeralSystemIdentifiersStatics_get_LanaTham* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_LanaTham* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Laoo* = 22
-type Fn_INumeralSystemIdentifiersStatics_get_Laoo* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Laoo* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Latn* = 23
-type Fn_INumeralSystemIdentifiersStatics_get_Latn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Latn* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Lepc* = 24
-type Fn_INumeralSystemIdentifiersStatics_get_Lepc* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Lepc* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Limb* = 25
-type Fn_INumeralSystemIdentifiersStatics_get_Limb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Limb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Mlym* = 26
-type Fn_INumeralSystemIdentifiersStatics_get_Mlym* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Mlym* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Mong* = 27
-type Fn_INumeralSystemIdentifiersStatics_get_Mong* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Mong* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Mtei* = 28
-type Fn_INumeralSystemIdentifiersStatics_get_Mtei* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Mtei* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Mymr* = 29
-type Fn_INumeralSystemIdentifiersStatics_get_Mymr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Mymr* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_MymrShan* = 30
-type Fn_INumeralSystemIdentifiersStatics_get_MymrShan* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_MymrShan* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Nkoo* = 31
-type Fn_INumeralSystemIdentifiersStatics_get_Nkoo* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Nkoo* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Olck* = 32
-type Fn_INumeralSystemIdentifiersStatics_get_Olck* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Olck* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Orya* = 33
-type Fn_INumeralSystemIdentifiersStatics_get_Orya* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Orya* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Saur* = 34
-type Fn_INumeralSystemIdentifiersStatics_get_Saur* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Saur* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Sund* = 35
-type Fn_INumeralSystemIdentifiersStatics_get_Sund* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Sund* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Talu* = 36
-type Fn_INumeralSystemIdentifiersStatics_get_Talu* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Talu* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_TamlDec* = 37
-type Fn_INumeralSystemIdentifiersStatics_get_TamlDec* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_TamlDec* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Telu* = 38
-type Fn_INumeralSystemIdentifiersStatics_get_Telu* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Telu* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Thai* = 39
-type Fn_INumeralSystemIdentifiersStatics_get_Thai* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Thai* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Tibt* = 40
-type Fn_INumeralSystemIdentifiersStatics_get_Tibt* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Tibt* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics_get_Vaii* = 41
-type Fn_INumeralSystemIdentifiersStatics_get_Vaii* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics_get_Vaii* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.INumeralSystemIdentifiersStatics2
 const IID_INumeralSystemIdentifiersStatics2* = GUID(
     data1: 0x7F003228'u32, data2: 0x9DDB'u16, data3: 0x4A34'u16,
     data4: [0x91'u8, 0x04, 0x02, 0x60, 0xC0, 0x91, 0xA7, 0xC7])
 const Slot_INumeralSystemIdentifiersStatics2_get_Brah* = 6
-type Fn_INumeralSystemIdentifiersStatics2_get_Brah* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_Brah* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_Osma* = 7
-type Fn_INumeralSystemIdentifiersStatics2_get_Osma* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_Osma* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_MathBold* = 8
-type Fn_INumeralSystemIdentifiersStatics2_get_MathBold* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_MathBold* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_MathDbl* = 9
-type Fn_INumeralSystemIdentifiersStatics2_get_MathDbl* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_MathDbl* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_MathSans* = 10
-type Fn_INumeralSystemIdentifiersStatics2_get_MathSans* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_MathSans* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_MathSanb* = 11
-type Fn_INumeralSystemIdentifiersStatics2_get_MathSanb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_MathSanb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_MathMono* = 12
-type Fn_INumeralSystemIdentifiersStatics2_get_MathMono* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_MathMono* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_ZmthBold* = 13
-type Fn_INumeralSystemIdentifiersStatics2_get_ZmthBold* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_ZmthBold* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_ZmthDbl* = 14
-type Fn_INumeralSystemIdentifiersStatics2_get_ZmthDbl* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_ZmthDbl* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_ZmthSans* = 15
-type Fn_INumeralSystemIdentifiersStatics2_get_ZmthSans* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_ZmthSans* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_ZmthSanb* = 16
-type Fn_INumeralSystemIdentifiersStatics2_get_ZmthSanb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_ZmthSanb* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemIdentifiersStatics2_get_ZmthMono* = 17
-type Fn_INumeralSystemIdentifiersStatics2_get_ZmthMono* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemIdentifiersStatics2_get_ZmthMono* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.ITimeZoneOnCalendar
 const IID_ITimeZoneOnCalendar* = GUID(
     data1: 0xBB3C25E5'u32, data2: 0x46CF'u16, data3: 0x4317'u16,
     data4: [0xA3'u8, 0xF5, 0x02, 0x62, 0x1A, 0xD5, 0x44, 0x78])
 const Slot_ITimeZoneOnCalendar_GetTimeZone* = 6
-type Fn_ITimeZoneOnCalendar_GetTimeZone* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneOnCalendar_GetTimeZone* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITimeZoneOnCalendar_ChangeTimeZone* = 7
-type Fn_ITimeZoneOnCalendar_ChangeTimeZone* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneOnCalendar_ChangeTimeZone* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ITimeZoneOnCalendar_TimeZoneAsString* = 8
-type Fn_ITimeZoneOnCalendar_TimeZoneAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneOnCalendar_TimeZoneAsString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITimeZoneOnCalendar_TimeZoneAsString2* = 9
-type Fn_ITimeZoneOnCalendar_TimeZoneAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneOnCalendar_TimeZoneAsString2* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ICurrencyFormatter
 const IID_ICurrencyFormatter* = GUID(
     data1: 0x11730CA5'u32, data2: 0x4B00'u16, data3: 0x41B2'u16,
     data4: [0xB3'u8, 0x32, 0x73, 0xB1, 0x2A, 0x49, 0x7D, 0x54])
 const Slot_ICurrencyFormatter_get_Currency* = 6
-type Fn_ICurrencyFormatter_get_Currency* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatter_get_Currency* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICurrencyFormatter_put_Currency* = 7
-type Fn_ICurrencyFormatter_put_Currency* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatter_put_Currency* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ICurrencyFormatter2
 const IID_ICurrencyFormatter2* = GUID(
     data1: 0x072C2F1D'u32, data2: 0xE7BA'u16, data3: 0x4197'u16,
     data4: [0x92'u8, 0x0E, 0x24, 0x7C, 0x92, 0xF7, 0xDE, 0xA6])
 const Slot_ICurrencyFormatter2_get_Mode* = 6
-type Fn_ICurrencyFormatter2_get_Mode* = proc(self: pointer, value: ptr CurrencyFormatterMode): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatter2_get_Mode* = proc(self: pointer, value: ptr CurrencyFormatterMode): HRESULT {.abi.}
 const Slot_ICurrencyFormatter2_put_Mode* = 7
-type Fn_ICurrencyFormatter2_put_Mode* = proc(self: pointer, a1: CurrencyFormatterMode): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatter2_put_Mode* = proc(self: pointer, a1: CurrencyFormatterMode): HRESULT {.abi.}
 const Slot_ICurrencyFormatter2_ApplyRoundingForCurrency* = 8
-type Fn_ICurrencyFormatter2_ApplyRoundingForCurrency* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatter2_ApplyRoundingForCurrency* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ICurrencyFormatterFactory
 const IID_ICurrencyFormatterFactory* = GUID(
     data1: 0x86C7537E'u32, data2: 0xB938'u16, data3: 0x4AA2'u16,
     data4: [0x84'u8, 0xB0, 0x2C, 0x33, 0xDC, 0x5B, 0x14, 0x50])
 const Slot_ICurrencyFormatterFactory_CreateCurrencyFormatterCode* = 6
-type Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCode* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCode* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext* = 7
-type Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext* = proc(self: pointer, a1: HSTRING, a2: pointer, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IDecimalFormatterFactory
 const IID_IDecimalFormatterFactory* = GUID(
     data1: 0x0D018C9A'u32, data2: 0xE393'u16, data3: 0x46B8'u16,
     data4: [0xB8'u8, 0x30, 0x7A, 0x69, 0xC8, 0xF8, 0x9F, 0xBB])
 const Slot_IDecimalFormatterFactory_CreateDecimalFormatter* = 6
-type Fn_IDecimalFormatterFactory_CreateDecimalFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDecimalFormatterFactory_CreateDecimalFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IIncrementNumberRounder
 const IID_IIncrementNumberRounder* = GUID(
     data1: 0x70A64FF8'u32, data2: 0x66AB'u16, data3: 0x4155'u16,
     data4: [0x9D'u8, 0xA1, 0x73, 0x9E, 0x46, 0x76, 0x45, 0x43])
 const Slot_IIncrementNumberRounder_get_RoundingAlgorithm* = 6
-type Fn_IIncrementNumberRounder_get_RoundingAlgorithm* = proc(self: pointer, value: ptr RoundingAlgorithm): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IIncrementNumberRounder_get_RoundingAlgorithm* = proc(self: pointer, value: ptr RoundingAlgorithm): HRESULT {.abi.}
 const Slot_IIncrementNumberRounder_put_RoundingAlgorithm* = 7
-type Fn_IIncrementNumberRounder_put_RoundingAlgorithm* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IIncrementNumberRounder_put_RoundingAlgorithm* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.abi.}
 const Slot_IIncrementNumberRounder_get_Increment* = 8
-type Fn_IIncrementNumberRounder_get_Increment* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IIncrementNumberRounder_get_Increment* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IIncrementNumberRounder_put_Increment* = 9
-type Fn_IIncrementNumberRounder_put_Increment* = proc(self: pointer, a1: float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IIncrementNumberRounder_put_Increment* = proc(self: pointer, a1: float64): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberFormatter
 const IID_INumberFormatter* = GUID(
     data1: 0xA5007C49'u32, data2: 0x7676'u16, data3: 0x4DB7'u16,
     data4: [0x86'u8, 0x31, 0x1B, 0x6F, 0xF2, 0x65, 0xCA, 0xA9])
 const Slot_INumberFormatter_Format* = 6
-type Fn_INumberFormatter_Format* = proc(self: pointer, a1: int64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter_Format* = proc(self: pointer, a1: int64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatter_Format2* = 7
-type Fn_INumberFormatter_Format2* = proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter_Format2* = proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatter_Format3* = 8
-type Fn_INumberFormatter_Format3* = proc(self: pointer, a1: float64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter_Format3* = proc(self: pointer, a1: float64, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberFormatter2
 const IID_INumberFormatter2* = GUID(
     data1: 0xD4A8C1F0'u32, data2: 0x80D0'u16, data3: 0x4B0D'u16,
     data4: [0xA8'u8, 0x9E, 0x88, 0x2C, 0x1E, 0x8F, 0x83, 0x10])
 const Slot_INumberFormatter2_FormatInt* = 6
-type Fn_INumberFormatter2_FormatInt* = proc(self: pointer, a1: int64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter2_FormatInt* = proc(self: pointer, a1: int64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatter2_FormatUInt* = 7
-type Fn_INumberFormatter2_FormatUInt* = proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter2_FormatUInt* = proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatter2_FormatDouble* = 8
-type Fn_INumberFormatter2_FormatDouble* = proc(self: pointer, a1: float64, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatter2_FormatDouble* = proc(self: pointer, a1: float64, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberFormatterOptions
 const IID_INumberFormatterOptions* = GUID(
     data1: 0x80332D21'u32, data2: 0xAEE1'u16, data3: 0x4A39'u16,
     data4: [0xBA'u8, 0xA2, 0x07, 0xED, 0x8C, 0x96, 0xDA, 0xF6])
 const Slot_INumberFormatterOptions_get_Languages* = 6
-type Fn_INumberFormatterOptions_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_GeographicRegion* = 7
-type Fn_INumberFormatterOptions_get_GeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_GeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_IntegerDigits* = 8
-type Fn_INumberFormatterOptions_get_IntegerDigits* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_IntegerDigits* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_put_IntegerDigits* = 9
-type Fn_INumberFormatterOptions_put_IntegerDigits* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_put_IntegerDigits* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_FractionDigits* = 10
-type Fn_INumberFormatterOptions_get_FractionDigits* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_FractionDigits* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_put_FractionDigits* = 11
-type Fn_INumberFormatterOptions_put_FractionDigits* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_put_FractionDigits* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_IsGrouped* = 12
-type Fn_INumberFormatterOptions_get_IsGrouped* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_IsGrouped* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_put_IsGrouped* = 13
-type Fn_INumberFormatterOptions_put_IsGrouped* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_put_IsGrouped* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed* = 14
-type Fn_INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_IsDecimalPointAlwaysDisplayed* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed* = 15
-type Fn_INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_put_IsDecimalPointAlwaysDisplayed* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_NumeralSystem* = 16
-type Fn_INumberFormatterOptions_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_put_NumeralSystem* = 17
-type Fn_INumberFormatterOptions_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_ResolvedLanguage* = 18
-type Fn_INumberFormatterOptions_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumberFormatterOptions_get_ResolvedGeographicRegion* = 19
-type Fn_INumberFormatterOptions_get_ResolvedGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberFormatterOptions_get_ResolvedGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberParser
 const IID_INumberParser* = GUID(
     data1: 0xE6659412'u32, data2: 0x4A13'u16, data3: 0x4A53'u16,
     data4: [0x83'u8, 0xA1, 0x39, 0x2F, 0xBE, 0x4C, 0xFF, 0x9F])
 const Slot_INumberParser_ParseInt* = 6
-type Fn_INumberParser_ParseInt* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberParser_ParseInt* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_INumberParser_ParseUInt* = 7
-type Fn_INumberParser_ParseUInt* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberParser_ParseUInt* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_INumberParser_ParseDouble* = 8
-type Fn_INumberParser_ParseDouble* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberParser_ParseDouble* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberRounder
 const IID_INumberRounder* = GUID(
     data1: 0x5473C375'u32, data2: 0x38ED'u16, data3: 0x4631'u16,
     data4: [0xB8'u8, 0x0C, 0xEF, 0x34, 0xFC, 0x48, 0xB7, 0xF5])
 const Slot_INumberRounder_RoundInt32* = 6
-type Fn_INumberRounder_RoundInt32* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundInt32* = proc(self: pointer, a1: int32, value: ptr int32): HRESULT {.abi.}
 const Slot_INumberRounder_RoundUInt32* = 7
-type Fn_INumberRounder_RoundUInt32* = proc(self: pointer, a1: uint32, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundUInt32* = proc(self: pointer, a1: uint32, value: ptr uint32): HRESULT {.abi.}
 const Slot_INumberRounder_RoundInt64* = 8
-type Fn_INumberRounder_RoundInt64* = proc(self: pointer, a1: int64, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundInt64* = proc(self: pointer, a1: int64, value: ptr int64): HRESULT {.abi.}
 const Slot_INumberRounder_RoundUInt64* = 9
-type Fn_INumberRounder_RoundUInt64* = proc(self: pointer, a1: uint64, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundUInt64* = proc(self: pointer, a1: uint64, value: ptr uint64): HRESULT {.abi.}
 const Slot_INumberRounder_RoundSingle* = 10
-type Fn_INumberRounder_RoundSingle* = proc(self: pointer, a1: float32, value: ptr float32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundSingle* = proc(self: pointer, a1: float32, value: ptr float32): HRESULT {.abi.}
 const Slot_INumberRounder_RoundDouble* = 11
-type Fn_INumberRounder_RoundDouble* = proc(self: pointer, a1: float64, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounder_RoundDouble* = proc(self: pointer, a1: float64, value: ptr float64): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumberRounderOption
 const IID_INumberRounderOption* = GUID(
     data1: 0x3B088433'u32, data2: 0x646F'u16, data3: 0x4EFE'u16,
     data4: [0x8D'u8, 0x48, 0x66, 0xEB, 0x2E, 0x49, 0xE7, 0x36])
 const Slot_INumberRounderOption_get_NumberRounder* = 6
-type Fn_INumberRounderOption_get_NumberRounder* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounderOption_get_NumberRounder* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INumberRounderOption_put_NumberRounder* = 7
-type Fn_INumberRounderOption_put_NumberRounder* = proc(self: pointer, a1INumberRounder: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumberRounderOption_put_NumberRounder* = proc(self: pointer, a1INumberRounder: pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumeralSystemTranslator
 const IID_INumeralSystemTranslator* = GUID(
     data1: 0x28F5BC2C'u32, data2: 0x8C23'u16, data3: 0x4234'u16,
     data4: [0xAD'u8, 0x2E, 0xFA, 0x5A, 0x3A, 0x42, 0x6E, 0x9B])
 const Slot_INumeralSystemTranslator_get_Languages* = 6
-type Fn_INumeralSystemTranslator_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslator_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INumeralSystemTranslator_get_ResolvedLanguage* = 7
-type Fn_INumeralSystemTranslator_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslator_get_ResolvedLanguage* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemTranslator_get_NumeralSystem* = 8
-type Fn_INumeralSystemTranslator_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslator_get_NumeralSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemTranslator_put_NumeralSystem* = 9
-type Fn_INumeralSystemTranslator_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslator_put_NumeralSystem* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_INumeralSystemTranslator_TranslateNumerals* = 10
-type Fn_INumeralSystemTranslator_TranslateNumerals* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslator_TranslateNumerals* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.INumeralSystemTranslatorFactory
 const IID_INumeralSystemTranslatorFactory* = GUID(
     data1: 0x9630C8DA'u32, data2: 0x36EF'u16, data3: 0x4D88'u16,
     data4: [0xA8'u8, 0x5C, 0x6F, 0x0D, 0x98, 0xD6, 0x20, 0xA6])
 const Slot_INumeralSystemTranslatorFactory_Create* = 6
-type Fn_INumeralSystemTranslatorFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_INumeralSystemTranslatorFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IPercentFormatterFactory
 const IID_IPercentFormatterFactory* = GUID(
     data1: 0xB7828AEF'u32, data2: 0xFED4'u16, data3: 0x4018'u16,
     data4: [0xA6'u8, 0xE2, 0xE0, 0x99, 0x61, 0xE0, 0x37, 0x65])
 const Slot_IPercentFormatterFactory_CreatePercentFormatter* = 6
-type Fn_IPercentFormatterFactory_CreatePercentFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPercentFormatterFactory_CreatePercentFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IPermilleFormatterFactory
 const IID_IPermilleFormatterFactory* = GUID(
     data1: 0x2B37B4AC'u32, data2: 0xE638'u16, data3: 0x4ED5'u16,
     data4: [0xA9'u8, 0x98, 0x62, 0xF6, 0xB0, 0x6A, 0x49, 0xAE])
 const Slot_IPermilleFormatterFactory_CreatePermilleFormatter* = 6
-type Fn_IPermilleFormatterFactory_CreatePermilleFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPermilleFormatterFactory_CreatePermilleFormatter* = proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ISignedZeroOption
 const IID_ISignedZeroOption* = GUID(
     data1: 0xFD1CDD31'u32, data2: 0x0A3C'u16, data3: 0x49C4'u16,
     data4: [0xA6'u8, 0x42, 0x96, 0xA1, 0x56, 0x4F, 0x4F, 0x30])
 const Slot_ISignedZeroOption_get_IsZeroSigned* = 6
-type Fn_ISignedZeroOption_get_IsZeroSigned* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignedZeroOption_get_IsZeroSigned* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISignedZeroOption_put_IsZeroSigned* = 7
-type Fn_ISignedZeroOption_put_IsZeroSigned* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignedZeroOption_put_IsZeroSigned* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ISignificantDigitsNumberRounder
 const IID_ISignificantDigitsNumberRounder* = GUID(
     data1: 0xF5941BCA'u32, data2: 0x6646'u16, data3: 0x4913'u16,
     data4: [0x8C'u8, 0x76, 0x1B, 0x19, 0x1F, 0xF9, 0x4D, 0xFD])
 const Slot_ISignificantDigitsNumberRounder_get_RoundingAlgorithm* = 6
-type Fn_ISignificantDigitsNumberRounder_get_RoundingAlgorithm* = proc(self: pointer, value: ptr RoundingAlgorithm): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsNumberRounder_get_RoundingAlgorithm* = proc(self: pointer, value: ptr RoundingAlgorithm): HRESULT {.abi.}
 const Slot_ISignificantDigitsNumberRounder_put_RoundingAlgorithm* = 7
-type Fn_ISignificantDigitsNumberRounder_put_RoundingAlgorithm* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsNumberRounder_put_RoundingAlgorithm* = proc(self: pointer, a1: RoundingAlgorithm): HRESULT {.abi.}
 const Slot_ISignificantDigitsNumberRounder_get_SignificantDigits* = 8
-type Fn_ISignificantDigitsNumberRounder_get_SignificantDigits* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsNumberRounder_get_SignificantDigits* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISignificantDigitsNumberRounder_put_SignificantDigits* = 9
-type Fn_ISignificantDigitsNumberRounder_put_SignificantDigits* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsNumberRounder_put_SignificantDigits* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ISignificantDigitsOption
 const IID_ISignificantDigitsOption* = GUID(
     data1: 0x1D4DFCDD'u32, data2: 0x2D43'u16, data3: 0x4EE8'u16,
     data4: [0xBB'u8, 0xF1, 0xC1, 0xB2, 0x6A, 0x71, 0x1A, 0x58])
 const Slot_ISignificantDigitsOption_get_SignificantDigits* = 6
-type Fn_ISignificantDigitsOption_get_SignificantDigits* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsOption_get_SignificantDigits* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ISignificantDigitsOption_put_SignificantDigits* = 7
-type Fn_ISignificantDigitsOption_put_SignificantDigits* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignificantDigitsOption_put_SignificantDigits* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 
 ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter
 const IID_IPhoneNumberFormatter* = GUID(
     data1: 0x1556B49E'u32, data2: 0xBAD4'u16, data3: 0x4B4A'u16,
     data4: [0x90'u8, 0x0D, 0x44, 0x07, 0xAD, 0xB7, 0xC9, 0x81])
 const Slot_IPhoneNumberFormatter_Format* = 6
-type Fn_IPhoneNumberFormatter_Format* = proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatter_Format* = proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatter_Format2* = 7
-type Fn_IPhoneNumberFormatter_Format2* = proc(self: pointer, a1PhoneNumberInfo: pointer, a2: PhoneNumberFormat, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatter_Format2* = proc(self: pointer, a1PhoneNumberInfo: pointer, a2: PhoneNumberFormat, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatter_FormatPartialString* = 8
-type Fn_IPhoneNumberFormatter_FormatPartialString* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatter_FormatPartialString* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatter_FormatString* = 9
-type Fn_IPhoneNumberFormatter_FormatString* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatter_FormatString* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatter_FormatStringWithLeftToRightMarkers* = 10
-type Fn_IPhoneNumberFormatter_FormatStringWithLeftToRightMarkers* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatter_FormatStringWithLeftToRightMarkers* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics
 const IID_IPhoneNumberFormatterStatics* = GUID(
     data1: 0x5CA6F931'u32, data2: 0x84D9'u16, data3: 0x414B'u16,
     data4: [0xAB'u8, 0x4E, 0xA0, 0x55, 0x2C, 0x87, 0x86, 0x02])
 const Slot_IPhoneNumberFormatterStatics_TryCreate* = 6
-type Fn_IPhoneNumberFormatterStatics_TryCreate* = proc(self: pointer, a1: HSTRING, a2PhoneNumberFormatter: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatterStatics_TryCreate* = proc(self: pointer, a1: HSTRING, a2PhoneNumberFormatter: ptr pointer): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_GetCountryCodeForRegion* = 7
-type Fn_IPhoneNumberFormatterStatics_GetCountryCodeForRegion* = proc(self: pointer, a1: HSTRING, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatterStatics_GetCountryCodeForRegion* = proc(self: pointer, a1: HSTRING, value: ptr int32): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion* = 8
-type Fn_IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion* = proc(self: pointer, a1: HSTRING, a2: bool, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion* = proc(self: pointer, a1: HSTRING, a2: bool, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers* = 9
-type Fn_IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers* = proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo
 const IID_IPhoneNumberInfo* = GUID(
     data1: 0x1C7CE4DD'u32, data2: 0xC8B4'u16, data3: 0x4EA3'u16,
     data4: [0x9A'u8, 0xEF, 0xB3, 0x42, 0xE2, 0xC5, 0xB4, 0x17])
 const Slot_IPhoneNumberInfo_get_CountryCode* = 6
-type Fn_IPhoneNumberInfo_get_CountryCode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_get_CountryCode* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_get_PhoneNumber* = 7
-type Fn_IPhoneNumberInfo_get_PhoneNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_get_PhoneNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_GetLengthOfGeographicalAreaCode* = 8
-type Fn_IPhoneNumberInfo_GetLengthOfGeographicalAreaCode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_GetLengthOfGeographicalAreaCode* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_GetNationalSignificantNumber* = 9
-type Fn_IPhoneNumberInfo_GetNationalSignificantNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_GetNationalSignificantNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_GetLengthOfNationalDestinationCode* = 10
-type Fn_IPhoneNumberInfo_GetLengthOfNationalDestinationCode* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_GetLengthOfNationalDestinationCode* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_PredictNumberKind* = 11
-type Fn_IPhoneNumberInfo_PredictNumberKind* = proc(self: pointer, value: ptr PredictedPhoneNumberKind): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_PredictNumberKind* = proc(self: pointer, value: ptr PredictedPhoneNumberKind): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_GetGeographicRegionCode* = 12
-type Fn_IPhoneNumberInfo_GetGeographicRegionCode* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_GetGeographicRegionCode* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhoneNumberInfo_CheckNumberMatch* = 13
-type Fn_IPhoneNumberInfo_CheckNumberMatch* = proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr PhoneNumberMatchResult): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfo_CheckNumberMatch* = proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr PhoneNumberMatchResult): HRESULT {.abi.}
 
 ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory
 const IID_IPhoneNumberInfoFactory* = GUID(
     data1: 0x8202B964'u32, data2: 0xADAA'u16, data3: 0x4CFF'u16,
     data4: [0x8F'u8, 0xCF, 0x17, 0xE7, 0x51, 0x6A, 0x28, 0xFF])
 const Slot_IPhoneNumberInfoFactory_Create* = 6
-type Fn_IPhoneNumberInfoFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfoFactory_Create* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics
 const IID_IPhoneNumberInfoStatics* = GUID(
     data1: 0x5B3F4F6A'u32, data2: 0x86A9'u16, data3: 0x40E9'u16,
     data4: [0x86'u8, 0x49, 0x6D, 0x61, 0x16, 0x19, 0x28, 0xD4])
 const Slot_IPhoneNumberInfoStatics_TryParse* = 6
-type Fn_IPhoneNumberInfoStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfoStatics_TryParse* = proc(self: pointer, a1: HSTRING, a2PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult): HRESULT {.abi.}
 const Slot_IPhoneNumberInfoStatics_TryParse2* = 7
-type Fn_IPhoneNumberInfoStatics_TryParse2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPhoneNumberInfoStatics_TryParse2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult): HRESULT {.abi.}
 

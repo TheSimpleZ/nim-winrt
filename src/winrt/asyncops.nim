@@ -40,6 +40,7 @@
 
 import std/asyncdispatch
 import ./core
+include ./abidef
 
 export asyncdispatch
 
@@ -69,24 +70,24 @@ type
     asStarted = 0, asCompleted = 1, asCanceled = 2, asError = 3
 
   FnAsyncStatus = proc(self: pointer,
-                       status: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+                       status: ptr int32): HRESULT {.abi.}
   FnAsyncError = proc(self: pointer,
-                      hr: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+                      hr: ptr HRESULT): HRESULT {.abi.}
   FnPutCompleted = proc(self: pointer,
-                        handler: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
-  FnResultsVoid = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+                        handler: pointer): HRESULT {.abi.}
+  FnResultsVoid = proc(self: pointer): HRESULT {.abi.}
   FnResultsPtr = proc(self: pointer,
-                      value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+                      value: ptr pointer): HRESULT {.abi.}
   FnResultsString = proc(self: pointer,
-                         value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+                         value: ptr HSTRING): HRESULT {.abi.}
 
   CompletionVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
-    addRef: proc(self: pointer): uint32 {.stdcall, raises: [], gcsafe.}
-    release: proc(self: pointer): uint32 {.stdcall, raises: [], gcsafe.}
+                         ppv: ptr pointer): HRESULT {.abi.}
+    addRef: proc(self: pointer): uint32 {.abi.}
+    release: proc(self: pointer): uint32 {.abi.}
     invoke: proc(self: pointer,
-                 info, status: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+                 info, status: pointer): HRESULT {.abi.}
 
   Completion {.pure.} = object
     ## Shared-allocated on purpose: written by one thread and read by another,
@@ -96,12 +97,12 @@ type
     iid: GUID          ## the parameterised handler IID this answers for
     ev: AsyncEvent
 
-proc completionAddRef(self: pointer): uint32 {.stdcall, raises: [], gcsafe.} =
+proc completionAddRef(self: pointer): uint32 {.abi.} =
   let c = cast[ptr Completion](self)
   c.refs.inc
   uint32(c.refs)
 
-proc completionRelease(self: pointer): uint32 {.stdcall, raises: [], gcsafe.} =
+proc completionRelease(self: pointer): uint32 {.abi.} =
   let c = cast[ptr Completion](self)
   c.refs.dec
   if c.refs <= 0:
@@ -110,7 +111,7 @@ proc completionRelease(self: pointer): uint32 {.stdcall, raises: [], gcsafe.} =
   uint32(c.refs)
 
 proc completionQuery(self: pointer, riid: ptr GUID,
-                     ppv: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.} =
+                     ppv: ptr pointer): HRESULT {.abi.} =
   if ppv.isNil: return E_POINTER
   let c = cast[ptr Completion](self)
   if riid[] == IID_IUnknown or riid[] == c.iid or riid[] == IID_IAgileObject:
@@ -121,7 +122,7 @@ proc completionQuery(self: pointer, riid: ptr GUID,
   E_NOINTERFACE
 
 proc completionInvoke(self: pointer,
-                      info, status: pointer): HRESULT {.stdcall, raises: [], gcsafe.} =
+                      info, status: pointer): HRESULT {.abi.} =
   ## Runs on whichever thread finished the work. It signals and returns; every
   ## decision is made on the dispatcher's thread.
   let c = cast[ptr Completion](self)
@@ -211,7 +212,8 @@ proc awaitVoid*(op: pointer, handlerIid: GUID, what: string) {.async.} =
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
     await settled(op, handlerIid, what)
-    vcall(op, SlotAsyncGetResults, FnResultsVoid)(op).check(what & ".GetResults")
+    vcall(op, SlotAsyncGetResults, FnResultsVoid)(op)
+      .check(what & ".GetResults")
   finally:
     release(op)
 

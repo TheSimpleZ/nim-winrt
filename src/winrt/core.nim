@@ -156,19 +156,7 @@ template withHString*(s: string, name, body: untyped) =
 
 # ------------------------------------------------------------------- vtables
 
-# What every WinRT vtable slot is: a C function, called the Windows way, that
-# neither raises a Nim exception nor touches Nim's heap.
-#
-# Declaring all three matters. `stdcall` is the ABI. `raises: []` is what lets
-# `release` be called from a `=destroy` hook — a destructor may not raise, and
-# without this Nim assumes anything reached through a function pointer might.
-# `gcsafe` says the call cannot touch GC memory, which is true and which
-# threaded code needs to know.
-#
-# A user pragma does not cross a module boundary in Nim — the stdlib `include`s
-# such definitions rather than importing them — so generated code spells the
-# same three out at each signature.
-{.pragma: abi, stdcall, raises: [], gcsafe.}
+include ./abidef
 
 
 type
@@ -184,7 +172,8 @@ type
     # --- IInspectable ---
     getIids*: proc(self: pointer, count: ptr uint32,
                    iids: ptr ptr GUID): HRESULT {.abi.}
-    getRuntimeClassName*: proc(self: pointer, name: ptr HSTRING): HRESULT {.abi.}
+    getRuntimeClassName*: proc(self: pointer,
+                               name: ptr HSTRING): HRESULT {.abi.}
     getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
 
   IInspectable* {.pure.} = object
@@ -327,6 +316,11 @@ proc uninitApartment*() =
   ## Leave the apartment. Balances one `initApartment`, and is rarely worth
   ## calling: the apartment lasts as long as the thread, and a process that is
   ## exiting anyway has nothing to tidy up.
+  ##
+  ## Doing it marks the runtime as gone, because it is: every object obtained
+  ## through it is dead from here, and a `=destroy` running afterwards would
+  ## release through a vtable that no longer exists. See `endRuntime`.
+  endRuntime()
   roUninitialize()
 
 # --------------------------------------------------------------- activation
@@ -364,10 +358,12 @@ proc defaultHint(classId: string): string =
     "  manifest:   " & manifest &
     (if fileExists(manifest): "  (present)" else: "  (MISSING)") & "\n\n" &
     "Note that Windows caches the activation context by executable path and\n" &
-    "timestamp, including the result when no manifest was found, so adding one\n" &
+    "timestamp, including the result when no manifest was found, so\n" &
+    "adding one\n" &
     "afterwards changes nothing until the executable is rebuilt.\n"
 
-proc activationFactory*(classId: string, iid = IID_IActivationFactory): pointer =
+proc activationFactory*(classId: string,
+                        iid = IID_IActivationFactory): pointer =
   ## Fetch a class's activation factory.
   ##
   ## This is where a deployment problem shows up, as `REGDB_E_CLASSNOTREG`:
@@ -386,7 +382,8 @@ proc activationFactory*(classId: string, iid = IID_IActivationFactory): pointer 
     hr.check(&"RoGetActivationFactory({classId})")
 
 proc tryActivationFactory*(classId: string,
-                           iid = IID_IActivationFactory): tuple[factory: pointer, hr: HRESULT] =
+                           iid = IID_IActivationFactory):
+                             tuple[factory: pointer, hr: HRESULT] =
   ## Non-raising variant, for probing whether a class is reachable at all.
   var id = iid
   withHString(classId, cid):
@@ -455,7 +452,7 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
   ## `outer` says we are not deriving from it, and the `inner` handed back
   ## carries its own reference that is not ours to keep.
   type FnCompose = proc(self: pointer, outer: pointer, inner: ptr pointer,
-                        value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+                        value: ptr pointer): HRESULT {.abi.}
   let factory = activationFactory(classId, factoryIid)
   var inner, instance: pointer
   try:
@@ -471,21 +468,9 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
     raise newException(WinRtError, "winrt: " & classId &
       " does not implement the expected interface")
 
-# IIDs of parameterised interfaces, computed from a signature
-# string rather than read from metadata - see tools/piid.nim.
-const IID_EventHandler_1_TracingStatusChangedEventArgs* = GUID(
-    data1: 0x2BF27008'u32, data2: 0x2EB4'u16, data3: 0x5675'u16,
-    data4: [0xB1'u8, 0xCD, 0xE9, 0x90, 0x6C, 0xC5, 0xCE, 0x64])
-const IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs* = GUID(
-    data1: 0x0C6563B0'u32, data2: 0x9D8B'u16, data3: 0x5B60'u16,
-    data4: [0x99'u8, 0x4B, 0xDE, 0xE1, 0x17, 0x4D, 0x1E, 0xFB])
-const IID_TypedEventHandler_2_ILoggingChannel_Object* = GUID(
-    data1: 0x52C9C2A1'u32, data2: 0x54A3'u16, data3: 0x5EF9'u16,
-    data4: [0x9A'u8, 0xFF, 0x01, 0x4E, 0x7C, 0x45, 0x46, 0x55])
-
-
 proc adopt*[T](p: pointer): T =
-  ## Not called `owned`: Nim has a built-in `owned` type modifier, so `owned[T](p)`
+  ## Not called `owned`: Nim has a built-in `owned` type modifier, so
+  ## `owned[T](p)`
   ## parses as a type the moment this is imported rather than declared locally.
   ## Adopt a pointer that is already ours — anything a getter, a factory or a
   ## QueryInterface returned, all of which hand over a reference.
@@ -520,11 +505,11 @@ const
 
 type
   FnCollectionGetAt = proc(self: pointer, index: uint32,
-                           item: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+                           item: ptr pointer): HRESULT {.abi.}
   FnCollectionGetAtString = proc(self: pointer, index: uint32,
-                                 item: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+                                 item: ptr HSTRING): HRESULT {.abi.}
   FnCollectionSize = proc(self: pointer,
-                          size: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+                          size: ptr uint32): HRESULT {.abi.}
 
 template eachItem(collection: pointer, iid: GUID, body: untyped) =
   ## Walk a collection, with `view` and `i` bound inside `body`.
@@ -559,6 +544,7 @@ proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
   ## is the caller's to delete.
   eachItem(collection, iid):
     var item: HSTRING
-    vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(view, i, item.addr)
+    vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(
+      view, i, item.addr)
       .check("collection.GetAt")
     result.add takeString(item)

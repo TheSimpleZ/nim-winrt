@@ -11,6 +11,7 @@
 ## a trailing out-parameter.
 
 import ../core
+include ../abidef
 export core
 import ./devices
 export devices
@@ -1459,1492 +1460,1492 @@ const IID_IDevicePortalConnection* = GUID(
     data1: 0x0F447F51'u32, data2: 0x1198'u16, data3: 0x4DA1'u16,
     data4: [0x8D'u8, 0x54, 0xBD, 0xEF, 0x39, 0x3E, 0x09, 0xB6])
 const Slot_IDevicePortalConnection_add_Closed* = 6
-type Fn_IDevicePortalConnection_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnection_add_Closed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_remove_Closed* = 7
-type Fn_IDevicePortalConnection_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnection_remove_Closed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_add_RequestReceived* = 8
-type Fn_IDevicePortalConnection_add_RequestReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnection_add_RequestReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_remove_RequestReceived* = 9
-type Fn_IDevicePortalConnection_remove_RequestReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnection_remove_RequestReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionClosedEventArgs
 const IID_IDevicePortalConnectionClosedEventArgs* = GUID(
     data1: 0xFCF70E38'u32, data2: 0x7032'u16, data3: 0x428C'u16,
     data4: [0x9F'u8, 0x50, 0x94, 0x5C, 0x15, 0xA9, 0xF0, 0xCB])
 const Slot_IDevicePortalConnectionClosedEventArgs_get_Reason* = 6
-type Fn_IDevicePortalConnectionClosedEventArgs_get_Reason* = proc(self: pointer, value: ptr DevicePortalConnectionClosedReason): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnectionClosedEventArgs_get_Reason* = proc(self: pointer, value: ptr DevicePortalConnectionClosedReason): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs
 const IID_IDevicePortalConnectionRequestReceivedEventArgs* = GUID(
     data1: 0x64DAE045'u32, data2: 0x6FDA'u16, data3: 0x4459'u16,
     data4: [0x9E'u8, 0xBD, 0xEC, 0xCE, 0x22, 0xE3, 0x85, 0x59])
 const Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage* = 6
-type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* = 7
-type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics
 const IID_IDevicePortalConnectionStatics* = GUID(
     data1: 0x4BBE31E7'u32, data2: 0xE9B9'u16, data3: 0x4645'u16,
     data4: [0x8F'u8, 0xED, 0xA5, 0x3E, 0xEA, 0x0E, 0xDB, 0xD6])
 const Slot_IDevicePortalConnectionStatics_GetForAppServiceConnection* = 6
-type Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection* = proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection* = proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnection
 const IID_IDevicePortalWebSocketConnection* = GUID(
     data1: 0x67657920'u32, data2: 0xD65A'u16, data3: 0x42F0'u16,
     data4: [0xAE'u8, 0xF4, 0x78, 0x78, 0x08, 0x09, 0x8B, 0x7B])
 const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* = 6
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* = 7
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* = 8
-type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType, a3: HSTRING, a4: uint32, a5: uint32, a6: MessageWebSocketReceiveMode, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType, a3: HSTRING, a4: uint32, a5: uint32, a6: MessageWebSocketReceiveMode, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* = 9
-type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* = 10
-type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HSTRING, a3: uint32, a4: bool, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* = proc(self: pointer, a1HttpRequestMessage: pointer, a2: HSTRING, a3: uint32, a4: bool, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnectionRequestReceivedEventArgs
 const IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs* = GUID(
     data1: 0x79FDCABA'u32, data2: 0x175C'u16, data3: 0x4739'u16,
     data4: [0x9F'u8, 0x74, 0xDD, 0xA7, 0x97, 0xC3, 0x5B, 0x3F])
 const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest* = 6
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested* = 7
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral* = 8
-type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticActionResult
 const IID_IDiagnosticActionResult* = GUID(
     data1: 0xC265A296'u32, data2: 0xE73B'u16, data3: 0x4097'u16,
     data4: [0xB2'u8, 0x8F, 0x34, 0x42, 0xF0, 0x3D, 0xD8, 0x31])
 const Slot_IDiagnosticActionResult_get_ExtendedError* = 6
-type Fn_IDiagnosticActionResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticActionResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IDiagnosticActionResult_get_Results* = 7
-type Fn_IDiagnosticActionResult_get_Results* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticActionResult_get_Results* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvoker
 const IID_IDiagnosticInvoker* = GUID(
     data1: 0x187B270A'u32, data2: 0x02E3'u16, data3: 0x4F86'u16,
     data4: [0x84'u8, 0xFC, 0xFD, 0xD8, 0x92, 0xB5, 0x94, 0x0F])
 const Slot_IDiagnosticInvoker_RunDiagnosticActionAsync* = 6
-type Fn_IDiagnosticInvoker_RunDiagnosticActionAsync* = proc(self: pointer, a1JsonObject: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticInvoker_RunDiagnosticActionAsync* = proc(self: pointer, a1JsonObject: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvoker2
 const IID_IDiagnosticInvoker2* = GUID(
     data1: 0xE3BF945C'u32, data2: 0x155A'u16, data3: 0x4B52'u16,
     data4: [0xA8'u8, 0xEC, 0x07, 0x0C, 0x44, 0xF9, 0x50, 0x00])
 const Slot_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync* = 6
-type Fn_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvokerStatics
 const IID_IDiagnosticInvokerStatics* = GUID(
     data1: 0x5CFAD8DE'u32, data2: 0xF15C'u16, data3: 0x4554'u16,
     data4: [0xA8'u8, 0x13, 0xC1, 0x13, 0xC3, 0x88, 0x1B, 0x09])
 const Slot_IDiagnosticInvokerStatics_GetDefault* = 6
-type Fn_IDiagnosticInvokerStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticInvokerStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDiagnosticInvokerStatics_GetForUser* = 7
-type Fn_IDiagnosticInvokerStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticInvokerStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDiagnosticInvokerStatics_get_IsSupported* = 8
-type Fn_IDiagnosticInvokerStatics_get_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticInvokerStatics_get_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessCpuUsage
 const IID_IProcessCpuUsage* = GUID(
     data1: 0x0BBB2472'u32, data2: 0xC8BF'u16, data3: 0x423A'u16,
     data4: [0xA8'u8, 0x10, 0xB5, 0x59, 0xAE, 0x43, 0x54, 0xE2])
 const Slot_IProcessCpuUsage_GetReport* = 6
-type Fn_IProcessCpuUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessCpuUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessCpuUsageReport
 const IID_IProcessCpuUsageReport* = GUID(
     data1: 0x8A6D9CAC'u32, data2: 0x3987'u16, data3: 0x4E2F'u16,
     data4: [0xA1'u8, 0x19, 0x6B, 0x5F, 0xA2, 0x14, 0xF1, 0xB4])
 const Slot_IProcessCpuUsageReport_get_KernelTime* = 6
-type Fn_IProcessCpuUsageReport_get_KernelTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessCpuUsageReport_get_KernelTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IProcessCpuUsageReport_get_UserTime* = 7
-type Fn_IProcessCpuUsageReport_get_UserTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessCpuUsageReport_get_UserTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfo
 const IID_IProcessDiagnosticInfo* = GUID(
     data1: 0xE830B04B'u32, data2: 0x300E'u16, data3: 0x4EE6'u16,
     data4: [0xA0'u8, 0xAB, 0x5B, 0x5F, 0x52, 0x31, 0xB4, 0x34])
 const Slot_IProcessDiagnosticInfo_get_ProcessId* = 6
-type Fn_IProcessDiagnosticInfo_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_ProcessId* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_ExecutableFileName* = 7
-type Fn_IProcessDiagnosticInfo_get_ExecutableFileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_ExecutableFileName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_Parent* = 8
-type Fn_IProcessDiagnosticInfo_get_Parent* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_Parent* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_ProcessStartTime* = 9
-type Fn_IProcessDiagnosticInfo_get_ProcessStartTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_ProcessStartTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_DiskUsage* = 10
-type Fn_IProcessDiagnosticInfo_get_DiskUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_DiskUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_MemoryUsage* = 11
-type Fn_IProcessDiagnosticInfo_get_MemoryUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_MemoryUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo_get_CpuUsage* = 12
-type Fn_IProcessDiagnosticInfo_get_CpuUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo_get_CpuUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfo2
 const IID_IProcessDiagnosticInfo2* = GUID(
     data1: 0x9558CB1A'u32, data2: 0x3D0B'u16, data3: 0x49EC'u16,
     data4: [0xAB'u8, 0x70, 0x4F, 0x7A, 0x11, 0x28, 0x05, 0xDE])
 const Slot_IProcessDiagnosticInfo2_GetAppDiagnosticInfos* = 6
-type Fn_IProcessDiagnosticInfo2_GetAppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo2_GetAppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfo2_get_IsPackaged* = 7
-type Fn_IProcessDiagnosticInfo2_get_IsPackaged* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfo2_get_IsPackaged* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics
 const IID_IProcessDiagnosticInfoStatics* = GUID(
     data1: 0x2F41B260'u32, data2: 0xB49F'u16, data3: 0x428C'u16,
     data4: [0xAA'u8, 0x0E, 0x84, 0x74, 0x4F, 0x49, 0xCA, 0x95])
 const Slot_IProcessDiagnosticInfoStatics_GetForProcesses* = 6
-type Fn_IProcessDiagnosticInfoStatics_GetForProcesses* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfoStatics_GetForProcesses* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessDiagnosticInfoStatics_GetForCurrentProcess* = 7
-type Fn_IProcessDiagnosticInfoStatics_GetForCurrentProcess* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfoStatics_GetForCurrentProcess* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiagnosticInfoStatics2
 const IID_IProcessDiagnosticInfoStatics2* = GUID(
     data1: 0x4A869897'u32, data2: 0x9899'u16, data3: 0x4A44'u16,
     data4: [0xA2'u8, 0x9B, 0x09, 0x16, 0x63, 0xBE, 0x09, 0xB6])
 const Slot_IProcessDiagnosticInfoStatics2_TryGetForProcessId* = 6
-type Fn_IProcessDiagnosticInfoStatics2_TryGetForProcessId* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiagnosticInfoStatics2_TryGetForProcessId* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiskUsage
 const IID_IProcessDiskUsage* = GUID(
     data1: 0x5AD78BFD'u32, data2: 0x7E51'u16, data3: 0x4E53'u16,
     data4: [0xBF'u8, 0xAA, 0x5A, 0x6E, 0xE1, 0xAA, 0xBB, 0xF8])
 const Slot_IProcessDiskUsage_GetReport* = 6
-type Fn_IProcessDiskUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessDiskUsageReport
 const IID_IProcessDiskUsageReport* = GUID(
     data1: 0x401627FD'u32, data2: 0x535D'u16, data3: 0x4C1F'u16,
     data4: [0x81'u8, 0xB8, 0xDA, 0x54, 0xE1, 0xBE, 0x63, 0x5E])
 const Slot_IProcessDiskUsageReport_get_ReadOperationCount* = 6
-type Fn_IProcessDiskUsageReport_get_ReadOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_ReadOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IProcessDiskUsageReport_get_WriteOperationCount* = 7
-type Fn_IProcessDiskUsageReport_get_WriteOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_WriteOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IProcessDiskUsageReport_get_OtherOperationCount* = 8
-type Fn_IProcessDiskUsageReport_get_OtherOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_OtherOperationCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IProcessDiskUsageReport_get_BytesReadCount* = 9
-type Fn_IProcessDiskUsageReport_get_BytesReadCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_BytesReadCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IProcessDiskUsageReport_get_BytesWrittenCount* = 10
-type Fn_IProcessDiskUsageReport_get_BytesWrittenCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_BytesWrittenCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IProcessDiskUsageReport_get_OtherBytesCount* = 11
-type Fn_IProcessDiskUsageReport_get_OtherBytesCount* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessDiskUsageReport_get_OtherBytesCount* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessMemoryUsage
 const IID_IProcessMemoryUsage* = GUID(
     data1: 0xF50B229B'u32, data2: 0x827C'u16, data3: 0x42B7'u16,
     data4: [0xB0'u8, 0x7C, 0x0E, 0x32, 0x62, 0x7E, 0x6B, 0x3E])
 const Slot_IProcessMemoryUsage_GetReport* = 6
-type Fn_IProcessMemoryUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IProcessMemoryUsageReport
 const IID_IProcessMemoryUsageReport* = GUID(
     data1: 0xC2C77CBA'u32, data2: 0x1951'u16, data3: 0x4685'u16,
     data4: [0x85'u8, 0x32, 0x7E, 0x74, 0x9E, 0xCF, 0x8E, 0xEB])
 const Slot_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes* = 6
-type Fn_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PageFaultCount* = 7
-type Fn_IProcessMemoryUsageReport_get_PageFaultCount* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PageFaultCount* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PageFileSizeInBytes* = 8
-type Fn_IProcessMemoryUsageReport_get_PageFileSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PageFileSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes* = 9
-type Fn_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes* = 10
-type Fn_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes* = 11
-type Fn_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes* = 12
-type Fn_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes* = 13
-type Fn_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes* = 14
-type Fn_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_PrivatePageCount* = 15
-type Fn_IProcessMemoryUsageReport_get_PrivatePageCount* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_PrivatePageCount* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes* = 16
-type Fn_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes* = 17
-type Fn_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemCpuUsage
 const IID_ISystemCpuUsage* = GUID(
     data1: 0x6037B3AC'u32, data2: 0x02D6'u16, data3: 0x4234'u16,
     data4: [0x83'u8, 0x62, 0x7F, 0xE3, 0xAD, 0xC8, 0x1F, 0x5F])
 const Slot_ISystemCpuUsage_GetReport* = 6
-type Fn_ISystemCpuUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemCpuUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemCpuUsageReport
 const IID_ISystemCpuUsageReport* = GUID(
     data1: 0x2C26D0B2'u32, data2: 0x9483'u16, data3: 0x4F62'u16,
     data4: [0xAB'u8, 0x57, 0x82, 0xB2, 0x9D, 0x97, 0x19, 0xB8])
 const Slot_ISystemCpuUsageReport_get_KernelTime* = 6
-type Fn_ISystemCpuUsageReport_get_KernelTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemCpuUsageReport_get_KernelTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ISystemCpuUsageReport_get_UserTime* = 7
-type Fn_ISystemCpuUsageReport_get_UserTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemCpuUsageReport_get_UserTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ISystemCpuUsageReport_get_IdleTime* = 8
-type Fn_ISystemCpuUsageReport_get_IdleTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemCpuUsageReport_get_IdleTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfo
 const IID_ISystemDiagnosticInfo* = GUID(
     data1: 0xA290FE05'u32, data2: 0xDFF3'u16, data3: 0x407F'u16,
     data4: [0x9A'u8, 0x1B, 0x0B, 0x2B, 0x31, 0x7C, 0xA8, 0x00])
 const Slot_ISystemDiagnosticInfo_get_MemoryUsage* = 6
-type Fn_ISystemDiagnosticInfo_get_MemoryUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemDiagnosticInfo_get_MemoryUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemDiagnosticInfo_get_CpuUsage* = 7
-type Fn_ISystemDiagnosticInfo_get_CpuUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemDiagnosticInfo_get_CpuUsage* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics
 const IID_ISystemDiagnosticInfoStatics* = GUID(
     data1: 0xD404AC21'u32, data2: 0xFC7D'u16, data3: 0x45F0'u16,
     data4: [0x9A'u8, 0x3F, 0x39, 0x20, 0x3A, 0xED, 0x9F, 0x7E])
 const Slot_ISystemDiagnosticInfoStatics_GetForCurrentSystem* = 6
-type Fn_ISystemDiagnosticInfoStatics_GetForCurrentSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemDiagnosticInfoStatics_GetForCurrentSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2
 const IID_ISystemDiagnosticInfoStatics2* = GUID(
     data1: 0x79DED189'u32, data2: 0x6AF9'u16, data3: 0x4DA9'u16,
     data4: [0xA4'u8, 0x22, 0x15, 0xF7, 0x32, 0x55, 0xB3, 0xEB])
 const Slot_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* = 6
-type Fn_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* = proc(self: pointer, a1: ProcessorArchitecture, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* = proc(self: pointer, a1: ProcessorArchitecture, value: ptr bool): HRESULT {.abi.}
 const Slot_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* = 7
-type Fn_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* = proc(self: pointer, value: ptr ProcessorArchitecture): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* = proc(self: pointer, value: ptr ProcessorArchitecture): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemMemoryUsage
 const IID_ISystemMemoryUsage* = GUID(
     data1: 0x17FFC595'u32, data2: 0x1702'u16, data3: 0x49CF'u16,
     data4: [0xAA'u8, 0x27, 0x2F, 0x0A, 0x32, 0x59, 0x14, 0x04])
 const Slot_ISystemMemoryUsage_GetReport* = 6
-type Fn_ISystemMemoryUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemMemoryUsage_GetReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.ISystemMemoryUsageReport
 const IID_ISystemMemoryUsageReport* = GUID(
     data1: 0x38663C87'u32, data2: 0x2A9F'u16, data3: 0x403A'u16,
     data4: [0xBD'u8, 0x19, 0x2C, 0xF3, 0xE8, 0x16, 0x95, 0x00])
 const Slot_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes* = 6
-type Fn_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_ISystemMemoryUsageReport_get_AvailableSizeInBytes* = 7
-type Fn_ISystemMemoryUsageReport_get_AvailableSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemMemoryUsageReport_get_AvailableSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_ISystemMemoryUsageReport_get_CommittedSizeInBytes* = 8
-type Fn_ISystemMemoryUsageReport_get_CommittedSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemMemoryUsageReport_get_CommittedSizeInBytes* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics
 const IID_IPlatformTelemetryClientStatics* = GUID(
     data1: 0x9BF3F25D'u32, data2: 0xD5C3'u16, data3: 0x4EEA'u16,
     data4: [0x8D'u8, 0xBE, 0x9C, 0x8D, 0xBB, 0x0D, 0x9D, 0x8F])
 const Slot_IPlatformTelemetryClientStatics_Register* = 6
-type Fn_IPlatformTelemetryClientStatics_Register* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryClientStatics_Register* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlatformTelemetryClientStatics_Register2* = 7
-type Fn_IPlatformTelemetryClientStatics_Register2* = proc(self: pointer, a1: HSTRING, a2PlatformTelemetryRegistrationSettings: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryClientStatics_Register2* = proc(self: pointer, a1: HSTRING, a2PlatformTelemetryRegistrationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult
 const IID_IPlatformTelemetryRegistrationResult* = GUID(
     data1: 0x4D8518AB'u32, data2: 0x2292'u16, data3: 0x49BD'u16,
     data4: [0xA1'u8, 0x5A, 0x3D, 0x71, 0xD2, 0x14, 0x51, 0x12])
 const Slot_IPlatformTelemetryRegistrationResult_get_Status* = 6
-type Fn_IPlatformTelemetryRegistrationResult_get_Status* = proc(self: pointer, value: ptr PlatformTelemetryRegistrationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryRegistrationResult_get_Status* = proc(self: pointer, value: ptr PlatformTelemetryRegistrationStatus): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationSettings
 const IID_IPlatformTelemetryRegistrationSettings* = GUID(
     data1: 0x819A8582'u32, data2: 0xCA19'u16, data3: 0x415E'u16,
     data4: [0xBB'u8, 0x79, 0x9C, 0x22, 0x4B, 0xFA, 0x3A, 0x73])
 const Slot_IPlatformTelemetryRegistrationSettings_get_StorageSize* = 6
-type Fn_IPlatformTelemetryRegistrationSettings_get_StorageSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryRegistrationSettings_get_StorageSize* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IPlatformTelemetryRegistrationSettings_put_StorageSize* = 7
-type Fn_IPlatformTelemetryRegistrationSettings_put_StorageSize* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryRegistrationSettings_put_StorageSize* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize* = 8
-type Fn_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize* = 9
-type Fn_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics
 const IID_IPlatformDiagnosticActionsStatics* = GUID(
     data1: 0xC1145CFA'u32, data2: 0x9292'u16, data3: 0x4267'u16,
     data4: [0x89'u8, 0x0A, 0x9E, 0xA3, 0xED, 0x07, 0x23, 0x12])
 const Slot_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* = 6
-type Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* = proc(self: pointer, a1: GUID, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* = proc(self: pointer, a1: GUID, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_TryEscalateScenario* = 7
-type Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario* = proc(self: pointer, a1: GUID, a2: PlatformDiagnosticEscalationType, a3: HSTRING, a4: bool, a5: bool, a6: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario* = proc(self: pointer, a1: GUID, a2: PlatformDiagnosticEscalationType, a3: HSTRING, a4: bool, a5: bool, a6: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* = 8
-type Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: bool, a4: bool, a5: bool, value: ptr PlatformDiagnosticActionState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: bool, a4: bool, a5: bool, value: ptr PlatformDiagnosticActionState): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_GetActiveScenarioList* = 9
-type Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_ForceUpload* = 10
-type Fn_IPlatformDiagnosticActionsStatics_ForceUpload* = proc(self: pointer, a1: PlatformDiagnosticEventBufferLatencies, a2: bool, a3: bool, value: ptr PlatformDiagnosticActionState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_ForceUpload* = proc(self: pointer, a1: PlatformDiagnosticEventBufferLatencies, a2: bool, a3: bool, value: ptr PlatformDiagnosticActionState): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_IsTraceRunning* = 11
-type Fn_IPlatformDiagnosticActionsStatics_IsTraceRunning* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, a2: GUID, a3: uint64, value: ptr PlatformDiagnosticTraceSlotState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_IsTraceRunning* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, a2: GUID, a3: uint64, value: ptr PlatformDiagnosticTraceSlotState): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* = 12
-type Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_GetKnownTraceList* = 13
-type Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList* = proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
 const IID_IPlatformDiagnosticTraceInfo* = GUID(
     data1: 0xF870ED97'u32, data2: 0xD597'u16, data3: 0x4BF7'u16,
     data4: [0x88'u8, 0xDC, 0xCF, 0x5C, 0x7D, 0xC2, 0xA1, 0xD2])
 const Slot_IPlatformDiagnosticTraceInfo_get_ScenarioId* = 6
-type Fn_IPlatformDiagnosticTraceInfo_get_ScenarioId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_ScenarioId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_ProfileHash* = 7
-type Fn_IPlatformDiagnosticTraceInfo_get_ProfileHash* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_ProfileHash* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_IsExclusive* = 8
-type Fn_IPlatformDiagnosticTraceInfo_get_IsExclusive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_IsExclusive* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_IsAutoLogger* = 9
-type Fn_IPlatformDiagnosticTraceInfo_get_IsAutoLogger* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_IsAutoLogger* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* = 10
-type Fn_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_Priority* = 11
-type Fn_IPlatformDiagnosticTraceInfo_get_Priority* = proc(self: pointer, value: ptr PlatformDiagnosticTracePriority): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceInfo_get_Priority* = proc(self: pointer, value: ptr PlatformDiagnosticTracePriority): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
 const IID_IPlatformDiagnosticTraceRuntimeInfo* = GUID(
     data1: 0x3D4D5E2D'u32, data2: 0x01D8'u16, data3: 0x4768'u16,
     data4: [0x85'u8, 0x54, 0x1E, 0xB1, 0xCA, 0x61, 0x09, 0x86])
 const Slot_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime* = 6
-type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime* = 7
-type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 
 ## Windows.System.DispatcherQueueHandler  (delegate)
 const IID_DispatcherQueueHandler* = GUID(
     data1: 0xDFA2DC9C'u32, data2: 0x1A2D'u16, data3: 0x4917'u16,
     data4: [0x98'u8, 0xF2, 0x93, 0x9A, 0xF1, 0xD6, 0xE0, 0xC8])
 const Slot_DispatcherQueueHandler_Invoke* = 3
-type Fn_DispatcherQueueHandler_Invoke* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_DispatcherQueueHandler_Invoke* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Display.IDisplayRequest
 const IID_IDisplayRequest* = GUID(
     data1: 0xE5732044'u32, data2: 0xF49F'u16, data3: 0x4B60'u16,
     data4: [0x8D'u8, 0xD4, 0x5E, 0x7E, 0x3A, 0x63, 0x2A, 0xC0])
 const Slot_IDisplayRequest_RequestActive* = 6
-type Fn_IDisplayRequest_RequestActive* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDisplayRequest_RequestActive* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IDisplayRequest_RequestRelease* = 7
-type Fn_IDisplayRequest_RequestRelease* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDisplayRequest_RequestRelease* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppActivationResult
 const IID_IAppActivationResult* = GUID(
     data1: 0x6B528900'u32, data2: 0xF46E'u16, data3: 0x4EB0'u16,
     data4: [0xAA'u8, 0x6C, 0x38, 0xAF, 0x55, 0x7C, 0xF9, 0xED])
 const Slot_IAppActivationResult_get_ExtendedError* = 6
-type Fn_IAppActivationResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppActivationResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IAppActivationResult_get_AppResourceGroupInfo* = 7
-type Fn_IAppActivationResult_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppActivationResult_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo
 const IID_IAppDiagnosticInfo* = GUID(
     data1: 0xE348A69A'u32, data2: 0x8889'u16, data3: 0x4CA3'u16,
     data4: [0xBE'u8, 0x07, 0xD5, 0xFF, 0xFF, 0x5F, 0x08, 0x04])
 const Slot_IAppDiagnosticInfo_get_AppInfo* = 6
-type Fn_IAppDiagnosticInfo_get_AppInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfo_get_AppInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo2
 const IID_IAppDiagnosticInfo2* = GUID(
     data1: 0xDF46FBD7'u32, data2: 0x191A'u16, data3: 0x446C'u16,
     data4: [0x94'u8, 0x73, 0x8F, 0xBC, 0x23, 0x74, 0xA3, 0x54])
 const Slot_IAppDiagnosticInfo2_GetResourceGroups* = 6
-type Fn_IAppDiagnosticInfo2_GetResourceGroups* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfo2_GetResourceGroups* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfo2_CreateResourceGroupWatcher* = 7
-type Fn_IAppDiagnosticInfo2_CreateResourceGroupWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfo2_CreateResourceGroupWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfo3
 const IID_IAppDiagnosticInfo3* = GUID(
     data1: 0xC895C63D'u32, data2: 0xDD61'u16, data3: 0x4C65'u16,
     data4: [0xBA'u8, 0xBD, 0x81, 0xA1, 0x0B, 0x4F, 0x98, 0x15])
 const Slot_IAppDiagnosticInfo3_LaunchAsync* = 6
-type Fn_IAppDiagnosticInfo3_LaunchAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfo3_LaunchAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoStatics
 const IID_IAppDiagnosticInfoStatics* = GUID(
     data1: 0xCE6925BF'u32, data2: 0x10CA'u16, data3: 0x40C8'u16,
     data4: [0xA9'u8, 0xCA, 0xC5, 0xC9, 0x65, 0x01, 0x86, 0x6E])
 const Slot_IAppDiagnosticInfoStatics_RequestInfoAsync* = 6
-type Fn_IAppDiagnosticInfoStatics_RequestInfoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics_RequestInfoAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoStatics2
 const IID_IAppDiagnosticInfoStatics2* = GUID(
     data1: 0x05B24B86'u32, data2: 0x1000'u16, data3: 0x4C90'u16,
     data4: [0xBB'u8, 0x9F, 0x72, 0x35, 0x07, 0x1C, 0x50, 0xFE])
 const Slot_IAppDiagnosticInfoStatics2_CreateWatcher* = 6
-type Fn_IAppDiagnosticInfoStatics2_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics2_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoStatics2_RequestAccessAsync* = 7
-type Fn_IAppDiagnosticInfoStatics2_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics2_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync* = 8
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync* = 9
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* = 10
-type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoWatcher
 const IID_IAppDiagnosticInfoWatcher* = GUID(
     data1: 0x75575070'u32, data2: 0x01D3'u16, data3: 0x489A'u16,
     data4: [0x93'u8, 0x25, 0x52, 0xF9, 0xCC, 0x6E, 0xDE, 0x0A])
 const Slot_IAppDiagnosticInfoWatcher_add_Added* = 6
-type Fn_IAppDiagnosticInfoWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Added* = 7
-type Fn_IAppDiagnosticInfoWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_Removed* = 8
-type Fn_IAppDiagnosticInfoWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Removed* = 9
-type Fn_IAppDiagnosticInfoWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* = 10
-type Fn_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* = 11
-type Fn_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_Stopped* = 12
-type Fn_IAppDiagnosticInfoWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Stopped* = 13
-type Fn_IAppDiagnosticInfoWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_get_Status* = 14
-type Fn_IAppDiagnosticInfoWatcher_get_Status* = proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_get_Status* = proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_Start* = 15
-type Fn_IAppDiagnosticInfoWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_Stop* = 16
-type Fn_IAppDiagnosticInfoWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppDiagnosticInfoWatcherEventArgs
 const IID_IAppDiagnosticInfoWatcherEventArgs* = GUID(
     data1: 0x7017C716'u32, data2: 0xE1DA'u16, data3: 0x4C65'u16,
     data4: [0x99'u8, 0xDF, 0x04, 0x6D, 0xFF, 0x5B, 0xE7, 0x1A])
 const Slot_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo* = 6
-type Fn_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppExecutionStateChangeResult
 const IID_IAppExecutionStateChangeResult* = GUID(
     data1: 0x6F039BF0'u32, data2: 0xF91B'u16, data3: 0x4DF8'u16,
     data4: [0xAE'u8, 0x77, 0x30, 0x33, 0xCC, 0xB6, 0x91, 0x14])
 const Slot_IAppExecutionStateChangeResult_get_ExtendedError* = 6
-type Fn_IAppExecutionStateChangeResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppExecutionStateChangeResult_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryReport
 const IID_IAppMemoryReport* = GUID(
     data1: 0x6D65339B'u32, data2: 0x4D6F'u16, data3: 0x45BC'u16,
     data4: [0x9C'u8, 0x5E, 0xE4, 0x9B, 0x3F, 0xF2, 0x75, 0x8D])
 const Slot_IAppMemoryReport_get_PrivateCommitUsage* = 6
-type Fn_IAppMemoryReport_get_PrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryReport_get_PrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppMemoryReport_get_PeakPrivateCommitUsage* = 7
-type Fn_IAppMemoryReport_get_PeakPrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryReport_get_PeakPrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppMemoryReport_get_TotalCommitUsage* = 8
-type Fn_IAppMemoryReport_get_TotalCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryReport_get_TotalCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppMemoryReport_get_TotalCommitLimit* = 9
-type Fn_IAppMemoryReport_get_TotalCommitLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryReport_get_TotalCommitLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryReport2
 const IID_IAppMemoryReport2* = GUID(
     data1: 0x5F7F3738'u32, data2: 0x51B7'u16, data3: 0x42DC'u16,
     data4: [0xB7'u8, 0xED, 0x79, 0xBA, 0x46, 0xD2, 0x88, 0x57])
 const Slot_IAppMemoryReport2_get_ExpectedTotalCommitLimit* = 6
-type Fn_IAppMemoryReport2_get_ExpectedTotalCommitLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryReport2_get_ExpectedTotalCommitLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IAppMemoryUsageLimitChangingEventArgs
 const IID_IAppMemoryUsageLimitChangingEventArgs* = GUID(
     data1: 0x79F86664'u32, data2: 0xFECA'u16, data3: 0x4DA5'u16,
     data4: [0x9E'u8, 0x40, 0x2B, 0xC6, 0x3E, 0xFD, 0xC9, 0x79])
 const Slot_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit* = 6
-type Fn_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit* = 7
-type Fn_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupBackgroundTaskReport
 const IID_IAppResourceGroupBackgroundTaskReport* = GUID(
     data1: 0x2566E74E'u32, data2: 0xB05D'u16, data3: 0x40C2'u16,
     data4: [0x9D'u8, 0xC1, 0x1A, 0x4F, 0x03, 0x9E, 0xA1, 0x20])
 const Slot_IAppResourceGroupBackgroundTaskReport_get_TaskId* = 6
-type Fn_IAppResourceGroupBackgroundTaskReport_get_TaskId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupBackgroundTaskReport_get_TaskId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IAppResourceGroupBackgroundTaskReport_get_Name* = 7
-type Fn_IAppResourceGroupBackgroundTaskReport_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupBackgroundTaskReport_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppResourceGroupBackgroundTaskReport_get_Trigger* = 8
-type Fn_IAppResourceGroupBackgroundTaskReport_get_Trigger* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupBackgroundTaskReport_get_Trigger* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppResourceGroupBackgroundTaskReport_get_EntryPoint* = 9
-type Fn_IAppResourceGroupBackgroundTaskReport_get_EntryPoint* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupBackgroundTaskReport_get_EntryPoint* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfo
 const IID_IAppResourceGroupInfo* = GUID(
     data1: 0xB913F77A'u32, data2: 0xE807'u16, data3: 0x49F4'u16,
     data4: [0x84'u8, 0x5E, 0x7B, 0x8B, 0xDC, 0xFE, 0x8E, 0xE7])
 const Slot_IAppResourceGroupInfo_get_InstanceId* = 6
-type Fn_IAppResourceGroupInfo_get_InstanceId* = proc(self: pointer, value: ptr GUID): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_get_InstanceId* = proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo_get_IsShared* = 7
-type Fn_IAppResourceGroupInfo_get_IsShared* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_get_IsShared* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo_GetBackgroundTaskReports* = 8
-type Fn_IAppResourceGroupInfo_GetBackgroundTaskReports* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_GetBackgroundTaskReports* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo_GetMemoryReport* = 9
-type Fn_IAppResourceGroupInfo_GetMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_GetMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo_GetProcessDiagnosticInfos* = 10
-type Fn_IAppResourceGroupInfo_GetProcessDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_GetProcessDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo_GetStateReport* = 11
-type Fn_IAppResourceGroupInfo_GetStateReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo_GetStateReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfo2
 const IID_IAppResourceGroupInfo2* = GUID(
     data1: 0xEE9B236D'u32, data2: 0xD305'u16, data3: 0x4D6B'u16,
     data4: [0x92'u8, 0xF7, 0x6A, 0xFD, 0xAD, 0x72, 0xDE, 0xDC])
 const Slot_IAppResourceGroupInfo2_StartSuspendAsync* = 6
-type Fn_IAppResourceGroupInfo2_StartSuspendAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo2_StartSuspendAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo2_StartResumeAsync* = 7
-type Fn_IAppResourceGroupInfo2_StartResumeAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo2_StartResumeAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfo2_StartTerminateAsync* = 8
-type Fn_IAppResourceGroupInfo2_StartTerminateAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfo2_StartTerminateAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcher
 const IID_IAppResourceGroupInfoWatcher* = GUID(
     data1: 0xD9B0A0FD'u32, data2: 0x6E5A'u16, data3: 0x4C72'u16,
     data4: [0x8B'u8, 0x17, 0x09, 0xFE, 0xC4, 0xA2, 0x12, 0xBD])
 const Slot_IAppResourceGroupInfoWatcher_add_Added* = 6
-type Fn_IAppResourceGroupInfoWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Added* = 7
-type Fn_IAppResourceGroupInfoWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_Removed* = 8
-type Fn_IAppResourceGroupInfoWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Removed* = 9
-type Fn_IAppResourceGroupInfoWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* = 10
-type Fn_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* = 11
-type Fn_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_Stopped* = 12
-type Fn_IAppResourceGroupInfoWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Stopped* = 13
-type Fn_IAppResourceGroupInfoWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* = 14
-type Fn_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* = 15
-type Fn_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_get_Status* = 16
-type Fn_IAppResourceGroupInfoWatcher_get_Status* = proc(self: pointer, value: ptr AppResourceGroupInfoWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_get_Status* = proc(self: pointer, value: ptr AppResourceGroupInfoWatcherStatus): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_Start* = 17
-type Fn_IAppResourceGroupInfoWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_Stop* = 18
-type Fn_IAppResourceGroupInfoWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcherEventArgs
 const IID_IAppResourceGroupInfoWatcherEventArgs* = GUID(
     data1: 0x7A787637'u32, data2: 0x6302'u16, data3: 0x4D2F'u16,
     data4: [0xBF'u8, 0x89, 0x1C, 0x12, 0xD0, 0xB2, 0xA6, 0xB9])
 const Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos* = 6
-type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo* = 7
-type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs
 const IID_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs* = GUID(
     data1: 0x1BDBEDD7'u32, data2: 0xFEE6'u16, data3: 0x4FD4'u16,
     data4: [0x98'u8, 0xDD, 0xE9, 0x2A, 0x2C, 0xC2, 0x99, 0xF3])
 const Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos* = 6
-type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo* = 7
-type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupMemoryReport
 const IID_IAppResourceGroupMemoryReport* = GUID(
     data1: 0x2C8C06B1'u32, data2: 0x7DB1'u16, data3: 0x4C51'u16,
     data4: [0xA2'u8, 0x25, 0x7F, 0xAE, 0x2D, 0x49, 0xE4, 0x31])
 const Slot_IAppResourceGroupMemoryReport_get_CommitUsageLimit* = 6
-type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppResourceGroupMemoryReport_get_CommitUsageLevel* = 7
-type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLevel* = proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupMemoryReport_get_CommitUsageLevel* = proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.abi.}
 const Slot_IAppResourceGroupMemoryReport_get_PrivateCommitUsage* = 8
-type Fn_IAppResourceGroupMemoryReport_get_PrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupMemoryReport_get_PrivateCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppResourceGroupMemoryReport_get_TotalCommitUsage* = 9
-type Fn_IAppResourceGroupMemoryReport_get_TotalCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupMemoryReport_get_TotalCommitUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IAppResourceGroupStateReport
 const IID_IAppResourceGroupStateReport* = GUID(
     data1: 0x52849F18'u32, data2: 0x2F70'u16, data3: 0x4236'u16,
     data4: [0xAB'u8, 0x40, 0xD0, 0x4D, 0xB0, 0xC7, 0xB9, 0x31])
 const Slot_IAppResourceGroupStateReport_get_ExecutionState* = 6
-type Fn_IAppResourceGroupStateReport_get_ExecutionState* = proc(self: pointer, value: ptr AppResourceGroupExecutionState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupStateReport_get_ExecutionState* = proc(self: pointer, value: ptr AppResourceGroupExecutionState): HRESULT {.abi.}
 const Slot_IAppResourceGroupStateReport_get_EnergyQuotaState* = 7
-type Fn_IAppResourceGroupStateReport_get_EnergyQuotaState* = proc(self: pointer, value: ptr AppResourceGroupEnergyQuotaState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppResourceGroupStateReport_get_EnergyQuotaState* = proc(self: pointer, value: ptr AppResourceGroupEnergyQuotaState): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHost
 const IID_IAppUriHandlerHost* = GUID(
     data1: 0x5D50CAC5'u32, data2: 0x92D2'u16, data3: 0x5409'u16,
     data4: [0xB5'u8, 0x6F, 0x7F, 0x73, 0xE1, 0x0E, 0xA4, 0xC3])
 const Slot_IAppUriHandlerHost_get_Name* = 6
-type Fn_IAppUriHandlerHost_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerHost_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppUriHandlerHost_put_Name* = 7
-type Fn_IAppUriHandlerHost_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerHost_put_Name* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHost2
 const IID_IAppUriHandlerHost2* = GUID(
     data1: 0x3A0BEE95'u32, data2: 0x29E4'u16, data3: 0x51BF'u16,
     data4: [0x80'u8, 0x95, 0xA3, 0xC0, 0x68, 0xE3, 0xC7, 0x2A])
 const Slot_IAppUriHandlerHost2_get_IsEnabled* = 6
-type Fn_IAppUriHandlerHost2_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerHost2_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppUriHandlerHost2_put_IsEnabled* = 7
-type Fn_IAppUriHandlerHost2_put_IsEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerHost2_put_IsEnabled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHostFactory
 const IID_IAppUriHandlerHostFactory* = GUID(
     data1: 0x257C3C96'u32, data2: 0xCE04'u16, data3: 0x5F98'u16,
     data4: [0x96'u8, 0xBB, 0x3E, 0xBD, 0x3E, 0x92, 0x75, 0xBB])
 const Slot_IAppUriHandlerHostFactory_CreateInstance* = 6
-type Fn_IAppUriHandlerHostFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerHostFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistration
 const IID_IAppUriHandlerRegistration* = GUID(
     data1: 0x6F73AEB1'u32, data2: 0x4569'u16, data3: 0x5C3F'u16,
     data4: [0x9B'u8, 0xA0, 0x99, 0x12, 0x3E, 0xEA, 0x32, 0xC3])
 const Slot_IAppUriHandlerRegistration_get_Name* = 6
-type Fn_IAppUriHandlerRegistration_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration_get_Name* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistration_get_User* = 7
-type Fn_IAppUriHandlerRegistration_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistration_GetAppAddedHostsAsync* = 8
-type Fn_IAppUriHandlerRegistration_GetAppAddedHostsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration_GetAppAddedHostsAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistration_SetAppAddedHostsAsync* = 9
-type Fn_IAppUriHandlerRegistration_SetAppAddedHostsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration_SetAppAddedHostsAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistration2
 const IID_IAppUriHandlerRegistration2* = GUID(
     data1: 0xD54DAC97'u32, data2: 0xCB39'u16, data3: 0x5F1F'u16,
     data4: [0x88'u8, 0x3E, 0x01, 0x85, 0x37, 0x30, 0xBD, 0x6D])
 const Slot_IAppUriHandlerRegistration2_GetAllHosts* = 6
-type Fn_IAppUriHandlerRegistration2_GetAllHosts* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration2_GetAllHosts* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistration2_UpdateHosts* = 7
-type Fn_IAppUriHandlerRegistration2_UpdateHosts* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration2_UpdateHosts* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistration2_get_PackageFamilyName* = 8
-type Fn_IAppUriHandlerRegistration2_get_PackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistration2_get_PackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManager
 const IID_IAppUriHandlerRegistrationManager* = GUID(
     data1: 0xE62C9A52'u32, data2: 0xAC94'u16, data3: 0x5750'u16,
     data4: [0xAC'u8, 0x1B, 0x6C, 0xFB, 0x6F, 0x25, 0x02, 0x63])
 const Slot_IAppUriHandlerRegistrationManager_get_User* = 6
-type Fn_IAppUriHandlerRegistrationManager_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManager_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistrationManager_TryGetRegistration* = 7
-type Fn_IAppUriHandlerRegistrationManager_TryGetRegistration* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManager_TryGetRegistration* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManager2
 const IID_IAppUriHandlerRegistrationManager2* = GUID(
     data1: 0xBDDFCAF1'u32, data2: 0xB51A'u16, data3: 0x5E69'u16,
     data4: [0xAE'u8, 0xFD, 0x70, 0x88, 0xD9, 0xF2, 0xB1, 0x23])
 const Slot_IAppUriHandlerRegistrationManager2_get_PackageFamilyName* = 6
-type Fn_IAppUriHandlerRegistrationManager2_get_PackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManager2_get_PackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManagerStatics
 const IID_IAppUriHandlerRegistrationManagerStatics* = GUID(
     data1: 0xD5CEDD9F'u32, data2: 0x5729'u16, data3: 0x5B76'u16,
     data4: [0xA1'u8, 0xD4, 0x02, 0x85, 0xF2, 0x95, 0xC1, 0x24])
 const Slot_IAppUriHandlerRegistrationManagerStatics_GetDefault* = 6
-type Fn_IAppUriHandlerRegistrationManagerStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManagerStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistrationManagerStatics_GetForUser* = 7
-type Fn_IAppUriHandlerRegistrationManagerStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManagerStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerRegistrationManagerStatics2
 const IID_IAppUriHandlerRegistrationManagerStatics2* = GUID(
     data1: 0x14F78379'u32, data2: 0x6890'u16, data3: 0x5080'u16,
     data4: [0x90'u8, 0xA7, 0x98, 0x82, 0x4A, 0x7F, 0x07, 0x9E])
 const Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* = 6
-type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* = 7
-type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* = proc(self: pointer, a1: HSTRING, a2User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* = proc(self: pointer, a1: HSTRING, a2User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDateTimeSettingsStatics
 const IID_IDateTimeSettingsStatics* = GUID(
     data1: 0x5D2150D1'u32, data2: 0x47EE'u16, data3: 0x48AB'u16,
     data4: [0xA5'u8, 0x2B, 0x9F, 0x19, 0x54, 0x27, 0x8D, 0x82])
 const Slot_IDateTimeSettingsStatics_SetSystemDateTime* = 6
-type Fn_IDateTimeSettingsStatics_SetSystemDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDateTimeSettingsStatics_SetSystemDateTime* = proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueue
 const IID_IDispatcherQueue* = GUID(
     data1: 0x603E88E4'u32, data2: 0xA338'u16, data3: 0x4FFE'u16,
     data4: [0xA4'u8, 0x57, 0xA5, 0xCF, 0xB9, 0xCE, 0xB8, 0x99])
 const Slot_IDispatcherQueue_CreateTimer* = 6
-type Fn_IDispatcherQueue_CreateTimer* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_CreateTimer* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueue_TryEnqueue* = 7
-type Fn_IDispatcherQueue_TryEnqueue* = proc(self: pointer, a1DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_TryEnqueue* = proc(self: pointer, a1DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherQueue_TryEnqueue2* = 8
-type Fn_IDispatcherQueue_TryEnqueue2* = proc(self: pointer, a1: DispatcherQueuePriority, a2DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_TryEnqueue2* = proc(self: pointer, a1: DispatcherQueuePriority, a2DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherQueue_add_ShutdownStarting* = 9
-type Fn_IDispatcherQueue_add_ShutdownStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_add_ShutdownStarting* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDispatcherQueue_remove_ShutdownStarting* = 10
-type Fn_IDispatcherQueue_remove_ShutdownStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_remove_ShutdownStarting* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDispatcherQueue_add_ShutdownCompleted* = 11
-type Fn_IDispatcherQueue_add_ShutdownCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_add_ShutdownCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDispatcherQueue_remove_ShutdownCompleted* = 12
-type Fn_IDispatcherQueue_remove_ShutdownCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue_remove_ShutdownCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueue2
 const IID_IDispatcherQueue2* = GUID(
     data1: 0xC822C647'u32, data2: 0x30EF'u16, data3: 0x506E'u16,
     data4: [0xBD'u8, 0x1E, 0xA6, 0x47, 0xAE, 0x66, 0x75, 0xFF])
 const Slot_IDispatcherQueue2_get_HasThreadAccess* = 6
-type Fn_IDispatcherQueue2_get_HasThreadAccess* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueue2_get_HasThreadAccess* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueController
 const IID_IDispatcherQueueController* = GUID(
     data1: 0x22F34E66'u32, data2: 0x50DB'u16, data3: 0x4E36'u16,
     data4: [0xA9'u8, 0x8D, 0x61, 0xC0, 0x1B, 0x38, 0x4D, 0x20])
 const Slot_IDispatcherQueueController_get_DispatcherQueue* = 6
-type Fn_IDispatcherQueueController_get_DispatcherQueue* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueController_get_DispatcherQueue* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueueController_ShutdownQueueAsync* = 7
-type Fn_IDispatcherQueueController_ShutdownQueueAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueController_ShutdownQueueAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueControllerStatics
 const IID_IDispatcherQueueControllerStatics* = GUID(
     data1: 0x0A6C98E0'u32, data2: 0x5198'u16, data3: 0x49A2'u16,
     data4: [0xA3'u8, 0x13, 0x3F, 0x70, 0xD1, 0xF1, 0x3C, 0x27])
 const Slot_IDispatcherQueueControllerStatics_CreateOnDedicatedThread* = 6
-type Fn_IDispatcherQueueControllerStatics_CreateOnDedicatedThread* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueControllerStatics_CreateOnDedicatedThread* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueShutdownStartingEventArgs
 const IID_IDispatcherQueueShutdownStartingEventArgs* = GUID(
     data1: 0xC4724C4C'u32, data2: 0xFF97'u16, data3: 0x40C0'u16,
     data4: [0xA2'u8, 0x26, 0xCC, 0x0A, 0xAA, 0x54, 0x5E, 0x89])
 const Slot_IDispatcherQueueShutdownStartingEventArgs_GetDeferral* = 6
-type Fn_IDispatcherQueueShutdownStartingEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueShutdownStartingEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueStatics
 const IID_IDispatcherQueueStatics* = GUID(
     data1: 0xA96D83D7'u32, data2: 0x9371'u16, data3: 0x4517'u16,
     data4: [0x92'u8, 0x45, 0xD0, 0x82, 0x4A, 0xC1, 0x2C, 0x74])
 const Slot_IDispatcherQueueStatics_GetForCurrentThread* = 6
-type Fn_IDispatcherQueueStatics_GetForCurrentThread* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueStatics_GetForCurrentThread* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IDispatcherQueueTimer
 const IID_IDispatcherQueueTimer* = GUID(
     data1: 0x5FEABB1D'u32, data2: 0xA31C'u16, data3: 0x4727'u16,
     data4: [0xB1'u8, 0xAC, 0x37, 0x45, 0x46, 0x49, 0xD5, 0x6A])
 const Slot_IDispatcherQueueTimer_get_Interval* = 6
-type Fn_IDispatcherQueueTimer_get_Interval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_get_Interval* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_put_Interval* = 7
-type Fn_IDispatcherQueueTimer_put_Interval* = proc(self: pointer, a1: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_put_Interval* = proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_get_IsRunning* = 8
-type Fn_IDispatcherQueueTimer_get_IsRunning* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_get_IsRunning* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_get_IsRepeating* = 9
-type Fn_IDispatcherQueueTimer_get_IsRepeating* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_get_IsRepeating* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_put_IsRepeating* = 10
-type Fn_IDispatcherQueueTimer_put_IsRepeating* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_put_IsRepeating* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_Start* = 11
-type Fn_IDispatcherQueueTimer_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_Stop* = 12
-type Fn_IDispatcherQueueTimer_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_add_Tick* = 13
-type Fn_IDispatcherQueueTimer_add_Tick* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_add_Tick* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_remove_Tick* = 14
-type Fn_IDispatcherQueueTimer_remove_Tick* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDispatcherQueueTimer_remove_Tick* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.IFolderLauncherOptions
 const IID_IFolderLauncherOptions* = GUID(
     data1: 0xBB91C27D'u32, data2: 0x6B87'u16, data3: 0x432A'u16,
     data4: [0xBD'u8, 0x04, 0x77, 0x6C, 0x6F, 0x5F, 0xB2, 0xAB])
 const Slot_IFolderLauncherOptions_get_ItemsToSelect* = 6
-type Fn_IFolderLauncherOptions_get_ItemsToSelect* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IFolderLauncherOptions_get_ItemsToSelect* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IKnownUserPropertiesStatics
 const IID_IKnownUserPropertiesStatics* = GUID(
     data1: 0x7755911A'u32, data2: 0x70C5'u16, data3: 0x48E5'u16,
     data4: [0xB6'u8, 0x37, 0x5B, 0xA3, 0x44, 0x1E, 0x4E, 0xE4])
 const Slot_IKnownUserPropertiesStatics_get_DisplayName* = 6
-type Fn_IKnownUserPropertiesStatics_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_FirstName* = 7
-type Fn_IKnownUserPropertiesStatics_get_FirstName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_FirstName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_LastName* = 8
-type Fn_IKnownUserPropertiesStatics_get_LastName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_LastName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_ProviderName* = 9
-type Fn_IKnownUserPropertiesStatics_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_ProviderName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_AccountName* = 10
-type Fn_IKnownUserPropertiesStatics_get_AccountName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_AccountName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_GuestHost* = 11
-type Fn_IKnownUserPropertiesStatics_get_GuestHost* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_GuestHost* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_PrincipalName* = 12
-type Fn_IKnownUserPropertiesStatics_get_PrincipalName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_PrincipalName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_DomainName* = 13
-type Fn_IKnownUserPropertiesStatics_get_DomainName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_DomainName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri* = 14
-type Fn_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IKnownUserPropertiesStatics2
 const IID_IKnownUserPropertiesStatics2* = GUID(
     data1: 0x5B450782'u32, data2: 0xF620'u16, data3: 0x577E'u16,
     data4: [0xB1'u8, 0xB3, 0xDD, 0x56, 0x64, 0x4D, 0x79, 0xB1])
 const Slot_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion* = 6
-type Fn_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.ILaunchUriResult
 const IID_ILaunchUriResult* = GUID(
     data1: 0xEC27A8DF'u32, data2: 0xF6D5'u16, data3: 0x45CA'u16,
     data4: [0x91'u8, 0x3A, 0x70, 0xA4, 0x0C, 0x5C, 0x82, 0x21])
 const Slot_ILaunchUriResult_get_Status* = 6
-type Fn_ILaunchUriResult_get_Status* = proc(self: pointer, value: ptr LaunchUriStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILaunchUriResult_get_Status* = proc(self: pointer, value: ptr LaunchUriStatus): HRESULT {.abi.}
 const Slot_ILaunchUriResult_get_Result* = 7
-type Fn_ILaunchUriResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILaunchUriResult_get_Result* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions
 const IID_ILauncherOptions* = GUID(
     data1: 0xBAFA21D8'u32, data2: 0xB071'u16, data3: 0x4CD8'u16,
     data4: [0x85'u8, 0x3E, 0x34, 0x12, 0x03, 0xE5, 0x57, 0xD3])
 const Slot_ILauncherOptions_get_TreatAsUntrusted* = 6
-type Fn_ILauncherOptions_get_TreatAsUntrusted* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_TreatAsUntrusted* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_TreatAsUntrusted* = 7
-type Fn_ILauncherOptions_put_TreatAsUntrusted* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_TreatAsUntrusted* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_DisplayApplicationPicker* = 8
-type Fn_ILauncherOptions_get_DisplayApplicationPicker* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_DisplayApplicationPicker* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_DisplayApplicationPicker* = 9
-type Fn_ILauncherOptions_put_DisplayApplicationPicker* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_DisplayApplicationPicker* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_UI* = 10
-type Fn_ILauncherOptions_get_UI* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_UI* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_PreferredApplicationPackageFamilyName* = 11
-type Fn_ILauncherOptions_get_PreferredApplicationPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_PreferredApplicationPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_PreferredApplicationPackageFamilyName* = 12
-type Fn_ILauncherOptions_put_PreferredApplicationPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_PreferredApplicationPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_PreferredApplicationDisplayName* = 13
-type Fn_ILauncherOptions_get_PreferredApplicationDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_PreferredApplicationDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_PreferredApplicationDisplayName* = 14
-type Fn_ILauncherOptions_put_PreferredApplicationDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_PreferredApplicationDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_FallbackUri* = 15
-type Fn_ILauncherOptions_get_FallbackUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_FallbackUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_FallbackUri* = 16
-type Fn_ILauncherOptions_put_FallbackUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_FallbackUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_ILauncherOptions_get_ContentType* = 17
-type Fn_ILauncherOptions_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_get_ContentType* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions_put_ContentType* = 18
-type Fn_ILauncherOptions_put_ContentType* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions_put_ContentType* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions2
 const IID_ILauncherOptions2* = GUID(
     data1: 0x3BA08EB4'u32, data2: 0x6E40'u16, data3: 0x4DCE'u16,
     data4: [0xA1'u8, 0xA3, 0x2F, 0x53, 0x95, 0x0A, 0xFB, 0x49])
 const Slot_ILauncherOptions2_get_TargetApplicationPackageFamilyName* = 6
-type Fn_ILauncherOptions2_get_TargetApplicationPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions2_get_TargetApplicationPackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions2_put_TargetApplicationPackageFamilyName* = 7
-type Fn_ILauncherOptions2_put_TargetApplicationPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions2_put_TargetApplicationPackageFamilyName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ILauncherOptions2_get_NeighboringFilesQuery* = 8
-type Fn_ILauncherOptions2_get_NeighboringFilesQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions2_get_NeighboringFilesQuery* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherOptions2_put_NeighboringFilesQuery* = 9
-type Fn_ILauncherOptions2_put_NeighboringFilesQuery* = proc(self: pointer, a1StorageFileQueryResult: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions2_put_NeighboringFilesQuery* = proc(self: pointer, a1StorageFileQueryResult: pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions3
 const IID_ILauncherOptions3* = GUID(
     data1: 0xF0770655'u32, data2: 0x4B63'u16, data3: 0x4E3A'u16,
     data4: [0x91'u8, 0x07, 0x4E, 0x68, 0x78, 0x41, 0x92, 0x3A])
 const Slot_ILauncherOptions3_get_IgnoreAppUriHandlers* = 6
-type Fn_ILauncherOptions3_get_IgnoreAppUriHandlers* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions3_get_IgnoreAppUriHandlers* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILauncherOptions3_put_IgnoreAppUriHandlers* = 7
-type Fn_ILauncherOptions3_put_IgnoreAppUriHandlers* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions3_put_IgnoreAppUriHandlers* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.ILauncherOptions4
 const IID_ILauncherOptions4* = GUID(
     data1: 0xEF6FD10E'u32, data2: 0xE6FB'u16, data3: 0x4814'u16,
     data4: [0xA4'u8, 0x4E, 0x57, 0xE8, 0xB9, 0xD9, 0xA0, 0x1B])
 const Slot_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers* = 6
-type Fn_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* = 7
-type Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics
 const IID_ILauncherStatics* = GUID(
     data1: 0x277151C3'u32, data2: 0x9E3E'u16, data3: 0x42F6'u16,
     data4: [0x91'u8, 0xA4, 0x5D, 0xFD, 0xEB, 0x23, 0x24, 0x51])
 const Slot_ILauncherStatics_LaunchFileAsync* = 6
-type Fn_ILauncherStatics_LaunchFileAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics_LaunchFileAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics_LaunchFileAsync2* = 7
-type Fn_ILauncherStatics_LaunchFileAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics_LaunchFileAsync2* = proc(self: pointer, a1IStorageFile: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics_LaunchUriAsync* = 8
-type Fn_ILauncherStatics_LaunchUriAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics_LaunchUriAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics_LaunchUriAsync2* = 9
-type Fn_ILauncherStatics_LaunchUriAsync2* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics_LaunchUriAsync2* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics2
 const IID_ILauncherStatics2* = GUID(
     data1: 0x59BA2FBB'u32, data2: 0x24CB'u16, data3: 0x4C02'u16,
     data4: [0xA4'u8, 0xC4, 0x82, 0x94, 0x56, 0x9D, 0x54, 0xF1])
 const Slot_ILauncherStatics2_LaunchUriForResultsAsync* = 6
-type Fn_ILauncherStatics2_LaunchUriForResultsAsync* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_LaunchUriForResultsAsync* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_LaunchUriForResultsAsync2* = 7
-type Fn_ILauncherStatics2_LaunchUriForResultsAsync2* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, a3ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_LaunchUriForResultsAsync2* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, a3ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_LaunchUriAsync* = 8
-type Fn_ILauncherStatics2_LaunchUriAsync* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, a3ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_LaunchUriAsync* = proc(self: pointer, a1Uri: pointer, a2LauncherOptions: pointer, a3ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryUriSupportAsync* = 9
-type Fn_ILauncherStatics2_QueryUriSupportAsync* = proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_QueryUriSupportAsync* = proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryUriSupportAsync2* = 10
-type Fn_ILauncherStatics2_QueryUriSupportAsync2* = proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType, a3: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_QueryUriSupportAsync2* = proc(self: pointer, a1Uri: pointer, a2: LaunchQuerySupportType, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryFileSupportAsync* = 11
-type Fn_ILauncherStatics2_QueryFileSupportAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_QueryFileSupportAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryFileSupportAsync2* = 12
-type Fn_ILauncherStatics2_QueryFileSupportAsync2* = proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_QueryFileSupportAsync2* = proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_FindUriSchemeHandlersAsync* = 13
-type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_FindUriSchemeHandlersAsync2* = 14
-type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync2* = proc(self: pointer, a1: HSTRING, a2: LaunchQuerySupportType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync2* = proc(self: pointer, a1: HSTRING, a2: LaunchQuerySupportType, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_FindFileHandlersAsync* = 15
-type Fn_ILauncherStatics2_FindFileHandlersAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics2_FindFileHandlersAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics3
 const IID_ILauncherStatics3* = GUID(
     data1: 0x234261A8'u32, data2: 0x9DB3'u16, data3: 0x4683'u16,
     data4: [0xAA'u8, 0x42, 0xDC, 0x6F, 0x51, 0xD3, 0x38, 0x47])
 const Slot_ILauncherStatics3_LaunchFolderAsync* = 6
-type Fn_ILauncherStatics3_LaunchFolderAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics3_LaunchFolderAsync* = proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics3_LaunchFolderAsync2* = 7
-type Fn_ILauncherStatics3_LaunchFolderAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics3_LaunchFolderAsync2* = proc(self: pointer, a1IStorageFolder: pointer, a2FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics4
 const IID_ILauncherStatics4* = GUID(
     data1: 0xB9EC819F'u32, data2: 0xB5A5'u16, data3: 0x41C6'u16,
     data4: [0xB3'u8, 0xB3, 0xDD, 0x1B, 0x31, 0x78, 0xBC, 0xF2])
 const Slot_ILauncherStatics4_QueryAppUriSupportAsync* = 6
-type Fn_ILauncherStatics4_QueryAppUriSupportAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_QueryAppUriSupportAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_QueryAppUriSupportAsync2* = 7
-type Fn_ILauncherStatics4_QueryAppUriSupportAsync2* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_QueryAppUriSupportAsync2* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_FindAppUriHandlersAsync* = 8
-type Fn_ILauncherStatics4_FindAppUriHandlersAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_FindAppUriHandlersAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForUserAsync* = 9
-type Fn_ILauncherStatics4_LaunchUriForUserAsync* = proc(self: pointer, a1User: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_LaunchUriForUserAsync* = proc(self: pointer, a1User: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForUserAsync2* = 10
-type Fn_ILauncherStatics4_LaunchUriForUserAsync2* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_LaunchUriForUserAsync2* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForUserAsync3* = 11
-type Fn_ILauncherStatics4_LaunchUriForUserAsync3* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_LaunchUriForUserAsync3* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync* = 12
-type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync2* = 13
-type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync2* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync2* = proc(self: pointer, a1User: pointer, a2Uri: pointer, a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics5
 const IID_ILauncherStatics5* = GUID(
     data1: 0x5B24EF84'u32, data2: 0xD895'u16, data3: 0x5FEA'u16,
     data4: [0x91'u8, 0x53, 0x1A, 0xC4, 0x9A, 0xED, 0x9B, 0xA9])
 const Slot_ILauncherStatics5_LaunchFolderPathAsync* = 6
-type Fn_ILauncherStatics5_LaunchFolderPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics5_LaunchFolderPathAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics5_LaunchFolderPathAsync2* = 7
-type Fn_ILauncherStatics5_LaunchFolderPathAsync2* = proc(self: pointer, a1: HSTRING, a2FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics5_LaunchFolderPathAsync2* = proc(self: pointer, a1: HSTRING, a2FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync* = 8
-type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync2* = 9
-type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync2* = proc(self: pointer, a1User: pointer, a2: HSTRING, a3FolderLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.ILauncherUIOptions
 const IID_ILauncherUIOptions* = GUID(
     data1: 0x1B25DA6E'u32, data2: 0x8AA6'u16, data3: 0x41E9'u16,
     data4: [0x82'u8, 0x51, 0x41, 0x65, 0xF5, 0x98, 0x5F, 0x49])
 const Slot_ILauncherUIOptions_get_InvocationPoint* = 6
-type Fn_ILauncherUIOptions_get_InvocationPoint* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_get_InvocationPoint* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherUIOptions_put_InvocationPoint* = 7
-type Fn_ILauncherUIOptions_put_InvocationPoint* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_put_InvocationPoint* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ILauncherUIOptions_get_SelectionRect* = 8
-type Fn_ILauncherUIOptions_get_SelectionRect* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_get_SelectionRect* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherUIOptions_put_SelectionRect* = 9
-type Fn_ILauncherUIOptions_put_SelectionRect* = proc(self: pointer, a1: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_put_SelectionRect* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ILauncherUIOptions_get_PreferredPlacement* = 10
-type Fn_ILauncherUIOptions_get_PreferredPlacement* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_get_PreferredPlacement* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ILauncherUIOptions_put_PreferredPlacement* = 11
-type Fn_ILauncherUIOptions_put_PreferredPlacement* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherUIOptions_put_PreferredPlacement* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 
 ## Windows.System.ILauncherViewOptions
 const IID_ILauncherViewOptions* = GUID(
     data1: 0x8A9B29F1'u32, data2: 0x7CA7'u16, data3: 0x49DE'u16,
     data4: [0x9B'u8, 0xD3, 0x3C, 0x5B, 0x71, 0x84, 0xF6, 0x16])
 const Slot_ILauncherViewOptions_get_DesiredRemainingView* = 6
-type Fn_ILauncherViewOptions_get_DesiredRemainingView* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherViewOptions_get_DesiredRemainingView* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ILauncherViewOptions_put_DesiredRemainingView* = 7
-type Fn_ILauncherViewOptions_put_DesiredRemainingView* = proc(self: pointer, a1: int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILauncherViewOptions_put_DesiredRemainingView* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics
 const IID_IMemoryManagerStatics* = GUID(
     data1: 0x5C6C279C'u32, data2: 0xD7CA'u16, data3: 0x4779'u16,
     data4: [0x91'u8, 0x88, 0x40, 0x57, 0x21, 0x9C, 0xE6, 0x4C])
 const Slot_IMemoryManagerStatics_get_AppMemoryUsage* = 6
-type Fn_IMemoryManagerStatics_get_AppMemoryUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_get_AppMemoryUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_get_AppMemoryUsageLimit* = 7
-type Fn_IMemoryManagerStatics_get_AppMemoryUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_get_AppMemoryUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_get_AppMemoryUsageLevel* = 8
-type Fn_IMemoryManagerStatics_get_AppMemoryUsageLevel* = proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_get_AppMemoryUsageLevel* = proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageIncreased* = 9
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_add_AppMemoryUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* = 10
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageDecreased* = 11
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageDecreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_add_AppMemoryUsageDecreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* = 12
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* = 13
-type Fn_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* = 14
-type Fn_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics2
 const IID_IMemoryManagerStatics2* = GUID(
     data1: 0x6EEE351F'u32, data2: 0x6D62'u16, data3: 0x423F'u16,
     data4: [0x94'u8, 0x79, 0xB0, 0x1F, 0x9C, 0x9F, 0x76, 0x69])
 const Slot_IMemoryManagerStatics2_GetAppMemoryReport* = 6
-type Fn_IMemoryManagerStatics2_GetAppMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics2_GetAppMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics2_GetProcessMemoryReport* = 7
-type Fn_IMemoryManagerStatics2_GetProcessMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics2_GetProcessMemoryReport* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics3
 const IID_IMemoryManagerStatics3* = GUID(
     data1: 0x149B59CE'u32, data2: 0x92AD'u16, data3: 0x4E35'u16,
     data4: [0x89'u8, 0xEB, 0x50, 0xDF, 0xB4, 0xC0, 0xD9, 0x1C])
 const Slot_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit* = 6
-type Fn_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit* = proc(self: pointer, a1: uint64, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit* = proc(self: pointer, a1: uint64, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.IMemoryManagerStatics4
 const IID_IMemoryManagerStatics4* = GUID(
     data1: 0xC5A94828'u32, data2: 0xE84E'u16, data3: 0x4886'u16,
     data4: [0x8A'u8, 0x0D, 0x44, 0xB3, 0x19, 0x0E, 0x3B, 0x72])
 const Slot_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit* = 6
-type Fn_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherOptions
 const IID_IProcessLauncherOptions* = GUID(
     data1: 0x3080B9CF'u32, data2: 0xF444'u16, data3: 0x4A83'u16,
     data4: [0xBE'u8, 0xAF, 0xA5, 0x49, 0xA0, 0xF3, 0x22, 0x9C])
 const Slot_IProcessLauncherOptions_get_StandardInput* = 6
-type Fn_IProcessLauncherOptions_get_StandardInput* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_get_StandardInput* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_put_StandardInput* = 7
-type Fn_IProcessLauncherOptions_put_StandardInput* = proc(self: pointer, a1IInputStream: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_put_StandardInput* = proc(self: pointer, a1IInputStream: pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_get_StandardOutput* = 8
-type Fn_IProcessLauncherOptions_get_StandardOutput* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_get_StandardOutput* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_put_StandardOutput* = 9
-type Fn_IProcessLauncherOptions_put_StandardOutput* = proc(self: pointer, a1IOutputStream: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_put_StandardOutput* = proc(self: pointer, a1IOutputStream: pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_get_StandardError* = 10
-type Fn_IProcessLauncherOptions_get_StandardError* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_get_StandardError* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_put_StandardError* = 11
-type Fn_IProcessLauncherOptions_put_StandardError* = proc(self: pointer, a1IOutputStream: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_put_StandardError* = proc(self: pointer, a1IOutputStream: pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_get_WorkingDirectory* = 12
-type Fn_IProcessLauncherOptions_get_WorkingDirectory* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_get_WorkingDirectory* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IProcessLauncherOptions_put_WorkingDirectory* = 13
-type Fn_IProcessLauncherOptions_put_WorkingDirectory* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherOptions_put_WorkingDirectory* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherResult
 const IID_IProcessLauncherResult* = GUID(
     data1: 0x544C8934'u32, data2: 0x86D8'u16, data3: 0x4991'u16,
     data4: [0x8E'u8, 0x75, 0xEC, 0xE8, 0xA4, 0x3B, 0x6B, 0x6D])
 const Slot_IProcessLauncherResult_get_ExitCode* = 6
-type Fn_IProcessLauncherResult_get_ExitCode* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherResult_get_ExitCode* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
 ## Windows.System.IProcessLauncherStatics
 const IID_IProcessLauncherStatics* = GUID(
     data1: 0x33AB66E7'u32, data2: 0x2D0E'u16, data3: 0x448B'u16,
     data4: [0xA6'u8, 0xA0, 0xC1, 0x3C, 0x38, 0x36, 0xD0, 0x9C])
 const Slot_IProcessLauncherStatics_RunToCompletionAsync* = 6
-type Fn_IProcessLauncherStatics_RunToCompletionAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherStatics_RunToCompletionAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProcessLauncherStatics_RunToCompletionAsync2* = 7
-type Fn_IProcessLauncherStatics_RunToCompletionAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3ProcessLauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessLauncherStatics_RunToCompletionAsync2* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3ProcessLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IProcessMemoryReport
 const IID_IProcessMemoryReport* = GUID(
     data1: 0x087305A8'u32, data2: 0x9B70'u16, data3: 0x4782'u16,
     data4: [0x87'u8, 0x41, 0x3A, 0x98, 0x2B, 0x6C, 0xE5, 0xE4])
 const Slot_IProcessMemoryReport_get_PrivateWorkingSetUsage* = 6
-type Fn_IProcessMemoryReport_get_PrivateWorkingSetUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryReport_get_PrivateWorkingSetUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IProcessMemoryReport_get_TotalWorkingSetUsage* = 7
-type Fn_IProcessMemoryReport_get_TotalWorkingSetUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProcessMemoryReport_get_TotalWorkingSetUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 
 ## Windows.System.IProtocolForResultsOperation
 const IID_IProtocolForResultsOperation* = GUID(
     data1: 0xD581293A'u32, data2: 0x6DE9'u16, data3: 0x4D28'u16,
     data4: [0x93'u8, 0x78, 0xF8, 0x67, 0x82, 0xE1, 0x82, 0xBB])
 const Slot_IProtocolForResultsOperation_ReportCompleted* = 6
-type Fn_IProtocolForResultsOperation_ReportCompleted* = proc(self: pointer, a1ValueSet: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IProtocolForResultsOperation_ReportCompleted* = proc(self: pointer, a1ValueSet: pointer): HRESULT {.abi.}
 
 ## Windows.System.IRemoteLauncherOptions
 const IID_IRemoteLauncherOptions* = GUID(
     data1: 0x9E3A2788'u32, data2: 0x2891'u16, data3: 0x4CDF'u16,
     data4: [0xA2'u8, 0xD6, 0x9D, 0xFF, 0x7D, 0x02, 0xE6, 0x93])
 const Slot_IRemoteLauncherOptions_get_FallbackUri* = 6
-type Fn_IRemoteLauncherOptions_get_FallbackUri* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherOptions_get_FallbackUri* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteLauncherOptions_put_FallbackUri* = 7
-type Fn_IRemoteLauncherOptions_put_FallbackUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherOptions_put_FallbackUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IRemoteLauncherOptions_get_PreferredAppIds* = 8
-type Fn_IRemoteLauncherOptions_get_PreferredAppIds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherOptions_get_PreferredAppIds* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IRemoteLauncherStatics
 const IID_IRemoteLauncherStatics* = GUID(
     data1: 0xD7DB7A93'u32, data2: 0xA30C'u16, data3: 0x48B7'u16,
     data4: [0x9F'u8, 0x21, 0x05, 0x10, 0x26, 0xA4, 0xE5, 0x17])
 const Slot_IRemoteLauncherStatics_LaunchUriAsync* = 6
-type Fn_IRemoteLauncherStatics_LaunchUriAsync* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherStatics_LaunchUriAsync* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteLauncherStatics_LaunchUriAsync2* = 7
-type Fn_IRemoteLauncherStatics_LaunchUriAsync2* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, a3RemoteLauncherOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherStatics_LaunchUriAsync2* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, a3RemoteLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteLauncherStatics_LaunchUriAsync3* = 8
-type Fn_IRemoteLauncherStatics_LaunchUriAsync3* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, a3RemoteLauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteLauncherStatics_LaunchUriAsync3* = proc(self: pointer, a1RemoteSystemConnectionRequest: pointer, a2Uri: pointer, a3RemoteLauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IShutdownManagerStatics
 const IID_IShutdownManagerStatics* = GUID(
     data1: 0x72E247ED'u32, data2: 0xDD5B'u16, data3: 0x4D6C'u16,
     data4: [0xB1'u8, 0xD0, 0xC5, 0x7A, 0x7B, 0xBB, 0x5F, 0x94])
 const Slot_IShutdownManagerStatics_BeginShutdown* = 6
-type Fn_IShutdownManagerStatics_BeginShutdown* = proc(self: pointer, a1: ShutdownKind, a2: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IShutdownManagerStatics_BeginShutdown* = proc(self: pointer, a1: ShutdownKind, a2: TimeSpan): HRESULT {.abi.}
 const Slot_IShutdownManagerStatics_CancelShutdown* = 7
-type Fn_IShutdownManagerStatics_CancelShutdown* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IShutdownManagerStatics_CancelShutdown* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IShutdownManagerStatics2
 const IID_IShutdownManagerStatics2* = GUID(
     data1: 0x0F69A02F'u32, data2: 0x9C34'u16, data3: 0x43C7'u16,
     data4: [0xA8'u8, 0xC3, 0x70, 0xB3, 0x0A, 0x7F, 0x75, 0x04])
 const Slot_IShutdownManagerStatics2_IsPowerStateSupported* = 6
-type Fn_IShutdownManagerStatics2_IsPowerStateSupported* = proc(self: pointer, a1: PowerState, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IShutdownManagerStatics2_IsPowerStateSupported* = proc(self: pointer, a1: PowerState, value: ptr bool): HRESULT {.abi.}
 const Slot_IShutdownManagerStatics2_EnterPowerState* = 7
-type Fn_IShutdownManagerStatics2_EnterPowerState* = proc(self: pointer, a1: PowerState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IShutdownManagerStatics2_EnterPowerState* = proc(self: pointer, a1: PowerState): HRESULT {.abi.}
 const Slot_IShutdownManagerStatics2_EnterPowerState2* = 8
-type Fn_IShutdownManagerStatics2_EnterPowerState2* = proc(self: pointer, a1: PowerState, a2: TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IShutdownManagerStatics2_EnterPowerState2* = proc(self: pointer, a1: PowerState, a2: TimeSpan): HRESULT {.abi.}
 
 ## Windows.System.ITimeZoneSettingsStatics
 const IID_ITimeZoneSettingsStatics* = GUID(
     data1: 0x9B3B2BEA'u32, data2: 0xA101'u16, data3: 0x41AE'u16,
     data4: [0x9F'u8, 0xBD, 0x02, 0x87, 0x28, 0xBA, 0xB7, 0x3D])
 const Slot_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName* = 6
-type Fn_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames* = 7
-type Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimeZoneSettingsStatics_get_CanChangeTimeZone* = 8
-type Fn_ITimeZoneSettingsStatics_get_CanChangeTimeZone* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneSettingsStatics_get_CanChangeTimeZone* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName* = 9
-type Fn_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
 ## Windows.System.ITimeZoneSettingsStatics2
 const IID_ITimeZoneSettingsStatics2* = GUID(
     data1: 0x555C0DB8'u32, data2: 0x39A8'u16, data3: 0x49FA'u16,
     data4: [0xB4'u8, 0xF6, 0xA2, 0xC7, 0xFC, 0x28, 0x42, 0xEC])
 const Slot_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync* = 6
-type Fn_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync* = proc(self: pointer, a1: TimeSpan, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUser
 const IID_IUser* = GUID(
     data1: 0xDF9A26C6'u32, data2: 0xE746'u16, data3: 0x4BCD'u16,
     data4: [0xB5'u8, 0xD4, 0x12, 0x01, 0x03, 0xC4, 0x20, 0x9B])
 const Slot_IUser_get_NonRoamableId* = 6
-type Fn_IUser_get_NonRoamableId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_get_NonRoamableId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUser_get_AuthenticationStatus* = 7
-type Fn_IUser_get_AuthenticationStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_get_AuthenticationStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
 const Slot_IUser_get_Type* = 8
-type Fn_IUser_get_Type* = proc(self: pointer, value: ptr UserType): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_get_Type* = proc(self: pointer, value: ptr UserType): HRESULT {.abi.}
 const Slot_IUser_GetPropertyAsync* = 9
-type Fn_IUser_GetPropertyAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_GetPropertyAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUser_GetPropertiesAsync* = 10
-type Fn_IUser_GetPropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_GetPropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUser_GetPictureAsync* = 11
-type Fn_IUser_GetPictureAsync* = proc(self: pointer, a1: UserPictureSize, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser_GetPictureAsync* = proc(self: pointer, a1: UserPictureSize, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUser2
 const IID_IUser2* = GUID(
     data1: 0x98BA5628'u32, data2: 0xA6E3'u16, data3: 0x518E'u16,
     data4: [0x89'u8, 0xD9, 0xD3, 0xB2, 0xB1, 0x99, 0x1A, 0x10])
 const Slot_IUser2_CheckUserAgeConsentGroupAsync* = 6
-type Fn_IUser2_CheckUserAgeConsentGroupAsync* = proc(self: pointer, a1: UserAgeConsentGroup, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUser2_CheckUserAgeConsentGroupAsync* = proc(self: pointer, a1: UserAgeConsentGroup, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserAuthenticationStatusChangeDeferral
 const IID_IUserAuthenticationStatusChangeDeferral* = GUID(
     data1: 0x88B59568'u32, data2: 0xBB30'u16, data3: 0x42FB'u16,
     data4: [0xA2'u8, 0x70, 0xE9, 0x90, 0x2E, 0x40, 0xEF, 0xA7])
 const Slot_IUserAuthenticationStatusChangeDeferral_Complete* = 6
-type Fn_IUserAuthenticationStatusChangeDeferral_Complete* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserAuthenticationStatusChangeDeferral_Complete* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserAuthenticationStatusChangingEventArgs
 const IID_IUserAuthenticationStatusChangingEventArgs* = GUID(
     data1: 0x8C030F28'u32, data2: 0xA711'u16, data3: 0x4C1E'u16,
     data4: [0xAB'u8, 0x48, 0x04, 0x17, 0x9C, 0x15, 0x93, 0x8F])
 const Slot_IUserAuthenticationStatusChangingEventArgs_GetDeferral* = 6
-type Fn_IUserAuthenticationStatusChangingEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserAuthenticationStatusChangingEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserAuthenticationStatusChangingEventArgs_get_User* = 7
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserAuthenticationStatusChangingEventArgs_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserAuthenticationStatusChangingEventArgs_get_NewStatus* = 8
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_NewStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserAuthenticationStatusChangingEventArgs_get_NewStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
 const Slot_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus* = 9
-type Fn_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus* = proc(self: pointer, value: ptr UserAuthenticationStatus): HRESULT {.abi.}
 
 ## Windows.System.IUserChangedEventArgs
 const IID_IUserChangedEventArgs* = GUID(
     data1: 0x086459DC'u32, data2: 0x18C6'u16, data3: 0x48DB'u16,
     data4: [0xBC'u8, 0x99, 0x72, 0x4F, 0xB9, 0x20, 0x3C, 0xCC])
 const Slot_IUserChangedEventArgs_get_User* = 6
-type Fn_IUserChangedEventArgs_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserChangedEventArgs_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserChangedEventArgs2
 const IID_IUserChangedEventArgs2* = GUID(
     data1: 0x6B2CCB44'u32, data2: 0x6F01'u16, data3: 0x560C'u16,
     data4: [0x97'u8, 0xAD, 0xFC, 0x7F, 0x32, 0xEC, 0x58, 0x1F])
 const Slot_IUserChangedEventArgs2_get_ChangedPropertyKinds* = 6
-type Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserDeviceAssociationChangedEventArgs
 const IID_IUserDeviceAssociationChangedEventArgs* = GUID(
     data1: 0xBD1F6F6C'u32, data2: 0xBB5D'u16, data3: 0x4D7B'u16,
     data4: [0xA5'u8, 0xF0, 0xC8, 0xCD, 0x11, 0xA3, 0x8D, 0x42])
 const Slot_IUserDeviceAssociationChangedEventArgs_get_DeviceId* = 6
-type Fn_IUserDeviceAssociationChangedEventArgs_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationChangedEventArgs_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationChangedEventArgs_get_NewUser* = 7
-type Fn_IUserDeviceAssociationChangedEventArgs_get_NewUser* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationChangedEventArgs_get_NewUser* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationChangedEventArgs_get_OldUser* = 8
-type Fn_IUserDeviceAssociationChangedEventArgs_get_OldUser* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationChangedEventArgs_get_OldUser* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserDeviceAssociationStatics
 const IID_IUserDeviceAssociationStatics* = GUID(
     data1: 0x7E491E14'u32, data2: 0xF85A'u16, data3: 0x4C07'u16,
     data4: [0x8D'u8, 0xA9, 0x7F, 0xE3, 0xD0, 0x54, 0x23, 0x43])
 const Slot_IUserDeviceAssociationStatics_FindUserFromDeviceId* = 6
-type Fn_IUserDeviceAssociationStatics_FindUserFromDeviceId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationStatics_FindUserFromDeviceId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* = 7
-type Fn_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* = 8
-type Fn_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.IUserPicker
 const IID_IUserPicker* = GUID(
     data1: 0x7D548008'u32, data2: 0xF1E3'u16, data3: 0x4A6C'u16,
     data4: [0x8D'u8, 0xDC, 0xA9, 0xBB, 0x0F, 0x48, 0x8A, 0xED])
 const Slot_IUserPicker_get_AllowGuestAccounts* = 6
-type Fn_IUserPicker_get_AllowGuestAccounts* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPicker_get_AllowGuestAccounts* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUserPicker_put_AllowGuestAccounts* = 7
-type Fn_IUserPicker_put_AllowGuestAccounts* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPicker_put_AllowGuestAccounts* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IUserPicker_get_SuggestedSelectedUser* = 8
-type Fn_IUserPicker_get_SuggestedSelectedUser* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPicker_get_SuggestedSelectedUser* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserPicker_put_SuggestedSelectedUser* = 9
-type Fn_IUserPicker_put_SuggestedSelectedUser* = proc(self: pointer, a1User: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPicker_put_SuggestedSelectedUser* = proc(self: pointer, a1User: pointer): HRESULT {.abi.}
 const Slot_IUserPicker_PickSingleUserAsync* = 10
-type Fn_IUserPicker_PickSingleUserAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPicker_PickSingleUserAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserPickerStatics
 const IID_IUserPickerStatics* = GUID(
     data1: 0xDE3290DC'u32, data2: 0x7E73'u16, data3: 0x4DF6'u16,
     data4: [0xA1'u8, 0xAE, 0x4D, 0x7E, 0xCA, 0x82, 0xB4, 0x0D])
 const Slot_IUserPickerStatics_IsSupported* = 6
-type Fn_IUserPickerStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserPickerStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.IUserStatics
 const IID_IUserStatics* = GUID(
     data1: 0x155EB23B'u32, data2: 0x242A'u16, data3: 0x45E0'u16,
     data4: [0xA2'u8, 0xE9, 0x31, 0x71, 0xFC, 0x6A, 0x7F, 0xDD])
 const Slot_IUserStatics_CreateWatcher* = 6
-type Fn_IUserStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserStatics_FindAllAsync* = 7
-type Fn_IUserStatics_FindAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics_FindAllAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserStatics_FindAllAsync2* = 8
-type Fn_IUserStatics_FindAllAsync2* = proc(self: pointer, a1: UserType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics_FindAllAsync2* = proc(self: pointer, a1: UserType, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserStatics_FindAllAsync3* = 9
-type Fn_IUserStatics_FindAllAsync3* = proc(self: pointer, a1: UserType, a2: UserAuthenticationStatus, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics_FindAllAsync3* = proc(self: pointer, a1: UserType, a2: UserAuthenticationStatus, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserStatics_GetFromId* = 10
-type Fn_IUserStatics_GetFromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics_GetFromId* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserStatics2
 const IID_IUserStatics2* = GUID(
     data1: 0x74A37E11'u32, data2: 0x2EB5'u16, data3: 0x4487'u16,
     data4: [0xB0'u8, 0xD5, 0x2C, 0x67, 0x90, 0xE0, 0x13, 0xE9])
 const Slot_IUserStatics2_GetDefault* = 6
-type Fn_IUserStatics2_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserStatics2_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.IUserWatcher
 const IID_IUserWatcher* = GUID(
     data1: 0x155EB23B'u32, data2: 0x242A'u16, data3: 0x45E0'u16,
     data4: [0xA2'u8, 0xE9, 0x31, 0x71, 0xFC, 0x6A, 0x7F, 0xBB])
 const Slot_IUserWatcher_get_Status* = 6
-type Fn_IUserWatcher_get_Status* = proc(self: pointer, value: ptr UserWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_get_Status* = proc(self: pointer, value: ptr UserWatcherStatus): HRESULT {.abi.}
 const Slot_IUserWatcher_Start* = 7
-type Fn_IUserWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IUserWatcher_Stop* = 8
-type Fn_IUserWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Added* = 9
-type Fn_IUserWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Added* = 10
-type Fn_IUserWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Removed* = 11
-type Fn_IUserWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Removed* = 12
-type Fn_IUserWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Updated* = 13
-type Fn_IUserWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Updated* = 14
-type Fn_IUserWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_AuthenticationStatusChanged* = 15
-type Fn_IUserWatcher_add_AuthenticationStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_AuthenticationStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_AuthenticationStatusChanged* = 16
-type Fn_IUserWatcher_remove_AuthenticationStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_AuthenticationStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_AuthenticationStatusChanging* = 17
-type Fn_IUserWatcher_add_AuthenticationStatusChanging* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_AuthenticationStatusChanging* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_AuthenticationStatusChanging* = 18
-type Fn_IUserWatcher_remove_AuthenticationStatusChanging* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_AuthenticationStatusChanging* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_EnumerationCompleted* = 19
-type Fn_IUserWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_EnumerationCompleted* = 20
-type Fn_IUserWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Stopped* = 21
-type Fn_IUserWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_add_Stopped* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Stopped* = 22
-type Fn_IUserWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserWatcher_remove_Stopped* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgs
 const IID_ISysStorageProviderEventReceivedEventArgs* = GUID(
     data1: 0xE132D1B9'u32, data2: 0x7B9D'u16, data3: 0x5820'u16,
     data4: [0x97'u8, 0x28, 0x42, 0x62, 0xB5, 0x28, 0x91, 0x42])
 const Slot_ISysStorageProviderEventReceivedEventArgs_get_Json* = 6
-type Fn_ISysStorageProviderEventReceivedEventArgs_get_Json* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderEventReceivedEventArgs_get_Json* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgsFactory
 const IID_ISysStorageProviderEventReceivedEventArgsFactory* = GUID(
     data1: 0xDE1A780E'u32, data2: 0xE975'u16, data3: 0x5F68'u16,
     data4: [0xBC'u8, 0xC6, 0xFB, 0x46, 0x28, 0x1C, 0x6A, 0x61])
 const Slot_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* = 6
-type Fn_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderEventSource
 const IID_ISysStorageProviderEventSource* = GUID(
     data1: 0x1F36C476'u32, data2: 0x9546'u16, data3: 0x536A'u16,
     data4: [0x83'u8, 0x81, 0x2F, 0x9A, 0x2C, 0x08, 0xCE, 0xDD])
 const Slot_ISysStorageProviderEventSource_add_EventReceived* = 6
-type Fn_ISysStorageProviderEventSource_add_EventReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderEventSource_add_EventReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISysStorageProviderEventSource_remove_EventReceived* = 7
-type Fn_ISysStorageProviderEventSource_remove_EventReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderEventSource_remove_EventReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderHandlerFactory
 const IID_ISysStorageProviderHandlerFactory* = GUID(
     data1: 0xEE798431'u32, data2: 0x8213'u16, data3: 0x5E89'u16,
     data4: [0xA6'u8, 0x23, 0x14, 0xD8, 0xC7, 0x2B, 0x8A, 0x61])
 const Slot_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* = 6
-type Fn_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISysStorageProviderHandlerFactory_GetEventSource* = 7
-type Fn_ISysStorageProviderHandlerFactory_GetEventSource* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderHandlerFactory_GetEventSource* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderHttpRequestProvider
 const IID_ISysStorageProviderHttpRequestProvider* = GUID(
     data1: 0xCB6FEFB6'u32, data2: 0xE76A'u16, data3: 0x5C25'u16,
     data4: [0xA3'u8, 0x3E, 0x3E, 0x78, 0xA6, 0xE0, 0xE0, 0xCE])
 const Slot_ISysStorageProviderHttpRequestProvider_SendRequestAsync* = 6
-type Fn_ISysStorageProviderHttpRequestProvider_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISysStorageProviderHttpRequestProvider_SendRequestAsync* = proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Inventory.IInstalledDesktopApp
 const IID_IInstalledDesktopApp* = GUID(
     data1: 0x75EAB8ED'u32, data2: 0xC0BC'u16, data3: 0x5364'u16,
     data4: [0x4C'u8, 0x28, 0x16, 0x6E, 0x05, 0x45, 0x16, 0x7A])
 const Slot_IInstalledDesktopApp_get_Id* = 6
-type Fn_IInstalledDesktopApp_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInstalledDesktopApp_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IInstalledDesktopApp_get_DisplayName* = 7
-type Fn_IInstalledDesktopApp_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInstalledDesktopApp_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IInstalledDesktopApp_get_Publisher* = 8
-type Fn_IInstalledDesktopApp_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInstalledDesktopApp_get_Publisher* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IInstalledDesktopApp_get_DisplayVersion* = 9
-type Fn_IInstalledDesktopApp_get_DisplayVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInstalledDesktopApp_get_DisplayVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Inventory.IInstalledDesktopAppStatics
 const IID_IInstalledDesktopAppStatics* = GUID(
     data1: 0x264CF74E'u32, data2: 0x21CD'u16, data3: 0x5F9B'u16,
     data4: [0x60'u8, 0x56, 0x78, 0x66, 0xAD, 0x72, 0x48, 0x9A])
 const Slot_IInstalledDesktopAppStatics_GetInventoryAsync* = 6
-type Fn_IInstalledDesktopAppStatics_GetInventoryAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInstalledDesktopAppStatics_GetInventoryAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics
 const IID_IBackgroundEnergyDiagnosticsStatics* = GUID(
     data1: 0xD7663702'u32, data2: 0xD3A6'u16, data3: 0x46E0'u16,
     data4: [0x8F'u8, 0x9B, 0x50, 0xB9, 0x5B, 0xB4, 0xF9, 0xC5])
 const Slot_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = 6
-type Fn_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = 7
-type Fn_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = 8
-type Fn_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics
 const IID_IForegroundEnergyDiagnosticsStatics* = GUID(
     data1: 0x23CA0917'u32, data2: 0xCD07'u16, data3: 0x4609'u16,
     data4: [0xBE'u8, 0x15, 0x8F, 0xE8, 0x94, 0xC5, 0xE4, 0x1E])
 const Slot_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = 6
-type Fn_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = 7
-type Fn_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage* = proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = 8
-type Fn_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.IBackgroundEnergyManagerStatics
 const IID_IBackgroundEnergyManagerStatics* = GUID(
     data1: 0xB3161D95'u32, data2: 0x1180'u16, data3: 0x4376'u16,
     data4: [0x96'u8, 0xE1, 0x40, 0x95, 0x56, 0x81, 0x47, 0xCE])
 const Slot_IBackgroundEnergyManagerStatics_get_LowUsageLevel* = 6
-type Fn_IBackgroundEnergyManagerStatics_get_LowUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_LowUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = 7
-type Fn_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = 8
-type Fn_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel* = 9
-type Fn_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel* = 10
-type Fn_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel* = 11
-type Fn_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage* = 12
-type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = 13
-type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 14
-type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 15
-type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 16
-type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 17
-type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Power.IForegroundEnergyManagerStatics
 const IID_IForegroundEnergyManagerStatics* = GUID(
     data1: 0x9FF86872'u32, data2: 0xE677'u16, data3: 0x4814'u16,
     data4: [0x9A'u8, 0x20, 0x53, 0x37, 0xCA, 0x73, 0x2B, 0x98])
 const Slot_IForegroundEnergyManagerStatics_get_LowUsageLevel* = 6
-type Fn_IForegroundEnergyManagerStatics_get_LowUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_LowUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = 7
-type Fn_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = 8
-type Fn_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel* = 9
-type Fn_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsage* = 10
-type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsage* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsage* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = 11
-type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 12
-type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 13
-type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 14
-type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 15
-type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Power.IPowerManagerStatics
 const IID_IPowerManagerStatics* = GUID(
     data1: 0x1394825D'u32, data2: 0x62CE'u16, data3: 0x4364'u16,
     data4: [0x98'u8, 0xD5, 0xAA, 0x28, 0xC7, 0xFB, 0xD1, 0x5B])
 const Slot_IPowerManagerStatics_get_EnergySaverStatus* = 6
-type Fn_IPowerManagerStatics_get_EnergySaverStatus* = proc(self: pointer, value: ptr EnergySaverStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_get_EnergySaverStatus* = proc(self: pointer, value: ptr EnergySaverStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_EnergySaverStatusChanged* = 7
-type Fn_IPowerManagerStatics_add_EnergySaverStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_add_EnergySaverStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_EnergySaverStatusChanged* = 8
-type Fn_IPowerManagerStatics_remove_EnergySaverStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_remove_EnergySaverStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_get_BatteryStatus* = 9
-type Fn_IPowerManagerStatics_get_BatteryStatus* = proc(self: pointer, value: ptr BatteryStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_get_BatteryStatus* = proc(self: pointer, value: ptr BatteryStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_BatteryStatusChanged* = 10
-type Fn_IPowerManagerStatics_add_BatteryStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_add_BatteryStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_BatteryStatusChanged* = 11
-type Fn_IPowerManagerStatics_remove_BatteryStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_remove_BatteryStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_get_PowerSupplyStatus* = 12
-type Fn_IPowerManagerStatics_get_PowerSupplyStatus* = proc(self: pointer, value: ptr PowerSupplyStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_get_PowerSupplyStatus* = proc(self: pointer, value: ptr PowerSupplyStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_PowerSupplyStatusChanged* = 13
-type Fn_IPowerManagerStatics_add_PowerSupplyStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_add_PowerSupplyStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_PowerSupplyStatusChanged* = 14
-type Fn_IPowerManagerStatics_remove_PowerSupplyStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_remove_PowerSupplyStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_get_RemainingChargePercent* = 15
-type Fn_IPowerManagerStatics_get_RemainingChargePercent* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_get_RemainingChargePercent* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_RemainingChargePercentChanged* = 16
-type Fn_IPowerManagerStatics_add_RemainingChargePercentChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_add_RemainingChargePercentChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_RemainingChargePercentChanged* = 17
-type Fn_IPowerManagerStatics_remove_RemainingChargePercentChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_remove_RemainingChargePercentChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_get_RemainingDischargeTime* = 18
-type Fn_IPowerManagerStatics_get_RemainingDischargeTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_get_RemainingDischargeTime* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_RemainingDischargeTimeChanged* = 19
-type Fn_IPowerManagerStatics_add_RemainingDischargeTimeChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_add_RemainingDischargeTimeChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* = 20
-type Fn_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelConfiguration
 const IID_IPowerThermalChannelConfiguration* = GUID(
     data1: 0xAD8383FA'u32, data2: 0x172D'u16, data3: 0x5D82'u16,
     data4: [0xB2'u8, 0x9D, 0x81, 0xD9, 0x37, 0x10, 0xFB, 0x45])
 const Slot_IPowerThermalChannelConfiguration_get_Id* = 6
-type Fn_IPowerThermalChannelConfiguration_get_Id* = proc(self: pointer, value: ptr PowerThermalChannelId): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelConfiguration_get_Id* = proc(self: pointer, value: ptr PowerThermalChannelId): HRESULT {.abi.}
 const Slot_IPowerThermalChannelConfiguration_get_ConfigurationString* = 7
-type Fn_IPowerThermalChannelConfiguration_get_ConfigurationString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelConfiguration_get_ConfigurationString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* = 8
 # Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters: signature not mapped
 
@@ -2955,21 +2956,21 @@ const IID_IPowerThermalChannelDataConsumer* = GUID(
 const Slot_IPowerThermalChannelDataConsumer_GetChannelIds* = 6
 # Fn_IPowerThermalChannelDataConsumer_GetChannelIds: signature not mapped
 const Slot_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = 7
-type Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_Start* = 8
-type Fn_IPowerThermalChannelDataConsumer_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_Stop* = 9
-type Fn_IPowerThermalChannelDataConsumer_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* = 10
-type Fn_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* = 11
-type Fn_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_get_BackEndStatus* = 12
-type Fn_IPowerThermalChannelDataConsumer_get_BackEndStatus* = proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_get_BackEndStatus* = proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* = 13
-type Fn_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* = 14
-type Fn_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumerFactory
 const IID_IPowerThermalChannelDataConsumerFactory* = GUID(
@@ -2985,21 +2986,21 @@ const IID_IPowerThermalChannelDataProducer* = GUID(
 const Slot_IPowerThermalChannelDataProducer_GetChannelIds* = 6
 # Fn_IPowerThermalChannelDataProducer_GetChannelIds: signature not mapped
 const Slot_IPowerThermalChannelDataProducer_GetChannelConfigurations* = 7
-type Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_DisableChannel* = 8
-type Fn_IPowerThermalChannelDataProducer_DisableChannel* = proc(self: pointer, a1: PowerThermalChannelId): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_DisableChannel* = proc(self: pointer, a1: PowerThermalChannelId): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_Start* = 9
-type Fn_IPowerThermalChannelDataProducer_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_Stop* = 10
-type Fn_IPowerThermalChannelDataProducer_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_PublishInputChannelData* = 11
 # Fn_IPowerThermalChannelDataProducer_PublishInputChannelData: signature not mapped
 const Slot_IPowerThermalChannelDataProducer_get_BackEndStatus* = 12
-type Fn_IPowerThermalChannelDataProducer_get_BackEndStatus* = proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_get_BackEndStatus* = proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = 13
-type Fn_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* = 14
-type Fn_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataProducerFactory
 const IID_IPowerThermalChannelDataProducerFactory* = GUID(
@@ -3025,7 +3026,7 @@ const IID_IPowerThermalChannelDiagnosticsStatics* = GUID(
     data1: 0xA86EC393'u32, data2: 0xB684'u16, data3: 0x5633'u16,
     data4: [0xA6'u8, 0xCA, 0xDF, 0xA1, 0xC7, 0xEE, 0xCF, 0x87])
 const Slot_IPowerThermalChannelDiagnosticsStatics_get_Current* = 6
-type Fn_IPowerThermalChannelDiagnosticsStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPowerThermalChannelDiagnosticsStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* = 7
 # Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels: signature not mapped
 
@@ -3041,337 +3042,337 @@ const IID_ITwoPanelHingedDevicePosturePreview* = GUID(
     data1: 0x72245C31'u32, data2: 0x4B39'u16, data3: 0x42A6'u16,
     data4: [0x8E'u8, 0x73, 0x72, 0x35, 0xAD, 0xE1, 0x68, 0x53])
 const Slot_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* = 6
-type Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* = 7
-type Fn_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* = 8
-type Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading
 const IID_ITwoPanelHingedDevicePosturePreviewReading* = GUID(
     data1: 0xA0251452'u32, data2: 0x4AD6'u16, data3: 0x4B38'u16,
     data4: [0x84'u8, 0x26, 0xC5, 0x9A, 0x15, 0x49, 0x3A, 0x7D])
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState* = 7
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState* = proc(self: pointer, value: ptr HingeState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState* = proc(self: pointer, value: ptr HingeState): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation* = 8
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation* = proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation* = proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id* = 9
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation* = 10
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation* = proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation* = proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id* = 11
-type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs
 const IID_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* = GUID(
     data1: 0x2D2D1BC6'u32, data2: 0x02CE'u16, data3: 0x474A'u16,
     data4: [0xA5'u8, 0x56, 0xA7, 0x5B, 0x1C, 0xF9, 0x3A, 0x03])
 const Slot_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics
 const IID_ITwoPanelHingedDevicePosturePreviewStatics* = GUID(
     data1: 0x0C4733D2'u32, data2: 0x57E0'u16, data3: 0x4180'u16,
     data4: [0xBD'u8, 0x5E, 0xF3, 0x1A, 0x21, 0x38, 0x42, 0x3E])
 const Slot_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync* = 6
-type Fn_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsInfoStatics
 const IID_IAnalyticsInfoStatics* = GUID(
     data1: 0x1D5EE066'u32, data2: 0x188D'u16, data3: 0x5BA9'u16,
     data4: [0x43'u8, 0x87, 0xAC, 0xAE, 0xB0, 0xE7, 0xE3, 0x05])
 const Slot_IAnalyticsInfoStatics_get_VersionInfo* = 6
-type Fn_IAnalyticsInfoStatics_get_VersionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsInfoStatics_get_VersionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAnalyticsInfoStatics_get_DeviceForm* = 7
-type Fn_IAnalyticsInfoStatics_get_DeviceForm* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsInfoStatics_get_DeviceForm* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsInfoStatics2
 const IID_IAnalyticsInfoStatics2* = GUID(
     data1: 0x101704EA'u32, data2: 0xA7F9'u16, data3: 0x46D2'u16,
     data4: [0xAB'u8, 0x94, 0x01, 0x68, 0x65, 0xAF, 0xDB, 0x25])
 const Slot_IAnalyticsInfoStatics2_GetSystemPropertiesAsync* = 6
-type Fn_IAnalyticsInfoStatics2_GetSystemPropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsInfoStatics2_GetSystemPropertiesAsync* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsVersionInfo
 const IID_IAnalyticsVersionInfo* = GUID(
     data1: 0x926130B8'u32, data2: 0x9955'u16, data3: 0x4C74'u16,
     data4: [0xBD'u8, 0xC1, 0x7C, 0xD0, 0xDE, 0xCF, 0x9B, 0x03])
 const Slot_IAnalyticsVersionInfo_get_DeviceFamily* = 6
-type Fn_IAnalyticsVersionInfo_get_DeviceFamily* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsVersionInfo_get_DeviceFamily* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAnalyticsVersionInfo_get_DeviceFamilyVersion* = 7
-type Fn_IAnalyticsVersionInfo_get_DeviceFamilyVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsVersionInfo_get_DeviceFamilyVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAnalyticsVersionInfo2
 const IID_IAnalyticsVersionInfo2* = GUID(
     data1: 0x76E915B1'u32, data2: 0xFF36'u16, data3: 0x407C'u16,
     data4: [0x9F'u8, 0x57, 0x16, 0x0D, 0x3E, 0x54, 0x07, 0x47])
 const Slot_IAnalyticsVersionInfo2_get_ProductName* = 6
-type Fn_IAnalyticsVersionInfo2_get_ProductName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAnalyticsVersionInfo2_get_ProductName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IAppApplicabilityStatics
 const IID_IAppApplicabilityStatics* = GUID(
     data1: 0x1664A082'u32, data2: 0x0F38'u16, data3: 0x5C99'u16,
     data4: [0x83'u8, 0xE4, 0x48, 0x99, 0x59, 0x70, 0x86, 0x1C])
 const Slot_IAppApplicabilityStatics_GetUnsupportedAppRequirements* = 6
-type Fn_IAppApplicabilityStatics_GetUnsupportedAppRequirements* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAppApplicabilityStatics_GetUnsupportedAppRequirements* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IEducationSettingsStatics
 const IID_IEducationSettingsStatics* = GUID(
     data1: 0xFC53F0EF'u32, data2: 0x4D3E'u16, data3: 0x4E13'u16,
     data4: [0x9B'u8, 0x23, 0x50, 0x5F, 0x4D, 0x09, 0x1E, 0x92])
 const Slot_IEducationSettingsStatics_get_IsEducationEnvironment* = 6
-type Fn_IEducationSettingsStatics_get_IsEducationEnvironment* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IEducationSettingsStatics_get_IsEducationEnvironment* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.IHardwareIdentificationStatics
 const IID_IHardwareIdentificationStatics* = GUID(
     data1: 0x971260E0'u32, data2: 0xF170'u16, data3: 0x4A42'u16,
     data4: [0xBD'u8, 0x55, 0xA9, 0x00, 0xB2, 0x12, 0xDA, 0xE2])
 const Slot_IHardwareIdentificationStatics_GetPackageSpecificToken* = 6
-type Fn_IHardwareIdentificationStatics_GetPackageSpecificToken* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHardwareIdentificationStatics_GetPackageSpecificToken* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IHardwareToken
 const IID_IHardwareToken* = GUID(
     data1: 0x28F6D4C0'u32, data2: 0xFB12'u16, data3: 0x40A4'u16,
     data4: [0x81'u8, 0x67, 0x7F, 0x4E, 0x03, 0xD2, 0x72, 0x4C])
 const Slot_IHardwareToken_get_Id* = 6
-type Fn_IHardwareToken_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHardwareToken_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHardwareToken_get_Signature* = 7
-type Fn_IHardwareToken_get_Signature* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHardwareToken_get_Signature* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHardwareToken_get_Certificate* = 8
-type Fn_IHardwareToken_get_Certificate* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IHardwareToken_get_Certificate* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.IKnownRetailInfoPropertiesStatics
 const IID_IKnownRetailInfoPropertiesStatics* = GUID(
     data1: 0x99571178'u32, data2: 0x500F'u16, data3: 0x487E'u16,
     data4: [0x8E'u8, 0x75, 0x29, 0xE5, 0x51, 0x72, 0x87, 0x12])
 const Slot_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode* = 6
-type Fn_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_ManufacturerName* = 7
-type Fn_IKnownRetailInfoPropertiesStatics_get_ManufacturerName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_ManufacturerName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_ModelName* = 8
-type Fn_IKnownRetailInfoPropertiesStatics_get_ModelName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_ModelName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_DisplayModelName* = 9
-type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayModelName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayModelName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_Price* = 10
-type Fn_IKnownRetailInfoPropertiesStatics_get_Price* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_Price* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_IsFeatured* = 11
-type Fn_IKnownRetailInfoPropertiesStatics_get_IsFeatured* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_IsFeatured* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_FormFactor* = 12
-type Fn_IKnownRetailInfoPropertiesStatics_get_FormFactor* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_FormFactor* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_ScreenSize* = 13
-type Fn_IKnownRetailInfoPropertiesStatics_get_ScreenSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_ScreenSize* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_Weight* = 14
-type Fn_IKnownRetailInfoPropertiesStatics_get_Weight* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_Weight* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_DisplayDescription* = 15
-type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_DisplayDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription* = 16
-type Fn_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription* = 17
-type Fn_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_Memory* = 18
-type Fn_IKnownRetailInfoPropertiesStatics_get_Memory* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_Memory* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_StorageDescription* = 19
-type Fn_IKnownRetailInfoPropertiesStatics_get_StorageDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_StorageDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription* = 20
-type Fn_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription* = 21
-type Fn_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription* = 22
-type Fn_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_HasNfc* = 23
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasNfc* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_HasNfc* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_HasSdSlot* = 24
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasSdSlot* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_HasSdSlot* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive* = 25
-type Fn_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled* = 26
-type Fn_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* = 27
-type Fn_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics
 const IID_IPlatformAutomaticAppSignInManagerStatics* = GUID(
     data1: 0x1AC9AFCE'u32, data2: 0x8DD5'u16, data3: 0x5C2D'u16,
     data4: [0xB4'u8, 0x20, 0x76, 0x7D, 0x1F, 0x3B, 0x7D, 0x03])
 const Slot_IPlatformAutomaticAppSignInManagerStatics_get_Policy* = 6
-type Fn_IPlatformAutomaticAppSignInManagerStatics_get_Policy* = proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformAutomaticAppSignInManagerStatics_get_Policy* = proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy): HRESULT {.abi.}
 
 ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics
 const IID_IPlatformDiagnosticsAndUsageDataSettingsStatics* = GUID(
     data1: 0xB6E24C1B'u32, data2: 0x7B1C'u16, data3: 0x4B32'u16,
     data4: [0x8C'u8, 0x62, 0xA6, 0x65, 0x97, 0xCE, 0x72, 0x3A])
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* = 6
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* = proc(self: pointer, value: ptr PlatformDataCollectionLevel): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* = proc(self: pointer, value: ptr PlatformDataCollectionLevel): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* = 7
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* = 8
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* = 9
-type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* = proc(self: pointer, a1: PlatformDataCollectionLevel, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* = proc(self: pointer, a1: PlatformDataCollectionLevel, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.IRetailInfoStatics
 const IID_IRetailInfoStatics* = GUID(
     data1: 0x0712C6B8'u32, data2: 0x8B92'u16, data3: 0x4F2A'u16,
     data4: [0x84'u8, 0x99, 0x03, 0x1F, 0x17, 0x98, 0xD6, 0xEF])
 const Slot_IRetailInfoStatics_get_IsDemoModeEnabled* = 6
-type Fn_IRetailInfoStatics_get_IsDemoModeEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRetailInfoStatics_get_IsDemoModeEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRetailInfoStatics_get_Properties* = 7
-type Fn_IRetailInfoStatics_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRetailInfoStatics_get_Properties* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISharedModeSettingsStatics
 const IID_ISharedModeSettingsStatics* = GUID(
     data1: 0x893DF40E'u32, data2: 0xCAD6'u16, data3: 0x4D50'u16,
     data4: [0x8C'u8, 0x49, 0x6F, 0xCF, 0xC0, 0x3E, 0xDB, 0x29])
 const Slot_ISharedModeSettingsStatics_get_IsEnabled* = 6
-type Fn_ISharedModeSettingsStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISharedModeSettingsStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISharedModeSettingsStatics2
 const IID_ISharedModeSettingsStatics2* = GUID(
     data1: 0x608988A4'u32, data2: 0xCCF1'u16, data3: 0x4EE8'u16,
     data4: [0xA5'u8, 0xE2, 0xFD, 0x6A, 0x1D, 0x0C, 0xFA, 0xC8])
 const Slot_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage* = 6
-type Fn_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISmartAppControlPolicyStatics
 const IID_ISmartAppControlPolicyStatics* = GUID(
     data1: 0x5FF8C75B'u32, data2: 0x073E'u16, data3: 0x5015'u16,
     data4: [0x8D'u8, 0x98, 0x5F, 0xF2, 0x24, 0x18, 0x0A, 0x0B])
 const Slot_ISmartAppControlPolicyStatics_get_IsEnabled* = 6
-type Fn_ISmartAppControlPolicyStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISmartAppControlPolicyStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISmartAppControlPolicyStatics_add_Changed* = 7
-type Fn_ISmartAppControlPolicyStatics_add_Changed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISmartAppControlPolicyStatics_add_Changed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISmartAppControlPolicyStatics_remove_Changed* = 8
-type Fn_ISmartAppControlPolicyStatics_remove_Changed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISmartAppControlPolicyStatics_remove_Changed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemIdentificationInfo
 const IID_ISystemIdentificationInfo* = GUID(
     data1: 0x0C659E7D'u32, data2: 0xC3C2'u16, data3: 0x4D33'u16,
     data4: [0xA2'u8, 0xDF, 0x21, 0xBC, 0x41, 0x91, 0x6E, 0xB3])
 const Slot_ISystemIdentificationInfo_get_Id* = 6
-type Fn_ISystemIdentificationInfo_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemIdentificationInfo_get_Id* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemIdentificationInfo_get_Source* = 7
-type Fn_ISystemIdentificationInfo_get_Source* = proc(self: pointer, value: ptr SystemIdentificationSource): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemIdentificationInfo_get_Source* = proc(self: pointer, value: ptr SystemIdentificationSource): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemIdentificationStatics
 const IID_ISystemIdentificationStatics* = GUID(
     data1: 0x5581F42A'u32, data2: 0xD3DF'u16, data3: 0x4D93'u16,
     data4: [0xA3'u8, 0x7D, 0xC4, 0x1A, 0x61, 0x6C, 0x6D, 0x01])
 const Slot_ISystemIdentificationStatics_GetSystemIdForPublisher* = 6
-type Fn_ISystemIdentificationStatics_GetSystemIdForPublisher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemIdentificationStatics_GetSystemIdForPublisher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemIdentificationStatics_GetSystemIdForUser* = 7
-type Fn_ISystemIdentificationStatics_GetSystemIdForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemIdentificationStatics_GetSystemIdForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.ISystemSetupInfoStatics
 const IID_ISystemSetupInfoStatics* = GUID(
     data1: 0xB8366A4B'u32, data2: 0xFB6A'u16, data3: 0x4571'u16,
     data4: [0xBE'u8, 0x0A, 0x9A, 0x0F, 0x67, 0x95, 0x41, 0x23])
 const Slot_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* = 6
-type Fn_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* = proc(self: pointer, value: ptr SystemOutOfBoxExperienceState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* = proc(self: pointer, value: ptr SystemOutOfBoxExperienceState): HRESULT {.abi.}
 const Slot_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* = 7
-type Fn_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* = 8
-type Fn_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Profile.IUnsupportedAppRequirement
 const IID_IUnsupportedAppRequirement* = GUID(
     data1: 0x6182445C'u32, data2: 0x894B'u16, data3: 0x5CBC'u16,
     data4: [0x89'u8, 0x76, 0xA9, 0x8E, 0x0A, 0x9B, 0x99, 0x8D])
 const Slot_IUnsupportedAppRequirement_get_Requirement* = 6
-type Fn_IUnsupportedAppRequirement_get_Requirement* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUnsupportedAppRequirement_get_Requirement* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUnsupportedAppRequirement_get_Reasons* = 7
-type Fn_IUnsupportedAppRequirement_get_Reasons* = proc(self: pointer, value: ptr UnsupportedAppRequirementReasons): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUnsupportedAppRequirement_get_Reasons* = proc(self: pointer, value: ptr UnsupportedAppRequirementReasons): HRESULT {.abi.}
 
 ## Windows.System.Profile.IWindowsIntegrityPolicyStatics
 const IID_IWindowsIntegrityPolicyStatics* = GUID(
     data1: 0x7D1D81DB'u32, data2: 0x8D63'u16, data3: 0x4789'u16,
     data4: [0x9E'u8, 0xA5, 0xDD, 0xCF, 0x65, 0xA9, 0x4F, 0x3C])
 const Slot_IWindowsIntegrityPolicyStatics_get_IsEnabled* = 6
-type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial* = 7
-type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_get_CanDisable* = 8
-type Fn_IWindowsIntegrityPolicyStatics_get_CanDisable* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_get_CanDisable* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* = 9
-type Fn_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_add_PolicyChanged* = 10
-type Fn_IWindowsIntegrityPolicyStatics_add_PolicyChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_add_PolicyChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* = 11
-type Fn_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.IOemSupportInfo
 const IID_IOemSupportInfo* = GUID(
     data1: 0x8D2EAE55'u32, data2: 0x87EF'u16, data3: 0x4266'u16,
     data4: [0x86'u8, 0xD0, 0xC4, 0xAF, 0xBE, 0xB2, 0x9B, 0xB9])
 const Slot_IOemSupportInfo_get_SupportLink* = 6
-type Fn_IOemSupportInfo_get_SupportLink* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IOemSupportInfo_get_SupportLink* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IOemSupportInfo_get_SupportAppLink* = 7
-type Fn_IOemSupportInfo_get_SupportAppLink* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IOemSupportInfo_get_SupportAppLink* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IOemSupportInfo_get_SupportProvider* = 8
-type Fn_IOemSupportInfo_get_SupportProvider* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IOemSupportInfo_get_SupportProvider* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics
 const IID_ISmbiosInformationStatics* = GUID(
     data1: 0x080CCA7C'u32, data2: 0x637C'u16, data3: 0x48C4'u16,
     data4: [0xB7'u8, 0x28, 0xF9, 0x27, 0x38, 0x12, 0xDB, 0x8E])
 const Slot_ISmbiosInformationStatics_get_SerialNumber* = 6
-type Fn_ISmbiosInformationStatics_get_SerialNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISmbiosInformationStatics_get_SerialNumber* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo
 const IID_ISystemSupportDeviceInfo* = GUID(
     data1: 0x05880B99'u32, data2: 0x8247'u16, data3: 0x441B'u16,
     data4: [0xA9'u8, 0x96, 0xA1, 0x78, 0x4B, 0xAB, 0x79, 0xA8])
 const Slot_ISystemSupportDeviceInfo_get_OperatingSystem* = 6
-type Fn_ISystemSupportDeviceInfo_get_OperatingSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_OperatingSystem* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_FriendlyName* = 7
-type Fn_ISystemSupportDeviceInfo_get_FriendlyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_FriendlyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_SystemManufacturer* = 8
-type Fn_ISystemSupportDeviceInfo_get_SystemManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_SystemManufacturer* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_SystemProductName* = 9
-type Fn_ISystemSupportDeviceInfo_get_SystemProductName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_SystemProductName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_SystemSku* = 10
-type Fn_ISystemSupportDeviceInfo_get_SystemSku* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_SystemSku* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_SystemHardwareVersion* = 11
-type Fn_ISystemSupportDeviceInfo_get_SystemHardwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_SystemHardwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportDeviceInfo_get_SystemFirmwareVersion* = 12
-type Fn_ISystemSupportDeviceInfo_get_SystemFirmwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportDeviceInfo_get_SystemFirmwareVersion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics
 const IID_ISystemSupportInfoStatics* = GUID(
     data1: 0xEF750974'u32, data2: 0xC422'u16, data3: 0x45D7'u16,
     data4: [0xA4'u8, 0x4D, 0x5C, 0x1C, 0x00, 0x43, 0xA2, 0xB3])
 const Slot_ISystemSupportInfoStatics_get_LocalSystemEdition* = 6
-type Fn_ISystemSupportInfoStatics_get_LocalSystemEdition* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportInfoStatics_get_LocalSystemEdition* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemSupportInfoStatics_get_OemSupportInfo* = 7
-type Fn_ISystemSupportInfoStatics_get_OemSupportInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportInfoStatics_get_OemSupportInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2
 const IID_ISystemSupportInfoStatics2* = GUID(
     data1: 0x33F349A4'u32, data2: 0x3FA1'u16, data3: 0x4986'u16,
     data4: [0xAA'u8, 0x4B, 0x05, 0x74, 0x20, 0x45, 0x5E, 0x6D])
 const Slot_ISystemSupportInfoStatics2_get_LocalDeviceInfo* = 6
-type Fn_ISystemSupportInfoStatics2_get_LocalDeviceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemSupportInfoStatics2_get_LocalDeviceInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.IInteractiveSessionStatics
 const IID_IInteractiveSessionStatics* = GUID(
     data1: 0x60884631'u32, data2: 0xDD3A'u16, data3: 0x4576'u16,
     data4: [0x9C'u8, 0x8D, 0xE8, 0x02, 0x76, 0x18, 0xBD, 0xCE])
 const Slot_IInteractiveSessionStatics_get_IsRemote* = 6
-type Fn_IInteractiveSessionStatics_get_IsRemote* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IInteractiveSessionStatics_get_IsRemote* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnection
 const IID_IRemoteTextConnection* = GUID(
     data1: 0x4E7BB02A'u32, data2: 0x183E'u16, data3: 0x5E66'u16,
     data4: [0xB5'u8, 0xE4, 0x3E, 0x6E, 0x5C, 0x57, 0x0C, 0xF1])
 const Slot_IRemoteTextConnection_get_IsEnabled* = 6
-type Fn_IRemoteTextConnection_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnection_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteTextConnection_put_IsEnabled* = 7
-type Fn_IRemoteTextConnection_put_IsEnabled* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnection_put_IsEnabled* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IRemoteTextConnection_RegisterThread* = 8
-type Fn_IRemoteTextConnection_RegisterThread* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnection_RegisterThread* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IRemoteTextConnection_UnregisterThread* = 9
-type Fn_IRemoteTextConnection_UnregisterThread* = proc(self: pointer, a1: uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnection_UnregisterThread* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IRemoteTextConnection_ReportDataReceived* = 10
 # Fn_IRemoteTextConnection_ReportDataReceived: signature not mapped
 
@@ -3380,21 +3381,21 @@ const IID_IRemoteTextConnection2* = GUID(
     data1: 0x05F99345'u32, data2: 0x84C8'u16, data3: 0x56C5'u16,
     data4: [0x93'u8, 0x4F, 0x73, 0xEA, 0x00, 0xF8, 0xC2, 0xD5])
 const Slot_IRemoteTextConnection2_ReportPredictedKeyEvent* = 6
-type Fn_IRemoteTextConnection2_ReportPredictedKeyEvent* = proc(self: pointer, a1: uint16, a2: RemoteKeyEventAttributes): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnection2_ReportPredictedKeyEvent* = proc(self: pointer, a1: uint16, a2: RemoteKeyEventAttributes): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory
 const IID_IRemoteTextConnectionFactory* = GUID(
     data1: 0x88E075C2'u32, data2: 0x0CAE'u16, data3: 0x596C'u16,
     data4: [0x85'u8, 0x0F, 0x78, 0xD3, 0x45, 0xCD, 0x72, 0x8B])
 const Slot_IRemoteTextConnectionFactory_CreateInstance* = 6
-type Fn_IRemoteTextConnectionFactory_CreateInstance* = proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnectionFactory_CreateInstance* = proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory2
 const IID_IRemoteTextConnectionFactory2* = GUID(
     data1: 0x9425C7D9'u32, data2: 0xED9B'u16, data3: 0x5D00'u16,
     data4: [0x99'u8, 0xCC, 0xB0, 0xB8, 0xDC, 0x9E, 0x4C, 0x60])
 const Slot_IRemoteTextConnectionFactory2_CreateInstance* = 6
-type Fn_IRemoteTextConnectionFactory2_CreateInstance* = proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer, a3: RemoteTextConnectionOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteTextConnectionFactory2_CreateInstance* = proc(self: pointer, a1: GUID, a2RemoteTextConnectionDataHandler: pointer, a3: RemoteTextConnectionOptions, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler  (delegate)
 const IID_RemoteTextConnectionDataHandler* = GUID(
@@ -3408,23 +3409,23 @@ const IID_IPerformLocalActionRequestedEventArgs* = GUID(
     data1: 0x59359F4F'u32, data2: 0x0862'u16, data3: 0x53A3'u16,
     data4: [0xA3'u8, 0xB3, 0xC9, 0x32, 0xFB, 0x71, 0x8C, 0xDC])
 const Slot_IPerformLocalActionRequestedEventArgs_get_Action* = 6
-type Fn_IPerformLocalActionRequestedEventArgs_get_Action* = proc(self: pointer, value: ptr RemoteDesktopLocalAction): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPerformLocalActionRequestedEventArgs_get_Action* = proc(self: pointer, value: ptr RemoteDesktopLocalAction): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo
 const IID_IRemoteDesktopConnectionInfo* = GUID(
     data1: 0x68BD69D6'u32, data2: 0x6DEA'u16, data3: 0x543B'u16,
     data4: [0xB7'u8, 0x37, 0xF3, 0x47, 0x91, 0x9F, 0x50, 0x93])
 const Slot_IRemoteDesktopConnectionInfo_SetConnectionStatus* = 6
-type Fn_IRemoteDesktopConnectionInfo_SetConnectionStatus* = proc(self: pointer, a1: RemoteDesktopConnectionStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionInfo_SetConnectionStatus* = proc(self: pointer, a1: RemoteDesktopConnectionStatus): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionInfo_SwitchToLocalSession* = 7
-type Fn_IRemoteDesktopConnectionInfo_SwitchToLocalSession* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionInfo_SwitchToLocalSession* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfo2
 const IID_IRemoteDesktopConnectionInfo2* = GUID(
     data1: 0x871C0B26'u32, data2: 0x23BF'u16, data3: 0x5D3C'u16,
     data4: [0xBC'u8, 0x35, 0xA8, 0x5C, 0x40, 0x5E, 0x25, 0xE6])
 const Slot_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* = 6
-type Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* = proc(self: pointer, a1: RemoteDesktopLocalAction): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* = proc(self: pointer, a1: RemoteDesktopLocalAction): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionInfoStatics
 const IID_IRemoteDesktopConnectionInfoStatics* = GUID(
@@ -3438,253 +3439,253 @@ const IID_IRemoteDesktopConnectionRemoteInfo* = GUID(
     data1: 0x2A3DFA7E'u32, data2: 0xA7AB'u16, data3: 0x547E'u16,
     data4: [0x9A'u8, 0x6A, 0x4C, 0x56, 0x5B, 0xBB, 0x8D, 0x71])
 const Slot_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* = 6
-type Fn_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* = 7
-type Fn_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* = 8
-type Fn_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* = 9
-type Fn_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* = 10
-type Fn_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfoStatics
 const IID_IRemoteDesktopConnectionRemoteInfoStatics* = GUID(
     data1: 0xB590E64A'u32, data2: 0xE4C9'u16, data3: 0x53E8'u16,
     data4: [0xB8'u8, 0x3D, 0xA0, 0xDB, 0x36, 0x76, 0x24, 0x6A])
 const Slot_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported* = 6
-type Fn_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri* = 7
-type Fn_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfo
 const IID_IRemoteDesktopInfo* = GUID(
     data1: 0xD185BB25'u32, data2: 0x2F1E'u16, data3: 0x5098'u16,
     data4: [0xB9'u8, 0xE0, 0xF4, 0x6D, 0x63, 0x58, 0xC5, 0xC4])
 const Slot_IRemoteDesktopInfo_get_DisplayName* = 6
-type Fn_IRemoteDesktopInfo_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopInfo_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteDesktopInfo_get_Id* = 7
-type Fn_IRemoteDesktopInfo_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopInfo_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopInfoFactory
 const IID_IRemoteDesktopInfoFactory* = GUID(
     data1: 0xAD0E8D58'u32, data2: 0xB56F'u16, data3: 0x5A8B'u16,
     data4: [0xB4'u8, 0x19, 0x80, 0x02, 0xEE, 0x0C, 0x5E, 0xE9])
 const Slot_IRemoteDesktopInfoFactory_CreateInstance* = 6
-type Fn_IRemoteDesktopInfoFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopInfoFactory_CreateInstance* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics
 const IID_IRemoteDesktopRegistrarStatics* = GUID(
     data1: 0x687C2750'u32, data2: 0x46D9'u16, data3: 0x5DE3'u16,
     data4: [0x8D'u8, 0xC3, 0x84, 0xA9, 0x20, 0x2C, 0xEC, 0xFB])
 const Slot_IRemoteDesktopRegistrarStatics_get_DesktopInfos* = 6
-type Fn_IRemoteDesktopRegistrarStatics_get_DesktopInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopRegistrarStatics_get_DesktopInfos* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled* = 7
-type Fn_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics
 const IID_IKnownRemoteSystemCapabilitiesStatics* = GUID(
     data1: 0x8108E380'u32, data2: 0x7F8A'u16, data3: 0x44E4'u16,
     data4: [0x92'u8, 0xCD, 0x03, 0xB6, 0x46, 0x9B, 0x94, 0xA3])
 const Slot_IKnownRemoteSystemCapabilitiesStatics_get_AppService* = 6
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_AppService* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRemoteSystemCapabilitiesStatics_get_AppService* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri* = 7
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession* = 8
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity* = 9
-type Fn_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem
 const IID_IRemoteSystem* = GUID(
     data1: 0xED5838CD'u32, data2: 0x1E10'u16, data3: 0x4A8C'u16,
     data4: [0xB4'u8, 0xA6, 0x4E, 0x5F, 0xD6, 0xF9, 0x77, 0x21])
 const Slot_IRemoteSystem_get_DisplayName* = 6
-type Fn_IRemoteSystem_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystem_get_Id* = 7
-type Fn_IRemoteSystem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystem_get_Kind* = 8
-type Fn_IRemoteSystem_get_Kind* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem_get_Kind* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystem_get_Status* = 9
-type Fn_IRemoteSystem_get_Status* = proc(self: pointer, value: ptr RemoteSystemStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem_get_Status* = proc(self: pointer, value: ptr RemoteSystemStatus): HRESULT {.abi.}
 const Slot_IRemoteSystem_get_IsAvailableByProximity* = 10
-type Fn_IRemoteSystem_get_IsAvailableByProximity* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem_get_IsAvailableByProximity* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem2
 const IID_IRemoteSystem2* = GUID(
     data1: 0x09DFE4EC'u32, data2: 0xFB8B'u16, data3: 0x4A08'u16,
     data4: [0xA7'u8, 0x58, 0x68, 0x76, 0x43, 0x5D, 0x76, 0x9E])
 const Slot_IRemoteSystem2_get_IsAvailableBySpatialProximity* = 6
-type Fn_IRemoteSystem2_get_IsAvailableBySpatialProximity* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem2_get_IsAvailableBySpatialProximity* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteSystem2_GetCapabilitySupportedAsync* = 7
-type Fn_IRemoteSystem2_GetCapabilitySupportedAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem2_GetCapabilitySupportedAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem3
 const IID_IRemoteSystem3* = GUID(
     data1: 0x72B4B495'u32, data2: 0xB7C6'u16, data3: 0x40BE'u16,
     data4: [0x83'u8, 0x1B, 0x73, 0x56, 0x2F, 0x12, 0xFF, 0xA8])
 const Slot_IRemoteSystem3_get_ManufacturerDisplayName* = 6
-type Fn_IRemoteSystem3_get_ManufacturerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem3_get_ManufacturerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystem3_get_ModelDisplayName* = 7
-type Fn_IRemoteSystem3_get_ModelDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem3_get_ModelDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem4
 const IID_IRemoteSystem4* = GUID(
     data1: 0xF164FFE5'u32, data2: 0xB987'u16, data3: 0x4CA5'u16,
     data4: [0x99'u8, 0x26, 0xFA, 0x04, 0x38, 0xBE, 0x62, 0x73])
 const Slot_IRemoteSystem4_get_Platform* = 6
-type Fn_IRemoteSystem4_get_Platform* = proc(self: pointer, value: ptr RemoteSystemPlatform): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem4_get_Platform* = proc(self: pointer, value: ptr RemoteSystemPlatform): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem5
 const IID_IRemoteSystem5* = GUID(
     data1: 0xEB2AD723'u32, data2: 0xE5E2'u16, data3: 0x4AE2'u16,
     data4: [0xA7'u8, 0xA7, 0xA1, 0x09, 0x7A, 0x09, 0x8E, 0x90])
 const Slot_IRemoteSystem5_get_Apps* = 6
-type Fn_IRemoteSystem5_get_Apps* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem5_get_Apps* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystem6
 const IID_IRemoteSystem6* = GUID(
     data1: 0xD4CDA942'u32, data2: 0xC027'u16, data3: 0x533E'u16,
     data4: [0x93'u8, 0x84, 0x3A, 0x19, 0xB4, 0xF7, 0xEE, 0xF3])
 const Slot_IRemoteSystem6_get_User* = 6
-type Fn_IRemoteSystem6_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystem6_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAddedEventArgs
 const IID_IRemoteSystemAddedEventArgs* = GUID(
     data1: 0x8F39560F'u32, data2: 0xE534'u16, data3: 0x4697'u16,
     data4: [0x88'u8, 0x36, 0x7A, 0xBE, 0xA1, 0x51, 0x51, 0x6E])
 const Slot_IRemoteSystemAddedEventArgs_get_RemoteSystem* = 6
-type Fn_IRemoteSystemAddedEventArgs_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAddedEventArgs_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemApp
 const IID_IRemoteSystemApp* = GUID(
     data1: 0x80E5BCBD'u32, data2: 0xD54D'u16, data3: 0x41B1'u16,
     data4: [0x9B'u8, 0x16, 0x68, 0x10, 0xA8, 0x71, 0xED, 0x4F])
 const Slot_IRemoteSystemApp_get_Id* = 6
-type Fn_IRemoteSystemApp_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemApp_get_DisplayName* = 7
-type Fn_IRemoteSystemApp_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemApp_get_IsAvailableByProximity* = 8
-type Fn_IRemoteSystemApp_get_IsAvailableByProximity* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp_get_IsAvailableByProximity* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteSystemApp_get_IsAvailableBySpatialProximity* = 9
-type Fn_IRemoteSystemApp_get_IsAvailableBySpatialProximity* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp_get_IsAvailableBySpatialProximity* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteSystemApp_get_Attributes* = 10
-type Fn_IRemoteSystemApp_get_Attributes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp_get_Attributes* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemApp2
 const IID_IRemoteSystemApp2* = GUID(
     data1: 0x6369BF15'u32, data2: 0x0A96'u16, data3: 0x577A'u16,
     data4: [0x8F'u8, 0xF6, 0xC3, 0x59, 0x04, 0xDF, 0xA8, 0xF3])
 const Slot_IRemoteSystemApp2_get_User* = 6
-type Fn_IRemoteSystemApp2_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp2_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemApp2_get_ConnectionToken* = 7
-type Fn_IRemoteSystemApp2_get_ConnectionToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemApp2_get_ConnectionToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAppRegistration
 const IID_IRemoteSystemAppRegistration* = GUID(
     data1: 0xB47947B5'u32, data2: 0x7035'u16, data3: 0x4A5A'u16,
     data4: [0xB8'u8, 0xDF, 0x96, 0x2D, 0x8F, 0x84, 0x31, 0xF4])
 const Slot_IRemoteSystemAppRegistration_get_User* = 6
-type Fn_IRemoteSystemAppRegistration_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAppRegistration_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemAppRegistration_get_Attributes* = 7
-type Fn_IRemoteSystemAppRegistration_get_Attributes* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAppRegistration_get_Attributes* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemAppRegistration_SaveAsync* = 8
-type Fn_IRemoteSystemAppRegistration_SaveAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAppRegistration_SaveAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAppRegistrationStatics
 const IID_IRemoteSystemAppRegistrationStatics* = GUID(
     data1: 0x01B99840'u32, data2: 0xCFD2'u16, data3: 0x453F'u16,
     data4: [0xAE'u8, 0x25, 0xC2, 0x53, 0x9F, 0x08, 0x6A, 0xFD])
 const Slot_IRemoteSystemAppRegistrationStatics_GetDefault* = 6
-type Fn_IRemoteSystemAppRegistrationStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAppRegistrationStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemAppRegistrationStatics_GetForUser* = 7
-type Fn_IRemoteSystemAppRegistrationStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAppRegistrationStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilter
 const IID_IRemoteSystemAuthorizationKindFilter* = GUID(
     data1: 0x6B0DDE8E'u32, data2: 0x04D0'u16, data3: 0x40F4'u16,
     data4: [0xA2'u8, 0x7F, 0xC2, 0xAC, 0xBB, 0xD6, 0xB7, 0x34])
 const Slot_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* = 6
-type Fn_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* = proc(self: pointer, value: ptr RemoteSystemAuthorizationKind): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* = proc(self: pointer, value: ptr RemoteSystemAuthorizationKind): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory
 const IID_IRemoteSystemAuthorizationKindFilterFactory* = GUID(
     data1: 0xAD65DF4D'u32, data2: 0xB66A'u16, data3: 0x45A4'u16,
     data4: [0x81'u8, 0x77, 0x8C, 0xAE, 0xD7, 0x5D, 0x9E, 0x5A])
 const Slot_IRemoteSystemAuthorizationKindFilterFactory_Create* = 6
-type Fn_IRemoteSystemAuthorizationKindFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemAuthorizationKindFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfo
 const IID_IRemoteSystemConnectionInfo* = GUID(
     data1: 0x23278BC3'u32, data2: 0x0D09'u16, data3: 0x52CB'u16,
     data4: [0x9C'u8, 0x6A, 0xEE, 0xD2, 0x94, 0x0B, 0xEE, 0x43])
 const Slot_IRemoteSystemConnectionInfo_get_IsProximal* = 6
-type Fn_IRemoteSystemConnectionInfo_get_IsProximal* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionInfo_get_IsProximal* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfoStatics
 const IID_IRemoteSystemConnectionInfoStatics* = GUID(
     data1: 0xAC831E2D'u32, data2: 0x66C5'u16, data3: 0x56D7'u16,
     data4: [0xA4'u8, 0xCE, 0x70, 0x5D, 0x94, 0x92, 0x5A, 0xD6])
 const Slot_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* = 6
-type Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* = proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* = proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest
 const IID_IRemoteSystemConnectionRequest* = GUID(
     data1: 0x84ED4104'u32, data2: 0x8D5E'u16, data3: 0x4D72'u16,
     data4: [0x82'u8, 0x38, 0x76, 0x21, 0x57, 0x6C, 0x7A, 0x67])
 const Slot_IRemoteSystemConnectionRequest_get_RemoteSystem* = 6
-type Fn_IRemoteSystemConnectionRequest_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequest_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest2
 const IID_IRemoteSystemConnectionRequest2* = GUID(
     data1: 0x12DF6D6F'u32, data2: 0xBFFC'u16, data3: 0x483A'u16,
     data4: [0x8A'u8, 0xBE, 0xD3, 0x4A, 0x6C, 0x19, 0xF9, 0x2B])
 const Slot_IRemoteSystemConnectionRequest2_get_RemoteSystemApp* = 6
-type Fn_IRemoteSystemConnectionRequest2_get_RemoteSystemApp* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequest2_get_RemoteSystemApp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest3
 const IID_IRemoteSystemConnectionRequest3* = GUID(
     data1: 0xDE86C3E7'u32, data2: 0xC9CC'u16, data3: 0x5A50'u16,
     data4: [0xB8'u8, 0xD9, 0xBA, 0x7B, 0x34, 0xBB, 0x8D, 0x0E])
 const Slot_IRemoteSystemConnectionRequest3_get_ConnectionToken* = 6
-type Fn_IRemoteSystemConnectionRequest3_get_ConnectionToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequest3_get_ConnectionToken* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestFactory
 const IID_IRemoteSystemConnectionRequestFactory* = GUID(
     data1: 0xAA0A0A20'u32, data2: 0xBAEB'u16, data3: 0x4575'u16,
     data4: [0xB5'u8, 0x30, 0x81, 0x0B, 0xB9, 0x78, 0x63, 0x34])
 const Slot_IRemoteSystemConnectionRequestFactory_Create* = 6
-type Fn_IRemoteSystemConnectionRequestFactory_Create* = proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequestFactory_Create* = proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics
 const IID_IRemoteSystemConnectionRequestStatics* = GUID(
     data1: 0x86CA143D'u32, data2: 0x8214'u16, data3: 0x425C'u16,
     data4: [0x89'u8, 0x32, 0xDB, 0x49, 0x03, 0x2D, 0x13, 0x06])
 const Slot_IRemoteSystemConnectionRequestStatics_CreateForApp* = 6
-type Fn_IRemoteSystemConnectionRequestStatics_CreateForApp* = proc(self: pointer, a1RemoteSystemApp: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequestStatics_CreateForApp* = proc(self: pointer, a1RemoteSystemApp: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics2
 const IID_IRemoteSystemConnectionRequestStatics2* = GUID(
     data1: 0x460F1027'u32, data2: 0x64EC'u16, data3: 0x598E'u16,
     data4: [0xA8'u8, 0x00, 0x4F, 0x2E, 0xE5, 0x8D, 0xEF, 0x19])
 const Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* = 6
-type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* = 7
-type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* = proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilter
 const IID_IRemoteSystemDiscoveryTypeFilter* = GUID(
     data1: 0x42D9041F'u32, data2: 0xEE5A'u16, data3: 0x43DA'u16,
     data4: [0xAC'u8, 0x6A, 0x6F, 0xEE, 0x25, 0x46, 0x07, 0x41])
 const Slot_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* = 6
-type Fn_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* = proc(self: pointer, value: ptr RemoteSystemDiscoveryType): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* = proc(self: pointer, value: ptr RemoteSystemDiscoveryType): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilterFactory
 const IID_IRemoteSystemDiscoveryTypeFilterFactory* = GUID(
     data1: 0x9F9EB993'u32, data2: 0xC260'u16, data3: 0x4161'u16,
     data4: [0x92'u8, 0xF2, 0x9C, 0x02, 0x1F, 0x23, 0xFE, 0x5D])
 const Slot_IRemoteSystemDiscoveryTypeFilterFactory_Create* = 6
-type Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemDiscoveryType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemDiscoveryType, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemEnumerationCompletedEventArgs
 const IID_IRemoteSystemEnumerationCompletedEventArgs* = GUID(
@@ -3701,669 +3702,669 @@ const IID_IRemoteSystemKindFilter* = GUID(
     data1: 0x38E1C9EC'u32, data2: 0x22C3'u16, data3: 0x4EF6'u16,
     data4: [0x90'u8, 0x1A, 0xBB, 0xB1, 0xC7, 0xAA, 0xD4, 0xED])
 const Slot_IRemoteSystemKindFilter_get_RemoteSystemKinds* = 6
-type Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindFilterFactory
 const IID_IRemoteSystemKindFilterFactory* = GUID(
     data1: 0xA1FB18EE'u32, data2: 0x99EA'u16, data3: 0x40BC'u16,
     data4: [0x9A'u8, 0x39, 0xC6, 0x70, 0xAA, 0x80, 0x4A, 0x28])
 const Slot_IRemoteSystemKindFilterFactory_Create* = 6
-type Fn_IRemoteSystemKindFilterFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindFilterFactory_Create* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindStatics
 const IID_IRemoteSystemKindStatics* = GUID(
     data1: 0xF6317633'u32, data2: 0xAB14'u16, data3: 0x41D0'u16,
     data4: [0x95'u8, 0x53, 0x79, 0x6A, 0xAD, 0xB8, 0x82, 0xDB])
 const Slot_IRemoteSystemKindStatics_get_Phone* = 6
-type Fn_IRemoteSystemKindStatics_get_Phone* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics_get_Phone* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics_get_Hub* = 7
-type Fn_IRemoteSystemKindStatics_get_Hub* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics_get_Hub* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics_get_Holographic* = 8
-type Fn_IRemoteSystemKindStatics_get_Holographic* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics_get_Holographic* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics_get_Desktop* = 9
-type Fn_IRemoteSystemKindStatics_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics_get_Desktop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics_get_Xbox* = 10
-type Fn_IRemoteSystemKindStatics_get_Xbox* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics_get_Xbox* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemKindStatics2
 const IID_IRemoteSystemKindStatics2* = GUID(
     data1: 0xB9E3A3D0'u32, data2: 0x0466'u16, data3: 0x4749'u16,
     data4: [0x91'u8, 0xE8, 0x65, 0xF9, 0xD1, 0x9A, 0x96, 0xA5])
 const Slot_IRemoteSystemKindStatics2_get_Iot* = 6
-type Fn_IRemoteSystemKindStatics2_get_Iot* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics2_get_Iot* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics2_get_Tablet* = 7
-type Fn_IRemoteSystemKindStatics2_get_Tablet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics2_get_Tablet* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemKindStatics2_get_Laptop* = 8
-type Fn_IRemoteSystemKindStatics2_get_Laptop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemKindStatics2_get_Laptop* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemRemovedEventArgs
 const IID_IRemoteSystemRemovedEventArgs* = GUID(
     data1: 0x8B3D16BB'u32, data2: 0x7306'u16, data3: 0x49EA'u16,
     data4: [0xB7'u8, 0xDF, 0x67, 0xD5, 0x71, 0x4C, 0xB0, 0x13])
 const Slot_IRemoteSystemRemovedEventArgs_get_RemoteSystemId* = 6
-type Fn_IRemoteSystemRemovedEventArgs_get_RemoteSystemId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemRemovedEventArgs_get_RemoteSystemId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSession
 const IID_IRemoteSystemSession* = GUID(
     data1: 0x69476A01'u32, data2: 0x9ADA'u16, data3: 0x490F'u16,
     data4: [0x95'u8, 0x49, 0xD3, 0x1C, 0xB1, 0x4C, 0x9E, 0x95])
 const Slot_IRemoteSystemSession_get_Id* = 6
-type Fn_IRemoteSystemSession_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_get_DisplayName* = 7
-type Fn_IRemoteSystemSession_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_get_ControllerDisplayName* = 8
-type Fn_IRemoteSystemSession_get_ControllerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_get_ControllerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_add_Disconnected* = 9
-type Fn_IRemoteSystemSession_add_Disconnected* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_add_Disconnected* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_remove_Disconnected* = 10
-type Fn_IRemoteSystemSession_remove_Disconnected* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_remove_Disconnected* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_CreateParticipantWatcher* = 11
-type Fn_IRemoteSystemSession_CreateParticipantWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_CreateParticipantWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_SendInvitationAsync* = 12
-type Fn_IRemoteSystemSession_SendInvitationAsync* = proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSession_SendInvitationAsync* = proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs
 const IID_IRemoteSystemSessionAddedEventArgs* = GUID(
     data1: 0xD585D754'u32, data2: 0xBC97'u16, data3: 0x4C39'u16,
     data4: [0x99'u8, 0xB4, 0xBE, 0xCA, 0x76, 0xE0, 0x4C, 0x3F])
 const Slot_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionController
 const IID_IRemoteSystemSessionController* = GUID(
     data1: 0xE48B2DD2'u32, data2: 0x6820'u16, data3: 0x4867'u16,
     data4: [0xB4'u8, 0x25, 0xD8, 0x9C, 0x0A, 0x3E, 0xF7, 0xBA])
 const Slot_IRemoteSystemSessionController_add_JoinRequested* = 6
-type Fn_IRemoteSystemSessionController_add_JoinRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionController_add_JoinRequested* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionController_remove_JoinRequested* = 7
-type Fn_IRemoteSystemSessionController_remove_JoinRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionController_remove_JoinRequested* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionController_RemoveParticipantAsync* = 8
-type Fn_IRemoteSystemSessionController_RemoveParticipantAsync* = proc(self: pointer, a1RemoteSystemSessionParticipant: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionController_RemoveParticipantAsync* = proc(self: pointer, a1RemoteSystemSessionParticipant: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionController_CreateSessionAsync* = 9
-type Fn_IRemoteSystemSessionController_CreateSessionAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionController_CreateSessionAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory
 const IID_IRemoteSystemSessionControllerFactory* = GUID(
     data1: 0xBFCC2F6B'u32, data2: 0xAC3D'u16, data3: 0x4199'u16,
     data4: [0x82'u8, 0xCD, 0x66, 0x70, 0xA7, 0x73, 0xEF, 0x2E])
 const Slot_IRemoteSystemSessionControllerFactory_CreateController* = 6
-type Fn_IRemoteSystemSessionControllerFactory_CreateController* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionControllerFactory_CreateController* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionControllerFactory_CreateController2* = 7
-type Fn_IRemoteSystemSessionControllerFactory_CreateController2* = proc(self: pointer, a1: HSTRING, a2RemoteSystemSessionOptions: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionControllerFactory_CreateController2* = proc(self: pointer, a1: HSTRING, a2RemoteSystemSessionOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionCreationResult
 const IID_IRemoteSystemSessionCreationResult* = GUID(
     data1: 0xA79812C2'u32, data2: 0x37DE'u16, data3: 0x448C'u16,
     data4: [0x8B'u8, 0x83, 0xA3, 0x0A, 0xA3, 0xC4, 0xEA, 0xD6])
 const Slot_IRemoteSystemSessionCreationResult_get_Status* = 6
-type Fn_IRemoteSystemSessionCreationResult_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionCreationStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionCreationResult_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionCreationStatus): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionCreationResult_get_Session* = 7
-type Fn_IRemoteSystemSessionCreationResult_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionCreationResult_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionDisconnectedEventArgs
 const IID_IRemoteSystemSessionDisconnectedEventArgs* = GUID(
     data1: 0xDE0BC69B'u32, data2: 0x77C5'u16, data3: 0x461C'u16,
     data4: [0x82'u8, 0x09, 0x7C, 0x6C, 0x5D, 0x31, 0x11, 0xAB])
 const Slot_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* = 6
-type Fn_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* = proc(self: pointer, value: ptr RemoteSystemSessionDisconnectedReason): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* = proc(self: pointer, value: ptr RemoteSystemSessionDisconnectedReason): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInfo
 const IID_IRemoteSystemSessionInfo* = GUID(
     data1: 0xFF4DF648'u32, data2: 0x8B0A'u16, data3: 0x4E9A'u16,
     data4: [0x99'u8, 0x05, 0x69, 0xE4, 0xB8, 0x41, 0xC5, 0x88])
 const Slot_IRemoteSystemSessionInfo_get_DisplayName* = 6
-type Fn_IRemoteSystemSessionInfo_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInfo_get_DisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionInfo_get_ControllerDisplayName* = 7
-type Fn_IRemoteSystemSessionInfo_get_ControllerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInfo_get_ControllerDisplayName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionInfo_JoinAsync* = 8
-type Fn_IRemoteSystemSessionInfo_JoinAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInfo_JoinAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitation
 const IID_IRemoteSystemSessionInvitation* = GUID(
     data1: 0x3E32CC91'u32, data2: 0x51D7'u16, data3: 0x4766'u16,
     data4: [0xA1'u8, 0x21, 0x25, 0x51, 0x6C, 0x3B, 0x82, 0x94])
 const Slot_IRemoteSystemSessionInvitation_get_Sender* = 6
-type Fn_IRemoteSystemSessionInvitation_get_Sender* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInvitation_get_Sender* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionInvitation_get_SessionInfo* = 7
-type Fn_IRemoteSystemSessionInvitation_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInvitation_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener
 const IID_IRemoteSystemSessionInvitationListener* = GUID(
     data1: 0x08F4003F'u32, data2: 0xBC71'u16, data3: 0x49E1'u16,
     data4: [0x87'u8, 0x4A, 0x31, 0xDD, 0xFF, 0x9A, 0x27, 0xB9])
 const Slot_IRemoteSystemSessionInvitationListener_add_InvitationReceived* = 6
-type Fn_IRemoteSystemSessionInvitationListener_add_InvitationReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInvitationListener_add_InvitationReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* = 7
-type Fn_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInvitationReceivedEventArgs
 const IID_IRemoteSystemSessionInvitationReceivedEventArgs* = GUID(
     data1: 0x5E964A2D'u32, data2: 0xA10D'u16, data3: 0x4EDB'u16,
     data4: [0x8D'u8, 0xEA, 0x54, 0xD2, 0x0A, 0xC1, 0x95, 0x43])
 const Slot_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation* = 6
-type Fn_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequest
 const IID_IRemoteSystemSessionJoinRequest* = GUID(
     data1: 0x20600068'u32, data2: 0x7994'u16, data3: 0x4331'u16,
     data4: [0x86'u8, 0xD1, 0xD8, 0x9D, 0x88, 0x25, 0x85, 0xEE])
 const Slot_IRemoteSystemSessionJoinRequest_get_Participant* = 6
-type Fn_IRemoteSystemSessionJoinRequest_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinRequest_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionJoinRequest_Accept* = 7
-type Fn_IRemoteSystemSessionJoinRequest_Accept* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinRequest_Accept* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequestedEventArgs
 const IID_IRemoteSystemSessionJoinRequestedEventArgs* = GUID(
     data1: 0xDBCA4FC3'u32, data2: 0x82B9'u16, data3: 0x4816'u16,
     data4: [0x9C'u8, 0x24, 0xE4, 0x0E, 0x61, 0x77, 0x4B, 0xD8])
 const Slot_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest* = 6
-type Fn_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* = 7
-type Fn_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionJoinResult
 const IID_IRemoteSystemSessionJoinResult* = GUID(
     data1: 0xCE7B1F04'u32, data2: 0xA03E'u16, data3: 0x41A4'u16,
     data4: [0x90'u8, 0x0B, 0x1E, 0x79, 0x32, 0x8C, 0x12, 0x67])
 const Slot_IRemoteSystemSessionJoinResult_get_Status* = 6
-type Fn_IRemoteSystemSessionJoinResult_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinResult_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionJoinResult_get_Session* = 7
-type Fn_IRemoteSystemSessionJoinResult_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionJoinResult_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel
 const IID_IRemoteSystemSessionMessageChannel* = GUID(
     data1: 0x9524D12A'u32, data2: 0x73D9'u16, data3: 0x4C10'u16,
     data4: [0xB7'u8, 0x51, 0xC2, 0x67, 0x84, 0x43, 0x71, 0x27])
 const Slot_IRemoteSystemSessionMessageChannel_get_Session* = 6
-type Fn_IRemoteSystemSessionMessageChannel_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_get_Session* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* = 7
-type Fn_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* = proc(self: pointer, a1ValueSet: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* = proc(self: pointer, a1ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_SendValueSetAsync* = 8
-type Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync* = proc(self: pointer, a1ValueSet: pointer, a2RemoteSystemSessionParticipant: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync* = proc(self: pointer, a1ValueSet: pointer, a2RemoteSystemSessionParticipant: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* = 9
-type Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* = proc(self: pointer, a1ValueSet: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* = proc(self: pointer, a1ValueSet: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* = 10
-type Fn_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* = 11
-type Fn_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory
 const IID_IRemoteSystemSessionMessageChannelFactory* = GUID(
     data1: 0x295E1C4A'u32, data2: 0xBD16'u16, data3: 0x4298'u16,
     data4: [0xB7'u8, 0xCE, 0x41, 0x54, 0x82, 0xB0, 0xE1, 0x1D])
 const Slot_IRemoteSystemSessionMessageChannelFactory_Create* = 6
-type Fn_IRemoteSystemSessionMessageChannelFactory_Create* = proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannelFactory_Create* = proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannelFactory_Create2* = 7
-type Fn_IRemoteSystemSessionMessageChannelFactory_Create2* = proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING, a3: RemoteSystemSessionMessageChannelReliability, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionMessageChannelFactory_Create2* = proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING, a3: RemoteSystemSessionMessageChannelReliability, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionOptions
 const IID_IRemoteSystemSessionOptions* = GUID(
     data1: 0x740ED755'u32, data2: 0x8418'u16, data3: 0x4F01'u16,
     data4: [0x93'u8, 0x53, 0xE2, 0x1C, 0x9E, 0xCC, 0x6C, 0xFC])
 const Slot_IRemoteSystemSessionOptions_get_IsInviteOnly* = 6
-type Fn_IRemoteSystemSessionOptions_get_IsInviteOnly* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionOptions_get_IsInviteOnly* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionOptions_put_IsInviteOnly* = 7
-type Fn_IRemoteSystemSessionOptions_put_IsInviteOnly* = proc(self: pointer, a1: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionOptions_put_IsInviteOnly* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipant
 const IID_IRemoteSystemSessionParticipant* = GUID(
     data1: 0x7E90058C'u32, data2: 0xACF9'u16, data3: 0x4729'u16,
     data4: [0x8A'u8, 0x17, 0x44, 0xE7, 0xBA, 0xED, 0x5D, 0xCC])
 const Slot_IRemoteSystemSessionParticipant_get_RemoteSystem* = 6
-type Fn_IRemoteSystemSessionParticipant_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipant_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipant_GetHostNames* = 7
-type Fn_IRemoteSystemSessionParticipant_GetHostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipant_GetHostNames* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantAddedEventArgs
 const IID_IRemoteSystemSessionParticipantAddedEventArgs* = GUID(
     data1: 0xD35A57D8'u32, data2: 0xC9A1'u16, data3: 0x4BB7'u16,
     data4: [0xB6'u8, 0xB0, 0x79, 0xBB, 0x91, 0xAD, 0xF9, 0x3D])
 const Slot_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant* = 6
-type Fn_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantRemovedEventArgs
 const IID_IRemoteSystemSessionParticipantRemovedEventArgs* = GUID(
     data1: 0x866EF088'u32, data2: 0xDE68'u16, data3: 0x4ABF'u16,
     data4: [0x88'u8, 0xA1, 0xF9, 0x0D, 0x16, 0x27, 0x41, 0x92])
 const Slot_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant* = 6
-type Fn_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher
 const IID_IRemoteSystemSessionParticipantWatcher* = GUID(
     data1: 0xDCDD02CC'u32, data2: 0xAA87'u16, data3: 0x4D79'u16,
     data4: [0xB6'u8, 0xCC, 0x44, 0x59, 0xB3, 0xE9, 0x20, 0x75])
 const Slot_IRemoteSystemSessionParticipantWatcher_Start* = 6
-type Fn_IRemoteSystemSessionParticipantWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_Stop* = 7
-type Fn_IRemoteSystemSessionParticipantWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_get_Status* = 8
-type Fn_IRemoteSystemSessionParticipantWatcher_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionParticipantWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionParticipantWatcherStatus): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_Added* = 9
-type Fn_IRemoteSystemSessionParticipantWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_Added* = 10
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_Removed* = 11
-type Fn_IRemoteSystemSessionParticipantWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_Removed* = 12
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* = 13
-type Fn_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* = 14
-type Fn_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionRemovedEventArgs
 const IID_IRemoteSystemSessionRemovedEventArgs* = GUID(
     data1: 0xAF82914E'u32, data2: 0x39A1'u16, data3: 0x4DEA'u16,
     data4: [0x9D'u8, 0x63, 0x43, 0x79, 0x8D, 0x5B, 0xBB, 0xD0])
 const Slot_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionStatics
 const IID_IRemoteSystemSessionStatics* = GUID(
     data1: 0x8524899F'u32, data2: 0xFD20'u16, data3: 0x44E3'u16,
     data4: [0x95'u8, 0x65, 0xE7, 0x5A, 0x3B, 0x14, 0xC6, 0x6E])
 const Slot_IRemoteSystemSessionStatics_CreateWatcher* = 6
-type Fn_IRemoteSystemSessionStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionUpdatedEventArgs
 const IID_IRemoteSystemSessionUpdatedEventArgs* = GUID(
     data1: 0x16875069'u32, data2: 0x231E'u16, data3: 0x4C91'u16,
     data4: [0x8E'u8, 0xC8, 0xB3, 0xA3, 0x9D, 0x9E, 0x55, 0xA3])
 const Slot_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo* = 6
-type Fn_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionValueSetReceivedEventArgs
 const IID_IRemoteSystemSessionValueSetReceivedEventArgs* = GUID(
     data1: 0x06F31785'u32, data2: 0x2DA5'u16, data3: 0x4E58'u16,
     data4: [0xA7'u8, 0x8F, 0x9E, 0x8D, 0x07, 0x84, 0xEE, 0x25])
 const Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender* = 6
-type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message* = 7
-type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionWatcher
 const IID_IRemoteSystemSessionWatcher* = GUID(
     data1: 0x8003E340'u32, data2: 0x0C41'u16, data3: 0x4A62'u16,
     data4: [0xB6'u8, 0xD7, 0xBD, 0xBE, 0x2B, 0x19, 0xBE, 0x2D])
 const Slot_IRemoteSystemSessionWatcher_Start* = 6
-type Fn_IRemoteSystemSessionWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_Stop* = 7
-type Fn_IRemoteSystemSessionWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_get_Status* = 8
-type Fn_IRemoteSystemSessionWatcher_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_get_Status* = proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Added* = 9
-type Fn_IRemoteSystemSessionWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_add_Added* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Added* = 10
-type Fn_IRemoteSystemSessionWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_remove_Added* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Updated* = 11
-type Fn_IRemoteSystemSessionWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_add_Updated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Updated* = 12
-type Fn_IRemoteSystemSessionWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_remove_Updated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Removed* = 13
-type Fn_IRemoteSystemSessionWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_add_Removed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Removed* = 14
-type Fn_IRemoteSystemSessionWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemSessionWatcher_remove_Removed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics
 const IID_IRemoteSystemStatics* = GUID(
     data1: 0xA485B392'u32, data2: 0xFF2B'u16, data3: 0x4B47'u16,
     data4: [0xBE'u8, 0x62, 0x74, 0x3F, 0x2F, 0x14, 0x0F, 0x30])
 const Slot_IRemoteSystemStatics_FindByHostNameAsync* = 6
-type Fn_IRemoteSystemStatics_FindByHostNameAsync* = proc(self: pointer, a1HostName: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics_FindByHostNameAsync* = proc(self: pointer, a1HostName: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics_CreateWatcher* = 7
-type Fn_IRemoteSystemStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics_CreateWatcher* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics_CreateWatcher2* = 8
-type Fn_IRemoteSystemStatics_CreateWatcher2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics_CreateWatcher2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics_RequestAccessAsync* = 9
-type Fn_IRemoteSystemStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics_RequestAccessAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics2
 const IID_IRemoteSystemStatics2* = GUID(
     data1: 0x0C98EDCA'u32, data2: 0x6F99'u16, data3: 0x4C52'u16,
     data4: [0xA2'u8, 0x72, 0xEA, 0x4F, 0x36, 0x47, 0x17, 0x44])
 const Slot_IRemoteSystemStatics2_IsAuthorizationKindEnabled* = 6
-type Fn_IRemoteSystemStatics2_IsAuthorizationKindEnabled* = proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics2_IsAuthorizationKindEnabled* = proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics3
 const IID_IRemoteSystemStatics3* = GUID(
     data1: 0x9995F16F'u32, data2: 0x0B3C'u16, data3: 0x5AC5'u16,
     data4: [0xB3'u8, 0x25, 0xCC, 0x73, 0xF4, 0x37, 0xDF, 0xCD])
 const Slot_IRemoteSystemStatics3_CreateWatcherForUser* = 6
-type Fn_IRemoteSystemStatics3_CreateWatcherForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics3_CreateWatcherForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics3_CreateWatcherForUser2* = 7
-type Fn_IRemoteSystemStatics3_CreateWatcherForUser2* = proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatics3_CreateWatcherForUser2* = proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilter
 const IID_IRemoteSystemStatusTypeFilter* = GUID(
     data1: 0x0C39514E'u32, data2: 0xCBB6'u16, data3: 0x4777'u16,
     data4: [0x85'u8, 0x34, 0x2E, 0x0C, 0x52, 0x1A, 0xFF, 0xA2])
 const Slot_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* = 6
-type Fn_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* = proc(self: pointer, value: ptr RemoteSystemStatusType): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* = proc(self: pointer, value: ptr RemoteSystemStatusType): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilterFactory
 const IID_IRemoteSystemStatusTypeFilterFactory* = GUID(
     data1: 0x33CF78FA'u32, data2: 0xD724'u16, data3: 0x4125'u16,
     data4: [0xAC'u8, 0x7A, 0x8D, 0x28, 0x1E, 0x44, 0xC9, 0x49])
 const Slot_IRemoteSystemStatusTypeFilterFactory_Create* = 6
-type Fn_IRemoteSystemStatusTypeFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemStatusTypeFilterFactory_Create* = proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemUpdatedEventArgs
 const IID_IRemoteSystemUpdatedEventArgs* = GUID(
     data1: 0x7502FF0E'u32, data2: 0xDBCB'u16, data3: 0x4155'u16,
     data4: [0xB4'u8, 0xCA, 0xB3, 0x0A, 0x04, 0xF2, 0x76, 0x27])
 const Slot_IRemoteSystemUpdatedEventArgs_get_RemoteSystem* = 6
-type Fn_IRemoteSystemUpdatedEventArgs_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemUpdatedEventArgs_get_RemoteSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher
 const IID_IRemoteSystemWatcher* = GUID(
     data1: 0x5D600C7E'u32, data2: 0x2C07'u16, data3: 0x48C5'u16,
     data4: [0x88'u8, 0x9C, 0x45, 0x5D, 0x2B, 0x09, 0x97, 0x71])
 const Slot_IRemoteSystemWatcher_Start* = 6
-type Fn_IRemoteSystemWatcher_Start* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_Start* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_Stop* = 7
-type Fn_IRemoteSystemWatcher_Stop* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemAdded* = 8
-type Fn_IRemoteSystemWatcher_add_RemoteSystemAdded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_add_RemoteSystemAdded* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemAdded* = 9
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemAdded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_remove_RemoteSystemAdded* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemUpdated* = 10
-type Fn_IRemoteSystemWatcher_add_RemoteSystemUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_add_RemoteSystemUpdated* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemUpdated* = 11
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_remove_RemoteSystemUpdated* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemRemoved* = 12
-type Fn_IRemoteSystemWatcher_add_RemoteSystemRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_add_RemoteSystemRemoved* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemRemoved* = 13
-type Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher2
 const IID_IRemoteSystemWatcher2* = GUID(
     data1: 0x73436700'u32, data2: 0x19CA'u16, data3: 0x48F9'u16,
     data4: [0xA4'u8, 0xCD, 0x78, 0x0F, 0x7A, 0xD5, 0x8C, 0x71])
 const Slot_IRemoteSystemWatcher2_add_EnumerationCompleted* = 6
-type Fn_IRemoteSystemWatcher2_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher2_add_EnumerationCompleted* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_remove_EnumerationCompleted* = 7
-type Fn_IRemoteSystemWatcher2_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher2_remove_EnumerationCompleted* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_add_ErrorOccurred* = 8
-type Fn_IRemoteSystemWatcher2_add_ErrorOccurred* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher2_add_ErrorOccurred* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_remove_ErrorOccurred* = 9
-type Fn_IRemoteSystemWatcher2_remove_ErrorOccurred* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher2_remove_ErrorOccurred* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcher3
 const IID_IRemoteSystemWatcher3* = GUID(
     data1: 0xF79C0FCF'u32, data2: 0xA913'u16, data3: 0x55D3'u16,
     data4: [0x84'u8, 0x13, 0x41, 0x8F, 0xCF, 0x15, 0xBA, 0x54])
 const Slot_IRemoteSystemWatcher3_get_User* = 6
-type Fn_IRemoteSystemWatcher3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcher3_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWatcherErrorOccurredEventArgs
 const IID_IRemoteSystemWatcherErrorOccurredEventArgs* = GUID(
     data1: 0x74C5C6AF'u32, data2: 0x5114'u16, data3: 0x4426'u16,
     data4: [0x92'u8, 0x16, 0x20, 0xD8, 0x1F, 0x85, 0x19, 0xAE])
 const Slot_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error* = 6
-type Fn_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error* = proc(self: pointer, value: ptr RemoteSystemWatcherError): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error* = proc(self: pointer, value: ptr RemoteSystemWatcherError): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWebAccountFilter
 const IID_IRemoteSystemWebAccountFilter* = GUID(
     data1: 0x3FB75873'u32, data2: 0x87C8'u16, data3: 0x5D8F'u16,
     data4: [0x97'u8, 0x7E, 0xF6, 0x9F, 0x96, 0xD6, 0x72, 0x38])
 const Slot_IRemoteSystemWebAccountFilter_get_Account* = 6
-type Fn_IRemoteSystemWebAccountFilter_get_Account* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWebAccountFilter_get_Account* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemWebAccountFilterFactory
 const IID_IRemoteSystemWebAccountFilterFactory* = GUID(
     data1: 0x348A2709'u32, data2: 0x5F4D'u16, data3: 0x5127'u16,
     data4: [0xB4'u8, 0xA7, 0xBF, 0x99, 0xD5, 0x25, 0x2B, 0x1B])
 const Slot_IRemoteSystemWebAccountFilterFactory_Create* = 6
-type Fn_IRemoteSystemWebAccountFilterFactory_Create* = proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IRemoteSystemWebAccountFilterFactory_Create* = proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.IPreallocatedWorkItem
 const IID_IPreallocatedWorkItem* = GUID(
     data1: 0xB6DAA9FC'u32, data2: 0xBC5B'u16, data3: 0x401A'u16,
     data4: [0xA8'u8, 0xB2, 0x6E, 0x75, 0x4D, 0x14, 0xDA, 0xA6])
 const Slot_IPreallocatedWorkItem_RunAsync* = 6
-type Fn_IPreallocatedWorkItem_RunAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPreallocatedWorkItem_RunAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.IPreallocatedWorkItemFactory
 const IID_IPreallocatedWorkItemFactory* = GUID(
     data1: 0xE3D32B45'u32, data2: 0xDFEA'u16, data3: 0x469B'u16,
     data4: [0x82'u8, 0xC5, 0xF6, 0xE3, 0xCE, 0xFD, 0xEA, 0xFB])
 const Slot_IPreallocatedWorkItemFactory_CreateWorkItem* = 6
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItem* = proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPreallocatedWorkItemFactory_CreateWorkItem* = proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* = 7
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions* = 8
-type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, a3: WorkItemOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, a3: WorkItemOptions, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.ISignalNotifier
 const IID_ISignalNotifier* = GUID(
     data1: 0x14285E06'u32, data2: 0x63A7'u16, data3: 0x4713'u16,
     data4: [0xB6'u8, 0xD9, 0x62, 0xF6, 0x4B, 0x56, 0xFB, 0x8B])
 const Slot_ISignalNotifier_Enable* = 6
-type Fn_ISignalNotifier_Enable* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifier_Enable* = proc(self: pointer): HRESULT {.abi.}
 const Slot_ISignalNotifier_Terminate* = 7
-type Fn_ISignalNotifier_Terminate* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifier_Terminate* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.ISignalNotifierStatics
 const IID_ISignalNotifierStatics* = GUID(
     data1: 0x1C4E4566'u32, data2: 0x8400'u16, data3: 0x46D3'u16,
     data4: [0xA1'u8, 0x15, 0x7D, 0x0C, 0x0D, 0xFC, 0x9F, 0x62])
 const Slot_ISignalNotifierStatics_AttachToEvent* = 6
-type Fn_ISignalNotifierStatics_AttachToEvent* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifierStatics_AttachToEvent* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISignalNotifierStatics_AttachToEvent2* = 7
-type Fn_ISignalNotifierStatics_AttachToEvent2* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifierStatics_AttachToEvent2* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISignalNotifierStatics_AttachToSemaphore* = 8
-type Fn_ISignalNotifierStatics_AttachToSemaphore* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifierStatics_AttachToSemaphore* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISignalNotifierStatics_AttachToSemaphore2* = 9
-type Fn_ISignalNotifierStatics_AttachToSemaphore2* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISignalNotifierStatics_AttachToSemaphore2* = proc(self: pointer, a1: HSTRING, a2SignalHandler: pointer, a3: TimeSpan, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.SignalHandler  (delegate)
 const IID_SignalHandler* = GUID(
     data1: 0x923C402E'u32, data2: 0x4721'u16, data3: 0x440E'u16,
     data4: [0x9D'u8, 0xDA, 0x55, 0xB6, 0xF2, 0xE0, 0x77, 0x10])
 const Slot_SignalHandler_Invoke* = 3
-type Fn_SignalHandler_Invoke* = proc(self: pointer, a1SignalNotifier: pointer, a2: bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_SignalHandler_Invoke* = proc(self: pointer, a1SignalNotifier: pointer, a2: bool): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolStatics
 const IID_IThreadPoolStatics* = GUID(
     data1: 0xB6BF67DD'u32, data2: 0x84BD'u16, data3: 0x44F8'u16,
     data4: [0xAC'u8, 0x1C, 0x93, 0xEB, 0xCB, 0x9D, 0xBA, 0x91])
 const Slot_IThreadPoolStatics_RunAsync* = 6
-type Fn_IThreadPoolStatics_RunAsync* = proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolStatics_RunAsync* = proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IThreadPoolStatics_RunAsync2* = 7
-type Fn_IThreadPoolStatics_RunAsync2* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolStatics_RunAsync2* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, value: ptr pointer): HRESULT {.abi.}
 const Slot_IThreadPoolStatics_RunAsync3* = 8
-type Fn_IThreadPoolStatics_RunAsync3* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, a3: WorkItemOptions, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolStatics_RunAsync3* = proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority, a3: WorkItemOptions, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolTimer
 const IID_IThreadPoolTimer* = GUID(
     data1: 0x594EBE78'u32, data2: 0x55EA'u16, data3: 0x4A88'u16,
     data4: [0xA5'u8, 0x0D, 0x34, 0x02, 0xAE, 0x1F, 0x9C, 0xF2])
 const Slot_IThreadPoolTimer_get_Period* = 6
-type Fn_IThreadPoolTimer_get_Period* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimer_get_Period* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IThreadPoolTimer_get_Delay* = 7
-type Fn_IThreadPoolTimer_get_Delay* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimer_get_Delay* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IThreadPoolTimer_Cancel* = 8
-type Fn_IThreadPoolTimer_Cancel* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimer_Cancel* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.IThreadPoolTimerStatics
 const IID_IThreadPoolTimerStatics* = GUID(
     data1: 0x1A8A9D02'u32, data2: 0xE482'u16, data3: 0x461B'u16,
     data4: [0xB8'u8, 0xC7, 0x8E, 0xFA, 0xD1, 0xCC, 0xE5, 0x90])
 const Slot_IThreadPoolTimerStatics_CreatePeriodicTimer* = 6
-type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
 const Slot_IThreadPoolTimerStatics_CreateTimer* = 7
-type Fn_IThreadPoolTimerStatics_CreateTimer* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimerStatics_CreateTimer* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
 const Slot_IThreadPoolTimerStatics_CreatePeriodicTimer2* = 8
-type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer2* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimerStatics_CreatePeriodicTimer2* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IThreadPoolTimerStatics_CreateTimer2* = 9
-type Fn_IThreadPoolTimerStatics_CreateTimer2* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IThreadPoolTimerStatics_CreateTimer2* = proc(self: pointer, a1TimerElapsedHandler: pointer, a2: TimeSpan, a3TimerDestroyedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.TimerDestroyedHandler  (delegate)
 const IID_TimerDestroyedHandler* = GUID(
     data1: 0x34ED19FA'u32, data2: 0x8384'u16, data3: 0x4EB9'u16,
     data4: [0x82'u8, 0x09, 0xFB, 0x50, 0x94, 0xEE, 0xEC, 0x35])
 const Slot_TimerDestroyedHandler_Invoke* = 3
-type Fn_TimerDestroyedHandler_Invoke* = proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_TimerDestroyedHandler_Invoke* = proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.TimerElapsedHandler  (delegate)
 const IID_TimerElapsedHandler* = GUID(
     data1: 0xFAAEA667'u32, data2: 0xFBEB'u16, data3: 0x49CB'u16,
     data4: [0xAD'u8, 0xB2, 0x71, 0x18, 0x4C, 0x55, 0x6E, 0x43])
 const Slot_TimerElapsedHandler_Invoke* = 3
-type Fn_TimerElapsedHandler_Invoke* = proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_TimerElapsedHandler_Invoke* = proc(self: pointer, a1ThreadPoolTimer: pointer): HRESULT {.abi.}
 
 ## Windows.System.Threading.WorkItemHandler  (delegate)
 const IID_WorkItemHandler* = GUID(
     data1: 0x1D1A8B8B'u32, data2: 0xFA66'u16, data3: 0x414F'u16,
     data4: [0x9C'u8, 0xBD, 0xB6, 0x5F, 0xC9, 0x9D, 0x17, 0xFA])
 const Slot_WorkItemHandler_Invoke* = 3
-type Fn_WorkItemHandler_Invoke* = proc(self: pointer, a1IAsyncAction: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_WorkItemHandler_Invoke* = proc(self: pointer, a1IAsyncAction: pointer): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateItem
 const IID_ISystemUpdateItem* = GUID(
     data1: 0x779740EB'u32, data2: 0x5624'u16, data3: 0x519E'u16,
     data4: [0xA8'u8, 0xE2, 0x09, 0xE9, 0x17, 0x3B, 0x3F, 0xB7])
 const Slot_ISystemUpdateItem_get_State* = 6
-type Fn_ISystemUpdateItem_get_State* = proc(self: pointer, value: ptr SystemUpdateItemState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_State* = proc(self: pointer, value: ptr SystemUpdateItemState): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_Title* = 7
-type Fn_ISystemUpdateItem_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_Title* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_Description* = 8
-type Fn_ISystemUpdateItem_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_Description* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_Id* = 9
-type Fn_ISystemUpdateItem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_Id* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_Revision* = 10
-type Fn_ISystemUpdateItem_get_Revision* = proc(self: pointer, value: ptr uint32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_Revision* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_DownloadProgress* = 11
-type Fn_ISystemUpdateItem_get_DownloadProgress* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_DownloadProgress* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_InstallProgress* = 12
-type Fn_ISystemUpdateItem_get_InstallProgress* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_InstallProgress* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISystemUpdateItem_get_ExtendedError* = 13
-type Fn_ISystemUpdateItem_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateItem_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateLastErrorInfo
 const IID_ISystemUpdateLastErrorInfo* = GUID(
     data1: 0x7EE887F7'u32, data2: 0x8A44'u16, data3: 0x5B6E'u16,
     data4: [0xBD'u8, 0x07, 0x7A, 0xEC, 0xE4, 0x11, 0x6E, 0xA9])
 const Slot_ISystemUpdateLastErrorInfo_get_State* = 6
-type Fn_ISystemUpdateLastErrorInfo_get_State* = proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateLastErrorInfo_get_State* = proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.abi.}
 const Slot_ISystemUpdateLastErrorInfo_get_ExtendedError* = 7
-type Fn_ISystemUpdateLastErrorInfo_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateLastErrorInfo_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_ISystemUpdateLastErrorInfo_get_IsInteractive* = 8
-type Fn_ISystemUpdateLastErrorInfo_get_IsInteractive* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateLastErrorInfo_get_IsInteractive* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.Update.ISystemUpdateManagerStatics
 const IID_ISystemUpdateManagerStatics* = GUID(
     data1: 0xB2D3FCEF'u32, data2: 0x2971'u16, data3: 0x51BE'u16,
     data4: [0xB4'u8, 0x1A, 0x8B, 0xD7, 0x03, 0xBB, 0x70, 0x1A])
 const Slot_ISystemUpdateManagerStatics_IsSupported* = 6
-type Fn_ISystemUpdateManagerStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_State* = 7
-type Fn_ISystemUpdateManagerStatics_get_State* = proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_State* = proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_add_StateChanged* = 8
-type Fn_ISystemUpdateManagerStatics_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_add_StateChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_remove_StateChanged* = 9
-type Fn_ISystemUpdateManagerStatics_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_remove_StateChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_DownloadProgress* = 10
-type Fn_ISystemUpdateManagerStatics_get_DownloadProgress* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_DownloadProgress* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_InstallProgress* = 11
-type Fn_ISystemUpdateManagerStatics_get_InstallProgress* = proc(self: pointer, value: ptr float64): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_InstallProgress* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursStart* = 12
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursStart* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursStart* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursEnd* = 13
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursEnd* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursEnd* = proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_UserActiveHoursMax* = 14
-type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursMax* = proc(self: pointer, value: ptr int32): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursMax* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_TrySetUserActiveHours* = 15
-type Fn_ISystemUpdateManagerStatics_TrySetUserActiveHours* = proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_TrySetUserActiveHours* = proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr bool): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* = 16
-type Fn_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_LastUpdateInstallTime* = 17
-type Fn_ISystemUpdateManagerStatics_get_LastUpdateInstallTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_LastUpdateInstallTime* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_LastErrorInfo* = 18
-type Fn_ISystemUpdateManagerStatics_get_LastErrorInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_LastErrorInfo* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds* = 19
-type Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync* = 20
-type Fn_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync* = 21
-type Fn_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_ExtendedError* = 22
-type Fn_ISystemUpdateManagerStatics_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_ExtendedError* = proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_GetUpdateItems* = 23
-type Fn_ISystemUpdateManagerStatics_GetUpdateItems* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_GetUpdateItems* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_AttentionRequiredReason* = 24
-type Fn_ISystemUpdateManagerStatics_get_AttentionRequiredReason* = proc(self: pointer, value: ptr SystemUpdateAttentionRequiredReason): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_get_AttentionRequiredReason* = proc(self: pointer, value: ptr SystemUpdateAttentionRequiredReason): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_SetFlightRing* = 25
-type Fn_ISystemUpdateManagerStatics_SetFlightRing* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_SetFlightRing* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_GetFlightRing* = 26
-type Fn_ISystemUpdateManagerStatics_GetFlightRing* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_GetFlightRing* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_StartInstall* = 27
-type Fn_ISystemUpdateManagerStatics_StartInstall* = proc(self: pointer, a1: SystemUpdateStartInstallAction): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_StartInstall* = proc(self: pointer, a1: SystemUpdateStartInstallAction): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_RebootToCompleteInstall* = 28
-type Fn_ISystemUpdateManagerStatics_RebootToCompleteInstall* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_RebootToCompleteInstall* = proc(self: pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_StartCancelUpdates* = 29
-type Fn_ISystemUpdateManagerStatics_StartCancelUpdates* = proc(self: pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ISystemUpdateManagerStatics_StartCancelUpdates* = proc(self: pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerForUser
 const IID_IAdvertisingManagerForUser* = GUID(
     data1: 0x928BF3D0'u32, data2: 0xCF7C'u16, data3: 0x4AB0'u16,
     data4: [0xA7'u8, 0xDC, 0x6D, 0xC5, 0xBC, 0xD4, 0x42, 0x52])
 const Slot_IAdvertisingManagerForUser_get_AdvertisingId* = 6
-type Fn_IAdvertisingManagerForUser_get_AdvertisingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAdvertisingManagerForUser_get_AdvertisingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAdvertisingManagerForUser_get_User* = 7
-type Fn_IAdvertisingManagerForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAdvertisingManagerForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerStatics
 const IID_IAdvertisingManagerStatics* = GUID(
     data1: 0xADD3468C'u32, data2: 0xA273'u16, data3: 0x48CB'u16,
     data4: [0xB3'u8, 0x46, 0x35, 0x44, 0x52, 0x2D, 0x55, 0x81])
 const Slot_IAdvertisingManagerStatics_get_AdvertisingId* = 6
-type Fn_IAdvertisingManagerStatics_get_AdvertisingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAdvertisingManagerStatics_get_AdvertisingId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAdvertisingManagerStatics2
 const IID_IAdvertisingManagerStatics2* = GUID(
     data1: 0xDD0947AF'u32, data2: 0x1A6D'u16, data3: 0x46B0'u16,
     data4: [0x95'u8, 0xBC, 0xF3, 0xF9, 0xD6, 0xBE, 0xB9, 0xFB])
 const Slot_IAdvertisingManagerStatics2_GetForUser* = 6
-type Fn_IAdvertisingManagerStatics2_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAdvertisingManagerStatics2_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAssignedAccessSettings
 const IID_IAssignedAccessSettings* = GUID(
     data1: 0x1BC57F1C'u32, data2: 0xE971'u16, data3: 0x5757'u16,
     data4: [0xB8'u8, 0xE0, 0x51, 0x2F, 0x8B, 0x8C, 0x46, 0xD2])
 const Slot_IAssignedAccessSettings_get_IsEnabled* = 6
-type Fn_IAssignedAccessSettings_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAssignedAccessSettings_get_IsEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAssignedAccessSettings_get_IsSingleAppKioskMode* = 7
-type Fn_IAssignedAccessSettings_get_IsSingleAppKioskMode* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAssignedAccessSettings_get_IsSingleAppKioskMode* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAssignedAccessSettings_get_User* = 8
-type Fn_IAssignedAccessSettings_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAssignedAccessSettings_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IAssignedAccessSettingsStatics
 const IID_IAssignedAccessSettingsStatics* = GUID(
     data1: 0x34A81D0D'u32, data2: 0x8A29'u16, data3: 0x5EF3'u16,
     data4: [0xA7'u8, 0xBE, 0x61, 0x8E, 0x6A, 0xC3, 0xBD, 0x01])
 const Slot_IAssignedAccessSettingsStatics_GetDefault* = 6
-type Fn_IAssignedAccessSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAssignedAccessSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAssignedAccessSettingsStatics_GetForUser* = 7
-type Fn_IAssignedAccessSettingsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IAssignedAccessSettingsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IDiagnosticsSettings
 const IID_IDiagnosticsSettings* = GUID(
     data1: 0xE5E9ECCD'u32, data2: 0x2711'u16, data3: 0x44E0'u16,
     data4: [0x97'u8, 0x3C, 0x49, 0x1D, 0x78, 0x04, 0x8D, 0x24])
 const Slot_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences* = 6
-type Fn_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDiagnosticsSettings_get_User* = 7
-type Fn_IDiagnosticsSettings_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticsSettings_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IDiagnosticsSettingsStatics
 const IID_IDiagnosticsSettingsStatics* = GUID(
     data1: 0x72D2E80F'u32, data2: 0x5390'u16, data3: 0x4793'u16,
     data4: [0x99'u8, 0x0B, 0x3C, 0xCC, 0x7D, 0x6A, 0xC9, 0xC8])
 const Slot_IDiagnosticsSettingsStatics_GetDefault* = 6
-type Fn_IDiagnosticsSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticsSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDiagnosticsSettingsStatics_GetForUser* = 7
-type Fn_IDiagnosticsSettingsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IDiagnosticsSettingsStatics_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IFirstSignInSettings
 const IID_IFirstSignInSettings* = GUID(
@@ -4375,132 +4376,132 @@ const IID_IFirstSignInSettingsStatics* = GUID(
     data1: 0x1CE18F0F'u32, data2: 0x1C41'u16, data3: 0x4EA0'u16,
     data4: [0xB7'u8, 0xA2, 0x6F, 0x0C, 0x1C, 0x7E, 0x84, 0x38])
 const Slot_IFirstSignInSettingsStatics_GetDefault* = 6
-type Fn_IFirstSignInSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IFirstSignInSettingsStatics_GetDefault* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesForUser
 const IID_IGlobalizationPreferencesForUser* = GUID(
     data1: 0x150F0795'u32, data2: 0x4F6E'u16, data3: 0x40BA'u16,
     data4: [0xA0'u8, 0x10, 0xE2, 0x7D, 0x81, 0xBD, 0xA7, 0xF5])
 const Slot_IGlobalizationPreferencesForUser_get_User* = 6
-type Fn_IGlobalizationPreferencesForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_User* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_Calendars* = 7
-type Fn_IGlobalizationPreferencesForUser_get_Calendars* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_Calendars* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_Clocks* = 8
-type Fn_IGlobalizationPreferencesForUser_get_Clocks* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_Clocks* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_Currencies* = 9
-type Fn_IGlobalizationPreferencesForUser_get_Currencies* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_Currencies* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_Languages* = 10
-type Fn_IGlobalizationPreferencesForUser_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_HomeGeographicRegion* = 11
-type Fn_IGlobalizationPreferencesForUser_get_HomeGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_HomeGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesForUser_get_WeekStartsOn* = 12
-type Fn_IGlobalizationPreferencesForUser_get_WeekStartsOn* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesForUser_get_WeekStartsOn* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics
 const IID_IGlobalizationPreferencesStatics* = GUID(
     data1: 0x01BF4326'u32, data2: 0xED37'u16, data3: 0x4E96'u16,
     data4: [0xB0'u8, 0xE9, 0xC1, 0x34, 0x0D, 0x1E, 0xA1, 0x58])
 const Slot_IGlobalizationPreferencesStatics_get_Calendars* = 6
-type Fn_IGlobalizationPreferencesStatics_get_Calendars* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_Calendars* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics_get_Clocks* = 7
-type Fn_IGlobalizationPreferencesStatics_get_Clocks* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_Clocks* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics_get_Currencies* = 8
-type Fn_IGlobalizationPreferencesStatics_get_Currencies* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_Currencies* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics_get_Languages* = 9
-type Fn_IGlobalizationPreferencesStatics_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_Languages* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics_get_HomeGeographicRegion* = 10
-type Fn_IGlobalizationPreferencesStatics_get_HomeGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_HomeGeographicRegion* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics_get_WeekStartsOn* = 11
-type Fn_IGlobalizationPreferencesStatics_get_WeekStartsOn* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics_get_WeekStartsOn* = proc(self: pointer, value: ptr DayOfWeek): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics2
 const IID_IGlobalizationPreferencesStatics2* = GUID(
     data1: 0xFCCE85F1'u32, data2: 0x4300'u16, data3: 0x4CD0'u16,
     data4: [0x9C'u8, 0xAC, 0x1A, 0x8E, 0x7B, 0x7E, 0x18, 0xF4])
 const Slot_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion* = 6
-type Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion* = proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IGlobalizationPreferencesStatics2_TrySetLanguages* = 7
-type Fn_IGlobalizationPreferencesStatics2_TrySetLanguages* = proc(self: pointer, a1: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics2_TrySetLanguages* = proc(self: pointer, a1: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IGlobalizationPreferencesStatics3
 const IID_IGlobalizationPreferencesStatics3* = GUID(
     data1: 0x1E059733'u32, data2: 0x35F5'u16, data3: 0x40D8'u16,
     data4: [0xB9'u8, 0xE8, 0xAE, 0xF3, 0xEF, 0x85, 0x6F, 0xCE])
 const Slot_IGlobalizationPreferencesStatics3_GetForUser* = 6
-type Fn_IGlobalizationPreferencesStatics3_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IGlobalizationPreferencesStatics3_GetForUser* = proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.ILockScreenImageFeedStatics
 const IID_ILockScreenImageFeedStatics* = GUID(
     data1: 0x2C0D73F6'u32, data2: 0x03A9'u16, data3: 0x41A6'u16,
     data4: [0x9B'u8, 0x01, 0x49, 0x52, 0x51, 0xFF, 0x51, 0xD5])
 const Slot_ILockScreenImageFeedStatics_RequestSetImageFeedAsync* = 6
-type Fn_ILockScreenImageFeedStatics_RequestSetImageFeedAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenImageFeedStatics_RequestSetImageFeedAsync* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILockScreenImageFeedStatics_TryRemoveImageFeed* = 7
-type Fn_ILockScreenImageFeedStatics_TryRemoveImageFeed* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenImageFeedStatics_TryRemoveImageFeed* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.ILockScreenStatics
 const IID_ILockScreenStatics* = GUID(
     data1: 0x3EE9D3AD'u32, data2: 0xB607'u16, data3: 0x40AE'u16,
     data4: [0xB4'u8, 0x26, 0x76, 0x31, 0xD9, 0x82, 0x12, 0x69])
 const Slot_ILockScreenStatics_get_OriginalImageFile* = 6
-type Fn_ILockScreenStatics_get_OriginalImageFile* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenStatics_get_OriginalImageFile* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILockScreenStatics_GetImageStream* = 7
-type Fn_ILockScreenStatics_GetImageStream* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenStatics_GetImageStream* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILockScreenStatics_SetImageFileAsync* = 8
-type Fn_ILockScreenStatics_SetImageFileAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenStatics_SetImageFileAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILockScreenStatics_SetImageStreamAsync* = 9
-type Fn_ILockScreenStatics_SetImageStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_ILockScreenStatics_SetImageStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserInformationStatics
 const IID_IUserInformationStatics* = GUID(
     data1: 0x77F3A910'u32, data2: 0x48FA'u16, data3: 0x489C'u16,
     data4: [0x93'u8, 0x4E, 0x2A, 0xE8, 0x5B, 0xA8, 0xF7, 0x72])
 const Slot_IUserInformationStatics_get_AccountPictureChangeEnabled* = 6
-type Fn_IUserInformationStatics_get_AccountPictureChangeEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_get_AccountPictureChangeEnabled* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUserInformationStatics_get_NameAccessAllowed* = 7
-type Fn_IUserInformationStatics_get_NameAccessAllowed* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_get_NameAccessAllowed* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetAccountPicture* = 8
-type Fn_IUserInformationStatics_GetAccountPicture* = proc(self: pointer, a1: AccountPictureKind, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetAccountPicture* = proc(self: pointer, a1: AccountPictureKind, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPictureAsync* = 9
-type Fn_IUserInformationStatics_SetAccountPictureAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_SetAccountPictureAsync* = proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPicturesAsync* = 10
-type Fn_IUserInformationStatics_SetAccountPicturesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2IStorageFile: pointer, a3IStorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_SetAccountPicturesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2IStorageFile: pointer, a3IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync* = 11
-type Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* = 12
-type Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, a2IRandomAccessStream: pointer, a3IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* = proc(self: pointer, a1IRandomAccessStream: pointer, a2IRandomAccessStream: pointer, a3IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_add_AccountPictureChanged* = 13
-type Fn_IUserInformationStatics_add_AccountPictureChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_add_AccountPictureChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserInformationStatics_remove_AccountPictureChanged* = 14
-type Fn_IUserInformationStatics_remove_AccountPictureChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_remove_AccountPictureChanged* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetDisplayNameAsync* = 15
-type Fn_IUserInformationStatics_GetDisplayNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetDisplayNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetFirstNameAsync* = 16
-type Fn_IUserInformationStatics_GetFirstNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetFirstNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetLastNameAsync* = 17
-type Fn_IUserInformationStatics_GetLastNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetLastNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetPrincipalNameAsync* = 18
-type Fn_IUserInformationStatics_GetPrincipalNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetPrincipalNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetSessionInitiationProtocolUriAsync* = 19
-type Fn_IUserInformationStatics_GetSessionInitiationProtocolUriAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetSessionInitiationProtocolUriAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetDomainNameAsync* = 20
-type Fn_IUserInformationStatics_GetDomainNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserInformationStatics_GetDomainNameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserProfilePersonalizationSettings
 const IID_IUserProfilePersonalizationSettings* = GUID(
     data1: 0x8CEDDAB4'u32, data2: 0x7998'u16, data3: 0x46D5'u16,
     data4: [0x8D'u8, 0xD3, 0x18, 0x4F, 0x1C, 0x5F, 0x9A, 0xB9])
 const Slot_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* = 6
-type Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* = 7
-type Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* = proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics
 const IID_IUserProfilePersonalizationSettingsStatics* = GUID(
     data1: 0x91ACB841'u32, data2: 0x5037'u16, data3: 0x454B'u16,
     data4: [0x98'u8, 0x83, 0xBB, 0x77, 0x2D, 0x08, 0xDD, 0x16])
 const Slot_IUserProfilePersonalizationSettingsStatics_get_Current* = 6
-type Fn_IUserProfilePersonalizationSettingsStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserProfilePersonalizationSettingsStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserProfilePersonalizationSettingsStatics_IsSupported* = 7
-type Fn_IUserProfilePersonalizationSettingsStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+type Fn_IUserProfilePersonalizationSettingsStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 
