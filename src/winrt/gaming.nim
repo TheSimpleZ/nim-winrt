@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/gaming
+import ./foundation
+export foundation
 import ./delegate
 export core, gaming
 import ./asyncops
@@ -2357,6 +2359,19 @@ proc setDelayBeforeClosingAfterMessageReceived*(self: GameChatOverlayMessageSour
   ## Windows.Gaming.UI.GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived
   withIface(self.p, IID_IGameChatOverlayMessageSource, "IGameChatOverlayMessageSource", it):
     vcall(it, Slot_IGameChatOverlayMessageSource_SetDelayBeforeClosingAfterMessageReceived, Fn_IGameChatOverlayMessageSource_SetDelayBeforeClosingAfterMessageReceived)(it, a1).check("GameChatOverlayMessageSource.SetDelayBeforeClosingAfterMessageReceived")
+
+proc gameUIArgs*(self: GameUIProviderActivatedEventArgs): ValueSet  =
+  ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_GameUIArgs
+  withIface(self.p, IID_IGameUIProviderActivatedEventArgs, "IGameUIProviderActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameUIProviderActivatedEventArgs_get_GameUIArgs, Fn_IGameUIProviderActivatedEventArgs_get_GameUIArgs)(it, tmp.addr).check("GameUIProviderActivatedEventArgs.get_GameUIArgs")
+    result = adopt[ValueSet](tmp)
+
+proc reportCompleted*(self: GameUIProviderActivatedEventArgs, a1: ValueSet)  =
+  ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.ReportCompleted
+  withIface(self.p, IID_IGameUIProviderActivatedEventArgs, "IGameUIProviderActivatedEventArgs", it):
+    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+      vcall(it, Slot_IGameUIProviderActivatedEventArgs_ReportCompleted, Fn_IGameUIProviderActivatedEventArgs_ReportCompleted)(it, p0).check("GameUIProviderActivatedEventArgs.ReportCompleted")
 
 proc status*(self: GameSaveBlobGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Status

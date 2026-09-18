@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/storage
+import ./foundation
+export foundation
 import ./delegate
 export core, storage
 import ./asyncops
@@ -173,7 +175,11 @@ type
     p*: pointer
   ApplicationData* {.inheritable, pure.} = object
     p*: pointer
+  ApplicationDataCompositeValue* {.inheritable, pure.} = object
+    p*: pointer
   ApplicationDataContainer* {.inheritable, pure.} = object
+    p*: pointer
+  ApplicationDataContainerSettings* {.inheritable, pure.} = object
     p*: pointer
   FileInformation* {.inheritable, pure.} = object
     p*: pointer
@@ -324,7 +330,11 @@ type
     p*: pointer
   DataReader* {.inheritable, pure.} = object
     p*: pointer
+  DataReaderLoadOperation* {.inheritable, pure.} = object
+    p*: pointer
   DataWriter* {.inheritable, pure.} = object
+    p*: pointer
+  DataWriterStoreOperation* {.inheritable, pure.} = object
     p*: pointer
   FileInputStream* {.inheritable, pure.} = object
     p*: pointer
@@ -428,6 +438,19 @@ proc `=sink`*(dst: var ApplicationData, src: ApplicationData) =
   `=destroy`(dst)
   wasMoved(dst)
   dst.p = src.p
+proc `=destroy`*(x: var ApplicationDataCompositeValue) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var ApplicationDataCompositeValue, src: ApplicationDataCompositeValue) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var ApplicationDataCompositeValue, src: ApplicationDataCompositeValue) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
 proc `=destroy`*(x: var ApplicationDataContainer) =
   if x.p != nil: releaseIfLive(x.p)
 proc `=copy`*(dst: var ApplicationDataContainer, src: ApplicationDataContainer) =
@@ -437,6 +460,19 @@ proc `=copy`*(dst: var ApplicationDataContainer, src: ApplicationDataContainer) 
   dst.p = src.p
   if dst.p != nil: addRefIfLive(dst.p)
 proc `=sink`*(dst: var ApplicationDataContainer, src: ApplicationDataContainer) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+proc `=destroy`*(x: var ApplicationDataContainerSettings) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var ApplicationDataContainerSettings, src: ApplicationDataContainerSettings) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var ApplicationDataContainerSettings, src: ApplicationDataContainerSettings) =
   # A move transfers the reference, so neither count changes.
   `=destroy`(dst)
   wasMoved(dst)
@@ -1351,6 +1387,19 @@ proc `=sink`*(dst: var DataReader, src: DataReader) =
   `=destroy`(dst)
   wasMoved(dst)
   dst.p = src.p
+proc `=destroy`*(x: var DataReaderLoadOperation) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var DataReaderLoadOperation, src: DataReaderLoadOperation) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var DataReaderLoadOperation, src: DataReaderLoadOperation) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
 proc `=destroy`*(x: var DataWriter) =
   if x.p != nil: releaseIfLive(x.p)
 proc `=copy`*(dst: var DataWriter, src: DataWriter) =
@@ -1360,6 +1409,19 @@ proc `=copy`*(dst: var DataWriter, src: DataWriter) =
   dst.p = src.p
   if dst.p != nil: addRefIfLive(dst.p)
 proc `=sink`*(dst: var DataWriter, src: DataWriter) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+proc `=destroy`*(x: var DataWriterStoreOperation) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var DataWriterStoreOperation, src: DataWriterStoreOperation) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var DataWriterStoreOperation, src: DataWriterStoreOperation) =
   # A move transfers the reference, so neither count changes.
   `=destroy`(dst)
   wasMoved(dst)
@@ -1591,7 +1653,9 @@ func isNil*(x: StorageItemAccessList): bool {.inline.} = x.p.isNil
 func isNil*(x: StorageItemMostRecentlyUsedList): bool {.inline.} = x.p.isNil
 func isNil*(x: AppDataPaths): bool {.inline.} = x.p.isNil
 func isNil*(x: ApplicationData): bool {.inline.} = x.p.isNil
+func isNil*(x: ApplicationDataCompositeValue): bool {.inline.} = x.p.isNil
 func isNil*(x: ApplicationDataContainer): bool {.inline.} = x.p.isNil
+func isNil*(x: ApplicationDataContainerSettings): bool {.inline.} = x.p.isNil
 func isNil*(x: FileInformation): bool {.inline.} = x.p.isNil
 func isNil*(x: FileInformationFactory): bool {.inline.} = x.p.isNil
 func isNil*(x: FolderInformation): bool {.inline.} = x.p.isNil
@@ -1662,7 +1726,9 @@ func isNil*(x: StorageStreamTransaction): bool {.inline.} = x.p.isNil
 func isNil*(x: StreamedFileDataRequest): bool {.inline.} = x.p.isNil
 func isNil*(x: Buffer): bool {.inline.} = x.p.isNil
 func isNil*(x: DataReader): bool {.inline.} = x.p.isNil
+func isNil*(x: DataReaderLoadOperation): bool {.inline.} = x.p.isNil
 func isNil*(x: DataWriter): bool {.inline.} = x.p.isNil
+func isNil*(x: DataWriterStoreOperation): bool {.inline.} = x.p.isNil
 func isNil*(x: FileInputStream): bool {.inline.} = x.p.isNil
 func isNil*(x: FileOutputStream): bool {.inline.} = x.p.isNil
 func isNil*(x: FileRandomAccessStream): bool {.inline.} = x.p.isNil
@@ -2109,12 +2175,21 @@ proc sharedLocalFolder*(self: ApplicationData): StorageFolder  =
     vcall(it, Slot_IApplicationData3_get_SharedLocalFolder, Fn_IApplicationData3_get_SharedLocalFolder)(it, tmp.addr).check("ApplicationData.get_SharedLocalFolder")
     result = adopt[StorageFolder](tmp)
 
+proc close*(self: ApplicationData)  =
+  ## Windows.Storage.ApplicationData.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ApplicationData.Close")
+
 proc current*(_: typedesc[ApplicationData]): ApplicationData  =
   ## Windows.Storage.ApplicationData.get_Current
   withStatics("Windows.Storage.ApplicationData", IID_IApplicationDataStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationDataStatics_get_Current, Fn_IApplicationDataStatics_get_Current)(it, tmp.addr).check("ApplicationData.get_Current")
     result = adopt[ApplicationData](tmp)
+
+proc newApplicationDataCompositeValue*(): ApplicationDataCompositeValue =
+  ## Activate a `Windows.Storage.ApplicationDataCompositeValue`.
+  adopt[ApplicationDataCompositeValue](activateAs("Windows.Storage.ApplicationDataCompositeValue", IID_IPropertySet))
 
 proc name*(self: ApplicationDataContainer): string  =
   ## Windows.Storage.ApplicationDataContainer.get_Name
@@ -2130,12 +2205,12 @@ proc locality*(self: ApplicationDataContainer): ApplicationDataLocality  =
     vcall(it, Slot_IApplicationDataContainer_get_Locality, Fn_IApplicationDataContainer_get_Locality)(it, tmp.addr).check("ApplicationDataContainer.get_Locality")
     result = tmp
 
-proc values*(self: ApplicationDataContainer): pointer  =
+proc values*(self: ApplicationDataContainer): ApplicationDataContainerSettings  =
   ## Windows.Storage.ApplicationDataContainer.get_Values
   withIface(self.p, IID_IApplicationDataContainer, "IApplicationDataContainer", it):
     var tmp: pointer
     vcall(it, Slot_IApplicationDataContainer_get_Values, Fn_IApplicationDataContainer_get_Values)(it, tmp.addr).check("ApplicationDataContainer.get_Values")
-    result = tmp
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc createContainer*(self: ApplicationDataContainer, a1: string, a2: ApplicationDataCreateDisposition): ApplicationDataContainer  =
   ## Windows.Storage.ApplicationDataContainer.CreateContainer
@@ -2150,6 +2225,11 @@ proc deleteContainer*(self: ApplicationDataContainer, a1: string)  =
   withIface(self.p, IID_IApplicationDataContainer, "IApplicationDataContainer", it):
     withHString(a1, h0):
       vcall(it, Slot_IApplicationDataContainer_DeleteContainer, Fn_IApplicationDataContainer_DeleteContainer)(it, h0).check("ApplicationDataContainer.DeleteContainer")
+
+proc close*(self: ApplicationDataContainer)  =
+  ## Windows.Storage.ApplicationDataContainer.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ApplicationDataContainer.Close")
 
 proc musicProperties*(self: FileInformation): MusicProperties  =
   ## Windows.Storage.BulkAccess.FileInformation.get_MusicProperties
@@ -2917,6 +2997,11 @@ proc detachStream*(self: Compressor): OutputStreamOverStream  =
     vcall(it, Slot_ICompressor_DetachStream, Fn_ICompressor_DetachStream)(it, tmp.addr).check("Compressor.DetachStream")
     result = adopt[OutputStreamOverStream](tmp)
 
+proc close*(self: Compressor)  =
+  ## Windows.Storage.Compression.Compressor.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Compressor.Close")
+
 proc createCompressor*(_: typedesc[Compressor], a1: OutputStreamOverStream): Compressor  =
   ## Windows.Storage.Compression.Compressor.CreateCompressor
   withStatics("Windows.Storage.Compression.Compressor", IID_ICompressorFactory, it):
@@ -2947,6 +3032,11 @@ proc readAsync*(self: Decompressor, a1: Buffer, a2: uint32, a3: InputStreamOptio
     withIface(a1.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, op.addr).check("Decompressor.ReadAsync")
   result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "Decompressor.ReadAsync"))
+
+proc close*(self: Decompressor)  =
+  ## Windows.Storage.Compression.Decompressor.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Decompressor.Close")
 
 proc createDecompressor*(_: typedesc[Decompressor], a1: InputStreamOverStream): Decompressor  =
   ## Windows.Storage.Compression.Decompressor.CreateDecompressor
@@ -3517,6 +3607,11 @@ proc canWrite*(self: StorageItemThumbnail): bool  =
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("StorageItemThumbnail.get_CanWrite")
     result = tmp
 
+proc close*(self: StorageItemThumbnail)  =
+  ## Windows.Storage.FileProperties.StorageItemThumbnail.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StorageItemThumbnail.Close")
+
 proc readAsync*(self: StorageItemThumbnail, a1: Buffer, a2: uint32, a3: InputStreamOptions): Future[Buffer] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.ReadAsync
   var op: pointer
@@ -3861,6 +3956,13 @@ proc newFileOpenPicker*(): FileOpenPicker =
   ## Activate a `Windows.Storage.Pickers.FileOpenPicker`.
   adopt[FileOpenPicker](activateAs("Windows.Storage.Pickers.FileOpenPicker", IID_IFileOpenPicker2))
 
+proc continuationData*(self: FileOpenPicker): ValueSet  =
+  ## Windows.Storage.Pickers.FileOpenPicker.get_ContinuationData
+  withIface(self.p, IID_IFileOpenPicker2, "IFileOpenPicker2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPicker2_get_ContinuationData, Fn_IFileOpenPicker2_get_ContinuationData)(it, tmp.addr).check("FileOpenPicker.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
+
 proc pickSingleFileAndContinue*(self: FileOpenPicker)  =
   ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAndContinue
   withIface(self.p, IID_IFileOpenPicker2, "IFileOpenPicker2", it):
@@ -3954,6 +4056,13 @@ proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile
 proc newFileSavePicker*(): FileSavePicker =
   ## Activate a `Windows.Storage.Pickers.FileSavePicker`.
   adopt[FileSavePicker](activateAs("Windows.Storage.Pickers.FileSavePicker", IID_IFileSavePicker2))
+
+proc continuationData*(self: FileSavePicker): ValueSet  =
+  ## Windows.Storage.Pickers.FileSavePicker.get_ContinuationData
+  withIface(self.p, IID_IFileSavePicker2, "IFileSavePicker2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileSavePicker2_get_ContinuationData, Fn_IFileSavePicker2_get_ContinuationData)(it, tmp.addr).check("FileSavePicker.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
 
 proc pickSaveFileAndContinue*(self: FileSavePicker)  =
   ## Windows.Storage.Pickers.FileSavePicker.PickSaveFileAndContinue
@@ -4060,6 +4169,13 @@ proc pickSaveFileAsync*(self: FileSavePicker): Future[StorageFile] {.async.} =
 proc newFolderPicker*(): FolderPicker =
   ## Activate a `Windows.Storage.Pickers.FolderPicker`.
   adopt[FolderPicker](activateAs("Windows.Storage.Pickers.FolderPicker", IID_IFolderPicker2))
+
+proc continuationData*(self: FolderPicker): ValueSet  =
+  ## Windows.Storage.Pickers.FolderPicker.get_ContinuationData
+  withIface(self.p, IID_IFolderPicker2, "IFolderPicker2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFolderPicker2_get_ContinuationData, Fn_IFolderPicker2_get_ContinuationData)(it, tmp.addr).check("FolderPicker.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
 
 proc pickFolderAndContinue*(self: FolderPicker)  =
   ## Windows.Storage.Pickers.FolderPicker.PickFolderAndContinue
@@ -5000,6 +5116,13 @@ proc `filePath=`*(self: StorageProviderSearchResult, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderQueryResult_put_FilePath, Fn_IStorageProviderQueryResult_put_FilePath)(it, h0).check("StorageProviderSearchResult.put_FilePath")
 
+proc requestedProperties*(self: StorageProviderSearchResult): PropertySet  =
+  ## Windows.Storage.Provider.StorageProviderSearchResult.get_RequestedProperties
+  withIface(self.p, IID_IStorageProviderQueryResult, "IStorageProviderQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderQueryResult_get_RequestedProperties, Fn_IStorageProviderQueryResult_get_RequestedProperties)(it, tmp.addr).check("StorageProviderSearchResult.get_RequestedProperties")
+    result = adopt[PropertySet](tmp)
+
 proc newStorageProviderStatusUI*(): StorageProviderStatusUI =
   ## Activate a `Windows.Storage.Provider.StorageProviderStatusUI`.
   adopt[StorageProviderStatusUI](activateAs("Windows.Storage.Provider.StorageProviderStatusUI", IID_IStorageProviderStatusUI))
@@ -5028,6 +5151,19 @@ proc `providerStateLabel=`*(self: StorageProviderStatusUI, value: string)  =
   withIface(self.p, IID_IStorageProviderStatusUI, "IStorageProviderStatusUI", it):
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderStatusUI_put_ProviderStateLabel, Fn_IStorageProviderStatusUI_put_ProviderStateLabel)(it, h0).check("StorageProviderStatusUI.put_ProviderStateLabel")
+
+proc providerStateIcon*(self: StorageProviderStatusUI): Uri  =
+  ## Windows.Storage.Provider.StorageProviderStatusUI.get_ProviderStateIcon
+  withIface(self.p, IID_IStorageProviderStatusUI, "IStorageProviderStatusUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderStatusUI_get_ProviderStateIcon, Fn_IStorageProviderStatusUI_get_ProviderStateIcon)(it, tmp.addr).check("StorageProviderStatusUI.get_ProviderStateIcon")
+    result = adopt[Uri](tmp)
+
+proc `providerStateIcon=`*(self: StorageProviderStatusUI, value: Uri)  =
+  ## Windows.Storage.Provider.StorageProviderStatusUI.put_ProviderStateIcon
+  withIface(self.p, IID_IStorageProviderStatusUI, "IStorageProviderStatusUI", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IStorageProviderStatusUI_put_ProviderStateIcon, Fn_IStorageProviderStatusUI_put_ProviderStateIcon)(it, p0).check("StorageProviderStatusUI.put_ProviderStateIcon")
 
 proc syncStatusCommand*(self: StorageProviderStatusUI): pointer  =
   ## Windows.Storage.Provider.StorageProviderStatusUI.get_SyncStatusCommand
@@ -5133,6 +5269,13 @@ proc `filePath=`*(self: StorageProviderSuggestionResult, value: string)  =
   withIface(self.p, IID_IStorageProviderQueryResult, "IStorageProviderQueryResult", it):
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderQueryResult_put_FilePath, Fn_IStorageProviderQueryResult_put_FilePath)(it, h0).check("StorageProviderSuggestionResult.put_FilePath")
+
+proc requestedProperties*(self: StorageProviderSuggestionResult): PropertySet  =
+  ## Windows.Storage.Provider.StorageProviderSuggestionResult.get_RequestedProperties
+  withIface(self.p, IID_IStorageProviderQueryResult, "IStorageProviderQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderQueryResult_get_RequestedProperties, Fn_IStorageProviderQueryResult_get_RequestedProperties)(it, tmp.addr).check("StorageProviderSuggestionResult.get_RequestedProperties")
+    result = adopt[PropertySet](tmp)
 
 proc suggestionsKind*(self: StorageProviderSuggestionsQueryOptions): StorageProviderResultKind  =
   ## Windows.Storage.Provider.StorageProviderSuggestionsQueryOptions.get_SuggestionsKind
@@ -5355,6 +5498,19 @@ proc storageProviderItemPropertyDefinitions*(self: StorageProviderSyncRootInfo):
     vcall(it, Slot_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions, Fn_IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions)(it, tmp.addr).check("StorageProviderSyncRootInfo.get_StorageProviderItemPropertyDefinitions")
     result = toSeq[StorageProviderItemPropertyDefinition](tmp, IID_IVector_1_StorageProviderItemPropertyDefinition)
     release(tmp)
+
+proc recycleBinUri*(self: StorageProviderSyncRootInfo): Uri  =
+  ## Windows.Storage.Provider.StorageProviderSyncRootInfo.get_RecycleBinUri
+  withIface(self.p, IID_IStorageProviderSyncRootInfo, "IStorageProviderSyncRootInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSyncRootInfo_get_RecycleBinUri, Fn_IStorageProviderSyncRootInfo_get_RecycleBinUri)(it, tmp.addr).check("StorageProviderSyncRootInfo.get_RecycleBinUri")
+    result = adopt[Uri](tmp)
+
+proc `recycleBinUri=`*(self: StorageProviderSyncRootInfo, value: Uri)  =
+  ## Windows.Storage.Provider.StorageProviderSyncRootInfo.put_RecycleBinUri
+  withIface(self.p, IID_IStorageProviderSyncRootInfo, "IStorageProviderSyncRootInfo", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IStorageProviderSyncRootInfo_put_RecycleBinUri, Fn_IStorageProviderSyncRootInfo_put_RecycleBinUri)(it, p0).check("StorageProviderSyncRootInfo.put_RecycleBinUri")
 
 proc providerId*(self: StorageProviderSyncRootInfo): GUID  =
   ## Windows.Storage.Provider.StorageProviderSyncRootInfo.get_ProviderId
@@ -6203,6 +6359,34 @@ proc getFileFromPathAsync*(_: typedesc[StorageFile], a1: string): Future[Storage
       vcall(it, Slot_IStorageFileStatics_GetFileFromPathAsync, Fn_IStorageFileStatics_GetFileFromPathAsync)(it, h0, op.addr).check("StorageFile.GetFileFromPathAsync")
   result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.GetFileFromPathAsync"))
 
+proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], a1: Uri): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.GetFileFromApplicationUriAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IStorageFileStatics_GetFileFromApplicationUriAsync, Fn_IStorageFileStatics_GetFileFromApplicationUriAsync)(it, p0, op.addr).check("StorageFile.GetFileFromApplicationUriAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.GetFileFromApplicationUriAsync"))
+
+proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile], a1: string, a2: Uri, a3: RandomAccessStreamReference): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.CreateStreamedFileFromUriAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withHString(a1, h0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        withIface(a3.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p2):
+          vcall(it, Slot_IStorageFileStatics_CreateStreamedFileFromUriAsync, Fn_IStorageFileStatics_CreateStreamedFileFromUriAsync)(it, h0, p1, p2, op.addr).check("StorageFile.CreateStreamedFileFromUriAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.CreateStreamedFileFromUriAsync"))
+
+proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile], a1: StorageFile, a2: Uri, a3: RandomAccessStreamReference): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.ReplaceWithStreamedFileFromUriAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        withIface(a3.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p2):
+          vcall(it, Slot_IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync, Fn_IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync)(it, p0, p1, p2, op.addr).check("StorageFile.ReplaceWithStreamedFileFromUriAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.ReplaceWithStreamedFileFromUriAsync"))
+
 proc createFileAsync*(self: StorageFolder, a1: string): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFolder.CreateFileAsync
   var op: pointer
@@ -6678,6 +6862,16 @@ proc commitAsync*(self: StorageStreamTransaction) {.async.} =
     vcall(it, Slot_IStorageStreamTransaction_CommitAsync, Fn_IStorageStreamTransaction_CommitAsync)(it, op.addr).check("StorageStreamTransaction.CommitAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "StorageStreamTransaction.CommitAsync")
 
+proc close*(self: StorageStreamTransaction)  =
+  ## Windows.Storage.StorageStreamTransaction.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StorageStreamTransaction.Close")
+
+proc close*(self: StreamedFileDataRequest)  =
+  ## Windows.Storage.StreamedFileDataRequest.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StreamedFileDataRequest.Close")
+
 proc failAndClose*(self: StreamedFileDataRequest, a1: StreamedFileFailureMode)  =
   ## Windows.Storage.StreamedFileDataRequest.FailAndClose
   withIface(self.p, IID_IStreamedFileDataRequest, "IStreamedFileDataRequest", it):
@@ -6702,12 +6896,21 @@ proc `length=`*(self: Buffer, value: uint32)  =
   withIface(self.p, IID_IBuffer, "IBuffer", it):
     vcall(it, Slot_IBuffer_put_Length, Fn_IBuffer_put_Length)(it, value).check("Buffer.put_Length")
 
-proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], a1: pointer): Buffer  =
+proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], a1: MemoryBuffer): Buffer  =
   ## Windows.Storage.Streams.Buffer.CreateCopyFromMemoryBuffer
   withStatics("Windows.Storage.Streams.Buffer", IID_IBufferStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IBufferStatics_CreateCopyFromMemoryBuffer, Fn_IBufferStatics_CreateCopyFromMemoryBuffer)(it, a1, tmp.addr).check("Buffer.CreateCopyFromMemoryBuffer")
-    result = adopt[Buffer](tmp)
+    withIface(a1.p, IID_IMemoryBuffer, "IMemoryBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBufferStatics_CreateCopyFromMemoryBuffer, Fn_IBufferStatics_CreateCopyFromMemoryBuffer)(it, p0, tmp.addr).check("Buffer.CreateCopyFromMemoryBuffer")
+      result = adopt[Buffer](tmp)
+
+proc createMemoryBufferOverIBuffer*(_: typedesc[Buffer], a1: Buffer): MemoryBuffer  =
+  ## Windows.Storage.Streams.Buffer.CreateMemoryBufferOverIBuffer
+  withStatics("Windows.Storage.Streams.Buffer", IID_IBufferStatics, it):
+    withIface(a1.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBufferStatics_CreateMemoryBufferOverIBuffer, Fn_IBufferStatics_CreateMemoryBufferOverIBuffer)(it, p0, tmp.addr).check("Buffer.CreateMemoryBufferOverIBuffer")
+      result = adopt[MemoryBuffer](tmp)
 
 proc create*(_: typedesc[Buffer], a1: uint32): Buffer  =
   ## Windows.Storage.Streams.Buffer.Create
@@ -6864,6 +7067,13 @@ proc readTimeSpan*(self: DataReader): TimeSpan  =
     vcall(it, Slot_IDataReader_ReadTimeSpan, Fn_IDataReader_ReadTimeSpan)(it, tmp.addr).check("DataReader.ReadTimeSpan")
     result = tmp
 
+proc loadAsync*(self: DataReader, a1: uint32): DataReaderLoadOperation  =
+  ## Windows.Storage.Streams.DataReader.LoadAsync
+  withIface(self.p, IID_IDataReader, "IDataReader", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataReader_LoadAsync, Fn_IDataReader_LoadAsync)(it, a1, tmp.addr).check("DataReader.LoadAsync")
+    result = adopt[DataReaderLoadOperation](tmp)
+
 proc detachBuffer*(self: DataReader): Buffer  =
   ## Windows.Storage.Streams.DataReader.DetachBuffer
   withIface(self.p, IID_IDataReader, "IDataReader", it):
@@ -6877,6 +7087,11 @@ proc detachStream*(self: DataReader): InputStreamOverStream  =
     var tmp: pointer
     vcall(it, Slot_IDataReader_DetachStream, Fn_IDataReader_DetachStream)(it, tmp.addr).check("DataReader.DetachStream")
     result = adopt[InputStreamOverStream](tmp)
+
+proc close*(self: DataReader)  =
+  ## Windows.Storage.Streams.DataReader.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DataReader.Close")
 
 proc fromBuffer*(_: typedesc[DataReader], a1: Buffer): DataReader  =
   ## Windows.Storage.Streams.DataReader.FromBuffer
@@ -6893,6 +7108,30 @@ proc createDataReader*(_: typedesc[DataReader], a1: InputStreamOverStream): Data
       var tmp: pointer
       vcall(it, Slot_IDataReaderFactory_CreateDataReader, Fn_IDataReaderFactory_CreateDataReader)(it, p0, tmp.addr).check("DataReader.CreateDataReader")
       result = adopt[DataReader](tmp)
+
+proc id*(self: DataReaderLoadOperation): uint32  =
+  ## Windows.Storage.Streams.DataReaderLoadOperation.get_Id
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: uint32
+    vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DataReaderLoadOperation.get_Id")
+    result = tmp
+
+proc errorCode*(self: DataReaderLoadOperation): HRESULT  =
+  ## Windows.Storage.Streams.DataReaderLoadOperation.get_ErrorCode
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: HRESULT
+    vcall(it, Slot_IAsyncInfo_get_ErrorCode, Fn_IAsyncInfo_get_ErrorCode)(it, tmp.addr).check("DataReaderLoadOperation.get_ErrorCode")
+    result = tmp
+
+proc cancel*(self: DataReaderLoadOperation)  =
+  ## Windows.Storage.Streams.DataReaderLoadOperation.Cancel
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Cancel, Fn_IAsyncInfo_Cancel)(it).check("DataReaderLoadOperation.Cancel")
+
+proc close*(self: DataReaderLoadOperation)  =
+  ## Windows.Storage.Streams.DataReaderLoadOperation.Close
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Close, Fn_IAsyncInfo_Close)(it).check("DataReaderLoadOperation.Close")
 
 proc newDataWriter*(): DataWriter =
   ## Activate a `Windows.Storage.Streams.DataWriter`.
@@ -7022,6 +7261,13 @@ proc measureString*(self: DataWriter, a1: string): uint32  =
       vcall(it, Slot_IDataWriter_MeasureString, Fn_IDataWriter_MeasureString)(it, h0, tmp.addr).check("DataWriter.MeasureString")
       result = tmp
 
+proc storeAsync*(self: DataWriter): DataWriterStoreOperation  =
+  ## Windows.Storage.Streams.DataWriter.StoreAsync
+  withIface(self.p, IID_IDataWriter, "IDataWriter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataWriter_StoreAsync, Fn_IDataWriter_StoreAsync)(it, tmp.addr).check("DataWriter.StoreAsync")
+    result = adopt[DataWriterStoreOperation](tmp)
+
 proc detachBuffer*(self: DataWriter): Buffer  =
   ## Windows.Storage.Streams.DataWriter.DetachBuffer
   withIface(self.p, IID_IDataWriter, "IDataWriter", it):
@@ -7036,6 +7282,11 @@ proc detachStream*(self: DataWriter): OutputStreamOverStream  =
     vcall(it, Slot_IDataWriter_DetachStream, Fn_IDataWriter_DetachStream)(it, tmp.addr).check("DataWriter.DetachStream")
     result = adopt[OutputStreamOverStream](tmp)
 
+proc close*(self: DataWriter)  =
+  ## Windows.Storage.Streams.DataWriter.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DataWriter.Close")
+
 proc createDataWriter*(_: typedesc[DataWriter], a1: OutputStreamOverStream): DataWriter  =
   ## Windows.Storage.Streams.DataWriter.CreateDataWriter
   withStatics("Windows.Storage.Streams.DataWriter", IID_IDataWriterFactory, it):
@@ -7044,6 +7295,30 @@ proc createDataWriter*(_: typedesc[DataWriter], a1: OutputStreamOverStream): Dat
       vcall(it, Slot_IDataWriterFactory_CreateDataWriter, Fn_IDataWriterFactory_CreateDataWriter)(it, p0, tmp.addr).check("DataWriter.CreateDataWriter")
       result = adopt[DataWriter](tmp)
 
+proc id*(self: DataWriterStoreOperation): uint32  =
+  ## Windows.Storage.Streams.DataWriterStoreOperation.get_Id
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: uint32
+    vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DataWriterStoreOperation.get_Id")
+    result = tmp
+
+proc errorCode*(self: DataWriterStoreOperation): HRESULT  =
+  ## Windows.Storage.Streams.DataWriterStoreOperation.get_ErrorCode
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: HRESULT
+    vcall(it, Slot_IAsyncInfo_get_ErrorCode, Fn_IAsyncInfo_get_ErrorCode)(it, tmp.addr).check("DataWriterStoreOperation.get_ErrorCode")
+    result = tmp
+
+proc cancel*(self: DataWriterStoreOperation)  =
+  ## Windows.Storage.Streams.DataWriterStoreOperation.Cancel
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Cancel, Fn_IAsyncInfo_Cancel)(it).check("DataWriterStoreOperation.Cancel")
+
+proc close*(self: DataWriterStoreOperation)  =
+  ## Windows.Storage.Streams.DataWriterStoreOperation.Close
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Close, Fn_IAsyncInfo_Close)(it).check("DataWriterStoreOperation.Close")
+
 proc readAsync*(self: FileInputStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Future[Buffer] {.async.} =
   ## Windows.Storage.Streams.FileInputStream.ReadAsync
   var op: pointer
@@ -7051,6 +7326,16 @@ proc readAsync*(self: FileInputStream, a1: Buffer, a2: uint32, a3: InputStreamOp
     withIface(a1.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, op.addr).check("FileInputStream.ReadAsync")
   result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "FileInputStream.ReadAsync"))
+
+proc close*(self: FileInputStream)  =
+  ## Windows.Storage.Streams.FileInputStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("FileInputStream.Close")
+
+proc close*(self: FileOutputStream)  =
+  ## Windows.Storage.Streams.FileOutputStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("FileOutputStream.Close")
 
 proc size*(self: FileRandomAccessStream): uint64  =
   ## Windows.Storage.Streams.FileRandomAccessStream.get_Size
@@ -7110,6 +7395,11 @@ proc canWrite*(self: FileRandomAccessStream): bool  =
     var tmp: bool
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("FileRandomAccessStream.get_CanWrite")
     result = tmp
+
+proc close*(self: FileRandomAccessStream)  =
+  ## Windows.Storage.Streams.FileRandomAccessStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("FileRandomAccessStream.Close")
 
 proc readAsync*(self: FileRandomAccessStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Future[Buffer] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.ReadAsync
@@ -7214,6 +7504,11 @@ proc canWrite*(self: InMemoryRandomAccessStream): bool  =
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("InMemoryRandomAccessStream.get_CanWrite")
     result = tmp
 
+proc close*(self: InMemoryRandomAccessStream)  =
+  ## Windows.Storage.Streams.InMemoryRandomAccessStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("InMemoryRandomAccessStream.Close")
+
 proc readAsync*(self: InMemoryRandomAccessStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Future[Buffer] {.async.} =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.ReadAsync
   var op: pointer
@@ -7229,6 +7524,16 @@ proc readAsync*(self: InputStreamOverStream, a1: Buffer, a2: uint32, a3: InputSt
     withIface(a1.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, a2, a3, op.addr).check("InputStreamOverStream.ReadAsync")
   result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "InputStreamOverStream.ReadAsync"))
+
+proc close*(self: InputStreamOverStream)  =
+  ## Windows.Storage.Streams.InputStreamOverStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("InputStreamOverStream.Close")
+
+proc close*(self: OutputStreamOverStream)  =
+  ## Windows.Storage.Streams.OutputStreamOverStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("OutputStreamOverStream.Close")
 
 proc size*(self: RandomAccessStreamOverStream): uint64  =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.get_Size
@@ -7289,6 +7594,11 @@ proc canWrite*(self: RandomAccessStreamOverStream): bool  =
     vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("RandomAccessStreamOverStream.get_CanWrite")
     result = tmp
 
+proc close*(self: RandomAccessStreamOverStream)  =
+  ## Windows.Storage.Streams.RandomAccessStreamOverStream.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("RandomAccessStreamOverStream.Close")
+
 proc readAsync*(self: RandomAccessStreamOverStream, a1: Buffer, a2: uint32, a3: InputStreamOptions): Future[Buffer] {.async.} =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.ReadAsync
   var op: pointer
@@ -7310,6 +7620,14 @@ proc createFromFile*(_: typedesc[RandomAccessStreamReference], a1: StorageFile):
     withIface(a1.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_IRandomAccessStreamReferenceStatics_CreateFromFile, Fn_IRandomAccessStreamReferenceStatics_CreateFromFile)(it, p0, tmp.addr).check("RandomAccessStreamReference.CreateFromFile")
+      result = adopt[RandomAccessStreamReference](tmp)
+
+proc createFromUri*(_: typedesc[RandomAccessStreamReference], a1: Uri): RandomAccessStreamReference  =
+  ## Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri
+  withStatics("Windows.Storage.Streams.RandomAccessStreamReference", IID_IRandomAccessStreamReferenceStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IRandomAccessStreamReferenceStatics_CreateFromUri, Fn_IRandomAccessStreamReferenceStatics_CreateFromUri)(it, p0, tmp.addr).check("RandomAccessStreamReference.CreateFromUri")
       result = adopt[RandomAccessStreamReference](tmp)
 
 proc createFromStream*(_: typedesc[RandomAccessStreamReference], a1: RandomAccessStreamOverStream): RandomAccessStreamReference  =

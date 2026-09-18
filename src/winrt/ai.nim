@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/ai
+import ./foundation
+export foundation
 import ./delegate
 export core, ai
 import ./asyncops
@@ -942,12 +944,22 @@ proc id*(self: ActionEntity): string  =
     vcall(it, Slot_IActionEntity2_get_Id, Fn_IActionEntity2_get_Id)(it, tmp.addr).check("ActionEntity.get_Id")
     result = takeString(tmp)
 
+proc close*(self: ActionEntity)  =
+  ## Windows.AI.Actions.ActionEntity.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionEntity.Close")
+
 proc title*(self: ActionEntityDisplayInfo): string  =
   ## Windows.AI.Actions.ActionEntityDisplayInfo.get_Title
   withIface(self.p, IID_IActionEntityDisplayInfo, "IActionEntityDisplayInfo", it):
     var tmp: HSTRING
     vcall(it, Slot_IActionEntityDisplayInfo_get_Title, Fn_IActionEntityDisplayInfo_get_Title)(it, tmp.addr).check("ActionEntityDisplayInfo.get_Title")
     result = takeString(tmp)
+
+proc close*(self: ActionEntityDisplayInfo)  =
+  ## Windows.AI.Actions.ActionEntityDisplayInfo.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionEntityDisplayInfo.Close")
 
 proc createFileEntity*(self: ActionEntityFactory, a1: string): FileActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateFileEntity
@@ -981,6 +993,20 @@ proc createTextEntity*(self: ActionEntityFactory, a1: string): TextActionEntity 
       vcall(it, Slot_IActionEntityFactory2_CreateTextEntity, Fn_IActionEntityFactory2_CreateTextEntity)(it, h0, tmp.addr).check("ActionEntityFactory.CreateTextEntity")
       result = adopt[TextActionEntity](tmp)
 
+proc createRemoteFileEntity*(self: ActionEntityFactory, a1: string, a2: RemoteFileKind, a3: Uri, a4: string, a5: string, a6: string, a7: string, a8: string): RemoteFileActionEntity  =
+  ## Windows.AI.Actions.ActionEntityFactory.CreateRemoteFileEntity
+  withIface(self.p, IID_IActionEntityFactory3, "IActionEntityFactory3", it):
+    withHString(a1, h0):
+      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        withHString(a4, h3):
+          withHString(a5, h4):
+            withHString(a6, h5):
+              withHString(a7, h6):
+                withHString(a8, h7):
+                  var tmp: pointer
+                  vcall(it, Slot_IActionEntityFactory3_CreateRemoteFileEntity, Fn_IActionEntityFactory3_CreateRemoteFileEntity)(it, h0, a2, p2, h3, h4, h5, h6, h7, tmp.addr).check("ActionEntityFactory.CreateRemoteFileEntity")
+                  result = adopt[RemoteFileActionEntity](tmp)
+
 proc createTextEntity*(self: ActionEntityFactory, a1: string, a2: ActionEntityTextFormat): TextActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateTextEntity
   withIface(self.p, IID_IActionEntityFactory3, "IActionEntityFactory3", it):
@@ -996,6 +1022,14 @@ proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory, a1: Actio
     vcall(it, Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter, Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter)(it, a1, tmp.addr).check("ActionEntityFactory.CreateStreamingTextActionEntityWriter")
     result = adopt[StreamingTextActionEntityWriter](tmp)
 
+proc createUriEntity*(self: ActionEntityFactory, a1: Uri): UriActionEntity  =
+  ## Windows.AI.Actions.ActionEntityFactory.CreateUriEntity
+  withIface(self.p, IID_IActionEntityFactory5, "IActionEntityFactory5", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IActionEntityFactory5_CreateUriEntity, Fn_IActionEntityFactory5_CreateUriEntity)(it, p0, tmp.addr).check("ActionEntityFactory.CreateUriEntity")
+      result = adopt[UriActionEntity](tmp)
+
 proc createDateTimeEntity*(self: ActionEntityFactory, a1: DateTime): DateTimeActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateDateTimeEntity
   withIface(self.p, IID_IActionEntityFactory6, "IActionEntityFactory6", it):
@@ -1003,12 +1037,22 @@ proc createDateTimeEntity*(self: ActionEntityFactory, a1: DateTime): DateTimeAct
     vcall(it, Slot_IActionEntityFactory6_CreateDateTimeEntity, Fn_IActionEntityFactory6_CreateDateTimeEntity)(it, a1, tmp.addr).check("ActionEntityFactory.CreateDateTimeEntity")
     result = adopt[DateTimeActionEntity](tmp)
 
+proc close*(self: ActionEntityFactory)  =
+  ## Windows.AI.Actions.ActionEntityFactory.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionEntityFactory.Close")
+
 proc feedbackKind*(self: ActionFeedback): ActionFeedbackKind  =
   ## Windows.AI.Actions.ActionFeedback.get_FeedbackKind
   withIface(self.p, IID_IActionFeedback, "IActionFeedback", it):
     var tmp: ActionFeedbackKind
     vcall(it, Slot_IActionFeedback_get_FeedbackKind, Fn_IActionFeedback_get_FeedbackKind)(it, tmp.addr).check("ActionFeedback.get_FeedbackKind")
     result = tmp
+
+proc close*(self: ActionFeedback)  =
+  ## Windows.AI.Actions.ActionFeedback.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionFeedback.Close")
 
 proc entityFactory*(self: ActionInvocationContext): ActionEntityFactory  =
   ## Windows.AI.Actions.ActionInvocationContext.get_EntityFactory
@@ -1076,6 +1120,11 @@ proc invokerAppUserModelId*(self: ActionInvocationContext): string  =
     vcall(it, Slot_IActionInvocationContext2_get_InvokerAppUserModelId, Fn_IActionInvocationContext2_get_InvokerAppUserModelId)(it, tmp.addr).check("ActionInvocationContext.get_InvokerAppUserModelId")
     result = takeString(tmp)
 
+proc close*(self: ActionInvocationContext)  =
+  ## Windows.AI.Actions.ActionInvocationContext.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionInvocationContext.Close")
+
 proc kind*(self: ActionInvocationHelpDetails): ActionInvocationHelpKind  =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_Kind
   withIface(self.p, IID_IActionInvocationHelpDetails, "IActionInvocationHelpDetails", it):
@@ -1114,6 +1163,19 @@ proc `description=`*(self: ActionInvocationHelpDetails, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IActionInvocationHelpDetails_put_Description, Fn_IActionInvocationHelpDetails_put_Description)(it, h0).check("ActionInvocationHelpDetails.put_Description")
 
+proc helpUri*(self: ActionInvocationHelpDetails): Uri  =
+  ## Windows.AI.Actions.ActionInvocationHelpDetails.get_HelpUri
+  withIface(self.p, IID_IActionInvocationHelpDetails, "IActionInvocationHelpDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IActionInvocationHelpDetails_get_HelpUri, Fn_IActionInvocationHelpDetails_get_HelpUri)(it, tmp.addr).check("ActionInvocationHelpDetails.get_HelpUri")
+    result = adopt[Uri](tmp)
+
+proc `helpUri=`*(self: ActionInvocationHelpDetails, value: Uri)  =
+  ## Windows.AI.Actions.ActionInvocationHelpDetails.put_HelpUri
+  withIface(self.p, IID_IActionInvocationHelpDetails, "IActionInvocationHelpDetails", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IActionInvocationHelpDetails_put_HelpUri, Fn_IActionInvocationHelpDetails_put_HelpUri)(it, p0).check("ActionInvocationHelpDetails.put_HelpUri")
+
 proc helpUriDescription*(self: ActionInvocationHelpDetails): string  =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.get_HelpUriDescription
   withIface(self.p, IID_IActionInvocationHelpDetails, "IActionInvocationHelpDetails", it):
@@ -1145,6 +1207,11 @@ proc onChanged*(self: ActionInvocationHelpDetails,
 proc removeChanged*(self: ActionInvocationHelpDetails, token: EventRegistrationToken) =
   withIface(self.p, IID_IActionInvocationHelpDetails2, "IActionInvocationHelpDetails2", it):
     vcall(it, Slot_IActionInvocationHelpDetails2_remove_Changed, Fn_IActionInvocationHelpDetails2_remove_Changed)(it, token).check("ActionInvocationHelpDetails.remove_Changed")
+
+proc close*(self: ActionInvocationHelpDetails)  =
+  ## Windows.AI.Actions.ActionInvocationHelpDetails.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionInvocationHelpDetails.Close")
 
 proc actionCatalog*(self: ActionRuntime): ActionCatalog  =
   ## Windows.AI.Actions.ActionRuntime.get_ActionCatalog
@@ -1219,6 +1286,11 @@ proc customEntityStore*(self: ActionRuntime): CustomActionEntityStore  =
     vcall(it, Slot_IActionRuntime5_get_CustomEntityStore, Fn_IActionRuntime5_get_CustomEntityStore)(it, tmp.addr).check("ActionRuntime.get_CustomEntityStore")
     result = adopt[CustomActionEntityStore](tmp)
 
+proc close*(self: ActionRuntime)  =
+  ## Windows.AI.Actions.ActionRuntime.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionRuntime.Close")
+
 proc getDefault*(_: typedesc[ActionRuntime]): ActionRuntime  =
   ## Windows.AI.Actions.ActionRuntime.GetDefault
   withStatics("Windows.AI.Actions.ActionRuntime", IID_IActionRuntimeStatics, it):
@@ -1266,6 +1338,11 @@ proc delete*(self: CustomActionEntityStore, a1: string)  =
   withIface(self.p, IID_ICustomActionEntityStore, "ICustomActionEntityStore", it):
     withHString(a1, h0):
       vcall(it, Slot_ICustomActionEntityStore_Delete, Fn_ICustomActionEntityStore_Delete)(it, h0).check("CustomActionEntityStore.Delete")
+
+proc close*(self: CustomActionEntityStore)  =
+  ## Windows.AI.Actions.CustomActionEntityStore.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CustomActionEntityStore.Close")
 
 proc customTextKind*(self: CustomTextActionEntity): string  =
   ## Windows.AI.Actions.CustomTextActionEntity.get_CustomTextKind
@@ -1320,6 +1397,11 @@ proc onChanged*(self: ActionCatalog,
 proc removeChanged*(self: ActionCatalog, token: EventRegistrationToken) =
   withIface(self.p, IID_IActionCatalog, "IActionCatalog", it):
     vcall(it, Slot_IActionCatalog_remove_Changed, Fn_IActionCatalog_remove_Changed)(it, token).check("ActionCatalog.remove_Changed")
+
+proc close*(self: ActionCatalog)  =
+  ## Windows.AI.Actions.Hosting.ActionCatalog.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionCatalog.Close")
 
 proc id*(self: ActionDefinition): string  =
   ## Windows.AI.Actions.Hosting.ActionDefinition.get_Id
@@ -1384,6 +1466,19 @@ proc isCurrentlyAvailable*(self: ActionDefinition): bool  =
     vcall(it, Slot_IActionDefinition4_get_IsCurrentlyAvailable, Fn_IActionDefinition4_get_IsCurrentlyAvailable)(it, tmp.addr).check("ActionDefinition.get_IsCurrentlyAvailable")
     result = tmp
 
+proc getIconFullPath*(self: ActionDefinition, a1: PropertySet): string  =
+  ## Windows.AI.Actions.Hosting.ActionDefinition.GetIconFullPath
+  withIface(self.p, IID_IActionDefinition5, "IActionDefinition5", it):
+    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+      var tmp: HSTRING
+      vcall(it, Slot_IActionDefinition5_GetIconFullPath, Fn_IActionDefinition5_GetIconFullPath)(it, p0, tmp.addr).check("ActionDefinition.GetIconFullPath")
+      result = takeString(tmp)
+
+proc close*(self: ActionDefinition)  =
+  ## Windows.AI.Actions.Hosting.ActionDefinition.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionDefinition.Close")
+
 proc name*(self: ActionEntityRegistrationInfo): string  =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.get_Name
   withIface(self.p, IID_IActionEntityRegistrationInfo, "IActionEntityRegistrationInfo", it):
@@ -1408,6 +1503,11 @@ proc `kind=`*(self: ActionEntityRegistrationInfo, value: ActionEntityKind)  =
   ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.put_Kind
   withIface(self.p, IID_IActionEntityRegistrationInfo, "IActionEntityRegistrationInfo", it):
     vcall(it, Slot_IActionEntityRegistrationInfo_put_Kind, Fn_IActionEntityRegistrationInfo_put_Kind)(it, value).check("ActionEntityRegistrationInfo.put_Kind")
+
+proc close*(self: ActionEntityRegistrationInfo)  =
+  ## Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionEntityRegistrationInfo.Close")
 
 proc displayInfo*(self: ActionInstance): ActionInstanceDisplayInfo  =
   ## Windows.AI.Actions.Hosting.ActionInstance.get_DisplayInfo
@@ -1475,6 +1575,11 @@ proc getSupportsFeedback*(self: ActionOverload): bool  =
     vcall(it, Slot_IActionOverload2_GetSupportsFeedback, Fn_IActionOverload2_GetSupportsFeedback)(it, tmp.addr).check("ActionOverload.GetSupportsFeedback")
     result = tmp
 
+proc close*(self: ActionOverload)  =
+  ## Windows.AI.Actions.Hosting.ActionOverload.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionOverload.Close")
+
 proc name*(self: NamedActionEntity): string  =
   ## Windows.AI.Actions.NamedActionEntity.get_Name
   withIface(self.p, IID_INamedActionEntity, "INamedActionEntity", it):
@@ -1501,6 +1606,11 @@ proc `entity=`*(self: NamedActionEntity, value: ActionEntity)  =
     withIface(value.p, IID_IActionEntity, "IActionEntity", p0):
       vcall(it, Slot_INamedActionEntity_put_Entity, Fn_INamedActionEntity_put_Entity)(it, p0).check("NamedActionEntity.put_Entity")
 
+proc close*(self: NamedActionEntity)  =
+  ## Windows.AI.Actions.NamedActionEntity.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("NamedActionEntity.Close")
+
 proc fullPath*(self: PhotoActionEntity): string  =
   ## Windows.AI.Actions.PhotoActionEntity.get_FullPath
   withIface(self.p, IID_IPhotoActionEntity, "IPhotoActionEntity", it):
@@ -1521,6 +1631,13 @@ proc fileKind*(self: RemoteFileActionEntity): RemoteFileKind  =
     var tmp: RemoteFileKind
     vcall(it, Slot_IRemoteFileActionEntity_get_FileKind, Fn_IRemoteFileActionEntity_get_FileKind)(it, tmp.addr).check("RemoteFileActionEntity.get_FileKind")
     result = tmp
+
+proc sourceUri*(self: RemoteFileActionEntity): Uri  =
+  ## Windows.AI.Actions.RemoteFileActionEntity.get_SourceUri
+  withIface(self.p, IID_IRemoteFileActionEntity, "IRemoteFileActionEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteFileActionEntity_get_SourceUri, Fn_IRemoteFileActionEntity_get_SourceUri)(it, tmp.addr).check("RemoteFileActionEntity.get_SourceUri")
+    result = adopt[Uri](tmp)
 
 proc fileId*(self: RemoteFileActionEntity): string  =
   ## Windows.AI.Actions.RemoteFileActionEntity.get_FileId
@@ -1657,6 +1774,11 @@ proc setText*(self: StreamingTextActionEntityWriter, a1: string)  =
     withHString(a1, h0):
       vcall(it, Slot_IStreamingTextActionEntityWriter_SetText, Fn_IStreamingTextActionEntityWriter_SetText)(it, h0).check("StreamingTextActionEntityWriter.SetText")
 
+proc close*(self: StreamingTextActionEntityWriter)  =
+  ## Windows.AI.Actions.StreamingTextActionEntityWriter.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StreamingTextActionEntityWriter.Close")
+
 proc rowCount*(self: TableActionEntity): uint32  =
   ## Windows.AI.Actions.TableActionEntity.get_RowCount
   withIface(self.p, IID_ITableActionEntity, "ITableActionEntity", it):
@@ -1684,6 +1806,13 @@ proc textFormat*(self: TextActionEntity): ActionEntityTextFormat  =
     var tmp: ActionEntityTextFormat
     vcall(it, Slot_ITextActionEntity2_get_TextFormat, Fn_ITextActionEntity2_get_TextFormat)(it, tmp.addr).check("TextActionEntity.get_TextFormat")
     result = tmp
+
+proc uri*(self: UriActionEntity): Uri  =
+  ## Windows.AI.Actions.UriActionEntity.get_Uri
+  withIface(self.p, IID_IUriActionEntity, "IUriActionEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_IUriActionEntity_get_Uri, Fn_IUriActionEntity_get_Uri)(it, tmp.addr).check("UriActionEntity.get_Uri")
+    result = adopt[Uri](tmp)
 
 proc width*(self: ImageFeatureDescriptor): uint32  =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Width
@@ -1776,6 +1905,11 @@ proc version*(self: LearningModel): int64  =
     vcall(it, Slot_ILearningModel_get_Version, Fn_ILearningModel_get_Version)(it, tmp.addr).check("LearningModel.get_Version")
     result = tmp
 
+proc close*(self: LearningModel)  =
+  ## Windows.AI.MachineLearning.LearningModel.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LearningModel.Close")
+
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel], a1: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
@@ -1840,11 +1974,12 @@ proc `bind`*(self: LearningModelBinding, a1: string, a2: pointer)  =
     withHString(a1, h0):
       vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, a2).check("LearningModelBinding.Bind")
 
-proc `bind`*(self: LearningModelBinding, a1: string, a2: pointer, a3: pointer)  =
+proc `bind`*(self: LearningModelBinding, a1: string, a2: pointer, a3: ValueSet)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
     withHString(a1, h0):
-      vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, a2, a3).check("LearningModelBinding.Bind")
+      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, a2, p2).check("LearningModelBinding.Bind")
 
 proc clear*(self: LearningModelBinding)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Clear
@@ -1915,12 +2050,12 @@ proc device*(self: LearningModelSession): LearningModelDevice  =
     vcall(it, Slot_ILearningModelSession_get_Device, Fn_ILearningModelSession_get_Device)(it, tmp.addr).check("LearningModelSession.get_Device")
     result = adopt[LearningModelDevice](tmp)
 
-proc evaluationProperties*(self: LearningModelSession): pointer  =
+proc evaluationProperties*(self: LearningModelSession): ValueSet  =
   ## Windows.AI.MachineLearning.LearningModelSession.get_EvaluationProperties
   withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
     var tmp: pointer
     vcall(it, Slot_ILearningModelSession_get_EvaluationProperties, Fn_ILearningModelSession_get_EvaluationProperties)(it, tmp.addr).check("LearningModelSession.get_EvaluationProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc evaluateAsync*(self: LearningModelSession, a1: LearningModelBinding, a2: string): Future[LearningModelEvaluationResult] {.async.} =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
@@ -1939,6 +2074,11 @@ proc evaluate*(self: LearningModelSession, a1: LearningModelBinding, a2: string)
         var tmp: pointer
         vcall(it, Slot_ILearningModelSession_Evaluate, Fn_ILearningModelSession_Evaluate)(it, p0, h1, tmp.addr).check("LearningModelSession.Evaluate")
         result = adopt[LearningModelEvaluationResult](tmp)
+
+proc close*(self: LearningModelSession)  =
+  ## Windows.AI.MachineLearning.LearningModelSession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LearningModelSession.Close")
 
 proc createFromModel*(_: typedesc[LearningModelSession], a1: LearningModel): LearningModelSession  =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModel
@@ -2151,11 +2291,12 @@ proc `bind`*(self: LearningModelBindingPreview, a1: string, a2: pointer)  =
     withHString(a1, h0):
       vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, a2).check("LearningModelBindingPreview.Bind")
 
-proc `bind`*(self: LearningModelBindingPreview, a1: string, a2: pointer, a3: pointer)  =
+proc `bind`*(self: LearningModelBindingPreview, a1: string, a2: pointer, a3: ValueSet)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
     withHString(a1, h0):
-      vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, a2, a3).check("LearningModelBindingPreview.Bind")
+      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, a2, p2).check("LearningModelBindingPreview.Bind")
 
 proc clear*(self: LearningModelBindingPreview)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Clear
@@ -2468,6 +2609,18 @@ proc kind*(self: TensorBoolean): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorBoolean.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorBoolean): pointer  =
+  ## Windows.AI.MachineLearning.TensorBoolean.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorBoolean.CreateReference")
+    result = tmp
+
+proc close*(self: TensorBoolean)  =
+  ## Windows.AI.MachineLearning.TensorBoolean.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorBoolean.Close")
+
 proc create*(_: typedesc[TensorBoolean]): TensorBoolean  =
   ## Windows.AI.MachineLearning.TensorBoolean.Create
   withStatics("Windows.AI.MachineLearning.TensorBoolean", IID_ITensorBooleanStatics, it):
@@ -2488,6 +2641,18 @@ proc kind*(self: TensorDouble): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorDouble.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorDouble): pointer  =
+  ## Windows.AI.MachineLearning.TensorDouble.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorDouble.CreateReference")
+    result = tmp
+
+proc close*(self: TensorDouble)  =
+  ## Windows.AI.MachineLearning.TensorDouble.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorDouble.Close")
 
 proc create*(_: typedesc[TensorDouble]): TensorDouble  =
   ## Windows.AI.MachineLearning.TensorDouble.Create
@@ -2545,6 +2710,18 @@ proc kind*(self: TensorFloat): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorFloat.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorFloat): pointer  =
+  ## Windows.AI.MachineLearning.TensorFloat.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorFloat.CreateReference")
+    result = tmp
+
+proc close*(self: TensorFloat)  =
+  ## Windows.AI.MachineLearning.TensorFloat.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorFloat.Close")
+
 proc create*(_: typedesc[TensorFloat]): TensorFloat  =
   ## Windows.AI.MachineLearning.TensorFloat.Create
   withStatics("Windows.AI.MachineLearning.TensorFloat", IID_ITensorFloatStatics, it):
@@ -2565,6 +2742,18 @@ proc kind*(self: TensorFloat16Bit): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorFloat16Bit.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorFloat16Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorFloat16Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorFloat16Bit)  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorFloat16Bit.Close")
 
 proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Create
@@ -2587,6 +2776,18 @@ proc kind*(self: TensorInt16Bit): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorInt16Bit.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorInt16Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorInt16Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorInt16Bit)  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt16Bit.Close")
+
 proc create*(_: typedesc[TensorInt16Bit]): TensorInt16Bit  =
   ## Windows.AI.MachineLearning.TensorInt16Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorInt16Bit", IID_ITensorInt16BitStatics, it):
@@ -2607,6 +2808,18 @@ proc kind*(self: TensorInt32Bit): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorInt32Bit.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorInt32Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorInt32Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorInt32Bit)  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt32Bit.Close")
 
 proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.Create
@@ -2629,6 +2842,18 @@ proc kind*(self: TensorInt64Bit): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorInt64Bit.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorInt64Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorInt64Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorInt64Bit)  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt64Bit.Close")
+
 proc create*(_: typedesc[TensorInt64Bit]): TensorInt64Bit  =
   ## Windows.AI.MachineLearning.TensorInt64Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorInt64Bit", IID_ITensorInt64BitStatics, it):
@@ -2649,6 +2874,18 @@ proc kind*(self: TensorInt8Bit): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorInt8Bit.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorInt8Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorInt8Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorInt8Bit)  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt8Bit.Close")
 
 proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.Create
@@ -2679,6 +2916,18 @@ proc kind*(self: TensorString): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorString.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorString): pointer  =
+  ## Windows.AI.MachineLearning.TensorString.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorString.CreateReference")
+    result = tmp
+
+proc close*(self: TensorString)  =
+  ## Windows.AI.MachineLearning.TensorString.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorString.Close")
+
 proc create*(_: typedesc[TensorString]): TensorString  =
   ## Windows.AI.MachineLearning.TensorString.Create
   withStatics("Windows.AI.MachineLearning.TensorString", IID_ITensorStringStatics, it):
@@ -2699,6 +2948,18 @@ proc kind*(self: TensorUInt16Bit): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorUInt16Bit.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorUInt16Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorUInt16Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorUInt16Bit)  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorUInt16Bit.Close")
 
 proc create*(_: typedesc[TensorUInt16Bit]): TensorUInt16Bit  =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.Create
@@ -2721,6 +2982,18 @@ proc kind*(self: TensorUInt32Bit): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorUInt32Bit.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorUInt32Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorUInt32Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorUInt32Bit)  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorUInt32Bit.Close")
+
 proc create*(_: typedesc[TensorUInt32Bit]): TensorUInt32Bit  =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorUInt32Bit", IID_ITensorUInt32BitStatics, it):
@@ -2742,6 +3015,18 @@ proc kind*(self: TensorUInt64Bit): LearningModelFeatureKind  =
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorUInt64Bit.get_Kind")
     result = tmp
 
+proc createReference*(self: TensorUInt64Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorUInt64Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorUInt64Bit)  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorUInt64Bit.Close")
+
 proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorUInt64Bit", IID_ITensorUInt64BitStatics, it):
@@ -2762,6 +3047,18 @@ proc kind*(self: TensorUInt8Bit): LearningModelFeatureKind  =
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("TensorUInt8Bit.get_Kind")
     result = tmp
+
+proc createReference*(self: TensorUInt8Bit): pointer  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.CreateReference
+  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("TensorUInt8Bit.CreateReference")
+    result = tmp
+
+proc close*(self: TensorUInt8Bit)  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorUInt8Bit.Close")
 
 proc create*(_: typedesc[TensorUInt8Bit]): TensorUInt8Bit  =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.Create

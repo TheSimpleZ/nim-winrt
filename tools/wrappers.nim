@@ -36,6 +36,7 @@ import ./winmd
 import ./foreign
 import ./piid
 import ./nimgen
+import ./grouping
 
 const tdInterface = 0x20'u32
 
@@ -227,7 +228,8 @@ type Emission = tuple
   classes, procs, ctors, events, skipped: int
 
 proc emitModule(md: WinMd; iids: Table[int, string];
-                winmdPath, prefix, outPath, corePath, abiPath: string): Emission =
+                winmdPath, prefix, outPath, corePath, abiPath: string;
+                peers: seq[string] = @[]): Emission =
   ## Write the API layer for one namespace, over the ABI module at `abiPath`.
   let delegatePath = corePath.rsplit('/', 1)[0] & "/delegate"
   let impls = md.interfaceImpls()
@@ -236,6 +238,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var byName = initTable[string, int]()
   for t in md.types: byName[t.fullName] = t.index
 
+  # The groups whose API modules this one imports.
+  var peerGroups: HashSet[string]
+  for p in peers: peerGroups.incl p
   var c = Ctx()
   # Both layers reduce a full name to its last segment, and two namespaces in
   # one group can end in the same one — `Windows.UI.Composition` and
@@ -251,11 +256,19 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       # covers this namespace and no other. A class here may well implement an
       # interface from elsewhere — a Windows.Networking class implementing
       # `IBackgroundTask` — and those members are skipped rather than named.
-      if t.namespace.startsWith(prefix):
+      # Reachable means "this module or one it imports". A peer's classes and
+      # interfaces arrive through that import, so a method mentioning one can
+      # be generated rather than skipped.
+      if t.namespace.startsWith(prefix) or topGroup(t.namespace) in peerGroups:
         let k = nimIdent(sanitize(t.name))
         if k notin takenIface:
           takenIface.incl k
           c.localIface.incl t.fullName
+    # Enums and structs are *not* widened to peers, only interfaces are. An
+    # enum appears in the ABI signature this layer calls through, and the ABI
+    # module could not always name a peer's — a cut dependency cycle leaves
+    # `Windows.System.VirtualKey` spelled `int32` in `abi/devices`. Naming it
+    # here would mean the two layers disagreed about the same parameter.
     if t.namespace.startsWith(prefix) and md.isEnum(t.index):
       let k = nimIdent(sanitize(t.name))
       if k notin takenEnum:
@@ -269,6 +282,11 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   for (name, nim) in foreignAliases:
     c.aliases[name] = nim
   for t in md.types:
+    # Prefix-only, for the same reason as enums: a struct crosses by value in
+    # the ABI signature this layer calls through, and the ABI module could not
+    # always name a peer's. `Windows.Devices.Geolocation.BasicGeoposition` is
+    # spelled out in `abi/devices` and absent from `abi/services`, so naming it
+    # here would generate a call to a signature that was never emitted.
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
     if md.isEnum(t.index) or md.isDelegate(t.index): continue
@@ -305,7 +323,11 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var takenNames: HashSet[string]
   var usesAsync = false
   for t in md.types:
-    if not t.namespace.startsWith(prefix): continue
+    # A peer's classes are walked too, so this module can *name* them in a
+    # signature. Only its own are written here — the peer emits its own types,
+    # its own destructors and its own members.
+    let mine = t.namespace.startsWith(prefix)
+    if not mine and topGroup(t.namespace) notin peerGroups: continue
     if (t.flags and tdInterface) != 0: continue
     if md.isEnum(t.index) or md.isDelegate(t.index): continue
     let own = impls.getOrDefault(t.index, @[])
@@ -340,7 +362,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       # A factory returns the class's default interface rather than the class,
       # so this is what lets `CreateUri` be typed as returning a `Uri`.
       c.classOfIface[default] = t.fullName
-    classOrder.add t
+    if mine: classOrder.add t
 
   proc asClass(name: string): string =
     ## The class a type name stands for: itself if it is one, or the class it
@@ -366,6 +388,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   buf.add "## subclass, and a derived value passes where a base is expected.\n\n"
   buf.add &"import {corePath}\n"
   buf.add &"import {abiPath}\n"
+  for p in peers:
+    buf.add &"import ./{moduleName(p)}\n"
+    buf.add &"export {moduleName(p)}\n"
   buf.add &"import {delegatePath}\n"
   buf.add &"export {corePath.split('/')[^1]}, {abiPath.split('/')[^1]}\n"
   # Whether this namespace has any async method is only known once its members
@@ -857,18 +882,27 @@ when isMainModule:
   let abiDir = if paramCount() >= 5: paramStr(5) else: "./abi"
   createDir(outDir)
 
-  var groups: seq[string]
-  for t in md.types:
-    if not t.namespace.startsWith("Windows."): continue
-    let g = topGroup(t.namespace)
-    if g notin groups: groups.add g
-  groups.sort()
+  # The API layer needs a wider dependency graph than the ABI layer: a class
+  # parameter is that class's wrapper type here, where at the ABI it was a bare
+  # pointer. So the order is recomputed counting interfaces too, and each
+  # module imports the ones before it that it actually names.
+  let plan = groupPlan(md, @hoisted, withInterfaces = true)
 
   var total: Emission
-  for g in groups:
+  var written: seq[string]
+  for g in plan.order:
     let m = moduleName(g)
+    # Only the root. Importing every dependency recovers about 1,800 more
+    # methods and takes `import winrt/ui` from under two seconds to sixty-four,
+    # because an API module is far larger than the ABI module under it and the
+    # graph is dense. `foundation` is the exception worth paying for: nearly
+    # everything names something in it, and it is one of the smallest.
+    var peers: seq[string]
+    for dep in plan.deps[g]:
+      if dep == rootGroup and moduleName(dep) in written: peers.add dep
     let e = emitModule(md, iids, winmdPath, g, outDir / (m & ".nim"),
-                       corePath, abiDir & "/" & m)
+                       corePath, abiDir & "/" & m, peers)
+    written.add m
     total.classes += e.classes
     total.procs += e.procs
     total.ctors += e.ctors
@@ -876,6 +910,6 @@ when isMainModule:
     total.skipped += e.skipped
 
   echo ""
-  echo &"  {groups.len} modules  {total.classes} classes  {total.procs} procs" &
+  echo &"  {plan.order.len} modules  {total.classes} classes  {total.procs} procs" &
        &"  ({total.ctors} constructors)  {total.events} events"
   echo &"  {total.skipped} skipped"

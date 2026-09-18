@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/security
+import ./foundation
+export foundation
 import ./delegate
 export core, security
 import ./asyncops
@@ -103,6 +105,18 @@ const IID_IVectorView_1_WebTokenResponse* = GUID(
 const IID_IVector_1_WebProviderTokenResponse* = GUID(
     data1: 0x4E7AD5CF'u32, data2: 0x390F'u16, data3: 0x5ECD'u16,
     data4: [0xB7'u8, 0x14, 0x3C, 0x65, 0x4B, 0x84, 0xCB, 0xBA])
+const IID_AsyncOperationCompletedHandler_1_CryptographicKey* = GUID(
+    data1: 0x04CA4378'u32, data2: 0xF594'u16, data3: 0x5DE6'u16,
+    data4: [0xA5'u8, 0x55, 0x30, 0x4F, 0x62, 0xCB, 0x4F, 0xAF])
+const IID_IAsyncOperation_1_CryptographicKey* = GUID(
+    data1: 0x81CA789B'u32, data2: 0x98DF'u16, data3: 0x5C6A'u16,
+    data4: [0x95'u8, 0x31, 0x96, 0x62, 0x38, 0xE3, 0xE7, 0xAE])
+const IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult* = GUID(
+    data1: 0x3C1EC44C'u32, data2: 0xE942'u16, data3: 0x54E5'u16,
+    data4: [0xBC'u8, 0xD3, 0xE3, 0x29, 0xC9, 0x51, 0xF5, 0x95])
+const IID_IAsyncOperation_1_WebAuthenticationResult* = GUID(
+    data1: 0xB34952AC'u32, data2: 0x265E'u16, data3: 0x5947'u16,
+    data4: [0x87'u8, 0x35, 0xE9, 0x31, 0x8F, 0x43, 0x01, 0xFF])
 const IID_TypedEventHandler_2_AppCapability_AppCapabilityAccessChangedEventArgs* = GUID(
     data1: 0x6D923C95'u32, data2: 0x7B83'u16, data3: 0x5F59'u16,
     data4: [0x88'u8, 0x83, 0xF4, 0x41, 0x75, 0x28, 0x48, 0x98])
@@ -154,12 +168,6 @@ const IID_IVector_1_Certificate* = GUID(
 const IID_IVectorView_1_CmsSignerInfo* = GUID(
     data1: 0xF46BCAA8'u32, data2: 0x747C'u16, data3: 0x5A93'u16,
     data4: [0x82'u8, 0xFE, 0x85, 0xD6, 0x35, 0x49, 0xFE, 0x81])
-const IID_AsyncOperationCompletedHandler_1_CryptographicKey* = GUID(
-    data1: 0x04CA4378'u32, data2: 0xF594'u16, data3: 0x5DE6'u16,
-    data4: [0xA5'u8, 0x55, 0x30, 0x4F, 0x62, 0xCB, 0x4F, 0xAF])
-const IID_IAsyncOperation_1_CryptographicKey* = GUID(
-    data1: 0x81CA789B'u32, data2: 0x98DF'u16, data3: 0x5C6A'u16,
-    data4: [0x95'u8, 0x31, 0x96, 0x62, 0x38, 0xE3, 0xE7, 0xAE])
 const IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo* = GUID(
     data1: 0xAA8164DA'u32, data2: 0xD880'u16, data3: 0x59F5'u16,
     data4: [0x80'u8, 0x93, 0x66, 0x4D, 0x05, 0x2D, 0x74, 0xB5])
@@ -299,6 +307,10 @@ type
     p*: pointer
   OnlineIdSystemTicketResult* {.inheritable, pure.} = object
     p*: pointer
+  SignOutUserOperation* {.inheritable, pure.} = object
+    p*: pointer
+  UserAuthenticationOperation* {.inheritable, pure.} = object
+    p*: pointer
   UserIdentity* {.inheritable, pure.} = object
     p*: pointer
   FindAllAccountsResult* {.inheritable, pure.} = object
@@ -364,6 +376,8 @@ type
   KeyCredentialRetrievalResult* {.inheritable, pure.} = object
     p*: pointer
   PasswordCredential* {.inheritable, pure.} = object
+    p*: pointer
+  PasswordCredentialPropertyStore* {.inheritable, pure.} = object
     p*: pointer
   PasswordVault* {.inheritable, pure.} = object
     p*: pointer
@@ -785,6 +799,32 @@ proc `=sink`*(dst: var OnlineIdSystemTicketResult, src: OnlineIdSystemTicketResu
   `=destroy`(dst)
   wasMoved(dst)
   dst.p = src.p
+proc `=destroy`*(x: var SignOutUserOperation) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var SignOutUserOperation, src: SignOutUserOperation) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var SignOutUserOperation, src: SignOutUserOperation) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+proc `=destroy`*(x: var UserAuthenticationOperation) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var UserAuthenticationOperation, src: UserAuthenticationOperation) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var UserAuthenticationOperation, src: UserAuthenticationOperation) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
 proc `=destroy`*(x: var UserIdentity) =
   if x.p != nil: releaseIfLive(x.p)
 proc `=copy`*(dst: var UserIdentity, src: UserIdentity) =
@@ -1184,6 +1224,19 @@ proc `=copy`*(dst: var PasswordCredential, src: PasswordCredential) =
   dst.p = src.p
   if dst.p != nil: addRefIfLive(dst.p)
 proc `=sink`*(dst: var PasswordCredential, src: PasswordCredential) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+proc `=destroy`*(x: var PasswordCredentialPropertyStore) =
+  if x.p != nil: releaseIfLive(x.p)
+proc `=copy`*(dst: var PasswordCredentialPropertyStore, src: PasswordCredentialPropertyStore) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+proc `=sink`*(dst: var PasswordCredentialPropertyStore, src: PasswordCredentialPropertyStore) =
   # A move transfers the reference, so neither count changes.
   `=destroy`(dst)
   wasMoved(dst)
@@ -2093,6 +2146,8 @@ func isNil*(x: OnlineIdServiceTicketRequest): bool {.inline.} = x.p.isNil
 func isNil*(x: OnlineIdSystemAuthenticatorForUser): bool {.inline.} = x.p.isNil
 func isNil*(x: OnlineIdSystemIdentity): bool {.inline.} = x.p.isNil
 func isNil*(x: OnlineIdSystemTicketResult): bool {.inline.} = x.p.isNil
+func isNil*(x: SignOutUserOperation): bool {.inline.} = x.p.isNil
+func isNil*(x: UserAuthenticationOperation): bool {.inline.} = x.p.isNil
 func isNil*(x: UserIdentity): bool {.inline.} = x.p.isNil
 func isNil*(x: FindAllAccountsResult): bool {.inline.} = x.p.isNil
 func isNil*(x: WebAccountEventArgs): bool {.inline.} = x.p.isNil
@@ -2124,6 +2179,7 @@ func isNil*(x: KeyCredentialCacheConfiguration): bool {.inline.} = x.p.isNil
 func isNil*(x: KeyCredentialOperationResult): bool {.inline.} = x.p.isNil
 func isNil*(x: KeyCredentialRetrievalResult): bool {.inline.} = x.p.isNil
 func isNil*(x: PasswordCredential): bool {.inline.} = x.p.isNil
+func isNil*(x: PasswordCredentialPropertyStore): bool {.inline.} = x.p.isNil
 func isNil*(x: PasswordVault): bool {.inline.} = x.p.isNil
 func isNil*(x: CredentialPickerOptions): bool {.inline.} = x.p.isNil
 func isNil*(x: CredentialPickerResults): bool {.inline.} = x.p.isNil
@@ -2608,6 +2664,21 @@ proc newOnlineIdAuthenticator*(): OnlineIdAuthenticator =
   ## Activate a `Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator`.
   adopt[OnlineIdAuthenticator](activateAs("Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator", IID_IOnlineIdAuthenticator))
 
+proc authenticateUserAsync*(self: OnlineIdAuthenticator, a1: OnlineIdServiceTicketRequest): UserAuthenticationOperation  =
+  ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.AuthenticateUserAsync
+  withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
+    withIface(a1.p, IID_IOnlineIdServiceTicketRequest, "IOnlineIdServiceTicketRequest", p0):
+      var tmp: pointer
+      vcall(it, Slot_IOnlineIdAuthenticator_AuthenticateUserAsync, Fn_IOnlineIdAuthenticator_AuthenticateUserAsync)(it, p0, tmp.addr).check("OnlineIdAuthenticator.AuthenticateUserAsync")
+      result = adopt[UserAuthenticationOperation](tmp)
+
+proc signOutUserAsync*(self: OnlineIdAuthenticator): SignOutUserOperation  =
+  ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.SignOutUserAsync
+  withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
+    var tmp: pointer
+    vcall(it, Slot_IOnlineIdAuthenticator_SignOutUserAsync, Fn_IOnlineIdAuthenticator_SignOutUserAsync)(it, tmp.addr).check("OnlineIdAuthenticator.SignOutUserAsync")
+    result = adopt[SignOutUserOperation](tmp)
+
 proc `applicationId=`*(self: OnlineIdAuthenticator, value: GUID)  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.put_ApplicationId
   withIface(self.p, IID_IOnlineIdAuthenticator, "IOnlineIdAuthenticator", it):
@@ -2747,6 +2818,59 @@ proc extendedError*(self: OnlineIdSystemTicketResult): HRESULT  =
     var tmp: HRESULT
     vcall(it, Slot_IOnlineIdSystemTicketResult_get_ExtendedError, Fn_IOnlineIdSystemTicketResult_get_ExtendedError)(it, tmp.addr).check("OnlineIdSystemTicketResult.get_ExtendedError")
     result = tmp
+
+proc getResults*(self: SignOutUserOperation)  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.GetResults
+  withIface(self.p, IID_IAsyncAction, "IAsyncAction", it):
+    vcall(it, Slot_IAsyncAction_GetResults, Fn_IAsyncAction_GetResults)(it).check("SignOutUserOperation.GetResults")
+
+proc id*(self: SignOutUserOperation): uint32  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.get_Id
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: uint32
+    vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("SignOutUserOperation.get_Id")
+    result = tmp
+
+proc errorCode*(self: SignOutUserOperation): HRESULT  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.get_ErrorCode
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: HRESULT
+    vcall(it, Slot_IAsyncInfo_get_ErrorCode, Fn_IAsyncInfo_get_ErrorCode)(it, tmp.addr).check("SignOutUserOperation.get_ErrorCode")
+    result = tmp
+
+proc cancel*(self: SignOutUserOperation)  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.Cancel
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Cancel, Fn_IAsyncInfo_Cancel)(it).check("SignOutUserOperation.Cancel")
+
+proc close*(self: SignOutUserOperation)  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.Close
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Close, Fn_IAsyncInfo_Close)(it).check("SignOutUserOperation.Close")
+
+proc id*(self: UserAuthenticationOperation): uint32  =
+  ## Windows.Security.Authentication.OnlineId.UserAuthenticationOperation.get_Id
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: uint32
+    vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("UserAuthenticationOperation.get_Id")
+    result = tmp
+
+proc errorCode*(self: UserAuthenticationOperation): HRESULT  =
+  ## Windows.Security.Authentication.OnlineId.UserAuthenticationOperation.get_ErrorCode
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: HRESULT
+    vcall(it, Slot_IAsyncInfo_get_ErrorCode, Fn_IAsyncInfo_get_ErrorCode)(it, tmp.addr).check("UserAuthenticationOperation.get_ErrorCode")
+    result = tmp
+
+proc cancel*(self: UserAuthenticationOperation)  =
+  ## Windows.Security.Authentication.OnlineId.UserAuthenticationOperation.Cancel
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Cancel, Fn_IAsyncInfo_Cancel)(it).check("UserAuthenticationOperation.Cancel")
+
+proc close*(self: UserAuthenticationOperation)  =
+  ## Windows.Security.Authentication.OnlineId.UserAuthenticationOperation.Close
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    vcall(it, Slot_IAsyncInfo_Close, Fn_IAsyncInfo_Close)(it).check("UserAuthenticationOperation.Close")
 
 proc tickets*(self: UserIdentity): seq[OnlineIdServiceTicket]  =
   ## Windows.Security.Authentication.OnlineId.UserIdentity.get_Tickets
@@ -3281,6 +3405,13 @@ proc createWithTokenAccountAndError*(_: typedesc[WebTokenResponse], a1: string, 
           vcall(it, Slot_IWebTokenResponseFactory_CreateWithTokenAccountAndError, Fn_IWebTokenResponseFactory_CreateWithTokenAccountAndError)(it, h0, p1, p2, tmp.addr).check("WebTokenResponse.CreateWithTokenAccountAndError")
           result = adopt[WebTokenResponse](tmp)
 
+proc applicationCallbackUri*(self: WebAccountClientView): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.get_ApplicationCallbackUri
+  withIface(self.p, IID_IWebAccountClientView, "IWebAccountClientView", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountClientView_get_ApplicationCallbackUri, Fn_IWebAccountClientView_get_ApplicationCallbackUri)(it, tmp.addr).check("WebAccountClientView.get_ApplicationCallbackUri")
+    result = adopt[Uri](tmp)
+
 proc `type`*(self: WebAccountClientView): WebAccountClientViewType  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.get_Type
   withIface(self.p, IID_IWebAccountClientView, "IWebAccountClientView", it):
@@ -3294,6 +3425,23 @@ proc accountPairwiseId*(self: WebAccountClientView): string  =
     var tmp: HSTRING
     vcall(it, Slot_IWebAccountClientView_get_AccountPairwiseId, Fn_IWebAccountClientView_get_AccountPairwiseId)(it, tmp.addr).check("WebAccountClientView.get_AccountPairwiseId")
     result = takeString(tmp)
+
+proc create*(_: typedesc[WebAccountClientView], a1: WebAccountClientViewType, a2: Uri): WebAccountClientView  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.Create
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountClientView", IID_IWebAccountClientViewFactory, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      var tmp: pointer
+      vcall(it, Slot_IWebAccountClientViewFactory_Create, Fn_IWebAccountClientViewFactory_Create)(it, a1, p1, tmp.addr).check("WebAccountClientView.Create")
+      result = adopt[WebAccountClientView](tmp)
+
+proc createWithPairwiseId*(_: typedesc[WebAccountClientView], a1: WebAccountClientViewType, a2: Uri, a3: string): WebAccountClientView  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountClientView.CreateWithPairwiseId
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountClientView", IID_IWebAccountClientViewFactory, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      withHString(a3, h2):
+        var tmp: pointer
+        vcall(it, Slot_IWebAccountClientViewFactory_CreateWithPairwiseId, Fn_IWebAccountClientViewFactory_CreateWithPairwiseId)(it, a1, p1, h2, tmp.addr).check("WebAccountClientView.CreateWithPairwiseId")
+        result = adopt[WebAccountClientView](tmp)
 
 proc pullCookiesAsync*(_: typedesc[WebAccountManager], a1: string, a2: string) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.PullCookiesAsync
@@ -3336,6 +3484,15 @@ proc setViewAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: WebAccoun
       withIface(a2.p, IID_IWebAccountClientView, "IWebAccountClientView", p1):
         vcall(it, Slot_IWebAccountManagerStatics_SetViewAsync, Fn_IWebAccountManagerStatics_SetViewAsync)(it, p0, p1, op.addr).check("WebAccountManager.SetViewAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetViewAsync")
+
+proc clearViewAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: Uri) {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearViewAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
+    withIface(a1.p, IID_IWebAccount, "IWebAccount", p0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        vcall(it, Slot_IWebAccountManagerStatics_ClearViewAsync, Fn_IWebAccountManagerStatics_ClearViewAsync)(it, p0, p1, op.addr).check("WebAccountManager.ClearViewAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearViewAsync")
 
 proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], a1: WebAccount, a2: pointer) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetWebAccountPictureAsync
@@ -3555,6 +3712,33 @@ proc reportError*(self: WebAccountProviderRequestTokenOperation, a1: WebProvider
     withIface(a1.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderRequestTokenOperation.ReportError")
 
+proc context*(self: WebAccountProviderRetrieveCookiesOperation): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_Context
+  withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_get_Context, Fn_IWebAccountProviderRetrieveCookiesOperation_get_Context)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_Context")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: WebAccountProviderRetrieveCookiesOperation, value: Uri)  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.put_Uri
+  withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_put_Uri, Fn_IWebAccountProviderRetrieveCookiesOperation_put_Uri)(it, p0).check("WebAccountProviderRetrieveCookiesOperation.put_Uri")
+
+proc uri*(self: WebAccountProviderRetrieveCookiesOperation): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_Uri
+  withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_get_Uri, Fn_IWebAccountProviderRetrieveCookiesOperation_get_Uri)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc applicationCallbackUri*(self: WebAccountProviderRetrieveCookiesOperation): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_ApplicationCallbackUri
+  withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_get_ApplicationCallbackUri, Fn_IWebAccountProviderRetrieveCookiesOperation_get_ApplicationCallbackUri)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_ApplicationCallbackUri")
+    result = adopt[Uri](tmp)
+
 proc kind*(self: WebAccountProviderRetrieveCookiesOperation): WebAccountProviderOperationKind  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_Kind
   withIface(self.p, IID_IWebAccountProviderOperation, "IWebAccountProviderOperation", it):
@@ -3579,6 +3763,13 @@ proc webAccount*(self: WebAccountProviderSignOutAccountOperation): WebAccount  =
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderSignOutAccountOperation_get_WebAccount, Fn_IWebAccountProviderSignOutAccountOperation_get_WebAccount)(it, tmp.addr).check("WebAccountProviderSignOutAccountOperation.get_WebAccount")
     result = adopt[WebAccount](tmp)
+
+proc applicationCallbackUri*(self: WebAccountProviderSignOutAccountOperation): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.get_ApplicationCallbackUri
+  withIface(self.p, IID_IWebAccountProviderSignOutAccountOperation, "IWebAccountProviderSignOutAccountOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderSignOutAccountOperation_get_ApplicationCallbackUri, Fn_IWebAccountProviderSignOutAccountOperation_get_ApplicationCallbackUri)(it, tmp.addr).check("WebAccountProviderSignOutAccountOperation.get_ApplicationCallbackUri")
+    result = adopt[Uri](tmp)
 
 proc clientId*(self: WebAccountProviderSignOutAccountOperation): string  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation.get_ClientId
@@ -3634,6 +3825,21 @@ proc webAccountSelectionOptions*(self: WebProviderTokenRequest): WebAccountSelec
     vcall(it, Slot_IWebProviderTokenRequest_get_WebAccountSelectionOptions, Fn_IWebProviderTokenRequest_get_WebAccountSelectionOptions)(it, tmp.addr).check("WebProviderTokenRequest.get_WebAccountSelectionOptions")
     result = tmp
 
+proc applicationCallbackUri*(self: WebProviderTokenRequest): Uri  =
+  ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationCallbackUri
+  withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebProviderTokenRequest_get_ApplicationCallbackUri, Fn_IWebProviderTokenRequest_get_ApplicationCallbackUri)(it, tmp.addr).check("WebProviderTokenRequest.get_ApplicationCallbackUri")
+    result = adopt[Uri](tmp)
+
+proc getApplicationTokenBindingKeyAsync*(self: WebProviderTokenRequest, a1: TokenBindingKeyType, a2: Uri): Future[CryptographicKey] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync
+  var op: pointer
+  withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync, Fn_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync)(it, a1, p1, op.addr).check("WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync")
+  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, "WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync"))
+
 proc applicationPackageFamilyName*(self: WebProviderTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationPackageFamilyName
   withIface(self.p, IID_IWebProviderTokenRequest3, "IWebProviderTokenRequest3", it):
@@ -3662,6 +3868,67 @@ proc create*(_: typedesc[WebProviderTokenResponse], a1: WebTokenResponse): WebPr
       var tmp: pointer
       vcall(it, Slot_IWebProviderTokenResponseFactory_Create, Fn_IWebProviderTokenResponseFactory_Create)(it, p0, tmp.addr).check("WebProviderTokenResponse.Create")
       result = adopt[WebProviderTokenResponse](tmp)
+
+proc authenticateAsync*(_: typedesc[WebAuthenticationBroker], a1: WebAuthenticationOptions, a2: Uri, a3: Uri): Future[WebAuthenticationResult] {.async.} =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        vcall(it, Slot_IWebAuthenticationBrokerStatics_AuthenticateAsync, Fn_IWebAuthenticationBrokerStatics_AuthenticateAsync)(it, a1, p1, p2, op.addr).check("WebAuthenticationBroker.AuthenticateAsync")
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateAsync"))
+
+proc authenticateAsync*(_: typedesc[WebAuthenticationBroker], a1: WebAuthenticationOptions, a2: Uri): Future[WebAuthenticationResult] {.async.} =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IWebAuthenticationBrokerStatics_AuthenticateAsync2, Fn_IWebAuthenticationBrokerStatics_AuthenticateAsync2)(it, a1, p1, op.addr).check("WebAuthenticationBroker.AuthenticateAsync")
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateAsync"))
+
+proc getCurrentApplicationCallbackUri*(_: typedesc[WebAuthenticationBroker]): Uri  =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.GetCurrentApplicationCallbackUri
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAuthenticationBrokerStatics_GetCurrentApplicationCallbackUri, Fn_IWebAuthenticationBrokerStatics_GetCurrentApplicationCallbackUri)(it, tmp.addr).check("WebAuthenticationBroker.GetCurrentApplicationCallbackUri")
+    result = adopt[Uri](tmp)
+
+proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker], a1: Uri)  =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAndContinue
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue, Fn_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue)(it, p0).check("WebAuthenticationBroker.AuthenticateAndContinue")
+
+proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker], a1: Uri, a2: Uri)  =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAndContinue
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue2, Fn_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue2)(it, p0, p1).check("WebAuthenticationBroker.AuthenticateAndContinue")
+
+proc authenticateAndContinue*(_: typedesc[WebAuthenticationBroker], a1: Uri, a2: Uri, a3: ValueSet, a4: WebAuthenticationOptions)  =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAndContinue
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
+          vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue3, Fn_IWebAuthenticationBrokerStatics2_AuthenticateAndContinue3)(it, p0, p1, p2, a4).check("WebAuthenticationBroker.AuthenticateAndContinue")
+
+proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker], a1: Uri): Future[WebAuthenticationResult] {.async.} =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateSilentlyAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync, Fn_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync)(it, p0, op.addr).check("WebAuthenticationBroker.AuthenticateSilentlyAsync")
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
+
+proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker], a1: Uri, a2: WebAuthenticationOptions): Future[WebAuthenticationResult] {.async.} =
+  ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateSilentlyAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync2, Fn_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync2)(it, p0, a2, op.addr).check("WebAuthenticationBroker.AuthenticateSilentlyAsync")
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
 
 proc responseData*(self: WebAuthenticationResult): string  =
   ## Windows.Security.Authentication.Web.WebAuthenticationResult.get_ResponseData
@@ -3943,12 +4210,12 @@ proc retrievePassword*(self: PasswordCredential)  =
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     vcall(it, Slot_IPasswordCredential_RetrievePassword, Fn_IPasswordCredential_RetrievePassword)(it).check("PasswordCredential.RetrievePassword")
 
-proc properties*(self: PasswordCredential): pointer  =
+proc properties*(self: PasswordCredential): PasswordCredentialPropertyStore  =
   ## Windows.Security.Credentials.PasswordCredential.get_Properties
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordCredential_get_Properties, Fn_IPasswordCredential_get_Properties)(it, tmp.addr).check("PasswordCredential.get_Properties")
-    result = tmp
+    result = adopt[PasswordCredentialPropertyStore](tmp)
 
 proc createPasswordCredential*(_: typedesc[PasswordCredential], a1: string, a2: string, a3: string): PasswordCredential  =
   ## Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential
@@ -3959,6 +4226,10 @@ proc createPasswordCredential*(_: typedesc[PasswordCredential], a1: string, a2: 
           var tmp: pointer
           vcall(it, Slot_ICredentialFactory_CreatePasswordCredential, Fn_ICredentialFactory_CreatePasswordCredential)(it, h0, h1, h2, tmp.addr).check("PasswordCredential.CreatePasswordCredential")
           result = adopt[PasswordCredential](tmp)
+
+proc newPasswordCredentialPropertyStore*(): PasswordCredentialPropertyStore =
+  ## Activate a `Windows.Security.Credentials.PasswordCredentialPropertyStore`.
+  adopt[PasswordCredentialPropertyStore](activateAs("Windows.Security.Credentials.PasswordCredentialPropertyStore", IID_IPropertySet))
 
 proc newPasswordVault*(): PasswordVault =
   ## Activate a `Windows.Security.Credentials.PasswordVault`.
@@ -4281,6 +4552,13 @@ proc displayName*(self: WebAccountProvider): string  =
     vcall(it, Slot_IWebAccountProvider_get_DisplayName, Fn_IWebAccountProvider_get_DisplayName)(it, tmp.addr).check("WebAccountProvider.get_DisplayName")
     result = takeString(tmp)
 
+proc iconUri*(self: WebAccountProvider): Uri  =
+  ## Windows.Security.Credentials.WebAccountProvider.get_IconUri
+  withIface(self.p, IID_IWebAccountProvider, "IWebAccountProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProvider_get_IconUri, Fn_IWebAccountProvider_get_IconUri)(it, tmp.addr).check("WebAccountProvider.get_IconUri")
+    result = adopt[Uri](tmp)
+
 proc displayPurpose*(self: WebAccountProvider): string  =
   ## Windows.Security.Credentials.WebAccountProvider.get_DisplayPurpose
   withIface(self.p, IID_IWebAccountProvider2, "IWebAccountProvider2", it):
@@ -4301,6 +4579,16 @@ proc isSystemProvider*(self: WebAccountProvider): bool  =
     var tmp: bool
     vcall(it, Slot_IWebAccountProvider4_get_IsSystemProvider, Fn_IWebAccountProvider4_get_IsSystemProvider)(it, tmp.addr).check("WebAccountProvider.get_IsSystemProvider")
     result = tmp
+
+proc createWebAccountProvider*(_: typedesc[WebAccountProvider], a1: string, a2: string, a3: Uri): WebAccountProvider  =
+  ## Windows.Security.Credentials.WebAccountProvider.CreateWebAccountProvider
+  withStatics("Windows.Security.Credentials.WebAccountProvider", IID_IWebAccountProviderFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+          var tmp: pointer
+          vcall(it, Slot_IWebAccountProviderFactory_CreateWebAccountProvider, Fn_IWebAccountProviderFactory_CreateWebAccountProvider)(it, h0, h1, p2, tmp.addr).check("WebAccountProvider.CreateWebAccountProvider")
+          result = adopt[WebAccountProvider](tmp)
 
 proc getCertificateBlob*(self: Certificate): pointer  =
   ## Windows.Security.Cryptography.Certificates.Certificate.GetCertificateBlob
@@ -6929,6 +7217,13 @@ proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], a1: string): D
       vcall(it, Slot_IDataProtectionProviderFactory_CreateOverloadExplicit, Fn_IDataProtectionProviderFactory_CreateOverloadExplicit)(it, h0, tmp.addr).check("DataProtectionProvider.CreateOverloadExplicit")
       result = adopt[DataProtectionProvider](tmp)
 
+proc getDeferral*(self: UserDataAvailabilityStateChangedEventArgs): Deferral  =
+  ## Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataAvailabilityStateChangedEventArgs, "IUserDataAvailabilityStateChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataAvailabilityStateChangedEventArgs_GetDeferral, Fn_IUserDataAvailabilityStateChangedEventArgs_GetDeferral)(it, tmp.addr).check("UserDataAvailabilityStateChangedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc status*(self: UserDataBufferUnprotectResult): UserDataBufferUnprotectStatus  =
   ## Windows.Security.DataProtection.UserDataBufferUnprotectResult.get_Status
   withIface(self.p, IID_IUserDataBufferUnprotectResult, "IUserDataBufferUnprotectResult", it):
@@ -7195,6 +7490,13 @@ proc deadline*(self: ProtectedAccessSuspendingEventArgs): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IProtectedAccessSuspendingEventArgs_get_Deadline, Fn_IProtectedAccessSuspendingEventArgs_get_Deadline)(it, tmp.addr).check("ProtectedAccessSuspendingEventArgs.get_Deadline")
     result = tmp
+
+proc getDeferral*(self: ProtectedAccessSuspendingEventArgs): Deferral  =
+  ## Windows.Security.EnterpriseData.ProtectedAccessSuspendingEventArgs.GetDeferral
+  withIface(self.p, IID_IProtectedAccessSuspendingEventArgs, "IProtectedAccessSuspendingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtectedAccessSuspendingEventArgs_GetDeferral, Fn_IProtectedAccessSuspendingEventArgs_GetDeferral)(it, tmp.addr).check("ProtectedAccessSuspendingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc status*(self: ProtectedContainerExportResult): ProtectedImportExportStatus  =
   ## Windows.Security.EnterpriseData.ProtectedContainerExportResult.get_Status
@@ -7531,6 +7833,11 @@ proc logAuditEvent*(_: typedesc[ProtectionPolicyManager], a1: string, a2: string
       withHString(a2, h1):
         withIface(a3.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           vcall(it, Slot_IProtectionPolicyManagerStatics3_LogAuditEvent, Fn_IProtectionPolicyManagerStatics3_LogAuditEvent)(it, h0, h1, p2).check("ProtectionPolicyManager.LogAuditEvent")
+
+proc close*(self: ThreadNetworkContext)  =
+  ## Windows.Security.EnterpriseData.ThreadNetworkContext.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ThreadNetworkContext.Close")
 
 proc newEasClientDeviceInformation*(): EasClientDeviceInformation =
   ## Activate a `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation`.

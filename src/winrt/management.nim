@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/management
+import ./foundation
+export foundation
 import ./delegate
 export core, management
 import ./asyncops
@@ -16,6 +18,9 @@ export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVector_1_Uri* = GUID(
+    data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
+    data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
@@ -1221,6 +1226,14 @@ proc newAddPackageOptions*(): AddPackageOptions =
   ## Activate a `Windows.Management.Deployment.AddPackageOptions`.
   adopt[AddPackageOptions](activateAs("Windows.Management.Deployment.AddPackageOptions", IID_IAddPackageOptions))
 
+proc dependencyPackageUris*(self: AddPackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AddPackageOptions.get_DependencyPackageUris
+  withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAddPackageOptions_get_DependencyPackageUris, Fn_IAddPackageOptions_get_DependencyPackageUris)(it, tmp.addr).check("AddPackageOptions.get_DependencyPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc targetVolume*(self: AddPackageOptions): PackageVolume  =
   ## Windows.Management.Deployment.AddPackageOptions.get_TargetVolume
   withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
@@ -1241,6 +1254,35 @@ proc optionalPackageFamilyNames*(self: AddPackageOptions): seq[string]  =
     vcall(it, Slot_IAddPackageOptions_get_OptionalPackageFamilyNames, Fn_IAddPackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("AddPackageOptions.get_OptionalPackageFamilyNames")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc optionalPackageUris*(self: AddPackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AddPackageOptions.get_OptionalPackageUris
+  withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAddPackageOptions_get_OptionalPackageUris, Fn_IAddPackageOptions_get_OptionalPackageUris)(it, tmp.addr).check("AddPackageOptions.get_OptionalPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc relatedPackageUris*(self: AddPackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AddPackageOptions.get_RelatedPackageUris
+  withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAddPackageOptions_get_RelatedPackageUris, Fn_IAddPackageOptions_get_RelatedPackageUris)(it, tmp.addr).check("AddPackageOptions.get_RelatedPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc externalLocationUri*(self: AddPackageOptions): Uri  =
+  ## Windows.Management.Deployment.AddPackageOptions.get_ExternalLocationUri
+  withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAddPackageOptions_get_ExternalLocationUri, Fn_IAddPackageOptions_get_ExternalLocationUri)(it, tmp.addr).check("AddPackageOptions.get_ExternalLocationUri")
+    result = adopt[Uri](tmp)
+
+proc `externalLocationUri=`*(self: AddPackageOptions, value: Uri)  =
+  ## Windows.Management.Deployment.AddPackageOptions.put_ExternalLocationUri
+  withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IAddPackageOptions_put_ExternalLocationUri, Fn_IAddPackageOptions_put_ExternalLocationUri)(it, p0).check("AddPackageOptions.put_ExternalLocationUri")
 
 proc stubPackageOption*(self: AddPackageOptions): StubPackageOption  =
   ## Windows.Management.Deployment.AddPackageOptions.get_StubPackageOption
@@ -1435,6 +1477,19 @@ proc newAutoUpdateSettingsOptions*(): AutoUpdateSettingsOptions =
   ## Activate a `Windows.Management.Deployment.AutoUpdateSettingsOptions`.
   adopt[AutoUpdateSettingsOptions](activateAs("Windows.Management.Deployment.AutoUpdateSettingsOptions", IID_IAutoUpdateSettingsOptions))
 
+proc appInstallerUri*(self: AutoUpdateSettingsOptions): Uri  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_AppInstallerUri
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_AppInstallerUri, Fn_IAutoUpdateSettingsOptions_get_AppInstallerUri)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_AppInstallerUri")
+    result = adopt[Uri](tmp)
+
+proc `appInstallerUri=`*(self: AutoUpdateSettingsOptions, value: Uri)  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.put_AppInstallerUri
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IAutoUpdateSettingsOptions_put_AppInstallerUri, Fn_IAutoUpdateSettingsOptions_put_AppInstallerUri)(it, p0).check("AutoUpdateSettingsOptions.put_AppInstallerUri")
+
 proc onLaunch*(self: AutoUpdateSettingsOptions): bool  =
   ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_OnLaunch
   withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
@@ -1518,6 +1573,38 @@ proc `isAutoRepairEnabled=`*(self: AutoUpdateSettingsOptions, value: bool)  =
   ## Windows.Management.Deployment.AutoUpdateSettingsOptions.put_IsAutoRepairEnabled
   withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
     vcall(it, Slot_IAutoUpdateSettingsOptions_put_IsAutoRepairEnabled, Fn_IAutoUpdateSettingsOptions_put_IsAutoRepairEnabled)(it, value).check("AutoUpdateSettingsOptions.put_IsAutoRepairEnabled")
+
+proc updateUris*(self: AutoUpdateSettingsOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_UpdateUris
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_UpdateUris, Fn_IAutoUpdateSettingsOptions_get_UpdateUris)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_UpdateUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc repairUris*(self: AutoUpdateSettingsOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_RepairUris
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_RepairUris, Fn_IAutoUpdateSettingsOptions_get_RepairUris)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_RepairUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc dependencyPackageUris*(self: AutoUpdateSettingsOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_DependencyPackageUris
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_DependencyPackageUris, Fn_IAutoUpdateSettingsOptions_get_DependencyPackageUris)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_DependencyPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc optionalPackageUris*(self: AutoUpdateSettingsOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_OptionalPackageUris
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_OptionalPackageUris, Fn_IAutoUpdateSettingsOptions_get_OptionalPackageUris)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_OptionalPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
 
 proc newCreateSharedPackageContainerOptions*(): CreateSharedPackageContainerOptions =
   ## Activate a `Windows.Management.Deployment.CreateSharedPackageContainerOptions`.
@@ -1865,6 +1952,24 @@ proc provisionPackageForAllUsersAsync*(self: PackageManager, a1: string): Future
       vcall(it, Slot_IPackageManager6_ProvisionPackageForAllUsersAsync, Fn_IPackageManager6_ProvisionPackageForAllUsersAsync)(it, h0, op.addr).check("PackageManager.ProvisionPackageForAllUsersAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.ProvisionPackageForAllUsersAsync"))
 
+proc addPackageByAppInstallerFileAsync*(self: PackageManager, a1: Uri, a2: AddPackageByAppInstallerOptions, a3: PackageVolume): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageByAppInstallerFileAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a3.p, IID_IPackageVolume, "IPackageVolume", p2):
+        vcall(it, Slot_IPackageManager6_AddPackageByAppInstallerFileAsync, Fn_IPackageManager6_AddPackageByAppInstallerFileAsync)(it, p0, a2, p2, op.addr).check("PackageManager.AddPackageByAppInstallerFileAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageByAppInstallerFileAsync"))
+
+proc requestAddPackageByAppInstallerFileAsync*(self: PackageManager, a1: Uri, a2: AddPackageByAppInstallerOptions, a3: PackageVolume): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RequestAddPackageByAppInstallerFileAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager6, "IPackageManager6", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a3.p, IID_IPackageVolume, "IPackageVolume", p2):
+        vcall(it, Slot_IPackageManager6_RequestAddPackageByAppInstallerFileAsync, Fn_IPackageManager6_RequestAddPackageByAppInstallerFileAsync)(it, p0, a2, p2, op.addr).check("PackageManager.RequestAddPackageByAppInstallerFileAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RequestAddPackageByAppInstallerFileAsync"))
+
 proc deprovisionPackageForAllUsersAsync*(self: PackageManager, a1: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.DeprovisionPackageForAllUsersAsync
   var op: pointer
@@ -1872,6 +1977,33 @@ proc deprovisionPackageForAllUsersAsync*(self: PackageManager, a1: string): Futu
     withHString(a1, h0):
       vcall(it, Slot_IPackageManager8_DeprovisionPackageForAllUsersAsync, Fn_IPackageManager8_DeprovisionPackageForAllUsersAsync)(it, h0, op.addr).check("PackageManager.DeprovisionPackageForAllUsersAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.DeprovisionPackageForAllUsersAsync"))
+
+proc addPackageByUriAsync*(self: PackageManager, a1: Uri, a2: AddPackageOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.AddPackageByUriAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager9, "IPackageManager9", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IAddPackageOptions, "IAddPackageOptions", p1):
+        vcall(it, Slot_IPackageManager9_AddPackageByUriAsync, Fn_IPackageManager9_AddPackageByUriAsync)(it, p0, p1, op.addr).check("PackageManager.AddPackageByUriAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageByUriAsync"))
+
+proc stagePackageByUriAsync*(self: PackageManager, a1: Uri, a2: StagePackageOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.StagePackageByUriAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager9, "IPackageManager9", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IStagePackageOptions, "IStagePackageOptions", p1):
+        vcall(it, Slot_IPackageManager9_StagePackageByUriAsync, Fn_IPackageManager9_StagePackageByUriAsync)(it, p0, p1, op.addr).check("PackageManager.StagePackageByUriAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StagePackageByUriAsync"))
+
+proc registerPackageByUriAsync*(self: PackageManager, a1: Uri, a2: RegisterPackageOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RegisterPackageByUriAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager9, "IPackageManager9", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", p1):
+        vcall(it, Slot_IPackageManager9_RegisterPackageByUriAsync, Fn_IPackageManager9_RegisterPackageByUriAsync)(it, p0, p1, op.addr).check("PackageManager.RegisterPackageByUriAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageByUriAsync"))
 
 proc setPackageStubPreference*(self: PackageManager, a1: string, a2: PackageStubPreference)  =
   ## Windows.Management.Deployment.PackageManager.SetPackageStubPreference
@@ -1896,6 +2028,15 @@ proc provisionPackageForAllUsersAsync*(self: PackageManager, a1: string, a2: Pac
         vcall(it, Slot_IPackageManager10_ProvisionPackageForAllUsersAsync, Fn_IPackageManager10_ProvisionPackageForAllUsersAsync)(it, h0, p1, op.addr).check("PackageManager.ProvisionPackageForAllUsersAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.ProvisionPackageForAllUsersAsync"))
 
+proc removePackageByUriAsync*(self: PackageManager, a1: Uri, a2: RemovePackageOptions): Future[DeploymentResult] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.RemovePackageByUriAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager11, "IPackageManager11", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IRemovePackageOptions, "IRemovePackageOptions", p1):
+        vcall(it, Slot_IPackageManager11_RemovePackageByUriAsync, Fn_IPackageManager11_RemovePackageByUriAsync)(it, p0, p1, op.addr).check("PackageManager.RemovePackageByUriAsync")
+  result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RemovePackageByUriAsync"))
+
 proc isPackageRemovalPending*(self: PackageManager, a1: string): bool  =
   ## Windows.Management.Deployment.PackageManager.IsPackageRemovalPending
   withIface(self.p, IID_IPackageManager12, "IPackageManager12", it):
@@ -1911,6 +2052,23 @@ proc isPackageRemovalPendingForUser*(self: PackageManager, a1: string, a2: strin
       withHString(a2, h1):
         var tmp: bool
         vcall(it, Slot_IPackageManager12_IsPackageRemovalPendingForUser, Fn_IPackageManager12_IsPackageRemovalPendingForUser)(it, h0, h1, tmp.addr).check("PackageManager.IsPackageRemovalPendingForUser")
+        result = tmp
+
+proc isPackageRemovalPendingByUri*(self: PackageManager, a1: Uri): bool  =
+  ## Windows.Management.Deployment.PackageManager.IsPackageRemovalPendingByUri
+  withIface(self.p, IID_IPackageManager12, "IPackageManager12", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: bool
+      vcall(it, Slot_IPackageManager12_IsPackageRemovalPendingByUri, Fn_IPackageManager12_IsPackageRemovalPendingByUri)(it, p0, tmp.addr).check("PackageManager.IsPackageRemovalPendingByUri")
+      result = tmp
+
+proc isPackageRemovalPendingByUriForUser*(self: PackageManager, a1: Uri, a2: string): bool  =
+  ## Windows.Management.Deployment.PackageManager.IsPackageRemovalPendingByUriForUser
+  withIface(self.p, IID_IPackageManager12, "IPackageManager12", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withHString(a2, h1):
+        var tmp: bool
+        vcall(it, Slot_IPackageManager12_IsPackageRemovalPendingByUriForUser, Fn_IPackageManager12_IsPackageRemovalPendingByUriForUser)(it, p0, h1, tmp.addr).check("PackageManager.IsPackageRemovalPendingByUriForUser")
         result = tmp
 
 proc userSecurityId*(self: PackageUserInformation): string  =
@@ -2009,6 +2167,14 @@ proc newRegisterPackageOptions*(): RegisterPackageOptions =
   ## Activate a `Windows.Management.Deployment.RegisterPackageOptions`.
   adopt[RegisterPackageOptions](activateAs("Windows.Management.Deployment.RegisterPackageOptions", IID_IRegisterPackageOptions))
 
+proc dependencyPackageUris*(self: RegisterPackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.RegisterPackageOptions.get_DependencyPackageUris
+  withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IRegisterPackageOptions_get_DependencyPackageUris, Fn_IRegisterPackageOptions_get_DependencyPackageUris)(it, tmp.addr).check("RegisterPackageOptions.get_DependencyPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc appDataVolume*(self: RegisterPackageOptions): PackageVolume  =
   ## Windows.Management.Deployment.RegisterPackageOptions.get_AppDataVolume
   withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
@@ -2029,6 +2195,19 @@ proc optionalPackageFamilyNames*(self: RegisterPackageOptions): seq[string]  =
     vcall(it, Slot_IRegisterPackageOptions_get_OptionalPackageFamilyNames, Fn_IRegisterPackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("RegisterPackageOptions.get_OptionalPackageFamilyNames")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc externalLocationUri*(self: RegisterPackageOptions): Uri  =
+  ## Windows.Management.Deployment.RegisterPackageOptions.get_ExternalLocationUri
+  withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IRegisterPackageOptions_get_ExternalLocationUri, Fn_IRegisterPackageOptions_get_ExternalLocationUri)(it, tmp.addr).check("RegisterPackageOptions.get_ExternalLocationUri")
+    result = adopt[Uri](tmp)
+
+proc `externalLocationUri=`*(self: RegisterPackageOptions, value: Uri)  =
+  ## Windows.Management.Deployment.RegisterPackageOptions.put_ExternalLocationUri
+  withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IRegisterPackageOptions_put_ExternalLocationUri, Fn_IRegisterPackageOptions_put_ExternalLocationUri)(it, p0).check("RegisterPackageOptions.put_ExternalLocationUri")
 
 proc developerMode*(self: RegisterPackageOptions): bool  =
   ## Windows.Management.Deployment.RegisterPackageOptions.get_DeveloperMode
@@ -2300,6 +2479,14 @@ proc newStagePackageOptions*(): StagePackageOptions =
   ## Activate a `Windows.Management.Deployment.StagePackageOptions`.
   adopt[StagePackageOptions](activateAs("Windows.Management.Deployment.StagePackageOptions", IID_IStagePackageOptions))
 
+proc dependencyPackageUris*(self: StagePackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.StagePackageOptions.get_DependencyPackageUris
+  withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStagePackageOptions_get_DependencyPackageUris, Fn_IStagePackageOptions_get_DependencyPackageUris)(it, tmp.addr).check("StagePackageOptions.get_DependencyPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc targetVolume*(self: StagePackageOptions): PackageVolume  =
   ## Windows.Management.Deployment.StagePackageOptions.get_TargetVolume
   withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
@@ -2320,6 +2507,35 @@ proc optionalPackageFamilyNames*(self: StagePackageOptions): seq[string]  =
     vcall(it, Slot_IStagePackageOptions_get_OptionalPackageFamilyNames, Fn_IStagePackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("StagePackageOptions.get_OptionalPackageFamilyNames")
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
+
+proc optionalPackageUris*(self: StagePackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.StagePackageOptions.get_OptionalPackageUris
+  withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStagePackageOptions_get_OptionalPackageUris, Fn_IStagePackageOptions_get_OptionalPackageUris)(it, tmp.addr).check("StagePackageOptions.get_OptionalPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc relatedPackageUris*(self: StagePackageOptions): seq[Uri]  =
+  ## Windows.Management.Deployment.StagePackageOptions.get_RelatedPackageUris
+  withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStagePackageOptions_get_RelatedPackageUris, Fn_IStagePackageOptions_get_RelatedPackageUris)(it, tmp.addr).check("StagePackageOptions.get_RelatedPackageUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc externalLocationUri*(self: StagePackageOptions): Uri  =
+  ## Windows.Management.Deployment.StagePackageOptions.get_ExternalLocationUri
+  withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStagePackageOptions_get_ExternalLocationUri, Fn_IStagePackageOptions_get_ExternalLocationUri)(it, tmp.addr).check("StagePackageOptions.get_ExternalLocationUri")
+    result = adopt[Uri](tmp)
+
+proc `externalLocationUri=`*(self: StagePackageOptions, value: Uri)  =
+  ## Windows.Management.Deployment.StagePackageOptions.put_ExternalLocationUri
+  withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IStagePackageOptions_put_ExternalLocationUri, Fn_IStagePackageOptions_put_ExternalLocationUri)(it, p0).check("StagePackageOptions.put_ExternalLocationUri")
 
 proc stubPackageOption*(self: StagePackageOptions): StubPackageOption  =
   ## Windows.Management.Deployment.StagePackageOptions.get_StubPackageOption
@@ -3098,6 +3314,13 @@ proc isSupported*(_: typedesc[PreviewBuildsManager]): bool  =
     vcall(it, Slot_IPreviewBuildsManagerStatics_IsSupported, Fn_IPreviewBuildsManagerStatics_IsSupported)(it, tmp.addr).check("PreviewBuildsManager.IsSupported")
     result = tmp
 
+proc properties*(self: PreviewBuildsState): ValueSet  =
+  ## Windows.Management.Update.PreviewBuildsState.get_Properties
+  withIface(self.p, IID_IPreviewBuildsState, "IPreviewBuildsState", it):
+    var tmp: pointer
+    vcall(it, Slot_IPreviewBuildsState_get_Properties, Fn_IPreviewBuildsState_get_Properties)(it, tmp.addr).check("PreviewBuildsState.get_Properties")
+    result = adopt[ValueSet](tmp)
+
 proc installationType*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateInstallationType  =
   ## Windows.Management.Update.WindowsSoftwareUpdate.get_InstallationType
   withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
@@ -3132,6 +3355,13 @@ proc description*(self: WindowsSoftwareUpdate): string  =
     var tmp: HSTRING
     vcall(it, Slot_IWindowsSoftwareUpdate_get_Description, Fn_IWindowsSoftwareUpdate_get_Description)(it, tmp.addr).check("WindowsSoftwareUpdate.get_Description")
     result = takeString(tmp)
+
+proc moreInfoUrl*(self: WindowsSoftwareUpdate): Uri  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.get_MoreInfoUrl
+  withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdate_get_MoreInfoUrl, Fn_IWindowsSoftwareUpdate_get_MoreInfoUrl)(it, tmp.addr).check("WindowsSoftwareUpdate.get_MoreInfoUrl")
+    result = adopt[Uri](tmp)
 
 proc downloadSizeInBytes*(self: WindowsSoftwareUpdate): uint64  =
   ## Windows.Management.Update.WindowsSoftwareUpdate.get_DownloadSizeInBytes
@@ -3239,6 +3469,23 @@ proc optionalInfo*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateOptionalIn
     vcall(it, Slot_IWindowsSoftwareUpdate_get_OptionalInfo, Fn_IWindowsSoftwareUpdate_get_OptionalInfo)(it, tmp.addr).check("WindowsSoftwareUpdate.get_OptionalInfo")
     result = adopt[WindowsSoftwareUpdateOptionalInfo](tmp)
 
+proc createInstance*(_: typedesc[WindowsSoftwareUpdate], a1: string, a2: WindowsSoftwareUpdateInstallationType, a3: string, a4: string, a5: string, a6: Uri, a7: uint64, a8: uint64, a9: WindowsSoftwareUpdateVersion, a10: WindowsSoftwareUpdateVersion, a11: WindowsSoftwareUpdateAppPackageInfo, a12: WindowsSoftwareUpdateExecutionInfo, a13: WindowsSoftwareUpdateOptionalInfo): WindowsSoftwareUpdate  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.CreateInstance
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdate", IID_IWindowsSoftwareUpdateFactory, it):
+    withHString(a1, h0):
+      withHString(a3, h2):
+        withHString(a4, h3):
+          withHString(a5, h4):
+            withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+              withIface(a9.p, IID_IWindowsSoftwareUpdateVersion, "IWindowsSoftwareUpdateVersion", p8):
+                withIface(a10.p, IID_IWindowsSoftwareUpdateVersion, "IWindowsSoftwareUpdateVersion", p9):
+                  withIface(a11.p, IID_IWindowsSoftwareUpdateAppPackageInfo, "IWindowsSoftwareUpdateAppPackageInfo", p10):
+                    withIface(a12.p, IID_IWindowsSoftwareUpdateExecutionInfo, "IWindowsSoftwareUpdateExecutionInfo", p11):
+                      withIface(a13.p, IID_IWindowsSoftwareUpdateOptionalInfo, "IWindowsSoftwareUpdateOptionalInfo", p12):
+                        var tmp: pointer
+                        vcall(it, Slot_IWindowsSoftwareUpdateFactory_CreateInstance, Fn_IWindowsSoftwareUpdateFactory_CreateInstance)(it, h0, a2, h2, h3, h4, p5, a7, a8, p8, p9, p10, p11, p12, tmp.addr).check("WindowsSoftwareUpdate.CreateInstance")
+                        result = adopt[WindowsSoftwareUpdate](tmp)
+
 proc fileName*(self: WindowsSoftwareUpdateActionInfo): string  =
   ## Windows.Management.Update.WindowsSoftwareUpdateActionInfo.get_FileName
   withIface(self.p, IID_IWindowsSoftwareUpdateActionInfo, "IWindowsSoftwareUpdateActionInfo", it):
@@ -3338,6 +3585,22 @@ proc packageArchitecture*(self: WindowsSoftwareUpdateAppPackageInfo): WindowsSof
     var tmp: WindowsSoftwareUpdateArchitecture
     vcall(it, Slot_IWindowsSoftwareUpdateAppPackageInfo_get_PackageArchitecture, Fn_IWindowsSoftwareUpdateAppPackageInfo_get_PackageArchitecture)(it, tmp.addr).check("WindowsSoftwareUpdateAppPackageInfo.get_PackageArchitecture")
     result = tmp
+
+proc installUri*(self: WindowsSoftwareUpdateAppPackageInfo): Uri  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateAppPackageInfo.get_InstallUri
+  withIface(self.p, IID_IWindowsSoftwareUpdateAppPackageInfo, "IWindowsSoftwareUpdateAppPackageInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateAppPackageInfo_get_InstallUri, Fn_IWindowsSoftwareUpdateAppPackageInfo_get_InstallUri)(it, tmp.addr).check("WindowsSoftwareUpdateAppPackageInfo.get_InstallUri")
+    result = adopt[Uri](tmp)
+
+proc createInstance*(_: typedesc[WindowsSoftwareUpdateAppPackageInfo], a1: string, a2: WindowsSoftwareUpdateArchitecture, a3: Uri): WindowsSoftwareUpdateAppPackageInfo  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateAppPackageInfo.CreateInstance
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateAppPackageInfo", IID_IWindowsSoftwareUpdateAppPackageInfoFactory, it):
+    withHString(a1, h0):
+      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        var tmp: pointer
+        vcall(it, Slot_IWindowsSoftwareUpdateAppPackageInfoFactory_CreateInstance, Fn_IWindowsSoftwareUpdateAppPackageInfoFactory_CreateInstance)(it, h0, a2, p2, tmp.addr).check("WindowsSoftwareUpdateAppPackageInfo.CreateInstance")
+        result = adopt[WindowsSoftwareUpdateAppPackageInfo](tmp)
 
 proc userInitiated*(self: WindowsSoftwareUpdateApprovalInfo): bool  =
   ## Windows.Management.Update.WindowsSoftwareUpdateApprovalInfo.get_UserInitiated
@@ -3441,6 +3704,23 @@ proc description*(self: WindowsSoftwareUpdateLocalizationInfo): string  =
     var tmp: HSTRING
     vcall(it, Slot_IWindowsSoftwareUpdateLocalizationInfo_get_Description, Fn_IWindowsSoftwareUpdateLocalizationInfo_get_Description)(it, tmp.addr).check("WindowsSoftwareUpdateLocalizationInfo.get_Description")
     result = takeString(tmp)
+
+proc moreInfoUrl*(self: WindowsSoftwareUpdateLocalizationInfo): Uri  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateLocalizationInfo.get_MoreInfoUrl
+  withIface(self.p, IID_IWindowsSoftwareUpdateLocalizationInfo, "IWindowsSoftwareUpdateLocalizationInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateLocalizationInfo_get_MoreInfoUrl, Fn_IWindowsSoftwareUpdateLocalizationInfo_get_MoreInfoUrl)(it, tmp.addr).check("WindowsSoftwareUpdateLocalizationInfo.get_MoreInfoUrl")
+    result = adopt[Uri](tmp)
+
+proc createInstance*(_: typedesc[WindowsSoftwareUpdateLocalizationInfo], a1: uint32, a2: string, a3: string, a4: Uri): WindowsSoftwareUpdateLocalizationInfo  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateLocalizationInfo.CreateInstance
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateLocalizationInfo", IID_IWindowsSoftwareUpdateLocalizationInfoFactory, it):
+    withHString(a2, h1):
+      withHString(a3, h2):
+        withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+          var tmp: pointer
+          vcall(it, Slot_IWindowsSoftwareUpdateLocalizationInfoFactory_CreateInstance, Fn_IWindowsSoftwareUpdateLocalizationInfoFactory_CreateInstance)(it, a1, h1, h2, p3, tmp.addr).check("WindowsSoftwareUpdateLocalizationInfo.CreateInstance")
+          result = adopt[WindowsSoftwareUpdateLocalizationInfo](tmp)
 
 proc closeAndDeployInfo*(self: WindowsSoftwareUpdateOptionalActionInfo): WindowsSoftwareUpdateActionInfo  =
   ## Windows.Management.Update.WindowsSoftwareUpdateOptionalActionInfo.get_CloseAndDeployInfo
@@ -3572,6 +3852,13 @@ proc registrationType*(self: WindowsSoftwareUpdateProvider): WindowsSoftwareUpda
     var tmp: WindowsSoftwareUpdateProviderRegistrationType
     vcall(it, Slot_IWindowsSoftwareUpdateProvider_get_RegistrationType, Fn_IWindowsSoftwareUpdateProvider_get_RegistrationType)(it, tmp.addr).check("WindowsSoftwareUpdateProvider.get_RegistrationType")
     result = tmp
+
+proc properties*(self: WindowsSoftwareUpdateProvider): PropertySet  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateProvider.get_Properties
+  withIface(self.p, IID_IWindowsSoftwareUpdateProvider, "IWindowsSoftwareUpdateProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateProvider_get_Properties, Fn_IWindowsSoftwareUpdateProvider_get_Properties)(it, tmp.addr).check("WindowsSoftwareUpdateProvider.get_Properties")
+    result = adopt[PropertySet](tmp)
 
 proc getPropertyValue*(self: WindowsSoftwareUpdateProvider, a1: string): pointer  =
   ## Windows.Management.Update.WindowsSoftwareUpdateProvider.GetPropertyValue
@@ -3898,6 +4185,20 @@ proc isSeeker*(self: WindowsUpdate): bool  =
     vcall(it, Slot_IWindowsUpdate_get_IsSeeker, Fn_IWindowsUpdate_get_IsSeeker)(it, tmp.addr).check("WindowsUpdate.get_IsSeeker")
     result = tmp
 
+proc moreInfoUrl*(self: WindowsUpdate): Uri  =
+  ## Windows.Management.Update.WindowsUpdate.get_MoreInfoUrl
+  withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdate_get_MoreInfoUrl, Fn_IWindowsUpdate_get_MoreInfoUrl)(it, tmp.addr).check("WindowsUpdate.get_MoreInfoUrl")
+    result = adopt[Uri](tmp)
+
+proc supportUrl*(self: WindowsUpdate): Uri  =
+  ## Windows.Management.Update.WindowsUpdate.get_SupportUrl
+  withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdate_get_SupportUrl, Fn_IWindowsUpdate_get_SupportUrl)(it, tmp.addr).check("WindowsUpdate.get_SupportUrl")
+    result = adopt[Uri](tmp)
+
 proc isEulaAccepted*(self: WindowsUpdate): bool  =
   ## Windows.Management.Update.WindowsUpdate.get_IsEulaAccepted
   withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
@@ -4181,6 +4482,13 @@ proc description*(self: WindowsUpdateItem): string  =
     var tmp: HSTRING
     vcall(it, Slot_IWindowsUpdateItem_get_Description, Fn_IWindowsUpdateItem_get_Description)(it, tmp.addr).check("WindowsUpdateItem.get_Description")
     result = takeString(tmp)
+
+proc moreInfoUrl*(self: WindowsUpdateItem): Uri  =
+  ## Windows.Management.Update.WindowsUpdateItem.get_MoreInfoUrl
+  withIface(self.p, IID_IWindowsUpdateItem, "IWindowsUpdateItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateItem_get_MoreInfoUrl, Fn_IWindowsUpdateItem_get_MoreInfoUrl)(it, tmp.addr).check("WindowsUpdateItem.get_MoreInfoUrl")
+    result = adopt[Uri](tmp)
 
 proc category*(self: WindowsUpdateItem): string  =
   ## Windows.Management.Update.WindowsUpdateItem.get_Category
@@ -4468,6 +4776,19 @@ proc `description=`*(self: WindowsUpdateRestartRequestOptions, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IWindowsUpdateRestartRequestOptions_put_Description, Fn_IWindowsUpdateRestartRequestOptions_put_Description)(it, h0).check("WindowsUpdateRestartRequestOptions.put_Description")
 
+proc moreInfoUrl*(self: WindowsUpdateRestartRequestOptions): Uri  =
+  ## Windows.Management.Update.WindowsUpdateRestartRequestOptions.get_MoreInfoUrl
+  withIface(self.p, IID_IWindowsUpdateRestartRequestOptions, "IWindowsUpdateRestartRequestOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateRestartRequestOptions_get_MoreInfoUrl, Fn_IWindowsUpdateRestartRequestOptions_get_MoreInfoUrl)(it, tmp.addr).check("WindowsUpdateRestartRequestOptions.get_MoreInfoUrl")
+    result = adopt[Uri](tmp)
+
+proc `moreInfoUrl=`*(self: WindowsUpdateRestartRequestOptions, value: Uri)  =
+  ## Windows.Management.Update.WindowsUpdateRestartRequestOptions.put_MoreInfoUrl
+  withIface(self.p, IID_IWindowsUpdateRestartRequestOptions, "IWindowsUpdateRestartRequestOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWindowsUpdateRestartRequestOptions_put_MoreInfoUrl, Fn_IWindowsUpdateRestartRequestOptions_put_MoreInfoUrl)(it, p0).check("WindowsUpdateRestartRequestOptions.put_MoreInfoUrl")
+
 proc complianceDeadlineInDays*(self: WindowsUpdateRestartRequestOptions): int32  =
   ## Windows.Management.Update.WindowsUpdateRestartRequestOptions.get_ComplianceDeadlineInDays
   withIface(self.p, IID_IWindowsUpdateRestartRequestOptions, "IWindowsUpdateRestartRequestOptions", it):
@@ -4516,6 +4837,16 @@ proc `optOutOfAutoReboot=`*(self: WindowsUpdateRestartRequestOptions, value: boo
   ## Windows.Management.Update.WindowsUpdateRestartRequestOptions.put_OptOutOfAutoReboot
   withIface(self.p, IID_IWindowsUpdateRestartRequestOptions, "IWindowsUpdateRestartRequestOptions", it):
     vcall(it, Slot_IWindowsUpdateRestartRequestOptions_put_OptOutOfAutoReboot, Fn_IWindowsUpdateRestartRequestOptions_put_OptOutOfAutoReboot)(it, value).check("WindowsUpdateRestartRequestOptions.put_OptOutOfAutoReboot")
+
+proc createInstance*(_: typedesc[WindowsUpdateRestartRequestOptions], a1: string, a2: string, a3: Uri, a4: int32, a5: int32): WindowsUpdateRestartRequestOptions  =
+  ## Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance
+  withStatics("Windows.Management.Update.WindowsUpdateRestartRequestOptions", IID_IWindowsUpdateRestartRequestOptionsFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+          var tmp: pointer
+          vcall(it, Slot_IWindowsUpdateRestartRequestOptionsFactory_CreateInstance, Fn_IWindowsUpdateRestartRequestOptionsFactory_CreateInstance)(it, h0, h1, p2, a4, a5, tmp.addr).check("WindowsUpdateRestartRequestOptions.CreateInstance")
+          result = adopt[WindowsUpdateRestartRequestOptions](tmp)
 
 proc providerId*(self: WindowsUpdateScanCompletedEventArgs): string  =
   ## Windows.Management.Update.WindowsUpdateScanCompletedEventArgs.get_ProviderId

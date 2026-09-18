@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/networking
+import ./foundation
+export foundation
 import ./delegate
 export core, networking
 import ./asyncops
@@ -16,24 +18,33 @@ export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_AsyncOperationCompletedHandler_1_DownloadOperation* = GUID(
+    data1: 0x2AA63857'u32, data2: 0xFFAF'u16, data3: 0x5CF6'u16,
+    data4: [0x9B'u8, 0x2C, 0x0D, 0xC5, 0x97, 0xB6, 0x0A, 0x60])
+const IID_IAsyncOperation_1_DownloadOperation* = GUID(
+    data1: 0x43EF3A5F'u32, data2: 0xCC7D'u16, data3: 0x566D'u16,
+    data4: [0xA9'u8, 0x2A, 0x4C, 0xAA, 0x76, 0xB9, 0x2A, 0x1F])
 const IID_IVectorView_1_DownloadOperation* = GUID(
     data1: 0xF87D9755'u32, data2: 0x2A7D'u16, data3: 0x59FC'u16,
     data4: [0xBC'u8, 0x92, 0xB4, 0x86, 0x36, 0xF4, 0xD9, 0x55])
 const IID_IVectorView_1_UploadOperation* = GUID(
     data1: 0x8E96D4B0'u32, data2: 0xF0AE'u16, data3: 0x51CB'u16,
     data4: [0xB7'u8, 0xC4, 0x02, 0x42, 0x51, 0xBD, 0x16, 0xD8])
-const IID_AsyncOperationCompletedHandler_1_DownloadOperation* = GUID(
-    data1: 0x2AA63857'u32, data2: 0xFFAF'u16, data3: 0x5CF6'u16,
-    data4: [0x9B'u8, 0x2C, 0x0D, 0xC5, 0x97, 0xB6, 0x0A, 0x60])
+const IID_AsyncOperationCompletedHandler_1_UploadOperation* = GUID(
+    data1: 0xEAD68818'u32, data2: 0x0C38'u16, data3: 0x5CDE'u16,
+    data4: [0xAE'u8, 0xC1, 0xC6, 0xA7, 0x61, 0x87, 0x11, 0xF7])
+const IID_IAsyncOperation_1_UploadOperation* = GUID(
+    data1: 0x44212EA1'u32, data2: 0xB524'u16, data3: 0x5AEE'u16,
+    data4: [0xA3'u8, 0x20, 0x71, 0x99, 0x22, 0x53, 0x81, 0xD1])
+const IID_IVector_1_Uri* = GUID(
+    data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
+    data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
 const IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation* = GUID(
     data1: 0xE86A4F5D'u32, data2: 0x743A'u16, data3: 0x5F18'u16,
     data4: [0x9D'u8, 0x4C, 0xBC, 0x8E, 0xD5, 0x94, 0x26, 0x59])
 const IID_TypedEventHandler_2_DownloadOperation_BackgroundTransferRangesDownloadedEventArgs* = GUID(
     data1: 0x93A20D85'u32, data2: 0xBDFC'u16, data3: 0x5195'u16,
     data4: [0x90'u8, 0xD9, 0x8C, 0xB5, 0x6C, 0xBC, 0xB3, 0xD8])
-const IID_AsyncOperationCompletedHandler_1_UploadOperation* = GUID(
-    data1: 0xEAD68818'u32, data2: 0x0C38'u16, data3: 0x5CDE'u16,
-    data4: [0xAE'u8, 0xC1, 0xC6, 0xA7, 0x61, 0x87, 0x11, 0xF7])
 const IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation* = GUID(
     data1: 0x35DDAEFA'u32, data2: 0xDB6A'u16, data3: 0x5D0D'u16,
     data4: [0xBA'u8, 0x54, 0xA0, 0x72, 0x84, 0x01, 0x17, 0x1E])
@@ -61,6 +72,15 @@ const IID_IVectorView_1_LanIdentifier* = GUID(
 const IID_IVectorView_1_HostName* = GUID(
     data1: 0xF4706AB1'u32, data2: 0x55A3'u16, data3: 0x5270'u16,
     data4: [0xAF'u8, 0xB2, 0x73, 0x29, 0x88, 0xFE, 0x82, 0x27])
+const IID_AsyncOperationCompletedHandler_1_ProxyConfiguration* = GUID(
+    data1: 0x035B2567'u32, data2: 0xEFB9'u16, data3: 0x5BC3'u16,
+    data4: [0xB6'u8, 0x09, 0xF9, 0xA8, 0xC2, 0x0B, 0x70, 0x01])
+const IID_IAsyncOperation_1_ProxyConfiguration* = GUID(
+    data1: 0x1E7651F6'u32, data2: 0x6562'u16, data3: 0x59C7'u16,
+    data4: [0x9A'u8, 0xF3, 0x87, 0x56, 0x63, 0x6E, 0xEE, 0xE2])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
 const IID_IVectorView_1_ESimProfile* = GUID(
     data1: 0xC776F3A9'u32, data2: 0x6E7F'u16, data3: 0x5144'u16,
     data4: [0x89'u8, 0xF7, 0x8F, 0x5E, 0xC1, 0x16, 0x5B, 0xA4])
@@ -3576,6 +3596,30 @@ proc newBackgroundDownloader*(): BackgroundDownloader =
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundDownloader`.
   adopt[BackgroundDownloader](activateAs("Windows.Networking.BackgroundTransfer.BackgroundDownloader", IID_IBackgroundDownloader))
 
+proc createDownload*(self: BackgroundDownloader, a1: Uri, a2: pointer): DownloadOperation  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownload
+  withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBackgroundDownloader_CreateDownload, Fn_IBackgroundDownloader_CreateDownload)(it, p0, a2, tmp.addr).check("BackgroundDownloader.CreateDownload")
+      result = adopt[DownloadOperation](tmp)
+
+proc createDownload*(self: BackgroundDownloader, a1: Uri, a2: pointer, a3: pointer): DownloadOperation  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownload
+  withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBackgroundDownloader_CreateDownload2, Fn_IBackgroundDownloader_CreateDownload2)(it, p0, a2, a3, tmp.addr).check("BackgroundDownloader.CreateDownload")
+      result = adopt[DownloadOperation](tmp)
+
+proc createDownloadAsync*(self: BackgroundDownloader, a1: Uri, a2: pointer, a3: pointer): Future[DownloadOperation] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownloadAsync
+  var op: pointer
+  withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBackgroundDownloader_CreateDownloadAsync, Fn_IBackgroundDownloader_CreateDownloadAsync)(it, p0, a2, a3, op.addr).check("BackgroundDownloader.CreateDownloadAsync")
+  result = adopt[DownloadOperation](await awaitObject(op, IID_IAsyncOperation_1_DownloadOperation, IID_AsyncOperationCompletedHandler_1_DownloadOperation, "BackgroundDownloader.CreateDownloadAsync"))
+
 proc setRequestHeader*(self: BackgroundDownloader, a1: string, a2: string)  =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.SetRequestHeader
   withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
@@ -3761,9 +3805,32 @@ proc wasDownloadRestarted*(self: BackgroundTransferRangesDownloadedEventArgs): b
     vcall(it, Slot_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted, Fn_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted)(it, tmp.addr).check("BackgroundTransferRangesDownloadedEventArgs.get_WasDownloadRestarted")
     result = tmp
 
+proc getDeferral*(self: BackgroundTransferRangesDownloadedEventArgs): Deferral  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundTransferRangesDownloadedEventArgs.GetDeferral
+  withIface(self.p, IID_IBackgroundTransferRangesDownloadedEventArgs, "IBackgroundTransferRangesDownloadedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferRangesDownloadedEventArgs_GetDeferral, Fn_IBackgroundTransferRangesDownloadedEventArgs_GetDeferral)(it, tmp.addr).check("BackgroundTransferRangesDownloadedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc newBackgroundUploader*(): BackgroundUploader =
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundUploader`.
   adopt[BackgroundUploader](activateAs("Windows.Networking.BackgroundTransfer.BackgroundUploader", IID_IBackgroundUploader))
+
+proc createUpload*(self: BackgroundUploader, a1: Uri, a2: pointer): UploadOperation  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUpload
+  withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBackgroundUploader_CreateUpload, Fn_IBackgroundUploader_CreateUpload)(it, p0, a2, tmp.addr).check("BackgroundUploader.CreateUpload")
+      result = adopt[UploadOperation](tmp)
+
+proc createUploadFromStreamAsync*(self: BackgroundUploader, a1: Uri, a2: pointer): Future[UploadOperation] {.async.} =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadFromStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBackgroundUploader_CreateUploadFromStreamAsync, Fn_IBackgroundUploader_CreateUploadFromStreamAsync)(it, p0, a2, op.addr).check("BackgroundUploader.CreateUploadFromStreamAsync")
+  result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadFromStreamAsync"))
 
 proc setRequestHeader*(self: BackgroundUploader, a1: string, a2: string)  =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.SetRequestHeader
@@ -3838,6 +3905,27 @@ proc createWithCompletionGroup*(_: typedesc[BackgroundUploader], a1: BackgroundT
       vcall(it, Slot_IBackgroundUploaderFactory_CreateWithCompletionGroup, Fn_IBackgroundUploaderFactory_CreateWithCompletionGroup)(it, p0, tmp.addr).check("BackgroundUploader.CreateWithCompletionGroup")
       result = adopt[BackgroundUploader](tmp)
 
+proc contentUris*(_: typedesc[ContentPrefetcher]): seq[Uri]  =
+  ## Windows.Networking.BackgroundTransfer.ContentPrefetcher.get_ContentUris
+  withStatics("Windows.Networking.BackgroundTransfer.ContentPrefetcher", IID_IContentPrefetcher, it):
+    var tmp: pointer
+    vcall(it, Slot_IContentPrefetcher_get_ContentUris, Fn_IContentPrefetcher_get_ContentUris)(it, tmp.addr).check("ContentPrefetcher.get_ContentUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
+proc `indirectContentUri=`*(_: typedesc[ContentPrefetcher], value: Uri)  =
+  ## Windows.Networking.BackgroundTransfer.ContentPrefetcher.put_IndirectContentUri
+  withStatics("Windows.Networking.BackgroundTransfer.ContentPrefetcher", IID_IContentPrefetcher, it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IContentPrefetcher_put_IndirectContentUri, Fn_IContentPrefetcher_put_IndirectContentUri)(it, p0).check("ContentPrefetcher.put_IndirectContentUri")
+
+proc indirectContentUri*(_: typedesc[ContentPrefetcher]): Uri  =
+  ## Windows.Networking.BackgroundTransfer.ContentPrefetcher.get_IndirectContentUri
+  withStatics("Windows.Networking.BackgroundTransfer.ContentPrefetcher", IID_IContentPrefetcher, it):
+    var tmp: pointer
+    vcall(it, Slot_IContentPrefetcher_get_IndirectContentUri, Fn_IContentPrefetcher_get_IndirectContentUri)(it, tmp.addr).check("ContentPrefetcher.get_IndirectContentUri")
+    result = adopt[Uri](tmp)
+
 proc resultFile*(self: DownloadOperation): pointer  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_ResultFile
   withIface(self.p, IID_IDownloadOperation, "IDownloadOperation", it):
@@ -3882,6 +3970,13 @@ proc guid*(self: DownloadOperation): GUID  =
     var tmp: GUID
     vcall(it, Slot_IBackgroundTransferOperation_get_Guid, Fn_IBackgroundTransferOperation_get_Guid)(it, tmp.addr).check("DownloadOperation.get_Guid")
     result = tmp
+
+proc requestedUri*(self: DownloadOperation): Uri  =
+  ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_RequestedUri
+  withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferOperation_get_RequestedUri, Fn_IBackgroundTransferOperation_get_RequestedUri)(it, tmp.addr).check("DownloadOperation.get_RequestedUri")
+    result = adopt[Uri](tmp)
 
 proc `method`*(self: DownloadOperation): string  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_Method
@@ -3980,6 +4075,12 @@ proc removeRangesDownloaded*(self: DownloadOperation, token: EventRegistrationTo
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     vcall(it, Slot_IDownloadOperation3_remove_RangesDownloaded, Fn_IDownloadOperation3_remove_RangesDownloaded)(it, token).check("DownloadOperation.remove_RangesDownloaded")
 
+proc `requestedUri=`*(self: DownloadOperation, value: Uri)  =
+  ## Windows.Networking.BackgroundTransfer.DownloadOperation.put_RequestedUri
+  withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDownloadOperation3_put_RequestedUri, Fn_IDownloadOperation3_put_RequestedUri)(it, p0).check("DownloadOperation.put_RequestedUri")
+
 proc makeCurrentInTransferGroup*(self: DownloadOperation)  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.MakeCurrentInTransferGroup
   withIface(self.p, IID_IDownloadOperation4, "IDownloadOperation4", it):
@@ -4004,6 +4105,13 @@ proc isResumable*(self: ResponseInformation): bool  =
     var tmp: bool
     vcall(it, Slot_IResponseInformation_get_IsResumable, Fn_IResponseInformation_get_IsResumable)(it, tmp.addr).check("ResponseInformation.get_IsResumable")
     result = tmp
+
+proc actualUri*(self: ResponseInformation): Uri  =
+  ## Windows.Networking.BackgroundTransfer.ResponseInformation.get_ActualUri
+  withIface(self.p, IID_IResponseInformation, "IResponseInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IResponseInformation_get_ActualUri, Fn_IResponseInformation_get_ActualUri)(it, tmp.addr).check("ResponseInformation.get_ActualUri")
+    result = adopt[Uri](tmp)
 
 proc statusCode*(self: ResponseInformation): uint32  =
   ## Windows.Networking.BackgroundTransfer.ResponseInformation.get_StatusCode
@@ -4053,6 +4161,13 @@ proc guid*(self: UploadOperation): GUID  =
     var tmp: GUID
     vcall(it, Slot_IBackgroundTransferOperation_get_Guid, Fn_IBackgroundTransferOperation_get_Guid)(it, tmp.addr).check("UploadOperation.get_Guid")
     result = tmp
+
+proc requestedUri*(self: UploadOperation): Uri  =
+  ## Windows.Networking.BackgroundTransfer.UploadOperation.get_RequestedUri
+  withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferOperation_get_RequestedUri, Fn_IBackgroundTransferOperation_get_RequestedUri)(it, tmp.addr).check("UploadOperation.get_RequestedUri")
+    result = adopt[Uri](tmp)
 
 proc `method`*(self: UploadOperation): string  =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.get_Method
@@ -4473,6 +4588,11 @@ proc connectionProfile*(self: ConnectionSession): ConnectionProfile  =
     vcall(it, Slot_IConnectionSession_get_ConnectionProfile, Fn_IConnectionSession_get_ConnectionProfile)(it, tmp.addr).check("ConnectionSession.get_ConnectionProfile")
     result = adopt[ConnectionProfile](tmp)
 
+proc close*(self: ConnectionSession)  =
+  ## Windows.Networking.Connectivity.ConnectionSession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ConnectionSession.Close")
+
 proc startTime*(self: ConnectivityInterval): DateTime  =
   ## Windows.Networking.Connectivity.ConnectivityInterval.get_StartTime
   withIface(self.p, IID_IConnectivityInterval, "IConnectivityInterval", it):
@@ -4650,6 +4770,14 @@ proc getHostNames*(_: typedesc[NetworkInformation]): seq[HostName]  =
     result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
     release(tmp)
 
+proc getProxyConfigurationAsync*(_: typedesc[NetworkInformation], a1: Uri): Future[ProxyConfiguration] {.async.} =
+  ## Windows.Networking.Connectivity.NetworkInformation.GetProxyConfigurationAsync
+  var op: pointer
+  withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_INetworkInformationStatics_GetProxyConfigurationAsync, Fn_INetworkInformationStatics_GetProxyConfigurationAsync)(it, p0, op.addr).check("NetworkInformation.GetProxyConfigurationAsync")
+  result = adopt[ProxyConfiguration](await awaitObject(op, IID_IAsyncOperation_1_ProxyConfiguration, IID_AsyncOperationCompletedHandler_1_ProxyConfiguration, "NetworkInformation.GetProxyConfigurationAsync"))
+
 proc removeNetworkStatusChanged*(_: typedesc[NetworkInformation], token: EventRegistrationToken) =
   withStatics("Windows.Networking.Connectivity.NetworkInformation", IID_INetworkInformationStatics, it):
     vcall(it, Slot_INetworkInformationStatics_remove_NetworkStatusChanged, Fn_INetworkInformationStatics_remove_NetworkStatusChanged)(it, token).check("NetworkInformation.remove_NetworkStatusChanged")
@@ -4779,6 +4907,14 @@ proc providerId*(self: ProviderNetworkUsage): string  =
     var tmp: HSTRING
     vcall(it, Slot_IProviderNetworkUsage_get_ProviderId, Fn_IProviderNetworkUsage_get_ProviderId)(it, tmp.addr).check("ProviderNetworkUsage.get_ProviderId")
     result = takeString(tmp)
+
+proc proxyUris*(self: ProxyConfiguration): seq[Uri]  =
+  ## Windows.Networking.Connectivity.ProxyConfiguration.get_ProxyUris
+  withIface(self.p, IID_IProxyConfiguration, "IProxyConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IProxyConfiguration_get_ProxyUris, Fn_IProxyConfiguration_get_ProxyUris)(it, tmp.addr).check("ProxyConfiguration.get_ProxyUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
 
 proc canConnectDirectly*(self: ProxyConfiguration): bool  =
   ## Windows.Networking.Connectivity.ProxyConfiguration.get_CanConnectDirectly
@@ -4964,6 +5100,13 @@ proc isEqual*(self: HostName, a1: HostName): bool  =
       var tmp: bool
       vcall(it, Slot_IHostName_IsEqual, Fn_IHostName_IsEqual)(it, p0, tmp.addr).check("HostName.IsEqual")
       result = tmp
+
+proc toString*(self: HostName): string  =
+  ## Windows.Networking.HostName.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HostName.ToString")
+    result = takeString(tmp)
 
 proc compare*(_: typedesc[HostName], a1: string, a2: string): int32  =
   ## Windows.Networking.HostName.Compare
@@ -5553,6 +5696,20 @@ proc networkAdapter*(self: HotspotAuthenticationContext): NetworkAdapter  =
     vcall(it, Slot_IHotspotAuthenticationContext_get_NetworkAdapter, Fn_IHotspotAuthenticationContext_get_NetworkAdapter)(it, tmp.addr).check("HotspotAuthenticationContext.get_NetworkAdapter")
     result = adopt[NetworkAdapter](tmp)
 
+proc redirectMessageUrl*(self: HotspotAuthenticationContext): Uri  =
+  ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_RedirectMessageUrl
+  withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IHotspotAuthenticationContext_get_RedirectMessageUrl, Fn_IHotspotAuthenticationContext_get_RedirectMessageUrl)(it, tmp.addr).check("HotspotAuthenticationContext.get_RedirectMessageUrl")
+    result = adopt[Uri](tmp)
+
+proc authenticationUrl*(self: HotspotAuthenticationContext): Uri  =
+  ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_AuthenticationUrl
+  withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IHotspotAuthenticationContext_get_AuthenticationUrl, Fn_IHotspotAuthenticationContext_get_AuthenticationUrl)(it, tmp.addr).check("HotspotAuthenticationContext.get_AuthenticationUrl")
+    result = adopt[Uri](tmp)
+
 proc issueCredentials*(self: HotspotAuthenticationContext, a1: string, a2: string, a3: string, a4: bool)  =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.IssueCredentials
   withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
@@ -5609,6 +5766,13 @@ proc responseCode*(self: HotspotCredentialsAuthenticationResult): HotspotAuthent
     vcall(it, Slot_IHotspotCredentialsAuthenticationResult_get_ResponseCode, Fn_IHotspotCredentialsAuthenticationResult_get_ResponseCode)(it, tmp.addr).check("HotspotCredentialsAuthenticationResult.get_ResponseCode")
     result = tmp
 
+proc logoffUrl*(self: HotspotCredentialsAuthenticationResult): Uri  =
+  ## Windows.Networking.NetworkOperators.HotspotCredentialsAuthenticationResult.get_LogoffUrl
+  withIface(self.p, IID_IHotspotCredentialsAuthenticationResult, "IHotspotCredentialsAuthenticationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IHotspotCredentialsAuthenticationResult_get_LogoffUrl, Fn_IHotspotCredentialsAuthenticationResult_get_LogoffUrl)(it, tmp.addr).check("HotspotCredentialsAuthenticationResult.get_LogoffUrl")
+    result = adopt[Uri](tmp)
+
 proc networkAccountId*(self: MobileBroadbandAccount): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.get_NetworkAccountId
   withIface(self.p, IID_IMobileBroadbandAccount, "IMobileBroadbandAccount", it):
@@ -5651,6 +5815,13 @@ proc getConnectionProfiles*(self: MobileBroadbandAccount): seq[ConnectionProfile
     vcall(it, Slot_IMobileBroadbandAccount2_GetConnectionProfiles, Fn_IMobileBroadbandAccount2_GetConnectionProfiles)(it, tmp.addr).check("MobileBroadbandAccount.GetConnectionProfiles")
     result = toSeq[ConnectionProfile](tmp, IID_IVectorView_1_ConnectionProfile)
     release(tmp)
+
+proc accountExperienceUrl*(self: MobileBroadbandAccount): Uri  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.get_AccountExperienceUrl
+  withIface(self.p, IID_IMobileBroadbandAccount3, "IMobileBroadbandAccount3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandAccount3_get_AccountExperienceUrl, Fn_IMobileBroadbandAccount3_get_AccountExperienceUrl)(it, tmp.addr).check("MobileBroadbandAccount.get_AccountExperienceUrl")
+    result = adopt[Uri](tmp)
 
 proc availableNetworkAccountIds*(_: typedesc[MobileBroadbandAccount]): seq[string]  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.get_AvailableNetworkAccountIds
@@ -7923,6 +8094,14 @@ proc publishBinaryMessage*(self: ProximityDevice, a1: string, a2: pointer): int6
       vcall(it, Slot_IProximityDevice_PublishBinaryMessage, Fn_IProximityDevice_PublishBinaryMessage)(it, h0, a2, tmp.addr).check("ProximityDevice.PublishBinaryMessage")
       result = tmp
 
+proc publishUriMessage*(self: ProximityDevice, a1: Uri): int64  =
+  ## Windows.Networking.Proximity.ProximityDevice.PublishUriMessage
+  withIface(self.p, IID_IProximityDevice, "IProximityDevice", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: int64
+      vcall(it, Slot_IProximityDevice_PublishUriMessage, Fn_IProximityDevice_PublishUriMessage)(it, p0, tmp.addr).check("ProximityDevice.PublishUriMessage")
+      result = tmp
+
 proc stopSubscribingForMessage*(self: ProximityDevice, a1: int64)  =
   ## Windows.Networking.Proximity.ProximityDevice.StopSubscribingForMessage
   withIface(self.p, IID_IProximityDevice, "IProximityDevice", it):
@@ -8232,6 +8411,13 @@ proc hasInstanceNameChanged*(self: DnssdRegistrationResult): bool  =
     vcall(it, Slot_IDnssdRegistrationResult_get_HasInstanceNameChanged, Fn_IDnssdRegistrationResult_get_HasInstanceNameChanged)(it, tmp.addr).check("DnssdRegistrationResult.get_HasInstanceNameChanged")
     result = tmp
 
+proc toString*(self: DnssdRegistrationResult): string  =
+  ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("DnssdRegistrationResult.ToString")
+    result = takeString(tmp)
+
 proc dnssdServiceInstanceName*(self: DnssdServiceInstance): string  =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.get_DnssdServiceInstanceName
   withIface(self.p, IID_IDnssdServiceInstance, "IDnssdServiceInstance", it):
@@ -8327,6 +8513,13 @@ proc registerDatagramSocketAsync*(self: DnssdServiceInstance, a1: DatagramSocket
       withIface(a2.p, IID_INetworkAdapter, "INetworkAdapter", p1):
         vcall(it, Slot_IDnssdServiceInstance_RegisterDatagramSocketAsync2, Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync2)(it, p0, p1, op.addr).check("DnssdServiceInstance.RegisterDatagramSocketAsync")
   result = adopt[DnssdRegistrationResult](await awaitObject(op, IID_IAsyncOperation_1_DnssdRegistrationResult, IID_AsyncOperationCompletedHandler_1_DnssdRegistrationResult, "DnssdServiceInstance.RegisterDatagramSocketAsync"))
+
+proc toString*(self: DnssdServiceInstance): string  =
+  ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("DnssdServiceInstance.ToString")
+    result = takeString(tmp)
 
 proc create*(_: typedesc[DnssdServiceInstance], a1: string, a2: HostName, a3: uint16): DnssdServiceInstance  =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.Create
@@ -8480,6 +8673,11 @@ proc flushTransport*(self: ControlChannelTrigger)  =
   withIface(self.p, IID_IControlChannelTrigger, "IControlChannelTrigger", it):
     vcall(it, Slot_IControlChannelTrigger_FlushTransport, Fn_IControlChannelTrigger_FlushTransport)(it).check("ControlChannelTrigger.FlushTransport")
 
+proc close*(self: ControlChannelTrigger)  =
+  ## Windows.Networking.Sockets.ControlChannelTrigger.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ControlChannelTrigger.Close")
+
 proc isWakeFromLowPowerSupported*(self: ControlChannelTrigger): bool  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.get_IsWakeFromLowPowerSupported
   withIface(self.p, IID_IControlChannelTrigger2, "IControlChannelTrigger2", it):
@@ -8586,6 +8784,11 @@ proc onMessageReceived*(self: DatagramSocket,
 proc removeMessageReceived*(self: DatagramSocket, token: EventRegistrationToken) =
   withIface(self.p, IID_IDatagramSocket, "IDatagramSocket", it):
     vcall(it, Slot_IDatagramSocket_remove_MessageReceived, Fn_IDatagramSocket_remove_MessageReceived)(it, token).check("DatagramSocket.remove_MessageReceived")
+
+proc close*(self: DatagramSocket)  =
+  ## Windows.Networking.Sockets.DatagramSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DatagramSocket.Close")
 
 proc bindServiceNameAsync*(self: DatagramSocket, a1: string, a2: NetworkAdapter) {.async.} =
   ## Windows.Networking.Sockets.DatagramSocket.BindServiceNameAsync
@@ -8793,6 +8996,14 @@ proc outputStream*(self: MessageWebSocket): pointer  =
     vcall(it, Slot_IWebSocket_get_OutputStream, Fn_IWebSocket_get_OutputStream)(it, tmp.addr).check("MessageWebSocket.get_OutputStream")
     result = tmp
 
+proc connectAsync*(self: MessageWebSocket, a1: Uri) {.async.} =
+  ## Windows.Networking.Sockets.MessageWebSocket.ConnectAsync
+  var op: pointer
+  withIface(self.p, IID_IWebSocket, "IWebSocket", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebSocket_ConnectAsync, Fn_IWebSocket_ConnectAsync)(it, p0, op.addr).check("MessageWebSocket.ConnectAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "MessageWebSocket.ConnectAsync")
+
 proc setRequestHeader*(self: MessageWebSocket, a1: string, a2: string)  =
   ## Windows.Networking.Sockets.MessageWebSocket.SetRequestHeader
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
@@ -8824,6 +9035,11 @@ proc close*(self: MessageWebSocket, a1: uint16, a2: string)  =
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
     withHString(a2, h1):
       vcall(it, Slot_IWebSocket_Close, Fn_IWebSocket_Close)(it, a1, h1).check("MessageWebSocket.Close")
+
+proc close*(self: MessageWebSocket)  =
+  ## Windows.Networking.Sockets.MessageWebSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MessageWebSocket.Close")
 
 proc onServerCustomValidationRequested*(self: MessageWebSocket,
     handler: proc(sender: pointer, args: WebSocketServerCustomValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -9033,6 +9249,11 @@ proc close*(self: ServerMessageWebSocket, a1: uint16, a2: string)  =
     withHString(a2, h1):
       vcall(it, Slot_IServerMessageWebSocket_Close, Fn_IServerMessageWebSocket_Close)(it, a1, h1).check("ServerMessageWebSocket.Close")
 
+proc close*(self: ServerMessageWebSocket)  =
+  ## Windows.Networking.Sockets.ServerMessageWebSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ServerMessageWebSocket.Close")
+
 proc messageType*(self: ServerMessageWebSocketControl): SocketMessageType  =
   ## Windows.Networking.Sockets.ServerMessageWebSocketControl.get_MessageType
   withIface(self.p, IID_IServerMessageWebSocketControl, "IServerMessageWebSocketControl", it):
@@ -9111,6 +9332,11 @@ proc close*(self: ServerStreamWebSocket, a1: uint16, a2: string)  =
   withIface(self.p, IID_IServerStreamWebSocket, "IServerStreamWebSocket", it):
     withHString(a2, h1):
       vcall(it, Slot_IServerStreamWebSocket_Close, Fn_IServerStreamWebSocket_Close)(it, a1, h1).check("ServerStreamWebSocket.Close")
+
+proc close*(self: ServerStreamWebSocket)  =
+  ## Windows.Networking.Sockets.ServerStreamWebSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ServerStreamWebSocket.Close")
 
 proc bandwidthStatistics*(self: ServerStreamWebSocketInformation): BandwidthStatistics  =
   ## Windows.Networking.Sockets.ServerStreamWebSocketInformation.get_BandwidthStatistics
@@ -9290,6 +9516,11 @@ proc upgradeToSslAsync*(self: StreamSocket, a1: SocketProtectionLevel, a2: HostN
     withIface(a2.p, IID_IHostName, "IHostName", p1):
       vcall(it, Slot_IStreamSocket_UpgradeToSslAsync, Fn_IStreamSocket_UpgradeToSslAsync)(it, a1, p1, op.addr).check("StreamSocket.UpgradeToSslAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "StreamSocket.UpgradeToSslAsync")
+
+proc close*(self: StreamSocket)  =
+  ## Windows.Networking.Sockets.StreamSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StreamSocket.Close")
 
 proc connectAsync*(self: StreamSocket, a1: HostName, a2: string, a3: SocketProtectionLevel, a4: NetworkAdapter) {.async.} =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
@@ -9553,6 +9784,11 @@ proc removeConnectionReceived*(self: StreamSocketListener, token: EventRegistrat
   withIface(self.p, IID_IStreamSocketListener, "IStreamSocketListener", it):
     vcall(it, Slot_IStreamSocketListener_remove_ConnectionReceived, Fn_IStreamSocketListener_remove_ConnectionReceived)(it, token).check("StreamSocketListener.remove_ConnectionReceived")
 
+proc close*(self: StreamSocketListener)  =
+  ## Windows.Networking.Sockets.StreamSocketListener.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StreamSocketListener.Close")
+
 proc bindServiceNameAsync*(self: StreamSocketListener, a1: string, a2: SocketProtectionLevel) {.async.} =
   ## Windows.Networking.Sockets.StreamSocketListener.BindServiceNameAsync
   var op: pointer
@@ -9706,6 +9942,14 @@ proc outputStream*(self: StreamWebSocket): pointer  =
     vcall(it, Slot_IWebSocket_get_OutputStream, Fn_IWebSocket_get_OutputStream)(it, tmp.addr).check("StreamWebSocket.get_OutputStream")
     result = tmp
 
+proc connectAsync*(self: StreamWebSocket, a1: Uri) {.async.} =
+  ## Windows.Networking.Sockets.StreamWebSocket.ConnectAsync
+  var op: pointer
+  withIface(self.p, IID_IWebSocket, "IWebSocket", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebSocket_ConnectAsync, Fn_IWebSocket_ConnectAsync)(it, p0, op.addr).check("StreamWebSocket.ConnectAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "StreamWebSocket.ConnectAsync")
+
 proc setRequestHeader*(self: StreamWebSocket, a1: string, a2: string)  =
   ## Windows.Networking.Sockets.StreamWebSocket.SetRequestHeader
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
@@ -9737,6 +9981,11 @@ proc close*(self: StreamWebSocket, a1: uint16, a2: string)  =
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
     withHString(a2, h1):
       vcall(it, Slot_IWebSocket_Close, Fn_IWebSocket_Close)(it, a1, h1).check("StreamWebSocket.Close")
+
+proc close*(self: StreamWebSocket)  =
+  ## Windows.Networking.Sockets.StreamWebSocket.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StreamWebSocket.Close")
 
 proc onServerCustomValidationRequested*(self: StreamWebSocket,
     handler: proc(sender: pointer, args: WebSocketServerCustomValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -9861,6 +10110,13 @@ proc reject*(self: WebSocketServerCustomValidationRequestedEventArgs)  =
   ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.Reject
   withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
     vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_Reject, Fn_IWebSocketServerCustomValidationRequestedEventArgs_Reject)(it).check("WebSocketServerCustomValidationRequestedEventArgs.Reject")
+
+proc getDeferral*(self: WebSocketServerCustomValidationRequestedEventArgs): Deferral  =
+  ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_GetDeferral, Fn_IWebSocketServerCustomValidationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc `type`*(self: VpnAppId): VpnAppIdType  =
   ## Windows.Networking.Vpn.VpnAppId.get_Type
@@ -10078,6 +10334,15 @@ proc flushVpnSendPacketBuffers*(self: VpnChannel)  =
   withIface(self.p, IID_IVpnChannel5, "IVpnChannel5", it):
     vcall(it, Slot_IVpnChannel5_FlushVpnSendPacketBuffers, Fn_IVpnChannel5_FlushVpnSendPacketBuffers)(it).check("VpnChannel.FlushVpnSendPacketBuffers")
 
+proc activateForeground*(self: VpnChannel, a1: string, a2: ValueSet): ValueSet  =
+  ## Windows.Networking.Vpn.VpnChannel.ActivateForeground
+  withIface(self.p, IID_IVpnChannel6, "IVpnChannel6", it):
+    withHString(a1, h0):
+      withIface(a2.p, IID_IPropertySet, "IPropertySet", p1):
+        var tmp: pointer
+        vcall(it, Slot_IVpnChannel6_ActivateForeground, Fn_IVpnChannel6_ActivateForeground)(it, h0, p1, tmp.addr).check("VpnChannel.ActivateForeground")
+        result = adopt[ValueSet](tmp)
+
 proc processEventAsync*(_: typedesc[VpnChannel], a1: pointer, a2: pointer)  =
   ## Windows.Networking.Vpn.VpnChannel.ProcessEventAsync
   withStatics("Windows.Networking.Vpn.VpnChannel", IID_IVpnChannelStatics, it):
@@ -10118,6 +10383,14 @@ proc customField*(self: VpnChannelConfiguration): string  =
     var tmp: HSTRING
     vcall(it, Slot_IVpnChannelConfiguration_get_CustomField, Fn_IVpnChannelConfiguration_get_CustomField)(it, tmp.addr).check("VpnChannelConfiguration.get_CustomField")
     result = takeString(tmp)
+
+proc serverUris*(self: VpnChannelConfiguration): seq[Uri]  =
+  ## Windows.Networking.Vpn.VpnChannelConfiguration.get_ServerUris
+  withIface(self.p, IID_IVpnChannelConfiguration2, "IVpnChannelConfiguration2", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnChannelConfiguration2_get_ServerUris, Fn_IVpnChannelConfiguration2_get_ServerUris)(it, tmp.addr).check("VpnChannelConfiguration.get_ServerUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
 
 proc additionalPin*(self: VpnCredential): string  =
   ## Windows.Networking.Vpn.VpnCredential.get_AdditionalPin
@@ -10665,6 +10938,19 @@ proc domainNameList*(self: VpnDomainNameAssignment): seq[VpnDomainNameInfo]  =
     result = toSeq[VpnDomainNameInfo](tmp, IID_IVector_1_VpnDomainNameInfo)
     release(tmp)
 
+proc `proxyAutoConfigurationUri=`*(self: VpnDomainNameAssignment, value: Uri)  =
+  ## Windows.Networking.Vpn.VpnDomainNameAssignment.put_ProxyAutoConfigurationUri
+  withIface(self.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IVpnDomainNameAssignment_put_ProxyAutoConfigurationUri, Fn_IVpnDomainNameAssignment_put_ProxyAutoConfigurationUri)(it, p0).check("VpnDomainNameAssignment.put_ProxyAutoConfigurationUri")
+
+proc proxyAutoConfigurationUri*(self: VpnDomainNameAssignment): Uri  =
+  ## Windows.Networking.Vpn.VpnDomainNameAssignment.get_ProxyAutoConfigurationUri
+  withIface(self.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnDomainNameAssignment_get_ProxyAutoConfigurationUri, Fn_IVpnDomainNameAssignment_get_ProxyAutoConfigurationUri)(it, tmp.addr).check("VpnDomainNameAssignment.get_ProxyAutoConfigurationUri")
+    result = adopt[Uri](tmp)
+
 proc `domainName=`*(self: VpnDomainNameInfo, value: HostName)  =
   ## Windows.Networking.Vpn.VpnDomainNameInfo.put_DomainName
   withIface(self.p, IID_IVpnDomainNameInfo, "IVpnDomainNameInfo", it):
@@ -10706,6 +10992,14 @@ proc webProxyServers*(self: VpnDomainNameInfo): seq[HostName]  =
     result = toSeq[HostName](tmp, IID_IVector_1_HostName)
     release(tmp)
 
+proc webProxyUris*(self: VpnDomainNameInfo): seq[Uri]  =
+  ## Windows.Networking.Vpn.VpnDomainNameInfo.get_WebProxyUris
+  withIface(self.p, IID_IVpnDomainNameInfo2, "IVpnDomainNameInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnDomainNameInfo2_get_WebProxyUris, Fn_IVpnDomainNameInfo2_get_WebProxyUris)(it, tmp.addr).check("VpnDomainNameInfo.get_WebProxyUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc profileName*(self: VpnForegroundActivatedEventArgs): string  =
   ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_ProfileName
   withIface(self.p, IID_IVpnForegroundActivatedEventArgs, "IVpnForegroundActivatedEventArgs", it):
@@ -10713,12 +11007,25 @@ proc profileName*(self: VpnForegroundActivatedEventArgs): string  =
     vcall(it, Slot_IVpnForegroundActivatedEventArgs_get_ProfileName, Fn_IVpnForegroundActivatedEventArgs_get_ProfileName)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_ProfileName")
     result = takeString(tmp)
 
+proc sharedContext*(self: VpnForegroundActivatedEventArgs): ValueSet  =
+  ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_SharedContext
+  withIface(self.p, IID_IVpnForegroundActivatedEventArgs, "IVpnForegroundActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnForegroundActivatedEventArgs_get_SharedContext, Fn_IVpnForegroundActivatedEventArgs_get_SharedContext)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_SharedContext")
+    result = adopt[ValueSet](tmp)
+
 proc activationOperation*(self: VpnForegroundActivatedEventArgs): VpnForegroundActivationOperation  =
   ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_ActivationOperation
   withIface(self.p, IID_IVpnForegroundActivatedEventArgs, "IVpnForegroundActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IVpnForegroundActivatedEventArgs_get_ActivationOperation, Fn_IVpnForegroundActivatedEventArgs_get_ActivationOperation)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_ActivationOperation")
     result = adopt[VpnForegroundActivationOperation](tmp)
+
+proc complete*(self: VpnForegroundActivationOperation, a1: ValueSet)  =
+  ## Windows.Networking.Vpn.VpnForegroundActivationOperation.Complete
+  withIface(self.p, IID_IVpnForegroundActivationOperation, "IVpnForegroundActivationOperation", it):
+    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+      vcall(it, Slot_IVpnForegroundActivationOperation_Complete, Fn_IVpnForegroundActivationOperation_Complete)(it, p0).check("VpnForegroundActivationOperation.Complete")
 
 proc newVpnManagementAgent*(): VpnManagementAgent =
   ## Activate a `Windows.Networking.Vpn.VpnManagementAgent`.
@@ -10735,6 +11042,19 @@ proc namespaceList*(self: VpnNamespaceAssignment): seq[VpnNamespaceInfo]  =
     vcall(it, Slot_IVpnNamespaceAssignment_get_NamespaceList, Fn_IVpnNamespaceAssignment_get_NamespaceList)(it, tmp.addr).check("VpnNamespaceAssignment.get_NamespaceList")
     result = toSeq[VpnNamespaceInfo](tmp, IID_IVector_1_VpnNamespaceInfo)
     release(tmp)
+
+proc `proxyAutoConfigUri=`*(self: VpnNamespaceAssignment, value: Uri)  =
+  ## Windows.Networking.Vpn.VpnNamespaceAssignment.put_ProxyAutoConfigUri
+  withIface(self.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IVpnNamespaceAssignment_put_ProxyAutoConfigUri, Fn_IVpnNamespaceAssignment_put_ProxyAutoConfigUri)(it, p0).check("VpnNamespaceAssignment.put_ProxyAutoConfigUri")
+
+proc proxyAutoConfigUri*(self: VpnNamespaceAssignment): Uri  =
+  ## Windows.Networking.Vpn.VpnNamespaceAssignment.get_ProxyAutoConfigUri
+  withIface(self.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnNamespaceAssignment_get_ProxyAutoConfigUri, Fn_IVpnNamespaceAssignment_get_ProxyAutoConfigUri)(it, tmp.addr).check("VpnNamespaceAssignment.get_ProxyAutoConfigUri")
+    result = adopt[Uri](tmp)
 
 proc `namespace=`*(self: VpnNamespaceInfo, value: string)  =
   ## Windows.Networking.Vpn.VpnNamespaceInfo.put_Namespace
@@ -11037,6 +11357,14 @@ proc additionalPin*(self: VpnPickedCredential): string  =
 proc newVpnPlugInProfile*(): VpnPlugInProfile =
   ## Activate a `Windows.Networking.Vpn.VpnPlugInProfile`.
   adopt[VpnPlugInProfile](activateAs("Windows.Networking.Vpn.VpnPlugInProfile", IID_IVpnPlugInProfile))
+
+proc serverUris*(self: VpnPlugInProfile): seq[Uri]  =
+  ## Windows.Networking.Vpn.VpnPlugInProfile.get_ServerUris
+  withIface(self.p, IID_IVpnPlugInProfile, "IVpnPlugInProfile", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnPlugInProfile_get_ServerUris, Fn_IVpnPlugInProfile_get_ServerUris)(it, tmp.addr).check("VpnPlugInProfile.get_ServerUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
 
 proc customConfiguration*(self: VpnPlugInProfile): string  =
   ## Windows.Networking.Vpn.VpnPlugInProfile.get_CustomConfiguration

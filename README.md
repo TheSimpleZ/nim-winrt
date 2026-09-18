@@ -131,8 +131,13 @@ Nothing you do not call reaches the binary: these modules are declarations, so
 a program that imports all eighteen comes out byte for byte the same size as
 one that imports `winrt` alone. The cost is compile time, and it is
 concentrated in one module — measured against `import winrt` on a 2026 laptop,
-`winrt/gaming` adds 0.03s, `winrt/devices` 0.3s, `winrt/ui` 1.9s, and all
-eighteen together 2.0s, because `ui` already pulls in most of the rest.
+`winrt/gaming` adds 0.3s, `winrt/devices` 2.8s and `winrt/ui` 9.4s.
+
+Each module also imports `winrt/foundation`, because nearly everything names
+something in it. It does not import its other dependencies: doing that recovers
+about 900 more methods and takes `winrt/ui` from ten seconds to sixty-four, so
+a method whose parameter is a class from a third namespace is skipped instead.
+The ABI layer still has it.
 
 ## Async
 

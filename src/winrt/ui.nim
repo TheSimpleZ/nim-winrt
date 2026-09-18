@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/ui
+import ./foundation
+export foundation
 import ./delegate
 export core, ui
 import ./asyncops
@@ -1102,6 +1104,9 @@ const IID_TypedEventHandler_2_TreeView_TreeViewDragItemsCompletedEventArgs* = GU
 const IID_TypedEventHandler_2_TwoPaneView_Object* = GUID(
     data1: 0x223D4A57'u32, data2: 0x90C5'u16, data3: 0x5F74'u16,
     data4: [0x8B'u8, 0xAF, 0x92, 0x50, 0xB0, 0x30, 0xBD, 0x35])
+const IID_IVector_1_Uri* = GUID(
+    data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
+    data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
 const IID_TypedEventHandler_2_WebView_WebViewNavigationStartingEventArgs* = GUID(
     data1: 0x98055B5A'u32, data2: 0x36BB'u16, data3: 0x5962'u16,
     data4: [0x97'u8, 0x1F, 0x8B, 0x87, 0x61, 0x9E, 0xB1, 0x7E])
@@ -14613,6 +14618,11 @@ proc startAnimation*(self: CompositionObject, a1: string, a2: CompositionAnimati
         withIface(a3.p, IID_IAnimationController, "IAnimationController", p2):
           vcall(it, Slot_ICompositionObject5_StartAnimation, Fn_ICompositionObject5_StartAnimation)(it, h0, p1, p2).check("CompositionObject.StartAnimation")
 
+proc close*(self: CompositionObject)  =
+  ## Windows.UI.Composition.CompositionObject.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CompositionObject.Close")
+
 proc populatePropertyInfo*(self: CompositionObject, a1: string, a2: AnimationPropertyInfo)  =
   ## Windows.UI.Composition.CompositionObject.PopulatePropertyInfo
   withIface(self.p, IID_IAnimationObject, "IAnimationObject", it):
@@ -17394,6 +17404,11 @@ proc createAnimationController*(self: Compositor): AnimationController  =
     vcall(it, Slot_ICompositor8_CreateAnimationController, Fn_ICompositor8_CreateAnimationController)(it, tmp.addr).check("Compositor.CreateAnimationController")
     result = adopt[AnimationController](tmp)
 
+proc close*(self: Compositor)  =
+  ## Windows.UI.Composition.Compositor.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Compositor.Close")
+
 proc maxGlobalPlaybackRate*(_: typedesc[Compositor]): float32  =
   ## Windows.UI.Composition.Compositor.get_MaxGlobalPlaybackRate
   withStatics("Windows.UI.Composition.Compositor", IID_ICompositorStatics, it):
@@ -17717,6 +17732,11 @@ proc onCommitNeeded*(self: CompositorController,
 proc removeCommitNeeded*(self: CompositorController, token: EventRegistrationToken) =
   withIface(self.p, IID_ICompositorController, "ICompositorController", it):
     vcall(it, Slot_ICompositorController_remove_CommitNeeded, Fn_ICompositorController_remove_CommitNeeded)(it, token).check("CompositorController.remove_CommitNeeded")
+
+proc close*(self: CompositorController)  =
+  ## Windows.UI.Composition.Core.CompositorController.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CompositorController.Close")
 
 proc controlPoint1*(self: CubicBezierEasingFunction): Vector2  =
   ## Windows.UI.Composition.CubicBezierEasingFunction.get_ControlPoint1
@@ -21207,6 +21227,11 @@ proc setControlledInput*(self: CoreIndependentInputSourceController, a1: CoreInp
   withIface(self.p, IID_ICoreIndependentInputSourceController, "ICoreIndependentInputSourceController", it):
     vcall(it, Slot_ICoreIndependentInputSourceController_SetControlledInput2, Fn_ICoreIndependentInputSourceController_SetControlledInput2)(it, a1, a2, a3).check("CoreIndependentInputSourceController.SetControlledInput")
 
+proc close*(self: CoreIndependentInputSourceController)  =
+  ## Windows.UI.Core.CoreIndependentInputSourceController.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CoreIndependentInputSourceController.Close")
+
 proc createForVisual*(_: typedesc[CoreIndependentInputSourceController], a1: Visual): CoreIndependentInputSourceController  =
   ## Windows.UI.Core.CoreIndependentInputSourceController.CreateForVisual
   withStatics("Windows.UI.Core.CoreIndependentInputSourceController", IID_ICoreIndependentInputSourceControllerStatics, it):
@@ -21236,12 +21261,12 @@ proc bounds*(self: CoreWindow): Rect  =
     vcall(it, Slot_ICoreWindow_get_Bounds, Fn_ICoreWindow_get_Bounds)(it, tmp.addr).check("CoreWindow.get_Bounds")
     result = tmp
 
-proc customProperties*(self: CoreWindow): pointer  =
+proc customProperties*(self: CoreWindow): ValueSet  =
   ## Windows.UI.Core.CoreWindow.get_CustomProperties
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
     var tmp: pointer
     vcall(it, Slot_ICoreWindow_get_CustomProperties, Fn_ICoreWindow_get_CustomProperties)(it, tmp.addr).check("CoreWindow.get_CustomProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc dispatcher*(self: CoreWindow): CoreDispatcher  =
   ## Windows.UI.Core.CoreWindow.get_Dispatcher
@@ -22140,6 +22165,13 @@ proc `handled=`*(self: SystemNavigationCloseRequestedPreviewEventArgs, value: bo
   withIface(self.p, IID_ISystemNavigationCloseRequestedPreviewEventArgs, "ISystemNavigationCloseRequestedPreviewEventArgs", it):
     vcall(it, Slot_ISystemNavigationCloseRequestedPreviewEventArgs_put_Handled, Fn_ISystemNavigationCloseRequestedPreviewEventArgs_put_Handled)(it, value).check("SystemNavigationCloseRequestedPreviewEventArgs.put_Handled")
 
+proc getDeferral*(self: SystemNavigationCloseRequestedPreviewEventArgs): Deferral  =
+  ## Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs.GetDeferral
+  withIface(self.p, IID_ISystemNavigationCloseRequestedPreviewEventArgs, "ISystemNavigationCloseRequestedPreviewEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISystemNavigationCloseRequestedPreviewEventArgs_GetDeferral, Fn_ISystemNavigationCloseRequestedPreviewEventArgs_GetDeferral)(it, tmp.addr).check("SystemNavigationCloseRequestedPreviewEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc onCloseRequested*(self: SystemNavigationManagerPreview,
     handler: proc(sender: pointer, args: SystemNavigationCloseRequestedPreviewEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.Preview.SystemNavigationManagerPreview.add_CloseRequested
@@ -22305,6 +22337,11 @@ proc `handled=`*(self: WindowSizeChangedEventArgs, value: bool)  =
   ## Windows.UI.Core.WindowSizeChangedEventArgs.put_Handled
   withIface(self.p, IID_ICoreWindowEventArgs, "ICoreWindowEventArgs", it):
     vcall(it, Slot_ICoreWindowEventArgs_put_Handled, Fn_ICoreWindowEventArgs_put_Handled)(it, value).check("WindowSizeChangedEventArgs.put_Handled")
+
+proc close*(self: AttachableInputObject)  =
+  ## Windows.UI.Input.AttachableInputObject.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("AttachableInputObject.Close")
 
 proc controller*(self: RadialControllerIndependentInputSource): RadialController  =
   ## Windows.UI.Input.Core.RadialControllerIndependentInputSource.get_Controller
@@ -25165,6 +25202,11 @@ proc getDefault*(_: typedesc[PenAndInkSettings]): PenAndInkSettings  =
     vcall(it, Slot_IPenAndInkSettingsStatics_GetDefault, Fn_IPenAndInkSettingsStatics_GetDefault)(it, tmp.addr).check("PenAndInkSettings.GetDefault")
     result = adopt[PenAndInkSettings](tmp)
 
+proc close*(self: PalmRejectionDelayZonePreview)  =
+  ## Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PalmRejectionDelayZonePreview.Close")
+
 proc createForVisual*(_: typedesc[PalmRejectionDelayZonePreview], a1: Visual, a2: Rect): PalmRejectionDelayZonePreview  =
   ## Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview.CreateForVisual
   withStatics("Windows.UI.Input.Inking.Preview.PalmRejectionDelayZonePreview", IID_IPalmRejectionDelayZonePreviewStatics, it):
@@ -27639,6 +27681,17 @@ proc createFromFontGlyph*(_: typedesc[RadialControllerMenuItem], a1: string, a2:
           vcall(it, Slot_IRadialControllerMenuItemStatics2_CreateFromFontGlyph, Fn_IRadialControllerMenuItemStatics2_CreateFromFontGlyph)(it, h0, h1, h2, tmp.addr).check("RadialControllerMenuItem.CreateFromFontGlyph")
           result = adopt[RadialControllerMenuItem](tmp)
 
+proc createFromFontGlyph*(_: typedesc[RadialControllerMenuItem], a1: string, a2: string, a3: string, a4: Uri): RadialControllerMenuItem  =
+  ## Windows.UI.Input.RadialControllerMenuItem.CreateFromFontGlyph
+  withStatics("Windows.UI.Input.RadialControllerMenuItem", IID_IRadialControllerMenuItemStatics2, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            var tmp: pointer
+            vcall(it, Slot_IRadialControllerMenuItemStatics2_CreateFromFontGlyph2, Fn_IRadialControllerMenuItemStatics2_CreateFromFontGlyph2)(it, h0, h1, h2, p3, tmp.addr).check("RadialControllerMenuItem.CreateFromFontGlyph")
+            result = adopt[RadialControllerMenuItem](tmp)
+
 proc rotationDeltaInDegrees*(self: RadialControllerRotationChangedEventArgs): float64  =
   ## Windows.UI.Input.RadialControllerRotationChangedEventArgs.get_RotationDeltaInDegrees
   withIface(self.p, IID_IRadialControllerRotationChangedEventArgs, "IRadialControllerRotationChangedEventArgs", it):
@@ -28988,6 +29041,18 @@ proc clear*(self: BadgeUpdater)  =
   withIface(self.p, IID_IBadgeUpdater, "IBadgeUpdater", it):
     vcall(it, Slot_IBadgeUpdater_Clear, Fn_IBadgeUpdater_Clear)(it).check("BadgeUpdater.Clear")
 
+proc startPeriodicUpdate*(self: BadgeUpdater, a1: Uri, a2: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.BadgeUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_IBadgeUpdater, "IBadgeUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBadgeUpdater_StartPeriodicUpdate, Fn_IBadgeUpdater_StartPeriodicUpdate)(it, p0, a2).check("BadgeUpdater.StartPeriodicUpdate")
+
+proc startPeriodicUpdate*(self: BadgeUpdater, a1: Uri, a2: DateTime, a3: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.BadgeUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_IBadgeUpdater, "IBadgeUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBadgeUpdater_StartPeriodicUpdate2, Fn_IBadgeUpdater_StartPeriodicUpdate2)(it, p0, a2, a3).check("BadgeUpdater.StartPeriodicUpdate")
+
 proc stopPeriodicUpdate*(self: BadgeUpdater)  =
   ## Windows.UI.Notifications.BadgeUpdater.StopPeriodicUpdate
   withIface(self.p, IID_IBadgeUpdater, "IBadgeUpdater", it):
@@ -29468,6 +29533,13 @@ proc scheduledToastNotification*(self: ScheduledToastNotificationShowingEventArg
     vcall(it, Slot_IScheduledToastNotificationShowingEventArgs_get_ScheduledToastNotification, Fn_IScheduledToastNotificationShowingEventArgs_get_ScheduledToastNotification)(it, tmp.addr).check("ScheduledToastNotificationShowingEventArgs.get_ScheduledToastNotification")
     result = adopt[ScheduledToastNotification](tmp)
 
+proc getDeferral*(self: ScheduledToastNotificationShowingEventArgs): Deferral  =
+  ## Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs.GetDeferral
+  withIface(self.p, IID_IScheduledToastNotificationShowingEventArgs, "IScheduledToastNotificationShowingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IScheduledToastNotificationShowingEventArgs_GetDeferral, Fn_IScheduledToastNotificationShowingEventArgs_GetDeferral)(it, tmp.addr).check("ScheduledToastNotificationShowingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc arguments*(self: ShownTileNotification): string  =
   ## Windows.UI.Notifications.ShownTileNotification.get_Arguments
   withIface(self.p, IID_IShownTileNotification, "IShownTileNotification", it):
@@ -29508,6 +29580,18 @@ proc clear*(self: TileFlyoutUpdater)  =
   ## Windows.UI.Notifications.TileFlyoutUpdater.Clear
   withIface(self.p, IID_ITileFlyoutUpdater, "ITileFlyoutUpdater", it):
     vcall(it, Slot_ITileFlyoutUpdater_Clear, Fn_ITileFlyoutUpdater_Clear)(it).check("TileFlyoutUpdater.Clear")
+
+proc startPeriodicUpdate*(self: TileFlyoutUpdater, a1: Uri, a2: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileFlyoutUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_ITileFlyoutUpdater, "ITileFlyoutUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ITileFlyoutUpdater_StartPeriodicUpdate, Fn_ITileFlyoutUpdater_StartPeriodicUpdate)(it, p0, a2).check("TileFlyoutUpdater.StartPeriodicUpdate")
+
+proc startPeriodicUpdate*(self: TileFlyoutUpdater, a1: Uri, a2: DateTime, a3: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileFlyoutUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_ITileFlyoutUpdater, "ITileFlyoutUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ITileFlyoutUpdater_StartPeriodicUpdate2, Fn_ITileFlyoutUpdater_StartPeriodicUpdate2)(it, p0, a2, a3).check("TileFlyoutUpdater.StartPeriodicUpdate")
 
 proc stopPeriodicUpdate*(self: TileFlyoutUpdater)  =
   ## Windows.UI.Notifications.TileFlyoutUpdater.StopPeriodicUpdate
@@ -29623,6 +29707,18 @@ proc getScheduledTileNotifications*(self: TileUpdater): seq[ScheduledTileNotific
     result = toSeq[ScheduledTileNotification](tmp, IID_IVectorView_1_ScheduledTileNotification)
     release(tmp)
 
+proc startPeriodicUpdate*(self: TileUpdater, a1: Uri, a2: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ITileUpdater_StartPeriodicUpdate, Fn_ITileUpdater_StartPeriodicUpdate)(it, p0, a2).check("TileUpdater.StartPeriodicUpdate")
+
+proc startPeriodicUpdate*(self: TileUpdater, a1: Uri, a2: DateTime, a3: PeriodicUpdateRecurrence)  =
+  ## Windows.UI.Notifications.TileUpdater.StartPeriodicUpdate
+  withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ITileUpdater_StartPeriodicUpdate2, Fn_ITileUpdater_StartPeriodicUpdate2)(it, p0, a2, a3).check("TileUpdater.StartPeriodicUpdate")
+
 proc stopPeriodicUpdate*(self: TileUpdater)  =
   ## Windows.UI.Notifications.TileUpdater.StopPeriodicUpdate
   withIface(self.p, IID_ITileUpdater, "ITileUpdater", it):
@@ -29649,6 +29745,13 @@ proc arguments*(self: ToastActivatedEventArgs): string  =
     var tmp: HSTRING
     vcall(it, Slot_IToastActivatedEventArgs_get_Arguments, Fn_IToastActivatedEventArgs_get_Arguments)(it, tmp.addr).check("ToastActivatedEventArgs.get_Arguments")
     result = takeString(tmp)
+
+proc userInput*(self: ToastActivatedEventArgs): ValueSet  =
+  ## Windows.UI.Notifications.ToastActivatedEventArgs.get_UserInput
+  withIface(self.p, IID_IToastActivatedEventArgs2, "IToastActivatedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastActivatedEventArgs2_get_UserInput, Fn_IToastActivatedEventArgs2_get_UserInput)(it, tmp.addr).check("ToastActivatedEventArgs.get_UserInput")
+    result = adopt[ValueSet](tmp)
 
 proc id*(self: ToastCollection): string  =
   ## Windows.UI.Notifications.ToastCollection.get_Id
@@ -29682,6 +29785,30 @@ proc `launchArgs=`*(self: ToastCollection, value: string)  =
   withIface(self.p, IID_IToastCollection, "IToastCollection", it):
     withHString(value, h0):
       vcall(it, Slot_IToastCollection_put_LaunchArgs, Fn_IToastCollection_put_LaunchArgs)(it, h0).check("ToastCollection.put_LaunchArgs")
+
+proc icon*(self: ToastCollection): Uri  =
+  ## Windows.UI.Notifications.ToastCollection.get_Icon
+  withIface(self.p, IID_IToastCollection, "IToastCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastCollection_get_Icon, Fn_IToastCollection_get_Icon)(it, tmp.addr).check("ToastCollection.get_Icon")
+    result = adopt[Uri](tmp)
+
+proc `icon=`*(self: ToastCollection, value: Uri)  =
+  ## Windows.UI.Notifications.ToastCollection.put_Icon
+  withIface(self.p, IID_IToastCollection, "IToastCollection", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IToastCollection_put_Icon, Fn_IToastCollection_put_Icon)(it, p0).check("ToastCollection.put_Icon")
+
+proc createInstance*(_: typedesc[ToastCollection], a1: string, a2: string, a3: string, a4: Uri): ToastCollection  =
+  ## Windows.UI.Notifications.ToastCollection.CreateInstance
+  withStatics("Windows.UI.Notifications.ToastCollection", IID_IToastCollectionFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            var tmp: pointer
+            vcall(it, Slot_IToastCollectionFactory_CreateInstance, Fn_IToastCollectionFactory_CreateInstance)(it, h0, h1, h2, p3, tmp.addr).check("ToastCollection.CreateInstance")
+            result = adopt[ToastCollection](tmp)
 
 proc saveToastCollectionAsync*(self: ToastCollectionManager, a1: ToastCollection) {.async.} =
   ## Windows.UI.Notifications.ToastCollectionManager.SaveToastCollectionAsync
@@ -29898,6 +30025,13 @@ proc argument*(self: ToastNotificationActionTriggerDetail): string  =
     var tmp: HSTRING
     vcall(it, Slot_IToastNotificationActionTriggerDetail_get_Argument, Fn_IToastNotificationActionTriggerDetail_get_Argument)(it, tmp.addr).check("ToastNotificationActionTriggerDetail.get_Argument")
     result = takeString(tmp)
+
+proc userInput*(self: ToastNotificationActionTriggerDetail): ValueSet  =
+  ## Windows.UI.Notifications.ToastNotificationActionTriggerDetail.get_UserInput
+  withIface(self.p, IID_IToastNotificationActionTriggerDetail, "IToastNotificationActionTriggerDetail", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastNotificationActionTriggerDetail_get_UserInput, Fn_IToastNotificationActionTriggerDetail_get_UserInput)(it, tmp.addr).check("ToastNotificationActionTriggerDetail.get_UserInput")
+    result = adopt[ValueSet](tmp)
 
 proc getHistory*(self: ToastNotificationHistory): seq[ToastNotification]  =
   ## Windows.UI.Notifications.ToastNotificationHistory.GetHistory
@@ -30459,12 +30593,27 @@ proc reject*(self: CompanionWindowRequest)  =
   withIface(self.p, IID_ICompanionWindowRequest, "ICompanionWindowRequest", it):
     vcall(it, Slot_ICompanionWindowRequest_Reject, Fn_ICompanionWindowRequest_Reject)(it).check("CompanionWindowRequest.Reject")
 
+proc getDeferral*(self: CompanionWindowRequest): Deferral  =
+  ## Windows.UI.Shell.CompanionWindows.CompanionWindowRequest.GetDeferral
+  withIface(self.p, IID_ICompanionWindowRequest, "ICompanionWindowRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_ICompanionWindowRequest_GetDeferral, Fn_ICompanionWindowRequest_GetDeferral)(it, tmp.addr).check("CompanionWindowRequest.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc requestingWindowId*(self: CompanionWindowRequest): WindowId  =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowRequest.get_RequestingWindowId
   withIface(self.p, IID_ICompanionWindowRequest, "ICompanionWindowRequest", it):
     var tmp: WindowId
     vcall(it, Slot_ICompanionWindowRequest_get_RequestingWindowId, Fn_ICompanionWindowRequest_get_RequestingWindowId)(it, tmp.addr).check("CompanionWindowRequest.get_RequestingWindowId")
     result = tmp
+
+proc getFromLaunchUri*(_: typedesc[CompanionWindowRequest], a1: Uri): CompanionWindowRequest  =
+  ## Windows.UI.Shell.CompanionWindows.CompanionWindowRequest.GetFromLaunchUri
+  withStatics("Windows.UI.Shell.CompanionWindows.CompanionWindowRequest", IID_ICompanionWindowRequestStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_ICompanionWindowRequestStatics_GetFromLaunchUri, Fn_ICompanionWindowRequestStatics_GetFromLaunchUri)(it, p0, tmp.addr).check("CompanionWindowRequest.GetFromLaunchUri")
+      result = adopt[CompanionWindowRequest](tmp)
 
 proc succeeded*(self: CompanionWindowRequestResult): bool  =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowRequestResult.get_Succeeded
@@ -30577,10 +30726,25 @@ proc newSecurityAppManager*(): SecurityAppManager =
   ## Activate a `Windows.UI.Shell.SecurityAppManager`.
   adopt[SecurityAppManager](activateAs("Windows.UI.Shell.SecurityAppManager", IID_ISecurityAppManager))
 
+proc register*(self: SecurityAppManager, a1: SecurityAppKind, a2: string, a3: Uri, a4: bool): GUID  =
+  ## Windows.UI.Shell.SecurityAppManager.Register
+  withIface(self.p, IID_ISecurityAppManager, "ISecurityAppManager", it):
+    withHString(a2, h1):
+      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        var tmp: GUID
+        vcall(it, Slot_ISecurityAppManager_Register, Fn_ISecurityAppManager_Register)(it, a1, h1, p2, a4, tmp.addr).check("SecurityAppManager.Register")
+        result = tmp
+
 proc unregister*(self: SecurityAppManager, a1: SecurityAppKind, a2: GUID)  =
   ## Windows.UI.Shell.SecurityAppManager.Unregister
   withIface(self.p, IID_ISecurityAppManager, "ISecurityAppManager", it):
     vcall(it, Slot_ISecurityAppManager_Unregister, Fn_ISecurityAppManager_Unregister)(it, a1, a2).check("SecurityAppManager.Unregister")
+
+proc updateState*(self: SecurityAppManager, a1: SecurityAppKind, a2: GUID, a3: SecurityAppState, a4: SecurityAppSubstatus, a5: Uri)  =
+  ## Windows.UI.Shell.SecurityAppManager.UpdateState
+  withIface(self.p, IID_ISecurityAppManager, "ISecurityAppManager", it):
+    withIface(a5.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p4):
+      vcall(it, Slot_ISecurityAppManager_UpdateState, Fn_ISecurityAppManager_UpdateState)(it, a1, a2, a3, a4, p4).check("SecurityAppManager.UpdateState")
 
 proc windowId*(self: ShareWindowCommandEventArgs): WindowId  =
   ## Windows.UI.Shell.ShareWindowCommandEventArgs.get_WindowId
@@ -30682,6 +30846,13 @@ proc getDefault*(_: typedesc[TaskbarManager]): TaskbarManager  =
     vcall(it, Slot_ITaskbarManagerStatics_GetDefault, Fn_ITaskbarManagerStatics_GetDefault)(it, tmp.addr).check("TaskbarManager.GetDefault")
     result = adopt[TaskbarManager](tmp)
 
+proc addButton*(self: AppTaskContent, a1: string, a2: Uri)  =
+  ## Windows.UI.Shell.Tasks.AppTaskContent.AddButton
+  withIface(self.p, IID_IAppTaskContent, "IAppTaskContent", it):
+    withHString(a1, h0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        vcall(it, Slot_IAppTaskContent_AddButton, Fn_IAppTaskContent_AddButton)(it, h0, p1).check("AppTaskContent.AddButton")
+
 proc setTextInput*(self: AppTaskContent, a1: string, a2: string)  =
   ## Windows.UI.Shell.Tasks.AppTaskContent.SetTextInput
   withIface(self.p, IID_IAppTaskContent, "IAppTaskContent", it):
@@ -30694,6 +30865,15 @@ proc setQuestion*(self: AppTaskContent, a1: string)  =
   withIface(self.p, IID_IAppTaskContent, "IAppTaskContent", it):
     withHString(a1, h0):
       vcall(it, Slot_IAppTaskContent_SetQuestion, Fn_IAppTaskContent_SetQuestion)(it, h0).check("AppTaskContent.SetQuestion")
+
+proc createPreviewThumbnail*(_: typedesc[AppTaskContent], a1: Uri, a2: string): AppTaskContent  =
+  ## Windows.UI.Shell.Tasks.AppTaskContent.CreatePreviewThumbnail
+  withStatics("Windows.UI.Shell.Tasks.AppTaskContent", IID_IAppTaskContentStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IAppTaskContentStatics_CreatePreviewThumbnail, Fn_IAppTaskContentStatics_CreatePreviewThumbnail)(it, p0, h1, tmp.addr).check("AppTaskContent.CreatePreviewThumbnail")
+        result = adopt[AppTaskContent](tmp)
 
 proc createTextSummaryResult*(_: typedesc[AppTaskContent], a1: string): AppTaskContent  =
   ## Windows.UI.Shell.Tasks.AppTaskContent.CreateTextSummaryResult
@@ -30754,6 +30934,20 @@ proc subtitle*(self: AppTaskInfo): string  =
     vcall(it, Slot_IAppTaskInfo_get_Subtitle, Fn_IAppTaskInfo_get_Subtitle)(it, tmp.addr).check("AppTaskInfo.get_Subtitle")
     result = takeString(tmp)
 
+proc deepLink*(self: AppTaskInfo): Uri  =
+  ## Windows.UI.Shell.Tasks.AppTaskInfo.get_DeepLink
+  withIface(self.p, IID_IAppTaskInfo, "IAppTaskInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppTaskInfo_get_DeepLink, Fn_IAppTaskInfo_get_DeepLink)(it, tmp.addr).check("AppTaskInfo.get_DeepLink")
+    result = adopt[Uri](tmp)
+
+proc iconUri*(self: AppTaskInfo): Uri  =
+  ## Windows.UI.Shell.Tasks.AppTaskInfo.get_IconUri
+  withIface(self.p, IID_IAppTaskInfo, "IAppTaskInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppTaskInfo_get_IconUri, Fn_IAppTaskInfo_get_IconUri)(it, tmp.addr).check("AppTaskInfo.get_IconUri")
+    result = adopt[Uri](tmp)
+
 proc state*(self: AppTaskInfo): AppTaskState  =
   ## Windows.UI.Shell.Tasks.AppTaskInfo.get_State
   withIface(self.p, IID_IAppTaskInfo, "IAppTaskInfo", it):
@@ -30782,12 +30976,41 @@ proc hiddenByUser*(self: AppTaskInfo): bool  =
     vcall(it, Slot_IAppTaskInfo2_get_HiddenByUser, Fn_IAppTaskInfo2_get_HiddenByUser)(it, tmp.addr).check("AppTaskInfo.get_HiddenByUser")
     result = tmp
 
+proc updateDeepLink*(self: AppTaskInfo, a1: Uri)  =
+  ## Windows.UI.Shell.Tasks.AppTaskInfo.UpdateDeepLink
+  withIface(self.p, IID_IAppTaskInfo2, "IAppTaskInfo2", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IAppTaskInfo2_UpdateDeepLink, Fn_IAppTaskInfo2_UpdateDeepLink)(it, p0).check("AppTaskInfo.UpdateDeepLink")
+
 proc isSupported*(_: typedesc[AppTaskInfo]): bool  =
   ## Windows.UI.Shell.Tasks.AppTaskInfo.IsSupported
   withStatics("Windows.UI.Shell.Tasks.AppTaskInfo", IID_IAppTaskInfoStatics, it):
     var tmp: bool
     vcall(it, Slot_IAppTaskInfoStatics_IsSupported, Fn_IAppTaskInfoStatics_IsSupported)(it, tmp.addr).check("AppTaskInfo.IsSupported")
     result = tmp
+
+proc create*(_: typedesc[AppTaskInfo], a1: string, a2: string, a3: Uri, a4: Uri, a5: AppTaskContent): AppTaskInfo  =
+  ## Windows.UI.Shell.Tasks.AppTaskInfo.Create
+  withStatics("Windows.UI.Shell.Tasks.AppTaskInfo", IID_IAppTaskInfoStatics, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            withIface(a5.p, IID_IAppTaskContent, "IAppTaskContent", p4):
+              var tmp: pointer
+              vcall(it, Slot_IAppTaskInfoStatics_Create, Fn_IAppTaskInfoStatics_Create)(it, h0, h1, p2, p3, p4, tmp.addr).check("AppTaskInfo.Create")
+              result = adopt[AppTaskInfo](tmp)
+
+proc createInstance*(_: typedesc[AppTaskResultAsset], a1: string, a2: string, a3: Uri, a4: Uri): AppTaskResultAsset  =
+  ## Windows.UI.Shell.Tasks.AppTaskResultAsset.CreateInstance
+  withStatics("Windows.UI.Shell.Tasks.AppTaskResultAsset", IID_IAppTaskResultAssetFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            var tmp: pointer
+            vcall(it, Slot_IAppTaskResultAssetFactory_CreateInstance, Fn_IAppTaskResultAssetFactory_CreateInstance)(it, h0, h1, p2, p3, tmp.addr).check("AppTaskResultAsset.CreateInstance")
+            result = adopt[AppTaskResultAsset](tmp)
 
 proc newWindowTab*(): WindowTab =
   ## Activate a `Windows.UI.Shell.WindowTab`.
@@ -30913,6 +31136,16 @@ proc createFromFontGlyph*(_: typedesc[WindowTabIcon], a1: string, a2: string): W
         var tmp: pointer
         vcall(it, Slot_IWindowTabIconStatics_CreateFromFontGlyph, Fn_IWindowTabIconStatics_CreateFromFontGlyph)(it, h0, h1, tmp.addr).check("WindowTabIcon.CreateFromFontGlyph")
         result = adopt[WindowTabIcon](tmp)
+
+proc createFromFontGlyph*(_: typedesc[WindowTabIcon], a1: string, a2: string, a3: Uri): WindowTabIcon  =
+  ## Windows.UI.Shell.WindowTabIcon.CreateFromFontGlyph
+  withStatics("Windows.UI.Shell.WindowTabIcon", IID_IWindowTabIconStatics, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+          var tmp: pointer
+          vcall(it, Slot_IWindowTabIconStatics_CreateFromFontGlyph2, Fn_IWindowTabIconStatics_CreateFromFontGlyph2)(it, h0, h1, p2, tmp.addr).check("WindowTabIcon.CreateFromFontGlyph")
+          result = adopt[WindowTabIcon](tmp)
 
 proc createFromImage*(_: typedesc[WindowTabIcon], a1: pointer): WindowTabIcon  =
   ## Windows.UI.Shell.WindowTabIcon.CreateFromImage
@@ -31057,6 +31290,13 @@ proc `windowId=`*(self: WindowTabTearOutRequestedEventArgs, value: uint64)  =
   withIface(self.p, IID_IWindowTabTearOutRequestedEventArgs, "IWindowTabTearOutRequestedEventArgs", it):
     vcall(it, Slot_IWindowTabTearOutRequestedEventArgs_put_WindowId, Fn_IWindowTabTearOutRequestedEventArgs_put_WindowId)(it, value).check("WindowTabTearOutRequestedEventArgs.put_WindowId")
 
+proc getDeferral*(self: WindowTabTearOutRequestedEventArgs): Deferral  =
+  ## Windows.UI.Shell.WindowTabTearOutRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IWindowTabTearOutRequestedEventArgs, "IWindowTabTearOutRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowTabTearOutRequestedEventArgs_GetDeferral, Fn_IWindowTabTearOutRequestedEventArgs_GetDeferral)(it, tmp.addr).check("WindowTabTearOutRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc tab*(self: WindowTabThumbnailRequestedEventArgs): WindowTab  =
   ## Windows.UI.Shell.WindowTabThumbnailRequestedEventArgs.get_Tab
   withIface(self.p, IID_IWindowTabThumbnailRequestedEventArgs, "IWindowTabThumbnailRequestedEventArgs", it):
@@ -31075,6 +31315,13 @@ proc `image=`*(self: WindowTabThumbnailRequestedEventArgs, value: pointer)  =
   ## Windows.UI.Shell.WindowTabThumbnailRequestedEventArgs.put_Image
   withIface(self.p, IID_IWindowTabThumbnailRequestedEventArgs, "IWindowTabThumbnailRequestedEventArgs", it):
     vcall(it, Slot_IWindowTabThumbnailRequestedEventArgs_put_Image, Fn_IWindowTabThumbnailRequestedEventArgs_put_Image)(it, value).check("WindowTabThumbnailRequestedEventArgs.put_Image")
+
+proc getDeferral*(self: WindowTabThumbnailRequestedEventArgs): Deferral  =
+  ## Windows.UI.Shell.WindowTabThumbnailRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IWindowTabThumbnailRequestedEventArgs, "IWindowTabThumbnailRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowTabThumbnailRequestedEventArgs_GetDeferral, Fn_IWindowTabThumbnailRequestedEventArgs_GetDeferral)(it, tmp.addr).check("WindowTabThumbnailRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc isCompositedOnWindow*(self: WindowTabThumbnailRequestedEventArgs): bool  =
   ## Windows.UI.Shell.WindowTabThumbnailRequestedEventArgs.get_IsCompositedOnWindow
@@ -31184,6 +31431,19 @@ proc `groupName=`*(self: JumpListItem, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IJumpListItem_put_GroupName, Fn_IJumpListItem_put_GroupName)(it, h0).check("JumpListItem.put_GroupName")
 
+proc logo*(self: JumpListItem): Uri  =
+  ## Windows.UI.StartScreen.JumpListItem.get_Logo
+  withIface(self.p, IID_IJumpListItem, "IJumpListItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IJumpListItem_get_Logo, Fn_IJumpListItem_get_Logo)(it, tmp.addr).check("JumpListItem.get_Logo")
+    result = adopt[Uri](tmp)
+
+proc `logo=`*(self: JumpListItem, value: Uri)  =
+  ## Windows.UI.StartScreen.JumpListItem.put_Logo
+  withIface(self.p, IID_IJumpListItem, "IJumpListItem", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IJumpListItem_put_Logo, Fn_IJumpListItem_put_Logo)(it, p0).check("JumpListItem.put_Logo")
+
 proc createWithArguments*(_: typedesc[JumpListItem], a1: string, a2: string): JumpListItem  =
   ## Windows.UI.StartScreen.JumpListItem.CreateWithArguments
   withStatics("Windows.UI.StartScreen.JumpListItem", IID_IJumpListItemStatics, it):
@@ -31255,6 +31515,58 @@ proc displayName*(self: SecondaryTile): string  =
     var tmp: HSTRING
     vcall(it, Slot_ISecondaryTile_get_DisplayName, Fn_ISecondaryTile_get_DisplayName)(it, tmp.addr).check("SecondaryTile.get_DisplayName")
     result = takeString(tmp)
+
+proc `logo=`*(self: SecondaryTile, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTile.put_Logo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTile_put_Logo, Fn_ISecondaryTile_put_Logo)(it, p0).check("SecondaryTile.put_Logo")
+
+proc logo*(self: SecondaryTile): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTile.get_Logo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTile_get_Logo, Fn_ISecondaryTile_get_Logo)(it, tmp.addr).check("SecondaryTile.get_Logo")
+    result = adopt[Uri](tmp)
+
+proc `smallLogo=`*(self: SecondaryTile, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTile.put_SmallLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTile_put_SmallLogo, Fn_ISecondaryTile_put_SmallLogo)(it, p0).check("SecondaryTile.put_SmallLogo")
+
+proc smallLogo*(self: SecondaryTile): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTile.get_SmallLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTile_get_SmallLogo, Fn_ISecondaryTile_get_SmallLogo)(it, tmp.addr).check("SecondaryTile.get_SmallLogo")
+    result = adopt[Uri](tmp)
+
+proc `wideLogo=`*(self: SecondaryTile, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTile.put_WideLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTile_put_WideLogo, Fn_ISecondaryTile_put_WideLogo)(it, p0).check("SecondaryTile.put_WideLogo")
+
+proc wideLogo*(self: SecondaryTile): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTile.get_WideLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTile_get_WideLogo, Fn_ISecondaryTile_get_WideLogo)(it, tmp.addr).check("SecondaryTile.get_WideLogo")
+    result = adopt[Uri](tmp)
+
+proc `lockScreenBadgeLogo=`*(self: SecondaryTile, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTile.put_LockScreenBadgeLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTile_put_LockScreenBadgeLogo, Fn_ISecondaryTile_put_LockScreenBadgeLogo)(it, p0).check("SecondaryTile.put_LockScreenBadgeLogo")
+
+proc lockScreenBadgeLogo*(self: SecondaryTile): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTile.get_LockScreenBadgeLogo
+  withIface(self.p, IID_ISecondaryTile, "ISecondaryTile", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTile_get_LockScreenBadgeLogo, Fn_ISecondaryTile_get_LockScreenBadgeLogo)(it, tmp.addr).check("SecondaryTile.get_LockScreenBadgeLogo")
+    result = adopt[Uri](tmp)
 
 proc `lockScreenDisplayBadgeAndTileText=`*(self: SecondaryTile, value: bool)  =
   ## Windows.UI.StartScreen.SecondaryTile.put_LockScreenDisplayBadgeAndTileText
@@ -31363,6 +31675,31 @@ proc exists*(_: typedesc[SecondaryTile], a1: string): bool  =
       vcall(it, Slot_ISecondaryTileStatics_Exists, Fn_ISecondaryTileStatics_Exists)(it, h0, tmp.addr).check("SecondaryTile.Exists")
       result = tmp
 
+proc createTile*(_: typedesc[SecondaryTile], a1: string, a2: string, a3: string, a4: string, a5: TileOptions, a6: Uri): SecondaryTile  =
+  ## Windows.UI.StartScreen.SecondaryTile.CreateTile
+  withStatics("Windows.UI.StartScreen.SecondaryTile", IID_ISecondaryTileFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withHString(a4, h3):
+            withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+              var tmp: pointer
+              vcall(it, Slot_ISecondaryTileFactory_CreateTile, Fn_ISecondaryTileFactory_CreateTile)(it, h0, h1, h2, h3, a5, p5, tmp.addr).check("SecondaryTile.CreateTile")
+              result = adopt[SecondaryTile](tmp)
+
+proc createWideTile*(_: typedesc[SecondaryTile], a1: string, a2: string, a3: string, a4: string, a5: TileOptions, a6: Uri, a7: Uri): SecondaryTile  =
+  ## Windows.UI.StartScreen.SecondaryTile.CreateWideTile
+  withStatics("Windows.UI.StartScreen.SecondaryTile", IID_ISecondaryTileFactory, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withHString(a4, h3):
+            withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+              withIface(a7.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p6):
+                var tmp: pointer
+                vcall(it, Slot_ISecondaryTileFactory_CreateWideTile, Fn_ISecondaryTileFactory_CreateWideTile)(it, h0, h1, h2, h3, a5, p5, p6, tmp.addr).check("SecondaryTile.CreateWideTile")
+                result = adopt[SecondaryTile](tmp)
+
 proc createWithId*(_: typedesc[SecondaryTile], a1: string): SecondaryTile  =
   ## Windows.UI.StartScreen.SecondaryTile.CreateWithId
   withStatics("Windows.UI.StartScreen.SecondaryTile", IID_ISecondaryTileFactory, it):
@@ -31370,6 +31707,82 @@ proc createWithId*(_: typedesc[SecondaryTile], a1: string): SecondaryTile  =
       var tmp: pointer
       vcall(it, Slot_ISecondaryTileFactory_CreateWithId, Fn_ISecondaryTileFactory_CreateWithId)(it, h0, tmp.addr).check("SecondaryTile.CreateWithId")
       result = adopt[SecondaryTile](tmp)
+
+proc createMinimalTile*(_: typedesc[SecondaryTile], a1: string, a2: string, a3: string, a4: Uri, a5: TileSize): SecondaryTile  =
+  ## Windows.UI.StartScreen.SecondaryTile.CreateMinimalTile
+  withStatics("Windows.UI.StartScreen.SecondaryTile", IID_ISecondaryTileFactory2, it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            var tmp: pointer
+            vcall(it, Slot_ISecondaryTileFactory2_CreateMinimalTile, Fn_ISecondaryTileFactory2_CreateMinimalTile)(it, h0, h1, h2, p3, a5, tmp.addr).check("SecondaryTile.CreateMinimalTile")
+            result = adopt[SecondaryTile](tmp)
+
+proc `square30x30Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square30x30Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements_put_Square30x30Logo, Fn_ISecondaryTileVisualElements_put_Square30x30Logo)(it, p0).check("SecondaryTileVisualElements.put_Square30x30Logo")
+
+proc square30x30Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square30x30Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements_get_Square30x30Logo, Fn_ISecondaryTileVisualElements_get_Square30x30Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square30x30Logo")
+    result = adopt[Uri](tmp)
+
+proc `square70x70Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square70x70Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements_put_Square70x70Logo, Fn_ISecondaryTileVisualElements_put_Square70x70Logo)(it, p0).check("SecondaryTileVisualElements.put_Square70x70Logo")
+
+proc square70x70Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square70x70Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements_get_Square70x70Logo, Fn_ISecondaryTileVisualElements_get_Square70x70Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square70x70Logo")
+    result = adopt[Uri](tmp)
+
+proc `square150x150Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square150x150Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements_put_Square150x150Logo, Fn_ISecondaryTileVisualElements_put_Square150x150Logo)(it, p0).check("SecondaryTileVisualElements.put_Square150x150Logo")
+
+proc square150x150Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square150x150Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements_get_Square150x150Logo, Fn_ISecondaryTileVisualElements_get_Square150x150Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square150x150Logo")
+    result = adopt[Uri](tmp)
+
+proc `wide310x150Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Wide310x150Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements_put_Wide310x150Logo, Fn_ISecondaryTileVisualElements_put_Wide310x150Logo)(it, p0).check("SecondaryTileVisualElements.put_Wide310x150Logo")
+
+proc wide310x150Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Wide310x150Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements_get_Wide310x150Logo, Fn_ISecondaryTileVisualElements_get_Wide310x150Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Wide310x150Logo")
+    result = adopt[Uri](tmp)
+
+proc `square310x310Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square310x310Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements_put_Square310x310Logo, Fn_ISecondaryTileVisualElements_put_Square310x310Logo)(it, p0).check("SecondaryTileVisualElements.put_Square310x310Logo")
+
+proc square310x310Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square310x310Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements, "ISecondaryTileVisualElements", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements_get_Square310x310Logo, Fn_ISecondaryTileVisualElements_get_Square310x310Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square310x310Logo")
+    result = adopt[Uri](tmp)
 
 proc `foregroundText=`*(self: SecondaryTileVisualElements, value: ForegroundText)  =
   ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_ForegroundText
@@ -31431,6 +31844,32 @@ proc showNameOnSquare310x310Logo*(self: SecondaryTileVisualElements): bool  =
     vcall(it, Slot_ISecondaryTileVisualElements_get_ShowNameOnSquare310x310Logo, Fn_ISecondaryTileVisualElements_get_ShowNameOnSquare310x310Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_ShowNameOnSquare310x310Logo")
     result = tmp
 
+proc `square71x71Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square71x71Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements2, "ISecondaryTileVisualElements2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements2_put_Square71x71Logo, Fn_ISecondaryTileVisualElements2_put_Square71x71Logo)(it, p0).check("SecondaryTileVisualElements.put_Square71x71Logo")
+
+proc square71x71Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square71x71Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements2, "ISecondaryTileVisualElements2", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements2_get_Square71x71Logo, Fn_ISecondaryTileVisualElements2_get_Square71x71Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square71x71Logo")
+    result = adopt[Uri](tmp)
+
+proc `square44x44Logo=`*(self: SecondaryTileVisualElements, value: Uri)  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.put_Square44x44Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements3, "ISecondaryTileVisualElements3", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISecondaryTileVisualElements3_put_Square44x44Logo, Fn_ISecondaryTileVisualElements3_put_Square44x44Logo)(it, p0).check("SecondaryTileVisualElements.put_Square44x44Logo")
+
+proc square44x44Logo*(self: SecondaryTileVisualElements): Uri  =
+  ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_Square44x44Logo
+  withIface(self.p, IID_ISecondaryTileVisualElements3, "ISecondaryTileVisualElements3", it):
+    var tmp: pointer
+    vcall(it, Slot_ISecondaryTileVisualElements3_get_Square44x44Logo, Fn_ISecondaryTileVisualElements3_get_Square44x44Logo)(it, tmp.addr).check("SecondaryTileVisualElements.get_Square44x44Logo")
+    result = adopt[Uri](tmp)
+
 proc mixedRealityModel*(self: SecondaryTileVisualElements): TileMixedRealityModel  =
   ## Windows.UI.StartScreen.SecondaryTileVisualElements.get_MixedRealityModel
   withIface(self.p, IID_ISecondaryTileVisualElements4, "ISecondaryTileVisualElements4", it):
@@ -31444,6 +31883,19 @@ proc getDefault*(_: typedesc[StartScreenManager]): StartScreenManager  =
     var tmp: pointer
     vcall(it, Slot_IStartScreenManagerStatics_GetDefault, Fn_IStartScreenManagerStatics_GetDefault)(it, tmp.addr).check("StartScreenManager.GetDefault")
     result = adopt[StartScreenManager](tmp)
+
+proc `uri=`*(self: TileMixedRealityModel, value: Uri)  =
+  ## Windows.UI.StartScreen.TileMixedRealityModel.put_Uri
+  withIface(self.p, IID_ITileMixedRealityModel, "ITileMixedRealityModel", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ITileMixedRealityModel_put_Uri, Fn_ITileMixedRealityModel_put_Uri)(it, p0).check("TileMixedRealityModel.put_Uri")
+
+proc uri*(self: TileMixedRealityModel): Uri  =
+  ## Windows.UI.StartScreen.TileMixedRealityModel.get_Uri
+  withIface(self.p, IID_ITileMixedRealityModel, "ITileMixedRealityModel", it):
+    var tmp: pointer
+    vcall(it, Slot_ITileMixedRealityModel_get_Uri, Fn_ITileMixedRealityModel_get_Uri)(it, tmp.addr).check("TileMixedRealityModel.get_Uri")
+    result = adopt[Uri](tmp)
 
 proc `activationBehavior=`*(self: TileMixedRealityModel, value: TileMixedRealityModelActivationBehavior)  =
   ## Windows.UI.StartScreen.TileMixedRealityModel.put_ActivationBehavior
@@ -31540,6 +31992,19 @@ proc `secondaryText=`*(self: ContentLinkInfo, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IContentLinkInfo_put_SecondaryText, Fn_IContentLinkInfo_put_SecondaryText)(it, h0).check("ContentLinkInfo.put_SecondaryText")
 
+proc uri*(self: ContentLinkInfo): Uri  =
+  ## Windows.UI.Text.ContentLinkInfo.get_Uri
+  withIface(self.p, IID_IContentLinkInfo, "IContentLinkInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IContentLinkInfo_get_Uri, Fn_IContentLinkInfo_get_Uri)(it, tmp.addr).check("ContentLinkInfo.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: ContentLinkInfo, value: Uri)  =
+  ## Windows.UI.Text.ContentLinkInfo.put_Uri
+  withIface(self.p, IID_IContentLinkInfo, "IContentLinkInfo", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IContentLinkInfo_put_Uri, Fn_IContentLinkInfo_put_Uri)(it, p0).check("ContentLinkInfo.put_Uri")
+
 proc linkContentKind*(self: ContentLinkInfo): string  =
   ## Windows.UI.Text.ContentLinkInfo.get_LinkContentKind
   withIface(self.p, IID_IContentLinkInfo, "IContentLinkInfo", it):
@@ -31568,6 +32033,13 @@ proc compositionSegments*(self: CoreTextCompositionCompletedEventArgs): seq[Core
     result = toSeq[CoreTextCompositionSegment](tmp, IID_IVectorView_1_CoreTextCompositionSegment)
     release(tmp)
 
+proc getDeferral*(self: CoreTextCompositionCompletedEventArgs): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextCompositionCompletedEventArgs.GetDeferral
+  withIface(self.p, IID_ICoreTextCompositionCompletedEventArgs, "ICoreTextCompositionCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextCompositionCompletedEventArgs_GetDeferral, Fn_ICoreTextCompositionCompletedEventArgs_GetDeferral)(it, tmp.addr).check("CoreTextCompositionCompletedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc preconversionString*(self: CoreTextCompositionSegment): string  =
   ## Windows.UI.Text.Core.CoreTextCompositionSegment.get_PreconversionString
   withIface(self.p, IID_ICoreTextCompositionSegment, "ICoreTextCompositionSegment", it):
@@ -31588,6 +32060,13 @@ proc isCanceled*(self: CoreTextCompositionStartedEventArgs): bool  =
     var tmp: bool
     vcall(it, Slot_ICoreTextCompositionStartedEventArgs_get_IsCanceled, Fn_ICoreTextCompositionStartedEventArgs_get_IsCanceled)(it, tmp.addr).check("CoreTextCompositionStartedEventArgs.get_IsCanceled")
     result = tmp
+
+proc getDeferral*(self: CoreTextCompositionStartedEventArgs): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextCompositionStartedEventArgs.GetDeferral
+  withIface(self.p, IID_ICoreTextCompositionStartedEventArgs, "ICoreTextCompositionStartedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextCompositionStartedEventArgs_GetDeferral, Fn_ICoreTextCompositionStartedEventArgs_GetDeferral)(it, tmp.addr).check("CoreTextCompositionStartedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc name*(self: CoreTextEditContext): string  =
   ## Windows.UI.Text.Core.CoreTextEditContext.get_Name
@@ -31886,6 +32365,13 @@ proc isCanceled*(self: CoreTextFormatUpdatingEventArgs): bool  =
     vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_IsCanceled, Fn_ICoreTextFormatUpdatingEventArgs_get_IsCanceled)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_IsCanceled")
     result = tmp
 
+proc getDeferral*(self: CoreTextFormatUpdatingEventArgs): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.GetDeferral
+  withIface(self.p, IID_ICoreTextFormatUpdatingEventArgs, "ICoreTextFormatUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_GetDeferral, Fn_ICoreTextFormatUpdatingEventArgs_GetDeferral)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc textBounds*(self: CoreTextLayoutBounds): Rect  =
   ## Windows.UI.Text.Core.CoreTextLayoutBounds.get_TextBounds
   withIface(self.p, IID_ICoreTextLayoutBounds, "ICoreTextLayoutBounds", it):
@@ -31931,6 +32417,13 @@ proc isCanceled*(self: CoreTextLayoutRequest): bool  =
     vcall(it, Slot_ICoreTextLayoutRequest_get_IsCanceled, Fn_ICoreTextLayoutRequest_get_IsCanceled)(it, tmp.addr).check("CoreTextLayoutRequest.get_IsCanceled")
     result = tmp
 
+proc getDeferral*(self: CoreTextLayoutRequest): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextLayoutRequest.GetDeferral
+  withIface(self.p, IID_ICoreTextLayoutRequest, "ICoreTextLayoutRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextLayoutRequest_GetDeferral, Fn_ICoreTextLayoutRequest_GetDeferral)(it, tmp.addr).check("CoreTextLayoutRequest.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc layoutBoundsVisualPixels*(self: CoreTextLayoutRequest): CoreTextLayoutBounds  =
   ## Windows.UI.Text.Core.CoreTextLayoutRequest.get_LayoutBoundsVisualPixels
   withIface(self.p, IID_ICoreTextLayoutRequest2, "ICoreTextLayoutRequest2", it):
@@ -31964,6 +32457,13 @@ proc isCanceled*(self: CoreTextSelectionRequest): bool  =
     vcall(it, Slot_ICoreTextSelectionRequest_get_IsCanceled, Fn_ICoreTextSelectionRequest_get_IsCanceled)(it, tmp.addr).check("CoreTextSelectionRequest.get_IsCanceled")
     result = tmp
 
+proc getDeferral*(self: CoreTextSelectionRequest): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextSelectionRequest.GetDeferral
+  withIface(self.p, IID_ICoreTextSelectionRequest, "ICoreTextSelectionRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextSelectionRequest_GetDeferral, Fn_ICoreTextSelectionRequest_GetDeferral)(it, tmp.addr).check("CoreTextSelectionRequest.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc request*(self: CoreTextSelectionRequestedEventArgs): CoreTextSelectionRequest  =
   ## Windows.UI.Text.Core.CoreTextSelectionRequestedEventArgs.get_Request
   withIface(self.p, IID_ICoreTextSelectionRequestedEventArgs, "ICoreTextSelectionRequestedEventArgs", it):
@@ -31996,6 +32496,13 @@ proc isCanceled*(self: CoreTextSelectionUpdatingEventArgs): bool  =
     var tmp: bool
     vcall(it, Slot_ICoreTextSelectionUpdatingEventArgs_get_IsCanceled, Fn_ICoreTextSelectionUpdatingEventArgs_get_IsCanceled)(it, tmp.addr).check("CoreTextSelectionUpdatingEventArgs.get_IsCanceled")
     result = tmp
+
+proc getDeferral*(self: CoreTextSelectionUpdatingEventArgs): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextSelectionUpdatingEventArgs.GetDeferral
+  withIface(self.p, IID_ICoreTextSelectionUpdatingEventArgs, "ICoreTextSelectionUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextSelectionUpdatingEventArgs_GetDeferral, Fn_ICoreTextSelectionUpdatingEventArgs_GetDeferral)(it, tmp.addr).check("CoreTextSelectionUpdatingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc hiddenCharacter*(_: typedesc[CoreTextServicesConstants]): uint16  =
   ## Windows.UI.Text.Core.CoreTextServicesConstants.get_HiddenCharacter
@@ -32064,6 +32571,13 @@ proc isCanceled*(self: CoreTextTextRequest): bool  =
     vcall(it, Slot_ICoreTextTextRequest_get_IsCanceled, Fn_ICoreTextTextRequest_get_IsCanceled)(it, tmp.addr).check("CoreTextTextRequest.get_IsCanceled")
     result = tmp
 
+proc getDeferral*(self: CoreTextTextRequest): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextTextRequest.GetDeferral
+  withIface(self.p, IID_ICoreTextTextRequest, "ICoreTextTextRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextTextRequest_GetDeferral, Fn_ICoreTextTextRequest_GetDeferral)(it, tmp.addr).check("CoreTextTextRequest.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc request*(self: CoreTextTextRequestedEventArgs): CoreTextTextRequest  =
   ## Windows.UI.Text.Core.CoreTextTextRequestedEventArgs.get_Request
   withIface(self.p, IID_ICoreTextTextRequestedEventArgs, "ICoreTextTextRequestedEventArgs", it):
@@ -32110,6 +32624,13 @@ proc isCanceled*(self: CoreTextTextUpdatingEventArgs): bool  =
     var tmp: bool
     vcall(it, Slot_ICoreTextTextUpdatingEventArgs_get_IsCanceled, Fn_ICoreTextTextUpdatingEventArgs_get_IsCanceled)(it, tmp.addr).check("CoreTextTextUpdatingEventArgs.get_IsCanceled")
     result = tmp
+
+proc getDeferral*(self: CoreTextTextUpdatingEventArgs): Deferral  =
+  ## Windows.UI.Text.Core.CoreTextTextUpdatingEventArgs.GetDeferral
+  withIface(self.p, IID_ICoreTextTextUpdatingEventArgs, "ICoreTextTextUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextTextUpdatingEventArgs_GetDeferral, Fn_ICoreTextTextUpdatingEventArgs_GetDeferral)(it, tmp.addr).check("CoreTextTextUpdatingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc black*(_: typedesc[FontWeights]): FontWeight  =
   ## Windows.UI.Text.FontWeights.get_Black
@@ -34511,6 +35032,11 @@ proc trySetPageRange*(self: HtmlPrintDocumentSource, a1: string): bool  =
       vcall(it, Slot_IHtmlPrintDocumentSource_TrySetPageRange, Fn_IHtmlPrintDocumentSource_TrySetPageRange)(it, h0, tmp.addr).check("HtmlPrintDocumentSource.TrySetPageRange")
       result = tmp
 
+proc close*(self: HtmlPrintDocumentSource)  =
+  ## Windows.UI.WebUI.HtmlPrintDocumentSource.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HtmlPrintDocumentSource.Close")
+
 proc webUIView*(self: NewWebUIViewCreatedEventArgs): WebUIView  =
   ## Windows.UI.WebUI.NewWebUIViewCreatedEventArgs.get_WebUIView
   withIface(self.p, IID_INewWebUIViewCreatedEventArgs, "INewWebUIViewCreatedEventArgs", it):
@@ -34531,6 +35057,13 @@ proc hasPendingNavigate*(self: NewWebUIViewCreatedEventArgs): bool  =
     var tmp: bool
     vcall(it, Slot_INewWebUIViewCreatedEventArgs_get_HasPendingNavigate, Fn_INewWebUIViewCreatedEventArgs_get_HasPendingNavigate)(it, tmp.addr).check("NewWebUIViewCreatedEventArgs.get_HasPendingNavigate")
     result = tmp
+
+proc getDeferral*(self: NewWebUIViewCreatedEventArgs): Deferral  =
+  ## Windows.UI.WebUI.NewWebUIViewCreatedEventArgs.GetDeferral
+  withIface(self.p, IID_INewWebUIViewCreatedEventArgs, "INewWebUIViewCreatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_INewWebUIViewCreatedEventArgs_GetDeferral, Fn_INewWebUIViewCreatedEventArgs_GetDeferral)(it, tmp.addr).check("NewWebUIViewCreatedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc onLeavingBackground*(_: typedesc[WebUIApplication],
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -35063,6 +35596,14 @@ proc createAsync*(_: typedesc[WebUIView]): Future[WebUIView] {.async.} =
     vcall(it, Slot_IWebUIViewStatics_CreateAsync, Fn_IWebUIViewStatics_CreateAsync)(it, op.addr).check("WebUIView.CreateAsync")
   result = adopt[WebUIView](await awaitObject(op, IID_IAsyncOperation_1_WebUIView, IID_AsyncOperationCompletedHandler_1_WebUIView, "WebUIView.CreateAsync"))
 
+proc createAsync*(_: typedesc[WebUIView], a1: Uri): Future[WebUIView] {.async.} =
+  ## Windows.UI.WebUI.WebUIView.CreateAsync
+  var op: pointer
+  withStatics("Windows.UI.WebUI.WebUIView", IID_IWebUIViewStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebUIViewStatics_CreateAsync2, Fn_IWebUIViewStatics_CreateAsync2)(it, p0, op.addr).check("WebUIView.CreateAsync")
+  result = adopt[WebUIView](await awaitObject(op, IID_IAsyncOperation_1_WebUIView, IID_AsyncOperationCompletedHandler_1_WebUIView, "WebUIView.CreateAsync"))
+
 proc activatedOperation*(self: WebUIVoiceCommandActivatedEventArgs): ActivatedOperation  =
   ## Windows.UI.WebUI.WebUIVoiceCommandActivatedEventArgs.get_ActivatedOperation
   withIface(self.p, IID_IActivatedEventArgsDeferral, "IActivatedEventArgsDeferral", it):
@@ -35369,6 +35910,13 @@ proc `cancel=`*(self: AppWindowCloseRequestedEventArgs, value: bool)  =
   ## Windows.UI.WindowManagement.AppWindowCloseRequestedEventArgs.put_Cancel
   withIface(self.p, IID_IAppWindowCloseRequestedEventArgs, "IAppWindowCloseRequestedEventArgs", it):
     vcall(it, Slot_IAppWindowCloseRequestedEventArgs_put_Cancel, Fn_IAppWindowCloseRequestedEventArgs_put_Cancel)(it, value).check("AppWindowCloseRequestedEventArgs.put_Cancel")
+
+proc getDeferral*(self: AppWindowCloseRequestedEventArgs): Deferral  =
+  ## Windows.UI.WindowManagement.AppWindowCloseRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IAppWindowCloseRequestedEventArgs, "IAppWindowCloseRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowCloseRequestedEventArgs_GetDeferral, Fn_IAppWindowCloseRequestedEventArgs_GetDeferral)(it, tmp.addr).check("AppWindowCloseRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc reason*(self: AppWindowClosedEventArgs): AppWindowClosedReason  =
   ## Windows.UI.WindowManagement.AppWindowClosedEventArgs.get_Reason
@@ -35944,6 +36492,18 @@ proc current*(_: typedesc[Application]): Application  =
     var tmp: pointer
     vcall(it, Slot_IApplicationStatics_get_Current, Fn_IApplicationStatics_get_Current)(it, tmp.addr).check("Application.get_Current")
     result = adopt[Application](tmp)
+
+proc loadComponent*(_: typedesc[Application], a1: pointer, a2: Uri)  =
+  ## Windows.UI.Xaml.Application.LoadComponent
+  withStatics("Windows.UI.Xaml.Application", IID_IApplicationStatics, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IApplicationStatics_LoadComponent, Fn_IApplicationStatics_LoadComponent)(it, a1, p1).check("Application.LoadComponent")
+
+proc loadComponent*(_: typedesc[Application], a1: pointer, a2: Uri, a3: ComponentResourceLocation)  =
+  ## Windows.UI.Xaml.Application.LoadComponent
+  withStatics("Windows.UI.Xaml.Application", IID_IApplicationStatics, it):
+    withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IApplicationStatics_LoadComponent2, Fn_IApplicationStatics_LoadComponent2)(it, a1, p1, a3).check("Application.LoadComponent")
 
 proc annotationTypeIdProperty*(_: typedesc[AnnotationPatternIdentifiers]): AutomationProperty  =
   ## Windows.UI.Xaml.Automation.AnnotationPatternIdentifiers.get_AnnotationTypeIdProperty
@@ -39347,6 +39907,19 @@ proc newResourceDictionary*(): ResourceDictionary =
   adopt[ResourceDictionary](composeAs("Windows.UI.Xaml.ResourceDictionary", IID_IResourceDictionaryFactory,
                      IID_IResourceDictionary, 6))
 
+proc source*(self: ResourceDictionary): Uri  =
+  ## Windows.UI.Xaml.ResourceDictionary.get_Source
+  withIface(self.p, IID_IResourceDictionary, "IResourceDictionary", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceDictionary_get_Source, Fn_IResourceDictionary_get_Source)(it, tmp.addr).check("ResourceDictionary.get_Source")
+    result = adopt[Uri](tmp)
+
+proc `source=`*(self: ResourceDictionary, value: Uri)  =
+  ## Windows.UI.Xaml.ResourceDictionary.put_Source
+  withIface(self.p, IID_IResourceDictionary, "IResourceDictionary", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IResourceDictionary_put_Source, Fn_IResourceDictionary_put_Source)(it, p0).check("ResourceDictionary.put_Source")
+
 proc mergedDictionaries*(self: ResourceDictionary): seq[ResourceDictionary]  =
   ## Windows.UI.Xaml.ResourceDictionary.get_MergedDictionaries
   withIface(self.p, IID_IResourceDictionary, "IResourceDictionary", it):
@@ -41650,6 +42223,13 @@ proc `name=`*(self: FrameworkElement, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IFrameworkElement_put_Name, Fn_IFrameworkElement_put_Name)(it, h0).check("FrameworkElement.put_Name")
 
+proc baseUri*(self: FrameworkElement): Uri  =
+  ## Windows.UI.Xaml.FrameworkElement.get_BaseUri
+  withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameworkElement_get_BaseUri, Fn_IFrameworkElement_get_BaseUri)(it, tmp.addr).check("FrameworkElement.get_BaseUri")
+    result = adopt[Uri](tmp)
+
 proc dataContext*(self: FrameworkElement): pointer  =
   ## Windows.UI.Xaml.FrameworkElement.get_DataContext
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
@@ -42633,6 +43213,19 @@ proc removeFocusEngagement*(self: Control)  =
   ## Windows.UI.Xaml.Controls.Control.RemoveFocusEngagement
   withIface(self.p, IID_IControl4, "IControl4", it):
     vcall(it, Slot_IControl4_RemoveFocusEngagement, Fn_IControl4_RemoveFocusEngagement)(it).check("Control.RemoveFocusEngagement")
+
+proc defaultStyleResourceUri*(self: Control): Uri  =
+  ## Windows.UI.Xaml.Controls.Control.get_DefaultStyleResourceUri
+  withIface(self.p, IID_IControl5, "IControl5", it):
+    var tmp: pointer
+    vcall(it, Slot_IControl5_get_DefaultStyleResourceUri, Fn_IControl5_get_DefaultStyleResourceUri)(it, tmp.addr).check("Control.get_DefaultStyleResourceUri")
+    result = adopt[Uri](tmp)
+
+proc `defaultStyleResourceUri=`*(self: Control, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.Control.put_DefaultStyleResourceUri
+  withIface(self.p, IID_IControl5, "IControl5", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IControl5_put_DefaultStyleResourceUri, Fn_IControl5_put_DefaultStyleResourceUri)(it, p0).check("Control.put_DefaultStyleResourceUri")
 
 proc backgroundSizing*(self: Control): BackgroundSizing  =
   ## Windows.UI.Xaml.Controls.Control.get_BackgroundSizing
@@ -44740,6 +45333,19 @@ proc newBitmapIcon*(): BitmapIcon =
   adopt[BitmapIcon](composeAs("Windows.UI.Xaml.Controls.BitmapIcon", IID_IBitmapIconFactory,
                      IID_IBitmapIcon, 6))
 
+proc uriSource*(self: BitmapIcon): Uri  =
+  ## Windows.UI.Xaml.Controls.BitmapIcon.get_UriSource
+  withIface(self.p, IID_IBitmapIcon, "IBitmapIcon", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapIcon_get_UriSource, Fn_IBitmapIcon_get_UriSource)(it, tmp.addr).check("BitmapIcon.get_UriSource")
+    result = adopt[Uri](tmp)
+
+proc `uriSource=`*(self: BitmapIcon, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.BitmapIcon.put_UriSource
+  withIface(self.p, IID_IBitmapIcon, "IBitmapIcon", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBitmapIcon_put_UriSource, Fn_IBitmapIcon_put_UriSource)(it, p0).check("BitmapIcon.put_UriSource")
+
 proc showAsMonochrome*(self: BitmapIcon): bool  =
   ## Windows.UI.Xaml.Controls.BitmapIcon.get_ShowAsMonochrome
   withIface(self.p, IID_IBitmapIcon2, "IBitmapIcon2", it):
@@ -44790,6 +45396,19 @@ proc newBitmapIconSource*(): BitmapIconSource =
   ## Compose a `Windows.UI.Xaml.Controls.BitmapIconSource`.
   adopt[BitmapIconSource](composeAs("Windows.UI.Xaml.Controls.BitmapIconSource", IID_IBitmapIconSourceFactory,
                      IID_IBitmapIconSource, 6))
+
+proc uriSource*(self: BitmapIconSource): Uri  =
+  ## Windows.UI.Xaml.Controls.BitmapIconSource.get_UriSource
+  withIface(self.p, IID_IBitmapIconSource, "IBitmapIconSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapIconSource_get_UriSource, Fn_IBitmapIconSource_get_UriSource)(it, tmp.addr).check("BitmapIconSource.get_UriSource")
+    result = adopt[Uri](tmp)
+
+proc `uriSource=`*(self: BitmapIconSource, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.BitmapIconSource.put_UriSource
+  withIface(self.p, IID_IBitmapIconSource, "IBitmapIconSource", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBitmapIconSource_put_UriSource, Fn_IBitmapIconSource_put_UriSource)(it, p0).check("BitmapIconSource.put_UriSource")
 
 proc showAsMonochrome*(self: BitmapIconSource): bool  =
   ## Windows.UI.Xaml.Controls.BitmapIconSource.get_ShowAsMonochrome
@@ -52902,6 +53521,19 @@ proc newHyperlinkButton*(): HyperlinkButton =
   adopt[HyperlinkButton](composeAs("Windows.UI.Xaml.Controls.HyperlinkButton", IID_IHyperlinkButtonFactory,
                      IID_IHyperlinkButton, 6))
 
+proc navigateUri*(self: HyperlinkButton): Uri  =
+  ## Windows.UI.Xaml.Controls.HyperlinkButton.get_NavigateUri
+  withIface(self.p, IID_IHyperlinkButton, "IHyperlinkButton", it):
+    var tmp: pointer
+    vcall(it, Slot_IHyperlinkButton_get_NavigateUri, Fn_IHyperlinkButton_get_NavigateUri)(it, tmp.addr).check("HyperlinkButton.get_NavigateUri")
+    result = adopt[Uri](tmp)
+
+proc `navigateUri=`*(self: HyperlinkButton, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.HyperlinkButton.put_NavigateUri
+  withIface(self.p, IID_IHyperlinkButton, "IHyperlinkButton", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IHyperlinkButton_put_NavigateUri, Fn_IHyperlinkButton_put_NavigateUri)(it, p0).check("HyperlinkButton.put_NavigateUri")
+
 proc navigateUriProperty*(_: typedesc[HyperlinkButton]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.HyperlinkButton.get_NavigateUriProperty
   withStatics("Windows.UI.Xaml.Controls.HyperlinkButton", IID_IHyperlinkButtonStatics, it):
@@ -58241,6 +58873,19 @@ proc newMapTileUriRequest*(): MapTileUriRequest =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapTileUriRequest`.
   adopt[MapTileUriRequest](activateAs("Windows.UI.Xaml.Controls.Maps.MapTileUriRequest", IID_IMapTileUriRequest))
 
+proc uri*(self: MapTileUriRequest): Uri  =
+  ## Windows.UI.Xaml.Controls.Maps.MapTileUriRequest.get_Uri
+  withIface(self.p, IID_IMapTileUriRequest, "IMapTileUriRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapTileUriRequest_get_Uri, Fn_IMapTileUriRequest_get_Uri)(it, tmp.addr).check("MapTileUriRequest.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: MapTileUriRequest, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.Maps.MapTileUriRequest.put_Uri
+  withIface(self.p, IID_IMapTileUriRequest, "IMapTileUriRequest", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IMapTileUriRequest_put_Uri, Fn_IMapTileUriRequest_put_Uri)(it, p0).check("MapTileUriRequest.put_Uri")
+
 proc getDeferral*(self: MapTileUriRequest): MapTileUriRequestDeferral  =
   ## Windows.UI.Xaml.Controls.Maps.MapTileUriRequest.GetDeferral
   withIface(self.p, IID_IMapTileUriRequest, "IMapTileUriRequest", it):
@@ -58400,6 +59045,19 @@ proc `posterSource=`*(self: MediaElement, value: ImageSource)  =
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
     withIface(value.p, IID_IImageSource, "IImageSource", p0):
       vcall(it, Slot_IMediaElement_put_PosterSource, Fn_IMediaElement_put_PosterSource)(it, p0).check("MediaElement.put_PosterSource")
+
+proc source*(self: MediaElement): Uri  =
+  ## Windows.UI.Xaml.Controls.MediaElement.get_Source
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaElement_get_Source, Fn_IMediaElement_get_Source)(it, tmp.addr).check("MediaElement.get_Source")
+    result = adopt[Uri](tmp)
+
+proc `source=`*(self: MediaElement, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.MediaElement.put_Source
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IMediaElement_put_Source, Fn_IMediaElement_put_Source)(it, p0).check("MediaElement.put_Source")
 
 proc isMuted*(self: MediaElement): bool  =
   ## Windows.UI.Xaml.Controls.MediaElement.get_IsMuted
@@ -58874,17 +59532,19 @@ proc setSource*(self: MediaElement, a1: pointer, a2: string)  =
     withHString(a2, h1):
       vcall(it, Slot_IMediaElement_SetSource, Fn_IMediaElement_SetSource)(it, a1, h1).check("MediaElement.SetSource")
 
-proc addAudioEffect*(self: MediaElement, a1: string, a2: bool, a3: pointer)  =
+proc addAudioEffect*(self: MediaElement, a1: string, a2: bool, a3: ValueSet)  =
   ## Windows.UI.Xaml.Controls.MediaElement.AddAudioEffect
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
     withHString(a1, h0):
-      vcall(it, Slot_IMediaElement_AddAudioEffect, Fn_IMediaElement_AddAudioEffect)(it, h0, a2, a3).check("MediaElement.AddAudioEffect")
+      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_IMediaElement_AddAudioEffect, Fn_IMediaElement_AddAudioEffect)(it, h0, a2, p2).check("MediaElement.AddAudioEffect")
 
-proc addVideoEffect*(self: MediaElement, a1: string, a2: bool, a3: pointer)  =
+proc addVideoEffect*(self: MediaElement, a1: string, a2: bool, a3: ValueSet)  =
   ## Windows.UI.Xaml.Controls.MediaElement.AddVideoEffect
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
     withHString(a1, h0):
-      vcall(it, Slot_IMediaElement_AddVideoEffect, Fn_IMediaElement_AddVideoEffect)(it, h0, a2, a3).check("MediaElement.AddVideoEffect")
+      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_IMediaElement_AddVideoEffect, Fn_IMediaElement_AddVideoEffect)(it, h0, a2, p2).check("MediaElement.AddVideoEffect")
 
 proc removeAllEffects*(self: MediaElement)  =
   ## Windows.UI.Xaml.Controls.MediaElement.RemoveAllEffects
@@ -58938,6 +59598,19 @@ proc setMediaStreamSource*(self: MediaElement, a1: pointer)  =
   ## Windows.UI.Xaml.Controls.MediaElement.SetMediaStreamSource
   withIface(self.p, IID_IMediaElement2, "IMediaElement2", it):
     vcall(it, Slot_IMediaElement2_SetMediaStreamSource, Fn_IMediaElement2_SetMediaStreamSource)(it, a1).check("MediaElement.SetMediaStreamSource")
+
+proc playToPreferredSourceUri*(self: MediaElement): Uri  =
+  ## Windows.UI.Xaml.Controls.MediaElement.get_PlayToPreferredSourceUri
+  withIface(self.p, IID_IMediaElement2, "IMediaElement2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaElement2_get_PlayToPreferredSourceUri, Fn_IMediaElement2_get_PlayToPreferredSourceUri)(it, tmp.addr).check("MediaElement.get_PlayToPreferredSourceUri")
+    result = adopt[Uri](tmp)
+
+proc `playToPreferredSourceUri=`*(self: MediaElement, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.MediaElement.put_PlayToPreferredSourceUri
+  withIface(self.p, IID_IMediaElement2, "IMediaElement2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IMediaElement2_put_PlayToPreferredSourceUri, Fn_IMediaElement2_put_PlayToPreferredSourceUri)(it, p0).check("MediaElement.put_PlayToPreferredSourceUri")
 
 proc transportControls*(self: MediaElement): MediaTransportControls  =
   ## Windows.UI.Xaml.Controls.MediaElement.get_TransportControls
@@ -61402,6 +62075,13 @@ proc value*(self: NotifyEventArgs): string  =
     var tmp: HSTRING
     vcall(it, Slot_INotifyEventArgs_get_Value, Fn_INotifyEventArgs_get_Value)(it, tmp.addr).check("NotifyEventArgs.get_Value")
     result = takeString(tmp)
+
+proc callingUri*(self: NotifyEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.NotifyEventArgs.get_CallingUri
+  withIface(self.p, IID_INotifyEventArgs2, "INotifyEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_INotifyEventArgs2_get_CallingUri, Fn_INotifyEventArgs2_get_CallingUri)(it, tmp.addr).check("NotifyEventArgs.get_CallingUri")
+    result = adopt[Uri](tmp)
 
 proc newUserControl*(): UserControl =
   ## Compose a `Windows.UI.Xaml.Controls.UserControl`.
@@ -67913,6 +68593,13 @@ proc interactionRatio*(self: RefreshInteractionRatioChangedEventArgs): float64  
     var tmp: float64
     vcall(it, Slot_IRefreshInteractionRatioChangedEventArgs_get_InteractionRatio, Fn_IRefreshInteractionRatioChangedEventArgs_get_InteractionRatio)(it, tmp.addr).check("RefreshInteractionRatioChangedEventArgs.get_InteractionRatio")
     result = tmp
+
+proc getDeferral*(self: RefreshRequestedEventArgs): Deferral  =
+  ## Windows.UI.Xaml.Controls.RefreshRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IRefreshRequestedEventArgs, "IRefreshRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IRefreshRequestedEventArgs_GetDeferral, Fn_IRefreshRequestedEventArgs_GetDeferral)(it, tmp.addr).check("RefreshRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc oldState*(self: RefreshStateChangedEventArgs): RefreshVisualizerState  =
   ## Windows.UI.Xaml.Controls.RefreshStateChangedEventArgs.get_OldState
@@ -76900,6 +77587,27 @@ proc newWebView*(): WebView =
   ## Activate a `Windows.UI.Xaml.Controls.WebView`.
   adopt[WebView](activateAs("Windows.UI.Xaml.Controls.WebView", IID_IWebView))
 
+proc source*(self: WebView): Uri  =
+  ## Windows.UI.Xaml.Controls.WebView.get_Source
+  withIface(self.p, IID_IWebView, "IWebView", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebView_get_Source, Fn_IWebView_get_Source)(it, tmp.addr).check("WebView.get_Source")
+    result = adopt[Uri](tmp)
+
+proc `source=`*(self: WebView, value: Uri)  =
+  ## Windows.UI.Xaml.Controls.WebView.put_Source
+  withIface(self.p, IID_IWebView, "IWebView", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebView_put_Source, Fn_IWebView_put_Source)(it, p0).check("WebView.put_Source")
+
+proc allowedScriptNotifyUris*(self: WebView): seq[Uri]  =
+  ## Windows.UI.Xaml.Controls.WebView.get_AllowedScriptNotifyUris
+  withIface(self.p, IID_IWebView, "IWebView", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebView_get_AllowedScriptNotifyUris, Fn_IWebView_get_AllowedScriptNotifyUris)(it, tmp.addr).check("WebView.get_AllowedScriptNotifyUris")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc onLoadCompleted*(self: WebView,
     handler: proc(sender: pointer, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_LoadCompleted
@@ -76956,6 +77664,12 @@ proc onNavigationFailed*(self: WebView,
 proc removeNavigationFailed*(self: WebView, token: EventRegistrationToken) =
   withIface(self.p, IID_IWebView, "IWebView", it):
     vcall(it, Slot_IWebView_remove_NavigationFailed, Fn_IWebView_remove_NavigationFailed)(it, token).check("WebView.remove_NavigationFailed")
+
+proc navigate*(self: WebView, a1: Uri)  =
+  ## Windows.UI.Xaml.Controls.WebView.Navigate
+  withIface(self.p, IID_IWebView, "IWebView", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebView_Navigate, Fn_IWebView_Navigate)(it, p0).check("WebView.Navigate")
 
 proc navigateToString*(self: WebView, a1: string)  =
   ## Windows.UI.Xaml.Controls.WebView.NavigateToString
@@ -77067,6 +77781,21 @@ proc capturePreviewToStreamAsync*(self: WebView, a1: pointer) {.async.} =
   withIface(self.p, IID_IWebView2, "IWebView2", it):
     vcall(it, Slot_IWebView2_CapturePreviewToStreamAsync, Fn_IWebView2_CapturePreviewToStreamAsync)(it, a1, op.addr).check("WebView.CapturePreviewToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebView.CapturePreviewToStreamAsync")
+
+proc navigateToLocalStreamUri*(self: WebView, a1: Uri, a2: pointer)  =
+  ## Windows.UI.Xaml.Controls.WebView.NavigateToLocalStreamUri
+  withIface(self.p, IID_IWebView2, "IWebView2", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IWebView2_NavigateToLocalStreamUri, Fn_IWebView2_NavigateToLocalStreamUri)(it, p0, a2).check("WebView.NavigateToLocalStreamUri")
+
+proc buildLocalStreamUri*(self: WebView, a1: string, a2: string): Uri  =
+  ## Windows.UI.Xaml.Controls.WebView.BuildLocalStreamUri
+  withIface(self.p, IID_IWebView2, "IWebView2", it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        var tmp: pointer
+        vcall(it, Slot_IWebView2_BuildLocalStreamUri, Fn_IWebView2_BuildLocalStreamUri)(it, h0, h1, tmp.addr).check("WebView.BuildLocalStreamUri")
+        result = adopt[Uri](tmp)
 
 proc defaultBackgroundColor*(self: WebView): Color  =
   ## Windows.UI.Xaml.Controls.WebView.get_DefaultBackgroundColor
@@ -77524,6 +78253,14 @@ proc xYFocusDownProperty*(_: typedesc[WebView]): DependencyProperty  =
     vcall(it, Slot_IWebViewStatics5_get_XYFocusDownProperty, Fn_IWebViewStatics5_get_XYFocusDownProperty)(it, tmp.addr).check("WebView.get_XYFocusDownProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc anyScriptNotifyUri*(_: typedesc[WebView]): seq[Uri]  =
+  ## Windows.UI.Xaml.Controls.WebView.get_AnyScriptNotifyUri
+  withStatics("Windows.UI.Xaml.Controls.WebView", IID_IWebViewStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewStatics_get_AnyScriptNotifyUri, Fn_IWebViewStatics_get_AnyScriptNotifyUri)(it, tmp.addr).check("WebView.get_AnyScriptNotifyUri")
+    result = toSeq[Uri](tmp, IID_IVector_1_Uri)
+    release(tmp)
+
 proc sourceProperty*(_: typedesc[WebView]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.WebView.get_SourceProperty
   withStatics("Windows.UI.Xaml.Controls.WebView", IID_IWebViewStatics, it):
@@ -77727,6 +78464,27 @@ proc sourceNameProperty*(_: typedesc[WebViewBrush]): DependencyProperty  =
     vcall(it, Slot_IWebViewBrushStatics_get_SourceNameProperty, Fn_IWebViewBrushStatics_get_SourceNameProperty)(it, tmp.addr).check("WebViewBrush.get_SourceNameProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc uri*(self: WebViewContentLoadingEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewContentLoadingEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewContentLoadingEventArgs, "IWebViewContentLoadingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewContentLoadingEventArgs_get_Uri, Fn_IWebViewContentLoadingEventArgs_get_Uri)(it, tmp.addr).check("WebViewContentLoadingEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc uri*(self: WebViewDOMContentLoadedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewDOMContentLoadedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewDOMContentLoadedEventArgs, "IWebViewDOMContentLoadedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewDOMContentLoadedEventArgs_get_Uri, Fn_IWebViewDOMContentLoadedEventArgs_get_Uri)(it, tmp.addr).check("WebViewDOMContentLoadedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc uri*(self: WebViewDeferredPermissionRequest): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewDeferredPermissionRequest.get_Uri
+  withIface(self.p, IID_IWebViewDeferredPermissionRequest, "IWebViewDeferredPermissionRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewDeferredPermissionRequest_get_Uri, Fn_IWebViewDeferredPermissionRequest_get_Uri)(it, tmp.addr).check("WebViewDeferredPermissionRequest.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc permissionType*(self: WebViewDeferredPermissionRequest): WebViewPermissionType  =
   ## Windows.UI.Xaml.Controls.WebViewDeferredPermissionRequest.get_PermissionType
   withIface(self.p, IID_IWebViewDeferredPermissionRequest, "IWebViewDeferredPermissionRequest", it):
@@ -77770,12 +78528,33 @@ proc `stopPageScriptExecution=`*(self: WebViewLongRunningScriptDetectedEventArgs
   withIface(self.p, IID_IWebViewLongRunningScriptDetectedEventArgs, "IWebViewLongRunningScriptDetectedEventArgs", it):
     vcall(it, Slot_IWebViewLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution, Fn_IWebViewLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution)(it, value).check("WebViewLongRunningScriptDetectedEventArgs.put_StopPageScriptExecution")
 
+proc uri*(self: WebViewNavigationCompletedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewNavigationCompletedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewNavigationCompletedEventArgs, "IWebViewNavigationCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewNavigationCompletedEventArgs_get_Uri, Fn_IWebViewNavigationCompletedEventArgs_get_Uri)(it, tmp.addr).check("WebViewNavigationCompletedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc isSuccess*(self: WebViewNavigationCompletedEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.WebViewNavigationCompletedEventArgs.get_IsSuccess
   withIface(self.p, IID_IWebViewNavigationCompletedEventArgs, "IWebViewNavigationCompletedEventArgs", it):
     var tmp: bool
     vcall(it, Slot_IWebViewNavigationCompletedEventArgs_get_IsSuccess, Fn_IWebViewNavigationCompletedEventArgs_get_IsSuccess)(it, tmp.addr).check("WebViewNavigationCompletedEventArgs.get_IsSuccess")
     result = tmp
+
+proc uri*(self: WebViewNavigationFailedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewNavigationFailedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewNavigationFailedEventArgs, "IWebViewNavigationFailedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewNavigationFailedEventArgs_get_Uri, Fn_IWebViewNavigationFailedEventArgs_get_Uri)(it, tmp.addr).check("WebViewNavigationFailedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc uri*(self: WebViewNavigationStartingEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewNavigationStartingEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewNavigationStartingEventArgs, "IWebViewNavigationStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewNavigationStartingEventArgs_get_Uri, Fn_IWebViewNavigationStartingEventArgs_get_Uri)(it, tmp.addr).check("WebViewNavigationStartingEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
 
 proc cancel*(self: WebViewNavigationStartingEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.WebViewNavigationStartingEventArgs.get_Cancel
@@ -77789,6 +78568,20 @@ proc `cancel=`*(self: WebViewNavigationStartingEventArgs, value: bool)  =
   withIface(self.p, IID_IWebViewNavigationStartingEventArgs, "IWebViewNavigationStartingEventArgs", it):
     vcall(it, Slot_IWebViewNavigationStartingEventArgs_put_Cancel, Fn_IWebViewNavigationStartingEventArgs_put_Cancel)(it, value).check("WebViewNavigationStartingEventArgs.put_Cancel")
 
+proc uri*(self: WebViewNewWindowRequestedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewNewWindowRequestedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewNewWindowRequestedEventArgs, "IWebViewNewWindowRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewNewWindowRequestedEventArgs_get_Uri, Fn_IWebViewNewWindowRequestedEventArgs_get_Uri)(it, tmp.addr).check("WebViewNewWindowRequestedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc referrer*(self: WebViewNewWindowRequestedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewNewWindowRequestedEventArgs.get_Referrer
+  withIface(self.p, IID_IWebViewNewWindowRequestedEventArgs, "IWebViewNewWindowRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewNewWindowRequestedEventArgs_get_Referrer, Fn_IWebViewNewWindowRequestedEventArgs_get_Referrer)(it, tmp.addr).check("WebViewNewWindowRequestedEventArgs.get_Referrer")
+    result = adopt[Uri](tmp)
+
 proc handled*(self: WebViewNewWindowRequestedEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.WebViewNewWindowRequestedEventArgs.get_Handled
   withIface(self.p, IID_IWebViewNewWindowRequestedEventArgs, "IWebViewNewWindowRequestedEventArgs", it):
@@ -77800,6 +78593,13 @@ proc `handled=`*(self: WebViewNewWindowRequestedEventArgs, value: bool)  =
   ## Windows.UI.Xaml.Controls.WebViewNewWindowRequestedEventArgs.put_Handled
   withIface(self.p, IID_IWebViewNewWindowRequestedEventArgs, "IWebViewNewWindowRequestedEventArgs", it):
     vcall(it, Slot_IWebViewNewWindowRequestedEventArgs_put_Handled, Fn_IWebViewNewWindowRequestedEventArgs_put_Handled)(it, value).check("WebViewNewWindowRequestedEventArgs.put_Handled")
+
+proc uri*(self: WebViewPermissionRequest): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewPermissionRequest.get_Uri
+  withIface(self.p, IID_IWebViewPermissionRequest, "IWebViewPermissionRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewPermissionRequest_get_Uri, Fn_IWebViewPermissionRequest_get_Uri)(it, tmp.addr).check("WebViewPermissionRequest.get_Uri")
+    result = adopt[Uri](tmp)
 
 proc permissionType*(self: WebViewPermissionRequest): WebViewPermissionType  =
   ## Windows.UI.Xaml.Controls.WebViewPermissionRequest.get_PermissionType
@@ -77868,6 +78668,13 @@ proc `isIndexedDBEnabled=`*(self: WebViewSettings, value: bool)  =
   withIface(self.p, IID_IWebViewSettings, "IWebViewSettings", it):
     vcall(it, Slot_IWebViewSettings_put_IsIndexedDBEnabled, Fn_IWebViewSettings_put_IsIndexedDBEnabled)(it, value).check("WebViewSettings.put_IsIndexedDBEnabled")
 
+proc uri*(self: WebViewUnsupportedUriSchemeIdentifiedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewUnsupportedUriSchemeIdentifiedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewUnsupportedUriSchemeIdentifiedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewUnsupportedUriSchemeIdentifiedEventArgs_get_Uri, Fn_IWebViewUnsupportedUriSchemeIdentifiedEventArgs_get_Uri)(it, tmp.addr).check("WebViewUnsupportedUriSchemeIdentifiedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc handled*(self: WebViewUnsupportedUriSchemeIdentifiedEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.WebViewUnsupportedUriSchemeIdentifiedEventArgs.get_Handled
   withIface(self.p, IID_IWebViewUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewUnsupportedUriSchemeIdentifiedEventArgs", it):
@@ -77880,12 +78687,33 @@ proc `handled=`*(self: WebViewUnsupportedUriSchemeIdentifiedEventArgs, value: bo
   withIface(self.p, IID_IWebViewUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewUnsupportedUriSchemeIdentifiedEventArgs", it):
     vcall(it, Slot_IWebViewUnsupportedUriSchemeIdentifiedEventArgs_put_Handled, Fn_IWebViewUnsupportedUriSchemeIdentifiedEventArgs_put_Handled)(it, value).check("WebViewUnsupportedUriSchemeIdentifiedEventArgs.put_Handled")
 
+proc uri*(self: WebViewUnviewableContentIdentifiedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewUnviewableContentIdentifiedEventArgs.get_Uri
+  withIface(self.p, IID_IWebViewUnviewableContentIdentifiedEventArgs, "IWebViewUnviewableContentIdentifiedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewUnviewableContentIdentifiedEventArgs_get_Uri, Fn_IWebViewUnviewableContentIdentifiedEventArgs_get_Uri)(it, tmp.addr).check("WebViewUnviewableContentIdentifiedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc referrer*(self: WebViewUnviewableContentIdentifiedEventArgs): Uri  =
+  ## Windows.UI.Xaml.Controls.WebViewUnviewableContentIdentifiedEventArgs.get_Referrer
+  withIface(self.p, IID_IWebViewUnviewableContentIdentifiedEventArgs, "IWebViewUnviewableContentIdentifiedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewUnviewableContentIdentifiedEventArgs_get_Referrer, Fn_IWebViewUnviewableContentIdentifiedEventArgs_get_Referrer)(it, tmp.addr).check("WebViewUnviewableContentIdentifiedEventArgs.get_Referrer")
+    result = adopt[Uri](tmp)
+
 proc mediaType*(self: WebViewUnviewableContentIdentifiedEventArgs): string  =
   ## Windows.UI.Xaml.Controls.WebViewUnviewableContentIdentifiedEventArgs.get_MediaType
   withIface(self.p, IID_IWebViewUnviewableContentIdentifiedEventArgs2, "IWebViewUnviewableContentIdentifiedEventArgs2", it):
     var tmp: HSTRING
     vcall(it, Slot_IWebViewUnviewableContentIdentifiedEventArgs2_get_MediaType, Fn_IWebViewUnviewableContentIdentifiedEventArgs2_get_MediaType)(it, tmp.addr).check("WebViewUnviewableContentIdentifiedEventArgs.get_MediaType")
     result = takeString(tmp)
+
+proc getDeferral*(self: WebViewWebResourceRequestedEventArgs): Deferral  =
+  ## Windows.UI.Xaml.Controls.WebViewWebResourceRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IWebViewWebResourceRequestedEventArgs, "IWebViewWebResourceRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebViewWebResourceRequestedEventArgs_GetDeferral, Fn_IWebViewWebResourceRequestedEventArgs_GetDeferral)(it, tmp.addr).check("WebViewWebResourceRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newWrapGrid*(): WrapGrid =
   ## Activate a `Windows.UI.Xaml.Controls.WrapGrid`.
@@ -79933,6 +80761,19 @@ proc `indices=`*(self: Glyphs, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IGlyphs_put_Indices, Fn_IGlyphs_put_Indices)(it, h0).check("Glyphs.put_Indices")
 
+proc fontUri*(self: Glyphs): Uri  =
+  ## Windows.UI.Xaml.Documents.Glyphs.get_FontUri
+  withIface(self.p, IID_IGlyphs, "IGlyphs", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlyphs_get_FontUri, Fn_IGlyphs_get_FontUri)(it, tmp.addr).check("Glyphs.get_FontUri")
+    result = adopt[Uri](tmp)
+
+proc `fontUri=`*(self: Glyphs, value: Uri)  =
+  ## Windows.UI.Xaml.Documents.Glyphs.put_FontUri
+  withIface(self.p, IID_IGlyphs, "IGlyphs", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IGlyphs_put_FontUri, Fn_IGlyphs_put_FontUri)(it, p0).check("Glyphs.put_FontUri")
+
 proc styleSimulations*(self: Glyphs): StyleSimulations  =
   ## Windows.UI.Xaml.Documents.Glyphs.get_StyleSimulations
   withIface(self.p, IID_IGlyphs, "IGlyphs", it):
@@ -80091,6 +80932,19 @@ proc colorFontPaletteIndexProperty*(_: typedesc[Glyphs]): DependencyProperty  =
 proc newHyperlink*(): Hyperlink =
   ## Activate a `Windows.UI.Xaml.Documents.Hyperlink`.
   adopt[Hyperlink](activateAs("Windows.UI.Xaml.Documents.Hyperlink", IID_IHyperlink))
+
+proc navigateUri*(self: Hyperlink): Uri  =
+  ## Windows.UI.Xaml.Documents.Hyperlink.get_NavigateUri
+  withIface(self.p, IID_IHyperlink, "IHyperlink", it):
+    var tmp: pointer
+    vcall(it, Slot_IHyperlink_get_NavigateUri, Fn_IHyperlink_get_NavigateUri)(it, tmp.addr).check("Hyperlink.get_NavigateUri")
+    result = adopt[Uri](tmp)
+
+proc `navigateUri=`*(self: Hyperlink, value: Uri)  =
+  ## Windows.UI.Xaml.Documents.Hyperlink.put_NavigateUri
+  withIface(self.p, IID_IHyperlink, "IHyperlink", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IHyperlink_put_NavigateUri, Fn_IHyperlink_put_NavigateUri)(it, p0).check("Hyperlink.put_NavigateUri")
 
 proc onClick*(self: Hyperlink,
     handler: proc(sender: pointer, args: HyperlinkClickEventArgs)): EventRegistrationToken {.discardable.} =
@@ -81963,6 +82817,11 @@ proc loadObjectIntoAppAsync*(self: DesignerAppManager, a1: string, a2: GUID, a3:
         vcall(it, Slot_IDesignerAppManager_LoadObjectIntoAppAsync, Fn_IDesignerAppManager_LoadObjectIntoAppAsync)(it, h0, a2, h2, op.addr).check("DesignerAppManager.LoadObjectIntoAppAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DesignerAppManager.LoadObjectIntoAppAsync")
 
+proc close*(self: DesignerAppManager)  =
+  ## Windows.UI.Xaml.Hosting.DesignerAppManager.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DesignerAppManager.Close")
+
 proc create*(_: typedesc[DesignerAppManager], a1: string): DesignerAppManager  =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.Create
   withStatics("Windows.UI.Xaml.Hosting.DesignerAppManager", IID_IDesignerAppManagerFactory, it):
@@ -82005,6 +82864,11 @@ proc updateViewAsync*(self: DesignerAppView, a1: DesignerAppViewState, a2: Size)
   withIface(self.p, IID_IDesignerAppView, "IDesignerAppView", it):
     vcall(it, Slot_IDesignerAppView_UpdateViewAsync, Fn_IDesignerAppView_UpdateViewAsync)(it, a1, a2, op.addr).check("DesignerAppView.UpdateViewAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DesignerAppView.UpdateViewAsync")
+
+proc close*(self: DesignerAppView)  =
+  ## Windows.UI.Xaml.Hosting.DesignerAppView.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DesignerAppView.Close")
 
 proc newDesktopWindowXamlSource*(): DesktopWindowXamlSource =
   ## Compose a `Windows.UI.Xaml.Hosting.DesktopWindowXamlSource`.
@@ -82076,6 +82940,11 @@ proc navigateFocus*(self: DesktopWindowXamlSource, a1: XamlSourceFocusNavigation
       var tmp: pointer
       vcall(it, Slot_IDesktopWindowXamlSource_NavigateFocus, Fn_IDesktopWindowXamlSource_NavigateFocus)(it, p0, tmp.addr).check("DesktopWindowXamlSource.NavigateFocus")
       result = adopt[XamlSourceFocusNavigationResult](tmp)
+
+proc close*(self: DesktopWindowXamlSource)  =
+  ## Windows.UI.Xaml.Hosting.DesktopWindowXamlSource.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DesktopWindowXamlSource.Close")
 
 proc request*(self: DesktopWindowXamlSourceGotFocusEventArgs): XamlSourceFocusNavigationRequest  =
   ## Windows.UI.Xaml.Hosting.DesktopWindowXamlSourceGotFocusEventArgs.get_Request
@@ -82162,6 +83031,11 @@ proc getScrollViewerManipulationPropertySet*(_: typedesc[ElementCompositionPrevi
       var tmp: pointer
       vcall(it, Slot_IElementCompositionPreviewStatics_GetScrollViewerManipulationPropertySet, Fn_IElementCompositionPreviewStatics_GetScrollViewerManipulationPropertySet)(it, p0, tmp.addr).check("ElementCompositionPreview.GetScrollViewerManipulationPropertySet")
       result = adopt[CompositionPropertySet](tmp)
+
+proc close*(self: WindowsXamlManager)  =
+  ## Windows.UI.Xaml.Hosting.WindowsXamlManager.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("WindowsXamlManager.Close")
 
 proc initializeForCurrentThread*(_: typedesc[WindowsXamlManager]): WindowsXamlManager  =
   ## Windows.UI.Xaml.Hosting.WindowsXamlManager.InitializeForCurrentThread
@@ -84044,6 +84918,13 @@ proc setPropertyFromByte*(_: typedesc[XamlBindingHelper], a1: pointer, a2: Depen
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(a2.p, IID_IDependencyProperty, "IDependencyProperty", p1):
       vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromByte, Fn_IXamlBindingHelperStatics_SetPropertyFromByte)(it, a1, p1, a3).check("XamlBindingHelper.SetPropertyFromByte")
+
+proc setPropertyFromUri*(_: typedesc[XamlBindingHelper], a1: pointer, a2: DependencyProperty, a3: Uri)  =
+  ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromUri
+  withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
+    withIface(a2.p, IID_IDependencyProperty, "IDependencyProperty", p1):
+      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUri, Fn_IXamlBindingHelperStatics_SetPropertyFromUri)(it, a1, p1, p2).check("XamlBindingHelper.SetPropertyFromUri")
 
 proc setPropertyFromObject*(_: typedesc[XamlBindingHelper], a1: pointer, a2: DependencyProperty, a3: pointer)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromObject
@@ -87802,6 +88683,19 @@ proc `createOptions=`*(self: BitmapImage, value: BitmapCreateOptions)  =
   withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
     vcall(it, Slot_IBitmapImage_put_CreateOptions, Fn_IBitmapImage_put_CreateOptions)(it, value).check("BitmapImage.put_CreateOptions")
 
+proc uriSource*(self: BitmapImage): Uri  =
+  ## Windows.UI.Xaml.Media.Imaging.BitmapImage.get_UriSource
+  withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapImage_get_UriSource, Fn_IBitmapImage_get_UriSource)(it, tmp.addr).check("BitmapImage.get_UriSource")
+    result = adopt[Uri](tmp)
+
+proc `uriSource=`*(self: BitmapImage, value: Uri)  =
+  ## Windows.UI.Xaml.Media.Imaging.BitmapImage.put_UriSource
+  withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IBitmapImage_put_UriSource, Fn_IBitmapImage_put_UriSource)(it, p0).check("BitmapImage.put_UriSource")
+
 proc decodePixelWidth*(self: BitmapImage): int32  =
   ## Windows.UI.Xaml.Media.Imaging.BitmapImage.get_DecodePixelWidth
   withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
@@ -87987,6 +88881,14 @@ proc decodePixelHeightProperty*(_: typedesc[BitmapImage]): DependencyProperty  =
     vcall(it, Slot_IBitmapImageStatics_get_DecodePixelHeightProperty, Fn_IBitmapImageStatics_get_DecodePixelHeightProperty)(it, tmp.addr).check("BitmapImage.get_DecodePixelHeightProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc createInstanceWithUriSource*(_: typedesc[BitmapImage], a1: Uri): BitmapImage  =
+  ## Windows.UI.Xaml.Media.Imaging.BitmapImage.CreateInstanceWithUriSource
+  withStatics("Windows.UI.Xaml.Media.Imaging.BitmapImage", IID_IBitmapImageFactory, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IBitmapImageFactory_CreateInstanceWithUriSource, Fn_IBitmapImageFactory_CreateInstanceWithUriSource)(it, p0, tmp.addr).check("BitmapImage.CreateInstanceWithUriSource")
+      result = adopt[BitmapImage](tmp)
+
 proc progress*(self: DownloadProgressEventArgs): int32  =
   ## Windows.UI.Xaml.Media.Imaging.DownloadProgressEventArgs.get_Progress
   withIface(self.p, IID_IDownloadProgressEventArgs, "IDownloadProgressEventArgs", it):
@@ -88051,10 +88953,28 @@ proc newSoftwareBitmapSource*(): SoftwareBitmapSource =
   ## Activate a `Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource`.
   adopt[SoftwareBitmapSource](activateAs("Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource", IID_ISoftwareBitmapSource))
 
+proc close*(self: SoftwareBitmapSource)  =
+  ## Windows.UI.Xaml.Media.Imaging.SoftwareBitmapSource.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SoftwareBitmapSource.Close")
+
 proc newSvgImageSource*(): SvgImageSource =
   ## Compose a `Windows.UI.Xaml.Media.Imaging.SvgImageSource`.
   adopt[SvgImageSource](composeAs("Windows.UI.Xaml.Media.Imaging.SvgImageSource", IID_ISvgImageSourceFactory,
                      IID_ISvgImageSource, 6))
+
+proc uriSource*(self: SvgImageSource): Uri  =
+  ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.get_UriSource
+  withIface(self.p, IID_ISvgImageSource, "ISvgImageSource", it):
+    var tmp: pointer
+    vcall(it, Slot_ISvgImageSource_get_UriSource, Fn_ISvgImageSource_get_UriSource)(it, tmp.addr).check("SvgImageSource.get_UriSource")
+    result = adopt[Uri](tmp)
+
+proc `uriSource=`*(self: SvgImageSource, value: Uri)  =
+  ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.put_UriSource
+  withIface(self.p, IID_ISvgImageSource, "ISvgImageSource", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISvgImageSource_put_UriSource, Fn_ISvgImageSource_put_UriSource)(it, p0).check("SvgImageSource.put_UriSource")
 
 proc rasterizePixelWidth*(self: SvgImageSource): float64  =
   ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.get_RasterizePixelWidth
@@ -88342,6 +89262,27 @@ proc onLoadCompleted*(self: LoadedImageSurface,
 proc removeLoadCompleted*(self: LoadedImageSurface, token: EventRegistrationToken) =
   withIface(self.p, IID_ILoadedImageSurface, "ILoadedImageSurface", it):
     vcall(it, Slot_ILoadedImageSurface_remove_LoadCompleted, Fn_ILoadedImageSurface_remove_LoadCompleted)(it, token).check("LoadedImageSurface.remove_LoadCompleted")
+
+proc close*(self: LoadedImageSurface)  =
+  ## Windows.UI.Xaml.Media.LoadedImageSurface.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LoadedImageSurface.Close")
+
+proc startLoadFromUri*(_: typedesc[LoadedImageSurface], a1: Uri, a2: Size): LoadedImageSurface  =
+  ## Windows.UI.Xaml.Media.LoadedImageSurface.StartLoadFromUri
+  withStatics("Windows.UI.Xaml.Media.LoadedImageSurface", IID_ILoadedImageSurfaceStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_ILoadedImageSurfaceStatics_StartLoadFromUri, Fn_ILoadedImageSurfaceStatics_StartLoadFromUri)(it, p0, a2, tmp.addr).check("LoadedImageSurface.StartLoadFromUri")
+      result = adopt[LoadedImageSurface](tmp)
+
+proc startLoadFromUri*(_: typedesc[LoadedImageSurface], a1: Uri): LoadedImageSurface  =
+  ## Windows.UI.Xaml.Media.LoadedImageSurface.StartLoadFromUri
+  withStatics("Windows.UI.Xaml.Media.LoadedImageSurface", IID_ILoadedImageSurfaceStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_ILoadedImageSurfaceStatics_StartLoadFromUri2, Fn_ILoadedImageSurfaceStatics_StartLoadFromUri2)(it, p0, tmp.addr).check("LoadedImageSurface.StartLoadFromUri")
+      result = adopt[LoadedImageSurface](tmp)
 
 proc startLoadFromStream*(_: typedesc[LoadedImageSurface], a1: pointer, a2: Size): LoadedImageSurface  =
   ## Windows.UI.Xaml.Media.LoadedImageSurface.StartLoadFromStream
@@ -88780,6 +89721,13 @@ proc setThumbnailImage*(self: MediaTransportControlsThumbnailRequestedEventArgs,
   ## Windows.UI.Xaml.Media.MediaTransportControlsThumbnailRequestedEventArgs.SetThumbnailImage
   withIface(self.p, IID_IMediaTransportControlsThumbnailRequestedEventArgs, "IMediaTransportControlsThumbnailRequestedEventArgs", it):
     vcall(it, Slot_IMediaTransportControlsThumbnailRequestedEventArgs_SetThumbnailImage, Fn_IMediaTransportControlsThumbnailRequestedEventArgs_SetThumbnailImage)(it, a1).check("MediaTransportControlsThumbnailRequestedEventArgs.SetThumbnailImage")
+
+proc getDeferral*(self: MediaTransportControlsThumbnailRequestedEventArgs): Deferral  =
+  ## Windows.UI.Xaml.Media.MediaTransportControlsThumbnailRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IMediaTransportControlsThumbnailRequestedEventArgs, "IMediaTransportControlsThumbnailRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaTransportControlsThumbnailRequestedEventArgs_GetDeferral, Fn_IMediaTransportControlsThumbnailRequestedEventArgs_GetDeferral)(it, tmp.addr).check("MediaTransportControlsThumbnailRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newPartialMediaFailureDetectedEventArgs*(): PartialMediaFailureDetectedEventArgs =
   ## Activate a `Windows.UI.Xaml.Media.PartialMediaFailureDetectedEventArgs`.
@@ -90001,6 +90949,19 @@ proc navigationMode*(self: NavigationEventArgs): NavigationMode  =
     var tmp: NavigationMode
     vcall(it, Slot_INavigationEventArgs_get_NavigationMode, Fn_INavigationEventArgs_get_NavigationMode)(it, tmp.addr).check("NavigationEventArgs.get_NavigationMode")
     result = tmp
+
+proc uri*(self: NavigationEventArgs): Uri  =
+  ## Windows.UI.Xaml.Navigation.NavigationEventArgs.get_Uri
+  withIface(self.p, IID_INavigationEventArgs, "INavigationEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_INavigationEventArgs_get_Uri, Fn_INavigationEventArgs_get_Uri)(it, tmp.addr).check("NavigationEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: NavigationEventArgs, value: Uri)  =
+  ## Windows.UI.Xaml.Navigation.NavigationEventArgs.put_Uri
+  withIface(self.p, IID_INavigationEventArgs, "INavigationEventArgs", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_INavigationEventArgs_put_Uri, Fn_INavigationEventArgs_put_Uri)(it, p0).check("NavigationEventArgs.put_Uri")
 
 proc navigationTransitionInfo*(self: NavigationEventArgs): NavigationTransitionInfo  =
   ## Windows.UI.Xaml.Navigation.NavigationEventArgs.get_NavigationTransitionInfo

@@ -45,9 +45,10 @@ include ./abidef
 export asyncdispatch
 
 const
-  IID_IAsyncInfo* = GUID(
-    ## {00000036-0000-0000-C000-000000000046} — implemented by every async
-    ## operation whatever its result type.
+  # Not exported, and not named `IID_IAsyncInfo`: the metadata declares that
+  # interface too, so `winrt/abi/foundation` has a constant of that name and
+  # two in scope is an ambiguity wherever both are imported.
+  IidAsyncInfo = GUID(
     data1: 0x00000036'u32, data2: 0'u16, data3: 0'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
 
@@ -144,7 +145,7 @@ proc newCompletion(iid: GUID, ev: AsyncEvent): ptr Completion =
   result.ev = ev
 
 proc statusOf(op: pointer, what: string): AsyncState =
-  let info = queryInterface(op, IID_IAsyncInfo)
+  let info = queryInterface(op, IidAsyncInfo)
   if info.isNil:
     raise newException(WinRtError, "winrt: " & what & " is not an IAsyncInfo")
   try:
@@ -161,7 +162,7 @@ proc failureOf(op: pointer, what: string): ref WinRtError =
   of asCanceled:
     newException(WinRtError, "winrt: " & what & " was cancelled")
   of asError:
-    let info = queryInterface(op, IID_IAsyncInfo)
+    let info = queryInterface(op, IidAsyncInfo)
     var hr: HRESULT = E_FAIL
     if not info.isNil:
       try:

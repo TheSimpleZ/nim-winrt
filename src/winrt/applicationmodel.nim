@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/applicationmodel
+import ./foundation
+export foundation
 import ./delegate
 export core, applicationmodel
 import ./asyncops
@@ -19,6 +21,12 @@ export asyncops
 const IID_TypedEventHandler_2_SplashScreen_Object* = GUID(
     data1: 0x7725B2A5'u32, data2: 0x287D'u16, data3: 0x5ED2'u16,
     data4: [0xA7'u8, 0x89, 0x2A, 0x6A, 0x26, 0x73, 0xC7, 0xFE])
+const IID_AsyncOperationCompletedHandler_1_IPropertySet* = GUID(
+    data1: 0x5075A55F'u32, data2: 0x68BA'u16, data3: 0x56F2'u16,
+    data4: [0x97'u8, 0xE6, 0x9B, 0x1C, 0xBF, 0xA2, 0xC5, 0xF2])
+const IID_IAsyncOperation_1_IPropertySet* = GUID(
+    data1: 0x490B0686'u32, data2: 0xAFD7'u16, data3: 0x5037'u16,
+    data4: [0x96'u8, 0x47, 0xD8, 0xFE, 0x24, 0x8F, 0x18, 0x2C])
 const IID_TypedEventHandler_2_AppExtensionCatalog_AppExtensionPackageInstalledEventArgs* = GUID(
     data1: 0x26460556'u32, data2: 0x9F0A'u16, data3: 0x562E'u16,
     data4: [0x91'u8, 0x65, 0x9E, 0xB9, 0xE1, 0x89, 0x8B, 0x1E])
@@ -37,9 +45,18 @@ const IID_TypedEventHandler_2_AppExtensionCatalog_AppExtensionPackageStatusChang
 const IID_IVectorView_1_AppExtension* = GUID(
     data1: 0x94520810'u32, data2: 0x7E9B'u16, data3: 0x5EFD'u16,
     data4: [0xB7'u8, 0x4D, 0xE9, 0xD4, 0x17, 0x5F, 0xD9, 0x4A])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
 const IID_IVector_1_AppInstance* = GUID(
     data1: 0x7FF85C5E'u32, data2: 0x7752'u16, data3: 0x5EF0'u16,
     data4: [0xBF'u8, 0x29, 0x02, 0x06, 0x48, 0xC1, 0x99, 0xE4])
+const IID_AsyncOperationCompletedHandler_1_AppServiceResponse* = GUID(
+    data1: 0x7EA7D7EC'u32, data2: 0xE164'u16, data3: 0x52C3'u16,
+    data4: [0x8E'u8, 0x32, 0xBB, 0xA7, 0x12, 0x6D, 0x90, 0x28])
+const IID_IAsyncOperation_1_AppServiceResponse* = GUID(
+    data1: 0x48755A7C'u32, data2: 0xC88F'u16, data3: 0x5EF0'u16,
+    data4: [0x9B'u8, 0x4C, 0x87, 0x6F, 0xCC, 0x26, 0x10, 0xB4])
 const IID_TypedEventHandler_2_AppServiceConnection_AppServiceRequestReceivedEventArgs* = GUID(
     data1: 0x18C67D61'u32, data2: 0x4176'u16, data3: 0x5553'u16,
     data4: [0xB1'u8, 0x8D, 0xD8, 0xF5, 0x7F, 0xE7, 0x95, 0x52])
@@ -496,6 +513,12 @@ const IID_TypedEventHandler_2_DataPackage_Object* = GUID(
 const IID_TypedEventHandler_2_DataPackage_ShareCompletedEventArgs* = GUID(
     data1: 0xF8F7E24A'u32, data2: 0x56FE'u16, data3: 0x58DF'u16,
     data4: [0xBC'u8, 0x15, 0x23, 0x65, 0xAE, 0xC0, 0x39, 0x66])
+const IID_AsyncOperationCompletedHandler_1_Uri* = GUID(
+    data1: 0xAD46F1CC'u32, data2: 0x2BB0'u16, data3: 0x585C'u16,
+    data4: [0x98'u8, 0x85, 0x03, 0xC2, 0x78, 0x0D, 0x4D, 0x58])
+const IID_IAsyncOperation_1_Uri* = GUID(
+    data1: 0x641CB9DD'u32, data2: 0xA28D'u16, data3: 0x59E2'u16,
+    data4: [0xB8'u8, 0xDB, 0xA2, 0x27, 0xED, 0xA6, 0xCF, 0x2E])
 const IID_TypedEventHandler_2_DataTransferManager_DataRequestedEventArgs* = GUID(
     data1: 0xEC6F9CC8'u32, data2: 0x46D0'u16, data3: 0x5E0E'u16,
     data4: [0xB4'u8, 0xD2, 0x7D, 0x77, 0x73, 0xAE, 0x37, 0xA0])
@@ -10972,6 +10995,13 @@ proc exitCode*(self: CommandLineActivationOperation): int32  =
     vcall(it, Slot_ICommandLineActivationOperation_get_ExitCode, Fn_ICommandLineActivationOperation_get_ExitCode)(it, tmp.addr).check("CommandLineActivationOperation.get_ExitCode")
     result = tmp
 
+proc getDeferral*(self: CommandLineActivationOperation): Deferral  =
+  ## Windows.ApplicationModel.Activation.CommandLineActivationOperation.GetDeferral
+  withIface(self.p, IID_ICommandLineActivationOperation, "ICommandLineActivationOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommandLineActivationOperation_GetDeferral, Fn_ICommandLineActivationOperation_GetDeferral)(it, tmp.addr).check("CommandLineActivationOperation.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc serviceId*(self: ContactCallActivatedEventArgs): string  =
   ## Windows.ApplicationModel.Activation.ContactCallActivatedEventArgs.get_ServiceId
   withIface(self.p, IID_IContactCallActivatedEventArgs, "IContactCallActivatedEventArgs", it):
@@ -11455,6 +11485,13 @@ proc callerPackageFamilyName*(self: FileOpenPickerActivatedEventArgs): string  =
     vcall(it, Slot_IFileOpenPickerActivatedEventArgs2_get_CallerPackageFamilyName, Fn_IFileOpenPickerActivatedEventArgs2_get_CallerPackageFamilyName)(it, tmp.addr).check("FileOpenPickerActivatedEventArgs.get_CallerPackageFamilyName")
     result = takeString(tmp)
 
+proc continuationData*(self: FileOpenPickerContinuationEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.FileOpenPickerContinuationEventArgs.get_ContinuationData
+  withIface(self.p, IID_IContinuationActivatedEventArgs, "IContinuationActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContinuationActivatedEventArgs_get_ContinuationData, Fn_IContinuationActivatedEventArgs_get_ContinuationData)(it, tmp.addr).check("FileOpenPickerContinuationEventArgs.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
+
 proc kind*(self: FileOpenPickerContinuationEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.FileOpenPickerContinuationEventArgs.get_Kind
   withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
@@ -11511,6 +11548,13 @@ proc enterpriseId*(self: FileSavePickerActivatedEventArgs): string  =
     vcall(it, Slot_IFileSavePickerActivatedEventArgs2_get_EnterpriseId, Fn_IFileSavePickerActivatedEventArgs2_get_EnterpriseId)(it, tmp.addr).check("FileSavePickerActivatedEventArgs.get_EnterpriseId")
     result = takeString(tmp)
 
+proc continuationData*(self: FileSavePickerContinuationEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.FileSavePickerContinuationEventArgs.get_ContinuationData
+  withIface(self.p, IID_IContinuationActivatedEventArgs, "IContinuationActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContinuationActivatedEventArgs_get_ContinuationData, Fn_IContinuationActivatedEventArgs_get_ContinuationData)(it, tmp.addr).check("FileSavePickerContinuationEventArgs.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
+
 proc kind*(self: FileSavePickerContinuationEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.FileSavePickerContinuationEventArgs.get_Kind
   withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
@@ -11531,6 +11575,13 @@ proc splashScreen*(self: FileSavePickerContinuationEventArgs): SplashScreen  =
     var tmp: pointer
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("FileSavePickerContinuationEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
+
+proc continuationData*(self: FolderPickerContinuationEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.FolderPickerContinuationEventArgs.get_ContinuationData
+  withIface(self.p, IID_IContinuationActivatedEventArgs, "IContinuationActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContinuationActivatedEventArgs_get_ContinuationData, Fn_IContinuationActivatedEventArgs_get_ContinuationData)(it, tmp.addr).check("FolderPickerContinuationEventArgs.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
 
 proc kind*(self: FolderPickerContinuationEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.FolderPickerContinuationEventArgs.get_Kind
@@ -11805,6 +11856,13 @@ proc splashScreen*(self: PrintTaskSettingsActivatedEventArgs): SplashScreen  =
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("PrintTaskSettingsActivatedEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
 
+proc uri*(self: ProtocolActivatedEventArgs): Uri  =
+  ## Windows.ApplicationModel.Activation.ProtocolActivatedEventArgs.get_Uri
+  withIface(self.p, IID_IProtocolActivatedEventArgs, "IProtocolActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtocolActivatedEventArgs_get_Uri, Fn_IProtocolActivatedEventArgs_get_Uri)(it, tmp.addr).check("ProtocolActivatedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc kind*(self: ProtocolActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.ProtocolActivatedEventArgs.get_Kind
   withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
@@ -11832,6 +11890,13 @@ proc callerPackageFamilyName*(self: ProtocolActivatedEventArgs): string  =
     var tmp: HSTRING
     vcall(it, Slot_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_CallerPackageFamilyName, Fn_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_CallerPackageFamilyName)(it, tmp.addr).check("ProtocolActivatedEventArgs.get_CallerPackageFamilyName")
     result = takeString(tmp)
+
+proc data*(self: ProtocolActivatedEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.ProtocolActivatedEventArgs.get_Data
+  withIface(self.p, IID_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData, "IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_Data, Fn_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_Data)(it, tmp.addr).check("ProtocolActivatedEventArgs.get_Data")
+    result = adopt[ValueSet](tmp)
 
 proc currentlyShownApplicationViewId*(self: ProtocolActivatedEventArgs): int32  =
   ## Windows.ApplicationModel.Activation.ProtocolActivatedEventArgs.get_CurrentlyShownApplicationViewId
@@ -11861,12 +11926,26 @@ proc splashScreen*(self: ProtocolForResultsActivatedEventArgs): SplashScreen  =
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("ProtocolForResultsActivatedEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
 
+proc uri*(self: ProtocolForResultsActivatedEventArgs): Uri  =
+  ## Windows.ApplicationModel.Activation.ProtocolForResultsActivatedEventArgs.get_Uri
+  withIface(self.p, IID_IProtocolActivatedEventArgs, "IProtocolActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtocolActivatedEventArgs_get_Uri, Fn_IProtocolActivatedEventArgs_get_Uri)(it, tmp.addr).check("ProtocolForResultsActivatedEventArgs.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc callerPackageFamilyName*(self: ProtocolForResultsActivatedEventArgs): string  =
   ## Windows.ApplicationModel.Activation.ProtocolForResultsActivatedEventArgs.get_CallerPackageFamilyName
   withIface(self.p, IID_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData, "IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData", it):
     var tmp: HSTRING
     vcall(it, Slot_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_CallerPackageFamilyName, Fn_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_CallerPackageFamilyName)(it, tmp.addr).check("ProtocolForResultsActivatedEventArgs.get_CallerPackageFamilyName")
     result = takeString(tmp)
+
+proc data*(self: ProtocolForResultsActivatedEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.ProtocolForResultsActivatedEventArgs.get_Data
+  withIface(self.p, IID_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData, "IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_Data, Fn_IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData_get_Data)(it, tmp.addr).check("ProtocolForResultsActivatedEventArgs.get_Data")
+    result = adopt[ValueSet](tmp)
 
 proc currentlyShownApplicationViewId*(self: ProtocolForResultsActivatedEventArgs): int32  =
   ## Windows.ApplicationModel.Activation.ProtocolForResultsActivatedEventArgs.get_CurrentlyShownApplicationViewId
@@ -12041,6 +12120,13 @@ proc argument*(self: ToastNotificationActivatedEventArgs): string  =
     vcall(it, Slot_IToastNotificationActivatedEventArgs_get_Argument, Fn_IToastNotificationActivatedEventArgs_get_Argument)(it, tmp.addr).check("ToastNotificationActivatedEventArgs.get_Argument")
     result = takeString(tmp)
 
+proc userInput*(self: ToastNotificationActivatedEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.ToastNotificationActivatedEventArgs.get_UserInput
+  withIface(self.p, IID_IToastNotificationActivatedEventArgs, "IToastNotificationActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastNotificationActivatedEventArgs_get_UserInput, Fn_IToastNotificationActivatedEventArgs_get_UserInput)(it, tmp.addr).check("ToastNotificationActivatedEventArgs.get_UserInput")
+    result = adopt[ValueSet](tmp)
+
 proc kind*(self: ToastNotificationActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.ToastNotificationActivatedEventArgs.get_Kind
   withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
@@ -12188,6 +12274,13 @@ proc splashScreen*(self: WebAccountProviderActivatedEventArgs): SplashScreen  =
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("WebAccountProviderActivatedEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
 
+proc continuationData*(self: WebAuthenticationBrokerContinuationEventArgs): ValueSet  =
+  ## Windows.ApplicationModel.Activation.WebAuthenticationBrokerContinuationEventArgs.get_ContinuationData
+  withIface(self.p, IID_IContinuationActivatedEventArgs, "IContinuationActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContinuationActivatedEventArgs_get_ContinuationData, Fn_IContinuationActivatedEventArgs_get_ContinuationData)(it, tmp.addr).check("WebAuthenticationBrokerContinuationEventArgs.get_ContinuationData")
+    result = adopt[ValueSet](tmp)
+
 proc kind*(self: WebAuthenticationBrokerContinuationEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.WebAuthenticationBrokerContinuationEventArgs.get_Kind
   withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
@@ -12258,6 +12351,13 @@ proc appInfo*(self: AppExtension): AppInfo  =
     vcall(it, Slot_IAppExtension_get_AppInfo, Fn_IAppExtension_get_AppInfo)(it, tmp.addr).check("AppExtension.get_AppInfo")
     result = adopt[AppInfo](tmp)
 
+proc getExtensionPropertiesAsync*(self: AppExtension): Future[ValueSet] {.async.} =
+  ## Windows.ApplicationModel.AppExtensions.AppExtension.GetExtensionPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IAppExtension, "IAppExtension", it):
+    vcall(it, Slot_IAppExtension_GetExtensionPropertiesAsync, Fn_IAppExtension_GetExtensionPropertiesAsync)(it, op.addr).check("AppExtension.GetExtensionPropertiesAsync")
+  result = adopt[ValueSet](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "AppExtension.GetExtensionPropertiesAsync"))
+
 proc appUserModelId*(self: AppExtension): string  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.get_AppUserModelId
   withIface(self.p, IID_IAppExtension2, "IAppExtension2", it):
@@ -12265,12 +12365,12 @@ proc appUserModelId*(self: AppExtension): string  =
     vcall(it, Slot_IAppExtension2_get_AppUserModelId, Fn_IAppExtension2_get_AppUserModelId)(it, tmp.addr).check("AppExtension.get_AppUserModelId")
     result = takeString(tmp)
 
-proc getExtensionProperties*(self: AppExtension): pointer  =
+proc getExtensionProperties*(self: AppExtension): ValueSet  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetExtensionProperties
   withIface(self.p, IID_IAppExtension3, "IAppExtension3", it):
     var tmp: pointer
     vcall(it, Slot_IAppExtension3_GetExtensionProperties, Fn_IAppExtension3_GetExtensionProperties)(it, tmp.addr).check("AppExtension.GetExtensionProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc getPublicPath*(self: AppExtension): string  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetPublicPath
@@ -12533,6 +12633,13 @@ proc getFromAppUserModelId*(_: typedesc[AppInfo], a1: string): AppInfo  =
       vcall(it, Slot_IAppInfoStatics_GetFromAppUserModelId, Fn_IAppInfoStatics_GetFromAppUserModelId)(it, h0, tmp.addr).check("AppInfo.GetFromAppUserModelId")
       result = adopt[AppInfo](tmp)
 
+proc uri*(self: AppInstallerInfo): Uri  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_Uri
+  withIface(self.p, IID_IAppInstallerInfo, "IAppInstallerInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo_get_Uri, Fn_IAppInstallerInfo_get_Uri)(it, tmp.addr).check("AppInstallerInfo.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc onLaunch*(self: AppInstallerInfo): bool  =
   ## Windows.ApplicationModel.AppInstallerInfo.get_OnLaunch
   withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
@@ -12595,6 +12702,38 @@ proc lastChecked*(self: AppInstallerInfo): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IAppInstallerInfo2_get_LastChecked, Fn_IAppInstallerInfo2_get_LastChecked)(it, tmp.addr).check("AppInstallerInfo.get_LastChecked")
     result = tmp
+
+proc updateUris*(self: AppInstallerInfo): seq[Uri]  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_UpdateUris
+  withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo2_get_UpdateUris, Fn_IAppInstallerInfo2_get_UpdateUris)(it, tmp.addr).check("AppInstallerInfo.get_UpdateUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
+
+proc repairUris*(self: AppInstallerInfo): seq[Uri]  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_RepairUris
+  withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo2_get_RepairUris, Fn_IAppInstallerInfo2_get_RepairUris)(it, tmp.addr).check("AppInstallerInfo.get_RepairUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
+
+proc dependencyPackageUris*(self: AppInstallerInfo): seq[Uri]  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_DependencyPackageUris
+  withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo2_get_DependencyPackageUris, Fn_IAppInstallerInfo2_get_DependencyPackageUris)(it, tmp.addr).check("AppInstallerInfo.get_DependencyPackageUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
+
+proc optionalPackageUris*(self: AppInstallerInfo): seq[Uri]  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_OptionalPackageUris
+  withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo2_get_OptionalPackageUris, Fn_IAppInstallerInfo2_get_OptionalPackageUris)(it, tmp.addr).check("AppInstallerInfo.get_OptionalPackageUris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
 
 proc policySource*(self: AppInstallerInfo): AppInstallerPolicySource  =
   ## Windows.ApplicationModel.AppInstallerInfo.get_PolicySource
@@ -12694,6 +12833,14 @@ proc `packageFamilyName=`*(self: AppServiceConnection, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IAppServiceConnection_put_PackageFamilyName, Fn_IAppServiceConnection_put_PackageFamilyName)(it, h0).check("AppServiceConnection.put_PackageFamilyName")
 
+proc sendMessageAsync*(self: AppServiceConnection, a1: ValueSet): Future[AppServiceResponse] {.async.} =
+  ## Windows.ApplicationModel.AppService.AppServiceConnection.SendMessageAsync
+  var op: pointer
+  withIface(self.p, IID_IAppServiceConnection, "IAppServiceConnection", it):
+    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+      vcall(it, Slot_IAppServiceConnection_SendMessageAsync, Fn_IAppServiceConnection_SendMessageAsync)(it, p0, op.addr).check("AppServiceConnection.SendMessageAsync")
+  result = adopt[AppServiceResponse](await awaitObject(op, IID_IAsyncOperation_1_AppServiceResponse, IID_AsyncOperationCompletedHandler_1_AppServiceResponse, "AppServiceConnection.SendMessageAsync"))
+
 proc onRequestReceived*(self: AppServiceConnection,
     handler: proc(sender: pointer, args: AppServiceRequestReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.AppService.AppServiceConnection.add_RequestReceived
@@ -12732,10 +12879,22 @@ proc removeServiceClosed*(self: AppServiceConnection, token: EventRegistrationTo
   withIface(self.p, IID_IAppServiceConnection, "IAppServiceConnection", it):
     vcall(it, Slot_IAppServiceConnection_remove_ServiceClosed, Fn_IAppServiceConnection_remove_ServiceClosed)(it, token).check("AppServiceConnection.remove_ServiceClosed")
 
+proc close*(self: AppServiceConnection)  =
+  ## Windows.ApplicationModel.AppService.AppServiceConnection.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("AppServiceConnection.Close")
+
 proc complete*(self: AppServiceDeferral)  =
   ## Windows.ApplicationModel.AppService.AppServiceDeferral.Complete
   withIface(self.p, IID_IAppServiceDeferral, "IAppServiceDeferral", it):
     vcall(it, Slot_IAppServiceDeferral_Complete, Fn_IAppServiceDeferral_Complete)(it).check("AppServiceDeferral.Complete")
+
+proc message*(self: AppServiceRequest): ValueSet  =
+  ## Windows.ApplicationModel.AppService.AppServiceRequest.get_Message
+  withIface(self.p, IID_IAppServiceRequest, "IAppServiceRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppServiceRequest_get_Message, Fn_IAppServiceRequest_get_Message)(it, tmp.addr).check("AppServiceRequest.get_Message")
+    result = adopt[ValueSet](tmp)
 
 proc request*(self: AppServiceRequestReceivedEventArgs): AppServiceRequest  =
   ## Windows.ApplicationModel.AppService.AppServiceRequestReceivedEventArgs.get_Request
@@ -12750,6 +12909,13 @@ proc getDeferral*(self: AppServiceRequestReceivedEventArgs): AppServiceDeferral 
     var tmp: pointer
     vcall(it, Slot_IAppServiceRequestReceivedEventArgs_GetDeferral, Fn_IAppServiceRequestReceivedEventArgs_GetDeferral)(it, tmp.addr).check("AppServiceRequestReceivedEventArgs.GetDeferral")
     result = adopt[AppServiceDeferral](tmp)
+
+proc message*(self: AppServiceResponse): ValueSet  =
+  ## Windows.ApplicationModel.AppService.AppServiceResponse.get_Message
+  withIface(self.p, IID_IAppServiceResponse, "IAppServiceResponse", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppServiceResponse_get_Message, Fn_IAppServiceResponse_get_Message)(it, tmp.addr).check("AppServiceResponse.get_Message")
+    result = adopt[ValueSet](tmp)
 
 proc status*(self: AppServiceResponse): AppServiceResponseStatus  =
   ## Windows.ApplicationModel.AppService.AppServiceResponse.get_Status
@@ -12792,6 +12958,13 @@ proc callerRemoteConnectionToken*(self: AppServiceTriggerDetails): string  =
     var tmp: HSTRING
     vcall(it, Slot_IAppServiceTriggerDetails4_get_CallerRemoteConnectionToken, Fn_IAppServiceTriggerDetails4_get_CallerRemoteConnectionToken)(it, tmp.addr).check("AppServiceTriggerDetails.get_CallerRemoteConnectionToken")
     result = takeString(tmp)
+
+proc message*(self: StatelessAppServiceResponse): ValueSet  =
+  ## Windows.ApplicationModel.AppService.StatelessAppServiceResponse.get_Message
+  withIface(self.p, IID_IStatelessAppServiceResponse, "IStatelessAppServiceResponse", it):
+    var tmp: pointer
+    vcall(it, Slot_IStatelessAppServiceResponse_get_Message, Fn_IStatelessAppServiceResponse_get_Message)(it, tmp.addr).check("StatelessAppServiceResponse.get_Message")
+    result = adopt[ValueSet](tmp)
 
 proc status*(self: StatelessAppServiceResponse): StatelessAppServiceResponseStatus  =
   ## Windows.ApplicationModel.AppService.StatelessAppServiceResponse.get_Status
@@ -12936,6 +13109,19 @@ proc `sensitivity=`*(self: Appointment, value: AppointmentSensitivity)  =
   ## Windows.ApplicationModel.Appointments.Appointment.put_Sensitivity
   withIface(self.p, IID_IAppointment, "IAppointment", it):
     vcall(it, Slot_IAppointment_put_Sensitivity, Fn_IAppointment_put_Sensitivity)(it, value).check("Appointment.put_Sensitivity")
+
+proc uri*(self: Appointment): Uri  =
+  ## Windows.ApplicationModel.Appointments.Appointment.get_Uri
+  withIface(self.p, IID_IAppointment, "IAppointment", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointment_get_Uri, Fn_IAppointment_get_Uri)(it, tmp.addr).check("Appointment.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: Appointment, value: Uri)  =
+  ## Windows.ApplicationModel.Appointments.Appointment.put_Uri
+  withIface(self.p, IID_IAppointment, "IAppointment", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IAppointment_put_Uri, Fn_IAppointment_put_Uri)(it, p0).check("Appointment.put_Uri")
 
 proc localId*(self: Appointment): string  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_LocalId
@@ -14319,6 +14505,13 @@ proc request*(self: AppointmentCalendarCancelMeetingRequestEventArgs): Appointme
     vcall(it, Slot_IAppointmentCalendarCancelMeetingRequestEventArgs_get_Request, Fn_IAppointmentCalendarCancelMeetingRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarCancelMeetingRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarCancelMeetingRequest](tmp)
 
+proc getDeferral*(self: AppointmentCalendarCancelMeetingRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarCancelMeetingRequestEventArgs, "IAppointmentCalendarCancelMeetingRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarCancelMeetingRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarCancelMeetingRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarCancelMeetingRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc appointmentCalendarLocalId*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest.get_AppointmentCalendarLocalId
   withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
@@ -14369,6 +14562,13 @@ proc request*(self: AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs
     var tmp: pointer
     vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs_get_Request, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarCreateOrUpdateAppointmentRequest](tmp)
+
+proc getDeferral*(self: AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs, "IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc appointmentCalendarLocalId*(self: AppointmentCalendarForwardMeetingRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.get_AppointmentCalendarLocalId
@@ -14434,6 +14634,13 @@ proc request*(self: AppointmentCalendarForwardMeetingRequestEventArgs): Appointm
     vcall(it, Slot_IAppointmentCalendarForwardMeetingRequestEventArgs_get_Request, Fn_IAppointmentCalendarForwardMeetingRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarForwardMeetingRequest](tmp)
 
+proc getDeferral*(self: AppointmentCalendarForwardMeetingRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequestEventArgs, "IAppointmentCalendarForwardMeetingRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarForwardMeetingRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarForwardMeetingRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc appointmentCalendarLocalId*(self: AppointmentCalendarProposeNewTimeForMeetingRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest.get_AppointmentCalendarLocalId
   withIface(self.p, IID_IAppointmentCalendarProposeNewTimeForMeetingRequest, "IAppointmentCalendarProposeNewTimeForMeetingRequest", it):
@@ -14497,6 +14704,13 @@ proc request*(self: AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs)
     vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs_get_Request, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarProposeNewTimeForMeetingRequest](tmp)
 
+proc getDeferral*(self: AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs, "IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc appointmentCalendarLocalId*(self: AppointmentCalendarSyncManagerSyncRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest.get_AppointmentCalendarLocalId
   withIface(self.p, IID_IAppointmentCalendarSyncManagerSyncRequest, "IAppointmentCalendarSyncManagerSyncRequest", it):
@@ -14524,6 +14738,13 @@ proc request*(self: AppointmentCalendarSyncManagerSyncRequestEventArgs): Appoint
     var tmp: pointer
     vcall(it, Slot_IAppointmentCalendarSyncManagerSyncRequestEventArgs_get_Request, Fn_IAppointmentCalendarSyncManagerSyncRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarSyncManagerSyncRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarSyncManagerSyncRequest](tmp)
+
+proc getDeferral*(self: AppointmentCalendarSyncManagerSyncRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarSyncManagerSyncRequestEventArgs, "IAppointmentCalendarSyncManagerSyncRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarSyncManagerSyncRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarSyncManagerSyncRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarSyncManagerSyncRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc appointmentCalendarLocalId*(self: AppointmentCalendarUpdateMeetingResponseRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest.get_AppointmentCalendarLocalId
@@ -14587,6 +14808,13 @@ proc request*(self: AppointmentCalendarUpdateMeetingResponseRequestEventArgs): A
     var tmp: pointer
     vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequestEventArgs_get_Request, Fn_IAppointmentCalendarUpdateMeetingResponseRequestEventArgs_get_Request)(it, tmp.addr).check("AppointmentCalendarUpdateMeetingResponseRequestEventArgs.get_Request")
     result = adopt[AppointmentCalendarUpdateMeetingResponseRequest](tmp)
+
+proc getDeferral*(self: AppointmentCalendarUpdateMeetingResponseRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IAppointmentCalendarUpdateMeetingResponseRequestEventArgs, "IAppointmentCalendarUpdateMeetingResponseRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequestEventArgs_GetDeferral, Fn_IAppointmentCalendarUpdateMeetingResponseRequestEventArgs_GetDeferral)(it, tmp.addr).check("AppointmentCalendarUpdateMeetingResponseRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc onSyncRequested*(self: AppointmentDataProviderConnection,
     handler: proc(sender: pointer, args: AppointmentCalendarSyncManagerSyncRequestEventArgs)): EventRegistrationToken {.discardable.} =
@@ -14884,6 +15112,13 @@ proc maxVideoHeight*(self: AppBroadcastTriggerProviderInfo): uint32  =
 proc newApplicationTrigger*(): ApplicationTrigger =
   ## Activate a `Windows.ApplicationModel.Background.ApplicationTrigger`.
   adopt[ApplicationTrigger](activateAs("Windows.ApplicationModel.Background.ApplicationTrigger", IID_IApplicationTrigger))
+
+proc arguments*(self: ApplicationTriggerDetails): ValueSet  =
+  ## Windows.ApplicationModel.Background.ApplicationTriggerDetails.get_Arguments
+  withIface(self.p, IID_IApplicationTriggerDetails, "IApplicationTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationTriggerDetails_get_Arguments, Fn_IApplicationTriggerDetails_get_Arguments)(it, tmp.addr).check("ApplicationTriggerDetails.get_Arguments")
+    result = adopt[ValueSet](tmp)
 
 proc newAppointmentStoreNotificationTrigger*(): AppointmentStoreNotificationTrigger =
   ## Activate a `Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger`.
@@ -16138,6 +16373,19 @@ proc `contactNumber=`*(self: IncomingVoipPhoneCallOptions, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_ContactNumber, Fn_IIncomingVoipPhoneCallOptions_put_ContactNumber)(it, h0).check("IncomingVoipPhoneCallOptions.put_ContactNumber")
 
+proc contactImage*(self: IncomingVoipPhoneCallOptions): Uri  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_ContactImage
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IIncomingVoipPhoneCallOptions_get_ContactImage, Fn_IIncomingVoipPhoneCallOptions_get_ContactImage)(it, tmp.addr).check("IncomingVoipPhoneCallOptions.get_ContactImage")
+    result = adopt[Uri](tmp)
+
+proc `contactImage=`*(self: IncomingVoipPhoneCallOptions, value: Uri)  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.put_ContactImage
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_ContactImage, Fn_IIncomingVoipPhoneCallOptions_put_ContactImage)(it, p0).check("IncomingVoipPhoneCallOptions.put_ContactImage")
+
 proc serviceName*(self: IncomingVoipPhoneCallOptions): string  =
   ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_ServiceName
   withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
@@ -16151,6 +16399,19 @@ proc `serviceName=`*(self: IncomingVoipPhoneCallOptions, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_ServiceName, Fn_IIncomingVoipPhoneCallOptions_put_ServiceName)(it, h0).check("IncomingVoipPhoneCallOptions.put_ServiceName")
 
+proc brandingImage*(self: IncomingVoipPhoneCallOptions): Uri  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_BrandingImage
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IIncomingVoipPhoneCallOptions_get_BrandingImage, Fn_IIncomingVoipPhoneCallOptions_get_BrandingImage)(it, tmp.addr).check("IncomingVoipPhoneCallOptions.get_BrandingImage")
+    result = adopt[Uri](tmp)
+
+proc `brandingImage=`*(self: IncomingVoipPhoneCallOptions, value: Uri)  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.put_BrandingImage
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_BrandingImage, Fn_IIncomingVoipPhoneCallOptions_put_BrandingImage)(it, p0).check("IncomingVoipPhoneCallOptions.put_BrandingImage")
+
 proc callDetails*(self: IncomingVoipPhoneCallOptions): string  =
   ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_CallDetails
   withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
@@ -16163,6 +16424,19 @@ proc `callDetails=`*(self: IncomingVoipPhoneCallOptions, value: string)  =
   withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
     withHString(value, h0):
       vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_CallDetails, Fn_IIncomingVoipPhoneCallOptions_put_CallDetails)(it, h0).check("IncomingVoipPhoneCallOptions.put_CallDetails")
+
+proc ringtone*(self: IncomingVoipPhoneCallOptions): Uri  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_Ringtone
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IIncomingVoipPhoneCallOptions_get_Ringtone, Fn_IIncomingVoipPhoneCallOptions_get_Ringtone)(it, tmp.addr).check("IncomingVoipPhoneCallOptions.get_Ringtone")
+    result = adopt[Uri](tmp)
+
+proc `ringtone=`*(self: IncomingVoipPhoneCallOptions, value: Uri)  =
+  ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.put_Ringtone
+  withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IIncomingVoipPhoneCallOptions_put_Ringtone, Fn_IIncomingVoipPhoneCallOptions_put_Ringtone)(it, p0).check("IncomingVoipPhoneCallOptions.put_Ringtone")
 
 proc media*(self: IncomingVoipPhoneCallOptions): VoipPhoneCallMedia  =
   ## Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.get_Media
@@ -17697,6 +17971,21 @@ proc removeMuteStateChanged*(self: VoipCallCoordinator, token: EventRegistration
   withIface(self.p, IID_IVoipCallCoordinator, "IVoipCallCoordinator", it):
     vcall(it, Slot_IVoipCallCoordinator_remove_MuteStateChanged, Fn_IVoipCallCoordinator_remove_MuteStateChanged)(it, token).check("VoipCallCoordinator.remove_MuteStateChanged")
 
+proc requestNewIncomingCall*(self: VoipCallCoordinator, a1: string, a2: string, a3: string, a4: Uri, a5: string, a6: Uri, a7: string, a8: Uri, a9: VoipPhoneCallMedia, a10: TimeSpan): VoipPhoneCall  =
+  ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestNewIncomingCall
+  withIface(self.p, IID_IVoipCallCoordinator, "IVoipCallCoordinator", it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            withHString(a5, h4):
+              withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+                withHString(a7, h6):
+                  withIface(a8.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p7):
+                    var tmp: pointer
+                    vcall(it, Slot_IVoipCallCoordinator_RequestNewIncomingCall, Fn_IVoipCallCoordinator_RequestNewIncomingCall)(it, h0, h1, h2, p3, h4, p5, h6, p7, a9, a10, tmp.addr).check("VoipCallCoordinator.RequestNewIncomingCall")
+                    result = adopt[VoipPhoneCall](tmp)
+
 proc requestNewOutgoingCall*(self: VoipCallCoordinator, a1: string, a2: string, a3: string, a4: VoipPhoneCallMedia): VoipPhoneCall  =
   ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestNewOutgoingCall
   withIface(self.p, IID_IVoipCallCoordinator, "IVoipCallCoordinator", it):
@@ -17726,6 +18015,21 @@ proc requestOutgoingUpgradeToVideoCall*(self: VoipCallCoordinator, a1: GUID, a2:
           var tmp: pointer
           vcall(it, Slot_IVoipCallCoordinator_RequestOutgoingUpgradeToVideoCall, Fn_IVoipCallCoordinator_RequestOutgoingUpgradeToVideoCall)(it, a1, h1, h2, h3, tmp.addr).check("VoipCallCoordinator.RequestOutgoingUpgradeToVideoCall")
           result = adopt[VoipPhoneCall](tmp)
+
+proc requestIncomingUpgradeToVideoCall*(self: VoipCallCoordinator, a1: string, a2: string, a3: string, a4: Uri, a5: string, a6: Uri, a7: string, a8: Uri, a9: TimeSpan): VoipPhoneCall  =
+  ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestIncomingUpgradeToVideoCall
+  withIface(self.p, IID_IVoipCallCoordinator, "IVoipCallCoordinator", it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            withHString(a5, h4):
+              withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+                withHString(a7, h6):
+                  withIface(a8.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p7):
+                    var tmp: pointer
+                    vcall(it, Slot_IVoipCallCoordinator_RequestIncomingUpgradeToVideoCall, Fn_IVoipCallCoordinator_RequestIncomingUpgradeToVideoCall)(it, h0, h1, h2, p3, h4, p5, h6, p7, a9, tmp.addr).check("VoipCallCoordinator.RequestIncomingUpgradeToVideoCall")
+                    result = adopt[VoipPhoneCall](tmp)
 
 proc terminateCellularCall*(self: VoipCallCoordinator, a1: GUID)  =
   ## Windows.ApplicationModel.Calls.VoipCallCoordinator.TerminateCellularCall
@@ -17758,6 +18062,22 @@ proc requestNewAppInitiatedCall*(self: VoipCallCoordinator, a1: string, a2: stri
             var tmp: pointer
             vcall(it, Slot_IVoipCallCoordinator3_RequestNewAppInitiatedCall, Fn_IVoipCallCoordinator3_RequestNewAppInitiatedCall)(it, h0, h1, h2, h3, a5, tmp.addr).check("VoipCallCoordinator.RequestNewAppInitiatedCall")
             result = adopt[VoipPhoneCall](tmp)
+
+proc requestNewIncomingCall*(self: VoipCallCoordinator, a1: string, a2: string, a3: string, a4: Uri, a5: string, a6: Uri, a7: string, a8: Uri, a9: VoipPhoneCallMedia, a10: TimeSpan, a11: string): VoipPhoneCall  =
+  ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestNewIncomingCall
+  withIface(self.p, IID_IVoipCallCoordinator3, "IVoipCallCoordinator3", it):
+    withHString(a1, h0):
+      withHString(a2, h1):
+        withHString(a3, h2):
+          withIface(a4.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p3):
+            withHString(a5, h4):
+              withIface(a6.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+                withHString(a7, h6):
+                  withIface(a8.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p7):
+                    withHString(a11, h10):
+                      var tmp: pointer
+                      vcall(it, Slot_IVoipCallCoordinator3_RequestNewIncomingCall, Fn_IVoipCallCoordinator3_RequestNewIncomingCall)(it, h0, h1, h2, p3, h4, p5, h6, p7, a9, a10, h10, tmp.addr).check("VoipCallCoordinator.RequestNewIncomingCall")
+                      result = adopt[VoipPhoneCall](tmp)
 
 proc requestNewIncomingCallWithOptions*(self: VoipCallCoordinator, a1: IncomingVoipPhoneCallOptions): VoipPhoneCall  =
   ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestNewIncomingCallWithOptions
@@ -19685,12 +20005,12 @@ proc websites*(self: Contact): seq[ContactWebsite]  =
     result = toSeq[ContactWebsite](tmp, IID_IVector_1_ContactWebsite)
     release(tmp)
 
-proc providerProperties*(self: Contact): pointer  =
+proc providerProperties*(self: Contact): ValueSet  =
   ## Windows.ApplicationModel.Contacts.Contact.get_ProviderProperties
   withIface(self.p, IID_IContact2, "IContact2", it):
     var tmp: pointer
     vcall(it, Slot_IContact2_get_ProviderProperties, Fn_IContact2_get_ProviderProperties)(it, tmp.addr).check("Contact.get_ProviderProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc firstName*(self: Contact): string  =
   ## Windows.ApplicationModel.Contacts.Contact.get_FirstName
@@ -20106,6 +20426,13 @@ proc isDisabled*(self: ContactAnnotation): bool  =
     vcall(it, Slot_IContactAnnotation_get_IsDisabled, Fn_IContactAnnotation_get_IsDisabled)(it, tmp.addr).check("ContactAnnotation.get_IsDisabled")
     result = tmp
 
+proc providerProperties*(self: ContactAnnotation): ValueSet  =
+  ## Windows.ApplicationModel.Contacts.ContactAnnotation.get_ProviderProperties
+  withIface(self.p, IID_IContactAnnotation, "IContactAnnotation", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactAnnotation_get_ProviderProperties, Fn_IContactAnnotation_get_ProviderProperties)(it, tmp.addr).check("ContactAnnotation.get_ProviderProperties")
+    result = adopt[ValueSet](tmp)
+
 proc contactListId*(self: ContactAnnotation): string  =
   ## Windows.ApplicationModel.Contacts.ContactAnnotation.get_ContactListId
   withIface(self.p, IID_IContactAnnotation2, "IContactAnnotation2", it):
@@ -20214,6 +20541,11 @@ proc setData*(self: ContactCardDelayedDataLoader, a1: Contact)  =
   withIface(self.p, IID_IContactCardDelayedDataLoader, "IContactCardDelayedDataLoader", it):
     withIface(a1.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactCardDelayedDataLoader_SetData, Fn_IContactCardDelayedDataLoader_SetData)(it, p0).check("ContactCardDelayedDataLoader.SetData")
+
+proc close*(self: ContactCardDelayedDataLoader)  =
+  ## Windows.ApplicationModel.Contacts.ContactCardDelayedDataLoader.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ContactCardDelayedDataLoader.Close")
 
 proc newContactCardOptions*(): ContactCardOptions =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactCardOptions`.
@@ -20540,6 +20872,17 @@ proc createInstantMessage*(self: ContactFieldFactory, a1: string, a2: ContactFie
       vcall(it, Slot_IContactInstantMessageFieldFactory_CreateInstantMessage2, Fn_IContactInstantMessageFieldFactory_CreateInstantMessage2)(it, h0, a2, tmp.addr).check("ContactFieldFactory.CreateInstantMessage")
       result = adopt[ContactInstantMessageField](tmp)
 
+proc createInstantMessage*(self: ContactFieldFactory, a1: string, a2: ContactFieldCategory, a3: string, a4: string, a5: Uri): ContactInstantMessageField  =
+  ## Windows.ApplicationModel.Contacts.ContactFieldFactory.CreateInstantMessage
+  withIface(self.p, IID_IContactInstantMessageFieldFactory, "IContactInstantMessageFieldFactory", it):
+    withHString(a1, h0):
+      withHString(a3, h2):
+        withHString(a4, h3):
+          withIface(a5.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p4):
+            var tmp: pointer
+            vcall(it, Slot_IContactInstantMessageFieldFactory_CreateInstantMessage3, Fn_IContactInstantMessageFieldFactory_CreateInstantMessage3)(it, h0, a2, h2, h3, p4, tmp.addr).check("ContactFieldFactory.CreateInstantMessage")
+            result = adopt[ContactInstantMessageField](tmp)
+
 proc name*(self: ContactInformation): string  =
   ## Windows.ApplicationModel.Contacts.ContactInformation.get_Name
   withIface(self.p, IID_IContactInformation, "IContactInformation", it):
@@ -20617,6 +20960,13 @@ proc displayText*(self: ContactInstantMessageField): string  =
     vcall(it, Slot_IContactInstantMessageField_get_DisplayText, Fn_IContactInstantMessageField_get_DisplayText)(it, tmp.addr).check("ContactInstantMessageField.get_DisplayText")
     result = takeString(tmp)
 
+proc launchUri*(self: ContactInstantMessageField): Uri  =
+  ## Windows.ApplicationModel.Contacts.ContactInstantMessageField.get_LaunchUri
+  withIface(self.p, IID_IContactInstantMessageField, "IContactInstantMessageField", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactInstantMessageField_get_LaunchUri, Fn_IContactInstantMessageField_get_LaunchUri)(it, tmp.addr).check("ContactInstantMessageField.get_LaunchUri")
+    result = adopt[Uri](tmp)
+
 proc `type`*(self: ContactInstantMessageField): ContactFieldType  =
   ## Windows.ApplicationModel.Contacts.ContactInstantMessageField.get_Type
   withIface(self.p, IID_IContactField, "IContactField", it):
@@ -20660,6 +21010,17 @@ proc createInstantMessage*(_: typedesc[ContactInstantMessageField], a1: string, 
       var tmp: pointer
       vcall(it, Slot_IContactInstantMessageFieldFactory_CreateInstantMessage2, Fn_IContactInstantMessageFieldFactory_CreateInstantMessage2)(it, h0, a2, tmp.addr).check("ContactInstantMessageField.CreateInstantMessage")
       result = adopt[ContactInstantMessageField](tmp)
+
+proc createInstantMessage*(_: typedesc[ContactInstantMessageField], a1: string, a2: ContactFieldCategory, a3: string, a4: string, a5: Uri): ContactInstantMessageField  =
+  ## Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage
+  withStatics("Windows.ApplicationModel.Contacts.ContactInstantMessageField", IID_IContactInstantMessageFieldFactory, it):
+    withHString(a1, h0):
+      withHString(a3, h2):
+        withHString(a4, h3):
+          withIface(a5.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p4):
+            var tmp: pointer
+            vcall(it, Slot_IContactInstantMessageFieldFactory_CreateInstantMessage3, Fn_IContactInstantMessageFieldFactory_CreateInstantMessage3)(it, h0, a2, h2, h3, p4, tmp.addr).check("ContactInstantMessageField.CreateInstantMessage")
+            result = adopt[ContactInstantMessageField](tmp)
 
 proc newContactJobInfo*(): ContactJobInfo =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactJobInfo`.
@@ -21382,6 +21743,13 @@ proc removeClosing*(self: ContactPanel, token: EventRegistrationToken) =
   withIface(self.p, IID_IContactPanel, "IContactPanel", it):
     vcall(it, Slot_IContactPanel_remove_Closing, Fn_IContactPanel_remove_Closing)(it, token).check("ContactPanel.remove_Closing")
 
+proc getDeferral*(self: ContactPanelClosingEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Contacts.ContactPanelClosingEventArgs.GetDeferral
+  withIface(self.p, IID_IContactPanelClosingEventArgs, "IContactPanelClosingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactPanelClosingEventArgs_GetDeferral, Fn_IContactPanelClosingEventArgs_GetDeferral)(it, tmp.addr).check("ContactPanelClosingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc handled*(self: ContactPanelLaunchFullAppRequestedEventArgs): bool  =
   ## Windows.ApplicationModel.Contacts.ContactPanelLaunchFullAppRequestedEventArgs.get_Handled
   withIface(self.p, IID_IContactPanelLaunchFullAppRequestedEventArgs, "IContactPanelLaunchFullAppRequestedEventArgs", it):
@@ -21761,6 +22129,19 @@ proc newContactWebsite*(): ContactWebsite =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactWebsite`.
   adopt[ContactWebsite](activateAs("Windows.ApplicationModel.Contacts.ContactWebsite", IID_IContactWebsite))
 
+proc uri*(self: ContactWebsite): Uri  =
+  ## Windows.ApplicationModel.Contacts.ContactWebsite.get_Uri
+  withIface(self.p, IID_IContactWebsite, "IContactWebsite", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactWebsite_get_Uri, Fn_IContactWebsite_get_Uri)(it, tmp.addr).check("ContactWebsite.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc `uri=`*(self: ContactWebsite, value: Uri)  =
+  ## Windows.ApplicationModel.Contacts.ContactWebsite.put_Uri
+  withIface(self.p, IID_IContactWebsite, "IContactWebsite", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IContactWebsite_put_Uri, Fn_IContactWebsite_put_Uri)(it, p0).check("ContactWebsite.put_Uri")
+
 proc description*(self: ContactWebsite): string  =
   ## Windows.ApplicationModel.Contacts.ContactWebsite.get_Description
   withIface(self.p, IID_IContactWebsite, "IContactWebsite", it):
@@ -21911,6 +22292,13 @@ proc request*(self: ContactListCreateOrUpdateContactRequestEventArgs): ContactLi
     vcall(it, Slot_IContactListCreateOrUpdateContactRequestEventArgs_get_Request, Fn_IContactListCreateOrUpdateContactRequestEventArgs_get_Request)(it, tmp.addr).check("ContactListCreateOrUpdateContactRequestEventArgs.get_Request")
     result = adopt[ContactListCreateOrUpdateContactRequest](tmp)
 
+proc getDeferral*(self: ContactListCreateOrUpdateContactRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IContactListCreateOrUpdateContactRequestEventArgs, "IContactListCreateOrUpdateContactRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListCreateOrUpdateContactRequestEventArgs_GetDeferral, Fn_IContactListCreateOrUpdateContactRequestEventArgs_GetDeferral)(it, tmp.addr).check("ContactListCreateOrUpdateContactRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc contactListId*(self: ContactListDeleteContactRequest): string  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequest.get_ContactListId
   withIface(self.p, IID_IContactListDeleteContactRequest, "IContactListDeleteContactRequest", it):
@@ -21945,6 +22333,13 @@ proc request*(self: ContactListDeleteContactRequestEventArgs): ContactListDelete
     var tmp: pointer
     vcall(it, Slot_IContactListDeleteContactRequestEventArgs_get_Request, Fn_IContactListDeleteContactRequestEventArgs_get_Request)(it, tmp.addr).check("ContactListDeleteContactRequestEventArgs.get_Request")
     result = adopt[ContactListDeleteContactRequest](tmp)
+
+proc getDeferral*(self: ContactListDeleteContactRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IContactListDeleteContactRequestEventArgs, "IContactListDeleteContactRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListDeleteContactRequestEventArgs_GetDeferral, Fn_IContactListDeleteContactRequestEventArgs_GetDeferral)(it, tmp.addr).check("ContactListDeleteContactRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc sessionId*(self: ContactListServerSearchReadBatchRequest): string  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequest.get_SessionId
@@ -22003,6 +22398,13 @@ proc request*(self: ContactListServerSearchReadBatchRequestEventArgs): ContactLi
     vcall(it, Slot_IContactListServerSearchReadBatchRequestEventArgs_get_Request, Fn_IContactListServerSearchReadBatchRequestEventArgs_get_Request)(it, tmp.addr).check("ContactListServerSearchReadBatchRequestEventArgs.get_Request")
     result = adopt[ContactListServerSearchReadBatchRequest](tmp)
 
+proc getDeferral*(self: ContactListServerSearchReadBatchRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IContactListServerSearchReadBatchRequestEventArgs, "IContactListServerSearchReadBatchRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListServerSearchReadBatchRequestEventArgs_GetDeferral, Fn_IContactListServerSearchReadBatchRequestEventArgs_GetDeferral)(it, tmp.addr).check("ContactListServerSearchReadBatchRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc contactListId*(self: ContactListSyncManagerSyncRequest): string  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequest.get_ContactListId
   withIface(self.p, IID_IContactListSyncManagerSyncRequest, "IContactListSyncManagerSyncRequest", it):
@@ -22030,6 +22432,13 @@ proc request*(self: ContactListSyncManagerSyncRequestEventArgs): ContactListSync
     var tmp: pointer
     vcall(it, Slot_IContactListSyncManagerSyncRequestEventArgs_get_Request, Fn_IContactListSyncManagerSyncRequestEventArgs_get_Request)(it, tmp.addr).check("ContactListSyncManagerSyncRequestEventArgs.get_Request")
     result = adopt[ContactListSyncManagerSyncRequest](tmp)
+
+proc getDeferral*(self: ContactListSyncManagerSyncRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IContactListSyncManagerSyncRequestEventArgs, "IContactListSyncManagerSyncRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncManagerSyncRequestEventArgs_GetDeferral, Fn_IContactListSyncManagerSyncRequestEventArgs_GetDeferral)(it, tmp.addr).check("ContactListSyncManagerSyncRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newFullContactCardOptions*(): FullContactCardOptions =
   ## Activate a `Windows.ApplicationModel.Contacts.FullContactCardOptions`.
@@ -22352,6 +22761,11 @@ proc clearTrainingDataAsync*(self: ActivationSignalDetectionConfiguration) {.asy
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_ClearTrainingDataAsync, Fn_IActivationSignalDetectionConfiguration_ClearTrainingDataAsync)(it, op.addr).check("ActivationSignalDetectionConfiguration.ClearTrainingDataAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetectionConfiguration.ClearTrainingDataAsync")
+
+proc close*(self: ActivationSignalDetectionConfiguration)  =
+  ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActivationSignalDetectionConfiguration.Close")
 
 proc setModelDataWithResult*(self: ActivationSignalDetectionConfiguration, a1: string, a2: pointer): ActivationSignalDetectionConfigurationSetModelDataResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetModelDataWithResult
@@ -22773,6 +23187,11 @@ proc setSupportLockScreenActivation*(self: ConversationalAgentSession, a1: bool)
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     vcall(it, Slot_IConversationalAgentSession2_SetSupportLockScreenActivation, Fn_IConversationalAgentSession2_SetSupportLockScreenActivation)(it, a1).check("ConversationalAgentSession.SetSupportLockScreenActivation")
 
+proc close*(self: ConversationalAgentSession)  =
+  ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ConversationalAgentSession.Close")
+
 proc getCurrentSessionAsync*(_: typedesc[ConversationalAgentSession]): Future[ConversationalAgentSession] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetCurrentSessionAsync
   var op: pointer
@@ -23014,12 +23433,12 @@ proc removeResuming*(_: typedesc[CoreApplication], token: EventRegistrationToken
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
     vcall(it, Slot_ICoreApplication_remove_Resuming, Fn_ICoreApplication_remove_Resuming)(it, token).check("CoreApplication.remove_Resuming")
 
-proc properties*(_: typedesc[CoreApplication]): pointer  =
+proc properties*(_: typedesc[CoreApplication]): ValueSet  =
   ## Windows.ApplicationModel.Core.CoreApplication.get_Properties
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
     var tmp: pointer
     vcall(it, Slot_ICoreApplication_get_Properties, Fn_ICoreApplication_get_Properties)(it, tmp.addr).check("CoreApplication.get_Properties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc getCurrentView*(_: typedesc[CoreApplication]): CoreApplicationView  =
   ## Windows.ApplicationModel.Core.CoreApplication.GetCurrentView
@@ -23226,12 +23645,12 @@ proc removeHostedViewClosing*(self: CoreApplicationView, token: EventRegistratio
   withIface(self.p, IID_ICoreApplicationView3, "ICoreApplicationView3", it):
     vcall(it, Slot_ICoreApplicationView3_remove_HostedViewClosing, Fn_ICoreApplicationView3_remove_HostedViewClosing)(it, token).check("CoreApplicationView.remove_HostedViewClosing")
 
-proc properties*(self: CoreApplicationView): pointer  =
+proc properties*(self: CoreApplicationView): ValueSet  =
   ## Windows.ApplicationModel.Core.CoreApplicationView.get_Properties
   withIface(self.p, IID_ICoreApplicationView5, "ICoreApplicationView5", it):
     var tmp: pointer
     vcall(it, Slot_ICoreApplicationView5_get_Properties, Fn_ICoreApplicationView5_get_Properties)(it, tmp.addr).check("CoreApplicationView.get_Properties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc `extendViewIntoTitleBar=`*(self: CoreApplicationViewTitleBar, value: bool)  =
   ## Windows.ApplicationModel.Core.CoreApplicationViewTitleBar.put_ExtendViewIntoTitleBar
@@ -23310,6 +23729,13 @@ proc onIsVisibleChanged*(self: CoreApplicationViewTitleBar,
 proc removeIsVisibleChanged*(self: CoreApplicationViewTitleBar, token: EventRegistrationToken) =
   withIface(self.p, IID_ICoreApplicationViewTitleBar, "ICoreApplicationViewTitleBar", it):
     vcall(it, Slot_ICoreApplicationViewTitleBar_remove_IsVisibleChanged, Fn_ICoreApplicationViewTitleBar_remove_IsVisibleChanged)(it, token).check("CoreApplicationViewTitleBar.remove_IsVisibleChanged")
+
+proc getDeferral*(self: HostedViewClosingEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Core.HostedViewClosingEventArgs.GetDeferral
+  withIface(self.p, IID_IHostedViewClosingEventArgs, "IHostedViewClosingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHostedViewClosingEventArgs_GetDeferral, Fn_IHostedViewClosingEventArgs_GetDeferral)(it, tmp.addr).check("HostedViewClosingEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc handled*(self: UnhandledError): bool  =
   ## Windows.ApplicationModel.Core.UnhandledError.get_Handled
@@ -23642,6 +24068,12 @@ proc setText*(self: DataPackage, a1: string)  =
     withHString(a1, h0):
       vcall(it, Slot_IDataPackage_SetText, Fn_IDataPackage_SetText)(it, h0).check("DataPackage.SetText")
 
+proc setUri*(self: DataPackage, a1: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackage.SetUri
+  withIface(self.p, IID_IDataPackage, "IDataPackage", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackage_SetUri, Fn_IDataPackage_SetUri)(it, p0).check("DataPackage.SetUri")
+
 proc setHtmlFormat*(self: DataPackage, a1: string)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackage.SetHtmlFormat
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
@@ -23653,6 +24085,18 @@ proc setRtf*(self: DataPackage, a1: string)  =
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     withHString(a1, h0):
       vcall(it, Slot_IDataPackage_SetRtf, Fn_IDataPackage_SetRtf)(it, h0).check("DataPackage.SetRtf")
+
+proc setApplicationLink*(self: DataPackage, a1: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackage.SetApplicationLink
+  withIface(self.p, IID_IDataPackage2, "IDataPackage2", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackage2_SetApplicationLink, Fn_IDataPackage2_SetApplicationLink)(it, p0).check("DataPackage.SetApplicationLink")
+
+proc setWebLink*(self: DataPackage, a1: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackage.SetWebLink
+  withIface(self.p, IID_IDataPackage2, "IDataPackage2", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackage2_SetWebLink, Fn_IDataPackage2_SetWebLink)(it, p0).check("DataPackage.SetWebLink")
 
 proc onShareCompleted*(self: DataPackage,
     handler: proc(sender: pointer, args: ShareCompletedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -23751,6 +24195,45 @@ proc `applicationName=`*(self: DataPackagePropertySet, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IDataPackagePropertySet_put_ApplicationName, Fn_IDataPackagePropertySet_put_ApplicationName)(it, h0).check("DataPackagePropertySet.put_ApplicationName")
 
+proc applicationListingUri*(self: DataPackagePropertySet): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_ApplicationListingUri
+  withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySet_get_ApplicationListingUri, Fn_IDataPackagePropertySet_get_ApplicationListingUri)(it, tmp.addr).check("DataPackagePropertySet.get_ApplicationListingUri")
+    result = adopt[Uri](tmp)
+
+proc `applicationListingUri=`*(self: DataPackagePropertySet, value: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.put_ApplicationListingUri
+  withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackagePropertySet_put_ApplicationListingUri, Fn_IDataPackagePropertySet_put_ApplicationListingUri)(it, p0).check("DataPackagePropertySet.put_ApplicationListingUri")
+
+proc contentSourceWebLink*(self: DataPackagePropertySet): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_ContentSourceWebLink
+  withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySet2_get_ContentSourceWebLink, Fn_IDataPackagePropertySet2_get_ContentSourceWebLink)(it, tmp.addr).check("DataPackagePropertySet.get_ContentSourceWebLink")
+    result = adopt[Uri](tmp)
+
+proc `contentSourceWebLink=`*(self: DataPackagePropertySet, value: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.put_ContentSourceWebLink
+  withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackagePropertySet2_put_ContentSourceWebLink, Fn_IDataPackagePropertySet2_put_ContentSourceWebLink)(it, p0).check("DataPackagePropertySet.put_ContentSourceWebLink")
+
+proc contentSourceApplicationLink*(self: DataPackagePropertySet): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_ContentSourceApplicationLink
+  withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySet2_get_ContentSourceApplicationLink, Fn_IDataPackagePropertySet2_get_ContentSourceApplicationLink)(it, tmp.addr).check("DataPackagePropertySet.get_ContentSourceApplicationLink")
+    result = adopt[Uri](tmp)
+
+proc `contentSourceApplicationLink=`*(self: DataPackagePropertySet, value: Uri)  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.put_ContentSourceApplicationLink
+  withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDataPackagePropertySet2_put_ContentSourceApplicationLink, Fn_IDataPackagePropertySet2_put_ContentSourceApplicationLink)(it, p0).check("DataPackagePropertySet.put_ContentSourceApplicationLink")
+
 proc packageFamilyName*(self: DataPackagePropertySet): string  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_PackageFamilyName
   withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
@@ -23843,12 +24326,33 @@ proc applicationName*(self: DataPackagePropertySetView): string  =
     vcall(it, Slot_IDataPackagePropertySetView_get_ApplicationName, Fn_IDataPackagePropertySetView_get_ApplicationName)(it, tmp.addr).check("DataPackagePropertySetView.get_ApplicationName")
     result = takeString(tmp)
 
+proc applicationListingUri*(self: DataPackagePropertySetView): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_ApplicationListingUri
+  withIface(self.p, IID_IDataPackagePropertySetView, "IDataPackagePropertySetView", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySetView_get_ApplicationListingUri, Fn_IDataPackagePropertySetView_get_ApplicationListingUri)(it, tmp.addr).check("DataPackagePropertySetView.get_ApplicationListingUri")
+    result = adopt[Uri](tmp)
+
 proc packageFamilyName*(self: DataPackagePropertySetView): string  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_PackageFamilyName
   withIface(self.p, IID_IDataPackagePropertySetView2, "IDataPackagePropertySetView2", it):
     var tmp: HSTRING
     vcall(it, Slot_IDataPackagePropertySetView2_get_PackageFamilyName, Fn_IDataPackagePropertySetView2_get_PackageFamilyName)(it, tmp.addr).check("DataPackagePropertySetView.get_PackageFamilyName")
     result = takeString(tmp)
+
+proc contentSourceWebLink*(self: DataPackagePropertySetView): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_ContentSourceWebLink
+  withIface(self.p, IID_IDataPackagePropertySetView2, "IDataPackagePropertySetView2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySetView2_get_ContentSourceWebLink, Fn_IDataPackagePropertySetView2_get_ContentSourceWebLink)(it, tmp.addr).check("DataPackagePropertySetView.get_ContentSourceWebLink")
+    result = adopt[Uri](tmp)
+
+proc contentSourceApplicationLink*(self: DataPackagePropertySetView): Uri  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_ContentSourceApplicationLink
+  withIface(self.p, IID_IDataPackagePropertySetView2, "IDataPackagePropertySetView2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPackagePropertySetView2_get_ContentSourceApplicationLink, Fn_IDataPackagePropertySetView2_get_ContentSourceApplicationLink)(it, tmp.addr).check("DataPackagePropertySetView.get_ContentSourceApplicationLink")
+    result = adopt[Uri](tmp)
 
 proc square30x30Logo*(self: DataPackagePropertySetView): pointer  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_Square30x30Logo
@@ -23935,6 +24439,13 @@ proc getTextAsync*(self: DataPackageView, a1: string): Future[string] {.async.} 
       vcall(it, Slot_IDataPackageView_GetTextAsync2, Fn_IDataPackageView_GetTextAsync2)(it, h0, op.addr).check("DataPackageView.GetTextAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetTextAsync")
 
+proc getUriAsync*(self: DataPackageView): Future[Uri] {.async.} =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetUriAsync
+  var op: pointer
+  withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
+    vcall(it, Slot_IDataPackageView_GetUriAsync, Fn_IDataPackageView_GetUriAsync)(it, op.addr).check("DataPackageView.GetUriAsync")
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetUriAsync"))
+
 proc getHtmlFormatAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetHtmlFormatAsync
   var op: pointer
@@ -23948,6 +24459,20 @@ proc getRtfAsync*(self: DataPackageView): Future[string] {.async.} =
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetRtfAsync, Fn_IDataPackageView_GetRtfAsync)(it, op.addr).check("DataPackageView.GetRtfAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetRtfAsync")
+
+proc getApplicationLinkAsync*(self: DataPackageView): Future[Uri] {.async.} =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetApplicationLinkAsync
+  var op: pointer
+  withIface(self.p, IID_IDataPackageView2, "IDataPackageView2", it):
+    vcall(it, Slot_IDataPackageView2_GetApplicationLinkAsync, Fn_IDataPackageView2_GetApplicationLinkAsync)(it, op.addr).check("DataPackageView.GetApplicationLinkAsync")
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetApplicationLinkAsync"))
+
+proc getWebLinkAsync*(self: DataPackageView): Future[Uri] {.async.} =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetWebLinkAsync
+  var op: pointer
+  withIface(self.p, IID_IDataPackageView2, "IDataPackageView2", it):
+    vcall(it, Slot_IDataPackageView2_GetWebLinkAsync, Fn_IDataPackageView2_GetWebLinkAsync)(it, op.addr).check("DataPackageView.GetWebLinkAsync")
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetWebLinkAsync"))
 
 proc setAcceptedFormatId*(self: DataPackageView, a1: string)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.SetAcceptedFormatId
@@ -24374,6 +24899,13 @@ proc data*(self: ShareProvidersRequestedEventArgs): DataPackageView  =
     var tmp: pointer
     vcall(it, Slot_IShareProvidersRequestedEventArgs_get_Data, Fn_IShareProvidersRequestedEventArgs_get_Data)(it, tmp.addr).check("ShareProvidersRequestedEventArgs.get_Data")
     result = adopt[DataPackageView](tmp)
+
+proc getDeferral*(self: ShareProvidersRequestedEventArgs): Deferral  =
+  ## Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IShareProvidersRequestedEventArgs, "IShareProvidersRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IShareProvidersRequestedEventArgs_GetDeferral, Fn_IShareProvidersRequestedEventArgs_GetDeferral)(it, tmp.addr).check("ShareProvidersRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newQuickLink*(): QuickLink =
   ## Activate a `Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink`.
@@ -25149,6 +25681,13 @@ proc request*(self: EmailMailboxCreateFolderRequestEventArgs): EmailMailboxCreat
     vcall(it, Slot_IEmailMailboxCreateFolderRequestEventArgs_get_Request, Fn_IEmailMailboxCreateFolderRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxCreateFolderRequestEventArgs.get_Request")
     result = adopt[EmailMailboxCreateFolderRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxCreateFolderRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxCreateFolderRequestEventArgs, "IEmailMailboxCreateFolderRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxCreateFolderRequestEventArgs_GetDeferral, Fn_IEmailMailboxCreateFolderRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxCreateFolderRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxDeleteFolderRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxDeleteFolderRequest, "IEmailMailboxDeleteFolderRequest", it):
@@ -25183,6 +25722,13 @@ proc request*(self: EmailMailboxDeleteFolderRequestEventArgs): EmailMailboxDelet
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxDeleteFolderRequestEventArgs_get_Request, Fn_IEmailMailboxDeleteFolderRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxDeleteFolderRequestEventArgs.get_Request")
     result = adopt[EmailMailboxDeleteFolderRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxDeleteFolderRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxDeleteFolderRequestEventArgs, "IEmailMailboxDeleteFolderRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxDeleteFolderRequestEventArgs_GetDeferral, Fn_IEmailMailboxDeleteFolderRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxDeleteFolderRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc emailMailboxId*(self: EmailMailboxDownloadAttachmentRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequest.get_EmailMailboxId
@@ -25226,6 +25772,13 @@ proc request*(self: EmailMailboxDownloadAttachmentRequestEventArgs): EmailMailbo
     vcall(it, Slot_IEmailMailboxDownloadAttachmentRequestEventArgs_get_Request, Fn_IEmailMailboxDownloadAttachmentRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxDownloadAttachmentRequestEventArgs.get_Request")
     result = adopt[EmailMailboxDownloadAttachmentRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxDownloadAttachmentRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxDownloadAttachmentRequestEventArgs, "IEmailMailboxDownloadAttachmentRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxDownloadAttachmentRequestEventArgs_GetDeferral, Fn_IEmailMailboxDownloadAttachmentRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxDownloadAttachmentRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxDownloadMessageRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxDownloadMessageRequest, "IEmailMailboxDownloadMessageRequest", it):
@@ -25261,6 +25814,13 @@ proc request*(self: EmailMailboxDownloadMessageRequestEventArgs): EmailMailboxDo
     vcall(it, Slot_IEmailMailboxDownloadMessageRequestEventArgs_get_Request, Fn_IEmailMailboxDownloadMessageRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxDownloadMessageRequestEventArgs.get_Request")
     result = adopt[EmailMailboxDownloadMessageRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxDownloadMessageRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxDownloadMessageRequestEventArgs, "IEmailMailboxDownloadMessageRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxDownloadMessageRequestEventArgs_GetDeferral, Fn_IEmailMailboxDownloadMessageRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxDownloadMessageRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxEmptyFolderRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxEmptyFolderRequest, "IEmailMailboxEmptyFolderRequest", it):
@@ -25295,6 +25855,13 @@ proc request*(self: EmailMailboxEmptyFolderRequestEventArgs): EmailMailboxEmptyF
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxEmptyFolderRequestEventArgs_get_Request, Fn_IEmailMailboxEmptyFolderRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxEmptyFolderRequestEventArgs.get_Request")
     result = adopt[EmailMailboxEmptyFolderRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxEmptyFolderRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxEmptyFolderRequestEventArgs, "IEmailMailboxEmptyFolderRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxEmptyFolderRequestEventArgs_GetDeferral, Fn_IEmailMailboxEmptyFolderRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxEmptyFolderRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc emailMailboxId*(self: EmailMailboxForwardMeetingRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest.get_EmailMailboxId
@@ -25367,6 +25934,13 @@ proc request*(self: EmailMailboxForwardMeetingRequestEventArgs): EmailMailboxFor
     vcall(it, Slot_IEmailMailboxForwardMeetingRequestEventArgs_get_Request, Fn_IEmailMailboxForwardMeetingRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxForwardMeetingRequestEventArgs.get_Request")
     result = adopt[EmailMailboxForwardMeetingRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxForwardMeetingRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxForwardMeetingRequestEventArgs, "IEmailMailboxForwardMeetingRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxForwardMeetingRequestEventArgs_GetDeferral, Fn_IEmailMailboxForwardMeetingRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxForwardMeetingRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxGetAutoReplySettingsRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxGetAutoReplySettingsRequest, "IEmailMailboxGetAutoReplySettingsRequest", it):
@@ -25402,6 +25976,13 @@ proc request*(self: EmailMailboxGetAutoReplySettingsRequestEventArgs): EmailMail
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxGetAutoReplySettingsRequestEventArgs_get_Request, Fn_IEmailMailboxGetAutoReplySettingsRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxGetAutoReplySettingsRequestEventArgs.get_Request")
     result = adopt[EmailMailboxGetAutoReplySettingsRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxGetAutoReplySettingsRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxGetAutoReplySettingsRequestEventArgs, "IEmailMailboxGetAutoReplySettingsRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxGetAutoReplySettingsRequestEventArgs_GetDeferral, Fn_IEmailMailboxGetAutoReplySettingsRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxGetAutoReplySettingsRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc emailMailboxId*(self: EmailMailboxMoveFolderRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequest.get_EmailMailboxId
@@ -25451,6 +26032,13 @@ proc request*(self: EmailMailboxMoveFolderRequestEventArgs): EmailMailboxMoveFol
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxMoveFolderRequestEventArgs_get_Request, Fn_IEmailMailboxMoveFolderRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxMoveFolderRequestEventArgs.get_Request")
     result = adopt[EmailMailboxMoveFolderRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxMoveFolderRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxMoveFolderRequestEventArgs, "IEmailMailboxMoveFolderRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxMoveFolderRequestEventArgs_GetDeferral, Fn_IEmailMailboxMoveFolderRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxMoveFolderRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc emailMailboxId*(self: EmailMailboxProposeNewTimeForMeetingRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequest.get_EmailMailboxId
@@ -25515,6 +26103,13 @@ proc request*(self: EmailMailboxProposeNewTimeForMeetingRequestEventArgs): Email
     vcall(it, Slot_IEmailMailboxProposeNewTimeForMeetingRequestEventArgs_get_Request, Fn_IEmailMailboxProposeNewTimeForMeetingRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxProposeNewTimeForMeetingRequestEventArgs.get_Request")
     result = adopt[EmailMailboxProposeNewTimeForMeetingRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxProposeNewTimeForMeetingRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxProposeNewTimeForMeetingRequestEventArgs, "IEmailMailboxProposeNewTimeForMeetingRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxProposeNewTimeForMeetingRequestEventArgs_GetDeferral, Fn_IEmailMailboxProposeNewTimeForMeetingRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxProposeNewTimeForMeetingRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxResolveRecipientsRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxResolveRecipientsRequest, "IEmailMailboxResolveRecipientsRequest", it):
@@ -25543,6 +26138,13 @@ proc request*(self: EmailMailboxResolveRecipientsRequestEventArgs): EmailMailbox
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxResolveRecipientsRequestEventArgs_get_Request, Fn_IEmailMailboxResolveRecipientsRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxResolveRecipientsRequestEventArgs.get_Request")
     result = adopt[EmailMailboxResolveRecipientsRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxResolveRecipientsRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxResolveRecipientsRequestEventArgs, "IEmailMailboxResolveRecipientsRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxResolveRecipientsRequestEventArgs_GetDeferral, Fn_IEmailMailboxResolveRecipientsRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxResolveRecipientsRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc sessionId*(self: EmailMailboxServerSearchReadBatchRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequest.get_SessionId
@@ -25608,6 +26210,13 @@ proc request*(self: EmailMailboxServerSearchReadBatchRequestEventArgs): EmailMai
     vcall(it, Slot_IEmailMailboxServerSearchReadBatchRequestEventArgs_get_Request, Fn_IEmailMailboxServerSearchReadBatchRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxServerSearchReadBatchRequestEventArgs.get_Request")
     result = adopt[EmailMailboxServerSearchReadBatchRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxServerSearchReadBatchRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxServerSearchReadBatchRequestEventArgs, "IEmailMailboxServerSearchReadBatchRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxServerSearchReadBatchRequestEventArgs_GetDeferral, Fn_IEmailMailboxServerSearchReadBatchRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxServerSearchReadBatchRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxSetAutoReplySettingsRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxSetAutoReplySettingsRequest, "IEmailMailboxSetAutoReplySettingsRequest", it):
@@ -25643,6 +26252,13 @@ proc request*(self: EmailMailboxSetAutoReplySettingsRequestEventArgs): EmailMail
     vcall(it, Slot_IEmailMailboxSetAutoReplySettingsRequestEventArgs_get_Request, Fn_IEmailMailboxSetAutoReplySettingsRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxSetAutoReplySettingsRequestEventArgs.get_Request")
     result = adopt[EmailMailboxSetAutoReplySettingsRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxSetAutoReplySettingsRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxSetAutoReplySettingsRequestEventArgs, "IEmailMailboxSetAutoReplySettingsRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxSetAutoReplySettingsRequestEventArgs_GetDeferral, Fn_IEmailMailboxSetAutoReplySettingsRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxSetAutoReplySettingsRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxSyncManagerSyncRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxSyncManagerSyncRequest, "IEmailMailboxSyncManagerSyncRequest", it):
@@ -25670,6 +26286,13 @@ proc request*(self: EmailMailboxSyncManagerSyncRequestEventArgs): EmailMailboxSy
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxSyncManagerSyncRequestEventArgs_get_Request, Fn_IEmailMailboxSyncManagerSyncRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxSyncManagerSyncRequestEventArgs.get_Request")
     result = adopt[EmailMailboxSyncManagerSyncRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxSyncManagerSyncRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxSyncManagerSyncRequestEventArgs, "IEmailMailboxSyncManagerSyncRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxSyncManagerSyncRequestEventArgs_GetDeferral, Fn_IEmailMailboxSyncManagerSyncRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxSyncManagerSyncRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc emailMailboxId*(self: EmailMailboxUpdateMeetingResponseRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequest.get_EmailMailboxId
@@ -25734,6 +26357,13 @@ proc request*(self: EmailMailboxUpdateMeetingResponseRequestEventArgs): EmailMai
     vcall(it, Slot_IEmailMailboxUpdateMeetingResponseRequestEventArgs_get_Request, Fn_IEmailMailboxUpdateMeetingResponseRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxUpdateMeetingResponseRequestEventArgs.get_Request")
     result = adopt[EmailMailboxUpdateMeetingResponseRequest](tmp)
 
+proc getDeferral*(self: EmailMailboxUpdateMeetingResponseRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxUpdateMeetingResponseRequestEventArgs, "IEmailMailboxUpdateMeetingResponseRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxUpdateMeetingResponseRequestEventArgs_GetDeferral, Fn_IEmailMailboxUpdateMeetingResponseRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxUpdateMeetingResponseRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc emailMailboxId*(self: EmailMailboxValidateCertificatesRequest): string  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequest.get_EmailMailboxId
   withIface(self.p, IID_IEmailMailboxValidateCertificatesRequest, "IEmailMailboxValidateCertificatesRequest", it):
@@ -25754,6 +26384,13 @@ proc request*(self: EmailMailboxValidateCertificatesRequestEventArgs): EmailMail
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxValidateCertificatesRequestEventArgs_get_Request, Fn_IEmailMailboxValidateCertificatesRequestEventArgs_get_Request)(it, tmp.addr).check("EmailMailboxValidateCertificatesRequestEventArgs.get_Request")
     result = adopt[EmailMailboxValidateCertificatesRequest](tmp)
+
+proc getDeferral*(self: EmailMailboxValidateCertificatesRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IEmailMailboxValidateCertificatesRequestEventArgs, "IEmailMailboxValidateCertificatesRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxValidateCertificatesRequestEventArgs_GetDeferral, Fn_IEmailMailboxValidateCertificatesRequestEventArgs_GetDeferral)(it, tmp.addr).check("EmailMailboxValidateCertificatesRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newEmailAttachment*(): EmailAttachment =
   ## Activate a `Windows.ApplicationModel.Email.EmailAttachment`.
@@ -28009,6 +28646,13 @@ proc createMailboxAsync*(self: EmailStore, a1: string, a2: string, a3: string): 
           vcall(it, Slot_IEmailStore_CreateMailboxAsync2, Fn_IEmailStore_CreateMailboxAsync2)(it, h0, h1, h2, op.addr).check("EmailStore.CreateMailboxAsync")
   result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, "EmailStore.CreateMailboxAsync"))
 
+proc getDeferral*(self: EnteredBackgroundEventArgs): Deferral  =
+  ## Windows.ApplicationModel.EnteredBackgroundEventArgs.GetDeferral
+  withIface(self.p, IID_IEnteredBackgroundEventArgs, "IEnteredBackgroundEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEnteredBackgroundEventArgs_GetDeferral, Fn_IEnteredBackgroundEventArgs_GetDeferral)(it, tmp.addr).check("EnteredBackgroundEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc reason*(self: ExtendedExecutionRevokedEventArgs): ExtendedExecutionRevokedReason  =
   ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedEventArgs.get_Reason
   withIface(self.p, IID_IExtendedExecutionRevokedEventArgs, "IExtendedExecutionRevokedEventArgs", it):
@@ -28076,6 +28720,11 @@ proc removeRevoked*(self: ExtendedExecutionSession, token: EventRegistrationToke
   withIface(self.p, IID_IExtendedExecutionSession, "IExtendedExecutionSession", it):
     vcall(it, Slot_IExtendedExecutionSession_remove_Revoked, Fn_IExtendedExecutionSession_remove_Revoked)(it, token).check("ExtendedExecutionSession.remove_Revoked")
 
+proc close*(self: ExtendedExecutionSession)  =
+  ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ExtendedExecutionSession.Close")
+
 proc reason*(self: ExtendedExecutionForegroundRevokedEventArgs): ExtendedExecutionForegroundRevokedReason  =
   ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedEventArgs.get_Reason
   withIface(self.p, IID_IExtendedExecutionForegroundRevokedEventArgs, "IExtendedExecutionForegroundRevokedEventArgs", it):
@@ -28130,6 +28779,11 @@ proc `reason=`*(self: ExtendedExecutionForegroundSession, value: ExtendedExecuti
   ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundSession.put_Reason
   withIface(self.p, IID_IExtendedExecutionForegroundSession, "IExtendedExecutionForegroundSession", it):
     vcall(it, Slot_IExtendedExecutionForegroundSession_put_Reason, Fn_IExtendedExecutionForegroundSession_put_Reason)(it, value).check("ExtendedExecutionForegroundSession.put_Reason")
+
+proc close*(self: ExtendedExecutionForegroundSession)  =
+  ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundSession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ExtendedExecutionForegroundSession.Close")
 
 proc relationship*(self: FindRelatedPackagesOptions): PackageRelationship  =
   ## Windows.ApplicationModel.FindRelatedPackagesOptions.get_Relationship
@@ -28272,6 +28926,13 @@ proc getDefault*(_: typedesc[HolographicKeyboard]): HolographicKeyboard  =
     var tmp: pointer
     vcall(it, Slot_IHolographicKeyboardStatics_GetDefault, Fn_IHolographicKeyboardStatics_GetDefault)(it, tmp.addr).check("HolographicKeyboard.GetDefault")
     result = adopt[HolographicKeyboard](tmp)
+
+proc getDeferral*(self: LeavingBackgroundEventArgs): Deferral  =
+  ## Windows.ApplicationModel.LeavingBackgroundEventArgs.GetDeferral
+  withIface(self.p, IID_ILeavingBackgroundEventArgs, "ILeavingBackgroundEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ILeavingBackgroundEventArgs_GetDeferral, Fn_ILeavingBackgroundEventArgs_GetDeferral)(it, tmp.addr).check("LeavingBackgroundEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc featureId*(self: LimitedAccessFeatureRequestResult): string  =
   ## Windows.ApplicationModel.LimitedAccessFeatureRequestResult.get_FeatureId
@@ -28521,6 +29182,13 @@ proc description*(self: Package): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPackage2_get_Description, Fn_IPackage2_get_Description)(it, tmp.addr).check("Package.get_Description")
     result = takeString(tmp)
+
+proc logo*(self: Package): Uri  =
+  ## Windows.ApplicationModel.Package.get_Logo
+  withIface(self.p, IID_IPackage2, "IPackage2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackage2_get_Logo, Fn_IPackage2_get_Logo)(it, tmp.addr).check("Package.get_Logo")
+    result = adopt[Uri](tmp)
 
 proc isResourcePackage*(self: Package): bool  =
   ## Windows.ApplicationModel.Package.get_IsResourcePackage
@@ -29023,12 +29691,19 @@ proc package*(self: PackageExtension): Package  =
     vcall(it, Slot_IPackageExtension_get_Package, Fn_IPackageExtension_get_Package)(it, tmp.addr).check("PackageExtension.get_Package")
     result = adopt[Package](tmp)
 
-proc getExtensionProperties*(self: PackageExtension): pointer  =
+proc getExtensionProperties*(self: PackageExtension): ValueSet  =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetExtensionProperties
   withIface(self.p, IID_IPackageExtension, "IPackageExtension", it):
     var tmp: pointer
     vcall(it, Slot_IPackageExtension_GetExtensionProperties, Fn_IPackageExtension_GetExtensionProperties)(it, tmp.addr).check("PackageExtension.GetExtensionProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
+
+proc getExtensionPropertiesAsync*(self: PackageExtension): Future[ValueSet] {.async.} =
+  ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetExtensionPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageExtension, "IPackageExtension", it):
+    vcall(it, Slot_IPackageExtension_GetExtensionPropertiesAsync, Fn_IPackageExtension_GetExtensionPropertiesAsync)(it, op.addr).check("PackageExtension.GetExtensionPropertiesAsync")
+  result = adopt[ValueSet](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "PackageExtension.GetExtensionPropertiesAsync"))
 
 proc getPublicPath*(self: PackageExtension): string  =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetPublicPath
@@ -29698,6 +30373,13 @@ proc `phoneNumber=`*(self: PaymentAddress, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IPaymentAddress_put_PhoneNumber, Fn_IPaymentAddress_put_PhoneNumber)(it, h0).check("PaymentAddress.put_PhoneNumber")
 
+proc properties*(self: PaymentAddress): ValueSet  =
+  ## Windows.ApplicationModel.Payments.PaymentAddress.get_Properties
+  withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentAddress_get_Properties, Fn_IPaymentAddress_get_Properties)(it, tmp.addr).check("PaymentAddress.get_Properties")
+    result = adopt[ValueSet](tmp)
+
 proc status*(self: PaymentCanMakePaymentResult): PaymentCanMakePaymentResultStatus  =
   ## Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult.get_Status
   withIface(self.p, IID_IPaymentCanMakePaymentResult, "IPaymentCanMakePaymentResult", it):
@@ -29926,6 +30608,21 @@ proc packageFullName*(self: PaymentMerchantInfo): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPaymentMerchantInfo_get_PackageFullName, Fn_IPaymentMerchantInfo_get_PackageFullName)(it, tmp.addr).check("PaymentMerchantInfo.get_PackageFullName")
     result = takeString(tmp)
+
+proc uri*(self: PaymentMerchantInfo): Uri  =
+  ## Windows.ApplicationModel.Payments.PaymentMerchantInfo.get_Uri
+  withIface(self.p, IID_IPaymentMerchantInfo, "IPaymentMerchantInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IPaymentMerchantInfo_get_Uri, Fn_IPaymentMerchantInfo_get_Uri)(it, tmp.addr).check("PaymentMerchantInfo.get_Uri")
+    result = adopt[Uri](tmp)
+
+proc create*(_: typedesc[PaymentMerchantInfo], a1: Uri): PaymentMerchantInfo  =
+  ## Windows.ApplicationModel.Payments.PaymentMerchantInfo.Create
+  withStatics("Windows.ApplicationModel.Payments.PaymentMerchantInfo", IID_IPaymentMerchantInfoFactory, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPaymentMerchantInfoFactory_Create, Fn_IPaymentMerchantInfoFactory_Create)(it, p0, tmp.addr).check("PaymentMerchantInfo.Create")
+      result = adopt[PaymentMerchantInfo](tmp)
 
 proc supportedMethodIds*(self: PaymentMethodData): seq[string]  =
   ## Windows.ApplicationModel.Payments.PaymentMethodData.get_SupportedMethodIds
@@ -30667,6 +31364,13 @@ proc getDefault*(_: typedesc[StartupAppsManagerPreview]): StartupAppsManagerPrev
     vcall(it, Slot_IStartupAppsManagerPreviewStatics_GetDefault, Fn_IStartupAppsManagerPreviewStatics_GetDefault)(it, tmp.addr).check("StartupAppsManagerPreview.GetDefault")
     result = adopt[StartupAppsManagerPreview](tmp)
 
+proc uri*(self: NamedResource): Uri  =
+  ## Windows.ApplicationModel.Resources.Core.NamedResource.get_Uri
+  withIface(self.p, IID_INamedResource, "INamedResource", it):
+    var tmp: pointer
+    vcall(it, Slot_INamedResource_get_Uri, Fn_INamedResource_get_Uri)(it, tmp.addr).check("NamedResource.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc candidates*(self: NamedResource): seq[ResourceCandidate]  =
   ## Windows.ApplicationModel.Resources.Core.NamedResource.get_Candidates
   withIface(self.p, IID_INamedResource, "INamedResource", it):
@@ -30862,6 +31566,13 @@ proc isResourceReference*(_: typedesc[ResourceManager], a1: string): bool  =
       vcall(it, Slot_IResourceManagerStatics_IsResourceReference, Fn_IResourceManagerStatics_IsResourceReference)(it, h0, tmp.addr).check("ResourceManager.IsResourceReference")
       result = tmp
 
+proc uri*(self: ResourceMap): Uri  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceMap.get_Uri
+  withIface(self.p, IID_IResourceMap, "IResourceMap", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceMap_get_Uri, Fn_IResourceMap_get_Uri)(it, tmp.addr).check("ResourceMap.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc getValue*(self: ResourceMap, a1: string): ResourceCandidate  =
   ## Windows.ApplicationModel.Resources.Core.ResourceMap.GetValue
   withIface(self.p, IID_IResourceMap, "IResourceMap", it):
@@ -30929,6 +31640,13 @@ proc `type`*(self: IndexedResourceCandidate): IndexedResourceType  =
     vcall(it, Slot_IIndexedResourceCandidate_get_Type, Fn_IIndexedResourceCandidate_get_Type)(it, tmp.addr).check("IndexedResourceCandidate.get_Type")
     result = tmp
 
+proc uri*(self: IndexedResourceCandidate): Uri  =
+  ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_Uri
+  withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
+    var tmp: pointer
+    vcall(it, Slot_IIndexedResourceCandidate_get_Uri, Fn_IIndexedResourceCandidate_get_Uri)(it, tmp.addr).check("IndexedResourceCandidate.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc qualifiers*(self: IndexedResourceCandidate): seq[IndexedResourceQualifier]  =
   ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_Qualifiers
   withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
@@ -30966,6 +31684,31 @@ proc qualifierValue*(self: IndexedResourceQualifier): string  =
     vcall(it, Slot_IIndexedResourceQualifier_get_QualifierValue, Fn_IIndexedResourceQualifier_get_QualifierValue)(it, tmp.addr).check("IndexedResourceQualifier.get_QualifierValue")
     result = takeString(tmp)
 
+proc indexFilePath*(self: ResourceIndexer, a1: Uri): IndexedResourceCandidate  =
+  ## Windows.ApplicationModel.Resources.Management.ResourceIndexer.IndexFilePath
+  withIface(self.p, IID_IResourceIndexer, "IResourceIndexer", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IResourceIndexer_IndexFilePath, Fn_IResourceIndexer_IndexFilePath)(it, p0, tmp.addr).check("ResourceIndexer.IndexFilePath")
+      result = adopt[IndexedResourceCandidate](tmp)
+
+proc createResourceIndexer*(_: typedesc[ResourceIndexer], a1: Uri): ResourceIndexer  =
+  ## Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexer
+  withStatics("Windows.ApplicationModel.Resources.Management.ResourceIndexer", IID_IResourceIndexerFactory, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IResourceIndexerFactory_CreateResourceIndexer, Fn_IResourceIndexerFactory_CreateResourceIndexer)(it, p0, tmp.addr).check("ResourceIndexer.CreateResourceIndexer")
+      result = adopt[ResourceIndexer](tmp)
+
+proc createResourceIndexerWithExtension*(_: typedesc[ResourceIndexer], a1: Uri, a2: Uri): ResourceIndexer  =
+  ## Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexerWithExtension
+  withStatics("Windows.ApplicationModel.Resources.Management.ResourceIndexer", IID_IResourceIndexerFactory2, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        var tmp: pointer
+        vcall(it, Slot_IResourceIndexerFactory2_CreateResourceIndexerWithExtension, Fn_IResourceIndexerFactory2_CreateResourceIndexerWithExtension)(it, p0, p1, tmp.addr).check("ResourceIndexer.CreateResourceIndexerWithExtension")
+        result = adopt[ResourceIndexer](tmp)
+
 proc newResourceLoader*(): ResourceLoader =
   ## Activate a `Windows.ApplicationModel.Resources.ResourceLoader`.
   adopt[ResourceLoader](activateAs("Windows.ApplicationModel.Resources.ResourceLoader", IID_IResourceLoader))
@@ -30976,6 +31719,14 @@ proc getString*(self: ResourceLoader, a1: string): string  =
     withHString(a1, h0):
       var tmp: HSTRING
       vcall(it, Slot_IResourceLoader_GetString, Fn_IResourceLoader_GetString)(it, h0, tmp.addr).check("ResourceLoader.GetString")
+      result = takeString(tmp)
+
+proc getStringForUri*(self: ResourceLoader, a1: Uri): string  =
+  ## Windows.ApplicationModel.Resources.ResourceLoader.GetStringForUri
+  withIface(self.p, IID_IResourceLoader2, "IResourceLoader2", it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: HSTRING
+      vcall(it, Slot_IResourceLoader2_GetStringForUri, Fn_IResourceLoader2_GetStringForUri)(it, p0, tmp.addr).check("ResourceLoader.GetStringForUri")
       result = takeString(tmp)
 
 proc getForCurrentView*(_: typedesc[ResourceLoader]): ResourceLoader  =
@@ -31014,6 +31765,14 @@ proc getDefaultPriPath*(_: typedesc[ResourceLoader], a1: string): string  =
     withHString(a1, h0):
       var tmp: HSTRING
       vcall(it, Slot_IResourceLoaderStatics4_GetDefaultPriPath, Fn_IResourceLoaderStatics4_GetDefaultPriPath)(it, h0, tmp.addr).check("ResourceLoader.GetDefaultPriPath")
+      result = takeString(tmp)
+
+proc getStringForReference*(_: typedesc[ResourceLoader], a1: Uri): string  =
+  ## Windows.ApplicationModel.Resources.ResourceLoader.GetStringForReference
+  withStatics("Windows.ApplicationModel.Resources.ResourceLoader", IID_IResourceLoaderStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: HSTRING
+      vcall(it, Slot_IResourceLoaderStatics_GetStringForReference, Fn_IResourceLoaderStatics_GetStringForReference)(it, p0, tmp.addr).check("ResourceLoader.GetStringForReference")
       result = takeString(tmp)
 
 proc createResourceLoaderByName*(_: typedesc[ResourceLoader], a1: string): ResourceLoader  =
@@ -31700,6 +32459,19 @@ proc commitAsync*(self: SocialDashboardItemUpdater) {.async.} =
     vcall(it, Slot_ISocialDashboardItemUpdater_CommitAsync, Fn_ISocialDashboardItemUpdater_CommitAsync)(it, op.addr).check("SocialDashboardItemUpdater.CommitAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SocialDashboardItemUpdater.CommitAsync")
 
+proc targetUri*(self: SocialDashboardItemUpdater): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater.get_TargetUri
+  withIface(self.p, IID_ISocialDashboardItemUpdater, "ISocialDashboardItemUpdater", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialDashboardItemUpdater_get_TargetUri, Fn_ISocialDashboardItemUpdater_get_TargetUri)(it, tmp.addr).check("SocialDashboardItemUpdater.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialDashboardItemUpdater, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater.put_TargetUri
+  withIface(self.p, IID_ISocialDashboardItemUpdater, "ISocialDashboardItemUpdater", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialDashboardItemUpdater_put_TargetUri, Fn_ISocialDashboardItemUpdater_put_TargetUri)(it, p0).check("SocialDashboardItemUpdater.put_TargetUri")
+
 proc ownerRemoteId*(self: SocialFeedUpdater): string  =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater.get_OwnerRemoteId
   withIface(self.p, IID_ISocialFeedUpdater, "ISocialFeedUpdater", it):
@@ -31801,6 +32573,19 @@ proc `timestamp=`*(self: SocialFeedChildItem, value: DateTime)  =
   withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
     vcall(it, Slot_ISocialFeedChildItem_put_Timestamp, Fn_ISocialFeedChildItem_put_Timestamp)(it, value).check("SocialFeedChildItem.put_Timestamp")
 
+proc targetUri*(self: SocialFeedChildItem): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.get_TargetUri
+  withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedChildItem_get_TargetUri, Fn_ISocialFeedChildItem_get_TargetUri)(it, tmp.addr).check("SocialFeedChildItem.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialFeedChildItem, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.put_TargetUri
+  withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialFeedChildItem_put_TargetUri, Fn_ISocialFeedChildItem_put_TargetUri)(it, p0).check("SocialFeedChildItem.put_TargetUri")
+
 proc thumbnails*(self: SocialFeedChildItem): seq[SocialItemThumbnail]  =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedChildItem.get_Thumbnails
   withIface(self.p, IID_ISocialFeedChildItem, "ISocialFeedChildItem", it):
@@ -31848,6 +32633,19 @@ proc `message=`*(self: SocialFeedContent, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_ISocialFeedContent_put_Message, Fn_ISocialFeedContent_put_Message)(it, h0).check("SocialFeedContent.put_Message")
 
+proc targetUri*(self: SocialFeedContent): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedContent.get_TargetUri
+  withIface(self.p, IID_ISocialFeedContent, "ISocialFeedContent", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedContent_get_TargetUri, Fn_ISocialFeedContent_get_TargetUri)(it, tmp.addr).check("SocialFeedContent.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialFeedContent, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedContent.put_TargetUri
+  withIface(self.p, IID_ISocialFeedContent, "ISocialFeedContent", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialFeedContent_put_TargetUri, Fn_ISocialFeedContent_put_TargetUri)(it, p0).check("SocialFeedContent.put_TargetUri")
+
 proc newSocialFeedItem*(): SocialFeedItem =
   ## Activate a `Windows.ApplicationModel.SocialInfo.SocialFeedItem`.
   adopt[SocialFeedItem](activateAs("Windows.ApplicationModel.SocialInfo.SocialFeedItem", IID_ISocialFeedItem))
@@ -31884,6 +32682,19 @@ proc `timestamp=`*(self: SocialFeedItem, value: DateTime)  =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.put_Timestamp
   withIface(self.p, IID_ISocialFeedItem, "ISocialFeedItem", it):
     vcall(it, Slot_ISocialFeedItem_put_Timestamp, Fn_ISocialFeedItem_put_Timestamp)(it, value).check("SocialFeedItem.put_Timestamp")
+
+proc targetUri*(self: SocialFeedItem): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.get_TargetUri
+  withIface(self.p, IID_ISocialFeedItem, "ISocialFeedItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedItem_get_TargetUri, Fn_ISocialFeedItem_get_TargetUri)(it, tmp.addr).check("SocialFeedItem.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialFeedItem, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.put_TargetUri
+  withIface(self.p, IID_ISocialFeedItem, "ISocialFeedItem", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialFeedItem_put_TargetUri, Fn_ISocialFeedItem_put_TargetUri)(it, p0).check("SocialFeedItem.put_TargetUri")
 
 proc thumbnails*(self: SocialFeedItem): seq[SocialItemThumbnail]  =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedItem.get_Thumbnails
@@ -31972,6 +32783,19 @@ proc newSocialFeedSharedItem*(): SocialFeedSharedItem =
   ## Activate a `Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem`.
   adopt[SocialFeedSharedItem](activateAs("Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem", IID_ISocialFeedSharedItem))
 
+proc originalSource*(self: SocialFeedSharedItem): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.get_OriginalSource
+  withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedSharedItem_get_OriginalSource, Fn_ISocialFeedSharedItem_get_OriginalSource)(it, tmp.addr).check("SocialFeedSharedItem.get_OriginalSource")
+    result = adopt[Uri](tmp)
+
+proc `originalSource=`*(self: SocialFeedSharedItem, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.put_OriginalSource
+  withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialFeedSharedItem_put_OriginalSource, Fn_ISocialFeedSharedItem_put_OriginalSource)(it, p0).check("SocialFeedSharedItem.put_OriginalSource")
+
 proc content*(self: SocialFeedSharedItem): SocialFeedContent  =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.get_Content
   withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
@@ -31991,6 +32815,19 @@ proc `timestamp=`*(self: SocialFeedSharedItem, value: DateTime)  =
   withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
     vcall(it, Slot_ISocialFeedSharedItem_put_Timestamp, Fn_ISocialFeedSharedItem_put_Timestamp)(it, value).check("SocialFeedSharedItem.put_Timestamp")
 
+proc targetUri*(self: SocialFeedSharedItem): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.get_TargetUri
+  withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialFeedSharedItem_get_TargetUri, Fn_ISocialFeedSharedItem_get_TargetUri)(it, tmp.addr).check("SocialFeedSharedItem.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialFeedSharedItem, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.put_TargetUri
+  withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialFeedSharedItem_put_TargetUri, Fn_ISocialFeedSharedItem_put_TargetUri)(it, p0).check("SocialFeedSharedItem.put_TargetUri")
+
 proc `thumbnail=`*(self: SocialFeedSharedItem, value: SocialItemThumbnail)  =
   ## Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem.put_Thumbnail
   withIface(self.p, IID_ISocialFeedSharedItem, "ISocialFeedSharedItem", it):
@@ -32007,6 +32844,32 @@ proc thumbnail*(self: SocialFeedSharedItem): SocialItemThumbnail  =
 proc newSocialItemThumbnail*(): SocialItemThumbnail =
   ## Activate a `Windows.ApplicationModel.SocialInfo.SocialItemThumbnail`.
   adopt[SocialItemThumbnail](activateAs("Windows.ApplicationModel.SocialInfo.SocialItemThumbnail", IID_ISocialItemThumbnail))
+
+proc targetUri*(self: SocialItemThumbnail): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.get_TargetUri
+  withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialItemThumbnail_get_TargetUri, Fn_ISocialItemThumbnail_get_TargetUri)(it, tmp.addr).check("SocialItemThumbnail.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialItemThumbnail, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.put_TargetUri
+  withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialItemThumbnail_put_TargetUri, Fn_ISocialItemThumbnail_put_TargetUri)(it, p0).check("SocialItemThumbnail.put_TargetUri")
+
+proc imageUri*(self: SocialItemThumbnail): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.get_ImageUri
+  withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialItemThumbnail_get_ImageUri, Fn_ISocialItemThumbnail_get_ImageUri)(it, tmp.addr).check("SocialItemThumbnail.get_ImageUri")
+    result = adopt[Uri](tmp)
+
+proc `imageUri=`*(self: SocialItemThumbnail, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.put_ImageUri
+  withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialItemThumbnail_put_ImageUri, Fn_ISocialItemThumbnail_put_ImageUri)(it, p0).check("SocialItemThumbnail.put_ImageUri")
 
 proc setImageAsync*(self: SocialItemThumbnail, a1: pointer) {.async.} =
   ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.SetImageAsync
@@ -32053,6 +32916,19 @@ proc `remoteId=`*(self: SocialUserInfo, value: string)  =
   withIface(self.p, IID_ISocialUserInfo, "ISocialUserInfo", it):
     withHString(value, h0):
       vcall(it, Slot_ISocialUserInfo_put_RemoteId, Fn_ISocialUserInfo_put_RemoteId)(it, h0).check("SocialUserInfo.put_RemoteId")
+
+proc targetUri*(self: SocialUserInfo): Uri  =
+  ## Windows.ApplicationModel.SocialInfo.SocialUserInfo.get_TargetUri
+  withIface(self.p, IID_ISocialUserInfo, "ISocialUserInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ISocialUserInfo_get_TargetUri, Fn_ISocialUserInfo_get_TargetUri)(it, tmp.addr).check("SocialUserInfo.get_TargetUri")
+    result = adopt[Uri](tmp)
+
+proc `targetUri=`*(self: SocialUserInfo, value: Uri)  =
+  ## Windows.ApplicationModel.SocialInfo.SocialUserInfo.put_TargetUri
+  withIface(self.p, IID_ISocialUserInfo, "ISocialUserInfo", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ISocialUserInfo_put_TargetUri, Fn_ISocialUserInfo_put_TargetUri)(it, p0).check("SocialUserInfo.put_TargetUri")
 
 proc disable*(self: StartupTask)  =
   ## Windows.ApplicationModel.StartupTask.Disable
@@ -32105,6 +32981,13 @@ proc licenseInformation*(_: typedesc[CurrentApp]): LicenseInformation  =
     var tmp: pointer
     vcall(it, Slot_ICurrentApp_get_LicenseInformation, Fn_ICurrentApp_get_LicenseInformation)(it, tmp.addr).check("CurrentApp.get_LicenseInformation")
     result = adopt[LicenseInformation](tmp)
+
+proc linkUri*(_: typedesc[CurrentApp]): Uri  =
+  ## Windows.ApplicationModel.Store.CurrentApp.get_LinkUri
+  withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
+    var tmp: pointer
+    vcall(it, Slot_ICurrentApp_get_LinkUri, Fn_ICurrentApp_get_LinkUri)(it, tmp.addr).check("CurrentApp.get_LinkUri")
+    result = adopt[Uri](tmp)
 
 proc appId*(_: typedesc[CurrentApp]): GUID  =
   ## Windows.ApplicationModel.Store.CurrentApp.get_AppId
@@ -32212,6 +33095,13 @@ proc licenseInformation*(_: typedesc[CurrentAppSimulator]): LicenseInformation  
     var tmp: pointer
     vcall(it, Slot_ICurrentAppSimulator_get_LicenseInformation, Fn_ICurrentAppSimulator_get_LicenseInformation)(it, tmp.addr).check("CurrentAppSimulator.get_LicenseInformation")
     result = adopt[LicenseInformation](tmp)
+
+proc linkUri*(_: typedesc[CurrentAppSimulator]): Uri  =
+  ## Windows.ApplicationModel.Store.CurrentAppSimulator.get_LinkUri
+  withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
+    var tmp: pointer
+    vcall(it, Slot_ICurrentAppSimulator_get_LinkUri, Fn_ICurrentAppSimulator_get_LinkUri)(it, tmp.addr).check("CurrentAppSimulator.get_LinkUri")
+    result = adopt[Uri](tmp)
 
 proc appId*(_: typedesc[CurrentAppSimulator]): GUID  =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.get_AppId
@@ -33479,6 +34369,13 @@ proc tag*(self: ProductListing): string  =
     vcall(it, Slot_IProductListingWithMetadata_get_Tag, Fn_IProductListingWithMetadata_get_Tag)(it, tmp.addr).check("ProductListing.get_Tag")
     result = takeString(tmp)
 
+proc imageUri*(self: ProductListing): Uri  =
+  ## Windows.ApplicationModel.Store.ProductListing.get_ImageUri
+  withIface(self.p, IID_IProductListingWithMetadata, "IProductListingWithMetadata", it):
+    var tmp: pointer
+    vcall(it, Slot_IProductListingWithMetadata_get_ImageUri, Fn_IProductListingWithMetadata_get_ImageUri)(it, tmp.addr).check("ProductListing.get_ImageUri")
+    result = adopt[Uri](tmp)
+
 proc formattedBasePrice*(self: ProductListing): string  =
   ## Windows.ApplicationModel.Store.ProductListing.get_FormattedBasePrice
   withIface(self.p, IID_IProductListing2, "IProductListing2", it):
@@ -33536,6 +34433,19 @@ proc `description=`*(self: ProductPurchaseDisplayProperties, value: string)  =
   withIface(self.p, IID_IProductPurchaseDisplayProperties, "IProductPurchaseDisplayProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IProductPurchaseDisplayProperties_put_Description, Fn_IProductPurchaseDisplayProperties_put_Description)(it, h0).check("ProductPurchaseDisplayProperties.put_Description")
+
+proc image*(self: ProductPurchaseDisplayProperties): Uri  =
+  ## Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties.get_Image
+  withIface(self.p, IID_IProductPurchaseDisplayProperties, "IProductPurchaseDisplayProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IProductPurchaseDisplayProperties_get_Image, Fn_IProductPurchaseDisplayProperties_get_Image)(it, tmp.addr).check("ProductPurchaseDisplayProperties.get_Image")
+    result = adopt[Uri](tmp)
+
+proc `image=`*(self: ProductPurchaseDisplayProperties, value: Uri)  =
+  ## Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties.put_Image
+  withIface(self.p, IID_IProductPurchaseDisplayProperties, "IProductPurchaseDisplayProperties", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IProductPurchaseDisplayProperties_put_Image, Fn_IProductPurchaseDisplayProperties_put_Image)(it, p0).check("ProductPurchaseDisplayProperties.put_Image")
 
 proc createProductPurchaseDisplayProperties*(_: typedesc[ProductPurchaseDisplayProperties], a1: string): ProductPurchaseDisplayProperties  =
   ## Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties.CreateProductPurchaseDisplayProperties
@@ -33657,6 +34567,19 @@ proc visualElements*(self: UserActivity): UserActivityVisualElements  =
     vcall(it, Slot_IUserActivity_get_VisualElements, Fn_IUserActivity_get_VisualElements)(it, tmp.addr).check("UserActivity.get_VisualElements")
     result = adopt[UserActivityVisualElements](tmp)
 
+proc contentUri*(self: UserActivity): Uri  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.get_ContentUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivity_get_ContentUri, Fn_IUserActivity_get_ContentUri)(it, tmp.addr).check("UserActivity.get_ContentUri")
+    result = adopt[Uri](tmp)
+
+proc `contentUri=`*(self: UserActivity, value: Uri)  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.put_ContentUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IUserActivity_put_ContentUri, Fn_IUserActivity_put_ContentUri)(it, p0).check("UserActivity.put_ContentUri")
+
 proc contentType*(self: UserActivity): string  =
   ## Windows.ApplicationModel.UserActivities.UserActivity.get_ContentType
   withIface(self.p, IID_IUserActivity, "IUserActivity", it):
@@ -33669,6 +34592,32 @@ proc `contentType=`*(self: UserActivity, value: string)  =
   withIface(self.p, IID_IUserActivity, "IUserActivity", it):
     withHString(value, h0):
       vcall(it, Slot_IUserActivity_put_ContentType, Fn_IUserActivity_put_ContentType)(it, h0).check("UserActivity.put_ContentType")
+
+proc fallbackUri*(self: UserActivity): Uri  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.get_FallbackUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivity_get_FallbackUri, Fn_IUserActivity_get_FallbackUri)(it, tmp.addr).check("UserActivity.get_FallbackUri")
+    result = adopt[Uri](tmp)
+
+proc `fallbackUri=`*(self: UserActivity, value: Uri)  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.put_FallbackUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IUserActivity_put_FallbackUri, Fn_IUserActivity_put_FallbackUri)(it, p0).check("UserActivity.put_FallbackUri")
+
+proc activationUri*(self: UserActivity): Uri  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.get_ActivationUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivity_get_ActivationUri, Fn_IUserActivity_get_ActivationUri)(it, tmp.addr).check("UserActivity.get_ActivationUri")
+    result = adopt[Uri](tmp)
+
+proc `activationUri=`*(self: UserActivity, value: Uri)  =
+  ## Windows.ApplicationModel.UserActivities.UserActivity.put_ActivationUri
+  withIface(self.p, IID_IUserActivity, "IUserActivity", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IUserActivity_put_ActivationUri, Fn_IUserActivity_put_ActivationUri)(it, p0).check("UserActivity.put_ActivationUri")
 
 proc contentInfo*(self: UserActivity): UserActivityContentInfo  =
   ## Windows.ApplicationModel.UserActivities.UserActivity.get_ContentInfo
@@ -33745,6 +34694,19 @@ proc newUserActivityAttribution*(): UserActivityAttribution =
   ## Activate a `Windows.ApplicationModel.UserActivities.UserActivityAttribution`.
   adopt[UserActivityAttribution](activateAs("Windows.ApplicationModel.UserActivities.UserActivityAttribution", IID_IUserActivityAttribution))
 
+proc iconUri*(self: UserActivityAttribution): Uri  =
+  ## Windows.ApplicationModel.UserActivities.UserActivityAttribution.get_IconUri
+  withIface(self.p, IID_IUserActivityAttribution, "IUserActivityAttribution", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivityAttribution_get_IconUri, Fn_IUserActivityAttribution_get_IconUri)(it, tmp.addr).check("UserActivityAttribution.get_IconUri")
+    result = adopt[Uri](tmp)
+
+proc `iconUri=`*(self: UserActivityAttribution, value: Uri)  =
+  ## Windows.ApplicationModel.UserActivities.UserActivityAttribution.put_IconUri
+  withIface(self.p, IID_IUserActivityAttribution, "IUserActivityAttribution", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IUserActivityAttribution_put_IconUri, Fn_IUserActivityAttribution_put_IconUri)(it, p0).check("UserActivityAttribution.put_IconUri")
+
 proc alternateText*(self: UserActivityAttribution): string  =
   ## Windows.ApplicationModel.UserActivities.UserActivityAttribution.get_AlternateText
   withIface(self.p, IID_IUserActivityAttribution, "IUserActivityAttribution", it):
@@ -33769,6 +34731,14 @@ proc `addImageQuery=`*(self: UserActivityAttribution, value: bool)  =
   ## Windows.ApplicationModel.UserActivities.UserActivityAttribution.put_AddImageQuery
   withIface(self.p, IID_IUserActivityAttribution, "IUserActivityAttribution", it):
     vcall(it, Slot_IUserActivityAttribution_put_AddImageQuery, Fn_IUserActivityAttribution_put_AddImageQuery)(it, value).check("UserActivityAttribution.put_AddImageQuery")
+
+proc createWithUri*(_: typedesc[UserActivityAttribution], a1: Uri): UserActivityAttribution  =
+  ## Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateWithUri
+  withStatics("Windows.ApplicationModel.UserActivities.UserActivityAttribution", IID_IUserActivityAttributionFactory, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IUserActivityAttributionFactory_CreateWithUri, Fn_IUserActivityAttributionFactory_CreateWithUri)(it, p0, tmp.addr).check("UserActivityAttribution.CreateWithUri")
+      result = adopt[UserActivityAttribution](tmp)
 
 proc getOrCreateUserActivityAsync*(self: UserActivityChannel, a1: string): Future[UserActivity] {.async.} =
   ## Windows.ApplicationModel.UserActivities.UserActivityChannel.GetOrCreateUserActivityAsync
@@ -33859,12 +34829,24 @@ proc request*(self: UserActivityRequestedEventArgs): UserActivityRequest  =
     vcall(it, Slot_IUserActivityRequestedEventArgs_get_Request, Fn_IUserActivityRequestedEventArgs_get_Request)(it, tmp.addr).check("UserActivityRequestedEventArgs.get_Request")
     result = adopt[UserActivityRequest](tmp)
 
+proc getDeferral*(self: UserActivityRequestedEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs.GetDeferral
+  withIface(self.p, IID_IUserActivityRequestedEventArgs, "IUserActivityRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivityRequestedEventArgs_GetDeferral, Fn_IUserActivityRequestedEventArgs_GetDeferral)(it, tmp.addr).check("UserActivityRequestedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc activityId*(self: UserActivitySession): string  =
   ## Windows.ApplicationModel.UserActivities.UserActivitySession.get_ActivityId
   withIface(self.p, IID_IUserActivitySession, "IUserActivitySession", it):
     var tmp: HSTRING
     vcall(it, Slot_IUserActivitySession_get_ActivityId, Fn_IUserActivitySession_get_ActivityId)(it, tmp.addr).check("UserActivitySession.get_ActivityId")
     result = takeString(tmp)
+
+proc close*(self: UserActivitySession)  =
+  ## Windows.ApplicationModel.UserActivities.UserActivitySession.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("UserActivitySession.Close")
 
 proc userActivity*(self: UserActivitySessionHistoryItem): UserActivity  =
   ## Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem.get_UserActivity
@@ -34420,6 +35402,19 @@ proc `calDavSyncScheduleKind=`*(self: DeviceAccountConfiguration, value: DeviceA
   withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
     vcall(it, Slot_IDeviceAccountConfiguration2_put_CalDavSyncScheduleKind, Fn_IDeviceAccountConfiguration2_put_CalDavSyncScheduleKind)(it, value).check("DeviceAccountConfiguration.put_CalDavSyncScheduleKind")
 
+proc cardDavServerUrl*(self: DeviceAccountConfiguration): Uri  =
+  ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.get_CardDavServerUrl
+  withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeviceAccountConfiguration2_get_CardDavServerUrl, Fn_IDeviceAccountConfiguration2_get_CardDavServerUrl)(it, tmp.addr).check("DeviceAccountConfiguration.get_CardDavServerUrl")
+    result = adopt[Uri](tmp)
+
+proc `cardDavServerUrl=`*(self: DeviceAccountConfiguration, value: Uri)  =
+  ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.put_CardDavServerUrl
+  withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDeviceAccountConfiguration2_put_CardDavServerUrl, Fn_IDeviceAccountConfiguration2_put_CardDavServerUrl)(it, p0).check("DeviceAccountConfiguration.put_CardDavServerUrl")
+
 proc cardDavRequiresSsl*(self: DeviceAccountConfiguration): bool  =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.get_CardDavRequiresSsl
   withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
@@ -34431,6 +35426,19 @@ proc `cardDavRequiresSsl=`*(self: DeviceAccountConfiguration, value: bool)  =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.put_CardDavRequiresSsl
   withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
     vcall(it, Slot_IDeviceAccountConfiguration2_put_CardDavRequiresSsl, Fn_IDeviceAccountConfiguration2_put_CardDavRequiresSsl)(it, value).check("DeviceAccountConfiguration.put_CardDavRequiresSsl")
+
+proc calDavServerUrl*(self: DeviceAccountConfiguration): Uri  =
+  ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.get_CalDavServerUrl
+  withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeviceAccountConfiguration2_get_CalDavServerUrl, Fn_IDeviceAccountConfiguration2_get_CalDavServerUrl)(it, tmp.addr).check("DeviceAccountConfiguration.get_CalDavServerUrl")
+    result = adopt[Uri](tmp)
+
+proc `calDavServerUrl=`*(self: DeviceAccountConfiguration, value: Uri)  =
+  ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.put_CalDavServerUrl
+  withIface(self.p, IID_IDeviceAccountConfiguration2, "IDeviceAccountConfiguration2", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IDeviceAccountConfiguration2_put_CalDavServerUrl, Fn_IDeviceAccountConfiguration2_put_CalDavServerUrl)(it, p0).check("DeviceAccountConfiguration.put_CalDavServerUrl")
 
 proc calDavRequiresSsl*(self: DeviceAccountConfiguration): bool  =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration.get_CalDavRequiresSsl
@@ -34688,12 +35696,12 @@ proc `canShowCreateContactGroup=`*(self: UserDataAccount, value: bool)  =
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_put_CanShowCreateContactGroup, Fn_IUserDataAccount4_put_CanShowCreateContactGroup)(it, value).check("UserDataAccount.put_CanShowCreateContactGroup")
 
-proc providerProperties*(self: UserDataAccount): pointer  =
+proc providerProperties*(self: UserDataAccount): ValueSet  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_ProviderProperties
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataAccount4_get_ProviderProperties, Fn_IUserDataAccount4_get_ProviderProperties)(it, tmp.addr).check("UserDataAccount.get_ProviderProperties")
-    result = tmp
+    result = adopt[ValueSet](tmp)
 
 proc tryShowCreateContactGroupAsync*(self: UserDataAccount): Future[string] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.TryShowCreateContactGroupAsync
@@ -34802,6 +35810,13 @@ proc createAccountAsync*(self: UserDataAccountStore, a1: string, a2: string, a3:
         withHString(a3, h2):
           vcall(it, Slot_IUserDataAccountStore3_CreateAccountAsync, Fn_IUserDataAccountStore3_CreateAccountAsync)(it, h0, h1, h2, op.addr).check("UserDataAccountStore.CreateAccountAsync")
   result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, "UserDataAccountStore.CreateAccountAsync"))
+
+proc getDeferral*(self: UserDataAccountStoreChangedEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataAccountStoreChangedEventArgs, "IUserDataAccountStoreChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataAccountStoreChangedEventArgs_GetDeferral, Fn_IUserDataAccountStoreChangedEventArgs_GetDeferral)(it, tmp.addr).check("UserDataAccountStoreChangedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc onCreateOrUpdateTaskRequested*(self: UserDataTaskDataProviderConnection,
     handler: proc(sender: pointer, args: UserDataTaskListCreateOrUpdateTaskRequestEventArgs)): EventRegistrationToken {.discardable.} =
@@ -34946,6 +35961,13 @@ proc request*(self: UserDataTaskListCompleteTaskRequestEventArgs): UserDataTaskL
     vcall(it, Slot_IUserDataTaskListCompleteTaskRequestEventArgs_get_Request, Fn_IUserDataTaskListCompleteTaskRequestEventArgs_get_Request)(it, tmp.addr).check("UserDataTaskListCompleteTaskRequestEventArgs.get_Request")
     result = adopt[UserDataTaskListCompleteTaskRequest](tmp)
 
+proc getDeferral*(self: UserDataTaskListCompleteTaskRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataTaskListCompleteTaskRequestEventArgs, "IUserDataTaskListCompleteTaskRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskListCompleteTaskRequestEventArgs_GetDeferral, Fn_IUserDataTaskListCompleteTaskRequestEventArgs_GetDeferral)(it, tmp.addr).check("UserDataTaskListCompleteTaskRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc taskListId*(self: UserDataTaskListCreateOrUpdateTaskRequest): string  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest.get_TaskListId
   withIface(self.p, IID_IUserDataTaskListCreateOrUpdateTaskRequest, "IUserDataTaskListCreateOrUpdateTaskRequest", it):
@@ -34982,6 +36004,13 @@ proc request*(self: UserDataTaskListCreateOrUpdateTaskRequestEventArgs): UserDat
     vcall(it, Slot_IUserDataTaskListCreateOrUpdateTaskRequestEventArgs_get_Request, Fn_IUserDataTaskListCreateOrUpdateTaskRequestEventArgs_get_Request)(it, tmp.addr).check("UserDataTaskListCreateOrUpdateTaskRequestEventArgs.get_Request")
     result = adopt[UserDataTaskListCreateOrUpdateTaskRequest](tmp)
 
+proc getDeferral*(self: UserDataTaskListCreateOrUpdateTaskRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataTaskListCreateOrUpdateTaskRequestEventArgs, "IUserDataTaskListCreateOrUpdateTaskRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskListCreateOrUpdateTaskRequestEventArgs_GetDeferral, Fn_IUserDataTaskListCreateOrUpdateTaskRequestEventArgs_GetDeferral)(it, tmp.addr).check("UserDataTaskListCreateOrUpdateTaskRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc taskListId*(self: UserDataTaskListDeleteTaskRequest): string  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest.get_TaskListId
   withIface(self.p, IID_IUserDataTaskListDeleteTaskRequest, "IUserDataTaskListDeleteTaskRequest", it):
@@ -35016,6 +36045,13 @@ proc request*(self: UserDataTaskListDeleteTaskRequestEventArgs): UserDataTaskLis
     var tmp: pointer
     vcall(it, Slot_IUserDataTaskListDeleteTaskRequestEventArgs_get_Request, Fn_IUserDataTaskListDeleteTaskRequestEventArgs_get_Request)(it, tmp.addr).check("UserDataTaskListDeleteTaskRequestEventArgs.get_Request")
     result = adopt[UserDataTaskListDeleteTaskRequest](tmp)
+
+proc getDeferral*(self: UserDataTaskListDeleteTaskRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataTaskListDeleteTaskRequestEventArgs, "IUserDataTaskListDeleteTaskRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskListDeleteTaskRequestEventArgs_GetDeferral, Fn_IUserDataTaskListDeleteTaskRequestEventArgs_GetDeferral)(it, tmp.addr).check("UserDataTaskListDeleteTaskRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc taskListId*(self: UserDataTaskListSkipOccurrenceRequest): string  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest.get_TaskListId
@@ -35052,6 +36088,13 @@ proc request*(self: UserDataTaskListSkipOccurrenceRequestEventArgs): UserDataTas
     vcall(it, Slot_IUserDataTaskListSkipOccurrenceRequestEventArgs_get_Request, Fn_IUserDataTaskListSkipOccurrenceRequestEventArgs_get_Request)(it, tmp.addr).check("UserDataTaskListSkipOccurrenceRequestEventArgs.get_Request")
     result = adopt[UserDataTaskListSkipOccurrenceRequest](tmp)
 
+proc getDeferral*(self: UserDataTaskListSkipOccurrenceRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataTaskListSkipOccurrenceRequestEventArgs, "IUserDataTaskListSkipOccurrenceRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskListSkipOccurrenceRequestEventArgs_GetDeferral, Fn_IUserDataTaskListSkipOccurrenceRequestEventArgs_GetDeferral)(it, tmp.addr).check("UserDataTaskListSkipOccurrenceRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc taskListId*(self: UserDataTaskListSyncManagerSyncRequest): string  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest.get_TaskListId
   withIface(self.p, IID_IUserDataTaskListSyncManagerSyncRequest, "IUserDataTaskListSyncManagerSyncRequest", it):
@@ -35079,6 +36122,13 @@ proc request*(self: UserDataTaskListSyncManagerSyncRequestEventArgs): UserDataTa
     var tmp: pointer
     vcall(it, Slot_IUserDataTaskListSyncManagerSyncRequestEventArgs_get_Request, Fn_IUserDataTaskListSyncManagerSyncRequestEventArgs_get_Request)(it, tmp.addr).check("UserDataTaskListSyncManagerSyncRequestEventArgs.get_Request")
     result = adopt[UserDataTaskListSyncManagerSyncRequest](tmp)
+
+proc getDeferral*(self: UserDataTaskListSyncManagerSyncRequestEventArgs): Deferral  =
+  ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequestEventArgs.GetDeferral
+  withIface(self.p, IID_IUserDataTaskListSyncManagerSyncRequestEventArgs, "IUserDataTaskListSyncManagerSyncRequestEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskListSyncManagerSyncRequestEventArgs_GetDeferral, Fn_IUserDataTaskListSyncManagerSyncRequestEventArgs_GetDeferral)(it, tmp.addr).check("UserDataTaskListSyncManagerSyncRequestEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc newUserDataTask*(): UserDataTask =
   ## Activate a `Windows.ApplicationModel.UserDataTasks.UserDataTask`.

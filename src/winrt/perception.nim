@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/perception
+import ./foundation
+export foundation
 import ./delegate
 export core, perception
 import ./asyncops
@@ -972,6 +974,13 @@ proc anchor*(self: SpatialEntity): SpatialAnchor  =
     vcall(it, Slot_ISpatialEntity_get_Anchor, Fn_ISpatialEntity_get_Anchor)(it, tmp.addr).check("SpatialEntity.get_Anchor")
     result = adopt[SpatialAnchor](tmp)
 
+proc properties*(self: SpatialEntity): ValueSet  =
+  ## Windows.Perception.Spatial.SpatialEntity.get_Properties
+  withIface(self.p, IID_ISpatialEntity, "ISpatialEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialEntity_get_Properties, Fn_ISpatialEntity_get_Properties)(it, tmp.addr).check("SpatialEntity.get_Properties")
+    result = adopt[ValueSet](tmp)
+
 proc createWithSpatialAnchor*(_: typedesc[SpatialEntity], a1: SpatialAnchor): SpatialEntity  =
   ## Windows.Perception.Spatial.SpatialEntity.CreateWithSpatialAnchor
   withStatics("Windows.Perception.Spatial.SpatialEntity", IID_ISpatialEntityFactory, it):
@@ -979,6 +988,15 @@ proc createWithSpatialAnchor*(_: typedesc[SpatialEntity], a1: SpatialAnchor): Sp
       var tmp: pointer
       vcall(it, Slot_ISpatialEntityFactory_CreateWithSpatialAnchor, Fn_ISpatialEntityFactory_CreateWithSpatialAnchor)(it, p0, tmp.addr).check("SpatialEntity.CreateWithSpatialAnchor")
       result = adopt[SpatialEntity](tmp)
+
+proc createWithSpatialAnchorAndProperties*(_: typedesc[SpatialEntity], a1: SpatialAnchor, a2: ValueSet): SpatialEntity  =
+  ## Windows.Perception.Spatial.SpatialEntity.CreateWithSpatialAnchorAndProperties
+  withStatics("Windows.Perception.Spatial.SpatialEntity", IID_ISpatialEntityFactory, it):
+    withIface(a1.p, IID_ISpatialAnchor, "ISpatialAnchor", p0):
+      withIface(a2.p, IID_IPropertySet, "IPropertySet", p1):
+        var tmp: pointer
+        vcall(it, Slot_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties, Fn_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties)(it, p0, p1, tmp.addr).check("SpatialEntity.CreateWithSpatialAnchorAndProperties")
+        result = adopt[SpatialEntity](tmp)
 
 proc entity*(self: SpatialEntityAddedEventArgs): SpatialEntity  =
   ## Windows.Perception.Spatial.SpatialEntityAddedEventArgs.get_Entity

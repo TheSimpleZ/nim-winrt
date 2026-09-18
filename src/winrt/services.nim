@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/services
+import ./foundation
+export foundation
 import ./delegate
 export core, services
 import ./asyncops
@@ -190,6 +192,9 @@ const IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription* = GUID(
 const IID_IAsyncOperation_1_TargetedContentSubscription* = GUID(
     data1: 0x46F16F4B'u32, data2: 0x8EC1'u16, data3: 0x5C4F'u16,
     data4: [0xB1'u8, 0xF5, 0xA7, 0xE7, 0xAC, 0xD6, 0x33, 0x66])
+const IID_IVectorView_1_Uri* = GUID(
+    data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
+    data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
 const IID_IVectorView_1_TargetedContentImage* = GUID(
     data1: 0xF55AC7C6'u32, data2: 0x168D'u16, data3: 0x5010'u16,
     data4: [0x84'u8, 0xCF, 0x36, 0xBF, 0x45, 0x1E, 0xDE, 0x38])
@@ -1483,6 +1488,19 @@ proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsig
 proc newCortanaActionableInsightsOptions*(): CortanaActionableInsightsOptions =
   ## Activate a `Windows.Services.Cortana.CortanaActionableInsightsOptions`.
   adopt[CortanaActionableInsightsOptions](activateAs("Windows.Services.Cortana.CortanaActionableInsightsOptions", IID_ICortanaActionableInsightsOptions))
+
+proc contentSourceWebLink*(self: CortanaActionableInsightsOptions): Uri  =
+  ## Windows.Services.Cortana.CortanaActionableInsightsOptions.get_ContentSourceWebLink
+  withIface(self.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_ICortanaActionableInsightsOptions_get_ContentSourceWebLink, Fn_ICortanaActionableInsightsOptions_get_ContentSourceWebLink)(it, tmp.addr).check("CortanaActionableInsightsOptions.get_ContentSourceWebLink")
+    result = adopt[Uri](tmp)
+
+proc `contentSourceWebLink=`*(self: CortanaActionableInsightsOptions, value: Uri)  =
+  ## Windows.Services.Cortana.CortanaActionableInsightsOptions.put_ContentSourceWebLink
+  withIface(self.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", it):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ICortanaActionableInsightsOptions_put_ContentSourceWebLink, Fn_ICortanaActionableInsightsOptions_put_ContentSourceWebLink)(it, p0).check("CortanaActionableInsightsOptions.put_ContentSourceWebLink")
 
 proc surroundingText*(self: CortanaActionableInsightsOptions): string  =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.get_SurroundingText
@@ -3385,6 +3403,13 @@ proc getDefault*(_: typedesc[StoreContext]): StoreContext  =
     vcall(it, Slot_IStoreContextStatics_GetDefault, Fn_IStoreContextStatics_GetDefault)(it, tmp.addr).check("StoreContext.GetDefault")
     result = adopt[StoreContext](tmp)
 
+proc uri*(self: StoreImage): Uri  =
+  ## Windows.Services.Store.StoreImage.get_Uri
+  withIface(self.p, IID_IStoreImage, "IStoreImage", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreImage_get_Uri, Fn_IStoreImage_get_Uri)(it, tmp.addr).check("StoreImage.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc imagePurposeTag*(self: StoreImage): string  =
   ## Windows.Services.Store.StoreImage.get_ImagePurposeTag
   withIface(self.p, IID_IStoreImage, "IStoreImage", it):
@@ -3494,6 +3519,11 @@ proc releaseLicense*(self: StorePackageLicense)  =
   ## Windows.Services.Store.StorePackageLicense.ReleaseLicense
   withIface(self.p, IID_IStorePackageLicense, "IStorePackageLicense", it):
     vcall(it, Slot_IStorePackageLicense_ReleaseLicense, Fn_IStorePackageLicense_ReleaseLicense)(it).check("StorePackageLicense.ReleaseLicense")
+
+proc close*(self: StorePackageLicense)  =
+  ## Windows.Services.Store.StorePackageLicense.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StorePackageLicense.Close")
 
 proc mandatory*(self: StorePackageUpdate): bool  =
   ## Windows.Services.Store.StorePackageUpdate.get_Mandatory
@@ -3674,6 +3704,13 @@ proc extendedJsonData*(self: StoreProduct): string  =
     var tmp: HSTRING
     vcall(it, Slot_IStoreProduct_get_ExtendedJsonData, Fn_IStoreProduct_get_ExtendedJsonData)(it, tmp.addr).check("StoreProduct.get_ExtendedJsonData")
     result = takeString(tmp)
+
+proc linkUri*(self: StoreProduct): Uri  =
+  ## Windows.Services.Store.StoreProduct.get_LinkUri
+  withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProduct_get_LinkUri, Fn_IStoreProduct_get_LinkUri)(it, tmp.addr).check("StoreProduct.get_LinkUri")
+    result = adopt[Uri](tmp)
 
 proc requestPurchaseAsync*(self: StoreProduct): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreProduct.RequestPurchaseAsync
@@ -4156,6 +4193,13 @@ proc status*(self: StoreUninstallStorePackageResult): StoreUninstallStorePackage
     vcall(it, Slot_IStoreUninstallStorePackageResult_get_Status, Fn_IStoreUninstallStorePackageResult_get_Status)(it, tmp.addr).check("StoreUninstallStorePackageResult.get_Status")
     result = tmp
 
+proc uri*(self: StoreVideo): Uri  =
+  ## Windows.Services.Store.StoreVideo.get_Uri
+  withIface(self.p, IID_IStoreVideo, "IStoreVideo", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreVideo_get_Uri, Fn_IStoreVideo_get_Uri)(it, tmp.addr).check("StoreVideo.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc videoPurposeTag*(self: StoreVideo): string  =
   ## Windows.Services.Store.StoreVideo.get_VideoPurposeTag
   withIface(self.p, IID_IStoreVideo, "IStoreVideo", it):
@@ -4197,6 +4241,20 @@ proc invokeAsync*(self: TargetedContentAction) {.async.} =
   withIface(self.p, IID_ITargetedContentAction, "ITargetedContentAction", it):
     vcall(it, Slot_ITargetedContentAction_InvokeAsync, Fn_ITargetedContentAction_InvokeAsync)(it, op.addr).check("TargetedContentAction.InvokeAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "TargetedContentAction.InvokeAsync")
+
+proc getDeferral*(self: TargetedContentAvailabilityChangedEventArgs): Deferral  =
+  ## Windows.Services.TargetedContent.TargetedContentAvailabilityChangedEventArgs.GetDeferral
+  withIface(self.p, IID_ITargetedContentAvailabilityChangedEventArgs, "ITargetedContentAvailabilityChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentAvailabilityChangedEventArgs_GetDeferral, Fn_ITargetedContentAvailabilityChangedEventArgs_GetDeferral)(it, tmp.addr).check("TargetedContentAvailabilityChangedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
+proc getDeferral*(self: TargetedContentChangedEventArgs): Deferral  =
+  ## Windows.Services.TargetedContent.TargetedContentChangedEventArgs.GetDeferral
+  withIface(self.p, IID_ITargetedContentChangedEventArgs, "ITargetedContentChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentChangedEventArgs_GetDeferral, Fn_ITargetedContentChangedEventArgs_GetDeferral)(it, tmp.addr).check("TargetedContentChangedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
 
 proc hasPreviousContentExpired*(self: TargetedContentChangedEventArgs): bool  =
   ## Windows.Services.TargetedContent.TargetedContentChangedEventArgs.get_HasPreviousContentExpired
@@ -4379,6 +4437,13 @@ proc value*(self: TargetedContentObject): TargetedContentValue  =
     vcall(it, Slot_ITargetedContentObject_get_Value, Fn_ITargetedContentObject_get_Value)(it, tmp.addr).check("TargetedContentObject.get_Value")
     result = adopt[TargetedContentValue](tmp)
 
+proc getDeferral*(self: TargetedContentStateChangedEventArgs): Deferral  =
+  ## Windows.Services.TargetedContent.TargetedContentStateChangedEventArgs.GetDeferral
+  withIface(self.p, IID_ITargetedContentStateChangedEventArgs, "ITargetedContentStateChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentStateChangedEventArgs_GetDeferral, Fn_ITargetedContentStateChangedEventArgs_GetDeferral)(it, tmp.addr).check("TargetedContentStateChangedEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
 proc id*(self: TargetedContentSubscription): string  =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.get_Id
   withIface(self.p, IID_ITargetedContentSubscription, "ITargetedContentSubscription", it):
@@ -4519,6 +4584,13 @@ proc stringValue*(self: TargetedContentValue): string  =
     vcall(it, Slot_ITargetedContentValue_get_String, Fn_ITargetedContentValue_get_String)(it, tmp.addr).check("TargetedContentValue.get_String")
     result = takeString(tmp)
 
+proc uri*(self: TargetedContentValue): Uri  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Uri
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Uri, Fn_ITargetedContentValue_get_Uri)(it, tmp.addr).check("TargetedContentValue.get_Uri")
+    result = adopt[Uri](tmp)
+
 proc number*(self: TargetedContentValue): float64  =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_Number
   withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
@@ -4553,6 +4625,14 @@ proc strings*(self: TargetedContentValue): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Strings, Fn_ITargetedContentValue_get_Strings)(it, tmp.addr).check("TargetedContentValue.get_Strings")
     result = toSeqString(tmp, IID_IVectorView_1_String)
+    release(tmp)
+
+proc uris*(self: TargetedContentValue): seq[Uri]  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Uris
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Uris, Fn_ITargetedContentValue_get_Uris)(it, tmp.addr).check("TargetedContentValue.get_Uris")
+    result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
     release(tmp)
 
 proc imageFiles*(self: TargetedContentValue): seq[TargetedContentImage]  =

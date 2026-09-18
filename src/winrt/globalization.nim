@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/globalization
+import ./foundation
+export foundation
 import ./delegate
 export core, globalization
 
@@ -4191,6 +4193,13 @@ proc checkNumberMatch*(self: PhoneNumberInfo, a1: PhoneNumberInfo): PhoneNumberM
       var tmp: PhoneNumberMatchResult
       vcall(it, Slot_IPhoneNumberInfo_CheckNumberMatch, Fn_IPhoneNumberInfo_CheckNumberMatch)(it, p0, tmp.addr).check("PhoneNumberInfo.CheckNumberMatch")
       result = tmp
+
+proc toString*(self: PhoneNumberInfo): string  =
+  ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("PhoneNumberInfo.ToString")
+    result = takeString(tmp)
 
 proc create*(_: typedesc[PhoneNumberInfo], a1: string): PhoneNumberInfo  =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.Create

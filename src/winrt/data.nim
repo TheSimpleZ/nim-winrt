@@ -9,6 +9,8 @@
 
 import ./core
 import ./abi/data
+import ./foundation
+export foundation
 import ./delegate
 export core, data
 import ./asyncops
@@ -691,6 +693,13 @@ proc getObject*(self: JsonArray): JsonObject  =
     vcall(it, Slot_IJsonValue_GetObject, Fn_IJsonValue_GetObject)(it, tmp.addr).check("JsonArray.GetObject")
     result = adopt[JsonObject](tmp)
 
+proc toString*(self: JsonArray): string  =
+  ## Windows.Data.Json.JsonArray.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("JsonArray.ToString")
+    result = takeString(tmp)
+
 proc parse*(_: typedesc[JsonArray], a1: string): JsonArray  =
   ## Windows.Data.Json.JsonArray.Parse
   withStatics("Windows.Data.Json.JsonArray", IID_IJsonArrayStatics, it):
@@ -866,6 +875,13 @@ proc getNamedBoolean*(self: JsonObject, a1: string, a2: bool): bool  =
       vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedBoolean, Fn_IJsonObjectWithDefaultValues_GetNamedBoolean)(it, h0, a2, tmp.addr).check("JsonObject.GetNamedBoolean")
       result = tmp
 
+proc toString*(self: JsonObject): string  =
+  ## Windows.Data.Json.JsonObject.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("JsonObject.ToString")
+    result = takeString(tmp)
+
 proc parse*(_: typedesc[JsonObject], a1: string): JsonObject  =
   ## Windows.Data.Json.JsonObject.Parse
   withStatics("Windows.Data.Json.JsonObject", IID_IJsonObjectStatics, it):
@@ -922,6 +938,13 @@ proc getObject*(self: JsonValue): JsonObject  =
     var tmp: pointer
     vcall(it, Slot_IJsonValue_GetObject, Fn_IJsonValue_GetObject)(it, tmp.addr).check("JsonValue.GetObject")
     result = adopt[JsonObject](tmp)
+
+proc toString*(self: JsonValue): string  =
+  ## Windows.Data.Json.JsonValue.ToString
+  withIface(self.p, IID_IStringable, "IStringable", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("JsonValue.ToString")
+    result = takeString(tmp)
 
 proc createNullValue*(_: typedesc[JsonValue]): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateNullValue
@@ -1067,6 +1090,11 @@ proc preferredZoom*(self: PdfPage): float32  =
     var tmp: float32
     vcall(it, Slot_IPdfPage_get_PreferredZoom, Fn_IPdfPage_get_PreferredZoom)(it, tmp.addr).check("PdfPage.get_PreferredZoom")
     result = tmp
+
+proc close*(self: PdfPage)  =
+  ## Windows.Data.Pdf.PdfPage.Close
+  withIface(self.p, IID_IClosable, "IClosable", it):
+    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PdfPage.Close")
 
 proc mediaBox*(self: PdfPageDimensions): Rect  =
   ## Windows.Data.Pdf.PdfPageDimensions.get_MediaBox
@@ -3093,6 +3121,23 @@ proc loadXmlFromBuffer*(self: XmlDocument, a1: pointer, a2: XmlLoadSettings)  =
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
     withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
       vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, a1, p1).check("XmlDocument.LoadXmlFromBuffer")
+
+proc loadFromUriAsync*(_: typedesc[XmlDocument], a1: Uri): Future[XmlDocument] {.async.} =
+  ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
+  var op: pointer
+  withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IXmlDocumentStatics_LoadFromUriAsync, Fn_IXmlDocumentStatics_LoadFromUriAsync)(it, p0, op.addr).check("XmlDocument.LoadFromUriAsync")
+  result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromUriAsync"))
+
+proc loadFromUriAsync*(_: typedesc[XmlDocument], a1: Uri, a2: XmlLoadSettings): Future[XmlDocument] {.async.} =
+  ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
+  var op: pointer
+  withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
+    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+        vcall(it, Slot_IXmlDocumentStatics_LoadFromUriAsync2, Fn_IXmlDocumentStatics_LoadFromUriAsync2)(it, p0, p1, op.addr).check("XmlDocument.LoadFromUriAsync")
+  result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromUriAsync"))
 
 proc loadFromFileAsync*(_: typedesc[XmlDocument], a1: pointer): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
