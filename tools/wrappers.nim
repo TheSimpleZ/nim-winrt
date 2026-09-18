@@ -443,6 +443,31 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   buf.add "type\n"
   var roots: seq[string]
   var byDepth: seq[(int, TypeRow)]
+
+  proc argumentNames(mi: int, count: int, isPut: bool): seq[string] =
+    ## What to call each parameter.
+    ##
+    ## The metadata names them — `lampIndex`, `desiredColor` — and using those
+    ## is the difference between a signature you can read and one you have to
+    ## look up. A property setter is always `value`, whatever the metadata says,
+    ## because that is the name Nim's `x=` convention gives it.
+    ##
+    ## Falls back to `aN` for a parameter with no Param row, and disambiguates
+    ## anything that would collide with the receiver, a temporary, or itself.
+    if isPut: return @["value"]
+    let named = md.paramNames(mi)
+    var taken = ["self", "it", "result", "op", "tmp", "coll"].toHashSet
+    for i in 0 ..< count:
+      var n = ""
+      if (i + 1) in named:
+        n = lowerFirst(sanitize(named[i + 1]))
+      if n.len == 0 or n in taken or n.startsWith("p") and n.len <= 2:
+        n = &"a{i + 1}"
+      while n in taken:
+        n = n & $(i + 1)
+      taken.incl n
+      result.add escapeIdent(n)
+
   for t in classOrder:
     byDepth.add (ancestorsOf(t.fullName).len, t)
   byDepth.sort(proc (a, b: (int, TypeRow)): int = cmp(a[0], b[0]))
@@ -726,10 +751,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           continue
         emitted.incl key
 
+        let argNames = argumentNames(mi, argTypes.len, isPut)
         var params = @[recv]
         for i, at in argTypes:
-          let pn = if isPut: "value" else: &"a{i + 1}"
-          params.add &"{pn}: {at}"
+          params.add &"{argNames[i]}: {at}"
 
         # A class argument needs a QueryInterface of its own, and a string
         # needs an HSTRING; both open a scope, so the body is built up as
@@ -740,7 +765,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         lines.add &"{indent}{enter}"
         indent.add "  "
         for i, p in sig.params:
-          let pn = if isPut: "value" else: &"a{i + 1}"
+          let pn = argNames[i]
           case p.kind
           of skString:
             lines.add &"{indent}withHString({pn}, h{i}):"

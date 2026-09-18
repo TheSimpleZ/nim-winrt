@@ -2982,10 +2982,10 @@ proc close*(self: Direct3D11CaptureFrame)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Direct3D11CaptureFrame.Close")
 
-proc recreate*(self: Direct3D11CaptureFramePool, a1: pointer, a2: DirectXPixelFormat, a3: int32, a4: SizeInt32)  =
+proc recreate*(self: Direct3D11CaptureFramePool, device: pointer, pixelFormat: DirectXPixelFormat, numberOfBuffers: int32, size: SizeInt32)  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.Recreate
   withIface(self.p, IID_IDirect3D11CaptureFramePool, "IDirect3D11CaptureFramePool", it):
-    vcall(it, Slot_IDirect3D11CaptureFramePool_Recreate, Fn_IDirect3D11CaptureFramePool_Recreate)(it, a1, a2, a3, a4).check("Direct3D11CaptureFramePool.Recreate")
+    vcall(it, Slot_IDirect3D11CaptureFramePool_Recreate, Fn_IDirect3D11CaptureFramePool_Recreate)(it, device, pixelFormat, numberOfBuffers, size).check("Direct3D11CaptureFramePool.Recreate")
 
 proc tryGetNextFrame*(self: Direct3D11CaptureFramePool): Direct3D11CaptureFrame  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.TryGetNextFrame
@@ -3013,10 +3013,10 @@ proc removeFrameArrived*(self: Direct3D11CaptureFramePool, token: EventRegistrat
   withIface(self.p, IID_IDirect3D11CaptureFramePool, "IDirect3D11CaptureFramePool", it):
     vcall(it, Slot_IDirect3D11CaptureFramePool_remove_FrameArrived, Fn_IDirect3D11CaptureFramePool_remove_FrameArrived)(it, token).check("Direct3D11CaptureFramePool.remove_FrameArrived")
 
-proc createCaptureSession*(self: Direct3D11CaptureFramePool, a1: GraphicsCaptureItem): GraphicsCaptureSession  =
+proc createCaptureSession*(self: Direct3D11CaptureFramePool, item: GraphicsCaptureItem): GraphicsCaptureSession  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.CreateCaptureSession
   withIface(self.p, IID_IDirect3D11CaptureFramePool, "IDirect3D11CaptureFramePool", it):
-    withIface(a1.p, IID_IGraphicsCaptureItem, "IGraphicsCaptureItem", p0):
+    withIface(item.p, IID_IGraphicsCaptureItem, "IGraphicsCaptureItem", p0):
       var tmp: pointer
       vcall(it, Slot_IDirect3D11CaptureFramePool_CreateCaptureSession, Fn_IDirect3D11CaptureFramePool_CreateCaptureSession)(it, p0, tmp.addr).check("Direct3D11CaptureFramePool.CreateCaptureSession")
       result = adopt[GraphicsCaptureSession](tmp)
@@ -3026,18 +3026,18 @@ proc close*(self: Direct3D11CaptureFramePool)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Direct3D11CaptureFramePool.Close")
 
-proc createFreeThreaded*(_: typedesc[Direct3D11CaptureFramePool], a1: pointer, a2: DirectXPixelFormat, a3: int32, a4: SizeInt32): Direct3D11CaptureFramePool  =
+proc createFreeThreaded*(_: typedesc[Direct3D11CaptureFramePool], device: pointer, pixelFormat: DirectXPixelFormat, numberOfBuffers: int32, size: SizeInt32): Direct3D11CaptureFramePool  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.CreateFreeThreaded
   withStatics("Windows.Graphics.Capture.Direct3D11CaptureFramePool", IID_IDirect3D11CaptureFramePoolStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IDirect3D11CaptureFramePoolStatics2_CreateFreeThreaded, Fn_IDirect3D11CaptureFramePoolStatics2_CreateFreeThreaded)(it, a1, a2, a3, a4, tmp.addr).check("Direct3D11CaptureFramePool.CreateFreeThreaded")
+    vcall(it, Slot_IDirect3D11CaptureFramePoolStatics2_CreateFreeThreaded, Fn_IDirect3D11CaptureFramePoolStatics2_CreateFreeThreaded)(it, device, pixelFormat, numberOfBuffers, size, tmp.addr).check("Direct3D11CaptureFramePool.CreateFreeThreaded")
     result = adopt[Direct3D11CaptureFramePool](tmp)
 
-proc create*(_: typedesc[Direct3D11CaptureFramePool], a1: pointer, a2: DirectXPixelFormat, a3: int32, a4: SizeInt32): Direct3D11CaptureFramePool  =
+proc create*(_: typedesc[Direct3D11CaptureFramePool], device: pointer, pixelFormat: DirectXPixelFormat, numberOfBuffers: int32, size: SizeInt32): Direct3D11CaptureFramePool  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.Create
   withStatics("Windows.Graphics.Capture.Direct3D11CaptureFramePool", IID_IDirect3D11CaptureFramePoolStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDirect3D11CaptureFramePoolStatics_Create, Fn_IDirect3D11CaptureFramePoolStatics_Create)(it, a1, a2, a3, a4, tmp.addr).check("Direct3D11CaptureFramePool.Create")
+    vcall(it, Slot_IDirect3D11CaptureFramePoolStatics_Create, Fn_IDirect3D11CaptureFramePoolStatics_Create)(it, device, pixelFormat, numberOfBuffers, size, tmp.addr).check("Direct3D11CaptureFramePool.Create")
     result = adopt[Direct3D11CaptureFramePool](tmp)
 
 proc displayName*(self: GraphicsCaptureItem): string  =
@@ -3073,11 +3073,11 @@ proc removeClosed*(self: GraphicsCaptureItem, token: EventRegistrationToken) =
   withIface(self.p, IID_IGraphicsCaptureItem, "IGraphicsCaptureItem", it):
     vcall(it, Slot_IGraphicsCaptureItem_remove_Closed, Fn_IGraphicsCaptureItem_remove_Closed)(it, token).check("GraphicsCaptureItem.remove_Closed")
 
-proc tryCreateFromDisplayId*(_: typedesc[GraphicsCaptureItem], a1: DisplayId): GraphicsCaptureItem  =
+proc tryCreateFromDisplayId*(_: typedesc[GraphicsCaptureItem], displayId: DisplayId): GraphicsCaptureItem  =
   ## Windows.Graphics.Capture.GraphicsCaptureItem.TryCreateFromDisplayId
   withStatics("Windows.Graphics.Capture.GraphicsCaptureItem", IID_IGraphicsCaptureItemStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IGraphicsCaptureItemStatics2_TryCreateFromDisplayId, Fn_IGraphicsCaptureItemStatics2_TryCreateFromDisplayId)(it, a1, tmp.addr).check("GraphicsCaptureItem.TryCreateFromDisplayId")
+    vcall(it, Slot_IGraphicsCaptureItemStatics2_TryCreateFromDisplayId, Fn_IGraphicsCaptureItemStatics2_TryCreateFromDisplayId)(it, displayId, tmp.addr).check("GraphicsCaptureItem.TryCreateFromDisplayId")
     result = adopt[GraphicsCaptureItem](tmp)
 
 proc newGraphicsCapturePicker*(): GraphicsCapturePicker =
@@ -3231,18 +3231,18 @@ proc sdrWhiteLevelInNits*(self: AdvancedColorInfo): float32  =
     vcall(it, Slot_IAdvancedColorInfo_get_SdrWhiteLevelInNits, Fn_IAdvancedColorInfo_get_SdrWhiteLevelInNits)(it, tmp.addr).check("AdvancedColorInfo.get_SdrWhiteLevelInNits")
     result = tmp
 
-proc isHdrMetadataFormatCurrentlySupported*(self: AdvancedColorInfo, a1: HdrMetadataFormat): bool  =
+proc isHdrMetadataFormatCurrentlySupported*(self: AdvancedColorInfo, format: HdrMetadataFormat): bool  =
   ## Windows.Graphics.Display.AdvancedColorInfo.IsHdrMetadataFormatCurrentlySupported
   withIface(self.p, IID_IAdvancedColorInfo, "IAdvancedColorInfo", it):
     var tmp: bool
-    vcall(it, Slot_IAdvancedColorInfo_IsHdrMetadataFormatCurrentlySupported, Fn_IAdvancedColorInfo_IsHdrMetadataFormatCurrentlySupported)(it, a1, tmp.addr).check("AdvancedColorInfo.IsHdrMetadataFormatCurrentlySupported")
+    vcall(it, Slot_IAdvancedColorInfo_IsHdrMetadataFormatCurrentlySupported, Fn_IAdvancedColorInfo_IsHdrMetadataFormatCurrentlySupported)(it, format, tmp.addr).check("AdvancedColorInfo.IsHdrMetadataFormatCurrentlySupported")
     result = tmp
 
-proc isAdvancedColorKindAvailable*(self: AdvancedColorInfo, a1: AdvancedColorKind): bool  =
+proc isAdvancedColorKindAvailable*(self: AdvancedColorInfo, kind: AdvancedColorKind): bool  =
   ## Windows.Graphics.Display.AdvancedColorInfo.IsAdvancedColorKindAvailable
   withIface(self.p, IID_IAdvancedColorInfo, "IAdvancedColorInfo", it):
     var tmp: bool
-    vcall(it, Slot_IAdvancedColorInfo_IsAdvancedColorKindAvailable, Fn_IAdvancedColorInfo_IsAdvancedColorKindAvailable)(it, a1, tmp.addr).check("AdvancedColorInfo.IsAdvancedColorKindAvailable")
+    vcall(it, Slot_IAdvancedColorInfo_IsAdvancedColorKindAvailable, Fn_IAdvancedColorInfo_IsAdvancedColorKindAvailable)(it, kind, tmp.addr).check("AdvancedColorInfo.IsAdvancedColorKindAvailable")
     result = tmp
 
 proc isSupported*(self: BrightnessOverride): bool  =
@@ -3266,21 +3266,21 @@ proc brightnessLevel*(self: BrightnessOverride): float64  =
     vcall(it, Slot_IBrightnessOverride_get_BrightnessLevel, Fn_IBrightnessOverride_get_BrightnessLevel)(it, tmp.addr).check("BrightnessOverride.get_BrightnessLevel")
     result = tmp
 
-proc setBrightnessLevel*(self: BrightnessOverride, a1: float64, a2: DisplayBrightnessOverrideOptions)  =
+proc setBrightnessLevel*(self: BrightnessOverride, brightnessLevel: float64, options: DisplayBrightnessOverrideOptions)  =
   ## Windows.Graphics.Display.BrightnessOverride.SetBrightnessLevel
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
-    vcall(it, Slot_IBrightnessOverride_SetBrightnessLevel, Fn_IBrightnessOverride_SetBrightnessLevel)(it, a1, a2).check("BrightnessOverride.SetBrightnessLevel")
+    vcall(it, Slot_IBrightnessOverride_SetBrightnessLevel, Fn_IBrightnessOverride_SetBrightnessLevel)(it, brightnessLevel, options).check("BrightnessOverride.SetBrightnessLevel")
 
-proc setBrightnessScenario*(self: BrightnessOverride, a1: DisplayBrightnessScenario, a2: DisplayBrightnessOverrideOptions)  =
+proc setBrightnessScenario*(self: BrightnessOverride, scenario: DisplayBrightnessScenario, options: DisplayBrightnessOverrideOptions)  =
   ## Windows.Graphics.Display.BrightnessOverride.SetBrightnessScenario
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
-    vcall(it, Slot_IBrightnessOverride_SetBrightnessScenario, Fn_IBrightnessOverride_SetBrightnessScenario)(it, a1, a2).check("BrightnessOverride.SetBrightnessScenario")
+    vcall(it, Slot_IBrightnessOverride_SetBrightnessScenario, Fn_IBrightnessOverride_SetBrightnessScenario)(it, scenario, options).check("BrightnessOverride.SetBrightnessScenario")
 
-proc getLevelForScenario*(self: BrightnessOverride, a1: DisplayBrightnessScenario): float64  =
+proc getLevelForScenario*(self: BrightnessOverride, scenario: DisplayBrightnessScenario): float64  =
   ## Windows.Graphics.Display.BrightnessOverride.GetLevelForScenario
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
     var tmp: float64
-    vcall(it, Slot_IBrightnessOverride_GetLevelForScenario, Fn_IBrightnessOverride_GetLevelForScenario)(it, a1, tmp.addr).check("BrightnessOverride.GetLevelForScenario")
+    vcall(it, Slot_IBrightnessOverride_GetLevelForScenario, Fn_IBrightnessOverride_GetLevelForScenario)(it, scenario, tmp.addr).check("BrightnessOverride.GetLevelForScenario")
     result = tmp
 
 proc startOverride*(self: BrightnessOverride)  =
@@ -3364,11 +3364,11 @@ proc getForCurrentView*(_: typedesc[BrightnessOverride]): BrightnessOverride  =
     vcall(it, Slot_IBrightnessOverrideStatics_GetForCurrentView, Fn_IBrightnessOverrideStatics_GetForCurrentView)(it, tmp.addr).check("BrightnessOverride.GetForCurrentView")
     result = adopt[BrightnessOverride](tmp)
 
-proc saveForSystemAsync*(_: typedesc[BrightnessOverride], a1: BrightnessOverride): Future[bool] {.async.} =
+proc saveForSystemAsync*(_: typedesc[BrightnessOverride], value: BrightnessOverride): Future[bool] {.async.} =
   ## Windows.Graphics.Display.BrightnessOverride.SaveForSystemAsync
   var op: pointer
   withStatics("Windows.Graphics.Display.BrightnessOverride", IID_IBrightnessOverrideStatics, it):
-    withIface(a1.p, IID_IBrightnessOverride, "IBrightnessOverride", p0):
+    withIface(value.p, IID_IBrightnessOverride, "IBrightnessOverride", p0):
       vcall(it, Slot_IBrightnessOverrideStatics_SaveForSystemAsync, Fn_IBrightnessOverrideStatics_SaveForSystemAsync)(it, p0, op.addr).check("BrightnessOverride.SaveForSystemAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BrightnessOverride.SaveForSystemAsync")
 
@@ -3386,25 +3386,25 @@ proc desiredNits*(self: BrightnessOverrideSettings): float32  =
     vcall(it, Slot_IBrightnessOverrideSettings_get_DesiredNits, Fn_IBrightnessOverrideSettings_get_DesiredNits)(it, tmp.addr).check("BrightnessOverrideSettings.get_DesiredNits")
     result = tmp
 
-proc createFromLevel*(_: typedesc[BrightnessOverrideSettings], a1: float64): BrightnessOverrideSettings  =
+proc createFromLevel*(_: typedesc[BrightnessOverrideSettings], level: float64): BrightnessOverrideSettings  =
   ## Windows.Graphics.Display.BrightnessOverrideSettings.CreateFromLevel
   withStatics("Windows.Graphics.Display.BrightnessOverrideSettings", IID_IBrightnessOverrideSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromLevel, Fn_IBrightnessOverrideSettingsStatics_CreateFromLevel)(it, a1, tmp.addr).check("BrightnessOverrideSettings.CreateFromLevel")
+    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromLevel, Fn_IBrightnessOverrideSettingsStatics_CreateFromLevel)(it, level, tmp.addr).check("BrightnessOverrideSettings.CreateFromLevel")
     result = adopt[BrightnessOverrideSettings](tmp)
 
-proc createFromNits*(_: typedesc[BrightnessOverrideSettings], a1: float32): BrightnessOverrideSettings  =
+proc createFromNits*(_: typedesc[BrightnessOverrideSettings], nits: float32): BrightnessOverrideSettings  =
   ## Windows.Graphics.Display.BrightnessOverrideSettings.CreateFromNits
   withStatics("Windows.Graphics.Display.BrightnessOverrideSettings", IID_IBrightnessOverrideSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromNits, Fn_IBrightnessOverrideSettingsStatics_CreateFromNits)(it, a1, tmp.addr).check("BrightnessOverrideSettings.CreateFromNits")
+    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromNits, Fn_IBrightnessOverrideSettingsStatics_CreateFromNits)(it, nits, tmp.addr).check("BrightnessOverrideSettings.CreateFromNits")
     result = adopt[BrightnessOverrideSettings](tmp)
 
-proc createFromDisplayBrightnessOverrideScenario*(_: typedesc[BrightnessOverrideSettings], a1: DisplayBrightnessOverrideScenario): BrightnessOverrideSettings  =
+proc createFromDisplayBrightnessOverrideScenario*(_: typedesc[BrightnessOverrideSettings], overrideScenario: DisplayBrightnessOverrideScenario): BrightnessOverrideSettings  =
   ## Windows.Graphics.Display.BrightnessOverrideSettings.CreateFromDisplayBrightnessOverrideScenario
   withStatics("Windows.Graphics.Display.BrightnessOverrideSettings", IID_IBrightnessOverrideSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromDisplayBrightnessOverrideScenario, Fn_IBrightnessOverrideSettingsStatics_CreateFromDisplayBrightnessOverrideScenario)(it, a1, tmp.addr).check("BrightnessOverrideSettings.CreateFromDisplayBrightnessOverrideScenario")
+    vcall(it, Slot_IBrightnessOverrideSettingsStatics_CreateFromDisplayBrightnessOverrideScenario, Fn_IBrightnessOverrideSettingsStatics_CreateFromDisplayBrightnessOverrideScenario)(it, overrideScenario, tmp.addr).check("BrightnessOverrideSettings.CreateFromDisplayBrightnessOverrideScenario")
     result = adopt[BrightnessOverrideSettings](tmp)
 
 proc desiredDisplayColorOverrideScenario*(self: ColorOverrideSettings): DisplayColorOverrideScenario  =
@@ -3414,11 +3414,11 @@ proc desiredDisplayColorOverrideScenario*(self: ColorOverrideSettings): DisplayC
     vcall(it, Slot_IColorOverrideSettings_get_DesiredDisplayColorOverrideScenario, Fn_IColorOverrideSettings_get_DesiredDisplayColorOverrideScenario)(it, tmp.addr).check("ColorOverrideSettings.get_DesiredDisplayColorOverrideScenario")
     result = tmp
 
-proc createFromDisplayColorOverrideScenario*(_: typedesc[ColorOverrideSettings], a1: DisplayColorOverrideScenario): ColorOverrideSettings  =
+proc createFromDisplayColorOverrideScenario*(_: typedesc[ColorOverrideSettings], overrideScenario: DisplayColorOverrideScenario): ColorOverrideSettings  =
   ## Windows.Graphics.Display.ColorOverrideSettings.CreateFromDisplayColorOverrideScenario
   withStatics("Windows.Graphics.Display.ColorOverrideSettings", IID_IColorOverrideSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario, Fn_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario)(it, a1, tmp.addr).check("ColorOverrideSettings.CreateFromDisplayColorOverrideScenario")
+    vcall(it, Slot_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario, Fn_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario)(it, overrideScenario, tmp.addr).check("ColorOverrideSettings.CreateFromDisplayColorOverrideScenario")
     result = adopt[ColorOverrideSettings](tmp)
 
 proc getSupportedDisplayModes*(self: HdmiDisplayInformation): seq[HdmiDisplayMode]  =
@@ -3443,28 +3443,28 @@ proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation) {.async.} =
     vcall(it, Slot_IHdmiDisplayInformation_SetDefaultDisplayModeAsync, Fn_IHdmiDisplayInformation_SetDefaultDisplayModeAsync)(it, op.addr).check("HdmiDisplayInformation.SetDefaultDisplayModeAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "HdmiDisplayInformation.SetDefaultDisplayModeAsync")
 
-proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode): Future[bool] {.async.} =
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, mode: HdmiDisplayMode): Future[bool] {.async.} =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
-    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+    withIface(mode.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
       vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync)(it, p0, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
 
-proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode, a2: HdmiDisplayHdrOption): Future[bool] {.async.} =
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, mode: HdmiDisplayMode, hdrOption: HdmiDisplayHdrOption): Future[bool] {.async.} =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
-    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
-      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2)(it, p0, a2, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+    withIface(mode.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2)(it, p0, hdrOption, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
 
-proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode, a2: HdmiDisplayHdrOption, a3: HdmiDisplayHdr2086Metadata): Future[bool] {.async.} =
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, mode: HdmiDisplayMode, hdrOption: HdmiDisplayHdrOption, hdrMetadata: HdmiDisplayHdr2086Metadata): Future[bool] {.async.} =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
   var op: pointer
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
-    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
-      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3)(it, p0, a2, a3, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+    withIface(mode.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3)(it, p0, hdrOption, hdrMetadata, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
 
 proc onDisplayModesChanged*(self: HdmiDisplayInformation,
@@ -3528,10 +3528,10 @@ proc bitsPerPixel*(self: HdmiDisplayMode): uint16  =
     vcall(it, Slot_IHdmiDisplayMode_get_BitsPerPixel, Fn_IHdmiDisplayMode_get_BitsPerPixel)(it, tmp.addr).check("HdmiDisplayMode.get_BitsPerPixel")
     result = tmp
 
-proc isEqual*(self: HdmiDisplayMode, a1: HdmiDisplayMode): bool  =
+proc isEqual*(self: HdmiDisplayMode, mode: HdmiDisplayMode): bool  =
   ## Windows.Graphics.Display.Core.HdmiDisplayMode.IsEqual
   withIface(self.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", it):
-    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+    withIface(mode.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
       var tmp: bool
       vcall(it, Slot_IHdmiDisplayMode_IsEqual, Fn_IHdmiDisplayMode_IsEqual)(it, p0, tmp.addr).check("HdmiDisplayMode.IsEqual")
       result = tmp
@@ -4038,15 +4038,15 @@ proc id*(self: HolographicCamera): uint32  =
     vcall(it, Slot_IHolographicCamera_get_Id, Fn_IHolographicCamera_get_Id)(it, tmp.addr).check("HolographicCamera.get_Id")
     result = tmp
 
-proc setNearPlaneDistance*(self: HolographicCamera, a1: float64)  =
+proc setNearPlaneDistance*(self: HolographicCamera, value: float64)  =
   ## Windows.Graphics.Holographic.HolographicCamera.SetNearPlaneDistance
   withIface(self.p, IID_IHolographicCamera, "IHolographicCamera", it):
-    vcall(it, Slot_IHolographicCamera_SetNearPlaneDistance, Fn_IHolographicCamera_SetNearPlaneDistance)(it, a1).check("HolographicCamera.SetNearPlaneDistance")
+    vcall(it, Slot_IHolographicCamera_SetNearPlaneDistance, Fn_IHolographicCamera_SetNearPlaneDistance)(it, value).check("HolographicCamera.SetNearPlaneDistance")
 
-proc setFarPlaneDistance*(self: HolographicCamera, a1: float64)  =
+proc setFarPlaneDistance*(self: HolographicCamera, value: float64)  =
   ## Windows.Graphics.Holographic.HolographicCamera.SetFarPlaneDistance
   withIface(self.p, IID_IHolographicCamera, "IHolographicCamera", it):
-    vcall(it, Slot_IHolographicCamera_SetFarPlaneDistance, Fn_IHolographicCamera_SetFarPlaneDistance)(it, a1).check("HolographicCamera.SetFarPlaneDistance")
+    vcall(it, Slot_IHolographicCamera_SetFarPlaneDistance, Fn_IHolographicCamera_SetFarPlaneDistance)(it, value).check("HolographicCamera.SetFarPlaneDistance")
 
 proc leftViewportParameters*(self: HolographicCamera): HolographicCameraViewportParameters  =
   ## Windows.Graphics.Holographic.HolographicCamera.get_LeftViewportParameters
@@ -4164,15 +4164,15 @@ proc farPlaneDistance*(self: HolographicCameraPose): float64  =
     vcall(it, Slot_IHolographicCameraPose_get_FarPlaneDistance, Fn_IHolographicCameraPose_get_FarPlaneDistance)(it, tmp.addr).check("HolographicCameraPose.get_FarPlaneDistance")
     result = tmp
 
-proc overrideProjectionTransform*(self: HolographicCameraPose, a1: HolographicStereoTransform)  =
+proc overrideProjectionTransform*(self: HolographicCameraPose, projectionTransform: HolographicStereoTransform)  =
   ## Windows.Graphics.Holographic.HolographicCameraPose.OverrideProjectionTransform
   withIface(self.p, IID_IHolographicCameraPose2, "IHolographicCameraPose2", it):
-    vcall(it, Slot_IHolographicCameraPose2_OverrideProjectionTransform, Fn_IHolographicCameraPose2_OverrideProjectionTransform)(it, a1).check("HolographicCameraPose.OverrideProjectionTransform")
+    vcall(it, Slot_IHolographicCameraPose2_OverrideProjectionTransform, Fn_IHolographicCameraPose2_OverrideProjectionTransform)(it, projectionTransform).check("HolographicCameraPose.OverrideProjectionTransform")
 
-proc overrideViewport*(self: HolographicCameraPose, a1: Rect, a2: Rect)  =
+proc overrideViewport*(self: HolographicCameraPose, leftViewport: Rect, rightViewport: Rect)  =
   ## Windows.Graphics.Holographic.HolographicCameraPose.OverrideViewport
   withIface(self.p, IID_IHolographicCameraPose2, "IHolographicCameraPose2", it):
-    vcall(it, Slot_IHolographicCameraPose2_OverrideViewport, Fn_IHolographicCameraPose2_OverrideViewport)(it, a1, a2).check("HolographicCameraPose.OverrideViewport")
+    vcall(it, Slot_IHolographicCameraPose2_OverrideViewport, Fn_IHolographicCameraPose2_OverrideViewport)(it, leftViewport, rightViewport).check("HolographicCameraPose.OverrideViewport")
 
 proc direct3D11Device*(self: HolographicCameraRenderingParameters): pointer  =
   ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.get_Direct3D11Device
@@ -4200,10 +4200,10 @@ proc `reprojectionMode=`*(self: HolographicCameraRenderingParameters, value: Hol
   withIface(self.p, IID_IHolographicCameraRenderingParameters2, "IHolographicCameraRenderingParameters2", it):
     vcall(it, Slot_IHolographicCameraRenderingParameters2_put_ReprojectionMode, Fn_IHolographicCameraRenderingParameters2_put_ReprojectionMode)(it, value).check("HolographicCameraRenderingParameters.put_ReprojectionMode")
 
-proc commitDirect3D11DepthBuffer*(self: HolographicCameraRenderingParameters, a1: pointer)  =
+proc commitDirect3D11DepthBuffer*(self: HolographicCameraRenderingParameters, value: pointer)  =
   ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.CommitDirect3D11DepthBuffer
   withIface(self.p, IID_IHolographicCameraRenderingParameters2, "IHolographicCameraRenderingParameters2", it):
-    vcall(it, Slot_IHolographicCameraRenderingParameters2_CommitDirect3D11DepthBuffer, Fn_IHolographicCameraRenderingParameters2_CommitDirect3D11DepthBuffer)(it, a1).check("HolographicCameraRenderingParameters.CommitDirect3D11DepthBuffer")
+    vcall(it, Slot_IHolographicCameraRenderingParameters2_CommitDirect3D11DepthBuffer, Fn_IHolographicCameraRenderingParameters2_CommitDirect3D11DepthBuffer)(it, value).check("HolographicCameraRenderingParameters.CommitDirect3D11DepthBuffer")
 
 proc isContentProtectionEnabled*(self: HolographicCameraRenderingParameters): bool  =
   ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.get_IsContentProtectionEnabled
@@ -4271,11 +4271,11 @@ proc refreshRate*(self: HolographicDisplay): float64  =
     vcall(it, Slot_IHolographicDisplay2_get_RefreshRate, Fn_IHolographicDisplay2_get_RefreshRate)(it, tmp.addr).check("HolographicDisplay.get_RefreshRate")
     result = tmp
 
-proc tryGetViewConfiguration*(self: HolographicDisplay, a1: HolographicViewConfigurationKind): HolographicViewConfiguration  =
+proc tryGetViewConfiguration*(self: HolographicDisplay, kind: HolographicViewConfigurationKind): HolographicViewConfiguration  =
   ## Windows.Graphics.Holographic.HolographicDisplay.TryGetViewConfiguration
   withIface(self.p, IID_IHolographicDisplay3, "IHolographicDisplay3", it):
     var tmp: pointer
-    vcall(it, Slot_IHolographicDisplay3_TryGetViewConfiguration, Fn_IHolographicDisplay3_TryGetViewConfiguration)(it, a1, tmp.addr).check("HolographicDisplay.TryGetViewConfiguration")
+    vcall(it, Slot_IHolographicDisplay3_TryGetViewConfiguration, Fn_IHolographicDisplay3_TryGetViewConfiguration)(it, kind, tmp.addr).check("HolographicDisplay.TryGetViewConfiguration")
     result = adopt[HolographicViewConfiguration](tmp)
 
 proc getDefault*(_: typedesc[HolographicDisplay]): HolographicDisplay  =
@@ -4301,10 +4301,10 @@ proc removedCameras*(self: HolographicFrame): seq[HolographicCamera]  =
     result = toSeq[HolographicCamera](tmp, IID_IVectorView_1_HolographicCamera)
     release(tmp)
 
-proc getRenderingParameters*(self: HolographicFrame, a1: HolographicCameraPose): HolographicCameraRenderingParameters  =
+proc getRenderingParameters*(self: HolographicFrame, cameraPose: HolographicCameraPose): HolographicCameraRenderingParameters  =
   ## Windows.Graphics.Holographic.HolographicFrame.GetRenderingParameters
   withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
-    withIface(a1.p, IID_IHolographicCameraPose, "IHolographicCameraPose", p0):
+    withIface(cameraPose.p, IID_IHolographicCameraPose, "IHolographicCameraPose", p0):
       var tmp: pointer
       vcall(it, Slot_IHolographicFrame_GetRenderingParameters, Fn_IHolographicFrame_GetRenderingParameters)(it, p0, tmp.addr).check("HolographicFrame.GetRenderingParameters")
       result = adopt[HolographicCameraRenderingParameters](tmp)
@@ -4335,11 +4335,11 @@ proc presentUsingCurrentPrediction*(self: HolographicFrame): HolographicFramePre
     vcall(it, Slot_IHolographicFrame_PresentUsingCurrentPrediction, Fn_IHolographicFrame_PresentUsingCurrentPrediction)(it, tmp.addr).check("HolographicFrame.PresentUsingCurrentPrediction")
     result = tmp
 
-proc presentUsingCurrentPrediction*(self: HolographicFrame, a1: HolographicFramePresentWaitBehavior): HolographicFramePresentResult  =
+proc presentUsingCurrentPrediction*(self: HolographicFrame, waitBehavior: HolographicFramePresentWaitBehavior): HolographicFramePresentResult  =
   ## Windows.Graphics.Holographic.HolographicFrame.PresentUsingCurrentPrediction
   withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
     var tmp: HolographicFramePresentResult
-    vcall(it, Slot_IHolographicFrame_PresentUsingCurrentPrediction2, Fn_IHolographicFrame_PresentUsingCurrentPrediction2)(it, a1, tmp.addr).check("HolographicFrame.PresentUsingCurrentPrediction")
+    vcall(it, Slot_IHolographicFrame_PresentUsingCurrentPrediction2, Fn_IHolographicFrame_PresentUsingCurrentPrediction2)(it, waitBehavior, tmp.addr).check("HolographicFrame.PresentUsingCurrentPrediction")
     result = tmp
 
 proc waitForFrameToFinish*(self: HolographicFrame)  =
@@ -4347,10 +4347,10 @@ proc waitForFrameToFinish*(self: HolographicFrame)  =
   withIface(self.p, IID_IHolographicFrame, "IHolographicFrame", it):
     vcall(it, Slot_IHolographicFrame_WaitForFrameToFinish, Fn_IHolographicFrame_WaitForFrameToFinish)(it).check("HolographicFrame.WaitForFrameToFinish")
 
-proc getQuadLayerUpdateParameters*(self: HolographicFrame, a1: HolographicQuadLayer): HolographicQuadLayerUpdateParameters  =
+proc getQuadLayerUpdateParameters*(self: HolographicFrame, layer: HolographicQuadLayer): HolographicQuadLayerUpdateParameters  =
   ## Windows.Graphics.Holographic.HolographicFrame.GetQuadLayerUpdateParameters
   withIface(self.p, IID_IHolographicFrame2, "IHolographicFrame2", it):
-    withIface(a1.p, IID_IClosable, "IClosable", p0):
+    withIface(layer.p, IID_IClosable, "IClosable", p0):
       var tmp: pointer
       vcall(it, Slot_IHolographicFrame2_GetQuadLayerUpdateParameters, Fn_IHolographicFrame2_GetQuadLayerUpdateParameters)(it, p0, tmp.addr).check("HolographicFrame.GetQuadLayerUpdateParameters")
       result = adopt[HolographicQuadLayerUpdateParameters](tmp)
@@ -4520,18 +4520,18 @@ proc size*(self: HolographicQuadLayer): Size  =
     vcall(it, Slot_IHolographicQuadLayer_get_Size, Fn_IHolographicQuadLayer_get_Size)(it, tmp.addr).check("HolographicQuadLayer.get_Size")
     result = tmp
 
-proc create*(_: typedesc[HolographicQuadLayer], a1: Size): HolographicQuadLayer  =
+proc create*(_: typedesc[HolographicQuadLayer], size: Size): HolographicQuadLayer  =
   ## Windows.Graphics.Holographic.HolographicQuadLayer.Create
   withStatics("Windows.Graphics.Holographic.HolographicQuadLayer", IID_IHolographicQuadLayerFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHolographicQuadLayerFactory_Create, Fn_IHolographicQuadLayerFactory_Create)(it, a1, tmp.addr).check("HolographicQuadLayer.Create")
+    vcall(it, Slot_IHolographicQuadLayerFactory_Create, Fn_IHolographicQuadLayerFactory_Create)(it, size, tmp.addr).check("HolographicQuadLayer.Create")
     result = adopt[HolographicQuadLayer](tmp)
 
-proc createWithPixelFormat*(_: typedesc[HolographicQuadLayer], a1: Size, a2: DirectXPixelFormat): HolographicQuadLayer  =
+proc createWithPixelFormat*(_: typedesc[HolographicQuadLayer], size: Size, pixelFormat: DirectXPixelFormat): HolographicQuadLayer  =
   ## Windows.Graphics.Holographic.HolographicQuadLayer.CreateWithPixelFormat
   withStatics("Windows.Graphics.Holographic.HolographicQuadLayer", IID_IHolographicQuadLayerFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHolographicQuadLayerFactory_CreateWithPixelFormat, Fn_IHolographicQuadLayerFactory_CreateWithPixelFormat)(it, a1, a2, tmp.addr).check("HolographicQuadLayer.CreateWithPixelFormat")
+    vcall(it, Slot_IHolographicQuadLayerFactory_CreateWithPixelFormat, Fn_IHolographicQuadLayerFactory_CreateWithPixelFormat)(it, size, pixelFormat, tmp.addr).check("HolographicQuadLayer.CreateWithPixelFormat")
     result = adopt[HolographicQuadLayer](tmp)
 
 proc acquireBufferToUpdateContent*(self: HolographicQuadLayerUpdateParameters): pointer  =
@@ -4541,25 +4541,25 @@ proc acquireBufferToUpdateContent*(self: HolographicQuadLayerUpdateParameters): 
     vcall(it, Slot_IHolographicQuadLayerUpdateParameters_AcquireBufferToUpdateContent, Fn_IHolographicQuadLayerUpdateParameters_AcquireBufferToUpdateContent)(it, tmp.addr).check("HolographicQuadLayerUpdateParameters.AcquireBufferToUpdateContent")
     result = tmp
 
-proc updateViewport*(self: HolographicQuadLayerUpdateParameters, a1: Rect)  =
+proc updateViewport*(self: HolographicQuadLayerUpdateParameters, value: Rect)  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateViewport
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
-    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateViewport, Fn_IHolographicQuadLayerUpdateParameters_UpdateViewport)(it, a1).check("HolographicQuadLayerUpdateParameters.UpdateViewport")
+    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateViewport, Fn_IHolographicQuadLayerUpdateParameters_UpdateViewport)(it, value).check("HolographicQuadLayerUpdateParameters.UpdateViewport")
 
-proc updateContentProtectionEnabled*(self: HolographicQuadLayerUpdateParameters, a1: bool)  =
+proc updateContentProtectionEnabled*(self: HolographicQuadLayerUpdateParameters, value: bool)  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateContentProtectionEnabled
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
-    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateContentProtectionEnabled, Fn_IHolographicQuadLayerUpdateParameters_UpdateContentProtectionEnabled)(it, a1).check("HolographicQuadLayerUpdateParameters.UpdateContentProtectionEnabled")
+    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateContentProtectionEnabled, Fn_IHolographicQuadLayerUpdateParameters_UpdateContentProtectionEnabled)(it, value).check("HolographicQuadLayerUpdateParameters.UpdateContentProtectionEnabled")
 
-proc updateExtents*(self: HolographicQuadLayerUpdateParameters, a1: Vector2)  =
+proc updateExtents*(self: HolographicQuadLayerUpdateParameters, value: Vector2)  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateExtents
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
-    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateExtents, Fn_IHolographicQuadLayerUpdateParameters_UpdateExtents)(it, a1).check("HolographicQuadLayerUpdateParameters.UpdateExtents")
+    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateExtents, Fn_IHolographicQuadLayerUpdateParameters_UpdateExtents)(it, value).check("HolographicQuadLayerUpdateParameters.UpdateExtents")
 
-proc updateLocationWithDisplayRelativeMode*(self: HolographicQuadLayerUpdateParameters, a1: Vector3, a2: Quaternion)  =
+proc updateLocationWithDisplayRelativeMode*(self: HolographicQuadLayerUpdateParameters, position: Vector3, orientation: Quaternion)  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateLocationWithDisplayRelativeMode
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
-    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateLocationWithDisplayRelativeMode, Fn_IHolographicQuadLayerUpdateParameters_UpdateLocationWithDisplayRelativeMode)(it, a1, a2).check("HolographicQuadLayerUpdateParameters.UpdateLocationWithDisplayRelativeMode")
+    vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateLocationWithDisplayRelativeMode, Fn_IHolographicQuadLayerUpdateParameters_UpdateLocationWithDisplayRelativeMode)(it, position, orientation).check("HolographicQuadLayerUpdateParameters.UpdateLocationWithDisplayRelativeMode")
 
 proc canAcquireWithHardwareProtection*(self: HolographicQuadLayerUpdateParameters): bool  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.get_CanAcquireWithHardwareProtection
@@ -4582,10 +4582,10 @@ proc primaryAdapterId*(self: HolographicSpace): HolographicAdapterId  =
     vcall(it, Slot_IHolographicSpace_get_PrimaryAdapterId, Fn_IHolographicSpace_get_PrimaryAdapterId)(it, tmp.addr).check("HolographicSpace.get_PrimaryAdapterId")
     result = tmp
 
-proc setDirect3D11Device*(self: HolographicSpace, a1: pointer)  =
+proc setDirect3D11Device*(self: HolographicSpace, value: pointer)  =
   ## Windows.Graphics.Holographic.HolographicSpace.SetDirect3D11Device
   withIface(self.p, IID_IHolographicSpace, "IHolographicSpace", it):
-    vcall(it, Slot_IHolographicSpace_SetDirect3D11Device, Fn_IHolographicSpace_SetDirect3D11Device)(it, a1).check("HolographicSpace.SetDirect3D11Device")
+    vcall(it, Slot_IHolographicSpace_SetDirect3D11Device, Fn_IHolographicSpace_SetDirect3D11Device)(it, value).check("HolographicSpace.SetDirect3D11Device")
 
 proc onCameraAdded*(self: HolographicSpace,
     handler: proc(sender: pointer, args: HolographicSpaceCameraAddedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -4663,23 +4663,23 @@ proc waitForNextFrameReady*(self: HolographicSpace)  =
   withIface(self.p, IID_IHolographicSpace2, "IHolographicSpace2", it):
     vcall(it, Slot_IHolographicSpace2_WaitForNextFrameReady, Fn_IHolographicSpace2_WaitForNextFrameReady)(it).check("HolographicSpace.WaitForNextFrameReady")
 
-proc waitForNextFrameReadyWithHeadStart*(self: HolographicSpace, a1: TimeSpan)  =
+proc waitForNextFrameReadyWithHeadStart*(self: HolographicSpace, requestedHeadStartDuration: TimeSpan)  =
   ## Windows.Graphics.Holographic.HolographicSpace.WaitForNextFrameReadyWithHeadStart
   withIface(self.p, IID_IHolographicSpace2, "IHolographicSpace2", it):
-    vcall(it, Slot_IHolographicSpace2_WaitForNextFrameReadyWithHeadStart, Fn_IHolographicSpace2_WaitForNextFrameReadyWithHeadStart)(it, a1).check("HolographicSpace.WaitForNextFrameReadyWithHeadStart")
+    vcall(it, Slot_IHolographicSpace2_WaitForNextFrameReadyWithHeadStart, Fn_IHolographicSpace2_WaitForNextFrameReadyWithHeadStart)(it, requestedHeadStartDuration).check("HolographicSpace.WaitForNextFrameReadyWithHeadStart")
 
-proc createFramePresentationMonitor*(self: HolographicSpace, a1: uint32): HolographicFramePresentationMonitor  =
+proc createFramePresentationMonitor*(self: HolographicSpace, maxQueuedReports: uint32): HolographicFramePresentationMonitor  =
   ## Windows.Graphics.Holographic.HolographicSpace.CreateFramePresentationMonitor
   withIface(self.p, IID_IHolographicSpace2, "IHolographicSpace2", it):
     var tmp: pointer
-    vcall(it, Slot_IHolographicSpace2_CreateFramePresentationMonitor, Fn_IHolographicSpace2_CreateFramePresentationMonitor)(it, a1, tmp.addr).check("HolographicSpace.CreateFramePresentationMonitor")
+    vcall(it, Slot_IHolographicSpace2_CreateFramePresentationMonitor, Fn_IHolographicSpace2_CreateFramePresentationMonitor)(it, maxQueuedReports, tmp.addr).check("HolographicSpace.CreateFramePresentationMonitor")
     result = adopt[HolographicFramePresentationMonitor](tmp)
 
-proc createFrameScanoutMonitor*(self: HolographicSpace, a1: uint32): HolographicFrameScanoutMonitor  =
+proc createFrameScanoutMonitor*(self: HolographicSpace, maxQueuedReports: uint32): HolographicFrameScanoutMonitor  =
   ## Windows.Graphics.Holographic.HolographicSpace.CreateFrameScanoutMonitor
   withIface(self.p, IID_IHolographicSpace3, "IHolographicSpace3", it):
     var tmp: pointer
-    vcall(it, Slot_IHolographicSpace3_CreateFrameScanoutMonitor, Fn_IHolographicSpace3_CreateFrameScanoutMonitor)(it, a1, tmp.addr).check("HolographicSpace.CreateFrameScanoutMonitor")
+    vcall(it, Slot_IHolographicSpace3_CreateFrameScanoutMonitor, Fn_IHolographicSpace3_CreateFrameScanoutMonitor)(it, maxQueuedReports, tmp.addr).check("HolographicSpace.CreateFrameScanoutMonitor")
     result = adopt[HolographicFrameScanoutMonitor](tmp)
 
 proc isSupported*(_: typedesc[HolographicSpace]): bool  =
@@ -4757,11 +4757,11 @@ proc renderTargetSize*(self: HolographicViewConfiguration): Size  =
     vcall(it, Slot_IHolographicViewConfiguration_get_RenderTargetSize, Fn_IHolographicViewConfiguration_get_RenderTargetSize)(it, tmp.addr).check("HolographicViewConfiguration.get_RenderTargetSize")
     result = tmp
 
-proc requestRenderTargetSize*(self: HolographicViewConfiguration, a1: Size): Size  =
+proc requestRenderTargetSize*(self: HolographicViewConfiguration, size: Size): Size  =
   ## Windows.Graphics.Holographic.HolographicViewConfiguration.RequestRenderTargetSize
   withIface(self.p, IID_IHolographicViewConfiguration, "IHolographicViewConfiguration", it):
     var tmp: Size
-    vcall(it, Slot_IHolographicViewConfiguration_RequestRenderTargetSize, Fn_IHolographicViewConfiguration_RequestRenderTargetSize)(it, a1, tmp.addr).check("HolographicViewConfiguration.RequestRenderTargetSize")
+    vcall(it, Slot_IHolographicViewConfiguration_RequestRenderTargetSize, Fn_IHolographicViewConfiguration_RequestRenderTargetSize)(it, size, tmp.addr).check("HolographicViewConfiguration.RequestRenderTargetSize")
     result = tmp
 
 proc pixelFormat*(self: HolographicViewConfiguration): DirectXPixelFormat  =
@@ -4823,11 +4823,11 @@ proc getPlaneCount*(self: BitmapBuffer): int32  =
     vcall(it, Slot_IBitmapBuffer_GetPlaneCount, Fn_IBitmapBuffer_GetPlaneCount)(it, tmp.addr).check("BitmapBuffer.GetPlaneCount")
     result = tmp
 
-proc getPlaneDescription*(self: BitmapBuffer, a1: int32): BitmapPlaneDescription  =
+proc getPlaneDescription*(self: BitmapBuffer, index: int32): BitmapPlaneDescription  =
   ## Windows.Graphics.Imaging.BitmapBuffer.GetPlaneDescription
   withIface(self.p, IID_IBitmapBuffer, "IBitmapBuffer", it):
     var tmp: BitmapPlaneDescription
-    vcall(it, Slot_IBitmapBuffer_GetPlaneDescription, Fn_IBitmapBuffer_GetPlaneDescription)(it, a1, tmp.addr).check("BitmapBuffer.GetPlaneDescription")
+    vcall(it, Slot_IBitmapBuffer_GetPlaneDescription, Fn_IBitmapBuffer_GetPlaneDescription)(it, index, tmp.addr).check("BitmapBuffer.GetPlaneDescription")
     result = tmp
 
 proc createReference*(self: BitmapBuffer): pointer  =
@@ -4900,11 +4900,11 @@ proc getPreviewAsync*(self: BitmapDecoder): Future[ImageStream] {.async.} =
     vcall(it, Slot_IBitmapDecoder_GetPreviewAsync, Fn_IBitmapDecoder_GetPreviewAsync)(it, op.addr).check("BitmapDecoder.GetPreviewAsync")
   result = adopt[ImageStream](await awaitObject(op, IID_IAsyncOperation_1_ImageStream, IID_AsyncOperationCompletedHandler_1_ImageStream, "BitmapDecoder.GetPreviewAsync"))
 
-proc getFrameAsync*(self: BitmapDecoder, a1: uint32): Future[BitmapFrame] {.async.} =
+proc getFrameAsync*(self: BitmapDecoder, frameIndex: uint32): Future[BitmapFrame] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetFrameAsync
   var op: pointer
   withIface(self.p, IID_IBitmapDecoder, "IBitmapDecoder", it):
-    vcall(it, Slot_IBitmapDecoder_GetFrameAsync, Fn_IBitmapDecoder_GetFrameAsync)(it, a1, op.addr).check("BitmapDecoder.GetFrameAsync")
+    vcall(it, Slot_IBitmapDecoder_GetFrameAsync, Fn_IBitmapDecoder_GetFrameAsync)(it, frameIndex, op.addr).check("BitmapDecoder.GetFrameAsync")
   result = adopt[BitmapFrame](await awaitObject(op, IID_IAsyncOperation_1_BitmapFrame, IID_AsyncOperationCompletedHandler_1_BitmapFrame, "BitmapDecoder.GetFrameAsync"))
 
 proc getThumbnailAsync*(self: BitmapDecoder): Future[ImageStream] {.async.} =
@@ -4984,12 +4984,12 @@ proc getPixelDataAsync*(self: BitmapDecoder): Future[PixelDataProvider] {.async.
     vcall(it, Slot_IBitmapFrame_GetPixelDataAsync, Fn_IBitmapFrame_GetPixelDataAsync)(it, op.addr).check("BitmapDecoder.GetPixelDataAsync")
   result = adopt[PixelDataProvider](await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider, IID_AsyncOperationCompletedHandler_1_PixelDataProvider, "BitmapDecoder.GetPixelDataAsync"))
 
-proc getPixelDataAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): Future[PixelDataProvider] {.async.} =
+proc getPixelDataAsync*(self: BitmapDecoder, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode, transform: BitmapTransform, exifOrientationMode: ExifOrientationMode, colorManagementMode: ColorManagementMode): Future[PixelDataProvider] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
-    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
-      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, a1, a2, p2, a4, a5, op.addr).check("BitmapDecoder.GetPixelDataAsync")
+    withIface(transform.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, pixelFormat, alphaMode, p2, exifOrientationMode, colorManagementMode, op.addr).check("BitmapDecoder.GetPixelDataAsync")
   result = adopt[PixelDataProvider](await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider, IID_AsyncOperationCompletedHandler_1_PixelDataProvider, "BitmapDecoder.GetPixelDataAsync"))
 
 proc getSoftwareBitmapAsync*(self: BitmapDecoder): Future[SoftwareBitmap] {.async.} =
@@ -4999,19 +4999,19 @@ proc getSoftwareBitmapAsync*(self: BitmapDecoder): Future[SoftwareBitmap] {.asyn
     vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync)(it, op.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
 
-proc getSoftwareBitmapAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapDecoder, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
-    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, a1, a2, op.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, pixelFormat, alphaMode, op.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
 
-proc getSoftwareBitmapAsync*(self: BitmapDecoder, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapDecoder, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode, transform: BitmapTransform, exifOrientationMode: ExifOrientationMode, colorManagementMode: ColorManagementMode): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
-    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
-      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, a1, a2, p2, a4, a5, op.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
+    withIface(transform.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, pixelFormat, alphaMode, p2, exifOrientationMode, colorManagementMode, op.addr).check("BitmapDecoder.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapDecoder.GetSoftwareBitmapAsync"))
 
 proc heifDecoderId*(_: typedesc[BitmapDecoder]): GUID  =
@@ -5085,18 +5085,18 @@ proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
-proc createAsync*(_: typedesc[BitmapDecoder], a1: pointer): Future[BitmapDecoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapDecoder], stream: pointer): Future[BitmapDecoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
-    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync, Fn_IBitmapDecoderStatics_CreateAsync)(it, a1, op.addr).check("BitmapDecoder.CreateAsync")
+    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync, Fn_IBitmapDecoderStatics_CreateAsync)(it, stream, op.addr).check("BitmapDecoder.CreateAsync")
   result = adopt[BitmapDecoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder, IID_AsyncOperationCompletedHandler_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
 
-proc createAsync*(_: typedesc[BitmapDecoder], a1: GUID, a2: pointer): Future[BitmapDecoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID, stream: pointer): Future[BitmapDecoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
-    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync2, Fn_IBitmapDecoderStatics_CreateAsync2)(it, a1, a2, op.addr).check("BitmapDecoder.CreateAsync")
+    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync2, Fn_IBitmapDecoderStatics_CreateAsync2)(it, decoderId, stream, op.addr).check("BitmapDecoder.CreateAsync")
   result = adopt[BitmapDecoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder, IID_AsyncOperationCompletedHandler_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
 
 proc encoderInformation*(self: BitmapEncoder): BitmapCodecInformation  =
@@ -5177,10 +5177,10 @@ proc flushAsync*(self: BitmapEncoder) {.async.} =
     vcall(it, Slot_IBitmapEncoder_FlushAsync, Fn_IBitmapEncoder_FlushAsync)(it, op.addr).check("BitmapEncoder.FlushAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BitmapEncoder.FlushAsync")
 
-proc setSoftwareBitmap*(self: BitmapEncoder, a1: SoftwareBitmap)  =
+proc setSoftwareBitmap*(self: BitmapEncoder, bitmap: SoftwareBitmap)  =
   ## Windows.Graphics.Imaging.BitmapEncoder.SetSoftwareBitmap
   withIface(self.p, IID_IBitmapEncoderWithSoftwareBitmap, "IBitmapEncoderWithSoftwareBitmap", it):
-    withIface(a1.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+    withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       vcall(it, Slot_IBitmapEncoderWithSoftwareBitmap_SetSoftwareBitmap, Fn_IBitmapEncoderWithSoftwareBitmap_SetSoftwareBitmap)(it, p0).check("BitmapEncoder.SetSoftwareBitmap")
 
 proc heifEncoderId*(_: typedesc[BitmapEncoder]): GUID  =
@@ -5240,26 +5240,26 @@ proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
-proc createAsync*(_: typedesc[BitmapEncoder], a1: GUID, a2: pointer): Future[BitmapEncoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID, stream: pointer): Future[BitmapEncoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
-    vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, a1, a2, op.addr).check("BitmapEncoder.CreateAsync")
+    vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, encoderId, stream, op.addr).check("BitmapEncoder.CreateAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, "BitmapEncoder.CreateAsync"))
 
-proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], a1: pointer, a2: BitmapDecoder): Future[BitmapEncoder] {.async.} =
+proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: pointer, bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateForTranscodingAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
-    withIface(a2.p, IID_IBitmapDecoder, "IBitmapDecoder", p1):
-      vcall(it, Slot_IBitmapEncoderStatics_CreateForTranscodingAsync, Fn_IBitmapEncoderStatics_CreateForTranscodingAsync)(it, a1, p1, op.addr).check("BitmapEncoder.CreateForTranscodingAsync")
+    withIface(bitmapDecoder.p, IID_IBitmapDecoder, "IBitmapDecoder", p1):
+      vcall(it, Slot_IBitmapEncoderStatics_CreateForTranscodingAsync, Fn_IBitmapEncoderStatics_CreateForTranscodingAsync)(it, stream, p1, op.addr).check("BitmapEncoder.CreateForTranscodingAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, "BitmapEncoder.CreateForTranscodingAsync"))
 
-proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder], a1: BitmapDecoder): Future[BitmapEncoder] {.async.} =
+proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder], bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateForInPlacePropertyEncodingAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
-    withIface(a1.p, IID_IBitmapDecoder, "IBitmapDecoder", p0):
+    withIface(bitmapDecoder.p, IID_IBitmapDecoder, "IBitmapDecoder", p0):
       vcall(it, Slot_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync, Fn_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync)(it, p0, op.addr).check("BitmapEncoder.CreateForInPlacePropertyEncodingAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, "BitmapEncoder.CreateForInPlacePropertyEncodingAsync"))
 
@@ -5340,12 +5340,12 @@ proc getPixelDataAsync*(self: BitmapFrame): Future[PixelDataProvider] {.async.} 
     vcall(it, Slot_IBitmapFrame_GetPixelDataAsync, Fn_IBitmapFrame_GetPixelDataAsync)(it, op.addr).check("BitmapFrame.GetPixelDataAsync")
   result = adopt[PixelDataProvider](await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider, IID_AsyncOperationCompletedHandler_1_PixelDataProvider, "BitmapFrame.GetPixelDataAsync"))
 
-proc getPixelDataAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): Future[PixelDataProvider] {.async.} =
+proc getPixelDataAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode, transform: BitmapTransform, exifOrientationMode: ExifOrientationMode, colorManagementMode: ColorManagementMode): Future[PixelDataProvider] {.async.} =
   ## Windows.Graphics.Imaging.BitmapFrame.GetPixelDataAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrame, "IBitmapFrame", it):
-    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
-      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, a1, a2, p2, a4, a5, op.addr).check("BitmapFrame.GetPixelDataAsync")
+    withIface(transform.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      vcall(it, Slot_IBitmapFrame_GetPixelDataAsync2, Fn_IBitmapFrame_GetPixelDataAsync2)(it, pixelFormat, alphaMode, p2, exifOrientationMode, colorManagementMode, op.addr).check("BitmapFrame.GetPixelDataAsync")
   result = adopt[PixelDataProvider](await awaitObject(op, IID_IAsyncOperation_1_PixelDataProvider, IID_AsyncOperationCompletedHandler_1_PixelDataProvider, "BitmapFrame.GetPixelDataAsync"))
 
 proc getSoftwareBitmapAsync*(self: BitmapFrame): Future[SoftwareBitmap] {.async.} =
@@ -5355,19 +5355,19 @@ proc getSoftwareBitmapAsync*(self: BitmapFrame): Future[SoftwareBitmap] {.async.
     vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync)(it, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
 
-proc getSoftwareBitmapAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
-    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, a1, a2, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
+    vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync2)(it, pixelFormat, alphaMode, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
 
-proc getSoftwareBitmapAsync*(self: BitmapFrame, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: BitmapTransform, a4: ExifOrientationMode, a5: ColorManagementMode): Future[SoftwareBitmap] {.async.} =
+proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode, transform: BitmapTransform, exifOrientationMode: ExifOrientationMode, colorManagementMode: ColorManagementMode): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.BitmapFrame.GetSoftwareBitmapAsync
   var op: pointer
   withIface(self.p, IID_IBitmapFrameWithSoftwareBitmap, "IBitmapFrameWithSoftwareBitmap", it):
-    withIface(a3.p, IID_IBitmapTransform, "IBitmapTransform", p2):
-      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, a1, a2, p2, a4, a5, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
+    withIface(transform.p, IID_IBitmapTransform, "IBitmapTransform", p2):
+      vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, pixelFormat, alphaMode, p2, exifOrientationMode, colorManagementMode, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "BitmapFrame.GetSoftwareBitmapAsync"))
 
 proc newBitmapTransform*(): BitmapTransform =
@@ -5517,28 +5517,28 @@ proc dpiY*(self: SoftwareBitmap): float64  =
     vcall(it, Slot_ISoftwareBitmap_get_DpiY, Fn_ISoftwareBitmap_get_DpiY)(it, tmp.addr).check("SoftwareBitmap.get_DpiY")
     result = tmp
 
-proc lockBuffer*(self: SoftwareBitmap, a1: BitmapBufferAccessMode): BitmapBuffer  =
+proc lockBuffer*(self: SoftwareBitmap, mode: BitmapBufferAccessMode): BitmapBuffer  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.LockBuffer
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
     var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmap_LockBuffer, Fn_ISoftwareBitmap_LockBuffer)(it, a1, tmp.addr).check("SoftwareBitmap.LockBuffer")
+    vcall(it, Slot_ISoftwareBitmap_LockBuffer, Fn_ISoftwareBitmap_LockBuffer)(it, mode, tmp.addr).check("SoftwareBitmap.LockBuffer")
     result = adopt[BitmapBuffer](tmp)
 
-proc copyTo*(self: SoftwareBitmap, a1: SoftwareBitmap)  =
+proc copyTo*(self: SoftwareBitmap, bitmap: SoftwareBitmap)  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CopyTo
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
-    withIface(a1.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+    withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       vcall(it, Slot_ISoftwareBitmap_CopyTo, Fn_ISoftwareBitmap_CopyTo)(it, p0).check("SoftwareBitmap.CopyTo")
 
-proc copyFromBuffer*(self: SoftwareBitmap, a1: pointer)  =
+proc copyFromBuffer*(self: SoftwareBitmap, buffer: pointer)  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CopyFromBuffer
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
-    vcall(it, Slot_ISoftwareBitmap_CopyFromBuffer, Fn_ISoftwareBitmap_CopyFromBuffer)(it, a1).check("SoftwareBitmap.CopyFromBuffer")
+    vcall(it, Slot_ISoftwareBitmap_CopyFromBuffer, Fn_ISoftwareBitmap_CopyFromBuffer)(it, buffer).check("SoftwareBitmap.CopyFromBuffer")
 
-proc copyToBuffer*(self: SoftwareBitmap, a1: pointer)  =
+proc copyToBuffer*(self: SoftwareBitmap, buffer: pointer)  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CopyToBuffer
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
-    vcall(it, Slot_ISoftwareBitmap_CopyToBuffer, Fn_ISoftwareBitmap_CopyToBuffer)(it, a1).check("SoftwareBitmap.CopyToBuffer")
+    vcall(it, Slot_ISoftwareBitmap_CopyToBuffer, Fn_ISoftwareBitmap_CopyToBuffer)(it, buffer).check("SoftwareBitmap.CopyToBuffer")
 
 proc getReadOnlyView*(self: SoftwareBitmap): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.GetReadOnlyView
@@ -5552,70 +5552,70 @@ proc close*(self: SoftwareBitmap)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SoftwareBitmap.Close")
 
-proc copy*(_: typedesc[SoftwareBitmap], a1: SoftwareBitmap): SoftwareBitmap  =
+proc copy*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.Copy
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    withIface(a1.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+    withIface(source.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       var tmp: pointer
       vcall(it, Slot_ISoftwareBitmapStatics_Copy, Fn_ISoftwareBitmapStatics_Copy)(it, p0, tmp.addr).check("SoftwareBitmap.Copy")
       result = adopt[SoftwareBitmap](tmp)
 
-proc convert*(_: typedesc[SoftwareBitmap], a1: SoftwareBitmap, a2: BitmapPixelFormat): SoftwareBitmap  =
+proc convert*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap, format: BitmapPixelFormat): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.Convert
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    withIface(a1.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+    withIface(source.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       var tmp: pointer
-      vcall(it, Slot_ISoftwareBitmapStatics_Convert, Fn_ISoftwareBitmapStatics_Convert)(it, p0, a2, tmp.addr).check("SoftwareBitmap.Convert")
+      vcall(it, Slot_ISoftwareBitmapStatics_Convert, Fn_ISoftwareBitmapStatics_Convert)(it, p0, format, tmp.addr).check("SoftwareBitmap.Convert")
       result = adopt[SoftwareBitmap](tmp)
 
-proc convert*(_: typedesc[SoftwareBitmap], a1: SoftwareBitmap, a2: BitmapPixelFormat, a3: BitmapAlphaMode): SoftwareBitmap  =
+proc convert*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap, format: BitmapPixelFormat, alpha: BitmapAlphaMode): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.Convert
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    withIface(a1.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+    withIface(source.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       var tmp: pointer
-      vcall(it, Slot_ISoftwareBitmapStatics_Convert2, Fn_ISoftwareBitmapStatics_Convert2)(it, p0, a2, a3, tmp.addr).check("SoftwareBitmap.Convert")
+      vcall(it, Slot_ISoftwareBitmapStatics_Convert2, Fn_ISoftwareBitmapStatics_Convert2)(it, p0, format, alpha, tmp.addr).check("SoftwareBitmap.Convert")
       result = adopt[SoftwareBitmap](tmp)
 
-proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], a1: pointer, a2: BitmapPixelFormat, a3: int32, a4: int32): SoftwareBitmap  =
+proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: pointer, format: BitmapPixelFormat, width: int32, height: int32): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromBuffer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer)(it, a1, a2, a3, a4, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer)(it, source, format, width, height, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
     result = adopt[SoftwareBitmap](tmp)
 
-proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], a1: pointer, a2: BitmapPixelFormat, a3: int32, a4: int32, a5: BitmapAlphaMode): SoftwareBitmap  =
+proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: pointer, format: BitmapPixelFormat, width: int32, height: int32, alpha: BitmapAlphaMode): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromBuffer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer2, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2)(it, a1, a2, a3, a4, a5, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer2, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2)(it, source, format, width, height, alpha, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
     result = adopt[SoftwareBitmap](tmp)
 
-proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], a1: pointer): Future[SoftwareBitmap] {.async.} =
+proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], surface: pointer): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync)(it, a1, op.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync)(it, surface, op.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "SoftwareBitmap.CreateCopyFromSurfaceAsync"))
 
-proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], a1: pointer, a2: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
+proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], surface: pointer, alpha: BitmapAlphaMode): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2)(it, a1, a2, op.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
+    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2, Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2)(it, surface, alpha, op.addr).check("SoftwareBitmap.CreateCopyFromSurfaceAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, "SoftwareBitmap.CreateCopyFromSurfaceAsync"))
 
-proc create*(_: typedesc[SoftwareBitmap], a1: BitmapPixelFormat, a2: int32, a3: int32): SoftwareBitmap  =
+proc create*(_: typedesc[SoftwareBitmap], format: BitmapPixelFormat, width: int32, height: int32): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.Create
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapFactory_Create, Fn_ISoftwareBitmapFactory_Create)(it, a1, a2, a3, tmp.addr).check("SoftwareBitmap.Create")
+    vcall(it, Slot_ISoftwareBitmapFactory_Create, Fn_ISoftwareBitmapFactory_Create)(it, format, width, height, tmp.addr).check("SoftwareBitmap.Create")
     result = adopt[SoftwareBitmap](tmp)
 
-proc createWithAlpha*(_: typedesc[SoftwareBitmap], a1: BitmapPixelFormat, a2: int32, a3: int32, a4: BitmapAlphaMode): SoftwareBitmap  =
+proc createWithAlpha*(_: typedesc[SoftwareBitmap], format: BitmapPixelFormat, width: int32, height: int32, alpha: BitmapAlphaMode): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateWithAlpha
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapFactory_CreateWithAlpha, Fn_ISoftwareBitmapFactory_CreateWithAlpha)(it, a1, a2, a3, a4, tmp.addr).check("SoftwareBitmap.CreateWithAlpha")
+    vcall(it, Slot_ISoftwareBitmapFactory_CreateWithAlpha, Fn_ISoftwareBitmapFactory_CreateWithAlpha)(it, format, width, height, alpha, tmp.addr).check("SoftwareBitmap.CreateWithAlpha")
     result = adopt[SoftwareBitmap](tmp)
 
 proc optionId*(self: PrintBindingOptionDetails): string  =
@@ -5664,11 +5664,11 @@ proc value*(self: PrintBindingOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintBindingOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintBindingOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintBindingOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintBindingOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintBindingOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintBindingOptionDetails, value: string)  =
@@ -5743,11 +5743,11 @@ proc value*(self: PrintBorderingOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintBorderingOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintBorderingOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintBorderingOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintBorderingOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintBorderingOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintBorderingOptionDetails, value: string)  =
@@ -5822,11 +5822,11 @@ proc value*(self: PrintCollationOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCollationOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintCollationOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintCollationOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintCollationOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCollationOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintCollationOptionDetails, value: string)  =
@@ -5901,11 +5901,11 @@ proc value*(self: PrintColorModeOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintColorModeOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintColorModeOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintColorModeOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintColorModeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintColorModeOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintColorModeOptionDetails, value: string)  =
@@ -5980,11 +5980,11 @@ proc value*(self: PrintCopiesOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCopiesOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintCopiesOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintCopiesOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintCopiesOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCopiesOptionDetails.TrySetValue")
     result = tmp
 
 proc minValue*(self: PrintCopiesOptionDetails): uint32  =
@@ -6093,11 +6093,11 @@ proc value*(self: PrintCustomItemListOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintCustomItemListOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintCustomItemListOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintCustomItemListOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomItemListOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomItemListOptionDetails, value: string)  =
@@ -6113,20 +6113,20 @@ proc displayName*(self: PrintCustomItemListOptionDetails): string  =
     vcall(it, Slot_IPrintCustomOptionDetails_get_DisplayName, Fn_IPrintCustomOptionDetails_get_DisplayName)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_DisplayName")
     result = takeString(tmp)
 
-proc addItem*(self: PrintCustomItemListOptionDetails, a1: string, a2: string)  =
+proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayName: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.AddItem
   withIface(self.p, IID_IPrintCustomItemListOptionDetails, "IPrintCustomItemListOptionDetails", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(itemId, h0):
+      withHString(displayName, h1):
         vcall(it, Slot_IPrintCustomItemListOptionDetails_AddItem, Fn_IPrintCustomItemListOptionDetails_AddItem)(it, h0, h1).check("PrintCustomItemListOptionDetails.AddItem")
 
-proc addItem*(self: PrintCustomItemListOptionDetails, a1: string, a2: string, a3: string, a4: pointer)  =
+proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayName: string, description: string, icon: pointer)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.AddItem
   withIface(self.p, IID_IPrintCustomItemListOptionDetails2, "IPrintCustomItemListOptionDetails2", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
-        withHString(a3, h2):
-          vcall(it, Slot_IPrintCustomItemListOptionDetails2_AddItem, Fn_IPrintCustomItemListOptionDetails2_AddItem)(it, h0, h1, h2, a4).check("PrintCustomItemListOptionDetails.AddItem")
+    withHString(itemId, h0):
+      withHString(displayName, h1):
+        withHString(description, h2):
+          vcall(it, Slot_IPrintCustomItemListOptionDetails2_AddItem, Fn_IPrintCustomItemListOptionDetails2_AddItem)(it, h0, h1, h2, icon).check("PrintCustomItemListOptionDetails.AddItem")
 
 proc `warningText=`*(self: PrintCustomItemListOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.put_WarningText
@@ -6200,11 +6200,11 @@ proc value*(self: PrintCustomTextOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomTextOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintCustomTextOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintCustomTextOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintCustomTextOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomTextOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomTextOptionDetails, value: string)  =
@@ -6304,11 +6304,11 @@ proc value*(self: PrintCustomToggleOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomToggleOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintCustomToggleOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintCustomToggleOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintCustomToggleOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomToggleOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomToggleOptionDetails, value: string)  =
@@ -6396,11 +6396,11 @@ proc value*(self: PrintDuplexOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintDuplexOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintDuplexOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintDuplexOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintDuplexOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintDuplexOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintDuplexOptionDetails, value: string)  =
@@ -6475,11 +6475,11 @@ proc value*(self: PrintHolePunchOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintHolePunchOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintHolePunchOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintHolePunchOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintHolePunchOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintHolePunchOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintHolePunchOptionDetails, value: string)  =
@@ -6554,11 +6554,11 @@ proc value*(self: PrintMediaSizeOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintMediaSizeOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintMediaSizeOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintMediaSizeOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintMediaSizeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintMediaSizeOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintMediaSizeOptionDetails, value: string)  =
@@ -6633,11 +6633,11 @@ proc value*(self: PrintMediaTypeOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintMediaTypeOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintMediaTypeOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintMediaTypeOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintMediaTypeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintMediaTypeOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintMediaTypeOptionDetails, value: string)  =
@@ -6712,11 +6712,11 @@ proc value*(self: PrintOrientationOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintOrientationOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintOrientationOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintOrientationOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintOrientationOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintOrientationOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintOrientationOptionDetails, value: string)  =
@@ -6791,11 +6791,11 @@ proc value*(self: PrintPageRangeOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintPageRangeOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintPageRangeOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintPageRangeOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintPageRangeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintPageRangeOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintPageRangeOptionDetails, value: string)  =
@@ -6870,11 +6870,11 @@ proc value*(self: PrintQualityOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintQualityOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintQualityOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintQualityOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintQualityOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintQualityOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintQualityOptionDetails, value: string)  =
@@ -6949,11 +6949,11 @@ proc value*(self: PrintStapleOptionDetails): pointer  =
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintStapleOptionDetails.get_Value")
     result = tmp
 
-proc trySetValue*(self: PrintStapleOptionDetails, a1: pointer): bool  =
+proc trySetValue*(self: PrintStapleOptionDetails, value: pointer): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, a1, tmp.addr).check("PrintStapleOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintStapleOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintStapleOptionDetails, value: string)  =
@@ -6989,20 +6989,20 @@ proc optionId*(self: PrintTaskOptionChangedEventArgs): pointer  =
     vcall(it, Slot_IPrintTaskOptionChangedEventArgs_get_OptionId, Fn_IPrintTaskOptionChangedEventArgs_get_OptionId)(it, tmp.addr).check("PrintTaskOptionChangedEventArgs.get_OptionId")
     result = tmp
 
-proc createItemListOption*(self: PrintTaskOptionDetails, a1: string, a2: string): PrintCustomItemListOptionDetails  =
+proc createItemListOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomItemListOptionDetails  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.CreateItemListOption
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(optionId, h0):
+      withHString(displayName, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTaskOptionDetails_CreateItemListOption, Fn_IPrintTaskOptionDetails_CreateItemListOption)(it, h0, h1, tmp.addr).check("PrintTaskOptionDetails.CreateItemListOption")
         result = adopt[PrintCustomItemListOptionDetails](tmp)
 
-proc createTextOption*(self: PrintTaskOptionDetails, a1: string, a2: string): PrintCustomTextOptionDetails  =
+proc createTextOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomTextOptionDetails  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.CreateTextOption
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(optionId, h0):
+      withHString(displayName, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTaskOptionDetails_CreateTextOption, Fn_IPrintTaskOptionDetails_CreateTextOption)(it, h0, h1, tmp.addr).check("PrintTaskOptionDetails.CreateTextOption")
         result = adopt[PrintCustomTextOptionDetails](tmp)
@@ -7045,11 +7045,11 @@ proc removeBeginValidation*(self: PrintTaskOptionDetails, token: EventRegistrati
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
     vcall(it, Slot_IPrintTaskOptionDetails_remove_BeginValidation, Fn_IPrintTaskOptionDetails_remove_BeginValidation)(it, token).check("PrintTaskOptionDetails.remove_BeginValidation")
 
-proc getPageDescription*(self: PrintTaskOptionDetails, a1: uint32): PrintPageDescription  =
+proc getPageDescription*(self: PrintTaskOptionDetails, jobPageNumber: uint32): PrintPageDescription  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.GetPageDescription
   withIface(self.p, IID_IPrintTaskOptionsCore, "IPrintTaskOptionsCore", it):
     var tmp: PrintPageDescription
-    vcall(it, Slot_IPrintTaskOptionsCore_GetPageDescription, Fn_IPrintTaskOptionsCore_GetPageDescription)(it, a1, tmp.addr).check("PrintTaskOptionDetails.GetPageDescription")
+    vcall(it, Slot_IPrintTaskOptionsCore_GetPageDescription, Fn_IPrintTaskOptionsCore_GetPageDescription)(it, jobPageNumber, tmp.addr).check("PrintTaskOptionDetails.GetPageDescription")
     result = tmp
 
 proc displayedOptions*(self: PrintTaskOptionDetails): seq[string]  =
@@ -7060,19 +7060,19 @@ proc displayedOptions*(self: PrintTaskOptionDetails): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc createToggleOption*(self: PrintTaskOptionDetails, a1: string, a2: string): PrintCustomToggleOptionDetails  =
+proc createToggleOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomToggleOptionDetails  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.CreateToggleOption
   withIface(self.p, IID_IPrintTaskOptionDetails2, "IPrintTaskOptionDetails2", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(optionId, h0):
+      withHString(displayName, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTaskOptionDetails2_CreateToggleOption, Fn_IPrintTaskOptionDetails2_CreateToggleOption)(it, h0, h1, tmp.addr).check("PrintTaskOptionDetails.CreateToggleOption")
         result = adopt[PrintCustomToggleOptionDetails](tmp)
 
-proc getFromPrintTaskOptions*(_: typedesc[PrintTaskOptionDetails], a1: PrintTaskOptions): PrintTaskOptionDetails  =
+proc getFromPrintTaskOptions*(_: typedesc[PrintTaskOptionDetails], printTaskOptions: PrintTaskOptions): PrintTaskOptionDetails  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.GetFromPrintTaskOptions
   withStatics("Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails", IID_IPrintTaskOptionDetailsStatic, it):
-    withIface(a1.p, IID_IPrintTaskOptionsCore, "IPrintTaskOptionsCore", p0):
+    withIface(printTaskOptions.p, IID_IPrintTaskOptionsCore, "IPrintTaskOptionsCore", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintTaskOptionDetailsStatic_GetFromPrintTaskOptions, Fn_IPrintTaskOptionDetailsStatic_GetFromPrintTaskOptions)(it, p0, tmp.addr).check("PrintTaskOptionDetails.GetFromPrintTaskOptions")
       result = adopt[PrintTaskOptionDetails](tmp)
@@ -7195,18 +7195,18 @@ proc lastPageNumber*(self: PrintPageRange): int32  =
     vcall(it, Slot_IPrintPageRange_get_LastPageNumber, Fn_IPrintPageRange_get_LastPageNumber)(it, tmp.addr).check("PrintPageRange.get_LastPageNumber")
     result = tmp
 
-proc create*(_: typedesc[PrintPageRange], a1: int32, a2: int32): PrintPageRange  =
+proc create*(_: typedesc[PrintPageRange], firstPage: int32, lastPage: int32): PrintPageRange  =
   ## Windows.Graphics.Printing.PrintPageRange.Create
   withStatics("Windows.Graphics.Printing.PrintPageRange", IID_IPrintPageRangeFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrintPageRangeFactory_Create, Fn_IPrintPageRangeFactory_Create)(it, a1, a2, tmp.addr).check("PrintPageRange.Create")
+    vcall(it, Slot_IPrintPageRangeFactory_Create, Fn_IPrintPageRangeFactory_Create)(it, firstPage, lastPage, tmp.addr).check("PrintPageRange.Create")
     result = adopt[PrintPageRange](tmp)
 
-proc createWithSinglePage*(_: typedesc[PrintPageRange], a1: int32): PrintPageRange  =
+proc createWithSinglePage*(_: typedesc[PrintPageRange], page: int32): PrintPageRange  =
   ## Windows.Graphics.Printing.PrintPageRange.CreateWithSinglePage
   withStatics("Windows.Graphics.Printing.PrintPageRange", IID_IPrintPageRangeFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrintPageRangeFactory_CreateWithSinglePage, Fn_IPrintPageRangeFactory_CreateWithSinglePage)(it, a1, tmp.addr).check("PrintPageRange.CreateWithSinglePage")
+    vcall(it, Slot_IPrintPageRangeFactory_CreateWithSinglePage, Fn_IPrintPageRangeFactory_CreateWithSinglePage)(it, page, tmp.addr).check("PrintPageRange.CreateWithSinglePage")
     result = adopt[PrintPageRange](tmp)
 
 proc `allowAllPages=`*(self: PrintPageRangeOptions, value: bool)  =
@@ -7252,20 +7252,20 @@ proc supportedContracts*(self: PrintSupportAppInfo): PrintSupportAppContracts  =
     vcall(it, Slot_IPrintSupportAppInfo_get_SupportedContracts, Fn_IPrintSupportAppInfo_get_SupportedContracts)(it, tmp.addr).check("PrintSupportAppInfo.get_SupportedContracts")
     result = tmp
 
-proc getPrintJobShowsUI*(_: typedesc[PrintSupportAppInfo], a1: string, a2: WorkflowPrintTicket): Option[bool]  =
+proc getPrintJobShowsUI*(_: typedesc[PrintSupportAppInfo], printerName: string, printTicket: WorkflowPrintTicket): Option[bool]  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.GetPrintJobShowsUI
   withStatics("Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo", IID_IPrintSupportAppInfoStatics, it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p1):
+    withHString(printerName, h0):
+      withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p1):
         var tmp: pointer
         vcall(it, Slot_IPrintSupportAppInfoStatics_GetPrintJobShowsUI, Fn_IPrintSupportAppInfoStatics_GetPrintJobShowsUI)(it, h0, p1, tmp.addr).check("PrintSupportAppInfo.GetPrintJobShowsUI")
         result = readReference[bool](tmp, IID_IReference_1_Bool, "PrintSupportAppInfo.GetPrintJobShowsUI")
         release(tmp)
 
-proc fromPrinterName*(_: typedesc[PrintSupportAppInfo], a1: string): PrintSupportAppInfo  =
+proc fromPrinterName*(_: typedesc[PrintSupportAppInfo], printerName: string): PrintSupportAppInfo  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.FromPrinterName
   withStatics("Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo", IID_IPrintSupportAppInfoStatics, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       var tmp: pointer
       vcall(it, Slot_IPrintSupportAppInfoStatics_FromPrinterName, Fn_IPrintSupportAppInfoStatics_FromPrinterName)(it, h0, tmp.addr).check("PrintSupportAppInfo.FromPrinterName")
       result = adopt[PrintSupportAppInfo](tmp)
@@ -7548,10 +7548,10 @@ proc resourceLanguage*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs
     vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_get_ResourceLanguage, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_get_ResourceLanguage)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.get_ResourceLanguage")
     result = takeString(tmp)
 
-proc setPrintDeviceCapabilitiesUpdatePolicy*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, a1: PrintSupportPrintDeviceCapabilitiesUpdatePolicy)  =
+proc setPrintDeviceCapabilitiesUpdatePolicy*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, updatePolicy: PrintSupportPrintDeviceCapabilitiesUpdatePolicy)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.SetPrintDeviceCapabilitiesUpdatePolicy
   withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2", it):
-    withIface(a1.p, IID_IPrintSupportPrintDeviceCapabilitiesUpdatePolicy, "IPrintSupportPrintDeviceCapabilitiesUpdatePolicy", p0):
+    withIface(updatePolicy.p, IID_IPrintSupportPrintDeviceCapabilitiesUpdatePolicy, "IPrintSupportPrintDeviceCapabilitiesUpdatePolicy", p0):
       vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetPrintDeviceCapabilitiesUpdatePolicy, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetPrintDeviceCapabilitiesUpdatePolicy)(it, p0).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.SetPrintDeviceCapabilitiesUpdatePolicy")
 
 proc communicationConfiguration*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): PrintSupportIppCommunicationConfiguration  =
@@ -7568,18 +7568,18 @@ proc mxdcImageQualityConfiguration*(self: PrintSupportPrintDeviceCapabilitiesCha
     vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs4_get_MxdcImageQualityConfiguration, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs4_get_MxdcImageQualityConfiguration)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.get_MxdcImageQualityConfiguration")
     result = adopt[PrintSupportMxdcImageQualityConfiguration](tmp)
 
-proc createPeriodicRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdatePolicy], a1: TimeSpan): PrintSupportPrintDeviceCapabilitiesUpdatePolicy  =
+proc createPeriodicRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdatePolicy], updatePeriod: TimeSpan): PrintSupportPrintDeviceCapabilitiesUpdatePolicy  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePeriodicRefresh
   withStatics("Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy", IID_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePeriodicRefresh, Fn_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePeriodicRefresh)(it, a1, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePeriodicRefresh")
+    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePeriodicRefresh, Fn_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePeriodicRefresh)(it, updatePeriod, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePeriodicRefresh")
     result = adopt[PrintSupportPrintDeviceCapabilitiesUpdatePolicy](tmp)
 
-proc createPrintJobRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdatePolicy], a1: uint32): PrintSupportPrintDeviceCapabilitiesUpdatePolicy  =
+proc createPrintJobRefresh*(_: typedesc[PrintSupportPrintDeviceCapabilitiesUpdatePolicy], numberOfJobs: uint32): PrintSupportPrintDeviceCapabilitiesUpdatePolicy  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePrintJobRefresh
   withStatics("Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy", IID_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePrintJobRefresh, Fn_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePrintJobRefresh)(it, a1, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePrintJobRefresh")
+    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePrintJobRefresh, Fn_IPrintSupportPrintDeviceCapabilitiesUpdatePolicyStatics_CreatePrintJobRefresh)(it, numberOfJobs, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesUpdatePolicy.CreatePrintJobRefresh")
     result = adopt[PrintSupportPrintDeviceCapabilitiesUpdatePolicy](tmp)
 
 proc newPrintSupportPrintTicketElement*(): PrintSupportPrintTicketElement =
@@ -7619,10 +7619,10 @@ proc printTicket*(self: PrintSupportPrintTicketValidationRequestedEventArgs): Wo
     vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_get_PrintTicket, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_get_PrintTicket)(it, tmp.addr).check("PrintSupportPrintTicketValidationRequestedEventArgs.get_PrintTicket")
     result = adopt[WorkflowPrintTicket](tmp)
 
-proc setPrintTicketValidationStatus*(self: PrintSupportPrintTicketValidationRequestedEventArgs, a1: WorkflowPrintTicketValidationStatus)  =
+proc setPrintTicketValidationStatus*(self: PrintSupportPrintTicketValidationRequestedEventArgs, status: WorkflowPrintTicketValidationStatus)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintTicketValidationStatus
   withIface(self.p, IID_IPrintSupportPrintTicketValidationRequestedEventArgs, "IPrintSupportPrintTicketValidationRequestedEventArgs", it):
-    vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus)(it, a1).check("PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintTicketValidationStatus")
+    vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus)(it, status).check("PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintTicketValidationStatus")
 
 proc getDeferral*(self: PrintSupportPrintTicketValidationRequestedEventArgs): Deferral  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintTicketValidationRequestedEventArgs.GetDeferral
@@ -7631,10 +7631,10 @@ proc getDeferral*(self: PrintSupportPrintTicketValidationRequestedEventArgs): De
     vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_GetDeferral, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("PrintSupportPrintTicketValidationRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc setPrintJobShowsUI*(self: PrintSupportPrintTicketValidationRequestedEventArgs, a1: bool)  =
+proc setPrintJobShowsUI*(self: PrintSupportPrintTicketValidationRequestedEventArgs, showsUI: bool)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintJobShowsUI
   withIface(self.p, IID_IPrintSupportPrintTicketValidationRequestedEventArgs2, "IPrintSupportPrintTicketValidationRequestedEventArgs2", it):
-    vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI)(it, a1).check("PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintJobShowsUI")
+    vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI)(it, showsUI).check("PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintJobShowsUI")
 
 proc printTicket*(self: PrintSupportPrinterSelectedEventArgs): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.get_PrintTicket
@@ -7656,10 +7656,10 @@ proc allowedAdditionalFeaturesAndParametersCount*(self: PrintSupportPrinterSelec
     vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_get_AllowedAdditionalFeaturesAndParametersCount, Fn_IPrintSupportPrinterSelectedEventArgs_get_AllowedAdditionalFeaturesAndParametersCount)(it, tmp.addr).check("PrintSupportPrinterSelectedEventArgs.get_AllowedAdditionalFeaturesAndParametersCount")
     result = tmp
 
-proc setAdaptiveCard*(self: PrintSupportPrinterSelectedEventArgs, a1: pointer)  =
+proc setAdaptiveCard*(self: PrintSupportPrinterSelectedEventArgs, adaptiveCard: pointer)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.SetAdaptiveCard
   withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
-    vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_SetAdaptiveCard, Fn_IPrintSupportPrinterSelectedEventArgs_SetAdaptiveCard)(it, a1).check("PrintSupportPrinterSelectedEventArgs.SetAdaptiveCard")
+    vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_SetAdaptiveCard, Fn_IPrintSupportPrinterSelectedEventArgs_SetAdaptiveCard)(it, adaptiveCard).check("PrintSupportPrinterSelectedEventArgs.SetAdaptiveCard")
 
 proc getDeferral*(self: PrintSupportPrinterSelectedEventArgs): Deferral  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.GetDeferral
@@ -7703,10 +7703,10 @@ proc launchKind*(self: PrintSupportSettingsUISession): SettingsLaunchKind  =
     vcall(it, Slot_IPrintSupportSettingsUISession_get_LaunchKind, Fn_IPrintSupportSettingsUISession_get_LaunchKind)(it, tmp.addr).check("PrintSupportSettingsUISession.get_LaunchKind")
     result = tmp
 
-proc updatePrintTicket*(self: PrintSupportSettingsUISession, a1: WorkflowPrintTicket)  =
+proc updatePrintTicket*(self: PrintSupportSettingsUISession, printTicket: WorkflowPrintTicket)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsUISession.UpdatePrintTicket
   withIface(self.p, IID_IPrintSupportSettingsUISession, "IPrintSupportSettingsUISession", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+    withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       vcall(it, Slot_IPrintSupportSettingsUISession_UpdatePrintTicket, Fn_IPrintSupportSettingsUISession_UpdatePrintTicket)(it, p0).check("PrintSupportSettingsUISession.UpdatePrintTicket")
 
 proc sessionInfo*(self: PrintSupportSettingsUISession): PrintSupportSessionInfo  =
@@ -7849,11 +7849,11 @@ proc completion*(self: PrintTaskCompletedEventArgs): PrintTaskCompletion  =
     vcall(it, Slot_IPrintTaskCompletedEventArgs_get_Completion, Fn_IPrintTaskCompletedEventArgs_get_Completion)(it, tmp.addr).check("PrintTaskCompletedEventArgs.get_Completion")
     result = tmp
 
-proc getPageDescription*(self: PrintTaskOptions, a1: uint32): PrintPageDescription  =
+proc getPageDescription*(self: PrintTaskOptions, jobPageNumber: uint32): PrintPageDescription  =
   ## Windows.Graphics.Printing.PrintTaskOptions.GetPageDescription
   withIface(self.p, IID_IPrintTaskOptionsCore, "IPrintTaskOptionsCore", it):
     var tmp: PrintPageDescription
-    vcall(it, Slot_IPrintTaskOptionsCore_GetPageDescription, Fn_IPrintTaskOptionsCore_GetPageDescription)(it, a1, tmp.addr).check("PrintTaskOptions.GetPageDescription")
+    vcall(it, Slot_IPrintTaskOptionsCore_GetPageDescription, Fn_IPrintTaskOptionsCore_GetPageDescription)(it, jobPageNumber, tmp.addr).check("PrintTaskOptions.GetPageDescription")
     result = tmp
 
 proc `mediaSize=`*(self: PrintTaskOptions, value: PrintMediaSize)  =
@@ -8022,10 +8022,10 @@ proc bordering*(self: PrintTaskOptions): PrintBordering  =
     vcall(it, Slot_IPrintTaskOptions_get_Bordering, Fn_IPrintTaskOptions_get_Bordering)(it, tmp.addr).check("PrintTaskOptions.get_Bordering")
     result = tmp
 
-proc getPagePrintTicket*(self: PrintTaskOptions, a1: PrintPageInfo): pointer  =
+proc getPagePrintTicket*(self: PrintTaskOptions, printPageInfo: PrintPageInfo): pointer  =
   ## Windows.Graphics.Printing.PrintTaskOptions.GetPagePrintTicket
   withIface(self.p, IID_IPrintTaskOptions, "IPrintTaskOptions", it):
-    withIface(a1.p, IID_IPrintPageInfo, "IPrintPageInfo", p0):
+    withIface(printPageInfo.p, IID_IPrintPageInfo, "IPrintPageInfo", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintTaskOptions_GetPagePrintTicket, Fn_IPrintTaskOptions_GetPagePrintTicket)(it, p0, tmp.addr).check("PrintTaskOptions.GetPagePrintTicket")
       result = tmp
@@ -8085,10 +8085,10 @@ proc deadline*(self: PrintTaskSourceRequestedArgs): DateTime  =
     vcall(it, Slot_IPrintTaskSourceRequestedArgs_get_Deadline, Fn_IPrintTaskSourceRequestedArgs_get_Deadline)(it, tmp.addr).check("PrintTaskSourceRequestedArgs.get_Deadline")
     result = tmp
 
-proc setSource*(self: PrintTaskSourceRequestedArgs, a1: pointer)  =
+proc setSource*(self: PrintTaskSourceRequestedArgs, source: pointer)  =
   ## Windows.Graphics.Printing.PrintTaskSourceRequestedArgs.SetSource
   withIface(self.p, IID_IPrintTaskSourceRequestedArgs, "IPrintTaskSourceRequestedArgs", it):
-    vcall(it, Slot_IPrintTaskSourceRequestedArgs_SetSource, Fn_IPrintTaskSourceRequestedArgs_SetSource)(it, a1).check("PrintTaskSourceRequestedArgs.SetSource")
+    vcall(it, Slot_IPrintTaskSourceRequestedArgs_SetSource, Fn_IPrintTaskSourceRequestedArgs_SetSource)(it, source).check("PrintTaskSourceRequestedArgs.SetSource")
 
 proc getDeferral*(self: PrintTaskSourceRequestedArgs): PrintTaskSourceRequestedDeferral  =
   ## Windows.Graphics.Printing.PrintTaskSourceRequestedArgs.GetDeferral
@@ -8228,20 +8228,20 @@ proc pageResolutionFeature*(self: PrintTicketCapabilities): PrintTicketFeature  
     vcall(it, Slot_IPrintTicketCapabilities_get_PageResolutionFeature, Fn_IPrintTicketCapabilities_get_PageResolutionFeature)(it, tmp.addr).check("PrintTicketCapabilities.get_PageResolutionFeature")
     result = adopt[PrintTicketFeature](tmp)
 
-proc getFeature*(self: PrintTicketCapabilities, a1: string, a2: string): PrintTicketFeature  =
+proc getFeature*(self: PrintTicketCapabilities, name: string, xmlNamespace: string): PrintTicketFeature  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketCapabilities.GetFeature
   withIface(self.p, IID_IPrintTicketCapabilities, "IPrintTicketCapabilities", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketCapabilities_GetFeature, Fn_IPrintTicketCapabilities_GetFeature)(it, h0, h1, tmp.addr).check("PrintTicketCapabilities.GetFeature")
         result = adopt[PrintTicketFeature](tmp)
 
-proc getParameterDefinition*(self: PrintTicketCapabilities, a1: string, a2: string): PrintTicketParameterDefinition  =
+proc getParameterDefinition*(self: PrintTicketCapabilities, name: string, xmlNamespace: string): PrintTicketParameterDefinition  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketCapabilities.GetParameterDefinition
   withIface(self.p, IID_IPrintTicketCapabilities, "IPrintTicketCapabilities", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketCapabilities_GetParameterDefinition, Fn_IPrintTicketCapabilities_GetParameterDefinition)(it, h0, h1, tmp.addr).check("PrintTicketCapabilities.GetParameterDefinition")
         result = adopt[PrintTicketParameterDefinition](tmp)
@@ -8274,11 +8274,11 @@ proc displayName*(self: PrintTicketFeature): string  =
     vcall(it, Slot_IPrintTicketFeature_get_DisplayName, Fn_IPrintTicketFeature_get_DisplayName)(it, tmp.addr).check("PrintTicketFeature.get_DisplayName")
     result = takeString(tmp)
 
-proc getOption*(self: PrintTicketFeature, a1: string, a2: string): PrintTicketOption  =
+proc getOption*(self: PrintTicketFeature, name: string, xmlNamespace: string): PrintTicketOption  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketFeature.GetOption
   withIface(self.p, IID_IPrintTicketFeature, "IPrintTicketFeature", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketFeature_GetOption, Fn_IPrintTicketFeature_GetOption)(it, h0, h1, tmp.addr).check("PrintTicketFeature.GetOption")
         result = adopt[PrintTicketOption](tmp)
@@ -8298,10 +8298,10 @@ proc getSelectedOption*(self: PrintTicketFeature): PrintTicketOption  =
     vcall(it, Slot_IPrintTicketFeature_GetSelectedOption, Fn_IPrintTicketFeature_GetSelectedOption)(it, tmp.addr).check("PrintTicketFeature.GetSelectedOption")
     result = adopt[PrintTicketOption](tmp)
 
-proc setSelectedOption*(self: PrintTicketFeature, a1: PrintTicketOption)  =
+proc setSelectedOption*(self: PrintTicketFeature, value: PrintTicketOption)  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketFeature.SetSelectedOption
   withIface(self.p, IID_IPrintTicketFeature, "IPrintTicketFeature", it):
-    withIface(a1.p, IID_IPrintTicketOption, "IPrintTicketOption", p0):
+    withIface(value.p, IID_IPrintTicketOption, "IPrintTicketOption", p0):
       vcall(it, Slot_IPrintTicketFeature_SetSelectedOption, Fn_IPrintTicketFeature_SetSelectedOption)(it, p0).check("PrintTicketFeature.SetSelectedOption")
 
 proc selectionType*(self: PrintTicketFeature): PrintTicketFeatureSelectionType  =
@@ -8339,38 +8339,38 @@ proc displayName*(self: PrintTicketOption): string  =
     vcall(it, Slot_IPrintTicketOption_get_DisplayName, Fn_IPrintTicketOption_get_DisplayName)(it, tmp.addr).check("PrintTicketOption.get_DisplayName")
     result = takeString(tmp)
 
-proc getPropertyNode*(self: PrintTicketOption, a1: string, a2: string): pointer  =
+proc getPropertyNode*(self: PrintTicketOption, name: string, xmlNamespace: string): pointer  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketOption.GetPropertyNode
   withIface(self.p, IID_IPrintTicketOption, "IPrintTicketOption", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketOption_GetPropertyNode, Fn_IPrintTicketOption_GetPropertyNode)(it, h0, h1, tmp.addr).check("PrintTicketOption.GetPropertyNode")
         result = tmp
 
-proc getScoredPropertyNode*(self: PrintTicketOption, a1: string, a2: string): pointer  =
+proc getScoredPropertyNode*(self: PrintTicketOption, name: string, xmlNamespace: string): pointer  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketOption.GetScoredPropertyNode
   withIface(self.p, IID_IPrintTicketOption, "IPrintTicketOption", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketOption_GetScoredPropertyNode, Fn_IPrintTicketOption_GetScoredPropertyNode)(it, h0, h1, tmp.addr).check("PrintTicketOption.GetScoredPropertyNode")
         result = tmp
 
-proc getPropertyValue*(self: PrintTicketOption, a1: string, a2: string): PrintTicketValue  =
+proc getPropertyValue*(self: PrintTicketOption, name: string, xmlNamespace: string): PrintTicketValue  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketOption.GetPropertyValue
   withIface(self.p, IID_IPrintTicketOption, "IPrintTicketOption", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketOption_GetPropertyValue, Fn_IPrintTicketOption_GetPropertyValue)(it, h0, h1, tmp.addr).check("PrintTicketOption.GetPropertyValue")
         result = adopt[PrintTicketValue](tmp)
 
-proc getScoredPropertyValue*(self: PrintTicketOption, a1: string, a2: string): PrintTicketValue  =
+proc getScoredPropertyValue*(self: PrintTicketOption, name: string, xmlNamespace: string): PrintTicketValue  =
   ## Windows.Graphics.Printing.PrintTicket.PrintTicketOption.GetScoredPropertyValue
   withIface(self.p, IID_IPrintTicketOption, "IPrintTicketOption", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintTicketOption_GetScoredPropertyValue, Fn_IPrintTicketOption_GetScoredPropertyValue)(it, h0, h1, tmp.addr).check("PrintTicketOption.GetScoredPropertyValue")
         result = adopt[PrintTicketValue](tmp)
@@ -8612,11 +8612,11 @@ proc pageResolutionFeature*(self: WorkflowPrintTicket): PrintTicketFeature  =
     vcall(it, Slot_IWorkflowPrintTicket_get_PageResolutionFeature, Fn_IWorkflowPrintTicket_get_PageResolutionFeature)(it, tmp.addr).check("WorkflowPrintTicket.get_PageResolutionFeature")
     result = adopt[PrintTicketFeature](tmp)
 
-proc getFeature*(self: WorkflowPrintTicket, a1: string, a2: string): PrintTicketFeature  =
+proc getFeature*(self: WorkflowPrintTicket, name: string, xmlNamespace: string): PrintTicketFeature  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.GetFeature
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IWorkflowPrintTicket_GetFeature, Fn_IWorkflowPrintTicket_GetFeature)(it, h0, h1, tmp.addr).check("WorkflowPrintTicket.GetFeature")
         result = adopt[PrintTicketFeature](tmp)
@@ -8635,48 +8635,48 @@ proc validateAsync*(self: WorkflowPrintTicket): Future[WorkflowPrintTicketValida
     vcall(it, Slot_IWorkflowPrintTicket_ValidateAsync, Fn_IWorkflowPrintTicket_ValidateAsync)(it, op.addr).check("WorkflowPrintTicket.ValidateAsync")
   result = adopt[WorkflowPrintTicketValidationResult](await awaitObject(op, IID_IAsyncOperation_1_WorkflowPrintTicketValidationResult, IID_AsyncOperationCompletedHandler_1_WorkflowPrintTicketValidationResult, "WorkflowPrintTicket.ValidateAsync"))
 
-proc getParameterInitializer*(self: WorkflowPrintTicket, a1: string, a2: string): PrintTicketParameterInitializer  =
+proc getParameterInitializer*(self: WorkflowPrintTicket, name: string, xmlNamespace: string): PrintTicketParameterInitializer  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.GetParameterInitializer
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
         vcall(it, Slot_IWorkflowPrintTicket_GetParameterInitializer, Fn_IWorkflowPrintTicket_GetParameterInitializer)(it, h0, h1, tmp.addr).check("WorkflowPrintTicket.GetParameterInitializer")
         result = adopt[PrintTicketParameterInitializer](tmp)
 
-proc setParameterInitializerAsInteger*(self: WorkflowPrintTicket, a1: string, a2: string, a3: int32): PrintTicketParameterInitializer  =
+proc setParameterInitializerAsInteger*(self: WorkflowPrintTicket, name: string, xmlNamespace: string, integerValue: int32): PrintTicketParameterInitializer  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.SetParameterInitializerAsInteger
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
         var tmp: pointer
-        vcall(it, Slot_IWorkflowPrintTicket_SetParameterInitializerAsInteger, Fn_IWorkflowPrintTicket_SetParameterInitializerAsInteger)(it, h0, h1, a3, tmp.addr).check("WorkflowPrintTicket.SetParameterInitializerAsInteger")
+        vcall(it, Slot_IWorkflowPrintTicket_SetParameterInitializerAsInteger, Fn_IWorkflowPrintTicket_SetParameterInitializerAsInteger)(it, h0, h1, integerValue, tmp.addr).check("WorkflowPrintTicket.SetParameterInitializerAsInteger")
         result = adopt[PrintTicketParameterInitializer](tmp)
 
-proc setParameterInitializerAsString*(self: WorkflowPrintTicket, a1: string, a2: string, a3: string): PrintTicketParameterInitializer  =
+proc setParameterInitializerAsString*(self: WorkflowPrintTicket, name: string, xmlNamespace: string, stringValue: string): PrintTicketParameterInitializer  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.SetParameterInitializerAsString
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
-        withHString(a3, h2):
+    withHString(name, h0):
+      withHString(xmlNamespace, h1):
+        withHString(stringValue, h2):
           var tmp: pointer
           vcall(it, Slot_IWorkflowPrintTicket_SetParameterInitializerAsString, Fn_IWorkflowPrintTicket_SetParameterInitializerAsString)(it, h0, h1, h2, tmp.addr).check("WorkflowPrintTicket.SetParameterInitializerAsString")
           result = adopt[PrintTicketParameterInitializer](tmp)
 
-proc mergeAndValidateTicket*(self: WorkflowPrintTicket, a1: WorkflowPrintTicket): WorkflowPrintTicket  =
+proc mergeAndValidateTicket*(self: WorkflowPrintTicket, deltaShemaTicket: WorkflowPrintTicket): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.MergeAndValidateTicket
   withIface(self.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+    withIface(deltaShemaTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       var tmp: pointer
       vcall(it, Slot_IWorkflowPrintTicket_MergeAndValidateTicket, Fn_IWorkflowPrintTicket_MergeAndValidateTicket)(it, p0, tmp.addr).check("WorkflowPrintTicket.MergeAndValidateTicket")
       result = adopt[WorkflowPrintTicket](tmp)
 
-proc createInstance*(_: typedesc[WorkflowPrintTicket], a1: string, a2: pointer): WorkflowPrintTicket  =
+proc createInstance*(_: typedesc[WorkflowPrintTicket], printerName: string, printTicketStream: pointer): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.CreateInstance
   withStatics("Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket", IID_IWorkflowPrintTicketFactory, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       var tmp: pointer
-      vcall(it, Slot_IWorkflowPrintTicketFactory_CreateInstance, Fn_IWorkflowPrintTicketFactory_CreateInstance)(it, h0, a2, tmp.addr).check("WorkflowPrintTicket.CreateInstance")
+      vcall(it, Slot_IWorkflowPrintTicketFactory_CreateInstance, Fn_IWorkflowPrintTicketFactory_CreateInstance)(it, h0, printTicketStream, tmp.addr).check("WorkflowPrintTicket.CreateInstance")
       result = adopt[WorkflowPrintTicket](tmp)
 
 proc validated*(self: WorkflowPrintTicketValidationResult): bool  =
@@ -8881,10 +8881,10 @@ proc getDeferral*(self: PrintWorkflowBackgroundSetupRequestedEventArgs): Deferra
     vcall(it, Slot_IPrintWorkflowBackgroundSetupRequestedEventArgs_GetDeferral, Fn_IPrintWorkflowBackgroundSetupRequestedEventArgs_GetDeferral)(it, tmp.addr).check("PrintWorkflowBackgroundSetupRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc abortPrintFlow*(self: PrintWorkflowConfiguration, a1: PrintWorkflowJobAbortReason)  =
+proc abortPrintFlow*(self: PrintWorkflowConfiguration, reason: PrintWorkflowJobAbortReason)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration.AbortPrintFlow
   withIface(self.p, IID_IPrintWorkflowConfiguration2, "IPrintWorkflowConfiguration2", it):
-    vcall(it, Slot_IPrintWorkflowConfiguration2_AbortPrintFlow, Fn_IPrintWorkflowConfiguration2_AbortPrintFlow)(it, a1).check("PrintWorkflowConfiguration.AbortPrintFlow")
+    vcall(it, Slot_IPrintWorkflowConfiguration2_AbortPrintFlow, Fn_IPrintWorkflowConfiguration2_AbortPrintFlow)(it, reason).check("PrintWorkflowConfiguration.AbortPrintFlow")
 
 proc sourceAppDisplayName*(self: PrintWorkflowConfiguration): string  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowConfiguration.get_SourceAppDisplayName
@@ -9267,35 +9267,35 @@ proc removeVirtualPrinterUIDataAvailable*(self: PrintWorkflowJobUISession, token
   withIface(self.p, IID_IPrintWorkflowJobUISession2, "IPrintWorkflowJobUISession2", it):
     vcall(it, Slot_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable, Fn_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable)(it, token).check("PrintWorkflowJobUISession.remove_VirtualPrinterUIDataAvailable")
 
-proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent], a1: pointer): PrintWorkflowObjectModelSourceFileContent  =
+proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent], xpsStream: pointer): PrintWorkflowObjectModelSourceFileContent  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent.CreateInstance
   withStatics("Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent", IID_IPrintWorkflowObjectModelSourceFileContentFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance, Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance)(it, a1, tmp.addr).check("PrintWorkflowObjectModelSourceFileContent.CreateInstance")
+    vcall(it, Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance, Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance)(it, xpsStream, tmp.addr).check("PrintWorkflowObjectModelSourceFileContent.CreateInstance")
     result = adopt[PrintWorkflowObjectModelSourceFileContent](tmp)
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer) {.async.} =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: pointer, outputStream: pointer) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter, "IPrintWorkflowPdlConverter", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter_ConvertPdlAsync)(it, p0, a2, a3, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
+    withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+      vcall(it, Slot_IPrintWorkflowPdlConverter_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter_ConvertPdlAsync)(it, p0, inputStream, outputStream, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations) {.async.} =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: pointer, outputStream: pointer, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter2, "IPrintWorkflowPdlConverter2", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync)(it, p0, a2, a3, a4, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
+    withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+      vcall(it, Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync)(it, p0, inputStream, outputStream, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
-proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, a1: WorkflowPrintTicket, a2: pointer, a3: pointer, a4: PdlConversionHostBasedProcessingOperations) {.async.} =
+proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, objectModelProvider: pointer, outputStream: pointer, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter3, "IPrintWorkflowPdlConverter3", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync, Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync)(it, p0, a2, a3, a4, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
+    withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+      vcall(it, Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync, Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync)(it, p0, objectModelProvider, outputStream, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
 
 proc configuration*(self: PrintWorkflowPdlDataAvailableEventArgs): PrintWorkflowConfiguration  =
@@ -9354,27 +9354,27 @@ proc uILauncher*(self: PrintWorkflowPdlModificationRequestedEventArgs): PrintWor
     vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_get_UILauncher, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_get_UILauncher)(it, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.get_UILauncher")
     result = adopt[PrintWorkflowUILauncher](tmp)
 
-proc createJobOnPrinter*(self: PrintWorkflowPdlModificationRequestedEventArgs, a1: string): PrintWorkflowPdlTargetStream  =
+proc createJobOnPrinter*(self: PrintWorkflowPdlModificationRequestedEventArgs, targetContentType: string): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinter
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
-    withHString(a1, h0):
+    withHString(targetContentType, h0):
       var tmp: pointer
       vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter)(it, h0, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinter")
       result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
-proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, a1: pointer, a2: string): PrintWorkflowPdlTargetStream  =
+proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: pointer, targetContentType: string): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
-    withHString(a2, h1):
+    withHString(targetContentType, h1):
       var tmp: pointer
-      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer)(it, a1, h1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
+      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer)(it, jobAttributesBuffer, h1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
       result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
-proc getPdlConverter*(self: PrintWorkflowPdlModificationRequestedEventArgs, a1: PrintWorkflowPdlConversionType): PrintWorkflowPdlConverter  =
+proc getPdlConverter*(self: PrintWorkflowPdlModificationRequestedEventArgs, conversionType: PrintWorkflowPdlConversionType): PrintWorkflowPdlConverter  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.GetPdlConverter
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
     var tmp: pointer
-    vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter)(it, a1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.GetPdlConverter")
+    vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter)(it, conversionType, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.GetPdlConverter")
     result = adopt[PrintWorkflowPdlConverter](tmp)
 
 proc getDeferral*(self: PrintWorkflowPdlModificationRequestedEventArgs): Deferral  =
@@ -9384,12 +9384,12 @@ proc getDeferral*(self: PrintWorkflowPdlModificationRequestedEventArgs): Deferra
     vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, a1: pointer, a2: string, a3: pointer, a4: PrintWorkflowAttributesMergePolicy, a5: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
+proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: pointer, targetContentType: string, operationAttributesBuffer: pointer, jobAttributesMergePolicy: PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs2, "IPrintWorkflowPdlModificationRequestedEventArgs2", it):
-    withHString(a2, h1):
+    withHString(targetContentType, h1):
       var tmp: pointer
-      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer)(it, a1, h1, a3, a4, a5, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
+      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer)(it, jobAttributesBuffer, h1, operationAttributesBuffer, jobAttributesMergePolicy, operationAttributesMergePolicy, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
       result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
 proc disableIppCompressionForJob*(self: PrintWorkflowPdlModificationRequestedEventArgs)  =
@@ -9418,10 +9418,10 @@ proc getOutputStream*(self: PrintWorkflowPdlTargetStream): pointer  =
     vcall(it, Slot_IPrintWorkflowPdlTargetStream_GetOutputStream, Fn_IPrintWorkflowPdlTargetStream_GetOutputStream)(it, tmp.addr).check("PrintWorkflowPdlTargetStream.GetOutputStream")
     result = tmp
 
-proc completeStreamSubmission*(self: PrintWorkflowPdlTargetStream, a1: PrintWorkflowSubmittedStatus)  =
+proc completeStreamSubmission*(self: PrintWorkflowPdlTargetStream, status: PrintWorkflowSubmittedStatus)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream.CompleteStreamSubmission
   withIface(self.p, IID_IPrintWorkflowPdlTargetStream, "IPrintWorkflowPdlTargetStream", it):
-    vcall(it, Slot_IPrintWorkflowPdlTargetStream_CompleteStreamSubmission, Fn_IPrintWorkflowPdlTargetStream_CompleteStreamSubmission)(it, a1).check("PrintWorkflowPdlTargetStream.CompleteStreamSubmission")
+    vcall(it, Slot_IPrintWorkflowPdlTargetStream_CompleteStreamSubmission, Fn_IPrintWorkflowPdlTargetStream_CompleteStreamSubmission)(it, status).check("PrintWorkflowPdlTargetStream.CompleteStreamSubmission")
 
 proc jobId*(self: PrintWorkflowPrinterJob): int32  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.get_JobId
@@ -9507,10 +9507,10 @@ proc operation*(self: PrintWorkflowSubmittedEventArgs): PrintWorkflowSubmittedOp
     vcall(it, Slot_IPrintWorkflowSubmittedEventArgs_get_Operation, Fn_IPrintWorkflowSubmittedEventArgs_get_Operation)(it, tmp.addr).check("PrintWorkflowSubmittedEventArgs.get_Operation")
     result = adopt[PrintWorkflowSubmittedOperation](tmp)
 
-proc getTarget*(self: PrintWorkflowSubmittedEventArgs, a1: WorkflowPrintTicket): PrintWorkflowTarget  =
+proc getTarget*(self: PrintWorkflowSubmittedEventArgs, jobPrintTicket: WorkflowPrintTicket): PrintWorkflowTarget  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedEventArgs.GetTarget
   withIface(self.p, IID_IPrintWorkflowSubmittedEventArgs, "IPrintWorkflowSubmittedEventArgs", it):
-    withIface(a1.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+    withIface(jobPrintTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintWorkflowSubmittedEventArgs_GetTarget, Fn_IPrintWorkflowSubmittedEventArgs_GetTarget)(it, p0, tmp.addr).check("PrintWorkflowSubmittedEventArgs.GetTarget")
       result = adopt[PrintWorkflowTarget](tmp)
@@ -9522,10 +9522,10 @@ proc getDeferral*(self: PrintWorkflowSubmittedEventArgs): Deferral  =
     vcall(it, Slot_IPrintWorkflowSubmittedEventArgs_GetDeferral, Fn_IPrintWorkflowSubmittedEventArgs_GetDeferral)(it, tmp.addr).check("PrintWorkflowSubmittedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc complete*(self: PrintWorkflowSubmittedOperation, a1: PrintWorkflowSubmittedStatus)  =
+proc complete*(self: PrintWorkflowSubmittedOperation, status: PrintWorkflowSubmittedStatus)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedOperation.Complete
   withIface(self.p, IID_IPrintWorkflowSubmittedOperation, "IPrintWorkflowSubmittedOperation", it):
-    vcall(it, Slot_IPrintWorkflowSubmittedOperation_Complete, Fn_IPrintWorkflowSubmittedOperation_Complete)(it, a1).check("PrintWorkflowSubmittedOperation.Complete")
+    vcall(it, Slot_IPrintWorkflowSubmittedOperation_Complete, Fn_IPrintWorkflowSubmittedOperation_Complete)(it, status).check("PrintWorkflowSubmittedOperation.Complete")
 
 proc configuration*(self: PrintWorkflowSubmittedOperation): PrintWorkflowConfiguration  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedOperation.get_Configuration
@@ -9611,17 +9611,17 @@ proc getJobPrintTicket*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs)
     vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetJobPrintTicket, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetJobPrintTicket)(it, tmp.addr).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetJobPrintTicket")
     result = adopt[WorkflowPrintTicket](tmp)
 
-proc getPdlConverter*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, a1: PrintWorkflowPdlConversionType): PrintWorkflowPdlConverter  =
+proc getPdlConverter*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, conversionType: PrintWorkflowPdlConversionType): PrintWorkflowPdlConverter  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetPdlConverter
   withIface(self.p, IID_IPrintWorkflowVirtualPrinterDataAvailableEventArgs, "IPrintWorkflowVirtualPrinterDataAvailableEventArgs", it):
     var tmp: pointer
-    vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter)(it, a1, tmp.addr).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetPdlConverter")
+    vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter)(it, conversionType, tmp.addr).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetPdlConverter")
     result = adopt[PrintWorkflowPdlConverter](tmp)
 
-proc completeJob*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, a1: PrintWorkflowSubmittedStatus)  =
+proc completeJob*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, status: PrintWorkflowSubmittedStatus)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.CompleteJob
   withIface(self.p, IID_IPrintWorkflowVirtualPrinterDataAvailableEventArgs, "IPrintWorkflowVirtualPrinterDataAvailableEventArgs", it):
-    vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_CompleteJob, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_CompleteJob)(it, a1).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.CompleteJob")
+    vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_CompleteJob, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_CompleteJob)(it, status).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.CompleteJob")
 
 proc status*(self: PrintWorkflowVirtualPrinterSession): PrintWorkflowSessionStatus  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterSession.get_Status
@@ -9832,10 +9832,10 @@ proc source*(self: Print3DTaskSourceChangedEventArgs): Printing3D3MFPackage  =
     vcall(it, Slot_IPrint3DTaskSourceChangedEventArgs_get_Source, Fn_IPrint3DTaskSourceChangedEventArgs_get_Source)(it, tmp.addr).check("Print3DTaskSourceChangedEventArgs.get_Source")
     result = adopt[Printing3D3MFPackage](tmp)
 
-proc setSource*(self: Print3DTaskSourceRequestedArgs, a1: Printing3D3MFPackage)  =
+proc setSource*(self: Print3DTaskSourceRequestedArgs, source: Printing3D3MFPackage)  =
   ## Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs.SetSource
   withIface(self.p, IID_IPrint3DTaskSourceRequestedArgs, "IPrint3DTaskSourceRequestedArgs", it):
-    withIface(a1.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", p0):
+    withIface(source.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", p0):
       vcall(it, Slot_IPrint3DTaskSourceRequestedArgs_SetSource, Fn_IPrint3DTaskSourceRequestedArgs_SetSource)(it, p0).check("Print3DTaskSourceRequestedArgs.SetSource")
 
 proc newPrinting3D3MFPackage*(): Printing3D3MFPackage =
@@ -9887,18 +9887,18 @@ proc textures*(self: Printing3D3MFPackage): seq[Printing3DTextureResource]  =
     result = toSeq[Printing3DTextureResource](tmp, IID_IVector_1_Printing3DTextureResource)
     release(tmp)
 
-proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, a1: pointer): Future[Printing3DModel] {.async.} =
+proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, value: pointer): Future[Printing3DModel] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadModelFromPackageAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
-    vcall(it, Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync, Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync)(it, a1, op.addr).check("Printing3D3MFPackage.LoadModelFromPackageAsync")
+    vcall(it, Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync, Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync)(it, value, op.addr).check("Printing3D3MFPackage.LoadModelFromPackageAsync")
   result = adopt[Printing3DModel](await awaitObject(op, IID_IAsyncOperation_1_Printing3DModel, IID_AsyncOperationCompletedHandler_1_Printing3DModel, "Printing3D3MFPackage.LoadModelFromPackageAsync"))
 
-proc saveModelToPackageAsync*(self: Printing3D3MFPackage, a1: Printing3DModel) {.async.} =
+proc saveModelToPackageAsync*(self: Printing3D3MFPackage, value: Printing3DModel) {.async.} =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveModelToPackageAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
-    withIface(a1.p, IID_IPrinting3DModel, "IPrinting3DModel", p0):
+    withIface(value.p, IID_IPrinting3DModel, "IPrinting3DModel", p0):
       vcall(it, Slot_IPrinting3D3MFPackage_SaveModelToPackageAsync, Fn_IPrinting3D3MFPackage_SaveModelToPackageAsync)(it, p0, op.addr).check("Printing3D3MFPackage.SaveModelToPackageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "Printing3D3MFPackage.SaveModelToPackageAsync")
 
@@ -9914,11 +9914,11 @@ proc `compression=`*(self: Printing3D3MFPackage, value: Printing3DPackageCompres
   withIface(self.p, IID_IPrinting3D3MFPackage2, "IPrinting3D3MFPackage2", it):
     vcall(it, Slot_IPrinting3D3MFPackage2_put_Compression, Fn_IPrinting3D3MFPackage2_put_Compression)(it, value).check("Printing3D3MFPackage.put_Compression")
 
-proc loadAsync*(_: typedesc[Printing3D3MFPackage], a1: pointer): Future[Printing3D3MFPackage] {.async.} =
+proc loadAsync*(_: typedesc[Printing3D3MFPackage], value: pointer): Future[Printing3D3MFPackage] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadAsync
   var op: pointer
   withStatics("Windows.Graphics.Printing3D.Printing3D3MFPackage", IID_IPrinting3D3MFPackageStatics, it):
-    vcall(it, Slot_IPrinting3D3MFPackageStatics_LoadAsync, Fn_IPrinting3D3MFPackageStatics_LoadAsync)(it, a1, op.addr).check("Printing3D3MFPackage.LoadAsync")
+    vcall(it, Slot_IPrinting3D3MFPackageStatics_LoadAsync, Fn_IPrinting3D3MFPackageStatics_LoadAsync)(it, value, op.addr).check("Printing3D3MFPackage.LoadAsync")
   result = adopt[Printing3D3MFPackage](await awaitObject(op, IID_IAsyncOperation_1_Printing3D3MFPackage, IID_AsyncOperationCompletedHandler_1_Printing3D3MFPackage, "Printing3D3MFPackage.LoadAsync"))
 
 proc newPrinting3DBaseMaterial*(): Printing3DBaseMaterial =
@@ -9980,11 +9980,11 @@ proc materialGroupId*(self: Printing3DBaseMaterialGroup): uint32  =
     vcall(it, Slot_IPrinting3DBaseMaterialGroup_get_MaterialGroupId, Fn_IPrinting3DBaseMaterialGroup_get_MaterialGroupId)(it, tmp.addr).check("Printing3DBaseMaterialGroup.get_MaterialGroupId")
     result = tmp
 
-proc create*(_: typedesc[Printing3DBaseMaterialGroup], a1: uint32): Printing3DBaseMaterialGroup  =
+proc create*(_: typedesc[Printing3DBaseMaterialGroup], materialGroupId: uint32): Printing3DBaseMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup.Create
   withStatics("Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup", IID_IPrinting3DBaseMaterialGroupFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrinting3DBaseMaterialGroupFactory_Create, Fn_IPrinting3DBaseMaterialGroupFactory_Create)(it, a1, tmp.addr).check("Printing3DBaseMaterialGroup.Create")
+    vcall(it, Slot_IPrinting3DBaseMaterialGroupFactory_Create, Fn_IPrinting3DBaseMaterialGroupFactory_Create)(it, materialGroupId, tmp.addr).check("Printing3DBaseMaterialGroup.Create")
     result = adopt[Printing3DBaseMaterialGroup](tmp)
 
 proc newPrinting3DColorMaterial*(): Printing3DColorMaterial =
@@ -10030,11 +10030,11 @@ proc materialGroupId*(self: Printing3DColorMaterialGroup): uint32  =
     vcall(it, Slot_IPrinting3DColorMaterialGroup_get_MaterialGroupId, Fn_IPrinting3DColorMaterialGroup_get_MaterialGroupId)(it, tmp.addr).check("Printing3DColorMaterialGroup.get_MaterialGroupId")
     result = tmp
 
-proc create*(_: typedesc[Printing3DColorMaterialGroup], a1: uint32): Printing3DColorMaterialGroup  =
+proc create*(_: typedesc[Printing3DColorMaterialGroup], materialGroupId: uint32): Printing3DColorMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DColorMaterialGroup.Create
   withStatics("Windows.Graphics.Printing3D.Printing3DColorMaterialGroup", IID_IPrinting3DColorMaterialGroupFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrinting3DColorMaterialGroupFactory_Create, Fn_IPrinting3DColorMaterialGroupFactory_Create)(it, a1, tmp.addr).check("Printing3DColorMaterialGroup.Create")
+    vcall(it, Slot_IPrinting3DColorMaterialGroupFactory_Create, Fn_IPrinting3DColorMaterialGroupFactory_Create)(it, materialGroupId, tmp.addr).check("Printing3DColorMaterialGroup.Create")
     result = adopt[Printing3DColorMaterialGroup](tmp)
 
 proc newPrinting3DComponent*(): Printing3DComponent =
@@ -10174,11 +10174,11 @@ proc `baseMaterialGroup=`*(self: Printing3DCompositeMaterialGroup, value: Printi
     withIface(value.p, IID_IPrinting3DBaseMaterialGroup, "IPrinting3DBaseMaterialGroup", p0):
       vcall(it, Slot_IPrinting3DCompositeMaterialGroup2_put_BaseMaterialGroup, Fn_IPrinting3DCompositeMaterialGroup2_put_BaseMaterialGroup)(it, p0).check("Printing3DCompositeMaterialGroup.put_BaseMaterialGroup")
 
-proc create*(_: typedesc[Printing3DCompositeMaterialGroup], a1: uint32): Printing3DCompositeMaterialGroup  =
+proc create*(_: typedesc[Printing3DCompositeMaterialGroup], materialGroupId: uint32): Printing3DCompositeMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.Create
   withStatics("Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup", IID_IPrinting3DCompositeMaterialGroupFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrinting3DCompositeMaterialGroupFactory_Create, Fn_IPrinting3DCompositeMaterialGroupFactory_Create)(it, a1, tmp.addr).check("Printing3DCompositeMaterialGroup.Create")
+    vcall(it, Slot_IPrinting3DCompositeMaterialGroupFactory_Create, Fn_IPrinting3DCompositeMaterialGroupFactory_Create)(it, materialGroupId, tmp.addr).check("Printing3DCompositeMaterialGroup.Create")
     result = adopt[Printing3DCompositeMaterialGroup](tmp)
 
 proc newPrinting3DFaceReductionOptions*(): Printing3DFaceReductionOptions =
@@ -10348,10 +10348,10 @@ proc getVertexPositions*(self: Printing3DMesh): pointer  =
     vcall(it, Slot_IPrinting3DMesh_GetVertexPositions, Fn_IPrinting3DMesh_GetVertexPositions)(it, tmp.addr).check("Printing3DMesh.GetVertexPositions")
     result = tmp
 
-proc createVertexPositions*(self: Printing3DMesh, a1: uint32)  =
+proc createVertexPositions*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateVertexPositions
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
-    vcall(it, Slot_IPrinting3DMesh_CreateVertexPositions, Fn_IPrinting3DMesh_CreateVertexPositions)(it, a1).check("Printing3DMesh.CreateVertexPositions")
+    vcall(it, Slot_IPrinting3DMesh_CreateVertexPositions, Fn_IPrinting3DMesh_CreateVertexPositions)(it, value).check("Printing3DMesh.CreateVertexPositions")
 
 proc getVertexNormals*(self: Printing3DMesh): pointer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetVertexNormals
@@ -10360,10 +10360,10 @@ proc getVertexNormals*(self: Printing3DMesh): pointer  =
     vcall(it, Slot_IPrinting3DMesh_GetVertexNormals, Fn_IPrinting3DMesh_GetVertexNormals)(it, tmp.addr).check("Printing3DMesh.GetVertexNormals")
     result = tmp
 
-proc createVertexNormals*(self: Printing3DMesh, a1: uint32)  =
+proc createVertexNormals*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateVertexNormals
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
-    vcall(it, Slot_IPrinting3DMesh_CreateVertexNormals, Fn_IPrinting3DMesh_CreateVertexNormals)(it, a1).check("Printing3DMesh.CreateVertexNormals")
+    vcall(it, Slot_IPrinting3DMesh_CreateVertexNormals, Fn_IPrinting3DMesh_CreateVertexNormals)(it, value).check("Printing3DMesh.CreateVertexNormals")
 
 proc getTriangleIndices*(self: Printing3DMesh): pointer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetTriangleIndices
@@ -10372,10 +10372,10 @@ proc getTriangleIndices*(self: Printing3DMesh): pointer  =
     vcall(it, Slot_IPrinting3DMesh_GetTriangleIndices, Fn_IPrinting3DMesh_GetTriangleIndices)(it, tmp.addr).check("Printing3DMesh.GetTriangleIndices")
     result = tmp
 
-proc createTriangleIndices*(self: Printing3DMesh, a1: uint32)  =
+proc createTriangleIndices*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateTriangleIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
-    vcall(it, Slot_IPrinting3DMesh_CreateTriangleIndices, Fn_IPrinting3DMesh_CreateTriangleIndices)(it, a1).check("Printing3DMesh.CreateTriangleIndices")
+    vcall(it, Slot_IPrinting3DMesh_CreateTriangleIndices, Fn_IPrinting3DMesh_CreateTriangleIndices)(it, value).check("Printing3DMesh.CreateTriangleIndices")
 
 proc getTriangleMaterialIndices*(self: Printing3DMesh): pointer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetTriangleMaterialIndices
@@ -10384,10 +10384,10 @@ proc getTriangleMaterialIndices*(self: Printing3DMesh): pointer  =
     vcall(it, Slot_IPrinting3DMesh_GetTriangleMaterialIndices, Fn_IPrinting3DMesh_GetTriangleMaterialIndices)(it, tmp.addr).check("Printing3DMesh.GetTriangleMaterialIndices")
     result = tmp
 
-proc createTriangleMaterialIndices*(self: Printing3DMesh, a1: uint32)  =
+proc createTriangleMaterialIndices*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateTriangleMaterialIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
-    vcall(it, Slot_IPrinting3DMesh_CreateTriangleMaterialIndices, Fn_IPrinting3DMesh_CreateTriangleMaterialIndices)(it, a1).check("Printing3DMesh.CreateTriangleMaterialIndices")
+    vcall(it, Slot_IPrinting3DMesh_CreateTriangleMaterialIndices, Fn_IPrinting3DMesh_CreateTriangleMaterialIndices)(it, value).check("Printing3DMesh.CreateTriangleMaterialIndices")
 
 proc bufferDescriptionSet*(self: Printing3DMesh): ValueSet  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.get_BufferDescriptionSet
@@ -10403,11 +10403,11 @@ proc bufferSet*(self: Printing3DMesh): ValueSet  =
     vcall(it, Slot_IPrinting3DMesh_get_BufferSet, Fn_IPrinting3DMesh_get_BufferSet)(it, tmp.addr).check("Printing3DMesh.get_BufferSet")
     result = adopt[ValueSet](tmp)
 
-proc verifyAsync*(self: Printing3DMesh, a1: Printing3DMeshVerificationMode): Future[Printing3DMeshVerificationResult] {.async.} =
+proc verifyAsync*(self: Printing3DMesh, value: Printing3DMeshVerificationMode): Future[Printing3DMeshVerificationResult] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3DMesh.VerifyAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
-    vcall(it, Slot_IPrinting3DMesh_VerifyAsync, Fn_IPrinting3DMesh_VerifyAsync)(it, a1, op.addr).check("Printing3DMesh.VerifyAsync")
+    vcall(it, Slot_IPrinting3DMesh_VerifyAsync, Fn_IPrinting3DMesh_VerifyAsync)(it, value, op.addr).check("Printing3DMesh.VerifyAsync")
   result = adopt[Printing3DMeshVerificationResult](await awaitObject(op, IID_IAsyncOperation_1_Printing3DMeshVerificationResult, IID_AsyncOperationCompletedHandler_1_Printing3DMeshVerificationResult, "Printing3DMesh.VerifyAsync"))
 
 proc isValid*(self: Printing3DMeshVerificationResult): bool  =
@@ -10525,11 +10525,11 @@ proc tryPartialRepairAsync*(self: Printing3DModel): Future[bool] {.async.} =
     vcall(it, Slot_IPrinting3DModel2_TryPartialRepairAsync, Fn_IPrinting3DModel2_TryPartialRepairAsync)(it, op.addr).check("Printing3DModel.TryPartialRepairAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryPartialRepairAsync")
 
-proc tryPartialRepairAsync*(self: Printing3DModel, a1: TimeSpan): Future[bool] {.async.} =
+proc tryPartialRepairAsync*(self: Printing3DModel, maxWaitTime: TimeSpan): Future[bool] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryPartialRepairAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
-    vcall(it, Slot_IPrinting3DModel2_TryPartialRepairAsync2, Fn_IPrinting3DModel2_TryPartialRepairAsync2)(it, a1, op.addr).check("Printing3DModel.TryPartialRepairAsync")
+    vcall(it, Slot_IPrinting3DModel2_TryPartialRepairAsync2, Fn_IPrinting3DModel2_TryPartialRepairAsync2)(it, maxWaitTime, op.addr).check("Printing3DModel.TryPartialRepairAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryPartialRepairAsync")
 
 proc tryReduceFacesAsync*(self: Printing3DModel): Future[bool] {.async.} =
@@ -10539,20 +10539,20 @@ proc tryReduceFacesAsync*(self: Printing3DModel): Future[bool] {.async.} =
     vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync, Fn_IPrinting3DModel2_TryReduceFacesAsync)(it, op.addr).check("Printing3DModel.TryReduceFacesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
 
-proc tryReduceFacesAsync*(self: Printing3DModel, a1: Printing3DFaceReductionOptions): Future[bool] {.async.} =
+proc tryReduceFacesAsync*(self: Printing3DModel, printing3DFaceReductionOptions: Printing3DFaceReductionOptions): Future[bool] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
-    withIface(a1.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
+    withIface(printing3DFaceReductionOptions.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
       vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync2, Fn_IPrinting3DModel2_TryReduceFacesAsync2)(it, p0, op.addr).check("Printing3DModel.TryReduceFacesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
 
-proc tryReduceFacesAsync*(self: Printing3DModel, a1: Printing3DFaceReductionOptions, a2: TimeSpan): Future[bool] {.async.} =
+proc tryReduceFacesAsync*(self: Printing3DModel, printing3DFaceReductionOptions: Printing3DFaceReductionOptions, maxWait: TimeSpan): Future[bool] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
-    withIface(a1.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
-      vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync3, Fn_IPrinting3DModel2_TryReduceFacesAsync3)(it, p0, a2, op.addr).check("Printing3DModel.TryReduceFacesAsync")
+    withIface(printing3DFaceReductionOptions.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
+      vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync3, Fn_IPrinting3DModel2_TryReduceFacesAsync3)(it, p0, maxWait, op.addr).check("Printing3DModel.TryReduceFacesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
 
 proc repairWithProgressAsync*(self: Printing3DModel): Future[bool] {.async.} =
@@ -10622,11 +10622,11 @@ proc materialGroupId*(self: Printing3DMultiplePropertyMaterialGroup): uint32  =
     vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupId, Fn_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupId)(it, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.get_MaterialGroupId")
     result = tmp
 
-proc create*(_: typedesc[Printing3DMultiplePropertyMaterialGroup], a1: uint32): Printing3DMultiplePropertyMaterialGroup  =
+proc create*(_: typedesc[Printing3DMultiplePropertyMaterialGroup], materialGroupId: uint32): Printing3DMultiplePropertyMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.Create
   withStatics("Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup", IID_IPrinting3DMultiplePropertyMaterialGroupFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroupFactory_Create, Fn_IPrinting3DMultiplePropertyMaterialGroupFactory_Create)(it, a1, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.Create")
+    vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroupFactory_Create, Fn_IPrinting3DMultiplePropertyMaterialGroupFactory_Create)(it, materialGroupId, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.Create")
     result = adopt[Printing3DMultiplePropertyMaterialGroup](tmp)
 
 proc newPrinting3DTexture2CoordMaterial*(): Printing3DTexture2CoordMaterial =
@@ -10698,11 +10698,11 @@ proc `texture=`*(self: Printing3DTexture2CoordMaterialGroup, value: Printing3DMo
     withIface(value.p, IID_IPrinting3DModelTexture, "IPrinting3DModelTexture", p0):
       vcall(it, Slot_IPrinting3DTexture2CoordMaterialGroup2_put_Texture, Fn_IPrinting3DTexture2CoordMaterialGroup2_put_Texture)(it, p0).check("Printing3DTexture2CoordMaterialGroup.put_Texture")
 
-proc create*(_: typedesc[Printing3DTexture2CoordMaterialGroup], a1: uint32): Printing3DTexture2CoordMaterialGroup  =
+proc create*(_: typedesc[Printing3DTexture2CoordMaterialGroup], materialGroupId: uint32): Printing3DTexture2CoordMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup.Create
   withStatics("Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup", IID_IPrinting3DTexture2CoordMaterialGroupFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IPrinting3DTexture2CoordMaterialGroupFactory_Create, Fn_IPrinting3DTexture2CoordMaterialGroupFactory_Create)(it, a1, tmp.addr).check("Printing3DTexture2CoordMaterialGroup.Create")
+    vcall(it, Slot_IPrinting3DTexture2CoordMaterialGroupFactory_Create, Fn_IPrinting3DTexture2CoordMaterialGroupFactory_Create)(it, materialGroupId, tmp.addr).check("Printing3DTexture2CoordMaterialGroup.Create")
     result = adopt[Printing3DTexture2CoordMaterialGroup](tmp)
 
 proc newPrinting3DTextureResource*(): Printing3DTextureResource =

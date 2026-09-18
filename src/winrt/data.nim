@@ -615,10 +615,10 @@ func isNil*(x: XmlProcessingInstruction): bool {.inline.} = x.p.isNil
 func isNil*(x: XmlText): bool {.inline.} = x.p.isNil
 func isNil*(x: XsltProcessor): bool {.inline.} = x.p.isNil
 
-proc convertToText*(_: typedesc[HtmlUtilities], a1: string): string  =
+proc convertToText*(_: typedesc[HtmlUtilities], html: string): string  =
   ## Windows.Data.Html.HtmlUtilities.ConvertToText
   withStatics("Windows.Data.Html.HtmlUtilities", IID_IHtmlUtilities, it):
-    withHString(a1, h0):
+    withHString(html, h0):
       var tmp: HSTRING
       vcall(it, Slot_IHtmlUtilities_ConvertToText, Fn_IHtmlUtilities_ConvertToText)(it, h0, tmp.addr).check("HtmlUtilities.ConvertToText")
       result = takeString(tmp)
@@ -627,39 +627,39 @@ proc newJsonArray*(): JsonArray =
   ## Activate a `Windows.Data.Json.JsonArray`.
   adopt[JsonArray](activateAs("Windows.Data.Json.JsonArray", IID_IJsonArray))
 
-proc getObjectAt*(self: JsonArray, a1: uint32): JsonObject  =
+proc getObjectAt*(self: JsonArray, index: uint32): JsonObject  =
   ## Windows.Data.Json.JsonArray.GetObjectAt
   withIface(self.p, IID_IJsonArray, "IJsonArray", it):
     var tmp: pointer
-    vcall(it, Slot_IJsonArray_GetObjectAt, Fn_IJsonArray_GetObjectAt)(it, a1, tmp.addr).check("JsonArray.GetObjectAt")
+    vcall(it, Slot_IJsonArray_GetObjectAt, Fn_IJsonArray_GetObjectAt)(it, index, tmp.addr).check("JsonArray.GetObjectAt")
     result = adopt[JsonObject](tmp)
 
-proc getArrayAt*(self: JsonArray, a1: uint32): JsonArray  =
+proc getArrayAt*(self: JsonArray, index: uint32): JsonArray  =
   ## Windows.Data.Json.JsonArray.GetArrayAt
   withIface(self.p, IID_IJsonArray, "IJsonArray", it):
     var tmp: pointer
-    vcall(it, Slot_IJsonArray_GetArrayAt, Fn_IJsonArray_GetArrayAt)(it, a1, tmp.addr).check("JsonArray.GetArrayAt")
+    vcall(it, Slot_IJsonArray_GetArrayAt, Fn_IJsonArray_GetArrayAt)(it, index, tmp.addr).check("JsonArray.GetArrayAt")
     result = adopt[JsonArray](tmp)
 
-proc getStringAt*(self: JsonArray, a1: uint32): string  =
+proc getStringAt*(self: JsonArray, index: uint32): string  =
   ## Windows.Data.Json.JsonArray.GetStringAt
   withIface(self.p, IID_IJsonArray, "IJsonArray", it):
     var tmp: HSTRING
-    vcall(it, Slot_IJsonArray_GetStringAt, Fn_IJsonArray_GetStringAt)(it, a1, tmp.addr).check("JsonArray.GetStringAt")
+    vcall(it, Slot_IJsonArray_GetStringAt, Fn_IJsonArray_GetStringAt)(it, index, tmp.addr).check("JsonArray.GetStringAt")
     result = takeString(tmp)
 
-proc getNumberAt*(self: JsonArray, a1: uint32): float64  =
+proc getNumberAt*(self: JsonArray, index: uint32): float64  =
   ## Windows.Data.Json.JsonArray.GetNumberAt
   withIface(self.p, IID_IJsonArray, "IJsonArray", it):
     var tmp: float64
-    vcall(it, Slot_IJsonArray_GetNumberAt, Fn_IJsonArray_GetNumberAt)(it, a1, tmp.addr).check("JsonArray.GetNumberAt")
+    vcall(it, Slot_IJsonArray_GetNumberAt, Fn_IJsonArray_GetNumberAt)(it, index, tmp.addr).check("JsonArray.GetNumberAt")
     result = tmp
 
-proc getBooleanAt*(self: JsonArray, a1: uint32): bool  =
+proc getBooleanAt*(self: JsonArray, index: uint32): bool  =
   ## Windows.Data.Json.JsonArray.GetBooleanAt
   withIface(self.p, IID_IJsonArray, "IJsonArray", it):
     var tmp: bool
-    vcall(it, Slot_IJsonArray_GetBooleanAt, Fn_IJsonArray_GetBooleanAt)(it, a1, tmp.addr).check("JsonArray.GetBooleanAt")
+    vcall(it, Slot_IJsonArray_GetBooleanAt, Fn_IJsonArray_GetBooleanAt)(it, index, tmp.addr).check("JsonArray.GetBooleanAt")
     result = tmp
 
 proc valueType*(self: JsonArray): JsonValueType  =
@@ -718,76 +718,76 @@ proc toString*(self: JsonArray): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("JsonArray.ToString")
     result = takeString(tmp)
 
-proc parse*(_: typedesc[JsonArray], a1: string): JsonArray  =
+proc parse*(_: typedesc[JsonArray], input: string): JsonArray  =
   ## Windows.Data.Json.JsonArray.Parse
   withStatics("Windows.Data.Json.JsonArray", IID_IJsonArrayStatics, it):
-    withHString(a1, h0):
+    withHString(input, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonArrayStatics_Parse, Fn_IJsonArrayStatics_Parse)(it, h0, tmp.addr).check("JsonArray.Parse")
       result = adopt[JsonArray](tmp)
 
-proc getJsonStatus*(_: typedesc[JsonError], a1: int32): JsonErrorStatus  =
+proc getJsonStatus*(_: typedesc[JsonError], hresult: int32): JsonErrorStatus  =
   ## Windows.Data.Json.JsonError.GetJsonStatus
   withStatics("Windows.Data.Json.JsonError", IID_IJsonErrorStatics2, it):
     var tmp: JsonErrorStatus
-    vcall(it, Slot_IJsonErrorStatics2_GetJsonStatus, Fn_IJsonErrorStatics2_GetJsonStatus)(it, a1, tmp.addr).check("JsonError.GetJsonStatus")
+    vcall(it, Slot_IJsonErrorStatics2_GetJsonStatus, Fn_IJsonErrorStatics2_GetJsonStatus)(it, hresult, tmp.addr).check("JsonError.GetJsonStatus")
     result = tmp
 
 proc newJsonObject*(): JsonObject =
   ## Activate a `Windows.Data.Json.JsonObject`.
   adopt[JsonObject](activateAs("Windows.Data.Json.JsonObject", IID_IJsonObject))
 
-proc getNamedValue*(self: JsonObject, a1: string): JsonValue  =
+proc getNamedValue*(self: JsonObject, name: string): JsonValue  =
   ## Windows.Data.Json.JsonObject.GetNamedValue
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonObject_GetNamedValue, Fn_IJsonObject_GetNamedValue)(it, h0, tmp.addr).check("JsonObject.GetNamedValue")
       result = adopt[JsonValue](tmp)
 
-proc setNamedValue*(self: JsonObject, a1: string, a2: JsonValue)  =
+proc setNamedValue*(self: JsonObject, name: string, value: JsonValue)  =
   ## Windows.Data.Json.JsonObject.SetNamedValue
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IJsonValue, "IJsonValue", p1):
+    withHString(name, h0):
+      withIface(value.p, IID_IJsonValue, "IJsonValue", p1):
         vcall(it, Slot_IJsonObject_SetNamedValue, Fn_IJsonObject_SetNamedValue)(it, h0, p1).check("JsonObject.SetNamedValue")
 
-proc getNamedObject*(self: JsonObject, a1: string): JsonObject  =
+proc getNamedObject*(self: JsonObject, name: string): JsonObject  =
   ## Windows.Data.Json.JsonObject.GetNamedObject
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonObject_GetNamedObject, Fn_IJsonObject_GetNamedObject)(it, h0, tmp.addr).check("JsonObject.GetNamedObject")
       result = adopt[JsonObject](tmp)
 
-proc getNamedArray*(self: JsonObject, a1: string): JsonArray  =
+proc getNamedArray*(self: JsonObject, name: string): JsonArray  =
   ## Windows.Data.Json.JsonObject.GetNamedArray
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonObject_GetNamedArray, Fn_IJsonObject_GetNamedArray)(it, h0, tmp.addr).check("JsonObject.GetNamedArray")
       result = adopt[JsonArray](tmp)
 
-proc getNamedString*(self: JsonObject, a1: string): string  =
+proc getNamedString*(self: JsonObject, name: string): string  =
   ## Windows.Data.Json.JsonObject.GetNamedString
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: HSTRING
       vcall(it, Slot_IJsonObject_GetNamedString, Fn_IJsonObject_GetNamedString)(it, h0, tmp.addr).check("JsonObject.GetNamedString")
       result = takeString(tmp)
 
-proc getNamedNumber*(self: JsonObject, a1: string): float64  =
+proc getNamedNumber*(self: JsonObject, name: string): float64  =
   ## Windows.Data.Json.JsonObject.GetNamedNumber
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: float64
       vcall(it, Slot_IJsonObject_GetNamedNumber, Fn_IJsonObject_GetNamedNumber)(it, h0, tmp.addr).check("JsonObject.GetNamedNumber")
       result = tmp
 
-proc getNamedBoolean*(self: JsonObject, a1: string): bool  =
+proc getNamedBoolean*(self: JsonObject, name: string): bool  =
   ## Windows.Data.Json.JsonObject.GetNamedBoolean
   withIface(self.p, IID_IJsonObject, "IJsonObject", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: bool
       vcall(it, Slot_IJsonObject_GetNamedBoolean, Fn_IJsonObject_GetNamedBoolean)(it, h0, tmp.addr).check("JsonObject.GetNamedBoolean")
       result = tmp
@@ -841,56 +841,56 @@ proc getObject*(self: JsonObject): JsonObject  =
     vcall(it, Slot_IJsonValue_GetObject, Fn_IJsonValue_GetObject)(it, tmp.addr).check("JsonObject.GetObject")
     result = adopt[JsonObject](tmp)
 
-proc getNamedValue*(self: JsonObject, a1: string, a2: JsonValue): JsonValue  =
+proc getNamedValue*(self: JsonObject, name: string, defaultValue: JsonValue): JsonValue  =
   ## Windows.Data.Json.JsonObject.GetNamedValue
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IJsonValue, "IJsonValue", p1):
+    withHString(name, h0):
+      withIface(defaultValue.p, IID_IJsonValue, "IJsonValue", p1):
         var tmp: pointer
         vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedValue, Fn_IJsonObjectWithDefaultValues_GetNamedValue)(it, h0, p1, tmp.addr).check("JsonObject.GetNamedValue")
         result = adopt[JsonValue](tmp)
 
-proc getNamedObject*(self: JsonObject, a1: string, a2: JsonObject): JsonObject  =
+proc getNamedObject*(self: JsonObject, name: string, defaultValue: JsonObject): JsonObject  =
   ## Windows.Data.Json.JsonObject.GetNamedObject
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IJsonObject, "IJsonObject", p1):
+    withHString(name, h0):
+      withIface(defaultValue.p, IID_IJsonObject, "IJsonObject", p1):
         var tmp: pointer
         vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedObject, Fn_IJsonObjectWithDefaultValues_GetNamedObject)(it, h0, p1, tmp.addr).check("JsonObject.GetNamedObject")
         result = adopt[JsonObject](tmp)
 
-proc getNamedString*(self: JsonObject, a1: string, a2: string): string  =
+proc getNamedString*(self: JsonObject, name: string, defaultValue: string): string  =
   ## Windows.Data.Json.JsonObject.GetNamedString
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(name, h0):
+      withHString(defaultValue, h1):
         var tmp: HSTRING
         vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedString, Fn_IJsonObjectWithDefaultValues_GetNamedString)(it, h0, h1, tmp.addr).check("JsonObject.GetNamedString")
         result = takeString(tmp)
 
-proc getNamedArray*(self: JsonObject, a1: string, a2: JsonArray): JsonArray  =
+proc getNamedArray*(self: JsonObject, name: string, defaultValue: JsonArray): JsonArray  =
   ## Windows.Data.Json.JsonObject.GetNamedArray
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IJsonArray, "IJsonArray", p1):
+    withHString(name, h0):
+      withIface(defaultValue.p, IID_IJsonArray, "IJsonArray", p1):
         var tmp: pointer
         vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedArray, Fn_IJsonObjectWithDefaultValues_GetNamedArray)(it, h0, p1, tmp.addr).check("JsonObject.GetNamedArray")
         result = adopt[JsonArray](tmp)
 
-proc getNamedNumber*(self: JsonObject, a1: string, a2: float64): float64  =
+proc getNamedNumber*(self: JsonObject, name: string, defaultValue: float64): float64  =
   ## Windows.Data.Json.JsonObject.GetNamedNumber
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: float64
-      vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedNumber, Fn_IJsonObjectWithDefaultValues_GetNamedNumber)(it, h0, a2, tmp.addr).check("JsonObject.GetNamedNumber")
+      vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedNumber, Fn_IJsonObjectWithDefaultValues_GetNamedNumber)(it, h0, defaultValue, tmp.addr).check("JsonObject.GetNamedNumber")
       result = tmp
 
-proc getNamedBoolean*(self: JsonObject, a1: string, a2: bool): bool  =
+proc getNamedBoolean*(self: JsonObject, name: string, defaultValue: bool): bool  =
   ## Windows.Data.Json.JsonObject.GetNamedBoolean
   withIface(self.p, IID_IJsonObjectWithDefaultValues, "IJsonObjectWithDefaultValues", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: bool
-      vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedBoolean, Fn_IJsonObjectWithDefaultValues_GetNamedBoolean)(it, h0, a2, tmp.addr).check("JsonObject.GetNamedBoolean")
+      vcall(it, Slot_IJsonObjectWithDefaultValues_GetNamedBoolean, Fn_IJsonObjectWithDefaultValues_GetNamedBoolean)(it, h0, defaultValue, tmp.addr).check("JsonObject.GetNamedBoolean")
       result = tmp
 
 proc toString*(self: JsonObject): string  =
@@ -900,10 +900,10 @@ proc toString*(self: JsonObject): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("JsonObject.ToString")
     result = takeString(tmp)
 
-proc parse*(_: typedesc[JsonObject], a1: string): JsonObject  =
+proc parse*(_: typedesc[JsonObject], input: string): JsonObject  =
   ## Windows.Data.Json.JsonObject.Parse
   withStatics("Windows.Data.Json.JsonObject", IID_IJsonObjectStatics, it):
-    withHString(a1, h0):
+    withHString(input, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonObjectStatics_Parse, Fn_IJsonObjectStatics_Parse)(it, h0, tmp.addr).check("JsonObject.Parse")
       result = adopt[JsonObject](tmp)
@@ -971,41 +971,41 @@ proc createNullValue*(_: typedesc[JsonValue]): JsonValue  =
     vcall(it, Slot_IJsonValueStatics2_CreateNullValue, Fn_IJsonValueStatics2_CreateNullValue)(it, tmp.addr).check("JsonValue.CreateNullValue")
     result = adopt[JsonValue](tmp)
 
-proc parse*(_: typedesc[JsonValue], a1: string): JsonValue  =
+proc parse*(_: typedesc[JsonValue], input: string): JsonValue  =
   ## Windows.Data.Json.JsonValue.Parse
   withStatics("Windows.Data.Json.JsonValue", IID_IJsonValueStatics, it):
-    withHString(a1, h0):
+    withHString(input, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonValueStatics_Parse, Fn_IJsonValueStatics_Parse)(it, h0, tmp.addr).check("JsonValue.Parse")
       result = adopt[JsonValue](tmp)
 
-proc createBooleanValue*(_: typedesc[JsonValue], a1: bool): JsonValue  =
+proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateBooleanValue
   withStatics("Windows.Data.Json.JsonValue", IID_IJsonValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IJsonValueStatics_CreateBooleanValue, Fn_IJsonValueStatics_CreateBooleanValue)(it, a1, tmp.addr).check("JsonValue.CreateBooleanValue")
+    vcall(it, Slot_IJsonValueStatics_CreateBooleanValue, Fn_IJsonValueStatics_CreateBooleanValue)(it, input, tmp.addr).check("JsonValue.CreateBooleanValue")
     result = adopt[JsonValue](tmp)
 
-proc createNumberValue*(_: typedesc[JsonValue], a1: float64): JsonValue  =
+proc createNumberValue*(_: typedesc[JsonValue], input: float64): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateNumberValue
   withStatics("Windows.Data.Json.JsonValue", IID_IJsonValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IJsonValueStatics_CreateNumberValue, Fn_IJsonValueStatics_CreateNumberValue)(it, a1, tmp.addr).check("JsonValue.CreateNumberValue")
+    vcall(it, Slot_IJsonValueStatics_CreateNumberValue, Fn_IJsonValueStatics_CreateNumberValue)(it, input, tmp.addr).check("JsonValue.CreateNumberValue")
     result = adopt[JsonValue](tmp)
 
-proc createStringValue*(_: typedesc[JsonValue], a1: string): JsonValue  =
+proc createStringValue*(_: typedesc[JsonValue], input: string): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateStringValue
   withStatics("Windows.Data.Json.JsonValue", IID_IJsonValueStatics, it):
-    withHString(a1, h0):
+    withHString(input, h0):
       var tmp: pointer
       vcall(it, Slot_IJsonValueStatics_CreateStringValue, Fn_IJsonValueStatics_CreateStringValue)(it, h0, tmp.addr).check("JsonValue.CreateStringValue")
       result = adopt[JsonValue](tmp)
 
-proc getPage*(self: PdfDocument, a1: uint32): PdfPage  =
+proc getPage*(self: PdfDocument, pageIndex: uint32): PdfPage  =
   ## Windows.Data.Pdf.PdfDocument.GetPage
   withIface(self.p, IID_IPdfDocument, "IPdfDocument", it):
     var tmp: pointer
-    vcall(it, Slot_IPdfDocument_GetPage, Fn_IPdfDocument_GetPage)(it, a1, tmp.addr).check("PdfDocument.GetPage")
+    vcall(it, Slot_IPdfDocument_GetPage, Fn_IPdfDocument_GetPage)(it, pageIndex, tmp.addr).check("PdfDocument.GetPage")
     result = adopt[PdfPage](tmp)
 
 proc pageCount*(self: PdfDocument): uint32  =
@@ -1022,49 +1022,49 @@ proc isPasswordProtected*(self: PdfDocument): bool  =
     vcall(it, Slot_IPdfDocument_get_IsPasswordProtected, Fn_IPdfDocument_get_IsPasswordProtected)(it, tmp.addr).check("PdfDocument.get_IsPasswordProtected")
     result = tmp
 
-proc loadFromFileAsync*(_: typedesc[PdfDocument], a1: pointer): Future[PdfDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[PdfDocument], file: pointer): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync, Fn_IPdfDocumentStatics_LoadFromFileAsync)(it, a1, op.addr).check("PdfDocument.LoadFromFileAsync")
+    vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync, Fn_IPdfDocumentStatics_LoadFromFileAsync)(it, file, op.addr).check("PdfDocument.LoadFromFileAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
 
-proc loadFromFileAsync*(_: typedesc[PdfDocument], a1: pointer, a2: string): Future[PdfDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[PdfDocument], file: pointer, password: string): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    withHString(a2, h1):
-      vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync2, Fn_IPdfDocumentStatics_LoadFromFileAsync2)(it, a1, h1, op.addr).check("PdfDocument.LoadFromFileAsync")
+    withHString(password, h1):
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync2, Fn_IPdfDocumentStatics_LoadFromFileAsync2)(it, file, h1, op.addr).check("PdfDocument.LoadFromFileAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[PdfDocument], a1: pointer): Future[PdfDocument] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: pointer): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync, Fn_IPdfDocumentStatics_LoadFromStreamAsync)(it, a1, op.addr).check("PdfDocument.LoadFromStreamAsync")
+    vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync, Fn_IPdfDocumentStatics_LoadFromStreamAsync)(it, inputStream, op.addr).check("PdfDocument.LoadFromStreamAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[PdfDocument], a1: pointer, a2: string): Future[PdfDocument] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: pointer, password: string): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    withHString(a2, h1):
-      vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync2, Fn_IPdfDocumentStatics_LoadFromStreamAsync2)(it, a1, h1, op.addr).check("PdfDocument.LoadFromStreamAsync")
+    withHString(password, h1):
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync2, Fn_IPdfDocumentStatics_LoadFromStreamAsync2)(it, inputStream, h1, op.addr).check("PdfDocument.LoadFromStreamAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
 
-proc renderToStreamAsync*(self: PdfPage, a1: pointer) {.async.} =
+proc renderToStreamAsync*(self: PdfPage, outputStream: pointer) {.async.} =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
-    vcall(it, Slot_IPdfPage_RenderToStreamAsync, Fn_IPdfPage_RenderToStreamAsync)(it, a1, op.addr).check("PdfPage.RenderToStreamAsync")
+    vcall(it, Slot_IPdfPage_RenderToStreamAsync, Fn_IPdfPage_RenderToStreamAsync)(it, outputStream, op.addr).check("PdfPage.RenderToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PdfPage.RenderToStreamAsync")
 
-proc renderToStreamAsync*(self: PdfPage, a1: pointer, a2: PdfPageRenderOptions) {.async.} =
+proc renderToStreamAsync*(self: PdfPage, outputStream: pointer, options: PdfPageRenderOptions) {.async.} =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
-    withIface(a2.p, IID_IPdfPageRenderOptions, "IPdfPageRenderOptions", p1):
-      vcall(it, Slot_IPdfPage_RenderToStreamAsync2, Fn_IPdfPage_RenderToStreamAsync2)(it, a1, p1, op.addr).check("PdfPage.RenderToStreamAsync")
+    withIface(options.p, IID_IPdfPageRenderOptions, "IPdfPageRenderOptions", p1):
+      vcall(it, Slot_IPdfPage_RenderToStreamAsync2, Fn_IPdfPage_RenderToStreamAsync2)(it, outputStream, p1, op.addr).check("PdfPage.RenderToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PdfPage.RenderToStreamAsync")
 
 proc preparePageAsync*(self: PdfPage) {.async.} =
@@ -1267,44 +1267,44 @@ proc resolvedLanguage*(self: SelectableWordsSegmenter): string  =
     vcall(it, Slot_ISelectableWordsSegmenter_get_ResolvedLanguage, Fn_ISelectableWordsSegmenter_get_ResolvedLanguage)(it, tmp.addr).check("SelectableWordsSegmenter.get_ResolvedLanguage")
     result = takeString(tmp)
 
-proc getTokenAt*(self: SelectableWordsSegmenter, a1: string, a2: uint32): SelectableWordSegment  =
+proc getTokenAt*(self: SelectableWordsSegmenter, text: string, startIndex: uint32): SelectableWordSegment  =
   ## Windows.Data.Text.SelectableWordsSegmenter.GetTokenAt
   withIface(self.p, IID_ISelectableWordsSegmenter, "ISelectableWordsSegmenter", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_ISelectableWordsSegmenter_GetTokenAt, Fn_ISelectableWordsSegmenter_GetTokenAt)(it, h0, a2, tmp.addr).check("SelectableWordsSegmenter.GetTokenAt")
+      vcall(it, Slot_ISelectableWordsSegmenter_GetTokenAt, Fn_ISelectableWordsSegmenter_GetTokenAt)(it, h0, startIndex, tmp.addr).check("SelectableWordsSegmenter.GetTokenAt")
       result = adopt[SelectableWordSegment](tmp)
 
-proc getTokens*(self: SelectableWordsSegmenter, a1: string): seq[SelectableWordSegment]  =
+proc getTokens*(self: SelectableWordsSegmenter, text: string): seq[SelectableWordSegment]  =
   ## Windows.Data.Text.SelectableWordsSegmenter.GetTokens
   withIface(self.p, IID_ISelectableWordsSegmenter, "ISelectableWordsSegmenter", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
       vcall(it, Slot_ISelectableWordsSegmenter_GetTokens, Fn_ISelectableWordsSegmenter_GetTokens)(it, h0, tmp.addr).check("SelectableWordsSegmenter.GetTokens")
       result = toSeq[SelectableWordSegment](tmp, IID_IVectorView_1_SelectableWordSegment)
       release(tmp)
 
-proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], a1: string): SelectableWordsSegmenter  =
+proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], language: string): SelectableWordsSegmenter  =
   ## Windows.Data.Text.SelectableWordsSegmenter.CreateWithLanguage
   withStatics("Windows.Data.Text.SelectableWordsSegmenter", IID_ISelectableWordsSegmenterFactory, it):
-    withHString(a1, h0):
+    withHString(language, h0):
       var tmp: pointer
       vcall(it, Slot_ISelectableWordsSegmenterFactory_CreateWithLanguage, Fn_ISelectableWordsSegmenterFactory_CreateWithLanguage)(it, h0, tmp.addr).check("SelectableWordsSegmenter.CreateWithLanguage")
       result = adopt[SelectableWordsSegmenter](tmp)
 
-proc create*(_: typedesc[SemanticTextQuery], a1: string): SemanticTextQuery  =
+proc create*(_: typedesc[SemanticTextQuery], aqsFilter: string): SemanticTextQuery  =
   ## Windows.Data.Text.SemanticTextQuery.Create
   withStatics("Windows.Data.Text.SemanticTextQuery", IID_ISemanticTextQueryFactory, it):
-    withHString(a1, h0):
+    withHString(aqsFilter, h0):
       var tmp: pointer
       vcall(it, Slot_ISemanticTextQueryFactory_Create, Fn_ISemanticTextQueryFactory_Create)(it, h0, tmp.addr).check("SemanticTextQuery.Create")
       result = adopt[SemanticTextQuery](tmp)
 
-proc createWithLanguage*(_: typedesc[SemanticTextQuery], a1: string, a2: string): SemanticTextQuery  =
+proc createWithLanguage*(_: typedesc[SemanticTextQuery], aqsFilter: string, filterLanguage: string): SemanticTextQuery  =
   ## Windows.Data.Text.SemanticTextQuery.CreateWithLanguage
   withStatics("Windows.Data.Text.SemanticTextQuery", IID_ISemanticTextQueryFactory, it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(aqsFilter, h0):
+      withHString(filterLanguage, h1):
         var tmp: pointer
         vcall(it, Slot_ISemanticTextQueryFactory_CreateWithLanguage, Fn_ISemanticTextQueryFactory_CreateWithLanguage)(it, h0, h1, tmp.addr).check("SemanticTextQuery.CreateWithLanguage")
         result = adopt[SemanticTextQuery](tmp)
@@ -1323,30 +1323,30 @@ proc languageAvailableButNotInstalled*(self: TextConversionGenerator): bool  =
     vcall(it, Slot_ITextConversionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextConversionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextConversionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
 
-proc getCandidatesAsync*(self: TextConversionGenerator, a1: string): Future[seq[string]] {.async.} =
+proc getCandidatesAsync*(self: TextConversionGenerator, input: string): Future[seq[string]] {.async.} =
   ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, IID_ITextConversionGenerator, "ITextConversionGenerator", it):
-    withHString(a1, h0):
+    withHString(input, h0):
       vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync, Fn_ITextConversionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextConversionGenerator.GetCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
-proc getCandidatesAsync*(self: TextConversionGenerator, a1: string, a2: uint32): Future[seq[string]] {.async.} =
+proc getCandidatesAsync*(self: TextConversionGenerator, input: string, maxCandidates: uint32): Future[seq[string]] {.async.} =
   ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, IID_ITextConversionGenerator, "ITextConversionGenerator", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync2, Fn_ITextConversionGenerator_GetCandidatesAsync2)(it, h0, a2, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
+    withHString(input, h0):
+      vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync2, Fn_ITextConversionGenerator_GetCandidatesAsync2)(it, h0, maxCandidates, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextConversionGenerator.GetCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
-proc create*(_: typedesc[TextConversionGenerator], a1: string): TextConversionGenerator  =
+proc create*(_: typedesc[TextConversionGenerator], languageTag: string): TextConversionGenerator  =
   ## Windows.Data.Text.TextConversionGenerator.Create
   withStatics("Windows.Data.Text.TextConversionGenerator", IID_ITextConversionGeneratorFactory, it):
-    withHString(a1, h0):
+    withHString(languageTag, h0):
       var tmp: pointer
       vcall(it, Slot_ITextConversionGeneratorFactory_Create, Fn_ITextConversionGeneratorFactory_Create)(it, h0, tmp.addr).check("TextConversionGenerator.Create")
       result = adopt[TextConversionGenerator](tmp)
@@ -1379,30 +1379,30 @@ proc languageAvailableButNotInstalled*(self: TextPredictionGenerator): bool  =
     vcall(it, Slot_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextPredictionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
 
-proc getCandidatesAsync*(self: TextPredictionGenerator, a1: string): Future[seq[string]] {.async.} =
+proc getCandidatesAsync*(self: TextPredictionGenerator, input: string): Future[seq[string]] {.async.} =
   ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, IID_ITextPredictionGenerator, "ITextPredictionGenerator", it):
-    withHString(a1, h0):
+    withHString(input, h0):
       vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync, Fn_ITextPredictionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
-proc getCandidatesAsync*(self: TextPredictionGenerator, a1: string, a2: uint32): Future[seq[string]] {.async.} =
+proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandidates: uint32): Future[seq[string]] {.async.} =
   ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
   var op: pointer
   withIface(self.p, IID_ITextPredictionGenerator, "ITextPredictionGenerator", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync2, Fn_ITextPredictionGenerator_GetCandidatesAsync2)(it, h0, a2, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
+    withHString(input, h0):
+      vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync2, Fn_ITextPredictionGenerator_GetCandidatesAsync2)(it, h0, maxCandidates, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
-proc create*(_: typedesc[TextPredictionGenerator], a1: string): TextPredictionGenerator  =
+proc create*(_: typedesc[TextPredictionGenerator], languageTag: string): TextPredictionGenerator  =
   ## Windows.Data.Text.TextPredictionGenerator.Create
   withStatics("Windows.Data.Text.TextPredictionGenerator", IID_ITextPredictionGeneratorFactory, it):
-    withHString(a1, h0):
+    withHString(languageTag, h0):
       var tmp: pointer
       vcall(it, Slot_ITextPredictionGeneratorFactory_Create, Fn_ITextPredictionGeneratorFactory_Create)(it, h0, tmp.addr).check("TextPredictionGenerator.Create")
       result = adopt[TextPredictionGenerator](tmp)
@@ -1421,142 +1421,142 @@ proc languageAvailableButNotInstalled*(self: TextReverseConversionGenerator): bo
     vcall(it, Slot_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextReverseConversionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextReverseConversionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
 
-proc convertBackAsync*(self: TextReverseConversionGenerator, a1: string): Future[string] {.async.} =
+proc convertBackAsync*(self: TextReverseConversionGenerator, input: string): Future[string] {.async.} =
   ## Windows.Data.Text.TextReverseConversionGenerator.ConvertBackAsync
   var op: pointer
   withIface(self.p, IID_ITextReverseConversionGenerator, "ITextReverseConversionGenerator", it):
-    withHString(a1, h0):
+    withHString(input, h0):
       vcall(it, Slot_ITextReverseConversionGenerator_ConvertBackAsync, Fn_ITextReverseConversionGenerator_ConvertBackAsync)(it, h0, op.addr).check("TextReverseConversionGenerator.ConvertBackAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "TextReverseConversionGenerator.ConvertBackAsync")
 
-proc getPhonemesAsync*(self: TextReverseConversionGenerator, a1: string): Future[seq[TextPhoneme]] {.async.} =
+proc getPhonemesAsync*(self: TextReverseConversionGenerator, input: string): Future[seq[TextPhoneme]] {.async.} =
   ## Windows.Data.Text.TextReverseConversionGenerator.GetPhonemesAsync
   var op: pointer
   withIface(self.p, IID_ITextReverseConversionGenerator2, "ITextReverseConversionGenerator2", it):
-    withHString(a1, h0):
+    withHString(input, h0):
       vcall(it, Slot_ITextReverseConversionGenerator2_GetPhonemesAsync, Fn_ITextReverseConversionGenerator2_GetPhonemesAsync)(it, h0, op.addr).check("TextReverseConversionGenerator.GetPhonemesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "TextReverseConversionGenerator.GetPhonemesAsync")
   result = toSeq[TextPhoneme](coll, IID_IVectorView_1_TextPhoneme)
   discard release(coll)
 
-proc create*(_: typedesc[TextReverseConversionGenerator], a1: string): TextReverseConversionGenerator  =
+proc create*(_: typedesc[TextReverseConversionGenerator], languageTag: string): TextReverseConversionGenerator  =
   ## Windows.Data.Text.TextReverseConversionGenerator.Create
   withStatics("Windows.Data.Text.TextReverseConversionGenerator", IID_ITextReverseConversionGeneratorFactory, it):
-    withHString(a1, h0):
+    withHString(languageTag, h0):
       var tmp: pointer
       vcall(it, Slot_ITextReverseConversionGeneratorFactory_Create, Fn_ITextReverseConversionGeneratorFactory_Create)(it, h0, tmp.addr).check("TextReverseConversionGenerator.Create")
       result = adopt[TextReverseConversionGenerator](tmp)
 
-proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters], a1: uint32, a2: uint32): uint32  =
+proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters], highSurrogate: uint32, lowSurrogate: uint32): uint32  =
   ## Windows.Data.Text.UnicodeCharacters.GetCodepointFromSurrogatePair
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair, Fn_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair)(it, a1, a2, tmp.addr).check("UnicodeCharacters.GetCodepointFromSurrogatePair")
+    vcall(it, Slot_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair, Fn_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair)(it, highSurrogate, lowSurrogate, tmp.addr).check("UnicodeCharacters.GetCodepointFromSurrogatePair")
     result = tmp
 
-proc isHighSurrogate*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsHighSurrogate
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsHighSurrogate, Fn_IUnicodeCharactersStatics_IsHighSurrogate)(it, a1, tmp.addr).check("UnicodeCharacters.IsHighSurrogate")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsHighSurrogate, Fn_IUnicodeCharactersStatics_IsHighSurrogate)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsHighSurrogate")
     result = tmp
 
-proc isLowSurrogate*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isLowSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsLowSurrogate
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsLowSurrogate, Fn_IUnicodeCharactersStatics_IsLowSurrogate)(it, a1, tmp.addr).check("UnicodeCharacters.IsLowSurrogate")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsLowSurrogate, Fn_IUnicodeCharactersStatics_IsLowSurrogate)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsLowSurrogate")
     result = tmp
 
-proc isSupplementary*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isSupplementary*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsSupplementary
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsSupplementary, Fn_IUnicodeCharactersStatics_IsSupplementary)(it, a1, tmp.addr).check("UnicodeCharacters.IsSupplementary")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsSupplementary, Fn_IUnicodeCharactersStatics_IsSupplementary)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsSupplementary")
     result = tmp
 
-proc isNoncharacter*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isNoncharacter*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsNoncharacter
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsNoncharacter, Fn_IUnicodeCharactersStatics_IsNoncharacter)(it, a1, tmp.addr).check("UnicodeCharacters.IsNoncharacter")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsNoncharacter, Fn_IUnicodeCharactersStatics_IsNoncharacter)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsNoncharacter")
     result = tmp
 
-proc isWhitespace*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isWhitespace*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsWhitespace
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsWhitespace, Fn_IUnicodeCharactersStatics_IsWhitespace)(it, a1, tmp.addr).check("UnicodeCharacters.IsWhitespace")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsWhitespace, Fn_IUnicodeCharactersStatics_IsWhitespace)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsWhitespace")
     result = tmp
 
-proc isAlphabetic*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isAlphabetic*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsAlphabetic
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsAlphabetic, Fn_IUnicodeCharactersStatics_IsAlphabetic)(it, a1, tmp.addr).check("UnicodeCharacters.IsAlphabetic")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsAlphabetic, Fn_IUnicodeCharactersStatics_IsAlphabetic)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsAlphabetic")
     result = tmp
 
-proc isCased*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isCased*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsCased
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsCased, Fn_IUnicodeCharactersStatics_IsCased)(it, a1, tmp.addr).check("UnicodeCharacters.IsCased")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsCased, Fn_IUnicodeCharactersStatics_IsCased)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsCased")
     result = tmp
 
-proc isUppercase*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isUppercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsUppercase
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsUppercase, Fn_IUnicodeCharactersStatics_IsUppercase)(it, a1, tmp.addr).check("UnicodeCharacters.IsUppercase")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsUppercase, Fn_IUnicodeCharactersStatics_IsUppercase)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsUppercase")
     result = tmp
 
-proc isLowercase*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isLowercase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsLowercase
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsLowercase, Fn_IUnicodeCharactersStatics_IsLowercase)(it, a1, tmp.addr).check("UnicodeCharacters.IsLowercase")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsLowercase, Fn_IUnicodeCharactersStatics_IsLowercase)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsLowercase")
     result = tmp
 
-proc isIdStart*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isIdStart*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsIdStart
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsIdStart, Fn_IUnicodeCharactersStatics_IsIdStart)(it, a1, tmp.addr).check("UnicodeCharacters.IsIdStart")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsIdStart, Fn_IUnicodeCharactersStatics_IsIdStart)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsIdStart")
     result = tmp
 
-proc isIdContinue*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isIdContinue*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsIdContinue
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsIdContinue, Fn_IUnicodeCharactersStatics_IsIdContinue)(it, a1, tmp.addr).check("UnicodeCharacters.IsIdContinue")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsIdContinue, Fn_IUnicodeCharactersStatics_IsIdContinue)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsIdContinue")
     result = tmp
 
-proc isGraphemeBase*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isGraphemeBase*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsGraphemeBase
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsGraphemeBase, Fn_IUnicodeCharactersStatics_IsGraphemeBase)(it, a1, tmp.addr).check("UnicodeCharacters.IsGraphemeBase")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsGraphemeBase, Fn_IUnicodeCharactersStatics_IsGraphemeBase)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsGraphemeBase")
     result = tmp
 
-proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], a1: uint32): bool  =
+proc isGraphemeExtend*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsGraphemeExtend
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUnicodeCharactersStatics_IsGraphemeExtend, Fn_IUnicodeCharactersStatics_IsGraphemeExtend)(it, a1, tmp.addr).check("UnicodeCharacters.IsGraphemeExtend")
+    vcall(it, Slot_IUnicodeCharactersStatics_IsGraphemeExtend, Fn_IUnicodeCharactersStatics_IsGraphemeExtend)(it, codepoint, tmp.addr).check("UnicodeCharacters.IsGraphemeExtend")
     result = tmp
 
-proc getNumericType*(_: typedesc[UnicodeCharacters], a1: uint32): UnicodeNumericType  =
+proc getNumericType*(_: typedesc[UnicodeCharacters], codepoint: uint32): UnicodeNumericType  =
   ## Windows.Data.Text.UnicodeCharacters.GetNumericType
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: UnicodeNumericType
-    vcall(it, Slot_IUnicodeCharactersStatics_GetNumericType, Fn_IUnicodeCharactersStatics_GetNumericType)(it, a1, tmp.addr).check("UnicodeCharacters.GetNumericType")
+    vcall(it, Slot_IUnicodeCharactersStatics_GetNumericType, Fn_IUnicodeCharactersStatics_GetNumericType)(it, codepoint, tmp.addr).check("UnicodeCharacters.GetNumericType")
     result = tmp
 
-proc getGeneralCategory*(_: typedesc[UnicodeCharacters], a1: uint32): UnicodeGeneralCategory  =
+proc getGeneralCategory*(_: typedesc[UnicodeCharacters], codepoint: uint32): UnicodeGeneralCategory  =
   ## Windows.Data.Text.UnicodeCharacters.GetGeneralCategory
   withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
     var tmp: UnicodeGeneralCategory
-    vcall(it, Slot_IUnicodeCharactersStatics_GetGeneralCategory, Fn_IUnicodeCharactersStatics_GetGeneralCategory)(it, a1, tmp.addr).check("UnicodeCharacters.GetGeneralCategory")
+    vcall(it, Slot_IUnicodeCharactersStatics_GetGeneralCategory, Fn_IUnicodeCharactersStatics_GetGeneralCategory)(it, codepoint, tmp.addr).check("UnicodeCharacters.GetGeneralCategory")
     result = tmp
 
 proc text*(self: WordSegment): string  =
@@ -1588,27 +1588,27 @@ proc resolvedLanguage*(self: WordsSegmenter): string  =
     vcall(it, Slot_IWordsSegmenter_get_ResolvedLanguage, Fn_IWordsSegmenter_get_ResolvedLanguage)(it, tmp.addr).check("WordsSegmenter.get_ResolvedLanguage")
     result = takeString(tmp)
 
-proc getTokenAt*(self: WordsSegmenter, a1: string, a2: uint32): WordSegment  =
+proc getTokenAt*(self: WordsSegmenter, text: string, startIndex: uint32): WordSegment  =
   ## Windows.Data.Text.WordsSegmenter.GetTokenAt
   withIface(self.p, IID_IWordsSegmenter, "IWordsSegmenter", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_IWordsSegmenter_GetTokenAt, Fn_IWordsSegmenter_GetTokenAt)(it, h0, a2, tmp.addr).check("WordsSegmenter.GetTokenAt")
+      vcall(it, Slot_IWordsSegmenter_GetTokenAt, Fn_IWordsSegmenter_GetTokenAt)(it, h0, startIndex, tmp.addr).check("WordsSegmenter.GetTokenAt")
       result = adopt[WordSegment](tmp)
 
-proc getTokens*(self: WordsSegmenter, a1: string): seq[WordSegment]  =
+proc getTokens*(self: WordsSegmenter, text: string): seq[WordSegment]  =
   ## Windows.Data.Text.WordsSegmenter.GetTokens
   withIface(self.p, IID_IWordsSegmenter, "IWordsSegmenter", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
       vcall(it, Slot_IWordsSegmenter_GetTokens, Fn_IWordsSegmenter_GetTokens)(it, h0, tmp.addr).check("WordsSegmenter.GetTokens")
       result = toSeq[WordSegment](tmp, IID_IVectorView_1_WordSegment)
       release(tmp)
 
-proc createWithLanguage*(_: typedesc[WordsSegmenter], a1: string): WordsSegmenter  =
+proc createWithLanguage*(_: typedesc[WordsSegmenter], language: string): WordsSegmenter  =
   ## Windows.Data.Text.WordsSegmenter.CreateWithLanguage
   withStatics("Windows.Data.Text.WordsSegmenter", IID_IWordsSegmenterFactory, it):
-    withHString(a1, h0):
+    withHString(language, h0):
       var tmp: pointer
       vcall(it, Slot_IWordsSegmenterFactory_CreateWithLanguage, Fn_IWordsSegmenterFactory_CreateWithLanguage)(it, h0, tmp.addr).check("WordsSegmenter.CreateWithLanguage")
       result = adopt[WordsSegmenter](tmp)
@@ -1723,39 +1723,39 @@ proc ownerDocument*(self: DtdEntity): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("DtdEntity.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: DtdEntity, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: DtdEntity, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("DtdEntity.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("DtdEntity.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: DtdEntity, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: DtdEntity, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("DtdEntity.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("DtdEntity.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: DtdEntity, a1: pointer): pointer  =
+proc removeChild*(self: DtdEntity, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("DtdEntity.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("DtdEntity.RemoveChild")
     result = tmp
 
-proc appendChild*(self: DtdEntity, a1: pointer): pointer  =
+proc appendChild*(self: DtdEntity, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("DtdEntity.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("DtdEntity.AppendChild")
     result = tmp
 
-proc cloneNode*(self: DtdEntity, a1: bool): pointer  =
+proc cloneNode*(self: DtdEntity, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("DtdEntity.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("DtdEntity.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: DtdEntity): pointer  =
@@ -1809,36 +1809,36 @@ proc `innerText=`*(self: DtdEntity, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("DtdEntity.put_InnerText")
 
-proc selectSingleNode*(self: DtdEntity, a1: string): pointer  =
+proc selectSingleNode*(self: DtdEntity, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("DtdEntity.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: DtdEntity, a1: string): XmlNodeList  =
+proc selectNodes*(self: DtdEntity, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.DtdEntity.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("DtdEntity.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: DtdEntity, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: DtdEntity, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdEntity.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("DtdEntity.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("DtdEntity.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: DtdEntity, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: DtdEntity, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.DtdEntity.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("DtdEntity.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("DtdEntity.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc publicId*(self: DtdNotation): pointer  =
@@ -1944,39 +1944,39 @@ proc ownerDocument*(self: DtdNotation): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("DtdNotation.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: DtdNotation, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: DtdNotation, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("DtdNotation.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("DtdNotation.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: DtdNotation, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: DtdNotation, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("DtdNotation.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("DtdNotation.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: DtdNotation, a1: pointer): pointer  =
+proc removeChild*(self: DtdNotation, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("DtdNotation.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("DtdNotation.RemoveChild")
     result = tmp
 
-proc appendChild*(self: DtdNotation, a1: pointer): pointer  =
+proc appendChild*(self: DtdNotation, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("DtdNotation.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("DtdNotation.AppendChild")
     result = tmp
 
-proc cloneNode*(self: DtdNotation, a1: bool): pointer  =
+proc cloneNode*(self: DtdNotation, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("DtdNotation.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("DtdNotation.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: DtdNotation): pointer  =
@@ -2030,36 +2030,36 @@ proc `innerText=`*(self: DtdNotation, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("DtdNotation.put_InnerText")
 
-proc selectSingleNode*(self: DtdNotation, a1: string): pointer  =
+proc selectSingleNode*(self: DtdNotation, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("DtdNotation.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: DtdNotation, a1: string): XmlNodeList  =
+proc selectNodes*(self: DtdNotation, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.DtdNotation.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("DtdNotation.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: DtdNotation, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: DtdNotation, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.DtdNotation.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("DtdNotation.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("DtdNotation.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: DtdNotation, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: DtdNotation, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.DtdNotation.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("DtdNotation.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("DtdNotation.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc name*(self: XmlAttribute): string  =
@@ -2178,39 +2178,39 @@ proc ownerDocument*(self: XmlAttribute): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlAttribute.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlAttribute, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlAttribute, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlAttribute.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlAttribute.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlAttribute, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlAttribute, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlAttribute.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlAttribute.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlAttribute, a1: pointer): pointer  =
+proc removeChild*(self: XmlAttribute, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlAttribute.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlAttribute.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlAttribute, a1: pointer): pointer  =
+proc appendChild*(self: XmlAttribute, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlAttribute.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlAttribute.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlAttribute, a1: bool): pointer  =
+proc cloneNode*(self: XmlAttribute, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlAttribute.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlAttribute.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlAttribute): pointer  =
@@ -2264,43 +2264,43 @@ proc `innerText=`*(self: XmlAttribute, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlAttribute.put_InnerText")
 
-proc selectSingleNode*(self: XmlAttribute, a1: string): pointer  =
+proc selectSingleNode*(self: XmlAttribute, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlAttribute.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlAttribute, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlAttribute, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlAttribute.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlAttribute.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlAttribute, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlAttribute, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlAttribute.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlAttribute.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlAttribute.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlAttribute, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlAttribute, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlAttribute.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlAttribute.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlAttribute.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
-proc splitText*(self: XmlCDataSection, a1: uint32): XmlText  =
+proc splitText*(self: XmlCDataSection, offset: uint32): XmlText  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SplitText
   withIface(self.p, IID_IXmlText, "IXmlText", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlText_SplitText, Fn_IXmlText_SplitText)(it, a1, tmp.addr).check("XmlCDataSection.SplitText")
+    vcall(it, Slot_IXmlText_SplitText, Fn_IXmlText_SplitText)(it, offset, tmp.addr).check("XmlCDataSection.SplitText")
     result = adopt[XmlText](tmp)
 
 proc data*(self: XmlCDataSection): string  =
@@ -2323,35 +2323,35 @@ proc length*(self: XmlCDataSection): uint32  =
     vcall(it, Slot_IXmlCharacterData_get_Length, Fn_IXmlCharacterData_get_Length)(it, tmp.addr).check("XmlCDataSection.get_Length")
     result = tmp
 
-proc substringData*(self: XmlCDataSection, a1: uint32, a2: uint32): string  =
+proc substringData*(self: XmlCDataSection, offset: uint32, count: uint32): string  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SubstringData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
     var tmp: HSTRING
-    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, a1, a2, tmp.addr).check("XmlCDataSection.SubstringData")
+    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, offset, count, tmp.addr).check("XmlCDataSection.SubstringData")
     result = takeString(tmp)
 
-proc appendData*(self: XmlCDataSection, a1: string)  =
+proc appendData*(self: XmlCDataSection, data: string)  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.AppendData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IXmlCharacterData_AppendData, Fn_IXmlCharacterData_AppendData)(it, h0).check("XmlCDataSection.AppendData")
 
-proc insertData*(self: XmlCDataSection, a1: uint32, a2: string)  =
+proc insertData*(self: XmlCDataSection, offset: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.InsertData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, a1, h1).check("XmlCDataSection.InsertData")
+    withHString(data, h1):
+      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, offset, h1).check("XmlCDataSection.InsertData")
 
-proc deleteData*(self: XmlCDataSection, a1: uint32, a2: uint32)  =
+proc deleteData*(self: XmlCDataSection, offset: uint32, count: uint32)  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.DeleteData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, a1, a2).check("XmlCDataSection.DeleteData")
+    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, offset, count).check("XmlCDataSection.DeleteData")
 
-proc replaceData*(self: XmlCDataSection, a1: uint32, a2: uint32, a3: string)  =
+proc replaceData*(self: XmlCDataSection, offset: uint32, count: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.ReplaceData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a3, h2):
-      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, a1, a2, h2).check("XmlCDataSection.ReplaceData")
+    withHString(data, h2):
+      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, offset, count, h2).check("XmlCDataSection.ReplaceData")
 
 proc nodeValue*(self: XmlCDataSection): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.get_NodeValue
@@ -2442,39 +2442,39 @@ proc ownerDocument*(self: XmlCDataSection): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlCDataSection.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlCDataSection, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlCDataSection, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlCDataSection.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlCDataSection.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlCDataSection, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlCDataSection, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlCDataSection.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlCDataSection.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlCDataSection, a1: pointer): pointer  =
+proc removeChild*(self: XmlCDataSection, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlCDataSection.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlCDataSection.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlCDataSection, a1: pointer): pointer  =
+proc appendChild*(self: XmlCDataSection, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlCDataSection.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlCDataSection.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlCDataSection, a1: bool): pointer  =
+proc cloneNode*(self: XmlCDataSection, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlCDataSection.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlCDataSection.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlCDataSection): pointer  =
@@ -2528,36 +2528,36 @@ proc `innerText=`*(self: XmlCDataSection, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlCDataSection.put_InnerText")
 
-proc selectSingleNode*(self: XmlCDataSection, a1: string): pointer  =
+proc selectSingleNode*(self: XmlCDataSection, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlCDataSection.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlCDataSection, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlCDataSection, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlCDataSection.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlCDataSection, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlCDataSection, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlCDataSection.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlCDataSection.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlCDataSection, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlCDataSection, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlCDataSection.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlCDataSection.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlCDataSection.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc data*(self: XmlComment): string  =
@@ -2580,35 +2580,35 @@ proc length*(self: XmlComment): uint32  =
     vcall(it, Slot_IXmlCharacterData_get_Length, Fn_IXmlCharacterData_get_Length)(it, tmp.addr).check("XmlComment.get_Length")
     result = tmp
 
-proc substringData*(self: XmlComment, a1: uint32, a2: uint32): string  =
+proc substringData*(self: XmlComment, offset: uint32, count: uint32): string  =
   ## Windows.Data.Xml.Dom.XmlComment.SubstringData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
     var tmp: HSTRING
-    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, a1, a2, tmp.addr).check("XmlComment.SubstringData")
+    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, offset, count, tmp.addr).check("XmlComment.SubstringData")
     result = takeString(tmp)
 
-proc appendData*(self: XmlComment, a1: string)  =
+proc appendData*(self: XmlComment, data: string)  =
   ## Windows.Data.Xml.Dom.XmlComment.AppendData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IXmlCharacterData_AppendData, Fn_IXmlCharacterData_AppendData)(it, h0).check("XmlComment.AppendData")
 
-proc insertData*(self: XmlComment, a1: uint32, a2: string)  =
+proc insertData*(self: XmlComment, offset: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlComment.InsertData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, a1, h1).check("XmlComment.InsertData")
+    withHString(data, h1):
+      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, offset, h1).check("XmlComment.InsertData")
 
-proc deleteData*(self: XmlComment, a1: uint32, a2: uint32)  =
+proc deleteData*(self: XmlComment, offset: uint32, count: uint32)  =
   ## Windows.Data.Xml.Dom.XmlComment.DeleteData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, a1, a2).check("XmlComment.DeleteData")
+    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, offset, count).check("XmlComment.DeleteData")
 
-proc replaceData*(self: XmlComment, a1: uint32, a2: uint32, a3: string)  =
+proc replaceData*(self: XmlComment, offset: uint32, count: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlComment.ReplaceData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a3, h2):
-      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, a1, a2, h2).check("XmlComment.ReplaceData")
+    withHString(data, h2):
+      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, offset, count, h2).check("XmlComment.ReplaceData")
 
 proc nodeValue*(self: XmlComment): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.get_NodeValue
@@ -2699,39 +2699,39 @@ proc ownerDocument*(self: XmlComment): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlComment.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlComment, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlComment, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlComment.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlComment.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlComment, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlComment, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlComment.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlComment.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlComment, a1: pointer): pointer  =
+proc removeChild*(self: XmlComment, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlComment.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlComment.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlComment, a1: pointer): pointer  =
+proc appendChild*(self: XmlComment, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlComment.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlComment.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlComment, a1: bool): pointer  =
+proc cloneNode*(self: XmlComment, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlComment.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlComment.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlComment): pointer  =
@@ -2785,36 +2785,36 @@ proc `innerText=`*(self: XmlComment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlComment.put_InnerText")
 
-proc selectSingleNode*(self: XmlComment, a1: string): pointer  =
+proc selectSingleNode*(self: XmlComment, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlComment.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlComment, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlComment, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlComment.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlComment.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlComment, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlComment, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlComment.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlComment.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlComment.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlComment, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlComment, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlComment.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlComment.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlComment.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc newXmlDocument*(): XmlDocument =
@@ -2842,10 +2842,10 @@ proc documentElement*(self: XmlDocument): XmlElement  =
     vcall(it, Slot_IXmlDocument_get_DocumentElement, Fn_IXmlDocument_get_DocumentElement)(it, tmp.addr).check("XmlDocument.get_DocumentElement")
     result = adopt[XmlElement](tmp)
 
-proc createElement*(self: XmlDocument, a1: string): XmlElement  =
+proc createElement*(self: XmlDocument, tagName: string): XmlElement  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateElement
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(tagName, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateElement, Fn_IXmlDocument_CreateElement)(it, h0, tmp.addr).check("XmlDocument.CreateElement")
       result = adopt[XmlElement](tmp)
@@ -2857,59 +2857,59 @@ proc createDocumentFragment*(self: XmlDocument): XmlDocumentFragment  =
     vcall(it, Slot_IXmlDocument_CreateDocumentFragment, Fn_IXmlDocument_CreateDocumentFragment)(it, tmp.addr).check("XmlDocument.CreateDocumentFragment")
     result = adopt[XmlDocumentFragment](tmp)
 
-proc createTextNode*(self: XmlDocument, a1: string): XmlText  =
+proc createTextNode*(self: XmlDocument, data: string): XmlText  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateTextNode
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateTextNode, Fn_IXmlDocument_CreateTextNode)(it, h0, tmp.addr).check("XmlDocument.CreateTextNode")
       result = adopt[XmlText](tmp)
 
-proc createComment*(self: XmlDocument, a1: string): XmlComment  =
+proc createComment*(self: XmlDocument, data: string): XmlComment  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateComment
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateComment, Fn_IXmlDocument_CreateComment)(it, h0, tmp.addr).check("XmlDocument.CreateComment")
       result = adopt[XmlComment](tmp)
 
-proc createProcessingInstruction*(self: XmlDocument, a1: string, a2: string): XmlProcessingInstruction  =
+proc createProcessingInstruction*(self: XmlDocument, target: string, data: string): XmlProcessingInstruction  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateProcessingInstruction
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(target, h0):
+      withHString(data, h1):
         var tmp: pointer
         vcall(it, Slot_IXmlDocument_CreateProcessingInstruction, Fn_IXmlDocument_CreateProcessingInstruction)(it, h0, h1, tmp.addr).check("XmlDocument.CreateProcessingInstruction")
         result = adopt[XmlProcessingInstruction](tmp)
 
-proc createAttribute*(self: XmlDocument, a1: string): XmlAttribute  =
+proc createAttribute*(self: XmlDocument, name: string): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateAttribute
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateAttribute, Fn_IXmlDocument_CreateAttribute)(it, h0, tmp.addr).check("XmlDocument.CreateAttribute")
       result = adopt[XmlAttribute](tmp)
 
-proc createEntityReference*(self: XmlDocument, a1: string): XmlEntityReference  =
+proc createEntityReference*(self: XmlDocument, name: string): XmlEntityReference  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateEntityReference
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateEntityReference, Fn_IXmlDocument_CreateEntityReference)(it, h0, tmp.addr).check("XmlDocument.CreateEntityReference")
       result = adopt[XmlEntityReference](tmp)
 
-proc getElementsByTagName*(self: XmlDocument, a1: string): XmlNodeList  =
+proc getElementsByTagName*(self: XmlDocument, tagName: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocument.GetElementsByTagName
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(tagName, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_GetElementsByTagName, Fn_IXmlDocument_GetElementsByTagName)(it, h0, tmp.addr).check("XmlDocument.GetElementsByTagName")
       result = adopt[XmlNodeList](tmp)
 
-proc createCDataSection*(self: XmlDocument, a1: string): XmlCDataSection  =
+proc createCDataSection*(self: XmlDocument, data: string): XmlCDataSection  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateCDataSection
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_CreateCDataSection, Fn_IXmlDocument_CreateCDataSection)(it, h0, tmp.addr).check("XmlDocument.CreateCDataSection")
       result = adopt[XmlCDataSection](tmp)
@@ -2921,35 +2921,35 @@ proc documentUri*(self: XmlDocument): string  =
     vcall(it, Slot_IXmlDocument_get_DocumentUri, Fn_IXmlDocument_get_DocumentUri)(it, tmp.addr).check("XmlDocument.get_DocumentUri")
     result = takeString(tmp)
 
-proc createAttributeNS*(self: XmlDocument, a1: pointer, a2: string): XmlAttribute  =
+proc createAttributeNS*(self: XmlDocument, namespaceUri: pointer, qualifiedName: string): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateAttributeNS
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a2, h1):
+    withHString(qualifiedName, h1):
       var tmp: pointer
-      vcall(it, Slot_IXmlDocument_CreateAttributeNS, Fn_IXmlDocument_CreateAttributeNS)(it, a1, h1, tmp.addr).check("XmlDocument.CreateAttributeNS")
+      vcall(it, Slot_IXmlDocument_CreateAttributeNS, Fn_IXmlDocument_CreateAttributeNS)(it, namespaceUri, h1, tmp.addr).check("XmlDocument.CreateAttributeNS")
       result = adopt[XmlAttribute](tmp)
 
-proc createElementNS*(self: XmlDocument, a1: pointer, a2: string): XmlElement  =
+proc createElementNS*(self: XmlDocument, namespaceUri: pointer, qualifiedName: string): XmlElement  =
   ## Windows.Data.Xml.Dom.XmlDocument.CreateElementNS
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a2, h1):
+    withHString(qualifiedName, h1):
       var tmp: pointer
-      vcall(it, Slot_IXmlDocument_CreateElementNS, Fn_IXmlDocument_CreateElementNS)(it, a1, h1, tmp.addr).check("XmlDocument.CreateElementNS")
+      vcall(it, Slot_IXmlDocument_CreateElementNS, Fn_IXmlDocument_CreateElementNS)(it, namespaceUri, h1, tmp.addr).check("XmlDocument.CreateElementNS")
       result = adopt[XmlElement](tmp)
 
-proc getElementById*(self: XmlDocument, a1: string): XmlElement  =
+proc getElementById*(self: XmlDocument, elementId: string): XmlElement  =
   ## Windows.Data.Xml.Dom.XmlDocument.GetElementById
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
-    withHString(a1, h0):
+    withHString(elementId, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlDocument_GetElementById, Fn_IXmlDocument_GetElementById)(it, h0, tmp.addr).check("XmlDocument.GetElementById")
       result = adopt[XmlElement](tmp)
 
-proc importNode*(self: XmlDocument, a1: pointer, a2: bool): pointer  =
+proc importNode*(self: XmlDocument, node: pointer, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.ImportNode
   withIface(self.p, IID_IXmlDocument, "IXmlDocument", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlDocument_ImportNode, Fn_IXmlDocument_ImportNode)(it, a1, a2, tmp.addr).check("XmlDocument.ImportNode")
+    vcall(it, Slot_IXmlDocument_ImportNode, Fn_IXmlDocument_ImportNode)(it, node, deep, tmp.addr).check("XmlDocument.ImportNode")
     result = tmp
 
 proc nodeValue*(self: XmlDocument): pointer  =
@@ -3041,39 +3041,39 @@ proc ownerDocument*(self: XmlDocument): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlDocument.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlDocument, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlDocument, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlDocument.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlDocument.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlDocument, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlDocument, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlDocument.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlDocument.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlDocument, a1: pointer): pointer  =
+proc removeChild*(self: XmlDocument, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlDocument.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlDocument.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlDocument, a1: pointer): pointer  =
+proc appendChild*(self: XmlDocument, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlDocument.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlDocument.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlDocument, a1: bool): pointer  =
+proc cloneNode*(self: XmlDocument, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlDocument.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlDocument.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlDocument): pointer  =
@@ -3127,99 +3127,99 @@ proc `innerText=`*(self: XmlDocument, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlDocument.put_InnerText")
 
-proc selectSingleNode*(self: XmlDocument, a1: string): pointer  =
+proc selectSingleNode*(self: XmlDocument, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlDocument.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlDocument, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlDocument, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocument.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlDocument.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlDocument, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlDocument, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocument.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlDocument.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlDocument.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlDocument, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlDocument, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocument.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlDocument.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlDocument.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
-proc loadXml*(self: XmlDocument, a1: string)  =
+proc loadXml*(self: XmlDocument, xml: string)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXml
   withIface(self.p, IID_IXmlDocumentIO, "IXmlDocumentIO", it):
-    withHString(a1, h0):
+    withHString(xml, h0):
       vcall(it, Slot_IXmlDocumentIO_LoadXml, Fn_IXmlDocumentIO_LoadXml)(it, h0).check("XmlDocument.LoadXml")
 
-proc loadXml*(self: XmlDocument, a1: string, a2: XmlLoadSettings)  =
+proc loadXml*(self: XmlDocument, xml: string, loadSettings: XmlLoadSettings)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXml
   withIface(self.p, IID_IXmlDocumentIO, "IXmlDocumentIO", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+    withHString(xml, h0):
+      withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
         vcall(it, Slot_IXmlDocumentIO_LoadXml2, Fn_IXmlDocumentIO_LoadXml2)(it, h0, p1).check("XmlDocument.LoadXml")
 
-proc saveToFileAsync*(self: XmlDocument, a1: pointer) {.async.} =
+proc saveToFileAsync*(self: XmlDocument, file: pointer) {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.SaveToFileAsync
   var op: pointer
   withIface(self.p, IID_IXmlDocumentIO, "IXmlDocumentIO", it):
-    vcall(it, Slot_IXmlDocumentIO_SaveToFileAsync, Fn_IXmlDocumentIO_SaveToFileAsync)(it, a1, op.addr).check("XmlDocument.SaveToFileAsync")
+    vcall(it, Slot_IXmlDocumentIO_SaveToFileAsync, Fn_IXmlDocumentIO_SaveToFileAsync)(it, file, op.addr).check("XmlDocument.SaveToFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "XmlDocument.SaveToFileAsync")
 
-proc loadXmlFromBuffer*(self: XmlDocument, a1: pointer)  =
+proc loadXmlFromBuffer*(self: XmlDocument, buffer: pointer)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
-    vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer, Fn_IXmlDocumentIO2_LoadXmlFromBuffer)(it, a1).check("XmlDocument.LoadXmlFromBuffer")
+    vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer, Fn_IXmlDocumentIO2_LoadXmlFromBuffer)(it, buffer).check("XmlDocument.LoadXmlFromBuffer")
 
-proc loadXmlFromBuffer*(self: XmlDocument, a1: pointer, a2: XmlLoadSettings)  =
+proc loadXmlFromBuffer*(self: XmlDocument, buffer: pointer, loadSettings: XmlLoadSettings)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
-    withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
-      vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, a1, p1).check("XmlDocument.LoadXmlFromBuffer")
+    withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+      vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, buffer, p1).check("XmlDocument.LoadXmlFromBuffer")
 
-proc loadFromUriAsync*(_: typedesc[XmlDocument], a1: Uri): Future[XmlDocument] {.async.} =
+proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IXmlDocumentStatics_LoadFromUriAsync, Fn_IXmlDocumentStatics_LoadFromUriAsync)(it, p0, op.addr).check("XmlDocument.LoadFromUriAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromUriAsync"))
 
-proc loadFromUriAsync*(_: typedesc[XmlDocument], a1: Uri, a2: XmlLoadSettings): Future[XmlDocument] {.async.} =
+proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri, loadSettings: XmlLoadSettings): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
         vcall(it, Slot_IXmlDocumentStatics_LoadFromUriAsync2, Fn_IXmlDocumentStatics_LoadFromUriAsync2)(it, p0, p1, op.addr).check("XmlDocument.LoadFromUriAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromUriAsync"))
 
-proc loadFromFileAsync*(_: typedesc[XmlDocument], a1: pointer): Future[XmlDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[XmlDocument], file: pointer): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync, Fn_IXmlDocumentStatics_LoadFromFileAsync)(it, a1, op.addr).check("XmlDocument.LoadFromFileAsync")
+    vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync, Fn_IXmlDocumentStatics_LoadFromFileAsync)(it, file, op.addr).check("XmlDocument.LoadFromFileAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
 
-proc loadFromFileAsync*(_: typedesc[XmlDocument], a1: pointer, a2: XmlLoadSettings): Future[XmlDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[XmlDocument], file: pointer, loadSettings: XmlLoadSettings): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    withIface(a2.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
-      vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync2, Fn_IXmlDocumentStatics_LoadFromFileAsync2)(it, a1, p1, op.addr).check("XmlDocument.LoadFromFileAsync")
+    withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+      vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync2, Fn_IXmlDocumentStatics_LoadFromFileAsync2)(it, file, p1, op.addr).check("XmlDocument.LoadFromFileAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
 
 proc nodeValue*(self: XmlDocumentFragment): pointer  =
@@ -3311,39 +3311,39 @@ proc ownerDocument*(self: XmlDocumentFragment): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlDocumentFragment.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlDocumentFragment, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlDocumentFragment, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlDocumentFragment.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlDocumentFragment.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlDocumentFragment, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlDocumentFragment, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlDocumentFragment.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlDocumentFragment.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlDocumentFragment, a1: pointer): pointer  =
+proc removeChild*(self: XmlDocumentFragment, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlDocumentFragment.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlDocumentFragment.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlDocumentFragment, a1: pointer): pointer  =
+proc appendChild*(self: XmlDocumentFragment, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlDocumentFragment.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlDocumentFragment.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlDocumentFragment, a1: bool): pointer  =
+proc cloneNode*(self: XmlDocumentFragment, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlDocumentFragment.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlDocumentFragment.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlDocumentFragment): pointer  =
@@ -3397,36 +3397,36 @@ proc `innerText=`*(self: XmlDocumentFragment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlDocumentFragment.put_InnerText")
 
-proc selectSingleNode*(self: XmlDocumentFragment, a1: string): pointer  =
+proc selectSingleNode*(self: XmlDocumentFragment, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlDocumentFragment.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlDocumentFragment, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlDocumentFragment, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlDocumentFragment.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlDocumentFragment, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlDocumentFragment, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlDocumentFragment.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlDocumentFragment.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlDocumentFragment, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlDocumentFragment, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocumentFragment.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlDocumentFragment.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlDocumentFragment.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc name*(self: XmlDocumentType): string  =
@@ -3539,39 +3539,39 @@ proc ownerDocument*(self: XmlDocumentType): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlDocumentType.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlDocumentType, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlDocumentType, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlDocumentType.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlDocumentType.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlDocumentType, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlDocumentType, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlDocumentType.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlDocumentType.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlDocumentType, a1: pointer): pointer  =
+proc removeChild*(self: XmlDocumentType, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlDocumentType.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlDocumentType.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlDocumentType, a1: pointer): pointer  =
+proc appendChild*(self: XmlDocumentType, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlDocumentType.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlDocumentType.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlDocumentType, a1: bool): pointer  =
+proc cloneNode*(self: XmlDocumentType, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlDocumentType.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlDocumentType.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlDocumentType): pointer  =
@@ -3625,44 +3625,44 @@ proc `innerText=`*(self: XmlDocumentType, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlDocumentType.put_InnerText")
 
-proc selectSingleNode*(self: XmlDocumentType, a1: string): pointer  =
+proc selectSingleNode*(self: XmlDocumentType, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlDocumentType.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlDocumentType, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlDocumentType, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlDocumentType.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlDocumentType, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlDocumentType, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlDocumentType.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlDocumentType.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlDocumentType, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlDocumentType, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlDocumentType.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlDocumentType.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlDocumentType.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
-proc hasFeature*(self: XmlDomImplementation, a1: string, a2: pointer): bool  =
+proc hasFeature*(self: XmlDomImplementation, feature: string, version: pointer): bool  =
   ## Windows.Data.Xml.Dom.XmlDomImplementation.HasFeature
   withIface(self.p, IID_IXmlDomImplementation, "IXmlDomImplementation", it):
-    withHString(a1, h0):
+    withHString(feature, h0):
       var tmp: bool
-      vcall(it, Slot_IXmlDomImplementation_HasFeature, Fn_IXmlDomImplementation_HasFeature)(it, h0, a2, tmp.addr).check("XmlDomImplementation.HasFeature")
+      vcall(it, Slot_IXmlDomImplementation_HasFeature, Fn_IXmlDomImplementation_HasFeature)(it, h0, version, tmp.addr).check("XmlDomImplementation.HasFeature")
       result = tmp
 
 proc tagName*(self: XmlElement): string  =
@@ -3672,94 +3672,94 @@ proc tagName*(self: XmlElement): string  =
     vcall(it, Slot_IXmlElement_get_TagName, Fn_IXmlElement_get_TagName)(it, tmp.addr).check("XmlElement.get_TagName")
     result = takeString(tmp)
 
-proc getAttribute*(self: XmlElement, a1: string): string  =
+proc getAttribute*(self: XmlElement, attributeName: string): string  =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttribute
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a1, h0):
+    withHString(attributeName, h0):
       var tmp: HSTRING
       vcall(it, Slot_IXmlElement_GetAttribute, Fn_IXmlElement_GetAttribute)(it, h0, tmp.addr).check("XmlElement.GetAttribute")
       result = takeString(tmp)
 
-proc setAttribute*(self: XmlElement, a1: string, a2: string)  =
+proc setAttribute*(self: XmlElement, attributeName: string, attributeValue: string)  =
   ## Windows.Data.Xml.Dom.XmlElement.SetAttribute
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(attributeName, h0):
+      withHString(attributeValue, h1):
         vcall(it, Slot_IXmlElement_SetAttribute, Fn_IXmlElement_SetAttribute)(it, h0, h1).check("XmlElement.SetAttribute")
 
-proc removeAttribute*(self: XmlElement, a1: string)  =
+proc removeAttribute*(self: XmlElement, attributeName: string)  =
   ## Windows.Data.Xml.Dom.XmlElement.RemoveAttribute
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a1, h0):
+    withHString(attributeName, h0):
       vcall(it, Slot_IXmlElement_RemoveAttribute, Fn_IXmlElement_RemoveAttribute)(it, h0).check("XmlElement.RemoveAttribute")
 
-proc getAttributeNode*(self: XmlElement, a1: string): XmlAttribute  =
+proc getAttributeNode*(self: XmlElement, attributeName: string): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttributeNode
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a1, h0):
+    withHString(attributeName, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlElement_GetAttributeNode, Fn_IXmlElement_GetAttributeNode)(it, h0, tmp.addr).check("XmlElement.GetAttributeNode")
       result = adopt[XmlAttribute](tmp)
 
-proc setAttributeNode*(self: XmlElement, a1: XmlAttribute): XmlAttribute  =
+proc setAttributeNode*(self: XmlElement, newAttribute: XmlAttribute): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlElement.SetAttributeNode
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withIface(a1.p, IID_IXmlAttribute, "IXmlAttribute", p0):
+    withIface(newAttribute.p, IID_IXmlAttribute, "IXmlAttribute", p0):
       var tmp: pointer
       vcall(it, Slot_IXmlElement_SetAttributeNode, Fn_IXmlElement_SetAttributeNode)(it, p0, tmp.addr).check("XmlElement.SetAttributeNode")
       result = adopt[XmlAttribute](tmp)
 
-proc removeAttributeNode*(self: XmlElement, a1: XmlAttribute): XmlAttribute  =
+proc removeAttributeNode*(self: XmlElement, attributeNode: XmlAttribute): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlElement.RemoveAttributeNode
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withIface(a1.p, IID_IXmlAttribute, "IXmlAttribute", p0):
+    withIface(attributeNode.p, IID_IXmlAttribute, "IXmlAttribute", p0):
       var tmp: pointer
       vcall(it, Slot_IXmlElement_RemoveAttributeNode, Fn_IXmlElement_RemoveAttributeNode)(it, p0, tmp.addr).check("XmlElement.RemoveAttributeNode")
       result = adopt[XmlAttribute](tmp)
 
-proc getElementsByTagName*(self: XmlElement, a1: string): XmlNodeList  =
+proc getElementsByTagName*(self: XmlElement, tagName: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlElement.GetElementsByTagName
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a1, h0):
+    withHString(tagName, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlElement_GetElementsByTagName, Fn_IXmlElement_GetElementsByTagName)(it, h0, tmp.addr).check("XmlElement.GetElementsByTagName")
       result = adopt[XmlNodeList](tmp)
 
-proc setAttributeNS*(self: XmlElement, a1: pointer, a2: string, a3: string)  =
+proc setAttributeNS*(self: XmlElement, namespaceUri: pointer, qualifiedName: string, value: string)  =
   ## Windows.Data.Xml.Dom.XmlElement.SetAttributeNS
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a2, h1):
-      withHString(a3, h2):
-        vcall(it, Slot_IXmlElement_SetAttributeNS, Fn_IXmlElement_SetAttributeNS)(it, a1, h1, h2).check("XmlElement.SetAttributeNS")
+    withHString(qualifiedName, h1):
+      withHString(value, h2):
+        vcall(it, Slot_IXmlElement_SetAttributeNS, Fn_IXmlElement_SetAttributeNS)(it, namespaceUri, h1, h2).check("XmlElement.SetAttributeNS")
 
-proc getAttributeNS*(self: XmlElement, a1: pointer, a2: string): string  =
+proc getAttributeNS*(self: XmlElement, namespaceUri: pointer, localName: string): string  =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttributeNS
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a2, h1):
+    withHString(localName, h1):
       var tmp: HSTRING
-      vcall(it, Slot_IXmlElement_GetAttributeNS, Fn_IXmlElement_GetAttributeNS)(it, a1, h1, tmp.addr).check("XmlElement.GetAttributeNS")
+      vcall(it, Slot_IXmlElement_GetAttributeNS, Fn_IXmlElement_GetAttributeNS)(it, namespaceUri, h1, tmp.addr).check("XmlElement.GetAttributeNS")
       result = takeString(tmp)
 
-proc removeAttributeNS*(self: XmlElement, a1: pointer, a2: string)  =
+proc removeAttributeNS*(self: XmlElement, namespaceUri: pointer, localName: string)  =
   ## Windows.Data.Xml.Dom.XmlElement.RemoveAttributeNS
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IXmlElement_RemoveAttributeNS, Fn_IXmlElement_RemoveAttributeNS)(it, a1, h1).check("XmlElement.RemoveAttributeNS")
+    withHString(localName, h1):
+      vcall(it, Slot_IXmlElement_RemoveAttributeNS, Fn_IXmlElement_RemoveAttributeNS)(it, namespaceUri, h1).check("XmlElement.RemoveAttributeNS")
 
-proc setAttributeNodeNS*(self: XmlElement, a1: XmlAttribute): XmlAttribute  =
+proc setAttributeNodeNS*(self: XmlElement, newAttribute: XmlAttribute): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlElement.SetAttributeNodeNS
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withIface(a1.p, IID_IXmlAttribute, "IXmlAttribute", p0):
+    withIface(newAttribute.p, IID_IXmlAttribute, "IXmlAttribute", p0):
       var tmp: pointer
       vcall(it, Slot_IXmlElement_SetAttributeNodeNS, Fn_IXmlElement_SetAttributeNodeNS)(it, p0, tmp.addr).check("XmlElement.SetAttributeNodeNS")
       result = adopt[XmlAttribute](tmp)
 
-proc getAttributeNodeNS*(self: XmlElement, a1: pointer, a2: string): XmlAttribute  =
+proc getAttributeNodeNS*(self: XmlElement, namespaceUri: pointer, localName: string): XmlAttribute  =
   ## Windows.Data.Xml.Dom.XmlElement.GetAttributeNodeNS
   withIface(self.p, IID_IXmlElement, "IXmlElement", it):
-    withHString(a2, h1):
+    withHString(localName, h1):
       var tmp: pointer
-      vcall(it, Slot_IXmlElement_GetAttributeNodeNS, Fn_IXmlElement_GetAttributeNodeNS)(it, a1, h1, tmp.addr).check("XmlElement.GetAttributeNodeNS")
+      vcall(it, Slot_IXmlElement_GetAttributeNodeNS, Fn_IXmlElement_GetAttributeNodeNS)(it, namespaceUri, h1, tmp.addr).check("XmlElement.GetAttributeNodeNS")
       result = adopt[XmlAttribute](tmp)
 
 proc nodeValue*(self: XmlElement): pointer  =
@@ -3851,39 +3851,39 @@ proc ownerDocument*(self: XmlElement): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlElement.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlElement, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlElement, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlElement.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlElement.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlElement, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlElement, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlElement.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlElement.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlElement, a1: pointer): pointer  =
+proc removeChild*(self: XmlElement, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlElement.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlElement.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlElement, a1: pointer): pointer  =
+proc appendChild*(self: XmlElement, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlElement.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlElement.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlElement, a1: bool): pointer  =
+proc cloneNode*(self: XmlElement, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlElement.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlElement.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlElement): pointer  =
@@ -3937,36 +3937,36 @@ proc `innerText=`*(self: XmlElement, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlElement.put_InnerText")
 
-proc selectSingleNode*(self: XmlElement, a1: string): pointer  =
+proc selectSingleNode*(self: XmlElement, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlElement.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlElement, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlElement, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlElement.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlElement.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlElement, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlElement, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlElement.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlElement.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlElement.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlElement, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlElement, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlElement.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlElement.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlElement.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc nodeValue*(self: XmlEntityReference): pointer  =
@@ -4058,39 +4058,39 @@ proc ownerDocument*(self: XmlEntityReference): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlEntityReference.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlEntityReference, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlEntityReference, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlEntityReference.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlEntityReference.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlEntityReference, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlEntityReference, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlEntityReference.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlEntityReference.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlEntityReference, a1: pointer): pointer  =
+proc removeChild*(self: XmlEntityReference, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlEntityReference.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlEntityReference.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlEntityReference, a1: pointer): pointer  =
+proc appendChild*(self: XmlEntityReference, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlEntityReference.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlEntityReference.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlEntityReference, a1: bool): pointer  =
+proc cloneNode*(self: XmlEntityReference, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlEntityReference.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlEntityReference.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlEntityReference): pointer  =
@@ -4144,36 +4144,36 @@ proc `innerText=`*(self: XmlEntityReference, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlEntityReference.put_InnerText")
 
-proc selectSingleNode*(self: XmlEntityReference, a1: string): pointer  =
+proc selectSingleNode*(self: XmlEntityReference, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlEntityReference.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlEntityReference, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlEntityReference, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlEntityReference.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlEntityReference, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlEntityReference, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlEntityReference.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlEntityReference.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlEntityReference, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlEntityReference, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlEntityReference.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlEntityReference.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlEntityReference.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
 proc newXmlLoadSettings*(): XmlLoadSettings =
@@ -4247,57 +4247,57 @@ proc length*(self: XmlNamedNodeMap): uint32  =
     vcall(it, Slot_IXmlNamedNodeMap_get_Length, Fn_IXmlNamedNodeMap_get_Length)(it, tmp.addr).check("XmlNamedNodeMap.get_Length")
     result = tmp
 
-proc item*(self: XmlNamedNodeMap, a1: uint32): pointer  =
+proc item*(self: XmlNamedNodeMap, index: uint32): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.Item
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNamedNodeMap_Item, Fn_IXmlNamedNodeMap_Item)(it, a1, tmp.addr).check("XmlNamedNodeMap.Item")
+    vcall(it, Slot_IXmlNamedNodeMap_Item, Fn_IXmlNamedNodeMap_Item)(it, index, tmp.addr).check("XmlNamedNodeMap.Item")
     result = tmp
 
-proc getNamedItem*(self: XmlNamedNodeMap, a1: string): pointer  =
+proc getNamedItem*(self: XmlNamedNodeMap, name: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.GetNamedItem
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNamedNodeMap_GetNamedItem, Fn_IXmlNamedNodeMap_GetNamedItem)(it, h0, tmp.addr).check("XmlNamedNodeMap.GetNamedItem")
       result = tmp
 
-proc setNamedItem*(self: XmlNamedNodeMap, a1: pointer): pointer  =
+proc setNamedItem*(self: XmlNamedNodeMap, node: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.SetNamedItem
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNamedNodeMap_SetNamedItem, Fn_IXmlNamedNodeMap_SetNamedItem)(it, a1, tmp.addr).check("XmlNamedNodeMap.SetNamedItem")
+    vcall(it, Slot_IXmlNamedNodeMap_SetNamedItem, Fn_IXmlNamedNodeMap_SetNamedItem)(it, node, tmp.addr).check("XmlNamedNodeMap.SetNamedItem")
     result = tmp
 
-proc removeNamedItem*(self: XmlNamedNodeMap, a1: string): pointer  =
+proc removeNamedItem*(self: XmlNamedNodeMap, name: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.RemoveNamedItem
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNamedNodeMap_RemoveNamedItem, Fn_IXmlNamedNodeMap_RemoveNamedItem)(it, h0, tmp.addr).check("XmlNamedNodeMap.RemoveNamedItem")
       result = tmp
 
-proc getNamedItemNS*(self: XmlNamedNodeMap, a1: pointer, a2: string): pointer  =
+proc getNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: pointer, name: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.GetNamedItemNS
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
-    withHString(a2, h1):
+    withHString(name, h1):
       var tmp: pointer
-      vcall(it, Slot_IXmlNamedNodeMap_GetNamedItemNS, Fn_IXmlNamedNodeMap_GetNamedItemNS)(it, a1, h1, tmp.addr).check("XmlNamedNodeMap.GetNamedItemNS")
+      vcall(it, Slot_IXmlNamedNodeMap_GetNamedItemNS, Fn_IXmlNamedNodeMap_GetNamedItemNS)(it, namespaceUri, h1, tmp.addr).check("XmlNamedNodeMap.GetNamedItemNS")
       result = tmp
 
-proc removeNamedItemNS*(self: XmlNamedNodeMap, a1: pointer, a2: string): pointer  =
+proc removeNamedItemNS*(self: XmlNamedNodeMap, namespaceUri: pointer, name: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.RemoveNamedItemNS
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
-    withHString(a2, h1):
+    withHString(name, h1):
       var tmp: pointer
-      vcall(it, Slot_IXmlNamedNodeMap_RemoveNamedItemNS, Fn_IXmlNamedNodeMap_RemoveNamedItemNS)(it, a1, h1, tmp.addr).check("XmlNamedNodeMap.RemoveNamedItemNS")
+      vcall(it, Slot_IXmlNamedNodeMap_RemoveNamedItemNS, Fn_IXmlNamedNodeMap_RemoveNamedItemNS)(it, namespaceUri, h1, tmp.addr).check("XmlNamedNodeMap.RemoveNamedItemNS")
       result = tmp
 
-proc setNamedItemNS*(self: XmlNamedNodeMap, a1: pointer): pointer  =
+proc setNamedItemNS*(self: XmlNamedNodeMap, node: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlNamedNodeMap.SetNamedItemNS
   withIface(self.p, IID_IXmlNamedNodeMap, "IXmlNamedNodeMap", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNamedNodeMap_SetNamedItemNS, Fn_IXmlNamedNodeMap_SetNamedItemNS)(it, a1, tmp.addr).check("XmlNamedNodeMap.SetNamedItemNS")
+    vcall(it, Slot_IXmlNamedNodeMap_SetNamedItemNS, Fn_IXmlNamedNodeMap_SetNamedItemNS)(it, node, tmp.addr).check("XmlNamedNodeMap.SetNamedItemNS")
     result = tmp
 
 proc length*(self: XmlNodeList): uint32  =
@@ -4307,11 +4307,11 @@ proc length*(self: XmlNodeList): uint32  =
     vcall(it, Slot_IXmlNodeList_get_Length, Fn_IXmlNodeList_get_Length)(it, tmp.addr).check("XmlNodeList.get_Length")
     result = tmp
 
-proc item*(self: XmlNodeList, a1: uint32): pointer  =
+proc item*(self: XmlNodeList, index: uint32): pointer  =
   ## Windows.Data.Xml.Dom.XmlNodeList.Item
   withIface(self.p, IID_IXmlNodeList, "IXmlNodeList", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNodeList_Item, Fn_IXmlNodeList_Item)(it, a1, tmp.addr).check("XmlNodeList.Item")
+    vcall(it, Slot_IXmlNodeList_Item, Fn_IXmlNodeList_Item)(it, index, tmp.addr).check("XmlNodeList.Item")
     result = tmp
 
 proc target*(self: XmlProcessingInstruction): string  =
@@ -4423,39 +4423,39 @@ proc ownerDocument*(self: XmlProcessingInstruction): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlProcessingInstruction.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlProcessingInstruction, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlProcessingInstruction, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlProcessingInstruction.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlProcessingInstruction.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlProcessingInstruction, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlProcessingInstruction, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlProcessingInstruction.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlProcessingInstruction.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlProcessingInstruction, a1: pointer): pointer  =
+proc removeChild*(self: XmlProcessingInstruction, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlProcessingInstruction.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlProcessingInstruction.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlProcessingInstruction, a1: pointer): pointer  =
+proc appendChild*(self: XmlProcessingInstruction, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlProcessingInstruction.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlProcessingInstruction.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlProcessingInstruction, a1: bool): pointer  =
+proc cloneNode*(self: XmlProcessingInstruction, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlProcessingInstruction.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlProcessingInstruction.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlProcessingInstruction): pointer  =
@@ -4509,43 +4509,43 @@ proc `innerText=`*(self: XmlProcessingInstruction, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlProcessingInstruction.put_InnerText")
 
-proc selectSingleNode*(self: XmlProcessingInstruction, a1: string): pointer  =
+proc selectSingleNode*(self: XmlProcessingInstruction, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlProcessingInstruction.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlProcessingInstruction, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlProcessingInstruction, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlProcessingInstruction.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlProcessingInstruction, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlProcessingInstruction, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlProcessingInstruction.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlProcessingInstruction.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlProcessingInstruction, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlProcessingInstruction, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlProcessingInstruction.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlProcessingInstruction.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlProcessingInstruction.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
-proc splitText*(self: XmlText, a1: uint32): XmlText  =
+proc splitText*(self: XmlText, offset: uint32): XmlText  =
   ## Windows.Data.Xml.Dom.XmlText.SplitText
   withIface(self.p, IID_IXmlText, "IXmlText", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlText_SplitText, Fn_IXmlText_SplitText)(it, a1, tmp.addr).check("XmlText.SplitText")
+    vcall(it, Slot_IXmlText_SplitText, Fn_IXmlText_SplitText)(it, offset, tmp.addr).check("XmlText.SplitText")
     result = adopt[XmlText](tmp)
 
 proc data*(self: XmlText): string  =
@@ -4568,35 +4568,35 @@ proc length*(self: XmlText): uint32  =
     vcall(it, Slot_IXmlCharacterData_get_Length, Fn_IXmlCharacterData_get_Length)(it, tmp.addr).check("XmlText.get_Length")
     result = tmp
 
-proc substringData*(self: XmlText, a1: uint32, a2: uint32): string  =
+proc substringData*(self: XmlText, offset: uint32, count: uint32): string  =
   ## Windows.Data.Xml.Dom.XmlText.SubstringData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
     var tmp: HSTRING
-    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, a1, a2, tmp.addr).check("XmlText.SubstringData")
+    vcall(it, Slot_IXmlCharacterData_SubstringData, Fn_IXmlCharacterData_SubstringData)(it, offset, count, tmp.addr).check("XmlText.SubstringData")
     result = takeString(tmp)
 
-proc appendData*(self: XmlText, a1: string)  =
+proc appendData*(self: XmlText, data: string)  =
   ## Windows.Data.Xml.Dom.XmlText.AppendData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IXmlCharacterData_AppendData, Fn_IXmlCharacterData_AppendData)(it, h0).check("XmlText.AppendData")
 
-proc insertData*(self: XmlText, a1: uint32, a2: string)  =
+proc insertData*(self: XmlText, offset: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlText.InsertData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, a1, h1).check("XmlText.InsertData")
+    withHString(data, h1):
+      vcall(it, Slot_IXmlCharacterData_InsertData, Fn_IXmlCharacterData_InsertData)(it, offset, h1).check("XmlText.InsertData")
 
-proc deleteData*(self: XmlText, a1: uint32, a2: uint32)  =
+proc deleteData*(self: XmlText, offset: uint32, count: uint32)  =
   ## Windows.Data.Xml.Dom.XmlText.DeleteData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, a1, a2).check("XmlText.DeleteData")
+    vcall(it, Slot_IXmlCharacterData_DeleteData, Fn_IXmlCharacterData_DeleteData)(it, offset, count).check("XmlText.DeleteData")
 
-proc replaceData*(self: XmlText, a1: uint32, a2: uint32, a3: string)  =
+proc replaceData*(self: XmlText, offset: uint32, count: uint32, data: string)  =
   ## Windows.Data.Xml.Dom.XmlText.ReplaceData
   withIface(self.p, IID_IXmlCharacterData, "IXmlCharacterData", it):
-    withHString(a3, h2):
-      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, a1, a2, h2).check("XmlText.ReplaceData")
+    withHString(data, h2):
+      vcall(it, Slot_IXmlCharacterData_ReplaceData, Fn_IXmlCharacterData_ReplaceData)(it, offset, count, h2).check("XmlText.ReplaceData")
 
 proc nodeValue*(self: XmlText): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.get_NodeValue
@@ -4687,39 +4687,39 @@ proc ownerDocument*(self: XmlText): XmlDocument  =
     vcall(it, Slot_IXmlNode_get_OwnerDocument, Fn_IXmlNode_get_OwnerDocument)(it, tmp.addr).check("XmlText.get_OwnerDocument")
     result = adopt[XmlDocument](tmp)
 
-proc insertBefore*(self: XmlText, a1: pointer, a2: pointer): pointer  =
+proc insertBefore*(self: XmlText, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.InsertBefore
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, a1, a2, tmp.addr).check("XmlText.InsertBefore")
+    vcall(it, Slot_IXmlNode_InsertBefore, Fn_IXmlNode_InsertBefore)(it, newChild, referenceChild, tmp.addr).check("XmlText.InsertBefore")
     result = tmp
 
-proc replaceChild*(self: XmlText, a1: pointer, a2: pointer): pointer  =
+proc replaceChild*(self: XmlText, newChild: pointer, referenceChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.ReplaceChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, a1, a2, tmp.addr).check("XmlText.ReplaceChild")
+    vcall(it, Slot_IXmlNode_ReplaceChild, Fn_IXmlNode_ReplaceChild)(it, newChild, referenceChild, tmp.addr).check("XmlText.ReplaceChild")
     result = tmp
 
-proc removeChild*(self: XmlText, a1: pointer): pointer  =
+proc removeChild*(self: XmlText, childNode: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.RemoveChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, a1, tmp.addr).check("XmlText.RemoveChild")
+    vcall(it, Slot_IXmlNode_RemoveChild, Fn_IXmlNode_RemoveChild)(it, childNode, tmp.addr).check("XmlText.RemoveChild")
     result = tmp
 
-proc appendChild*(self: XmlText, a1: pointer): pointer  =
+proc appendChild*(self: XmlText, newChild: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.AppendChild
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, a1, tmp.addr).check("XmlText.AppendChild")
+    vcall(it, Slot_IXmlNode_AppendChild, Fn_IXmlNode_AppendChild)(it, newChild, tmp.addr).check("XmlText.AppendChild")
     result = tmp
 
-proc cloneNode*(self: XmlText, a1: bool): pointer  =
+proc cloneNode*(self: XmlText, deep: bool): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.CloneNode
   withIface(self.p, IID_IXmlNode, "IXmlNode", it):
     var tmp: pointer
-    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, a1, tmp.addr).check("XmlText.CloneNode")
+    vcall(it, Slot_IXmlNode_CloneNode, Fn_IXmlNode_CloneNode)(it, deep, tmp.addr).check("XmlText.CloneNode")
     result = tmp
 
 proc namespaceUri*(self: XmlText): pointer  =
@@ -4773,56 +4773,56 @@ proc `innerText=`*(self: XmlText, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IXmlNodeSerializer_put_InnerText, Fn_IXmlNodeSerializer_put_InnerText)(it, h0).check("XmlText.put_InnerText")
 
-proc selectSingleNode*(self: XmlText, a1: string): pointer  =
+proc selectSingleNode*(self: XmlText, xpath: string): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.SelectSingleNode
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectSingleNode, Fn_IXmlNodeSelector_SelectSingleNode)(it, h0, tmp.addr).check("XmlText.SelectSingleNode")
       result = tmp
 
-proc selectNodes*(self: XmlText, a1: string): XmlNodeList  =
+proc selectNodes*(self: XmlText, xpath: string): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlText.SelectNodes
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
       vcall(it, Slot_IXmlNodeSelector_SelectNodes, Fn_IXmlNodeSelector_SelectNodes)(it, h0, tmp.addr).check("XmlText.SelectNodes")
       result = adopt[XmlNodeList](tmp)
 
-proc selectSingleNodeNS*(self: XmlText, a1: string, a2: pointer): pointer  =
+proc selectSingleNodeNS*(self: XmlText, xpath: string, namespaces: pointer): pointer  =
   ## Windows.Data.Xml.Dom.XmlText.SelectSingleNodeNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, a2, tmp.addr).check("XmlText.SelectSingleNodeNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectSingleNodeNS, Fn_IXmlNodeSelector_SelectSingleNodeNS)(it, h0, namespaces, tmp.addr).check("XmlText.SelectSingleNodeNS")
       result = tmp
 
-proc selectNodesNS*(self: XmlText, a1: string, a2: pointer): XmlNodeList  =
+proc selectNodesNS*(self: XmlText, xpath: string, namespaces: pointer): XmlNodeList  =
   ## Windows.Data.Xml.Dom.XmlText.SelectNodesNS
   withIface(self.p, IID_IXmlNodeSelector, "IXmlNodeSelector", it):
-    withHString(a1, h0):
+    withHString(xpath, h0):
       var tmp: pointer
-      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, a2, tmp.addr).check("XmlText.SelectNodesNS")
+      vcall(it, Slot_IXmlNodeSelector_SelectNodesNS, Fn_IXmlNodeSelector_SelectNodesNS)(it, h0, namespaces, tmp.addr).check("XmlText.SelectNodesNS")
       result = adopt[XmlNodeList](tmp)
 
-proc transformToString*(self: XsltProcessor, a1: pointer): string  =
+proc transformToString*(self: XsltProcessor, inputNode: pointer): string  =
   ## Windows.Data.Xml.Xsl.XsltProcessor.TransformToString
   withIface(self.p, IID_IXsltProcessor, "IXsltProcessor", it):
     var tmp: HSTRING
-    vcall(it, Slot_IXsltProcessor_TransformToString, Fn_IXsltProcessor_TransformToString)(it, a1, tmp.addr).check("XsltProcessor.TransformToString")
+    vcall(it, Slot_IXsltProcessor_TransformToString, Fn_IXsltProcessor_TransformToString)(it, inputNode, tmp.addr).check("XsltProcessor.TransformToString")
     result = takeString(tmp)
 
-proc transformToDocument*(self: XsltProcessor, a1: pointer): XmlDocument  =
+proc transformToDocument*(self: XsltProcessor, inputNode: pointer): XmlDocument  =
   ## Windows.Data.Xml.Xsl.XsltProcessor.TransformToDocument
   withIface(self.p, IID_IXsltProcessor2, "IXsltProcessor2", it):
     var tmp: pointer
-    vcall(it, Slot_IXsltProcessor2_TransformToDocument, Fn_IXsltProcessor2_TransformToDocument)(it, a1, tmp.addr).check("XsltProcessor.TransformToDocument")
+    vcall(it, Slot_IXsltProcessor2_TransformToDocument, Fn_IXsltProcessor2_TransformToDocument)(it, inputNode, tmp.addr).check("XsltProcessor.TransformToDocument")
     result = adopt[XmlDocument](tmp)
 
-proc createInstance*(_: typedesc[XsltProcessor], a1: XmlDocument): XsltProcessor  =
+proc createInstance*(_: typedesc[XsltProcessor], document: XmlDocument): XsltProcessor  =
   ## Windows.Data.Xml.Xsl.XsltProcessor.CreateInstance
   withStatics("Windows.Data.Xml.Xsl.XsltProcessor", IID_IXsltProcessorFactory, it):
-    withIface(a1.p, IID_IXmlDocument, "IXmlDocument", p0):
+    withIface(document.p, IID_IXmlDocument, "IXmlDocument", p0):
       var tmp: pointer
       vcall(it, Slot_IXsltProcessorFactory_CreateInstance, Fn_IXsltProcessorFactory_CreateInstance)(it, p0, tmp.addr).check("XsltProcessor.CreateInstance")
       result = adopt[XsltProcessor](tmp)

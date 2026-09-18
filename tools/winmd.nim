@@ -65,6 +65,7 @@ const
   tTypeDef* = 0x02
   tField* = 0x04
   tMethodDef* = 0x06
+  tParam* = 0x08
   tInterfaceImpl* = 0x09
   tMemberRef* = 0x0A
   tConstant* = 0x0B
@@ -577,6 +578,21 @@ proc methodRange*(m: WinMd, typeIndex: int): (int, int) =
     if typeIndex < last: m.cell(tTypeDef, typeIndex + 1, "MethodList")
     else: m.rows.getOrDefault(tMethodDef, 0) + 1
   (first, stop)
+
+proc paramNames*(m: WinMd, methodIndex: int): Table[int, string] =
+  ## Sequence number -> the name the metadata gives that parameter.
+  ##
+  ## Same shape as `methodRange`: a MethodDef stores only where its parameters
+  ## start, so the end is the next method's start. Sequence 0 names the return
+  ## value, so real parameters begin at 1 — and a parameter may have no Param
+  ## row at all, which is why this is a table rather than a seq.
+  let first = m.cell(tMethodDef, methodIndex, "ParamList")
+  let last = m.rows.getOrDefault(tMethodDef, 0)
+  let stop =
+    if methodIndex < last: m.cell(tMethodDef, methodIndex + 1, "ParamList")
+    else: m.rows.getOrDefault(tParam, 0) + 1
+  for i in first ..< stop:
+    result[m.cell(tParam, i, "Sequence")] = m.str(m.cell(tParam, i, "Name"))
 
 proc guids*(m: WinMd): Table[int, string] =
   ## TypeDef row -> IID, from `Windows.Foundation.Metadata.GuidAttribute`.

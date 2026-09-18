@@ -10835,18 +10835,18 @@ proc `channelMode=`*(self: AdcController, value: AdcChannelMode)  =
   withIface(self.p, IID_IAdcController, "IAdcController", it):
     vcall(it, Slot_IAdcController_put_ChannelMode, Fn_IAdcController_put_ChannelMode)(it, value).check("AdcController.put_ChannelMode")
 
-proc isChannelModeSupported*(self: AdcController, a1: AdcChannelMode): bool  =
+proc isChannelModeSupported*(self: AdcController, channelMode: AdcChannelMode): bool  =
   ## Windows.Devices.Adc.AdcController.IsChannelModeSupported
   withIface(self.p, IID_IAdcController, "IAdcController", it):
     var tmp: bool
-    vcall(it, Slot_IAdcController_IsChannelModeSupported, Fn_IAdcController_IsChannelModeSupported)(it, a1, tmp.addr).check("AdcController.IsChannelModeSupported")
+    vcall(it, Slot_IAdcController_IsChannelModeSupported, Fn_IAdcController_IsChannelModeSupported)(it, channelMode, tmp.addr).check("AdcController.IsChannelModeSupported")
     result = tmp
 
-proc openChannel*(self: AdcController, a1: int32): AdcChannel  =
+proc openChannel*(self: AdcController, channelNumber: int32): AdcChannel  =
   ## Windows.Devices.Adc.AdcController.OpenChannel
   withIface(self.p, IID_IAdcController, "IAdcController", it):
     var tmp: pointer
-    vcall(it, Slot_IAdcController_OpenChannel, Fn_IAdcController_OpenChannel)(it, a1, tmp.addr).check("AdcController.OpenChannel")
+    vcall(it, Slot_IAdcController_OpenChannel, Fn_IAdcController_OpenChannel)(it, channelNumber, tmp.addr).check("AdcController.OpenChannel")
     result = adopt[AdcChannel](tmp)
 
 proc getDefaultAsync*(_: typedesc[AdcController]): Future[AdcController] {.async.} =
@@ -10856,11 +10856,11 @@ proc getDefaultAsync*(_: typedesc[AdcController]): Future[AdcController] {.async
     vcall(it, Slot_IAdcControllerStatics2_GetDefaultAsync, Fn_IAdcControllerStatics2_GetDefaultAsync)(it, op.addr).check("AdcController.GetDefaultAsync")
   result = adopt[AdcController](await awaitObject(op, IID_IAsyncOperation_1_AdcController, IID_AsyncOperationCompletedHandler_1_AdcController, "AdcController.GetDefaultAsync"))
 
-proc getControllersAsync*(_: typedesc[AdcController], a1: pointer): Future[seq[AdcController]] {.async.} =
+proc getControllersAsync*(_: typedesc[AdcController], provider: pointer): Future[seq[AdcController]] {.async.} =
   ## Windows.Devices.Adc.AdcController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Adc.AdcController", IID_IAdcControllerStatics, it):
-    vcall(it, Slot_IAdcControllerStatics_GetControllersAsync, Fn_IAdcControllerStatics_GetControllersAsync)(it, a1, op.addr).check("AdcController.GetControllersAsync")
+    vcall(it, Slot_IAdcControllerStatics_GetControllersAsync, Fn_IAdcControllerStatics_GetControllersAsync)(it, provider, op.addr).check("AdcController.GetControllersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "AdcController.GetControllersAsync")
   result = toSeq[AdcController](coll, IID_IVectorView_1_AdcController)
   discard release(coll)
@@ -10941,19 +10941,19 @@ proc dataSections*(self: BluetoothLEAdvertisement): seq[BluetoothLEAdvertisement
     result = toSeq[BluetoothLEAdvertisementDataSection](tmp, IID_IVector_1_BluetoothLEAdvertisementDataSection)
     release(tmp)
 
-proc getManufacturerDataByCompanyId*(self: BluetoothLEAdvertisement, a1: uint16): seq[BluetoothLEManufacturerData]  =
+proc getManufacturerDataByCompanyId*(self: BluetoothLEAdvertisement, companyId: uint16): seq[BluetoothLEManufacturerData]  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetManufacturerDataByCompanyId
   withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId, Fn_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId)(it, a1, tmp.addr).check("BluetoothLEAdvertisement.GetManufacturerDataByCompanyId")
+    vcall(it, Slot_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId, Fn_IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId)(it, companyId, tmp.addr).check("BluetoothLEAdvertisement.GetManufacturerDataByCompanyId")
     result = toSeq[BluetoothLEManufacturerData](tmp, IID_IVectorView_1_BluetoothLEManufacturerData)
     release(tmp)
 
-proc getSectionsByType*(self: BluetoothLEAdvertisement, a1: uint8): seq[BluetoothLEAdvertisementDataSection]  =
+proc getSectionsByType*(self: BluetoothLEAdvertisement, `type`: uint8): seq[BluetoothLEAdvertisementDataSection]  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetSectionsByType
   withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisement_GetSectionsByType, Fn_IBluetoothLEAdvertisement_GetSectionsByType)(it, a1, tmp.addr).check("BluetoothLEAdvertisement.GetSectionsByType")
+    vcall(it, Slot_IBluetoothLEAdvertisement_GetSectionsByType, Fn_IBluetoothLEAdvertisement_GetSectionsByType)(it, `type`, tmp.addr).check("BluetoothLEAdvertisement.GetSectionsByType")
     result = toSeq[BluetoothLEAdvertisementDataSection](tmp, IID_IVectorView_1_BluetoothLEAdvertisementDataSection)
     release(tmp)
 
@@ -10997,11 +10997,11 @@ proc `data=`*(self: BluetoothLEAdvertisementBytePattern, value: pointer)  =
   withIface(self.p, IID_IBluetoothLEAdvertisementBytePattern, "IBluetoothLEAdvertisementBytePattern", it):
     vcall(it, Slot_IBluetoothLEAdvertisementBytePattern_put_Data, Fn_IBluetoothLEAdvertisementBytePattern_put_Data)(it, value).check("BluetoothLEAdvertisementBytePattern.put_Data")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementBytePattern], a1: uint8, a2: int16, a3: pointer): BluetoothLEAdvertisementBytePattern  =
+proc create*(_: typedesc[BluetoothLEAdvertisementBytePattern], dataType: uint8, offset: int16, data: pointer): BluetoothLEAdvertisementBytePattern  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern", IID_IBluetoothLEAdvertisementBytePatternFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisementBytePatternFactory_Create, Fn_IBluetoothLEAdvertisementBytePatternFactory_Create)(it, a1, a2, a3, tmp.addr).check("BluetoothLEAdvertisementBytePattern.Create")
+    vcall(it, Slot_IBluetoothLEAdvertisementBytePatternFactory_Create, Fn_IBluetoothLEAdvertisementBytePatternFactory_Create)(it, dataType, offset, data, tmp.addr).check("BluetoothLEAdvertisementBytePattern.Create")
     result = adopt[BluetoothLEAdvertisementBytePattern](tmp)
 
 proc newBluetoothLEAdvertisementDataSection*(): BluetoothLEAdvertisementDataSection =
@@ -11032,11 +11032,11 @@ proc `data=`*(self: BluetoothLEAdvertisementDataSection, value: pointer)  =
   withIface(self.p, IID_IBluetoothLEAdvertisementDataSection, "IBluetoothLEAdvertisementDataSection", it):
     vcall(it, Slot_IBluetoothLEAdvertisementDataSection_put_Data, Fn_IBluetoothLEAdvertisementDataSection_put_Data)(it, value).check("BluetoothLEAdvertisementDataSection.put_Data")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementDataSection], a1: uint8, a2: pointer): BluetoothLEAdvertisementDataSection  =
+proc create*(_: typedesc[BluetoothLEAdvertisementDataSection], dataType: uint8, data: pointer): BluetoothLEAdvertisementDataSection  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection", IID_IBluetoothLEAdvertisementDataSectionFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisementDataSectionFactory_Create, Fn_IBluetoothLEAdvertisementDataSectionFactory_Create)(it, a1, a2, tmp.addr).check("BluetoothLEAdvertisementDataSection.Create")
+    vcall(it, Slot_IBluetoothLEAdvertisementDataSectionFactory_Create, Fn_IBluetoothLEAdvertisementDataSectionFactory_Create)(it, dataType, data, tmp.addr).check("BluetoothLEAdvertisementDataSection.Create")
     result = adopt[BluetoothLEAdvertisementDataSection](tmp)
 
 proc flags*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8  =
@@ -11333,10 +11333,10 @@ proc `secondaryPhy=`*(self: BluetoothLEAdvertisementPublisher, value: BluetoothL
   withIface(self.p, IID_IBluetoothLEAdvertisementPublisher3, "IBluetoothLEAdvertisementPublisher3", it):
     vcall(it, Slot_IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy, Fn_IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy)(it, value).check("BluetoothLEAdvertisementPublisher.put_SecondaryPhy")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementPublisher], a1: BluetoothLEAdvertisement): BluetoothLEAdvertisementPublisher  =
+proc create*(_: typedesc[BluetoothLEAdvertisementPublisher], advertisement: BluetoothLEAdvertisement): BluetoothLEAdvertisementPublisher  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher", IID_IBluetoothLEAdvertisementPublisherFactory, it):
-    withIface(a1.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", p0):
+    withIface(advertisement.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", p0):
       var tmp: pointer
       vcall(it, Slot_IBluetoothLEAdvertisementPublisherFactory_Create, Fn_IBluetoothLEAdvertisementPublisherFactory_Create)(it, p0, tmp.addr).check("BluetoothLEAdvertisementPublisher.Create")
       result = adopt[BluetoothLEAdvertisementPublisher](tmp)
@@ -11676,10 +11676,10 @@ proc `useHardwareFilter=`*(self: BluetoothLEAdvertisementWatcher, value: bool)  
   withIface(self.p, IID_IBluetoothLEAdvertisementWatcher3, "IBluetoothLEAdvertisementWatcher3", it):
     vcall(it, Slot_IBluetoothLEAdvertisementWatcher3_put_UseHardwareFilter, Fn_IBluetoothLEAdvertisementWatcher3_put_UseHardwareFilter)(it, value).check("BluetoothLEAdvertisementWatcher.put_UseHardwareFilter")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementWatcher], a1: BluetoothLEAdvertisementFilter): BluetoothLEAdvertisementWatcher  =
+proc create*(_: typedesc[BluetoothLEAdvertisementWatcher], advertisementFilter: BluetoothLEAdvertisementFilter): BluetoothLEAdvertisementWatcher  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher", IID_IBluetoothLEAdvertisementWatcherFactory, it):
-    withIface(a1.p, IID_IBluetoothLEAdvertisementFilter, "IBluetoothLEAdvertisementFilter", p0):
+    withIface(advertisementFilter.p, IID_IBluetoothLEAdvertisementFilter, "IBluetoothLEAdvertisementFilter", p0):
       var tmp: pointer
       vcall(it, Slot_IBluetoothLEAdvertisementWatcherFactory_Create, Fn_IBluetoothLEAdvertisementWatcherFactory_Create)(it, p0, tmp.addr).check("BluetoothLEAdvertisementWatcher.Create")
       result = adopt[BluetoothLEAdvertisementWatcher](tmp)
@@ -11719,11 +11719,11 @@ proc `data=`*(self: BluetoothLEManufacturerData, value: pointer)  =
   withIface(self.p, IID_IBluetoothLEManufacturerData, "IBluetoothLEManufacturerData", it):
     vcall(it, Slot_IBluetoothLEManufacturerData_put_Data, Fn_IBluetoothLEManufacturerData_put_Data)(it, value).check("BluetoothLEManufacturerData.put_Data")
 
-proc create*(_: typedesc[BluetoothLEManufacturerData], a1: uint16, a2: pointer): BluetoothLEManufacturerData  =
+proc create*(_: typedesc[BluetoothLEManufacturerData], companyId: uint16, data: pointer): BluetoothLEManufacturerData  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData", IID_IBluetoothLEManufacturerDataFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEManufacturerDataFactory_Create, Fn_IBluetoothLEManufacturerDataFactory_Create)(it, a1, a2, tmp.addr).check("BluetoothLEManufacturerData.Create")
+    vcall(it, Slot_IBluetoothLEManufacturerDataFactory_Create, Fn_IBluetoothLEManufacturerDataFactory_Create)(it, companyId, data, tmp.addr).check("BluetoothLEManufacturerData.Create")
     result = adopt[BluetoothLEManufacturerData](tmp)
 
 proc status*(self: BluetoothLEAdvertisementPublisherTriggerDetails): BluetoothLEAdvertisementPublisherStatus  =
@@ -11825,10 +11825,10 @@ proc start*(self: GattServiceProviderConnection)  =
   withIface(self.p, IID_IGattServiceProviderConnection, "IGattServiceProviderConnection", it):
     vcall(it, Slot_IGattServiceProviderConnection_Start, Fn_IGattServiceProviderConnection_Start)(it).check("GattServiceProviderConnection.Start")
 
-proc updateAdvertisingParameters*(self: GattServiceProviderConnection, a1: GattServiceProviderAdvertisingParameters)  =
+proc updateAdvertisingParameters*(self: GattServiceProviderConnection, parameters: GattServiceProviderAdvertisingParameters)  =
   ## Windows.Devices.Bluetooth.Background.GattServiceProviderConnection.UpdateAdvertisingParameters
   withIface(self.p, IID_IGattServiceProviderConnection2, "IGattServiceProviderConnection2", it):
-    withIface(a1.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
+    withIface(parameters.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
       vcall(it, Slot_IGattServiceProviderConnection2_UpdateAdvertisingParameters, Fn_IGattServiceProviderConnection2_UpdateAdvertisingParameters)(it, p0).check("GattServiceProviderConnection.UpdateAdvertisingParameters")
 
 proc connection*(self: GattServiceProviderTriggerDetails): GattServiceProviderConnection  =
@@ -12007,11 +12007,11 @@ proc getDeviceSelector*(_: typedesc[BluetoothAdapter]): string  =
     vcall(it, Slot_IBluetoothAdapterStatics_GetDeviceSelector, Fn_IBluetoothAdapterStatics_GetDeviceSelector)(it, tmp.addr).check("BluetoothAdapter.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[BluetoothAdapter], a1: string): Future[BluetoothAdapter] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothAdapter], deviceId: string): Future[BluetoothAdapter] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothAdapter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothAdapter", IID_IBluetoothAdapterStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBluetoothAdapterStatics_FromIdAsync, Fn_IBluetoothAdapterStatics_FromIdAsync)(it, h0, op.addr).check("BluetoothAdapter.FromIdAsync")
   result = adopt[BluetoothAdapter](await awaitObject(op, IID_IAsyncOperation_1_BluetoothAdapter, IID_AsyncOperationCompletedHandler_1_BluetoothAdapter, "BluetoothAdapter.FromIdAsync"))
 
@@ -12050,18 +12050,18 @@ proc serviceCapabilities*(self: BluetoothClassOfDevice): BluetoothServiceCapabil
     vcall(it, Slot_IBluetoothClassOfDevice_get_ServiceCapabilities, Fn_IBluetoothClassOfDevice_get_ServiceCapabilities)(it, tmp.addr).check("BluetoothClassOfDevice.get_ServiceCapabilities")
     result = tmp
 
-proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], a1: uint32): BluetoothClassOfDevice  =
+proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], rawValue: uint32): BluetoothClassOfDevice  =
   ## Windows.Devices.Bluetooth.BluetoothClassOfDevice.FromRawValue
   withStatics("Windows.Devices.Bluetooth.BluetoothClassOfDevice", IID_IBluetoothClassOfDeviceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothClassOfDeviceStatics_FromRawValue, Fn_IBluetoothClassOfDeviceStatics_FromRawValue)(it, a1, tmp.addr).check("BluetoothClassOfDevice.FromRawValue")
+    vcall(it, Slot_IBluetoothClassOfDeviceStatics_FromRawValue, Fn_IBluetoothClassOfDeviceStatics_FromRawValue)(it, rawValue, tmp.addr).check("BluetoothClassOfDevice.FromRawValue")
     result = adopt[BluetoothClassOfDevice](tmp)
 
-proc fromParts*(_: typedesc[BluetoothClassOfDevice], a1: BluetoothMajorClass, a2: BluetoothMinorClass, a3: BluetoothServiceCapabilities): BluetoothClassOfDevice  =
+proc fromParts*(_: typedesc[BluetoothClassOfDevice], majorClass: BluetoothMajorClass, minorClass: BluetoothMinorClass, serviceCapabilities: BluetoothServiceCapabilities): BluetoothClassOfDevice  =
   ## Windows.Devices.Bluetooth.BluetoothClassOfDevice.FromParts
   withStatics("Windows.Devices.Bluetooth.BluetoothClassOfDevice", IID_IBluetoothClassOfDeviceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothClassOfDeviceStatics_FromParts, Fn_IBluetoothClassOfDeviceStatics_FromParts)(it, a1, a2, a3, tmp.addr).check("BluetoothClassOfDevice.FromParts")
+    vcall(it, Slot_IBluetoothClassOfDeviceStatics_FromParts, Fn_IBluetoothClassOfDeviceStatics_FromParts)(it, majorClass, minorClass, serviceCapabilities, tmp.addr).check("BluetoothClassOfDevice.FromParts")
     result = adopt[BluetoothClassOfDevice](tmp)
 
 proc deviceId*(self: BluetoothDevice): string  =
@@ -12192,27 +12192,27 @@ proc getRfcommServicesAsync*(self: BluetoothDevice): Future[RfcommDeviceServices
     vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesAsync, Fn_IBluetoothDevice3_GetRfcommServicesAsync)(it, op.addr).check("BluetoothDevice.GetRfcommServicesAsync")
   result = adopt[RfcommDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult, "BluetoothDevice.GetRfcommServicesAsync"))
 
-proc getRfcommServicesAsync*(self: BluetoothDevice, a1: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
+proc getRfcommServicesAsync*(self: BluetoothDevice, cacheMode: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothDevice3, "IBluetoothDevice3", it):
-    vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesAsync2, Fn_IBluetoothDevice3_GetRfcommServicesAsync2)(it, a1, op.addr).check("BluetoothDevice.GetRfcommServicesAsync")
+    vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesAsync2, Fn_IBluetoothDevice3_GetRfcommServicesAsync2)(it, cacheMode, op.addr).check("BluetoothDevice.GetRfcommServicesAsync")
   result = adopt[RfcommDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult, "BluetoothDevice.GetRfcommServicesAsync"))
 
-proc getRfcommServicesForIdAsync*(self: BluetoothDevice, a1: RfcommServiceId): Future[RfcommDeviceServicesResult] {.async.} =
+proc getRfcommServicesForIdAsync*(self: BluetoothDevice, serviceId: RfcommServiceId): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesForIdAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothDevice3, "IBluetoothDevice3", it):
-    withIface(a1.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
+    withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
       vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesForIdAsync, Fn_IBluetoothDevice3_GetRfcommServicesForIdAsync)(it, p0, op.addr).check("BluetoothDevice.GetRfcommServicesForIdAsync")
   result = adopt[RfcommDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult, "BluetoothDevice.GetRfcommServicesForIdAsync"))
 
-proc getRfcommServicesForIdAsync*(self: BluetoothDevice, a1: RfcommServiceId, a2: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
+proc getRfcommServicesForIdAsync*(self: BluetoothDevice, serviceId: RfcommServiceId, cacheMode: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesForIdAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothDevice3, "IBluetoothDevice3", it):
-    withIface(a1.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
-      vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesForIdAsync2, Fn_IBluetoothDevice3_GetRfcommServicesForIdAsync2)(it, p0, a2, op.addr).check("BluetoothDevice.GetRfcommServicesForIdAsync")
+    withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
+      vcall(it, Slot_IBluetoothDevice3_GetRfcommServicesForIdAsync2, Fn_IBluetoothDevice3_GetRfcommServicesForIdAsync2)(it, p0, cacheMode, op.addr).check("BluetoothDevice.GetRfcommServicesForIdAsync")
   result = adopt[RfcommDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult, "BluetoothDevice.GetRfcommServicesForIdAsync"))
 
 proc bluetoothDeviceId*(self: BluetoothDevice): BluetoothDeviceId  =
@@ -12234,56 +12234,56 @@ proc close*(self: BluetoothDevice)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("BluetoothDevice.Close")
 
-proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothDevice], a1: bool): string  =
+proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothDevice], pairingState: bool): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromPairingState
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromPairingState, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromPairingState)(it, a1, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromPairingState")
+    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromPairingState, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromPairingState)(it, pairingState, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromPairingState")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothDevice], a1: BluetoothConnectionStatus): string  =
+proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothDevice], connectionStatus: BluetoothConnectionStatus): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromConnectionStatus
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus)(it, a1, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromConnectionStatus")
+    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus)(it, connectionStatus, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromConnectionStatus")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothDevice], a1: string): string  =
+proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothDevice], deviceName: string): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromDeviceName
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceName, h0):
       var tmp: HSTRING
       vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromDeviceName, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromDeviceName)(it, h0, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromDeviceName")
       result = takeString(tmp)
 
-proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothDevice], a1: uint64): string  =
+proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothDevice], bluetoothAddress: uint64): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromBluetoothAddress
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromBluetoothAddress, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromBluetoothAddress)(it, a1, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromBluetoothAddress")
+    vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromBluetoothAddress, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromBluetoothAddress)(it, bluetoothAddress, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromBluetoothAddress")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice], a1: BluetoothClassOfDevice): string  =
+proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice], classOfDevice: BluetoothClassOfDevice): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromClassOfDevice
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics2, it):
-    withIface(a1.p, IID_IBluetoothClassOfDevice, "IBluetoothClassOfDevice", p0):
+    withIface(classOfDevice.p, IID_IBluetoothClassOfDevice, "IBluetoothClassOfDevice", p0):
       var tmp: HSTRING
       vcall(it, Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromClassOfDevice, Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromClassOfDevice)(it, p0, tmp.addr).check("BluetoothDevice.GetDeviceSelectorFromClassOfDevice")
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[BluetoothDevice], a1: string): Future[BluetoothDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBluetoothDeviceStatics_FromIdAsync, Fn_IBluetoothDeviceStatics_FromIdAsync)(it, h0, op.addr).check("BluetoothDevice.FromIdAsync")
   result = adopt[BluetoothDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice, IID_AsyncOperationCompletedHandler_1_BluetoothDevice, "BluetoothDevice.FromIdAsync"))
 
-proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], a1: uint64): Future[BluetoothDevice] {.async.} =
+proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics, it):
-    vcall(it, Slot_IBluetoothDeviceStatics_FromBluetoothAddressAsync, Fn_IBluetoothDeviceStatics_FromBluetoothAddressAsync)(it, a1, op.addr).check("BluetoothDevice.FromBluetoothAddressAsync")
+    vcall(it, Slot_IBluetoothDeviceStatics_FromBluetoothAddressAsync, Fn_IBluetoothDeviceStatics_FromBluetoothAddressAsync)(it, address, op.addr).check("BluetoothDevice.FromBluetoothAddressAsync")
   result = adopt[BluetoothDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice, IID_AsyncOperationCompletedHandler_1_BluetoothDevice, "BluetoothDevice.FromBluetoothAddressAsync"))
 
 proc getDeviceSelector*(_: typedesc[BluetoothDevice]): string  =
@@ -12314,10 +12314,10 @@ proc isLowEnergyDevice*(self: BluetoothDeviceId): bool  =
     vcall(it, Slot_IBluetoothDeviceId_get_IsLowEnergyDevice, Fn_IBluetoothDeviceId_get_IsLowEnergyDevice)(it, tmp.addr).check("BluetoothDeviceId.get_IsLowEnergyDevice")
     result = tmp
 
-proc fromId*(_: typedesc[BluetoothDeviceId], a1: string): BluetoothDeviceId  =
+proc fromId*(_: typedesc[BluetoothDeviceId], deviceId: string): BluetoothDeviceId  =
   ## Windows.Devices.Bluetooth.BluetoothDeviceId.FromId
   withStatics("Windows.Devices.Bluetooth.BluetoothDeviceId", IID_IBluetoothDeviceIdStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_IBluetoothDeviceIdStatics_FromId, Fn_IBluetoothDeviceIdStatics_FromId)(it, h0, tmp.addr).check("BluetoothDeviceId.FromId")
       result = adopt[BluetoothDeviceId](tmp)
@@ -12343,18 +12343,18 @@ proc subCategory*(self: BluetoothLEAppearance): uint16  =
     vcall(it, Slot_IBluetoothLEAppearance_get_SubCategory, Fn_IBluetoothLEAppearance_get_SubCategory)(it, tmp.addr).check("BluetoothLEAppearance.get_SubCategory")
     result = tmp
 
-proc fromRawValue*(_: typedesc[BluetoothLEAppearance], a1: uint16): BluetoothLEAppearance  =
+proc fromRawValue*(_: typedesc[BluetoothLEAppearance], rawValue: uint16): BluetoothLEAppearance  =
   ## Windows.Devices.Bluetooth.BluetoothLEAppearance.FromRawValue
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearance", IID_IBluetoothLEAppearanceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAppearanceStatics_FromRawValue, Fn_IBluetoothLEAppearanceStatics_FromRawValue)(it, a1, tmp.addr).check("BluetoothLEAppearance.FromRawValue")
+    vcall(it, Slot_IBluetoothLEAppearanceStatics_FromRawValue, Fn_IBluetoothLEAppearanceStatics_FromRawValue)(it, rawValue, tmp.addr).check("BluetoothLEAppearance.FromRawValue")
     result = adopt[BluetoothLEAppearance](tmp)
 
-proc fromParts*(_: typedesc[BluetoothLEAppearance], a1: uint16, a2: uint16): BluetoothLEAppearance  =
+proc fromParts*(_: typedesc[BluetoothLEAppearance], appearanceCategory: uint16, appearanceSubCategory: uint16): BluetoothLEAppearance  =
   ## Windows.Devices.Bluetooth.BluetoothLEAppearance.FromParts
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearance", IID_IBluetoothLEAppearanceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAppearanceStatics_FromParts, Fn_IBluetoothLEAppearanceStatics_FromParts)(it, a1, a2, tmp.addr).check("BluetoothLEAppearance.FromParts")
+    vcall(it, Slot_IBluetoothLEAppearanceStatics_FromParts, Fn_IBluetoothLEAppearanceStatics_FromParts)(it, appearanceCategory, appearanceSubCategory, tmp.addr).check("BluetoothLEAppearance.FromParts")
     result = adopt[BluetoothLEAppearance](tmp)
 
 proc uncategorized*(_: typedesc[BluetoothLEAppearanceCategories]): uint16  =
@@ -12799,11 +12799,11 @@ proc bluetoothAddress*(self: BluetoothLEDevice): uint64  =
     vcall(it, Slot_IBluetoothLEDevice_get_BluetoothAddress, Fn_IBluetoothLEDevice_get_BluetoothAddress)(it, tmp.addr).check("BluetoothLEDevice.get_BluetoothAddress")
     result = tmp
 
-proc getGattService*(self: BluetoothLEDevice, a1: GUID): GattDeviceService  =
+proc getGattService*(self: BluetoothLEDevice, serviceUuid: GUID): GattDeviceService  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattService
   withIface(self.p, IID_IBluetoothLEDevice, "IBluetoothLEDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothLEDevice_GetGattService, Fn_IBluetoothLEDevice_GetGattService)(it, a1, tmp.addr).check("BluetoothLEDevice.GetGattService")
+    vcall(it, Slot_IBluetoothLEDevice_GetGattService, Fn_IBluetoothLEDevice_GetGattService)(it, serviceUuid, tmp.addr).check("BluetoothLEDevice.GetGattService")
     result = adopt[GattDeviceService](tmp)
 
 proc onNameChanged*(self: BluetoothLEDevice,
@@ -12905,25 +12905,25 @@ proc getGattServicesAsync*(self: BluetoothLEDevice): Future[GattDeviceServicesRe
     vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesAsync, Fn_IBluetoothLEDevice3_GetGattServicesAsync)(it, op.addr).check("BluetoothLEDevice.GetGattServicesAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "BluetoothLEDevice.GetGattServicesAsync"))
 
-proc getGattServicesAsync*(self: BluetoothLEDevice, a1: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+proc getGattServicesAsync*(self: BluetoothLEDevice, cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothLEDevice3, "IBluetoothLEDevice3", it):
-    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesAsync2, Fn_IBluetoothLEDevice3_GetGattServicesAsync2)(it, a1, op.addr).check("BluetoothLEDevice.GetGattServicesAsync")
+    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesAsync2, Fn_IBluetoothLEDevice3_GetGattServicesAsync2)(it, cacheMode, op.addr).check("BluetoothLEDevice.GetGattServicesAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "BluetoothLEDevice.GetGattServicesAsync"))
 
-proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, a1: GUID): Future[GattDeviceServicesResult] {.async.} =
+proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, serviceUuid: GUID): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesForUuidAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothLEDevice3, "IBluetoothLEDevice3", it):
-    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync, Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync)(it, a1, op.addr).check("BluetoothLEDevice.GetGattServicesForUuidAsync")
+    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync, Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync)(it, serviceUuid, op.addr).check("BluetoothLEDevice.GetGattServicesForUuidAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "BluetoothLEDevice.GetGattServicesForUuidAsync"))
 
-proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, a1: GUID, a2: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, serviceUuid: GUID, cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesForUuidAsync
   var op: pointer
   withIface(self.p, IID_IBluetoothLEDevice3, "IBluetoothLEDevice3", it):
-    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync2, Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync2)(it, a1, a2, op.addr).check("BluetoothLEDevice.GetGattServicesForUuidAsync")
+    vcall(it, Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync2, Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync2)(it, serviceUuid, cacheMode, op.addr).check("BluetoothLEDevice.GetGattServicesForUuidAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "BluetoothLEDevice.GetGattServicesForUuidAsync"))
 
 proc bluetoothDeviceId*(self: BluetoothLEDevice): BluetoothDeviceId  =
@@ -12954,10 +12954,10 @@ proc getConnectionPhy*(self: BluetoothLEDevice): BluetoothLEConnectionPhy  =
     vcall(it, Slot_IBluetoothLEDevice6_GetConnectionPhy, Fn_IBluetoothLEDevice6_GetConnectionPhy)(it, tmp.addr).check("BluetoothLEDevice.GetConnectionPhy")
     result = adopt[BluetoothLEConnectionPhy](tmp)
 
-proc requestPreferredConnectionParameters*(self: BluetoothLEDevice, a1: BluetoothLEPreferredConnectionParameters): BluetoothLEPreferredConnectionParametersRequest  =
+proc requestPreferredConnectionParameters*(self: BluetoothLEDevice, preferredConnectionParameters: BluetoothLEPreferredConnectionParameters): BluetoothLEPreferredConnectionParametersRequest  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.RequestPreferredConnectionParameters
   withIface(self.p, IID_IBluetoothLEDevice6, "IBluetoothLEDevice6", it):
-    withIface(a1.p, IID_IBluetoothLEPreferredConnectionParameters, "IBluetoothLEPreferredConnectionParameters", p0):
+    withIface(preferredConnectionParameters.p, IID_IBluetoothLEPreferredConnectionParameters, "IBluetoothLEPreferredConnectionParameters", p0):
       var tmp: pointer
       vcall(it, Slot_IBluetoothLEDevice6_RequestPreferredConnectionParameters, Fn_IBluetoothLEDevice6_RequestPreferredConnectionParameters)(it, p0, tmp.addr).check("BluetoothLEDevice.RequestPreferredConnectionParameters")
       result = adopt[BluetoothLEPreferredConnectionParametersRequest](tmp)
@@ -13005,70 +13005,70 @@ proc close*(self: BluetoothLEDevice)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("BluetoothLEDevice.Close")
 
-proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothLEDevice], a1: bool): string  =
+proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothLEDevice], pairingState: bool): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromPairingState
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromPairingState, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromPairingState)(it, a1, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromPairingState")
+    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromPairingState, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromPairingState)(it, pairingState, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromPairingState")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothLEDevice], a1: BluetoothConnectionStatus): string  =
+proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothLEDevice], connectionStatus: BluetoothConnectionStatus): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromConnectionStatus
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus)(it, a1, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromConnectionStatus")
+    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus)(it, connectionStatus, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromConnectionStatus")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothLEDevice], a1: string): string  =
+proc getDeviceSelectorFromDeviceName*(_: typedesc[BluetoothLEDevice], deviceName: string): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromDeviceName
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceName, h0):
       var tmp: HSTRING
       vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromDeviceName, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromDeviceName)(it, h0, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromDeviceName")
       result = takeString(tmp)
 
-proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice], a1: uint64): string  =
+proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice], bluetoothAddress: uint64): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress)(it, a1, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress")
+    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress)(it, bluetoothAddress, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice], a1: uint64, a2: BluetoothAddressType): string  =
+proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice], bluetoothAddress: uint64, bluetoothAddressType: BluetoothAddressType): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2)(it, a1, a2, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress")
+    vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2)(it, bluetoothAddress, bluetoothAddressType, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromAppearance*(_: typedesc[BluetoothLEDevice], a1: BluetoothLEAppearance): string  =
+proc getDeviceSelectorFromAppearance*(_: typedesc[BluetoothLEDevice], appearance: BluetoothLEAppearance): string  =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromAppearance
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
-    withIface(a1.p, IID_IBluetoothLEAppearance, "IBluetoothLEAppearance", p0):
+    withIface(appearance.p, IID_IBluetoothLEAppearance, "IBluetoothLEAppearance", p0):
       var tmp: HSTRING
       vcall(it, Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromAppearance, Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromAppearance)(it, p0, tmp.addr).check("BluetoothLEDevice.GetDeviceSelectorFromAppearance")
       result = takeString(tmp)
 
-proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice], a1: uint64, a2: BluetoothAddressType): Future[BluetoothLEDevice] {.async.} =
+proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice], bluetoothAddress: uint64, bluetoothAddressType: BluetoothAddressType): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics2, it):
-    vcall(it, Slot_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync, Fn_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync)(it, a1, a2, op.addr).check("BluetoothLEDevice.FromBluetoothAddressAsync")
+    vcall(it, Slot_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync, Fn_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync)(it, bluetoothAddress, bluetoothAddressType, op.addr).check("BluetoothLEDevice.FromBluetoothAddressAsync")
   result = adopt[BluetoothLEDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice, IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice, "BluetoothLEDevice.FromBluetoothAddressAsync"))
 
-proc fromIdAsync*(_: typedesc[BluetoothLEDevice], a1: string): Future[BluetoothLEDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothLEDevice], deviceId: string): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBluetoothLEDeviceStatics_FromIdAsync, Fn_IBluetoothLEDeviceStatics_FromIdAsync)(it, h0, op.addr).check("BluetoothLEDevice.FromIdAsync")
   result = adopt[BluetoothLEDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice, IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice, "BluetoothLEDevice.FromIdAsync"))
 
-proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice], a1: uint64): Future[BluetoothLEDevice] {.async.} =
+proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice], bluetoothAddress: uint64): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice", IID_IBluetoothLEDeviceStatics, it):
-    vcall(it, Slot_IBluetoothLEDeviceStatics_FromBluetoothAddressAsync, Fn_IBluetoothLEDeviceStatics_FromBluetoothAddressAsync)(it, a1, op.addr).check("BluetoothLEDevice.FromBluetoothAddressAsync")
+    vcall(it, Slot_IBluetoothLEDeviceStatics_FromBluetoothAddressAsync, Fn_IBluetoothLEDeviceStatics_FromBluetoothAddressAsync)(it, bluetoothAddress, op.addr).check("BluetoothLEDevice.FromBluetoothAddressAsync")
   result = adopt[BluetoothLEDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice, IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice, "BluetoothLEDevice.FromBluetoothAddressAsync"))
 
 proc getDeviceSelector*(_: typedesc[BluetoothLEDevice]): string  =
@@ -13175,26 +13175,26 @@ proc samplingInterval*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BluetoothSignalStrengthFilter.get_SamplingInterval")
     release(tmp)
 
-proc fromShortId*(_: typedesc[BluetoothUuidHelper], a1: uint32): GUID  =
+proc fromShortId*(_: typedesc[BluetoothUuidHelper], shortId: uint32): GUID  =
   ## Windows.Devices.Bluetooth.BluetoothUuidHelper.FromShortId
   withStatics("Windows.Devices.Bluetooth.BluetoothUuidHelper", IID_IBluetoothUuidHelperStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IBluetoothUuidHelperStatics_FromShortId, Fn_IBluetoothUuidHelperStatics_FromShortId)(it, a1, tmp.addr).check("BluetoothUuidHelper.FromShortId")
+    vcall(it, Slot_IBluetoothUuidHelperStatics_FromShortId, Fn_IBluetoothUuidHelperStatics_FromShortId)(it, shortId, tmp.addr).check("BluetoothUuidHelper.FromShortId")
     result = tmp
 
-proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], a1: GUID): Option[uint32]  =
+proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], uuid: GUID): Option[uint32]  =
   ## Windows.Devices.Bluetooth.BluetoothUuidHelper.TryGetShortId
   withStatics("Windows.Devices.Bluetooth.BluetoothUuidHelper", IID_IBluetoothUuidHelperStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IBluetoothUuidHelperStatics_TryGetShortId, Fn_IBluetoothUuidHelperStatics_TryGetShortId)(it, a1, tmp.addr).check("BluetoothUuidHelper.TryGetShortId")
+    vcall(it, Slot_IBluetoothUuidHelperStatics_TryGetShortId, Fn_IBluetoothUuidHelperStatics_TryGetShortId)(it, uuid, tmp.addr).check("BluetoothUuidHelper.TryGetShortId")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "BluetoothUuidHelper.TryGetShortId")
     release(tmp)
 
-proc getDescriptors*(self: GattCharacteristic, a1: GUID): seq[GattDescriptor]  =
+proc getDescriptors*(self: GattCharacteristic, descriptorUuid: GUID): seq[GattDescriptor]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptors
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
     var tmp: pointer
-    vcall(it, Slot_IGattCharacteristic_GetDescriptors, Fn_IGattCharacteristic_GetDescriptors)(it, a1, tmp.addr).check("GattCharacteristic.GetDescriptors")
+    vcall(it, Slot_IGattCharacteristic_GetDescriptors, Fn_IGattCharacteristic_GetDescriptors)(it, descriptorUuid, tmp.addr).check("GattCharacteristic.GetDescriptors")
     result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
     release(tmp)
 
@@ -13253,25 +13253,25 @@ proc readValueAsync*(self: GattCharacteristic): Future[GattReadResult] {.async.}
     vcall(it, Slot_IGattCharacteristic_ReadValueAsync, Fn_IGattCharacteristic_ReadValueAsync)(it, op.addr).check("GattCharacteristic.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattCharacteristic.ReadValueAsync"))
 
-proc readValueAsync*(self: GattCharacteristic, a1: BluetoothCacheMode): Future[GattReadResult] {.async.} =
+proc readValueAsync*(self: GattCharacteristic, cacheMode: BluetoothCacheMode): Future[GattReadResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ReadValueAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_ReadValueAsync2, Fn_IGattCharacteristic_ReadValueAsync2)(it, a1, op.addr).check("GattCharacteristic.ReadValueAsync")
+    vcall(it, Slot_IGattCharacteristic_ReadValueAsync2, Fn_IGattCharacteristic_ReadValueAsync2)(it, cacheMode, op.addr).check("GattCharacteristic.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattCharacteristic.ReadValueAsync"))
 
-proc writeValueAsync*(self: GattCharacteristic, a1: pointer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattCharacteristic, value: pointer): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_WriteValueAsync, Fn_IGattCharacteristic_WriteValueAsync)(it, a1, op.addr).check("GattCharacteristic.WriteValueAsync")
+    vcall(it, Slot_IGattCharacteristic_WriteValueAsync, Fn_IGattCharacteristic_WriteValueAsync)(it, value, op.addr).check("GattCharacteristic.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattCharacteristic.WriteValueAsync")
 
-proc writeValueAsync*(self: GattCharacteristic, a1: pointer, a2: GattWriteOption): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattCharacteristic, value: pointer, writeOption: GattWriteOption): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_WriteValueAsync2, Fn_IGattCharacteristic_WriteValueAsync2)(it, a1, a2, op.addr).check("GattCharacteristic.WriteValueAsync")
+    vcall(it, Slot_IGattCharacteristic_WriteValueAsync2, Fn_IGattCharacteristic_WriteValueAsync2)(it, value, writeOption, op.addr).check("GattCharacteristic.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattCharacteristic.WriteValueAsync")
 
 proc readClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic): Future[GattReadClientCharacteristicConfigurationDescriptorResult] {.async.} =
@@ -13281,11 +13281,11 @@ proc readClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteris
     vcall(it, Slot_IGattCharacteristic_ReadClientCharacteristicConfigurationDescriptorAsync, Fn_IGattCharacteristic_ReadClientCharacteristicConfigurationDescriptorAsync)(it, op.addr).check("GattCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync")
   result = adopt[GattReadClientCharacteristicConfigurationDescriptorResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadClientCharacteristicConfigurationDescriptorResult, IID_AsyncOperationCompletedHandler_1_GattReadClientCharacteristicConfigurationDescriptorResult, "GattCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync"))
 
-proc writeClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic, a1: GattClientCharacteristicConfigurationDescriptorValue): Future[GattCommunicationStatus] {.async.} =
+proc writeClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic, clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_WriteClientCharacteristicConfigurationDescriptorAsync, Fn_IGattCharacteristic_WriteClientCharacteristicConfigurationDescriptorAsync)(it, a1, op.addr).check("GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync")
+    vcall(it, Slot_IGattCharacteristic_WriteClientCharacteristicConfigurationDescriptorAsync, Fn_IGattCharacteristic_WriteClientCharacteristicConfigurationDescriptorAsync)(it, clientCharacteristicConfigurationDescriptorValue, op.addr).check("GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync")
 
 proc onValueChanged*(self: GattCharacteristic,
@@ -13329,53 +13329,53 @@ proc getDescriptorsAsync*(self: GattCharacteristic): Future[GattDescriptorsResul
     vcall(it, Slot_IGattCharacteristic3_GetDescriptorsAsync, Fn_IGattCharacteristic3_GetDescriptorsAsync)(it, op.addr).check("GattCharacteristic.GetDescriptorsAsync")
   result = adopt[GattDescriptorsResult](await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult, IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult, "GattCharacteristic.GetDescriptorsAsync"))
 
-proc getDescriptorsAsync*(self: GattCharacteristic, a1: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
+proc getDescriptorsAsync*(self: GattCharacteristic, cacheMode: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsAsync2, Fn_IGattCharacteristic3_GetDescriptorsAsync2)(it, a1, op.addr).check("GattCharacteristic.GetDescriptorsAsync")
+    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsAsync2, Fn_IGattCharacteristic3_GetDescriptorsAsync2)(it, cacheMode, op.addr).check("GattCharacteristic.GetDescriptorsAsync")
   result = adopt[GattDescriptorsResult](await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult, IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult, "GattCharacteristic.GetDescriptorsAsync"))
 
-proc getDescriptorsForUuidAsync*(self: GattCharacteristic, a1: GUID): Future[GattDescriptorsResult] {.async.} =
+proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync, Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync)(it, a1, op.addr).check("GattCharacteristic.GetDescriptorsForUuidAsync")
+    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync, Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync)(it, descriptorUuid, op.addr).check("GattCharacteristic.GetDescriptorsForUuidAsync")
   result = adopt[GattDescriptorsResult](await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult, IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult, "GattCharacteristic.GetDescriptorsForUuidAsync"))
 
-proc getDescriptorsForUuidAsync*(self: GattCharacteristic, a1: GUID, a2: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
+proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID, cacheMode: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync2, Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync2)(it, a1, a2, op.addr).check("GattCharacteristic.GetDescriptorsForUuidAsync")
+    vcall(it, Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync2, Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync2)(it, descriptorUuid, cacheMode, op.addr).check("GattCharacteristic.GetDescriptorsForUuidAsync")
   result = adopt[GattDescriptorsResult](await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult, IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult, "GattCharacteristic.GetDescriptorsForUuidAsync"))
 
-proc writeValueWithResultAsync*(self: GattCharacteristic, a1: pointer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattCharacteristic, value: pointer): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync, Fn_IGattCharacteristic3_WriteValueWithResultAsync)(it, a1, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
+    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync, Fn_IGattCharacteristic3_WriteValueWithResultAsync)(it, value, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattCharacteristic.WriteValueWithResultAsync"))
 
-proc writeValueWithResultAsync*(self: GattCharacteristic, a1: pointer, a2: GattWriteOption): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattCharacteristic, value: pointer, writeOption: GattWriteOption): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync2, Fn_IGattCharacteristic3_WriteValueWithResultAsync2)(it, a1, a2, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
+    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync2, Fn_IGattCharacteristic3_WriteValueWithResultAsync2)(it, value, writeOption, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattCharacteristic.WriteValueWithResultAsync"))
 
-proc writeClientCharacteristicConfigurationDescriptorWithResultAsync*(self: GattCharacteristic, a1: GattClientCharacteristicConfigurationDescriptorValue): Future[GattWriteResult] {.async.} =
+proc writeClientCharacteristicConfigurationDescriptorWithResultAsync*(self: GattCharacteristic, clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_WriteClientCharacteristicConfigurationDescriptorWithResultAsync, Fn_IGattCharacteristic3_WriteClientCharacteristicConfigurationDescriptorWithResultAsync)(it, a1, op.addr).check("GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync")
+    vcall(it, Slot_IGattCharacteristic3_WriteClientCharacteristicConfigurationDescriptorWithResultAsync, Fn_IGattCharacteristic3_WriteClientCharacteristicConfigurationDescriptorWithResultAsync)(it, clientCharacteristicConfigurationDescriptorValue, op.addr).check("GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync"))
 
-proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], a1: uint16): GUID  =
+proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], shortId: uint16): GUID  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ConvertShortIdToUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic", IID_IGattCharacteristicStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IGattCharacteristicStatics_ConvertShortIdToUuid, Fn_IGattCharacteristicStatics_ConvertShortIdToUuid)(it, a1, tmp.addr).check("GattCharacteristic.ConvertShortIdToUuid")
+    vcall(it, Slot_IGattCharacteristicStatics_ConvertShortIdToUuid, Fn_IGattCharacteristicStatics_ConvertShortIdToUuid)(it, shortId, tmp.addr).check("GattCharacteristic.ConvertShortIdToUuid")
     result = tmp
 
 proc batteryLevel*(_: typedesc[GattCharacteristicUuids]): GUID  =
@@ -14030,32 +14030,32 @@ proc readValueAsync*(self: GattDescriptor): Future[GattReadResult] {.async.} =
     vcall(it, Slot_IGattDescriptor_ReadValueAsync, Fn_IGattDescriptor_ReadValueAsync)(it, op.addr).check("GattDescriptor.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattDescriptor.ReadValueAsync"))
 
-proc readValueAsync*(self: GattDescriptor, a1: BluetoothCacheMode): Future[GattReadResult] {.async.} =
+proc readValueAsync*(self: GattDescriptor, cacheMode: BluetoothCacheMode): Future[GattReadResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.ReadValueAsync
   var op: pointer
   withIface(self.p, IID_IGattDescriptor, "IGattDescriptor", it):
-    vcall(it, Slot_IGattDescriptor_ReadValueAsync2, Fn_IGattDescriptor_ReadValueAsync2)(it, a1, op.addr).check("GattDescriptor.ReadValueAsync")
+    vcall(it, Slot_IGattDescriptor_ReadValueAsync2, Fn_IGattDescriptor_ReadValueAsync2)(it, cacheMode, op.addr).check("GattDescriptor.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattDescriptor.ReadValueAsync"))
 
-proc writeValueAsync*(self: GattDescriptor, a1: pointer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattDescriptor, value: pointer): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattDescriptor, "IGattDescriptor", it):
-    vcall(it, Slot_IGattDescriptor_WriteValueAsync, Fn_IGattDescriptor_WriteValueAsync)(it, a1, op.addr).check("GattDescriptor.WriteValueAsync")
+    vcall(it, Slot_IGattDescriptor_WriteValueAsync, Fn_IGattDescriptor_WriteValueAsync)(it, value, op.addr).check("GattDescriptor.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattDescriptor.WriteValueAsync")
 
-proc writeValueWithResultAsync*(self: GattDescriptor, a1: pointer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattDescriptor, value: pointer): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattDescriptor2, "IGattDescriptor2", it):
-    vcall(it, Slot_IGattDescriptor2_WriteValueWithResultAsync, Fn_IGattDescriptor2_WriteValueWithResultAsync)(it, a1, op.addr).check("GattDescriptor.WriteValueWithResultAsync")
+    vcall(it, Slot_IGattDescriptor2_WriteValueWithResultAsync, Fn_IGattDescriptor2_WriteValueWithResultAsync)(it, value, op.addr).check("GattDescriptor.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattDescriptor.WriteValueWithResultAsync"))
 
-proc convertShortIdToUuid*(_: typedesc[GattDescriptor], a1: uint16): GUID  =
+proc convertShortIdToUuid*(_: typedesc[GattDescriptor], shortId: uint16): GUID  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.ConvertShortIdToUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor", IID_IGattDescriptorStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IGattDescriptorStatics_ConvertShortIdToUuid, Fn_IGattDescriptorStatics_ConvertShortIdToUuid)(it, a1, tmp.addr).check("GattDescriptor.ConvertShortIdToUuid")
+    vcall(it, Slot_IGattDescriptorStatics_ConvertShortIdToUuid, Fn_IGattDescriptorStatics_ConvertShortIdToUuid)(it, shortId, tmp.addr).check("GattDescriptor.ConvertShortIdToUuid")
     result = tmp
 
 proc characteristicAggregateFormat*(_: typedesc[GattDescriptorUuids]): GUID  =
@@ -14123,19 +14123,19 @@ proc descriptors*(self: GattDescriptorsResult): seq[GattDescriptor]  =
     result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
     release(tmp)
 
-proc getCharacteristics*(self: GattDeviceService, a1: GUID): seq[GattCharacteristic]  =
+proc getCharacteristics*(self: GattDeviceService, characteristicUuid: GUID): seq[GattCharacteristic]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristics
   withIface(self.p, IID_IGattDeviceService, "IGattDeviceService", it):
     var tmp: pointer
-    vcall(it, Slot_IGattDeviceService_GetCharacteristics, Fn_IGattDeviceService_GetCharacteristics)(it, a1, tmp.addr).check("GattDeviceService.GetCharacteristics")
+    vcall(it, Slot_IGattDeviceService_GetCharacteristics, Fn_IGattDeviceService_GetCharacteristics)(it, characteristicUuid, tmp.addr).check("GattDeviceService.GetCharacteristics")
     result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
     release(tmp)
 
-proc getIncludedServices*(self: GattDeviceService, a1: GUID): seq[GattDeviceService]  =
+proc getIncludedServices*(self: GattDeviceService, serviceUuid: GUID): seq[GattDeviceService]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServices
   withIface(self.p, IID_IGattDeviceService, "IGattDeviceService", it):
     var tmp: pointer
-    vcall(it, Slot_IGattDeviceService_GetIncludedServices, Fn_IGattDeviceService_GetIncludedServices)(it, a1, tmp.addr).check("GattDeviceService.GetIncludedServices")
+    vcall(it, Slot_IGattDeviceService_GetIncludedServices, Fn_IGattDeviceService_GetIncludedServices)(it, serviceUuid, tmp.addr).check("GattDeviceService.GetIncludedServices")
     result = toSeq[GattDeviceService](tmp, IID_IVectorView_1_GattDeviceService)
     release(tmp)
 
@@ -14224,11 +14224,11 @@ proc requestAccessAsync*(self: GattDeviceService): Future[DeviceAccessStatus] {.
     vcall(it, Slot_IGattDeviceService3_RequestAccessAsync, Fn_IGattDeviceService3_RequestAccessAsync)(it, op.addr).check("GattDeviceService.RequestAccessAsync")
   result = await awaitValue[DeviceAccessStatus](op, IID_IAsyncOperation_1_DeviceAccessStatus, IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus, "GattDeviceService.RequestAccessAsync")
 
-proc openAsync*(self: GattDeviceService, a1: GattSharingMode): Future[GattOpenStatus] {.async.} =
+proc openAsync*(self: GattDeviceService, sharingMode: GattSharingMode): Future[GattOpenStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.OpenAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_OpenAsync, Fn_IGattDeviceService3_OpenAsync)(it, a1, op.addr).check("GattDeviceService.OpenAsync")
+    vcall(it, Slot_IGattDeviceService3_OpenAsync, Fn_IGattDeviceService3_OpenAsync)(it, sharingMode, op.addr).check("GattDeviceService.OpenAsync")
   result = await awaitValue[GattOpenStatus](op, IID_IAsyncOperation_1_GattOpenStatus, IID_AsyncOperationCompletedHandler_1_GattOpenStatus, "GattDeviceService.OpenAsync")
 
 proc getCharacteristicsAsync*(self: GattDeviceService): Future[GattCharacteristicsResult] {.async.} =
@@ -14238,25 +14238,25 @@ proc getCharacteristicsAsync*(self: GattDeviceService): Future[GattCharacteristi
     vcall(it, Slot_IGattDeviceService3_GetCharacteristicsAsync, Fn_IGattDeviceService3_GetCharacteristicsAsync)(it, op.addr).check("GattDeviceService.GetCharacteristicsAsync")
   result = adopt[GattCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_GattCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult, "GattDeviceService.GetCharacteristicsAsync"))
 
-proc getCharacteristicsAsync*(self: GattDeviceService, a1: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
+proc getCharacteristicsAsync*(self: GattDeviceService, cacheMode: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsAsync2, Fn_IGattDeviceService3_GetCharacteristicsAsync2)(it, a1, op.addr).check("GattDeviceService.GetCharacteristicsAsync")
+    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsAsync2, Fn_IGattDeviceService3_GetCharacteristicsAsync2)(it, cacheMode, op.addr).check("GattDeviceService.GetCharacteristicsAsync")
   result = adopt[GattCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_GattCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult, "GattDeviceService.GetCharacteristicsAsync"))
 
-proc getCharacteristicsForUuidAsync*(self: GattDeviceService, a1: GUID): Future[GattCharacteristicsResult] {.async.} =
+proc getCharacteristicsForUuidAsync*(self: GattDeviceService, characteristicUuid: GUID): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync, Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync)(it, a1, op.addr).check("GattDeviceService.GetCharacteristicsForUuidAsync")
+    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync, Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync)(it, characteristicUuid, op.addr).check("GattDeviceService.GetCharacteristicsForUuidAsync")
   result = adopt[GattCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_GattCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult, "GattDeviceService.GetCharacteristicsForUuidAsync"))
 
-proc getCharacteristicsForUuidAsync*(self: GattDeviceService, a1: GUID, a2: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
+proc getCharacteristicsForUuidAsync*(self: GattDeviceService, characteristicUuid: GUID, cacheMode: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync2, Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync2)(it, a1, a2, op.addr).check("GattDeviceService.GetCharacteristicsForUuidAsync")
+    vcall(it, Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync2, Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync2)(it, characteristicUuid, cacheMode, op.addr).check("GattDeviceService.GetCharacteristicsForUuidAsync")
   result = adopt[GattCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_GattCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult, "GattDeviceService.GetCharacteristicsForUuidAsync"))
 
 proc getIncludedServicesAsync*(self: GattDeviceService): Future[GattDeviceServicesResult] {.async.} =
@@ -14266,94 +14266,94 @@ proc getIncludedServicesAsync*(self: GattDeviceService): Future[GattDeviceServic
     vcall(it, Slot_IGattDeviceService3_GetIncludedServicesAsync, Fn_IGattDeviceService3_GetIncludedServicesAsync)(it, op.addr).check("GattDeviceService.GetIncludedServicesAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "GattDeviceService.GetIncludedServicesAsync"))
 
-proc getIncludedServicesAsync*(self: GattDeviceService, a1: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+proc getIncludedServicesAsync*(self: GattDeviceService, cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesAsync2, Fn_IGattDeviceService3_GetIncludedServicesAsync2)(it, a1, op.addr).check("GattDeviceService.GetIncludedServicesAsync")
+    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesAsync2, Fn_IGattDeviceService3_GetIncludedServicesAsync2)(it, cacheMode, op.addr).check("GattDeviceService.GetIncludedServicesAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "GattDeviceService.GetIncludedServicesAsync"))
 
-proc getIncludedServicesForUuidAsync*(self: GattDeviceService, a1: GUID): Future[GattDeviceServicesResult] {.async.} =
+proc getIncludedServicesForUuidAsync*(self: GattDeviceService, serviceUuid: GUID): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync, Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync)(it, a1, op.addr).check("GattDeviceService.GetIncludedServicesForUuidAsync")
+    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync, Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync)(it, serviceUuid, op.addr).check("GattDeviceService.GetIncludedServicesForUuidAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "GattDeviceService.GetIncludedServicesForUuidAsync"))
 
-proc getIncludedServicesForUuidAsync*(self: GattDeviceService, a1: GUID, a2: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+proc getIncludedServicesForUuidAsync*(self: GattDeviceService, serviceUuid: GUID, cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesForUuidAsync
   var op: pointer
   withIface(self.p, IID_IGattDeviceService3, "IGattDeviceService3", it):
-    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync2, Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync2)(it, a1, a2, op.addr).check("GattDeviceService.GetIncludedServicesForUuidAsync")
+    vcall(it, Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync2, Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync2)(it, serviceUuid, cacheMode, op.addr).check("GattDeviceService.GetIncludedServicesForUuidAsync")
   result = adopt[GattDeviceServicesResult](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceServicesResult, IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult, "GattDeviceService.GetIncludedServicesForUuidAsync"))
 
-proc fromIdAsync*(_: typedesc[GattDeviceService], a1: string): Future[GattDeviceService] {.async.} =
+proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string): Future[GattDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IGattDeviceServiceStatics_FromIdAsync, Fn_IGattDeviceServiceStatics_FromIdAsync)(it, h0, op.addr).check("GattDeviceService.FromIdAsync")
   result = adopt[GattDeviceService](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceService, IID_AsyncOperationCompletedHandler_1_GattDeviceService, "GattDeviceService.FromIdAsync"))
 
-proc getDeviceSelectorFromUuid*(_: typedesc[GattDeviceService], a1: GUID): string  =
+proc getDeviceSelectorFromUuid*(_: typedesc[GattDeviceService], serviceUuid: GUID): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorFromUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IGattDeviceServiceStatics_GetDeviceSelectorFromUuid, Fn_IGattDeviceServiceStatics_GetDeviceSelectorFromUuid)(it, a1, tmp.addr).check("GattDeviceService.GetDeviceSelectorFromUuid")
+    vcall(it, Slot_IGattDeviceServiceStatics_GetDeviceSelectorFromUuid, Fn_IGattDeviceServiceStatics_GetDeviceSelectorFromUuid)(it, serviceUuid, tmp.addr).check("GattDeviceService.GetDeviceSelectorFromUuid")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromShortId*(_: typedesc[GattDeviceService], a1: uint16): string  =
+proc getDeviceSelectorFromShortId*(_: typedesc[GattDeviceService], serviceShortId: uint16): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorFromShortId
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IGattDeviceServiceStatics_GetDeviceSelectorFromShortId, Fn_IGattDeviceServiceStatics_GetDeviceSelectorFromShortId)(it, a1, tmp.addr).check("GattDeviceService.GetDeviceSelectorFromShortId")
+    vcall(it, Slot_IGattDeviceServiceStatics_GetDeviceSelectorFromShortId, Fn_IGattDeviceServiceStatics_GetDeviceSelectorFromShortId)(it, serviceShortId, tmp.addr).check("GattDeviceService.GetDeviceSelectorFromShortId")
     result = takeString(tmp)
 
-proc convertShortIdToUuid*(_: typedesc[GattDeviceService], a1: uint16): GUID  =
+proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16): GUID  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.ConvertShortIdToUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IGattDeviceServiceStatics_ConvertShortIdToUuid, Fn_IGattDeviceServiceStatics_ConvertShortIdToUuid)(it, a1, tmp.addr).check("GattDeviceService.ConvertShortIdToUuid")
+    vcall(it, Slot_IGattDeviceServiceStatics_ConvertShortIdToUuid, Fn_IGattDeviceServiceStatics_ConvertShortIdToUuid)(it, shortId, tmp.addr).check("GattDeviceService.ConvertShortIdToUuid")
     result = tmp
 
-proc fromIdAsync*(_: typedesc[GattDeviceService], a1: string, a2: GattSharingMode): Future[GattDeviceService] {.async.} =
+proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string, sharingMode: GattSharingMode): Future[GattDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics2, it):
-    withHString(a1, h0):
-      vcall(it, Slot_IGattDeviceServiceStatics2_FromIdAsync, Fn_IGattDeviceServiceStatics2_FromIdAsync)(it, h0, a2, op.addr).check("GattDeviceService.FromIdAsync")
+    withHString(deviceId, h0):
+      vcall(it, Slot_IGattDeviceServiceStatics2_FromIdAsync, Fn_IGattDeviceServiceStatics2_FromIdAsync)(it, h0, sharingMode, op.addr).check("GattDeviceService.FromIdAsync")
   result = adopt[GattDeviceService](await awaitObject(op, IID_IAsyncOperation_1_GattDeviceService, IID_AsyncOperationCompletedHandler_1_GattDeviceService, "GattDeviceService.FromIdAsync"))
 
-proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService], a1: BluetoothDeviceId): string  =
+proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService], bluetoothDeviceId: BluetoothDeviceId): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceId
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
+    withIface(bluetoothDeviceId.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
       var tmp: HSTRING
       vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId)(it, p0, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceId")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService], a1: BluetoothDeviceId, a2: BluetoothCacheMode): string  =
+proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService], bluetoothDeviceId: BluetoothDeviceId, cacheMode: BluetoothCacheMode): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceId
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
+    withIface(bluetoothDeviceId.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
       var tmp: HSTRING
-      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2)(it, p0, a2, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceId")
+      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2)(it, p0, cacheMode, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceId")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService], a1: BluetoothDeviceId, a2: GUID): string  =
+proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService], bluetoothDeviceId: BluetoothDeviceId, serviceUuid: GUID): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
+    withIface(bluetoothDeviceId.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
       var tmp: HSTRING
-      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid)(it, p0, a2, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid")
+      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid)(it, p0, serviceUuid, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService], a1: BluetoothDeviceId, a2: GUID, a3: BluetoothCacheMode): string  =
+proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService], bluetoothDeviceId: BluetoothDeviceId, serviceUuid: GUID, cacheMode: BluetoothCacheMode): string  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService", IID_IGattDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
+    withIface(bluetoothDeviceId.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
       var tmp: HSTRING
-      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid2, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid2)(it, p0, a2, a3, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid")
+      vcall(it, Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid2, Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceIdAndUuid2)(it, p0, serviceUuid, cacheMode, tmp.addr).check("GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid")
       result = takeString(tmp)
 
 proc status*(self: GattDeviceServicesResult): GattCommunicationStatus  =
@@ -14414,12 +14414,12 @@ proc writeProtectionLevel*(self: GattLocalCharacteristic): GattProtectionLevel  
     vcall(it, Slot_IGattLocalCharacteristic_get_WriteProtectionLevel, Fn_IGattLocalCharacteristic_get_WriteProtectionLevel)(it, tmp.addr).check("GattLocalCharacteristic.get_WriteProtectionLevel")
     result = tmp
 
-proc createDescriptorAsync*(self: GattLocalCharacteristic, a1: GUID, a2: GattLocalDescriptorParameters): Future[GattLocalDescriptorResult] {.async.} =
+proc createDescriptorAsync*(self: GattLocalCharacteristic, descriptorUuid: GUID, parameters: GattLocalDescriptorParameters): Future[GattLocalDescriptorResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.CreateDescriptorAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
-    withIface(a2.p, IID_IGattLocalDescriptorParameters, "IGattLocalDescriptorParameters", p1):
-      vcall(it, Slot_IGattLocalCharacteristic_CreateDescriptorAsync, Fn_IGattLocalCharacteristic_CreateDescriptorAsync)(it, a1, p1, op.addr).check("GattLocalCharacteristic.CreateDescriptorAsync")
+    withIface(parameters.p, IID_IGattLocalDescriptorParameters, "IGattLocalDescriptorParameters", p1):
+      vcall(it, Slot_IGattLocalCharacteristic_CreateDescriptorAsync, Fn_IGattLocalCharacteristic_CreateDescriptorAsync)(it, descriptorUuid, p1, op.addr).check("GattLocalCharacteristic.CreateDescriptorAsync")
   result = adopt[GattLocalDescriptorResult](await awaitObject(op, IID_IAsyncOperation_1_GattLocalDescriptorResult, IID_AsyncOperationCompletedHandler_1_GattLocalDescriptorResult, "GattLocalCharacteristic.CreateDescriptorAsync"))
 
 proc descriptors*(self: GattLocalCharacteristic): seq[GattLocalDescriptor]  =
@@ -14510,21 +14510,21 @@ proc removeWriteRequested*(self: GattLocalCharacteristic, token: EventRegistrati
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
     vcall(it, Slot_IGattLocalCharacteristic_remove_WriteRequested, Fn_IGattLocalCharacteristic_remove_WriteRequested)(it, token).check("GattLocalCharacteristic.remove_WriteRequested")
 
-proc notifyValueAsync*(self: GattLocalCharacteristic, a1: pointer): Future[seq[GattClientNotificationResult]] {.async.} =
+proc notifyValueAsync*(self: GattLocalCharacteristic, value: pointer): Future[seq[GattClientNotificationResult]] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
-    vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync, Fn_IGattLocalCharacteristic_NotifyValueAsync)(it, a1, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
+    vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync, Fn_IGattLocalCharacteristic_NotifyValueAsync)(it, value, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "GattLocalCharacteristic.NotifyValueAsync")
   result = toSeq[GattClientNotificationResult](coll, IID_IVectorView_1_GattClientNotificationResult)
   discard release(coll)
 
-proc notifyValueAsync*(self: GattLocalCharacteristic, a1: pointer, a2: GattSubscribedClient): Future[GattClientNotificationResult] {.async.} =
+proc notifyValueAsync*(self: GattLocalCharacteristic, value: pointer, subscribedClient: GattSubscribedClient): Future[GattClientNotificationResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
-    withIface(a2.p, IID_IGattSubscribedClient, "IGattSubscribedClient", p1):
-      vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync2, Fn_IGattLocalCharacteristic_NotifyValueAsync2)(it, a1, p1, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
+    withIface(subscribedClient.p, IID_IGattSubscribedClient, "IGattSubscribedClient", p1):
+      vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync2, Fn_IGattLocalCharacteristic_NotifyValueAsync2)(it, value, p1, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
   result = adopt[GattClientNotificationResult](await awaitObject(op, IID_IAsyncOperation_1_GattClientNotificationResult, IID_AsyncOperationCompletedHandler_1_GattClientNotificationResult, "GattLocalCharacteristic.NotifyValueAsync"))
 
 proc newGattLocalCharacteristicParameters*(): GattLocalCharacteristicParameters =
@@ -14741,12 +14741,12 @@ proc uuid*(self: GattLocalService): GUID  =
     vcall(it, Slot_IGattLocalService_get_Uuid, Fn_IGattLocalService_get_Uuid)(it, tmp.addr).check("GattLocalService.get_Uuid")
     result = tmp
 
-proc createCharacteristicAsync*(self: GattLocalService, a1: GUID, a2: GattLocalCharacteristicParameters): Future[GattLocalCharacteristicResult] {.async.} =
+proc createCharacteristicAsync*(self: GattLocalService, characteristicUuid: GUID, parameters: GattLocalCharacteristicParameters): Future[GattLocalCharacteristicResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService.CreateCharacteristicAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalService, "IGattLocalService", it):
-    withIface(a2.p, IID_IGattLocalCharacteristicParameters, "IGattLocalCharacteristicParameters", p1):
-      vcall(it, Slot_IGattLocalService_CreateCharacteristicAsync, Fn_IGattLocalService_CreateCharacteristicAsync)(it, a1, p1, op.addr).check("GattLocalService.CreateCharacteristicAsync")
+    withIface(parameters.p, IID_IGattLocalCharacteristicParameters, "IGattLocalCharacteristicParameters", p1):
+      vcall(it, Slot_IGattLocalService_CreateCharacteristicAsync, Fn_IGattLocalService_CreateCharacteristicAsync)(it, characteristicUuid, p1, op.addr).check("GattLocalService.CreateCharacteristicAsync")
   result = adopt[GattLocalCharacteristicResult](await awaitObject(op, IID_IAsyncOperation_1_GattLocalCharacteristicResult, IID_AsyncOperationCompletedHandler_1_GattLocalCharacteristicResult, "GattLocalService.CreateCharacteristicAsync"))
 
 proc characteristics*(self: GattLocalService): seq[GattLocalCharacteristic]  =
@@ -14799,11 +14799,11 @@ proc bluetoothSigAssignedNumbers*(_: typedesc[GattPresentationFormat]): uint8  =
     vcall(it, Slot_IGattPresentationFormatStatics_get_BluetoothSigAssignedNumbers, Fn_IGattPresentationFormatStatics_get_BluetoothSigAssignedNumbers)(it, tmp.addr).check("GattPresentationFormat.get_BluetoothSigAssignedNumbers")
     result = tmp
 
-proc fromParts*(_: typedesc[GattPresentationFormat], a1: uint8, a2: int32, a3: uint16, a4: uint8, a5: uint16): GattPresentationFormat  =
+proc fromParts*(_: typedesc[GattPresentationFormat], formatType: uint8, exponent: int32, unit: uint16, namespaceId: uint8, description: uint16): GattPresentationFormat  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat.FromParts
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat", IID_IGattPresentationFormatStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IGattPresentationFormatStatics2_FromParts, Fn_IGattPresentationFormatStatics2_FromParts)(it, a1, a2, a3, a4, a5, tmp.addr).check("GattPresentationFormat.FromParts")
+    vcall(it, Slot_IGattPresentationFormatStatics2_FromParts, Fn_IGattPresentationFormatStatics2_FromParts)(it, formatType, exponent, unit, namespaceId, description, tmp.addr).check("GattPresentationFormat.FromParts")
     result = adopt[GattPresentationFormat](tmp)
 
 proc boolean*(_: typedesc[GattPresentationFormatTypes]): uint8  =
@@ -15176,15 +15176,15 @@ proc removeStateChanged*(self: GattReadRequest, token: EventRegistrationToken) =
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
     vcall(it, Slot_IGattReadRequest_remove_StateChanged, Fn_IGattReadRequest_remove_StateChanged)(it, token).check("GattReadRequest.remove_StateChanged")
 
-proc respondWithValue*(self: GattReadRequest, a1: pointer)  =
+proc respondWithValue*(self: GattReadRequest, value: pointer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.RespondWithValue
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
-    vcall(it, Slot_IGattReadRequest_RespondWithValue, Fn_IGattReadRequest_RespondWithValue)(it, a1).check("GattReadRequest.RespondWithValue")
+    vcall(it, Slot_IGattReadRequest_RespondWithValue, Fn_IGattReadRequest_RespondWithValue)(it, value).check("GattReadRequest.RespondWithValue")
 
-proc respondWithProtocolError*(self: GattReadRequest, a1: uint8)  =
+proc respondWithProtocolError*(self: GattReadRequest, protocolError: uint8)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.RespondWithProtocolError
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
-    vcall(it, Slot_IGattReadRequest_RespondWithProtocolError, Fn_IGattReadRequest_RespondWithProtocolError)(it, a1).check("GattReadRequest.RespondWithProtocolError")
+    vcall(it, Slot_IGattReadRequest_RespondWithProtocolError, Fn_IGattReadRequest_RespondWithProtocolError)(it, protocolError).check("GattReadRequest.RespondWithProtocolError")
 
 proc session*(self: GattReadRequestedEventArgs): GattSession  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequestedEventArgs.get_Session
@@ -15233,11 +15233,11 @@ proc newGattReliableWriteTransaction*(): GattReliableWriteTransaction =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction`.
   adopt[GattReliableWriteTransaction](activateAs("Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction", IID_IGattReliableWriteTransaction))
 
-proc writeValue*(self: GattReliableWriteTransaction, a1: GattCharacteristic, a2: pointer)  =
+proc writeValue*(self: GattReliableWriteTransaction, characteristic: GattCharacteristic, value: pointer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.WriteValue
   withIface(self.p, IID_IGattReliableWriteTransaction, "IGattReliableWriteTransaction", it):
-    withIface(a1.p, IID_IGattCharacteristic, "IGattCharacteristic", p0):
-      vcall(it, Slot_IGattReliableWriteTransaction_WriteValue, Fn_IGattReliableWriteTransaction_WriteValue)(it, p0, a2).check("GattReliableWriteTransaction.WriteValue")
+    withIface(characteristic.p, IID_IGattCharacteristic, "IGattCharacteristic", p0):
+      vcall(it, Slot_IGattReliableWriteTransaction_WriteValue, Fn_IGattReliableWriteTransaction_WriteValue)(it, p0, value).check("GattReliableWriteTransaction.WriteValue")
 
 proc commitAsync*(self: GattReliableWriteTransaction): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.CommitAsync
@@ -15305,10 +15305,10 @@ proc startAdvertising*(self: GattServiceProvider)  =
   withIface(self.p, IID_IGattServiceProvider, "IGattServiceProvider", it):
     vcall(it, Slot_IGattServiceProvider_StartAdvertising, Fn_IGattServiceProvider_StartAdvertising)(it).check("GattServiceProvider.StartAdvertising")
 
-proc startAdvertising*(self: GattServiceProvider, a1: GattServiceProviderAdvertisingParameters)  =
+proc startAdvertising*(self: GattServiceProvider, parameters: GattServiceProviderAdvertisingParameters)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.StartAdvertising
   withIface(self.p, IID_IGattServiceProvider, "IGattServiceProvider", it):
-    withIface(a1.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
+    withIface(parameters.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
       vcall(it, Slot_IGattServiceProvider_StartAdvertising2, Fn_IGattServiceProvider_StartAdvertising2)(it, p0).check("GattServiceProvider.StartAdvertising")
 
 proc stopAdvertising*(self: GattServiceProvider)  =
@@ -15316,17 +15316,17 @@ proc stopAdvertising*(self: GattServiceProvider)  =
   withIface(self.p, IID_IGattServiceProvider, "IGattServiceProvider", it):
     vcall(it, Slot_IGattServiceProvider_StopAdvertising, Fn_IGattServiceProvider_StopAdvertising)(it).check("GattServiceProvider.StopAdvertising")
 
-proc updateAdvertisingParameters*(self: GattServiceProvider, a1: GattServiceProviderAdvertisingParameters)  =
+proc updateAdvertisingParameters*(self: GattServiceProvider, parameters: GattServiceProviderAdvertisingParameters)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.UpdateAdvertisingParameters
   withIface(self.p, IID_IGattServiceProvider2, "IGattServiceProvider2", it):
-    withIface(a1.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
+    withIface(parameters.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
       vcall(it, Slot_IGattServiceProvider2_UpdateAdvertisingParameters, Fn_IGattServiceProvider2_UpdateAdvertisingParameters)(it, p0).check("GattServiceProvider.UpdateAdvertisingParameters")
 
-proc createAsync*(_: typedesc[GattServiceProvider], a1: GUID): Future[GattServiceProviderResult] {.async.} =
+proc createAsync*(_: typedesc[GattServiceProvider], serviceUuid: GUID): Future[GattServiceProviderResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider", IID_IGattServiceProviderStatics, it):
-    vcall(it, Slot_IGattServiceProviderStatics_CreateAsync, Fn_IGattServiceProviderStatics_CreateAsync)(it, a1, op.addr).check("GattServiceProvider.CreateAsync")
+    vcall(it, Slot_IGattServiceProviderStatics_CreateAsync, Fn_IGattServiceProviderStatics_CreateAsync)(it, serviceUuid, op.addr).check("GattServiceProvider.CreateAsync")
   result = adopt[GattServiceProviderResult](await awaitObject(op, IID_IAsyncOperation_1_GattServiceProviderResult, IID_AsyncOperationCompletedHandler_1_GattServiceProviderResult, "GattServiceProvider.CreateAsync"))
 
 proc error*(self: GattServiceProviderAdvertisementStatusChangedEventArgs): BluetoothError  =
@@ -15658,11 +15658,11 @@ proc close*(self: GattSession)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("GattSession.Close")
 
-proc fromDeviceIdAsync*(_: typedesc[GattSession], a1: BluetoothDeviceId): Future[GattSession] {.async.} =
+proc fromDeviceIdAsync*(_: typedesc[GattSession], deviceId: BluetoothDeviceId): Future[GattSession] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession", IID_IGattSessionStatics, it):
-    withIface(a1.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
+    withIface(deviceId.p, IID_IBluetoothDeviceId, "IBluetoothDeviceId", p0):
       vcall(it, Slot_IGattSessionStatics_FromDeviceIdAsync, Fn_IGattSessionStatics_FromDeviceIdAsync)(it, p0, op.addr).check("GattSession.FromDeviceIdAsync")
   result = adopt[GattSession](await awaitObject(op, IID_IAsyncOperation_1_GattSession, IID_AsyncOperationCompletedHandler_1_GattSession, "GattSession.FromDeviceIdAsync"))
 
@@ -15779,10 +15779,10 @@ proc respond*(self: GattWriteRequest)  =
   withIface(self.p, IID_IGattWriteRequest, "IGattWriteRequest", it):
     vcall(it, Slot_IGattWriteRequest_Respond, Fn_IGattWriteRequest_Respond)(it).check("GattWriteRequest.Respond")
 
-proc respondWithProtocolError*(self: GattWriteRequest, a1: uint8)  =
+proc respondWithProtocolError*(self: GattWriteRequest, protocolError: uint8)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequest.RespondWithProtocolError
   withIface(self.p, IID_IGattWriteRequest, "IGattWriteRequest", it):
-    vcall(it, Slot_IGattWriteRequest_RespondWithProtocolError, Fn_IGattWriteRequest_RespondWithProtocolError)(it, a1).check("GattWriteRequest.RespondWithProtocolError")
+    vcall(it, Slot_IGattWriteRequest_RespondWithProtocolError, Fn_IGattWriteRequest_RespondWithProtocolError)(it, protocolError).check("GattWriteRequest.RespondWithProtocolError")
 
 proc session*(self: GattWriteRequestedEventArgs): GattSession  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequestedEventArgs.get_Session
@@ -15860,54 +15860,54 @@ proc requestAccessAsync*(self: RfcommDeviceService): Future[DeviceAccessStatus] 
     vcall(it, Slot_IRfcommDeviceService3_RequestAccessAsync, Fn_IRfcommDeviceService3_RequestAccessAsync)(it, op.addr).check("RfcommDeviceService.RequestAccessAsync")
   result = await awaitValue[DeviceAccessStatus](op, IID_IAsyncOperation_1_DeviceAccessStatus, IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus, "RfcommDeviceService.RequestAccessAsync")
 
-proc fromIdAsync*(_: typedesc[RfcommDeviceService], a1: string): Future[RfcommDeviceService] {.async.} =
+proc fromIdAsync*(_: typedesc[RfcommDeviceService], deviceId: string): Future[RfcommDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IRfcommDeviceServiceStatics_FromIdAsync, Fn_IRfcommDeviceServiceStatics_FromIdAsync)(it, h0, op.addr).check("RfcommDeviceService.FromIdAsync")
   result = adopt[RfcommDeviceService](await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceService, IID_AsyncOperationCompletedHandler_1_RfcommDeviceService, "RfcommDeviceService.FromIdAsync"))
 
-proc getDeviceSelector*(_: typedesc[RfcommDeviceService], a1: RfcommServiceId): string  =
+proc getDeviceSelector*(_: typedesc[RfcommDeviceService], serviceId: RfcommServiceId): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelector
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics, it):
-    withIface(a1.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
+    withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
       var tmp: HSTRING
       vcall(it, Slot_IRfcommDeviceServiceStatics_GetDeviceSelector, Fn_IRfcommDeviceServiceStatics_GetDeviceSelector)(it, p0, tmp.addr).check("RfcommDeviceService.GetDeviceSelector")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService], a1: BluetoothDevice): string  =
+proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService], bluetoothDevice: BluetoothDevice): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDevice
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
+    withIface(bluetoothDevice.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
       var tmp: HSTRING
       vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice)(it, p0, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDevice")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService], a1: BluetoothDevice, a2: BluetoothCacheMode): string  =
+proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService], bluetoothDevice: BluetoothDevice, cacheMode: BluetoothCacheMode): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDevice
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
+    withIface(bluetoothDevice.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
       var tmp: HSTRING
-      vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2)(it, p0, a2, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDevice")
+      vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2)(it, p0, cacheMode, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDevice")
       result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService], a1: BluetoothDevice, a2: RfcommServiceId): string  =
+proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService], bluetoothDevice: BluetoothDevice, serviceId: RfcommServiceId): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
-      withIface(a2.p, IID_IRfcommServiceId, "IRfcommServiceId", p1):
+    withIface(bluetoothDevice.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
+      withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p1):
         var tmp: HSTRING
         vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId)(it, p0, p1, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId")
         result = takeString(tmp)
 
-proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService], a1: BluetoothDevice, a2: RfcommServiceId, a3: BluetoothCacheMode): string  =
+proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService], bluetoothDevice: BluetoothDevice, serviceId: RfcommServiceId, cacheMode: BluetoothCacheMode): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService", IID_IRfcommDeviceServiceStatics2, it):
-    withIface(a1.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
-      withIface(a2.p, IID_IRfcommServiceId, "IRfcommServiceId", p1):
+    withIface(bluetoothDevice.p, IID_IBluetoothDevice, "IBluetoothDevice", p0):
+      withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p1):
         var tmp: HSTRING
-        vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId2, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId2)(it, p0, p1, a3, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId")
+        vcall(it, Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId2, Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceAndServiceId2)(it, p0, p1, cacheMode, tmp.addr).check("RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId")
         result = takeString(tmp)
 
 proc error*(self: RfcommDeviceServicesResult): BluetoothError  =
@@ -15946,18 +15946,18 @@ proc asString*(self: RfcommServiceId): string  =
     vcall(it, Slot_IRfcommServiceId_AsString, Fn_IRfcommServiceId_AsString)(it, tmp.addr).check("RfcommServiceId.AsString")
     result = takeString(tmp)
 
-proc fromUuid*(_: typedesc[RfcommServiceId], a1: GUID): RfcommServiceId  =
+proc fromUuid*(_: typedesc[RfcommServiceId], uuid: GUID): RfcommServiceId  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId.FromUuid
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId", IID_IRfcommServiceIdStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRfcommServiceIdStatics_FromUuid, Fn_IRfcommServiceIdStatics_FromUuid)(it, a1, tmp.addr).check("RfcommServiceId.FromUuid")
+    vcall(it, Slot_IRfcommServiceIdStatics_FromUuid, Fn_IRfcommServiceIdStatics_FromUuid)(it, uuid, tmp.addr).check("RfcommServiceId.FromUuid")
     result = adopt[RfcommServiceId](tmp)
 
-proc fromShortId*(_: typedesc[RfcommServiceId], a1: uint32): RfcommServiceId  =
+proc fromShortId*(_: typedesc[RfcommServiceId], shortId: uint32): RfcommServiceId  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId.FromShortId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId", IID_IRfcommServiceIdStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRfcommServiceIdStatics_FromShortId, Fn_IRfcommServiceIdStatics_FromShortId)(it, a1, tmp.addr).check("RfcommServiceId.FromShortId")
+    vcall(it, Slot_IRfcommServiceIdStatics_FromShortId, Fn_IRfcommServiceIdStatics_FromShortId)(it, shortId, tmp.addr).check("RfcommServiceId.FromShortId")
     result = adopt[RfcommServiceId](tmp)
 
 proc serialPort*(_: typedesc[RfcommServiceId]): RfcommServiceId  =
@@ -16014,11 +16014,11 @@ proc stopAdvertising*(self: RfcommServiceProvider)  =
   withIface(self.p, IID_IRfcommServiceProvider, "IRfcommServiceProvider", it):
     vcall(it, Slot_IRfcommServiceProvider_StopAdvertising, Fn_IRfcommServiceProvider_StopAdvertising)(it).check("RfcommServiceProvider.StopAdvertising")
 
-proc createAsync*(_: typedesc[RfcommServiceProvider], a1: RfcommServiceId): Future[RfcommServiceProvider] {.async.} =
+proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId): Future[RfcommServiceProvider] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider", IID_IRfcommServiceProviderStatics, it):
-    withIface(a1.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
+    withIface(serviceId.p, IID_IRfcommServiceId, "IRfcommServiceId", p0):
       vcall(it, Slot_IRfcommServiceProviderStatics_CreateAsync, Fn_IRfcommServiceProviderStatics_CreateAsync)(it, p0, op.addr).check("RfcommServiceProvider.CreateAsync")
   result = adopt[RfcommServiceProvider](await awaitObject(op, IID_IAsyncOperation_1_RfcommServiceProvider, IID_AsyncOperationCompletedHandler_1_RfcommServiceProvider, "RfcommServiceProvider.CreateAsync"))
 
@@ -16036,35 +16036,35 @@ proc outputStream*(self: CustomDevice): pointer  =
     vcall(it, Slot_ICustomDevice_get_OutputStream, Fn_ICustomDevice_get_OutputStream)(it, tmp.addr).check("CustomDevice.get_OutputStream")
     result = tmp
 
-proc sendIOControlAsync*(self: CustomDevice, a1: IOControlCode, a2: pointer, a3: pointer): Future[uint32] {.async.} =
+proc sendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: pointer, outputBuffer: pointer): Future[uint32] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.SendIOControlAsync
   var op: pointer
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
-    withIface(a1.p, IID_IIOControlCode, "IIOControlCode", p0):
-      vcall(it, Slot_ICustomDevice_SendIOControlAsync, Fn_ICustomDevice_SendIOControlAsync)(it, p0, a2, a3, op.addr).check("CustomDevice.SendIOControlAsync")
+    withIface(ioControlCode.p, IID_IIOControlCode, "IIOControlCode", p0):
+      vcall(it, Slot_ICustomDevice_SendIOControlAsync, Fn_ICustomDevice_SendIOControlAsync)(it, p0, inputBuffer, outputBuffer, op.addr).check("CustomDevice.SendIOControlAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "CustomDevice.SendIOControlAsync")
 
-proc trySendIOControlAsync*(self: CustomDevice, a1: IOControlCode, a2: pointer, a3: pointer): Future[bool] {.async.} =
+proc trySendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: pointer, outputBuffer: pointer): Future[bool] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.TrySendIOControlAsync
   var op: pointer
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
-    withIface(a1.p, IID_IIOControlCode, "IIOControlCode", p0):
-      vcall(it, Slot_ICustomDevice_TrySendIOControlAsync, Fn_ICustomDevice_TrySendIOControlAsync)(it, p0, a2, a3, op.addr).check("CustomDevice.TrySendIOControlAsync")
+    withIface(ioControlCode.p, IID_IIOControlCode, "IIOControlCode", p0):
+      vcall(it, Slot_ICustomDevice_TrySendIOControlAsync, Fn_ICustomDevice_TrySendIOControlAsync)(it, p0, inputBuffer, outputBuffer, op.addr).check("CustomDevice.TrySendIOControlAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CustomDevice.TrySendIOControlAsync")
 
-proc getDeviceSelector*(_: typedesc[CustomDevice], a1: GUID): string  =
+proc getDeviceSelector*(_: typedesc[CustomDevice], classGuid: GUID): string  =
   ## Windows.Devices.Custom.CustomDevice.GetDeviceSelector
   withStatics("Windows.Devices.Custom.CustomDevice", IID_ICustomDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ICustomDeviceStatics_GetDeviceSelector, Fn_ICustomDeviceStatics_GetDeviceSelector)(it, a1, tmp.addr).check("CustomDevice.GetDeviceSelector")
+    vcall(it, Slot_ICustomDeviceStatics_GetDeviceSelector, Fn_ICustomDeviceStatics_GetDeviceSelector)(it, classGuid, tmp.addr).check("CustomDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[CustomDevice], a1: string, a2: DeviceAccessMode, a3: DeviceSharingMode): Future[CustomDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[CustomDevice], deviceId: string, desiredAccess: DeviceAccessMode, sharingMode: DeviceSharingMode): Future[CustomDevice] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Custom.CustomDevice", IID_ICustomDeviceStatics, it):
-    withHString(a1, h0):
-      vcall(it, Slot_ICustomDeviceStatics_FromIdAsync, Fn_ICustomDeviceStatics_FromIdAsync)(it, h0, a2, a3, op.addr).check("CustomDevice.FromIdAsync")
+    withHString(deviceId, h0):
+      vcall(it, Slot_ICustomDeviceStatics_FromIdAsync, Fn_ICustomDeviceStatics_FromIdAsync)(it, h0, desiredAccess, sharingMode, op.addr).check("CustomDevice.FromIdAsync")
   result = adopt[CustomDevice](await awaitObject(op, IID_IAsyncOperation_1_CustomDevice, IID_AsyncOperationCompletedHandler_1_CustomDevice, "CustomDevice.FromIdAsync"))
 
 proc accessMode*(self: IOControlCode): IOControlAccessMode  =
@@ -16102,11 +16102,11 @@ proc controlCode*(self: IOControlCode): uint32  =
     vcall(it, Slot_IIOControlCode_get_ControlCode, Fn_IIOControlCode_get_ControlCode)(it, tmp.addr).check("IOControlCode.get_ControlCode")
     result = tmp
 
-proc createIOControlCode*(_: typedesc[IOControlCode], a1: uint16, a2: uint16, a3: IOControlAccessMode, a4: IOControlBufferingMethod): IOControlCode  =
+proc createIOControlCode*(_: typedesc[IOControlCode], deviceType: uint16, function: uint16, accessMode: IOControlAccessMode, bufferingMethod: IOControlBufferingMethod): IOControlCode  =
   ## Windows.Devices.Custom.IOControlCode.CreateIOControlCode
   withStatics("Windows.Devices.Custom.IOControlCode", IID_IIOControlCodeFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IIOControlCodeFactory_CreateIOControlCode, Fn_IIOControlCodeFactory_CreateIOControlCode)(it, a1, a2, a3, a4, tmp.addr).check("IOControlCode.CreateIOControlCode")
+    vcall(it, Slot_IIOControlCodeFactory_CreateIOControlCode, Fn_IIOControlCodeFactory_CreateIOControlCode)(it, deviceType, function, accessMode, bufferingMethod, tmp.addr).check("IOControlCode.CreateIOControlCode")
     result = adopt[IOControlCode](tmp)
 
 proc unknown*(_: typedesc[KnownDeviceTypes]): uint16  =
@@ -16172,19 +16172,19 @@ proc preferredRenderAdapter*(self: DisplayAdapter): DisplayAdapter  =
     vcall(it, Slot_IDisplayAdapter2_get_PreferredRenderAdapter, Fn_IDisplayAdapter2_get_PreferredRenderAdapter)(it, tmp.addr).check("DisplayAdapter.get_PreferredRenderAdapter")
     result = adopt[DisplayAdapter](tmp)
 
-proc createScanoutSource*(self: DisplayDevice, a1: DisplayTarget): DisplaySource  =
+proc createScanoutSource*(self: DisplayDevice, target: DisplayTarget): DisplaySource  =
   ## Windows.Devices.Display.Core.DisplayDevice.CreateScanoutSource
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayDevice_CreateScanoutSource, Fn_IDisplayDevice_CreateScanoutSource)(it, p0, tmp.addr).check("DisplayDevice.CreateScanoutSource")
       result = adopt[DisplaySource](tmp)
 
-proc createPrimary*(self: DisplayDevice, a1: DisplayTarget, a2: DisplayPrimaryDescription): DisplaySurface  =
+proc createPrimary*(self: DisplayDevice, target: DisplayTarget, desc: DisplayPrimaryDescription): DisplaySurface  =
   ## Windows.Devices.Display.Core.DisplayDevice.CreatePrimary
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
-      withIface(a2.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", p1):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+      withIface(desc.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", p1):
         var tmp: pointer
         vcall(it, Slot_IDisplayDevice_CreatePrimary, Fn_IDisplayDevice_CreatePrimary)(it, p0, p1, tmp.addr).check("DisplayDevice.CreatePrimary")
         result = adopt[DisplaySurface](tmp)
@@ -16196,34 +16196,34 @@ proc createTaskPool*(self: DisplayDevice): DisplayTaskPool  =
     vcall(it, Slot_IDisplayDevice_CreateTaskPool, Fn_IDisplayDevice_CreateTaskPool)(it, tmp.addr).check("DisplayDevice.CreateTaskPool")
     result = adopt[DisplayTaskPool](tmp)
 
-proc createPeriodicFence*(self: DisplayDevice, a1: DisplayTarget, a2: TimeSpan): DisplayFence  =
+proc createPeriodicFence*(self: DisplayDevice, target: DisplayTarget, offsetFromVBlank: TimeSpan): DisplayFence  =
   ## Windows.Devices.Display.Core.DisplayDevice.CreatePeriodicFence
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: pointer
-      vcall(it, Slot_IDisplayDevice_CreatePeriodicFence, Fn_IDisplayDevice_CreatePeriodicFence)(it, p0, a2, tmp.addr).check("DisplayDevice.CreatePeriodicFence")
+      vcall(it, Slot_IDisplayDevice_CreatePeriodicFence, Fn_IDisplayDevice_CreatePeriodicFence)(it, p0, offsetFromVBlank, tmp.addr).check("DisplayDevice.CreatePeriodicFence")
       result = adopt[DisplayFence](tmp)
 
-proc waitForVBlank*(self: DisplayDevice, a1: DisplaySource)  =
+proc waitForVBlank*(self: DisplayDevice, source: DisplaySource)  =
   ## Windows.Devices.Display.Core.DisplayDevice.WaitForVBlank
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
-    withIface(a1.p, IID_IDisplaySource, "IDisplaySource", p0):
+    withIface(source.p, IID_IDisplaySource, "IDisplaySource", p0):
       vcall(it, Slot_IDisplayDevice_WaitForVBlank, Fn_IDisplayDevice_WaitForVBlank)(it, p0).check("DisplayDevice.WaitForVBlank")
 
-proc createSimpleScanout*(self: DisplayDevice, a1: DisplaySource, a2: DisplaySurface, a3: uint32, a4: uint32): DisplayScanout  =
+proc createSimpleScanout*(self: DisplayDevice, pSource: DisplaySource, pSurface: DisplaySurface, subResourceIndex: uint32, syncInterval: uint32): DisplayScanout  =
   ## Windows.Devices.Display.Core.DisplayDevice.CreateSimpleScanout
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
-    withIface(a1.p, IID_IDisplaySource, "IDisplaySource", p0):
-      withIface(a2.p, IID_IDisplaySurface, "IDisplaySurface", p1):
+    withIface(pSource.p, IID_IDisplaySource, "IDisplaySource", p0):
+      withIface(pSurface.p, IID_IDisplaySurface, "IDisplaySurface", p1):
         var tmp: pointer
-        vcall(it, Slot_IDisplayDevice_CreateSimpleScanout, Fn_IDisplayDevice_CreateSimpleScanout)(it, p0, p1, a3, a4, tmp.addr).check("DisplayDevice.CreateSimpleScanout")
+        vcall(it, Slot_IDisplayDevice_CreateSimpleScanout, Fn_IDisplayDevice_CreateSimpleScanout)(it, p0, p1, subResourceIndex, syncInterval, tmp.addr).check("DisplayDevice.CreateSimpleScanout")
         result = adopt[DisplayScanout](tmp)
 
-proc isCapabilitySupported*(self: DisplayDevice, a1: DisplayDeviceCapability): bool  =
+proc isCapabilitySupported*(self: DisplayDevice, capability: DisplayDeviceCapability): bool  =
   ## Windows.Devices.Display.Core.DisplayDevice.IsCapabilitySupported
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
     var tmp: bool
-    vcall(it, Slot_IDisplayDevice_IsCapabilitySupported, Fn_IDisplayDevice_IsCapabilitySupported)(it, a1, tmp.addr).check("DisplayDevice.IsCapabilitySupported")
+    vcall(it, Slot_IDisplayDevice_IsCapabilitySupported, Fn_IDisplayDevice_IsCapabilitySupported)(it, capability, tmp.addr).check("DisplayDevice.IsCapabilitySupported")
     result = tmp
 
 proc getCurrentTargets*(self: DisplayManager): seq[DisplayTarget]  =
@@ -16242,18 +16242,18 @@ proc getCurrentAdapters*(self: DisplayManager): seq[DisplayAdapter]  =
     result = toSeq[DisplayAdapter](tmp, IID_IVectorView_1_DisplayAdapter)
     release(tmp)
 
-proc tryAcquireTarget*(self: DisplayManager, a1: DisplayTarget): DisplayManagerResult  =
+proc tryAcquireTarget*(self: DisplayManager, target: DisplayTarget): DisplayManagerResult  =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTarget
   withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: DisplayManagerResult
       vcall(it, Slot_IDisplayManager_TryAcquireTarget, Fn_IDisplayManager_TryAcquireTarget)(it, p0, tmp.addr).check("DisplayManager.TryAcquireTarget")
       result = tmp
 
-proc releaseTarget*(self: DisplayManager, a1: DisplayTarget)  =
+proc releaseTarget*(self: DisplayManager, target: DisplayTarget)  =
   ## Windows.Devices.Display.Core.DisplayManager.ReleaseTarget
   withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       vcall(it, Slot_IDisplayManager_ReleaseTarget, Fn_IDisplayManager_ReleaseTarget)(it, p0).check("DisplayManager.ReleaseTarget")
 
 proc tryReadCurrentStateForAllTargets*(self: DisplayManager): DisplayManagerResultWithState  =
@@ -16263,10 +16263,10 @@ proc tryReadCurrentStateForAllTargets*(self: DisplayManager): DisplayManagerResu
     vcall(it, Slot_IDisplayManager_TryReadCurrentStateForAllTargets, Fn_IDisplayManager_TryReadCurrentStateForAllTargets)(it, tmp.addr).check("DisplayManager.TryReadCurrentStateForAllTargets")
     result = adopt[DisplayManagerResultWithState](tmp)
 
-proc createDisplayDevice*(self: DisplayManager, a1: DisplayAdapter): DisplayDevice  =
+proc createDisplayDevice*(self: DisplayManager, adapter: DisplayAdapter): DisplayDevice  =
   ## Windows.Devices.Display.Core.DisplayManager.CreateDisplayDevice
   withIface(self.p, IID_IDisplayManager, "IDisplayManager", it):
-    withIface(a1.p, IID_IDisplayAdapter, "IDisplayAdapter", p0):
+    withIface(adapter.p, IID_IDisplayAdapter, "IDisplayAdapter", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayManager_CreateDisplayDevice, Fn_IDisplayManager_CreateDisplayDevice)(it, p0, tmp.addr).check("DisplayManager.CreateDisplayDevice")
       result = adopt[DisplayDevice](tmp)
@@ -16364,11 +16364,11 @@ proc tryReadCurrentStateForModeQuery*(self: DisplayManager): DisplayManagerResul
     vcall(it, Slot_IDisplayManager2_TryReadCurrentStateForModeQuery, Fn_IDisplayManager2_TryReadCurrentStateForModeQuery)(it, tmp.addr).check("DisplayManager.TryReadCurrentStateForModeQuery")
     result = adopt[DisplayManagerResultWithState](tmp)
 
-proc createDisplayDeviceForIndirectAdapter*(self: DisplayManager, a1: DisplayAdapter, a2: DisplayAdapter): DisplayDevice  =
+proc createDisplayDeviceForIndirectAdapter*(self: DisplayManager, indirectAdapter: DisplayAdapter, renderAdapter: DisplayAdapter): DisplayDevice  =
   ## Windows.Devices.Display.Core.DisplayManager.CreateDisplayDeviceForIndirectAdapter
   withIface(self.p, IID_IDisplayManager3, "IDisplayManager3", it):
-    withIface(a1.p, IID_IDisplayAdapter, "IDisplayAdapter", p0):
-      withIface(a2.p, IID_IDisplayAdapter, "IDisplayAdapter", p1):
+    withIface(indirectAdapter.p, IID_IDisplayAdapter, "IDisplayAdapter", p0):
+      withIface(renderAdapter.p, IID_IDisplayAdapter, "IDisplayAdapter", p1):
         var tmp: pointer
         vcall(it, Slot_IDisplayManager3_CreateDisplayDeviceForIndirectAdapter, Fn_IDisplayManager3_CreateDisplayDeviceForIndirectAdapter)(it, p0, p1, tmp.addr).check("DisplayManager.CreateDisplayDeviceForIndirectAdapter")
         result = adopt[DisplayDevice](tmp)
@@ -16378,11 +16378,11 @@ proc close*(self: DisplayManager)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DisplayManager.Close")
 
-proc create*(_: typedesc[DisplayManager], a1: DisplayManagerOptions): DisplayManager  =
+proc create*(_: typedesc[DisplayManager], options: DisplayManagerOptions): DisplayManager  =
   ## Windows.Devices.Display.Core.DisplayManager.Create
   withStatics("Windows.Devices.Display.Core.DisplayManager", IID_IDisplayManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDisplayManagerStatics_Create, Fn_IDisplayManagerStatics_Create)(it, a1, tmp.addr).check("DisplayManager.Create")
+    vcall(it, Slot_IDisplayManagerStatics_Create, Fn_IDisplayManagerStatics_Create)(it, options, tmp.addr).check("DisplayManager.Create")
     result = adopt[DisplayManager](tmp)
 
 proc handled*(self: DisplayManagerChangedEventArgs): bool  =
@@ -16503,17 +16503,17 @@ proc isInterlaced*(self: DisplayModeInfo): bool  =
     vcall(it, Slot_IDisplayModeInfo_get_IsInterlaced, Fn_IDisplayModeInfo_get_IsInterlaced)(it, tmp.addr).check("DisplayModeInfo.get_IsInterlaced")
     result = tmp
 
-proc getWireFormatSupportedBitsPerChannel*(self: DisplayModeInfo, a1: DisplayWireFormatPixelEncoding): DisplayBitsPerChannel  =
+proc getWireFormatSupportedBitsPerChannel*(self: DisplayModeInfo, encoding: DisplayWireFormatPixelEncoding): DisplayBitsPerChannel  =
   ## Windows.Devices.Display.Core.DisplayModeInfo.GetWireFormatSupportedBitsPerChannel
   withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
     var tmp: DisplayBitsPerChannel
-    vcall(it, Slot_IDisplayModeInfo_GetWireFormatSupportedBitsPerChannel, Fn_IDisplayModeInfo_GetWireFormatSupportedBitsPerChannel)(it, a1, tmp.addr).check("DisplayModeInfo.GetWireFormatSupportedBitsPerChannel")
+    vcall(it, Slot_IDisplayModeInfo_GetWireFormatSupportedBitsPerChannel, Fn_IDisplayModeInfo_GetWireFormatSupportedBitsPerChannel)(it, encoding, tmp.addr).check("DisplayModeInfo.GetWireFormatSupportedBitsPerChannel")
     result = tmp
 
-proc isWireFormatSupported*(self: DisplayModeInfo, a1: DisplayWireFormat): bool  =
+proc isWireFormatSupported*(self: DisplayModeInfo, wireFormat: DisplayWireFormat): bool  =
   ## Windows.Devices.Display.Core.DisplayModeInfo.IsWireFormatSupported
   withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
-    withIface(a1.p, IID_IDisplayWireFormat, "IDisplayWireFormat", p0):
+    withIface(wireFormat.p, IID_IDisplayWireFormat, "IDisplayWireFormat", p0):
       var tmp: bool
       vcall(it, Slot_IDisplayModeInfo_IsWireFormatSupported, Fn_IDisplayModeInfo_IsWireFormatSupported)(it, p0, tmp.addr).check("DisplayModeInfo.IsWireFormatSupported")
       result = tmp
@@ -16568,11 +16568,11 @@ proc isAutomaticTargetSwitchingEnabled*(self: DisplayMuxDevice): bool  =
     vcall(it, Slot_IDisplayMuxDevice_get_IsAutomaticTargetSwitchingEnabled, Fn_IDisplayMuxDevice_get_IsAutomaticTargetSwitchingEnabled)(it, tmp.addr).check("DisplayMuxDevice.get_IsAutomaticTargetSwitchingEnabled")
     result = tmp
 
-proc setPreferredTarget*(self: DisplayMuxDevice, a1: DisplayTarget) {.async.} =
+proc setPreferredTarget*(self: DisplayMuxDevice, target: DisplayTarget) {.async.} =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.SetPreferredTarget
   var op: pointer
   withIface(self.p, IID_IDisplayMuxDevice, "IDisplayMuxDevice", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       vcall(it, Slot_IDisplayMuxDevice_SetPreferredTarget, Fn_IDisplayMuxDevice_SetPreferredTarget)(it, p0, op.addr).check("DisplayMuxDevice.SetPreferredTarget")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DisplayMuxDevice.SetPreferredTarget")
 
@@ -16614,11 +16614,11 @@ proc getDeviceSelector*(_: typedesc[DisplayMuxDevice]): string  =
     vcall(it, Slot_IDisplayMuxDeviceStatics_GetDeviceSelector, Fn_IDisplayMuxDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("DisplayMuxDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[DisplayMuxDevice], a1: string): Future[DisplayMuxDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[DisplayMuxDevice], deviceInterfaceId: string): Future[DisplayMuxDevice] {.async.} =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.Core.DisplayMuxDevice", IID_IDisplayMuxDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceInterfaceId, h0):
       vcall(it, Slot_IDisplayMuxDeviceStatics_FromIdAsync, Fn_IDisplayMuxDeviceStatics_FromIdAsync)(it, h0, op.addr).check("DisplayMuxDevice.FromIdAsync")
   result = adopt[DisplayMuxDevice](await awaitObject(op, IID_IAsyncOperation_1_DisplayMuxDevice, IID_AsyncOperationCompletedHandler_1_DisplayMuxDevice, "DisplayMuxDevice.FromIdAsync"))
 
@@ -16708,18 +16708,18 @@ proc `scaling=`*(self: DisplayPath, value: DisplayPathScaling)  =
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     vcall(it, Slot_IDisplayPath_put_Scaling, Fn_IDisplayPath_put_Scaling)(it, value).check("DisplayPath.put_Scaling")
 
-proc findModes*(self: DisplayPath, a1: DisplayModeQueryOptions): seq[DisplayModeInfo]  =
+proc findModes*(self: DisplayPath, flags: DisplayModeQueryOptions): seq[DisplayModeInfo]  =
   ## Windows.Devices.Display.Core.DisplayPath.FindModes
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     var tmp: pointer
-    vcall(it, Slot_IDisplayPath_FindModes, Fn_IDisplayPath_FindModes)(it, a1, tmp.addr).check("DisplayPath.FindModes")
+    vcall(it, Slot_IDisplayPath_FindModes, Fn_IDisplayPath_FindModes)(it, flags, tmp.addr).check("DisplayPath.FindModes")
     result = toSeq[DisplayModeInfo](tmp, IID_IVectorView_1_DisplayModeInfo)
     release(tmp)
 
-proc applyPropertiesFromMode*(self: DisplayPath, a1: DisplayModeInfo)  =
+proc applyPropertiesFromMode*(self: DisplayPath, modeResult: DisplayModeInfo)  =
   ## Windows.Devices.Display.Core.DisplayPath.ApplyPropertiesFromMode
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
-    withIface(a1.p, IID_IDisplayModeInfo, "IDisplayModeInfo", p0):
+    withIface(modeResult.p, IID_IDisplayModeInfo, "IDisplayModeInfo", p0):
       vcall(it, Slot_IDisplayPath_ApplyPropertiesFromMode, Fn_IDisplayPath_ApplyPropertiesFromMode)(it, p0).check("DisplayPath.ApplyPropertiesFromMode")
 
 proc physicalPresentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
@@ -16758,11 +16758,11 @@ proc sourceId*(self: DisplaySource): uint32  =
     vcall(it, Slot_IDisplaySource_get_SourceId, Fn_IDisplaySource_get_SourceId)(it, tmp.addr).check("DisplaySource.get_SourceId")
     result = tmp
 
-proc getMetadata*(self: DisplaySource, a1: GUID): pointer  =
+proc getMetadata*(self: DisplaySource, key: GUID): pointer  =
   ## Windows.Devices.Display.Core.DisplaySource.GetMetadata
   withIface(self.p, IID_IDisplaySource, "IDisplaySource", it):
     var tmp: pointer
-    vcall(it, Slot_IDisplaySource_GetMetadata, Fn_IDisplaySource_GetMetadata)(it, a1, tmp.addr).check("DisplaySource.GetMetadata")
+    vcall(it, Slot_IDisplaySource_GetMetadata, Fn_IDisplaySource_GetMetadata)(it, key, tmp.addr).check("DisplaySource.GetMetadata")
     result = tmp
 
 proc status*(self: DisplaySource): DisplaySourceStatus  =
@@ -16821,66 +16821,66 @@ proc views*(self: DisplayState): seq[DisplayView]  =
     result = toSeq[DisplayView](tmp, IID_IVectorView_1_DisplayView)
     release(tmp)
 
-proc connectTarget*(self: DisplayState, a1: DisplayTarget): DisplayPath  =
+proc connectTarget*(self: DisplayState, target: DisplayTarget): DisplayPath  =
   ## Windows.Devices.Display.Core.DisplayState.ConnectTarget
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayState_ConnectTarget, Fn_IDisplayState_ConnectTarget)(it, p0, tmp.addr).check("DisplayState.ConnectTarget")
       result = adopt[DisplayPath](tmp)
 
-proc connectTarget*(self: DisplayState, a1: DisplayTarget, a2: DisplayView): DisplayPath  =
+proc connectTarget*(self: DisplayState, target: DisplayTarget, view: DisplayView): DisplayPath  =
   ## Windows.Devices.Display.Core.DisplayState.ConnectTarget
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
-      withIface(a2.p, IID_IDisplayView, "IDisplayView", p1):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+      withIface(view.p, IID_IDisplayView, "IDisplayView", p1):
         var tmp: pointer
         vcall(it, Slot_IDisplayState_ConnectTarget2, Fn_IDisplayState_ConnectTarget2)(it, p0, p1, tmp.addr).check("DisplayState.ConnectTarget")
         result = adopt[DisplayPath](tmp)
 
-proc canConnectTargetToView*(self: DisplayState, a1: DisplayTarget, a2: DisplayView): bool  =
+proc canConnectTargetToView*(self: DisplayState, target: DisplayTarget, view: DisplayView): bool  =
   ## Windows.Devices.Display.Core.DisplayState.CanConnectTargetToView
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
-      withIface(a2.p, IID_IDisplayView, "IDisplayView", p1):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+      withIface(view.p, IID_IDisplayView, "IDisplayView", p1):
         var tmp: bool
         vcall(it, Slot_IDisplayState_CanConnectTargetToView, Fn_IDisplayState_CanConnectTargetToView)(it, p0, p1, tmp.addr).check("DisplayState.CanConnectTargetToView")
         result = tmp
 
-proc getViewForTarget*(self: DisplayState, a1: DisplayTarget): DisplayView  =
+proc getViewForTarget*(self: DisplayState, target: DisplayTarget): DisplayView  =
   ## Windows.Devices.Display.Core.DisplayState.GetViewForTarget
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayState_GetViewForTarget, Fn_IDisplayState_GetViewForTarget)(it, p0, tmp.addr).check("DisplayState.GetViewForTarget")
       result = adopt[DisplayView](tmp)
 
-proc getPathForTarget*(self: DisplayState, a1: DisplayTarget): DisplayPath  =
+proc getPathForTarget*(self: DisplayState, target: DisplayTarget): DisplayPath  =
   ## Windows.Devices.Display.Core.DisplayState.GetPathForTarget
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayState_GetPathForTarget, Fn_IDisplayState_GetPathForTarget)(it, p0, tmp.addr).check("DisplayState.GetPathForTarget")
       result = adopt[DisplayPath](tmp)
 
-proc disconnectTarget*(self: DisplayState, a1: DisplayTarget)  =
+proc disconnectTarget*(self: DisplayState, target: DisplayTarget)  =
   ## Windows.Devices.Display.Core.DisplayState.DisconnectTarget
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(target.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       vcall(it, Slot_IDisplayState_DisconnectTarget, Fn_IDisplayState_DisconnectTarget)(it, p0).check("DisplayState.DisconnectTarget")
 
-proc tryFunctionalize*(self: DisplayState, a1: DisplayStateFunctionalizeOptions): DisplayStateOperationResult  =
+proc tryFunctionalize*(self: DisplayState, options: DisplayStateFunctionalizeOptions): DisplayStateOperationResult  =
   ## Windows.Devices.Display.Core.DisplayState.TryFunctionalize
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
     var tmp: pointer
-    vcall(it, Slot_IDisplayState_TryFunctionalize, Fn_IDisplayState_TryFunctionalize)(it, a1, tmp.addr).check("DisplayState.TryFunctionalize")
+    vcall(it, Slot_IDisplayState_TryFunctionalize, Fn_IDisplayState_TryFunctionalize)(it, options, tmp.addr).check("DisplayState.TryFunctionalize")
     result = adopt[DisplayStateOperationResult](tmp)
 
-proc tryApply*(self: DisplayState, a1: DisplayStateApplyOptions): DisplayStateOperationResult  =
+proc tryApply*(self: DisplayState, options: DisplayStateApplyOptions): DisplayStateOperationResult  =
   ## Windows.Devices.Display.Core.DisplayState.TryApply
   withIface(self.p, IID_IDisplayState, "IDisplayState", it):
     var tmp: pointer
-    vcall(it, Slot_IDisplayState_TryApply, Fn_IDisplayState_TryApply)(it, a1, tmp.addr).check("DisplayState.TryApply")
+    vcall(it, Slot_IDisplayState_TryApply, Fn_IDisplayState_TryApply)(it, options, tmp.addr).check("DisplayState.TryApply")
     result = adopt[DisplayStateOperationResult](tmp)
 
 proc clone*(self: DisplayState): DisplayState  =
@@ -16981,39 +16981,39 @@ proc isStale*(self: DisplayTarget): bool  =
     vcall(it, Slot_IDisplayTarget_get_IsStale, Fn_IDisplayTarget_get_IsStale)(it, tmp.addr).check("DisplayTarget.get_IsStale")
     result = tmp
 
-proc isSame*(self: DisplayTarget, a1: DisplayTarget): bool  =
+proc isSame*(self: DisplayTarget, otherTarget: DisplayTarget): bool  =
   ## Windows.Devices.Display.Core.DisplayTarget.IsSame
   withIface(self.p, IID_IDisplayTarget, "IDisplayTarget", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(otherTarget.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: bool
       vcall(it, Slot_IDisplayTarget_IsSame, Fn_IDisplayTarget_IsSame)(it, p0, tmp.addr).check("DisplayTarget.IsSame")
       result = tmp
 
-proc isEqual*(self: DisplayTarget, a1: DisplayTarget): bool  =
+proc isEqual*(self: DisplayTarget, otherTarget: DisplayTarget): bool  =
   ## Windows.Devices.Display.Core.DisplayTarget.IsEqual
   withIface(self.p, IID_IDisplayTarget, "IDisplayTarget", it):
-    withIface(a1.p, IID_IDisplayTarget, "IDisplayTarget", p0):
+    withIface(otherTarget.p, IID_IDisplayTarget, "IDisplayTarget", p0):
       var tmp: bool
       vcall(it, Slot_IDisplayTarget_IsEqual, Fn_IDisplayTarget_IsEqual)(it, p0, tmp.addr).check("DisplayTarget.IsEqual")
       result = tmp
 
-proc setScanout*(self: DisplayTask, a1: DisplayScanout)  =
+proc setScanout*(self: DisplayTask, scanout: DisplayScanout)  =
   ## Windows.Devices.Display.Core.DisplayTask.SetScanout
   withIface(self.p, IID_IDisplayTask, "IDisplayTask", it):
-    withIface(a1.p, IID_IDisplayScanout, "IDisplayScanout", p0):
+    withIface(scanout.p, IID_IDisplayScanout, "IDisplayScanout", p0):
       vcall(it, Slot_IDisplayTask_SetScanout, Fn_IDisplayTask_SetScanout)(it, p0).check("DisplayTask.SetScanout")
 
-proc setWait*(self: DisplayTask, a1: DisplayFence, a2: uint64)  =
+proc setWait*(self: DisplayTask, readyFence: DisplayFence, readyFenceValue: uint64)  =
   ## Windows.Devices.Display.Core.DisplayTask.SetWait
   withIface(self.p, IID_IDisplayTask, "IDisplayTask", it):
-    withIface(a1.p, IID_IDisplayFence, "IDisplayFence", p0):
-      vcall(it, Slot_IDisplayTask_SetWait, Fn_IDisplayTask_SetWait)(it, p0, a2).check("DisplayTask.SetWait")
+    withIface(readyFence.p, IID_IDisplayFence, "IDisplayFence", p0):
+      vcall(it, Slot_IDisplayTask_SetWait, Fn_IDisplayTask_SetWait)(it, p0, readyFenceValue).check("DisplayTask.SetWait")
 
-proc setSignal*(self: DisplayTask, a1: DisplayTaskSignalKind, a2: DisplayFence)  =
+proc setSignal*(self: DisplayTask, signalKind: DisplayTaskSignalKind, fence: DisplayFence)  =
   ## Windows.Devices.Display.Core.DisplayTask.SetSignal
   withIface(self.p, IID_IDisplayTask2, "IDisplayTask2", it):
-    withIface(a2.p, IID_IDisplayFence, "IDisplayFence", p1):
-      vcall(it, Slot_IDisplayTask2_SetSignal, Fn_IDisplayTask2_SetSignal)(it, a1, p1).check("DisplayTask.SetSignal")
+    withIface(fence.p, IID_IDisplayFence, "IDisplayFence", p1):
+      vcall(it, Slot_IDisplayTask2_SetSignal, Fn_IDisplayTask2_SetSignal)(it, signalKind, p1).check("DisplayTask.SetSignal")
 
 proc createTask*(self: DisplayTaskPool): DisplayTask  =
   ## Windows.Devices.Display.Core.DisplayTaskPool.CreateTask
@@ -17022,16 +17022,16 @@ proc createTask*(self: DisplayTaskPool): DisplayTask  =
     vcall(it, Slot_IDisplayTaskPool_CreateTask, Fn_IDisplayTaskPool_CreateTask)(it, tmp.addr).check("DisplayTaskPool.CreateTask")
     result = adopt[DisplayTask](tmp)
 
-proc executeTask*(self: DisplayTaskPool, a1: DisplayTask)  =
+proc executeTask*(self: DisplayTaskPool, task: DisplayTask)  =
   ## Windows.Devices.Display.Core.DisplayTaskPool.ExecuteTask
   withIface(self.p, IID_IDisplayTaskPool, "IDisplayTaskPool", it):
-    withIface(a1.p, IID_IDisplayTask, "IDisplayTask", p0):
+    withIface(task.p, IID_IDisplayTask, "IDisplayTask", p0):
       vcall(it, Slot_IDisplayTaskPool_ExecuteTask, Fn_IDisplayTaskPool_ExecuteTask)(it, p0).check("DisplayTaskPool.ExecuteTask")
 
-proc tryExecuteTask*(self: DisplayTaskPool, a1: DisplayTask): DisplayTaskResult  =
+proc tryExecuteTask*(self: DisplayTaskPool, task: DisplayTask): DisplayTaskResult  =
   ## Windows.Devices.Display.Core.DisplayTaskPool.TryExecuteTask
   withIface(self.p, IID_IDisplayTaskPool2, "IDisplayTaskPool2", it):
-    withIface(a1.p, IID_IDisplayTask, "IDisplayTask", p0):
+    withIface(task.p, IID_IDisplayTask, "IDisplayTask", p0):
       var tmp: pointer
       vcall(it, Slot_IDisplayTaskPool2_TryExecuteTask, Fn_IDisplayTaskPool2_TryExecuteTask)(it, p0, tmp.addr).check("DisplayTaskPool.TryExecuteTask")
       result = adopt[DisplayTaskResult](tmp)
@@ -17065,10 +17065,10 @@ proc paths*(self: DisplayView): seq[DisplayPath]  =
     result = toSeq[DisplayPath](tmp, IID_IVectorView_1_DisplayPath)
     release(tmp)
 
-proc setPrimaryPath*(self: DisplayView, a1: DisplayPath)  =
+proc setPrimaryPath*(self: DisplayView, path: DisplayPath)  =
   ## Windows.Devices.Display.Core.DisplayView.SetPrimaryPath
   withIface(self.p, IID_IDisplayView, "IDisplayView", it):
-    withIface(a1.p, IID_IDisplayPath, "IDisplayPath", p0):
+    withIface(path.p, IID_IDisplayPath, "IDisplayPath", p0):
       vcall(it, Slot_IDisplayView_SetPrimaryPath, Fn_IDisplayView_SetPrimaryPath)(it, p0).check("DisplayView.SetPrimaryPath")
 
 proc pixelEncoding*(self: DisplayWireFormat): DisplayWireFormatPixelEncoding  =
@@ -17106,11 +17106,11 @@ proc hdrMetadata*(self: DisplayWireFormat): DisplayWireFormatHdrMetadata  =
     vcall(it, Slot_IDisplayWireFormat_get_HdrMetadata, Fn_IDisplayWireFormat_get_HdrMetadata)(it, tmp.addr).check("DisplayWireFormat.get_HdrMetadata")
     result = tmp
 
-proc createInstance*(_: typedesc[DisplayWireFormat], a1: DisplayWireFormatPixelEncoding, a2: int32, a3: DisplayWireFormatColorSpace, a4: DisplayWireFormatEotf, a5: DisplayWireFormatHdrMetadata): DisplayWireFormat  =
+proc createInstance*(_: typedesc[DisplayWireFormat], pixelEncoding: DisplayWireFormatPixelEncoding, bitsPerChannel: int32, colorSpace: DisplayWireFormatColorSpace, eotf: DisplayWireFormatEotf, hdrMetadata: DisplayWireFormatHdrMetadata): DisplayWireFormat  =
   ## Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance
   withStatics("Windows.Devices.Display.Core.DisplayWireFormat", IID_IDisplayWireFormatFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IDisplayWireFormatFactory_CreateInstance, Fn_IDisplayWireFormatFactory_CreateInstance)(it, a1, a2, a3, a4, a5, tmp.addr).check("DisplayWireFormat.CreateInstance")
+    vcall(it, Slot_IDisplayWireFormatFactory_CreateInstance, Fn_IDisplayWireFormatFactory_CreateInstance)(it, pixelEncoding, bitsPerChannel, colorSpace, eotf, hdrMetadata, tmp.addr).check("DisplayWireFormat.CreateInstance")
     result = adopt[DisplayWireFormat](tmp)
 
 proc deviceId*(self: DisplayMonitor): string  =
@@ -17247,19 +17247,19 @@ proc getDeviceSelector*(_: typedesc[DisplayMonitor]): string  =
     vcall(it, Slot_IDisplayMonitorStatics_GetDeviceSelector, Fn_IDisplayMonitorStatics_GetDeviceSelector)(it, tmp.addr).check("DisplayMonitor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[DisplayMonitor], a1: string): Future[DisplayMonitor] {.async.} =
+proc fromIdAsync*(_: typedesc[DisplayMonitor], deviceId: string): Future[DisplayMonitor] {.async.} =
   ## Windows.Devices.Display.DisplayMonitor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.DisplayMonitor", IID_IDisplayMonitorStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IDisplayMonitorStatics_FromIdAsync, Fn_IDisplayMonitorStatics_FromIdAsync)(it, h0, op.addr).check("DisplayMonitor.FromIdAsync")
   result = adopt[DisplayMonitor](await awaitObject(op, IID_IAsyncOperation_1_DisplayMonitor, IID_AsyncOperationCompletedHandler_1_DisplayMonitor, "DisplayMonitor.FromIdAsync"))
 
-proc fromInterfaceIdAsync*(_: typedesc[DisplayMonitor], a1: string): Future[DisplayMonitor] {.async.} =
+proc fromInterfaceIdAsync*(_: typedesc[DisplayMonitor], deviceInterfaceId: string): Future[DisplayMonitor] {.async.} =
   ## Windows.Devices.Display.DisplayMonitor.FromInterfaceIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.DisplayMonitor", IID_IDisplayMonitorStatics, it):
-    withHString(a1, h0):
+    withHString(deviceInterfaceId, h0):
       vcall(it, Slot_IDisplayMonitorStatics_FromInterfaceIdAsync, Fn_IDisplayMonitorStatics_FromInterfaceIdAsync)(it, h0, op.addr).check("DisplayMonitor.FromInterfaceIdAsync")
   result = adopt[DisplayMonitor](await awaitObject(op, IID_IAsyncOperation_1_DisplayMonitor, IID_AsyncOperationCompletedHandler_1_DisplayMonitor, "DisplayMonitor.FromInterfaceIdAsync"))
 
@@ -17317,26 +17317,26 @@ proc userPromptRequired*(self: DeviceAccessInformation): bool  =
     vcall(it, Slot_IDeviceAccessInformation2_get_UserPromptRequired, Fn_IDeviceAccessInformation2_get_UserPromptRequired)(it, tmp.addr).check("DeviceAccessInformation.get_UserPromptRequired")
     result = tmp
 
-proc createFromId*(_: typedesc[DeviceAccessInformation], a1: string): DeviceAccessInformation  =
+proc createFromId*(_: typedesc[DeviceAccessInformation], deviceId: string): DeviceAccessInformation  =
   ## Windows.Devices.Enumeration.DeviceAccessInformation.CreateFromId
   withStatics("Windows.Devices.Enumeration.DeviceAccessInformation", IID_IDeviceAccessInformationStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_IDeviceAccessInformationStatics_CreateFromId, Fn_IDeviceAccessInformationStatics_CreateFromId)(it, h0, tmp.addr).check("DeviceAccessInformation.CreateFromId")
       result = adopt[DeviceAccessInformation](tmp)
 
-proc createFromDeviceClassId*(_: typedesc[DeviceAccessInformation], a1: GUID): DeviceAccessInformation  =
+proc createFromDeviceClassId*(_: typedesc[DeviceAccessInformation], deviceClassId: GUID): DeviceAccessInformation  =
   ## Windows.Devices.Enumeration.DeviceAccessInformation.CreateFromDeviceClassId
   withStatics("Windows.Devices.Enumeration.DeviceAccessInformation", IID_IDeviceAccessInformationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDeviceAccessInformationStatics_CreateFromDeviceClassId, Fn_IDeviceAccessInformationStatics_CreateFromDeviceClassId)(it, a1, tmp.addr).check("DeviceAccessInformation.CreateFromDeviceClassId")
+    vcall(it, Slot_IDeviceAccessInformationStatics_CreateFromDeviceClassId, Fn_IDeviceAccessInformationStatics_CreateFromDeviceClassId)(it, deviceClassId, tmp.addr).check("DeviceAccessInformation.CreateFromDeviceClassId")
     result = adopt[DeviceAccessInformation](tmp)
 
-proc createFromDeviceClass*(_: typedesc[DeviceAccessInformation], a1: DeviceClass): DeviceAccessInformation  =
+proc createFromDeviceClass*(_: typedesc[DeviceAccessInformation], deviceClass: DeviceClass): DeviceAccessInformation  =
   ## Windows.Devices.Enumeration.DeviceAccessInformation.CreateFromDeviceClass
   withStatics("Windows.Devices.Enumeration.DeviceAccessInformation", IID_IDeviceAccessInformationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDeviceAccessInformationStatics_CreateFromDeviceClass, Fn_IDeviceAccessInformationStatics_CreateFromDeviceClass)(it, a1, tmp.addr).check("DeviceAccessInformation.CreateFromDeviceClass")
+    vcall(it, Slot_IDeviceAccessInformationStatics_CreateFromDeviceClass, Fn_IDeviceAccessInformationStatics_CreateFromDeviceClass)(it, deviceClass, tmp.addr).check("DeviceAccessInformation.CreateFromDeviceClass")
     result = adopt[DeviceAccessInformation](tmp)
 
 proc deviceId*(self: DeviceConnectionChangeTriggerDetails): string  =
@@ -17388,10 +17388,10 @@ proc enclosureLocation*(self: DeviceInformation): EnclosureLocation  =
     vcall(it, Slot_IDeviceInformation_get_EnclosureLocation, Fn_IDeviceInformation_get_EnclosureLocation)(it, tmp.addr).check("DeviceInformation.get_EnclosureLocation")
     result = adopt[EnclosureLocation](tmp)
 
-proc update*(self: DeviceInformation, a1: DeviceInformationUpdate)  =
+proc update*(self: DeviceInformation, updateInfo: DeviceInformationUpdate)  =
   ## Windows.Devices.Enumeration.DeviceInformation.Update
   withIface(self.p, IID_IDeviceInformation, "IDeviceInformation", it):
-    withIface(a1.p, IID_IDeviceInformationUpdate, "IDeviceInformationUpdate", p0):
+    withIface(updateInfo.p, IID_IDeviceInformationUpdate, "IDeviceInformationUpdate", p0):
       vcall(it, Slot_IDeviceInformation_Update, Fn_IDeviceInformation_Update)(it, p0).check("DeviceInformation.Update")
 
 proc getThumbnailAsync*(self: DeviceInformation): Future[DeviceThumbnail] {.async.} =
@@ -17422,18 +17422,18 @@ proc pairing*(self: DeviceInformation): DeviceInformationPairing  =
     vcall(it, Slot_IDeviceInformation2_get_Pairing, Fn_IDeviceInformation2_get_Pairing)(it, tmp.addr).check("DeviceInformation.get_Pairing")
     result = adopt[DeviceInformationPairing](tmp)
 
-proc getAqsFilterFromDeviceClass*(_: typedesc[DeviceInformation], a1: DeviceClass): string  =
+proc getAqsFilterFromDeviceClass*(_: typedesc[DeviceInformation], deviceClass: DeviceClass): string  =
   ## Windows.Devices.Enumeration.DeviceInformation.GetAqsFilterFromDeviceClass
   withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass, Fn_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass)(it, a1, tmp.addr).check("DeviceInformation.GetAqsFilterFromDeviceClass")
+    vcall(it, Slot_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass, Fn_IDeviceInformationStatics2_GetAqsFilterFromDeviceClass)(it, deviceClass, tmp.addr).check("DeviceInformation.GetAqsFilterFromDeviceClass")
     result = takeString(tmp)
 
-proc createFromIdAsync*(_: typedesc[DeviceInformation], a1: string): Future[DeviceInformation] {.async.} =
+proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IDeviceInformationStatics_CreateFromIdAsync, Fn_IDeviceInformationStatics_CreateFromIdAsync)(it, h0, op.addr).check("DeviceInformation.CreateFromIdAsync")
   result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DeviceInformation.CreateFromIdAsync"))
 
@@ -17444,40 +17444,40 @@ proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher  =
     vcall(it, Slot_IDeviceInformationStatics_CreateWatcher, Fn_IDeviceInformationStatics_CreateWatcher)(it, tmp.addr).check("DeviceInformation.CreateWatcher")
     result = adopt[DeviceWatcher](tmp)
 
-proc createWatcher*(_: typedesc[DeviceInformation], a1: DeviceClass): DeviceWatcher  =
+proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass): DeviceWatcher  =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
   withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDeviceInformationStatics_CreateWatcher2, Fn_IDeviceInformationStatics_CreateWatcher2)(it, a1, tmp.addr).check("DeviceInformation.CreateWatcher")
+    vcall(it, Slot_IDeviceInformationStatics_CreateWatcher2, Fn_IDeviceInformationStatics_CreateWatcher2)(it, deviceClass, tmp.addr).check("DeviceInformation.CreateWatcher")
     result = adopt[DeviceWatcher](tmp)
 
-proc createWatcher*(_: typedesc[DeviceInformation], a1: string): DeviceWatcher  =
+proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string): DeviceWatcher  =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
   withStatics("Windows.Devices.Enumeration.DeviceInformation", IID_IDeviceInformationStatics, it):
-    withHString(a1, h0):
+    withHString(aqsFilter, h0):
       var tmp: pointer
       vcall(it, Slot_IDeviceInformationStatics_CreateWatcher3, Fn_IDeviceInformationStatics_CreateWatcher3)(it, h0, tmp.addr).check("DeviceInformation.CreateWatcher")
       result = adopt[DeviceWatcher](tmp)
 
-proc pairAsync*(self: DeviceInformationCustomPairing, a1: DevicePairingKinds): Future[DevicePairingResult] {.async.} =
+proc pairAsync*(self: DeviceInformationCustomPairing, pairingKindsSupported: DevicePairingKinds): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IID_IDeviceInformationCustomPairing, "IDeviceInformationCustomPairing", it):
-    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync, Fn_IDeviceInformationCustomPairing_PairAsync)(it, a1, op.addr).check("DeviceInformationCustomPairing.PairAsync")
+    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync, Fn_IDeviceInformationCustomPairing_PairAsync)(it, pairingKindsSupported, op.addr).check("DeviceInformationCustomPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationCustomPairing.PairAsync"))
 
-proc pairAsync*(self: DeviceInformationCustomPairing, a1: DevicePairingKinds, a2: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
+proc pairAsync*(self: DeviceInformationCustomPairing, pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IID_IDeviceInformationCustomPairing, "IDeviceInformationCustomPairing", it):
-    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync2, Fn_IDeviceInformationCustomPairing_PairAsync2)(it, a1, a2, op.addr).check("DeviceInformationCustomPairing.PairAsync")
+    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync2, Fn_IDeviceInformationCustomPairing_PairAsync2)(it, pairingKindsSupported, minProtectionLevel, op.addr).check("DeviceInformationCustomPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationCustomPairing.PairAsync"))
 
-proc pairAsync*(self: DeviceInformationCustomPairing, a1: DevicePairingKinds, a2: DevicePairingProtectionLevel, a3: pointer): Future[DevicePairingResult] {.async.} =
+proc pairAsync*(self: DeviceInformationCustomPairing, pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: pointer): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IID_IDeviceInformationCustomPairing, "IDeviceInformationCustomPairing", it):
-    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync3, Fn_IDeviceInformationCustomPairing_PairAsync3)(it, a1, a2, a3, op.addr).check("DeviceInformationCustomPairing.PairAsync")
+    vcall(it, Slot_IDeviceInformationCustomPairing_PairAsync3, Fn_IDeviceInformationCustomPairing_PairAsync3)(it, pairingKindsSupported, minProtectionLevel, devicePairingSettings, op.addr).check("DeviceInformationCustomPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationCustomPairing.PairAsync"))
 
 proc onPairingRequested*(self: DeviceInformationCustomPairing,
@@ -17499,10 +17499,10 @@ proc removePairingRequested*(self: DeviceInformationCustomPairing, token: EventR
   withIface(self.p, IID_IDeviceInformationCustomPairing, "IDeviceInformationCustomPairing", it):
     vcall(it, Slot_IDeviceInformationCustomPairing_remove_PairingRequested, Fn_IDeviceInformationCustomPairing_remove_PairingRequested)(it, token).check("DeviceInformationCustomPairing.remove_PairingRequested")
 
-proc addPairingSetMember*(self: DeviceInformationCustomPairing, a1: DeviceInformation)  =
+proc addPairingSetMember*(self: DeviceInformationCustomPairing, device: DeviceInformation)  =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.AddPairingSetMember
   withIface(self.p, IID_IDeviceInformationCustomPairing2, "IDeviceInformationCustomPairing2", it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+    withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p0):
       vcall(it, Slot_IDeviceInformationCustomPairing2_AddPairingSetMember, Fn_IDeviceInformationCustomPairing2_AddPairingSetMember)(it, p0).check("DeviceInformationCustomPairing.AddPairingSetMember")
 
 proc onPairingSetMembersRequested*(self: DeviceInformationCustomPairing,
@@ -17545,11 +17545,11 @@ proc pairAsync*(self: DeviceInformationPairing): Future[DevicePairingResult] {.a
     vcall(it, Slot_IDeviceInformationPairing_PairAsync, Fn_IDeviceInformationPairing_PairAsync)(it, op.addr).check("DeviceInformationPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationPairing.PairAsync"))
 
-proc pairAsync*(self: DeviceInformationPairing, a1: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
+proc pairAsync*(self: DeviceInformationPairing, minProtectionLevel: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.PairAsync
   var op: pointer
   withIface(self.p, IID_IDeviceInformationPairing, "IDeviceInformationPairing", it):
-    vcall(it, Slot_IDeviceInformationPairing_PairAsync2, Fn_IDeviceInformationPairing_PairAsync2)(it, a1, op.addr).check("DeviceInformationPairing.PairAsync")
+    vcall(it, Slot_IDeviceInformationPairing_PairAsync2, Fn_IDeviceInformationPairing_PairAsync2)(it, minProtectionLevel, op.addr).check("DeviceInformationPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationPairing.PairAsync"))
 
 proc protectionLevel*(self: DeviceInformationPairing): DevicePairingProtectionLevel  =
@@ -17566,11 +17566,11 @@ proc custom*(self: DeviceInformationPairing): DeviceInformationCustomPairing  =
     vcall(it, Slot_IDeviceInformationPairing2_get_Custom, Fn_IDeviceInformationPairing2_get_Custom)(it, tmp.addr).check("DeviceInformationPairing.get_Custom")
     result = adopt[DeviceInformationCustomPairing](tmp)
 
-proc pairAsync*(self: DeviceInformationPairing, a1: DevicePairingProtectionLevel, a2: pointer): Future[DevicePairingResult] {.async.} =
+proc pairAsync*(self: DeviceInformationPairing, minProtectionLevel: DevicePairingProtectionLevel, devicePairingSettings: pointer): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.PairAsync
   var op: pointer
   withIface(self.p, IID_IDeviceInformationPairing2, "IDeviceInformationPairing2", it):
-    vcall(it, Slot_IDeviceInformationPairing2_PairAsync, Fn_IDeviceInformationPairing2_PairAsync)(it, a1, a2, op.addr).check("DeviceInformationPairing.PairAsync")
+    vcall(it, Slot_IDeviceInformationPairing2_PairAsync, Fn_IDeviceInformationPairing2_PairAsync)(it, minProtectionLevel, devicePairingSettings, op.addr).check("DeviceInformationPairing.PairAsync")
   result = adopt[DevicePairingResult](await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult, IID_AsyncOperationCompletedHandler_1_DevicePairingResult, "DeviceInformationPairing.PairAsync"))
 
 proc unpairAsync*(self: DeviceInformationPairing): Future[DeviceUnpairingResult] {.async.} =
@@ -17580,18 +17580,18 @@ proc unpairAsync*(self: DeviceInformationPairing): Future[DeviceUnpairingResult]
     vcall(it, Slot_IDeviceInformationPairing2_UnpairAsync, Fn_IDeviceInformationPairing2_UnpairAsync)(it, op.addr).check("DeviceInformationPairing.UnpairAsync")
   result = adopt[DeviceUnpairingResult](await awaitObject(op, IID_IAsyncOperation_1_DeviceUnpairingResult, IID_AsyncOperationCompletedHandler_1_DeviceUnpairingResult, "DeviceInformationPairing.UnpairAsync"))
 
-proc tryRegisterForAllInboundPairingRequestsWithProtectionLevel*(_: typedesc[DeviceInformationPairing], a1: DevicePairingKinds, a2: DevicePairingProtectionLevel): bool  =
+proc tryRegisterForAllInboundPairingRequestsWithProtectionLevel*(_: typedesc[DeviceInformationPairing], pairingKindsSupported: DevicePairingKinds, minProtectionLevel: DevicePairingProtectionLevel): bool  =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.TryRegisterForAllInboundPairingRequestsWithProtectionLevel
   withStatics("Windows.Devices.Enumeration.DeviceInformationPairing", IID_IDeviceInformationPairingStatics2, it):
     var tmp: bool
-    vcall(it, Slot_IDeviceInformationPairingStatics2_TryRegisterForAllInboundPairingRequestsWithProtectionLevel, Fn_IDeviceInformationPairingStatics2_TryRegisterForAllInboundPairingRequestsWithProtectionLevel)(it, a1, a2, tmp.addr).check("DeviceInformationPairing.TryRegisterForAllInboundPairingRequestsWithProtectionLevel")
+    vcall(it, Slot_IDeviceInformationPairingStatics2_TryRegisterForAllInboundPairingRequestsWithProtectionLevel, Fn_IDeviceInformationPairingStatics2_TryRegisterForAllInboundPairingRequestsWithProtectionLevel)(it, pairingKindsSupported, minProtectionLevel, tmp.addr).check("DeviceInformationPairing.TryRegisterForAllInboundPairingRequestsWithProtectionLevel")
     result = tmp
 
-proc tryRegisterForAllInboundPairingRequests*(_: typedesc[DeviceInformationPairing], a1: DevicePairingKinds): bool  =
+proc tryRegisterForAllInboundPairingRequests*(_: typedesc[DeviceInformationPairing], pairingKindsSupported: DevicePairingKinds): bool  =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.TryRegisterForAllInboundPairingRequests
   withStatics("Windows.Devices.Enumeration.DeviceInformationPairing", IID_IDeviceInformationPairingStatics, it):
     var tmp: bool
-    vcall(it, Slot_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests, Fn_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests)(it, a1, tmp.addr).check("DeviceInformationPairing.TryRegisterForAllInboundPairingRequests")
+    vcall(it, Slot_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests, Fn_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests)(it, pairingKindsSupported, tmp.addr).check("DeviceInformationPairing.TryRegisterForAllInboundPairingRequests")
     result = tmp
 
 proc id*(self: DeviceInformationUpdate): string  =
@@ -17634,10 +17634,10 @@ proc accept*(self: DevicePairingRequestedEventArgs)  =
   withIface(self.p, IID_IDevicePairingRequestedEventArgs, "IDevicePairingRequestedEventArgs", it):
     vcall(it, Slot_IDevicePairingRequestedEventArgs_Accept, Fn_IDevicePairingRequestedEventArgs_Accept)(it).check("DevicePairingRequestedEventArgs.Accept")
 
-proc accept*(self: DevicePairingRequestedEventArgs, a1: string)  =
+proc accept*(self: DevicePairingRequestedEventArgs, pin: string)  =
   ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.Accept
   withIface(self.p, IID_IDevicePairingRequestedEventArgs, "IDevicePairingRequestedEventArgs", it):
-    withHString(a1, h0):
+    withHString(pin, h0):
       vcall(it, Slot_IDevicePairingRequestedEventArgs_Accept2, Fn_IDevicePairingRequestedEventArgs_Accept2)(it, h0).check("DevicePairingRequestedEventArgs.Accept")
 
 proc getDeferral*(self: DevicePairingRequestedEventArgs): Deferral  =
@@ -17647,10 +17647,10 @@ proc getDeferral*(self: DevicePairingRequestedEventArgs): Deferral  =
     vcall(it, Slot_IDevicePairingRequestedEventArgs_GetDeferral, Fn_IDevicePairingRequestedEventArgs_GetDeferral)(it, tmp.addr).check("DevicePairingRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc acceptWithAddress*(self: DevicePairingRequestedEventArgs, a1: string)  =
+proc acceptWithAddress*(self: DevicePairingRequestedEventArgs, address: string)  =
   ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.AcceptWithAddress
   withIface(self.p, IID_IDevicePairingRequestedEventArgs3, "IDevicePairingRequestedEventArgs3", it):
-    withHString(a1, h0):
+    withHString(address, h0):
       vcall(it, Slot_IDevicePairingRequestedEventArgs3_AcceptWithAddress, Fn_IDevicePairingRequestedEventArgs3_AcceptWithAddress)(it, h0).check("DevicePairingRequestedEventArgs.AcceptWithAddress")
 
 proc status*(self: DevicePairingResult): DevicePairingResultStatus  =
@@ -17772,16 +17772,16 @@ proc removeDevicePickerDismissed*(self: DevicePicker, token: EventRegistrationTo
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
     vcall(it, Slot_IDevicePicker_remove_DevicePickerDismissed, Fn_IDevicePicker_remove_DevicePickerDismissed)(it, token).check("DevicePicker.remove_DevicePickerDismissed")
 
-proc show*(self: DevicePicker, a1: Rect)  =
+proc show*(self: DevicePicker, selection: Rect)  =
   ## Windows.Devices.Enumeration.DevicePicker.Show
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
-    vcall(it, Slot_IDevicePicker_Show, Fn_IDevicePicker_Show)(it, a1).check("DevicePicker.Show")
+    vcall(it, Slot_IDevicePicker_Show, Fn_IDevicePicker_Show)(it, selection).check("DevicePicker.Show")
 
-proc pickSingleDeviceAsync*(self: DevicePicker, a1: Rect): Future[DeviceInformation] {.async.} =
+proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DevicePicker.PickSingleDeviceAsync
   var op: pointer
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
-    vcall(it, Slot_IDevicePicker_PickSingleDeviceAsync, Fn_IDevicePicker_PickSingleDeviceAsync)(it, a1, op.addr).check("DevicePicker.PickSingleDeviceAsync")
+    vcall(it, Slot_IDevicePicker_PickSingleDeviceAsync, Fn_IDevicePicker_PickSingleDeviceAsync)(it, selection, op.addr).check("DevicePicker.PickSingleDeviceAsync")
   result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DevicePicker.PickSingleDeviceAsync"))
 
 proc hide*(self: DevicePicker)  =
@@ -17789,12 +17789,12 @@ proc hide*(self: DevicePicker)  =
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
     vcall(it, Slot_IDevicePicker_Hide, Fn_IDevicePicker_Hide)(it).check("DevicePicker.Hide")
 
-proc setDisplayStatus*(self: DevicePicker, a1: DeviceInformation, a2: string, a3: DevicePickerDisplayStatusOptions)  =
+proc setDisplayStatus*(self: DevicePicker, device: DeviceInformation, status: string, options: DevicePickerDisplayStatusOptions)  =
   ## Windows.Devices.Enumeration.DevicePicker.SetDisplayStatus
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
-      withHString(a2, h1):
-        vcall(it, Slot_IDevicePicker_SetDisplayStatus, Fn_IDevicePicker_SetDisplayStatus)(it, p0, h1, a3).check("DevicePicker.SetDisplayStatus")
+    withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      withHString(status, h1):
+        vcall(it, Slot_IDevicePicker_SetDisplayStatus, Fn_IDevicePicker_SetDisplayStatus)(it, p0, h1, options).check("DevicePicker.SetDisplayStatus")
 
 proc title*(self: DevicePickerAppearance): string  =
   ## Windows.Devices.Enumeration.DevicePickerAppearance.get_Title
@@ -18091,10 +18091,10 @@ proc id*(self: PnpObject): string  =
     vcall(it, Slot_IPnpObject_get_Id, Fn_IPnpObject_get_Id)(it, tmp.addr).check("PnpObject.get_Id")
     result = takeString(tmp)
 
-proc update*(self: PnpObject, a1: PnpObjectUpdate)  =
+proc update*(self: PnpObject, updateInfo: PnpObjectUpdate)  =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.Update
   withIface(self.p, IID_IPnpObject, "IPnpObject", it):
-    withIface(a1.p, IID_IPnpObjectUpdate, "IPnpObjectUpdate", p0):
+    withIface(updateInfo.p, IID_IPnpObjectUpdate, "IPnpObjectUpdate", p0):
       vcall(it, Slot_IPnpObject_Update, Fn_IPnpObject_Update)(it, p0).check("PnpObject.Update")
 
 proc `type`*(self: PnpObjectUpdate): PnpObjectType  =
@@ -18314,25 +18314,25 @@ proc altitudeReferenceSystem*(self: GeoboundingBox): AltitudeReferenceSystem  =
     vcall(it, Slot_IGeoshape_get_AltitudeReferenceSystem, Fn_IGeoshape_get_AltitudeReferenceSystem)(it, tmp.addr).check("GeoboundingBox.get_AltitudeReferenceSystem")
     result = tmp
 
-proc create*(_: typedesc[GeoboundingBox], a1: BasicGeoposition, a2: BasicGeoposition): GeoboundingBox  =
+proc create*(_: typedesc[GeoboundingBox], northwestCorner: BasicGeoposition, southeastCorner: BasicGeoposition): GeoboundingBox  =
   ## Windows.Devices.Geolocation.GeoboundingBox.Create
   withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeoboundingBoxFactory_Create, Fn_IGeoboundingBoxFactory_Create)(it, a1, a2, tmp.addr).check("GeoboundingBox.Create")
+    vcall(it, Slot_IGeoboundingBoxFactory_Create, Fn_IGeoboundingBoxFactory_Create)(it, northwestCorner, southeastCorner, tmp.addr).check("GeoboundingBox.Create")
     result = adopt[GeoboundingBox](tmp)
 
-proc createWithAltitudeReference*(_: typedesc[GeoboundingBox], a1: BasicGeoposition, a2: BasicGeoposition, a3: AltitudeReferenceSystem): GeoboundingBox  =
+proc createWithAltitudeReference*(_: typedesc[GeoboundingBox], northwestCorner: BasicGeoposition, southeastCorner: BasicGeoposition, altitudeReferenceSystem: AltitudeReferenceSystem): GeoboundingBox  =
   ## Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReference
   withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeoboundingBoxFactory_CreateWithAltitudeReference, Fn_IGeoboundingBoxFactory_CreateWithAltitudeReference)(it, a1, a2, a3, tmp.addr).check("GeoboundingBox.CreateWithAltitudeReference")
+    vcall(it, Slot_IGeoboundingBoxFactory_CreateWithAltitudeReference, Fn_IGeoboundingBoxFactory_CreateWithAltitudeReference)(it, northwestCorner, southeastCorner, altitudeReferenceSystem, tmp.addr).check("GeoboundingBox.CreateWithAltitudeReference")
     result = adopt[GeoboundingBox](tmp)
 
-proc createWithAltitudeReferenceAndSpatialReference*(_: typedesc[GeoboundingBox], a1: BasicGeoposition, a2: BasicGeoposition, a3: AltitudeReferenceSystem, a4: uint32): GeoboundingBox  =
+proc createWithAltitudeReferenceAndSpatialReference*(_: typedesc[GeoboundingBox], northwestCorner: BasicGeoposition, southeastCorner: BasicGeoposition, altitudeReferenceSystem: AltitudeReferenceSystem, spatialReferenceId: uint32): GeoboundingBox  =
   ## Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference
   withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference, Fn_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference)(it, a1, a2, a3, a4, tmp.addr).check("GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference")
+    vcall(it, Slot_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference, Fn_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference)(it, northwestCorner, southeastCorner, altitudeReferenceSystem, spatialReferenceId, tmp.addr).check("GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference")
     result = adopt[GeoboundingBox](tmp)
 
 proc center*(self: Geocircle): BasicGeoposition  =
@@ -18370,25 +18370,25 @@ proc altitudeReferenceSystem*(self: Geocircle): AltitudeReferenceSystem  =
     vcall(it, Slot_IGeoshape_get_AltitudeReferenceSystem, Fn_IGeoshape_get_AltitudeReferenceSystem)(it, tmp.addr).check("Geocircle.get_AltitudeReferenceSystem")
     result = tmp
 
-proc create*(_: typedesc[Geocircle], a1: BasicGeoposition, a2: float64): Geocircle  =
+proc create*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64): Geocircle  =
   ## Windows.Devices.Geolocation.Geocircle.Create
   withStatics("Windows.Devices.Geolocation.Geocircle", IID_IGeocircleFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeocircleFactory_Create, Fn_IGeocircleFactory_Create)(it, a1, a2, tmp.addr).check("Geocircle.Create")
+    vcall(it, Slot_IGeocircleFactory_Create, Fn_IGeocircleFactory_Create)(it, position, radius, tmp.addr).check("Geocircle.Create")
     result = adopt[Geocircle](tmp)
 
-proc createWithAltitudeReferenceSystem*(_: typedesc[Geocircle], a1: BasicGeoposition, a2: float64, a3: AltitudeReferenceSystem): Geocircle  =
+proc createWithAltitudeReferenceSystem*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64, altitudeReferenceSystem: AltitudeReferenceSystem): Geocircle  =
   ## Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystem
   withStatics("Windows.Devices.Geolocation.Geocircle", IID_IGeocircleFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystem, Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystem)(it, a1, a2, a3, tmp.addr).check("Geocircle.CreateWithAltitudeReferenceSystem")
+    vcall(it, Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystem, Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystem)(it, position, radius, altitudeReferenceSystem, tmp.addr).check("Geocircle.CreateWithAltitudeReferenceSystem")
     result = adopt[Geocircle](tmp)
 
-proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geocircle], a1: BasicGeoposition, a2: float64, a3: AltitudeReferenceSystem, a4: uint32): Geocircle  =
+proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64, altitudeReferenceSystem: AltitudeReferenceSystem, spatialReferenceId: uint32): Geocircle  =
   ## Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
   withStatics("Windows.Devices.Geolocation.Geocircle", IID_IGeocircleFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId, Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId)(it, a1, a2, a3, a4, tmp.addr).check("Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId")
+    vcall(it, Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId, Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId)(it, position, radius, altitudeReferenceSystem, spatialReferenceId, tmp.addr).check("Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId")
     result = adopt[Geocircle](tmp)
 
 proc latitude*(self: Geocoordinate): float64  =
@@ -18576,36 +18576,36 @@ proc singleUse*(self: Geofence): bool  =
     vcall(it, Slot_IGeofence_get_SingleUse, Fn_IGeofence_get_SingleUse)(it, tmp.addr).check("Geofence.get_SingleUse")
     result = tmp
 
-proc create*(_: typedesc[Geofence], a1: string, a2: pointer): Geofence  =
+proc create*(_: typedesc[Geofence], id: string, geoshape: pointer): Geofence  =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.Create
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence", IID_IGeofenceFactory, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       var tmp: pointer
-      vcall(it, Slot_IGeofenceFactory_Create, Fn_IGeofenceFactory_Create)(it, h0, a2, tmp.addr).check("Geofence.Create")
+      vcall(it, Slot_IGeofenceFactory_Create, Fn_IGeofenceFactory_Create)(it, h0, geoshape, tmp.addr).check("Geofence.Create")
       result = adopt[Geofence](tmp)
 
-proc createWithMonitorStates*(_: typedesc[Geofence], a1: string, a2: pointer, a3: MonitoredGeofenceStates, a4: bool): Geofence  =
+proc createWithMonitorStates*(_: typedesc[Geofence], id: string, geoshape: pointer, monitoredStates: MonitoredGeofenceStates, singleUse: bool): Geofence  =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStates
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence", IID_IGeofenceFactory, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       var tmp: pointer
-      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStates, Fn_IGeofenceFactory_CreateWithMonitorStates)(it, h0, a2, a3, a4, tmp.addr).check("Geofence.CreateWithMonitorStates")
+      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStates, Fn_IGeofenceFactory_CreateWithMonitorStates)(it, h0, geoshape, monitoredStates, singleUse, tmp.addr).check("Geofence.CreateWithMonitorStates")
       result = adopt[Geofence](tmp)
 
-proc createWithMonitorStatesAndDwellTime*(_: typedesc[Geofence], a1: string, a2: pointer, a3: MonitoredGeofenceStates, a4: bool, a5: TimeSpan): Geofence  =
+proc createWithMonitorStatesAndDwellTime*(_: typedesc[Geofence], id: string, geoshape: pointer, monitoredStates: MonitoredGeofenceStates, singleUse: bool, dwellTime: TimeSpan): Geofence  =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesAndDwellTime
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence", IID_IGeofenceFactory, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       var tmp: pointer
-      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime, Fn_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime)(it, h0, a2, a3, a4, a5, tmp.addr).check("Geofence.CreateWithMonitorStatesAndDwellTime")
+      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime, Fn_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime)(it, h0, geoshape, monitoredStates, singleUse, dwellTime, tmp.addr).check("Geofence.CreateWithMonitorStatesAndDwellTime")
       result = adopt[Geofence](tmp)
 
-proc createWithMonitorStatesDwellTimeStartTimeAndDuration*(_: typedesc[Geofence], a1: string, a2: pointer, a3: MonitoredGeofenceStates, a4: bool, a5: TimeSpan, a6: DateTime, a7: TimeSpan): Geofence  =
+proc createWithMonitorStatesDwellTimeStartTimeAndDuration*(_: typedesc[Geofence], id: string, geoshape: pointer, monitoredStates: MonitoredGeofenceStates, singleUse: bool, dwellTime: TimeSpan, startTime: DateTime, duration: TimeSpan): Geofence  =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence", IID_IGeofenceFactory, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       var tmp: pointer
-      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration, Fn_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration)(it, h0, a2, a3, a4, a5, a6, a7, tmp.addr).check("Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration")
+      vcall(it, Slot_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration, Fn_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration)(it, h0, geoshape, monitoredStates, singleUse, dwellTime, startTime, duration, tmp.addr).check("Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration")
       result = adopt[Geofence](tmp)
 
 proc status*(self: GeofenceMonitor): GeofenceMonitorStatus  =
@@ -18765,11 +18765,11 @@ proc getGeopositionAsync*(self: Geolocator): Future[Geoposition] {.async.} =
     vcall(it, Slot_IGeolocator_GetGeopositionAsync, Fn_IGeolocator_GetGeopositionAsync)(it, op.addr).check("Geolocator.GetGeopositionAsync")
   result = adopt[Geoposition](await awaitObject(op, IID_IAsyncOperation_1_Geoposition, IID_AsyncOperationCompletedHandler_1_Geoposition, "Geolocator.GetGeopositionAsync"))
 
-proc getGeopositionAsync*(self: Geolocator, a1: TimeSpan, a2: TimeSpan): Future[Geoposition] {.async.} =
+proc getGeopositionAsync*(self: Geolocator, maximumAge: TimeSpan, timeout: TimeSpan): Future[Geoposition] {.async.} =
   ## Windows.Devices.Geolocation.Geolocator.GetGeopositionAsync
   var op: pointer
   withIface(self.p, IID_IGeolocator, "IGeolocator", it):
-    vcall(it, Slot_IGeolocator_GetGeopositionAsync2, Fn_IGeolocator_GetGeopositionAsync2)(it, a1, a2, op.addr).check("Geolocator.GetGeopositionAsync")
+    vcall(it, Slot_IGeolocator_GetGeopositionAsync2, Fn_IGeolocator_GetGeopositionAsync2)(it, maximumAge, timeout, op.addr).check("Geolocator.GetGeopositionAsync")
   result = adopt[Geoposition](await awaitObject(op, IID_IAsyncOperation_1_Geoposition, IID_AsyncOperationCompletedHandler_1_Geoposition, "Geolocator.GetGeopositionAsync"))
 
 proc onPositionChanged*(self: Geolocator,
@@ -18845,20 +18845,20 @@ proc requestAccessAsync*(_: typedesc[Geolocator]): Future[GeolocationAccessStatu
     vcall(it, Slot_IGeolocatorStatics_RequestAccessAsync, Fn_IGeolocatorStatics_RequestAccessAsync)(it, op.addr).check("Geolocator.RequestAccessAsync")
   result = await awaitValue[GeolocationAccessStatus](op, IID_IAsyncOperation_1_GeolocationAccessStatus, IID_AsyncOperationCompletedHandler_1_GeolocationAccessStatus, "Geolocator.RequestAccessAsync")
 
-proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], a1: DateTime): Future[seq[Geoposition]] {.async.} =
+proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime): Future[seq[Geoposition]] {.async.} =
   ## Windows.Devices.Geolocation.Geolocator.GetGeopositionHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Geolocation.Geolocator", IID_IGeolocatorStatics, it):
-    vcall(it, Slot_IGeolocatorStatics_GetGeopositionHistoryAsync, Fn_IGeolocatorStatics_GetGeopositionHistoryAsync)(it, a1, op.addr).check("Geolocator.GetGeopositionHistoryAsync")
+    vcall(it, Slot_IGeolocatorStatics_GetGeopositionHistoryAsync, Fn_IGeolocatorStatics_GetGeopositionHistoryAsync)(it, startTime, op.addr).check("Geolocator.GetGeopositionHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "Geolocator.GetGeopositionHistoryAsync")
   result = toSeq[Geoposition](coll, IID_IVectorView_1_Geoposition)
   discard release(coll)
 
-proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], a1: DateTime, a2: TimeSpan): Future[seq[Geoposition]] {.async.} =
+proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime, duration: TimeSpan): Future[seq[Geoposition]] {.async.} =
   ## Windows.Devices.Geolocation.Geolocator.GetGeopositionHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Geolocation.Geolocator", IID_IGeolocatorStatics, it):
-    vcall(it, Slot_IGeolocatorStatics_GetGeopositionHistoryAsync2, Fn_IGeolocatorStatics_GetGeopositionHistoryAsync2)(it, a1, a2, op.addr).check("Geolocator.GetGeopositionHistoryAsync")
+    vcall(it, Slot_IGeolocatorStatics_GetGeopositionHistoryAsync2, Fn_IGeolocatorStatics_GetGeopositionHistoryAsync2)(it, startTime, duration, op.addr).check("Geolocator.GetGeopositionHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "Geolocator.GetGeopositionHistoryAsync")
   result = toSeq[Geoposition](coll, IID_IVectorView_1_Geoposition)
   discard release(coll)
@@ -18912,25 +18912,25 @@ proc altitudeReferenceSystem*(self: Geopoint): AltitudeReferenceSystem  =
     vcall(it, Slot_IGeoshape_get_AltitudeReferenceSystem, Fn_IGeoshape_get_AltitudeReferenceSystem)(it, tmp.addr).check("Geopoint.get_AltitudeReferenceSystem")
     result = tmp
 
-proc create*(_: typedesc[Geopoint], a1: BasicGeoposition): Geopoint  =
+proc create*(_: typedesc[Geopoint], position: BasicGeoposition): Geopoint  =
   ## Windows.Devices.Geolocation.Geopoint.Create
   withStatics("Windows.Devices.Geolocation.Geopoint", IID_IGeopointFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeopointFactory_Create, Fn_IGeopointFactory_Create)(it, a1, tmp.addr).check("Geopoint.Create")
+    vcall(it, Slot_IGeopointFactory_Create, Fn_IGeopointFactory_Create)(it, position, tmp.addr).check("Geopoint.Create")
     result = adopt[Geopoint](tmp)
 
-proc createWithAltitudeReferenceSystem*(_: typedesc[Geopoint], a1: BasicGeoposition, a2: AltitudeReferenceSystem): Geopoint  =
+proc createWithAltitudeReferenceSystem*(_: typedesc[Geopoint], position: BasicGeoposition, altitudeReferenceSystem: AltitudeReferenceSystem): Geopoint  =
   ## Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystem
   withStatics("Windows.Devices.Geolocation.Geopoint", IID_IGeopointFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeopointFactory_CreateWithAltitudeReferenceSystem, Fn_IGeopointFactory_CreateWithAltitudeReferenceSystem)(it, a1, a2, tmp.addr).check("Geopoint.CreateWithAltitudeReferenceSystem")
+    vcall(it, Slot_IGeopointFactory_CreateWithAltitudeReferenceSystem, Fn_IGeopointFactory_CreateWithAltitudeReferenceSystem)(it, position, altitudeReferenceSystem, tmp.addr).check("Geopoint.CreateWithAltitudeReferenceSystem")
     result = adopt[Geopoint](tmp)
 
-proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geopoint], a1: BasicGeoposition, a2: AltitudeReferenceSystem, a3: uint32): Geopoint  =
+proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geopoint], position: BasicGeoposition, altitudeReferenceSystem: AltitudeReferenceSystem, spatialReferenceId: uint32): Geopoint  =
   ## Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
   withStatics("Windows.Devices.Geolocation.Geopoint", IID_IGeopointFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGeopointFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId, Fn_IGeopointFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId)(it, a1, a2, a3, tmp.addr).check("Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId")
+    vcall(it, Slot_IGeopointFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId, Fn_IGeopointFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId)(it, position, altitudeReferenceSystem, spatialReferenceId, tmp.addr).check("Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId")
     result = adopt[Geopoint](tmp)
 
 proc coordinate*(self: Geoposition): Geocoordinate  =
@@ -18986,10 +18986,10 @@ proc monitoringScope*(self: GeovisitMonitor): VisitMonitoringScope  =
     vcall(it, Slot_IGeovisitMonitor_get_MonitoringScope, Fn_IGeovisitMonitor_get_MonitoringScope)(it, tmp.addr).check("GeovisitMonitor.get_MonitoringScope")
     result = tmp
 
-proc start*(self: GeovisitMonitor, a1: VisitMonitoringScope)  =
+proc start*(self: GeovisitMonitor, value: VisitMonitoringScope)  =
   ## Windows.Devices.Geolocation.GeovisitMonitor.Start
   withIface(self.p, IID_IGeovisitMonitor, "IGeovisitMonitor", it):
-    vcall(it, Slot_IGeovisitMonitor_Start, Fn_IGeovisitMonitor_Start)(it, a1).check("GeovisitMonitor.Start")
+    vcall(it, Slot_IGeovisitMonitor_Start, Fn_IGeovisitMonitor_Start)(it, value).check("GeovisitMonitor.Start")
 
 proc stop*(self: GeovisitMonitor)  =
   ## Windows.Devices.Geolocation.GeovisitMonitor.Stop
@@ -19055,11 +19055,11 @@ proc isOverridden*(self: GeolocationProvider): bool  =
     vcall(it, Slot_IGeolocationProvider_get_IsOverridden, Fn_IGeolocationProvider_get_IsOverridden)(it, tmp.addr).check("GeolocationProvider.get_IsOverridden")
     result = tmp
 
-proc setOverridePosition*(self: GeolocationProvider, a1: BasicGeoposition, a2: PositionSource, a3: float64): LocationOverrideStatus  =
+proc setOverridePosition*(self: GeolocationProvider, newPosition: BasicGeoposition, positionSource: PositionSource, accuracyInMeters: float64): LocationOverrideStatus  =
   ## Windows.Devices.Geolocation.Provider.GeolocationProvider.SetOverridePosition
   withIface(self.p, IID_IGeolocationProvider, "IGeolocationProvider", it):
     var tmp: LocationOverrideStatus
-    vcall(it, Slot_IGeolocationProvider_SetOverridePosition, Fn_IGeolocationProvider_SetOverridePosition)(it, a1, a2, a3, tmp.addr).check("GeolocationProvider.SetOverridePosition")
+    vcall(it, Slot_IGeolocationProvider_SetOverridePosition, Fn_IGeolocationProvider_SetOverridePosition)(it, newPosition, positionSource, accuracyInMeters, tmp.addr).check("GeolocationProvider.SetOverridePosition")
     result = tmp
 
 proc clearOverridePosition*(self: GeolocationProvider)  =
@@ -19155,10 +19155,10 @@ proc close*(self: GpioChangeCounter)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("GpioChangeCounter.Close")
 
-proc create*(_: typedesc[GpioChangeCounter], a1: GpioPin): GpioChangeCounter  =
+proc create*(_: typedesc[GpioChangeCounter], pin: GpioPin): GpioChangeCounter  =
   ## Windows.Devices.Gpio.GpioChangeCounter.Create
   withStatics("Windows.Devices.Gpio.GpioChangeCounter", IID_IGpioChangeCounterFactory, it):
-    withIface(a1.p, IID_IGpioPin, "IGpioPin", p0):
+    withIface(pin.p, IID_IGpioPin, "IGpioPin", p0):
       var tmp: pointer
       vcall(it, Slot_IGpioChangeCounterFactory_Create, Fn_IGpioChangeCounterFactory_Create)(it, p0, tmp.addr).check("GpioChangeCounter.Create")
       result = adopt[GpioChangeCounter](tmp)
@@ -19239,11 +19239,11 @@ proc peekNextItem*(self: GpioChangeReader): GpioChangeRecord  =
     vcall(it, Slot_IGpioChangeReader_PeekNextItem, Fn_IGpioChangeReader_PeekNextItem)(it, tmp.addr).check("GpioChangeReader.PeekNextItem")
     result = tmp
 
-proc waitForItemsAsync*(self: GpioChangeReader, a1: int32) {.async.} =
+proc waitForItemsAsync*(self: GpioChangeReader, count: int32) {.async.} =
   ## Windows.Devices.Gpio.GpioChangeReader.WaitForItemsAsync
   var op: pointer
   withIface(self.p, IID_IGpioChangeReader, "IGpioChangeReader", it):
-    vcall(it, Slot_IGpioChangeReader_WaitForItemsAsync, Fn_IGpioChangeReader_WaitForItemsAsync)(it, a1, op.addr).check("GpioChangeReader.WaitForItemsAsync")
+    vcall(it, Slot_IGpioChangeReader_WaitForItemsAsync, Fn_IGpioChangeReader_WaitForItemsAsync)(it, count, op.addr).check("GpioChangeReader.WaitForItemsAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "GpioChangeReader.WaitForItemsAsync")
 
 proc close*(self: GpioChangeReader)  =
@@ -19251,20 +19251,20 @@ proc close*(self: GpioChangeReader)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("GpioChangeReader.Close")
 
-proc create*(_: typedesc[GpioChangeReader], a1: GpioPin): GpioChangeReader  =
+proc create*(_: typedesc[GpioChangeReader], pin: GpioPin): GpioChangeReader  =
   ## Windows.Devices.Gpio.GpioChangeReader.Create
   withStatics("Windows.Devices.Gpio.GpioChangeReader", IID_IGpioChangeReaderFactory, it):
-    withIface(a1.p, IID_IGpioPin, "IGpioPin", p0):
+    withIface(pin.p, IID_IGpioPin, "IGpioPin", p0):
       var tmp: pointer
       vcall(it, Slot_IGpioChangeReaderFactory_Create, Fn_IGpioChangeReaderFactory_Create)(it, p0, tmp.addr).check("GpioChangeReader.Create")
       result = adopt[GpioChangeReader](tmp)
 
-proc createWithCapacity*(_: typedesc[GpioChangeReader], a1: GpioPin, a2: int32): GpioChangeReader  =
+proc createWithCapacity*(_: typedesc[GpioChangeReader], pin: GpioPin, minCapacity: int32): GpioChangeReader  =
   ## Windows.Devices.Gpio.GpioChangeReader.CreateWithCapacity
   withStatics("Windows.Devices.Gpio.GpioChangeReader", IID_IGpioChangeReaderFactory, it):
-    withIface(a1.p, IID_IGpioPin, "IGpioPin", p0):
+    withIface(pin.p, IID_IGpioPin, "IGpioPin", p0):
       var tmp: pointer
-      vcall(it, Slot_IGpioChangeReaderFactory_CreateWithCapacity, Fn_IGpioChangeReaderFactory_CreateWithCapacity)(it, p0, a2, tmp.addr).check("GpioChangeReader.CreateWithCapacity")
+      vcall(it, Slot_IGpioChangeReaderFactory_CreateWithCapacity, Fn_IGpioChangeReaderFactory_CreateWithCapacity)(it, p0, minCapacity, tmp.addr).check("GpioChangeReader.CreateWithCapacity")
       result = adopt[GpioChangeReader](tmp)
 
 proc pinCount*(self: GpioController): int32  =
@@ -19274,25 +19274,25 @@ proc pinCount*(self: GpioController): int32  =
     vcall(it, Slot_IGpioController_get_PinCount, Fn_IGpioController_get_PinCount)(it, tmp.addr).check("GpioController.get_PinCount")
     result = tmp
 
-proc openPin*(self: GpioController, a1: int32): GpioPin  =
+proc openPin*(self: GpioController, pinNumber: int32): GpioPin  =
   ## Windows.Devices.Gpio.GpioController.OpenPin
   withIface(self.p, IID_IGpioController, "IGpioController", it):
     var tmp: pointer
-    vcall(it, Slot_IGpioController_OpenPin, Fn_IGpioController_OpenPin)(it, a1, tmp.addr).check("GpioController.OpenPin")
+    vcall(it, Slot_IGpioController_OpenPin, Fn_IGpioController_OpenPin)(it, pinNumber, tmp.addr).check("GpioController.OpenPin")
     result = adopt[GpioPin](tmp)
 
-proc openPin*(self: GpioController, a1: int32, a2: GpioSharingMode): GpioPin  =
+proc openPin*(self: GpioController, pinNumber: int32, sharingMode: GpioSharingMode): GpioPin  =
   ## Windows.Devices.Gpio.GpioController.OpenPin
   withIface(self.p, IID_IGpioController, "IGpioController", it):
     var tmp: pointer
-    vcall(it, Slot_IGpioController_OpenPin2, Fn_IGpioController_OpenPin2)(it, a1, a2, tmp.addr).check("GpioController.OpenPin")
+    vcall(it, Slot_IGpioController_OpenPin2, Fn_IGpioController_OpenPin2)(it, pinNumber, sharingMode, tmp.addr).check("GpioController.OpenPin")
     result = adopt[GpioPin](tmp)
 
-proc getControllersAsync*(_: typedesc[GpioController], a1: pointer): Future[seq[GpioController]] {.async.} =
+proc getControllersAsync*(_: typedesc[GpioController], provider: pointer): Future[seq[GpioController]] {.async.} =
   ## Windows.Devices.Gpio.GpioController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Gpio.GpioController", IID_IGpioControllerStatics2, it):
-    vcall(it, Slot_IGpioControllerStatics2_GetControllersAsync, Fn_IGpioControllerStatics2_GetControllersAsync)(it, a1, op.addr).check("GpioController.GetControllersAsync")
+    vcall(it, Slot_IGpioControllerStatics2_GetControllersAsync, Fn_IGpioControllerStatics2_GetControllersAsync)(it, provider, op.addr).check("GpioController.GetControllersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14, IID_AsyncOperationCompletedHandler_1_IVectorView_14, "GpioController.GetControllersAsync")
   result = toSeq[GpioController](coll, IID_IVectorView_1_GpioController)
   discard release(coll)
@@ -19356,11 +19356,11 @@ proc sharingMode*(self: GpioPin): GpioSharingMode  =
     vcall(it, Slot_IGpioPin_get_SharingMode, Fn_IGpioPin_get_SharingMode)(it, tmp.addr).check("GpioPin.get_SharingMode")
     result = tmp
 
-proc isDriveModeSupported*(self: GpioPin, a1: GpioPinDriveMode): bool  =
+proc isDriveModeSupported*(self: GpioPin, driveMode: GpioPinDriveMode): bool  =
   ## Windows.Devices.Gpio.GpioPin.IsDriveModeSupported
   withIface(self.p, IID_IGpioPin, "IGpioPin", it):
     var tmp: bool
-    vcall(it, Slot_IGpioPin_IsDriveModeSupported, Fn_IGpioPin_IsDriveModeSupported)(it, a1, tmp.addr).check("GpioPin.IsDriveModeSupported")
+    vcall(it, Slot_IGpioPin_IsDriveModeSupported, Fn_IGpioPin_IsDriveModeSupported)(it, driveMode, tmp.addr).check("GpioPin.IsDriveModeSupported")
     result = tmp
 
 proc getDriveMode*(self: GpioPin): GpioPinDriveMode  =
@@ -19370,15 +19370,15 @@ proc getDriveMode*(self: GpioPin): GpioPinDriveMode  =
     vcall(it, Slot_IGpioPin_GetDriveMode, Fn_IGpioPin_GetDriveMode)(it, tmp.addr).check("GpioPin.GetDriveMode")
     result = tmp
 
-proc setDriveMode*(self: GpioPin, a1: GpioPinDriveMode)  =
+proc setDriveMode*(self: GpioPin, value: GpioPinDriveMode)  =
   ## Windows.Devices.Gpio.GpioPin.SetDriveMode
   withIface(self.p, IID_IGpioPin, "IGpioPin", it):
-    vcall(it, Slot_IGpioPin_SetDriveMode, Fn_IGpioPin_SetDriveMode)(it, a1).check("GpioPin.SetDriveMode")
+    vcall(it, Slot_IGpioPin_SetDriveMode, Fn_IGpioPin_SetDriveMode)(it, value).check("GpioPin.SetDriveMode")
 
-proc write*(self: GpioPin, a1: GpioPinValue)  =
+proc write*(self: GpioPin, value: GpioPinValue)  =
   ## Windows.Devices.Gpio.GpioPin.Write
   withIface(self.p, IID_IGpioPin, "IGpioPin", it):
-    vcall(it, Slot_IGpioPin_Write, Fn_IGpioPin_Write)(it, a1).check("GpioPin.Write")
+    vcall(it, Slot_IGpioPin_Write, Fn_IGpioPin_Write)(it, value).check("GpioPin.Write")
 
 proc read*(self: GpioPin): GpioPinValue  =
   ## Windows.Devices.Gpio.GpioPin.Read
@@ -19406,11 +19406,11 @@ proc edge*(self: GpioPinProviderValueChangedEventArgs): ProviderGpioPinEdge  =
     vcall(it, Slot_IGpioPinProviderValueChangedEventArgs_get_Edge, Fn_IGpioPinProviderValueChangedEventArgs_get_Edge)(it, tmp.addr).check("GpioPinProviderValueChangedEventArgs.get_Edge")
     result = tmp
 
-proc create*(_: typedesc[GpioPinProviderValueChangedEventArgs], a1: ProviderGpioPinEdge): GpioPinProviderValueChangedEventArgs  =
+proc create*(_: typedesc[GpioPinProviderValueChangedEventArgs], edge: ProviderGpioPinEdge): GpioPinProviderValueChangedEventArgs  =
   ## Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs.Create
   withStatics("Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs", IID_IGpioPinProviderValueChangedEventArgsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IGpioPinProviderValueChangedEventArgsFactory_Create, Fn_IGpioPinProviderValueChangedEventArgsFactory_Create)(it, a1, tmp.addr).check("GpioPinProviderValueChangedEventArgs.Create")
+    vcall(it, Slot_IGpioPinProviderValueChangedEventArgsFactory_Create, Fn_IGpioPinProviderValueChangedEventArgsFactory_Create)(it, edge, tmp.addr).check("GpioPinProviderValueChangedEventArgs.Create")
     result = adopt[GpioPinProviderValueChangedEventArgs](tmp)
 
 proc threadId*(self: InputHapticsManager): uint32  =
@@ -19434,32 +19434,32 @@ proc currentHapticsController*(self: InputHapticsManager): SimpleHapticsControll
     vcall(it, Slot_IInputHapticsManager_get_CurrentHapticsController, Fn_IInputHapticsManager_get_CurrentHapticsController)(it, tmp.addr).check("InputHapticsManager.get_CurrentHapticsController")
     result = adopt[SimpleHapticsController](tmp)
 
-proc trySendHapticWaveform*(self: InputHapticsManager, a1: uint16, a2: uint16): bool  =
+proc trySendHapticWaveform*(self: InputHapticsManager, waveform: uint16, waveformFallback: uint16): bool  =
   ## Windows.Devices.Haptics.InputHapticsManager.TrySendHapticWaveform
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
     var tmp: bool
-    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveform, Fn_IInputHapticsManager_TrySendHapticWaveform)(it, a1, a2, tmp.addr).check("InputHapticsManager.TrySendHapticWaveform")
+    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveform, Fn_IInputHapticsManager_TrySendHapticWaveform)(it, waveform, waveformFallback, tmp.addr).check("InputHapticsManager.TrySendHapticWaveform")
     result = tmp
 
-proc trySendHapticWaveform*(self: InputHapticsManager, a1: uint16, a2: uint16, a3: float64): bool  =
+proc trySendHapticWaveform*(self: InputHapticsManager, waveform: uint16, waveformFallback: uint16, intensity: float64): bool  =
   ## Windows.Devices.Haptics.InputHapticsManager.TrySendHapticWaveform
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
     var tmp: bool
-    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveform2, Fn_IInputHapticsManager_TrySendHapticWaveform2)(it, a1, a2, a3, tmp.addr).check("InputHapticsManager.TrySendHapticWaveform")
+    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveform2, Fn_IInputHapticsManager_TrySendHapticWaveform2)(it, waveform, waveformFallback, intensity, tmp.addr).check("InputHapticsManager.TrySendHapticWaveform")
     result = tmp
 
-proc trySendHapticWaveformForDuration*(self: InputHapticsManager, a1: uint16, a2: uint16, a3: float64, a4: TimeSpan): bool  =
+proc trySendHapticWaveformForDuration*(self: InputHapticsManager, waveform: uint16, waveformFallback: uint16, intensity: float64, playDuration: TimeSpan): bool  =
   ## Windows.Devices.Haptics.InputHapticsManager.TrySendHapticWaveformForDuration
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
     var tmp: bool
-    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveformForDuration, Fn_IInputHapticsManager_TrySendHapticWaveformForDuration)(it, a1, a2, a3, a4, tmp.addr).check("InputHapticsManager.TrySendHapticWaveformForDuration")
+    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveformForDuration, Fn_IInputHapticsManager_TrySendHapticWaveformForDuration)(it, waveform, waveformFallback, intensity, playDuration, tmp.addr).check("InputHapticsManager.TrySendHapticWaveformForDuration")
     result = tmp
 
-proc trySendHapticWaveformForPlayCount*(self: InputHapticsManager, a1: uint16, a2: uint16, a3: float64, a4: int32, a5: TimeSpan): bool  =
+proc trySendHapticWaveformForPlayCount*(self: InputHapticsManager, waveform: uint16, waveformFallback: uint16, intensity: float64, playCount: int32, replayPauseInterval: TimeSpan): bool  =
   ## Windows.Devices.Haptics.InputHapticsManager.TrySendHapticWaveformForPlayCount
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
     var tmp: bool
-    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveformForPlayCount, Fn_IInputHapticsManager_TrySendHapticWaveformForPlayCount)(it, a1, a2, a3, a4, a5, tmp.addr).check("InputHapticsManager.TrySendHapticWaveformForPlayCount")
+    vcall(it, Slot_IInputHapticsManager_TrySendHapticWaveformForPlayCount, Fn_IInputHapticsManager_TrySendHapticWaveformForPlayCount)(it, waveform, waveformFallback, intensity, playCount, replayPauseInterval, tmp.addr).check("InputHapticsManager.TrySendHapticWaveformForPlayCount")
     result = tmp
 
 proc tryStopFeedback*(self: InputHapticsManager): bool  =
@@ -19469,18 +19469,18 @@ proc tryStopFeedback*(self: InputHapticsManager): bool  =
     vcall(it, Slot_IInputHapticsManager_TryStopFeedback, Fn_IInputHapticsManager_TryStopFeedback)(it, tmp.addr).check("InputHapticsManager.TryStopFeedback")
     result = tmp
 
-proc setOverrideHapticsController*(self: InputHapticsManager, a1: HapticDeviceType, a2: SimpleHapticsController): HapticsControllerOverrideToken  =
+proc setOverrideHapticsController*(self: InputHapticsManager, deviceType: HapticDeviceType, controller: SimpleHapticsController): HapticsControllerOverrideToken  =
   ## Windows.Devices.Haptics.InputHapticsManager.SetOverrideHapticsController
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
-    withIface(a2.p, IID_ISimpleHapticsController, "ISimpleHapticsController", p1):
+    withIface(controller.p, IID_ISimpleHapticsController, "ISimpleHapticsController", p1):
       var tmp: HapticsControllerOverrideToken
-      vcall(it, Slot_IInputHapticsManager_SetOverrideHapticsController, Fn_IInputHapticsManager_SetOverrideHapticsController)(it, a1, p1, tmp.addr).check("InputHapticsManager.SetOverrideHapticsController")
+      vcall(it, Slot_IInputHapticsManager_SetOverrideHapticsController, Fn_IInputHapticsManager_SetOverrideHapticsController)(it, deviceType, p1, tmp.addr).check("InputHapticsManager.SetOverrideHapticsController")
       result = tmp
 
-proc clearOverrideHapticsController*(self: InputHapticsManager, a1: HapticsControllerOverrideToken)  =
+proc clearOverrideHapticsController*(self: InputHapticsManager, token: HapticsControllerOverrideToken)  =
   ## Windows.Devices.Haptics.InputHapticsManager.ClearOverrideHapticsController
   withIface(self.p, IID_IInputHapticsManager, "IInputHapticsManager", it):
-    vcall(it, Slot_IInputHapticsManager_ClearOverrideHapticsController, Fn_IInputHapticsManager_ClearOverrideHapticsController)(it, a1).check("InputHapticsManager.ClearOverrideHapticsController")
+    vcall(it, Slot_IInputHapticsManager_ClearOverrideHapticsController, Fn_IInputHapticsManager_ClearOverrideHapticsController)(it, token).check("InputHapticsManager.ClearOverrideHapticsController")
 
 proc isSupported*(_: typedesc[InputHapticsManager]): bool  =
   ## Windows.Devices.Haptics.InputHapticsManager.IsSupported
@@ -19503,11 +19503,11 @@ proc getForCurrentThread*(_: typedesc[InputHapticsManager]): InputHapticsManager
     vcall(it, Slot_IInputHapticsManagerStatics_GetForCurrentThread, Fn_IInputHapticsManagerStatics_GetForCurrentThread)(it, tmp.addr).check("InputHapticsManager.GetForCurrentThread")
     result = adopt[InputHapticsManager](tmp)
 
-proc tryGetForThread*(_: typedesc[InputHapticsManager], a1: uint32): InputHapticsManager  =
+proc tryGetForThread*(_: typedesc[InputHapticsManager], threadId: uint32): InputHapticsManager  =
   ## Windows.Devices.Haptics.InputHapticsManager.TryGetForThread
   withStatics("Windows.Devices.Haptics.InputHapticsManager", IID_IInputHapticsManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IInputHapticsManagerStatics_TryGetForThread, Fn_IInputHapticsManagerStatics_TryGetForThread)(it, a1, tmp.addr).check("InputHapticsManager.TryGetForThread")
+    vcall(it, Slot_IInputHapticsManagerStatics_TryGetForThread, Fn_IInputHapticsManagerStatics_TryGetForThread)(it, threadId, tmp.addr).check("InputHapticsManager.TryGetForThread")
     result = adopt[InputHapticsManager](tmp)
 
 proc click*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16  =
@@ -19663,29 +19663,29 @@ proc stopFeedback*(self: SimpleHapticsController)  =
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
     vcall(it, Slot_ISimpleHapticsController_StopFeedback, Fn_ISimpleHapticsController_StopFeedback)(it).check("SimpleHapticsController.StopFeedback")
 
-proc sendHapticFeedback*(self: SimpleHapticsController, a1: SimpleHapticsControllerFeedback)  =
+proc sendHapticFeedback*(self: SimpleHapticsController, feedback: SimpleHapticsControllerFeedback)  =
   ## Windows.Devices.Haptics.SimpleHapticsController.SendHapticFeedback
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
-    withIface(a1.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
+    withIface(feedback.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
       vcall(it, Slot_ISimpleHapticsController_SendHapticFeedback, Fn_ISimpleHapticsController_SendHapticFeedback)(it, p0).check("SimpleHapticsController.SendHapticFeedback")
 
-proc sendHapticFeedback*(self: SimpleHapticsController, a1: SimpleHapticsControllerFeedback, a2: float64)  =
+proc sendHapticFeedback*(self: SimpleHapticsController, feedback: SimpleHapticsControllerFeedback, intensity: float64)  =
   ## Windows.Devices.Haptics.SimpleHapticsController.SendHapticFeedback
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
-    withIface(a1.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
-      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedback2, Fn_ISimpleHapticsController_SendHapticFeedback2)(it, p0, a2).check("SimpleHapticsController.SendHapticFeedback")
+    withIface(feedback.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
+      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedback2, Fn_ISimpleHapticsController_SendHapticFeedback2)(it, p0, intensity).check("SimpleHapticsController.SendHapticFeedback")
 
-proc sendHapticFeedbackForDuration*(self: SimpleHapticsController, a1: SimpleHapticsControllerFeedback, a2: float64, a3: TimeSpan)  =
+proc sendHapticFeedbackForDuration*(self: SimpleHapticsController, feedback: SimpleHapticsControllerFeedback, intensity: float64, playDuration: TimeSpan)  =
   ## Windows.Devices.Haptics.SimpleHapticsController.SendHapticFeedbackForDuration
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
-    withIface(a1.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
-      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedbackForDuration, Fn_ISimpleHapticsController_SendHapticFeedbackForDuration)(it, p0, a2, a3).check("SimpleHapticsController.SendHapticFeedbackForDuration")
+    withIface(feedback.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
+      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedbackForDuration, Fn_ISimpleHapticsController_SendHapticFeedbackForDuration)(it, p0, intensity, playDuration).check("SimpleHapticsController.SendHapticFeedbackForDuration")
 
-proc sendHapticFeedbackForPlayCount*(self: SimpleHapticsController, a1: SimpleHapticsControllerFeedback, a2: float64, a3: int32, a4: TimeSpan)  =
+proc sendHapticFeedbackForPlayCount*(self: SimpleHapticsController, feedback: SimpleHapticsControllerFeedback, intensity: float64, playCount: int32, replayPauseInterval: TimeSpan)  =
   ## Windows.Devices.Haptics.SimpleHapticsController.SendHapticFeedbackForPlayCount
   withIface(self.p, IID_ISimpleHapticsController, "ISimpleHapticsController", it):
-    withIface(a1.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
-      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedbackForPlayCount, Fn_ISimpleHapticsController_SendHapticFeedbackForPlayCount)(it, p0, a2, a3, a4).check("SimpleHapticsController.SendHapticFeedbackForPlayCount")
+    withIface(feedback.p, IID_ISimpleHapticsControllerFeedback, "ISimpleHapticsControllerFeedback", p0):
+      vcall(it, Slot_ISimpleHapticsController_SendHapticFeedbackForPlayCount, Fn_ISimpleHapticsController_SendHapticFeedbackForPlayCount)(it, p0, intensity, playCount, replayPauseInterval).check("SimpleHapticsController.SendHapticFeedbackForPlayCount")
 
 proc waveform*(self: SimpleHapticsControllerFeedback): uint16  =
   ## Windows.Devices.Haptics.SimpleHapticsControllerFeedback.get_Waveform
@@ -19729,11 +19729,11 @@ proc getDeviceSelector*(_: typedesc[VibrationDevice]): string  =
     vcall(it, Slot_IVibrationDeviceStatics_GetDeviceSelector, Fn_IVibrationDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("VibrationDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[VibrationDevice], a1: string): Future[VibrationDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[VibrationDevice], deviceId: string): Future[VibrationDevice] {.async.} =
   ## Windows.Devices.Haptics.VibrationDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Haptics.VibrationDevice", IID_IVibrationDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IVibrationDeviceStatics_FromIdAsync, Fn_IVibrationDeviceStatics_FromIdAsync)(it, h0, op.addr).check("VibrationDevice.FromIdAsync")
   result = adopt[VibrationDevice](await awaitObject(op, IID_IAsyncOperation_1_VibrationDevice, IID_AsyncOperationCompletedHandler_1_VibrationDevice, "VibrationDevice.FromIdAsync"))
 
@@ -19913,11 +19913,11 @@ proc getInputReportAsync*(self: HidDevice): Future[HidInputReport] {.async.} =
     vcall(it, Slot_IHidDevice_GetInputReportAsync, Fn_IHidDevice_GetInputReportAsync)(it, op.addr).check("HidDevice.GetInputReportAsync")
   result = adopt[HidInputReport](await awaitObject(op, IID_IAsyncOperation_1_HidInputReport, IID_AsyncOperationCompletedHandler_1_HidInputReport, "HidDevice.GetInputReportAsync"))
 
-proc getInputReportAsync*(self: HidDevice, a1: uint16): Future[HidInputReport] {.async.} =
+proc getInputReportAsync*(self: HidDevice, reportId: uint16): Future[HidInputReport] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetInputReportAsync
   var op: pointer
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
-    vcall(it, Slot_IHidDevice_GetInputReportAsync2, Fn_IHidDevice_GetInputReportAsync2)(it, a1, op.addr).check("HidDevice.GetInputReportAsync")
+    vcall(it, Slot_IHidDevice_GetInputReportAsync2, Fn_IHidDevice_GetInputReportAsync2)(it, reportId, op.addr).check("HidDevice.GetInputReportAsync")
   result = adopt[HidInputReport](await awaitObject(op, IID_IAsyncOperation_1_HidInputReport, IID_AsyncOperationCompletedHandler_1_HidInputReport, "HidDevice.GetInputReportAsync"))
 
 proc getFeatureReportAsync*(self: HidDevice): Future[HidFeatureReport] {.async.} =
@@ -19927,11 +19927,11 @@ proc getFeatureReportAsync*(self: HidDevice): Future[HidFeatureReport] {.async.}
     vcall(it, Slot_IHidDevice_GetFeatureReportAsync, Fn_IHidDevice_GetFeatureReportAsync)(it, op.addr).check("HidDevice.GetFeatureReportAsync")
   result = adopt[HidFeatureReport](await awaitObject(op, IID_IAsyncOperation_1_HidFeatureReport, IID_AsyncOperationCompletedHandler_1_HidFeatureReport, "HidDevice.GetFeatureReportAsync"))
 
-proc getFeatureReportAsync*(self: HidDevice, a1: uint16): Future[HidFeatureReport] {.async.} =
+proc getFeatureReportAsync*(self: HidDevice, reportId: uint16): Future[HidFeatureReport] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetFeatureReportAsync
   var op: pointer
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
-    vcall(it, Slot_IHidDevice_GetFeatureReportAsync2, Fn_IHidDevice_GetFeatureReportAsync2)(it, a1, op.addr).check("HidDevice.GetFeatureReportAsync")
+    vcall(it, Slot_IHidDevice_GetFeatureReportAsync2, Fn_IHidDevice_GetFeatureReportAsync2)(it, reportId, op.addr).check("HidDevice.GetFeatureReportAsync")
   result = adopt[HidFeatureReport](await awaitObject(op, IID_IAsyncOperation_1_HidFeatureReport, IID_AsyncOperationCompletedHandler_1_HidFeatureReport, "HidDevice.GetFeatureReportAsync"))
 
 proc createOutputReport*(self: HidDevice): HidOutputReport  =
@@ -19941,11 +19941,11 @@ proc createOutputReport*(self: HidDevice): HidOutputReport  =
     vcall(it, Slot_IHidDevice_CreateOutputReport, Fn_IHidDevice_CreateOutputReport)(it, tmp.addr).check("HidDevice.CreateOutputReport")
     result = adopt[HidOutputReport](tmp)
 
-proc createOutputReport*(self: HidDevice, a1: uint16): HidOutputReport  =
+proc createOutputReport*(self: HidDevice, reportId: uint16): HidOutputReport  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.CreateOutputReport
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IHidDevice_CreateOutputReport2, Fn_IHidDevice_CreateOutputReport2)(it, a1, tmp.addr).check("HidDevice.CreateOutputReport")
+    vcall(it, Slot_IHidDevice_CreateOutputReport2, Fn_IHidDevice_CreateOutputReport2)(it, reportId, tmp.addr).check("HidDevice.CreateOutputReport")
     result = adopt[HidOutputReport](tmp)
 
 proc createFeatureReport*(self: HidDevice): HidFeatureReport  =
@@ -19955,42 +19955,42 @@ proc createFeatureReport*(self: HidDevice): HidFeatureReport  =
     vcall(it, Slot_IHidDevice_CreateFeatureReport, Fn_IHidDevice_CreateFeatureReport)(it, tmp.addr).check("HidDevice.CreateFeatureReport")
     result = adopt[HidFeatureReport](tmp)
 
-proc createFeatureReport*(self: HidDevice, a1: uint16): HidFeatureReport  =
+proc createFeatureReport*(self: HidDevice, reportId: uint16): HidFeatureReport  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.CreateFeatureReport
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IHidDevice_CreateFeatureReport2, Fn_IHidDevice_CreateFeatureReport2)(it, a1, tmp.addr).check("HidDevice.CreateFeatureReport")
+    vcall(it, Slot_IHidDevice_CreateFeatureReport2, Fn_IHidDevice_CreateFeatureReport2)(it, reportId, tmp.addr).check("HidDevice.CreateFeatureReport")
     result = adopt[HidFeatureReport](tmp)
 
-proc sendOutputReportAsync*(self: HidDevice, a1: HidOutputReport): Future[uint32] {.async.} =
+proc sendOutputReportAsync*(self: HidDevice, outputReport: HidOutputReport): Future[uint32] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.SendOutputReportAsync
   var op: pointer
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
-    withIface(a1.p, IID_IHidOutputReport, "IHidOutputReport", p0):
+    withIface(outputReport.p, IID_IHidOutputReport, "IHidOutputReport", p0):
       vcall(it, Slot_IHidDevice_SendOutputReportAsync, Fn_IHidDevice_SendOutputReportAsync)(it, p0, op.addr).check("HidDevice.SendOutputReportAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "HidDevice.SendOutputReportAsync")
 
-proc sendFeatureReportAsync*(self: HidDevice, a1: HidFeatureReport): Future[uint32] {.async.} =
+proc sendFeatureReportAsync*(self: HidDevice, featureReport: HidFeatureReport): Future[uint32] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.SendFeatureReportAsync
   var op: pointer
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
-    withIface(a1.p, IID_IHidFeatureReport, "IHidFeatureReport", p0):
+    withIface(featureReport.p, IID_IHidFeatureReport, "IHidFeatureReport", p0):
       vcall(it, Slot_IHidDevice_SendFeatureReportAsync, Fn_IHidDevice_SendFeatureReportAsync)(it, p0, op.addr).check("HidDevice.SendFeatureReportAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "HidDevice.SendFeatureReportAsync")
 
-proc getBooleanControlDescriptions*(self: HidDevice, a1: HidReportType, a2: uint16, a3: uint16): seq[HidBooleanControlDescription]  =
+proc getBooleanControlDescriptions*(self: HidDevice, reportType: HidReportType, usagePage: uint16, usageId: uint16): seq[HidBooleanControlDescription]  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetBooleanControlDescriptions
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IHidDevice_GetBooleanControlDescriptions, Fn_IHidDevice_GetBooleanControlDescriptions)(it, a1, a2, a3, tmp.addr).check("HidDevice.GetBooleanControlDescriptions")
+    vcall(it, Slot_IHidDevice_GetBooleanControlDescriptions, Fn_IHidDevice_GetBooleanControlDescriptions)(it, reportType, usagePage, usageId, tmp.addr).check("HidDevice.GetBooleanControlDescriptions")
     result = toSeq[HidBooleanControlDescription](tmp, IID_IVectorView_1_HidBooleanControlDescription)
     release(tmp)
 
-proc getNumericControlDescriptions*(self: HidDevice, a1: HidReportType, a2: uint16, a3: uint16): seq[HidNumericControlDescription]  =
+proc getNumericControlDescriptions*(self: HidDevice, reportType: HidReportType, usagePage: uint16, usageId: uint16): seq[HidNumericControlDescription]  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetNumericControlDescriptions
   withIface(self.p, IID_IHidDevice, "IHidDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IHidDevice_GetNumericControlDescriptions, Fn_IHidDevice_GetNumericControlDescriptions)(it, a1, a2, a3, tmp.addr).check("HidDevice.GetNumericControlDescriptions")
+    vcall(it, Slot_IHidDevice_GetNumericControlDescriptions, Fn_IHidDevice_GetNumericControlDescriptions)(it, reportType, usagePage, usageId, tmp.addr).check("HidDevice.GetNumericControlDescriptions")
     result = toSeq[HidNumericControlDescription](tmp, IID_IVectorView_1_HidNumericControlDescription)
     release(tmp)
 
@@ -20018,18 +20018,18 @@ proc close*(self: HidDevice)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HidDevice.Close")
 
-proc getDeviceSelector*(_: typedesc[HidDevice], a1: uint16, a2: uint16): string  =
+proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16, usageId: uint16): string  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetDeviceSelector
   withStatics("Windows.Devices.HumanInterfaceDevice.HidDevice", IID_IHidDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHidDeviceStatics_GetDeviceSelector, Fn_IHidDeviceStatics_GetDeviceSelector)(it, a1, a2, tmp.addr).check("HidDevice.GetDeviceSelector")
+    vcall(it, Slot_IHidDeviceStatics_GetDeviceSelector, Fn_IHidDeviceStatics_GetDeviceSelector)(it, usagePage, usageId, tmp.addr).check("HidDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[HidDevice], a1: uint16, a2: uint16, a3: uint16, a4: uint16): string  =
+proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16, usageId: uint16, vendorId: uint16, productId: uint16): string  =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetDeviceSelector
   withStatics("Windows.Devices.HumanInterfaceDevice.HidDevice", IID_IHidDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHidDeviceStatics_GetDeviceSelector2, Fn_IHidDeviceStatics_GetDeviceSelector2)(it, a1, a2, a3, a4, tmp.addr).check("HidDevice.GetDeviceSelector")
+    vcall(it, Slot_IHidDeviceStatics_GetDeviceSelector2, Fn_IHidDeviceStatics_GetDeviceSelector2)(it, usagePage, usageId, vendorId, productId, tmp.addr).check("HidDevice.GetDeviceSelector")
     result = takeString(tmp)
 
 proc id*(self: HidFeatureReport): uint16  =
@@ -20051,32 +20051,32 @@ proc `data=`*(self: HidFeatureReport, value: pointer)  =
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
     vcall(it, Slot_IHidFeatureReport_put_Data, Fn_IHidFeatureReport_put_Data)(it, value).check("HidFeatureReport.put_Data")
 
-proc getBooleanControl*(self: HidFeatureReport, a1: uint16, a2: uint16): HidBooleanControl  =
+proc getBooleanControl*(self: HidFeatureReport, usagePage: uint16, usageId: uint16): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetBooleanControl
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidFeatureReport_GetBooleanControl, Fn_IHidFeatureReport_GetBooleanControl)(it, a1, a2, tmp.addr).check("HidFeatureReport.GetBooleanControl")
+    vcall(it, Slot_IHidFeatureReport_GetBooleanControl, Fn_IHidFeatureReport_GetBooleanControl)(it, usagePage, usageId, tmp.addr).check("HidFeatureReport.GetBooleanControl")
     result = adopt[HidBooleanControl](tmp)
 
-proc getBooleanControlByDescription*(self: HidFeatureReport, a1: HidBooleanControlDescription): HidBooleanControl  =
+proc getBooleanControlByDescription*(self: HidFeatureReport, controlDescription: HidBooleanControlDescription): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetBooleanControlByDescription
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
-    withIface(a1.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidFeatureReport_GetBooleanControlByDescription, Fn_IHidFeatureReport_GetBooleanControlByDescription)(it, p0, tmp.addr).check("HidFeatureReport.GetBooleanControlByDescription")
       result = adopt[HidBooleanControl](tmp)
 
-proc getNumericControl*(self: HidFeatureReport, a1: uint16, a2: uint16): HidNumericControl  =
+proc getNumericControl*(self: HidFeatureReport, usagePage: uint16, usageId: uint16): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetNumericControl
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidFeatureReport_GetNumericControl, Fn_IHidFeatureReport_GetNumericControl)(it, a1, a2, tmp.addr).check("HidFeatureReport.GetNumericControl")
+    vcall(it, Slot_IHidFeatureReport_GetNumericControl, Fn_IHidFeatureReport_GetNumericControl)(it, usagePage, usageId, tmp.addr).check("HidFeatureReport.GetNumericControl")
     result = adopt[HidNumericControl](tmp)
 
-proc getNumericControlByDescription*(self: HidFeatureReport, a1: HidNumericControlDescription): HidNumericControl  =
+proc getNumericControlByDescription*(self: HidFeatureReport, controlDescription: HidNumericControlDescription): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetNumericControlByDescription
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
-    withIface(a1.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidFeatureReport_GetNumericControlByDescription, Fn_IHidFeatureReport_GetNumericControlByDescription)(it, p0, tmp.addr).check("HidFeatureReport.GetNumericControlByDescription")
       result = adopt[HidNumericControl](tmp)
@@ -20111,32 +20111,32 @@ proc transitionedBooleanControls*(self: HidInputReport): seq[HidBooleanControl] 
     result = toSeq[HidBooleanControl](tmp, IID_IVectorView_1_HidBooleanControl)
     release(tmp)
 
-proc getBooleanControl*(self: HidInputReport, a1: uint16, a2: uint16): HidBooleanControl  =
+proc getBooleanControl*(self: HidInputReport, usagePage: uint16, usageId: uint16): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetBooleanControl
   withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidInputReport_GetBooleanControl, Fn_IHidInputReport_GetBooleanControl)(it, a1, a2, tmp.addr).check("HidInputReport.GetBooleanControl")
+    vcall(it, Slot_IHidInputReport_GetBooleanControl, Fn_IHidInputReport_GetBooleanControl)(it, usagePage, usageId, tmp.addr).check("HidInputReport.GetBooleanControl")
     result = adopt[HidBooleanControl](tmp)
 
-proc getBooleanControlByDescription*(self: HidInputReport, a1: HidBooleanControlDescription): HidBooleanControl  =
+proc getBooleanControlByDescription*(self: HidInputReport, controlDescription: HidBooleanControlDescription): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetBooleanControlByDescription
   withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
-    withIface(a1.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidInputReport_GetBooleanControlByDescription, Fn_IHidInputReport_GetBooleanControlByDescription)(it, p0, tmp.addr).check("HidInputReport.GetBooleanControlByDescription")
       result = adopt[HidBooleanControl](tmp)
 
-proc getNumericControl*(self: HidInputReport, a1: uint16, a2: uint16): HidNumericControl  =
+proc getNumericControl*(self: HidInputReport, usagePage: uint16, usageId: uint16): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetNumericControl
   withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidInputReport_GetNumericControl, Fn_IHidInputReport_GetNumericControl)(it, a1, a2, tmp.addr).check("HidInputReport.GetNumericControl")
+    vcall(it, Slot_IHidInputReport_GetNumericControl, Fn_IHidInputReport_GetNumericControl)(it, usagePage, usageId, tmp.addr).check("HidInputReport.GetNumericControl")
     result = adopt[HidNumericControl](tmp)
 
-proc getNumericControlByDescription*(self: HidInputReport, a1: HidNumericControlDescription): HidNumericControl  =
+proc getNumericControlByDescription*(self: HidInputReport, controlDescription: HidNumericControlDescription): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetNumericControlByDescription
   withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
-    withIface(a1.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidInputReport_GetNumericControlByDescription, Fn_IHidInputReport_GetNumericControlByDescription)(it, p0, tmp.addr).check("HidInputReport.GetNumericControlByDescription")
       result = adopt[HidNumericControl](tmp)
@@ -20339,32 +20339,32 @@ proc `data=`*(self: HidOutputReport, value: pointer)  =
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
     vcall(it, Slot_IHidOutputReport_put_Data, Fn_IHidOutputReport_put_Data)(it, value).check("HidOutputReport.put_Data")
 
-proc getBooleanControl*(self: HidOutputReport, a1: uint16, a2: uint16): HidBooleanControl  =
+proc getBooleanControl*(self: HidOutputReport, usagePage: uint16, usageId: uint16): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetBooleanControl
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidOutputReport_GetBooleanControl, Fn_IHidOutputReport_GetBooleanControl)(it, a1, a2, tmp.addr).check("HidOutputReport.GetBooleanControl")
+    vcall(it, Slot_IHidOutputReport_GetBooleanControl, Fn_IHidOutputReport_GetBooleanControl)(it, usagePage, usageId, tmp.addr).check("HidOutputReport.GetBooleanControl")
     result = adopt[HidBooleanControl](tmp)
 
-proc getBooleanControlByDescription*(self: HidOutputReport, a1: HidBooleanControlDescription): HidBooleanControl  =
+proc getBooleanControlByDescription*(self: HidOutputReport, controlDescription: HidBooleanControlDescription): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetBooleanControlByDescription
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
-    withIface(a1.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidBooleanControlDescription, "IHidBooleanControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidOutputReport_GetBooleanControlByDescription, Fn_IHidOutputReport_GetBooleanControlByDescription)(it, p0, tmp.addr).check("HidOutputReport.GetBooleanControlByDescription")
       result = adopt[HidBooleanControl](tmp)
 
-proc getNumericControl*(self: HidOutputReport, a1: uint16, a2: uint16): HidNumericControl  =
+proc getNumericControl*(self: HidOutputReport, usagePage: uint16, usageId: uint16): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetNumericControl
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
     var tmp: pointer
-    vcall(it, Slot_IHidOutputReport_GetNumericControl, Fn_IHidOutputReport_GetNumericControl)(it, a1, a2, tmp.addr).check("HidOutputReport.GetNumericControl")
+    vcall(it, Slot_IHidOutputReport_GetNumericControl, Fn_IHidOutputReport_GetNumericControl)(it, usagePage, usageId, tmp.addr).check("HidOutputReport.GetNumericControl")
     result = adopt[HidNumericControl](tmp)
 
-proc getNumericControlByDescription*(self: HidOutputReport, a1: HidNumericControlDescription): HidNumericControl  =
+proc getNumericControlByDescription*(self: HidOutputReport, controlDescription: HidNumericControlDescription): HidNumericControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetNumericControlByDescription
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
-    withIface(a1.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
+    withIface(controlDescription.p, IID_IHidNumericControlDescription, "IHidNumericControlDescription", p0):
       var tmp: pointer
       vcall(it, Slot_IHidOutputReport_GetNumericControlByDescription, Fn_IHidOutputReport_GetNumericControlByDescription)(it, p0, tmp.addr).check("HidOutputReport.GetNumericControlByDescription")
       result = adopt[HidNumericControl](tmp)
@@ -20405,26 +20405,26 @@ proc `sharingMode=`*(self: I2cConnectionSettings, value: I2cSharingMode)  =
   withIface(self.p, IID_II2cConnectionSettings, "II2cConnectionSettings", it):
     vcall(it, Slot_II2cConnectionSettings_put_SharingMode, Fn_II2cConnectionSettings_put_SharingMode)(it, value).check("I2cConnectionSettings.put_SharingMode")
 
-proc create*(_: typedesc[I2cConnectionSettings], a1: int32): I2cConnectionSettings  =
+proc create*(_: typedesc[I2cConnectionSettings], slaveAddress: int32): I2cConnectionSettings  =
   ## Windows.Devices.I2c.I2cConnectionSettings.Create
   withStatics("Windows.Devices.I2c.I2cConnectionSettings", IID_II2cConnectionSettingsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_II2cConnectionSettingsFactory_Create, Fn_II2cConnectionSettingsFactory_Create)(it, a1, tmp.addr).check("I2cConnectionSettings.Create")
+    vcall(it, Slot_II2cConnectionSettingsFactory_Create, Fn_II2cConnectionSettingsFactory_Create)(it, slaveAddress, tmp.addr).check("I2cConnectionSettings.Create")
     result = adopt[I2cConnectionSettings](tmp)
 
-proc getDevice*(self: I2cController, a1: I2cConnectionSettings): I2cDevice  =
+proc getDevice*(self: I2cController, settings: I2cConnectionSettings): I2cDevice  =
   ## Windows.Devices.I2c.I2cController.GetDevice
   withIface(self.p, IID_II2cController, "II2cController", it):
-    withIface(a1.p, IID_II2cConnectionSettings, "II2cConnectionSettings", p0):
+    withIface(settings.p, IID_II2cConnectionSettings, "II2cConnectionSettings", p0):
       var tmp: pointer
       vcall(it, Slot_II2cController_GetDevice, Fn_II2cController_GetDevice)(it, p0, tmp.addr).check("I2cController.GetDevice")
       result = adopt[I2cDevice](tmp)
 
-proc getControllersAsync*(_: typedesc[I2cController], a1: pointer): Future[seq[I2cController]] {.async.} =
+proc getControllersAsync*(_: typedesc[I2cController], provider: pointer): Future[seq[I2cController]] {.async.} =
   ## Windows.Devices.I2c.I2cController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.I2c.I2cController", IID_II2cControllerStatics, it):
-    vcall(it, Slot_II2cControllerStatics_GetControllersAsync, Fn_II2cControllerStatics_GetControllersAsync)(it, a1, op.addr).check("I2cController.GetControllersAsync")
+    vcall(it, Slot_II2cControllerStatics_GetControllersAsync, Fn_II2cControllerStatics_GetControllersAsync)(it, provider, op.addr).check("I2cController.GetControllersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "I2cController.GetControllersAsync")
   result = toSeq[I2cController](coll, IID_IVectorView_1_I2cController)
   discard release(coll)
@@ -20462,20 +20462,20 @@ proc getDeviceSelector*(_: typedesc[I2cDevice]): string  =
     vcall(it, Slot_II2cDeviceStatics_GetDeviceSelector, Fn_II2cDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("I2cDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[I2cDevice], a1: string): string  =
+proc getDeviceSelector*(_: typedesc[I2cDevice], friendlyName: string): string  =
   ## Windows.Devices.I2c.I2cDevice.GetDeviceSelector
   withStatics("Windows.Devices.I2c.I2cDevice", IID_II2cDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(friendlyName, h0):
       var tmp: HSTRING
       vcall(it, Slot_II2cDeviceStatics_GetDeviceSelector2, Fn_II2cDeviceStatics_GetDeviceSelector2)(it, h0, tmp.addr).check("I2cDevice.GetDeviceSelector")
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[I2cDevice], a1: string, a2: I2cConnectionSettings): Future[I2cDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[I2cDevice], deviceId: string, settings: I2cConnectionSettings): Future[I2cDevice] {.async.} =
   ## Windows.Devices.I2c.I2cDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.I2c.I2cDevice", IID_II2cDeviceStatics, it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_II2cConnectionSettings, "II2cConnectionSettings", p1):
+    withHString(deviceId, h0):
+      withIface(settings.p, IID_II2cConnectionSettings, "II2cConnectionSettings", p1):
         vcall(it, Slot_II2cDeviceStatics_FromIdAsync, Fn_II2cDeviceStatics_FromIdAsync)(it, h0, p1, op.addr).check("I2cDevice.FromIdAsync")
   result = adopt[I2cDevice](await awaitObject(op, IID_IAsyncOperation_1_I2cDevice, IID_AsyncOperationCompletedHandler_1_I2cDevice, "I2cDevice.FromIdAsync"))
 
@@ -20702,11 +20702,11 @@ proc simpleHapticsController*(self: PenDevice): SimpleHapticsController  =
     vcall(it, Slot_IPenDevice2_get_SimpleHapticsController, Fn_IPenDevice2_get_SimpleHapticsController)(it, tmp.addr).check("PenDevice.get_SimpleHapticsController")
     result = adopt[SimpleHapticsController](tmp)
 
-proc getFromPointerId*(_: typedesc[PenDevice], a1: uint32): PenDevice  =
+proc getFromPointerId*(_: typedesc[PenDevice], pointerId: uint32): PenDevice  =
   ## Windows.Devices.Input.PenDevice.GetFromPointerId
   withStatics("Windows.Devices.Input.PenDevice", IID_IPenDeviceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPenDeviceStatics_GetFromPointerId, Fn_IPenDeviceStatics_GetFromPointerId)(it, a1, tmp.addr).check("PenDevice.GetFromPointerId")
+    vcall(it, Slot_IPenDeviceStatics_GetFromPointerId, Fn_IPenDeviceStatics_GetFromPointerId)(it, pointerId, tmp.addr).check("PenDevice.GetFromPointerId")
     result = adopt[PenDevice](tmp)
 
 proc isSupported*(self: PenDockListener): bool  =
@@ -20822,11 +20822,11 @@ proc maxPointersWithZDistance*(self: PointerDevice): uint32  =
     vcall(it, Slot_IPointerDevice2_get_MaxPointersWithZDistance, Fn_IPointerDevice2_get_MaxPointersWithZDistance)(it, tmp.addr).check("PointerDevice.get_MaxPointersWithZDistance")
     result = tmp
 
-proc getPointerDevice*(_: typedesc[PointerDevice], a1: uint32): PointerDevice  =
+proc getPointerDevice*(_: typedesc[PointerDevice], pointerId: uint32): PointerDevice  =
   ## Windows.Devices.Input.PointerDevice.GetPointerDevice
   withStatics("Windows.Devices.Input.PointerDevice", IID_IPointerDeviceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPointerDeviceStatics_GetPointerDevice, Fn_IPointerDeviceStatics_GetPointerDevice)(it, a1, tmp.addr).check("PointerDevice.GetPointerDevice")
+    vcall(it, Slot_IPointerDeviceStatics_GetPointerDevice, Fn_IPointerDeviceStatics_GetPointerDevice)(it, pointerId, tmp.addr).check("PointerDevice.GetPointerDevice")
     result = adopt[PointerDevice](tmp)
 
 proc getPointerDevices*(_: typedesc[PointerDevice]): seq[PointerDevice]  =
@@ -20872,19 +20872,19 @@ proc requestCalibrationAsync*(self: GazeDevicePreview): Future[bool] {.async.} =
     vcall(it, Slot_IGazeDevicePreview_RequestCalibrationAsync, Fn_IGazeDevicePreview_RequestCalibrationAsync)(it, op.addr).check("GazeDevicePreview.RequestCalibrationAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "GazeDevicePreview.RequestCalibrationAsync")
 
-proc getNumericControlDescriptions*(self: GazeDevicePreview, a1: uint16, a2: uint16): seq[HidNumericControlDescription]  =
+proc getNumericControlDescriptions*(self: GazeDevicePreview, usagePage: uint16, usageId: uint16): seq[HidNumericControlDescription]  =
   ## Windows.Devices.Input.Preview.GazeDevicePreview.GetNumericControlDescriptions
   withIface(self.p, IID_IGazeDevicePreview, "IGazeDevicePreview", it):
     var tmp: pointer
-    vcall(it, Slot_IGazeDevicePreview_GetNumericControlDescriptions, Fn_IGazeDevicePreview_GetNumericControlDescriptions)(it, a1, a2, tmp.addr).check("GazeDevicePreview.GetNumericControlDescriptions")
+    vcall(it, Slot_IGazeDevicePreview_GetNumericControlDescriptions, Fn_IGazeDevicePreview_GetNumericControlDescriptions)(it, usagePage, usageId, tmp.addr).check("GazeDevicePreview.GetNumericControlDescriptions")
     result = toSeq[HidNumericControlDescription](tmp, IID_IVectorView_1_HidNumericControlDescription)
     release(tmp)
 
-proc getBooleanControlDescriptions*(self: GazeDevicePreview, a1: uint16, a2: uint16): seq[HidBooleanControlDescription]  =
+proc getBooleanControlDescriptions*(self: GazeDevicePreview, usagePage: uint16, usageId: uint16): seq[HidBooleanControlDescription]  =
   ## Windows.Devices.Input.Preview.GazeDevicePreview.GetBooleanControlDescriptions
   withIface(self.p, IID_IGazeDevicePreview, "IGazeDevicePreview", it):
     var tmp: pointer
-    vcall(it, Slot_IGazeDevicePreview_GetBooleanControlDescriptions, Fn_IGazeDevicePreview_GetBooleanControlDescriptions)(it, a1, a2, tmp.addr).check("GazeDevicePreview.GetBooleanControlDescriptions")
+    vcall(it, Slot_IGazeDevicePreview_GetBooleanControlDescriptions, Fn_IGazeDevicePreview_GetBooleanControlDescriptions)(it, usagePage, usageId, tmp.addr).check("GazeDevicePreview.GetBooleanControlDescriptions")
     result = toSeq[HidBooleanControlDescription](tmp, IID_IVectorView_1_HidBooleanControlDescription)
     release(tmp)
 
@@ -21494,15 +21494,15 @@ proc newLampArrayEffectPlaylist*(): LampArrayEffectPlaylist =
   ## Activate a `Windows.Devices.Lights.Effects.LampArrayEffectPlaylist`.
   adopt[LampArrayEffectPlaylist](activateAs("Windows.Devices.Lights.Effects.LampArrayEffectPlaylist", IID_ILampArrayEffectPlaylist))
 
-proc append*(self: LampArrayEffectPlaylist, a1: pointer)  =
+proc append*(self: LampArrayEffectPlaylist, effect: pointer)  =
   ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.Append
   withIface(self.p, IID_ILampArrayEffectPlaylist, "ILampArrayEffectPlaylist", it):
-    vcall(it, Slot_ILampArrayEffectPlaylist_Append, Fn_ILampArrayEffectPlaylist_Append)(it, a1).check("LampArrayEffectPlaylist.Append")
+    vcall(it, Slot_ILampArrayEffectPlaylist_Append, Fn_ILampArrayEffectPlaylist_Append)(it, effect).check("LampArrayEffectPlaylist.Append")
 
-proc overrideZIndex*(self: LampArrayEffectPlaylist, a1: int32)  =
+proc overrideZIndex*(self: LampArrayEffectPlaylist, zIndex: int32)  =
   ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.OverrideZIndex
   withIface(self.p, IID_ILampArrayEffectPlaylist, "ILampArrayEffectPlaylist", it):
-    vcall(it, Slot_ILampArrayEffectPlaylist_OverrideZIndex, Fn_ILampArrayEffectPlaylist_OverrideZIndex)(it, a1).check("LampArrayEffectPlaylist.OverrideZIndex")
+    vcall(it, Slot_ILampArrayEffectPlaylist_OverrideZIndex, Fn_ILampArrayEffectPlaylist_OverrideZIndex)(it, zIndex).check("LampArrayEffectPlaylist.OverrideZIndex")
 
 proc start*(self: LampArrayEffectPlaylist)  =
   ## Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.Start
@@ -21622,15 +21622,15 @@ proc sinceStarted*(self: LampArrayUpdateRequestedEventArgs): TimeSpan  =
     vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_get_SinceStarted, Fn_ILampArrayUpdateRequestedEventArgs_get_SinceStarted)(it, tmp.addr).check("LampArrayUpdateRequestedEventArgs.get_SinceStarted")
     result = tmp
 
-proc setColor*(self: LampArrayUpdateRequestedEventArgs, a1: Color)  =
+proc setColor*(self: LampArrayUpdateRequestedEventArgs, desiredColor: Color)  =
   ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.SetColor
   withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
-    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColor, Fn_ILampArrayUpdateRequestedEventArgs_SetColor)(it, a1).check("LampArrayUpdateRequestedEventArgs.SetColor")
+    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColor, Fn_ILampArrayUpdateRequestedEventArgs_SetColor)(it, desiredColor).check("LampArrayUpdateRequestedEventArgs.SetColor")
 
-proc setColorForIndex*(self: LampArrayUpdateRequestedEventArgs, a1: int32, a2: Color)  =
+proc setColorForIndex*(self: LampArrayUpdateRequestedEventArgs, lampIndex: int32, desiredColor: Color)  =
   ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.SetColorForIndex
   withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
-    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColorForIndex, Fn_ILampArrayUpdateRequestedEventArgs_SetColorForIndex)(it, a1, a2).check("LampArrayUpdateRequestedEventArgs.SetColorForIndex")
+    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColorForIndex, Fn_ILampArrayUpdateRequestedEventArgs_SetColorForIndex)(it, lampIndex, desiredColor).check("LampArrayUpdateRequestedEventArgs.SetColorForIndex")
 
 proc deviceId*(self: Lamp): string  =
   ## Windows.Devices.Lights.Lamp.get_DeviceId
@@ -21713,11 +21713,11 @@ proc getDeviceSelector*(_: typedesc[Lamp]): string  =
     vcall(it, Slot_ILampStatics_GetDeviceSelector, Fn_ILampStatics_GetDeviceSelector)(it, tmp.addr).check("Lamp.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Lamp], a1: string): Future[Lamp] {.async.} =
+proc fromIdAsync*(_: typedesc[Lamp], deviceId: string): Future[Lamp] {.async.} =
   ## Windows.Devices.Lights.Lamp.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Lights.Lamp", IID_ILampStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ILampStatics_FromIdAsync, Fn_ILampStatics_FromIdAsync)(it, h0, op.addr).check("Lamp.FromIdAsync")
   result = adopt[Lamp](await awaitObject(op, IID_IAsyncOperation_1_Lamp, IID_AsyncOperationCompletedHandler_1_Lamp, "Lamp.FromIdAsync"))
 
@@ -21822,33 +21822,33 @@ proc supportsVirtualKeys*(self: LampArray): bool  =
     vcall(it, Slot_ILampArray_get_SupportsVirtualKeys, Fn_ILampArray_get_SupportsVirtualKeys)(it, tmp.addr).check("LampArray.get_SupportsVirtualKeys")
     result = tmp
 
-proc getLampInfo*(self: LampArray, a1: int32): LampInfo  =
+proc getLampInfo*(self: LampArray, lampIndex: int32): LampInfo  =
   ## Windows.Devices.Lights.LampArray.GetLampInfo
   withIface(self.p, IID_ILampArray, "ILampArray", it):
     var tmp: pointer
-    vcall(it, Slot_ILampArray_GetLampInfo, Fn_ILampArray_GetLampInfo)(it, a1, tmp.addr).check("LampArray.GetLampInfo")
+    vcall(it, Slot_ILampArray_GetLampInfo, Fn_ILampArray_GetLampInfo)(it, lampIndex, tmp.addr).check("LampArray.GetLampInfo")
     result = adopt[LampInfo](tmp)
 
-proc setColor*(self: LampArray, a1: Color)  =
+proc setColor*(self: LampArray, desiredColor: Color)  =
   ## Windows.Devices.Lights.LampArray.SetColor
   withIface(self.p, IID_ILampArray, "ILampArray", it):
-    vcall(it, Slot_ILampArray_SetColor, Fn_ILampArray_SetColor)(it, a1).check("LampArray.SetColor")
+    vcall(it, Slot_ILampArray_SetColor, Fn_ILampArray_SetColor)(it, desiredColor).check("LampArray.SetColor")
 
-proc setColorForIndex*(self: LampArray, a1: int32, a2: Color)  =
+proc setColorForIndex*(self: LampArray, lampIndex: int32, desiredColor: Color)  =
   ## Windows.Devices.Lights.LampArray.SetColorForIndex
   withIface(self.p, IID_ILampArray, "ILampArray", it):
-    vcall(it, Slot_ILampArray_SetColorForIndex, Fn_ILampArray_SetColorForIndex)(it, a1, a2).check("LampArray.SetColorForIndex")
+    vcall(it, Slot_ILampArray_SetColorForIndex, Fn_ILampArray_SetColorForIndex)(it, lampIndex, desiredColor).check("LampArray.SetColorForIndex")
 
-proc setColorsForPurposes*(self: LampArray, a1: Color, a2: LampPurposes)  =
+proc setColorsForPurposes*(self: LampArray, desiredColor: Color, purposes: LampPurposes)  =
   ## Windows.Devices.Lights.LampArray.SetColorsForPurposes
   withIface(self.p, IID_ILampArray, "ILampArray", it):
-    vcall(it, Slot_ILampArray_SetColorsForPurposes, Fn_ILampArray_SetColorsForPurposes)(it, a1, a2).check("LampArray.SetColorsForPurposes")
+    vcall(it, Slot_ILampArray_SetColorsForPurposes, Fn_ILampArray_SetColorsForPurposes)(it, desiredColor, purposes).check("LampArray.SetColorsForPurposes")
 
-proc sendMessageAsync*(self: LampArray, a1: int32, a2: pointer) {.async.} =
+proc sendMessageAsync*(self: LampArray, messageId: int32, message: pointer) {.async.} =
   ## Windows.Devices.Lights.LampArray.SendMessageAsync
   var op: pointer
   withIface(self.p, IID_ILampArray, "ILampArray", it):
-    vcall(it, Slot_ILampArray_SendMessageAsync, Fn_ILampArray_SendMessageAsync)(it, a1, a2, op.addr).check("LampArray.SendMessageAsync")
+    vcall(it, Slot_ILampArray_SendMessageAsync, Fn_ILampArray_SendMessageAsync)(it, messageId, message, op.addr).check("LampArray.SendMessageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "LampArray.SendMessageAsync")
 
 proc isAvailable*(self: LampArray): bool  =
@@ -21884,11 +21884,11 @@ proc getDeviceSelector*(_: typedesc[LampArray]): string  =
     vcall(it, Slot_ILampArrayStatics_GetDeviceSelector, Fn_ILampArrayStatics_GetDeviceSelector)(it, tmp.addr).check("LampArray.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[LampArray], a1: string): Future[LampArray] {.async.} =
+proc fromIdAsync*(_: typedesc[LampArray], deviceId: string): Future[LampArray] {.async.} =
   ## Windows.Devices.Lights.LampArray.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Lights.LampArray", IID_ILampArrayStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ILampArrayStatics_FromIdAsync, Fn_ILampArrayStatics_FromIdAsync)(it, h0, op.addr).check("LampArray.FromIdAsync")
   result = adopt[LampArray](await awaitObject(op, IID_IAsyncOperation_1_LampArray, IID_AsyncOperationCompletedHandler_1_LampArray, "LampArray.FromIdAsync"))
 
@@ -21956,11 +21956,11 @@ proc fixedColor*(self: LampInfo): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "LampInfo.get_FixedColor")
     release(tmp)
 
-proc getNearestSupportedColor*(self: LampInfo, a1: Color): Color  =
+proc getNearestSupportedColor*(self: LampInfo, desiredColor: Color): Color  =
   ## Windows.Devices.Lights.LampInfo.GetNearestSupportedColor
   withIface(self.p, IID_ILampInfo, "ILampInfo", it):
     var tmp: Color
-    vcall(it, Slot_ILampInfo_GetNearestSupportedColor, Fn_ILampInfo_GetNearestSupportedColor)(it, a1, tmp.addr).check("LampInfo.GetNearestSupportedColor")
+    vcall(it, Slot_ILampInfo_GetNearestSupportedColor, Fn_ILampInfo_GetNearestSupportedColor)(it, desiredColor, tmp.addr).check("LampInfo.GetNearestSupportedColor")
     result = tmp
 
 proc updateLatency*(self: LampInfo): TimeSpan  =
@@ -22005,11 +22005,11 @@ proc spiControllerProvider*(self: LowLevelDevicesAggregateProvider): pointer  =
     vcall(it, Slot_ILowLevelDevicesAggregateProvider_get_SpiControllerProvider, Fn_ILowLevelDevicesAggregateProvider_get_SpiControllerProvider)(it, tmp.addr).check("LowLevelDevicesAggregateProvider.get_SpiControllerProvider")
     result = tmp
 
-proc create*(_: typedesc[LowLevelDevicesAggregateProvider], a1: pointer, a2: pointer, a3: pointer, a4: pointer, a5: pointer): LowLevelDevicesAggregateProvider  =
+proc create*(_: typedesc[LowLevelDevicesAggregateProvider], adc: pointer, pwm: pointer, gpio: pointer, i2c: pointer, spi: pointer): LowLevelDevicesAggregateProvider  =
   ## Windows.Devices.LowLevelDevicesAggregateProvider.Create
   withStatics("Windows.Devices.LowLevelDevicesAggregateProvider", IID_ILowLevelDevicesAggregateProviderFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ILowLevelDevicesAggregateProviderFactory_Create, Fn_ILowLevelDevicesAggregateProviderFactory_Create)(it, a1, a2, a3, a4, a5, tmp.addr).check("LowLevelDevicesAggregateProvider.Create")
+    vcall(it, Slot_ILowLevelDevicesAggregateProviderFactory_Create, Fn_ILowLevelDevicesAggregateProviderFactory_Create)(it, adc, pwm, gpio, i2c, spi, tmp.addr).check("LowLevelDevicesAggregateProvider.Create")
     result = adopt[LowLevelDevicesAggregateProvider](tmp)
 
 proc defaultProvider*(_: typedesc[LowLevelDevicesController]): LowLevelDevicesAggregateProvider  =
@@ -22085,11 +22085,11 @@ proc `type`*(self: MidiChannelPressureMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiChannelPressureMessage.get_Type")
     result = tmp
 
-proc createMidiChannelPressureMessage*(_: typedesc[MidiChannelPressureMessage], a1: uint8, a2: uint8): MidiChannelPressureMessage  =
+proc createMidiChannelPressureMessage*(_: typedesc[MidiChannelPressureMessage], channel: uint8, pressure: uint8): MidiChannelPressureMessage  =
   ## Windows.Devices.Midi.MidiChannelPressureMessage.CreateMidiChannelPressureMessage
   withStatics("Windows.Devices.Midi.MidiChannelPressureMessage", IID_IMidiChannelPressureMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage, Fn_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage)(it, a1, a2, tmp.addr).check("MidiChannelPressureMessage.CreateMidiChannelPressureMessage")
+    vcall(it, Slot_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage, Fn_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage)(it, channel, pressure, tmp.addr).check("MidiChannelPressureMessage.CreateMidiChannelPressureMessage")
     result = adopt[MidiChannelPressureMessage](tmp)
 
 proc newMidiContinueMessage*(): MidiContinueMessage =
@@ -22159,11 +22159,11 @@ proc `type`*(self: MidiControlChangeMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiControlChangeMessage.get_Type")
     result = tmp
 
-proc createMidiControlChangeMessage*(_: typedesc[MidiControlChangeMessage], a1: uint8, a2: uint8, a3: uint8): MidiControlChangeMessage  =
+proc createMidiControlChangeMessage*(_: typedesc[MidiControlChangeMessage], channel: uint8, controller: uint8, controlValue: uint8): MidiControlChangeMessage  =
   ## Windows.Devices.Midi.MidiControlChangeMessage.CreateMidiControlChangeMessage
   withStatics("Windows.Devices.Midi.MidiControlChangeMessage", IID_IMidiControlChangeMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage, Fn_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage)(it, a1, a2, a3, tmp.addr).check("MidiControlChangeMessage.CreateMidiControlChangeMessage")
+    vcall(it, Slot_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage, Fn_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage)(it, channel, controller, controlValue, tmp.addr).check("MidiControlChangeMessage.CreateMidiControlChangeMessage")
     result = adopt[MidiControlChangeMessage](tmp)
 
 proc onMessageReceived*(self: MidiInPort,
@@ -22197,11 +22197,11 @@ proc close*(self: MidiInPort)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MidiInPort.Close")
 
-proc fromIdAsync*(_: typedesc[MidiInPort], a1: string): Future[MidiInPort] {.async.} =
+proc fromIdAsync*(_: typedesc[MidiInPort], deviceId: string): Future[MidiInPort] {.async.} =
   ## Windows.Devices.Midi.MidiInPort.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiInPort", IID_IMidiInPortStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IMidiInPortStatics_FromIdAsync, Fn_IMidiInPortStatics_FromIdAsync)(it, h0, op.addr).check("MidiInPort.FromIdAsync")
   result = adopt[MidiInPort](await awaitObject(op, IID_IAsyncOperation_1_MidiInPort, IID_AsyncOperationCompletedHandler_1_MidiInPort, "MidiInPort.FromIdAsync"))
 
@@ -22261,11 +22261,11 @@ proc `type`*(self: MidiNoteOffMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiNoteOffMessage.get_Type")
     result = tmp
 
-proc createMidiNoteOffMessage*(_: typedesc[MidiNoteOffMessage], a1: uint8, a2: uint8, a3: uint8): MidiNoteOffMessage  =
+proc createMidiNoteOffMessage*(_: typedesc[MidiNoteOffMessage], channel: uint8, note: uint8, velocity: uint8): MidiNoteOffMessage  =
   ## Windows.Devices.Midi.MidiNoteOffMessage.CreateMidiNoteOffMessage
   withStatics("Windows.Devices.Midi.MidiNoteOffMessage", IID_IMidiNoteOffMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage, Fn_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage)(it, a1, a2, a3, tmp.addr).check("MidiNoteOffMessage.CreateMidiNoteOffMessage")
+    vcall(it, Slot_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage, Fn_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage)(it, channel, note, velocity, tmp.addr).check("MidiNoteOffMessage.CreateMidiNoteOffMessage")
     result = adopt[MidiNoteOffMessage](tmp)
 
 proc channel*(self: MidiNoteOnMessage): uint8  =
@@ -22310,23 +22310,23 @@ proc `type`*(self: MidiNoteOnMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiNoteOnMessage.get_Type")
     result = tmp
 
-proc createMidiNoteOnMessage*(_: typedesc[MidiNoteOnMessage], a1: uint8, a2: uint8, a3: uint8): MidiNoteOnMessage  =
+proc createMidiNoteOnMessage*(_: typedesc[MidiNoteOnMessage], channel: uint8, note: uint8, velocity: uint8): MidiNoteOnMessage  =
   ## Windows.Devices.Midi.MidiNoteOnMessage.CreateMidiNoteOnMessage
   withStatics("Windows.Devices.Midi.MidiNoteOnMessage", IID_IMidiNoteOnMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage, Fn_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage)(it, a1, a2, a3, tmp.addr).check("MidiNoteOnMessage.CreateMidiNoteOnMessage")
+    vcall(it, Slot_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage, Fn_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage)(it, channel, note, velocity, tmp.addr).check("MidiNoteOnMessage.CreateMidiNoteOnMessage")
     result = adopt[MidiNoteOnMessage](tmp)
 
-proc sendMessage*(self: MidiOutPort, a1: MidiTuneRequestMessage)  =
+proc sendMessage*(self: MidiOutPort, midiMessage: MidiTuneRequestMessage)  =
   ## Windows.Devices.Midi.MidiOutPort.SendMessage
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    withIface(a1.p, IID_IMidiMessage, "IMidiMessage", p0):
+    withIface(midiMessage.p, IID_IMidiMessage, "IMidiMessage", p0):
       vcall(it, Slot_IMidiOutPort_SendMessage, Fn_IMidiOutPort_SendMessage)(it, p0).check("MidiOutPort.SendMessage")
 
-proc sendBuffer*(self: MidiOutPort, a1: pointer)  =
+proc sendBuffer*(self: MidiOutPort, midiData: pointer)  =
   ## Windows.Devices.Midi.MidiOutPort.SendBuffer
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, a1).check("MidiOutPort.SendBuffer")
+    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, midiData).check("MidiOutPort.SendBuffer")
 
 proc deviceId*(self: MidiOutPort): string  =
   ## Windows.Devices.Midi.MidiOutPort.get_DeviceId
@@ -22340,11 +22340,11 @@ proc close*(self: MidiOutPort)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MidiOutPort.Close")
 
-proc fromIdAsync*(_: typedesc[MidiOutPort], a1: string): Future[MidiOutPort] {.async.} =
+proc fromIdAsync*(_: typedesc[MidiOutPort], deviceId: string): Future[MidiOutPort] {.async.} =
   ## Windows.Devices.Midi.MidiOutPort.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiOutPort", IID_IMidiOutPortStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IMidiOutPortStatics_FromIdAsync, Fn_IMidiOutPortStatics_FromIdAsync)(it, h0, op.addr).check("MidiOutPort.FromIdAsync")
   result = adopt[MidiOutPort](await awaitObject(op, IID_IAsyncOperation_1_IMidiOutPort, IID_AsyncOperationCompletedHandler_1_IMidiOutPort, "MidiOutPort.FromIdAsync"))
 
@@ -22390,11 +22390,11 @@ proc `type`*(self: MidiPitchBendChangeMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiPitchBendChangeMessage.get_Type")
     result = tmp
 
-proc createMidiPitchBendChangeMessage*(_: typedesc[MidiPitchBendChangeMessage], a1: uint8, a2: uint16): MidiPitchBendChangeMessage  =
+proc createMidiPitchBendChangeMessage*(_: typedesc[MidiPitchBendChangeMessage], channel: uint8, bend: uint16): MidiPitchBendChangeMessage  =
   ## Windows.Devices.Midi.MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage
   withStatics("Windows.Devices.Midi.MidiPitchBendChangeMessage", IID_IMidiPitchBendChangeMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage, Fn_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage)(it, a1, a2, tmp.addr).check("MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage")
+    vcall(it, Slot_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage, Fn_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage)(it, channel, bend, tmp.addr).check("MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage")
     result = adopt[MidiPitchBendChangeMessage](tmp)
 
 proc channel*(self: MidiPolyphonicKeyPressureMessage): uint8  =
@@ -22439,11 +22439,11 @@ proc `type`*(self: MidiPolyphonicKeyPressureMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiPolyphonicKeyPressureMessage.get_Type")
     result = tmp
 
-proc createMidiPolyphonicKeyPressureMessage*(_: typedesc[MidiPolyphonicKeyPressureMessage], a1: uint8, a2: uint8, a3: uint8): MidiPolyphonicKeyPressureMessage  =
+proc createMidiPolyphonicKeyPressureMessage*(_: typedesc[MidiPolyphonicKeyPressureMessage], channel: uint8, note: uint8, pressure: uint8): MidiPolyphonicKeyPressureMessage  =
   ## Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage
   withStatics("Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage", IID_IMidiPolyphonicKeyPressureMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage, Fn_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage)(it, a1, a2, a3, tmp.addr).check("MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage")
+    vcall(it, Slot_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage, Fn_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage)(it, channel, note, pressure, tmp.addr).check("MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage")
     result = adopt[MidiPolyphonicKeyPressureMessage](tmp)
 
 proc channel*(self: MidiProgramChangeMessage): uint8  =
@@ -22481,11 +22481,11 @@ proc `type`*(self: MidiProgramChangeMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiProgramChangeMessage.get_Type")
     result = tmp
 
-proc createMidiProgramChangeMessage*(_: typedesc[MidiProgramChangeMessage], a1: uint8, a2: uint8): MidiProgramChangeMessage  =
+proc createMidiProgramChangeMessage*(_: typedesc[MidiProgramChangeMessage], channel: uint8, program: uint8): MidiProgramChangeMessage  =
   ## Windows.Devices.Midi.MidiProgramChangeMessage.CreateMidiProgramChangeMessage
   withStatics("Windows.Devices.Midi.MidiProgramChangeMessage", IID_IMidiProgramChangeMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage, Fn_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage)(it, a1, a2, tmp.addr).check("MidiProgramChangeMessage.CreateMidiProgramChangeMessage")
+    vcall(it, Slot_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage, Fn_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage)(it, channel, program, tmp.addr).check("MidiProgramChangeMessage.CreateMidiProgramChangeMessage")
     result = adopt[MidiProgramChangeMessage](tmp)
 
 proc beats*(self: MidiSongPositionPointerMessage): uint16  =
@@ -22516,11 +22516,11 @@ proc `type`*(self: MidiSongPositionPointerMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiSongPositionPointerMessage.get_Type")
     result = tmp
 
-proc createMidiSongPositionPointerMessage*(_: typedesc[MidiSongPositionPointerMessage], a1: uint16): MidiSongPositionPointerMessage  =
+proc createMidiSongPositionPointerMessage*(_: typedesc[MidiSongPositionPointerMessage], beats: uint16): MidiSongPositionPointerMessage  =
   ## Windows.Devices.Midi.MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage
   withStatics("Windows.Devices.Midi.MidiSongPositionPointerMessage", IID_IMidiSongPositionPointerMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiSongPositionPointerMessageFactory_CreateMidiSongPositionPointerMessage, Fn_IMidiSongPositionPointerMessageFactory_CreateMidiSongPositionPointerMessage)(it, a1, tmp.addr).check("MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage")
+    vcall(it, Slot_IMidiSongPositionPointerMessageFactory_CreateMidiSongPositionPointerMessage, Fn_IMidiSongPositionPointerMessageFactory_CreateMidiSongPositionPointerMessage)(it, beats, tmp.addr).check("MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage")
     result = adopt[MidiSongPositionPointerMessage](tmp)
 
 proc song*(self: MidiSongSelectMessage): uint8  =
@@ -22551,11 +22551,11 @@ proc `type`*(self: MidiSongSelectMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiSongSelectMessage.get_Type")
     result = tmp
 
-proc createMidiSongSelectMessage*(_: typedesc[MidiSongSelectMessage], a1: uint8): MidiSongSelectMessage  =
+proc createMidiSongSelectMessage*(_: typedesc[MidiSongSelectMessage], song: uint8): MidiSongSelectMessage  =
   ## Windows.Devices.Midi.MidiSongSelectMessage.CreateMidiSongSelectMessage
   withStatics("Windows.Devices.Midi.MidiSongSelectMessage", IID_IMidiSongSelectMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiSongSelectMessageFactory_CreateMidiSongSelectMessage, Fn_IMidiSongSelectMessageFactory_CreateMidiSongSelectMessage)(it, a1, tmp.addr).check("MidiSongSelectMessage.CreateMidiSongSelectMessage")
+    vcall(it, Slot_IMidiSongSelectMessageFactory_CreateMidiSongSelectMessage, Fn_IMidiSongSelectMessageFactory_CreateMidiSongSelectMessage)(it, song, tmp.addr).check("MidiSongSelectMessage.CreateMidiSongSelectMessage")
     result = adopt[MidiSongSelectMessage](tmp)
 
 proc newMidiStartMessage*(): MidiStartMessage =
@@ -22627,16 +22627,16 @@ proc `volume=`*(self: MidiSynthesizer, value: float64)  =
   withIface(self.p, IID_IMidiSynthesizer, "IMidiSynthesizer", it):
     vcall(it, Slot_IMidiSynthesizer_put_Volume, Fn_IMidiSynthesizer_put_Volume)(it, value).check("MidiSynthesizer.put_Volume")
 
-proc sendMessage*(self: MidiSynthesizer, a1: MidiTuneRequestMessage)  =
+proc sendMessage*(self: MidiSynthesizer, midiMessage: MidiTuneRequestMessage)  =
   ## Windows.Devices.Midi.MidiSynthesizer.SendMessage
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    withIface(a1.p, IID_IMidiMessage, "IMidiMessage", p0):
+    withIface(midiMessage.p, IID_IMidiMessage, "IMidiMessage", p0):
       vcall(it, Slot_IMidiOutPort_SendMessage, Fn_IMidiOutPort_SendMessage)(it, p0).check("MidiSynthesizer.SendMessage")
 
-proc sendBuffer*(self: MidiSynthesizer, a1: pointer)  =
+proc sendBuffer*(self: MidiSynthesizer, midiData: pointer)  =
   ## Windows.Devices.Midi.MidiSynthesizer.SendBuffer
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, a1).check("MidiSynthesizer.SendBuffer")
+    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, midiData).check("MidiSynthesizer.SendBuffer")
 
 proc deviceId*(self: MidiSynthesizer): string  =
   ## Windows.Devices.Midi.MidiSynthesizer.get_DeviceId
@@ -22657,18 +22657,18 @@ proc createAsync*(_: typedesc[MidiSynthesizer]): Future[MidiSynthesizer] {.async
     vcall(it, Slot_IMidiSynthesizerStatics_CreateAsync, Fn_IMidiSynthesizerStatics_CreateAsync)(it, op.addr).check("MidiSynthesizer.CreateAsync")
   result = adopt[MidiSynthesizer](await awaitObject(op, IID_IAsyncOperation_1_MidiSynthesizer, IID_AsyncOperationCompletedHandler_1_MidiSynthesizer, "MidiSynthesizer.CreateAsync"))
 
-proc createAsync*(_: typedesc[MidiSynthesizer], a1: DeviceInformation): Future[MidiSynthesizer] {.async.} =
+proc createAsync*(_: typedesc[MidiSynthesizer], audioDevice: DeviceInformation): Future[MidiSynthesizer] {.async.} =
   ## Windows.Devices.Midi.MidiSynthesizer.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiSynthesizer", IID_IMidiSynthesizerStatics, it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+    withIface(audioDevice.p, IID_IDeviceInformation, "IDeviceInformation", p0):
       vcall(it, Slot_IMidiSynthesizerStatics_CreateAsync2, Fn_IMidiSynthesizerStatics_CreateAsync2)(it, p0, op.addr).check("MidiSynthesizer.CreateAsync")
   result = adopt[MidiSynthesizer](await awaitObject(op, IID_IAsyncOperation_1_MidiSynthesizer, IID_AsyncOperationCompletedHandler_1_MidiSynthesizer, "MidiSynthesizer.CreateAsync"))
 
-proc isSynthesizer*(_: typedesc[MidiSynthesizer], a1: DeviceInformation): bool  =
+proc isSynthesizer*(_: typedesc[MidiSynthesizer], midiDevice: DeviceInformation): bool  =
   ## Windows.Devices.Midi.MidiSynthesizer.IsSynthesizer
   withStatics("Windows.Devices.Midi.MidiSynthesizer", IID_IMidiSynthesizerStatics, it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+    withIface(midiDevice.p, IID_IDeviceInformation, "IDeviceInformation", p0):
       var tmp: bool
       vcall(it, Slot_IMidiSynthesizerStatics_IsSynthesizer, Fn_IMidiSynthesizerStatics_IsSynthesizer)(it, p0, tmp.addr).check("MidiSynthesizer.IsSynthesizer")
       result = tmp
@@ -22694,11 +22694,11 @@ proc `type`*(self: MidiSystemExclusiveMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiSystemExclusiveMessage.get_Type")
     result = tmp
 
-proc createMidiSystemExclusiveMessage*(_: typedesc[MidiSystemExclusiveMessage], a1: pointer): MidiSystemExclusiveMessage  =
+proc createMidiSystemExclusiveMessage*(_: typedesc[MidiSystemExclusiveMessage], rawData: pointer): MidiSystemExclusiveMessage  =
   ## Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage
   withStatics("Windows.Devices.Midi.MidiSystemExclusiveMessage", IID_IMidiSystemExclusiveMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage, Fn_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage)(it, a1, tmp.addr).check("MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage")
+    vcall(it, Slot_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage, Fn_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage)(it, rawData, tmp.addr).check("MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage")
     result = adopt[MidiSystemExclusiveMessage](tmp)
 
 proc newMidiSystemResetMessage*(): MidiSystemResetMessage =
@@ -22761,11 +22761,11 @@ proc `type`*(self: MidiTimeCodeMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiTimeCodeMessage.get_Type")
     result = tmp
 
-proc createMidiTimeCodeMessage*(_: typedesc[MidiTimeCodeMessage], a1: uint8, a2: uint8): MidiTimeCodeMessage  =
+proc createMidiTimeCodeMessage*(_: typedesc[MidiTimeCodeMessage], frameType: uint8, values: uint8): MidiTimeCodeMessage  =
   ## Windows.Devices.Midi.MidiTimeCodeMessage.CreateMidiTimeCodeMessage
   withStatics("Windows.Devices.Midi.MidiTimeCodeMessage", IID_IMidiTimeCodeMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage, Fn_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage)(it, a1, a2, tmp.addr).check("MidiTimeCodeMessage.CreateMidiTimeCodeMessage")
+    vcall(it, Slot_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage, Fn_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage)(it, frameType, values, tmp.addr).check("MidiTimeCodeMessage.CreateMidiTimeCodeMessage")
     result = adopt[MidiTimeCodeMessage](tmp)
 
 proc newMidiTimingClockMessage*(): MidiTimingClockMessage =
@@ -23278,45 +23278,45 @@ proc acquireControlSession*(self: PerceptionColorFrameSource): PerceptionControl
     vcall(it, Slot_IPerceptionColorFrameSource_AcquireControlSession, Fn_IPerceptionColorFrameSource_AcquireControlSession)(it, tmp.addr).check("PerceptionColorFrameSource.AcquireControlSession")
     result = adopt[PerceptionControlSession](tmp)
 
-proc canControlIndependentlyFrom*(self: PerceptionColorFrameSource, a1: string): bool  =
+proc canControlIndependentlyFrom*(self: PerceptionColorFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.CanControlIndependentlyFrom
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionColorFrameSource_CanControlIndependentlyFrom, Fn_IPerceptionColorFrameSource_CanControlIndependentlyFrom)(it, h0, tmp.addr).check("PerceptionColorFrameSource.CanControlIndependentlyFrom")
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionColorFrameSource, a1: string): bool  =
+proc isCorrelatedWith*(self: PerceptionColorFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.IsCorrelatedWith
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionColorFrameSource_IsCorrelatedWith, Fn_IPerceptionColorFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionColorFrameSource.IsCorrelatedWith")
       result = tmp
 
-proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionColorFrameSource, a1: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionColorFrameSource, correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
-    withIface(a1.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
+    withIface(correlatedDepthFrameSource.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
       vcall(it, Slot_IPerceptionColorFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync, Fn_IPerceptionColorFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync)(it, p0, op.addr).check("PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync")
   result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics, "PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
 
-proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionColorFrameSource, a1: string, a2: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionColorFrameSource, targetSourceId: string, correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
+    withHString(targetSourceId, h0):
+      withIface(correlatedDepthFrameSource.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
         vcall(it, Slot_IPerceptionColorFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync, Fn_IPerceptionColorFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync)(it, h0, p1, op.addr).check("PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync")
   result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper, "PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
 
-proc trySetVideoProfileAsync*(self: PerceptionColorFrameSource, a1: PerceptionControlSession, a2: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+proc trySetVideoProfileAsync*(self: PerceptionColorFrameSource, controlSession: PerceptionControlSession, profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
-    withIface(a1.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
-      withIface(a2.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
+    withIface(controlSession.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
+      withIface(profile.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
         vcall(it, Slot_IPerceptionColorFrameSource_TrySetVideoProfileAsync, Fn_IPerceptionColorFrameSource_TrySetVideoProfileAsync)(it, p0, p1, op.addr).check("PerceptionColorFrameSource.TrySetVideoProfileAsync")
   result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op, IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult, IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult, "PerceptionColorFrameSource.TrySetVideoProfileAsync"))
 
@@ -23350,11 +23350,11 @@ proc findAllAsync*(_: typedesc[PerceptionColorFrameSource]): Future[seq[Percepti
   result = toSeq[PerceptionColorFrameSource](coll, IID_IVectorView_1_PerceptionColorFrameSource)
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], a1: string): Future[PerceptionColorFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], id: string): Future[PerceptionColorFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionColorFrameSource", IID_IPerceptionColorFrameSourceStatics, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       vcall(it, Slot_IPerceptionColorFrameSourceStatics_FromIdAsync, Fn_IPerceptionColorFrameSourceStatics_FromIdAsync)(it, h0, op.addr).check("PerceptionColorFrameSource.FromIdAsync")
   result = adopt[PerceptionColorFrameSource](await awaitObject(op, IID_IAsyncOperation_1_PerceptionColorFrameSource, IID_AsyncOperationCompletedHandler_1_PerceptionColorFrameSource, "PerceptionColorFrameSource.FromIdAsync"))
 
@@ -23491,12 +23491,12 @@ proc removeControlLost*(self: PerceptionControlSession, token: EventRegistration
   withIface(self.p, IID_IPerceptionControlSession, "IPerceptionControlSession", it):
     vcall(it, Slot_IPerceptionControlSession_remove_ControlLost, Fn_IPerceptionControlSession_remove_ControlLost)(it, token).check("PerceptionControlSession.remove_ControlLost")
 
-proc trySetPropertyAsync*(self: PerceptionControlSession, a1: string, a2: pointer): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+proc trySetPropertyAsync*(self: PerceptionControlSession, name: string, value: pointer): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionControlSession.TrySetPropertyAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionControlSession, "IPerceptionControlSession", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IPerceptionControlSession_TrySetPropertyAsync, Fn_IPerceptionControlSession_TrySetPropertyAsync)(it, h0, a2, op.addr).check("PerceptionControlSession.TrySetPropertyAsync")
+    withHString(name, h0):
+      vcall(it, Slot_IPerceptionControlSession_TrySetPropertyAsync, Fn_IPerceptionControlSession_TrySetPropertyAsync)(it, h0, value, op.addr).check("PerceptionControlSession.TrySetPropertyAsync")
   result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op, IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult, IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult, "PerceptionControlSession.TrySetPropertyAsync"))
 
 proc close*(self: PerceptionControlSession)  =
@@ -23504,20 +23504,20 @@ proc close*(self: PerceptionControlSession)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PerceptionControlSession.Close")
 
-proc unprojectPixelAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntrinsics, a1: Point, a2: PerceptionDepthFrame): Vector3  =
+proc unprojectPixelAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntrinsics, pixelCoordinate: Point, depthFrame: PerceptionDepthFrame): Vector3  =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelAtCorrelatedDepth
   withIface(self.p, IID_IPerceptionDepthCorrelatedCameraIntrinsics, "IPerceptionDepthCorrelatedCameraIntrinsics", it):
-    withIface(a2.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
       var tmp: Vector3
-      vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth)(it, a1, p1, tmp.addr).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelAtCorrelatedDepth")
+      vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth)(it, pixelCoordinate, p1, tmp.addr).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelAtCorrelatedDepth")
       result = tmp
 
-proc mapPixelToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper, a1: Point, a2: PerceptionDepthFrame): Point  =
+proc mapPixelToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper, sourcePixelCoordinate: Point, depthFrame: PerceptionDepthFrame): Point  =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapPixelToTarget
   withIface(self.p, IID_IPerceptionDepthCorrelatedCoordinateMapper, "IPerceptionDepthCorrelatedCoordinateMapper", it):
-    withIface(a2.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
       var tmp: Point
-      vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget)(it, a1, p1, tmp.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapPixelToTarget")
+      vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget)(it, sourcePixelCoordinate, p1, tmp.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapPixelToTarget")
       result = tmp
 
 proc close*(self: PerceptionDepthFrame)  =
@@ -23756,45 +23756,45 @@ proc acquireControlSession*(self: PerceptionDepthFrameSource): PerceptionControl
     vcall(it, Slot_IPerceptionDepthFrameSource_AcquireControlSession, Fn_IPerceptionDepthFrameSource_AcquireControlSession)(it, tmp.addr).check("PerceptionDepthFrameSource.AcquireControlSession")
     result = adopt[PerceptionControlSession](tmp)
 
-proc canControlIndependentlyFrom*(self: PerceptionDepthFrameSource, a1: string): bool  =
+proc canControlIndependentlyFrom*(self: PerceptionDepthFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.CanControlIndependentlyFrom
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionDepthFrameSource_CanControlIndependentlyFrom, Fn_IPerceptionDepthFrameSource_CanControlIndependentlyFrom)(it, h0, tmp.addr).check("PerceptionDepthFrameSource.CanControlIndependentlyFrom")
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionDepthFrameSource, a1: string): bool  =
+proc isCorrelatedWith*(self: PerceptionDepthFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.IsCorrelatedWith
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionDepthFrameSource_IsCorrelatedWith, Fn_IPerceptionDepthFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionDepthFrameSource.IsCorrelatedWith")
       result = tmp
 
-proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionDepthFrameSource, a1: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionDepthFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
-    withIface(a1.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
+    withIface(target.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
       vcall(it, Slot_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync, Fn_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync)(it, p0, op.addr).check("PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync")
   result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics, "PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
 
-proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionDepthFrameSource, a1: string, a2: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionDepthFrameSource, targetId: string, depthFrameSourceToMapWith: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
+    withHString(targetId, h0):
+      withIface(depthFrameSourceToMapWith.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
         vcall(it, Slot_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync, Fn_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync)(it, h0, p1, op.addr).check("PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync")
   result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper, "PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
 
-proc trySetVideoProfileAsync*(self: PerceptionDepthFrameSource, a1: PerceptionControlSession, a2: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+proc trySetVideoProfileAsync*(self: PerceptionDepthFrameSource, controlSession: PerceptionControlSession, profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
-    withIface(a1.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
-      withIface(a2.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
+    withIface(controlSession.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
+      withIface(profile.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
         vcall(it, Slot_IPerceptionDepthFrameSource_TrySetVideoProfileAsync, Fn_IPerceptionDepthFrameSource_TrySetVideoProfileAsync)(it, p0, p1, op.addr).check("PerceptionDepthFrameSource.TrySetVideoProfileAsync")
   result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op, IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult, IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult, "PerceptionDepthFrameSource.TrySetVideoProfileAsync"))
 
@@ -23828,11 +23828,11 @@ proc findAllAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[seq[Percepti
   result = toSeq[PerceptionDepthFrameSource](coll, IID_IVectorView_1_PerceptionDepthFrameSource)
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], a1: string): Future[PerceptionDepthFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], id: string): Future[PerceptionDepthFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionDepthFrameSource", IID_IPerceptionDepthFrameSourceStatics, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       vcall(it, Slot_IPerceptionDepthFrameSourceStatics_FromIdAsync, Fn_IPerceptionDepthFrameSourceStatics_FromIdAsync)(it, h0, op.addr).check("PerceptionDepthFrameSource.FromIdAsync")
   result = adopt[PerceptionDepthFrameSource](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthFrameSource, IID_AsyncOperationCompletedHandler_1_PerceptionDepthFrameSource, "PerceptionDepthFrameSource.FromIdAsync"))
 
@@ -24207,45 +24207,45 @@ proc acquireControlSession*(self: PerceptionInfraredFrameSource): PerceptionCont
     vcall(it, Slot_IPerceptionInfraredFrameSource_AcquireControlSession, Fn_IPerceptionInfraredFrameSource_AcquireControlSession)(it, tmp.addr).check("PerceptionInfraredFrameSource.AcquireControlSession")
     result = adopt[PerceptionControlSession](tmp)
 
-proc canControlIndependentlyFrom*(self: PerceptionInfraredFrameSource, a1: string): bool  =
+proc canControlIndependentlyFrom*(self: PerceptionInfraredFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.CanControlIndependentlyFrom
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionInfraredFrameSource_CanControlIndependentlyFrom, Fn_IPerceptionInfraredFrameSource_CanControlIndependentlyFrom)(it, h0, tmp.addr).check("PerceptionInfraredFrameSource.CanControlIndependentlyFrom")
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, a1: string): bool  =
+proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, targetId: string): bool  =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.IsCorrelatedWith
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: bool
       vcall(it, Slot_IPerceptionInfraredFrameSource_IsCorrelatedWith, Fn_IPerceptionInfraredFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionInfraredFrameSource.IsCorrelatedWith")
       result = tmp
 
-proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionInfraredFrameSource, a1: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionInfraredFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
-    withIface(a1.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
+    withIface(target.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p0):
       vcall(it, Slot_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync, Fn_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync)(it, p0, op.addr).check("PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync")
   result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics, "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
 
-proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionInfraredFrameSource, a1: string, a2: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionInfraredFrameSource, targetId: string, depthFrameSourceToMapWith: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
+    withHString(targetId, h0):
+      withIface(depthFrameSourceToMapWith.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", p1):
         vcall(it, Slot_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync, Fn_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync)(it, h0, p1, op.addr).check("PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync")
   result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op, IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper, IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper, "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
 
-proc trySetVideoProfileAsync*(self: PerceptionInfraredFrameSource, a1: PerceptionControlSession, a2: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+proc trySetVideoProfileAsync*(self: PerceptionInfraredFrameSource, controlSession: PerceptionControlSession, profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
-    withIface(a1.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
-      withIface(a2.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
+    withIface(controlSession.p, IID_IPerceptionControlSession, "IPerceptionControlSession", p0):
+      withIface(profile.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p1):
         vcall(it, Slot_IPerceptionInfraredFrameSource_TrySetVideoProfileAsync, Fn_IPerceptionInfraredFrameSource_TrySetVideoProfileAsync)(it, p0, p1, op.addr).check("PerceptionInfraredFrameSource.TrySetVideoProfileAsync")
   result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op, IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult, IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult, "PerceptionInfraredFrameSource.TrySetVideoProfileAsync"))
 
@@ -24279,11 +24279,11 @@ proc findAllAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[seq[Perce
   result = toSeq[PerceptionInfraredFrameSource](coll, IID_IVectorView_1_PerceptionInfraredFrameSource)
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], a1: string): Future[PerceptionInfraredFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], id: string): Future[PerceptionInfraredFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionInfraredFrameSource", IID_IPerceptionInfraredFrameSourceStatics, it):
-    withHString(a1, h0):
+    withHString(id, h0):
       vcall(it, Slot_IPerceptionInfraredFrameSourceStatics_FromIdAsync, Fn_IPerceptionInfraredFrameSourceStatics_FromIdAsync)(it, h0, op.addr).check("PerceptionInfraredFrameSource.FromIdAsync")
   result = adopt[PerceptionInfraredFrameSource](await awaitObject(op, IID_IAsyncOperation_1_PerceptionInfraredFrameSource, IID_AsyncOperationCompletedHandler_1_PerceptionInfraredFrameSource, "PerceptionInfraredFrameSource.FromIdAsync"))
 
@@ -24422,10 +24422,10 @@ proc frameDuration*(self: PerceptionVideoProfile): TimeSpan  =
     vcall(it, Slot_IPerceptionVideoProfile_get_FrameDuration, Fn_IPerceptionVideoProfile_get_FrameDuration)(it, tmp.addr).check("PerceptionVideoProfile.get_FrameDuration")
     result = tmp
 
-proc isEqual*(self: PerceptionVideoProfile, a1: PerceptionVideoProfile): bool  =
+proc isEqual*(self: PerceptionVideoProfile, other: PerceptionVideoProfile): bool  =
   ## Windows.Devices.Perception.PerceptionVideoProfile.IsEqual
   withIface(self.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", it):
-    withIface(a1.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p0):
+    withIface(other.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", p0):
       var tmp: bool
       vcall(it, Slot_IPerceptionVideoProfile_IsEqual, Fn_IPerceptionVideoProfile_IsEqual)(it, p0, tmp.addr).check("PerceptionVideoProfile.IsEqual")
       result = tmp
@@ -24480,12 +24480,12 @@ proc orientation*(self: PerceptionCorrelation): Quaternion  =
     vcall(it, Slot_IPerceptionCorrelation_get_Orientation, Fn_IPerceptionCorrelation_get_Orientation)(it, tmp.addr).check("PerceptionCorrelation.get_Orientation")
     result = tmp
 
-proc create*(_: typedesc[PerceptionCorrelation], a1: string, a2: Vector3, a3: Quaternion): PerceptionCorrelation  =
+proc create*(_: typedesc[PerceptionCorrelation], targetId: string, position: Vector3, orientation: Quaternion): PerceptionCorrelation  =
   ## Windows.Devices.Perception.Provider.PerceptionCorrelation.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionCorrelation", IID_IPerceptionCorrelationFactory, it):
-    withHString(a1, h0):
+    withHString(targetId, h0):
       var tmp: pointer
-      vcall(it, Slot_IPerceptionCorrelationFactory_Create, Fn_IPerceptionCorrelationFactory_Create)(it, h0, a2, a3, tmp.addr).check("PerceptionCorrelation.Create")
+      vcall(it, Slot_IPerceptionCorrelationFactory_Create, Fn_IPerceptionCorrelationFactory_Create)(it, h0, position, orientation, tmp.addr).check("PerceptionCorrelation.Create")
       result = adopt[PerceptionCorrelation](tmp)
 
 proc relativeLocations*(self: PerceptionCorrelationGroup): seq[PerceptionCorrelation]  =
@@ -24598,64 +24598,64 @@ proc `hidden=`*(self: PerceptionFrameProviderInfo, value: bool)  =
   withIface(self.p, IID_IPerceptionFrameProviderInfo, "IPerceptionFrameProviderInfo", it):
     vcall(it, Slot_IPerceptionFrameProviderInfo_put_Hidden, Fn_IPerceptionFrameProviderInfo_put_Hidden)(it, value).check("PerceptionFrameProviderInfo.put_Hidden")
 
-proc registerFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionFrameProviderInfo)  =
+proc registerFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, frameProviderInfo: PerceptionFrameProviderInfo)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterFrameProviderInfo
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionFrameProviderInfo, "IPerceptionFrameProviderInfo", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterFrameProviderInfo, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterFrameProviderInfo)(it, a1, p1).check("PerceptionFrameProviderManagerService.RegisterFrameProviderInfo")
+    withIface(frameProviderInfo.p, IID_IPerceptionFrameProviderInfo, "IPerceptionFrameProviderInfo", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterFrameProviderInfo, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterFrameProviderInfo)(it, manager, p1).check("PerceptionFrameProviderManagerService.RegisterFrameProviderInfo")
 
-proc unregisterFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionFrameProviderInfo)  =
+proc unregisterFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, frameProviderInfo: PerceptionFrameProviderInfo)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterFrameProviderInfo
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionFrameProviderInfo, "IPerceptionFrameProviderInfo", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterFrameProviderInfo, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterFrameProviderInfo)(it, a1, p1).check("PerceptionFrameProviderManagerService.UnregisterFrameProviderInfo")
+    withIface(frameProviderInfo.p, IID_IPerceptionFrameProviderInfo, "IPerceptionFrameProviderInfo", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterFrameProviderInfo, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterFrameProviderInfo)(it, manager, p1).check("PerceptionFrameProviderManagerService.UnregisterFrameProviderInfo")
 
-proc registerFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionFaceAuthenticationGroup)  =
+proc registerFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, faceAuthenticationGroup: PerceptionFaceAuthenticationGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterFaceAuthenticationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterFaceAuthenticationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterFaceAuthenticationGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.RegisterFaceAuthenticationGroup")
+    withIface(faceAuthenticationGroup.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterFaceAuthenticationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterFaceAuthenticationGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.RegisterFaceAuthenticationGroup")
 
-proc unregisterFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionFaceAuthenticationGroup)  =
+proc unregisterFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, faceAuthenticationGroup: PerceptionFaceAuthenticationGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterFaceAuthenticationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterFaceAuthenticationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterFaceAuthenticationGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.UnregisterFaceAuthenticationGroup")
+    withIface(faceAuthenticationGroup.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterFaceAuthenticationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterFaceAuthenticationGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.UnregisterFaceAuthenticationGroup")
 
-proc registerControlGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionControlGroup)  =
+proc registerControlGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, controlGroup: PerceptionControlGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterControlGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterControlGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterControlGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.RegisterControlGroup")
+    withIface(controlGroup.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterControlGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterControlGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.RegisterControlGroup")
 
-proc unregisterControlGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionControlGroup)  =
+proc unregisterControlGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, controlGroup: PerceptionControlGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterControlGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterControlGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterControlGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.UnregisterControlGroup")
+    withIface(controlGroup.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterControlGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterControlGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.UnregisterControlGroup")
 
-proc registerCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionCorrelationGroup)  =
+proc registerCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, correlationGroup: PerceptionCorrelationGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterCorrelationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionCorrelationGroup, "IPerceptionCorrelationGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterCorrelationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterCorrelationGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.RegisterCorrelationGroup")
+    withIface(correlationGroup.p, IID_IPerceptionCorrelationGroup, "IPerceptionCorrelationGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_RegisterCorrelationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_RegisterCorrelationGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.RegisterCorrelationGroup")
 
-proc unregisterCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionCorrelationGroup)  =
+proc unregisterCorrelationGroup*(_: typedesc[PerceptionFrameProviderManagerService], manager: pointer, correlationGroup: PerceptionCorrelationGroup)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterCorrelationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionCorrelationGroup, "IPerceptionCorrelationGroup", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterCorrelationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterCorrelationGroup)(it, a1, p1).check("PerceptionFrameProviderManagerService.UnregisterCorrelationGroup")
+    withIface(correlationGroup.p, IID_IPerceptionCorrelationGroup, "IPerceptionCorrelationGroup", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UnregisterCorrelationGroup, Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterCorrelationGroup)(it, manager, p1).check("PerceptionFrameProviderManagerService.UnregisterCorrelationGroup")
 
-proc updateAvailabilityForProvider*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: bool)  =
+proc updateAvailabilityForProvider*(_: typedesc[PerceptionFrameProviderManagerService], provider: pointer, available: bool)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UpdateAvailabilityForProvider
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider, Fn_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider)(it, a1, a2).check("PerceptionFrameProviderManagerService.UpdateAvailabilityForProvider")
+    vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider, Fn_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider)(it, provider, available).check("PerceptionFrameProviderManagerService.UpdateAvailabilityForProvider")
 
-proc publishFrameForProvider*(_: typedesc[PerceptionFrameProviderManagerService], a1: pointer, a2: PerceptionFrame)  =
+proc publishFrameForProvider*(_: typedesc[PerceptionFrameProviderManagerService], provider: pointer, frame: PerceptionFrame)  =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.PublishFrameForProvider
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService", IID_IPerceptionFrameProviderManagerServiceStatics, it):
-    withIface(a2.p, IID_IPerceptionFrame, "IPerceptionFrame", p1):
-      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider, Fn_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider)(it, a1, p1).check("PerceptionFrameProviderManagerService.PublishFrameForProvider")
+    withIface(frame.p, IID_IPerceptionFrame, "IPerceptionFrame", p1):
+      vcall(it, Slot_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider, Fn_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider)(it, provider, p1).check("PerceptionFrameProviderManagerService.PublishFrameForProvider")
 
 proc name*(self: PerceptionPropertyChangeRequest): string  =
   ## Windows.Devices.Perception.Provider.PerceptionPropertyChangeRequest.get_Name
@@ -24723,18 +24723,18 @@ proc claimScannerAsync*(self: BarcodeScanner): Future[ClaimedBarcodeScanner] {.a
     vcall(it, Slot_IBarcodeScanner_ClaimScannerAsync, Fn_IBarcodeScanner_ClaimScannerAsync)(it, op.addr).check("BarcodeScanner.ClaimScannerAsync")
   result = adopt[ClaimedBarcodeScanner](await awaitObject(op, IID_IAsyncOperation_1_ClaimedBarcodeScanner, IID_AsyncOperationCompletedHandler_1_ClaimedBarcodeScanner, "BarcodeScanner.ClaimScannerAsync"))
 
-proc checkHealthAsync*(self: BarcodeScanner, a1: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: BarcodeScanner, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.CheckHealthAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
-    vcall(it, Slot_IBarcodeScanner_CheckHealthAsync, Fn_IBarcodeScanner_CheckHealthAsync)(it, a1, op.addr).check("BarcodeScanner.CheckHealthAsync")
+    vcall(it, Slot_IBarcodeScanner_CheckHealthAsync, Fn_IBarcodeScanner_CheckHealthAsync)(it, level, op.addr).check("BarcodeScanner.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "BarcodeScanner.CheckHealthAsync")
 
-proc isSymbologySupportedAsync*(self: BarcodeScanner, a1: uint32): Future[bool] {.async.} =
+proc isSymbologySupportedAsync*(self: BarcodeScanner, barcodeSymbology: uint32): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.IsSymbologySupportedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
-    vcall(it, Slot_IBarcodeScanner_IsSymbologySupportedAsync, Fn_IBarcodeScanner_IsSymbologySupportedAsync)(it, a1, op.addr).check("BarcodeScanner.IsSymbologySupportedAsync")
+    vcall(it, Slot_IBarcodeScanner_IsSymbologySupportedAsync, Fn_IBarcodeScanner_IsSymbologySupportedAsync)(it, barcodeSymbology, op.addr).check("BarcodeScanner.IsSymbologySupportedAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BarcodeScanner.IsSymbologySupportedAsync")
 
 proc getSupportedProfiles*(self: BarcodeScanner): seq[string]  =
@@ -24745,10 +24745,10 @@ proc getSupportedProfiles*(self: BarcodeScanner): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc isProfileSupported*(self: BarcodeScanner, a1: string): bool  =
+proc isProfileSupported*(self: BarcodeScanner, profile: string): bool  =
   ## Windows.Devices.PointOfService.BarcodeScanner.IsProfileSupported
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
-    withHString(a1, h0):
+    withHString(profile, h0):
       var tmp: bool
       vcall(it, Slot_IBarcodeScanner_IsProfileSupported, Fn_IBarcodeScanner_IsProfileSupported)(it, h0, tmp.addr).check("BarcodeScanner.IsProfileSupported")
       result = tmp
@@ -24791,11 +24791,11 @@ proc getDefaultAsync*(_: typedesc[BarcodeScanner]): Future[BarcodeScanner] {.asy
     vcall(it, Slot_IBarcodeScannerStatics_GetDefaultAsync, Fn_IBarcodeScannerStatics_GetDefaultAsync)(it, op.addr).check("BarcodeScanner.GetDefaultAsync")
   result = adopt[BarcodeScanner](await awaitObject(op, IID_IAsyncOperation_1_BarcodeScanner, IID_AsyncOperationCompletedHandler_1_BarcodeScanner, "BarcodeScanner.GetDefaultAsync"))
 
-proc fromIdAsync*(_: typedesc[BarcodeScanner], a1: string): Future[BarcodeScanner] {.async.} =
+proc fromIdAsync*(_: typedesc[BarcodeScanner], deviceId: string): Future[BarcodeScanner] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.BarcodeScanner", IID_IBarcodeScannerStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBarcodeScannerStatics_FromIdAsync, Fn_IBarcodeScannerStatics_FromIdAsync)(it, h0, op.addr).check("BarcodeScanner.FromIdAsync")
   result = adopt[BarcodeScanner](await awaitObject(op, IID_IAsyncOperation_1_BarcodeScanner, IID_AsyncOperationCompletedHandler_1_BarcodeScanner, "BarcodeScanner.FromIdAsync"))
 
@@ -24806,11 +24806,11 @@ proc getDeviceSelector*(_: typedesc[BarcodeScanner]): string  =
     vcall(it, Slot_IBarcodeScannerStatics_GetDeviceSelector, Fn_IBarcodeScannerStatics_GetDeviceSelector)(it, tmp.addr).check("BarcodeScanner.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[BarcodeScanner], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[BarcodeScanner], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.BarcodeScanner.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.BarcodeScanner", IID_IBarcodeScannerStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBarcodeScannerStatics2_GetDeviceSelector, Fn_IBarcodeScannerStatics2_GetDeviceSelector)(it, a1, tmp.addr).check("BarcodeScanner.GetDeviceSelector")
+    vcall(it, Slot_IBarcodeScannerStatics2_GetDeviceSelector, Fn_IBarcodeScannerStatics2_GetDeviceSelector)(it, connectionTypes, tmp.addr).check("BarcodeScanner.GetDeviceSelector")
     result = takeString(tmp)
 
 proc powerReportingType*(self: BarcodeScannerCapabilities): UnifiedPosPowerReportingType  =
@@ -24911,11 +24911,11 @@ proc scanDataLabel*(self: BarcodeScannerReport): pointer  =
     vcall(it, Slot_IBarcodeScannerReport_get_ScanDataLabel, Fn_IBarcodeScannerReport_get_ScanDataLabel)(it, tmp.addr).check("BarcodeScannerReport.get_ScanDataLabel")
     result = tmp
 
-proc createInstance*(_: typedesc[BarcodeScannerReport], a1: uint32, a2: pointer, a3: pointer): BarcodeScannerReport  =
+proc createInstance*(_: typedesc[BarcodeScannerReport], scanDataType: uint32, scanData: pointer, scanDataLabel: pointer): BarcodeScannerReport  =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance
   withStatics("Windows.Devices.PointOfService.BarcodeScannerReport", IID_IBarcodeScannerReportFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IBarcodeScannerReportFactory_CreateInstance, Fn_IBarcodeScannerReportFactory_CreateInstance)(it, a1, a2, a3, tmp.addr).check("BarcodeScannerReport.CreateInstance")
+    vcall(it, Slot_IBarcodeScannerReportFactory_CreateInstance, Fn_IBarcodeScannerReportFactory_CreateInstance)(it, scanDataType, scanData, scanDataLabel, tmp.addr).check("BarcodeScannerReport.CreateInstance")
     result = adopt[BarcodeScannerReport](tmp)
 
 proc status*(self: BarcodeScannerStatusUpdatedEventArgs): BarcodeScannerStatus  =
@@ -25590,11 +25590,11 @@ proc extendedBase*(_: typedesc[BarcodeSymbologies]): uint32  =
     vcall(it, Slot_IBarcodeSymbologiesStatics_get_ExtendedBase, Fn_IBarcodeSymbologiesStatics_get_ExtendedBase)(it, tmp.addr).check("BarcodeSymbologies.get_ExtendedBase")
     result = tmp
 
-proc getName*(_: typedesc[BarcodeSymbologies], a1: uint32): string  =
+proc getName*(_: typedesc[BarcodeSymbologies], scanDataType: uint32): string  =
   ## Windows.Devices.PointOfService.BarcodeSymbologies.GetName
   withStatics("Windows.Devices.PointOfService.BarcodeSymbologies", IID_IBarcodeSymbologiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IBarcodeSymbologiesStatics_GetName, Fn_IBarcodeSymbologiesStatics_GetName)(it, a1, tmp.addr).check("BarcodeSymbologies.GetName")
+    vcall(it, Slot_IBarcodeSymbologiesStatics_GetName, Fn_IBarcodeSymbologiesStatics_GetName)(it, scanDataType, tmp.addr).check("BarcodeSymbologies.GetName")
     result = takeString(tmp)
 
 proc isCheckDigitValidationEnabled*(self: BarcodeSymbologyAttributes): bool  =
@@ -25720,11 +25720,11 @@ proc claimDrawerAsync*(self: CashDrawer): Future[ClaimedCashDrawer] {.async.} =
     vcall(it, Slot_ICashDrawer_ClaimDrawerAsync, Fn_ICashDrawer_ClaimDrawerAsync)(it, op.addr).check("CashDrawer.ClaimDrawerAsync")
   result = adopt[ClaimedCashDrawer](await awaitObject(op, IID_IAsyncOperation_1_ClaimedCashDrawer, IID_AsyncOperationCompletedHandler_1_ClaimedCashDrawer, "CashDrawer.ClaimDrawerAsync"))
 
-proc checkHealthAsync*(self: CashDrawer, a1: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: CashDrawer, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.CashDrawer.CheckHealthAsync
   var op: pointer
   withIface(self.p, IID_ICashDrawer, "ICashDrawer", it):
-    vcall(it, Slot_ICashDrawer_CheckHealthAsync, Fn_ICashDrawer_CheckHealthAsync)(it, a1, op.addr).check("CashDrawer.CheckHealthAsync")
+    vcall(it, Slot_ICashDrawer_CheckHealthAsync, Fn_ICashDrawer_CheckHealthAsync)(it, level, op.addr).check("CashDrawer.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CashDrawer.CheckHealthAsync")
 
 proc onStatusUpdated*(self: CashDrawer,
@@ -25751,11 +25751,11 @@ proc close*(self: CashDrawer)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CashDrawer.Close")
 
-proc getDeviceSelector*(_: typedesc[CashDrawer], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[CashDrawer], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.CashDrawer.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.CashDrawer", IID_ICashDrawerStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_ICashDrawerStatics2_GetDeviceSelector, Fn_ICashDrawerStatics2_GetDeviceSelector)(it, a1, tmp.addr).check("CashDrawer.GetDeviceSelector")
+    vcall(it, Slot_ICashDrawerStatics2_GetDeviceSelector, Fn_ICashDrawerStatics2_GetDeviceSelector)(it, connectionTypes, tmp.addr).check("CashDrawer.GetDeviceSelector")
     result = takeString(tmp)
 
 proc getDefaultAsync*(_: typedesc[CashDrawer]): Future[CashDrawer] {.async.} =
@@ -25765,11 +25765,11 @@ proc getDefaultAsync*(_: typedesc[CashDrawer]): Future[CashDrawer] {.async.} =
     vcall(it, Slot_ICashDrawerStatics_GetDefaultAsync, Fn_ICashDrawerStatics_GetDefaultAsync)(it, op.addr).check("CashDrawer.GetDefaultAsync")
   result = adopt[CashDrawer](await awaitObject(op, IID_IAsyncOperation_1_CashDrawer, IID_AsyncOperationCompletedHandler_1_CashDrawer, "CashDrawer.GetDefaultAsync"))
 
-proc fromIdAsync*(_: typedesc[CashDrawer], a1: string): Future[CashDrawer] {.async.} =
+proc fromIdAsync*(_: typedesc[CashDrawer], deviceId: string): Future[CashDrawer] {.async.} =
   ## Windows.Devices.PointOfService.CashDrawer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.CashDrawer", IID_ICashDrawerStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ICashDrawerStatics_FromIdAsync, Fn_ICashDrawerStatics_FromIdAsync)(it, h0, op.addr).check("CashDrawer.FromIdAsync")
   result = adopt[CashDrawer](await awaitObject(op, IID_IAsyncOperation_1_CashDrawer, IID_AsyncOperationCompletedHandler_1_CashDrawer, "CashDrawer.FromIdAsync"))
 
@@ -26026,11 +26026,11 @@ proc retainDevice*(self: ClaimedBarcodeScanner)  =
   withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
     vcall(it, Slot_IClaimedBarcodeScanner_RetainDevice, Fn_IClaimedBarcodeScanner_RetainDevice)(it).check("ClaimedBarcodeScanner.RetainDevice")
 
-proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, a1: string) {.async.} =
+proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetActiveProfileAsync
   var op: pointer
   withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
-    withHString(a1, h0):
+    withHString(profile, h0):
       vcall(it, Slot_IClaimedBarcodeScanner_SetActiveProfileAsync, Fn_IClaimedBarcodeScanner_SetActiveProfileAsync)(it, h0, op.addr).check("ClaimedBarcodeScanner.SetActiveProfileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedBarcodeScanner.SetActiveProfileAsync")
 
@@ -26162,19 +26162,19 @@ proc stopSoftwareTriggerAsync*(self: ClaimedBarcodeScanner) {.async.} =
     vcall(it, Slot_IClaimedBarcodeScanner1_StopSoftwareTriggerAsync, Fn_IClaimedBarcodeScanner1_StopSoftwareTriggerAsync)(it, op.addr).check("ClaimedBarcodeScanner.StopSoftwareTriggerAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedBarcodeScanner.StopSoftwareTriggerAsync")
 
-proc getSymbologyAttributesAsync*(self: ClaimedBarcodeScanner, a1: uint32): Future[BarcodeSymbologyAttributes] {.async.} =
+proc getSymbologyAttributesAsync*(self: ClaimedBarcodeScanner, barcodeSymbology: uint32): Future[BarcodeSymbologyAttributes] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.GetSymbologyAttributesAsync
   var op: pointer
   withIface(self.p, IID_IClaimedBarcodeScanner2, "IClaimedBarcodeScanner2", it):
-    vcall(it, Slot_IClaimedBarcodeScanner2_GetSymbologyAttributesAsync, Fn_IClaimedBarcodeScanner2_GetSymbologyAttributesAsync)(it, a1, op.addr).check("ClaimedBarcodeScanner.GetSymbologyAttributesAsync")
+    vcall(it, Slot_IClaimedBarcodeScanner2_GetSymbologyAttributesAsync, Fn_IClaimedBarcodeScanner2_GetSymbologyAttributesAsync)(it, barcodeSymbology, op.addr).check("ClaimedBarcodeScanner.GetSymbologyAttributesAsync")
   result = adopt[BarcodeSymbologyAttributes](await awaitObject(op, IID_IAsyncOperation_1_BarcodeSymbologyAttributes, IID_AsyncOperationCompletedHandler_1_BarcodeSymbologyAttributes, "ClaimedBarcodeScanner.GetSymbologyAttributesAsync"))
 
-proc setSymbologyAttributesAsync*(self: ClaimedBarcodeScanner, a1: uint32, a2: BarcodeSymbologyAttributes): Future[bool] {.async.} =
+proc setSymbologyAttributesAsync*(self: ClaimedBarcodeScanner, barcodeSymbology: uint32, attributes: BarcodeSymbologyAttributes): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetSymbologyAttributesAsync
   var op: pointer
   withIface(self.p, IID_IClaimedBarcodeScanner2, "IClaimedBarcodeScanner2", it):
-    withIface(a2.p, IID_IBarcodeSymbologyAttributes, "IBarcodeSymbologyAttributes", p1):
-      vcall(it, Slot_IClaimedBarcodeScanner2_SetSymbologyAttributesAsync, Fn_IClaimedBarcodeScanner2_SetSymbologyAttributesAsync)(it, a1, p1, op.addr).check("ClaimedBarcodeScanner.SetSymbologyAttributesAsync")
+    withIface(attributes.p, IID_IBarcodeSymbologyAttributes, "IBarcodeSymbologyAttributes", p1):
+      vcall(it, Slot_IClaimedBarcodeScanner2_SetSymbologyAttributesAsync, Fn_IClaimedBarcodeScanner2_SetSymbologyAttributesAsync)(it, barcodeSymbology, p1, op.addr).check("ClaimedBarcodeScanner.SetSymbologyAttributesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedBarcodeScanner.SetSymbologyAttributesAsync")
 
 proc showVideoPreviewAsync*(self: ClaimedBarcodeScanner): Future[bool] {.async.} =
@@ -26447,10 +26447,10 @@ proc isReadyToPrint*(self: ClaimedJournalPrinter): bool  =
     vcall(it, Slot_ICommonClaimedPosPrinterStation_get_IsReadyToPrint, Fn_ICommonClaimedPosPrinterStation_get_IsReadyToPrint)(it, tmp.addr).check("ClaimedJournalPrinter.get_IsReadyToPrint")
     result = tmp
 
-proc validateData*(self: ClaimedJournalPrinter, a1: string): bool  =
+proc validateData*(self: ClaimedJournalPrinter, data: string): bool  =
   ## Windows.Devices.PointOfService.ClaimedJournalPrinter.ValidateData
   withIface(self.p, IID_ICommonClaimedPosPrinterStation, "ICommonClaimedPosPrinterStation", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: bool
       vcall(it, Slot_ICommonClaimedPosPrinterStation_ValidateData, Fn_ICommonClaimedPosPrinterStation_ValidateData)(it, h0, tmp.addr).check("ClaimedJournalPrinter.ValidateData")
       result = tmp
@@ -26535,11 +26535,11 @@ proc removeReleaseDeviceRequested*(self: ClaimedLineDisplay, token: EventRegistr
   withIface(self.p, IID_IClaimedLineDisplay, "IClaimedLineDisplay", it):
     vcall(it, Slot_IClaimedLineDisplay_remove_ReleaseDeviceRequested, Fn_IClaimedLineDisplay_remove_ReleaseDeviceRequested)(it, token).check("ClaimedLineDisplay.remove_ReleaseDeviceRequested")
 
-proc checkHealthAsync*(self: ClaimedLineDisplay, a1: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: ClaimedLineDisplay, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.CheckHealthAsync
   var op: pointer
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
-    vcall(it, Slot_IClaimedLineDisplay2_CheckHealthAsync, Fn_IClaimedLineDisplay2_CheckHealthAsync)(it, a1, op.addr).check("ClaimedLineDisplay.CheckHealthAsync")
+    vcall(it, Slot_IClaimedLineDisplay2_CheckHealthAsync, Fn_IClaimedLineDisplay2_CheckHealthAsync)(it, level, op.addr).check("ClaimedLineDisplay.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ClaimedLineDisplay.CheckHealthAsync")
 
 proc checkPowerStatusAsync*(self: ClaimedLineDisplay): Future[LineDisplayPowerStatus] {.async.} =
@@ -26589,19 +26589,19 @@ proc getAttributes*(self: ClaimedLineDisplay): LineDisplayAttributes  =
     vcall(it, Slot_IClaimedLineDisplay2_GetAttributes, Fn_IClaimedLineDisplay2_GetAttributes)(it, tmp.addr).check("ClaimedLineDisplay.GetAttributes")
     result = adopt[LineDisplayAttributes](tmp)
 
-proc tryUpdateAttributesAsync*(self: ClaimedLineDisplay, a1: LineDisplayAttributes): Future[bool] {.async.} =
+proc tryUpdateAttributesAsync*(self: ClaimedLineDisplay, attributes: LineDisplayAttributes): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryUpdateAttributesAsync
   var op: pointer
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
-    withIface(a1.p, IID_ILineDisplayAttributes, "ILineDisplayAttributes", p0):
+    withIface(attributes.p, IID_ILineDisplayAttributes, "ILineDisplayAttributes", p0):
       vcall(it, Slot_IClaimedLineDisplay2_TryUpdateAttributesAsync, Fn_IClaimedLineDisplay2_TryUpdateAttributesAsync)(it, p0, op.addr).check("ClaimedLineDisplay.TryUpdateAttributesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedLineDisplay.TryUpdateAttributesAsync")
 
-proc trySetDescriptorAsync*(self: ClaimedLineDisplay, a1: uint32, a2: LineDisplayDescriptorState): Future[bool] {.async.} =
+proc trySetDescriptorAsync*(self: ClaimedLineDisplay, descriptor: uint32, descriptorState: LineDisplayDescriptorState): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TrySetDescriptorAsync
   var op: pointer
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
-    vcall(it, Slot_IClaimedLineDisplay2_TrySetDescriptorAsync, Fn_IClaimedLineDisplay2_TrySetDescriptorAsync)(it, a1, a2, op.addr).check("ClaimedLineDisplay.TrySetDescriptorAsync")
+    vcall(it, Slot_IClaimedLineDisplay2_TrySetDescriptorAsync, Fn_IClaimedLineDisplay2_TrySetDescriptorAsync)(it, descriptor, descriptorState, op.addr).check("ClaimedLineDisplay.TrySetDescriptorAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedLineDisplay.TrySetDescriptorAsync")
 
 proc tryClearDescriptorsAsync*(self: ClaimedLineDisplay): Future[bool] {.async.} =
@@ -26611,11 +26611,11 @@ proc tryClearDescriptorsAsync*(self: ClaimedLineDisplay): Future[bool] {.async.}
     vcall(it, Slot_IClaimedLineDisplay2_TryClearDescriptorsAsync, Fn_IClaimedLineDisplay2_TryClearDescriptorsAsync)(it, op.addr).check("ClaimedLineDisplay.TryClearDescriptorsAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedLineDisplay.TryClearDescriptorsAsync")
 
-proc tryCreateWindowAsync*(self: ClaimedLineDisplay, a1: Rect, a2: Size): Future[LineDisplayWindow] {.async.} =
+proc tryCreateWindowAsync*(self: ClaimedLineDisplay, viewport: Rect, windowSize: Size): Future[LineDisplayWindow] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryCreateWindowAsync
   var op: pointer
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
-    vcall(it, Slot_IClaimedLineDisplay2_TryCreateWindowAsync, Fn_IClaimedLineDisplay2_TryCreateWindowAsync)(it, a1, a2, op.addr).check("ClaimedLineDisplay.TryCreateWindowAsync")
+    vcall(it, Slot_IClaimedLineDisplay2_TryCreateWindowAsync, Fn_IClaimedLineDisplay2_TryCreateWindowAsync)(it, viewport, windowSize, op.addr).check("ClaimedLineDisplay.TryCreateWindowAsync")
   result = adopt[LineDisplayWindow](await awaitObject(op, IID_IAsyncOperation_1_LineDisplayWindow, IID_AsyncOperationCompletedHandler_1_LineDisplayWindow, "ClaimedLineDisplay.TryCreateWindowAsync"))
 
 proc onClosed*(self: ClaimedLineDisplay,
@@ -26642,11 +26642,11 @@ proc close*(self: ClaimedLineDisplay)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ClaimedLineDisplay.Close")
 
-proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], a1: string): Future[ClaimedLineDisplay] {.async.} =
+proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], deviceId: string): Future[ClaimedLineDisplay] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.ClaimedLineDisplay", IID_IClaimedLineDisplayStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IClaimedLineDisplayStatics_FromIdAsync, Fn_IClaimedLineDisplayStatics_FromIdAsync)(it, h0, op.addr).check("ClaimedLineDisplay.FromIdAsync")
   result = adopt[ClaimedLineDisplay](await awaitObject(op, IID_IAsyncOperation_1_ClaimedLineDisplay, IID_AsyncOperationCompletedHandler_1_ClaimedLineDisplay, "ClaimedLineDisplay.FromIdAsync"))
 
@@ -26657,11 +26657,11 @@ proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay]): string  =
     vcall(it, Slot_IClaimedLineDisplayStatics_GetDeviceSelector, Fn_IClaimedLineDisplayStatics_GetDeviceSelector)(it, tmp.addr).check("ClaimedLineDisplay.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.ClaimedLineDisplay", IID_IClaimedLineDisplayStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IClaimedLineDisplayStatics_GetDeviceSelector2, Fn_IClaimedLineDisplayStatics_GetDeviceSelector2)(it, a1, tmp.addr).check("ClaimedLineDisplay.GetDeviceSelector")
+    vcall(it, Slot_IClaimedLineDisplayStatics_GetDeviceSelector2, Fn_IClaimedLineDisplayStatics_GetDeviceSelector2)(it, connectionTypes, tmp.addr).check("ClaimedLineDisplay.GetDeviceSelector")
     result = takeString(tmp)
 
 proc deviceId*(self: ClaimedMagneticStripeReader): string  =
@@ -26764,17 +26764,17 @@ proc retainDevice*(self: ClaimedMagneticStripeReader)  =
   withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
     vcall(it, Slot_IClaimedMagneticStripeReader_RetainDevice, Fn_IClaimedMagneticStripeReader_RetainDevice)(it).check("ClaimedMagneticStripeReader.RetainDevice")
 
-proc setErrorReportingType*(self: ClaimedMagneticStripeReader, a1: MagneticStripeReaderErrorReportingType)  =
+proc setErrorReportingType*(self: ClaimedMagneticStripeReader, value: MagneticStripeReaderErrorReportingType)  =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.SetErrorReportingType
   withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
-    vcall(it, Slot_IClaimedMagneticStripeReader_SetErrorReportingType, Fn_IClaimedMagneticStripeReader_SetErrorReportingType)(it, a1).check("ClaimedMagneticStripeReader.SetErrorReportingType")
+    vcall(it, Slot_IClaimedMagneticStripeReader_SetErrorReportingType, Fn_IClaimedMagneticStripeReader_SetErrorReportingType)(it, value).check("ClaimedMagneticStripeReader.SetErrorReportingType")
 
-proc updateKeyAsync*(self: ClaimedMagneticStripeReader, a1: string, a2: string) {.async.} =
+proc updateKeyAsync*(self: ClaimedMagneticStripeReader, key: string, keyName: string) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.UpdateKeyAsync
   var op: pointer
   withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(key, h0):
+      withHString(keyName, h1):
         vcall(it, Slot_IClaimedMagneticStripeReader_UpdateKeyAsync, Fn_IClaimedMagneticStripeReader_UpdateKeyAsync)(it, h0, h1, op.addr).check("ClaimedMagneticStripeReader.UpdateKeyAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedMagneticStripeReader.UpdateKeyAsync")
 
@@ -27197,10 +27197,10 @@ proc isReadyToPrint*(self: ClaimedReceiptPrinter): bool  =
     vcall(it, Slot_ICommonClaimedPosPrinterStation_get_IsReadyToPrint, Fn_ICommonClaimedPosPrinterStation_get_IsReadyToPrint)(it, tmp.addr).check("ClaimedReceiptPrinter.get_IsReadyToPrint")
     result = tmp
 
-proc validateData*(self: ClaimedReceiptPrinter, a1: string): bool  =
+proc validateData*(self: ClaimedReceiptPrinter, data: string): bool  =
   ## Windows.Devices.PointOfService.ClaimedReceiptPrinter.ValidateData
   withIface(self.p, IID_ICommonClaimedPosPrinterStation, "ICommonClaimedPosPrinterStation", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: bool
       vcall(it, Slot_ICommonClaimedPosPrinterStation_ValidateData, Fn_ICommonClaimedPosPrinterStation_ValidateData)(it, h0, tmp.addr).check("ClaimedReceiptPrinter.ValidateData")
       result = tmp
@@ -27264,24 +27264,24 @@ proc closeJaws*(self: ClaimedSlipPrinter)  =
   withIface(self.p, IID_IClaimedSlipPrinter, "IClaimedSlipPrinter", it):
     vcall(it, Slot_IClaimedSlipPrinter_CloseJaws, Fn_IClaimedSlipPrinter_CloseJaws)(it).check("ClaimedSlipPrinter.CloseJaws")
 
-proc insertSlipAsync*(self: ClaimedSlipPrinter, a1: TimeSpan): Future[bool] {.async.} =
+proc insertSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.InsertSlipAsync
   var op: pointer
   withIface(self.p, IID_IClaimedSlipPrinter, "IClaimedSlipPrinter", it):
-    vcall(it, Slot_IClaimedSlipPrinter_InsertSlipAsync, Fn_IClaimedSlipPrinter_InsertSlipAsync)(it, a1, op.addr).check("ClaimedSlipPrinter.InsertSlipAsync")
+    vcall(it, Slot_IClaimedSlipPrinter_InsertSlipAsync, Fn_IClaimedSlipPrinter_InsertSlipAsync)(it, timeout, op.addr).check("ClaimedSlipPrinter.InsertSlipAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedSlipPrinter.InsertSlipAsync")
 
-proc removeSlipAsync*(self: ClaimedSlipPrinter, a1: TimeSpan): Future[bool] {.async.} =
+proc removeSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.RemoveSlipAsync
   var op: pointer
   withIface(self.p, IID_IClaimedSlipPrinter, "IClaimedSlipPrinter", it):
-    vcall(it, Slot_IClaimedSlipPrinter_RemoveSlipAsync, Fn_IClaimedSlipPrinter_RemoveSlipAsync)(it, a1, op.addr).check("ClaimedSlipPrinter.RemoveSlipAsync")
+    vcall(it, Slot_IClaimedSlipPrinter_RemoveSlipAsync, Fn_IClaimedSlipPrinter_RemoveSlipAsync)(it, timeout, op.addr).check("ClaimedSlipPrinter.RemoveSlipAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ClaimedSlipPrinter.RemoveSlipAsync")
 
-proc changePrintSide*(self: ClaimedSlipPrinter, a1: PosPrinterPrintSide)  =
+proc changePrintSide*(self: ClaimedSlipPrinter, printSide: PosPrinterPrintSide)  =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.ChangePrintSide
   withIface(self.p, IID_IClaimedSlipPrinter, "IClaimedSlipPrinter", it):
-    vcall(it, Slot_IClaimedSlipPrinter_ChangePrintSide, Fn_IClaimedSlipPrinter_ChangePrintSide)(it, a1).check("ClaimedSlipPrinter.ChangePrintSide")
+    vcall(it, Slot_IClaimedSlipPrinter_ChangePrintSide, Fn_IClaimedSlipPrinter_ChangePrintSide)(it, printSide).check("ClaimedSlipPrinter.ChangePrintSide")
 
 proc createJob*(self: ClaimedSlipPrinter): SlipPrintJob  =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.CreateJob
@@ -27406,41 +27406,41 @@ proc isReadyToPrint*(self: ClaimedSlipPrinter): bool  =
     vcall(it, Slot_ICommonClaimedPosPrinterStation_get_IsReadyToPrint, Fn_ICommonClaimedPosPrinterStation_get_IsReadyToPrint)(it, tmp.addr).check("ClaimedSlipPrinter.get_IsReadyToPrint")
     result = tmp
 
-proc validateData*(self: ClaimedSlipPrinter, a1: string): bool  =
+proc validateData*(self: ClaimedSlipPrinter, data: string): bool  =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.ValidateData
   withIface(self.p, IID_ICommonClaimedPosPrinterStation, "ICommonClaimedPosPrinterStation", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       var tmp: bool
       vcall(it, Slot_ICommonClaimedPosPrinterStation_ValidateData, Fn_ICommonClaimedPosPrinterStation_ValidateData)(it, h0, tmp.addr).check("ClaimedSlipPrinter.ValidateData")
       result = tmp
 
-proc print*(self: JournalPrintJob, a1: string, a2: PosPrinterPrintOptions)  =
+proc print*(self: JournalPrintJob, data: string, printOptions: PosPrinterPrintOptions)  =
   ## Windows.Devices.PointOfService.JournalPrintJob.Print
   withIface(self.p, IID_IJournalPrintJob, "IJournalPrintJob", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
+    withHString(data, h0):
+      withIface(printOptions.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
         vcall(it, Slot_IJournalPrintJob_Print, Fn_IJournalPrintJob_Print)(it, h0, p1).check("JournalPrintJob.Print")
 
-proc feedPaperByLine*(self: JournalPrintJob, a1: int32)  =
+proc feedPaperByLine*(self: JournalPrintJob, lineCount: int32)  =
   ## Windows.Devices.PointOfService.JournalPrintJob.FeedPaperByLine
   withIface(self.p, IID_IJournalPrintJob, "IJournalPrintJob", it):
-    vcall(it, Slot_IJournalPrintJob_FeedPaperByLine, Fn_IJournalPrintJob_FeedPaperByLine)(it, a1).check("JournalPrintJob.FeedPaperByLine")
+    vcall(it, Slot_IJournalPrintJob_FeedPaperByLine, Fn_IJournalPrintJob_FeedPaperByLine)(it, lineCount).check("JournalPrintJob.FeedPaperByLine")
 
-proc feedPaperByMapModeUnit*(self: JournalPrintJob, a1: int32)  =
+proc feedPaperByMapModeUnit*(self: JournalPrintJob, distance: int32)  =
   ## Windows.Devices.PointOfService.JournalPrintJob.FeedPaperByMapModeUnit
   withIface(self.p, IID_IJournalPrintJob, "IJournalPrintJob", it):
-    vcall(it, Slot_IJournalPrintJob_FeedPaperByMapModeUnit, Fn_IJournalPrintJob_FeedPaperByMapModeUnit)(it, a1).check("JournalPrintJob.FeedPaperByMapModeUnit")
+    vcall(it, Slot_IJournalPrintJob_FeedPaperByMapModeUnit, Fn_IJournalPrintJob_FeedPaperByMapModeUnit)(it, distance).check("JournalPrintJob.FeedPaperByMapModeUnit")
 
-proc print*(self: JournalPrintJob, a1: string)  =
+proc print*(self: JournalPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.JournalPrintJob.Print
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_Print, Fn_IPosPrinterJob_Print)(it, h0).check("JournalPrintJob.Print")
 
-proc printLine*(self: JournalPrintJob, a1: string)  =
+proc printLine*(self: JournalPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.JournalPrintJob.PrintLine
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_PrintLine, Fn_IPosPrinterJob_PrintLine)(it, h0).check("JournalPrintJob.PrintLine")
 
 proc printLine*(self: JournalPrintJob)  =
@@ -27656,11 +27656,11 @@ proc statisticsCategorySelector*(_: typedesc[LineDisplay]): LineDisplayStatistic
     vcall(it, Slot_ILineDisplayStatics2_get_StatisticsCategorySelector, Fn_ILineDisplayStatics2_get_StatisticsCategorySelector)(it, tmp.addr).check("LineDisplay.get_StatisticsCategorySelector")
     result = adopt[LineDisplayStatisticsCategorySelector](tmp)
 
-proc fromIdAsync*(_: typedesc[LineDisplay], a1: string): Future[LineDisplay] {.async.} =
+proc fromIdAsync*(_: typedesc[LineDisplay], deviceId: string): Future[LineDisplay] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplay.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.LineDisplay", IID_ILineDisplayStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ILineDisplayStatics_FromIdAsync, Fn_ILineDisplayStatics_FromIdAsync)(it, h0, op.addr).check("LineDisplay.FromIdAsync")
   result = adopt[LineDisplay](await awaitObject(op, IID_IAsyncOperation_1_LineDisplay, IID_AsyncOperationCompletedHandler_1_LineDisplay, "LineDisplay.FromIdAsync"))
 
@@ -27678,11 +27678,11 @@ proc getDeviceSelector*(_: typedesc[LineDisplay]): string  =
     vcall(it, Slot_ILineDisplayStatics_GetDeviceSelector, Fn_ILineDisplayStatics_GetDeviceSelector)(it, tmp.addr).check("LineDisplay.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[LineDisplay], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[LineDisplay], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.LineDisplay.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.LineDisplay", IID_ILineDisplayStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILineDisplayStatics_GetDeviceSelector2, Fn_ILineDisplayStatics_GetDeviceSelector2)(it, a1, tmp.addr).check("LineDisplay.GetDeviceSelector")
+    vcall(it, Slot_ILineDisplayStatics_GetDeviceSelector2, Fn_ILineDisplayStatics_GetDeviceSelector2)(it, connectionTypes, tmp.addr).check("LineDisplay.GetDeviceSelector")
     result = takeString(tmp)
 
 proc isPowerNotifyEnabled*(self: LineDisplayAttributes): bool  =
@@ -27952,11 +27952,11 @@ proc getAttributes*(self: LineDisplayCursor): LineDisplayCursorAttributes  =
     vcall(it, Slot_ILineDisplayCursor_GetAttributes, Fn_ILineDisplayCursor_GetAttributes)(it, tmp.addr).check("LineDisplayCursor.GetAttributes")
     result = adopt[LineDisplayCursorAttributes](tmp)
 
-proc tryUpdateAttributesAsync*(self: LineDisplayCursor, a1: LineDisplayCursorAttributes): Future[bool] {.async.} =
+proc tryUpdateAttributesAsync*(self: LineDisplayCursor, attributes: LineDisplayCursorAttributes): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayCursor.TryUpdateAttributesAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayCursor, "ILineDisplayCursor", it):
-    withIface(a1.p, IID_ILineDisplayCursorAttributes, "ILineDisplayCursorAttributes", p0):
+    withIface(attributes.p, IID_ILineDisplayCursorAttributes, "ILineDisplayCursorAttributes", p0):
       vcall(it, Slot_ILineDisplayCursor_TryUpdateAttributesAsync, Fn_ILineDisplayCursor_TryUpdateAttributesAsync)(it, p0, op.addr).check("LineDisplayCursor.TryUpdateAttributesAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayCursor.TryUpdateAttributesAsync")
 
@@ -28015,11 +28015,11 @@ proc sizeInPixels*(self: LineDisplayCustomGlyphs): Size  =
     vcall(it, Slot_ILineDisplayCustomGlyphs_get_SizeInPixels, Fn_ILineDisplayCustomGlyphs_get_SizeInPixels)(it, tmp.addr).check("LineDisplayCustomGlyphs.get_SizeInPixels")
     result = tmp
 
-proc tryRedefineAsync*(self: LineDisplayCustomGlyphs, a1: uint32, a2: pointer): Future[bool] {.async.} =
+proc tryRedefineAsync*(self: LineDisplayCustomGlyphs, glyphCode: uint32, glyphData: pointer): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayCustomGlyphs.TryRedefineAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayCustomGlyphs, "ILineDisplayCustomGlyphs", it):
-    vcall(it, Slot_ILineDisplayCustomGlyphs_TryRedefineAsync, Fn_ILineDisplayCustomGlyphs_TryRedefineAsync)(it, a1, a2, op.addr).check("LineDisplayCustomGlyphs.TryRedefineAsync")
+    vcall(it, Slot_ILineDisplayCustomGlyphs_TryRedefineAsync, Fn_ILineDisplayCustomGlyphs_TryRedefineAsync)(it, glyphCode, glyphData, op.addr).check("LineDisplayCustomGlyphs.TryRedefineAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayCustomGlyphs.TryRedefineAsync")
 
 proc format*(self: LineDisplayMarquee): LineDisplayMarqueeFormat  =
@@ -28058,11 +28058,11 @@ proc `scrollWaitInterval=`*(self: LineDisplayMarquee, value: TimeSpan)  =
   withIface(self.p, IID_ILineDisplayMarquee, "ILineDisplayMarquee", it):
     vcall(it, Slot_ILineDisplayMarquee_put_ScrollWaitInterval, Fn_ILineDisplayMarquee_put_ScrollWaitInterval)(it, value).check("LineDisplayMarquee.put_ScrollWaitInterval")
 
-proc tryStartScrollingAsync*(self: LineDisplayMarquee, a1: LineDisplayScrollDirection): Future[bool] {.async.} =
+proc tryStartScrollingAsync*(self: LineDisplayMarquee, direction: LineDisplayScrollDirection): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayMarquee.TryStartScrollingAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayMarquee, "ILineDisplayMarquee", it):
-    vcall(it, Slot_ILineDisplayMarquee_TryStartScrollingAsync, Fn_ILineDisplayMarquee_TryStartScrollingAsync)(it, a1, op.addr).check("LineDisplayMarquee.TryStartScrollingAsync")
+    vcall(it, Slot_ILineDisplayMarquee_TryStartScrollingAsync, Fn_ILineDisplayMarquee_TryStartScrollingAsync)(it, direction, op.addr).check("LineDisplayMarquee.TryStartScrollingAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayMarquee.TryStartScrollingAsync")
 
 proc tryStopScrollingAsync*(self: LineDisplayMarquee): Future[bool] {.async.} =
@@ -28140,35 +28140,35 @@ proc tryRefreshAsync*(self: LineDisplayWindow): Future[bool] {.async.} =
     vcall(it, Slot_ILineDisplayWindow_TryRefreshAsync, Fn_ILineDisplayWindow_TryRefreshAsync)(it, op.addr).check("LineDisplayWindow.TryRefreshAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryRefreshAsync")
 
-proc tryDisplayTextAsync*(self: LineDisplayWindow, a1: string, a2: LineDisplayTextAttribute): Future[bool] {.async.} =
+proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string, displayAttribute: LineDisplayTextAttribute): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayTextAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayWindow, "ILineDisplayWindow", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ILineDisplayWindow_TryDisplayTextAsync, Fn_ILineDisplayWindow_TryDisplayTextAsync)(it, h0, a2, op.addr).check("LineDisplayWindow.TryDisplayTextAsync")
+    withHString(text, h0):
+      vcall(it, Slot_ILineDisplayWindow_TryDisplayTextAsync, Fn_ILineDisplayWindow_TryDisplayTextAsync)(it, h0, displayAttribute, op.addr).check("LineDisplayWindow.TryDisplayTextAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayTextAsync")
 
-proc tryDisplayTextAsync*(self: LineDisplayWindow, a1: string, a2: LineDisplayTextAttribute, a3: Point): Future[bool] {.async.} =
+proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string, displayAttribute: LineDisplayTextAttribute, startPosition: Point): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayTextAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayWindow, "ILineDisplayWindow", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ILineDisplayWindow_TryDisplayTextAsync2, Fn_ILineDisplayWindow_TryDisplayTextAsync2)(it, h0, a2, a3, op.addr).check("LineDisplayWindow.TryDisplayTextAsync")
+    withHString(text, h0):
+      vcall(it, Slot_ILineDisplayWindow_TryDisplayTextAsync2, Fn_ILineDisplayWindow_TryDisplayTextAsync2)(it, h0, displayAttribute, startPosition, op.addr).check("LineDisplayWindow.TryDisplayTextAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayTextAsync")
 
-proc tryDisplayTextAsync*(self: LineDisplayWindow, a1: string): Future[bool] {.async.} =
+proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayTextAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayWindow, "ILineDisplayWindow", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       vcall(it, Slot_ILineDisplayWindow_TryDisplayTextAsync3, Fn_ILineDisplayWindow_TryDisplayTextAsync3)(it, h0, op.addr).check("LineDisplayWindow.TryDisplayTextAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayTextAsync")
 
-proc tryScrollTextAsync*(self: LineDisplayWindow, a1: LineDisplayScrollDirection, a2: uint32): Future[bool] {.async.} =
+proc tryScrollTextAsync*(self: LineDisplayWindow, direction: LineDisplayScrollDirection, numberOfColumnsOrRows: uint32): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryScrollTextAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayWindow, "ILineDisplayWindow", it):
-    vcall(it, Slot_ILineDisplayWindow_TryScrollTextAsync, Fn_ILineDisplayWindow_TryScrollTextAsync)(it, a1, a2, op.addr).check("LineDisplayWindow.TryScrollTextAsync")
+    vcall(it, Slot_ILineDisplayWindow_TryScrollTextAsync, Fn_ILineDisplayWindow_TryScrollTextAsync)(it, direction, numberOfColumnsOrRows, op.addr).check("LineDisplayWindow.TryScrollTextAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryScrollTextAsync")
 
 proc tryClearTextAsync*(self: LineDisplayWindow): Future[bool] {.async.} =
@@ -28199,11 +28199,11 @@ proc readCharacterAtCursorAsync*(self: LineDisplayWindow): Future[uint32] {.asyn
     vcall(it, Slot_ILineDisplayWindow2_ReadCharacterAtCursorAsync, Fn_ILineDisplayWindow2_ReadCharacterAtCursorAsync)(it, op.addr).check("LineDisplayWindow.ReadCharacterAtCursorAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "LineDisplayWindow.ReadCharacterAtCursorAsync")
 
-proc tryDisplayStoredBitmapAtCursorAsync*(self: LineDisplayWindow, a1: LineDisplayStoredBitmap): Future[bool] {.async.} =
+proc tryDisplayStoredBitmapAtCursorAsync*(self: LineDisplayWindow, bitmap: LineDisplayStoredBitmap): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
-    withIface(a1.p, IID_ILineDisplayStoredBitmap, "ILineDisplayStoredBitmap", p0):
+    withIface(bitmap.p, IID_ILineDisplayStoredBitmap, "ILineDisplayStoredBitmap", p0):
       vcall(it, Slot_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync, Fn_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync)(it, p0, op.addr).check("LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync")
 
@@ -28233,11 +28233,11 @@ proc deviceAuthenticationProtocol*(self: MagneticStripeReader): MagneticStripeRe
     vcall(it, Slot_IMagneticStripeReader_get_DeviceAuthenticationProtocol, Fn_IMagneticStripeReader_get_DeviceAuthenticationProtocol)(it, tmp.addr).check("MagneticStripeReader.get_DeviceAuthenticationProtocol")
     result = tmp
 
-proc checkHealthAsync*(self: MagneticStripeReader, a1: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: MagneticStripeReader, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.CheckHealthAsync
   var op: pointer
   withIface(self.p, IID_IMagneticStripeReader, "IMagneticStripeReader", it):
-    vcall(it, Slot_IMagneticStripeReader_CheckHealthAsync, Fn_IMagneticStripeReader_CheckHealthAsync)(it, a1, op.addr).check("MagneticStripeReader.CheckHealthAsync")
+    vcall(it, Slot_IMagneticStripeReader_CheckHealthAsync, Fn_IMagneticStripeReader_CheckHealthAsync)(it, level, op.addr).check("MagneticStripeReader.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "MagneticStripeReader.CheckHealthAsync")
 
 proc claimReaderAsync*(self: MagneticStripeReader): Future[ClaimedMagneticStripeReader] {.async.} =
@@ -28278,11 +28278,11 @@ proc close*(self: MagneticStripeReader)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MagneticStripeReader.Close")
 
-proc getDeviceSelector*(_: typedesc[MagneticStripeReader], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[MagneticStripeReader], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.MagneticStripeReader.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.MagneticStripeReader", IID_IMagneticStripeReaderStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IMagneticStripeReaderStatics2_GetDeviceSelector, Fn_IMagneticStripeReaderStatics2_GetDeviceSelector)(it, a1, tmp.addr).check("MagneticStripeReader.GetDeviceSelector")
+    vcall(it, Slot_IMagneticStripeReaderStatics2_GetDeviceSelector, Fn_IMagneticStripeReaderStatics2_GetDeviceSelector)(it, connectionTypes, tmp.addr).check("MagneticStripeReader.GetDeviceSelector")
     result = takeString(tmp)
 
 proc getDefaultAsync*(_: typedesc[MagneticStripeReader]): Future[MagneticStripeReader] {.async.} =
@@ -28292,11 +28292,11 @@ proc getDefaultAsync*(_: typedesc[MagneticStripeReader]): Future[MagneticStripeR
     vcall(it, Slot_IMagneticStripeReaderStatics_GetDefaultAsync, Fn_IMagneticStripeReaderStatics_GetDefaultAsync)(it, op.addr).check("MagneticStripeReader.GetDefaultAsync")
   result = adopt[MagneticStripeReader](await awaitObject(op, IID_IAsyncOperation_1_MagneticStripeReader, IID_AsyncOperationCompletedHandler_1_MagneticStripeReader, "MagneticStripeReader.GetDefaultAsync"))
 
-proc fromIdAsync*(_: typedesc[MagneticStripeReader], a1: string): Future[MagneticStripeReader] {.async.} =
+proc fromIdAsync*(_: typedesc[MagneticStripeReader], deviceId: string): Future[MagneticStripeReader] {.async.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.MagneticStripeReader", IID_IMagneticStripeReaderStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IMagneticStripeReaderStatics_FromIdAsync, Fn_IMagneticStripeReaderStatics_FromIdAsync)(it, h0, op.addr).check("MagneticStripeReader.FromIdAsync")
   result = adopt[MagneticStripeReader](await awaitObject(op, IID_IAsyncOperation_1_MagneticStripeReader, IID_AsyncOperationCompletedHandler_1_MagneticStripeReader, "MagneticStripeReader.FromIdAsync"))
 
@@ -28805,11 +28805,11 @@ proc claimPrinterAsync*(self: PosPrinter): Future[ClaimedPosPrinter] {.async.} =
     vcall(it, Slot_IPosPrinter_ClaimPrinterAsync, Fn_IPosPrinter_ClaimPrinterAsync)(it, op.addr).check("PosPrinter.ClaimPrinterAsync")
   result = adopt[ClaimedPosPrinter](await awaitObject(op, IID_IAsyncOperation_1_ClaimedPosPrinter, IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter, "PosPrinter.ClaimPrinterAsync"))
 
-proc checkHealthAsync*(self: PosPrinter, a1: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: PosPrinter, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.PosPrinter.CheckHealthAsync
   var op: pointer
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
-    vcall(it, Slot_IPosPrinter_CheckHealthAsync, Fn_IPosPrinter_CheckHealthAsync)(it, a1, op.addr).check("PosPrinter.CheckHealthAsync")
+    vcall(it, Slot_IPosPrinter_CheckHealthAsync, Fn_IPosPrinter_CheckHealthAsync)(it, level, op.addr).check("PosPrinter.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "PosPrinter.CheckHealthAsync")
 
 proc onStatusUpdated*(self: PosPrinter,
@@ -28831,10 +28831,10 @@ proc removeStatusUpdated*(self: PosPrinter, token: EventRegistrationToken) =
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
     vcall(it, Slot_IPosPrinter_remove_StatusUpdated, Fn_IPosPrinter_remove_StatusUpdated)(it, token).check("PosPrinter.remove_StatusUpdated")
 
-proc getFontProperty*(self: PosPrinter, a1: string): PosPrinterFontProperty  =
+proc getFontProperty*(self: PosPrinter, typeface: string): PosPrinterFontProperty  =
   ## Windows.Devices.PointOfService.PosPrinter.GetFontProperty
   withIface(self.p, IID_IPosPrinter2, "IPosPrinter2", it):
-    withHString(a1, h0):
+    withHString(typeface, h0):
       var tmp: pointer
       vcall(it, Slot_IPosPrinter2_GetFontProperty, Fn_IPosPrinter2_GetFontProperty)(it, h0, tmp.addr).check("PosPrinter.GetFontProperty")
       result = adopt[PosPrinterFontProperty](tmp)
@@ -28844,11 +28844,11 @@ proc close*(self: PosPrinter)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PosPrinter.Close")
 
-proc getDeviceSelector*(_: typedesc[PosPrinter], a1: PosConnectionTypes): string  =
+proc getDeviceSelector*(_: typedesc[PosPrinter], connectionTypes: PosConnectionTypes): string  =
   ## Windows.Devices.PointOfService.PosPrinter.GetDeviceSelector
   withStatics("Windows.Devices.PointOfService.PosPrinter", IID_IPosPrinterStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IPosPrinterStatics2_GetDeviceSelector, Fn_IPosPrinterStatics2_GetDeviceSelector)(it, a1, tmp.addr).check("PosPrinter.GetDeviceSelector")
+    vcall(it, Slot_IPosPrinterStatics2_GetDeviceSelector, Fn_IPosPrinterStatics2_GetDeviceSelector)(it, connectionTypes, tmp.addr).check("PosPrinter.GetDeviceSelector")
     result = takeString(tmp)
 
 proc getDefaultAsync*(_: typedesc[PosPrinter]): Future[PosPrinter] {.async.} =
@@ -28858,11 +28858,11 @@ proc getDefaultAsync*(_: typedesc[PosPrinter]): Future[PosPrinter] {.async.} =
     vcall(it, Slot_IPosPrinterStatics_GetDefaultAsync, Fn_IPosPrinterStatics_GetDefaultAsync)(it, op.addr).check("PosPrinter.GetDefaultAsync")
   result = adopt[PosPrinter](await awaitObject(op, IID_IAsyncOperation_1_PosPrinter, IID_AsyncOperationCompletedHandler_1_PosPrinter, "PosPrinter.GetDefaultAsync"))
 
-proc fromIdAsync*(_: typedesc[PosPrinter], a1: string): Future[PosPrinter] {.async.} =
+proc fromIdAsync*(_: typedesc[PosPrinter], deviceId: string): Future[PosPrinter] {.async.} =
   ## Windows.Devices.PointOfService.PosPrinter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.PosPrinter", IID_IPosPrinterStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IPosPrinterStatics_FromIdAsync, Fn_IPosPrinterStatics_FromIdAsync)(it, h0, op.addr).check("PosPrinter.FromIdAsync")
   result = adopt[PosPrinter](await awaitObject(op, IID_IAsyncOperation_1_PosPrinter, IID_AsyncOperationCompletedHandler_1_PosPrinter, "PosPrinter.FromIdAsync"))
 
@@ -29174,19 +29174,19 @@ proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest) {.async.} =
     vcall(it, Slot_IBarcodeScannerDisableScannerRequest_ReportFailedAsync, Fn_IBarcodeScannerDisableScannerRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerDisableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerDisableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerDisableScannerRequest2, "IBarcodeScannerDisableScannerRequest2", it):
-    vcall(it, Slot_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync, Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerDisableScannerRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync, Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerDisableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerDisableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerDisableScannerRequest2, "IBarcodeScannerDisableScannerRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerDisableScannerRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerDisableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerDisableScannerRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerDisableScannerRequestEventArgs): BarcodeScannerDisableScannerRequest  =
@@ -29217,19 +29217,19 @@ proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest) {.async.} =
     vcall(it, Slot_IBarcodeScannerEnableScannerRequest_ReportFailedAsync, Fn_IBarcodeScannerEnableScannerRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerEnableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerEnableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerEnableScannerRequest2, "IBarcodeScannerEnableScannerRequest2", it):
-    vcall(it, Slot_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync, Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerEnableScannerRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync, Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerEnableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerEnableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerEnableScannerRequest2, "IBarcodeScannerEnableScannerRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerEnableScannerRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerEnableScannerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerEnableScannerRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerEnableScannerRequestEventArgs): BarcodeScannerEnableScannerRequest  =
@@ -29312,11 +29312,11 @@ proc symbology*(self: BarcodeScannerGetSymbologyAttributesRequest): uint32  =
     vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest_get_Symbology, Fn_IBarcodeScannerGetSymbologyAttributesRequest_get_Symbology)(it, tmp.addr).check("BarcodeScannerGetSymbologyAttributesRequest.get_Symbology")
     result = tmp
 
-proc reportCompletedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, a1: BarcodeSymbologyAttributes) {.async.} =
+proc reportCompletedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, attributes: BarcodeSymbologyAttributes) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.ReportCompletedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerGetSymbologyAttributesRequest, "IBarcodeScannerGetSymbologyAttributesRequest", it):
-    withIface(a1.p, IID_IBarcodeSymbologyAttributes, "IBarcodeSymbologyAttributes", p0):
+    withIface(attributes.p, IID_IBarcodeSymbologyAttributes, "IBarcodeSymbologyAttributes", p0):
       vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest_ReportCompletedAsync, Fn_IBarcodeScannerGetSymbologyAttributesRequest_ReportCompletedAsync)(it, p0, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportCompletedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerGetSymbologyAttributesRequest.ReportCompletedAsync")
 
@@ -29327,19 +29327,19 @@ proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest) {.asy
     vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest_ReportFailedAsync, Fn_IBarcodeScannerGetSymbologyAttributesRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerGetSymbologyAttributesRequest2, "IBarcodeScannerGetSymbologyAttributesRequest2", it):
-    vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync, Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync, Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerGetSymbologyAttributesRequest2, "IBarcodeScannerGetSymbologyAttributesRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerGetSymbologyAttributesRequestEventArgs): BarcodeScannerGetSymbologyAttributesRequest  =
@@ -29370,19 +29370,19 @@ proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest) {.async.} =
     vcall(it, Slot_IBarcodeScannerHideVideoPreviewRequest_ReportFailedAsync, Fn_IBarcodeScannerHideVideoPreviewRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerHideVideoPreviewRequest2, "IBarcodeScannerHideVideoPreviewRequest2", it):
-    vcall(it, Slot_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync, Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync, Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerHideVideoPreviewRequest2, "IBarcodeScannerHideVideoPreviewRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2, Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2, Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerHideVideoPreviewRequestEventArgs): BarcodeScannerHideVideoPreviewRequest  =
@@ -29457,36 +29457,36 @@ proc start*(self: BarcodeScannerProviderConnection)  =
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
     vcall(it, Slot_IBarcodeScannerProviderConnection_Start, Fn_IBarcodeScannerProviderConnection_Start)(it).check("BarcodeScannerProviderConnection.Start")
 
-proc reportScannedDataAsync*(self: BarcodeScannerProviderConnection, a1: BarcodeScannerReport) {.async.} =
+proc reportScannedDataAsync*(self: BarcodeScannerProviderConnection, report: BarcodeScannerReport) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.ReportScannedDataAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
-    withIface(a1.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", p0):
+    withIface(report.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", p0):
       vcall(it, Slot_IBarcodeScannerProviderConnection_ReportScannedDataAsync, Fn_IBarcodeScannerProviderConnection_ReportScannedDataAsync)(it, p0, op.addr).check("BarcodeScannerProviderConnection.ReportScannedDataAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerProviderConnection.ReportScannedDataAsync")
 
-proc reportTriggerStateAsync*(self: BarcodeScannerProviderConnection, a1: BarcodeScannerTriggerState) {.async.} =
+proc reportTriggerStateAsync*(self: BarcodeScannerProviderConnection, state: BarcodeScannerTriggerState) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.ReportTriggerStateAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
-    vcall(it, Slot_IBarcodeScannerProviderConnection_ReportTriggerStateAsync, Fn_IBarcodeScannerProviderConnection_ReportTriggerStateAsync)(it, a1, op.addr).check("BarcodeScannerProviderConnection.ReportTriggerStateAsync")
+    vcall(it, Slot_IBarcodeScannerProviderConnection_ReportTriggerStateAsync, Fn_IBarcodeScannerProviderConnection_ReportTriggerStateAsync)(it, state, op.addr).check("BarcodeScannerProviderConnection.ReportTriggerStateAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerProviderConnection.ReportTriggerStateAsync")
 
-proc reportErrorAsync*(self: BarcodeScannerProviderConnection, a1: UnifiedPosErrorData) {.async.} =
+proc reportErrorAsync*(self: BarcodeScannerProviderConnection, errorData: UnifiedPosErrorData) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.ReportErrorAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
-    withIface(a1.p, IID_IUnifiedPosErrorData, "IUnifiedPosErrorData", p0):
+    withIface(errorData.p, IID_IUnifiedPosErrorData, "IUnifiedPosErrorData", p0):
       vcall(it, Slot_IBarcodeScannerProviderConnection_ReportErrorAsync, Fn_IBarcodeScannerProviderConnection_ReportErrorAsync)(it, p0, op.addr).check("BarcodeScannerProviderConnection.ReportErrorAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerProviderConnection.ReportErrorAsync")
 
-proc reportErrorAsync*(self: BarcodeScannerProviderConnection, a1: UnifiedPosErrorData, a2: bool, a3: BarcodeScannerReport) {.async.} =
+proc reportErrorAsync*(self: BarcodeScannerProviderConnection, errorData: UnifiedPosErrorData, isRetriable: bool, scanReport: BarcodeScannerReport) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.ReportErrorAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
-    withIface(a1.p, IID_IUnifiedPosErrorData, "IUnifiedPosErrorData", p0):
-      withIface(a3.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", p2):
-        vcall(it, Slot_IBarcodeScannerProviderConnection_ReportErrorAsync2, Fn_IBarcodeScannerProviderConnection_ReportErrorAsync2)(it, p0, a2, p2, op.addr).check("BarcodeScannerProviderConnection.ReportErrorAsync")
+    withIface(errorData.p, IID_IUnifiedPosErrorData, "IUnifiedPosErrorData", p0):
+      withIface(scanReport.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", p2):
+        vcall(it, Slot_IBarcodeScannerProviderConnection_ReportErrorAsync2, Fn_IBarcodeScannerProviderConnection_ReportErrorAsync2)(it, p0, isRetriable, p2, op.addr).check("BarcodeScannerProviderConnection.ReportErrorAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerProviderConnection.ReportErrorAsync")
 
 proc onEnableScannerRequested*(self: BarcodeScannerProviderConnection,
@@ -29674,19 +29674,19 @@ proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest) {.async
     vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest_ReportFailedAsync, Fn_IBarcodeScannerSetActiveSymbologiesRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerSetActiveSymbologiesRequest2, "IBarcodeScannerSetActiveSymbologiesRequest2", it):
-    vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync, Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync, Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerSetActiveSymbologiesRequest2, "IBarcodeScannerSetActiveSymbologiesRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerSetActiveSymbologiesRequestEventArgs): BarcodeScannerSetActiveSymbologiesRequest  =
@@ -29731,19 +29731,19 @@ proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest) {.asy
     vcall(it, Slot_IBarcodeScannerSetSymbologyAttributesRequest_ReportFailedAsync, Fn_IBarcodeScannerSetSymbologyAttributesRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerSetSymbologyAttributesRequest2, "IBarcodeScannerSetSymbologyAttributesRequest2", it):
-    vcall(it, Slot_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync, Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync, Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerSetSymbologyAttributesRequest2, "IBarcodeScannerSetSymbologyAttributesRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2, Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerSetSymbologyAttributesRequestEventArgs): BarcodeScannerSetSymbologyAttributesRequest  =
@@ -29774,19 +29774,19 @@ proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest) {.async
     vcall(it, Slot_IBarcodeScannerStartSoftwareTriggerRequest_ReportFailedAsync, Fn_IBarcodeScannerStartSoftwareTriggerRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerStartSoftwareTriggerRequest2, "IBarcodeScannerStartSoftwareTriggerRequest2", it):
-    vcall(it, Slot_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync, Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync, Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerStartSoftwareTriggerRequest2, "IBarcodeScannerStartSoftwareTriggerRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerStartSoftwareTriggerRequestEventArgs): BarcodeScannerStartSoftwareTriggerRequest  =
@@ -29817,19 +29817,19 @@ proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest) {.async.
     vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequest_ReportFailedAsync, Fn_IBarcodeScannerStopSoftwareTriggerRequest_ReportFailedAsync)(it, op.addr).check("BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest, a1: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest, reason: int32) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerStopSoftwareTriggerRequest2, "IBarcodeScannerStopSoftwareTriggerRequest2", it):
-    vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync, Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync)(it, a1, op.addr).check("BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
+    vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync, Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync)(it, reason, op.addr).check("BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest, a1: int32, a2: string) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest, reason: int32, failedReasonDescription: string) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScannerStopSoftwareTriggerRequest2, "IBarcodeScannerStopSoftwareTriggerRequest2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2)(it, a1, h1, op.addr).check("BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
+    withHString(failedReasonDescription, h1):
+      vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2, Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2)(it, reason, h1, op.addr).check("BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
 
 proc request*(self: BarcodeScannerStopSoftwareTriggerRequestEventArgs): BarcodeScannerStopSoftwareTriggerRequest  =
@@ -29919,15 +29919,15 @@ proc createAttributes*(self: BarcodeSymbologyAttributesBuilder): BarcodeSymbolog
     vcall(it, Slot_IBarcodeSymbologyAttributesBuilder_CreateAttributes, Fn_IBarcodeSymbologyAttributesBuilder_CreateAttributes)(it, tmp.addr).check("BarcodeSymbologyAttributesBuilder.CreateAttributes")
     result = adopt[BarcodeSymbologyAttributes](tmp)
 
-proc markFeed*(self: ReceiptPrintJob, a1: PosPrinterMarkFeedKind)  =
+proc markFeed*(self: ReceiptPrintJob, kind: PosPrinterMarkFeedKind)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.MarkFeed
   withIface(self.p, IID_IReceiptPrintJob, "IReceiptPrintJob", it):
-    vcall(it, Slot_IReceiptPrintJob_MarkFeed, Fn_IReceiptPrintJob_MarkFeed)(it, a1).check("ReceiptPrintJob.MarkFeed")
+    vcall(it, Slot_IReceiptPrintJob_MarkFeed, Fn_IReceiptPrintJob_MarkFeed)(it, kind).check("ReceiptPrintJob.MarkFeed")
 
-proc cutPaper*(self: ReceiptPrintJob, a1: float64)  =
+proc cutPaper*(self: ReceiptPrintJob, percentage: float64)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.CutPaper
   withIface(self.p, IID_IReceiptPrintJob, "IReceiptPrintJob", it):
-    vcall(it, Slot_IReceiptPrintJob_CutPaper, Fn_IReceiptPrintJob_CutPaper)(it, a1).check("ReceiptPrintJob.CutPaper")
+    vcall(it, Slot_IReceiptPrintJob_CutPaper, Fn_IReceiptPrintJob_CutPaper)(it, percentage).check("ReceiptPrintJob.CutPaper")
 
 proc cutPaper*(self: ReceiptPrintJob)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.CutPaper
@@ -29939,71 +29939,71 @@ proc stampPaper*(self: ReceiptPrintJob)  =
   withIface(self.p, IID_IReceiptPrintJob2, "IReceiptPrintJob2", it):
     vcall(it, Slot_IReceiptPrintJob2_StampPaper, Fn_IReceiptPrintJob2_StampPaper)(it).check("ReceiptPrintJob.StampPaper")
 
-proc print*(self: ReceiptPrintJob, a1: string, a2: PosPrinterPrintOptions)  =
+proc print*(self: ReceiptPrintJob, data: string, printOptions: PosPrinterPrintOptions)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.Print
   withIface(self.p, IID_IReceiptPrintJob2, "IReceiptPrintJob2", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
+    withHString(data, h0):
+      withIface(printOptions.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
         vcall(it, Slot_IReceiptPrintJob2_Print, Fn_IReceiptPrintJob2_Print)(it, h0, p1).check("ReceiptPrintJob.Print")
 
-proc feedPaperByLine*(self: ReceiptPrintJob, a1: int32)  =
+proc feedPaperByLine*(self: ReceiptPrintJob, lineCount: int32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.FeedPaperByLine
   withIface(self.p, IID_IReceiptPrintJob2, "IReceiptPrintJob2", it):
-    vcall(it, Slot_IReceiptPrintJob2_FeedPaperByLine, Fn_IReceiptPrintJob2_FeedPaperByLine)(it, a1).check("ReceiptPrintJob.FeedPaperByLine")
+    vcall(it, Slot_IReceiptPrintJob2_FeedPaperByLine, Fn_IReceiptPrintJob2_FeedPaperByLine)(it, lineCount).check("ReceiptPrintJob.FeedPaperByLine")
 
-proc feedPaperByMapModeUnit*(self: ReceiptPrintJob, a1: int32)  =
+proc feedPaperByMapModeUnit*(self: ReceiptPrintJob, distance: int32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.FeedPaperByMapModeUnit
   withIface(self.p, IID_IReceiptPrintJob2, "IReceiptPrintJob2", it):
-    vcall(it, Slot_IReceiptPrintJob2_FeedPaperByMapModeUnit, Fn_IReceiptPrintJob2_FeedPaperByMapModeUnit)(it, a1).check("ReceiptPrintJob.FeedPaperByMapModeUnit")
+    vcall(it, Slot_IReceiptPrintJob2_FeedPaperByMapModeUnit, Fn_IReceiptPrintJob2_FeedPaperByMapModeUnit)(it, distance).check("ReceiptPrintJob.FeedPaperByMapModeUnit")
 
-proc setBarcodeRotation*(self: ReceiptPrintJob, a1: PosPrinterRotation)  =
+proc setBarcodeRotation*(self: ReceiptPrintJob, value: PosPrinterRotation)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.SetBarcodeRotation
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetBarcodeRotation, Fn_IReceiptOrSlipJob_SetBarcodeRotation)(it, a1).check("ReceiptPrintJob.SetBarcodeRotation")
+    vcall(it, Slot_IReceiptOrSlipJob_SetBarcodeRotation, Fn_IReceiptOrSlipJob_SetBarcodeRotation)(it, value).check("ReceiptPrintJob.SetBarcodeRotation")
 
-proc setPrintRotation*(self: ReceiptPrintJob, a1: PosPrinterRotation, a2: bool)  =
+proc setPrintRotation*(self: ReceiptPrintJob, value: PosPrinterRotation, includeBitmaps: bool)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.SetPrintRotation
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetPrintRotation, Fn_IReceiptOrSlipJob_SetPrintRotation)(it, a1, a2).check("ReceiptPrintJob.SetPrintRotation")
+    vcall(it, Slot_IReceiptOrSlipJob_SetPrintRotation, Fn_IReceiptOrSlipJob_SetPrintRotation)(it, value, includeBitmaps).check("ReceiptPrintJob.SetPrintRotation")
 
-proc setPrintArea*(self: ReceiptPrintJob, a1: Rect)  =
+proc setPrintArea*(self: ReceiptPrintJob, value: Rect)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.SetPrintArea
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, a1).check("ReceiptPrintJob.SetPrintArea")
+    vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, value).check("ReceiptPrintJob.SetPrintArea")
 
-proc printSavedBitmap*(self: ReceiptPrintJob, a1: uint32)  =
+proc printSavedBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintSavedBitmap
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_PrintSavedBitmap, Fn_IReceiptOrSlipJob_PrintSavedBitmap)(it, a1).check("ReceiptPrintJob.PrintSavedBitmap")
+    vcall(it, Slot_IReceiptOrSlipJob_PrintSavedBitmap, Fn_IReceiptOrSlipJob_PrintSavedBitmap)(it, bitmapNumber).check("ReceiptPrintJob.PrintSavedBitmap")
 
-proc drawRuledLine*(self: ReceiptPrintJob, a1: string, a2: PosPrinterLineDirection, a3: uint32, a4: PosPrinterLineStyle, a5: uint32)  =
+proc drawRuledLine*(self: ReceiptPrintJob, positionList: string, lineDirection: PosPrinterLineDirection, lineWidth: uint32, lineStyle: PosPrinterLineStyle, lineColor: uint32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.DrawRuledLine
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_DrawRuledLine, Fn_IReceiptOrSlipJob_DrawRuledLine)(it, h0, a2, a3, a4, a5).check("ReceiptPrintJob.DrawRuledLine")
+    withHString(positionList, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_DrawRuledLine, Fn_IReceiptOrSlipJob_DrawRuledLine)(it, h0, lineDirection, lineWidth, lineStyle, lineColor).check("ReceiptPrintJob.DrawRuledLine")
 
-proc printBarcode*(self: ReceiptPrintJob, a1: string, a2: uint32, a3: uint32, a4: uint32, a5: PosPrinterBarcodeTextPosition, a6: PosPrinterAlignment)  =
+proc printBarcode*(self: ReceiptPrintJob, data: string, symbology: uint32, height: uint32, width: uint32, textPosition: PosPrinterBarcodeTextPosition, alignment: PosPrinterAlignment)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintBarcode
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcode, Fn_IReceiptOrSlipJob_PrintBarcode)(it, h0, a2, a3, a4, a5, a6).check("ReceiptPrintJob.PrintBarcode")
+    withHString(data, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcode, Fn_IReceiptOrSlipJob_PrintBarcode)(it, h0, symbology, height, width, textPosition, alignment).check("ReceiptPrintJob.PrintBarcode")
 
-proc printBarcodeCustomAlign*(self: ReceiptPrintJob, a1: string, a2: uint32, a3: uint32, a4: uint32, a5: PosPrinterBarcodeTextPosition, a6: uint32)  =
+proc printBarcodeCustomAlign*(self: ReceiptPrintJob, data: string, symbology: uint32, height: uint32, width: uint32, textPosition: PosPrinterBarcodeTextPosition, alignmentDistance: uint32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintBarcodeCustomAlign
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, a2, a3, a4, a5, a6).check("ReceiptPrintJob.PrintBarcodeCustomAlign")
+    withHString(data, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, symbology, height, width, textPosition, alignmentDistance).check("ReceiptPrintJob.PrintBarcodeCustomAlign")
 
-proc print*(self: ReceiptPrintJob, a1: string)  =
+proc print*(self: ReceiptPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.Print
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_Print, Fn_IPosPrinterJob_Print)(it, h0).check("ReceiptPrintJob.Print")
 
-proc printLine*(self: ReceiptPrintJob, a1: string)  =
+proc printLine*(self: ReceiptPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintLine
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_PrintLine, Fn_IPosPrinterJob_PrintLine)(it, h0).check("ReceiptPrintJob.PrintLine")
 
 proc printLine*(self: ReceiptPrintJob)  =
@@ -30214,71 +30214,71 @@ proc isPaperNearEndSensorSupported*(self: ReceiptPrinterCapabilities): bool  =
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported, Fn_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_IsPaperNearEndSensorSupported")
     result = tmp
 
-proc print*(self: SlipPrintJob, a1: string, a2: PosPrinterPrintOptions)  =
+proc print*(self: SlipPrintJob, data: string, printOptions: PosPrinterPrintOptions)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.Print
   withIface(self.p, IID_ISlipPrintJob, "ISlipPrintJob", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
+    withHString(data, h0):
+      withIface(printOptions.p, IID_IPosPrinterPrintOptions, "IPosPrinterPrintOptions", p1):
         vcall(it, Slot_ISlipPrintJob_Print, Fn_ISlipPrintJob_Print)(it, h0, p1).check("SlipPrintJob.Print")
 
-proc feedPaperByLine*(self: SlipPrintJob, a1: int32)  =
+proc feedPaperByLine*(self: SlipPrintJob, lineCount: int32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.FeedPaperByLine
   withIface(self.p, IID_ISlipPrintJob, "ISlipPrintJob", it):
-    vcall(it, Slot_ISlipPrintJob_FeedPaperByLine, Fn_ISlipPrintJob_FeedPaperByLine)(it, a1).check("SlipPrintJob.FeedPaperByLine")
+    vcall(it, Slot_ISlipPrintJob_FeedPaperByLine, Fn_ISlipPrintJob_FeedPaperByLine)(it, lineCount).check("SlipPrintJob.FeedPaperByLine")
 
-proc feedPaperByMapModeUnit*(self: SlipPrintJob, a1: int32)  =
+proc feedPaperByMapModeUnit*(self: SlipPrintJob, distance: int32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.FeedPaperByMapModeUnit
   withIface(self.p, IID_ISlipPrintJob, "ISlipPrintJob", it):
-    vcall(it, Slot_ISlipPrintJob_FeedPaperByMapModeUnit, Fn_ISlipPrintJob_FeedPaperByMapModeUnit)(it, a1).check("SlipPrintJob.FeedPaperByMapModeUnit")
+    vcall(it, Slot_ISlipPrintJob_FeedPaperByMapModeUnit, Fn_ISlipPrintJob_FeedPaperByMapModeUnit)(it, distance).check("SlipPrintJob.FeedPaperByMapModeUnit")
 
-proc setBarcodeRotation*(self: SlipPrintJob, a1: PosPrinterRotation)  =
+proc setBarcodeRotation*(self: SlipPrintJob, value: PosPrinterRotation)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.SetBarcodeRotation
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetBarcodeRotation, Fn_IReceiptOrSlipJob_SetBarcodeRotation)(it, a1).check("SlipPrintJob.SetBarcodeRotation")
+    vcall(it, Slot_IReceiptOrSlipJob_SetBarcodeRotation, Fn_IReceiptOrSlipJob_SetBarcodeRotation)(it, value).check("SlipPrintJob.SetBarcodeRotation")
 
-proc setPrintRotation*(self: SlipPrintJob, a1: PosPrinterRotation, a2: bool)  =
+proc setPrintRotation*(self: SlipPrintJob, value: PosPrinterRotation, includeBitmaps: bool)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.SetPrintRotation
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetPrintRotation, Fn_IReceiptOrSlipJob_SetPrintRotation)(it, a1, a2).check("SlipPrintJob.SetPrintRotation")
+    vcall(it, Slot_IReceiptOrSlipJob_SetPrintRotation, Fn_IReceiptOrSlipJob_SetPrintRotation)(it, value, includeBitmaps).check("SlipPrintJob.SetPrintRotation")
 
-proc setPrintArea*(self: SlipPrintJob, a1: Rect)  =
+proc setPrintArea*(self: SlipPrintJob, value: Rect)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.SetPrintArea
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, a1).check("SlipPrintJob.SetPrintArea")
+    vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, value).check("SlipPrintJob.SetPrintArea")
 
-proc printSavedBitmap*(self: SlipPrintJob, a1: uint32)  =
+proc printSavedBitmap*(self: SlipPrintJob, bitmapNumber: uint32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.PrintSavedBitmap
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    vcall(it, Slot_IReceiptOrSlipJob_PrintSavedBitmap, Fn_IReceiptOrSlipJob_PrintSavedBitmap)(it, a1).check("SlipPrintJob.PrintSavedBitmap")
+    vcall(it, Slot_IReceiptOrSlipJob_PrintSavedBitmap, Fn_IReceiptOrSlipJob_PrintSavedBitmap)(it, bitmapNumber).check("SlipPrintJob.PrintSavedBitmap")
 
-proc drawRuledLine*(self: SlipPrintJob, a1: string, a2: PosPrinterLineDirection, a3: uint32, a4: PosPrinterLineStyle, a5: uint32)  =
+proc drawRuledLine*(self: SlipPrintJob, positionList: string, lineDirection: PosPrinterLineDirection, lineWidth: uint32, lineStyle: PosPrinterLineStyle, lineColor: uint32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.DrawRuledLine
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_DrawRuledLine, Fn_IReceiptOrSlipJob_DrawRuledLine)(it, h0, a2, a3, a4, a5).check("SlipPrintJob.DrawRuledLine")
+    withHString(positionList, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_DrawRuledLine, Fn_IReceiptOrSlipJob_DrawRuledLine)(it, h0, lineDirection, lineWidth, lineStyle, lineColor).check("SlipPrintJob.DrawRuledLine")
 
-proc printBarcode*(self: SlipPrintJob, a1: string, a2: uint32, a3: uint32, a4: uint32, a5: PosPrinterBarcodeTextPosition, a6: PosPrinterAlignment)  =
+proc printBarcode*(self: SlipPrintJob, data: string, symbology: uint32, height: uint32, width: uint32, textPosition: PosPrinterBarcodeTextPosition, alignment: PosPrinterAlignment)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.PrintBarcode
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcode, Fn_IReceiptOrSlipJob_PrintBarcode)(it, h0, a2, a3, a4, a5, a6).check("SlipPrintJob.PrintBarcode")
+    withHString(data, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcode, Fn_IReceiptOrSlipJob_PrintBarcode)(it, h0, symbology, height, width, textPosition, alignment).check("SlipPrintJob.PrintBarcode")
 
-proc printBarcodeCustomAlign*(self: SlipPrintJob, a1: string, a2: uint32, a3: uint32, a4: uint32, a5: PosPrinterBarcodeTextPosition, a6: uint32)  =
+proc printBarcodeCustomAlign*(self: SlipPrintJob, data: string, symbology: uint32, height: uint32, width: uint32, textPosition: PosPrinterBarcodeTextPosition, alignmentDistance: uint32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.PrintBarcodeCustomAlign
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, a2, a3, a4, a5, a6).check("SlipPrintJob.PrintBarcodeCustomAlign")
+    withHString(data, h0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, symbology, height, width, textPosition, alignmentDistance).check("SlipPrintJob.PrintBarcodeCustomAlign")
 
-proc print*(self: SlipPrintJob, a1: string)  =
+proc print*(self: SlipPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.Print
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_Print, Fn_IPosPrinterJob_Print)(it, h0).check("SlipPrintJob.Print")
 
-proc printLine*(self: SlipPrintJob, a1: string)  =
+proc printLine*(self: SlipPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.PrintLine
   withIface(self.p, IID_IPosPrinterJob, "IPosPrinterJob", it):
-    withHString(a1, h0):
+    withHString(data, h0):
       vcall(it, Slot_IPosPrinterJob_PrintLine, Fn_IPosPrinterJob_PrintLine)(it, h0).check("SlipPrintJob.PrintLine")
 
 proc printLine*(self: SlipPrintJob)  =
@@ -30510,26 +30510,26 @@ proc extendedReason*(self: UnifiedPosErrorData): uint32  =
     vcall(it, Slot_IUnifiedPosErrorData_get_ExtendedReason, Fn_IUnifiedPosErrorData_get_ExtendedReason)(it, tmp.addr).check("UnifiedPosErrorData.get_ExtendedReason")
     result = tmp
 
-proc createInstance*(_: typedesc[UnifiedPosErrorData], a1: string, a2: UnifiedPosErrorSeverity, a3: UnifiedPosErrorReason, a4: uint32): UnifiedPosErrorData  =
+proc createInstance*(_: typedesc[UnifiedPosErrorData], message: string, severity: UnifiedPosErrorSeverity, reason: UnifiedPosErrorReason, extendedReason: uint32): UnifiedPosErrorData  =
   ## Windows.Devices.PointOfService.UnifiedPosErrorData.CreateInstance
   withStatics("Windows.Devices.PointOfService.UnifiedPosErrorData", IID_IUnifiedPosErrorDataFactory, it):
-    withHString(a1, h0):
+    withHString(message, h0):
       var tmp: pointer
-      vcall(it, Slot_IUnifiedPosErrorDataFactory_CreateInstance, Fn_IUnifiedPosErrorDataFactory_CreateInstance)(it, h0, a2, a3, a4, tmp.addr).check("UnifiedPosErrorData.CreateInstance")
+      vcall(it, Slot_IUnifiedPosErrorDataFactory_CreateInstance, Fn_IUnifiedPosErrorDataFactory_CreateInstance)(it, h0, severity, reason, extendedReason, tmp.addr).check("UnifiedPosErrorData.CreateInstance")
       result = adopt[UnifiedPosErrorData](tmp)
 
-proc getDeviceSelector*(_: typedesc[ServiceDevice], a1: ServiceDeviceType): string  =
+proc getDeviceSelector*(_: typedesc[ServiceDevice], serviceType: ServiceDeviceType): string  =
   ## Windows.Devices.Portable.ServiceDevice.GetDeviceSelector
   withStatics("Windows.Devices.Portable.ServiceDevice", IID_IServiceDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IServiceDeviceStatics_GetDeviceSelector, Fn_IServiceDeviceStatics_GetDeviceSelector)(it, a1, tmp.addr).check("ServiceDevice.GetDeviceSelector")
+    vcall(it, Slot_IServiceDeviceStatics_GetDeviceSelector, Fn_IServiceDeviceStatics_GetDeviceSelector)(it, serviceType, tmp.addr).check("ServiceDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], a1: GUID): string  =
+proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], serviceId: GUID): string  =
   ## Windows.Devices.Portable.ServiceDevice.GetDeviceSelectorFromServiceId
   withStatics("Windows.Devices.Portable.ServiceDevice", IID_IServiceDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IServiceDeviceStatics_GetDeviceSelectorFromServiceId, Fn_IServiceDeviceStatics_GetDeviceSelectorFromServiceId)(it, a1, tmp.addr).check("ServiceDevice.GetDeviceSelectorFromServiceId")
+    vcall(it, Slot_IServiceDeviceStatics_GetDeviceSelectorFromServiceId, Fn_IServiceDeviceStatics_GetDeviceSelectorFromServiceId)(it, serviceId, tmp.addr).check("ServiceDevice.GetDeviceSelectorFromServiceId")
     result = takeString(tmp)
 
 proc getDeviceSelector*(_: typedesc[StorageDevice]): string  =
@@ -30579,11 +30579,11 @@ proc aggregateBattery*(_: typedesc[Battery]): Battery  =
     vcall(it, Slot_IBatteryStatics_get_AggregateBattery, Fn_IBatteryStatics_get_AggregateBattery)(it, tmp.addr).check("Battery.get_AggregateBattery")
     result = adopt[Battery](tmp)
 
-proc fromIdAsync*(_: typedesc[Battery], a1: string): Future[Battery] {.async.} =
+proc fromIdAsync*(_: typedesc[Battery], deviceId: string): Future[Battery] {.async.} =
   ## Windows.Devices.Power.Battery.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Power.Battery", IID_IBatteryStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBatteryStatics_FromIdAsync, Fn_IBatteryStatics_FromIdAsync)(it, h0, op.addr).check("Battery.FromIdAsync")
   result = adopt[Battery](await awaitObject(op, IID_IAsyncOperation_1_Battery, IID_AsyncOperationCompletedHandler_1_Battery, "Battery.FromIdAsync"))
 
@@ -30759,20 +30759,20 @@ proc status*(self: Print3DWorkflowPrintRequestedEventArgs): Print3DWorkflowStatu
     vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_get_Status, Fn_IPrint3DWorkflowPrintRequestedEventArgs_get_Status)(it, tmp.addr).check("Print3DWorkflowPrintRequestedEventArgs.get_Status")
     result = tmp
 
-proc setExtendedStatus*(self: Print3DWorkflowPrintRequestedEventArgs, a1: Print3DWorkflowDetail)  =
+proc setExtendedStatus*(self: Print3DWorkflowPrintRequestedEventArgs, value: Print3DWorkflowDetail)  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetExtendedStatus
   withIface(self.p, IID_IPrint3DWorkflowPrintRequestedEventArgs, "IPrint3DWorkflowPrintRequestedEventArgs", it):
-    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus)(it, a1).check("Print3DWorkflowPrintRequestedEventArgs.SetExtendedStatus")
+    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus)(it, value).check("Print3DWorkflowPrintRequestedEventArgs.SetExtendedStatus")
 
-proc setSource*(self: Print3DWorkflowPrintRequestedEventArgs, a1: pointer)  =
+proc setSource*(self: Print3DWorkflowPrintRequestedEventArgs, source: pointer)  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetSource
   withIface(self.p, IID_IPrint3DWorkflowPrintRequestedEventArgs, "IPrint3DWorkflowPrintRequestedEventArgs", it):
-    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSource, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSource)(it, a1).check("Print3DWorkflowPrintRequestedEventArgs.SetSource")
+    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSource, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSource)(it, source).check("Print3DWorkflowPrintRequestedEventArgs.SetSource")
 
-proc setSourceChanged*(self: Print3DWorkflowPrintRequestedEventArgs, a1: bool)  =
+proc setSourceChanged*(self: Print3DWorkflowPrintRequestedEventArgs, value: bool)  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetSourceChanged
   withIface(self.p, IID_IPrint3DWorkflowPrintRequestedEventArgs, "IPrint3DWorkflowPrintRequestedEventArgs", it):
-    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSourceChanged, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSourceChanged)(it, a1).check("Print3DWorkflowPrintRequestedEventArgs.SetSourceChanged")
+    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSourceChanged, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSourceChanged)(it, value).check("Print3DWorkflowPrintRequestedEventArgs.SetSourceChanged")
 
 proc newDeviceId*(self: Print3DWorkflowPrinterChangedEventArgs): string  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs.get_NewDeviceId
@@ -30781,10 +30781,10 @@ proc newDeviceId*(self: Print3DWorkflowPrinterChangedEventArgs): string  =
     vcall(it, Slot_IPrint3DWorkflowPrinterChangedEventArgs_get_NewDeviceId, Fn_IPrint3DWorkflowPrinterChangedEventArgs_get_NewDeviceId)(it, tmp.addr).check("Print3DWorkflowPrinterChangedEventArgs.get_NewDeviceId")
     result = takeString(tmp)
 
-proc fromDeviceId*(_: typedesc[PrintExtensionContext], a1: string): pointer  =
+proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string): pointer  =
   ## Windows.Devices.Printers.Extensions.PrintExtensionContext.FromDeviceId
   withStatics("Windows.Devices.Printers.Extensions.PrintExtensionContext", IID_IPrintExtensionContextStatic, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_IPrintExtensionContextStatic_FromDeviceId, Fn_IPrintExtensionContextStatic_FromDeviceId)(it, h0, tmp.addr).check("PrintExtensionContext.FromDeviceId")
       result = tmp
@@ -30840,10 +30840,10 @@ proc cancel*(self: PrintTaskConfigurationSaveRequest)  =
   withIface(self.p, IID_IPrintTaskConfigurationSaveRequest, "IPrintTaskConfigurationSaveRequest", it):
     vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Cancel, Fn_IPrintTaskConfigurationSaveRequest_Cancel)(it).check("PrintTaskConfigurationSaveRequest.Cancel")
 
-proc save*(self: PrintTaskConfigurationSaveRequest, a1: pointer)  =
+proc save*(self: PrintTaskConfigurationSaveRequest, printerExtensionContext: pointer)  =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest.Save
   withIface(self.p, IID_IPrintTaskConfigurationSaveRequest, "IPrintTaskConfigurationSaveRequest", it):
-    vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Save, Fn_IPrintTaskConfigurationSaveRequest_Save)(it, a1).check("PrintTaskConfigurationSaveRequest.Save")
+    vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Save, Fn_IPrintTaskConfigurationSaveRequest_Save)(it, printerExtensionContext).check("PrintTaskConfigurationSaveRequest.Save")
 
 proc getDeferral*(self: PrintTaskConfigurationSaveRequest): PrintTaskConfigurationSaveRequestedDeferral  =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest.GetDeferral
@@ -31017,133 +31017,133 @@ proc createNoValue*(_: typedesc[IppAttributeValue]): IppAttributeValue  =
     vcall(it, Slot_IIppAttributeValueStatics_CreateNoValue, Fn_IIppAttributeValueStatics_CreateNoValue)(it, tmp.addr).check("IppAttributeValue.CreateNoValue")
     result = adopt[IppAttributeValue](tmp)
 
-proc createInteger*(_: typedesc[IppAttributeValue], a1: int32): IppAttributeValue  =
+proc createInteger*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateInteger
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateInteger, Fn_IIppAttributeValueStatics_CreateInteger)(it, a1, tmp.addr).check("IppAttributeValue.CreateInteger")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateInteger, Fn_IIppAttributeValueStatics_CreateInteger)(it, value, tmp.addr).check("IppAttributeValue.CreateInteger")
     result = adopt[IppAttributeValue](tmp)
 
-proc createBoolean*(_: typedesc[IppAttributeValue], a1: bool): IppAttributeValue  =
+proc createBoolean*(_: typedesc[IppAttributeValue], value: bool): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateBoolean
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateBoolean, Fn_IIppAttributeValueStatics_CreateBoolean)(it, a1, tmp.addr).check("IppAttributeValue.CreateBoolean")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateBoolean, Fn_IIppAttributeValueStatics_CreateBoolean)(it, value, tmp.addr).check("IppAttributeValue.CreateBoolean")
     result = adopt[IppAttributeValue](tmp)
 
-proc createEnum*(_: typedesc[IppAttributeValue], a1: int32): IppAttributeValue  =
+proc createEnum*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateEnum
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateEnum, Fn_IIppAttributeValueStatics_CreateEnum)(it, a1, tmp.addr).check("IppAttributeValue.CreateEnum")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateEnum, Fn_IIppAttributeValueStatics_CreateEnum)(it, value, tmp.addr).check("IppAttributeValue.CreateEnum")
     result = adopt[IppAttributeValue](tmp)
 
-proc createOctetString*(_: typedesc[IppAttributeValue], a1: pointer): IppAttributeValue  =
+proc createOctetString*(_: typedesc[IppAttributeValue], value: pointer): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateOctetString
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateOctetString, Fn_IIppAttributeValueStatics_CreateOctetString)(it, a1, tmp.addr).check("IppAttributeValue.CreateOctetString")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateOctetString, Fn_IIppAttributeValueStatics_CreateOctetString)(it, value, tmp.addr).check("IppAttributeValue.CreateOctetString")
     result = adopt[IppAttributeValue](tmp)
 
-proc createDateTime*(_: typedesc[IppAttributeValue], a1: DateTime): IppAttributeValue  =
+proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateDateTime
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateDateTime, Fn_IIppAttributeValueStatics_CreateDateTime)(it, a1, tmp.addr).check("IppAttributeValue.CreateDateTime")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateDateTime, Fn_IIppAttributeValueStatics_CreateDateTime)(it, value, tmp.addr).check("IppAttributeValue.CreateDateTime")
     result = adopt[IppAttributeValue](tmp)
 
-proc createResolution*(_: typedesc[IppAttributeValue], a1: IppResolution): IppAttributeValue  =
+proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateResolution
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withIface(a1.p, IID_IIppResolution, "IIppResolution", p0):
+    withIface(value.p, IID_IIppResolution, "IIppResolution", p0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateResolution, Fn_IIppAttributeValueStatics_CreateResolution)(it, p0, tmp.addr).check("IppAttributeValue.CreateResolution")
       result = adopt[IppAttributeValue](tmp)
 
-proc createRangeOfInteger*(_: typedesc[IppAttributeValue], a1: IppIntegerRange): IppAttributeValue  =
+proc createRangeOfInteger*(_: typedesc[IppAttributeValue], value: IppIntegerRange): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateRangeOfInteger
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withIface(a1.p, IID_IIppIntegerRange, "IIppIntegerRange", p0):
+    withIface(value.p, IID_IIppIntegerRange, "IIppIntegerRange", p0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateRangeOfInteger, Fn_IIppAttributeValueStatics_CreateRangeOfInteger)(it, p0, tmp.addr).check("IppAttributeValue.CreateRangeOfInteger")
       result = adopt[IppAttributeValue](tmp)
 
-proc createTextWithLanguage*(_: typedesc[IppAttributeValue], a1: IppTextWithLanguage): IppAttributeValue  =
+proc createTextWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withIface(a1.p, IID_IIppTextWithLanguage, "IIppTextWithLanguage", p0):
+    withIface(value.p, IID_IIppTextWithLanguage, "IIppTextWithLanguage", p0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithLanguage, Fn_IIppAttributeValueStatics_CreateTextWithLanguage)(it, p0, tmp.addr).check("IppAttributeValue.CreateTextWithLanguage")
       result = adopt[IppAttributeValue](tmp)
 
-proc createNameWithLanguage*(_: typedesc[IppAttributeValue], a1: IppTextWithLanguage): IppAttributeValue  =
+proc createNameWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withIface(a1.p, IID_IIppTextWithLanguage, "IIppTextWithLanguage", p0):
+    withIface(value.p, IID_IIppTextWithLanguage, "IIppTextWithLanguage", p0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithLanguage, Fn_IIppAttributeValueStatics_CreateNameWithLanguage)(it, p0, tmp.addr).check("IppAttributeValue.CreateNameWithLanguage")
       result = adopt[IppAttributeValue](tmp)
 
-proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithoutLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateTextWithoutLanguage, Fn_IIppAttributeValueStatics_CreateTextWithoutLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateTextWithoutLanguage")
       result = adopt[IppAttributeValue](tmp)
 
-proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithoutLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateNameWithoutLanguage, Fn_IIppAttributeValueStatics_CreateNameWithoutLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateNameWithoutLanguage")
       result = adopt[IppAttributeValue](tmp)
 
-proc createKeyword*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createKeyword*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateKeyword
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateKeyword, Fn_IIppAttributeValueStatics_CreateKeyword)(it, h0, tmp.addr).check("IppAttributeValue.CreateKeyword")
       result = adopt[IppAttributeValue](tmp)
 
-proc createUri*(_: typedesc[IppAttributeValue], a1: Uri): IppAttributeValue  =
+proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUri
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateUri, Fn_IIppAttributeValueStatics_CreateUri)(it, p0, tmp.addr).check("IppAttributeValue.CreateUri")
       result = adopt[IppAttributeValue](tmp)
 
-proc createUriSchema*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createUriSchema*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUriSchema
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateUriSchema, Fn_IIppAttributeValueStatics_CreateUriSchema)(it, h0, tmp.addr).check("IppAttributeValue.CreateUriSchema")
       result = adopt[IppAttributeValue](tmp)
 
-proc createCharset*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createCharset*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCharset
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateCharset, Fn_IIppAttributeValueStatics_CreateCharset)(it, h0, tmp.addr).check("IppAttributeValue.CreateCharset")
       result = adopt[IppAttributeValue](tmp)
 
-proc createNaturalLanguage*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNaturalLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateNaturalLanguage, Fn_IIppAttributeValueStatics_CreateNaturalLanguage)(it, h0, tmp.addr).check("IppAttributeValue.CreateNaturalLanguage")
       result = adopt[IppAttributeValue](tmp)
 
-proc createMimeMedia*(_: typedesc[IppAttributeValue], a1: string): IppAttributeValue  =
+proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateMimeMedia
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
-    withHString(a1, h0):
+    withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IIppAttributeValueStatics_CreateMimeMedia, Fn_IIppAttributeValueStatics_CreateMimeMedia)(it, h0, tmp.addr).check("IppAttributeValue.CreateMimeMedia")
       result = adopt[IppAttributeValue](tmp)
@@ -31162,11 +31162,11 @@ proc `end`*(self: IppIntegerRange): int32  =
     vcall(it, Slot_IIppIntegerRange_get_End, Fn_IIppIntegerRange_get_End)(it, tmp.addr).check("IppIntegerRange.get_End")
     result = tmp
 
-proc createInstance*(_: typedesc[IppIntegerRange], a1: int32, a2: int32): IppIntegerRange  =
+proc createInstance*(_: typedesc[IppIntegerRange], start: int32, `end`: int32): IppIntegerRange  =
   ## Windows.Devices.Printers.IppIntegerRange.CreateInstance
   withStatics("Windows.Devices.Printers.IppIntegerRange", IID_IIppIntegerRangeFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IIppIntegerRangeFactory_CreateInstance, Fn_IIppIntegerRangeFactory_CreateInstance)(it, a1, a2, tmp.addr).check("IppIntegerRange.CreateInstance")
+    vcall(it, Slot_IIppIntegerRangeFactory_CreateInstance, Fn_IIppIntegerRangeFactory_CreateInstance)(it, start, `end`, tmp.addr).check("IppIntegerRange.CreateInstance")
     result = adopt[IppIntegerRange](tmp)
 
 proc printerName*(self: IppPrintDevice): string  =
@@ -31183,11 +31183,11 @@ proc printerUri*(self: IppPrintDevice): Uri  =
     vcall(it, Slot_IIppPrintDevice_get_PrinterUri, Fn_IIppPrintDevice_get_PrinterUri)(it, tmp.addr).check("IppPrintDevice.get_PrinterUri")
     result = adopt[Uri](tmp)
 
-proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, a1: pointer): IppSetAttributesResult  =
+proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: pointer): IppSetAttributesResult  =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributesFromBuffer
   withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
     var tmp: pointer
-    vcall(it, Slot_IIppPrintDevice_SetPrinterAttributesFromBuffer, Fn_IIppPrintDevice_SetPrinterAttributesFromBuffer)(it, a1, tmp.addr).check("IppPrintDevice.SetPrinterAttributesFromBuffer")
+    vcall(it, Slot_IIppPrintDevice_SetPrinterAttributesFromBuffer, Fn_IIppPrintDevice_SetPrinterAttributesFromBuffer)(it, printerAttributesBuffer, tmp.addr).check("IppPrintDevice.SetPrinterAttributesFromBuffer")
     result = adopt[IppSetAttributesResult](tmp)
 
 proc getMaxSupportedPdfSize*(self: IppPrintDevice): uint64  =
@@ -31204,10 +31204,10 @@ proc getMaxSupportedPdfVersion*(self: IppPrintDevice): string  =
     vcall(it, Slot_IIppPrintDevice2_GetMaxSupportedPdfVersion, Fn_IIppPrintDevice2_GetMaxSupportedPdfVersion)(it, tmp.addr).check("IppPrintDevice.GetMaxSupportedPdfVersion")
     result = takeString(tmp)
 
-proc isPdlPassthroughSupported*(self: IppPrintDevice, a1: string): bool  =
+proc isPdlPassthroughSupported*(self: IppPrintDevice, pdlContentType: string): bool  =
   ## Windows.Devices.Printers.IppPrintDevice.IsPdlPassthroughSupported
   withIface(self.p, IID_IIppPrintDevice2, "IIppPrintDevice2", it):
-    withHString(a1, h0):
+    withHString(pdlContentType, h0):
       var tmp: bool
       vcall(it, Slot_IIppPrintDevice2_IsPdlPassthroughSupported, Fn_IIppPrintDevice2_IsPdlPassthroughSupported)(it, h0, tmp.addr).check("IppPrintDevice.IsPdlPassthroughSupported")
       result = tmp
@@ -31245,10 +31245,10 @@ proc refreshPrintDeviceCapabilities*(self: IppPrintDevice)  =
   withIface(self.p, IID_IIppPrintDevice4, "IIppPrintDevice4", it):
     vcall(it, Slot_IIppPrintDevice4_RefreshPrintDeviceCapabilities, Fn_IIppPrintDevice4_RefreshPrintDeviceCapabilities)(it).check("IppPrintDevice.RefreshPrintDeviceCapabilities")
 
-proc getMaxSupportedPdlVersion*(self: IppPrintDevice, a1: string): string  =
+proc getMaxSupportedPdlVersion*(self: IppPrintDevice, pdlContentType: string): string  =
   ## Windows.Devices.Printers.IppPrintDevice.GetMaxSupportedPdlVersion
   withIface(self.p, IID_IIppPrintDevice4, "IIppPrintDevice4", it):
-    withHString(a1, h0):
+    withHString(pdlContentType, h0):
       var tmp: HSTRING
       vcall(it, Slot_IIppPrintDevice4_GetMaxSupportedPdlVersion, Fn_IIppPrintDevice4_GetMaxSupportedPdlVersion)(it, h0, tmp.addr).check("IppPrintDevice.GetMaxSupportedPdlVersion")
       result = takeString(tmp)
@@ -31267,26 +31267,26 @@ proc getDeviceSelector*(_: typedesc[IppPrintDevice]): string  =
     vcall(it, Slot_IIppPrintDeviceStatics_GetDeviceSelector, Fn_IIppPrintDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("IppPrintDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromId*(_: typedesc[IppPrintDevice], a1: string): IppPrintDevice  =
+proc fromId*(_: typedesc[IppPrintDevice], deviceId: string): IppPrintDevice  =
   ## Windows.Devices.Printers.IppPrintDevice.FromId
   withStatics("Windows.Devices.Printers.IppPrintDevice", IID_IIppPrintDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_IIppPrintDeviceStatics_FromId, Fn_IIppPrintDeviceStatics_FromId)(it, h0, tmp.addr).check("IppPrintDevice.FromId")
       result = adopt[IppPrintDevice](tmp)
 
-proc fromPrinterName*(_: typedesc[IppPrintDevice], a1: string): IppPrintDevice  =
+proc fromPrinterName*(_: typedesc[IppPrintDevice], printerName: string): IppPrintDevice  =
   ## Windows.Devices.Printers.IppPrintDevice.FromPrinterName
   withStatics("Windows.Devices.Printers.IppPrintDevice", IID_IIppPrintDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       var tmp: pointer
       vcall(it, Slot_IIppPrintDeviceStatics_FromPrinterName, Fn_IIppPrintDeviceStatics_FromPrinterName)(it, h0, tmp.addr).check("IppPrintDevice.FromPrinterName")
       result = adopt[IppPrintDevice](tmp)
 
-proc isIppPrinter*(_: typedesc[IppPrintDevice], a1: string): bool  =
+proc isIppPrinter*(_: typedesc[IppPrintDevice], printerName: string): bool  =
   ## Windows.Devices.Printers.IppPrintDevice.IsIppPrinter
   withStatics("Windows.Devices.Printers.IppPrintDevice", IID_IIppPrintDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       var tmp: bool
       vcall(it, Slot_IIppPrintDeviceStatics_IsIppPrinter, Fn_IIppPrintDeviceStatics_IsIppPrinter)(it, h0, tmp.addr).check("IppPrintDevice.IsIppPrinter")
       result = tmp
@@ -31319,12 +31319,12 @@ proc canInstallIppPrintDevice*(_: typedesc[IppPrintDeviceManager]): bool  =
     vcall(it, Slot_IIppPrintDeviceManagerStatics_CanInstallIppPrintDevice, Fn_IIppPrintDeviceManagerStatics_CanInstallIppPrintDevice)(it, tmp.addr).check("IppPrintDeviceManager.CanInstallIppPrintDevice")
     result = tmp
 
-proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager], a1: Uri, a2: string): Future[IppPrintDeviceInstallationResult] {.async.} =
+proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager], printerUri: Uri, printerName: string): Future[IppPrintDeviceInstallationResult] {.async.} =
   ## Windows.Devices.Printers.IppPrintDeviceManager.InstallIppPrintDeviceAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.IppPrintDeviceManager", IID_IIppPrintDeviceManagerStatics, it):
-    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withHString(a2, h1):
+    withIface(printerUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withHString(printerName, h1):
         vcall(it, Slot_IIppPrintDeviceManagerStatics_InstallIppPrintDeviceAsync, Fn_IIppPrintDeviceManagerStatics_InstallIppPrintDeviceAsync)(it, p0, h1, op.addr).check("IppPrintDeviceManager.InstallIppPrintDeviceAsync")
   result = adopt[IppPrintDeviceInstallationResult](await awaitObject(op, IID_IAsyncOperation_1_IppPrintDeviceInstallationResult, IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult, "IppPrintDeviceManager.InstallIppPrintDeviceAsync"))
 
@@ -31349,11 +31349,11 @@ proc unit*(self: IppResolution): IppResolutionUnit  =
     vcall(it, Slot_IIppResolution_get_Unit, Fn_IIppResolution_get_Unit)(it, tmp.addr).check("IppResolution.get_Unit")
     result = tmp
 
-proc createInstance*(_: typedesc[IppResolution], a1: int32, a2: int32, a3: IppResolutionUnit): IppResolution  =
+proc createInstance*(_: typedesc[IppResolution], width: int32, height: int32, unit: IppResolutionUnit): IppResolution  =
   ## Windows.Devices.Printers.IppResolution.CreateInstance
   withStatics("Windows.Devices.Printers.IppResolution", IID_IIppResolutionFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IIppResolutionFactory_CreateInstance, Fn_IIppResolutionFactory_CreateInstance)(it, a1, a2, a3, tmp.addr).check("IppResolution.CreateInstance")
+    vcall(it, Slot_IIppResolutionFactory_CreateInstance, Fn_IIppResolutionFactory_CreateInstance)(it, width, height, unit, tmp.addr).check("IppResolution.CreateInstance")
     result = adopt[IppResolution](tmp)
 
 proc succeeded*(self: IppSetAttributesResult): bool  =
@@ -31377,11 +31377,11 @@ proc value*(self: IppTextWithLanguage): string  =
     vcall(it, Slot_IIppTextWithLanguage_get_Value, Fn_IIppTextWithLanguage_get_Value)(it, tmp.addr).check("IppTextWithLanguage.get_Value")
     result = takeString(tmp)
 
-proc createInstance*(_: typedesc[IppTextWithLanguage], a1: string, a2: string): IppTextWithLanguage  =
+proc createInstance*(_: typedesc[IppTextWithLanguage], language: string, text: string): IppTextWithLanguage  =
   ## Windows.Devices.Printers.IppTextWithLanguage.CreateInstance
   withStatics("Windows.Devices.Printers.IppTextWithLanguage", IID_IIppTextWithLanguageFactory, it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(language, h0):
+      withHString(text, h1):
         var tmp: pointer
         vcall(it, Slot_IIppTextWithLanguageFactory_CreateInstance, Fn_IIppTextWithLanguageFactory_CreateInstance)(it, h0, h1, tmp.addr).check("IppTextWithLanguage.CreateInstance")
         result = adopt[IppTextWithLanguage](tmp)
@@ -31422,14 +31422,14 @@ proc supportedPdlContentTypes*(self: PdlPassthroughProvider): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider, a1: string, a2: string, a3: pointer, a4: PageConfigurationSettings): PdlPassthroughTarget  =
+proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider, jobName: string, pdlContentType: string, printTicket: pointer, pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget  =
   ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithPrintTicket
   withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
-        withIface(a4.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", p3):
+    withHString(jobName, h0):
+      withHString(pdlContentType, h1):
+        withIface(pageConfigurationSettings.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", p3):
           var tmp: pointer
-          vcall(it, Slot_IPdlPassthroughProvider_StartPrintJobWithPrintTicket, Fn_IPdlPassthroughProvider_StartPrintJobWithPrintTicket)(it, h0, h1, a3, p3, tmp.addr).check("PdlPassthroughProvider.StartPrintJobWithPrintTicket")
+          vcall(it, Slot_IPdlPassthroughProvider_StartPrintJobWithPrintTicket, Fn_IPdlPassthroughProvider_StartPrintJobWithPrintTicket)(it, h0, h1, printTicket, p3, tmp.addr).check("PdlPassthroughProvider.StartPrintJobWithPrintTicket")
           result = adopt[PdlPassthroughTarget](tmp)
 
 proc printJobId*(self: PdlPassthroughTarget): int32  =
@@ -31463,11 +31463,11 @@ proc printSchema*(self: Print3DDevice): PrintSchema  =
     vcall(it, Slot_IPrint3DDevice_get_PrintSchema, Fn_IPrint3DDevice_get_PrintSchema)(it, tmp.addr).check("Print3DDevice.get_PrintSchema")
     result = adopt[PrintSchema](tmp)
 
-proc fromIdAsync*(_: typedesc[Print3DDevice], a1: string): Future[Print3DDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[Print3DDevice], deviceId: string): Future[Print3DDevice] {.async.} =
   ## Windows.Devices.Printers.Print3DDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.Print3DDevice", IID_IPrint3DDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IPrint3DDeviceStatics_FromIdAsync, Fn_IPrint3DDeviceStatics_FromIdAsync)(it, h0, op.addr).check("Print3DDevice.FromIdAsync")
   result = adopt[Print3DDevice](await awaitObject(op, IID_IAsyncOperation_1_Print3DDevice, IID_AsyncOperationCompletedHandler_1_Print3DDevice, "Print3DDevice.FromIdAsync"))
 
@@ -31603,37 +31603,37 @@ proc extendedError*(self: VirtualPrinterInstallationResult): HRESULT  =
     vcall(it, Slot_IVirtualPrinterInstallationResult_get_ExtendedError, Fn_IVirtualPrinterInstallationResult_get_ExtendedError)(it, tmp.addr).check("VirtualPrinterInstallationResult.get_ExtendedError")
     result = tmp
 
-proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], a1: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
+proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], parameters: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withIface(a1.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
+    withIface(parameters.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
       vcall(it, Slot_IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync, Fn_IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync)(it, p0, op.addr).check("VirtualPrinterManager.InstallVirtualPrinterAsync")
   result = adopt[VirtualPrinterInstallationResult](await awaitObject(op, IID_IAsyncOperation_1_VirtualPrinterInstallationResult, IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult, "VirtualPrinterManager.InstallVirtualPrinterAsync"))
 
-proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], a1: VirtualPrinterInstallationParameters, a2: string): Future[VirtualPrinterInstallationResult] {.async.} =
+proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], parameters: VirtualPrinterInstallationParameters, appPackageFamilyName: string): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withIface(a1.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
-      withHString(a2, h1):
+    withIface(parameters.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
+      withHString(appPackageFamilyName, h1):
         vcall(it, Slot_IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync2, Fn_IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync2)(it, p0, h1, op.addr).check("VirtualPrinterManager.InstallVirtualPrinterAsync")
   result = adopt[VirtualPrinterInstallationResult](await awaitObject(op, IID_IAsyncOperation_1_VirtualPrinterInstallationResult, IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult, "VirtualPrinterManager.InstallVirtualPrinterAsync"))
 
-proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], a1: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
+proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], parameters: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withIface(a1.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
+    withIface(parameters.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
       vcall(it, Slot_IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync, Fn_IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync)(it, p0, op.addr).check("VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync")
   result = adopt[VirtualPrinterInstallationResult](await awaitObject(op, IID_IAsyncOperation_1_VirtualPrinterInstallationResult, IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult, "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"))
 
-proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], a1: VirtualPrinterInstallationParameters, a2: string): Future[VirtualPrinterInstallationResult] {.async.} =
+proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], parameters: VirtualPrinterInstallationParameters, appPackageFamilyName: string): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withIface(a1.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
-      withHString(a2, h1):
+    withIface(parameters.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", p0):
+      withHString(appPackageFamilyName, h1):
         vcall(it, Slot_IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync2, Fn_IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync2)(it, p0, h1, op.addr).check("VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync")
   result = adopt[VirtualPrinterInstallationResult](await awaitObject(op, IID_IAsyncOperation_1_VirtualPrinterInstallationResult, IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult, "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"))
 
@@ -31645,28 +31645,28 @@ proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager], a1: string): seq[string]  =
+proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager], appPackageFamilyName: string): seq[string]  =
   ## Windows.Devices.Printers.VirtualPrinterManager.FindAllVirtualPrinters
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withHString(a1, h0):
+    withHString(appPackageFamilyName, h0):
       var tmp: pointer
       vcall(it, Slot_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2, Fn_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2)(it, h0, tmp.addr).check("VirtualPrinterManager.FindAllVirtualPrinters")
       result = toSeqString(tmp, IID_IVectorView_1_String)
       release(tmp)
 
-proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], a1: string): Future[bool] {.async.} =
+proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], printerName: string): Future[bool] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.RemoveVirtualPrinterAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       vcall(it, Slot_IVirtualPrinterManagerStatics_RemoveVirtualPrinterAsync, Fn_IVirtualPrinterManagerStatics_RemoveVirtualPrinterAsync)(it, h0, op.addr).check("VirtualPrinterManager.RemoveVirtualPrinterAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "VirtualPrinterManager.RemoveVirtualPrinterAsync")
 
-proc removeVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], a1: string): Future[bool] {.async.} =
+proc removeVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager], printerName: string): Future[bool] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
-    withHString(a1, h0):
+    withHString(printerName, h0):
       vcall(it, Slot_IVirtualPrinterManagerStatics_RemoveVirtualPrinterForAllUsersAsync, Fn_IVirtualPrinterManagerStatics_RemoveVirtualPrinterForAllUsersAsync)(it, h0, op.addr).check("VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync")
 
@@ -31696,11 +31696,11 @@ proc `maxSupportedVersion=`*(self: VirtualPrinterSupportedFormat, value: string)
     withHString(value, h0):
       vcall(it, Slot_IVirtualPrinterSupportedFormat_put_MaxSupportedVersion, Fn_IVirtualPrinterSupportedFormat_put_MaxSupportedVersion)(it, h0).check("VirtualPrinterSupportedFormat.put_MaxSupportedVersion")
 
-proc createInstance*(_: typedesc[VirtualPrinterSupportedFormat], a1: string, a2: string): VirtualPrinterSupportedFormat  =
+proc createInstance*(_: typedesc[VirtualPrinterSupportedFormat], contentType: string, maxSupportedVersion: string): VirtualPrinterSupportedFormat  =
   ## Windows.Devices.Printers.VirtualPrinterSupportedFormat.CreateInstance
   withStatics("Windows.Devices.Printers.VirtualPrinterSupportedFormat", IID_IVirtualPrinterSupportedFormatFactory, it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(contentType, h0):
+      withHString(maxSupportedVersion, h1):
         var tmp: pointer
         vcall(it, Slot_IVirtualPrinterSupportedFormatFactory_CreateInstance, Fn_IVirtualPrinterSupportedFormatFactory_CreateInstance)(it, h0, h1, tmp.addr).check("VirtualPrinterSupportedFormat.CreateInstance")
         result = adopt[VirtualPrinterSupportedFormat](tmp)
@@ -31719,11 +31719,11 @@ proc actualFrequency*(self: PwmController): float64  =
     vcall(it, Slot_IPwmController_get_ActualFrequency, Fn_IPwmController_get_ActualFrequency)(it, tmp.addr).check("PwmController.get_ActualFrequency")
     result = tmp
 
-proc setDesiredFrequency*(self: PwmController, a1: float64): float64  =
+proc setDesiredFrequency*(self: PwmController, desiredFrequency: float64): float64  =
   ## Windows.Devices.Pwm.PwmController.SetDesiredFrequency
   withIface(self.p, IID_IPwmController, "IPwmController", it):
     var tmp: float64
-    vcall(it, Slot_IPwmController_SetDesiredFrequency, Fn_IPwmController_SetDesiredFrequency)(it, a1, tmp.addr).check("PwmController.SetDesiredFrequency")
+    vcall(it, Slot_IPwmController_SetDesiredFrequency, Fn_IPwmController_SetDesiredFrequency)(it, desiredFrequency, tmp.addr).check("PwmController.SetDesiredFrequency")
     result = tmp
 
 proc minFrequency*(self: PwmController): float64  =
@@ -31740,11 +31740,11 @@ proc maxFrequency*(self: PwmController): float64  =
     vcall(it, Slot_IPwmController_get_MaxFrequency, Fn_IPwmController_get_MaxFrequency)(it, tmp.addr).check("PwmController.get_MaxFrequency")
     result = tmp
 
-proc openPin*(self: PwmController, a1: int32): PwmPin  =
+proc openPin*(self: PwmController, pinNumber: int32): PwmPin  =
   ## Windows.Devices.Pwm.PwmController.OpenPin
   withIface(self.p, IID_IPwmController, "IPwmController", it):
     var tmp: pointer
-    vcall(it, Slot_IPwmController_OpenPin, Fn_IPwmController_OpenPin)(it, a1, tmp.addr).check("PwmController.OpenPin")
+    vcall(it, Slot_IPwmController_OpenPin, Fn_IPwmController_OpenPin)(it, pinNumber, tmp.addr).check("PwmController.OpenPin")
     result = adopt[PwmPin](tmp)
 
 proc getDeviceSelector*(_: typedesc[PwmController]): string  =
@@ -31754,19 +31754,19 @@ proc getDeviceSelector*(_: typedesc[PwmController]): string  =
     vcall(it, Slot_IPwmControllerStatics3_GetDeviceSelector, Fn_IPwmControllerStatics3_GetDeviceSelector)(it, tmp.addr).check("PwmController.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[PwmController], a1: string): string  =
+proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string): string  =
   ## Windows.Devices.Pwm.PwmController.GetDeviceSelector
   withStatics("Windows.Devices.Pwm.PwmController", IID_IPwmControllerStatics3, it):
-    withHString(a1, h0):
+    withHString(friendlyName, h0):
       var tmp: HSTRING
       vcall(it, Slot_IPwmControllerStatics3_GetDeviceSelector2, Fn_IPwmControllerStatics3_GetDeviceSelector2)(it, h0, tmp.addr).check("PwmController.GetDeviceSelector")
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[PwmController], a1: string): Future[PwmController] {.async.} =
+proc fromIdAsync*(_: typedesc[PwmController], deviceId: string): Future[PwmController] {.async.} =
   ## Windows.Devices.Pwm.PwmController.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IID_IPwmControllerStatics3, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IPwmControllerStatics3_FromIdAsync, Fn_IPwmControllerStatics3_FromIdAsync)(it, h0, op.addr).check("PwmController.FromIdAsync")
   result = adopt[PwmController](await awaitObject(op, IID_IAsyncOperation_1_PwmController, IID_AsyncOperationCompletedHandler_1_PwmController, "PwmController.FromIdAsync"))
 
@@ -31777,11 +31777,11 @@ proc getDefaultAsync*(_: typedesc[PwmController]): Future[PwmController] {.async
     vcall(it, Slot_IPwmControllerStatics2_GetDefaultAsync, Fn_IPwmControllerStatics2_GetDefaultAsync)(it, op.addr).check("PwmController.GetDefaultAsync")
   result = adopt[PwmController](await awaitObject(op, IID_IAsyncOperation_1_PwmController, IID_AsyncOperationCompletedHandler_1_PwmController, "PwmController.GetDefaultAsync"))
 
-proc getControllersAsync*(_: typedesc[PwmController], a1: pointer): Future[seq[PwmController]] {.async.} =
+proc getControllersAsync*(_: typedesc[PwmController], provider: pointer): Future[seq[PwmController]] {.async.} =
   ## Windows.Devices.Pwm.PwmController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IID_IPwmControllerStatics, it):
-    vcall(it, Slot_IPwmControllerStatics_GetControllersAsync, Fn_IPwmControllerStatics_GetControllersAsync)(it, a1, op.addr).check("PwmController.GetControllersAsync")
+    vcall(it, Slot_IPwmControllerStatics_GetControllersAsync, Fn_IPwmControllerStatics_GetControllersAsync)(it, provider, op.addr).check("PwmController.GetControllersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, "PwmController.GetControllersAsync")
   result = toSeq[PwmController](coll, IID_IVectorView_1_PwmController)
   discard release(coll)
@@ -31800,10 +31800,10 @@ proc getActiveDutyCyclePercentage*(self: PwmPin): float64  =
     vcall(it, Slot_IPwmPin_GetActiveDutyCyclePercentage, Fn_IPwmPin_GetActiveDutyCyclePercentage)(it, tmp.addr).check("PwmPin.GetActiveDutyCyclePercentage")
     result = tmp
 
-proc setActiveDutyCyclePercentage*(self: PwmPin, a1: float64)  =
+proc setActiveDutyCyclePercentage*(self: PwmPin, dutyCyclePercentage: float64)  =
   ## Windows.Devices.Pwm.PwmPin.SetActiveDutyCyclePercentage
   withIface(self.p, IID_IPwmPin, "IPwmPin", it):
-    vcall(it, Slot_IPwmPin_SetActiveDutyCyclePercentage, Fn_IPwmPin_SetActiveDutyCyclePercentage)(it, a1).check("PwmPin.SetActiveDutyCyclePercentage")
+    vcall(it, Slot_IPwmPin_SetActiveDutyCyclePercentage, Fn_IPwmPin_SetActiveDutyCyclePercentage)(it, dutyCyclePercentage).check("PwmPin.SetActiveDutyCyclePercentage")
 
 proc polarity*(self: PwmPin): PwmPulsePolarity  =
   ## Windows.Devices.Pwm.PwmPin.get_Polarity
@@ -31839,11 +31839,11 @@ proc close*(self: PwmPin)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PwmPin.Close")
 
-proc setStateAsync*(self: Radio, a1: RadioState): Future[RadioAccessStatus] {.async.} =
+proc setStateAsync*(self: Radio, value: RadioState): Future[RadioAccessStatus] {.async.} =
   ## Windows.Devices.Radios.Radio.SetStateAsync
   var op: pointer
   withIface(self.p, IID_IRadio, "IRadio", it):
-    vcall(it, Slot_IRadio_SetStateAsync, Fn_IRadio_SetStateAsync)(it, a1, op.addr).check("Radio.SetStateAsync")
+    vcall(it, Slot_IRadio_SetStateAsync, Fn_IRadio_SetStateAsync)(it, value, op.addr).check("Radio.SetStateAsync")
   result = await awaitValue[RadioAccessStatus](op, IID_IAsyncOperation_1_RadioAccessStatus, IID_AsyncOperationCompletedHandler_1_RadioAccessStatus, "Radio.SetStateAsync")
 
 proc onStateChanged*(self: Radio,
@@ -31902,11 +31902,11 @@ proc getDeviceSelector*(_: typedesc[Radio]): string  =
     vcall(it, Slot_IRadioStatics_GetDeviceSelector, Fn_IRadioStatics_GetDeviceSelector)(it, tmp.addr).check("Radio.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Radio], a1: string): Future[Radio] {.async.} =
+proc fromIdAsync*(_: typedesc[Radio], deviceId: string): Future[Radio] {.async.} =
   ## Windows.Devices.Radios.Radio.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Radios.Radio", IID_IRadioStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IRadioStatics_FromIdAsync, Fn_IRadioStatics_FromIdAsync)(it, h0, op.addr).check("Radio.FromIdAsync")
   result = adopt[Radio](await awaitObject(op, IID_IAsyncOperation_1_Radio, IID_AsyncOperationCompletedHandler_1_Radio, "Radio.FromIdAsync"))
 
@@ -31931,11 +31931,11 @@ proc defaultScanSource*(self: ImageScanner): ImageScannerScanSource  =
     vcall(it, Slot_IImageScanner_get_DefaultScanSource, Fn_IImageScanner_get_DefaultScanSource)(it, tmp.addr).check("ImageScanner.get_DefaultScanSource")
     result = tmp
 
-proc isScanSourceSupported*(self: ImageScanner, a1: ImageScannerScanSource): bool  =
+proc isScanSourceSupported*(self: ImageScanner, value: ImageScannerScanSource): bool  =
   ## Windows.Devices.Scanners.ImageScanner.IsScanSourceSupported
   withIface(self.p, IID_IImageScanner, "IImageScanner", it):
     var tmp: bool
-    vcall(it, Slot_IImageScanner_IsScanSourceSupported, Fn_IImageScanner_IsScanSourceSupported)(it, a1, tmp.addr).check("ImageScanner.IsScanSourceSupported")
+    vcall(it, Slot_IImageScanner_IsScanSourceSupported, Fn_IImageScanner_IsScanSourceSupported)(it, value, tmp.addr).check("ImageScanner.IsScanSourceSupported")
     result = tmp
 
 proc flatbedConfiguration*(self: ImageScanner): ImageScannerFlatbedConfiguration  =
@@ -31959,25 +31959,25 @@ proc autoConfiguration*(self: ImageScanner): ImageScannerAutoConfiguration  =
     vcall(it, Slot_IImageScanner_get_AutoConfiguration, Fn_IImageScanner_get_AutoConfiguration)(it, tmp.addr).check("ImageScanner.get_AutoConfiguration")
     result = adopt[ImageScannerAutoConfiguration](tmp)
 
-proc isPreviewSupported*(self: ImageScanner, a1: ImageScannerScanSource): bool  =
+proc isPreviewSupported*(self: ImageScanner, scanSource: ImageScannerScanSource): bool  =
   ## Windows.Devices.Scanners.ImageScanner.IsPreviewSupported
   withIface(self.p, IID_IImageScanner, "IImageScanner", it):
     var tmp: bool
-    vcall(it, Slot_IImageScanner_IsPreviewSupported, Fn_IImageScanner_IsPreviewSupported)(it, a1, tmp.addr).check("ImageScanner.IsPreviewSupported")
+    vcall(it, Slot_IImageScanner_IsPreviewSupported, Fn_IImageScanner_IsPreviewSupported)(it, scanSource, tmp.addr).check("ImageScanner.IsPreviewSupported")
     result = tmp
 
-proc scanPreviewToStreamAsync*(self: ImageScanner, a1: ImageScannerScanSource, a2: pointer): Future[ImageScannerPreviewResult] {.async.} =
+proc scanPreviewToStreamAsync*(self: ImageScanner, scanSource: ImageScannerScanSource, targetStream: pointer): Future[ImageScannerPreviewResult] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.ScanPreviewToStreamAsync
   var op: pointer
   withIface(self.p, IID_IImageScanner, "IImageScanner", it):
-    vcall(it, Slot_IImageScanner_ScanPreviewToStreamAsync, Fn_IImageScanner_ScanPreviewToStreamAsync)(it, a1, a2, op.addr).check("ImageScanner.ScanPreviewToStreamAsync")
+    vcall(it, Slot_IImageScanner_ScanPreviewToStreamAsync, Fn_IImageScanner_ScanPreviewToStreamAsync)(it, scanSource, targetStream, op.addr).check("ImageScanner.ScanPreviewToStreamAsync")
   result = adopt[ImageScannerPreviewResult](await awaitObject(op, IID_IAsyncOperation_1_ImageScannerPreviewResult, IID_AsyncOperationCompletedHandler_1_ImageScannerPreviewResult, "ImageScanner.ScanPreviewToStreamAsync"))
 
-proc fromIdAsync*(_: typedesc[ImageScanner], a1: string): Future[ImageScanner] {.async.} =
+proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string): Future[ImageScanner] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Scanners.ImageScanner", IID_IImageScannerStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IImageScannerStatics_FromIdAsync, Fn_IImageScannerStatics_FromIdAsync)(it, h0, op.addr).check("ImageScanner.FromIdAsync")
   result = adopt[ImageScanner](await awaitObject(op, IID_IAsyncOperation_1_ImageScanner, IID_AsyncOperationCompletedHandler_1_ImageScanner, "ImageScanner.FromIdAsync"))
 
@@ -32007,11 +32007,11 @@ proc `format=`*(self: ImageScannerAutoConfiguration, value: ImageScannerFormat) 
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     vcall(it, Slot_IImageScannerFormatConfiguration_put_Format, Fn_IImageScannerFormatConfiguration_put_Format)(it, value).check("ImageScannerAutoConfiguration.put_Format")
 
-proc isFormatSupported*(self: ImageScannerAutoConfiguration, a1: ImageScannerFormat): bool  =
+proc isFormatSupported*(self: ImageScannerAutoConfiguration, value: ImageScannerFormat): bool  =
   ## Windows.Devices.Scanners.ImageScannerAutoConfiguration.IsFormatSupported
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, a1, tmp.addr).check("ImageScannerAutoConfiguration.IsFormatSupported")
+    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, value, tmp.addr).check("ImageScannerAutoConfiguration.IsFormatSupported")
     result = tmp
 
 proc defaultFormat*(self: ImageScannerFeederConfiguration): ImageScannerFormat  =
@@ -32033,11 +32033,11 @@ proc `format=`*(self: ImageScannerFeederConfiguration, value: ImageScannerFormat
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     vcall(it, Slot_IImageScannerFormatConfiguration_put_Format, Fn_IImageScannerFormatConfiguration_put_Format)(it, value).check("ImageScannerFeederConfiguration.put_Format")
 
-proc isFormatSupported*(self: ImageScannerFeederConfiguration, a1: ImageScannerFormat): bool  =
+proc isFormatSupported*(self: ImageScannerFeederConfiguration, value: ImageScannerFormat): bool  =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.IsFormatSupported
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, a1, tmp.addr).check("ImageScannerFeederConfiguration.IsFormatSupported")
+    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, value, tmp.addr).check("ImageScannerFeederConfiguration.IsFormatSupported")
     result = tmp
 
 proc minScanArea*(self: ImageScannerFeederConfiguration): Size  =
@@ -32078,11 +32078,11 @@ proc `autoCroppingMode=`*(self: ImageScannerFeederConfiguration, value: ImageSca
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     vcall(it, Slot_IImageScannerSourceConfiguration_put_AutoCroppingMode, Fn_IImageScannerSourceConfiguration_put_AutoCroppingMode)(it, value).check("ImageScannerFeederConfiguration.put_AutoCroppingMode")
 
-proc isAutoCroppingModeSupported*(self: ImageScannerFeederConfiguration, a1: ImageScannerAutoCroppingMode): bool  =
+proc isAutoCroppingModeSupported*(self: ImageScannerFeederConfiguration, value: ImageScannerAutoCroppingMode): bool  =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.IsAutoCroppingModeSupported
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported, Fn_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported)(it, a1, tmp.addr).check("ImageScannerFeederConfiguration.IsAutoCroppingModeSupported")
+    vcall(it, Slot_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported, Fn_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported)(it, value, tmp.addr).check("ImageScannerFeederConfiguration.IsAutoCroppingModeSupported")
     result = tmp
 
 proc minResolution*(self: ImageScannerFeederConfiguration): ImageScannerResolution  =
@@ -32144,11 +32144,11 @@ proc `colorMode=`*(self: ImageScannerFeederConfiguration, value: ImageScannerCol
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     vcall(it, Slot_IImageScannerSourceConfiguration_put_ColorMode, Fn_IImageScannerSourceConfiguration_put_ColorMode)(it, value).check("ImageScannerFeederConfiguration.put_ColorMode")
 
-proc isColorModeSupported*(self: ImageScannerFeederConfiguration, a1: ImageScannerColorMode): bool  =
+proc isColorModeSupported*(self: ImageScannerFeederConfiguration, value: ImageScannerColorMode): bool  =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.IsColorModeSupported
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerSourceConfiguration_IsColorModeSupported, Fn_IImageScannerSourceConfiguration_IsColorModeSupported)(it, a1, tmp.addr).check("ImageScannerFeederConfiguration.IsColorModeSupported")
+    vcall(it, Slot_IImageScannerSourceConfiguration_IsColorModeSupported, Fn_IImageScannerSourceConfiguration_IsColorModeSupported)(it, value, tmp.addr).check("ImageScannerFeederConfiguration.IsColorModeSupported")
     result = tmp
 
 proc minBrightness*(self: ImageScannerFeederConfiguration): int32  =
@@ -32326,11 +32326,11 @@ proc `format=`*(self: ImageScannerFlatbedConfiguration, value: ImageScannerForma
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     vcall(it, Slot_IImageScannerFormatConfiguration_put_Format, Fn_IImageScannerFormatConfiguration_put_Format)(it, value).check("ImageScannerFlatbedConfiguration.put_Format")
 
-proc isFormatSupported*(self: ImageScannerFlatbedConfiguration, a1: ImageScannerFormat): bool  =
+proc isFormatSupported*(self: ImageScannerFlatbedConfiguration, value: ImageScannerFormat): bool  =
   ## Windows.Devices.Scanners.ImageScannerFlatbedConfiguration.IsFormatSupported
   withIface(self.p, IID_IImageScannerFormatConfiguration, "IImageScannerFormatConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, a1, tmp.addr).check("ImageScannerFlatbedConfiguration.IsFormatSupported")
+    vcall(it, Slot_IImageScannerFormatConfiguration_IsFormatSupported, Fn_IImageScannerFormatConfiguration_IsFormatSupported)(it, value, tmp.addr).check("ImageScannerFlatbedConfiguration.IsFormatSupported")
     result = tmp
 
 proc minScanArea*(self: ImageScannerFlatbedConfiguration): Size  =
@@ -32371,11 +32371,11 @@ proc `autoCroppingMode=`*(self: ImageScannerFlatbedConfiguration, value: ImageSc
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     vcall(it, Slot_IImageScannerSourceConfiguration_put_AutoCroppingMode, Fn_IImageScannerSourceConfiguration_put_AutoCroppingMode)(it, value).check("ImageScannerFlatbedConfiguration.put_AutoCroppingMode")
 
-proc isAutoCroppingModeSupported*(self: ImageScannerFlatbedConfiguration, a1: ImageScannerAutoCroppingMode): bool  =
+proc isAutoCroppingModeSupported*(self: ImageScannerFlatbedConfiguration, value: ImageScannerAutoCroppingMode): bool  =
   ## Windows.Devices.Scanners.ImageScannerFlatbedConfiguration.IsAutoCroppingModeSupported
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported, Fn_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported)(it, a1, tmp.addr).check("ImageScannerFlatbedConfiguration.IsAutoCroppingModeSupported")
+    vcall(it, Slot_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported, Fn_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported)(it, value, tmp.addr).check("ImageScannerFlatbedConfiguration.IsAutoCroppingModeSupported")
     result = tmp
 
 proc minResolution*(self: ImageScannerFlatbedConfiguration): ImageScannerResolution  =
@@ -32437,11 +32437,11 @@ proc `colorMode=`*(self: ImageScannerFlatbedConfiguration, value: ImageScannerCo
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     vcall(it, Slot_IImageScannerSourceConfiguration_put_ColorMode, Fn_IImageScannerSourceConfiguration_put_ColorMode)(it, value).check("ImageScannerFlatbedConfiguration.put_ColorMode")
 
-proc isColorModeSupported*(self: ImageScannerFlatbedConfiguration, a1: ImageScannerColorMode): bool  =
+proc isColorModeSupported*(self: ImageScannerFlatbedConfiguration, value: ImageScannerColorMode): bool  =
   ## Windows.Devices.Scanners.ImageScannerFlatbedConfiguration.IsColorModeSupported
   withIface(self.p, IID_IImageScannerSourceConfiguration, "IImageScannerSourceConfiguration", it):
     var tmp: bool
-    vcall(it, Slot_IImageScannerSourceConfiguration_IsColorModeSupported, Fn_IImageScannerSourceConfiguration_IsColorModeSupported)(it, a1, tmp.addr).check("ImageScannerFlatbedConfiguration.IsColorModeSupported")
+    vcall(it, Slot_IImageScannerSourceConfiguration_IsColorModeSupported, Fn_IImageScannerSourceConfiguration_IsColorModeSupported)(it, value, tmp.addr).check("ImageScannerFlatbedConfiguration.IsColorModeSupported")
     result = tmp
 
 proc minBrightness*(self: ImageScannerFlatbedConfiguration): int32  =
@@ -32642,26 +32642,26 @@ proc reportThreshold*(self: Accelerometer): AccelerometerDataThreshold  =
     vcall(it, Slot_IAccelerometer5_get_ReportThreshold, Fn_IAccelerometer5_get_ReportThreshold)(it, tmp.addr).check("Accelerometer.get_ReportThreshold")
     result = adopt[AccelerometerDataThreshold](tmp)
 
-proc getDefault*(_: typedesc[Accelerometer], a1: AccelerometerReadingType): Accelerometer  =
+proc getDefault*(_: typedesc[Accelerometer], readingType: AccelerometerReadingType): Accelerometer  =
   ## Windows.Devices.Sensors.Accelerometer.GetDefault
   withStatics("Windows.Devices.Sensors.Accelerometer", IID_IAccelerometerStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IAccelerometerStatics2_GetDefault, Fn_IAccelerometerStatics2_GetDefault)(it, a1, tmp.addr).check("Accelerometer.GetDefault")
+    vcall(it, Slot_IAccelerometerStatics2_GetDefault, Fn_IAccelerometerStatics2_GetDefault)(it, readingType, tmp.addr).check("Accelerometer.GetDefault")
     result = adopt[Accelerometer](tmp)
 
-proc fromIdAsync*(_: typedesc[Accelerometer], a1: string): Future[Accelerometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Accelerometer], deviceId: string): Future[Accelerometer] {.async.} =
   ## Windows.Devices.Sensors.Accelerometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Accelerometer", IID_IAccelerometerStatics3, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IAccelerometerStatics3_FromIdAsync, Fn_IAccelerometerStatics3_FromIdAsync)(it, h0, op.addr).check("Accelerometer.FromIdAsync")
   result = adopt[Accelerometer](await awaitObject(op, IID_IAsyncOperation_1_Accelerometer, IID_AsyncOperationCompletedHandler_1_Accelerometer, "Accelerometer.FromIdAsync"))
 
-proc getDeviceSelector*(_: typedesc[Accelerometer], a1: AccelerometerReadingType): string  =
+proc getDeviceSelector*(_: typedesc[Accelerometer], readingType: AccelerometerReadingType): string  =
   ## Windows.Devices.Sensors.Accelerometer.GetDeviceSelector
   withStatics("Windows.Devices.Sensors.Accelerometer", IID_IAccelerometerStatics3, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAccelerometerStatics3_GetDeviceSelector, Fn_IAccelerometerStatics3_GetDeviceSelector)(it, a1, tmp.addr).check("Accelerometer.GetDeviceSelector")
+    vcall(it, Slot_IAccelerometerStatics3_GetDeviceSelector, Fn_IAccelerometerStatics3_GetDeviceSelector)(it, readingType, tmp.addr).check("Accelerometer.GetDeviceSelector")
     result = takeString(tmp)
 
 proc getDefault*(_: typedesc[Accelerometer]): Accelerometer  =
@@ -32818,28 +32818,28 @@ proc getDeviceSelector*(_: typedesc[ActivitySensor]): string  =
     vcall(it, Slot_IActivitySensorStatics_GetDeviceSelector, Fn_IActivitySensorStatics_GetDeviceSelector)(it, tmp.addr).check("ActivitySensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[ActivitySensor], a1: string): Future[ActivitySensor] {.async.} =
+proc fromIdAsync*(_: typedesc[ActivitySensor], deviceId: string): Future[ActivitySensor] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IID_IActivitySensorStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IActivitySensorStatics_FromIdAsync, Fn_IActivitySensorStatics_FromIdAsync)(it, h0, op.addr).check("ActivitySensor.FromIdAsync")
   result = adopt[ActivitySensor](await awaitObject(op, IID_IAsyncOperation_1_ActivitySensor, IID_AsyncOperationCompletedHandler_1_ActivitySensor, "ActivitySensor.FromIdAsync"))
 
-proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], a1: DateTime): Future[seq[ActivitySensorReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime): Future[seq[ActivitySensorReading]] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IID_IActivitySensorStatics, it):
-    vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync, Fn_IActivitySensorStatics_GetSystemHistoryAsync)(it, a1, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
+    vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync, Fn_IActivitySensorStatics_GetSystemHistoryAsync)(it, fromTime, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ActivitySensor.GetSystemHistoryAsync")
   result = toSeq[ActivitySensorReading](coll, IID_IVectorView_1_ActivitySensorReading)
   discard release(coll)
 
-proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], a1: DateTime, a2: TimeSpan): Future[seq[ActivitySensorReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime, duration: TimeSpan): Future[seq[ActivitySensorReading]] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IID_IActivitySensorStatics, it):
-    vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync2, Fn_IActivitySensorStatics_GetSystemHistoryAsync2)(it, a1, a2, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
+    vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync2, Fn_IActivitySensorStatics_GetSystemHistoryAsync2)(it, fromTime, duration, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ActivitySensor.GetSystemHistoryAsync")
   result = toSeq[ActivitySensorReading](coll, IID_IVectorView_1_ActivitySensorReading)
   discard release(coll)
@@ -33091,11 +33091,11 @@ proc getDefault*(_: typedesc[Barometer]): Barometer  =
     vcall(it, Slot_IBarometerStatics_GetDefault, Fn_IBarometerStatics_GetDefault)(it, tmp.addr).check("Barometer.GetDefault")
     result = adopt[Barometer](tmp)
 
-proc fromIdAsync*(_: typedesc[Barometer], a1: string): Future[Barometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Barometer], deviceId: string): Future[Barometer] {.async.} =
   ## Windows.Devices.Sensors.Barometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Barometer", IID_IBarometerStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IBarometerStatics2_FromIdAsync, Fn_IBarometerStatics2_FromIdAsync)(it, h0, op.addr).check("Barometer.FromIdAsync")
   result = adopt[Barometer](await awaitObject(op, IID_IAsyncOperation_1_Barometer, IID_AsyncOperationCompletedHandler_1_Barometer, "Barometer.FromIdAsync"))
 
@@ -33232,11 +33232,11 @@ proc getDeviceSelector*(_: typedesc[Compass]): string  =
     vcall(it, Slot_ICompassStatics2_GetDeviceSelector, Fn_ICompassStatics2_GetDeviceSelector)(it, tmp.addr).check("Compass.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Compass], a1: string): Future[Compass] {.async.} =
+proc fromIdAsync*(_: typedesc[Compass], deviceId: string): Future[Compass] {.async.} =
   ## Windows.Devices.Sensors.Compass.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Compass", IID_ICompassStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ICompassStatics2_FromIdAsync, Fn_ICompassStatics2_FromIdAsync)(it, h0, op.addr).check("Compass.FromIdAsync")
   result = adopt[Compass](await awaitObject(op, IID_IAsyncOperation_1_Compass, IID_AsyncOperationCompletedHandler_1_Compass, "Compass.FromIdAsync"))
 
@@ -33374,18 +33374,18 @@ proc maxBatchSize*(self: CustomSensor): uint32  =
     vcall(it, Slot_ICustomSensor2_get_MaxBatchSize, Fn_ICustomSensor2_get_MaxBatchSize)(it, tmp.addr).check("CustomSensor.get_MaxBatchSize")
     result = tmp
 
-proc getDeviceSelector*(_: typedesc[CustomSensor], a1: GUID): string  =
+proc getDeviceSelector*(_: typedesc[CustomSensor], interfaceId: GUID): string  =
   ## Windows.Devices.Sensors.Custom.CustomSensor.GetDeviceSelector
   withStatics("Windows.Devices.Sensors.Custom.CustomSensor", IID_ICustomSensorStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ICustomSensorStatics_GetDeviceSelector, Fn_ICustomSensorStatics_GetDeviceSelector)(it, a1, tmp.addr).check("CustomSensor.GetDeviceSelector")
+    vcall(it, Slot_ICustomSensorStatics_GetDeviceSelector, Fn_ICustomSensorStatics_GetDeviceSelector)(it, interfaceId, tmp.addr).check("CustomSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[CustomSensor], a1: string): Future[CustomSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[CustomSensor], sensorId: string): Future[CustomSensor] {.async.} =
   ## Windows.Devices.Sensors.Custom.CustomSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Custom.CustomSensor", IID_ICustomSensorStatics, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       vcall(it, Slot_ICustomSensorStatics_FromIdAsync, Fn_ICustomSensorStatics_FromIdAsync)(it, h0, op.addr).check("CustomSensor.FromIdAsync")
   result = adopt[CustomSensor](await awaitObject(op, IID_IAsyncOperation_1_CustomSensor, IID_AsyncOperationCompletedHandler_1_CustomSensor, "CustomSensor.FromIdAsync"))
 
@@ -33533,11 +33533,11 @@ proc getDeviceSelector*(_: typedesc[Gyrometer]): string  =
     vcall(it, Slot_IGyrometerStatics2_GetDeviceSelector, Fn_IGyrometerStatics2_GetDeviceSelector)(it, tmp.addr).check("Gyrometer.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Gyrometer], a1: string): Future[Gyrometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Gyrometer], deviceId: string): Future[Gyrometer] {.async.} =
   ## Windows.Devices.Sensors.Gyrometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Gyrometer", IID_IGyrometerStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IGyrometerStatics2_FromIdAsync, Fn_IGyrometerStatics2_FromIdAsync)(it, h0, op.addr).check("Gyrometer.FromIdAsync")
   result = adopt[Gyrometer](await awaitObject(op, IID_IAsyncOperation_1_Gyrometer, IID_AsyncOperationCompletedHandler_1_Gyrometer, "Gyrometer.FromIdAsync"))
 
@@ -33747,20 +33747,20 @@ proc getDefaultAsync*(_: typedesc[HingeAngleSensor]): Future[HingeAngleSensor] {
     vcall(it, Slot_IHingeAngleSensorStatics_GetDefaultAsync, Fn_IHingeAngleSensorStatics_GetDefaultAsync)(it, op.addr).check("HingeAngleSensor.GetDefaultAsync")
   result = adopt[HingeAngleSensor](await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor, IID_AsyncOperationCompletedHandler_1_HingeAngleSensor, "HingeAngleSensor.GetDefaultAsync"))
 
-proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor], a1: string, a2: string): Future[HingeAngleSensor] {.async.} =
+proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor], firstPanelId: string, secondPanelId: string): Future[HingeAngleSensor] {.async.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.GetRelatedToAdjacentPanelsAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HingeAngleSensor", IID_IHingeAngleSensorStatics, it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(firstPanelId, h0):
+      withHString(secondPanelId, h1):
         vcall(it, Slot_IHingeAngleSensorStatics_GetRelatedToAdjacentPanelsAsync, Fn_IHingeAngleSensorStatics_GetRelatedToAdjacentPanelsAsync)(it, h0, h1, op.addr).check("HingeAngleSensor.GetRelatedToAdjacentPanelsAsync")
   result = adopt[HingeAngleSensor](await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor, IID_AsyncOperationCompletedHandler_1_HingeAngleSensor, "HingeAngleSensor.GetRelatedToAdjacentPanelsAsync"))
 
-proc fromIdAsync*(_: typedesc[HingeAngleSensor], a1: string): Future[HingeAngleSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[HingeAngleSensor], deviceId: string): Future[HingeAngleSensor] {.async.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HingeAngleSensor", IID_IHingeAngleSensorStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IHingeAngleSensorStatics_FromIdAsync, Fn_IHingeAngleSensorStatics_FromIdAsync)(it, h0, op.addr).check("HingeAngleSensor.FromIdAsync")
   result = adopt[HingeAngleSensor](await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor, IID_AsyncOperationCompletedHandler_1_HingeAngleSensor, "HingeAngleSensor.FromIdAsync"))
 
@@ -33922,11 +33922,11 @@ proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string  =
     vcall(it, Slot_IHumanPresenceSensorStatics_GetDeviceSelector, Fn_IHumanPresenceSensorStatics_GetDeviceSelector)(it, tmp.addr).check("HumanPresenceSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[HumanPresenceSensor], a1: string): Future[HumanPresenceSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[HumanPresenceSensor], sensorId: string): Future[HumanPresenceSensor] {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HumanPresenceSensor", IID_IHumanPresenceSensorStatics, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       vcall(it, Slot_IHumanPresenceSensorStatics_FromIdAsync, Fn_IHumanPresenceSensorStatics_FromIdAsync)(it, h0, op.addr).check("HumanPresenceSensor.FromIdAsync")
   result = adopt[HumanPresenceSensor](await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceSensor, IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor, "HumanPresenceSensor.FromIdAsync"))
 
@@ -33937,10 +33937,10 @@ proc getDefaultAsync*(_: typedesc[HumanPresenceSensor]): Future[HumanPresenceSen
     vcall(it, Slot_IHumanPresenceSensorStatics_GetDefaultAsync, Fn_IHumanPresenceSensorStatics_GetDefaultAsync)(it, op.addr).check("HumanPresenceSensor.GetDefaultAsync")
   result = adopt[HumanPresenceSensor](await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceSensor, IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor, "HumanPresenceSensor.GetDefaultAsync"))
 
-proc fromId*(_: typedesc[HumanPresenceSensor], a1: string): HumanPresenceSensor  =
+proc fromId*(_: typedesc[HumanPresenceSensor], sensorId: string): HumanPresenceSensor  =
   ## Windows.Devices.Sensors.HumanPresenceSensor.FromId
   withStatics("Windows.Devices.Sensors.HumanPresenceSensor", IID_IHumanPresenceSensorStatics2, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       var tmp: pointer
       vcall(it, Slot_IHumanPresenceSensorStatics2_FromId, Fn_IHumanPresenceSensorStatics2_FromId)(it, h0, tmp.addr).check("HumanPresenceSensor.FromId")
       result = adopt[HumanPresenceSensor](tmp)
@@ -34190,32 +34190,32 @@ proc getCurrentSettings*(_: typedesc[HumanPresenceSettings]): HumanPresenceSetti
     vcall(it, Slot_IHumanPresenceSettingsStatics_GetCurrentSettings, Fn_IHumanPresenceSettingsStatics_GetCurrentSettings)(it, tmp.addr).check("HumanPresenceSettings.GetCurrentSettings")
     result = adopt[HumanPresenceSettings](tmp)
 
-proc updateSettingsAsync*(_: typedesc[HumanPresenceSettings], a1: HumanPresenceSettings) {.async.} =
+proc updateSettingsAsync*(_: typedesc[HumanPresenceSettings], settings: HumanPresenceSettings) {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSettings.UpdateSettingsAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
-    withIface(a1.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", p0):
+    withIface(settings.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", p0):
       vcall(it, Slot_IHumanPresenceSettingsStatics_UpdateSettingsAsync, Fn_IHumanPresenceSettingsStatics_UpdateSettingsAsync)(it, p0, op.addr).check("HumanPresenceSettings.UpdateSettingsAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "HumanPresenceSettings.UpdateSettingsAsync")
 
-proc updateSettings*(_: typedesc[HumanPresenceSettings], a1: HumanPresenceSettings)  =
+proc updateSettings*(_: typedesc[HumanPresenceSettings], settings: HumanPresenceSettings)  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.UpdateSettings
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
-    withIface(a1.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", p0):
+    withIface(settings.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", p0):
       vcall(it, Slot_IHumanPresenceSettingsStatics_UpdateSettings, Fn_IHumanPresenceSettingsStatics_UpdateSettings)(it, p0).check("HumanPresenceSettings.UpdateSettings")
 
-proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings], a1: string): Future[HumanPresenceFeatures] {.async.} =
+proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings], sensorId: string): Future[HumanPresenceFeatures] {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       vcall(it, Slot_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorIdAsync, Fn_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorIdAsync)(it, h0, op.addr).check("HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync")
   result = adopt[HumanPresenceFeatures](await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceFeatures, IID_AsyncOperationCompletedHandler_1_HumanPresenceFeatures, "HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync"))
 
-proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings], a1: string): HumanPresenceFeatures  =
+proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings], sensorId: string): HumanPresenceFeatures  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.GetSupportedFeaturesForSensorId
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       var tmp: pointer
       vcall(it, Slot_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorId, Fn_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorId)(it, h0, tmp.addr).check("HumanPresenceSettings.GetSupportedFeaturesForSensorId")
       result = adopt[HumanPresenceFeatures](tmp)
@@ -34338,26 +34338,26 @@ proc getDefaultForRelativeReadings*(_: typedesc[Inclinometer]): Inclinometer  =
     vcall(it, Slot_IInclinometerStatics2_GetDefaultForRelativeReadings, Fn_IInclinometerStatics2_GetDefaultForRelativeReadings)(it, tmp.addr).check("Inclinometer.GetDefaultForRelativeReadings")
     result = adopt[Inclinometer](tmp)
 
-proc getDeviceSelector*(_: typedesc[Inclinometer], a1: SensorReadingType): string  =
+proc getDeviceSelector*(_: typedesc[Inclinometer], readingType: SensorReadingType): string  =
   ## Windows.Devices.Sensors.Inclinometer.GetDeviceSelector
   withStatics("Windows.Devices.Sensors.Inclinometer", IID_IInclinometerStatics4, it):
     var tmp: HSTRING
-    vcall(it, Slot_IInclinometerStatics4_GetDeviceSelector, Fn_IInclinometerStatics4_GetDeviceSelector)(it, a1, tmp.addr).check("Inclinometer.GetDeviceSelector")
+    vcall(it, Slot_IInclinometerStatics4_GetDeviceSelector, Fn_IInclinometerStatics4_GetDeviceSelector)(it, readingType, tmp.addr).check("Inclinometer.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Inclinometer], a1: string): Future[Inclinometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Inclinometer], deviceId: string): Future[Inclinometer] {.async.} =
   ## Windows.Devices.Sensors.Inclinometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Inclinometer", IID_IInclinometerStatics4, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IInclinometerStatics4_FromIdAsync, Fn_IInclinometerStatics4_FromIdAsync)(it, h0, op.addr).check("Inclinometer.FromIdAsync")
   result = adopt[Inclinometer](await awaitObject(op, IID_IAsyncOperation_1_Inclinometer, IID_AsyncOperationCompletedHandler_1_Inclinometer, "Inclinometer.FromIdAsync"))
 
-proc getDefault*(_: typedesc[Inclinometer], a1: SensorReadingType): Inclinometer  =
+proc getDefault*(_: typedesc[Inclinometer], sensorReadingtype: SensorReadingType): Inclinometer  =
   ## Windows.Devices.Sensors.Inclinometer.GetDefault
   withStatics("Windows.Devices.Sensors.Inclinometer", IID_IInclinometerStatics3, it):
     var tmp: pointer
-    vcall(it, Slot_IInclinometerStatics3_GetDefault, Fn_IInclinometerStatics3_GetDefault)(it, a1, tmp.addr).check("Inclinometer.GetDefault")
+    vcall(it, Slot_IInclinometerStatics3_GetDefault, Fn_IInclinometerStatics3_GetDefault)(it, sensorReadingtype, tmp.addr).check("Inclinometer.GetDefault")
     result = adopt[Inclinometer](tmp)
 
 proc pitchInDegrees*(self: InclinometerDataThreshold): float32  =
@@ -34538,11 +34538,11 @@ proc getDeviceSelector*(_: typedesc[LightSensor]): string  =
     vcall(it, Slot_ILightSensorStatics2_GetDeviceSelector, Fn_ILightSensorStatics2_GetDeviceSelector)(it, tmp.addr).check("LightSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[LightSensor], a1: string): Future[LightSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[LightSensor], deviceId: string): Future[LightSensor] {.async.} =
   ## Windows.Devices.Sensors.LightSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.LightSensor", IID_ILightSensorStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ILightSensorStatics2_FromIdAsync, Fn_ILightSensorStatics2_FromIdAsync)(it, h0, op.addr).check("LightSensor.FromIdAsync")
   result = adopt[LightSensor](await awaitObject(op, IID_IAsyncOperation_1_LightSensor, IID_AsyncOperationCompletedHandler_1_LightSensor, "LightSensor.FromIdAsync"))
 
@@ -34722,11 +34722,11 @@ proc getDeviceSelector*(_: typedesc[Magnetometer]): string  =
     vcall(it, Slot_IMagnetometerStatics2_GetDeviceSelector, Fn_IMagnetometerStatics2_GetDeviceSelector)(it, tmp.addr).check("Magnetometer.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Magnetometer], a1: string): Future[Magnetometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Magnetometer], deviceId: string): Future[Magnetometer] {.async.} =
   ## Windows.Devices.Sensors.Magnetometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Magnetometer", IID_IMagnetometerStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IMagnetometerStatics2_FromIdAsync, Fn_IMagnetometerStatics2_FromIdAsync)(it, h0, op.addr).check("Magnetometer.FromIdAsync")
   result = adopt[Magnetometer](await awaitObject(op, IID_IAsyncOperation_1_Magnetometer, IID_AsyncOperationCompletedHandler_1_Magnetometer, "Magnetometer.FromIdAsync"))
 
@@ -34925,18 +34925,18 @@ proc maxBatchSize*(self: OrientationSensor): uint32  =
     vcall(it, Slot_IOrientationSensor3_get_MaxBatchSize, Fn_IOrientationSensor3_get_MaxBatchSize)(it, tmp.addr).check("OrientationSensor.get_MaxBatchSize")
     result = tmp
 
-proc getDefault*(_: typedesc[OrientationSensor], a1: SensorReadingType): OrientationSensor  =
+proc getDefault*(_: typedesc[OrientationSensor], sensorReadingtype: SensorReadingType): OrientationSensor  =
   ## Windows.Devices.Sensors.OrientationSensor.GetDefault
   withStatics("Windows.Devices.Sensors.OrientationSensor", IID_IOrientationSensorStatics3, it):
     var tmp: pointer
-    vcall(it, Slot_IOrientationSensorStatics3_GetDefault, Fn_IOrientationSensorStatics3_GetDefault)(it, a1, tmp.addr).check("OrientationSensor.GetDefault")
+    vcall(it, Slot_IOrientationSensorStatics3_GetDefault, Fn_IOrientationSensorStatics3_GetDefault)(it, sensorReadingtype, tmp.addr).check("OrientationSensor.GetDefault")
     result = adopt[OrientationSensor](tmp)
 
-proc getDefault*(_: typedesc[OrientationSensor], a1: SensorReadingType, a2: SensorOptimizationGoal): OrientationSensor  =
+proc getDefault*(_: typedesc[OrientationSensor], sensorReadingType: SensorReadingType, optimizationGoal: SensorOptimizationGoal): OrientationSensor  =
   ## Windows.Devices.Sensors.OrientationSensor.GetDefault
   withStatics("Windows.Devices.Sensors.OrientationSensor", IID_IOrientationSensorStatics3, it):
     var tmp: pointer
-    vcall(it, Slot_IOrientationSensorStatics3_GetDefault2, Fn_IOrientationSensorStatics3_GetDefault2)(it, a1, a2, tmp.addr).check("OrientationSensor.GetDefault")
+    vcall(it, Slot_IOrientationSensorStatics3_GetDefault2, Fn_IOrientationSensorStatics3_GetDefault2)(it, sensorReadingType, optimizationGoal, tmp.addr).check("OrientationSensor.GetDefault")
     result = adopt[OrientationSensor](tmp)
 
 proc getDefaultForRelativeReadings*(_: typedesc[OrientationSensor]): OrientationSensor  =
@@ -34953,25 +34953,25 @@ proc getDefault*(_: typedesc[OrientationSensor]): OrientationSensor  =
     vcall(it, Slot_IOrientationSensorStatics_GetDefault, Fn_IOrientationSensorStatics_GetDefault)(it, tmp.addr).check("OrientationSensor.GetDefault")
     result = adopt[OrientationSensor](tmp)
 
-proc getDeviceSelector*(_: typedesc[OrientationSensor], a1: SensorReadingType): string  =
+proc getDeviceSelector*(_: typedesc[OrientationSensor], readingType: SensorReadingType): string  =
   ## Windows.Devices.Sensors.OrientationSensor.GetDeviceSelector
   withStatics("Windows.Devices.Sensors.OrientationSensor", IID_IOrientationSensorStatics4, it):
     var tmp: HSTRING
-    vcall(it, Slot_IOrientationSensorStatics4_GetDeviceSelector, Fn_IOrientationSensorStatics4_GetDeviceSelector)(it, a1, tmp.addr).check("OrientationSensor.GetDeviceSelector")
+    vcall(it, Slot_IOrientationSensorStatics4_GetDeviceSelector, Fn_IOrientationSensorStatics4_GetDeviceSelector)(it, readingType, tmp.addr).check("OrientationSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[OrientationSensor], a1: SensorReadingType, a2: SensorOptimizationGoal): string  =
+proc getDeviceSelector*(_: typedesc[OrientationSensor], readingType: SensorReadingType, optimizationGoal: SensorOptimizationGoal): string  =
   ## Windows.Devices.Sensors.OrientationSensor.GetDeviceSelector
   withStatics("Windows.Devices.Sensors.OrientationSensor", IID_IOrientationSensorStatics4, it):
     var tmp: HSTRING
-    vcall(it, Slot_IOrientationSensorStatics4_GetDeviceSelector2, Fn_IOrientationSensorStatics4_GetDeviceSelector2)(it, a1, a2, tmp.addr).check("OrientationSensor.GetDeviceSelector")
+    vcall(it, Slot_IOrientationSensorStatics4_GetDeviceSelector2, Fn_IOrientationSensorStatics4_GetDeviceSelector2)(it, readingType, optimizationGoal, tmp.addr).check("OrientationSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[OrientationSensor], a1: string): Future[OrientationSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[OrientationSensor], deviceId: string): Future[OrientationSensor] {.async.} =
   ## Windows.Devices.Sensors.OrientationSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.OrientationSensor", IID_IOrientationSensorStatics4, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IOrientationSensorStatics4_FromIdAsync, Fn_IOrientationSensorStatics4_FromIdAsync)(it, h0, op.addr).check("OrientationSensor.FromIdAsync")
   result = adopt[OrientationSensor](await awaitObject(op, IID_IAsyncOperation_1_OrientationSensor, IID_AsyncOperationCompletedHandler_1_OrientationSensor, "OrientationSensor.FromIdAsync"))
 
@@ -35070,11 +35070,11 @@ proc removeReadingChanged*(self: Pedometer, token: EventRegistrationToken) =
   withIface(self.p, IID_IPedometer, "IPedometer", it):
     vcall(it, Slot_IPedometer_remove_ReadingChanged, Fn_IPedometer_remove_ReadingChanged)(it, token).check("Pedometer.remove_ReadingChanged")
 
-proc fromIdAsync*(_: typedesc[Pedometer], a1: string): Future[Pedometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Pedometer], deviceId: string): Future[Pedometer] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IPedometerStatics_FromIdAsync, Fn_IPedometerStatics_FromIdAsync)(it, h0, op.addr).check("Pedometer.FromIdAsync")
   result = adopt[Pedometer](await awaitObject(op, IID_IAsyncOperation_1_Pedometer, IID_AsyncOperationCompletedHandler_1_Pedometer, "Pedometer.FromIdAsync"))
 
@@ -35092,39 +35092,39 @@ proc getDeviceSelector*(_: typedesc[Pedometer]): string  =
     vcall(it, Slot_IPedometerStatics_GetDeviceSelector, Fn_IPedometerStatics_GetDeviceSelector)(it, tmp.addr).check("Pedometer.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getSystemHistoryAsync*(_: typedesc[Pedometer], a1: DateTime): Future[seq[PedometerReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime): Future[seq[PedometerReading]] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics, it):
-    vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync, Fn_IPedometerStatics_GetSystemHistoryAsync)(it, a1, op.addr).check("Pedometer.GetSystemHistoryAsync")
+    vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync, Fn_IPedometerStatics_GetSystemHistoryAsync)(it, fromTime, op.addr).check("Pedometer.GetSystemHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "Pedometer.GetSystemHistoryAsync")
   result = toSeq[PedometerReading](coll, IID_IVectorView_1_PedometerReading)
   discard release(coll)
 
-proc getSystemHistoryAsync*(_: typedesc[Pedometer], a1: DateTime, a2: TimeSpan): Future[seq[PedometerReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime, duration: TimeSpan): Future[seq[PedometerReading]] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics, it):
-    vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync2, Fn_IPedometerStatics_GetSystemHistoryAsync2)(it, a1, a2, op.addr).check("Pedometer.GetSystemHistoryAsync")
+    vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync2, Fn_IPedometerStatics_GetSystemHistoryAsync2)(it, fromTime, duration, op.addr).check("Pedometer.GetSystemHistoryAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "Pedometer.GetSystemHistoryAsync")
   result = toSeq[PedometerReading](coll, IID_IVectorView_1_PedometerReading)
   discard release(coll)
 
-proc getReadingsFromTriggerDetails*(_: typedesc[Pedometer], a1: SensorDataThresholdTriggerDetails): seq[PedometerReading]  =
+proc getReadingsFromTriggerDetails*(_: typedesc[Pedometer], triggerDetails: SensorDataThresholdTriggerDetails): seq[PedometerReading]  =
   ## Windows.Devices.Sensors.Pedometer.GetReadingsFromTriggerDetails
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics2, it):
-    withIface(a1.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
+    withIface(triggerDetails.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
       var tmp: pointer
       vcall(it, Slot_IPedometerStatics2_GetReadingsFromTriggerDetails, Fn_IPedometerStatics2_GetReadingsFromTriggerDetails)(it, p0, tmp.addr).check("Pedometer.GetReadingsFromTriggerDetails")
       result = toSeq[PedometerReading](tmp, IID_IVectorView_1_PedometerReading)
       release(tmp)
 
-proc create*(_: typedesc[PedometerDataThreshold], a1: Pedometer, a2: int32): PedometerDataThreshold  =
+proc create*(_: typedesc[PedometerDataThreshold], sensor: Pedometer, stepGoal: int32): PedometerDataThreshold  =
   ## Windows.Devices.Sensors.PedometerDataThreshold.Create
   withStatics("Windows.Devices.Sensors.PedometerDataThreshold", IID_IPedometerDataThresholdFactory, it):
-    withIface(a1.p, IID_IPedometer, "IPedometer", p0):
+    withIface(sensor.p, IID_IPedometer, "IPedometer", p0):
       var tmp: pointer
-      vcall(it, Slot_IPedometerDataThresholdFactory_Create, Fn_IPedometerDataThresholdFactory_Create)(it, p0, a2, tmp.addr).check("PedometerDataThreshold.Create")
+      vcall(it, Slot_IPedometerDataThresholdFactory_Create, Fn_IPedometerDataThresholdFactory_Create)(it, p0, stepGoal, tmp.addr).check("PedometerDataThreshold.Create")
       result = adopt[PedometerDataThreshold](tmp)
 
 proc stepKind*(self: PedometerReading): PedometerStepKind  =
@@ -35225,27 +35225,27 @@ proc getDeviceSelector*(_: typedesc[ProximitySensor]): string  =
     vcall(it, Slot_IProximitySensorStatics_GetDeviceSelector, Fn_IProximitySensorStatics_GetDeviceSelector)(it, tmp.addr).check("ProximitySensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromId*(_: typedesc[ProximitySensor], a1: string): ProximitySensor  =
+proc fromId*(_: typedesc[ProximitySensor], sensorId: string): ProximitySensor  =
   ## Windows.Devices.Sensors.ProximitySensor.FromId
   withStatics("Windows.Devices.Sensors.ProximitySensor", IID_IProximitySensorStatics, it):
-    withHString(a1, h0):
+    withHString(sensorId, h0):
       var tmp: pointer
       vcall(it, Slot_IProximitySensorStatics_FromId, Fn_IProximitySensorStatics_FromId)(it, h0, tmp.addr).check("ProximitySensor.FromId")
       result = adopt[ProximitySensor](tmp)
 
-proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor], a1: SensorDataThresholdTriggerDetails): seq[ProximitySensorReading]  =
+proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor], triggerDetails: SensorDataThresholdTriggerDetails): seq[ProximitySensorReading]  =
   ## Windows.Devices.Sensors.ProximitySensor.GetReadingsFromTriggerDetails
   withStatics("Windows.Devices.Sensors.ProximitySensor", IID_IProximitySensorStatics2, it):
-    withIface(a1.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
+    withIface(triggerDetails.p, IID_ISensorDataThresholdTriggerDetails, "ISensorDataThresholdTriggerDetails", p0):
       var tmp: pointer
       vcall(it, Slot_IProximitySensorStatics2_GetReadingsFromTriggerDetails, Fn_IProximitySensorStatics2_GetReadingsFromTriggerDetails)(it, p0, tmp.addr).check("ProximitySensor.GetReadingsFromTriggerDetails")
       result = toSeq[ProximitySensorReading](tmp, IID_IVectorView_1_ProximitySensorReading)
       release(tmp)
 
-proc create*(_: typedesc[ProximitySensorDataThreshold], a1: ProximitySensor): ProximitySensorDataThreshold  =
+proc create*(_: typedesc[ProximitySensorDataThreshold], sensor: ProximitySensor): ProximitySensorDataThreshold  =
   ## Windows.Devices.Sensors.ProximitySensorDataThreshold.Create
   withStatics("Windows.Devices.Sensors.ProximitySensorDataThreshold", IID_IProximitySensorDataThresholdFactory, it):
-    withIface(a1.p, IID_IProximitySensor, "IProximitySensor", p0):
+    withIface(sensor.p, IID_IProximitySensor, "IProximitySensor", p0):
       var tmp: pointer
       vcall(it, Slot_IProximitySensorDataThresholdFactory_Create, Fn_IProximitySensorDataThresholdFactory_Create)(it, p0, tmp.addr).check("ProximitySensorDataThreshold.Create")
       result = adopt[ProximitySensorDataThreshold](tmp)
@@ -35436,11 +35436,11 @@ proc getDeviceSelector*(_: typedesc[SimpleOrientationSensor]): string  =
     vcall(it, Slot_ISimpleOrientationSensorStatics2_GetDeviceSelector, Fn_ISimpleOrientationSensorStatics2_GetDeviceSelector)(it, tmp.addr).check("SimpleOrientationSensor.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SimpleOrientationSensor], a1: string): Future[SimpleOrientationSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[SimpleOrientationSensor], deviceId: string): Future[SimpleOrientationSensor] {.async.} =
   ## Windows.Devices.Sensors.SimpleOrientationSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.SimpleOrientationSensor", IID_ISimpleOrientationSensorStatics2, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ISimpleOrientationSensorStatics2_FromIdAsync, Fn_ISimpleOrientationSensorStatics2_FromIdAsync)(it, h0, op.addr).check("SimpleOrientationSensor.FromIdAsync")
   result = adopt[SimpleOrientationSensor](await awaitObject(op, IID_IAsyncOperation_1_SimpleOrientationSensor, IID_AsyncOperationCompletedHandler_1_SimpleOrientationSensor, "SimpleOrientationSensor.FromIdAsync"))
 
@@ -35729,26 +35729,26 @@ proc getDeviceSelector*(_: typedesc[SerialDevice]): string  =
     vcall(it, Slot_ISerialDeviceStatics_GetDeviceSelector, Fn_ISerialDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("SerialDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[SerialDevice], a1: string): string  =
+proc getDeviceSelector*(_: typedesc[SerialDevice], portName: string): string  =
   ## Windows.Devices.SerialCommunication.SerialDevice.GetDeviceSelector
   withStatics("Windows.Devices.SerialCommunication.SerialDevice", IID_ISerialDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(portName, h0):
       var tmp: HSTRING
       vcall(it, Slot_ISerialDeviceStatics_GetDeviceSelector2, Fn_ISerialDeviceStatics_GetDeviceSelector2)(it, h0, tmp.addr).check("SerialDevice.GetDeviceSelector")
       result = takeString(tmp)
 
-proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice], a1: uint16, a2: uint16): string  =
+proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice], vendorId: uint16, productId: uint16): string  =
   ## Windows.Devices.SerialCommunication.SerialDevice.GetDeviceSelectorFromUsbVidPid
   withStatics("Windows.Devices.SerialCommunication.SerialDevice", IID_ISerialDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid, Fn_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid)(it, a1, a2, tmp.addr).check("SerialDevice.GetDeviceSelectorFromUsbVidPid")
+    vcall(it, Slot_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid, Fn_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid)(it, vendorId, productId, tmp.addr).check("SerialDevice.GetDeviceSelectorFromUsbVidPid")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SerialDevice], a1: string): Future[SerialDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[SerialDevice], deviceId: string): Future[SerialDevice] {.async.} =
   ## Windows.Devices.SerialCommunication.SerialDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.SerialCommunication.SerialDevice", IID_ISerialDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ISerialDeviceStatics_FromIdAsync, Fn_ISerialDeviceStatics_FromIdAsync)(it, h0, op.addr).check("SerialDevice.FromIdAsync")
   result = adopt[SerialDevice](await awaitObject(op, IID_IAsyncOperation_1_SerialDevice, IID_AsyncOperationCompletedHandler_1_SerialDevice, "SerialDevice.FromIdAsync"))
 
@@ -35919,11 +35919,11 @@ proc appletIdGroup*(self: SmartCardAppletIdGroupRegistration): SmartCardAppletId
     vcall(it, Slot_ISmartCardAppletIdGroupRegistration_get_AppletIdGroup, Fn_ISmartCardAppletIdGroupRegistration_get_AppletIdGroup)(it, tmp.addr).check("SmartCardAppletIdGroupRegistration.get_AppletIdGroup")
     result = adopt[SmartCardAppletIdGroup](tmp)
 
-proc requestActivationPolicyChangeAsync*(self: SmartCardAppletIdGroupRegistration, a1: SmartCardAppletIdGroupActivationPolicy): Future[SmartCardActivationPolicyChangeResult] {.async.} =
+proc requestActivationPolicyChangeAsync*(self: SmartCardAppletIdGroupRegistration, policy: SmartCardAppletIdGroupActivationPolicy): Future[SmartCardActivationPolicyChangeResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardAppletIdGroupRegistration, "ISmartCardAppletIdGroupRegistration", it):
-    vcall(it, Slot_ISmartCardAppletIdGroupRegistration_RequestActivationPolicyChangeAsync, Fn_ISmartCardAppletIdGroupRegistration_RequestActivationPolicyChangeAsync)(it, a1, op.addr).check("SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync")
+    vcall(it, Slot_ISmartCardAppletIdGroupRegistration_RequestActivationPolicyChangeAsync, Fn_ISmartCardAppletIdGroupRegistration_RequestActivationPolicyChangeAsync)(it, policy, op.addr).check("SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync")
   result = await awaitValue[SmartCardActivationPolicyChangeResult](op, IID_IAsyncOperation_1_SmartCardActivationPolicyChangeResult, IID_AsyncOperationCompletedHandler_1_SmartCardActivationPolicyChangeResult, "SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync")
 
 proc id*(self: SmartCardAppletIdGroupRegistration): GUID  =
@@ -35940,11 +35940,11 @@ proc smartCardReaderId*(self: SmartCardAppletIdGroupRegistration): string  =
     vcall(it, Slot_ISmartCardAppletIdGroupRegistration2_get_SmartCardReaderId, Fn_ISmartCardAppletIdGroupRegistration2_get_SmartCardReaderId)(it, tmp.addr).check("SmartCardAppletIdGroupRegistration.get_SmartCardReaderId")
     result = takeString(tmp)
 
-proc setPropertiesAsync*(self: SmartCardAppletIdGroupRegistration, a1: ValueSet) {.async.} =
+proc setPropertiesAsync*(self: SmartCardAppletIdGroupRegistration, props: ValueSet) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.SetPropertiesAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardAppletIdGroupRegistration2, "ISmartCardAppletIdGroupRegistration2", it):
-    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+    withIface(props.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync, Fn_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync)(it, p0, op.addr).check("SmartCardAppletIdGroupRegistration.SetPropertiesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardAppletIdGroupRegistration.SetPropertiesAsync")
 
@@ -36036,11 +36036,11 @@ proc `allowWhenCryptogramGeneratorNotPrepared=`*(self: SmartCardAutomaticRespons
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu3, "ISmartCardAutomaticResponseApdu3", it):
     vcall(it, Slot_ISmartCardAutomaticResponseApdu3_put_AllowWhenCryptogramGeneratorNotPrepared, Fn_ISmartCardAutomaticResponseApdu3_put_AllowWhenCryptogramGeneratorNotPrepared)(it, value).check("SmartCardAutomaticResponseApdu.put_AllowWhenCryptogramGeneratorNotPrepared")
 
-proc create*(_: typedesc[SmartCardAutomaticResponseApdu], a1: pointer, a2: pointer): SmartCardAutomaticResponseApdu  =
+proc create*(_: typedesc[SmartCardAutomaticResponseApdu], commandApdu: pointer, responseApdu: pointer): SmartCardAutomaticResponseApdu  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.Create
   withStatics("Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu", IID_ISmartCardAutomaticResponseApduFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISmartCardAutomaticResponseApduFactory_Create, Fn_ISmartCardAutomaticResponseApduFactory_Create)(it, a1, a2, tmp.addr).check("SmartCardAutomaticResponseApdu.Create")
+    vcall(it, Slot_ISmartCardAutomaticResponseApduFactory_Create, Fn_ISmartCardAutomaticResponseApduFactory_Create)(it, commandApdu, responseApdu, tmp.addr).check("SmartCardAutomaticResponseApdu.Create")
     result = adopt[SmartCardAutomaticResponseApdu](tmp)
 
 proc challenge*(self: SmartCardChallengeContext): pointer  =
@@ -36050,32 +36050,32 @@ proc challenge*(self: SmartCardChallengeContext): pointer  =
     vcall(it, Slot_ISmartCardChallengeContext_get_Challenge, Fn_ISmartCardChallengeContext_get_Challenge)(it, tmp.addr).check("SmartCardChallengeContext.get_Challenge")
     result = tmp
 
-proc verifyResponseAsync*(self: SmartCardChallengeContext, a1: pointer): Future[bool] {.async.} =
+proc verifyResponseAsync*(self: SmartCardChallengeContext, response: pointer): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.VerifyResponseAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_VerifyResponseAsync, Fn_ISmartCardChallengeContext_VerifyResponseAsync)(it, a1, op.addr).check("SmartCardChallengeContext.VerifyResponseAsync")
+    vcall(it, Slot_ISmartCardChallengeContext_VerifyResponseAsync, Fn_ISmartCardChallengeContext_VerifyResponseAsync)(it, response, op.addr).check("SmartCardChallengeContext.VerifyResponseAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardChallengeContext.VerifyResponseAsync")
 
-proc provisionAsync*(self: SmartCardChallengeContext, a1: pointer, a2: bool) {.async.} =
+proc provisionAsync*(self: SmartCardChallengeContext, response: pointer, formatCard: bool) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ProvisionAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync, Fn_ISmartCardChallengeContext_ProvisionAsync)(it, a1, a2, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
+    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync, Fn_ISmartCardChallengeContext_ProvisionAsync)(it, response, formatCard, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ProvisionAsync")
 
-proc provisionAsync*(self: SmartCardChallengeContext, a1: pointer, a2: bool, a3: GUID) {.async.} =
+proc provisionAsync*(self: SmartCardChallengeContext, response: pointer, formatCard: bool, newCardId: GUID) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ProvisionAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync2, Fn_ISmartCardChallengeContext_ProvisionAsync2)(it, a1, a2, a3, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
+    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync2, Fn_ISmartCardChallengeContext_ProvisionAsync2)(it, response, formatCard, newCardId, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ProvisionAsync")
 
-proc changeAdministrativeKeyAsync*(self: SmartCardChallengeContext, a1: pointer, a2: pointer) {.async.} =
+proc changeAdministrativeKeyAsync*(self: SmartCardChallengeContext, response: pointer, newAdministrativeKey: pointer) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ChangeAdministrativeKeyAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync, Fn_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync)(it, a1, a2, op.addr).check("SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
+    vcall(it, Slot_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync, Fn_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync)(it, response, newAdministrativeKey, op.addr).check("SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
 
 proc close*(self: SmartCardChallengeContext)  =
@@ -36088,52 +36088,52 @@ proc close*(self: SmartCardConnection)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SmartCardConnection.Close")
 
-proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, a1: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, storageKeyName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    withHString(a1, h0):
+    withHString(storageKeyName, h0):
       vcall(it, Slot_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialStorageKeyAsync, Fn_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialStorageKeyAsync)(it, h0, op.addr).check("SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync")
 
-proc createCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, a1: SmartCardUnlockPromptingBehavior, a2: string, a3: SmartCardCryptogramStorageKeyAlgorithm, a4: SmartCardCryptogramStorageKeyCapabilities): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc createCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, storageKeyName: string, algorithm: SmartCardCryptogramStorageKeyAlgorithm, capabilities: SmartCardCryptogramStorageKeyCapabilities): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    withHString(a2, h1):
-      vcall(it, Slot_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync, Fn_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync)(it, a1, h1, a3, a4, op.addr).check("SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
+    withHString(storageKeyName, h1):
+      vcall(it, Slot_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync, Fn_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync)(it, promptingBehavior, h1, algorithm, capabilities, op.addr).check("SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
 
-proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, a1: SmartCardCryptogramMaterialPackageFormat, a2: string, a3: string, a4: pointer): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, format: SmartCardCryptogramMaterialPackageFormat, storageKeyName: string, materialPackageName: string, cryptogramMaterialPackage: pointer): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    withHString(a2, h1):
-      withHString(a3, h2):
-        vcall(it, Slot_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync)(it, a1, h1, h2, a4, op.addr).check("SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
+    withHString(storageKeyName, h1):
+      withHString(materialPackageName, h2):
+        vcall(it, Slot_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync)(it, format, h1, h2, cryptogramMaterialPackage, op.addr).check("SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
 
-proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, a1: SmartCardUnlockPromptingBehavior, a2: SmartCardCryptogramMaterialPackageConfirmationResponseFormat, a3: string, a4: string, a5: pointer): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
+proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, responseFormat: SmartCardCryptogramMaterialPackageConfirmationResponseFormat, materialPackageName: string, materialName: string, challenge: pointer): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    withHString(a3, h2):
-      withHString(a4, h3):
-        vcall(it, Slot_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync)(it, a1, a2, h2, h3, a5, op.addr).check("SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync")
+    withHString(materialPackageName, h2):
+      withHString(materialName, h3):
+        vcall(it, Slot_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync)(it, promptingBehavior, responseFormat, h2, h3, challenge, op.addr).check("SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync")
   result = adopt[SmartCardCryptogramMaterialPossessionProof](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramMaterialPossessionProof, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossessionProof, "SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync"))
 
-proc requestUnlockCryptogramMaterialForUseAsync*(self: SmartCardCryptogramGenerator, a1: SmartCardUnlockPromptingBehavior): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc requestUnlockCryptogramMaterialForUseAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    vcall(it, Slot_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync, Fn_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync)(it, a1, op.addr).check("SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync")
+    vcall(it, Slot_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync, Fn_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync)(it, promptingBehavior, op.addr).check("SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync")
 
-proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, a1: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, materialPackageName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
-    withHString(a1, h0):
+    withHString(materialPackageName, h0):
       vcall(it, Slot_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync)(it, h0, op.addr).check("SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
 
@@ -36151,20 +36151,20 @@ proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptog
     vcall(it, Slot_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync, Fn_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync)(it, op.addr).check("SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync")
   result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"))
 
-proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptogramGenerator, a1: string): Future[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult] {.async.} =
+proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptogramGenerator, storageKeyName: string): Future[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator2, "ISmartCardCryptogramGenerator2", it):
-    withHString(a1, h0):
+    withHString(storageKeyName, h0):
       vcall(it, Slot_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync2, Fn_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync2)(it, h0, op.addr).check("SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync")
   result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"))
 
-proc getAllCryptogramMaterialCharacteristicsAsync*(self: SmartCardCryptogramGenerator, a1: SmartCardUnlockPromptingBehavior, a2: string): Future[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult] {.async.} =
+proc getAllCryptogramMaterialCharacteristicsAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, materialPackageName: string): Future[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator2, "ISmartCardCryptogramGenerator2", it):
-    withHString(a2, h1):
-      vcall(it, Slot_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialCharacteristicsAsync, Fn_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialCharacteristicsAsync)(it, a1, h1, op.addr).check("SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync")
+    withHString(materialPackageName, h1):
+      vcall(it, Slot_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialCharacteristicsAsync, Fn_ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialCharacteristicsAsync)(it, promptingBehavior, h1, op.addr).check("SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync")
   result = adopt[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult, "SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync"))
 
 proc getSmartCardCryptogramGeneratorAsync*(_: typedesc[SmartCardCryptogramGenerator]): Future[SmartCardCryptogramGenerator] {.async.} =
@@ -36585,19 +36585,19 @@ proc getAppletIdGroupRegistrationsAsync*(_: typedesc[SmartCardEmulator]): Future
   result = toSeq[SmartCardAppletIdGroupRegistration](coll, IID_IVectorView_1_SmartCardAppletIdGroupRegistration)
   discard release(coll)
 
-proc registerAppletIdGroupAsync*(_: typedesc[SmartCardEmulator], a1: SmartCardAppletIdGroup): Future[SmartCardAppletIdGroupRegistration] {.async.} =
+proc registerAppletIdGroupAsync*(_: typedesc[SmartCardEmulator], appletIdGroup: SmartCardAppletIdGroup): Future[SmartCardAppletIdGroupRegistration] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.RegisterAppletIdGroupAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator", IID_ISmartCardEmulatorStatics2, it):
-    withIface(a1.p, IID_ISmartCardAppletIdGroup, "ISmartCardAppletIdGroup", p0):
+    withIface(appletIdGroup.p, IID_ISmartCardAppletIdGroup, "ISmartCardAppletIdGroup", p0):
       vcall(it, Slot_ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync, Fn_ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync)(it, p0, op.addr).check("SmartCardEmulator.RegisterAppletIdGroupAsync")
   result = adopt[SmartCardAppletIdGroupRegistration](await awaitObject(op, IID_IAsyncOperation_1_SmartCardAppletIdGroupRegistration, IID_AsyncOperationCompletedHandler_1_SmartCardAppletIdGroupRegistration, "SmartCardEmulator.RegisterAppletIdGroupAsync"))
 
-proc unregisterAppletIdGroupAsync*(_: typedesc[SmartCardEmulator], a1: SmartCardAppletIdGroupRegistration) {.async.} =
+proc unregisterAppletIdGroupAsync*(_: typedesc[SmartCardEmulator], registration: SmartCardAppletIdGroupRegistration) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.UnregisterAppletIdGroupAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator", IID_ISmartCardEmulatorStatics2, it):
-    withIface(a1.p, IID_ISmartCardAppletIdGroupRegistration, "ISmartCardAppletIdGroupRegistration", p0):
+    withIface(registration.p, IID_ISmartCardAppletIdGroupRegistration, "ISmartCardAppletIdGroupRegistration", p0):
       vcall(it, Slot_ISmartCardEmulatorStatics2_UnregisterAppletIdGroupAsync, Fn_ISmartCardEmulatorStatics2_UnregisterAppletIdGroupAsync)(it, p0, op.addr).check("SmartCardEmulator.UnregisterAppletIdGroupAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardEmulator.UnregisterAppletIdGroupAsync")
 
@@ -36636,11 +36636,11 @@ proc connectionProperties*(self: SmartCardEmulatorApduReceivedEventArgs): SmartC
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_get_ConnectionProperties, Fn_ISmartCardEmulatorApduReceivedEventArgs_get_ConnectionProperties)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_ConnectionProperties")
     result = adopt[SmartCardEmulatorConnectionProperties](tmp)
 
-proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, a1: pointer): Future[bool] {.async.} =
+proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: pointer): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs, "ISmartCardEmulatorApduReceivedEventArgs", it):
-    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync)(it, a1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync)(it, responseApdu, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
 
 proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): SmartCardAutomaticResponseStatus  =
@@ -36787,10 +36787,10 @@ proc getDeferral*(self: SmartCardPinResetRequest): SmartCardPinResetDeferral  =
     vcall(it, Slot_ISmartCardPinResetRequest_GetDeferral, Fn_ISmartCardPinResetRequest_GetDeferral)(it, tmp.addr).check("SmartCardPinResetRequest.GetDeferral")
     result = adopt[SmartCardPinResetDeferral](tmp)
 
-proc setResponse*(self: SmartCardPinResetRequest, a1: pointer)  =
+proc setResponse*(self: SmartCardPinResetRequest, response: pointer)  =
   ## Windows.Devices.SmartCards.SmartCardPinResetRequest.SetResponse
   withIface(self.p, IID_ISmartCardPinResetRequest, "ISmartCardPinResetRequest", it):
-    vcall(it, Slot_ISmartCardPinResetRequest_SetResponse, Fn_ISmartCardPinResetRequest_SetResponse)(it, a1).check("SmartCardPinResetRequest.SetResponse")
+    vcall(it, Slot_ISmartCardPinResetRequest_SetResponse, Fn_ISmartCardPinResetRequest_SetResponse)(it, response).check("SmartCardPinResetRequest.SetResponse")
 
 proc smartCard*(self: SmartCardProvisioning): SmartCard  =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.get_SmartCard
@@ -36834,56 +36834,56 @@ proc getAuthorityKeyContainerNameAsync*(self: SmartCardProvisioning): Future[str
     vcall(it, Slot_ISmartCardProvisioning2_GetAuthorityKeyContainerNameAsync, Fn_ISmartCardProvisioning2_GetAuthorityKeyContainerNameAsync)(it, op.addr).check("SmartCardProvisioning.GetAuthorityKeyContainerNameAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "SmartCardProvisioning.GetAuthorityKeyContainerNameAsync")
 
-proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], a1: SmartCard): Future[SmartCardProvisioning] {.async.} =
+proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.FromSmartCardAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
-    withIface(a1.p, IID_ISmartCard, "ISmartCard", p0):
+    withIface(card.p, IID_ISmartCard, "ISmartCard", p0):
       vcall(it, Slot_ISmartCardProvisioningStatics_FromSmartCardAsync, Fn_ISmartCardProvisioningStatics_FromSmartCardAsync)(it, p0, op.addr).check("SmartCardProvisioning.FromSmartCardAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.FromSmartCardAsync"))
 
-proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], a1: string, a2: pointer, a3: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync)(it, h0, a2, p2, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
+    withHString(friendlyName, h0):
+      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync)(it, h0, administrativeKey, p2, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
 
-proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], a1: string, a2: pointer, a3: SmartCardPinPolicy, a4: GUID): Future[SmartCardProvisioning] {.async.} =
+proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2)(it, h0, a2, p2, a4, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
+    withHString(friendlyName, h0):
+      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2)(it, h0, administrativeKey, p2, cardId, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
 
-proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning], a1: SmartCard): Future[bool] {.async.} =
+proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
-    withIface(a1.p, IID_ISmartCard, "ISmartCard", p0):
+    withIface(card.p, IID_ISmartCard, "ISmartCard", p0):
       vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync)(it, p0, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync")
 
-proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], a1: string, a2: pointer, a3: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics2, it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync)(it, h0, a2, p2, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
+    withHString(friendlyName, h0):
+      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync)(it, h0, administrativeKey, p2, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
 
-proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], a1: string, a2: pointer, a3: SmartCardPinPolicy, a4: GUID): Future[SmartCardProvisioning] {.async.} =
+proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics2, it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2)(it, h0, a2, p2, a4, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
+    withHString(friendlyName, h0):
+      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2)(it, h0, administrativeKey, p2, cardId, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
 
 proc deviceId*(self: SmartCardReader): string  =
@@ -36968,18 +36968,18 @@ proc getDeviceSelector*(_: typedesc[SmartCardReader]): string  =
     vcall(it, Slot_ISmartCardReaderStatics_GetDeviceSelector, Fn_ISmartCardReaderStatics_GetDeviceSelector)(it, tmp.addr).check("SmartCardReader.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[SmartCardReader], a1: SmartCardReaderKind): string  =
+proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind): string  =
   ## Windows.Devices.SmartCards.SmartCardReader.GetDeviceSelector
   withStatics("Windows.Devices.SmartCards.SmartCardReader", IID_ISmartCardReaderStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISmartCardReaderStatics_GetDeviceSelector2, Fn_ISmartCardReaderStatics_GetDeviceSelector2)(it, a1, tmp.addr).check("SmartCardReader.GetDeviceSelector")
+    vcall(it, Slot_ISmartCardReaderStatics_GetDeviceSelector2, Fn_ISmartCardReaderStatics_GetDeviceSelector2)(it, kind, tmp.addr).check("SmartCardReader.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SmartCardReader], a1: string): Future[SmartCardReader] {.async.} =
+proc fromIdAsync*(_: typedesc[SmartCardReader], deviceId: string): Future[SmartCardReader] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardReader.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardReader", IID_ISmartCardReaderStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ISmartCardReaderStatics_FromIdAsync, Fn_ISmartCardReaderStatics_FromIdAsync)(it, h0, op.addr).check("SmartCardReader.FromIdAsync")
   result = adopt[SmartCardReader](await awaitObject(op, IID_IAsyncOperation_1_SmartCardReader, IID_AsyncOperationCompletedHandler_1_SmartCardReader, "SmartCardReader.FromIdAsync"))
 
@@ -37011,20 +37011,20 @@ proc emulator*(self: SmartCardTriggerDetails): SmartCardEmulator  =
     vcall(it, Slot_ISmartCardTriggerDetails2_get_Emulator, Fn_ISmartCardTriggerDetails2_get_Emulator)(it, tmp.addr).check("SmartCardTriggerDetails.get_Emulator")
     result = adopt[SmartCardEmulator](tmp)
 
-proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, a1: string): Future[bool] {.async.} =
+proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.TryLaunchCurrentAppAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardTriggerDetails2, "ISmartCardTriggerDetails2", it):
-    withHString(a1, h0):
+    withHString(arguments, h0):
       vcall(it, Slot_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync, Fn_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync)(it, h0, op.addr).check("SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
 
-proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, a1: string, a2: SmartCardLaunchBehavior): Future[bool] {.async.} =
+proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string, behavior: SmartCardLaunchBehavior): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.TryLaunchCurrentAppAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardTriggerDetails2, "ISmartCardTriggerDetails2", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync2, Fn_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync2)(it, h0, a2, op.addr).check("SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
+    withHString(arguments, h0):
+      vcall(it, Slot_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync2, Fn_ISmartCardTriggerDetails2_TryLaunchCurrentAppAsync2)(it, h0, behavior, op.addr).check("SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
 
 proc smartCard*(self: SmartCardTriggerDetails): SmartCard  =
@@ -37504,17 +37504,17 @@ proc simIccId*(self: SmsBroadcastMessage): string  =
     vcall(it, Slot_ISmsMessageBase_get_SimIccId, Fn_ISmsMessageBase_get_SimIccId)(it, tmp.addr).check("SmsBroadcastMessage.get_SimIccId")
     result = takeString(tmp)
 
-proc sendMessageAsync*(self: SmsDevice, a1: pointer): SendSmsMessageOperation  =
+proc sendMessageAsync*(self: SmsDevice, message: pointer): SendSmsMessageOperation  =
   ## Windows.Devices.Sms.SmsDevice.SendMessageAsync
   withIface(self.p, IID_ISmsDevice, "ISmsDevice", it):
     var tmp: pointer
-    vcall(it, Slot_ISmsDevice_SendMessageAsync, Fn_ISmsDevice_SendMessageAsync)(it, a1, tmp.addr).check("SmsDevice.SendMessageAsync")
+    vcall(it, Slot_ISmsDevice_SendMessageAsync, Fn_ISmsDevice_SendMessageAsync)(it, message, tmp.addr).check("SmsDevice.SendMessageAsync")
     result = adopt[SendSmsMessageOperation](tmp)
 
-proc calculateLength*(self: SmsDevice, a1: SmsTextMessage): SmsEncodedLength  =
+proc calculateLength*(self: SmsDevice, message: SmsTextMessage): SmsEncodedLength  =
   ## Windows.Devices.Sms.SmsDevice.CalculateLength
   withIface(self.p, IID_ISmsDevice, "ISmsDevice", it):
-    withIface(a1.p, IID_ISmsTextMessage, "ISmsTextMessage", p0):
+    withIface(message.p, IID_ISmsTextMessage, "ISmsTextMessage", p0):
       var tmp: SmsEncodedLength
       vcall(it, Slot_ISmsDevice_CalculateLength, Fn_ISmsDevice_CalculateLength)(it, p0, tmp.addr).check("SmsDevice.CalculateLength")
       result = tmp
@@ -37577,11 +37577,11 @@ proc getDeviceSelector*(_: typedesc[SmsDevice]): string  =
     vcall(it, Slot_ISmsDeviceStatics_GetDeviceSelector, Fn_ISmsDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("SmsDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SmsDevice], a1: string): Future[SmsDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[SmsDevice], deviceId: string): Future[SmsDevice] {.async.} =
   ## Windows.Devices.Sms.SmsDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sms.SmsDevice", IID_ISmsDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_ISmsDeviceStatics_FromIdAsync, Fn_ISmsDeviceStatics_FromIdAsync)(it, h0, op.addr).check("SmsDevice.FromIdAsync")
   result = adopt[SmsDevice](await awaitObject(op, IID_IAsyncOperation_1_SmsDevice, IID_AsyncOperationCompletedHandler_1_SmsDevice, "SmsDevice.FromIdAsync"))
 
@@ -37592,11 +37592,11 @@ proc getDefaultAsync*(_: typedesc[SmsDevice]): Future[SmsDevice] {.async.} =
     vcall(it, Slot_ISmsDeviceStatics_GetDefaultAsync, Fn_ISmsDeviceStatics_GetDefaultAsync)(it, op.addr).check("SmsDevice.GetDefaultAsync")
   result = adopt[SmsDevice](await awaitObject(op, IID_IAsyncOperation_1_SmsDevice, IID_AsyncOperationCompletedHandler_1_SmsDevice, "SmsDevice.GetDefaultAsync"))
 
-proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], a1: string): Future[SmsDevice] {.async.} =
+proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], networkAccountId: string): Future[SmsDevice] {.async.} =
   ## Windows.Devices.Sms.SmsDevice.FromNetworkAccountIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sms.SmsDevice", IID_ISmsDeviceStatics2, it):
-    withHString(a1, h0):
+    withHString(networkAccountId, h0):
       vcall(it, Slot_ISmsDeviceStatics2_FromNetworkAccountIdAsync, Fn_ISmsDeviceStatics2_FromNetworkAccountIdAsync)(it, h0, op.addr).check("SmsDevice.FromNetworkAccountIdAsync")
   result = adopt[SmsDevice](await awaitObject(op, IID_IAsyncOperation_1_SmsDevice, IID_AsyncOperationCompletedHandler_1_SmsDevice, "SmsDevice.FromNetworkAccountIdAsync"))
 
@@ -37648,18 +37648,18 @@ proc deviceStatus*(self: SmsDevice2): SmsDeviceStatus  =
     vcall(it, Slot_ISmsDevice2_get_DeviceStatus, Fn_ISmsDevice2_get_DeviceStatus)(it, tmp.addr).check("SmsDevice2.get_DeviceStatus")
     result = tmp
 
-proc calculateLength*(self: SmsDevice2, a1: pointer): SmsEncodedLength  =
+proc calculateLength*(self: SmsDevice2, message: pointer): SmsEncodedLength  =
   ## Windows.Devices.Sms.SmsDevice2.CalculateLength
   withIface(self.p, IID_ISmsDevice2, "ISmsDevice2", it):
     var tmp: SmsEncodedLength
-    vcall(it, Slot_ISmsDevice2_CalculateLength, Fn_ISmsDevice2_CalculateLength)(it, a1, tmp.addr).check("SmsDevice2.CalculateLength")
+    vcall(it, Slot_ISmsDevice2_CalculateLength, Fn_ISmsDevice2_CalculateLength)(it, message, tmp.addr).check("SmsDevice2.CalculateLength")
     result = tmp
 
-proc sendMessageAndGetResultAsync*(self: SmsDevice2, a1: pointer): Future[SmsSendMessageResult] {.async.} =
+proc sendMessageAndGetResultAsync*(self: SmsDevice2, message: pointer): Future[SmsSendMessageResult] {.async.} =
   ## Windows.Devices.Sms.SmsDevice2.SendMessageAndGetResultAsync
   var op: pointer
   withIface(self.p, IID_ISmsDevice2, "ISmsDevice2", it):
-    vcall(it, Slot_ISmsDevice2_SendMessageAndGetResultAsync, Fn_ISmsDevice2_SendMessageAndGetResultAsync)(it, a1, op.addr).check("SmsDevice2.SendMessageAndGetResultAsync")
+    vcall(it, Slot_ISmsDevice2_SendMessageAndGetResultAsync, Fn_ISmsDevice2_SendMessageAndGetResultAsync)(it, message, op.addr).check("SmsDevice2.SendMessageAndGetResultAsync")
   result = adopt[SmsSendMessageResult](await awaitObject(op, IID_IAsyncOperation_1_SmsSendMessageResult, IID_AsyncOperationCompletedHandler_1_SmsSendMessageResult, "SmsDevice2.SendMessageAndGetResultAsync"))
 
 proc onDeviceStatusChanged*(self: SmsDevice2,
@@ -37688,10 +37688,10 @@ proc getDeviceSelector*(_: typedesc[SmsDevice2]): string  =
     vcall(it, Slot_ISmsDevice2Statics_GetDeviceSelector, Fn_ISmsDevice2Statics_GetDeviceSelector)(it, tmp.addr).check("SmsDevice2.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromId*(_: typedesc[SmsDevice2], a1: string): SmsDevice2  =
+proc fromId*(_: typedesc[SmsDevice2], deviceId: string): SmsDevice2  =
   ## Windows.Devices.Sms.SmsDevice2.FromId
   withStatics("Windows.Devices.Sms.SmsDevice2", IID_ISmsDevice2Statics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_ISmsDevice2Statics_FromId, Fn_ISmsDevice2Statics_FromId)(it, h0, tmp.addr).check("SmsDevice2.FromId")
       result = adopt[SmsDevice2](tmp)
@@ -37703,26 +37703,26 @@ proc getDefault*(_: typedesc[SmsDevice2]): SmsDevice2  =
     vcall(it, Slot_ISmsDevice2Statics_GetDefault, Fn_ISmsDevice2Statics_GetDefault)(it, tmp.addr).check("SmsDevice2.GetDefault")
     result = adopt[SmsDevice2](tmp)
 
-proc fromParentId*(_: typedesc[SmsDevice2], a1: string): SmsDevice2  =
+proc fromParentId*(_: typedesc[SmsDevice2], parentDeviceId: string): SmsDevice2  =
   ## Windows.Devices.Sms.SmsDevice2.FromParentId
   withStatics("Windows.Devices.Sms.SmsDevice2", IID_ISmsDevice2Statics, it):
-    withHString(a1, h0):
+    withHString(parentDeviceId, h0):
       var tmp: pointer
       vcall(it, Slot_ISmsDevice2Statics_FromParentId, Fn_ISmsDevice2Statics_FromParentId)(it, h0, tmp.addr).check("SmsDevice2.FromParentId")
       result = adopt[SmsDevice2](tmp)
 
-proc deleteMessageAsync*(self: SmsDeviceMessageStore, a1: uint32) {.async.} =
+proc deleteMessageAsync*(self: SmsDeviceMessageStore, messageId: uint32) {.async.} =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.DeleteMessageAsync
   var op: pointer
   withIface(self.p, IID_ISmsDeviceMessageStore, "ISmsDeviceMessageStore", it):
-    vcall(it, Slot_ISmsDeviceMessageStore_DeleteMessageAsync, Fn_ISmsDeviceMessageStore_DeleteMessageAsync)(it, a1, op.addr).check("SmsDeviceMessageStore.DeleteMessageAsync")
+    vcall(it, Slot_ISmsDeviceMessageStore_DeleteMessageAsync, Fn_ISmsDeviceMessageStore_DeleteMessageAsync)(it, messageId, op.addr).check("SmsDeviceMessageStore.DeleteMessageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmsDeviceMessageStore.DeleteMessageAsync")
 
-proc deleteMessagesAsync*(self: SmsDeviceMessageStore, a1: SmsMessageFilter) {.async.} =
+proc deleteMessagesAsync*(self: SmsDeviceMessageStore, messageFilter: SmsMessageFilter) {.async.} =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.DeleteMessagesAsync
   var op: pointer
   withIface(self.p, IID_ISmsDeviceMessageStore, "ISmsDeviceMessageStore", it):
-    vcall(it, Slot_ISmsDeviceMessageStore_DeleteMessagesAsync, Fn_ISmsDeviceMessageStore_DeleteMessagesAsync)(it, a1, op.addr).check("SmsDeviceMessageStore.DeleteMessagesAsync")
+    vcall(it, Slot_ISmsDeviceMessageStore_DeleteMessagesAsync, Fn_ISmsDeviceMessageStore_DeleteMessagesAsync)(it, messageFilter, op.addr).check("SmsDeviceMessageStore.DeleteMessagesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmsDeviceMessageStore.DeleteMessagesAsync")
 
 proc maxMessages*(self: SmsDeviceMessageStore): uint32  =
@@ -37799,11 +37799,11 @@ proc wapContentTypes*(self: SmsFilterRule): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc createFilterRule*(_: typedesc[SmsFilterRule], a1: SmsMessageType): SmsFilterRule  =
+proc createFilterRule*(_: typedesc[SmsFilterRule], messageType: SmsMessageType): SmsFilterRule  =
   ## Windows.Devices.Sms.SmsFilterRule.CreateFilterRule
   withStatics("Windows.Devices.Sms.SmsFilterRule", IID_ISmsFilterRuleFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISmsFilterRuleFactory_CreateFilterRule, Fn_ISmsFilterRuleFactory_CreateFilterRule)(it, a1, tmp.addr).check("SmsFilterRule.CreateFilterRule")
+    vcall(it, Slot_ISmsFilterRuleFactory_CreateFilterRule, Fn_ISmsFilterRuleFactory_CreateFilterRule)(it, messageType, tmp.addr).check("SmsFilterRule.CreateFilterRule")
     result = adopt[SmsFilterRule](tmp)
 
 proc actionType*(self: SmsFilterRules): SmsFilterActionType  =
@@ -37821,11 +37821,11 @@ proc rules*(self: SmsFilterRules): seq[SmsFilterRule]  =
     result = toSeq[SmsFilterRule](tmp, IID_IVector_1_SmsFilterRule)
     release(tmp)
 
-proc createFilterRules*(_: typedesc[SmsFilterRules], a1: SmsFilterActionType): SmsFilterRules  =
+proc createFilterRules*(_: typedesc[SmsFilterRules], actionType: SmsFilterActionType): SmsFilterRules  =
   ## Windows.Devices.Sms.SmsFilterRules.CreateFilterRules
   withStatics("Windows.Devices.Sms.SmsFilterRules", IID_ISmsFilterRulesFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISmsFilterRulesFactory_CreateFilterRules, Fn_ISmsFilterRulesFactory_CreateFilterRules)(it, a1, tmp.addr).check("SmsFilterRules.CreateFilterRules")
+    vcall(it, Slot_ISmsFilterRulesFactory_CreateFilterRules, Fn_ISmsFilterRulesFactory_CreateFilterRules)(it, actionType, tmp.addr).check("SmsFilterRules.CreateFilterRules")
     result = adopt[SmsFilterRules](tmp)
 
 proc textMessage*(self: SmsMessageReceivedEventArgs): SmsTextMessage  =
@@ -37940,11 +37940,11 @@ proc allRegistrations*(_: typedesc[SmsMessageRegistration]): seq[SmsMessageRegis
     result = toSeq[SmsMessageRegistration](tmp, IID_IVectorView_1_SmsMessageRegistration)
     release(tmp)
 
-proc register*(_: typedesc[SmsMessageRegistration], a1: string, a2: SmsFilterRules): SmsMessageRegistration  =
+proc register*(_: typedesc[SmsMessageRegistration], id: string, filterRules: SmsFilterRules): SmsMessageRegistration  =
   ## Windows.Devices.Sms.SmsMessageRegistration.Register
   withStatics("Windows.Devices.Sms.SmsMessageRegistration", IID_ISmsMessageRegistrationStatics, it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_ISmsFilterRules, "ISmsFilterRules", p1):
+    withHString(id, h0):
+      withIface(filterRules.p, IID_ISmsFilterRules, "ISmsFilterRules", p1):
         var tmp: pointer
         vcall(it, Slot_ISmsMessageRegistrationStatics_Register, Fn_ISmsMessageRegistrationStatics_Register)(it, h0, p1, tmp.addr).check("SmsMessageRegistration.Register")
         result = adopt[SmsMessageRegistration](tmp)
@@ -38186,11 +38186,11 @@ proc `encoding=`*(self: SmsTextMessage, value: SmsEncoding)  =
   withIface(self.p, IID_ISmsTextMessage, "ISmsTextMessage", it):
     vcall(it, Slot_ISmsTextMessage_put_Encoding, Fn_ISmsTextMessage_put_Encoding)(it, value).check("SmsTextMessage.put_Encoding")
 
-proc toBinaryMessages*(self: SmsTextMessage, a1: SmsDataFormat): seq[SmsBinaryMessage]  =
+proc toBinaryMessages*(self: SmsTextMessage, format: SmsDataFormat): seq[SmsBinaryMessage]  =
   ## Windows.Devices.Sms.SmsTextMessage.ToBinaryMessages
   withIface(self.p, IID_ISmsTextMessage, "ISmsTextMessage", it):
     var tmp: pointer
-    vcall(it, Slot_ISmsTextMessage_ToBinaryMessages, Fn_ISmsTextMessage_ToBinaryMessages)(it, a1, tmp.addr).check("SmsTextMessage.ToBinaryMessages")
+    vcall(it, Slot_ISmsTextMessage_ToBinaryMessages, Fn_ISmsTextMessage_ToBinaryMessages)(it, format, tmp.addr).check("SmsTextMessage.ToBinaryMessages")
     result = toSeq[SmsBinaryMessage](tmp, IID_IVectorView_1_ISmsBinaryMessage)
     release(tmp)
 
@@ -38208,10 +38208,10 @@ proc messageClass*(self: SmsTextMessage): SmsMessageClass  =
     vcall(it, Slot_ISmsMessage_get_MessageClass, Fn_ISmsMessage_get_MessageClass)(it, tmp.addr).check("SmsTextMessage.get_MessageClass")
     result = tmp
 
-proc fromBinaryMessage*(_: typedesc[SmsTextMessage], a1: SmsBinaryMessage): SmsTextMessage  =
+proc fromBinaryMessage*(_: typedesc[SmsTextMessage], binaryMessage: SmsBinaryMessage): SmsTextMessage  =
   ## Windows.Devices.Sms.SmsTextMessage.FromBinaryMessage
   withStatics("Windows.Devices.Sms.SmsTextMessage", IID_ISmsTextMessageStatics, it):
-    withIface(a1.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", p0):
+    withIface(binaryMessage.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", p0):
       var tmp: pointer
       vcall(it, Slot_ISmsTextMessageStatics_FromBinaryMessage, Fn_ISmsTextMessageStatics_FromBinaryMessage)(it, p0, tmp.addr).check("SmsTextMessage.FromBinaryMessage")
       result = adopt[SmsTextMessage](tmp)
@@ -38559,11 +38559,11 @@ proc `sharingMode=`*(self: ProviderSpiConnectionSettings, value: ProviderSpiShar
   withIface(self.p, IID_IProviderSpiConnectionSettings, "IProviderSpiConnectionSettings", it):
     vcall(it, Slot_IProviderSpiConnectionSettings_put_SharingMode, Fn_IProviderSpiConnectionSettings_put_SharingMode)(it, value).check("ProviderSpiConnectionSettings.put_SharingMode")
 
-proc create*(_: typedesc[ProviderSpiConnectionSettings], a1: int32): ProviderSpiConnectionSettings  =
+proc create*(_: typedesc[ProviderSpiConnectionSettings], chipSelectLine: int32): ProviderSpiConnectionSettings  =
   ## Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings.Create
   withStatics("Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings", IID_IProviderSpiConnectionSettingsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IProviderSpiConnectionSettingsFactory_Create, Fn_IProviderSpiConnectionSettingsFactory_Create)(it, a1, tmp.addr).check("ProviderSpiConnectionSettings.Create")
+    vcall(it, Slot_IProviderSpiConnectionSettingsFactory_Create, Fn_IProviderSpiConnectionSettingsFactory_Create)(it, chipSelectLine, tmp.addr).check("ProviderSpiConnectionSettings.Create")
     result = adopt[ProviderSpiConnectionSettings](tmp)
 
 proc chipSelectLineCount*(self: SpiBusInfo): int32  =
@@ -38647,17 +38647,17 @@ proc `sharingMode=`*(self: SpiConnectionSettings, value: SpiSharingMode)  =
   withIface(self.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", it):
     vcall(it, Slot_ISpiConnectionSettings_put_SharingMode, Fn_ISpiConnectionSettings_put_SharingMode)(it, value).check("SpiConnectionSettings.put_SharingMode")
 
-proc create*(_: typedesc[SpiConnectionSettings], a1: int32): SpiConnectionSettings  =
+proc create*(_: typedesc[SpiConnectionSettings], chipSelectLine: int32): SpiConnectionSettings  =
   ## Windows.Devices.Spi.SpiConnectionSettings.Create
   withStatics("Windows.Devices.Spi.SpiConnectionSettings", IID_ISpiConnectionSettingsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ISpiConnectionSettingsFactory_Create, Fn_ISpiConnectionSettingsFactory_Create)(it, a1, tmp.addr).check("SpiConnectionSettings.Create")
+    vcall(it, Slot_ISpiConnectionSettingsFactory_Create, Fn_ISpiConnectionSettingsFactory_Create)(it, chipSelectLine, tmp.addr).check("SpiConnectionSettings.Create")
     result = adopt[SpiConnectionSettings](tmp)
 
-proc getDevice*(self: SpiController, a1: SpiConnectionSettings): SpiDevice  =
+proc getDevice*(self: SpiController, settings: SpiConnectionSettings): SpiDevice  =
   ## Windows.Devices.Spi.SpiController.GetDevice
   withIface(self.p, IID_ISpiController, "ISpiController", it):
-    withIface(a1.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", p0):
+    withIface(settings.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", p0):
       var tmp: pointer
       vcall(it, Slot_ISpiController_GetDevice, Fn_ISpiController_GetDevice)(it, p0, tmp.addr).check("SpiController.GetDevice")
       result = adopt[SpiDevice](tmp)
@@ -38669,11 +38669,11 @@ proc getDefaultAsync*(_: typedesc[SpiController]): Future[SpiController] {.async
     vcall(it, Slot_ISpiControllerStatics_GetDefaultAsync, Fn_ISpiControllerStatics_GetDefaultAsync)(it, op.addr).check("SpiController.GetDefaultAsync")
   result = adopt[SpiController](await awaitObject(op, IID_IAsyncOperation_1_SpiController, IID_AsyncOperationCompletedHandler_1_SpiController, "SpiController.GetDefaultAsync"))
 
-proc getControllersAsync*(_: typedesc[SpiController], a1: pointer): Future[seq[SpiController]] {.async.} =
+proc getControllersAsync*(_: typedesc[SpiController], provider: pointer): Future[seq[SpiController]] {.async.} =
   ## Windows.Devices.Spi.SpiController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiController", IID_ISpiControllerStatics, it):
-    vcall(it, Slot_ISpiControllerStatics_GetControllersAsync, Fn_ISpiControllerStatics_GetControllersAsync)(it, a1, op.addr).check("SpiController.GetControllersAsync")
+    vcall(it, Slot_ISpiControllerStatics_GetControllersAsync, Fn_ISpiControllerStatics_GetControllersAsync)(it, provider, op.addr).check("SpiController.GetControllersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "SpiController.GetControllersAsync")
   result = toSeq[SpiController](coll, IID_IVectorView_1_SpiController)
   discard release(coll)
@@ -38704,28 +38704,28 @@ proc getDeviceSelector*(_: typedesc[SpiDevice]): string  =
     vcall(it, Slot_ISpiDeviceStatics_GetDeviceSelector, Fn_ISpiDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("SpiDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[SpiDevice], a1: string): string  =
+proc getDeviceSelector*(_: typedesc[SpiDevice], friendlyName: string): string  =
   ## Windows.Devices.Spi.SpiDevice.GetDeviceSelector
   withStatics("Windows.Devices.Spi.SpiDevice", IID_ISpiDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(friendlyName, h0):
       var tmp: HSTRING
       vcall(it, Slot_ISpiDeviceStatics_GetDeviceSelector2, Fn_ISpiDeviceStatics_GetDeviceSelector2)(it, h0, tmp.addr).check("SpiDevice.GetDeviceSelector")
       result = takeString(tmp)
 
-proc getBusInfo*(_: typedesc[SpiDevice], a1: string): SpiBusInfo  =
+proc getBusInfo*(_: typedesc[SpiDevice], busId: string): SpiBusInfo  =
   ## Windows.Devices.Spi.SpiDevice.GetBusInfo
   withStatics("Windows.Devices.Spi.SpiDevice", IID_ISpiDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(busId, h0):
       var tmp: pointer
       vcall(it, Slot_ISpiDeviceStatics_GetBusInfo, Fn_ISpiDeviceStatics_GetBusInfo)(it, h0, tmp.addr).check("SpiDevice.GetBusInfo")
       result = adopt[SpiBusInfo](tmp)
 
-proc fromIdAsync*(_: typedesc[SpiDevice], a1: string, a2: SpiConnectionSettings): Future[SpiDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[SpiDevice], busId: string, settings: SpiConnectionSettings): Future[SpiDevice] {.async.} =
   ## Windows.Devices.Spi.SpiDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiDevice", IID_ISpiDeviceStatics, it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", p1):
+    withHString(busId, h0):
+      withIface(settings.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", p1):
         vcall(it, Slot_ISpiDeviceStatics_FromIdAsync, Fn_ISpiDeviceStatics_FromIdAsync)(it, h0, p1, op.addr).check("SpiDevice.FromIdAsync")
   result = adopt[SpiDevice](await awaitObject(op, IID_IAsyncOperation_1_SpiDevice, IID_AsyncOperationCompletedHandler_1_SpiDevice, "SpiDevice.FromIdAsync"))
 
@@ -38900,10 +38900,10 @@ proc remoteWakeup*(self: UsbConfigurationDescriptor): bool  =
     vcall(it, Slot_IUsbConfigurationDescriptor_get_RemoteWakeup, Fn_IUsbConfigurationDescriptor_get_RemoteWakeup)(it, tmp.addr).check("UsbConfigurationDescriptor.get_RemoteWakeup")
     result = tmp
 
-proc parse*(_: typedesc[UsbConfigurationDescriptor], a1: UsbDescriptor): UsbConfigurationDescriptor  =
+proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor): UsbConfigurationDescriptor  =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbConfigurationDescriptor", IID_IUsbConfigurationDescriptorStatics, it):
-    withIface(a1.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
       var tmp: pointer
       vcall(it, Slot_IUsbConfigurationDescriptorStatics_Parse, Fn_IUsbConfigurationDescriptorStatics_Parse)(it, p0, tmp.addr).check("UsbConfigurationDescriptor.Parse")
       result = adopt[UsbConfigurationDescriptor](tmp)
@@ -38974,24 +38974,24 @@ proc descriptorType*(self: UsbDescriptor): uint8  =
     vcall(it, Slot_IUsbDescriptor_get_DescriptorType, Fn_IUsbDescriptor_get_DescriptorType)(it, tmp.addr).check("UsbDescriptor.get_DescriptorType")
     result = tmp
 
-proc readDescriptorBuffer*(self: UsbDescriptor, a1: pointer)  =
+proc readDescriptorBuffer*(self: UsbDescriptor, buffer: pointer)  =
   ## Windows.Devices.Usb.UsbDescriptor.ReadDescriptorBuffer
   withIface(self.p, IID_IUsbDescriptor, "IUsbDescriptor", it):
-    vcall(it, Slot_IUsbDescriptor_ReadDescriptorBuffer, Fn_IUsbDescriptor_ReadDescriptorBuffer)(it, a1).check("UsbDescriptor.ReadDescriptorBuffer")
+    vcall(it, Slot_IUsbDescriptor_ReadDescriptorBuffer, Fn_IUsbDescriptor_ReadDescriptorBuffer)(it, buffer).check("UsbDescriptor.ReadDescriptorBuffer")
 
-proc sendControlOutTransferAsync*(self: UsbDevice, a1: UsbSetupPacket, a2: pointer): Future[uint32] {.async.} =
+proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket, buffer: pointer): Future[uint32] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.SendControlOutTransferAsync
   var op: pointer
   withIface(self.p, IID_IUsbDevice, "IUsbDevice", it):
-    withIface(a1.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
-      vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync, Fn_IUsbDevice_SendControlOutTransferAsync)(it, p0, a2, op.addr).check("UsbDevice.SendControlOutTransferAsync")
+    withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
+      vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync, Fn_IUsbDevice_SendControlOutTransferAsync)(it, p0, buffer, op.addr).check("UsbDevice.SendControlOutTransferAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "UsbDevice.SendControlOutTransferAsync")
 
-proc sendControlOutTransferAsync*(self: UsbDevice, a1: UsbSetupPacket): Future[uint32] {.async.} =
+proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket): Future[uint32] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.SendControlOutTransferAsync
   var op: pointer
   withIface(self.p, IID_IUsbDevice, "IUsbDevice", it):
-    withIface(a1.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
+    withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
       vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync2, Fn_IUsbDevice_SendControlOutTransferAsync2)(it, p0, op.addr).check("UsbDevice.SendControlOutTransferAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "UsbDevice.SendControlOutTransferAsync")
 
@@ -39021,40 +39021,40 @@ proc close*(self: UsbDevice)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("UsbDevice.Close")
 
-proc getDeviceSelector*(_: typedesc[UsbDevice], a1: uint32, a2: uint32, a3: GUID): string  =
+proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32, productId: uint32, winUsbInterfaceClass: GUID): string  =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IID_IUsbDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector, Fn_IUsbDeviceStatics_GetDeviceSelector)(it, a1, a2, a3, tmp.addr).check("UsbDevice.GetDeviceSelector")
+    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector, Fn_IUsbDeviceStatics_GetDeviceSelector)(it, vendorId, productId, winUsbInterfaceClass, tmp.addr).check("UsbDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[UsbDevice], a1: GUID): string  =
+proc getDeviceSelector*(_: typedesc[UsbDevice], winUsbInterfaceClass: GUID): string  =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IID_IUsbDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector2, Fn_IUsbDeviceStatics_GetDeviceSelector2)(it, a1, tmp.addr).check("UsbDevice.GetDeviceSelector")
+    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector2, Fn_IUsbDeviceStatics_GetDeviceSelector2)(it, winUsbInterfaceClass, tmp.addr).check("UsbDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[UsbDevice], a1: uint32, a2: uint32): string  =
+proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32, productId: uint32): string  =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IID_IUsbDeviceStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector3, Fn_IUsbDeviceStatics_GetDeviceSelector3)(it, a1, a2, tmp.addr).check("UsbDevice.GetDeviceSelector")
+    vcall(it, Slot_IUsbDeviceStatics_GetDeviceSelector3, Fn_IUsbDeviceStatics_GetDeviceSelector3)(it, vendorId, productId, tmp.addr).check("UsbDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc getDeviceClassSelector*(_: typedesc[UsbDevice], a1: UsbDeviceClass): string  =
+proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass): string  =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceClassSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IID_IUsbDeviceStatics, it):
-    withIface(a1.p, IID_IUsbDeviceClass, "IUsbDeviceClass", p0):
+    withIface(usbClass.p, IID_IUsbDeviceClass, "IUsbDeviceClass", p0):
       var tmp: HSTRING
       vcall(it, Slot_IUsbDeviceStatics_GetDeviceClassSelector, Fn_IUsbDeviceStatics_GetDeviceClassSelector)(it, p0, tmp.addr).check("UsbDevice.GetDeviceClassSelector")
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[UsbDevice], a1: string): Future[UsbDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[UsbDevice], deviceId: string): Future[UsbDevice] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Usb.UsbDevice", IID_IUsbDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IUsbDeviceStatics_FromIdAsync, Fn_IUsbDeviceStatics_FromIdAsync)(it, h0, op.addr).check("UsbDevice.FromIdAsync")
   result = adopt[UsbDevice](await awaitObject(op, IID_IAsyncOperation_1_UsbDevice, IID_AsyncOperationCompletedHandler_1_UsbDevice, "UsbDevice.FromIdAsync"))
 
@@ -39244,10 +39244,10 @@ proc asInterruptOutEndpointDescriptor*(self: UsbEndpointDescriptor): UsbInterrup
     vcall(it, Slot_IUsbEndpointDescriptor_get_AsInterruptOutEndpointDescriptor, Fn_IUsbEndpointDescriptor_get_AsInterruptOutEndpointDescriptor)(it, tmp.addr).check("UsbEndpointDescriptor.get_AsInterruptOutEndpointDescriptor")
     result = adopt[UsbInterruptOutEndpointDescriptor](tmp)
 
-proc parse*(_: typedesc[UsbEndpointDescriptor], a1: UsbDescriptor): UsbEndpointDescriptor  =
+proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): UsbEndpointDescriptor  =
   ## Windows.Devices.Usb.UsbEndpointDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbEndpointDescriptor", IID_IUsbEndpointDescriptorStatics, it):
-    withIface(a1.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
       var tmp: pointer
       vcall(it, Slot_IUsbEndpointDescriptorStatics_Parse, Fn_IUsbEndpointDescriptorStatics_Parse)(it, p0, tmp.addr).check("UsbEndpointDescriptor.Parse")
       result = adopt[UsbEndpointDescriptor](tmp)
@@ -39342,10 +39342,10 @@ proc interfaceNumber*(self: UsbInterfaceDescriptor): uint8  =
     vcall(it, Slot_IUsbInterfaceDescriptor_get_InterfaceNumber, Fn_IUsbInterfaceDescriptor_get_InterfaceNumber)(it, tmp.addr).check("UsbInterfaceDescriptor.get_InterfaceNumber")
     result = tmp
 
-proc parse*(_: typedesc[UsbInterfaceDescriptor], a1: UsbDescriptor): UsbInterfaceDescriptor  =
+proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): UsbInterfaceDescriptor  =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbInterfaceDescriptor", IID_IUsbInterfaceDescriptorStatics, it):
-    withIface(a1.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
       var tmp: pointer
       vcall(it, Slot_IUsbInterfaceDescriptorStatics_Parse, Fn_IUsbInterfaceDescriptorStatics_Parse)(it, p0, tmp.addr).check("UsbInterfaceDescriptor.Parse")
       result = adopt[UsbInterfaceDescriptor](tmp)
@@ -39605,11 +39605,11 @@ proc `length=`*(self: UsbSetupPacket, value: uint32)  =
   withIface(self.p, IID_IUsbSetupPacket, "IUsbSetupPacket", it):
     vcall(it, Slot_IUsbSetupPacket_put_Length, Fn_IUsbSetupPacket_put_Length)(it, value).check("UsbSetupPacket.put_Length")
 
-proc createWithEightByteBuffer*(_: typedesc[UsbSetupPacket], a1: pointer): UsbSetupPacket  =
+proc createWithEightByteBuffer*(_: typedesc[UsbSetupPacket], eightByteBuffer: pointer): UsbSetupPacket  =
   ## Windows.Devices.Usb.UsbSetupPacket.CreateWithEightByteBuffer
   withStatics("Windows.Devices.Usb.UsbSetupPacket", IID_IUsbSetupPacketFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IUsbSetupPacketFactory_CreateWithEightByteBuffer, Fn_IUsbSetupPacketFactory_CreateWithEightByteBuffer)(it, a1, tmp.addr).check("UsbSetupPacket.CreateWithEightByteBuffer")
+    vcall(it, Slot_IUsbSetupPacketFactory_CreateWithEightByteBuffer, Fn_IUsbSetupPacketFactory_CreateWithEightByteBuffer)(it, eightByteBuffer, tmp.addr).check("UsbSetupPacket.CreateWithEightByteBuffer")
     result = adopt[UsbSetupPacket](tmp)
 
 proc scanAsync*(self: WiFiAdapter) {.async.} =
@@ -39645,12 +39645,12 @@ proc removeAvailableNetworksChanged*(self: WiFiAdapter, token: EventRegistration
   withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
     vcall(it, Slot_IWiFiAdapter_remove_AvailableNetworksChanged, Fn_IWiFiAdapter_remove_AvailableNetworksChanged)(it, token).check("WiFiAdapter.remove_AvailableNetworksChanged")
 
-proc connectAsync*(self: WiFiAdapter, a1: WiFiAvailableNetwork, a2: WiFiReconnectionKind): Future[WiFiConnectionResult] {.async.} =
+proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork, reconnectionKind: WiFiReconnectionKind): Future[WiFiConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
   var op: pointer
   withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
-    withIface(a1.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
-      vcall(it, Slot_IWiFiAdapter_ConnectAsync, Fn_IWiFiAdapter_ConnectAsync)(it, p0, a2, op.addr).check("WiFiAdapter.ConnectAsync")
+    withIface(availableNetwork.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
+      vcall(it, Slot_IWiFiAdapter_ConnectAsync, Fn_IWiFiAdapter_ConnectAsync)(it, p0, reconnectionKind, op.addr).check("WiFiAdapter.ConnectAsync")
   result = adopt[WiFiConnectionResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult, IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult, "WiFiAdapter.ConnectAsync"))
 
 proc disconnect*(self: WiFiAdapter)  =
@@ -39658,11 +39658,11 @@ proc disconnect*(self: WiFiAdapter)  =
   withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
     vcall(it, Slot_IWiFiAdapter_Disconnect, Fn_IWiFiAdapter_Disconnect)(it).check("WiFiAdapter.Disconnect")
 
-proc getWpsConfigurationAsync*(self: WiFiAdapter, a1: WiFiAvailableNetwork): Future[WiFiWpsConfigurationResult] {.async.} =
+proc getWpsConfigurationAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork): Future[WiFiWpsConfigurationResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.GetWpsConfigurationAsync
   var op: pointer
   withIface(self.p, IID_IWiFiAdapter2, "IWiFiAdapter2", it):
-    withIface(a1.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
+    withIface(availableNetwork.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
       vcall(it, Slot_IWiFiAdapter2_GetWpsConfigurationAsync, Fn_IWiFiAdapter2_GetWpsConfigurationAsync)(it, p0, op.addr).check("WiFiAdapter.GetWpsConfigurationAsync")
   result = adopt[WiFiWpsConfigurationResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiWpsConfigurationResult, IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult, "WiFiAdapter.GetWpsConfigurationAsync"))
 
@@ -39682,11 +39682,11 @@ proc getDeviceSelector*(_: typedesc[WiFiAdapter]): string  =
     vcall(it, Slot_IWiFiAdapterStatics_GetDeviceSelector, Fn_IWiFiAdapterStatics_GetDeviceSelector)(it, tmp.addr).check("WiFiAdapter.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiAdapter], a1: string): Future[WiFiAdapter] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiAdapter], deviceId: string): Future[WiFiAdapter] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFi.WiFiAdapter", IID_IWiFiAdapterStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IWiFiAdapterStatics_FromIdAsync, Fn_IWiFiAdapterStatics_FromIdAsync)(it, h0, op.addr).check("WiFiAdapter.FromIdAsync")
   result = adopt[WiFiAdapter](await awaitObject(op, IID_IAsyncOperation_1_WiFiAdapter, IID_AsyncOperationCompletedHandler_1_WiFiAdapter, "WiFiAdapter.FromIdAsync"))
 
@@ -39796,10 +39796,10 @@ proc requestedNetwork*(self: WiFiOnDemandHotspotConnectTriggerDetails): WiFiOnDe
     vcall(it, Slot_IWiFiOnDemandHotspotConnectTriggerDetails_get_RequestedNetwork, Fn_IWiFiOnDemandHotspotConnectTriggerDetails_get_RequestedNetwork)(it, tmp.addr).check("WiFiOnDemandHotspotConnectTriggerDetails.get_RequestedNetwork")
     result = adopt[WiFiOnDemandHotspotNetwork](tmp)
 
-proc reportError*(self: WiFiOnDemandHotspotConnectTriggerDetails, a1: WiFiOnDemandHotspotConnectStatus)  =
+proc reportError*(self: WiFiOnDemandHotspotConnectTriggerDetails, status: WiFiOnDemandHotspotConnectStatus)  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotConnectTriggerDetails.ReportError
   withIface(self.p, IID_IWiFiOnDemandHotspotConnectTriggerDetails, "IWiFiOnDemandHotspotConnectTriggerDetails", it):
-    vcall(it, Slot_IWiFiOnDemandHotspotConnectTriggerDetails_ReportError, Fn_IWiFiOnDemandHotspotConnectTriggerDetails_ReportError)(it, a1).check("WiFiOnDemandHotspotConnectTriggerDetails.ReportError")
+    vcall(it, Slot_IWiFiOnDemandHotspotConnectTriggerDetails_ReportError, Fn_IWiFiOnDemandHotspotConnectTriggerDetails_ReportError)(it, status).check("WiFiOnDemandHotspotConnectTriggerDetails.ReportError")
 
 proc connectAsync*(self: WiFiOnDemandHotspotConnectTriggerDetails): Future[WiFiOnDemandHotspotConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotConnectTriggerDetails.ConnectAsync
@@ -39829,10 +39829,10 @@ proc getProperties*(self: WiFiOnDemandHotspotNetwork): WiFiOnDemandHotspotNetwor
     vcall(it, Slot_IWiFiOnDemandHotspotNetwork_GetProperties, Fn_IWiFiOnDemandHotspotNetwork_GetProperties)(it, tmp.addr).check("WiFiOnDemandHotspotNetwork.GetProperties")
     result = adopt[WiFiOnDemandHotspotNetworkProperties](tmp)
 
-proc updateProperties*(self: WiFiOnDemandHotspotNetwork, a1: WiFiOnDemandHotspotNetworkProperties)  =
+proc updateProperties*(self: WiFiOnDemandHotspotNetwork, newProperties: WiFiOnDemandHotspotNetworkProperties)  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork.UpdateProperties
   withIface(self.p, IID_IWiFiOnDemandHotspotNetwork, "IWiFiOnDemandHotspotNetwork", it):
-    withIface(a1.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", p0):
+    withIface(newProperties.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", p0):
       vcall(it, Slot_IWiFiOnDemandHotspotNetwork_UpdateProperties, Fn_IWiFiOnDemandHotspotNetwork_UpdateProperties)(it, p0).check("WiFiOnDemandHotspotNetwork.UpdateProperties")
 
 proc id*(self: WiFiOnDemandHotspotNetwork): GUID  =
@@ -39842,11 +39842,11 @@ proc id*(self: WiFiOnDemandHotspotNetwork): GUID  =
     vcall(it, Slot_IWiFiOnDemandHotspotNetwork_get_Id, Fn_IWiFiOnDemandHotspotNetwork_get_Id)(it, tmp.addr).check("WiFiOnDemandHotspotNetwork.get_Id")
     result = tmp
 
-proc getOrCreateById*(_: typedesc[WiFiOnDemandHotspotNetwork], a1: GUID): WiFiOnDemandHotspotNetwork  =
+proc getOrCreateById*(_: typedesc[WiFiOnDemandHotspotNetwork], networkId: GUID): WiFiOnDemandHotspotNetwork  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork.GetOrCreateById
   withStatics("Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork", IID_IWiFiOnDemandHotspotNetworkStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IWiFiOnDemandHotspotNetworkStatics_GetOrCreateById, Fn_IWiFiOnDemandHotspotNetworkStatics_GetOrCreateById)(it, a1, tmp.addr).check("WiFiOnDemandHotspotNetwork.GetOrCreateById")
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkStatics_GetOrCreateById, Fn_IWiFiOnDemandHotspotNetworkStatics_GetOrCreateById)(it, networkId, tmp.addr).check("WiFiOnDemandHotspotNetwork.GetOrCreateById")
     result = adopt[WiFiOnDemandHotspotNetwork](tmp)
 
 proc displayName*(self: WiFiOnDemandHotspotNetworkProperties): string  =
@@ -39979,11 +39979,11 @@ proc removeSessionDeferred*(self: WiFiDirectService, token: EventRegistrationTok
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
     vcall(it, Slot_IWiFiDirectService_remove_SessionDeferred, Fn_IWiFiDirectService_remove_SessionDeferred)(it, token).check("WiFiDirectService.remove_SessionDeferred")
 
-proc getProvisioningInfoAsync*(self: WiFiDirectService, a1: WiFiDirectServiceConfigurationMethod): Future[WiFiDirectServiceProvisioningInfo] {.async.} =
+proc getProvisioningInfoAsync*(self: WiFiDirectService, selectedConfigurationMethod: WiFiDirectServiceConfigurationMethod): Future[WiFiDirectServiceProvisioningInfo] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetProvisioningInfoAsync
   var op: pointer
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
-    vcall(it, Slot_IWiFiDirectService_GetProvisioningInfoAsync, Fn_IWiFiDirectService_GetProvisioningInfoAsync)(it, a1, op.addr).check("WiFiDirectService.GetProvisioningInfoAsync")
+    vcall(it, Slot_IWiFiDirectService_GetProvisioningInfoAsync, Fn_IWiFiDirectService_GetProvisioningInfoAsync)(it, selectedConfigurationMethod, op.addr).check("WiFiDirectService.GetProvisioningInfoAsync")
   result = adopt[WiFiDirectServiceProvisioningInfo](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectServiceProvisioningInfo, IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceProvisioningInfo, "WiFiDirectService.GetProvisioningInfoAsync"))
 
 proc connectAsync*(self: WiFiDirectService): Future[WiFiDirectServiceSession] {.async.} =
@@ -39993,35 +39993,35 @@ proc connectAsync*(self: WiFiDirectService): Future[WiFiDirectServiceSession] {.
     vcall(it, Slot_IWiFiDirectService_ConnectAsync, Fn_IWiFiDirectService_ConnectAsync)(it, op.addr).check("WiFiDirectService.ConnectAsync")
   result = adopt[WiFiDirectServiceSession](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectServiceSession, IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession, "WiFiDirectService.ConnectAsync"))
 
-proc connectAsync*(self: WiFiDirectService, a1: string): Future[WiFiDirectServiceSession] {.async.} =
+proc connectAsync*(self: WiFiDirectService, pin: string): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.ConnectAsync
   var op: pointer
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
-    withHString(a1, h0):
+    withHString(pin, h0):
       vcall(it, Slot_IWiFiDirectService_ConnectAsync2, Fn_IWiFiDirectService_ConnectAsync2)(it, h0, op.addr).check("WiFiDirectService.ConnectAsync")
   result = adopt[WiFiDirectServiceSession](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectServiceSession, IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession, "WiFiDirectService.ConnectAsync"))
 
-proc getSelector*(_: typedesc[WiFiDirectService], a1: string): string  =
+proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string): string  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetSelector
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectService", IID_IWiFiDirectServiceStatics, it):
-    withHString(a1, h0):
+    withHString(serviceName, h0):
       var tmp: HSTRING
       vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector, Fn_IWiFiDirectServiceStatics_GetSelector)(it, h0, tmp.addr).check("WiFiDirectService.GetSelector")
       result = takeString(tmp)
 
-proc getSelector*(_: typedesc[WiFiDirectService], a1: string, a2: pointer): string  =
+proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string, serviceInfoFilter: pointer): string  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetSelector
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectService", IID_IWiFiDirectServiceStatics, it):
-    withHString(a1, h0):
+    withHString(serviceName, h0):
       var tmp: HSTRING
-      vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector2, Fn_IWiFiDirectServiceStatics_GetSelector2)(it, h0, a2, tmp.addr).check("WiFiDirectService.GetSelector")
+      vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector2, Fn_IWiFiDirectServiceStatics_GetSelector2)(it, h0, serviceInfoFilter, tmp.addr).check("WiFiDirectService.GetSelector")
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiDirectService], a1: string): Future[WiFiDirectService] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiDirectService], deviceId: string): Future[WiFiDirectService] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectService", IID_IWiFiDirectServiceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IWiFiDirectServiceStatics_FromIdAsync, Fn_IWiFiDirectServiceStatics_FromIdAsync)(it, h0, op.addr).check("WiFiDirectService.FromIdAsync")
   result = adopt[WiFiDirectService](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectService, IID_AsyncOperationCompletedHandler_1_WiFiDirectService, "WiFiDirectService.FromIdAsync"))
 
@@ -40183,20 +40183,20 @@ proc removeAdvertisementStatusChanged*(self: WiFiDirectServiceAdvertiser, token:
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_remove_AdvertisementStatusChanged, Fn_IWiFiDirectServiceAdvertiser_remove_AdvertisementStatusChanged)(it, token).check("WiFiDirectServiceAdvertiser.remove_AdvertisementStatusChanged")
 
-proc connectAsync*(self: WiFiDirectServiceAdvertiser, a1: DeviceInformation): Future[WiFiDirectServiceSession] {.async.} =
+proc connectAsync*(self: WiFiDirectServiceAdvertiser, deviceInfo: DeviceInformation): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.ConnectAsync
   var op: pointer
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+    withIface(deviceInfo.p, IID_IDeviceInformation, "IDeviceInformation", p0):
       vcall(it, Slot_IWiFiDirectServiceAdvertiser_ConnectAsync, Fn_IWiFiDirectServiceAdvertiser_ConnectAsync)(it, p0, op.addr).check("WiFiDirectServiceAdvertiser.ConnectAsync")
   result = adopt[WiFiDirectServiceSession](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectServiceSession, IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession, "WiFiDirectServiceAdvertiser.ConnectAsync"))
 
-proc connectAsync*(self: WiFiDirectServiceAdvertiser, a1: DeviceInformation, a2: string): Future[WiFiDirectServiceSession] {.async.} =
+proc connectAsync*(self: WiFiDirectServiceAdvertiser, deviceInfo: DeviceInformation, pin: string): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.ConnectAsync
   var op: pointer
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
-      withHString(a2, h1):
+    withIface(deviceInfo.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      withHString(pin, h1):
         vcall(it, Slot_IWiFiDirectServiceAdvertiser_ConnectAsync2, Fn_IWiFiDirectServiceAdvertiser_ConnectAsync2)(it, p0, h1, op.addr).check("WiFiDirectServiceAdvertiser.ConnectAsync")
   result = adopt[WiFiDirectServiceSession](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectServiceSession, IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession, "WiFiDirectServiceAdvertiser.ConnectAsync"))
 
@@ -40210,10 +40210,10 @@ proc stop*(self: WiFiDirectServiceAdvertiser)  =
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_Stop, Fn_IWiFiDirectServiceAdvertiser_Stop)(it).check("WiFiDirectServiceAdvertiser.Stop")
 
-proc createWiFiDirectServiceAdvertiser*(_: typedesc[WiFiDirectServiceAdvertiser], a1: string): WiFiDirectServiceAdvertiser  =
+proc createWiFiDirectServiceAdvertiser*(_: typedesc[WiFiDirectServiceAdvertiser], serviceName: string): WiFiDirectServiceAdvertiser  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.CreateWiFiDirectServiceAdvertiser
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser", IID_IWiFiDirectServiceAdvertiserFactory, it):
-    withHString(a1, h0):
+    withHString(serviceName, h0):
       var tmp: pointer
       vcall(it, Slot_IWiFiDirectServiceAdvertiserFactory_CreateWiFiDirectServiceAdvertiser, Fn_IWiFiDirectServiceAdvertiserFactory_CreateWiFiDirectServiceAdvertiser)(it, h0, tmp.addr).check("WiFiDirectServiceAdvertiser.CreateWiFiDirectServiceAdvertiser")
       result = adopt[WiFiDirectServiceAdvertiser](tmp)
@@ -40536,11 +40536,11 @@ proc `preferredPairingProcedure=`*(self: WiFiDirectConnectionParameters, value: 
   withIface(self.p, IID_IWiFiDirectConnectionParameters2, "IWiFiDirectConnectionParameters2", it):
     vcall(it, Slot_IWiFiDirectConnectionParameters2_put_PreferredPairingProcedure, Fn_IWiFiDirectConnectionParameters2_put_PreferredPairingProcedure)(it, value).check("WiFiDirectConnectionParameters.put_PreferredPairingProcedure")
 
-proc getDevicePairingKinds*(_: typedesc[WiFiDirectConnectionParameters], a1: WiFiDirectConfigurationMethod): DevicePairingKinds  =
+proc getDevicePairingKinds*(_: typedesc[WiFiDirectConnectionParameters], configurationMethod: WiFiDirectConfigurationMethod): DevicePairingKinds  =
   ## Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.GetDevicePairingKinds
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters", IID_IWiFiDirectConnectionParametersStatics, it):
     var tmp: DevicePairingKinds
-    vcall(it, Slot_IWiFiDirectConnectionParametersStatics_GetDevicePairingKinds, Fn_IWiFiDirectConnectionParametersStatics_GetDevicePairingKinds)(it, a1, tmp.addr).check("WiFiDirectConnectionParameters.GetDevicePairingKinds")
+    vcall(it, Slot_IWiFiDirectConnectionParametersStatics_GetDevicePairingKinds, Fn_IWiFiDirectConnectionParametersStatics_GetDevicePairingKinds)(it, configurationMethod, tmp.addr).check("WiFiDirectConnectionParameters.GetDevicePairingKinds")
     result = tmp
 
 proc deviceInformation*(self: WiFiDirectConnectionRequest): DeviceInformation  =
@@ -40607,27 +40607,27 @@ proc getDeviceSelector*(_: typedesc[WiFiDirectDevice]): string  =
     vcall(it, Slot_IWiFiDirectDeviceStatics_GetDeviceSelector, Fn_IWiFiDirectDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("WiFiDirectDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiDirectDevice], a1: string): Future[WiFiDirectDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string): Future[WiFiDirectDevice] {.async.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectDevice", IID_IWiFiDirectDeviceStatics, it):
-    withHString(a1, h0):
+    withHString(deviceId, h0):
       vcall(it, Slot_IWiFiDirectDeviceStatics_FromIdAsync, Fn_IWiFiDirectDeviceStatics_FromIdAsync)(it, h0, op.addr).check("WiFiDirectDevice.FromIdAsync")
   result = adopt[WiFiDirectDevice](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectDevice, IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice, "WiFiDirectDevice.FromIdAsync"))
 
-proc getDeviceSelector*(_: typedesc[WiFiDirectDevice], a1: WiFiDirectDeviceSelectorType): string  =
+proc getDeviceSelector*(_: typedesc[WiFiDirectDevice], `type`: WiFiDirectDeviceSelectorType): string  =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.GetDeviceSelector
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectDevice", IID_IWiFiDirectDeviceStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWiFiDirectDeviceStatics2_GetDeviceSelector, Fn_IWiFiDirectDeviceStatics2_GetDeviceSelector)(it, a1, tmp.addr).check("WiFiDirectDevice.GetDeviceSelector")
+    vcall(it, Slot_IWiFiDirectDeviceStatics2_GetDeviceSelector, Fn_IWiFiDirectDeviceStatics2_GetDeviceSelector)(it, `type`, tmp.addr).check("WiFiDirectDevice.GetDeviceSelector")
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiDirectDevice], a1: string, a2: WiFiDirectConnectionParameters): Future[WiFiDirectDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string, connectionParameters: WiFiDirectConnectionParameters): Future[WiFiDirectDevice] {.async.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectDevice", IID_IWiFiDirectDeviceStatics2, it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IWiFiDirectConnectionParameters, "IWiFiDirectConnectionParameters", p1):
+    withHString(deviceId, h0):
+      withIface(connectionParameters.p, IID_IWiFiDirectConnectionParameters, "IWiFiDirectConnectionParameters", p1):
         vcall(it, Slot_IWiFiDirectDeviceStatics2_FromIdAsync, Fn_IWiFiDirectDeviceStatics2_FromIdAsync)(it, h0, p1, op.addr).check("WiFiDirectDevice.FromIdAsync")
   result = adopt[WiFiDirectDevice](await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectDevice, IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice, "WiFiDirectDevice.FromIdAsync"))
 
@@ -40671,18 +40671,18 @@ proc `value=`*(self: WiFiDirectInformationElement, value: pointer)  =
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
     vcall(it, Slot_IWiFiDirectInformationElement_put_Value, Fn_IWiFiDirectInformationElement_put_Value)(it, value).check("WiFiDirectInformationElement.put_Value")
 
-proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], a1: pointer): seq[WiFiDirectInformationElement]  =
+proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: pointer): seq[WiFiDirectInformationElement]  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromBuffer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElementStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromBuffer, Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer)(it, a1, tmp.addr).check("WiFiDirectInformationElement.CreateFromBuffer")
+    vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromBuffer, Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer)(it, buffer, tmp.addr).check("WiFiDirectInformationElement.CreateFromBuffer")
     result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
     release(tmp)
 
-proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement], a1: DeviceInformation): seq[WiFiDirectInformationElement]  =
+proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement], deviceInformation: DeviceInformation): seq[WiFiDirectInformationElement]  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromDeviceInformation
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElementStatics, it):
-    withIface(a1.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+    withIface(deviceInformation.p, IID_IDeviceInformation, "IDeviceInformation", p0):
       var tmp: pointer
       vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation, Fn_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation)(it, p0, tmp.addr).check("WiFiDirectInformationElement.CreateFromDeviceInformation")
       result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)

@@ -964,80 +964,80 @@ proc close*(self: ActionEntityDisplayInfo)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActionEntityDisplayInfo.Close")
 
-proc createFileEntity*(self: ActionEntityFactory, a1: string): FileActionEntity  =
+proc createFileEntity*(self: ActionEntityFactory, path: string): FileActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateFileEntity
   withIface(self.p, IID_IActionEntityFactory2, "IActionEntityFactory2", it):
-    withHString(a1, h0):
+    withHString(path, h0):
       var tmp: pointer
       vcall(it, Slot_IActionEntityFactory2_CreateFileEntity, Fn_IActionEntityFactory2_CreateFileEntity)(it, h0, tmp.addr).check("ActionEntityFactory.CreateFileEntity")
       result = adopt[FileActionEntity](tmp)
 
-proc createDocumentEntity*(self: ActionEntityFactory, a1: string): DocumentActionEntity  =
+proc createDocumentEntity*(self: ActionEntityFactory, path: string): DocumentActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateDocumentEntity
   withIface(self.p, IID_IActionEntityFactory2, "IActionEntityFactory2", it):
-    withHString(a1, h0):
+    withHString(path, h0):
       var tmp: pointer
       vcall(it, Slot_IActionEntityFactory2_CreateDocumentEntity, Fn_IActionEntityFactory2_CreateDocumentEntity)(it, h0, tmp.addr).check("ActionEntityFactory.CreateDocumentEntity")
       result = adopt[DocumentActionEntity](tmp)
 
-proc createPhotoEntity*(self: ActionEntityFactory, a1: string): PhotoActionEntity  =
+proc createPhotoEntity*(self: ActionEntityFactory, path: string): PhotoActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreatePhotoEntity
   withIface(self.p, IID_IActionEntityFactory2, "IActionEntityFactory2", it):
-    withHString(a1, h0):
+    withHString(path, h0):
       var tmp: pointer
       vcall(it, Slot_IActionEntityFactory2_CreatePhotoEntity, Fn_IActionEntityFactory2_CreatePhotoEntity)(it, h0, tmp.addr).check("ActionEntityFactory.CreatePhotoEntity")
       result = adopt[PhotoActionEntity](tmp)
 
-proc createTextEntity*(self: ActionEntityFactory, a1: string): TextActionEntity  =
+proc createTextEntity*(self: ActionEntityFactory, text: string): TextActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateTextEntity
   withIface(self.p, IID_IActionEntityFactory2, "IActionEntityFactory2", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
       vcall(it, Slot_IActionEntityFactory2_CreateTextEntity, Fn_IActionEntityFactory2_CreateTextEntity)(it, h0, tmp.addr).check("ActionEntityFactory.CreateTextEntity")
       result = adopt[TextActionEntity](tmp)
 
-proc createRemoteFileEntity*(self: ActionEntityFactory, a1: string, a2: RemoteFileKind, a3: Uri, a4: string, a5: string, a6: string, a7: string, a8: string): RemoteFileActionEntity  =
+proc createRemoteFileEntity*(self: ActionEntityFactory, sourceId: string, fileKind: RemoteFileKind, sourceUri: Uri, fileId: string, contentType: string, driveId: string, accountId: string, extension: string): RemoteFileActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateRemoteFileEntity
   withIface(self.p, IID_IActionEntityFactory3, "IActionEntityFactory3", it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
-        withHString(a4, h3):
-          withHString(a5, h4):
-            withHString(a6, h5):
-              withHString(a7, h6):
-                withHString(a8, h7):
+    withHString(sourceId, h0):
+      withIface(sourceUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        withHString(fileId, h3):
+          withHString(contentType, h4):
+            withHString(driveId, h5):
+              withHString(accountId, h6):
+                withHString(extension, h7):
                   var tmp: pointer
-                  vcall(it, Slot_IActionEntityFactory3_CreateRemoteFileEntity, Fn_IActionEntityFactory3_CreateRemoteFileEntity)(it, h0, a2, p2, h3, h4, h5, h6, h7, tmp.addr).check("ActionEntityFactory.CreateRemoteFileEntity")
+                  vcall(it, Slot_IActionEntityFactory3_CreateRemoteFileEntity, Fn_IActionEntityFactory3_CreateRemoteFileEntity)(it, h0, fileKind, p2, h3, h4, h5, h6, h7, tmp.addr).check("ActionEntityFactory.CreateRemoteFileEntity")
                   result = adopt[RemoteFileActionEntity](tmp)
 
-proc createTextEntity*(self: ActionEntityFactory, a1: string, a2: ActionEntityTextFormat): TextActionEntity  =
+proc createTextEntity*(self: ActionEntityFactory, text: string, textFormat: ActionEntityTextFormat): TextActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateTextEntity
   withIface(self.p, IID_IActionEntityFactory3, "IActionEntityFactory3", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_IActionEntityFactory3_CreateTextEntity, Fn_IActionEntityFactory3_CreateTextEntity)(it, h0, a2, tmp.addr).check("ActionEntityFactory.CreateTextEntity")
+      vcall(it, Slot_IActionEntityFactory3_CreateTextEntity, Fn_IActionEntityFactory3_CreateTextEntity)(it, h0, textFormat, tmp.addr).check("ActionEntityFactory.CreateTextEntity")
       result = adopt[TextActionEntity](tmp)
 
-proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory, a1: ActionEntityTextFormat): StreamingTextActionEntityWriter  =
+proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory, textFormat: ActionEntityTextFormat): StreamingTextActionEntityWriter  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateStreamingTextActionEntityWriter
   withIface(self.p, IID_IActionEntityFactory3, "IActionEntityFactory3", it):
     var tmp: pointer
-    vcall(it, Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter, Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter)(it, a1, tmp.addr).check("ActionEntityFactory.CreateStreamingTextActionEntityWriter")
+    vcall(it, Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter, Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter)(it, textFormat, tmp.addr).check("ActionEntityFactory.CreateStreamingTextActionEntityWriter")
     result = adopt[StreamingTextActionEntityWriter](tmp)
 
-proc createUriEntity*(self: ActionEntityFactory, a1: Uri): UriActionEntity  =
+proc createUriEntity*(self: ActionEntityFactory, uri: Uri): UriActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateUriEntity
   withIface(self.p, IID_IActionEntityFactory5, "IActionEntityFactory5", it):
-    withIface(a1.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       var tmp: pointer
       vcall(it, Slot_IActionEntityFactory5_CreateUriEntity, Fn_IActionEntityFactory5_CreateUriEntity)(it, p0, tmp.addr).check("ActionEntityFactory.CreateUriEntity")
       result = adopt[UriActionEntity](tmp)
 
-proc createDateTimeEntity*(self: ActionEntityFactory, a1: DateTime): DateTimeActionEntity  =
+proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime): DateTimeActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateDateTimeEntity
   withIface(self.p, IID_IActionEntityFactory6, "IActionEntityFactory6", it):
     var tmp: pointer
-    vcall(it, Slot_IActionEntityFactory6_CreateDateTimeEntity, Fn_IActionEntityFactory6_CreateDateTimeEntity)(it, a1, tmp.addr).check("ActionEntityFactory.CreateDateTimeEntity")
+    vcall(it, Slot_IActionEntityFactory6_CreateDateTimeEntity, Fn_IActionEntityFactory6_CreateDateTimeEntity)(it, dateTime, tmp.addr).check("ActionEntityFactory.CreateDateTimeEntity")
     result = adopt[DateTimeActionEntity](tmp)
 
 proc close*(self: ActionEntityFactory)  =
@@ -1064,18 +1064,18 @@ proc entityFactory*(self: ActionInvocationContext): ActionEntityFactory  =
     vcall(it, Slot_IActionInvocationContext_get_EntityFactory, Fn_IActionInvocationContext_get_EntityFactory)(it, tmp.addr).check("ActionInvocationContext.get_EntityFactory")
     result = adopt[ActionEntityFactory](tmp)
 
-proc setInputEntity*(self: ActionInvocationContext, a1: string, a2: ActionEntity)  =
+proc setInputEntity*(self: ActionInvocationContext, inputName: string, inputValue: ActionEntity)  =
   ## Windows.AI.Actions.ActionInvocationContext.SetInputEntity
   withIface(self.p, IID_IActionInvocationContext, "IActionInvocationContext", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IActionEntity, "IActionEntity", p1):
+    withHString(inputName, h0):
+      withIface(inputValue.p, IID_IActionEntity, "IActionEntity", p1):
         vcall(it, Slot_IActionInvocationContext_SetInputEntity, Fn_IActionInvocationContext_SetInputEntity)(it, h0, p1).check("ActionInvocationContext.SetInputEntity")
 
-proc setOutputEntity*(self: ActionInvocationContext, a1: string, a2: ActionEntity)  =
+proc setOutputEntity*(self: ActionInvocationContext, outputName: string, outputValue: ActionEntity)  =
   ## Windows.AI.Actions.ActionInvocationContext.SetOutputEntity
   withIface(self.p, IID_IActionInvocationContext, "IActionInvocationContext", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IActionEntity, "IActionEntity", p1):
+    withHString(outputName, h0):
+      withIface(outputValue.p, IID_IActionEntity, "IActionEntity", p1):
         vcall(it, Slot_IActionInvocationContext_SetOutputEntity, Fn_IActionInvocationContext_SetOutputEntity)(it, h0, p1).check("ActionInvocationContext.SetOutputEntity")
 
 proc `result`*(self: ActionInvocationContext): ActionInvocationResult  =
@@ -1230,39 +1230,39 @@ proc entityFactory*(self: ActionRuntime): ActionEntityFactory  =
     vcall(it, Slot_IActionRuntime_get_EntityFactory, Fn_IActionRuntime_get_EntityFactory)(it, tmp.addr).check("ActionRuntime.get_EntityFactory")
     result = adopt[ActionEntityFactory](tmp)
 
-proc createInvocationContext*(self: ActionRuntime, a1: string): ActionInvocationContext  =
+proc createInvocationContext*(self: ActionRuntime, actionId: string): ActionInvocationContext  =
   ## Windows.AI.Actions.ActionRuntime.CreateInvocationContext
   withIface(self.p, IID_IActionRuntime, "IActionRuntime", it):
-    withHString(a1, h0):
+    withHString(actionId, h0):
       var tmp: pointer
       vcall(it, Slot_IActionRuntime_CreateInvocationContext, Fn_IActionRuntime_CreateInvocationContext)(it, h0, tmp.addr).check("ActionRuntime.CreateInvocationContext")
       result = adopt[ActionInvocationContext](tmp)
 
-proc createActionFeedback*(self: ActionRuntime, a1: ActionFeedbackKind): ActionFeedback  =
+proc createActionFeedback*(self: ActionRuntime, feedbackKind: ActionFeedbackKind): ActionFeedback  =
   ## Windows.AI.Actions.ActionRuntime.CreateActionFeedback
   withIface(self.p, IID_IActionRuntime2, "IActionRuntime2", it):
     var tmp: pointer
-    vcall(it, Slot_IActionRuntime2_CreateActionFeedback, Fn_IActionRuntime2_CreateActionFeedback)(it, a1, tmp.addr).check("ActionRuntime.CreateActionFeedback")
+    vcall(it, Slot_IActionRuntime2_CreateActionFeedback, Fn_IActionRuntime2_CreateActionFeedback)(it, feedbackKind, tmp.addr).check("ActionRuntime.CreateActionFeedback")
     result = adopt[ActionFeedback](tmp)
 
-proc setActionAvailability*(self: ActionRuntime, a1: string, a2: bool)  =
+proc setActionAvailability*(self: ActionRuntime, actionId: string, isAvailable: bool)  =
   ## Windows.AI.Actions.ActionRuntime.SetActionAvailability
   withIface(self.p, IID_IActionRuntime2, "IActionRuntime2", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IActionRuntime2_SetActionAvailability, Fn_IActionRuntime2_SetActionAvailability)(it, h0, a2).check("ActionRuntime.SetActionAvailability")
+    withHString(actionId, h0):
+      vcall(it, Slot_IActionRuntime2_SetActionAvailability, Fn_IActionRuntime2_SetActionAvailability)(it, h0, isAvailable).check("ActionRuntime.SetActionAvailability")
 
-proc getActionAvailability*(self: ActionRuntime, a1: string): bool  =
+proc getActionAvailability*(self: ActionRuntime, actionId: string): bool  =
   ## Windows.AI.Actions.ActionRuntime.GetActionAvailability
   withIface(self.p, IID_IActionRuntime2, "IActionRuntime2", it):
-    withHString(a1, h0):
+    withHString(actionId, h0):
       var tmp: bool
       vcall(it, Slot_IActionRuntime2_GetActionAvailability, Fn_IActionRuntime2_GetActionAvailability)(it, h0, tmp.addr).check("ActionRuntime.GetActionAvailability")
       result = tmp
 
-proc getActionEntityById*(self: ActionRuntime, a1: string): ActionEntity  =
+proc getActionEntityById*(self: ActionRuntime, entityId: string): ActionEntity  =
   ## Windows.AI.Actions.ActionRuntime.GetActionEntityById
   withIface(self.p, IID_IActionRuntime3, "IActionRuntime3", it):
-    withHString(a1, h0):
+    withHString(entityId, h0):
       var tmp: pointer
       vcall(it, Slot_IActionRuntime3_GetActionEntityById, Fn_IActionRuntime3_GetActionEntityById)(it, h0, tmp.addr).check("ActionRuntime.GetActionEntityById")
       result = adopt[ActionEntity](tmp)
@@ -1274,10 +1274,10 @@ proc latestSupportedSchemaVersion*(self: ActionRuntime): uint32  =
     vcall(it, Slot_IActionRuntime3_get_LatestSupportedSchemaVersion, Fn_IActionRuntime3_get_LatestSupportedSchemaVersion)(it, tmp.addr).check("ActionRuntime.get_LatestSupportedSchemaVersion")
     result = tmp
 
-proc getActionInvocationContextFromToken*(self: ActionRuntime, a1: string): ActionInvocationContext  =
+proc getActionInvocationContextFromToken*(self: ActionRuntime, token: string): ActionInvocationContext  =
   ## Windows.AI.Actions.ActionRuntime.GetActionInvocationContextFromToken
   withIface(self.p, IID_IActionRuntime4, "IActionRuntime4", it):
-    withHString(a1, h0):
+    withHString(token, h0):
       var tmp: pointer
       vcall(it, Slot_IActionRuntime4_GetActionInvocationContextFromToken, Fn_IActionRuntime4_GetActionInvocationContextFromToken)(it, h0, tmp.addr).check("ActionRuntime.GetActionInvocationContextFromToken")
       result = adopt[ActionInvocationContext](tmp)
@@ -1322,24 +1322,24 @@ proc customElementKind*(self: ArrayActionEntity): string  =
     vcall(it, Slot_IArrayActionEntity2_get_CustomElementKind, Fn_IArrayActionEntity2_get_CustomElementKind)(it, tmp.addr).check("ArrayActionEntity.get_CustomElementKind")
     result = takeString(tmp)
 
-proc getLastModifiedTime*(self: CustomActionEntityStore, a1: string): DateTime  =
+proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string): DateTime  =
   ## Windows.AI.Actions.CustomActionEntityStore.GetLastModifiedTime
   withIface(self.p, IID_ICustomActionEntityStore, "ICustomActionEntityStore", it):
-    withHString(a1, h0):
+    withHString(kind, h0):
       var tmp: DateTime
       vcall(it, Slot_ICustomActionEntityStore_GetLastModifiedTime, Fn_ICustomActionEntityStore_GetLastModifiedTime)(it, h0, tmp.addr).check("CustomActionEntityStore.GetLastModifiedTime")
       result = tmp
 
-proc insert*(self: CustomActionEntityStore, a1: CustomTextActionEntity)  =
+proc insert*(self: CustomActionEntityStore, entity: CustomTextActionEntity)  =
   ## Windows.AI.Actions.CustomActionEntityStore.Insert
   withIface(self.p, IID_ICustomActionEntityStore, "ICustomActionEntityStore", it):
-    withIface(a1.p, IID_ICustomTextActionEntity, "ICustomTextActionEntity", p0):
+    withIface(entity.p, IID_ICustomTextActionEntity, "ICustomTextActionEntity", p0):
       vcall(it, Slot_ICustomActionEntityStore_Insert, Fn_ICustomActionEntityStore_Insert)(it, p0).check("CustomActionEntityStore.Insert")
 
-proc delete*(self: CustomActionEntityStore, a1: string)  =
+proc delete*(self: CustomActionEntityStore, kind: string)  =
   ## Windows.AI.Actions.CustomActionEntityStore.Delete
   withIface(self.p, IID_ICustomActionEntityStore, "ICustomActionEntityStore", it):
-    withHString(a1, h0):
+    withHString(kind, h0):
       vcall(it, Slot_ICustomActionEntityStore_Delete, Fn_ICustomActionEntityStore_Delete)(it, h0).check("CustomActionEntityStore.Delete")
 
 proc close*(self: CustomActionEntityStore)  =
@@ -1469,10 +1469,10 @@ proc isCurrentlyAvailable*(self: ActionDefinition): bool  =
     vcall(it, Slot_IActionDefinition4_get_IsCurrentlyAvailable, Fn_IActionDefinition4_get_IsCurrentlyAvailable)(it, tmp.addr).check("ActionDefinition.get_IsCurrentlyAvailable")
     result = tmp
 
-proc getIconFullPath*(self: ActionDefinition, a1: PropertySet): string  =
+proc getIconFullPath*(self: ActionDefinition, qualifierValues: PropertySet): string  =
   ## Windows.AI.Actions.Hosting.ActionDefinition.GetIconFullPath
   withIface(self.p, IID_IActionDefinition5, "IActionDefinition5", it):
-    withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
+    withIface(qualifierValues.p, IID_IPropertySet, "IPropertySet", p0):
       var tmp: HSTRING
       vcall(it, Slot_IActionDefinition5_GetIconFullPath, Fn_IActionDefinition5_GetIconFullPath)(it, p0, tmp.addr).check("ActionDefinition.GetIconFullPath")
       result = takeString(tmp)
@@ -1554,20 +1554,20 @@ proc descriptionTemplate*(self: ActionOverload): string  =
     vcall(it, Slot_IActionOverload_get_DescriptionTemplate, Fn_IActionOverload_get_DescriptionTemplate)(it, tmp.addr).check("ActionOverload.get_DescriptionTemplate")
     result = takeString(tmp)
 
-proc invokeAsync*(self: ActionOverload, a1: ActionInvocationContext) {.async.} =
+proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext) {.async.} =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeAsync
   var op: pointer
   withIface(self.p, IID_IActionOverload, "IActionOverload", it):
-    withIface(a1.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
+    withIface(context.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
       vcall(it, Slot_IActionOverload_InvokeAsync, Fn_IActionOverload_InvokeAsync)(it, p0, op.addr).check("ActionOverload.InvokeAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActionOverload.InvokeAsync")
 
-proc invokeFeedbackAsync*(self: ActionOverload, a1: ActionInvocationContext, a2: ActionFeedback) {.async.} =
+proc invokeFeedbackAsync*(self: ActionOverload, context: ActionInvocationContext, feedback: ActionFeedback) {.async.} =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeFeedbackAsync
   var op: pointer
   withIface(self.p, IID_IActionOverload2, "IActionOverload2", it):
-    withIface(a1.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
-      withIface(a2.p, IID_IActionFeedback, "IActionFeedback", p1):
+    withIface(context.p, IID_IActionInvocationContext, "IActionInvocationContext", p0):
+      withIface(feedback.p, IID_IActionFeedback, "IActionFeedback", p1):
         vcall(it, Slot_IActionOverload2_InvokeFeedbackAsync, Fn_IActionOverload2_InvokeFeedbackAsync)(it, p0, p1, op.addr).check("ActionOverload.InvokeFeedbackAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActionOverload.InvokeFeedbackAsync")
 
@@ -1779,10 +1779,10 @@ proc textFormat*(self: StreamingTextActionEntityWriter): ActionEntityTextFormat 
     vcall(it, Slot_IStreamingTextActionEntityWriter_get_TextFormat, Fn_IStreamingTextActionEntityWriter_get_TextFormat)(it, tmp.addr).check("StreamingTextActionEntityWriter.get_TextFormat")
     result = tmp
 
-proc setText*(self: StreamingTextActionEntityWriter, a1: string)  =
+proc setText*(self: StreamingTextActionEntityWriter, text: string)  =
   ## Windows.AI.Actions.StreamingTextActionEntityWriter.SetText
   withIface(self.p, IID_IStreamingTextActionEntityWriter, "IStreamingTextActionEntityWriter", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       vcall(it, Slot_IStreamingTextActionEntityWriter_SetText, Fn_IStreamingTextActionEntityWriter_SetText)(it, h0).check("StreamingTextActionEntityWriter.SetText")
 
 proc close*(self: StreamingTextActionEntityWriter)  =
@@ -1921,86 +1921,86 @@ proc close*(self: LearningModel)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LearningModel.Close")
 
-proc loadFromStorageFileAsync*(_: typedesc[LearningModel], a1: pointer): Future[LearningModel] {.async.} =
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync, Fn_ILearningModelStatics_LoadFromStorageFileAsync)(it, a1, op.addr).check("LearningModel.LoadFromStorageFileAsync")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync, Fn_ILearningModelStatics_LoadFromStorageFileAsync)(it, modelFile, op.addr).check("LearningModel.LoadFromStorageFileAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[LearningModel], a1: pointer): Future[LearningModel] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync, Fn_ILearningModelStatics_LoadFromStreamAsync)(it, a1, op.addr).check("LearningModel.LoadFromStreamAsync")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync, Fn_ILearningModelStatics_LoadFromStreamAsync)(it, modelStream, op.addr).check("LearningModel.LoadFromStreamAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
 
-proc loadFromFilePath*(_: typedesc[LearningModel], a1: string): LearningModel  =
+proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromFilePath
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    withHString(a1, h0):
+    withHString(filePath, h0):
       var tmp: pointer
       vcall(it, Slot_ILearningModelStatics_LoadFromFilePath, Fn_ILearningModelStatics_LoadFromFilePath)(it, h0, tmp.addr).check("LearningModel.LoadFromFilePath")
       result = adopt[LearningModel](tmp)
 
-proc loadFromStream*(_: typedesc[LearningModel], a1: pointer): LearningModel  =
+proc loadFromStream*(_: typedesc[LearningModel], modelStream: pointer): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStream
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILearningModelStatics_LoadFromStream, Fn_ILearningModelStatics_LoadFromStream)(it, a1, tmp.addr).check("LearningModel.LoadFromStream")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStream, Fn_ILearningModelStatics_LoadFromStream)(it, modelStream, tmp.addr).check("LearningModel.LoadFromStream")
     result = adopt[LearningModel](tmp)
 
-proc loadFromStorageFileAsync*(_: typedesc[LearningModel], a1: pointer, a2: pointer): Future[LearningModel] {.async.} =
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: pointer, operatorProvider: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync2, Fn_ILearningModelStatics_LoadFromStorageFileAsync2)(it, a1, a2, op.addr).check("LearningModel.LoadFromStorageFileAsync")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync2, Fn_ILearningModelStatics_LoadFromStorageFileAsync2)(it, modelFile, operatorProvider, op.addr).check("LearningModel.LoadFromStorageFileAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[LearningModel], a1: pointer, a2: pointer): Future[LearningModel] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: pointer, operatorProvider: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync2, Fn_ILearningModelStatics_LoadFromStreamAsync2)(it, a1, a2, op.addr).check("LearningModel.LoadFromStreamAsync")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync2, Fn_ILearningModelStatics_LoadFromStreamAsync2)(it, modelStream, operatorProvider, op.addr).check("LearningModel.LoadFromStreamAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
 
-proc loadFromFilePath*(_: typedesc[LearningModel], a1: string, a2: pointer): LearningModel  =
+proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string, operatorProvider: pointer): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromFilePath
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    withHString(a1, h0):
+    withHString(filePath, h0):
       var tmp: pointer
-      vcall(it, Slot_ILearningModelStatics_LoadFromFilePath2, Fn_ILearningModelStatics_LoadFromFilePath2)(it, h0, a2, tmp.addr).check("LearningModel.LoadFromFilePath")
+      vcall(it, Slot_ILearningModelStatics_LoadFromFilePath2, Fn_ILearningModelStatics_LoadFromFilePath2)(it, h0, operatorProvider, tmp.addr).check("LearningModel.LoadFromFilePath")
       result = adopt[LearningModel](tmp)
 
-proc loadFromStream*(_: typedesc[LearningModel], a1: pointer, a2: pointer): LearningModel  =
+proc loadFromStream*(_: typedesc[LearningModel], modelStream: pointer, operatorProvider: pointer): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStream
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILearningModelStatics_LoadFromStream2, Fn_ILearningModelStatics_LoadFromStream2)(it, a1, a2, tmp.addr).check("LearningModel.LoadFromStream")
+    vcall(it, Slot_ILearningModelStatics_LoadFromStream2, Fn_ILearningModelStatics_LoadFromStream2)(it, modelStream, operatorProvider, tmp.addr).check("LearningModel.LoadFromStream")
     result = adopt[LearningModel](tmp)
 
-proc `bind`*(self: LearningModelBinding, a1: string, a2: pointer)  =
+proc `bind`*(self: LearningModelBinding, name: string, value: pointer)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, a2).check("LearningModelBinding.Bind")
+    withHString(name, h0):
+      vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, value).check("LearningModelBinding.Bind")
 
-proc `bind`*(self: LearningModelBinding, a1: string, a2: pointer, a3: ValueSet)  =
+proc `bind`*(self: LearningModelBinding, name: string, value: pointer, props: ValueSet)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
-        vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, a2, p2).check("LearningModelBinding.Bind")
+    withHString(name, h0):
+      withIface(props.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, value, p2).check("LearningModelBinding.Bind")
 
 proc clear*(self: LearningModelBinding)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Clear
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
     vcall(it, Slot_ILearningModelBinding_Clear, Fn_ILearningModelBinding_Clear)(it).check("LearningModelBinding.Clear")
 
-proc createFromSession*(_: typedesc[LearningModelBinding], a1: LearningModelSession): LearningModelBinding  =
+proc createFromSession*(_: typedesc[LearningModelBinding], session: LearningModelSession): LearningModelBinding  =
   ## Windows.AI.MachineLearning.LearningModelBinding.CreateFromSession
   withStatics("Windows.AI.MachineLearning.LearningModelBinding", IID_ILearningModelBindingFactory, it):
-    withIface(a1.p, IID_ILearningModelSession, "ILearningModelSession", p0):
+    withIface(session.p, IID_ILearningModelSession, "ILearningModelSession", p0):
       var tmp: pointer
       vcall(it, Slot_ILearningModelBindingFactory_CreateFromSession, Fn_ILearningModelBindingFactory_CreateFromSession)(it, p0, tmp.addr).check("LearningModelBinding.CreateFromSession")
       result = adopt[LearningModelBinding](tmp)
@@ -2012,18 +2012,18 @@ proc direct3D11Device*(self: LearningModelDevice): pointer  =
     vcall(it, Slot_ILearningModelDevice_get_Direct3D11Device, Fn_ILearningModelDevice_get_Direct3D11Device)(it, tmp.addr).check("LearningModelDevice.get_Direct3D11Device")
     result = tmp
 
-proc createFromDirect3D11Device*(_: typedesc[LearningModelDevice], a1: pointer): LearningModelDevice  =
+proc createFromDirect3D11Device*(_: typedesc[LearningModelDevice], device: pointer): LearningModelDevice  =
   ## Windows.AI.MachineLearning.LearningModelDevice.CreateFromDirect3D11Device
   withStatics("Windows.AI.MachineLearning.LearningModelDevice", IID_ILearningModelDeviceStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILearningModelDeviceStatics_CreateFromDirect3D11Device, Fn_ILearningModelDeviceStatics_CreateFromDirect3D11Device)(it, a1, tmp.addr).check("LearningModelDevice.CreateFromDirect3D11Device")
+    vcall(it, Slot_ILearningModelDeviceStatics_CreateFromDirect3D11Device, Fn_ILearningModelDeviceStatics_CreateFromDirect3D11Device)(it, device, tmp.addr).check("LearningModelDevice.CreateFromDirect3D11Device")
     result = adopt[LearningModelDevice](tmp)
 
-proc create*(_: typedesc[LearningModelDevice], a1: LearningModelDeviceKind): LearningModelDevice  =
+proc create*(_: typedesc[LearningModelDevice], deviceKind: LearningModelDeviceKind): LearningModelDevice  =
   ## Windows.AI.MachineLearning.LearningModelDevice.Create
   withStatics("Windows.AI.MachineLearning.LearningModelDevice", IID_ILearningModelDeviceFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ILearningModelDeviceFactory_Create, Fn_ILearningModelDeviceFactory_Create)(it, a1, tmp.addr).check("LearningModelDevice.Create")
+    vcall(it, Slot_ILearningModelDeviceFactory_Create, Fn_ILearningModelDeviceFactory_Create)(it, deviceKind, tmp.addr).check("LearningModelDevice.Create")
     result = adopt[LearningModelDevice](tmp)
 
 proc correlationId*(self: LearningModelEvaluationResult): string  =
@@ -2068,20 +2068,20 @@ proc evaluationProperties*(self: LearningModelSession): ValueSet  =
     vcall(it, Slot_ILearningModelSession_get_EvaluationProperties, Fn_ILearningModelSession_get_EvaluationProperties)(it, tmp.addr).check("LearningModelSession.get_EvaluationProperties")
     result = adopt[ValueSet](tmp)
 
-proc evaluateAsync*(self: LearningModelSession, a1: LearningModelBinding, a2: string): Future[LearningModelEvaluationResult] {.async.} =
+proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding, correlationId: string): Future[LearningModelEvaluationResult] {.async.} =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
   var op: pointer
   withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
-    withIface(a1.p, IID_ILearningModelBinding, "ILearningModelBinding", p0):
-      withHString(a2, h1):
+    withIface(bindings.p, IID_ILearningModelBinding, "ILearningModelBinding", p0):
+      withHString(correlationId, h1):
         vcall(it, Slot_ILearningModelSession_EvaluateAsync, Fn_ILearningModelSession_EvaluateAsync)(it, p0, h1, op.addr).check("LearningModelSession.EvaluateAsync")
   result = adopt[LearningModelEvaluationResult](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResult, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult, "LearningModelSession.EvaluateAsync"))
 
-proc evaluate*(self: LearningModelSession, a1: LearningModelBinding, a2: string): LearningModelEvaluationResult  =
+proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding, correlationId: string): LearningModelEvaluationResult  =
   ## Windows.AI.MachineLearning.LearningModelSession.Evaluate
   withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
-    withIface(a1.p, IID_ILearningModelBinding, "ILearningModelBinding", p0):
-      withHString(a2, h1):
+    withIface(bindings.p, IID_ILearningModelBinding, "ILearningModelBinding", p0):
+      withHString(correlationId, h1):
         var tmp: pointer
         vcall(it, Slot_ILearningModelSession_Evaluate, Fn_ILearningModelSession_Evaluate)(it, p0, h1, tmp.addr).check("LearningModelSession.Evaluate")
         result = adopt[LearningModelEvaluationResult](tmp)
@@ -2091,29 +2091,29 @@ proc close*(self: LearningModelSession)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LearningModelSession.Close")
 
-proc createFromModel*(_: typedesc[LearningModelSession], a1: LearningModel): LearningModelSession  =
+proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel): LearningModelSession  =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModel
   withStatics("Windows.AI.MachineLearning.LearningModelSession", IID_ILearningModelSessionFactory, it):
-    withIface(a1.p, IID_ILearningModel, "ILearningModel", p0):
+    withIface(model.p, IID_ILearningModel, "ILearningModel", p0):
       var tmp: pointer
       vcall(it, Slot_ILearningModelSessionFactory_CreateFromModel, Fn_ILearningModelSessionFactory_CreateFromModel)(it, p0, tmp.addr).check("LearningModelSession.CreateFromModel")
       result = adopt[LearningModelSession](tmp)
 
-proc createFromModelOnDevice*(_: typedesc[LearningModelSession], a1: LearningModel, a2: LearningModelDevice): LearningModelSession  =
+proc createFromModelOnDevice*(_: typedesc[LearningModelSession], model: LearningModel, deviceToRunOn: LearningModelDevice): LearningModelSession  =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDevice
   withStatics("Windows.AI.MachineLearning.LearningModelSession", IID_ILearningModelSessionFactory, it):
-    withIface(a1.p, IID_ILearningModel, "ILearningModel", p0):
-      withIface(a2.p, IID_ILearningModelDevice, "ILearningModelDevice", p1):
+    withIface(model.p, IID_ILearningModel, "ILearningModel", p0):
+      withIface(deviceToRunOn.p, IID_ILearningModelDevice, "ILearningModelDevice", p1):
         var tmp: pointer
         vcall(it, Slot_ILearningModelSessionFactory_CreateFromModelOnDevice, Fn_ILearningModelSessionFactory_CreateFromModelOnDevice)(it, p0, p1, tmp.addr).check("LearningModelSession.CreateFromModelOnDevice")
         result = adopt[LearningModelSession](tmp)
 
-proc createFromModelOnDeviceWithSessionOptions*(_: typedesc[LearningModelSession], a1: LearningModel, a2: LearningModelDevice, a3: LearningModelSessionOptions): LearningModelSession  =
+proc createFromModelOnDeviceWithSessionOptions*(_: typedesc[LearningModelSession], model: LearningModel, deviceToRunOn: LearningModelDevice, learningModelSessionOptions: LearningModelSessionOptions): LearningModelSession  =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDeviceWithSessionOptions
   withStatics("Windows.AI.MachineLearning.LearningModelSession", IID_ILearningModelSessionFactory2, it):
-    withIface(a1.p, IID_ILearningModel, "ILearningModel", p0):
-      withIface(a2.p, IID_ILearningModelDevice, "ILearningModelDevice", p1):
-        withIface(a3.p, IID_ILearningModelSessionOptions, "ILearningModelSessionOptions", p2):
+    withIface(model.p, IID_ILearningModel, "ILearningModel", p0):
+      withIface(deviceToRunOn.p, IID_ILearningModelDevice, "ILearningModelDevice", p1):
+        withIface(learningModelSessionOptions.p, IID_ILearningModelSessionOptions, "ILearningModelSessionOptions", p2):
           var tmp: pointer
           vcall(it, Slot_ILearningModelSessionFactory2_CreateFromModelOnDeviceWithSessionOptions, Fn_ILearningModelSessionFactory2_CreateFromModelOnDeviceWithSessionOptions)(it, p0, p1, p2, tmp.addr).check("LearningModelSession.CreateFromModelOnDeviceWithSessionOptions")
           result = adopt[LearningModelSession](tmp)
@@ -2146,11 +2146,11 @@ proc `closeModelOnSessionCreation=`*(self: LearningModelSessionOptions, value: b
   withIface(self.p, IID_ILearningModelSessionOptions2, "ILearningModelSessionOptions2", it):
     vcall(it, Slot_ILearningModelSessionOptions2_put_CloseModelOnSessionCreation, Fn_ILearningModelSessionOptions2_put_CloseModelOnSessionCreation)(it, value).check("LearningModelSessionOptions.put_CloseModelOnSessionCreation")
 
-proc overrideNamedDimension*(self: LearningModelSessionOptions, a1: string, a2: uint32)  =
+proc overrideNamedDimension*(self: LearningModelSessionOptions, name: string, dimension: uint32)  =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.OverrideNamedDimension
   withIface(self.p, IID_ILearningModelSessionOptions3, "ILearningModelSessionOptions3", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ILearningModelSessionOptions3_OverrideNamedDimension, Fn_ILearningModelSessionOptions3_OverrideNamedDimension)(it, h0, a2).check("LearningModelSessionOptions.OverrideNamedDimension")
+    withHString(name, h0):
+      vcall(it, Slot_ILearningModelSessionOptions3_OverrideNamedDimension, Fn_ILearningModelSessionOptions3_OverrideNamedDimension)(it, h0, dimension).check("LearningModelSessionOptions.OverrideNamedDimension")
 
 proc keyKind*(self: MapFeatureDescriptor): TensorKind  =
   ## Windows.AI.MachineLearning.MapFeatureDescriptor.get_KeyKind
@@ -2296,28 +2296,28 @@ proc `reclaimMemoryAfterEvaluation=`*(self: InferencingOptionsPreview, value: bo
   withIface(self.p, IID_IInferencingOptionsPreview, "IInferencingOptionsPreview", it):
     vcall(it, Slot_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation, Fn_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation)(it, value).check("InferencingOptionsPreview.put_ReclaimMemoryAfterEvaluation")
 
-proc `bind`*(self: LearningModelBindingPreview, a1: string, a2: pointer)  =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
-    withHString(a1, h0):
-      vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, a2).check("LearningModelBindingPreview.Bind")
+    withHString(name, h0):
+      vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, value).check("LearningModelBindingPreview.Bind")
 
-proc `bind`*(self: LearningModelBindingPreview, a1: string, a2: pointer, a3: ValueSet)  =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer, metadata: ValueSet)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
-    withHString(a1, h0):
-      withIface(a3.p, IID_IPropertySet, "IPropertySet", p2):
-        vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, a2, p2).check("LearningModelBindingPreview.Bind")
+    withHString(name, h0):
+      withIface(metadata.p, IID_IPropertySet, "IPropertySet", p2):
+        vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, value, p2).check("LearningModelBindingPreview.Bind")
 
 proc clear*(self: LearningModelBindingPreview)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Clear
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
     vcall(it, Slot_ILearningModelBindingPreview_Clear, Fn_ILearningModelBindingPreview_Clear)(it).check("LearningModelBindingPreview.Clear")
 
-proc createFromModel*(_: typedesc[LearningModelBindingPreview], a1: LearningModelPreview): LearningModelBindingPreview  =
+proc createFromModel*(_: typedesc[LearningModelBindingPreview], model: LearningModelPreview): LearningModelBindingPreview  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.CreateFromModel
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelBindingPreview", IID_ILearningModelBindingPreviewFactory, it):
-    withIface(a1.p, IID_ILearningModelPreview, "ILearningModelPreview", p0):
+    withIface(model.p, IID_ILearningModelPreview, "ILearningModelPreview", p0):
       var tmp: pointer
       vcall(it, Slot_ILearningModelBindingPreviewFactory_CreateFromModel, Fn_ILearningModelBindingPreviewFactory_CreateFromModel)(it, p0, tmp.addr).check("LearningModelBindingPreview.CreateFromModel")
       result = adopt[LearningModelBindingPreview](tmp)
@@ -2380,12 +2380,12 @@ proc correlationId*(self: LearningModelEvaluationResultPreview): string  =
     vcall(it, Slot_ILearningModelEvaluationResultPreview_get_CorrelationId, Fn_ILearningModelEvaluationResultPreview_get_CorrelationId)(it, tmp.addr).check("LearningModelEvaluationResultPreview.get_CorrelationId")
     result = takeString(tmp)
 
-proc evaluateAsync*(self: LearningModelPreview, a1: LearningModelBindingPreview, a2: string): Future[LearningModelEvaluationResultPreview] {.async.} =
+proc evaluateAsync*(self: LearningModelPreview, binding: LearningModelBindingPreview, correlationId: string): Future[LearningModelEvaluationResultPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateAsync
   var op: pointer
   withIface(self.p, IID_ILearningModelPreview, "ILearningModelPreview", it):
-    withIface(a1.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", p0):
-      withHString(a2, h1):
+    withIface(binding.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", p0):
+      withHString(correlationId, h1):
         vcall(it, Slot_ILearningModelPreview_EvaluateAsync, Fn_ILearningModelPreview_EvaluateAsync)(it, p0, h1, op.addr).check("LearningModelPreview.EvaluateAsync")
   result = adopt[LearningModelEvaluationResultPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResultPreview, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview, "LearningModelPreview.EvaluateAsync"))
 
@@ -2409,18 +2409,18 @@ proc `inferencingOptions=`*(self: LearningModelPreview, value: InferencingOption
     withIface(value.p, IID_IInferencingOptionsPreview, "IInferencingOptionsPreview", p0):
       vcall(it, Slot_ILearningModelPreview_put_InferencingOptions, Fn_ILearningModelPreview_put_InferencingOptions)(it, p0).check("LearningModelPreview.put_InferencingOptions")
 
-proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview], a1: pointer): Future[LearningModelPreview] {.async.} =
+proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview], modelFile: pointer): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
-    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync)(it, a1, op.addr).check("LearningModelPreview.LoadModelFromStorageFileAsync")
+    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync)(it, modelFile, op.addr).check("LearningModelPreview.LoadModelFromStorageFileAsync")
   result = adopt[LearningModelPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview, IID_AsyncOperationCompletedHandler_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStorageFileAsync"))
 
-proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview], a1: pointer): Future[LearningModelPreview] {.async.} =
+proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview], modelStream: pointer): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
-    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync)(it, a1, op.addr).check("LearningModelPreview.LoadModelFromStreamAsync")
+    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync)(it, modelStream, op.addr).check("LearningModelPreview.LoadModelFromStreamAsync")
   result = adopt[LearningModelPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview, IID_AsyncOperationCompletedHandler_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStreamAsync"))
 
 proc name*(self: LearningModelVariableDescriptorPreview): string  =

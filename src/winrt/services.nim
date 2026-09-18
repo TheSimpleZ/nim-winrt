@@ -1483,35 +1483,35 @@ proc isAvailableAsync*(self: CortanaActionableInsights): Future[bool] {.async.} 
     vcall(it, Slot_ICortanaActionableInsights_IsAvailableAsync, Fn_ICortanaActionableInsights_IsAvailableAsync)(it, op.addr).check("CortanaActionableInsights.IsAvailableAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CortanaActionableInsights.IsAvailableAsync")
 
-proc showInsightsForImageAsync*(self: CortanaActionableInsights, a1: pointer) {.async.} =
+proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: pointer) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForImageAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync)(it, a1, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
+    vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync)(it, imageStream, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForImageAsync")
 
-proc showInsightsForImageAsync*(self: CortanaActionableInsights, a1: pointer, a2: CortanaActionableInsightsOptions) {.async.} =
+proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: pointer, options: CortanaActionableInsightsOptions) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForImageAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    withIface(a2.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
-      vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2)(it, a1, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
+    withIface(options.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
+      vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2)(it, imageStream, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForImageAsync")
 
-proc showInsightsForTextAsync*(self: CortanaActionableInsights, a1: string) {.async.} =
+proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForTextAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    withHString(a1, h0):
+    withHString(text, h0):
       vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForTextAsync, Fn_ICortanaActionableInsights_ShowInsightsForTextAsync)(it, h0, op.addr).check("CortanaActionableInsights.ShowInsightsForTextAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForTextAsync")
 
-proc showInsightsForTextAsync*(self: CortanaActionableInsights, a1: string, a2: CortanaActionableInsightsOptions) {.async.} =
+proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string, options: CortanaActionableInsightsOptions) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForTextAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
+    withHString(text, h0):
+      withIface(options.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
         vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForTextAsync2, Fn_ICortanaActionableInsights_ShowInsightsForTextAsync2)(it, h0, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForTextAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForTextAsync")
 
@@ -1747,17 +1747,17 @@ proc road*(self: GuidanceMapMatchedCoordinate): GuidanceRoadSegment  =
     vcall(it, Slot_IGuidanceMapMatchedCoordinate_get_Road, Fn_IGuidanceMapMatchedCoordinate_get_Road)(it, tmp.addr).check("GuidanceMapMatchedCoordinate.get_Road")
     result = adopt[GuidanceRoadSegment](tmp)
 
-proc startNavigating*(self: GuidanceNavigator, a1: GuidanceRoute)  =
+proc startNavigating*(self: GuidanceNavigator, route: GuidanceRoute)  =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartNavigating
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    withIface(a1.p, IID_IGuidanceRoute, "IGuidanceRoute", p0):
+    withIface(route.p, IID_IGuidanceRoute, "IGuidanceRoute", p0):
       vcall(it, Slot_IGuidanceNavigator_StartNavigating, Fn_IGuidanceNavigator_StartNavigating)(it, p0).check("GuidanceNavigator.StartNavigating")
 
-proc startSimulating*(self: GuidanceNavigator, a1: GuidanceRoute, a2: int32)  =
+proc startSimulating*(self: GuidanceNavigator, route: GuidanceRoute, speedInMetersPerSecond: int32)  =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartSimulating
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    withIface(a1.p, IID_IGuidanceRoute, "IGuidanceRoute", p0):
-      vcall(it, Slot_IGuidanceNavigator_StartSimulating, Fn_IGuidanceNavigator_StartSimulating)(it, p0, a2).check("GuidanceNavigator.StartSimulating")
+    withIface(route.p, IID_IGuidanceRoute, "IGuidanceRoute", p0):
+      vcall(it, Slot_IGuidanceNavigator_StartSimulating, Fn_IGuidanceNavigator_StartSimulating)(it, p0, speedInMetersPerSecond).check("GuidanceNavigator.StartSimulating")
 
 proc startTracking*(self: GuidanceNavigator)  =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.StartTracking
@@ -1941,11 +1941,11 @@ proc removeUserLocationRestored*(self: GuidanceNavigator, token: EventRegistrati
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
     vcall(it, Slot_IGuidanceNavigator_remove_UserLocationRestored, Fn_IGuidanceNavigator_remove_UserLocationRestored)(it, token).check("GuidanceNavigator.remove_UserLocationRestored")
 
-proc setGuidanceVoice*(self: GuidanceNavigator, a1: int32, a2: string)  =
+proc setGuidanceVoice*(self: GuidanceNavigator, voiceId: int32, voiceFolder: string)  =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.SetGuidanceVoice
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    withHString(a2, h1):
-      vcall(it, Slot_IGuidanceNavigator_SetGuidanceVoice, Fn_IGuidanceNavigator_SetGuidanceVoice)(it, a1, h1).check("GuidanceNavigator.SetGuidanceVoice")
+    withHString(voiceFolder, h1):
+      vcall(it, Slot_IGuidanceNavigator_SetGuidanceVoice, Fn_IGuidanceNavigator_SetGuidanceVoice)(it, voiceId, h1).check("GuidanceNavigator.SetGuidanceVoice")
 
 proc onAudioNotificationRequested*(self: GuidanceNavigator,
     handler: proc(sender: pointer, args: GuidanceAudioNotificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -2135,18 +2135,18 @@ proc convertToMapRoute*(self: GuidanceRoute): MapRoute  =
     vcall(it, Slot_IGuidanceRoute_ConvertToMapRoute, Fn_IGuidanceRoute_ConvertToMapRoute)(it, tmp.addr).check("GuidanceRoute.ConvertToMapRoute")
     result = adopt[MapRoute](tmp)
 
-proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], a1: MapRoute): bool  =
+proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute): bool  =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.CanCreateFromMapRoute
   withStatics("Windows.Services.Maps.Guidance.GuidanceRoute", IID_IGuidanceRouteStatics, it):
-    withIface(a1.p, IID_IMapRoute, "IMapRoute", p0):
+    withIface(mapRoute.p, IID_IMapRoute, "IMapRoute", p0):
       var tmp: bool
       vcall(it, Slot_IGuidanceRouteStatics_CanCreateFromMapRoute, Fn_IGuidanceRouteStatics_CanCreateFromMapRoute)(it, p0, tmp.addr).check("GuidanceRoute.CanCreateFromMapRoute")
       result = tmp
 
-proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], a1: MapRoute): GuidanceRoute  =
+proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute): GuidanceRoute  =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.TryCreateFromMapRoute
   withStatics("Windows.Services.Maps.Guidance.GuidanceRoute", IID_IGuidanceRouteStatics, it):
-    withIface(a1.p, IID_IMapRoute, "IMapRoute", p0):
+    withIface(mapRoute.p, IID_IMapRoute, "IMapRoute", p0):
       var tmp: pointer
       vcall(it, Slot_IGuidanceRouteStatics_TryCreateFromMapRoute, Fn_IGuidanceRouteStatics_TryCreateFromMapRoute)(it, p0, tmp.addr).check("GuidanceRoute.TryCreateFromMapRoute")
       result = adopt[GuidanceRoute](tmp)
@@ -2470,10 +2470,10 @@ proc providerIdentifier*(self: LocalLocationRatingInfo): string  =
     vcall(it, Slot_ILocalLocationRatingInfo_get_ProviderIdentifier, Fn_ILocalLocationRatingInfo_get_ProviderIdentifier)(it, tmp.addr).check("LocalLocationRatingInfo.get_ProviderIdentifier")
     result = takeString(tmp)
 
-proc createFromLocalLocation*(_: typedesc[PlaceInfoHelper], a1: LocalLocation): PlaceInfo  =
+proc createFromLocalLocation*(_: typedesc[PlaceInfoHelper], location: LocalLocation): PlaceInfo  =
   ## Windows.Services.Maps.LocalSearch.PlaceInfoHelper.CreateFromLocalLocation
   withStatics("Windows.Services.Maps.LocalSearch.PlaceInfoHelper", IID_IPlaceInfoHelperStatics, it):
-    withIface(a1.p, IID_ILocalLocation, "ILocalLocation", p0):
+    withIface(location.p, IID_ILocalLocation, "ILocalLocation", p0):
       var tmp: pointer
       vcall(it, Slot_IPlaceInfoHelperStatics_CreateFromLocalLocation, Fn_IPlaceInfoHelperStatics_CreateFromLocalLocation)(it, p0, tmp.addr).check("PlaceInfoHelper.CreateFromLocalLocation")
       result = adopt[PlaceInfo](tmp)
@@ -3007,10 +3007,10 @@ proc status*(self: OfflineMapPackageStartDownloadResult): OfflineMapPackageStart
     vcall(it, Slot_IOfflineMapPackageStartDownloadResult_get_Status, Fn_IOfflineMapPackageStartDownloadResult_get_Status)(it, tmp.addr).check("OfflineMapPackageStartDownloadResult.get_Status")
     result = tmp
 
-proc show*(self: PlaceInfo, a1: Rect)  =
+proc show*(self: PlaceInfo, selection: Rect)  =
   ## Windows.Services.Maps.PlaceInfo.Show
   withIface(self.p, IID_IPlaceInfo, "IPlaceInfo", it):
-    vcall(it, Slot_IPlaceInfo_Show, Fn_IPlaceInfo_Show)(it, a1).check("PlaceInfo.Show")
+    vcall(it, Slot_IPlaceInfo_Show, Fn_IPlaceInfo_Show)(it, selection).check("PlaceInfo.Show")
 
 proc identifier*(self: PlaceInfo): string  =
   ## Windows.Services.Maps.PlaceInfo.get_Identifier
@@ -3040,35 +3040,35 @@ proc geoshape*(self: PlaceInfo): pointer  =
     vcall(it, Slot_IPlaceInfo_get_Geoshape, Fn_IPlaceInfo_get_Geoshape)(it, tmp.addr).check("PlaceInfo.get_Geoshape")
     result = tmp
 
-proc createFromAddress*(_: typedesc[PlaceInfo], a1: string): PlaceInfo  =
+proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromAddress
   withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics2, it):
-    withHString(a1, h0):
+    withHString(displayAddress, h0):
       var tmp: pointer
       vcall(it, Slot_IPlaceInfoStatics2_CreateFromAddress, Fn_IPlaceInfoStatics2_CreateFromAddress)(it, h0, tmp.addr).check("PlaceInfo.CreateFromAddress")
       result = adopt[PlaceInfo](tmp)
 
-proc createFromAddress*(_: typedesc[PlaceInfo], a1: string, a2: string): PlaceInfo  =
+proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string, displayName: string): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromAddress
   withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics2, it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(displayAddress, h0):
+      withHString(displayName, h1):
         var tmp: pointer
         vcall(it, Slot_IPlaceInfoStatics2_CreateFromAddress2, Fn_IPlaceInfoStatics2_CreateFromAddress2)(it, h0, h1, tmp.addr).check("PlaceInfo.CreateFromAddress")
         result = adopt[PlaceInfo](tmp)
 
-proc createFromIdentifier*(_: typedesc[PlaceInfo], a1: string): PlaceInfo  =
+proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromIdentifier
   withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
-    withHString(a1, h0):
+    withHString(identifier, h0):
       var tmp: pointer
       vcall(it, Slot_IPlaceInfoStatics_CreateFromIdentifier, Fn_IPlaceInfoStatics_CreateFromIdentifier)(it, h0, tmp.addr).check("PlaceInfo.CreateFromIdentifier")
       result = adopt[PlaceInfo](tmp)
 
-proc createFromMapLocation*(_: typedesc[PlaceInfo], a1: MapLocation): PlaceInfo  =
+proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromMapLocation
   withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
-    withIface(a1.p, IID_IMapLocation, "IMapLocation", p0):
+    withIface(location.p, IID_IMapLocation, "IMapLocation", p0):
       var tmp: pointer
       vcall(it, Slot_IPlaceInfoStatics_CreateFromMapLocation, Fn_IPlaceInfoStatics_CreateFromMapLocation)(it, p0, tmp.addr).check("PlaceInfo.CreateFromMapLocation")
       result = adopt[PlaceInfo](tmp)
@@ -3222,11 +3222,11 @@ proc requestPurchaseAsync*(self: StoreAvailability): Future[StorePurchaseResult]
     vcall(it, Slot_IStoreAvailability_RequestPurchaseAsync, Fn_IStoreAvailability_RequestPurchaseAsync)(it, op.addr).check("StoreAvailability.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreAvailability.RequestPurchaseAsync"))
 
-proc requestPurchaseAsync*(self: StoreAvailability, a1: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreAvailability, storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreAvailability.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IID_IStoreAvailability, "IStoreAvailability", it):
-    withIface(a1.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
+    withIface(storePurchaseProperties.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
       vcall(it, Slot_IStoreAvailability_RequestPurchaseAsync2, Fn_IStoreAvailability_RequestPurchaseAsync2)(it, p0, op.addr).check("StoreAvailability.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreAvailability.RequestPurchaseAsync"))
 
@@ -3354,21 +3354,21 @@ proc removeOfflineLicensesChanged*(self: StoreContext, token: EventRegistrationT
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
     vcall(it, Slot_IStoreContext_remove_OfflineLicensesChanged, Fn_IStoreContext_remove_OfflineLicensesChanged)(it, token).check("StoreContext.remove_OfflineLicensesChanged")
 
-proc getCustomerPurchaseIdAsync*(self: StoreContext, a1: string, a2: string): Future[string] {.async.} =
+proc getCustomerPurchaseIdAsync*(self: StoreContext, serviceTicket: string, publisherUserId: string): Future[string] {.async.} =
   ## Windows.Services.Store.StoreContext.GetCustomerPurchaseIdAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(serviceTicket, h0):
+      withHString(publisherUserId, h1):
         vcall(it, Slot_IStoreContext_GetCustomerPurchaseIdAsync, Fn_IStoreContext_GetCustomerPurchaseIdAsync)(it, h0, h1, op.addr).check("StoreContext.GetCustomerPurchaseIdAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "StoreContext.GetCustomerPurchaseIdAsync")
 
-proc getCustomerCollectionsIdAsync*(self: StoreContext, a1: string, a2: string): Future[string] {.async.} =
+proc getCustomerCollectionsIdAsync*(self: StoreContext, serviceTicket: string, publisherUserId: string): Future[string] {.async.} =
   ## Windows.Services.Store.StoreContext.GetCustomerCollectionsIdAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
-      withHString(a2, h1):
+    withHString(serviceTicket, h0):
+      withHString(publisherUserId, h1):
         vcall(it, Slot_IStoreContext_GetCustomerCollectionsIdAsync, Fn_IStoreContext_GetCustomerCollectionsIdAsync)(it, h0, h1, op.addr).check("StoreContext.GetCustomerCollectionsIdAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "StoreContext.GetCustomerCollectionsIdAsync")
 
@@ -3386,36 +3386,36 @@ proc getStoreProductForCurrentAppAsync*(self: StoreContext): Future[StoreProduct
     vcall(it, Slot_IStoreContext_GetStoreProductForCurrentAppAsync, Fn_IStoreContext_GetStoreProductForCurrentAppAsync)(it, op.addr).check("StoreContext.GetStoreProductForCurrentAppAsync")
   result = adopt[StoreProductResult](await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult, IID_AsyncOperationCompletedHandler_1_StoreProductResult, "StoreContext.GetStoreProductForCurrentAppAsync"))
 
-proc reportConsumableFulfillmentAsync*(self: StoreContext, a1: string, a2: uint32, a3: GUID): Future[StoreConsumableResult] {.async.} =
+proc reportConsumableFulfillmentAsync*(self: StoreContext, productStoreId: string, quantity: uint32, trackingId: GUID): Future[StoreConsumableResult] {.async.} =
   ## Windows.Services.Store.StoreContext.ReportConsumableFulfillmentAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
-      vcall(it, Slot_IStoreContext_ReportConsumableFulfillmentAsync, Fn_IStoreContext_ReportConsumableFulfillmentAsync)(it, h0, a2, a3, op.addr).check("StoreContext.ReportConsumableFulfillmentAsync")
+    withHString(productStoreId, h0):
+      vcall(it, Slot_IStoreContext_ReportConsumableFulfillmentAsync, Fn_IStoreContext_ReportConsumableFulfillmentAsync)(it, h0, quantity, trackingId, op.addr).check("StoreContext.ReportConsumableFulfillmentAsync")
   result = adopt[StoreConsumableResult](await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult, IID_AsyncOperationCompletedHandler_1_StoreConsumableResult, "StoreContext.ReportConsumableFulfillmentAsync"))
 
-proc getConsumableBalanceRemainingAsync*(self: StoreContext, a1: string): Future[StoreConsumableResult] {.async.} =
+proc getConsumableBalanceRemainingAsync*(self: StoreContext, productStoreId: string): Future[StoreConsumableResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetConsumableBalanceRemainingAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
+    withHString(productStoreId, h0):
       vcall(it, Slot_IStoreContext_GetConsumableBalanceRemainingAsync, Fn_IStoreContext_GetConsumableBalanceRemainingAsync)(it, h0, op.addr).check("StoreContext.GetConsumableBalanceRemainingAsync")
   result = adopt[StoreConsumableResult](await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult, IID_AsyncOperationCompletedHandler_1_StoreConsumableResult, "StoreContext.GetConsumableBalanceRemainingAsync"))
 
-proc requestPurchaseAsync*(self: StoreContext, a1: string): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreContext, storeId: string): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
+    withHString(storeId, h0):
       vcall(it, Slot_IStoreContext_RequestPurchaseAsync, Fn_IStoreContext_RequestPurchaseAsync)(it, h0, op.addr).check("StoreContext.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreContext.RequestPurchaseAsync"))
 
-proc requestPurchaseAsync*(self: StoreContext, a1: string, a2: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreContext, storeId: string, storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    withHString(a1, h0):
-      withIface(a2.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p1):
+    withHString(storeId, h0):
+      withIface(storePurchaseProperties.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p1):
         vcall(it, Slot_IStoreContext_RequestPurchaseAsync2, Fn_IStoreContext_RequestPurchaseAsync2)(it, h0, p1, op.addr).check("StoreContext.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreContext.RequestPurchaseAsync"))
 
@@ -3435,11 +3435,11 @@ proc canSilentlyDownloadStorePackageUpdates*(self: StoreContext): bool  =
     vcall(it, Slot_IStoreContext3_get_CanSilentlyDownloadStorePackageUpdates, Fn_IStoreContext3_get_CanSilentlyDownloadStorePackageUpdates)(it, tmp.addr).check("StoreContext.get_CanSilentlyDownloadStorePackageUpdates")
     result = tmp
 
-proc canAcquireStoreLicenseAsync*(self: StoreContext, a1: string): Future[StoreCanAcquireLicenseResult] {.async.} =
+proc canAcquireStoreLicenseAsync*(self: StoreContext, productStoreId: string): Future[StoreCanAcquireLicenseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.CanAcquireStoreLicenseAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
-    withHString(a1, h0):
+    withHString(productStoreId, h0):
       vcall(it, Slot_IStoreContext3_CanAcquireStoreLicenseAsync, Fn_IStoreContext3_CanAcquireStoreLicenseAsync)(it, h0, op.addr).check("StoreContext.CanAcquireStoreLicenseAsync")
   result = adopt[StoreCanAcquireLicenseResult](await awaitObject(op, IID_IAsyncOperation_1_StoreCanAcquireLicenseResult, IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult, "StoreContext.CanAcquireStoreLicenseAsync"))
 
@@ -3452,19 +3452,19 @@ proc getAssociatedStoreQueueItemsAsync*(self: StoreContext): Future[seq[StoreQue
   result = toSeq[StoreQueueItem](coll, IID_IVectorView_1_StoreQueueItem)
   discard release(coll)
 
-proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext, a1: string): Future[StoreUninstallStorePackageResult] {.async.} =
+proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestUninstallStorePackageByStoreIdAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
-    withHString(a1, h0):
+    withHString(storeId, h0):
       vcall(it, Slot_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync, Fn_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync)(it, h0, op.addr).check("StoreContext.RequestUninstallStorePackageByStoreIdAsync")
   result = adopt[StoreUninstallStorePackageResult](await awaitObject(op, IID_IAsyncOperation_1_StoreUninstallStorePackageResult, IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult, "StoreContext.RequestUninstallStorePackageByStoreIdAsync"))
 
-proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, a1: string): Future[StoreUninstallStorePackageResult] {.async.} =
+proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.UninstallStorePackageByStoreIdAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
-    withHString(a1, h0):
+    withHString(storeId, h0):
       vcall(it, Slot_IStoreContext3_UninstallStorePackageByStoreIdAsync, Fn_IStoreContext3_UninstallStorePackageByStoreIdAsync)(it, h0, op.addr).check("StoreContext.UninstallStorePackageByStoreIdAsync")
   result = adopt[StoreUninstallStorePackageResult](await awaitObject(op, IID_IAsyncOperation_1_StoreUninstallStorePackageResult, IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult, "StoreContext.UninstallStorePackageByStoreIdAsync"))
 
@@ -3475,11 +3475,11 @@ proc requestRateAndReviewAppAsync*(self: StoreContext): Future[StoreRateAndRevie
     vcall(it, Slot_IStoreContext4_RequestRateAndReviewAppAsync, Fn_IStoreContext4_RequestRateAndReviewAppAsync)(it, op.addr).check("StoreContext.RequestRateAndReviewAppAsync")
   result = adopt[StoreRateAndReviewResult](await awaitObject(op, IID_IAsyncOperation_1_StoreRateAndReviewResult, IID_AsyncOperationCompletedHandler_1_StoreRateAndReviewResult, "StoreContext.RequestRateAndReviewAppAsync"))
 
-proc requestPurchaseByInAppOfferTokenAsync*(self: StoreContext, a1: string): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseByInAppOfferTokenAsync*(self: StoreContext, inAppOfferToken: string): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseByInAppOfferTokenAsync
   var op: pointer
   withIface(self.p, IID_IStoreContext5, "IStoreContext5", it):
-    withHString(a1, h0):
+    withHString(inAppOfferToken, h0):
       vcall(it, Slot_IStoreContext5_RequestPurchaseByInAppOfferTokenAsync, Fn_IStoreContext5_RequestPurchaseByInAppOfferTokenAsync)(it, h0, op.addr).check("StoreContext.RequestPurchaseByInAppOfferTokenAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreContext.RequestPurchaseByInAppOfferTokenAsync"))
 
@@ -3813,11 +3813,11 @@ proc requestPurchaseAsync*(self: StoreProduct): Future[StorePurchaseResult] {.as
     vcall(it, Slot_IStoreProduct_RequestPurchaseAsync, Fn_IStoreProduct_RequestPurchaseAsync)(it, op.addr).check("StoreProduct.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreProduct.RequestPurchaseAsync"))
 
-proc requestPurchaseAsync*(self: StoreProduct, a1: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreProduct, storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreProduct.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
-    withIface(a1.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
+    withIface(storePurchaseProperties.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
       vcall(it, Slot_IStoreProduct_RequestPurchaseAsync2, Fn_IStoreProduct_RequestPurchaseAsync2)(it, p0, op.addr).check("StoreProduct.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreProduct.RequestPurchaseAsync"))
 
@@ -3912,10 +3912,10 @@ proc `extendedJsonData=`*(self: StorePurchaseProperties, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IStorePurchaseProperties_put_ExtendedJsonData, Fn_IStorePurchaseProperties_put_ExtendedJsonData)(it, h0).check("StorePurchaseProperties.put_ExtendedJsonData")
 
-proc create*(_: typedesc[StorePurchaseProperties], a1: string): StorePurchaseProperties  =
+proc create*(_: typedesc[StorePurchaseProperties], name: string): StorePurchaseProperties  =
   ## Windows.Services.Store.StorePurchaseProperties.Create
   withStatics("Windows.Services.Store.StorePurchaseProperties", IID_IStorePurchasePropertiesFactory, it):
-    withHString(a1, h0):
+    withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IStorePurchasePropertiesFactory_Create, Fn_IStorePurchasePropertiesFactory_Create)(it, h0, tmp.addr).check("StorePurchaseProperties.Create")
       result = adopt[StorePurchaseProperties](tmp)
@@ -4084,13 +4084,13 @@ proc status*(self: StoreRateAndReviewResult): StoreRateAndReviewStatus  =
     vcall(it, Slot_IStoreRateAndReviewResult_get_Status, Fn_IStoreRateAndReviewResult_get_Status)(it, tmp.addr).check("StoreRateAndReviewResult.get_Status")
     result = tmp
 
-proc sendRequestAsync*(_: typedesc[StoreRequestHelper], a1: StoreContext, a2: uint32, a3: string): Future[StoreSendRequestResult] {.async.} =
+proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext, requestKind: uint32, parametersAsJson: string): Future[StoreSendRequestResult] {.async.} =
   ## Windows.Services.Store.StoreRequestHelper.SendRequestAsync
   var op: pointer
   withStatics("Windows.Services.Store.StoreRequestHelper", IID_IStoreRequestHelperStatics, it):
-    withIface(a1.p, IID_IStoreContext, "IStoreContext", p0):
-      withHString(a3, h2):
-        vcall(it, Slot_IStoreRequestHelperStatics_SendRequestAsync, Fn_IStoreRequestHelperStatics_SendRequestAsync)(it, p0, a2, h2, op.addr).check("StoreRequestHelper.SendRequestAsync")
+    withIface(context.p, IID_IStoreContext, "IStoreContext", p0):
+      withHString(parametersAsJson, h2):
+        vcall(it, Slot_IStoreRequestHelperStatics_SendRequestAsync, Fn_IStoreRequestHelperStatics_SendRequestAsync)(it, p0, requestKind, h2, op.addr).check("StoreRequestHelper.SendRequestAsync")
   result = adopt[StoreSendRequestResult](await awaitObject(op, IID_IAsyncOperation_1_StoreSendRequestResult, IID_AsyncOperationCompletedHandler_1_StoreSendRequestResult, "StoreRequestHelper.SendRequestAsync"))
 
 proc response*(self: StoreSendRequestResult): string  =
@@ -4223,11 +4223,11 @@ proc requestPurchaseAsync*(self: StoreSku): Future[StorePurchaseResult] {.async.
     vcall(it, Slot_IStoreSku_RequestPurchaseAsync, Fn_IStoreSku_RequestPurchaseAsync)(it, op.addr).check("StoreSku.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreSku.RequestPurchaseAsync"))
 
-proc requestPurchaseAsync*(self: StoreSku, a1: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreSku, storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreSku.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IID_IStoreSku, "IStoreSku", it):
-    withIface(a1.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
+    withIface(storePurchaseProperties.p, IID_IStorePurchaseProperties, "IStorePurchaseProperties", p0):
       vcall(it, Slot_IStoreSku_RequestPurchaseAsync2, Fn_IStoreSku_RequestPurchaseAsync2)(it, p0, op.addr).check("StoreSku.RequestPurchaseAsync")
   result = adopt[StorePurchaseResult](await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult, IID_AsyncOperationCompletedHandler_1_StorePurchaseResult, "StoreSku.RequestPurchaseAsync"))
 
@@ -4371,15 +4371,15 @@ proc id*(self: TargetedContentCollection): string  =
     vcall(it, Slot_ITargetedContentCollection_get_Id, Fn_ITargetedContentCollection_get_Id)(it, tmp.addr).check("TargetedContentCollection.get_Id")
     result = takeString(tmp)
 
-proc reportInteraction*(self: TargetedContentCollection, a1: TargetedContentInteraction)  =
+proc reportInteraction*(self: TargetedContentCollection, interaction: TargetedContentInteraction)  =
   ## Windows.Services.TargetedContent.TargetedContentCollection.ReportInteraction
   withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
-    vcall(it, Slot_ITargetedContentCollection_ReportInteraction, Fn_ITargetedContentCollection_ReportInteraction)(it, a1).check("TargetedContentCollection.ReportInteraction")
+    vcall(it, Slot_ITargetedContentCollection_ReportInteraction, Fn_ITargetedContentCollection_ReportInteraction)(it, interaction).check("TargetedContentCollection.ReportInteraction")
 
-proc reportCustomInteraction*(self: TargetedContentCollection, a1: string)  =
+proc reportCustomInteraction*(self: TargetedContentCollection, customInteractionName: string)  =
   ## Windows.Services.TargetedContent.TargetedContentCollection.ReportCustomInteraction
   withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
-    withHString(a1, h0):
+    withHString(customInteractionName, h0):
       vcall(it, Slot_ITargetedContentCollection_ReportCustomInteraction, Fn_ITargetedContentCollection_ReportCustomInteraction)(it, h0).check("TargetedContentCollection.ReportCustomInteraction")
 
 proc path*(self: TargetedContentCollection): string  =
@@ -4433,19 +4433,19 @@ proc content*(self: TargetedContentContainer): TargetedContentCollection  =
     vcall(it, Slot_ITargetedContentContainer_get_Content, Fn_ITargetedContentContainer_get_Content)(it, tmp.addr).check("TargetedContentContainer.get_Content")
     result = adopt[TargetedContentCollection](tmp)
 
-proc selectSingleObject*(self: TargetedContentContainer, a1: string): TargetedContentObject  =
+proc selectSingleObject*(self: TargetedContentContainer, path: string): TargetedContentObject  =
   ## Windows.Services.TargetedContent.TargetedContentContainer.SelectSingleObject
   withIface(self.p, IID_ITargetedContentContainer, "ITargetedContentContainer", it):
-    withHString(a1, h0):
+    withHString(path, h0):
       var tmp: pointer
       vcall(it, Slot_ITargetedContentContainer_SelectSingleObject, Fn_ITargetedContentContainer_SelectSingleObject)(it, h0, tmp.addr).check("TargetedContentContainer.SelectSingleObject")
       result = adopt[TargetedContentObject](tmp)
 
-proc getAsync*(_: typedesc[TargetedContentContainer], a1: string): Future[TargetedContentContainer] {.async.} =
+proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string): Future[TargetedContentContainer] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentContainer.GetAsync
   var op: pointer
   withStatics("Windows.Services.TargetedContent.TargetedContentContainer", IID_ITargetedContentContainerStatics, it):
-    withHString(a1, h0):
+    withHString(contentId, h0):
       vcall(it, Slot_ITargetedContentContainerStatics_GetAsync, Fn_ITargetedContentContainerStatics_GetAsync)(it, h0, op.addr).check("TargetedContentContainer.GetAsync")
   result = adopt[TargetedContentContainer](await awaitObject(op, IID_IAsyncOperation_1_TargetedContentContainer, IID_AsyncOperationCompletedHandler_1_TargetedContentContainer, "TargetedContentContainer.GetAsync"))
 
@@ -4470,15 +4470,15 @@ proc path*(self: TargetedContentItem): string  =
     vcall(it, Slot_ITargetedContentItem_get_Path, Fn_ITargetedContentItem_get_Path)(it, tmp.addr).check("TargetedContentItem.get_Path")
     result = takeString(tmp)
 
-proc reportInteraction*(self: TargetedContentItem, a1: TargetedContentInteraction)  =
+proc reportInteraction*(self: TargetedContentItem, interaction: TargetedContentInteraction)  =
   ## Windows.Services.TargetedContent.TargetedContentItem.ReportInteraction
   withIface(self.p, IID_ITargetedContentItem, "ITargetedContentItem", it):
-    vcall(it, Slot_ITargetedContentItem_ReportInteraction, Fn_ITargetedContentItem_ReportInteraction)(it, a1).check("TargetedContentItem.ReportInteraction")
+    vcall(it, Slot_ITargetedContentItem_ReportInteraction, Fn_ITargetedContentItem_ReportInteraction)(it, interaction).check("TargetedContentItem.ReportInteraction")
 
-proc reportCustomInteraction*(self: TargetedContentItem, a1: string)  =
+proc reportCustomInteraction*(self: TargetedContentItem, customInteractionName: string)  =
   ## Windows.Services.TargetedContent.TargetedContentItem.ReportCustomInteraction
   withIface(self.p, IID_ITargetedContentItem, "ITargetedContentItem", it):
-    withHString(a1, h0):
+    withHString(customInteractionName, h0):
       vcall(it, Slot_ITargetedContentItem_ReportCustomInteraction, Fn_ITargetedContentItem_ReportCustomInteraction)(it, h0).check("TargetedContentItem.ReportCustomInteraction")
 
 proc state*(self: TargetedContentItem): TargetedContentItemState  =
@@ -4616,18 +4616,18 @@ proc removeStateChanged*(self: TargetedContentSubscription, token: EventRegistra
   withIface(self.p, IID_ITargetedContentSubscription, "ITargetedContentSubscription", it):
     vcall(it, Slot_ITargetedContentSubscription_remove_StateChanged, Fn_ITargetedContentSubscription_remove_StateChanged)(it, token).check("TargetedContentSubscription.remove_StateChanged")
 
-proc getAsync*(_: typedesc[TargetedContentSubscription], a1: string): Future[TargetedContentSubscription] {.async.} =
+proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string): Future[TargetedContentSubscription] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.GetAsync
   var op: pointer
   withStatics("Windows.Services.TargetedContent.TargetedContentSubscription", IID_ITargetedContentSubscriptionStatics, it):
-    withHString(a1, h0):
+    withHString(subscriptionId, h0):
       vcall(it, Slot_ITargetedContentSubscriptionStatics_GetAsync, Fn_ITargetedContentSubscriptionStatics_GetAsync)(it, h0, op.addr).check("TargetedContentSubscription.GetAsync")
   result = adopt[TargetedContentSubscription](await awaitObject(op, IID_IAsyncOperation_1_TargetedContentSubscription, IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription, "TargetedContentSubscription.GetAsync"))
 
-proc getOptions*(_: typedesc[TargetedContentSubscription], a1: string): TargetedContentSubscriptionOptions  =
+proc getOptions*(_: typedesc[TargetedContentSubscription], subscriptionId: string): TargetedContentSubscriptionOptions  =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.GetOptions
   withStatics("Windows.Services.TargetedContent.TargetedContentSubscription", IID_ITargetedContentSubscriptionStatics, it):
-    withHString(a1, h0):
+    withHString(subscriptionId, h0):
       var tmp: pointer
       vcall(it, Slot_ITargetedContentSubscriptionStatics_GetOptions, Fn_ITargetedContentSubscriptionStatics_GetOptions)(it, h0, tmp.addr).check("TargetedContentSubscription.GetOptions")
       result = adopt[TargetedContentSubscriptionOptions](tmp)
