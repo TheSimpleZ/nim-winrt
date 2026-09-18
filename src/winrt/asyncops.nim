@@ -81,6 +81,7 @@ type
                       value: ptr pointer): HRESULT {.abi.}
   FnResultsString = proc(self: pointer,
                          value: ptr HSTRING): HRESULT {.abi.}
+  FnResultsValue[T] = proc(self: pointer, value: ptr T): HRESULT {.abi.}
 
   CompletionVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
@@ -238,8 +239,8 @@ proc awaitObject*(op: pointer, opIid, handlerIid: GUID,
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
     await settled(op, handlerIid, what)
-    withResults(op, opIid, what, typed):
-      vcall(typed, SlotAsyncGetResults, FnResultsPtr)(typed, result.addr)
+    withResults(op, opIid, what, iface):
+      vcall(iface, SlotAsyncGetResults, FnResultsPtr)(iface, result.addr)
         .check(what & ".GetResults")
   finally:
     release(op)
@@ -250,10 +251,24 @@ proc awaitString*(op: pointer, opIid, handlerIid: GUID,
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
     await settled(op, handlerIid, what)
-    withResults(op, opIid, what, typed):
+    withResults(op, opIid, what, iface):
       var h: HSTRING
-      vcall(typed, SlotAsyncGetResults, FnResultsString)(typed, h.addr)
+      vcall(iface, SlotAsyncGetResults, FnResultsString)(iface, h.addr)
         .check(what & ".GetResults")
       result = takeString(h)
+  finally:
+    release(op)
+
+proc awaitValue*[T](op: pointer, opIid, handlerIid: GUID,
+                    what: string): Future[T] {.async.} =
+  ## An `IAsyncOperation<T>` whose result is a value rather than an object —
+  ## a number, a boolean, an enum or a struct. It comes back by value through
+  ## the same `GetResults` slot, so only the signature differs.
+  doAssert not op.isNil, "winrt: " & what & " returned no operation"
+  try:
+    await settled(op, handlerIid, what)
+    withResults(op, opIid, what, iface):
+      vcall(iface, SlotAsyncGetResults, FnResultsValue[T])(iface, result.addr)
+        .check(what & ".GetResults")
   finally:
     release(op)

@@ -84,6 +84,12 @@ const
     "Windows.Foundation.IAsyncActionWithProgress`1",
   ]
 
+# Mutually recursive with the shape helpers below: an async result can be a
+# collection, a collection element can be a class, and both ask what a type
+# spells as.
+func skipReason(c: Ctx, t: SigType, inReturn = false): string
+func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
+
 func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
   ## Whether `t` is an async operation, and what it eventually produces.
   ##
@@ -145,16 +151,26 @@ func asyncSpelling(c: Ctx, res: SigType): string =
   ## and a nested collection needs the walk as well, so both stay skipped and
   ## counted rather than half-supported.
   if res.kind == skVoid: return "void"
+  # A collection result is walked after the wait, so it reads as a `seq`.
+  let e = c.collectionElement(res)
+  if e.kind != skVoid:
+    let es = c.elementSpelling(e)
+    return if es.len > 0: "seq[" & es & "]" else: ""
   case res.kind
   of skString: "string"
   of skInterface:
     if res.name in c.classes: shortName(res.name)
     elif res.name in c.classOfIface: shortName(c.classOfIface[res.name])
     else: ""
+  of skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8:
+    c.nimTypeOf(res)
+  of skEnum:
+    if res.name in c.enums: shortName(res.name) else: ""
+  of skStruct:
+    if res.name in c.aliases or res.name in c.structs or
+       res.name in foreignEnums: c.nimTypeOf(res)
+    else: ""
   else: ""
-
-func skipReason(c: Ctx, t: SigType, inReturn = false): string
-func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
 
 func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## Why this type has no wrapper spelling. "" means it has one.
@@ -784,10 +800,35 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &", op.addr).check(\"{what}\")"
           # Back out to the proc body, past every scope the arguments opened.
+          let asyncElem = c.collectionElement(async.res)
           if asyncVoid:
             lines.add &"  await awaitVoid(op, {handlerIid}, \"{what}\")"
           elif retType == "string":
             lines.add &"  result = await awaitString(op, {opIid}, " &
+                      &"{handlerIid}, \"{what}\")"
+          elif asyncElem.kind != skVoid:
+            # The operation yields a collection; walking it is the same as for
+            # any other, once there is something to walk.
+            let inner = sigCtx.parameterizedIid(async.res)
+            if inner.len == 0:
+              skipped.inc
+              skipReasons.inc "an operation whose collection IID could not be computed"
+              continue
+            let collIid = genericIidConst(inner, async.res)
+            let es = c.elementSpelling(asyncElem)
+            lines.add &"  let coll = await awaitObject(op, {opIid}, " &
+                      &"{handlerIid}, \"{what}\")"
+            if es == "string":
+              lines.add &"  result = toSeqString(coll, {collIid})"
+            else:
+              lines.add &"  result = toSeq[{es}](coll, {collIid})"
+            # Explicitly discarded: `release` returns a refcount, and the
+            # `{.async.}` transform types a proc body by its last expression,
+            # so leaving it bare makes the body a uint32.
+            lines.add "  discard release(coll)"
+          elif async.res.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
+                                  skI8, skU8, skF4, skF8, skEnum, skStruct}:
+            lines.add &"  result = await awaitValue[{retType}](op, {opIid}, " &
                       &"{handlerIid}, \"{what}\")"
           else:
             lines.add &"  result = adopt[{retType}](await awaitObject(" &

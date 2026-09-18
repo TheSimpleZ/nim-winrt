@@ -96,6 +96,12 @@ const IID_IReference_1_U8* = GUID(
 const IID_IReference_1_U4* = GUID(
     data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
     data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
+const IID_AsyncOperationCompletedHandler_1_U8* = GUID(
+    data1: 0xEE8AEB02'u32, data2: 0xFB00'u16, data3: 0x51FA'u16,
+    data4: [0x8F'u8, 0x57, 0x32, 0x58, 0x3E, 0xA2, 0x41, 0xF9])
+const IID_IAsyncOperationWithProgress_2_U8_U8* = GUID(
+    data1: 0x8F1DB6E3'u32, data2: 0x6556'u16, data3: 0x5516'u16,
+    data4: [0x82'u8, 0x5C, 0x10, 0x21, 0xEE, 0x27, 0xCD, 0x0C])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
@@ -4190,12 +4196,26 @@ proc headers*(self: HttpBufferContent): HttpContentHeaderCollection  =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpBufferContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpBufferContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpBufferContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpBufferContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpBufferContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpBufferContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpBufferContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpBufferContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpBufferContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.WriteToStreamAsync")
 
 proc close*(self: HttpBufferContent)  =
   ## Windows.Web.Http.HttpBufferContent.Close
@@ -4526,12 +4546,26 @@ proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection  =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpFormUrlEncodedContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpFormUrlEncodedContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpFormUrlEncodedContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpFormUrlEncodedContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpFormUrlEncodedContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpFormUrlEncodedContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.WriteToStreamAsync")
 
 proc close*(self: HttpFormUrlEncodedContent)  =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.Close
@@ -4774,12 +4808,26 @@ proc headers*(self: HttpMultipartContent): HttpContentHeaderCollection  =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpMultipartContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpMultipartContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpMultipartContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpMultipartContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpMultipartContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpMultipartContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartContent)  =
   ## Windows.Web.Http.HttpMultipartContent.Close
@@ -4842,12 +4890,26 @@ proc headers*(self: HttpMultipartFormDataContent): HttpContentHeaderCollection  
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartFormDataContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpMultipartFormDataContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpMultipartFormDataContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartFormDataContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpMultipartFormDataContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpMultipartFormDataContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpMultipartFormDataContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpMultipartFormDataContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartFormDataContent)  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Close
@@ -5126,12 +5188,26 @@ proc headers*(self: HttpStreamContent): HttpContentHeaderCollection  =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStreamContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpStreamContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpStreamContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStreamContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpStreamContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStreamContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpStreamContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpStreamContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpStreamContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.WriteToStreamAsync")
 
 proc close*(self: HttpStreamContent)  =
   ## Windows.Web.Http.HttpStreamContent.Close
@@ -5159,12 +5235,26 @@ proc headers*(self: HttpStringContent): HttpContentHeaderCollection  =
     vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStringContent.get_Headers")
     result = adopt[HttpContentHeaderCollection](tmp)
 
+proc bufferAllAsync*(self: HttpStringContent): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpStringContent.BufferAllAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStringContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.BufferAllAsync")
+
 proc readAsStringAsync*(self: HttpStringContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStringContent.ReadAsStringAsync")
   result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpStringContent.ReadAsStringAsync")
+
+proc writeToStreamAsync*(self: HttpStringContent, a1: pointer): Future[uint64] {.async.} =
+  ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, a1, op.addr).check("HttpStringContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.WriteToStreamAsync")
 
 proc close*(self: HttpStringContent)  =
   ## Windows.Web.Http.HttpStringContent.Close

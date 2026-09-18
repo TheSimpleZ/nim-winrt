@@ -39,6 +39,18 @@ const IID_EventHandler_1_FlightStick* = GUID(
 const IID_IVectorView_1_FlightStick* = GUID(
     data1: 0x8B9D067E'u32, data2: 0xB6F5'u16, data3: 0x592F'u16,
     data4: [0xA9'u8, 0x0A, 0xD7, 0x2C, 0x3D, 0x98, 0xD4, 0xDA])
+const IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult* = GUID(
+    data1: 0xF8220A41'u32, data2: 0xF738'u16, data3: 0x51E8'u16,
+    data4: [0x89'u8, 0xBA, 0x76, 0xBB, 0xD6, 0x61, 0x58, 0xCB])
+const IID_IAsyncOperation_1_ForceFeedbackLoadEffectResult* = GUID(
+    data1: 0x21F834FC'u32, data2: 0xE845'u16, data3: 0x5AB9'u16,
+    data4: [0xBF'u8, 0x85, 0x95, 0x34, 0xE2, 0x39, 0x77, 0x98])
+const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
+    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
+    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
+const IID_IAsyncOperation_1_Bool* = GUID(
+    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
+    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_EventHandler_1_Gamepad* = GUID(
     data1: 0x8A7639EE'u32, data2: 0x624A'u16, data3: 0x501A'u16,
     data4: [0xBB'u8, 0x53, 0x56, 0x2D, 0x1E, 0xC1, 0x1B, 0x52])
@@ -75,6 +87,15 @@ const IID_AsyncOperationCompletedHandler_1_GameListEntry* = GUID(
 const IID_IAsyncOperation_1_GameListEntry* = GUID(
     data1: 0x37BCB2E2'u32, data2: 0x9C6F'u16, data3: 0x5658'u16,
     data4: [0xA4'u8, 0x3B, 0xED, 0x28, 0xFE, 0x0C, 0x84, 0x58])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
+    data1: 0xEADAC44B'u32, data2: 0x7FDD'u16, data3: 0x5589'u16,
+    data4: [0xB0'u8, 0x93, 0x1B, 0xB7, 0x3C, 0xC6, 0x4F, 0x02])
+const IID_IAsyncOperation_1_IVectorView_1* = GUID(
+    data1: 0x721A94FB'u32, data2: 0xA733'u16, data3: 0x5E19'u16,
+    data4: [0x8A'u8, 0xBF, 0x03, 0x24, 0x9C, 0x29, 0x87, 0x0E])
+const IID_IVectorView_1_GameListEntry* = GUID(
+    data1: 0x0EEA1AD9'u32, data2: 0x03E2'u16, data3: 0x5BA9'u16,
+    data4: [0xAE'u8, 0x02, 0xDA, 0xCA, 0x43, 0x2F, 0x36, 0x2A])
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
@@ -96,6 +117,12 @@ const IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult* = GUID(
 const IID_IAsyncOperation_1_GameSaveBlobInfoGetResult* = GUID(
     data1: 0xD7B7F3B4'u32, data2: 0x6028'u16, data3: 0x522F'u16,
     data4: [0x84'u8, 0x9D, 0xA6, 0x94, 0x95, 0xE4, 0xDC, 0xD0])
+const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
+    data1: 0x9343B6E7'u32, data2: 0xE3D2'u16, data3: 0x5E4A'u16,
+    data4: [0xAB'u8, 0x2D, 0x2B, 0xCE, 0x49, 0x19, 0xA6, 0xA4])
+const IID_IAsyncOperation_1_U4* = GUID(
+    data1: 0xEF60385F'u32, data2: 0xBE78'u16, data3: 0x584B'u16,
+    data4: [0xAA'u8, 0xEF, 0x78, 0x29, 0xAD, 0xA2, 0xB0, 0xDE])
 const IID_IVectorView_1_GameSaveContainerInfo* = GUID(
     data1: 0x9C490594'u32, data2: 0x0846'u16, data3: 0x50F5'u16,
     data4: [0xB2'u8, 0xEF, 0xC6, 0xF0, 0x3E, 0xE6, 0x86, 0x8A])
@@ -111,6 +138,12 @@ const IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult* = GUID(
 const IID_IAsyncOperation_1_GameSaveOperationResult* = GUID(
     data1: 0x1C27FB97'u32, data2: 0x1E1A'u16, data3: 0x516F'u16,
     data4: [0xAB'u8, 0xB2, 0x12, 0xC1, 0x8E, 0x18, 0x21, 0x8D])
+const IID_AsyncOperationCompletedHandler_1_I8* = GUID(
+    data1: 0xD3EF5872'u32, data2: 0x7D4E'u16, data3: 0x59BB'u16,
+    data4: [0x95'u8, 0xED, 0x79, 0xFE, 0x0F, 0x0D, 0xBE, 0x89])
+const IID_IAsyncOperation_1_I8* = GUID(
+    data1: 0xCC468085'u32, data2: 0x4BEF'u16, data3: 0x5584'u16,
+    data4: [0x90'u8, 0x7C, 0x92, 0x23, 0xD2, 0x67, 0x90, 0x19])
 
 type
   ArcadeStick* {.inheritable, pure.} = object
@@ -1231,6 +1264,14 @@ proc supportedAxes*(self: ForceFeedbackMotor): ForceFeedbackEffectAxes  =
     vcall(it, Slot_IForceFeedbackMotor_get_SupportedAxes, Fn_IForceFeedbackMotor_get_SupportedAxes)(it, tmp.addr).check("ForceFeedbackMotor.get_SupportedAxes")
     result = tmp
 
+proc loadEffectAsync*(self: ForceFeedbackMotor, a1: RampForceEffect): Future[ForceFeedbackLoadEffectResult] {.async.} =
+  ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.LoadEffectAsync
+  var op: pointer
+  withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
+    withIface(a1.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", p0):
+      vcall(it, Slot_IForceFeedbackMotor_LoadEffectAsync, Fn_IForceFeedbackMotor_LoadEffectAsync)(it, p0, op.addr).check("ForceFeedbackMotor.LoadEffectAsync")
+  result = await awaitValue[ForceFeedbackLoadEffectResult](op, IID_IAsyncOperation_1_ForceFeedbackLoadEffectResult, IID_AsyncOperationCompletedHandler_1_ForceFeedbackLoadEffectResult, "ForceFeedbackMotor.LoadEffectAsync")
+
 proc pauseAllEffects*(self: ForceFeedbackMotor)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.PauseAllEffects
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
@@ -1245,6 +1286,35 @@ proc stopAllEffects*(self: ForceFeedbackMotor)  =
   ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.StopAllEffects
   withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
     vcall(it, Slot_IForceFeedbackMotor_StopAllEffects, Fn_IForceFeedbackMotor_StopAllEffects)(it).check("ForceFeedbackMotor.StopAllEffects")
+
+proc tryDisableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+  ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryDisableAsync
+  var op: pointer
+  withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
+    vcall(it, Slot_IForceFeedbackMotor_TryDisableAsync, Fn_IForceFeedbackMotor_TryDisableAsync)(it, op.addr).check("ForceFeedbackMotor.TryDisableAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ForceFeedbackMotor.TryDisableAsync")
+
+proc tryEnableAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+  ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryEnableAsync
+  var op: pointer
+  withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
+    vcall(it, Slot_IForceFeedbackMotor_TryEnableAsync, Fn_IForceFeedbackMotor_TryEnableAsync)(it, op.addr).check("ForceFeedbackMotor.TryEnableAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ForceFeedbackMotor.TryEnableAsync")
+
+proc tryResetAsync*(self: ForceFeedbackMotor): Future[bool] {.async.} =
+  ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryResetAsync
+  var op: pointer
+  withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
+    vcall(it, Slot_IForceFeedbackMotor_TryResetAsync, Fn_IForceFeedbackMotor_TryResetAsync)(it, op.addr).check("ForceFeedbackMotor.TryResetAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ForceFeedbackMotor.TryResetAsync")
+
+proc tryUnloadEffectAsync*(self: ForceFeedbackMotor, a1: RampForceEffect): Future[bool] {.async.} =
+  ## Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor.TryUnloadEffectAsync
+  var op: pointer
+  withIface(self.p, IID_IForceFeedbackMotor, "IForceFeedbackMotor", it):
+    withIface(a1.p, IID_IForceFeedbackEffect, "IForceFeedbackEffect", p0):
+      vcall(it, Slot_IForceFeedbackMotor_TryUnloadEffectAsync, Fn_IForceFeedbackMotor_TryUnloadEffectAsync)(it, p0, op.addr).check("ForceFeedbackMotor.TryUnloadEffectAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ForceFeedbackMotor.TryUnloadEffectAsync")
 
 proc gain*(self: PeriodicForceEffect): float64  =
   ## Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.get_Gain
@@ -2077,6 +2147,35 @@ proc mergeEntriesAsync*(_: typedesc[GameList], a1: GameListEntry, a2: GameListEn
         vcall(it, Slot_IGameListStatics2_MergeEntriesAsync, Fn_IGameListStatics2_MergeEntriesAsync)(it, p0, p1, op.addr).check("GameList.MergeEntriesAsync")
   result = adopt[GameListEntry](await awaitObject(op, IID_IAsyncOperation_1_GameListEntry, IID_AsyncOperationCompletedHandler_1_GameListEntry, "GameList.MergeEntriesAsync"))
 
+proc unmergeEntryAsync*(_: typedesc[GameList], a1: GameListEntry): Future[seq[GameListEntry]] {.async.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.UnmergeEntryAsync
+  var op: pointer
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics2, it):
+    withIface(a1.p, IID_IGameListEntry, "IGameListEntry", p0):
+      vcall(it, Slot_IGameListStatics2_UnmergeEntryAsync, Fn_IGameListStatics2_UnmergeEntryAsync)(it, p0, op.addr).check("GameList.UnmergeEntryAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "GameList.UnmergeEntryAsync")
+  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
+  discard release(coll)
+
+proc findAllAsync*(_: typedesc[GameList]): Future[seq[GameListEntry]] {.async.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.FindAllAsync
+  var op: pointer
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
+    vcall(it, Slot_IGameListStatics_FindAllAsync, Fn_IGameListStatics_FindAllAsync)(it, op.addr).check("GameList.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "GameList.FindAllAsync")
+  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
+  discard release(coll)
+
+proc findAllAsync*(_: typedesc[GameList], a1: string): Future[seq[GameListEntry]] {.async.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.FindAllAsync
+  var op: pointer
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
+    withHString(a1, h0):
+      vcall(it, Slot_IGameListStatics_FindAllAsync2, Fn_IGameListStatics_FindAllAsync2)(it, h0, op.addr).check("GameList.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "GameList.FindAllAsync")
+  result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
+  discard release(coll)
+
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameAdded, Fn_IGameListStatics_remove_GameAdded)(it, token).check("GameList.remove_GameAdded")
@@ -2088,6 +2187,13 @@ proc removeGameRemoved*(_: typedesc[GameList], token: EventRegistrationToken) =
 proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameUpdated, Fn_IGameListStatics_remove_GameUpdated)(it, token).check("GameList.remove_GameUpdated")
+
+proc launchAsync*(self: GameListEntry): Future[bool] {.async.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.LaunchAsync
+  var op: pointer
+  withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
+    vcall(it, Slot_IGameListEntry_LaunchAsync, Fn_IGameListEntry_LaunchAsync)(it, op.addr).check("GameListEntry.LaunchAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "GameListEntry.LaunchAsync")
 
 proc category*(self: GameListEntry): GameListCategory  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Category
@@ -2474,6 +2580,13 @@ proc getBlobInfoAsync*(self: GameSaveBlobInfoQuery, a1: uint32, a2: uint32): Fut
     vcall(it, Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync2, Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync2)(it, a1, a2, op.addr).check("GameSaveBlobInfoQuery.GetBlobInfoAsync")
   result = adopt[GameSaveBlobInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveBlobInfoGetResult, "GameSaveBlobInfoQuery.GetBlobInfoAsync"))
 
+proc getItemCountAsync*(self: GameSaveBlobInfoQuery): Future[uint32] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfoQuery.GetItemCountAsync
+  var op: pointer
+  withIface(self.p, IID_IGameSaveBlobInfoQuery, "IGameSaveBlobInfoQuery", it):
+    vcall(it, Slot_IGameSaveBlobInfoQuery_GetItemCountAsync, Fn_IGameSaveBlobInfoQuery_GetItemCountAsync)(it, op.addr).check("GameSaveBlobInfoQuery.GetItemCountAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "GameSaveBlobInfoQuery.GetItemCountAsync")
+
 proc name*(self: GameSaveContainer): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.get_Name
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
@@ -2560,6 +2673,13 @@ proc getContainerInfoAsync*(self: GameSaveContainerInfoQuery, a1: uint32, a2: ui
     vcall(it, Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync2, Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync2)(it, a1, a2, op.addr).check("GameSaveContainerInfoQuery.GetContainerInfoAsync")
   result = adopt[GameSaveContainerInfoGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveContainerInfoGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveContainerInfoGetResult, "GameSaveContainerInfoQuery.GetContainerInfoAsync"))
 
+proc getItemCountAsync*(self: GameSaveContainerInfoQuery): Future[uint32] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveContainerInfoQuery.GetItemCountAsync
+  var op: pointer
+  withIface(self.p, IID_IGameSaveContainerInfoQuery, "IGameSaveContainerInfoQuery", it):
+    vcall(it, Slot_IGameSaveContainerInfoQuery_GetItemCountAsync, Fn_IGameSaveContainerInfoQuery_GetItemCountAsync)(it, op.addr).check("GameSaveContainerInfoQuery.GetItemCountAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "GameSaveContainerInfoQuery.GetItemCountAsync")
+
 proc status*(self: GameSaveOperationResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveOperationResult.get_Status
   withIface(self.p, IID_IGameSaveOperationResult, "IGameSaveOperationResult", it):
@@ -2597,6 +2717,13 @@ proc createContainerInfoQuery*(self: GameSaveProvider, a1: string): GameSaveCont
       var tmp: pointer
       vcall(it, Slot_IGameSaveProvider_CreateContainerInfoQuery2, Fn_IGameSaveProvider_CreateContainerInfoQuery2)(it, h0, tmp.addr).check("GameSaveProvider.CreateContainerInfoQuery")
       result = adopt[GameSaveContainerInfoQuery](tmp)
+
+proc getRemainingBytesInQuotaAsync*(self: GameSaveProvider): Future[int64] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetRemainingBytesInQuotaAsync
+  var op: pointer
+  withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
+    vcall(it, Slot_IGameSaveProvider_GetRemainingBytesInQuotaAsync, Fn_IGameSaveProvider_GetRemainingBytesInQuotaAsync)(it, op.addr).check("GameSaveProvider.GetRemainingBytesInQuotaAsync")
+  result = await awaitValue[int64](op, IID_IAsyncOperation_1_I8, IID_AsyncOperationCompletedHandler_1_I8, "GameSaveProvider.GetRemainingBytesInQuotaAsync")
 
 proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string]  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_ContainersChangedSinceLastSync

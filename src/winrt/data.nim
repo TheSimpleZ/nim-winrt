@@ -27,12 +27,30 @@ const IID_IAsyncOperation_1_PdfDocument* = GUID(
 const IID_IVectorView_1_SelectableWordSegment* = GUID(
     data1: 0x33F90A72'u32, data2: 0x86F4'u16, data3: 0x5027'u16,
     data4: [0xB5'u8, 0x0A, 0x69, 0x39, 0xA1, 0xF9, 0xD5, 0x60])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
+    data1: 0x7C7899BE'u32, data2: 0x5F2E'u16, data3: 0x5BF3'u16,
+    data4: [0xAD'u8, 0xE5, 0xAD, 0x98, 0xB7, 0x72, 0xC7, 0xCD])
+const IID_IAsyncOperation_1_IVectorView_1* = GUID(
+    data1: 0x2F92B529'u32, data2: 0x119B'u16, data3: 0x575A'u16,
+    data4: [0xA4'u8, 0x19, 0x39, 0x04, 0xB4, 0xE4, 0x1A, 0xF2])
+const IID_IVectorView_1_String* = GUID(
+    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
+    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
 const IID_IAsyncOperation_1_String* = GUID(
     data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
     data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
+    data1: 0x83E14307'u32, data2: 0x0BE1'u16, data3: 0x5560'u16,
+    data4: [0x8B'u8, 0xFC, 0x29, 0x10, 0x95, 0xCF, 0x6D, 0x30])
+const IID_IAsyncOperation_1_IVectorView_12* = GUID(
+    data1: 0x6BC3019D'u32, data2: 0xDD10'u16, data3: 0x5510'u16,
+    data4: [0xB1'u8, 0x64, 0x80, 0x8C, 0x23, 0x2B, 0x7D, 0x64])
+const IID_IVectorView_1_TextPhoneme* = GUID(
+    data1: 0xCFC6E66D'u32, data2: 0x5E2A'u16, data3: 0x582D'u16,
+    data4: [0x8B'u8, 0x6D, 0xFB, 0xF7, 0x1C, 0xF3, 0xD0, 0xEB])
 const IID_IVectorView_1_AlternateWordForm* = GUID(
     data1: 0x6B742FF2'u32, data2: 0x746A'u16, data3: 0x5545'u16,
     data4: [0xA6'u8, 0xED, 0x3B, 0xBA, 0x45, 0x3C, 0xF5, 0xD9])
@@ -1305,6 +1323,26 @@ proc languageAvailableButNotInstalled*(self: TextConversionGenerator): bool  =
     vcall(it, Slot_ITextConversionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextConversionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextConversionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
 
+proc getCandidatesAsync*(self: TextConversionGenerator, a1: string): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextConversionGenerator, "ITextConversionGenerator", it):
+    withHString(a1, h0):
+      vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync, Fn_ITextConversionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextConversionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
+proc getCandidatesAsync*(self: TextConversionGenerator, a1: string, a2: uint32): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextConversionGenerator.GetCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextConversionGenerator, "ITextConversionGenerator", it):
+    withHString(a1, h0):
+      vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync2, Fn_ITextConversionGenerator_GetCandidatesAsync2)(it, h0, a2, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextConversionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
 proc create*(_: typedesc[TextConversionGenerator], a1: string): TextConversionGenerator  =
   ## Windows.Data.Text.TextConversionGenerator.Create
   withStatics("Windows.Data.Text.TextConversionGenerator", IID_ITextConversionGeneratorFactory, it):
@@ -1341,6 +1379,26 @@ proc languageAvailableButNotInstalled*(self: TextPredictionGenerator): bool  =
     vcall(it, Slot_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled, Fn_ITextPredictionGenerator_get_LanguageAvailableButNotInstalled)(it, tmp.addr).check("TextPredictionGenerator.get_LanguageAvailableButNotInstalled")
     result = tmp
 
+proc getCandidatesAsync*(self: TextPredictionGenerator, a1: string): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextPredictionGenerator, "ITextPredictionGenerator", it):
+    withHString(a1, h0):
+      vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync, Fn_ITextPredictionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
+proc getCandidatesAsync*(self: TextPredictionGenerator, a1: string, a2: uint32): Future[seq[string]] {.async.} =
+  ## Windows.Data.Text.TextPredictionGenerator.GetCandidatesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextPredictionGenerator, "ITextPredictionGenerator", it):
+    withHString(a1, h0):
+      vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync2, Fn_ITextPredictionGenerator_GetCandidatesAsync2)(it, h0, a2, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetCandidatesAsync")
+  result = toSeqString(coll, IID_IVectorView_1_String)
+  discard release(coll)
+
 proc create*(_: typedesc[TextPredictionGenerator], a1: string): TextPredictionGenerator  =
   ## Windows.Data.Text.TextPredictionGenerator.Create
   withStatics("Windows.Data.Text.TextPredictionGenerator", IID_ITextPredictionGeneratorFactory, it):
@@ -1370,6 +1428,16 @@ proc convertBackAsync*(self: TextReverseConversionGenerator, a1: string): Future
     withHString(a1, h0):
       vcall(it, Slot_ITextReverseConversionGenerator_ConvertBackAsync, Fn_ITextReverseConversionGenerator_ConvertBackAsync)(it, h0, op.addr).check("TextReverseConversionGenerator.ConvertBackAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "TextReverseConversionGenerator.ConvertBackAsync")
+
+proc getPhonemesAsync*(self: TextReverseConversionGenerator, a1: string): Future[seq[TextPhoneme]] {.async.} =
+  ## Windows.Data.Text.TextReverseConversionGenerator.GetPhonemesAsync
+  var op: pointer
+  withIface(self.p, IID_ITextReverseConversionGenerator2, "ITextReverseConversionGenerator2", it):
+    withHString(a1, h0):
+      vcall(it, Slot_ITextReverseConversionGenerator2_GetPhonemesAsync, Fn_ITextReverseConversionGenerator2_GetPhonemesAsync)(it, h0, op.addr).check("TextReverseConversionGenerator.GetPhonemesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "TextReverseConversionGenerator.GetPhonemesAsync")
+  result = toSeq[TextPhoneme](coll, IID_IVectorView_1_TextPhoneme)
+  discard release(coll)
 
 proc create*(_: typedesc[TextReverseConversionGenerator], a1: string): TextReverseConversionGenerator  =
   ## Windows.Data.Text.TextReverseConversionGenerator.Create

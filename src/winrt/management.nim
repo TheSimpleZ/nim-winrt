@@ -45,6 +45,21 @@ const IID_IAsyncOperation_1_PackageVolume* = GUID(
 const IID_IIterable_1_PackageVolume* = GUID(
     data1: 0xA6199162'u32, data2: 0xB163'u16, data3: 0x56A1'u16,
     data4: [0x99'u8, 0x80, 0xDB, 0x0C, 0x3F, 0x4E, 0x92, 0x84])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
+    data1: 0x721241C2'u32, data2: 0x0B83'u16, data3: 0x594A'u16,
+    data4: [0x9B'u8, 0x61, 0xCE, 0x7F, 0x14, 0x92, 0xC4, 0x15])
+const IID_IAsyncOperation_1_IVectorView_1* = GUID(
+    data1: 0x1E357E07'u32, data2: 0xD337'u16, data3: 0x5C07'u16,
+    data4: [0xAE'u8, 0x06, 0x90, 0x0C, 0x1B, 0x9A, 0x77, 0xC1])
+const IID_IVectorView_1_PackageVolume* = GUID(
+    data1: 0x50B5715A'u32, data2: 0xF077'u16, data3: 0x53D1'u16,
+    data4: [0x89'u8, 0x6D, 0xB1, 0x32, 0xC4, 0x87, 0x01, 0xF4])
+const IID_AsyncOperationCompletedHandler_1_U8* = GUID(
+    data1: 0xEE8AEB02'u32, data2: 0xFB00'u16, data3: 0x51FA'u16,
+    data4: [0x8F'u8, 0x57, 0x32, 0x58, 0x3E, 0xA2, 0x41, 0xF9])
+const IID_IAsyncOperation_1_U8* = GUID(
+    data1: 0x2A70D630'u32, data2: 0x0767'u16, data3: 0x5F0A'u16,
+    data4: [0xA1'u8, 0xC2, 0xDE, 0xB0, 0x81, 0x26, 0xE2, 0x6E])
 const IID_IVector_1_SharedPackageContainer* = GUID(
     data1: 0x42135ABF'u32, data2: 0x1929'u16, data3: 0x5D3B'u16,
     data4: [0xA9'u8, 0x72, 0xE8, 0x22, 0xF5, 0x16, 0xAE, 0xBC])
@@ -78,6 +93,12 @@ const IID_AsyncOperationCompletedHandler_1_DevicePreparationExecutionContext* = 
 const IID_IAsyncOperation_1_DevicePreparationExecutionContext* = GUID(
     data1: 0x7275B4FE'u32, data2: 0xBA33'u16, data3: 0x55BD'u16,
     data4: [0x83'u8, 0x0F, 0x47, 0x0F, 0x0F, 0x6D, 0x9A, 0x78])
+const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
+    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
+    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
+const IID_IAsyncOperation_1_Bool* = GUID(
+    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
+    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_IReference_1_Guid* = GUID(
     data1: 0x7D50F649'u32, data2: 0x632C'u16, data3: 0x51F9'u16,
     data4: [0x84'u8, 0x9A, 0xEE, 0x49, 0x42, 0x89, 0x33, 0xEA])
@@ -123,6 +144,12 @@ const IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateScanCompletedEve
 const IID_IVectorView_1_WindowsUpdateItem* = GUID(
     data1: 0x8FAA5CDF'u32, data2: 0x6B97'u16, data3: 0x5D4F'u16,
     data4: [0x80'u8, 0x4D, 0x44, 0x3B, 0x4F, 0xBB, 0xDC, 0x53])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
+    data1: 0x958AFBC1'u32, data2: 0x54DB'u16, data3: 0x5352'u16,
+    data4: [0xA8'u8, 0x99, 0xD4, 0xFC, 0xA0, 0x44, 0xA6, 0xD4])
+const IID_IAsyncOperation_1_IVectorView_12* = GUID(
+    data1: 0x6FE7014F'u32, data2: 0x431A'u16, data3: 0x5203'u16,
+    data4: [0x95'u8, 0x74, 0x52, 0x46, 0xFC, 0x49, 0xD6, 0xBB])
 
 type
   ApplicationDataManager* {.inheritable, pure.} = object
@@ -1952,6 +1979,15 @@ proc stageUserDataAsync*(self: PackageManager, a1: string, a2: DeploymentOptions
       vcall(it, Slot_IPackageManager3_StageUserDataAsync, Fn_IPackageManager3_StageUserDataAsync)(it, h0, a2, op.addr).check("PackageManager.StageUserDataAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.StageUserDataAsync"))
 
+proc getPackageVolumesAsync*(self: PackageManager): Future[seq[PackageVolume]] {.async.} =
+  ## Windows.Management.Deployment.PackageManager.GetPackageVolumesAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManager4, "IPackageManager4", it):
+    vcall(it, Slot_IPackageManager4_GetPackageVolumesAsync, Fn_IPackageManager4_GetPackageVolumesAsync)(it, op.addr).check("PackageManager.GetPackageVolumesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "PackageManager.GetPackageVolumesAsync")
+  result = toSeq[PackageVolume](coll, IID_IVectorView_1_PackageVolume)
+  discard release(coll)
+
 proc debugSettings*(self: PackageManager): PackageManagerDebugSettings  =
   ## Windows.Management.Deployment.PackageManager.get_DebugSettings
   withIface(self.p, IID_IPackageManager5, "IPackageManager5", it):
@@ -2155,6 +2191,13 @@ proc isAppxInstallSupported*(self: PackageVolume): bool  =
     var tmp: bool
     vcall(it, Slot_IPackageVolume2_get_IsAppxInstallSupported, Fn_IPackageVolume2_get_IsAppxInstallSupported)(it, tmp.addr).check("PackageVolume.get_IsAppxInstallSupported")
     result = tmp
+
+proc getAvailableSpaceAsync*(self: PackageVolume): Future[uint64] {.async.} =
+  ## Windows.Management.Deployment.PackageVolume.GetAvailableSpaceAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageVolume2, "IPackageVolume2", it):
+    vcall(it, Slot_IPackageVolume2_GetAvailableSpaceAsync, Fn_IPackageVolume2_GetAvailableSpaceAsync)(it, op.addr).check("PackageVolume.GetAvailableSpaceAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperation_1_U8, IID_AsyncOperationCompletedHandler_1_U8, "PackageVolume.GetAvailableSpaceAsync")
 
 proc findInstalledApp*(_: typedesc[ClassicAppManager], a1: string): InstalledClassicAppInfo  =
   ## Windows.Management.Deployment.Preview.ClassicAppManager.FindInstalledApp
@@ -3330,6 +3373,13 @@ proc getCurrentState*(self: PreviewBuildsManager): PreviewBuildsState  =
     var tmp: pointer
     vcall(it, Slot_IPreviewBuildsManager_GetCurrentState, Fn_IPreviewBuildsManager_GetCurrentState)(it, tmp.addr).check("PreviewBuildsManager.GetCurrentState")
     result = adopt[PreviewBuildsState](tmp)
+
+proc syncAsync*(self: PreviewBuildsManager): Future[bool] {.async.} =
+  ## Windows.Management.Update.PreviewBuildsManager.SyncAsync
+  var op: pointer
+  withIface(self.p, IID_IPreviewBuildsManager, "IPreviewBuildsManager", it):
+    vcall(it, Slot_IPreviewBuildsManager_SyncAsync, Fn_IPreviewBuildsManager_SyncAsync)(it, op.addr).check("PreviewBuildsManager.SyncAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PreviewBuildsManager.SyncAsync")
 
 proc getDefault*(_: typedesc[PreviewBuildsManager]): PreviewBuildsManager  =
   ## Windows.Management.Update.PreviewBuildsManager.GetDefault
@@ -4774,6 +4824,15 @@ proc getMostRecentCompletedUpdates*(self: WindowsUpdateManager, a1: int32): seq[
     vcall(it, Slot_IWindowsUpdateManager_GetMostRecentCompletedUpdates, Fn_IWindowsUpdateManager_GetMostRecentCompletedUpdates)(it, a1, tmp.addr).check("WindowsUpdateManager.GetMostRecentCompletedUpdates")
     result = toSeq[WindowsUpdateItem](tmp, IID_IVectorView_1_WindowsUpdateItem)
     release(tmp)
+
+proc getMostRecentCompletedUpdatesAsync*(self: WindowsUpdateManager, a1: int32): Future[seq[WindowsUpdateItem]] {.async.} =
+  ## Windows.Management.Update.WindowsUpdateManager.GetMostRecentCompletedUpdatesAsync
+  var op: pointer
+  withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
+    vcall(it, Slot_IWindowsUpdateManager_GetMostRecentCompletedUpdatesAsync, Fn_IWindowsUpdateManager_GetMostRecentCompletedUpdatesAsync)(it, a1, op.addr).check("WindowsUpdateManager.GetMostRecentCompletedUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "WindowsUpdateManager.GetMostRecentCompletedUpdatesAsync")
+  result = toSeq[WindowsUpdateItem](coll, IID_IVectorView_1_WindowsUpdateItem)
+  discard release(coll)
 
 proc startScan*(self: WindowsUpdateManager, a1: bool)  =
   ## Windows.Management.Update.WindowsUpdateManager.StartScan

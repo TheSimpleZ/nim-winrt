@@ -33,6 +33,12 @@ const IID_IAsyncOperation_1_GraphicsCaptureItem* = GUID(
 const IID_TypedEventHandler_2_BrightnessOverride_Object* = GUID(
     data1: 0xA460214E'u32, data2: 0x6620'u16, data3: 0x521D'u16,
     data4: [0x9C'u8, 0xB9, 0xA0, 0xA0, 0xF7, 0x32, 0xCE, 0x90])
+const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
+    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
+    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
+const IID_IAsyncOperation_1_Bool* = GUID(
+    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
+    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_IVectorView_1_HdmiDisplayMode* = GUID(
     data1: 0x7D0E7C64'u32, data2: 0xDF0E'u16, data3: 0x539A'u16,
     data4: [0xAB'u8, 0x5F, 0x3C, 0x26, 0x00, 0x26, 0xC5, 0xCE])
@@ -207,6 +213,12 @@ const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowJobNotifica
 const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowVirtualPrinterUIEventArgs* = GUID(
     data1: 0x8174FE97'u32, data2: 0x12E1'u16, data3: 0x5D8A'u16,
     data4: [0xB0'u8, 0x2D, 0x78, 0x3D, 0xBD, 0x7E, 0x92, 0xA5])
+const IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus* = GUID(
+    data1: 0x2CF68098'u32, data2: 0xE07D'u16, data3: 0x5362'u16,
+    data4: [0xA2'u8, 0xAD, 0x35, 0x65, 0x51, 0x32, 0x7D, 0xF2])
+const IID_IAsyncOperation_1_PrintWorkflowUICompletionStatus* = GUID(
+    data1: 0xE4312E4B'u32, data2: 0xC35D'u16, data3: 0x5CCB'u16,
+    data4: [0xB2'u8, 0x90, 0x72, 0xD0, 0xC4, 0xA8, 0x08, 0xA6])
 const IID_TypedEventHandler_2_PrintWorkflowVirtualPrinterSession_PrintWorkflowVirtualPrinterDataAvailableEventArgs* = GUID(
     data1: 0xD307FC90'u32, data2: 0xBB1D'u16, data3: 0x54A1'u16,
     data4: [0x86'u8, 0x78, 0x96, 0x1D, 0x92, 0x33, 0x7B, 0xCF])
@@ -279,6 +291,9 @@ const IID_IVector_1_Printing3DMesh* = GUID(
 const IID_IVector_1_Printing3DComponent* = GUID(
     data1: 0x49E654C2'u32, data2: 0xF372'u16, data3: 0x582E'u16,
     data4: [0x97'u8, 0xCC, 0xCB, 0x6B, 0x0F, 0xA3, 0xBA, 0x62])
+const IID_IAsyncOperationWithProgress_2_Bool_F8* = GUID(
+    data1: 0xAF873C66'u32, data2: 0x2DF0'u16, data3: 0x5A95'u16,
+    data4: [0xAB'u8, 0x54, 0x25, 0x63, 0x4D, 0xA3, 0xFF, 0xA9])
 const IID_IVector_1_Printing3DMultiplePropertyMaterial* = GUID(
     data1: 0xE2196DA6'u32, data2: 0x6A29'u16, data3: 0x59A2'u16,
     data4: [0x9D'u8, 0xD6, 0x93, 0x06, 0x2F, 0x44, 0xBA, 0xAD])
@@ -3349,6 +3364,14 @@ proc getForCurrentView*(_: typedesc[BrightnessOverride]): BrightnessOverride  =
     vcall(it, Slot_IBrightnessOverrideStatics_GetForCurrentView, Fn_IBrightnessOverrideStatics_GetForCurrentView)(it, tmp.addr).check("BrightnessOverride.GetForCurrentView")
     result = adopt[BrightnessOverride](tmp)
 
+proc saveForSystemAsync*(_: typedesc[BrightnessOverride], a1: BrightnessOverride): Future[bool] {.async.} =
+  ## Windows.Graphics.Display.BrightnessOverride.SaveForSystemAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Display.BrightnessOverride", IID_IBrightnessOverrideStatics, it):
+    withIface(a1.p, IID_IBrightnessOverride, "IBrightnessOverride", p0):
+      vcall(it, Slot_IBrightnessOverrideStatics_SaveForSystemAsync, Fn_IBrightnessOverrideStatics_SaveForSystemAsync)(it, p0, op.addr).check("BrightnessOverride.SaveForSystemAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BrightnessOverride.SaveForSystemAsync")
+
 proc desiredLevel*(self: BrightnessOverrideSettings): float64  =
   ## Windows.Graphics.Display.BrightnessOverrideSettings.get_DesiredLevel
   withIface(self.p, IID_IBrightnessOverrideSettings, "IBrightnessOverrideSettings", it):
@@ -3419,6 +3442,30 @@ proc setDefaultDisplayModeAsync*(self: HdmiDisplayInformation) {.async.} =
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
     vcall(it, Slot_IHdmiDisplayInformation_SetDefaultDisplayModeAsync, Fn_IHdmiDisplayInformation_SetDefaultDisplayModeAsync)(it, op.addr).check("HdmiDisplayInformation.SetDefaultDisplayModeAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "HdmiDisplayInformation.SetDefaultDisplayModeAsync")
+
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode): Future[bool] {.async.} =
+  ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
+  var op: pointer
+  withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
+    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync)(it, p0, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode, a2: HdmiDisplayHdrOption): Future[bool] {.async.} =
+  ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
+  var op: pointer
+  withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
+    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2)(it, p0, a2, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+
+proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, a1: HdmiDisplayMode, a2: HdmiDisplayHdrOption, a3: HdmiDisplayHdr2086Metadata): Future[bool] {.async.} =
+  ## Windows.Graphics.Display.Core.HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync
+  var op: pointer
+  withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
+    withIface(a1.p, IID_IHdmiDisplayMode, "IHdmiDisplayMode", p0):
+      vcall(it, Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3, Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3)(it, p0, a2, a3, op.addr).check("HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
 
 proc onDisplayModesChanged*(self: HdmiDisplayInformation,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -7063,6 +7110,13 @@ proc getForCurrentView*(_: typedesc[PrintManager]): PrintManager  =
     vcall(it, Slot_IPrintManagerStatic_GetForCurrentView, Fn_IPrintManagerStatic_GetForCurrentView)(it, tmp.addr).check("PrintManager.GetForCurrentView")
     result = adopt[PrintManager](tmp)
 
+proc showPrintUIAsync*(_: typedesc[PrintManager]): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Printing.PrintManager", IID_IPrintManagerStatic, it):
+    vcall(it, Slot_IPrintManagerStatic_ShowPrintUIAsync, Fn_IPrintManagerStatic_ShowPrintUIAsync)(it, op.addr).check("PrintManager.ShowPrintUIAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PrintManager.ShowPrintUIAsync")
+
 proc newPrintPageInfo*(): PrintPageInfo =
   ## Activate a `Windows.Graphics.Printing.PrintPageInfo`.
   adopt[PrintPageInfo](activateAs("Windows.Graphics.Printing.PrintPageInfo", IID_IPrintPageInfo))
@@ -9522,6 +9576,13 @@ proc isUILaunchEnabled*(self: PrintWorkflowUILauncher): bool  =
     vcall(it, Slot_IPrintWorkflowUILauncher_IsUILaunchEnabled, Fn_IPrintWorkflowUILauncher_IsUILaunchEnabled)(it, tmp.addr).check("PrintWorkflowUILauncher.IsUILaunchEnabled")
     result = tmp
 
+proc launchAndCompleteUIAsync*(self: PrintWorkflowUILauncher): Future[PrintWorkflowUICompletionStatus] {.async.} =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowUILauncher.LaunchAndCompleteUIAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintWorkflowUILauncher, "IPrintWorkflowUILauncher", it):
+    vcall(it, Slot_IPrintWorkflowUILauncher_LaunchAndCompleteUIAsync, Fn_IPrintWorkflowUILauncher_LaunchAndCompleteUIAsync)(it, op.addr).check("PrintWorkflowUILauncher.LaunchAndCompleteUIAsync")
+  result = await awaitValue[PrintWorkflowUICompletionStatus](op, IID_IAsyncOperation_1_PrintWorkflowUICompletionStatus, IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus, "PrintWorkflowUILauncher.LaunchAndCompleteUIAsync")
+
 proc configuration*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs): PrintWorkflowConfiguration  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.get_Configuration
   withIface(self.p, IID_IPrintWorkflowVirtualPrinterDataAvailableEventArgs, "IPrintWorkflowVirtualPrinterDataAvailableEventArgs", it):
@@ -9671,6 +9732,13 @@ proc getForCurrentView*(_: typedesc[Print3DManager]): Print3DManager  =
     var tmp: pointer
     vcall(it, Slot_IPrint3DManagerStatics_GetForCurrentView, Fn_IPrint3DManagerStatics_GetForCurrentView)(it, tmp.addr).check("Print3DManager.GetForCurrentView")
     result = adopt[Print3DManager](tmp)
+
+proc showPrintUIAsync*(_: typedesc[Print3DManager]): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Print3DManager.ShowPrintUIAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Printing3D.Print3DManager", IID_IPrint3DManagerStatics, it):
+    vcall(it, Slot_IPrint3DManagerStatics_ShowPrintUIAsync, Fn_IPrint3DManagerStatics_ShowPrintUIAsync)(it, op.addr).check("Print3DManager.ShowPrintUIAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Print3DManager.ShowPrintUIAsync")
 
 proc source*(self: Print3DTask): Printing3D3MFPackage  =
   ## Windows.Graphics.Printing3D.Print3DTask.get_Source
@@ -10449,6 +10517,50 @@ proc clone*(self: Printing3DModel): Printing3DModel  =
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_Clone, Fn_IPrinting3DModel_Clone)(it, tmp.addr).check("Printing3DModel.Clone")
     result = adopt[Printing3DModel](tmp)
+
+proc tryPartialRepairAsync*(self: Printing3DModel): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.TryPartialRepairAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    vcall(it, Slot_IPrinting3DModel2_TryPartialRepairAsync, Fn_IPrinting3DModel2_TryPartialRepairAsync)(it, op.addr).check("Printing3DModel.TryPartialRepairAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryPartialRepairAsync")
+
+proc tryPartialRepairAsync*(self: Printing3DModel, a1: TimeSpan): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.TryPartialRepairAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    vcall(it, Slot_IPrinting3DModel2_TryPartialRepairAsync2, Fn_IPrinting3DModel2_TryPartialRepairAsync2)(it, a1, op.addr).check("Printing3DModel.TryPartialRepairAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryPartialRepairAsync")
+
+proc tryReduceFacesAsync*(self: Printing3DModel): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync, Fn_IPrinting3DModel2_TryReduceFacesAsync)(it, op.addr).check("Printing3DModel.TryReduceFacesAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
+
+proc tryReduceFacesAsync*(self: Printing3DModel, a1: Printing3DFaceReductionOptions): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    withIface(a1.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
+      vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync2, Fn_IPrinting3DModel2_TryReduceFacesAsync2)(it, p0, op.addr).check("Printing3DModel.TryReduceFacesAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
+
+proc tryReduceFacesAsync*(self: Printing3DModel, a1: Printing3DFaceReductionOptions, a2: TimeSpan): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.TryReduceFacesAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    withIface(a1.p, IID_IPrinting3DFaceReductionOptions, "IPrinting3DFaceReductionOptions", p0):
+      vcall(it, Slot_IPrinting3DModel2_TryReduceFacesAsync3, Fn_IPrinting3DModel2_TryReduceFacesAsync3)(it, p0, a2, op.addr).check("Printing3DModel.TryReduceFacesAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.TryReduceFacesAsync")
+
+proc repairWithProgressAsync*(self: Printing3DModel): Future[bool] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3DModel.RepairWithProgressAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3DModel2, "IPrinting3DModel2", it):
+    vcall(it, Slot_IPrinting3DModel2_RepairWithProgressAsync, Fn_IPrinting3DModel2_RepairWithProgressAsync)(it, op.addr).check("Printing3DModel.RepairWithProgressAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_F8, IID_AsyncOperationCompletedHandler_1_Bool, "Printing3DModel.RepairWithProgressAsync")
 
 proc newPrinting3DModelTexture*(): Printing3DModelTexture =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DModelTexture`.
