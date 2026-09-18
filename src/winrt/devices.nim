@@ -24,6 +24,9 @@ const IID_AsyncOperationCompletedHandler_1_AdcController* = GUID(
 const IID_IAsyncOperation_1_AdcController* = GUID(
     data1: 0x69420262'u32, data2: 0x35C9'u16, data3: 0x583F'u16,
     data4: [0xA4'u8, 0x0E, 0xC2, 0x69, 0x45, 0x62, 0xC9, 0xE2])
+const IID_IReference_1_BluetoothLEAdvertisementFlags* = GUID(
+    data1: 0x91C0BA96'u32, data2: 0x9E69'u16, data3: 0x5B82'u16,
+    data4: [0xBF'u8, 0x1D, 0x83, 0xAB, 0x2A, 0x50, 0x9C, 0x53])
 const IID_IVector_1_BluetoothLEManufacturerData* = GUID(
     data1: 0x52D75B45'u32, data2: 0x1D24'u16, data3: 0x5EEB'u16,
     data4: [0xBA'u8, 0xBB, 0x65, 0xEF, 0xFA, 0xE4, 0x5E, 0x46])
@@ -42,6 +45,9 @@ const IID_IVector_1_BluetoothLEAdvertisementBytePattern* = GUID(
 const IID_TypedEventHandler_2_BluetoothLEAdvertisementPublisher_BluetoothLEAdvertisementPublisherStatusChangedEventArgs* = GUID(
     data1: 0xC2FFA4F1'u32, data2: 0x5893'u16, data3: 0x54A8'u16,
     data4: [0xBD'u8, 0x94, 0xAA, 0x11, 0x98, 0xB0, 0x5D, 0x07])
+const IID_IReference_1_I2* = GUID(
+    data1: 0x6EC9E41B'u32, data2: 0x6709'u16, data3: 0x5647'u16,
+    data4: [0x99'u8, 0x18, 0xA1, 0x27, 0x01, 0x10, 0xFC, 0x4E])
 const IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementReceivedEventArgs* = GUID(
     data1: 0x90EB4ECA'u32, data2: 0xD465'u16, data3: 0x5EA0'u16,
     data4: [0xA6'u8, 0x1C, 0x03, 0x3C, 0x8C, 0x5E, 0xCE, 0xF2])
@@ -102,6 +108,12 @@ const IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice* = GUID(
 const IID_IAsyncOperation_1_BluetoothLEDevice* = GUID(
     data1: 0x375F9D67'u32, data2: 0x74A2'u16, data3: 0x5F91'u16,
     data4: [0xA1'u8, 0x1D, 0x16, 0x90, 0x93, 0x71, 0x8D, 0x41])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
+const IID_IReference_1_U4* = GUID(
+    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
+    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
 const IID_IVectorView_1_GattDescriptor* = GUID(
     data1: 0x19605EA8'u32, data2: 0x73D6'u16, data3: 0x5760'u16,
     data4: [0x84'u8, 0x9B, 0xFE, 0x5F, 0x8A, 0x2B, 0xD0, 0x5C])
@@ -135,6 +147,9 @@ const IID_AsyncOperationCompletedHandler_1_GattWriteResult* = GUID(
 const IID_IAsyncOperation_1_GattWriteResult* = GUID(
     data1: 0xE83B4534'u32, data2: 0xBD14'u16, data3: 0x5A9B'u16,
     data4: [0xA5'u8, 0x3B, 0x17, 0xCC, 0x02, 0xA2, 0xA8, 0xA8])
+const IID_IReference_1_U1* = GUID(
+    data1: 0xE5198CC8'u32, data2: 0x2873'u16, data3: 0x55F5'u16,
+    data4: [0xB0'u8, 0xA1, 0x84, 0xFF, 0x9E, 0x4A, 0xAD, 0x62])
 const IID_IVectorView_1_GattCharacteristic* = GUID(
     data1: 0xCB3AB3AE'u32, data2: 0xB561'u16, data3: 0x504F'u16,
     data4: [0xA8'u8, 0x08, 0x59, 0x9D, 0xEC, 0xEB, 0x2D, 0xF4])
@@ -282,6 +297,12 @@ const IID_AsyncOperationCompletedHandler_1_DisplayMuxDevice* = GUID(
 const IID_IAsyncOperation_1_DisplayMuxDevice* = GUID(
     data1: 0x066C3B59'u32, data2: 0x099B'u16, data3: 0x5F37'u16,
     data4: [0x89'u8, 0xEB, 0x1D, 0x54, 0xFD, 0x93, 0xE9, 0xB3])
+const IID_IReference_1_DisplayPresentationRate* = GUID(
+    data1: 0x08882DDB'u32, data2: 0xA981'u16, data3: 0x5887'u16,
+    data4: [0xB7'u8, 0x51, 0x10, 0x69, 0x93, 0xD6, 0x62, 0x29])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_IVectorView_1_DisplayModeInfo* = GUID(
     data1: 0x339BE624'u32, data2: 0xF7DC'u16, data3: 0x562C'u16,
     data4: [0xB5'u8, 0xD2, 0x1B, 0x44, 0x05, 0xBD, 0xB7, 0xE2])
@@ -294,6 +315,9 @@ const IID_IVectorView_1_DisplayView* = GUID(
 const IID_IVectorView_1_DisplayPath* = GUID(
     data1: 0xEB9B91C4'u32, data2: 0x3D7A'u16, data3: 0x52F6'u16,
     data4: [0x88'u8, 0x2B, 0x4B, 0x85, 0x01, 0x56, 0xE1, 0x2B])
+const IID_IReference_1_Size* = GUID(
+    data1: 0x61723086'u32, data2: 0x8E53'u16, data3: 0x5276'u16,
+    data4: [0x9F'u8, 0x36, 0x2A, 0x4B, 0xB9, 0x3E, 0x2B, 0x75])
 const IID_AsyncOperationCompletedHandler_1_DisplayMonitor* = GUID(
     data1: 0x620F34A8'u32, data2: 0x5DBA'u16, data3: 0x59DF'u16,
     data4: [0xB7'u8, 0x19, 0x99, 0xB7, 0x79, 0x70, 0x34, 0x4C])
@@ -369,6 +393,12 @@ const IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate* = GUID(
 const IID_TypedEventHandler_2_PnpObjectWatcher_Object* = GUID(
     data1: 0x2EE2B4C9'u32, data2: 0xB696'u16, data3: 0x5ECC'u16,
     data4: [0xB2'u8, 0x9B, 0xF1, 0xE0, 0xEF, 0x5F, 0xE1, 0xF7])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_IVector_1_Geofence* = GUID(
     data1: 0x096DC936'u32, data2: 0x5F66'u16, data3: 0x5C6E'u16,
     data4: [0x95'u8, 0xCE, 0xEF, 0x55, 0x41, 0xFB, 0xF4, 0xC4])
@@ -390,6 +420,9 @@ const IID_TypedEventHandler_2_Geolocator_PositionChangedEventArgs* = GUID(
 const IID_TypedEventHandler_2_Geolocator_StatusChangedEventArgs* = GUID(
     data1: 0x97FCF582'u32, data2: 0xDE6B'u16, data3: 0x5CD3'u16,
     data4: [0x96'u8, 0x90, 0xE2, 0xEC, 0xBB, 0x66, 0xDA, 0x4D])
+const IID_IReference_1_BasicGeoposition* = GUID(
+    data1: 0xE4D5DDA6'u32, data2: 0xF57C'u16, data3: 0x57CC'u16,
+    data4: [0xB6'u8, 0x7F, 0x29, 0x39, 0xA9, 0x01, 0xDA, 0xBE])
 const IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs* = GUID(
     data1: 0x76ABC5EA'u32, data2: 0xEE4F'u16, data3: 0x5391'u16,
     data4: [0x9B'u8, 0x50, 0xDE, 0xCA, 0x5D, 0x43, 0x11, 0xC9])
@@ -513,6 +546,9 @@ const IID_TypedEventHandler_2_GazeInputSourcePreview_GazeExitedPreviewEventArgs*
 const IID_IVector_1_GazePointPreview* = GUID(
     data1: 0x446A643D'u32, data2: 0x387C'u16, data3: 0x5EF6'u16,
     data4: [0xA8'u8, 0xAC, 0xCC, 0xA9, 0xD8, 0xA7, 0x93, 0xB4])
+const IID_IReference_1_Point* = GUID(
+    data1: 0x84F14C22'u32, data2: 0xA00A'u16, data3: 0x5272'u16,
+    data4: [0x8D'u8, 0x3D, 0x82, 0x11, 0x2E, 0x66, 0xDF, 0x00])
 const IID_TypedEventHandler_2_LampArrayBitmapEffect_LampArrayBitmapRequestedEventArgs* = GUID(
     data1: 0x24B5818B'u32, data2: 0x448E'u16, data3: 0x53FA'u16,
     data4: [0xAB'u8, 0x4C, 0x66, 0x30, 0x08, 0xC5, 0xD4, 0xCF])
@@ -537,6 +573,9 @@ const IID_AsyncOperationCompletedHandler_1_LampArray* = GUID(
 const IID_IAsyncOperation_1_LampArray* = GUID(
     data1: 0x3E9A9900'u32, data2: 0x6EB1'u16, data3: 0x5DB1'u16,
     data4: [0xB7'u8, 0x78, 0x9A, 0x64, 0xA1, 0x65, 0x42, 0xF8])
+const IID_IReference_1_Color* = GUID(
+    data1: 0xAB8E5D11'u32, data2: 0xB0C1'u16, data3: 0x5A21'u16,
+    data4: [0x95'u8, 0xAE, 0xF1, 0x6B, 0xF3, 0xA3, 0x76, 0x24])
 const IID_TypedEventHandler_2_MidiInPort_MidiMessageReceivedEventArgs* = GUID(
     data1: 0x50017240'u32, data2: 0xCC39'u16, data3: 0x5775'u16,
     data4: [0x8A'u8, 0x6B, 0xF6, 0xF2, 0x23, 0x86, 0xBF, 0xCA])
@@ -861,6 +900,9 @@ const IID_AsyncOperationCompletedHandler_1_Battery* = GUID(
 const IID_IAsyncOperation_1_Battery* = GUID(
     data1: 0xDAA3D556'u32, data2: 0x1529'u16, data3: 0x56D2'u16,
     data4: [0xA5'u8, 0xF8, 0xBF, 0xB6, 0xC2, 0x2A, 0x3D, 0xFE])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_IVectorView_1_PowerGridData* = GUID(
     data1: 0xE204EE85'u32, data2: 0x7062'u16, data3: 0x5207'u16,
     data4: [0xBA'u8, 0x91, 0x71, 0x03, 0x38, 0x4D, 0x5B, 0x97])
@@ -1026,6 +1068,12 @@ const IID_IAsyncOperation_1_HumanPresenceSensor* = GUID(
 const IID_IVectorView_1_DetectedPerson* = GUID(
     data1: 0x1DE993D5'u32, data2: 0x739B'u16, data3: 0x5F05'u16,
     data4: [0x99'u8, 0x85, 0xC3, 0x63, 0x76, 0xDF, 0x9F, 0x39])
+const IID_IReference_1_HumanPresence* = GUID(
+    data1: 0xBACD473D'u32, data2: 0x348F'u16, data3: 0x54D0'u16,
+    data4: [0x95'u8, 0xC0, 0xFF, 0xD5, 0x37, 0x9F, 0x8B, 0x7F])
+const IID_IReference_1_HumanEngagement* = GUID(
+    data1: 0x148ADF95'u32, data2: 0xEB2C'u16, data3: 0x5912'u16,
+    data4: [0x9C'u8, 0x40, 0x6D, 0xCE, 0xC3, 0x13, 0x57, 0xBD])
 const IID_AsyncOperationCompletedHandler_1_HumanPresenceSettings* = GUID(
     data1: 0xAB6A031B'u32, data2: 0x43A8'u16, data3: 0x5E3C'u16,
     data4: [0xBC'u8, 0xC1, 0x04, 0x24, 0x46, 0x35, 0xBD, 0xA7])
@@ -1311,6 +1359,9 @@ const IID_AsyncOperationCompletedHandler_1_WiFiOnDemandHotspotConnectionResult* 
 const IID_IAsyncOperation_1_WiFiOnDemandHotspotConnectionResult* = GUID(
     data1: 0x81EC4B01'u32, data2: 0x3E45'u16, data3: 0x5A39'u16,
     data4: [0xBA'u8, 0xEC, 0x0B, 0xDA, 0x4A, 0xB1, 0xE3, 0xAE])
+const IID_IReference_1_WiFiOnDemandHotspotCellularBars* = GUID(
+    data1: 0xD5CC7E52'u32, data2: 0x2520'u16, data3: 0x5460'u16,
+    data4: [0x84'u8, 0xE6, 0x82, 0x58, 0xC8, 0x3D, 0x0C, 0x68])
 const IID_TypedEventHandler_2_WiFiDirectService_WiFiDirectServiceSessionDeferredEventArgs* = GUID(
     data1: 0xFC3DFC2C'u32, data2: 0x9CFA'u16, data3: 0x5822'u16,
     data4: [0xBA'u8, 0x3F, 0xFF, 0x3A, 0xFB, 0x65, 0x77, 0x7E])
@@ -10598,6 +10649,14 @@ proc newBluetoothLEAdvertisement*(): BluetoothLEAdvertisement =
   ## Activate a `Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement`.
   adopt[BluetoothLEAdvertisement](activateAs("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement", IID_IBluetoothLEAdvertisement))
 
+proc flags*(self: BluetoothLEAdvertisement): Option[BluetoothLEAdvertisementFlags]  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_Flags
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_get_Flags, Fn_IBluetoothLEAdvertisement_get_Flags)(it, tmp.addr).check("BluetoothLEAdvertisement.get_Flags")
+    result = readReference[BluetoothLEAdvertisementFlags](tmp, IID_IReference_1_BluetoothLEAdvertisementFlags, "BluetoothLEAdvertisement.get_Flags")
+    release(tmp)
+
 proc localName*(self: BluetoothLEAdvertisement): string  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_LocalName
   withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
@@ -10951,6 +11010,14 @@ proc removeStatusChanged*(self: BluetoothLEAdvertisementPublisher, token: EventR
   withIface(self.p, IID_IBluetoothLEAdvertisementPublisher, "IBluetoothLEAdvertisementPublisher", it):
     vcall(it, Slot_IBluetoothLEAdvertisementPublisher_remove_StatusChanged, Fn_IBluetoothLEAdvertisementPublisher_remove_StatusChanged)(it, token).check("BluetoothLEAdvertisementPublisher.remove_StatusChanged")
 
+proc preferredTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisher): Option[int16]  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisher2, "IBluetoothLEAdvertisementPublisher2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisher2_get_PreferredTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisher2_get_PreferredTransmitPowerLevelInDBm)(it, tmp.addr).check("BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm")
+    release(tmp)
+
 proc useExtendedAdvertisement*(self: BluetoothLEAdvertisementPublisher): bool  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.get_UseExtendedAdvertisement
   withIface(self.p, IID_IBluetoothLEAdvertisementPublisher2, "IBluetoothLEAdvertisementPublisher2", it):
@@ -11033,6 +11100,14 @@ proc error*(self: BluetoothLEAdvertisementPublisherStatusChangedEventArgs): Blue
     vcall(it, Slot_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Error, Fn_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Error)(it, tmp.addr).check("BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_Error")
     result = tmp
 
+proc selectedTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherStatusChangedEventArgs): Option[int16]  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_SelectedTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2, "IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2_get_SelectedTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2_get_SelectedTransmitPowerLevelInDBm)(it, tmp.addr).check("BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_SelectedTransmitPowerLevelInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_SelectedTransmitPowerLevelInDBm")
+    release(tmp)
+
 proc rawSignalStrengthInDBm*(self: BluetoothLEAdvertisementReceivedEventArgs): int16  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs.get_RawSignalStrengthInDBm
   withIface(self.p, IID_IBluetoothLEAdvertisementReceivedEventArgs, "IBluetoothLEAdvertisementReceivedEventArgs", it):
@@ -11074,6 +11149,14 @@ proc bluetoothAddressType*(self: BluetoothLEAdvertisementReceivedEventArgs): Blu
     var tmp: BluetoothAddressType
     vcall(it, Slot_IBluetoothLEAdvertisementReceivedEventArgs2_get_BluetoothAddressType, Fn_IBluetoothLEAdvertisementReceivedEventArgs2_get_BluetoothAddressType)(it, tmp.addr).check("BluetoothLEAdvertisementReceivedEventArgs.get_BluetoothAddressType")
     result = tmp
+
+proc transmitPowerLevelInDBm*(self: BluetoothLEAdvertisementReceivedEventArgs): Option[int16]  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs.get_TransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementReceivedEventArgs2, "IBluetoothLEAdvertisementReceivedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementReceivedEventArgs2_get_TransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementReceivedEventArgs2_get_TransmitPowerLevelInDBm)(it, tmp.addr).check("BluetoothLEAdvertisementReceivedEventArgs.get_TransmitPowerLevelInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementReceivedEventArgs.get_TransmitPowerLevelInDBm")
+    release(tmp)
 
 proc isAnonymous*(self: BluetoothLEAdvertisementReceivedEventArgs): bool  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs.get_IsAnonymous
@@ -11401,6 +11484,14 @@ proc error*(self: BluetoothLEAdvertisementPublisherTriggerDetails): BluetoothErr
     var tmp: BluetoothError
     vcall(it, Slot_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error, Fn_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error)(it, tmp.addr).check("BluetoothLEAdvertisementPublisherTriggerDetails.get_Error")
     result = tmp
+
+proc selectedTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherTriggerDetails): Option[int16]  =
+  ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementPublisherTriggerDetails.get_SelectedTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisherTriggerDetails2, "IBluetoothLEAdvertisementPublisherTriggerDetails2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisherTriggerDetails2_get_SelectedTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisherTriggerDetails2_get_SelectedTransmitPowerLevelInDBm)(it, tmp.addr).check("BluetoothLEAdvertisementPublisherTriggerDetails.get_SelectedTransmitPowerLevelInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisherTriggerDetails.get_SelectedTransmitPowerLevelInDBm")
+    release(tmp)
 
 proc error*(self: BluetoothLEAdvertisementWatcherTriggerDetails): BluetoothError  =
   ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementWatcherTriggerDetails.get_Error
@@ -12783,12 +12874,52 @@ proc newBluetoothSignalStrengthFilter*(): BluetoothSignalStrengthFilter =
   ## Activate a `Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter`.
   adopt[BluetoothSignalStrengthFilter](activateAs("Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter", IID_IBluetoothSignalStrengthFilter))
 
+proc inRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int16]  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_get_InRangeThresholdInDBm, Fn_IBluetoothSignalStrengthFilter_get_InRangeThresholdInDBm)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm")
+    release(tmp)
+
+proc outOfRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int16]  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_get_OutOfRangeThresholdInDBm, Fn_IBluetoothSignalStrengthFilter_get_OutOfRangeThresholdInDBm)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm")
+    release(tmp)
+
+proc outOfRangeTimeout*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_OutOfRangeTimeout
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_get_OutOfRangeTimeout, Fn_IBluetoothSignalStrengthFilter_get_OutOfRangeTimeout)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_OutOfRangeTimeout")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BluetoothSignalStrengthFilter.get_OutOfRangeTimeout")
+    release(tmp)
+
+proc samplingInterval*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_SamplingInterval
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_get_SamplingInterval, Fn_IBluetoothSignalStrengthFilter_get_SamplingInterval)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_SamplingInterval")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BluetoothSignalStrengthFilter.get_SamplingInterval")
+    release(tmp)
+
 proc fromShortId*(_: typedesc[BluetoothUuidHelper], a1: uint32): GUID  =
   ## Windows.Devices.Bluetooth.BluetoothUuidHelper.FromShortId
   withStatics("Windows.Devices.Bluetooth.BluetoothUuidHelper", IID_IBluetoothUuidHelperStatics, it):
     var tmp: GUID
     vcall(it, Slot_IBluetoothUuidHelperStatics_FromShortId, Fn_IBluetoothUuidHelperStatics_FromShortId)(it, a1, tmp.addr).check("BluetoothUuidHelper.FromShortId")
     result = tmp
+
+proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], a1: GUID): Option[uint32]  =
+  ## Windows.Devices.Bluetooth.BluetoothUuidHelper.TryGetShortId
+  withStatics("Windows.Devices.Bluetooth.BluetoothUuidHelper", IID_IBluetoothUuidHelperStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothUuidHelperStatics_TryGetShortId, Fn_IBluetoothUuidHelperStatics_TryGetShortId)(it, a1, tmp.addr).check("BluetoothUuidHelper.TryGetShortId")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "BluetoothUuidHelper.TryGetShortId")
+    release(tmp)
 
 proc getDescriptors*(self: GattCharacteristic, a1: GUID): seq[GattDescriptor]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptors
@@ -13531,6 +13662,14 @@ proc status*(self: GattCharacteristicsResult): GattCommunicationStatus  =
     vcall(it, Slot_IGattCharacteristicsResult_get_Status, Fn_IGattCharacteristicsResult_get_Status)(it, tmp.addr).check("GattCharacteristicsResult.get_Status")
     result = tmp
 
+proc protocolError*(self: GattCharacteristicsResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult.get_ProtocolError
+  withIface(self.p, IID_IGattCharacteristicsResult, "IGattCharacteristicsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattCharacteristicsResult_get_ProtocolError, Fn_IGattCharacteristicsResult_get_ProtocolError)(it, tmp.addr).check("GattCharacteristicsResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattCharacteristicsResult.get_ProtocolError")
+    release(tmp)
+
 proc characteristics*(self: GattCharacteristicsResult): seq[GattCharacteristic]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicsResult.get_Characteristics
   withIface(self.p, IID_IGattCharacteristicsResult, "IGattCharacteristicsResult", it):
@@ -13552,6 +13691,14 @@ proc status*(self: GattClientNotificationResult): GattCommunicationStatus  =
     var tmp: GattCommunicationStatus
     vcall(it, Slot_IGattClientNotificationResult_get_Status, Fn_IGattClientNotificationResult_get_Status)(it, tmp.addr).check("GattClientNotificationResult.get_Status")
     result = tmp
+
+proc protocolError*(self: GattClientNotificationResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult.get_ProtocolError
+  withIface(self.p, IID_IGattClientNotificationResult, "IGattClientNotificationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattClientNotificationResult_get_ProtocolError, Fn_IGattClientNotificationResult_get_ProtocolError)(it, tmp.addr).check("GattClientNotificationResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattClientNotificationResult.get_ProtocolError")
+    release(tmp)
 
 proc bytesSent*(self: GattClientNotificationResult): uint16  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientNotificationResult.get_BytesSent
@@ -13662,6 +13809,14 @@ proc status*(self: GattDescriptorsResult): GattCommunicationStatus  =
     var tmp: GattCommunicationStatus
     vcall(it, Slot_IGattDescriptorsResult_get_Status, Fn_IGattDescriptorsResult_get_Status)(it, tmp.addr).check("GattDescriptorsResult.get_Status")
     result = tmp
+
+proc protocolError*(self: GattDescriptorsResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorsResult.get_ProtocolError
+  withIface(self.p, IID_IGattDescriptorsResult, "IGattDescriptorsResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDescriptorsResult_get_ProtocolError, Fn_IGattDescriptorsResult_get_ProtocolError)(it, tmp.addr).check("GattDescriptorsResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattDescriptorsResult.get_ProtocolError")
+    release(tmp)
 
 proc descriptors*(self: GattDescriptorsResult): seq[GattDescriptor]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorsResult.get_Descriptors
@@ -13896,6 +14051,14 @@ proc status*(self: GattDeviceServicesResult): GattCommunicationStatus  =
     var tmp: GattCommunicationStatus
     vcall(it, Slot_IGattDeviceServicesResult_get_Status, Fn_IGattDeviceServicesResult_get_Status)(it, tmp.addr).check("GattDeviceServicesResult.get_Status")
     result = tmp
+
+proc protocolError*(self: GattDeviceServicesResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult.get_ProtocolError
+  withIface(self.p, IID_IGattDeviceServicesResult, "IGattDeviceServicesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattDeviceServicesResult_get_ProtocolError, Fn_IGattDeviceServicesResult_get_ProtocolError)(it, tmp.addr).check("GattDeviceServicesResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattDeviceServicesResult.get_ProtocolError")
+    release(tmp)
 
 proc services*(self: GattDeviceServicesResult): seq[GattDeviceService]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceServicesResult.get_Services
@@ -14645,6 +14808,14 @@ proc clientCharacteristicConfigurationDescriptor*(self: GattReadClientCharacteri
     vcall(it, Slot_IGattReadClientCharacteristicConfigurationDescriptorResult_get_ClientCharacteristicConfigurationDescriptor, Fn_IGattReadClientCharacteristicConfigurationDescriptorResult_get_ClientCharacteristicConfigurationDescriptor)(it, tmp.addr).check("GattReadClientCharacteristicConfigurationDescriptorResult.get_ClientCharacteristicConfigurationDescriptor")
     result = tmp
 
+proc protocolError*(self: GattReadClientCharacteristicConfigurationDescriptorResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadClientCharacteristicConfigurationDescriptorResult.get_ProtocolError
+  withIface(self.p, IID_IGattReadClientCharacteristicConfigurationDescriptorResult2, "IGattReadClientCharacteristicConfigurationDescriptorResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattReadClientCharacteristicConfigurationDescriptorResult2_get_ProtocolError, Fn_IGattReadClientCharacteristicConfigurationDescriptorResult2_get_ProtocolError)(it, tmp.addr).check("GattReadClientCharacteristicConfigurationDescriptorResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattReadClientCharacteristicConfigurationDescriptorResult.get_ProtocolError")
+    release(tmp)
+
 proc offset*(self: GattReadRequest): uint32  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.get_Offset
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
@@ -14729,6 +14900,14 @@ proc value*(self: GattReadResult): pointer  =
     var tmp: pointer
     vcall(it, Slot_IGattReadResult_get_Value, Fn_IGattReadResult_get_Value)(it, tmp.addr).check("GattReadResult.get_Value")
     result = tmp
+
+proc protocolError*(self: GattReadResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult.get_ProtocolError
+  withIface(self.p, IID_IGattReadResult2, "IGattReadResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattReadResult2_get_ProtocolError, Fn_IGattReadResult2_get_ProtocolError)(it, tmp.addr).check("GattReadResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattReadResult.get_ProtocolError")
+    release(tmp)
 
 proc newGattReliableWriteTransaction*(): GattReliableWriteTransaction =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction`.
@@ -15305,6 +15484,14 @@ proc status*(self: GattWriteResult): GattCommunicationStatus  =
     var tmp: GattCommunicationStatus
     vcall(it, Slot_IGattWriteResult_get_Status, Fn_IGattWriteResult_get_Status)(it, tmp.addr).check("GattWriteResult.get_Status")
     result = tmp
+
+proc protocolError*(self: GattWriteResult): Option[uint8]  =
+  ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult.get_ProtocolError
+  withIface(self.p, IID_IGattWriteResult, "IGattWriteResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGattWriteResult_get_ProtocolError, Fn_IGattWriteResult_get_ProtocolError)(it, tmp.addr).check("GattWriteResult.get_ProtocolError")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "GattWriteResult.get_ProtocolError")
+    release(tmp)
 
 proc connectionServiceName*(self: RfcommDeviceService): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_ConnectionServiceName
@@ -16118,6 +16305,22 @@ proc `isStereo=`*(self: DisplayPath, value: bool)  =
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     vcall(it, Slot_IDisplayPath_put_IsStereo, Fn_IDisplayPath_put_IsStereo)(it, value).check("DisplayPath.put_IsStereo")
 
+proc presentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_PresentationRate
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath_get_PresentationRate, Fn_IDisplayPath_get_PresentationRate)(it, tmp.addr).check("DisplayPath.get_PresentationRate")
+    result = readReference[DisplayPresentationRate](tmp, IID_IReference_1_DisplayPresentationRate, "DisplayPath.get_PresentationRate")
+    release(tmp)
+
+proc isInterlaced*(self: DisplayPath): Option[bool]  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_IsInterlaced
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath_get_IsInterlaced, Fn_IDisplayPath_get_IsInterlaced)(it, tmp.addr).check("DisplayPath.get_IsInterlaced")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "DisplayPath.get_IsInterlaced")
+    release(tmp)
+
 proc wireFormat*(self: DisplayPath): DisplayWireFormat  =
   ## Windows.Devices.Display.Core.DisplayPath.get_WireFormat
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -16168,6 +16371,14 @@ proc applyPropertiesFromMode*(self: DisplayPath, a1: DisplayModeInfo)  =
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     withIface(a1.p, IID_IDisplayModeInfo, "IDisplayModeInfo", p0):
       vcall(it, Slot_IDisplayPath_ApplyPropertiesFromMode, Fn_IDisplayPath_ApplyPropertiesFromMode)(it, p0).check("DisplayPath.ApplyPropertiesFromMode")
+
+proc physicalPresentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_PhysicalPresentationRate
+  withIface(self.p, IID_IDisplayPath2, "IDisplayPath2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath2_get_PhysicalPresentationRate, Fn_IDisplayPath2_get_PhysicalPresentationRate)(it, tmp.addr).check("DisplayPath.get_PhysicalPresentationRate")
+    result = readReference[DisplayPresentationRate](tmp, IID_IReference_1_DisplayPresentationRate, "DisplayPath.get_PhysicalPresentationRate")
+    release(tmp)
 
 proc width*(self: DisplayPrimaryDescription): uint32  =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_Width
@@ -16600,6 +16811,14 @@ proc usageKind*(self: DisplayMonitor): DisplayMonitorUsageKind  =
     var tmp: DisplayMonitorUsageKind
     vcall(it, Slot_IDisplayMonitor_get_UsageKind, Fn_IDisplayMonitor_get_UsageKind)(it, tmp.addr).check("DisplayMonitor.get_UsageKind")
     result = tmp
+
+proc physicalSizeInInches*(self: DisplayMonitor): Option[Size]  =
+  ## Windows.Devices.Display.DisplayMonitor.get_PhysicalSizeInInches
+  withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayMonitor_get_PhysicalSizeInInches, Fn_IDisplayMonitor_get_PhysicalSizeInInches)(it, tmp.addr).check("DisplayMonitor.get_PhysicalSizeInInches")
+    result = readReference[Size](tmp, IID_IReference_1_Size, "DisplayMonitor.get_PhysicalSizeInInches")
+    release(tmp)
 
 proc rawDpiX*(self: DisplayMonitor): float32  =
   ## Windows.Devices.Display.DisplayMonitor.get_RawDpiX
@@ -17836,12 +18055,44 @@ proc longitude*(self: Geocoordinate): float64  =
     vcall(it, Slot_IGeocoordinate_get_Longitude, Fn_IGeocoordinate_get_Longitude)(it, tmp.addr).check("Geocoordinate.get_Longitude")
     result = tmp
 
+proc altitude*(self: Geocoordinate): Option[float64]  =
+  ## Windows.Devices.Geolocation.Geocoordinate.get_Altitude
+  withIface(self.p, IID_IGeocoordinate, "IGeocoordinate", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinate_get_Altitude, Fn_IGeocoordinate_get_Altitude)(it, tmp.addr).check("Geocoordinate.get_Altitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "Geocoordinate.get_Altitude")
+    release(tmp)
+
 proc accuracy*(self: Geocoordinate): float64  =
   ## Windows.Devices.Geolocation.Geocoordinate.get_Accuracy
   withIface(self.p, IID_IGeocoordinate, "IGeocoordinate", it):
     var tmp: float64
     vcall(it, Slot_IGeocoordinate_get_Accuracy, Fn_IGeocoordinate_get_Accuracy)(it, tmp.addr).check("Geocoordinate.get_Accuracy")
     result = tmp
+
+proc altitudeAccuracy*(self: Geocoordinate): Option[float64]  =
+  ## Windows.Devices.Geolocation.Geocoordinate.get_AltitudeAccuracy
+  withIface(self.p, IID_IGeocoordinate, "IGeocoordinate", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinate_get_AltitudeAccuracy, Fn_IGeocoordinate_get_AltitudeAccuracy)(it, tmp.addr).check("Geocoordinate.get_AltitudeAccuracy")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "Geocoordinate.get_AltitudeAccuracy")
+    release(tmp)
+
+proc heading*(self: Geocoordinate): Option[float64]  =
+  ## Windows.Devices.Geolocation.Geocoordinate.get_Heading
+  withIface(self.p, IID_IGeocoordinate, "IGeocoordinate", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinate_get_Heading, Fn_IGeocoordinate_get_Heading)(it, tmp.addr).check("Geocoordinate.get_Heading")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "Geocoordinate.get_Heading")
+    release(tmp)
+
+proc speed*(self: Geocoordinate): Option[float64]  =
+  ## Windows.Devices.Geolocation.Geocoordinate.get_Speed
+  withIface(self.p, IID_IGeocoordinate, "IGeocoordinate", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinate_get_Speed, Fn_IGeocoordinate_get_Speed)(it, tmp.addr).check("Geocoordinate.get_Speed")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "Geocoordinate.get_Speed")
+    release(tmp)
 
 proc timestamp*(self: Geocoordinate): DateTime  =
   ## Windows.Devices.Geolocation.Geocoordinate.get_Timestamp
@@ -17871,12 +18122,60 @@ proc point*(self: Geocoordinate): Geopoint  =
     vcall(it, Slot_IGeocoordinateWithPoint_get_Point, Fn_IGeocoordinateWithPoint_get_Point)(it, tmp.addr).check("Geocoordinate.get_Point")
     result = adopt[Geopoint](tmp)
 
+proc positionSourceTimestamp*(self: Geocoordinate): Option[DateTime]  =
+  ## Windows.Devices.Geolocation.Geocoordinate.get_PositionSourceTimestamp
+  withIface(self.p, IID_IGeocoordinateWithPositionSourceTimestamp, "IGeocoordinateWithPositionSourceTimestamp", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateWithPositionSourceTimestamp_get_PositionSourceTimestamp, Fn_IGeocoordinateWithPositionSourceTimestamp_get_PositionSourceTimestamp)(it, tmp.addr).check("Geocoordinate.get_PositionSourceTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Geocoordinate.get_PositionSourceTimestamp")
+    release(tmp)
+
 proc isRemoteSource*(self: Geocoordinate): bool  =
   ## Windows.Devices.Geolocation.Geocoordinate.get_IsRemoteSource
   withIface(self.p, IID_IGeocoordinateWithRemoteSource, "IGeocoordinateWithRemoteSource", it):
     var tmp: bool
     vcall(it, Slot_IGeocoordinateWithRemoteSource_get_IsRemoteSource, Fn_IGeocoordinateWithRemoteSource_get_IsRemoteSource)(it, tmp.addr).check("Geocoordinate.get_IsRemoteSource")
     result = tmp
+
+proc positionDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]  =
+  ## Windows.Devices.Geolocation.GeocoordinateSatelliteData.get_PositionDilutionOfPrecision
+  withIface(self.p, IID_IGeocoordinateSatelliteData, "IGeocoordinateSatelliteData", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateSatelliteData_get_PositionDilutionOfPrecision, Fn_IGeocoordinateSatelliteData_get_PositionDilutionOfPrecision)(it, tmp.addr).check("GeocoordinateSatelliteData.get_PositionDilutionOfPrecision")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GeocoordinateSatelliteData.get_PositionDilutionOfPrecision")
+    release(tmp)
+
+proc horizontalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]  =
+  ## Windows.Devices.Geolocation.GeocoordinateSatelliteData.get_HorizontalDilutionOfPrecision
+  withIface(self.p, IID_IGeocoordinateSatelliteData, "IGeocoordinateSatelliteData", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateSatelliteData_get_HorizontalDilutionOfPrecision, Fn_IGeocoordinateSatelliteData_get_HorizontalDilutionOfPrecision)(it, tmp.addr).check("GeocoordinateSatelliteData.get_HorizontalDilutionOfPrecision")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GeocoordinateSatelliteData.get_HorizontalDilutionOfPrecision")
+    release(tmp)
+
+proc verticalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]  =
+  ## Windows.Devices.Geolocation.GeocoordinateSatelliteData.get_VerticalDilutionOfPrecision
+  withIface(self.p, IID_IGeocoordinateSatelliteData, "IGeocoordinateSatelliteData", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateSatelliteData_get_VerticalDilutionOfPrecision, Fn_IGeocoordinateSatelliteData_get_VerticalDilutionOfPrecision)(it, tmp.addr).check("GeocoordinateSatelliteData.get_VerticalDilutionOfPrecision")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GeocoordinateSatelliteData.get_VerticalDilutionOfPrecision")
+    release(tmp)
+
+proc geometricDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]  =
+  ## Windows.Devices.Geolocation.GeocoordinateSatelliteData.get_GeometricDilutionOfPrecision
+  withIface(self.p, IID_IGeocoordinateSatelliteData2, "IGeocoordinateSatelliteData2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateSatelliteData2_get_GeometricDilutionOfPrecision, Fn_IGeocoordinateSatelliteData2_get_GeometricDilutionOfPrecision)(it, tmp.addr).check("GeocoordinateSatelliteData.get_GeometricDilutionOfPrecision")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GeocoordinateSatelliteData.get_GeometricDilutionOfPrecision")
+    release(tmp)
+
+proc timeDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]  =
+  ## Windows.Devices.Geolocation.GeocoordinateSatelliteData.get_TimeDilutionOfPrecision
+  withIface(self.p, IID_IGeocoordinateSatelliteData2, "IGeocoordinateSatelliteData2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeocoordinateSatelliteData2_get_TimeDilutionOfPrecision, Fn_IGeocoordinateSatelliteData2_get_TimeDilutionOfPrecision)(it, tmp.addr).check("GeocoordinateSatelliteData.get_TimeDilutionOfPrecision")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GeocoordinateSatelliteData.get_TimeDilutionOfPrecision")
+    release(tmp)
 
 proc startTime*(self: Geofence): DateTime  =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.get_StartTime
@@ -18161,6 +18460,14 @@ proc removeStatusChanged*(self: Geolocator, token: EventRegistrationToken) =
   withIface(self.p, IID_IGeolocator, "IGeolocator", it):
     vcall(it, Slot_IGeolocator_remove_StatusChanged, Fn_IGeolocator_remove_StatusChanged)(it, token).check("Geolocator.remove_StatusChanged")
 
+proc desiredAccuracyInMeters*(self: Geolocator): Option[uint32]  =
+  ## Windows.Devices.Geolocation.Geolocator.get_DesiredAccuracyInMeters
+  withIface(self.p, IID_IGeolocatorWithScalarAccuracy, "IGeolocatorWithScalarAccuracy", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeolocatorWithScalarAccuracy_get_DesiredAccuracyInMeters, Fn_IGeolocatorWithScalarAccuracy_get_DesiredAccuracyInMeters)(it, tmp.addr).check("Geolocator.get_DesiredAccuracyInMeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "Geolocator.get_DesiredAccuracyInMeters")
+    release(tmp)
+
 proc allowFallbackToConsentlessPositions*(self: Geolocator)  =
   ## Windows.Devices.Geolocation.Geolocator.AllowFallbackToConsentlessPositions
   withIface(self.p, IID_IGeolocator2, "IGeolocator2", it):
@@ -18172,6 +18479,14 @@ proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool  =
     var tmp: bool
     vcall(it, Slot_IGeolocatorStatics2_get_IsDefaultGeopositionRecommended, Fn_IGeolocatorStatics2_get_IsDefaultGeopositionRecommended)(it, tmp.addr).check("Geolocator.get_IsDefaultGeopositionRecommended")
     result = tmp
+
+proc defaultGeoposition*(_: typedesc[Geolocator]): Option[BasicGeoposition]  =
+  ## Windows.Devices.Geolocation.Geolocator.get_DefaultGeoposition
+  withStatics("Windows.Devices.Geolocation.Geolocator", IID_IGeolocatorStatics2, it):
+    var tmp: pointer
+    vcall(it, Slot_IGeolocatorStatics2_get_DefaultGeoposition, Fn_IGeolocatorStatics2_get_DefaultGeoposition)(it, tmp.addr).check("Geolocator.get_DefaultGeoposition")
+    result = readReference[BasicGeoposition](tmp, IID_IReference_1_BasicGeoposition, "Geolocator.get_DefaultGeoposition")
+    release(tmp)
 
 proc geoshapeType*(self: Geopath): GeoshapeType  =
   ## Windows.Devices.Geolocation.Geopath.get_GeoshapeType
@@ -20391,6 +20706,22 @@ proc sourceDevice*(self: GazePointPreview): GazeDevicePreview  =
     vcall(it, Slot_IGazePointPreview_get_SourceDevice, Fn_IGazePointPreview_get_SourceDevice)(it, tmp.addr).check("GazePointPreview.get_SourceDevice")
     result = adopt[GazeDevicePreview](tmp)
 
+proc eyeGazePosition*(self: GazePointPreview): Option[Point]  =
+  ## Windows.Devices.Input.Preview.GazePointPreview.get_EyeGazePosition
+  withIface(self.p, IID_IGazePointPreview, "IGazePointPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IGazePointPreview_get_EyeGazePosition, Fn_IGazePointPreview_get_EyeGazePosition)(it, tmp.addr).check("GazePointPreview.get_EyeGazePosition")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "GazePointPreview.get_EyeGazePosition")
+    release(tmp)
+
+proc headGazePosition*(self: GazePointPreview): Option[Point]  =
+  ## Windows.Devices.Input.Preview.GazePointPreview.get_HeadGazePosition
+  withIface(self.p, IID_IGazePointPreview, "IGazePointPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IGazePointPreview_get_HeadGazePosition, Fn_IGazePointPreview_get_HeadGazePosition)(it, tmp.addr).check("GazePointPreview.get_HeadGazePosition")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "GazePointPreview.get_HeadGazePosition")
+    release(tmp)
+
 proc timestamp*(self: GazePointPreview): uint64  =
   ## Windows.Devices.Input.Preview.GazePointPreview.get_Timestamp
   withIface(self.p, IID_IGazePointPreview, "IGazePointPreview", it):
@@ -21184,6 +21515,14 @@ proc gainLevelCount*(self: LampInfo): int32  =
     var tmp: int32
     vcall(it, Slot_ILampInfo_get_GainLevelCount, Fn_ILampInfo_get_GainLevelCount)(it, tmp.addr).check("LampInfo.get_GainLevelCount")
     result = tmp
+
+proc fixedColor*(self: LampInfo): Option[Color]  =
+  ## Windows.Devices.Lights.LampInfo.get_FixedColor
+  withIface(self.p, IID_ILampInfo, "ILampInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ILampInfo_get_FixedColor, Fn_ILampInfo_get_FixedColor)(it, tmp.addr).check("LampInfo.get_FixedColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "LampInfo.get_FixedColor")
+    release(tmp)
 
 proc getNearestSupportedColor*(self: LampInfo, a1: Color): Color  =
   ## Windows.Devices.Lights.LampInfo.GetNearestSupportedColor
@@ -29523,6 +29862,38 @@ proc getDeviceSelector*(_: typedesc[Battery]): string  =
     vcall(it, Slot_IBatteryStatics_GetDeviceSelector, Fn_IBatteryStatics_GetDeviceSelector)(it, tmp.addr).check("Battery.GetDeviceSelector")
     result = takeString(tmp)
 
+proc chargeRateInMilliwatts*(self: BatteryReport): Option[int32]  =
+  ## Windows.Devices.Power.BatteryReport.get_ChargeRateInMilliwatts
+  withIface(self.p, IID_IBatteryReport, "IBatteryReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IBatteryReport_get_ChargeRateInMilliwatts, Fn_IBatteryReport_get_ChargeRateInMilliwatts)(it, tmp.addr).check("BatteryReport.get_ChargeRateInMilliwatts")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "BatteryReport.get_ChargeRateInMilliwatts")
+    release(tmp)
+
+proc designCapacityInMilliwattHours*(self: BatteryReport): Option[int32]  =
+  ## Windows.Devices.Power.BatteryReport.get_DesignCapacityInMilliwattHours
+  withIface(self.p, IID_IBatteryReport, "IBatteryReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IBatteryReport_get_DesignCapacityInMilliwattHours, Fn_IBatteryReport_get_DesignCapacityInMilliwattHours)(it, tmp.addr).check("BatteryReport.get_DesignCapacityInMilliwattHours")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "BatteryReport.get_DesignCapacityInMilliwattHours")
+    release(tmp)
+
+proc fullChargeCapacityInMilliwattHours*(self: BatteryReport): Option[int32]  =
+  ## Windows.Devices.Power.BatteryReport.get_FullChargeCapacityInMilliwattHours
+  withIface(self.p, IID_IBatteryReport, "IBatteryReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IBatteryReport_get_FullChargeCapacityInMilliwattHours, Fn_IBatteryReport_get_FullChargeCapacityInMilliwattHours)(it, tmp.addr).check("BatteryReport.get_FullChargeCapacityInMilliwattHours")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "BatteryReport.get_FullChargeCapacityInMilliwattHours")
+    release(tmp)
+
+proc remainingCapacityInMilliwattHours*(self: BatteryReport): Option[int32]  =
+  ## Windows.Devices.Power.BatteryReport.get_RemainingCapacityInMilliwattHours
+  withIface(self.p, IID_IBatteryReport, "IBatteryReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IBatteryReport_get_RemainingCapacityInMilliwattHours, Fn_IBatteryReport_get_RemainingCapacityInMilliwattHours)(it, tmp.addr).check("BatteryReport.get_RemainingCapacityInMilliwattHours")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "BatteryReport.get_RemainingCapacityInMilliwattHours")
+    release(tmp)
+
 proc severity*(self: PowerGridData): float64  =
   ## Windows.Devices.Power.PowerGridData.get_Severity
   withIface(self.p, IID_IPowerGridData, "IPowerGridData", it):
@@ -31584,6 +31955,14 @@ proc accelerationZ*(self: AccelerometerReading): float64  =
     vcall(it, Slot_IAccelerometerReading_get_AccelerationZ, Fn_IAccelerometerReading_get_AccelerationZ)(it, tmp.addr).check("AccelerometerReading.get_AccelerationZ")
     result = tmp
 
+proc performanceCount*(self: AccelerometerReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.AccelerometerReading.get_PerformanceCount
+  withIface(self.p, IID_IAccelerometerReading2, "IAccelerometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccelerometerReading2_get_PerformanceCount, Fn_IAccelerometerReading2_get_PerformanceCount)(it, tmp.addr).check("AccelerometerReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AccelerometerReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: AccelerometerReadingChangedEventArgs): AccelerometerReading  =
   ## Windows.Devices.Sensors.AccelerometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IAccelerometerReadingChangedEventArgs, "IAccelerometerReadingChangedEventArgs", it):
@@ -31814,6 +32193,14 @@ proc altitudeChangeInMeters*(self: AltimeterReading): float64  =
     vcall(it, Slot_IAltimeterReading_get_AltitudeChangeInMeters, Fn_IAltimeterReading_get_AltitudeChangeInMeters)(it, tmp.addr).check("AltimeterReading.get_AltitudeChangeInMeters")
     result = tmp
 
+proc performanceCount*(self: AltimeterReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.AltimeterReading.get_PerformanceCount
+  withIface(self.p, IID_IAltimeterReading2, "IAltimeterReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAltimeterReading2_get_PerformanceCount, Fn_IAltimeterReading2_get_PerformanceCount)(it, tmp.addr).check("AltimeterReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AltimeterReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: AltimeterReadingChangedEventArgs): AltimeterReading  =
   ## Windows.Devices.Sensors.AltimeterReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IAltimeterReadingChangedEventArgs, "IAltimeterReadingChangedEventArgs", it):
@@ -31946,6 +32333,14 @@ proc stationPressureInHectopascals*(self: BarometerReading): float64  =
     var tmp: float64
     vcall(it, Slot_IBarometerReading_get_StationPressureInHectopascals, Fn_IBarometerReading_get_StationPressureInHectopascals)(it, tmp.addr).check("BarometerReading.get_StationPressureInHectopascals")
     result = tmp
+
+proc performanceCount*(self: BarometerReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.BarometerReading.get_PerformanceCount
+  withIface(self.p, IID_IBarometerReading2, "IBarometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBarometerReading2_get_PerformanceCount, Fn_IBarometerReading2_get_PerformanceCount)(it, tmp.addr).check("BarometerReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BarometerReading.get_PerformanceCount")
+    release(tmp)
 
 proc reading*(self: BarometerReadingChangedEventArgs): BarometerReading  =
   ## Windows.Devices.Sensors.BarometerReadingChangedEventArgs.get_Reading
@@ -32080,12 +32475,28 @@ proc headingMagneticNorth*(self: CompassReading): float64  =
     vcall(it, Slot_ICompassReading_get_HeadingMagneticNorth, Fn_ICompassReading_get_HeadingMagneticNorth)(it, tmp.addr).check("CompassReading.get_HeadingMagneticNorth")
     result = tmp
 
+proc headingTrueNorth*(self: CompassReading): Option[float64]  =
+  ## Windows.Devices.Sensors.CompassReading.get_HeadingTrueNorth
+  withIface(self.p, IID_ICompassReading, "ICompassReading", it):
+    var tmp: pointer
+    vcall(it, Slot_ICompassReading_get_HeadingTrueNorth, Fn_ICompassReading_get_HeadingTrueNorth)(it, tmp.addr).check("CompassReading.get_HeadingTrueNorth")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "CompassReading.get_HeadingTrueNorth")
+    release(tmp)
+
 proc headingAccuracy*(self: CompassReading): MagnetometerAccuracy  =
   ## Windows.Devices.Sensors.CompassReading.get_HeadingAccuracy
   withIface(self.p, IID_ICompassReadingHeadingAccuracy, "ICompassReadingHeadingAccuracy", it):
     var tmp: MagnetometerAccuracy
     vcall(it, Slot_ICompassReadingHeadingAccuracy_get_HeadingAccuracy, Fn_ICompassReadingHeadingAccuracy_get_HeadingAccuracy)(it, tmp.addr).check("CompassReading.get_HeadingAccuracy")
     result = tmp
+
+proc performanceCount*(self: CompassReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.CompassReading.get_PerformanceCount
+  withIface(self.p, IID_ICompassReading2, "ICompassReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICompassReading2_get_PerformanceCount, Fn_ICompassReading2_get_PerformanceCount)(it, tmp.addr).check("CompassReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "CompassReading.get_PerformanceCount")
+    release(tmp)
 
 proc reading*(self: CompassReadingChangedEventArgs): CompassReading  =
   ## Windows.Devices.Sensors.CompassReadingChangedEventArgs.get_Reading
@@ -32187,6 +32598,14 @@ proc timestamp*(self: CustomSensorReading): DateTime  =
     vcall(it, Slot_ICustomSensorReading_get_Timestamp, Fn_ICustomSensorReading_get_Timestamp)(it, tmp.addr).check("CustomSensorReading.get_Timestamp")
     result = tmp
 
+proc performanceCount*(self: CustomSensorReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.Custom.CustomSensorReading.get_PerformanceCount
+  withIface(self.p, IID_ICustomSensorReading2, "ICustomSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICustomSensorReading2_get_PerformanceCount, Fn_ICustomSensorReading2_get_PerformanceCount)(it, tmp.addr).check("CustomSensorReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "CustomSensorReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: CustomSensorReadingChangedEventArgs): CustomSensorReading  =
   ## Windows.Devices.Sensors.Custom.CustomSensorReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_ICustomSensorReadingChangedEventArgs, "ICustomSensorReadingChangedEventArgs", it):
@@ -32201,6 +32620,14 @@ proc engagement*(self: DetectedPerson): HumanEngagement  =
     vcall(it, Slot_IDetectedPerson_get_Engagement, Fn_IDetectedPerson_get_Engagement)(it, tmp.addr).check("DetectedPerson.get_Engagement")
     result = tmp
 
+proc distanceInMillimeters*(self: DetectedPerson): Option[uint32]  =
+  ## Windows.Devices.Sensors.DetectedPerson.get_DistanceInMillimeters
+  withIface(self.p, IID_IDetectedPerson, "IDetectedPerson", it):
+    var tmp: pointer
+    vcall(it, Slot_IDetectedPerson_get_DistanceInMillimeters, Fn_IDetectedPerson_get_DistanceInMillimeters)(it, tmp.addr).check("DetectedPerson.get_DistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "DetectedPerson.get_DistanceInMillimeters")
+    release(tmp)
+
 proc headOrientation*(self: DetectedPerson): HeadOrientation  =
   ## Windows.Devices.Sensors.DetectedPerson.get_HeadOrientation
   withIface(self.p, IID_IDetectedPerson, "IDetectedPerson", it):
@@ -32214,6 +32641,14 @@ proc headPosition*(self: DetectedPerson): HeadPosition  =
     var tmp: pointer
     vcall(it, Slot_IDetectedPerson_get_HeadPosition, Fn_IDetectedPerson_get_HeadPosition)(it, tmp.addr).check("DetectedPerson.get_HeadPosition")
     result = adopt[HeadPosition](tmp)
+
+proc personId*(self: DetectedPerson): Option[int32]  =
+  ## Windows.Devices.Sensors.DetectedPerson.get_PersonId
+  withIface(self.p, IID_IDetectedPerson, "IDetectedPerson", it):
+    var tmp: pointer
+    vcall(it, Slot_IDetectedPerson_get_PersonId, Fn_IDetectedPerson_get_PersonId)(it, tmp.addr).check("DetectedPerson.get_PersonId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "DetectedPerson.get_PersonId")
+    release(tmp)
 
 proc getCurrentReading*(self: Gyrometer): GyrometerReading  =
   ## Windows.Devices.Sensors.Gyrometer.GetCurrentReading
@@ -32379,12 +32814,60 @@ proc angularVelocityZ*(self: GyrometerReading): float64  =
     vcall(it, Slot_IGyrometerReading_get_AngularVelocityZ, Fn_IGyrometerReading_get_AngularVelocityZ)(it, tmp.addr).check("GyrometerReading.get_AngularVelocityZ")
     result = tmp
 
+proc performanceCount*(self: GyrometerReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.GyrometerReading.get_PerformanceCount
+  withIface(self.p, IID_IGyrometerReading2, "IGyrometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGyrometerReading2_get_PerformanceCount, Fn_IGyrometerReading2_get_PerformanceCount)(it, tmp.addr).check("GyrometerReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "GyrometerReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: GyrometerReadingChangedEventArgs): GyrometerReading  =
   ## Windows.Devices.Sensors.GyrometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IGyrometerReadingChangedEventArgs, "IGyrometerReadingChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IGyrometerReadingChangedEventArgs_get_Reading, Fn_IGyrometerReadingChangedEventArgs_get_Reading)(it, tmp.addr).check("GyrometerReadingChangedEventArgs.get_Reading")
     result = adopt[GyrometerReading](tmp)
+
+proc rollInDegrees*(self: HeadOrientation): Option[float64]  =
+  ## Windows.Devices.Sensors.HeadOrientation.get_RollInDegrees
+  withIface(self.p, IID_IHeadOrientation, "IHeadOrientation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHeadOrientation_get_RollInDegrees, Fn_IHeadOrientation_get_RollInDegrees)(it, tmp.addr).check("HeadOrientation.get_RollInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HeadOrientation.get_RollInDegrees")
+    release(tmp)
+
+proc pitchInDegrees*(self: HeadOrientation): Option[float64]  =
+  ## Windows.Devices.Sensors.HeadOrientation.get_PitchInDegrees
+  withIface(self.p, IID_IHeadOrientation, "IHeadOrientation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHeadOrientation_get_PitchInDegrees, Fn_IHeadOrientation_get_PitchInDegrees)(it, tmp.addr).check("HeadOrientation.get_PitchInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HeadOrientation.get_PitchInDegrees")
+    release(tmp)
+
+proc yawInDegrees*(self: HeadOrientation): Option[float64]  =
+  ## Windows.Devices.Sensors.HeadOrientation.get_YawInDegrees
+  withIface(self.p, IID_IHeadOrientation, "IHeadOrientation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHeadOrientation_get_YawInDegrees, Fn_IHeadOrientation_get_YawInDegrees)(it, tmp.addr).check("HeadOrientation.get_YawInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HeadOrientation.get_YawInDegrees")
+    release(tmp)
+
+proc azimuthInDegrees*(self: HeadPosition): Option[float64]  =
+  ## Windows.Devices.Sensors.HeadPosition.get_AzimuthInDegrees
+  withIface(self.p, IID_IHeadPosition, "IHeadPosition", it):
+    var tmp: pointer
+    vcall(it, Slot_IHeadPosition_get_AzimuthInDegrees, Fn_IHeadPosition_get_AzimuthInDegrees)(it, tmp.addr).check("HeadPosition.get_AzimuthInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HeadPosition.get_AzimuthInDegrees")
+    release(tmp)
+
+proc altitudeInDegrees*(self: HeadPosition): Option[float64]  =
+  ## Windows.Devices.Sensors.HeadPosition.get_AltitudeInDegrees
+  withIface(self.p, IID_IHeadPosition, "IHeadPosition", it):
+    var tmp: pointer
+    vcall(it, Slot_IHeadPosition_get_AltitudeInDegrees, Fn_IHeadPosition_get_AltitudeInDegrees)(it, tmp.addr).check("HeadPosition.get_AltitudeInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HeadPosition.get_AltitudeInDegrees")
+    release(tmp)
 
 proc timestamp*(self: HingeAngleReading): DateTime  =
   ## Windows.Devices.Sensors.HingeAngleReading.get_Timestamp
@@ -32539,6 +33022,22 @@ proc deviceId*(self: HumanPresenceSensor): string  =
     vcall(it, Slot_IHumanPresenceSensor_get_DeviceId, Fn_IHumanPresenceSensor_get_DeviceId)(it, tmp.addr).check("HumanPresenceSensor.get_DeviceId")
     result = takeString(tmp)
 
+proc maxDetectableDistanceInMillimeters*(self: HumanPresenceSensor): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MaxDetectableDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSensor, "IHumanPresenceSensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor_get_MaxDetectableDistanceInMillimeters, Fn_IHumanPresenceSensor_get_MaxDetectableDistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSensor.get_MaxDetectableDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensor.get_MaxDetectableDistanceInMillimeters")
+    release(tmp)
+
+proc minDetectableDistanceInMillimeters*(self: HumanPresenceSensor): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MinDetectableDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSensor, "IHumanPresenceSensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor_get_MinDetectableDistanceInMillimeters, Fn_IHumanPresenceSensor_get_MinDetectableDistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSensor.get_MinDetectableDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensor.get_MinDetectableDistanceInMillimeters")
+    release(tmp)
+
 proc getCurrentReading*(self: HumanPresenceSensor): HumanPresenceSensorReading  =
   ## Windows.Devices.Sensors.HumanPresenceSensor.GetCurrentReading
   withIface(self.p, IID_IHumanPresenceSensor, "IHumanPresenceSensor", it):
@@ -32585,6 +33084,38 @@ proc maxDetectablePersons*(self: HumanPresenceSensor): int32  =
     var tmp: int32
     vcall(it, Slot_IHumanPresenceSensor3_get_MaxDetectablePersons, Fn_IHumanPresenceSensor3_get_MaxDetectablePersons)(it, tmp.addr).check("HumanPresenceSensor.get_MaxDetectablePersons")
     result = tmp
+
+proc minDetectableAzimuthInDegrees*(self: HumanPresenceSensor): Option[float64]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MinDetectableAzimuthInDegrees
+  withIface(self.p, IID_IHumanPresenceSensor3, "IHumanPresenceSensor3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor3_get_MinDetectableAzimuthInDegrees, Fn_IHumanPresenceSensor3_get_MinDetectableAzimuthInDegrees)(it, tmp.addr).check("HumanPresenceSensor.get_MinDetectableAzimuthInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HumanPresenceSensor.get_MinDetectableAzimuthInDegrees")
+    release(tmp)
+
+proc maxDetectableAzimuthInDegrees*(self: HumanPresenceSensor): Option[float64]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MaxDetectableAzimuthInDegrees
+  withIface(self.p, IID_IHumanPresenceSensor3, "IHumanPresenceSensor3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor3_get_MaxDetectableAzimuthInDegrees, Fn_IHumanPresenceSensor3_get_MaxDetectableAzimuthInDegrees)(it, tmp.addr).check("HumanPresenceSensor.get_MaxDetectableAzimuthInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HumanPresenceSensor.get_MaxDetectableAzimuthInDegrees")
+    release(tmp)
+
+proc minDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MinDetectableAltitudeInDegrees
+  withIface(self.p, IID_IHumanPresenceSensor3, "IHumanPresenceSensor3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor3_get_MinDetectableAltitudeInDegrees, Fn_IHumanPresenceSensor3_get_MinDetectableAltitudeInDegrees)(it, tmp.addr).check("HumanPresenceSensor.get_MinDetectableAltitudeInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HumanPresenceSensor.get_MinDetectableAltitudeInDegrees")
+    release(tmp)
+
+proc maxDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensor.get_MaxDetectableAltitudeInDegrees
+  withIface(self.p, IID_IHumanPresenceSensor3, "IHumanPresenceSensor3", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensor3_get_MaxDetectableAltitudeInDegrees, Fn_IHumanPresenceSensor3_get_MaxDetectableAltitudeInDegrees)(it, tmp.addr).check("HumanPresenceSensor.get_MaxDetectableAltitudeInDegrees")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HumanPresenceSensor.get_MaxDetectableAltitudeInDegrees")
+    release(tmp)
 
 proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string  =
   ## Windows.Devices.Sensors.HumanPresenceSensor.GetDeviceSelector
@@ -32644,6 +33175,14 @@ proc engagement*(self: HumanPresenceSensorReading): HumanEngagement  =
     vcall(it, Slot_IHumanPresenceSensorReading_get_Engagement, Fn_IHumanPresenceSensorReading_get_Engagement)(it, tmp.addr).check("HumanPresenceSensorReading.get_Engagement")
     result = tmp
 
+proc distanceInMillimeters*(self: HumanPresenceSensorReading): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReading.get_DistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSensorReading, "IHumanPresenceSensorReading", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReading_get_DistanceInMillimeters, Fn_IHumanPresenceSensorReading_get_DistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSensorReading.get_DistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensorReading.get_DistanceInMillimeters")
+    release(tmp)
+
 proc onlookerPresence*(self: HumanPresenceSensorReading): HumanPresence  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReading.get_OnlookerPresence
   withIface(self.p, IID_IHumanPresenceSensorReading3, "IHumanPresenceSensorReading3", it):
@@ -32670,6 +33209,46 @@ proc newHumanPresenceSensorReadingUpdate*(): HumanPresenceSensorReadingUpdate =
   ## Activate a `Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate`.
   adopt[HumanPresenceSensorReadingUpdate](activateAs("Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate", IID_IHumanPresenceSensorReadingUpdate))
 
+proc timestamp*(self: HumanPresenceSensorReadingUpdate): Option[DateTime]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_Timestamp
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_Timestamp, Fn_IHumanPresenceSensorReadingUpdate_get_Timestamp)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_Timestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HumanPresenceSensorReadingUpdate.get_Timestamp")
+    release(tmp)
+
+proc presence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_Presence
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_Presence, Fn_IHumanPresenceSensorReadingUpdate_get_Presence)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_Presence")
+    result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence, "HumanPresenceSensorReadingUpdate.get_Presence")
+    release(tmp)
+
+proc engagement*(self: HumanPresenceSensorReadingUpdate): Option[HumanEngagement]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_Engagement
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_Engagement, Fn_IHumanPresenceSensorReadingUpdate_get_Engagement)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_Engagement")
+    result = readReference[HumanEngagement](tmp, IID_IReference_1_HumanEngagement, "HumanPresenceSensorReadingUpdate.get_Engagement")
+    release(tmp)
+
+proc distanceInMillimeters*(self: HumanPresenceSensorReadingUpdate): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_DistanceInMillimeters, Fn_IHumanPresenceSensorReadingUpdate_get_DistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters")
+    release(tmp)
+
+proc onlookerPresence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_OnlookerPresence
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate2, "IHumanPresenceSensorReadingUpdate2", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate2_get_OnlookerPresence, Fn_IHumanPresenceSensorReadingUpdate2_get_OnlookerPresence)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_OnlookerPresence")
+    result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence, "HumanPresenceSensorReadingUpdate.get_OnlookerPresence")
+    release(tmp)
+
 proc sensorId*(self: HumanPresenceSettings): string  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_SensorId
   withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
@@ -32695,6 +33274,14 @@ proc `isWakeOnApproachEnabled=`*(self: HumanPresenceSettings, value: bool)  =
   withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
     vcall(it, Slot_IHumanPresenceSettings_put_IsWakeOnApproachEnabled, Fn_IHumanPresenceSettings_put_IsWakeOnApproachEnabled)(it, value).check("HumanPresenceSettings.put_IsWakeOnApproachEnabled")
 
+proc wakeOnApproachDistanceInMillimeters*(self: HumanPresenceSettings): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSettings_get_WakeOnApproachDistanceInMillimeters, Fn_IHumanPresenceSettings_get_WakeOnApproachDistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters")
+    release(tmp)
+
 proc isLockOnLeaveEnabled*(self: HumanPresenceSettings): bool  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_IsLockOnLeaveEnabled
   withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
@@ -32706,6 +33293,14 @@ proc `isLockOnLeaveEnabled=`*(self: HumanPresenceSettings, value: bool)  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.put_IsLockOnLeaveEnabled
   withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
     vcall(it, Slot_IHumanPresenceSettings_put_IsLockOnLeaveEnabled, Fn_IHumanPresenceSettings_put_IsLockOnLeaveEnabled)(it, value).check("HumanPresenceSettings.put_IsLockOnLeaveEnabled")
+
+proc lockOnLeaveDistanceInMillimeters*(self: HumanPresenceSettings): Option[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSettings_get_LockOnLeaveDistanceInMillimeters, Fn_IHumanPresenceSettings_get_LockOnLeaveDistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters")
+    release(tmp)
 
 proc lockOnLeaveTimeout*(self: HumanPresenceSettings): TimeSpan  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_LockOnLeaveTimeout
@@ -33038,6 +33633,14 @@ proc yawAccuracy*(self: InclinometerReading): MagnetometerAccuracy  =
     vcall(it, Slot_IInclinometerReadingYawAccuracy_get_YawAccuracy, Fn_IInclinometerReadingYawAccuracy_get_YawAccuracy)(it, tmp.addr).check("InclinometerReading.get_YawAccuracy")
     result = tmp
 
+proc performanceCount*(self: InclinometerReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.InclinometerReading.get_PerformanceCount
+  withIface(self.p, IID_IInclinometerReading2, "IInclinometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IInclinometerReading2_get_PerformanceCount, Fn_IInclinometerReading2_get_PerformanceCount)(it, tmp.addr).check("InclinometerReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "InclinometerReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: InclinometerReadingChangedEventArgs): InclinometerReading  =
   ## Windows.Devices.Sensors.InclinometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IInclinometerReadingChangedEventArgs, "IInclinometerReadingChangedEventArgs", it):
@@ -33201,6 +33804,14 @@ proc illuminanceInLux*(self: LightSensorReading): float32  =
     var tmp: float32
     vcall(it, Slot_ILightSensorReading_get_IlluminanceInLux, Fn_ILightSensorReading_get_IlluminanceInLux)(it, tmp.addr).check("LightSensorReading.get_IlluminanceInLux")
     result = tmp
+
+proc performanceCount*(self: LightSensorReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.LightSensorReading.get_PerformanceCount
+  withIface(self.p, IID_ILightSensorReading2, "ILightSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_ILightSensorReading2_get_PerformanceCount, Fn_ILightSensorReading2_get_PerformanceCount)(it, tmp.addr).check("LightSensorReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "LightSensorReading.get_PerformanceCount")
+    release(tmp)
 
 proc chromaticity*(self: LightSensorReading): LightSensorChromaticity  =
   ## Windows.Devices.Sensors.LightSensorReading.get_Chromaticity
@@ -33399,6 +34010,14 @@ proc directionalAccuracy*(self: MagnetometerReading): MagnetometerAccuracy  =
     vcall(it, Slot_IMagnetometerReading_get_DirectionalAccuracy, Fn_IMagnetometerReading_get_DirectionalAccuracy)(it, tmp.addr).check("MagnetometerReading.get_DirectionalAccuracy")
     result = tmp
 
+proc performanceCount*(self: MagnetometerReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.MagnetometerReading.get_PerformanceCount
+  withIface(self.p, IID_IMagnetometerReading2, "IMagnetometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMagnetometerReading2_get_PerformanceCount, Fn_IMagnetometerReading2_get_PerformanceCount)(it, tmp.addr).check("MagnetometerReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MagnetometerReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: MagnetometerReadingChangedEventArgs): MagnetometerReading  =
   ## Windows.Devices.Sensors.MagnetometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IMagnetometerReadingChangedEventArgs, "IMagnetometerReadingChangedEventArgs", it):
@@ -33586,6 +34205,14 @@ proc yawAccuracy*(self: OrientationSensorReading): MagnetometerAccuracy  =
     vcall(it, Slot_IOrientationSensorReadingYawAccuracy_get_YawAccuracy, Fn_IOrientationSensorReadingYawAccuracy_get_YawAccuracy)(it, tmp.addr).check("OrientationSensorReading.get_YawAccuracy")
     result = tmp
 
+proc performanceCount*(self: OrientationSensorReading): Option[TimeSpan]  =
+  ## Windows.Devices.Sensors.OrientationSensorReading.get_PerformanceCount
+  withIface(self.p, IID_IOrientationSensorReading2, "IOrientationSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IOrientationSensorReading2_get_PerformanceCount, Fn_IOrientationSensorReading2_get_PerformanceCount)(it, tmp.addr).check("OrientationSensorReading.get_PerformanceCount")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "OrientationSensorReading.get_PerformanceCount")
+    release(tmp)
+
 proc reading*(self: OrientationSensorReadingChangedEventArgs): OrientationSensorReading  =
   ## Windows.Devices.Sensors.OrientationSensorReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IOrientationSensorReadingChangedEventArgs, "IOrientationSensorReadingChangedEventArgs", it):
@@ -33726,6 +34353,22 @@ proc deviceId*(self: ProximitySensor): string  =
     vcall(it, Slot_IProximitySensor_get_DeviceId, Fn_IProximitySensor_get_DeviceId)(it, tmp.addr).check("ProximitySensor.get_DeviceId")
     result = takeString(tmp)
 
+proc maxDistanceInMillimeters*(self: ProximitySensor): Option[uint32]  =
+  ## Windows.Devices.Sensors.ProximitySensor.get_MaxDistanceInMillimeters
+  withIface(self.p, IID_IProximitySensor, "IProximitySensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IProximitySensor_get_MaxDistanceInMillimeters, Fn_IProximitySensor_get_MaxDistanceInMillimeters)(it, tmp.addr).check("ProximitySensor.get_MaxDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ProximitySensor.get_MaxDistanceInMillimeters")
+    release(tmp)
+
+proc minDistanceInMillimeters*(self: ProximitySensor): Option[uint32]  =
+  ## Windows.Devices.Sensors.ProximitySensor.get_MinDistanceInMillimeters
+  withIface(self.p, IID_IProximitySensor, "IProximitySensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IProximitySensor_get_MinDistanceInMillimeters, Fn_IProximitySensor_get_MinDistanceInMillimeters)(it, tmp.addr).check("ProximitySensor.get_MinDistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ProximitySensor.get_MinDistanceInMillimeters")
+    release(tmp)
+
 proc getCurrentReading*(self: ProximitySensor): ProximitySensorReading  =
   ## Windows.Devices.Sensors.ProximitySensor.GetCurrentReading
   withIface(self.p, IID_IProximitySensor, "IProximitySensor", it):
@@ -33809,6 +34452,14 @@ proc isDetected*(self: ProximitySensorReading): bool  =
     var tmp: bool
     vcall(it, Slot_IProximitySensorReading_get_IsDetected, Fn_IProximitySensorReading_get_IsDetected)(it, tmp.addr).check("ProximitySensorReading.get_IsDetected")
     result = tmp
+
+proc distanceInMillimeters*(self: ProximitySensorReading): Option[uint32]  =
+  ## Windows.Devices.Sensors.ProximitySensorReading.get_DistanceInMillimeters
+  withIface(self.p, IID_IProximitySensorReading, "IProximitySensorReading", it):
+    var tmp: pointer
+    vcall(it, Slot_IProximitySensorReading_get_DistanceInMillimeters, Fn_IProximitySensorReading_get_DistanceInMillimeters)(it, tmp.addr).check("ProximitySensorReading.get_DistanceInMillimeters")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ProximitySensorReading.get_DistanceInMillimeters")
+    release(tmp)
 
 proc reading*(self: ProximitySensorReadingChangedEventArgs): ProximitySensorReading  =
   ## Windows.Devices.Sensors.ProximitySensorReadingChangedEventArgs.get_Reading
@@ -34526,6 +35177,22 @@ proc `responseApdu=`*(self: SmartCardAutomaticResponseApdu, value: pointer)  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_ResponseApdu
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_ResponseApdu, Fn_ISmartCardAutomaticResponseApdu_put_ResponseApdu)(it, value).check("SmartCardAutomaticResponseApdu.put_ResponseApdu")
+
+proc inputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
+  ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_InputState
+  withIface(self.p, IID_ISmartCardAutomaticResponseApdu2, "ISmartCardAutomaticResponseApdu2", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardAutomaticResponseApdu2_get_InputState, Fn_ISmartCardAutomaticResponseApdu2_get_InputState)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_InputState")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "SmartCardAutomaticResponseApdu.get_InputState")
+    release(tmp)
+
+proc outputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
+  ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_OutputState
+  withIface(self.p, IID_ISmartCardAutomaticResponseApdu2, "ISmartCardAutomaticResponseApdu2", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardAutomaticResponseApdu2_get_OutputState, Fn_ISmartCardAutomaticResponseApdu2_get_OutputState)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_OutputState")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "SmartCardAutomaticResponseApdu.get_OutputState")
+    release(tmp)
 
 proc allowWhenCryptogramGeneratorNotPrepared*(self: SmartCardAutomaticResponseApdu): bool  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_AllowWhenCryptogramGeneratorNotPrepared
@@ -36765,6 +37432,14 @@ proc body*(self: SmsVoicemailMessage): string  =
     vcall(it, Slot_ISmsVoicemailMessage_get_Body, Fn_ISmsVoicemailMessage_get_Body)(it, tmp.addr).check("SmsVoicemailMessage.get_Body")
     result = takeString(tmp)
 
+proc messageCount*(self: SmsVoicemailMessage): Option[int32]  =
+  ## Windows.Devices.Sms.SmsVoicemailMessage.get_MessageCount
+  withIface(self.p, IID_ISmsVoicemailMessage, "ISmsVoicemailMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsVoicemailMessage_get_MessageCount, Fn_ISmsVoicemailMessage_get_MessageCount)(it, tmp.addr).check("SmsVoicemailMessage.get_MessageCount")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "SmsVoicemailMessage.get_MessageCount")
+    release(tmp)
+
 proc messageType*(self: SmsVoicemailMessage): SmsMessageType  =
   ## Windows.Devices.Sms.SmsVoicemailMessage.get_MessageType
   withIface(self.p, IID_ISmsMessageBase, "ISmsMessageBase", it):
@@ -37426,6 +38101,22 @@ proc `classCode=`*(self: UsbDeviceClass, value: uint8)  =
   ## Windows.Devices.Usb.UsbDeviceClass.put_ClassCode
   withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
     vcall(it, Slot_IUsbDeviceClass_put_ClassCode, Fn_IUsbDeviceClass_put_ClassCode)(it, value).check("UsbDeviceClass.put_ClassCode")
+
+proc subclassCode*(self: UsbDeviceClass): Option[uint8]  =
+  ## Windows.Devices.Usb.UsbDeviceClass.get_SubclassCode
+  withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbDeviceClass_get_SubclassCode, Fn_IUsbDeviceClass_get_SubclassCode)(it, tmp.addr).check("UsbDeviceClass.get_SubclassCode")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "UsbDeviceClass.get_SubclassCode")
+    release(tmp)
+
+proc protocolCode*(self: UsbDeviceClass): Option[uint8]  =
+  ## Windows.Devices.Usb.UsbDeviceClass.get_ProtocolCode
+  withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
+    var tmp: pointer
+    vcall(it, Slot_IUsbDeviceClass_get_ProtocolCode, Fn_IUsbDeviceClass_get_ProtocolCode)(it, tmp.addr).check("UsbDeviceClass.get_ProtocolCode")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "UsbDeviceClass.get_ProtocolCode")
+    release(tmp)
 
 proc cdcControl*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass  =
   ## Windows.Devices.Usb.UsbDeviceClasses.get_CdcControl
@@ -38194,6 +38885,22 @@ proc `availability=`*(self: WiFiOnDemandHotspotNetworkProperties, value: WiFiOnD
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.put_Availability
   withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
     vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_put_Availability, Fn_IWiFiOnDemandHotspotNetworkProperties_put_Availability)(it, value).check("WiFiOnDemandHotspotNetworkProperties.put_Availability")
+
+proc remainingBatteryPercent*(self: WiFiOnDemandHotspotNetworkProperties): Option[uint32]  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_get_RemainingBatteryPercent, Fn_IWiFiOnDemandHotspotNetworkProperties_get_RemainingBatteryPercent)(it, tmp.addr).check("WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent")
+    release(tmp)
+
+proc cellularBars*(self: WiFiOnDemandHotspotNetworkProperties): Option[WiFiOnDemandHotspotCellularBars]  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_CellularBars
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_get_CellularBars, Fn_IWiFiOnDemandHotspotNetworkProperties_get_CellularBars)(it, tmp.addr).check("WiFiOnDemandHotspotNetworkProperties.get_CellularBars")
+    result = readReference[WiFiOnDemandHotspotCellularBars](tmp, IID_IReference_1_WiFiOnDemandHotspotCellularBars, "WiFiOnDemandHotspotNetworkProperties.get_CellularBars")
+    release(tmp)
 
 proc isMetered*(self: WiFiOnDemandHotspotNetworkProperties): bool  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_IsMetered

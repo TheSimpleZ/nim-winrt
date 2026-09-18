@@ -48,12 +48,21 @@ const IID_IVectorView_1_LocalLocationHoursOfOperationItem* = GUID(
 const IID_IVectorView_1_LocalLocation* = GUID(
     data1: 0x619192F2'u32, data2: 0x4F9D'u16, data3: 0x5629'u16,
     data4: [0xAB'u8, 0x01, 0xB1, 0x85, 0x12, 0x50, 0x3D, 0x73])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_IVectorView_1_MapLocation* = GUID(
     data1: 0x58D33D10'u32, data2: 0xE2EF'u16, data3: 0x59F1'u16,
     data4: [0xB8'u8, 0x5E, 0xA8, 0x81, 0x9F, 0xF0, 0xD9, 0x26])
 const IID_IVectorView_1_MapRouteLeg* = GUID(
     data1: 0xF9976360'u32, data2: 0xB3B0'u16, data3: 0x5A88'u16,
     data4: [0xB1'u8, 0xB6, 0xF4, 0x33, 0x9B, 0xB8, 0x5B, 0xF0])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_IVectorView_1_MapRoute* = GUID(
     data1: 0x265676A9'u32, data2: 0x4A33'u16, data3: 0x5D29'u16,
     data4: [0x97'u8, 0x1E, 0x82, 0x44, 0xA0, 0x21, 0xB8, 0x4E])
@@ -2410,6 +2419,22 @@ proc span*(self: LocalLocationHoursOfOperationItem): TimeSpan  =
     vcall(it, Slot_ILocalLocationHoursOfOperationItem_get_Span, Fn_ILocalLocationHoursOfOperationItem_get_Span)(it, tmp.addr).check("LocalLocationHoursOfOperationItem.get_Span")
     result = tmp
 
+proc aggregateRating*(self: LocalLocationRatingInfo): Option[float64]  =
+  ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_AggregateRating
+  withIface(self.p, IID_ILocalLocationRatingInfo, "ILocalLocationRatingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalLocationRatingInfo_get_AggregateRating, Fn_ILocalLocationRatingInfo_get_AggregateRating)(it, tmp.addr).check("LocalLocationRatingInfo.get_AggregateRating")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "LocalLocationRatingInfo.get_AggregateRating")
+    release(tmp)
+
+proc ratingCount*(self: LocalLocationRatingInfo): Option[int32]  =
+  ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_RatingCount
+  withIface(self.p, IID_ILocalLocationRatingInfo, "ILocalLocationRatingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalLocationRatingInfo_get_RatingCount, Fn_ILocalLocationRatingInfo_get_RatingCount)(it, tmp.addr).check("LocalLocationRatingInfo.get_RatingCount")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "LocalLocationRatingInfo.get_RatingCount")
+    release(tmp)
+
 proc providerIdentifier*(self: LocalLocationRatingInfo): string  =
   ## Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo.get_ProviderIdentifier
   withIface(self.p, IID_ILocalLocationRatingInfo, "ILocalLocationRatingInfo", it):
@@ -2677,6 +2702,14 @@ proc `maxAlternateRouteCount=`*(self: MapRouteDrivingOptions, value: uint32)  =
   withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
     vcall(it, Slot_IMapRouteDrivingOptions_put_MaxAlternateRouteCount, Fn_IMapRouteDrivingOptions_put_MaxAlternateRouteCount)(it, value).check("MapRouteDrivingOptions.put_MaxAlternateRouteCount")
 
+proc initialHeading*(self: MapRouteDrivingOptions): Option[float64]  =
+  ## Windows.Services.Maps.MapRouteDrivingOptions.get_InitialHeading
+  withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteDrivingOptions_get_InitialHeading, Fn_IMapRouteDrivingOptions_get_InitialHeading)(it, tmp.addr).check("MapRouteDrivingOptions.get_InitialHeading")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MapRouteDrivingOptions.get_InitialHeading")
+    release(tmp)
+
 proc routeOptimization*(self: MapRouteDrivingOptions): MapRouteOptimization  =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_RouteOptimization
   withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
@@ -2700,6 +2733,14 @@ proc `routeRestrictions=`*(self: MapRouteDrivingOptions, value: MapRouteRestrict
   ## Windows.Services.Maps.MapRouteDrivingOptions.put_RouteRestrictions
   withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
     vcall(it, Slot_IMapRouteDrivingOptions_put_RouteRestrictions, Fn_IMapRouteDrivingOptions_put_RouteRestrictions)(it, value).check("MapRouteDrivingOptions.put_RouteRestrictions")
+
+proc departureTime*(self: MapRouteDrivingOptions): Option[DateTime]  =
+  ## Windows.Services.Maps.MapRouteDrivingOptions.get_DepartureTime
+  withIface(self.p, IID_IMapRouteDrivingOptions2, "IMapRouteDrivingOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteDrivingOptions2_get_DepartureTime, Fn_IMapRouteDrivingOptions2_get_DepartureTime)(it, tmp.addr).check("MapRouteDrivingOptions.get_DepartureTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "MapRouteDrivingOptions.get_DepartureTime")
+    release(tmp)
 
 proc route*(self: MapRouteFinderResult): MapRoute  =
   ## Windows.Services.Maps.MapRouteFinderResult.get_Route

@@ -93,6 +93,9 @@ const IID_IAsyncOperation_1_IBuffer* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
@@ -141,6 +144,9 @@ const IID_TypedEventHandler_2_CachedFileUpdaterUI_Object* = GUID(
 const IID_IVector_1_StorageProviderKnownFolderEntry* = GUID(
     data1: 0xB4EA581C'u32, data2: 0x4B58'u16, data3: 0x5A27'u16,
     data4: [0x84'u8, 0x8E, 0xC3, 0x3D, 0x15, 0x3E, 0xCE, 0x60])
+const IID_IReference_1_Color* = GUID(
+    data1: 0xAB8E5D11'u32, data2: 0xB0C1'u16, data3: 0x5A21'u16,
+    data4: [0x95'u8, 0xAE, 0xF1, 0x6B, 0xF3, 0xA3, 0x76, 0x24])
 const IID_IVector_1_StorageProviderItemPropertyDefinition* = GUID(
     data1: 0xF839FCFF'u32, data2: 0x87DF'u16, data3: 0x53A7'u16,
     data4: [0x94'u8, 0xD4, 0xB5, 0x07, 0x10, 0x1E, 0x7E, 0x63])
@@ -3283,6 +3289,22 @@ proc `title=`*(self: ImageProperties, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IImageProperties_put_Title, Fn_IImageProperties_put_Title)(it, h0).check("ImageProperties.put_Title")
 
+proc latitude*(self: ImageProperties): Option[float64]  =
+  ## Windows.Storage.FileProperties.ImageProperties.get_Latitude
+  withIface(self.p, IID_IImageProperties, "IImageProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageProperties_get_Latitude, Fn_IImageProperties_get_Latitude)(it, tmp.addr).check("ImageProperties.get_Latitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "ImageProperties.get_Latitude")
+    release(tmp)
+
+proc longitude*(self: ImageProperties): Option[float64]  =
+  ## Windows.Storage.FileProperties.ImageProperties.get_Longitude
+  withIface(self.p, IID_IImageProperties, "IImageProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageProperties_get_Longitude, Fn_IImageProperties_get_Longitude)(it, tmp.addr).check("ImageProperties.get_Longitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "ImageProperties.get_Longitude")
+    release(tmp)
+
 proc cameraManufacturer*(self: ImageProperties): string  =
   ## Windows.Storage.FileProperties.ImageProperties.get_CameraManufacturer
   withIface(self.p, IID_IImageProperties, "IImageProperties", it):
@@ -3688,6 +3710,22 @@ proc duration*(self: VideoProperties): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IVideoProperties_get_Duration, Fn_IVideoProperties_get_Duration)(it, tmp.addr).check("VideoProperties.get_Duration")
     result = tmp
+
+proc latitude*(self: VideoProperties): Option[float64]  =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Latitude
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Latitude, Fn_IVideoProperties_get_Latitude)(it, tmp.addr).check("VideoProperties.get_Latitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "VideoProperties.get_Latitude")
+    release(tmp)
+
+proc longitude*(self: VideoProperties): Option[float64]  =
+  ## Windows.Storage.FileProperties.VideoProperties.get_Longitude
+  withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoProperties_get_Longitude, Fn_IVideoProperties_get_Longitude)(it, tmp.addr).check("VideoProperties.get_Longitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "VideoProperties.get_Longitude")
+    release(tmp)
 
 proc title*(self: VideoProperties): string  =
   ## Windows.Storage.FileProperties.VideoProperties.get_Title
@@ -4973,6 +5011,14 @@ proc `quotaUsedLabel=`*(self: StorageProviderQuotaUI, value: string)  =
   withIface(self.p, IID_IStorageProviderQuotaUI, "IStorageProviderQuotaUI", it):
     withHString(value, h0):
       vcall(it, Slot_IStorageProviderQuotaUI_put_QuotaUsedLabel, Fn_IStorageProviderQuotaUI_put_QuotaUsedLabel)(it, h0).check("StorageProviderQuotaUI.put_QuotaUsedLabel")
+
+proc quotaUsedColor*(self: StorageProviderQuotaUI): Option[Color]  =
+  ## Windows.Storage.Provider.StorageProviderQuotaUI.get_QuotaUsedColor
+  withIface(self.p, IID_IStorageProviderQuotaUI, "IStorageProviderQuotaUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderQuotaUI_get_QuotaUsedColor, Fn_IStorageProviderQuotaUI_get_QuotaUsedColor)(it, tmp.addr).check("StorageProviderQuotaUI.get_QuotaUsedColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "StorageProviderQuotaUI.get_QuotaUsedColor")
+    release(tmp)
 
 proc userQuery*(self: StorageProviderSearchQueryOptions): string  =
   ## Windows.Storage.Provider.StorageProviderSearchQueryOptions.get_UserQuery

@@ -111,3 +111,13 @@ suite "generated API":
     # `setup` put this thread in one; the default for initApartment is STA.
     discard waitFor AdcController.getDefaultAsync()
     check true
+
+  test "IReference<T> comes back as an Option":
+    # A BLE advertisement carries flags only if the advertiser sent them, and
+    # WinRT says so with an interface that is null rather than a sentinel.
+    let ad = newBluetoothLEAdvertisement()
+    let flags = ad.flags
+    check not flags.isSome          # a fresh advertisement has none
+    # Setting one is not generated: handing a value *in* means boxing it
+    # through PropertyValue, which is the other half of IReference and is not
+    # done yet.

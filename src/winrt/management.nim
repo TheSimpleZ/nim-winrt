@@ -60,6 +60,9 @@ const IID_TypedEventHandler_2_NamedPolicyData_Object* = GUID(
 const IID_IVector_1_DeploymentWorkloadBatch* = GUID(
     data1: 0x0B1BD2B8'u32, data2: 0xBBED'u16, data3: 0x5D64'u16,
     data4: [0x87'u8, 0x12, 0xEE, 0x30, 0x9A, 0x3B, 0xFA, 0xD9])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_IVector_1_DeploymentWorkload* = GUID(
     data1: 0x61B531B2'u32, data2: 0xC040'u16, data3: 0x5F95'u16,
     data4: [0x94'u8, 0x23, 0x7F, 0xE1, 0xAA, 0xB6, 0x9D, 0x8D])
@@ -75,9 +78,18 @@ const IID_AsyncOperationCompletedHandler_1_DevicePreparationExecutionContext* = 
 const IID_IAsyncOperation_1_DevicePreparationExecutionContext* = GUID(
     data1: 0x7275B4FE'u32, data2: 0xBA33'u16, data3: 0x55BD'u16,
     data4: [0x83'u8, 0x0F, 0x47, 0x0F, 0x0F, 0x6D, 0x9A, 0x78])
+const IID_IReference_1_Guid* = GUID(
+    data1: 0x7D50F649'u32, data2: 0x632C'u16, data3: 0x51F9'u16,
+    data4: [0x84'u8, 0x9A, 0xEE, 0x49, 0x42, 0x89, 0x33, 0xEA])
+const IID_IReference_1_WindowsSoftwareUpdateRestartReason* = GUID(
+    data1: 0x10A8F99D'u32, data2: 0x91A9'u16, data3: 0x54FC'u16,
+    data4: [0x87'u8, 0x57, 0x1A, 0xF2, 0xDE, 0x2D, 0x62, 0xB5])
 const IID_IVectorView_1_WindowsSoftwareUpdateLocalizationInfo* = GUID(
     data1: 0x3145957D'u32, data2: 0x539F'u16, data3: 0x5F3D'u16,
     data4: [0x8D'u8, 0x5D, 0xBC, 0x8A, 0x95, 0xFC, 0x90, 0x37])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_IVectorView_1_WindowsSoftwareUpdateProviderPayloadFileInfo* = GUID(
     data1: 0xBDCC8FFF'u32, data2: 0x5E1D'u16, data3: 0x5A57'u16,
     data4: [0x87'u8, 0x4D, 0x69, 0x10, 0x05, 0x4C, 0xC4, 0x3E])
@@ -90,6 +102,9 @@ const IID_IVectorView_1_WindowsSoftwareUpdate* = GUID(
 const IID_IVectorView_1_WindowsUpdate* = GUID(
     data1: 0x1EEF9339'u32, data2: 0x6038'u16, data3: 0x5751'u16,
     data4: [0xB5'u8, 0xAE, 0xBD, 0x89, 0xC1, 0x7A, 0x87, 0x41])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_TypedEventHandler_2_WindowsUpdateManager_Object* = GUID(
     data1: 0xB95A0A5D'u32, data2: 0x28F1'u16, data3: 0x50F5'u16,
     data4: [0x91'u8, 0x4A, 0xB5, 0x5A, 0x1A, 0x84, 0xDC, 0xD8])
@@ -3083,6 +3098,22 @@ proc `displayFriendlyName=`*(self: DeploymentWorkload, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IDeploymentWorkload_put_DisplayFriendlyName, Fn_IDeploymentWorkload_put_DisplayFriendlyName)(it, h0).check("DeploymentWorkload.put_DisplayFriendlyName")
 
+proc startTime*(self: DeploymentWorkload): Option[DateTime]  =
+  ## Windows.Management.Setup.DeploymentWorkload.get_StartTime
+  withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeploymentWorkload_get_StartTime, Fn_IDeploymentWorkload_get_StartTime)(it, tmp.addr).check("DeploymentWorkload.get_StartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DeploymentWorkload.get_StartTime")
+    release(tmp)
+
+proc endTime*(self: DeploymentWorkload): Option[DateTime]  =
+  ## Windows.Management.Setup.DeploymentWorkload.get_EndTime
+  withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeploymentWorkload_get_EndTime, Fn_IDeploymentWorkload_get_EndTime)(it, tmp.addr).check("DeploymentWorkload.get_EndTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DeploymentWorkload.get_EndTime")
+    release(tmp)
+
 proc errorCode*(self: DeploymentWorkload): uint32  =
   ## Windows.Management.Setup.DeploymentWorkload.get_ErrorCode
   withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
@@ -3391,6 +3422,14 @@ proc targetVersion*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateVersion  
     vcall(it, Slot_IWindowsSoftwareUpdate_get_TargetVersion, Fn_IWindowsSoftwareUpdate_get_TargetVersion)(it, tmp.addr).check("WindowsSoftwareUpdate.get_TargetVersion")
     result = adopt[WindowsSoftwareUpdateVersion](tmp)
 
+proc productCode*(self: WindowsSoftwareUpdate): Option[GUID]  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.get_ProductCode
+  withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdate_get_ProductCode, Fn_IWindowsSoftwareUpdate_get_ProductCode)(it, tmp.addr).check("WindowsSoftwareUpdate.get_ProductCode")
+    result = readReference[GUID](tmp, IID_IReference_1_Guid, "WindowsSoftwareUpdate.get_ProductCode")
+    release(tmp)
+
 proc packageFamilyName*(self: WindowsSoftwareUpdate): string  =
   ## Windows.Management.Update.WindowsSoftwareUpdate.get_PackageFamilyName
   withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
@@ -3447,6 +3486,14 @@ proc actionProgress*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateActionPr
     var tmp: pointer
     vcall(it, Slot_IWindowsSoftwareUpdate_get_ActionProgress, Fn_IWindowsSoftwareUpdate_get_ActionProgress)(it, tmp.addr).check("WindowsSoftwareUpdate.get_ActionProgress")
     result = adopt[WindowsSoftwareUpdateActionProgress](tmp)
+
+proc restartReason*(self: WindowsSoftwareUpdate): Option[WindowsSoftwareUpdateRestartReason]  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.get_RestartReason
+  withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdate_get_RestartReason, Fn_IWindowsSoftwareUpdate_get_RestartReason)(it, tmp.addr).check("WindowsSoftwareUpdate.get_RestartReason")
+    result = readReference[WindowsSoftwareUpdateRestartReason](tmp, IID_IReference_1_WindowsSoftwareUpdateRestartReason, "WindowsSoftwareUpdate.get_RestartReason")
+    release(tmp)
 
 proc appPackageInfo*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateAppPackageInfo  =
   ## Windows.Management.Update.WindowsSoftwareUpdate.get_AppPackageInfo
@@ -3759,6 +3806,22 @@ proc localizationInfo*(self: WindowsSoftwareUpdateOptionalInfo): seq[WindowsSoft
     var tmp: pointer
     vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfo_get_LocalizationInfo, Fn_IWindowsSoftwareUpdateOptionalInfo_get_LocalizationInfo)(it, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.get_LocalizationInfo")
     result = toSeq[WindowsSoftwareUpdateLocalizationInfo](tmp, IID_IVectorView_1_WindowsSoftwareUpdateLocalizationInfo)
+    release(tmp)
+
+proc complianceDeadlineInDays*(self: WindowsSoftwareUpdateOptionalInfo): Option[int32]  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo.get_ComplianceDeadlineInDays
+  withIface(self.p, IID_IWindowsSoftwareUpdateOptionalInfo, "IWindowsSoftwareUpdateOptionalInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceDeadlineInDays, Fn_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceDeadlineInDays)(it, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.get_ComplianceDeadlineInDays")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsSoftwareUpdateOptionalInfo.get_ComplianceDeadlineInDays")
+    release(tmp)
+
+proc complianceGracePeriodInDays*(self: WindowsSoftwareUpdateOptionalInfo): Option[int32]  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo.get_ComplianceGracePeriodInDays
+  withIface(self.p, IID_IWindowsSoftwareUpdateOptionalInfo, "IWindowsSoftwareUpdateOptionalInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceGracePeriodInDays, Fn_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceGracePeriodInDays)(it, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.get_ComplianceGracePeriodInDays")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsSoftwareUpdateOptionalInfo.get_ComplianceGracePeriodInDays")
     release(tmp)
 
 proc register*(self: WindowsSoftwareUpdateProvider): WindowsSoftwareUpdateResult  =
@@ -4213,6 +4276,14 @@ proc eulaText*(self: WindowsUpdate): string  =
     vcall(it, Slot_IWindowsUpdate_get_EulaText, Fn_IWindowsUpdate_get_EulaText)(it, tmp.addr).check("WindowsUpdate.get_EulaText")
     result = takeString(tmp)
 
+proc deadline*(self: WindowsUpdate): Option[DateTime]  =
+  ## Windows.Management.Update.WindowsUpdate.get_Deadline
+  withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdate_get_Deadline, Fn_IWindowsUpdate_get_Deadline)(it, tmp.addr).check("WindowsUpdate.get_Deadline")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WindowsUpdate.get_Deadline")
+    release(tmp)
+
 proc attentionRequiredInfo*(self: WindowsUpdate): WindowsUpdateAttentionRequiredInfo  =
   ## Windows.Management.Update.WindowsUpdate.get_AttentionRequiredInfo
   withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
@@ -4413,12 +4484,60 @@ proc newWindowsUpdateApprovalData*(): WindowsUpdateApprovalData =
   ## Activate a `Windows.Management.Update.WindowsUpdateApprovalData`.
   adopt[WindowsUpdateApprovalData](activateAs("Windows.Management.Update.WindowsUpdateApprovalData", IID_IWindowsUpdateApprovalData))
 
+proc seeker*(self: WindowsUpdateApprovalData): Option[bool]  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.get_Seeker
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateApprovalData_get_Seeker, Fn_IWindowsUpdateApprovalData_get_Seeker)(it, tmp.addr).check("WindowsUpdateApprovalData.get_Seeker")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_Seeker")
+    release(tmp)
+
+proc allowDownloadOnMetered*(self: WindowsUpdateApprovalData): Option[bool]  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.get_AllowDownloadOnMetered
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateApprovalData_get_AllowDownloadOnMetered, Fn_IWindowsUpdateApprovalData_get_AllowDownloadOnMetered)(it, tmp.addr).check("WindowsUpdateApprovalData.get_AllowDownloadOnMetered")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_AllowDownloadOnMetered")
+    release(tmp)
+
+proc complianceDeadlineInDays*(self: WindowsUpdateApprovalData): Option[int32]  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.get_ComplianceDeadlineInDays
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateApprovalData_get_ComplianceDeadlineInDays, Fn_IWindowsUpdateApprovalData_get_ComplianceDeadlineInDays)(it, tmp.addr).check("WindowsUpdateApprovalData.get_ComplianceDeadlineInDays")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsUpdateApprovalData.get_ComplianceDeadlineInDays")
+    release(tmp)
+
+proc complianceGracePeriodInDays*(self: WindowsUpdateApprovalData): Option[int32]  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.get_ComplianceGracePeriodInDays
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateApprovalData_get_ComplianceGracePeriodInDays, Fn_IWindowsUpdateApprovalData_get_ComplianceGracePeriodInDays)(it, tmp.addr).check("WindowsUpdateApprovalData.get_ComplianceGracePeriodInDays")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsUpdateApprovalData.get_ComplianceGracePeriodInDays")
+    release(tmp)
+
+proc optOutOfAutoReboot*(self: WindowsUpdateApprovalData): Option[bool]  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.get_OptOutOfAutoReboot
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateApprovalData_get_OptOutOfAutoReboot, Fn_IWindowsUpdateApprovalData_get_OptOutOfAutoReboot)(it, tmp.addr).check("WindowsUpdateApprovalData.get_OptOutOfAutoReboot")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_OptOutOfAutoReboot")
+    release(tmp)
+
 proc reason*(self: WindowsUpdateAttentionRequiredInfo): WindowsUpdateAttentionRequiredReason  =
   ## Windows.Management.Update.WindowsUpdateAttentionRequiredInfo.get_Reason
   withIface(self.p, IID_IWindowsUpdateAttentionRequiredInfo, "IWindowsUpdateAttentionRequiredInfo", it):
     var tmp: WindowsUpdateAttentionRequiredReason
     vcall(it, Slot_IWindowsUpdateAttentionRequiredInfo_get_Reason, Fn_IWindowsUpdateAttentionRequiredInfo_get_Reason)(it, tmp.addr).check("WindowsUpdateAttentionRequiredInfo.get_Reason")
     result = tmp
+
+proc timestamp*(self: WindowsUpdateAttentionRequiredInfo): Option[DateTime]  =
+  ## Windows.Management.Update.WindowsUpdateAttentionRequiredInfo.get_Timestamp
+  withIface(self.p, IID_IWindowsUpdateAttentionRequiredInfo, "IWindowsUpdateAttentionRequiredInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateAttentionRequiredInfo_get_Timestamp, Fn_IWindowsUpdateAttentionRequiredInfo_get_Timestamp)(it, tmp.addr).check("WindowsUpdateAttentionRequiredInfo.get_Timestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WindowsUpdateAttentionRequiredInfo.get_Timestamp")
+    release(tmp)
 
 proc update*(self: WindowsUpdateAttentionRequiredReasonChangedEventArgs): WindowsUpdate  =
   ## Windows.Management.Update.WindowsUpdateAttentionRequiredReasonChangedEventArgs.get_Update
@@ -4631,6 +4750,14 @@ proc isWorking*(self: WindowsUpdateManager): bool  =
     var tmp: bool
     vcall(it, Slot_IWindowsUpdateManager_get_IsWorking, Fn_IWindowsUpdateManager_get_IsWorking)(it, tmp.addr).check("WindowsUpdateManager.get_IsWorking")
     result = tmp
+
+proc lastSuccessfulScanTimestamp*(self: WindowsUpdateManager): Option[DateTime]  =
+  ## Windows.Management.Update.WindowsUpdateManager.get_LastSuccessfulScanTimestamp
+  withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsUpdateManager_get_LastSuccessfulScanTimestamp, Fn_IWindowsUpdateManager_get_LastSuccessfulScanTimestamp)(it, tmp.addr).check("WindowsUpdateManager.get_LastSuccessfulScanTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WindowsUpdateManager.get_LastSuccessfulScanTimestamp")
+    release(tmp)
 
 proc getApplicableUpdates*(self: WindowsUpdateManager): seq[WindowsUpdate]  =
   ## Windows.Management.Update.WindowsUpdateManager.GetApplicableUpdates

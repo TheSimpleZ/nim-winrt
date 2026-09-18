@@ -18,6 +18,9 @@ export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_TypedEventHandler_2_SplashScreen_Object* = GUID(
     data1: 0x7725B2A5'u32, data2: 0x287D'u16, data3: 0x5ED2'u16,
     data4: [0xA7'u8, 0x89, 0x2A, 0x6A, 0x26, 0x73, 0xC7, 0xFE])
@@ -63,6 +66,9 @@ const IID_TypedEventHandler_2_AppServiceConnection_AppServiceRequestReceivedEven
 const IID_TypedEventHandler_2_AppServiceConnection_AppServiceClosedEventArgs* = GUID(
     data1: 0xE4EFA98D'u32, data2: 0x4BFC'u16, data3: 0x5E61'u16,
     data4: [0xA2'u8, 0x33, 0x68, 0x8F, 0x5F, 0x06, 0x52, 0x1F])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
 const IID_IVector_1_AppointmentInvitee* = GUID(
     data1: 0x70F4B32E'u32, data2: 0xF91E'u16, data3: 0x55BB'u16,
     data4: [0x9A'u8, 0x92, 0x02, 0x46, 0xDA, 0x73, 0x4B, 0xB0])
@@ -93,6 +99,9 @@ const IID_IAsyncOperation_1_AppointmentStore* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IReference_1_U4* = GUID(
+    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
+    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
 const IID_AsyncOperationCompletedHandler_1_AppointmentCalendar* = GUID(
     data1: 0x6D9CB651'u32, data2: 0x5AF6'u16, data3: 0x51B0'u16,
     data4: [0x9C'u8, 0xD3, 0x45, 0xDD, 0x51, 0xF1, 0x79, 0x49])
@@ -132,6 +141,9 @@ const IID_TypedEventHandler_2_AppointmentDataProviderConnection_AppointmentCalen
 const IID_TypedEventHandler_2_BackgroundTaskRegistrationGroup_BackgroundActivatedEventArgs* = GUID(
     data1: 0xD4F89768'u32, data2: 0x688F'u16, data3: 0x59EC'u16,
     data4: [0xBF'u8, 0x24, 0xC2, 0xAF, 0x6A, 0x31, 0x0F, 0xA4])
+const IID_IReference_1_I2* = GUID(
+    data1: 0x6EC9E41B'u32, data2: 0x6709'u16, data3: 0x5647'u16,
+    data4: [0x99'u8, 0x18, 0xA1, 0x27, 0x01, 0x10, 0xFC, 0x4E])
 const IID_AsyncOperationCompletedHandler_1_DeviceConnectionChangeTrigger* = GUID(
     data1: 0x3FD5A57E'u32, data2: 0x47E4'u16, data3: 0x5921'u16,
     data4: [0xB1'u8, 0x48, 0x5C, 0xB5, 0x86, 0x16, 0x6C, 0xA8])
@@ -345,6 +357,9 @@ const IID_IAsyncOperation_1_ContactAnnotationList* = GUID(
 const IID_IVectorView_1_Contact* = GUID(
     data1: 0x9BCA75B8'u32, data2: 0xB0FA'u16, data3: 0x5761'u16,
     data4: [0xB9'u8, 0x59, 0x38, 0x19, 0x27, 0xA5, 0xF9, 0xD0])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_IVectorView_1_ContactField* = GUID(
     data1: 0x9C1B3046'u32, data2: 0xF16A'u16, data3: 0x57D7'u16,
     data4: [0x87'u8, 0xA7, 0xEA, 0xA2, 0xE8, 0x80, 0xD9, 0xA9])
@@ -372,6 +387,9 @@ const IID_AsyncOperationCompletedHandler_1_ContactAnnotationStore* = GUID(
 const IID_IAsyncOperation_1_ContactAnnotationStore* = GUID(
     data1: 0xC6912277'u32, data2: 0x5DD3'u16, data3: 0x5E50'u16,
     data4: [0xA7'u8, 0xEB, 0xA5, 0x66, 0x06, 0x46, 0xD4, 0x32])
+const IID_IReference_1_Color* = GUID(
+    data1: 0xAB8E5D11'u32, data2: 0xB0C1'u16, data3: 0x5A21'u16,
+    data4: [0x95'u8, 0xAE, 0xF1, 0x6B, 0xF3, 0xA3, 0x76, 0x24])
 const IID_TypedEventHandler_2_ContactPanel_ContactPanelLaunchFullAppRequestedEventArgs* = GUID(
     data1: 0xC4030DF2'u32, data2: 0xAD34'u16, data3: 0x5575'u16,
     data4: [0xA3'u8, 0x69, 0x56, 0x16, 0x57, 0x78, 0x78, 0xEB])
@@ -534,6 +552,9 @@ const IID_TypedEventHandler_2_CoreDragDropManager_CoreDropOperationTargetRequest
 const IID_IVector_1_ShareProvider* = GUID(
     data1: 0xA1687865'u32, data2: 0x31E2'u16, data3: 0x5536'u16,
     data4: [0x97'u8, 0xEC, 0x29, 0x22, 0x69, 0xA7, 0x80, 0x46])
+const IID_IReference_1_Rect* = GUID(
+    data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
+    data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
 const IID_TypedEventHandler_2_TransferTargetWatcher_TransferTargetChangedEventArgs* = GUID(
     data1: 0x9EBD72FB'u32, data2: 0x43ED'u16, data3: 0x57A0'u16,
     data4: [0x86'u8, 0x2A, 0xCD, 0xA3, 0x66, 0xA6, 0x88, 0x27])
@@ -639,6 +660,12 @@ const IID_IAsyncOperation_1_EmailMailboxCreateFolderResult* = GUID(
 const IID_IVector_1_EmailMailboxAction* = GUID(
     data1: 0x4C954EB2'u32, data2: 0xF15C'u16, data3: 0x5869'u16,
     data4: [0xAB'u8, 0xD7, 0x2E, 0x32, 0x8D, 0xE4, 0xA4, 0xAF])
+const IID_IReference_1_EmailMailboxSmimeEncryptionAlgorithm* = GUID(
+    data1: 0x433B124D'u32, data2: 0x60E6'u16, data3: 0x5B7A'u16,
+    data4: [0x96'u8, 0xBC, 0x86, 0x81, 0xDE, 0x5F, 0x5E, 0x75])
+const IID_IReference_1_EmailMailboxSmimeSigningAlgorithm* = GUID(
+    data1: 0xE498A622'u32, data2: 0xF168'u16, data3: 0x5104'u16,
+    data4: [0xA5'u8, 0x3B, 0xFA, 0xF9, 0x96, 0xF5, 0x16, 0x32])
 const IID_TypedEventHandler_2_EmailMailboxSyncManager_Object* = GUID(
     data1: 0x5CBE61BB'u32, data2: 0xD615'u16, data3: 0x5B82'u16,
     data4: [0xBB'u8, 0x11, 0x41, 0x2E, 0x32, 0x66, 0x4C, 0x07])
@@ -993,6 +1020,12 @@ const IID_AsyncOperationCompletedHandler_1_UserDataTaskBatch* = GUID(
 const IID_IAsyncOperation_1_UserDataTaskBatch* = GUID(
     data1: 0xD36B10DF'u32, data2: 0x1CAB'u16, data3: 0x544C'u16,
     data4: [0x8C'u8, 0x2E, 0x3C, 0x7B, 0xC4, 0xD2, 0x4B, 0x24])
+const IID_IReference_1_UserDataTaskDaysOfWeek* = GUID(
+    data1: 0x903861C5'u32, data2: 0xD29D'u16, data3: 0x5083'u16,
+    data4: [0xA0'u8, 0x3D, 0x6B, 0x2A, 0x02, 0x33, 0xDC, 0xCA])
+const IID_IReference_1_UserDataTaskWeekOfMonth* = GUID(
+    data1: 0x5246FA7F'u32, data2: 0xF9E9'u16, data3: 0x5574'u16,
+    data4: [0x80'u8, 0xF7, 0x4A, 0xA3, 0x59, 0xB0, 0x02, 0x3D])
 const IID_AsyncOperationCompletedHandler_1_UserDataTaskList* = GUID(
     data1: 0xEEFB814A'u32, data2: 0x6AF7'u16, data3: 0x5D59'u16,
     data4: [0xBF'u8, 0x3F, 0xB6, 0xC7, 0x3B, 0x8C, 0x74, 0xA2])
@@ -10766,6 +10799,14 @@ proc splashScreen*(self: AppointmentsProviderReplaceAppointmentActivatedEventArg
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("AppointmentsProviderReplaceAppointmentActivatedEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
 
+proc instanceStartDate*(self: AppointmentsProviderShowAppointmentDetailsActivatedEventArgs): Option[DateTime]  =
+  ## Windows.ApplicationModel.Activation.AppointmentsProviderShowAppointmentDetailsActivatedEventArgs.get_InstanceStartDate
+  withIface(self.p, IID_IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs, "IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs_get_InstanceStartDate, Fn_IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs_get_InstanceStartDate)(it, tmp.addr).check("AppointmentsProviderShowAppointmentDetailsActivatedEventArgs.get_InstanceStartDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentsProviderShowAppointmentDetailsActivatedEventArgs.get_InstanceStartDate")
+    release(tmp)
+
 proc localId*(self: AppointmentsProviderShowAppointmentDetailsActivatedEventArgs): string  =
   ## Windows.ApplicationModel.Activation.AppointmentsProviderShowAppointmentDetailsActivatedEventArgs.get_LocalId
   withIface(self.p, IID_IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs, "IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs", it):
@@ -12703,6 +12744,14 @@ proc lastChecked*(self: AppInstallerInfo): DateTime  =
     vcall(it, Slot_IAppInstallerInfo2_get_LastChecked, Fn_IAppInstallerInfo2_get_LastChecked)(it, tmp.addr).check("AppInstallerInfo.get_LastChecked")
     result = tmp
 
+proc pausedUntil*(self: AppInstallerInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.AppInstallerInfo.get_PausedUntil
+  withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppInstallerInfo2_get_PausedUntil, Fn_IAppInstallerInfo2_get_PausedUntil)(it, tmp.addr).check("AppInstallerInfo.get_PausedUntil")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppInstallerInfo.get_PausedUntil")
+    release(tmp)
+
 proc updateUris*(self: AppInstallerInfo): seq[Uri]  =
   ## Windows.ApplicationModel.AppInstallerInfo.get_UpdateUris
   withIface(self.p, IID_IAppInstallerInfo2, "IAppInstallerInfo2", it):
@@ -13040,6 +13089,14 @@ proc `details=`*(self: Appointment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IAppointment_put_Details, Fn_IAppointment_put_Details)(it, h0).check("Appointment.put_Details")
 
+proc reminder*(self: Appointment): Option[TimeSpan]  =
+  ## Windows.ApplicationModel.Appointments.Appointment.get_Reminder
+  withIface(self.p, IID_IAppointment, "IAppointment", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointment_get_Reminder, Fn_IAppointment_get_Reminder)(it, tmp.addr).check("Appointment.get_Reminder")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "Appointment.get_Reminder")
+    release(tmp)
+
 proc organizer*(self: Appointment): AppointmentOrganizer  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_Organizer
   withIface(self.p, IID_IAppointment, "IAppointment", it):
@@ -13150,6 +13207,14 @@ proc `roamingId=`*(self: Appointment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IAppointment2_put_RoamingId, Fn_IAppointment2_put_RoamingId)(it, h0).check("Appointment.put_RoamingId")
 
+proc originalStartTime*(self: Appointment): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.Appointment.get_OriginalStartTime
+  withIface(self.p, IID_IAppointment2, "IAppointment2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointment2_get_OriginalStartTime, Fn_IAppointment2_get_OriginalStartTime)(it, tmp.addr).check("Appointment.get_OriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Appointment.get_OriginalStartTime")
+    release(tmp)
+
 proc isResponseRequested*(self: Appointment): bool  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_IsResponseRequested
   withIface(self.p, IID_IAppointment2, "IAppointment2", it):
@@ -13186,6 +13251,14 @@ proc `onlineMeetingLink=`*(self: Appointment, value: string)  =
   withIface(self.p, IID_IAppointment2, "IAppointment2", it):
     withHString(value, h0):
       vcall(it, Slot_IAppointment2_put_OnlineMeetingLink, Fn_IAppointment2_put_OnlineMeetingLink)(it, h0).check("Appointment.put_OnlineMeetingLink")
+
+proc replyTime*(self: Appointment): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.Appointment.get_ReplyTime
+  withIface(self.p, IID_IAppointment2, "IAppointment2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointment2_get_ReplyTime, Fn_IAppointment2_get_ReplyTime)(it, tmp.addr).check("Appointment.get_ReplyTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Appointment.get_ReplyTime")
+    release(tmp)
 
 proc userResponse*(self: Appointment): AppointmentParticipantResponse  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_UserResponse
@@ -14004,6 +14077,22 @@ proc `unit=`*(self: AppointmentRecurrence, value: AppointmentRecurrenceUnit)  =
   withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
     vcall(it, Slot_IAppointmentRecurrence_put_Unit, Fn_IAppointmentRecurrence_put_Unit)(it, value).check("AppointmentRecurrence.put_Unit")
 
+proc occurrences*(self: AppointmentRecurrence): Option[uint32]  =
+  ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.get_Occurrences
+  withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentRecurrence_get_Occurrences, Fn_IAppointmentRecurrence_get_Occurrences)(it, tmp.addr).check("AppointmentRecurrence.get_Occurrences")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AppointmentRecurrence.get_Occurrences")
+    release(tmp)
+
+proc until*(self: AppointmentRecurrence): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.get_Until
+  withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentRecurrence_get_Until, Fn_IAppointmentRecurrence_get_Until)(it, tmp.addr).check("AppointmentRecurrence.get_Until")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentRecurrence.get_Until")
+    release(tmp)
+
 proc interval*(self: AppointmentRecurrence): uint32  =
   ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.get_Interval
   withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
@@ -14378,6 +14467,14 @@ proc appointmentId*(self: RemoveAppointmentOperation): string  =
     vcall(it, Slot_IRemoveAppointmentOperation_get_AppointmentId, Fn_IRemoveAppointmentOperation_get_AppointmentId)(it, tmp.addr).check("RemoveAppointmentOperation.get_AppointmentId")
     result = takeString(tmp)
 
+proc instanceStartDate*(self: RemoveAppointmentOperation): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation.get_InstanceStartDate
+  withIface(self.p, IID_IRemoveAppointmentOperation, "IRemoveAppointmentOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoveAppointmentOperation_get_InstanceStartDate, Fn_IRemoveAppointmentOperation_get_InstanceStartDate)(it, tmp.addr).check("RemoveAppointmentOperation.get_InstanceStartDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "RemoveAppointmentOperation.get_InstanceStartDate")
+    release(tmp)
+
 proc sourcePackageFamilyName*(self: RemoveAppointmentOperation): string  =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation.get_SourcePackageFamilyName
   withIface(self.p, IID_IRemoveAppointmentOperation, "IRemoveAppointmentOperation", it):
@@ -14419,6 +14516,14 @@ proc appointmentInformation*(self: ReplaceAppointmentOperation): Appointment  =
     var tmp: pointer
     vcall(it, Slot_IReplaceAppointmentOperation_get_AppointmentInformation, Fn_IReplaceAppointmentOperation_get_AppointmentInformation)(it, tmp.addr).check("ReplaceAppointmentOperation.get_AppointmentInformation")
     result = adopt[Appointment](tmp)
+
+proc instanceStartDate*(self: ReplaceAppointmentOperation): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation.get_InstanceStartDate
+  withIface(self.p, IID_IReplaceAppointmentOperation, "IReplaceAppointmentOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IReplaceAppointmentOperation_get_InstanceStartDate, Fn_IReplaceAppointmentOperation_get_InstanceStartDate)(it, tmp.addr).check("ReplaceAppointmentOperation.get_InstanceStartDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ReplaceAppointmentOperation.get_InstanceStartDate")
+    release(tmp)
 
 proc sourcePackageFamilyName*(self: ReplaceAppointmentOperation): string  =
   ## Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation.get_SourcePackageFamilyName
@@ -14462,6 +14567,14 @@ proc appointmentLocalId*(self: AppointmentCalendarCancelMeetingRequest): string 
     var tmp: HSTRING
     vcall(it, Slot_IAppointmentCalendarCancelMeetingRequest_get_AppointmentLocalId, Fn_IAppointmentCalendarCancelMeetingRequest_get_AppointmentLocalId)(it, tmp.addr).check("AppointmentCalendarCancelMeetingRequest.get_AppointmentLocalId")
     result = takeString(tmp)
+
+proc appointmentOriginalStartTime*(self: AppointmentCalendarCancelMeetingRequest): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest.get_AppointmentOriginalStartTime
+  withIface(self.p, IID_IAppointmentCalendarCancelMeetingRequest, "IAppointmentCalendarCancelMeetingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarCancelMeetingRequest_get_AppointmentOriginalStartTime, Fn_IAppointmentCalendarCancelMeetingRequest_get_AppointmentOriginalStartTime)(it, tmp.addr).check("AppointmentCalendarCancelMeetingRequest.get_AppointmentOriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentCalendarCancelMeetingRequest.get_AppointmentOriginalStartTime")
+    release(tmp)
 
 proc subject*(self: AppointmentCalendarCancelMeetingRequest): string  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest.get_Subject
@@ -14584,6 +14697,14 @@ proc appointmentLocalId*(self: AppointmentCalendarForwardMeetingRequest): string
     vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_get_AppointmentLocalId, Fn_IAppointmentCalendarForwardMeetingRequest_get_AppointmentLocalId)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequest.get_AppointmentLocalId")
     result = takeString(tmp)
 
+proc appointmentOriginalStartTime*(self: AppointmentCalendarForwardMeetingRequest): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.get_AppointmentOriginalStartTime
+  withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequest, "IAppointmentCalendarForwardMeetingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_get_AppointmentOriginalStartTime, Fn_IAppointmentCalendarForwardMeetingRequest_get_AppointmentOriginalStartTime)(it, tmp.addr).check("AppointmentCalendarForwardMeetingRequest.get_AppointmentOriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentCalendarForwardMeetingRequest.get_AppointmentOriginalStartTime")
+    release(tmp)
+
 proc invitees*(self: AppointmentCalendarForwardMeetingRequest): seq[AppointmentInvitee]  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.get_Invitees
   withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequest, "IAppointmentCalendarForwardMeetingRequest", it):
@@ -14654,6 +14775,14 @@ proc appointmentLocalId*(self: AppointmentCalendarProposeNewTimeForMeetingReques
     var tmp: HSTRING
     vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequest_get_AppointmentLocalId, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequest_get_AppointmentLocalId)(it, tmp.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequest.get_AppointmentLocalId")
     result = takeString(tmp)
+
+proc appointmentOriginalStartTime*(self: AppointmentCalendarProposeNewTimeForMeetingRequest): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest.get_AppointmentOriginalStartTime
+  withIface(self.p, IID_IAppointmentCalendarProposeNewTimeForMeetingRequest, "IAppointmentCalendarProposeNewTimeForMeetingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequest_get_AppointmentOriginalStartTime, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequest_get_AppointmentOriginalStartTime)(it, tmp.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequest.get_AppointmentOriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentCalendarProposeNewTimeForMeetingRequest.get_AppointmentOriginalStartTime")
+    release(tmp)
 
 proc newStartTime*(self: AppointmentCalendarProposeNewTimeForMeetingRequest): DateTime  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest.get_NewStartTime
@@ -14759,6 +14888,14 @@ proc appointmentLocalId*(self: AppointmentCalendarUpdateMeetingResponseRequest):
     var tmp: HSTRING
     vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequest_get_AppointmentLocalId, Fn_IAppointmentCalendarUpdateMeetingResponseRequest_get_AppointmentLocalId)(it, tmp.addr).check("AppointmentCalendarUpdateMeetingResponseRequest.get_AppointmentLocalId")
     result = takeString(tmp)
+
+proc appointmentOriginalStartTime*(self: AppointmentCalendarUpdateMeetingResponseRequest): Option[DateTime]  =
+  ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest.get_AppointmentOriginalStartTime
+  withIface(self.p, IID_IAppointmentCalendarUpdateMeetingResponseRequest, "IAppointmentCalendarUpdateMeetingResponseRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequest_get_AppointmentOriginalStartTime, Fn_IAppointmentCalendarUpdateMeetingResponseRequest_get_AppointmentOriginalStartTime)(it, tmp.addr).check("AppointmentCalendarUpdateMeetingResponseRequest.get_AppointmentOriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentCalendarUpdateMeetingResponseRequest.get_AppointmentOriginalStartTime")
+    release(tmp)
 
 proc response*(self: AppointmentCalendarUpdateMeetingResponseRequest): AppointmentParticipantResponse  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest.get_Response
@@ -15494,6 +15631,14 @@ proc currentBackgroundWorkCost*(_: typedesc[BackgroundWorkCost]): BackgroundWork
 proc newBluetoothLEAdvertisementPublisherTrigger*(): BluetoothLEAdvertisementPublisherTrigger =
   ## Activate a `Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger`.
   adopt[BluetoothLEAdvertisementPublisherTrigger](activateAs("Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger", IID_IBluetoothLEAdvertisementPublisherTrigger))
+
+proc preferredTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherTrigger): Option[int16]  =
+  ## Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.get_PreferredTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisherTrigger2, "IBluetoothLEAdvertisementPublisherTrigger2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisherTrigger2_get_PreferredTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisherTrigger2_get_PreferredTransmitPowerLevelInDBm)(it, tmp.addr).check("BluetoothLEAdvertisementPublisherTrigger.get_PreferredTransmitPowerLevelInDBm")
+    result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisherTrigger.get_PreferredTransmitPowerLevelInDBm")
+    release(tmp)
 
 proc useExtendedFormat*(self: BluetoothLEAdvertisementPublisherTrigger): bool  =
   ## Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.get_UseExtendedFormat
@@ -16845,6 +16990,14 @@ proc `address=`*(self: PhoneCallHistoryEntry, value: PhoneCallHistoryEntryAddres
   withIface(self.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", it):
     withIface(value.p, IID_IPhoneCallHistoryEntryAddress, "IPhoneCallHistoryEntryAddress", p0):
       vcall(it, Slot_IPhoneCallHistoryEntry_put_Address, Fn_IPhoneCallHistoryEntry_put_Address)(it, p0).check("PhoneCallHistoryEntry.put_Address")
+
+proc duration*(self: PhoneCallHistoryEntry): Option[TimeSpan]  =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.get_Duration
+  withIface(self.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhoneCallHistoryEntry_get_Duration, Fn_IPhoneCallHistoryEntry_get_Duration)(it, tmp.addr).check("PhoneCallHistoryEntry.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "PhoneCallHistoryEntry.get_Duration")
+    release(tmp)
 
 proc isCallerIdBlocked*(self: PhoneCallHistoryEntry): bool  =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.get_IsCallerIdBlocked
@@ -19407,6 +19560,30 @@ proc maxRecipientCount*(self: ChatMessageTransportConfiguration): int32  =
     vcall(it, Slot_IChatMessageTransportConfiguration_get_MaxRecipientCount, Fn_IChatMessageTransportConfiguration_get_MaxRecipientCount)(it, tmp.addr).check("ChatMessageTransportConfiguration.get_MaxRecipientCount")
     result = tmp
 
+proc maxPartCount*(self: ChatMessageValidationResult): Option[uint32]  =
+  ## Windows.ApplicationModel.Chat.ChatMessageValidationResult.get_MaxPartCount
+  withIface(self.p, IID_IChatMessageValidationResult, "IChatMessageValidationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessageValidationResult_get_MaxPartCount, Fn_IChatMessageValidationResult_get_MaxPartCount)(it, tmp.addr).check("ChatMessageValidationResult.get_MaxPartCount")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ChatMessageValidationResult.get_MaxPartCount")
+    release(tmp)
+
+proc partCount*(self: ChatMessageValidationResult): Option[uint32]  =
+  ## Windows.ApplicationModel.Chat.ChatMessageValidationResult.get_PartCount
+  withIface(self.p, IID_IChatMessageValidationResult, "IChatMessageValidationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessageValidationResult_get_PartCount, Fn_IChatMessageValidationResult_get_PartCount)(it, tmp.addr).check("ChatMessageValidationResult.get_PartCount")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ChatMessageValidationResult.get_PartCount")
+    release(tmp)
+
+proc remainingCharacterCountInPart*(self: ChatMessageValidationResult): Option[uint32]  =
+  ## Windows.ApplicationModel.Chat.ChatMessageValidationResult.get_RemainingCharacterCountInPart
+  withIface(self.p, IID_IChatMessageValidationResult, "IChatMessageValidationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessageValidationResult_get_RemainingCharacterCountInPart, Fn_IChatMessageValidationResult_get_RemainingCharacterCountInPart)(it, tmp.addr).check("ChatMessageValidationResult.get_RemainingCharacterCountInPart")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ChatMessageValidationResult.get_RemainingCharacterCountInPart")
+    release(tmp)
+
 proc status*(self: ChatMessageValidationResult): ChatMessageValidationStatus  =
   ## Windows.ApplicationModel.Chat.ChatMessageValidationResult.get_Status
   withIface(self.p, IID_IChatMessageValidationResult, "IChatMessageValidationResult", it):
@@ -19447,6 +19624,22 @@ proc `transportAddress=`*(self: ChatRecipientDeliveryInfo, value: string)  =
   withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
     withHString(value, h0):
       vcall(it, Slot_IChatRecipientDeliveryInfo_put_TransportAddress, Fn_IChatRecipientDeliveryInfo_put_TransportAddress)(it, h0).check("ChatRecipientDeliveryInfo.put_TransportAddress")
+
+proc deliveryTime*(self: ChatRecipientDeliveryInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.get_DeliveryTime
+  withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatRecipientDeliveryInfo_get_DeliveryTime, Fn_IChatRecipientDeliveryInfo_get_DeliveryTime)(it, tmp.addr).check("ChatRecipientDeliveryInfo.get_DeliveryTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ChatRecipientDeliveryInfo.get_DeliveryTime")
+    release(tmp)
+
+proc readTime*(self: ChatRecipientDeliveryInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.get_ReadTime
+  withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatRecipientDeliveryInfo_get_ReadTime, Fn_IChatRecipientDeliveryInfo_get_ReadTime)(it, tmp.addr).check("ChatRecipientDeliveryInfo.get_ReadTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ChatRecipientDeliveryInfo.get_ReadTime")
+    release(tmp)
 
 proc transportErrorCodeCategory*(self: ChatRecipientDeliveryInfo): ChatTransportErrorCodeCategory  =
   ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.get_TransportErrorCodeCategory
@@ -20678,6 +20871,30 @@ proc newContactDate*(): ContactDate =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactDate`.
   adopt[ContactDate](activateAs("Windows.ApplicationModel.Contacts.ContactDate", IID_IContactDate))
 
+proc day*(self: ContactDate): Option[uint32]  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.get_Day
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactDate_get_Day, Fn_IContactDate_get_Day)(it, tmp.addr).check("ContactDate.get_Day")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ContactDate.get_Day")
+    release(tmp)
+
+proc month*(self: ContactDate): Option[uint32]  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.get_Month
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactDate_get_Month, Fn_IContactDate_get_Month)(it, tmp.addr).check("ContactDate.get_Month")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ContactDate.get_Month")
+    release(tmp)
+
+proc year*(self: ContactDate): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.get_Year
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactDate_get_Year, Fn_IContactDate_get_Year)(it, tmp.addr).check("ContactDate.get_Year")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactDate.get_Year")
+    release(tmp)
+
 proc kind*(self: ContactDate): ContactDateKind  =
   ## Windows.ApplicationModel.Contacts.ContactDate.get_Kind
   withIface(self.p, IID_IContactDate, "IContactDate", it):
@@ -21389,6 +21606,222 @@ proc `canSyncDescriptions=`*(self: ContactListSyncConstraints, value: bool)  =
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
     vcall(it, Slot_IContactListSyncConstraints_put_CanSyncDescriptions, Fn_IContactListSyncConstraints_put_CanSyncDescriptions)(it, value).check("ContactListSyncConstraints.put_CanSyncDescriptions")
 
+proc maxHomePhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxHomePhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxHomePhoneNumbers, Fn_IContactListSyncConstraints_get_MaxHomePhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxHomePhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomePhoneNumbers")
+    release(tmp)
+
+proc maxMobilePhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxMobilePhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxMobilePhoneNumbers, Fn_IContactListSyncConstraints_get_MaxMobilePhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxMobilePhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxMobilePhoneNumbers")
+    release(tmp)
+
+proc maxWorkPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxWorkPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxWorkPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWorkPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkPhoneNumbers")
+    release(tmp)
+
+proc maxOtherPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxOtherPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherPhoneNumbers")
+    release(tmp)
+
+proc maxPagerPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPagerPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxPagerPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxPagerPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxPagerPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPagerPhoneNumbers")
+    release(tmp)
+
+proc maxBusinessFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxBusinessFaxPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxBusinessFaxPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers")
+    release(tmp)
+
+proc maxHomeFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxHomeFaxPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxHomeFaxPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxHomeFaxPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxHomeFaxPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomeFaxPhoneNumbers")
+    release(tmp)
+
+proc maxCompanyPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxCompanyPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxCompanyPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxCompanyPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxCompanyPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxCompanyPhoneNumbers")
+    release(tmp)
+
+proc maxAssistantPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxAssistantPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxAssistantPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxAssistantPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxAssistantPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxAssistantPhoneNumbers")
+    release(tmp)
+
+proc maxRadioPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxRadioPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxRadioPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxRadioPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxRadioPhoneNumbers")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxRadioPhoneNumbers")
+    release(tmp)
+
+proc maxPersonalEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPersonalEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxPersonalEmailAddresses, Fn_IContactListSyncConstraints_get_MaxPersonalEmailAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxPersonalEmailAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPersonalEmailAddresses")
+    release(tmp)
+
+proc maxWorkEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxWorkEmailAddresses, Fn_IContactListSyncConstraints_get_MaxWorkEmailAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWorkEmailAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkEmailAddresses")
+    release(tmp)
+
+proc maxOtherEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherEmailAddresses, Fn_IContactListSyncConstraints_get_MaxOtherEmailAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherEmailAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherEmailAddresses")
+    release(tmp)
+
+proc maxHomeAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxHomeAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxHomeAddresses, Fn_IContactListSyncConstraints_get_MaxHomeAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxHomeAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomeAddresses")
+    release(tmp)
+
+proc maxWorkAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxWorkAddresses, Fn_IContactListSyncConstraints_get_MaxWorkAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWorkAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkAddresses")
+    release(tmp)
+
+proc maxOtherAddresses*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherAddresses, Fn_IContactListSyncConstraints_get_MaxOtherAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherAddresses")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherAddresses")
+    release(tmp)
+
+proc maxBirthdayDates*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxBirthdayDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxBirthdayDates, Fn_IContactListSyncConstraints_get_MaxBirthdayDates)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxBirthdayDates")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxBirthdayDates")
+    release(tmp)
+
+proc maxAnniversaryDates*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxAnniversaryDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxAnniversaryDates, Fn_IContactListSyncConstraints_get_MaxAnniversaryDates)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxAnniversaryDates")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxAnniversaryDates")
+    release(tmp)
+
+proc maxOtherDates*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherDates, Fn_IContactListSyncConstraints_get_MaxOtherDates)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherDates")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherDates")
+    release(tmp)
+
+proc maxOtherRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherRelationships, Fn_IContactListSyncConstraints_get_MaxOtherRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherRelationships")
+    release(tmp)
+
+proc maxSpouseRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxSpouseRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxSpouseRelationships, Fn_IContactListSyncConstraints_get_MaxSpouseRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxSpouseRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxSpouseRelationships")
+    release(tmp)
+
+proc maxPartnerRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPartnerRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxPartnerRelationships, Fn_IContactListSyncConstraints_get_MaxPartnerRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxPartnerRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPartnerRelationships")
+    release(tmp)
+
+proc maxSiblingRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxSiblingRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxSiblingRelationships, Fn_IContactListSyncConstraints_get_MaxSiblingRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxSiblingRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxSiblingRelationships")
+    release(tmp)
+
+proc maxParentRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxParentRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxParentRelationships, Fn_IContactListSyncConstraints_get_MaxParentRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxParentRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxParentRelationships")
+    release(tmp)
+
+proc maxChildRelationships*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxChildRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxChildRelationships, Fn_IContactListSyncConstraints_get_MaxChildRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxChildRelationships")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxChildRelationships")
+    release(tmp)
+
+proc maxJobInfo*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxJobInfo
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxJobInfo, Fn_IContactListSyncConstraints_get_MaxJobInfo)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxJobInfo")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxJobInfo")
+    release(tmp)
+
+proc maxWebsites*(self: ContactListSyncConstraints): Option[int32]  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWebsites
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactListSyncConstraints_get_MaxWebsites, Fn_IContactListSyncConstraints_get_MaxWebsites)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWebsites")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWebsites")
+    release(tmp)
+
 proc status*(self: ContactListSyncManager): ContactListSyncStatus  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncManager.get_Status
   withIface(self.p, IID_IContactListSyncManager, "IContactListSyncManager", it):
@@ -21704,6 +22137,14 @@ proc closePanel*(self: ContactPanel)  =
   ## Windows.ApplicationModel.Contacts.ContactPanel.ClosePanel
   withIface(self.p, IID_IContactPanel, "IContactPanel", it):
     vcall(it, Slot_IContactPanel_ClosePanel, Fn_IContactPanel_ClosePanel)(it).check("ContactPanel.ClosePanel")
+
+proc headerColor*(self: ContactPanel): Option[Color]  =
+  ## Windows.ApplicationModel.Contacts.ContactPanel.get_HeaderColor
+  withIface(self.p, IID_IContactPanel, "IContactPanel", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactPanel_get_HeaderColor, Fn_IContactPanel_get_HeaderColor)(it, tmp.addr).check("ContactPanel.get_HeaderColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ContactPanel.get_HeaderColor")
+    release(tmp)
 
 proc onLaunchFullAppRequested*(self: ContactPanel,
     handler: proc(sender: pointer, args: ContactPanelLaunchFullAppRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -25047,6 +25488,14 @@ proc `theme=`*(self: ShareUIOptions, value: ShareUITheme)  =
   withIface(self.p, IID_IShareUIOptions, "IShareUIOptions", it):
     vcall(it, Slot_IShareUIOptions_put_Theme, Fn_IShareUIOptions_put_Theme)(it, value).check("ShareUIOptions.put_Theme")
 
+proc selectionRect*(self: ShareUIOptions): Option[Rect]  =
+  ## Windows.ApplicationModel.DataTransfer.ShareUIOptions.get_SelectionRect
+  withIface(self.p, IID_IShareUIOptions, "IShareUIOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IShareUIOptions_get_SelectionRect, Fn_IShareUIOptions_get_SelectionRect)(it, tmp.addr).check("ShareUIOptions.get_SelectionRect")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "ShareUIOptions.get_SelectionRect")
+    release(tmp)
+
 proc addFile*(_: typedesc[SharedStorageAccessManager], a1: pointer): string  =
   ## Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager.AddFile
   withStatics("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager", IID_ISharedStorageAccessManagerStatics, it):
@@ -27456,6 +27905,22 @@ proc `responseKind=`*(self: EmailMailboxAutoReplySettings, value: EmailMailboxAu
   withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
     vcall(it, Slot_IEmailMailboxAutoReplySettings_put_ResponseKind, Fn_IEmailMailboxAutoReplySettings_put_ResponseKind)(it, value).check("EmailMailboxAutoReplySettings.put_ResponseKind")
 
+proc startTime*(self: EmailMailboxAutoReplySettings): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.get_StartTime
+  withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxAutoReplySettings_get_StartTime, Fn_IEmailMailboxAutoReplySettings_get_StartTime)(it, tmp.addr).check("EmailMailboxAutoReplySettings.get_StartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMailboxAutoReplySettings.get_StartTime")
+    release(tmp)
+
+proc endTime*(self: EmailMailboxAutoReplySettings): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.get_EndTime
+  withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxAutoReplySettings_get_EndTime, Fn_IEmailMailboxAutoReplySettings_get_EndTime)(it, tmp.addr).check("EmailMailboxAutoReplySettings.get_EndTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMailboxAutoReplySettings.get_EndTime")
+    release(tmp)
+
 proc internalReply*(self: EmailMailboxAutoReplySettings): EmailMailboxAutoReply  =
   ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.get_InternalReply
   withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
@@ -27749,6 +28214,22 @@ proc allowSmimeSoftCertificates*(self: EmailMailboxPolicies): bool  =
     vcall(it, Slot_IEmailMailboxPolicies_get_AllowSmimeSoftCertificates, Fn_IEmailMailboxPolicies_get_AllowSmimeSoftCertificates)(it, tmp.addr).check("EmailMailboxPolicies.get_AllowSmimeSoftCertificates")
     result = tmp
 
+proc requiredSmimeEncryptionAlgorithm*(self: EmailMailboxPolicies): Option[EmailMailboxSmimeEncryptionAlgorithm]  =
+  ## Windows.ApplicationModel.Email.EmailMailboxPolicies.get_RequiredSmimeEncryptionAlgorithm
+  withIface(self.p, IID_IEmailMailboxPolicies, "IEmailMailboxPolicies", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxPolicies_get_RequiredSmimeEncryptionAlgorithm, Fn_IEmailMailboxPolicies_get_RequiredSmimeEncryptionAlgorithm)(it, tmp.addr).check("EmailMailboxPolicies.get_RequiredSmimeEncryptionAlgorithm")
+    result = readReference[EmailMailboxSmimeEncryptionAlgorithm](tmp, IID_IReference_1_EmailMailboxSmimeEncryptionAlgorithm, "EmailMailboxPolicies.get_RequiredSmimeEncryptionAlgorithm")
+    release(tmp)
+
+proc requiredSmimeSigningAlgorithm*(self: EmailMailboxPolicies): Option[EmailMailboxSmimeSigningAlgorithm]  =
+  ## Windows.ApplicationModel.Email.EmailMailboxPolicies.get_RequiredSmimeSigningAlgorithm
+  withIface(self.p, IID_IEmailMailboxPolicies, "IEmailMailboxPolicies", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMailboxPolicies_get_RequiredSmimeSigningAlgorithm, Fn_IEmailMailboxPolicies_get_RequiredSmimeSigningAlgorithm)(it, tmp.addr).check("EmailMailboxPolicies.get_RequiredSmimeSigningAlgorithm")
+    result = readReference[EmailMailboxSmimeSigningAlgorithm](tmp, IID_IReference_1_EmailMailboxSmimeSigningAlgorithm, "EmailMailboxPolicies.get_RequiredSmimeSigningAlgorithm")
+    release(tmp)
+
 proc mustEncryptSmimeMessages*(self: EmailMailboxPolicies): bool  =
   ## Windows.ApplicationModel.Email.EmailMailboxPolicies.get_MustEncryptSmimeMessages
   withIface(self.p, IID_IEmailMailboxPolicies2, "IEmailMailboxPolicies2", it):
@@ -27897,6 +28378,14 @@ proc `appointmentRoamingId=`*(self: EmailMeetingInfo, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IEmailMeetingInfo_put_AppointmentRoamingId, Fn_IEmailMeetingInfo_put_AppointmentRoamingId)(it, h0).check("EmailMeetingInfo.put_AppointmentRoamingId")
 
+proc appointmentOriginalStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_AppointmentOriginalStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMeetingInfo_get_AppointmentOriginalStartTime, Fn_IEmailMeetingInfo_get_AppointmentOriginalStartTime)(it, tmp.addr).check("EmailMeetingInfo.get_AppointmentOriginalStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_AppointmentOriginalStartTime")
+    release(tmp)
+
 proc duration*(self: EmailMeetingInfo): TimeSpan  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_Duration
   withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
@@ -27945,6 +28434,30 @@ proc `location=`*(self: EmailMeetingInfo, value: string)  =
   withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
     withHString(value, h0):
       vcall(it, Slot_IEmailMeetingInfo_put_Location, Fn_IEmailMeetingInfo_put_Location)(it, h0).check("EmailMeetingInfo.put_Location")
+
+proc proposedStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_ProposedStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMeetingInfo_get_ProposedStartTime, Fn_IEmailMeetingInfo_get_ProposedStartTime)(it, tmp.addr).check("EmailMeetingInfo.get_ProposedStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_ProposedStartTime")
+    release(tmp)
+
+proc proposedDuration*(self: EmailMeetingInfo): Option[TimeSpan]  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_ProposedDuration
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMeetingInfo_get_ProposedDuration, Fn_IEmailMeetingInfo_get_ProposedDuration)(it, tmp.addr).check("EmailMeetingInfo.get_ProposedDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "EmailMeetingInfo.get_ProposedDuration")
+    release(tmp)
+
+proc recurrenceStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_RecurrenceStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMeetingInfo_get_RecurrenceStartTime, Fn_IEmailMeetingInfo_get_RecurrenceStartTime)(it, tmp.addr).check("EmailMeetingInfo.get_RecurrenceStartTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_RecurrenceStartTime")
+    release(tmp)
 
 proc recurrence*(self: EmailMeetingInfo): AppointmentRecurrence  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_Recurrence
@@ -28301,6 +28814,14 @@ proc `sender=`*(self: EmailMessage, value: EmailRecipient)  =
   withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
     withIface(value.p, IID_IEmailRecipient, "IEmailRecipient", p0):
       vcall(it, Slot_IEmailMessage2_put_Sender, Fn_IEmailMessage2_put_Sender)(it, p0).check("EmailMessage.put_Sender")
+
+proc sentTime*(self: EmailMessage): Option[DateTime]  =
+  ## Windows.ApplicationModel.Email.EmailMessage.get_SentTime
+  withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
+    var tmp: pointer
+    vcall(it, Slot_IEmailMessage2_get_SentTime, Fn_IEmailMessage2_get_SentTime)(it, tmp.addr).check("EmailMessage.get_SentTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMessage.get_SentTime")
+    release(tmp)
 
 proc meetingInfo*(self: EmailMessage): EmailMeetingInfo  =
   ## Windows.ApplicationModel.Email.EmailMessage.get_MeetingInfo
@@ -28948,6 +29469,14 @@ proc status*(self: LimitedAccessFeatureRequestResult): LimitedAccessFeatureStatu
     vcall(it, Slot_ILimitedAccessFeatureRequestResult_get_Status, Fn_ILimitedAccessFeatureRequestResult_get_Status)(it, tmp.addr).check("LimitedAccessFeatureRequestResult.get_Status")
     result = tmp
 
+proc estimatedRemovalDate*(self: LimitedAccessFeatureRequestResult): Option[DateTime]  =
+  ## Windows.ApplicationModel.LimitedAccessFeatureRequestResult.get_EstimatedRemovalDate
+  withIface(self.p, IID_ILimitedAccessFeatureRequestResult, "ILimitedAccessFeatureRequestResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ILimitedAccessFeatureRequestResult_get_EstimatedRemovalDate, Fn_ILimitedAccessFeatureRequestResult_get_EstimatedRemovalDate)(it, tmp.addr).check("LimitedAccessFeatureRequestResult.get_EstimatedRemovalDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "LimitedAccessFeatureRequestResult.get_EstimatedRemovalDate")
+    release(tmp)
+
 proc tryUnlockFeature*(_: typedesc[LimitedAccessFeatures], a1: string, a2: string, a3: string): LimitedAccessFeatureRequestResult  =
   ## Windows.ApplicationModel.LimitedAccessFeatures.TryUnlockFeature
   withStatics("Windows.ApplicationModel.LimitedAccessFeatures", IID_ILimitedAccessFeaturesStatics, it):
@@ -29002,6 +29531,14 @@ proc glyph*(self: LockScreenBadge): pointer  =
     var tmp: pointer
     vcall(it, Slot_ILockScreenBadge_get_Glyph, Fn_ILockScreenBadge_get_Glyph)(it, tmp.addr).check("LockScreenBadge.get_Glyph")
     result = tmp
+
+proc number*(self: LockScreenBadge): Option[uint32]  =
+  ## Windows.ApplicationModel.LockScreen.LockScreenBadge.get_Number
+  withIface(self.p, IID_ILockScreenBadge, "ILockScreenBadge", it):
+    var tmp: pointer
+    vcall(it, Slot_ILockScreenBadge_get_Number, Fn_ILockScreenBadge_get_Number)(it, tmp.addr).check("LockScreenBadge.get_Number")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "LockScreenBadge.get_Number")
+    release(tmp)
 
 proc automationName*(self: LockScreenBadge): string  =
   ## Windows.ApplicationModel.LockScreen.LockScreenBadge.get_AutomationName
@@ -34052,6 +34589,14 @@ proc availabilityId*(self: GetEntitlementResult): string  =
     vcall(it, Slot_IGetEntitlementResult2_get_AvailabilityId, Fn_IGetEntitlementResult2_get_AvailabilityId)(it, tmp.addr).check("GetEntitlementResult.get_AvailabilityId")
     result = takeString(tmp)
 
+proc purchasePromptingPolicy*(_: typedesc[StoreConfiguration]): Option[uint32]  =
+  ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.get_PurchasePromptingPolicy
+  withStatics("Windows.ApplicationModel.Store.Preview.StoreConfiguration", IID_IStoreConfigurationStatics2, it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreConfigurationStatics2_get_PurchasePromptingPolicy, Fn_IStoreConfigurationStatics2_get_PurchasePromptingPolicy)(it, tmp.addr).check("StoreConfiguration.get_PurchasePromptingPolicy")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "StoreConfiguration.get_PurchasePromptingPolicy")
+    release(tmp)
+
 proc setSystemConfiguration*(_: typedesc[StoreConfiguration], a1: string, a2: string, a3: DateTime, a4: string)  =
   ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.SetSystemConfiguration
   withStatics("Windows.ApplicationModel.Store.Preview.StoreConfiguration", IID_IStoreConfigurationStatics, it):
@@ -34861,6 +35406,14 @@ proc startTime*(self: UserActivitySessionHistoryItem): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IUserActivitySessionHistoryItem_get_StartTime, Fn_IUserActivitySessionHistoryItem_get_StartTime)(it, tmp.addr).check("UserActivitySessionHistoryItem.get_StartTime")
     result = tmp
+
+proc endTime*(self: UserActivitySessionHistoryItem): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem.get_EndTime
+  withIface(self.p, IID_IUserActivitySessionHistoryItem, "IUserActivitySessionHistoryItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserActivitySessionHistoryItem_get_EndTime, Fn_IUserActivitySessionHistoryItem_get_EndTime)(it, tmp.addr).check("UserActivitySessionHistoryItem.get_EndTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserActivitySessionHistoryItem.get_EndTime")
+    release(tmp)
 
 proc displayText*(self: UserActivityVisualElements): string  =
   ## Windows.ApplicationModel.UserActivities.UserActivityVisualElements.get_DisplayText
@@ -36161,6 +36714,14 @@ proc `remoteId=`*(self: UserDataTask, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IUserDataTask_put_RemoteId, Fn_IUserDataTask_put_RemoteId)(it, h0).check("UserDataTask.put_RemoteId")
 
+proc completedDate*(self: UserDataTask): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_CompletedDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTask_get_CompletedDate, Fn_IUserDataTask_get_CompletedDate)(it, tmp.addr).check("UserDataTask.get_CompletedDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_CompletedDate")
+    release(tmp)
+
 proc details*(self: UserDataTask): string  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Details
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
@@ -36185,6 +36746,14 @@ proc `detailsKind=`*(self: UserDataTask, value: UserDataTaskDetailsKind)  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.put_DetailsKind
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
     vcall(it, Slot_IUserDataTask_put_DetailsKind, Fn_IUserDataTask_put_DetailsKind)(it, value).check("UserDataTask.put_DetailsKind")
+
+proc dueDate*(self: UserDataTask): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_DueDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTask_get_DueDate, Fn_IUserDataTask_get_DueDate)(it, tmp.addr).check("UserDataTask.get_DueDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_DueDate")
+    release(tmp)
 
 proc kind*(self: UserDataTask): UserDataTaskKind  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Kind
@@ -36231,6 +36800,14 @@ proc `regenerationProperties=`*(self: UserDataTask, value: UserDataTaskRegenerat
     withIface(value.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", p0):
       vcall(it, Slot_IUserDataTask_put_RegenerationProperties, Fn_IUserDataTask_put_RegenerationProperties)(it, p0).check("UserDataTask.put_RegenerationProperties")
 
+proc reminder*(self: UserDataTask): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Reminder
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTask_get_Reminder, Fn_IUserDataTask_get_Reminder)(it, tmp.addr).check("UserDataTask.get_Reminder")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_Reminder")
+    release(tmp)
+
 proc sensitivity*(self: UserDataTask): UserDataTaskSensitivity  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Sensitivity
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
@@ -36255,6 +36832,14 @@ proc `subject=`*(self: UserDataTask, value: string)  =
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
     withHString(value, h0):
       vcall(it, Slot_IUserDataTask_put_Subject, Fn_IUserDataTask_put_Subject)(it, h0).check("UserDataTask.put_Subject")
+
+proc startDate*(self: UserDataTask): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_StartDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTask_get_StartDate, Fn_IUserDataTask_get_StartDate)(it, tmp.addr).check("UserDataTask.get_StartDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_StartDate")
+    release(tmp)
 
 proc tasks*(self: UserDataTaskBatch): seq[UserDataTask]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch.get_Tasks
@@ -36524,6 +37109,22 @@ proc `unit=`*(self: UserDataTaskRecurrenceProperties, value: UserDataTaskRecurre
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
     vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Unit, Fn_IUserDataTaskRecurrenceProperties_put_Unit)(it, value).check("UserDataTaskRecurrenceProperties.put_Unit")
 
+proc occurrences*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Occurrences
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Occurrences, Fn_IUserDataTaskRecurrenceProperties_get_Occurrences)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Occurrences")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Occurrences")
+    release(tmp)
+
+proc until*(self: UserDataTaskRecurrenceProperties): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Until
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Until, Fn_IUserDataTaskRecurrenceProperties_get_Until)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Until")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTaskRecurrenceProperties.get_Until")
+    release(tmp)
+
 proc interval*(self: UserDataTaskRecurrenceProperties): int32  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Interval
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
@@ -36535,6 +37136,38 @@ proc `interval=`*(self: UserDataTaskRecurrenceProperties, value: int32)  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_Interval
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
     vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Interval, Fn_IUserDataTaskRecurrenceProperties_put_Interval)(it, value).check("UserDataTaskRecurrenceProperties.put_Interval")
+
+proc daysOfWeek*(self: UserDataTaskRecurrenceProperties): Option[UserDataTaskDaysOfWeek]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_DaysOfWeek
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_DaysOfWeek, Fn_IUserDataTaskRecurrenceProperties_get_DaysOfWeek)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_DaysOfWeek")
+    result = readReference[UserDataTaskDaysOfWeek](tmp, IID_IReference_1_UserDataTaskDaysOfWeek, "UserDataTaskRecurrenceProperties.get_DaysOfWeek")
+    release(tmp)
+
+proc weekOfMonth*(self: UserDataTaskRecurrenceProperties): Option[UserDataTaskWeekOfMonth]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_WeekOfMonth
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_WeekOfMonth, Fn_IUserDataTaskRecurrenceProperties_get_WeekOfMonth)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_WeekOfMonth")
+    result = readReference[UserDataTaskWeekOfMonth](tmp, IID_IReference_1_UserDataTaskWeekOfMonth, "UserDataTaskRecurrenceProperties.get_WeekOfMonth")
+    release(tmp)
+
+proc month*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Month
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Month, Fn_IUserDataTaskRecurrenceProperties_get_Month)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Month")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Month")
+    release(tmp)
+
+proc day*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Day
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Day, Fn_IUserDataTaskRecurrenceProperties_get_Day)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Day")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Day")
+    release(tmp)
 
 proc newUserDataTaskRegenerationProperties*(): UserDataTaskRegenerationProperties =
   ## Activate a `Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties`.
@@ -36551,6 +37184,22 @@ proc `unit=`*(self: UserDataTaskRegenerationProperties, value: UserDataTaskRegen
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.put_Unit
   withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
     vcall(it, Slot_IUserDataTaskRegenerationProperties_put_Unit, Fn_IUserDataTaskRegenerationProperties_put_Unit)(it, value).check("UserDataTaskRegenerationProperties.put_Unit")
+
+proc occurrences*(self: UserDataTaskRegenerationProperties): Option[int32]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.get_Occurrences
+  withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRegenerationProperties_get_Occurrences, Fn_IUserDataTaskRegenerationProperties_get_Occurrences)(it, tmp.addr).check("UserDataTaskRegenerationProperties.get_Occurrences")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRegenerationProperties.get_Occurrences")
+    release(tmp)
+
+proc until*(self: UserDataTaskRegenerationProperties): Option[DateTime]  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.get_Until
+  withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserDataTaskRegenerationProperties_get_Until, Fn_IUserDataTaskRegenerationProperties_get_Until)(it, tmp.addr).check("UserDataTaskRegenerationProperties.get_Until")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTaskRegenerationProperties.get_Until")
+    release(tmp)
 
 proc interval*(self: UserDataTaskRegenerationProperties): int32  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.get_Interval
@@ -37042,6 +37691,14 @@ proc `issuerDisplayName=`*(self: WalletItem, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IWalletItem_put_IssuerDisplayName, Fn_IWalletItem_put_IssuerDisplayName)(it, h0).check("WalletItem.put_IssuerDisplayName")
 
+proc lastUpdated*(self: WalletItem): Option[DateTime]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_LastUpdated
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_LastUpdated, Fn_IWalletItem_get_LastUpdated)(it, tmp.addr).check("WalletItem.get_LastUpdated")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_LastUpdated")
+    release(tmp)
+
 proc kind*(self: WalletItem): WalletItemKind  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Kind
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
@@ -37061,6 +37718,14 @@ proc `barcode=`*(self: WalletItem, value: WalletBarcode)  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IWalletBarcode, "IWalletBarcode", p0):
       vcall(it, Slot_IWalletItem_put_Barcode, Fn_IWalletItem_put_Barcode)(it, p0).check("WalletItem.put_Barcode")
+
+proc expirationDate*(self: WalletItem): Option[DateTime]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_ExpirationDate
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_ExpirationDate, Fn_IWalletItem_get_ExpirationDate)(it, tmp.addr).check("WalletItem.get_ExpirationDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_ExpirationDate")
+    release(tmp)
 
 proc logo159x159*(self: WalletItem): pointer  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Logo159x159
@@ -37231,6 +37896,14 @@ proc `promotionalImage=`*(self: WalletItem, value: pointer)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_PromotionalImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     vcall(it, Slot_IWalletItem_put_PromotionalImage, Fn_IWalletItem_put_PromotionalImage)(it, value).check("WalletItem.put_PromotionalImage")
+
+proc relevantDate*(self: WalletItem): Option[DateTime]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_RelevantDate
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_RelevantDate, Fn_IWalletItem_get_RelevantDate)(it, tmp.addr).check("WalletItem.get_RelevantDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_RelevantDate")
+    release(tmp)
 
 proc relevantDateDisplayMessage*(self: WalletItem): string  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_RelevantDateDisplayMessage
@@ -37476,6 +38149,14 @@ proc `displayLocation=`*(self: WalletTransaction, value: string)  =
   withIface(self.p, IID_IWalletTransaction, "IWalletTransaction", it):
     withHString(value, h0):
       vcall(it, Slot_IWalletTransaction_put_DisplayLocation, Fn_IWalletTransaction_put_DisplayLocation)(it, h0).check("WalletTransaction.put_DisplayLocation")
+
+proc transactionDate*(self: WalletTransaction): Option[DateTime]  =
+  ## Windows.ApplicationModel.Wallet.WalletTransaction.get_TransactionDate
+  withIface(self.p, IID_IWalletTransaction, "IWalletTransaction", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletTransaction_get_TransactionDate, Fn_IWalletTransaction_get_TransactionDate)(it, tmp.addr).check("WalletTransaction.get_TransactionDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletTransaction.get_TransactionDate")
+    release(tmp)
 
 proc isLaunchable*(self: WalletTransaction): bool  =
   ## Windows.ApplicationModel.Wallet.WalletTransaction.get_IsLaunchable

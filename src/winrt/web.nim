@@ -69,6 +69,9 @@ const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderReque
 const IID_IVectorView_1_HttpDiagnosticSourceLocation* = GUID(
     data1: 0xE9AF27D3'u32, data2: 0x80E8'u16, data3: 0x5AFF'u16,
     data4: [0xA7'u8, 0xE5, 0x1B, 0x22, 0x17, 0x87, 0xF0, 0x96])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
     data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
@@ -78,9 +81,21 @@ const IID_AsyncOperationCompletedHandler_1_HttpResponseMessage* = GUID(
 const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = GUID(
     data1: 0x5D144364'u32, data2: 0x77D7'u16, data3: 0x5ECA'u16,
     data4: [0x8B'u8, 0x09, 0x93, 0x6A, 0x69, 0x44, 0x66, 0x52])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
 const IID_IVector_1_HttpNameValueHeaderValue* = GUID(
     data1: 0x2CF800D4'u32, data2: 0x35D0'u16, data3: 0x545C'u16,
     data4: [0xAB'u8, 0x82, 0xF6, 0x79, 0x3B, 0xE7, 0x4C, 0xBA])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
+const IID_IReference_1_U8* = GUID(
+    data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
+    data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
+const IID_IReference_1_U4* = GUID(
+    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
+    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
@@ -2232,6 +2247,78 @@ proc sourceLocations*(self: HttpDiagnosticProviderRequestResponseCompletedEventA
     result = toSeq[HttpDiagnosticSourceLocation](tmp, IID_IVectorView_1_HttpDiagnosticSourceLocation)
     release(tmp)
 
+proc cacheCheckedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp")
+    release(tmp)
+
+proc connectionInitiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp")
+    release(tmp)
+
+proc nameResolvedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp")
+    release(tmp)
+
+proc sslNegotiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp")
+    release(tmp)
+
+proc connectionCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp")
+    release(tmp)
+
+proc requestSentTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp")
+    release(tmp)
+
+proc requestCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp")
+    release(tmp)
+
+proc responseReceivedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp")
+    release(tmp)
+
+proc responseCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp
+  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp")
+    release(tmp)
+
 proc timestamp*(self: HttpDiagnosticProviderRequestSentEventArgs): DateTime  =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_Timestamp
   withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
@@ -2506,6 +2593,38 @@ proc getDeferral*(self: HttpServerCustomValidationRequestedEventArgs): Deferral 
     vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_GetDeferral, Fn_IHttpServerCustomValidationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc maxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MaxAge
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
+    release(tmp)
+
+proc maxStale*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MaxStale
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
+    release(tmp)
+
+proc minFresh*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MinFresh
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
+    release(tmp)
+
+proc sharedMaxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
+    release(tmp)
+
 proc parseAdd*(self: HttpCacheDirectiveHeaderValueCollection, a1: string)  =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.ParseAdd
   withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
@@ -2711,6 +2830,14 @@ proc contentCoding*(self: HttpContentCodingWithQualityHeaderValue): string  =
     vcall(it, Slot_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding, Fn_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.get_ContentCoding")
     result = takeString(tmp)
 
+proc quality*(self: HttpContentCodingWithQualityHeaderValue): Option[float64]  =
+  ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.get_Quality
+  withIface(self.p, IID_IHttpContentCodingWithQualityHeaderValue, "IHttpContentCodingWithQualityHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentCodingWithQualityHeaderValue_get_Quality, Fn_IHttpContentCodingWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.get_Quality")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpContentCodingWithQualityHeaderValue.get_Quality")
+    release(tmp)
+
 proc toString*(self: HttpContentCodingWithQualityHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.ToString
   withIface(self.p, IID_IStringable, "IStringable", it):
@@ -2823,6 +2950,14 @@ proc parameters*(self: HttpContentDispositionHeaderValue): seq[HttpNameValueHead
     result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
+proc size*(self: HttpContentDispositionHeaderValue): Option[uint64]  =
+  ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_Size
+  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_Size, Fn_IHttpContentDispositionHeaderValue_get_Size)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_Size")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentDispositionHeaderValue.get_Size")
+    release(tmp)
+
 proc toString*(self: HttpContentDispositionHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.ToString
   withIface(self.p, IID_IStringable, "IStringable", it):
@@ -2877,6 +3012,14 @@ proc contentLanguage*(self: HttpContentHeaderCollection): HttpLanguageHeaderValu
     vcall(it, Slot_IHttpContentHeaderCollection_get_ContentLanguage, Fn_IHttpContentHeaderCollection_get_ContentLanguage)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentLanguage")
     result = adopt[HttpLanguageHeaderValueCollection](tmp)
 
+proc contentLength*(self: HttpContentHeaderCollection): Option[uint64]  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLength
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentLength, Fn_IHttpContentHeaderCollection_get_ContentLength)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentHeaderCollection.get_ContentLength")
+    release(tmp)
+
 proc contentLocation*(self: HttpContentHeaderCollection): Uri  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLocation
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
@@ -2928,6 +3071,22 @@ proc `contentType=`*(self: HttpContentHeaderCollection, value: HttpMediaTypeHead
     withIface(value.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", p0):
       vcall(it, Slot_IHttpContentHeaderCollection_put_ContentType, Fn_IHttpContentHeaderCollection_put_ContentType)(it, p0).check("HttpContentHeaderCollection.put_ContentType")
 
+proc expires*(self: HttpContentHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_Expires
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentHeaderCollection_get_Expires, Fn_IHttpContentHeaderCollection_get_Expires)(it, tmp.addr).check("HttpContentHeaderCollection.get_Expires")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_Expires")
+    release(tmp)
+
+proc lastModified*(self: HttpContentHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_LastModified
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentHeaderCollection_get_LastModified, Fn_IHttpContentHeaderCollection_get_LastModified)(it, tmp.addr).check("HttpContentHeaderCollection.get_LastModified")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_LastModified")
+    release(tmp)
+
 proc append*(self: HttpContentHeaderCollection, a1: string, a2: string)  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.Append
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
@@ -2950,6 +3109,30 @@ proc toString*(self: HttpContentHeaderCollection): string  =
     var tmp: HSTRING
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentHeaderCollection.ToString")
     result = takeString(tmp)
+
+proc firstBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+  ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_FirstBytePosition
+  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentRangeHeaderValue_get_FirstBytePosition, Fn_IHttpContentRangeHeaderValue_get_FirstBytePosition)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_FirstBytePosition")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_FirstBytePosition")
+    release(tmp)
+
+proc lastBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+  ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_LastBytePosition
+  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentRangeHeaderValue_get_LastBytePosition, Fn_IHttpContentRangeHeaderValue_get_LastBytePosition)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_LastBytePosition")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_LastBytePosition")
+    release(tmp)
+
+proc length*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+  ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_Length
+  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpContentRangeHeaderValue_get_Length, Fn_IHttpContentRangeHeaderValue_get_Length)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_Length")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_Length")
+    release(tmp)
 
 proc unit*(self: HttpContentRangeHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_Unit
@@ -3127,6 +3310,22 @@ proc createFromSchemeWithToken*(_: typedesc[HttpCredentialsHeaderValue], a1: str
         vcall(it, Slot_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken, Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken)(it, h0, h1, tmp.addr).check("HttpCredentialsHeaderValue.CreateFromSchemeWithToken")
         result = adopt[HttpCredentialsHeaderValue](tmp)
 
+proc date*(self: HttpDateOrDeltaHeaderValue): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.get_Date
+  withIface(self.p, IID_IHttpDateOrDeltaHeaderValue, "IHttpDateOrDeltaHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDateOrDeltaHeaderValue_get_Date, Fn_IHttpDateOrDeltaHeaderValue_get_Date)(it, tmp.addr).check("HttpDateOrDeltaHeaderValue.get_Date")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDateOrDeltaHeaderValue.get_Date")
+    release(tmp)
+
+proc delta*(self: HttpDateOrDeltaHeaderValue): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.get_Delta
+  withIface(self.p, IID_IHttpDateOrDeltaHeaderValue, "IHttpDateOrDeltaHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpDateOrDeltaHeaderValue_get_Delta, Fn_IHttpDateOrDeltaHeaderValue_get_Delta)(it, tmp.addr).check("HttpDateOrDeltaHeaderValue.get_Delta")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpDateOrDeltaHeaderValue.get_Delta")
+    release(tmp)
+
 proc toString*(self: HttpDateOrDeltaHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.ToString
   withIface(self.p, IID_IStringable, "IStringable", it):
@@ -3250,6 +3449,14 @@ proc languageRange*(self: HttpLanguageRangeWithQualityHeaderValue): string  =
     var tmp: HSTRING
     vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange, Fn_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.get_LanguageRange")
     result = takeString(tmp)
+
+proc quality*(self: HttpLanguageRangeWithQualityHeaderValue): Option[float64]  =
+  ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.get_Quality
+  withIface(self.p, IID_IHttpLanguageRangeWithQualityHeaderValue, "IHttpLanguageRangeWithQualityHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValue_get_Quality, Fn_IHttpLanguageRangeWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.get_Quality")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpLanguageRangeWithQualityHeaderValue.get_Quality")
+    release(tmp)
 
 proc toString*(self: HttpLanguageRangeWithQualityHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.ToString
@@ -3392,6 +3599,14 @@ proc parameters*(self: HttpMediaTypeWithQualityHeaderValue): seq[HttpNameValueHe
     var tmp: pointer
     vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_Parameters, Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_Parameters")
     result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    release(tmp)
+
+proc quality*(self: HttpMediaTypeWithQualityHeaderValue): Option[float64]  =
+  ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_Quality
+  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_Quality, Fn_IHttpMediaTypeWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_Quality")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpMediaTypeWithQualityHeaderValue.get_Quality")
     release(tmp)
 
 proc toString*(self: HttpMediaTypeWithQualityHeaderValue): string  =
@@ -3687,6 +3902,14 @@ proc cookie*(self: HttpRequestHeaderCollection): HttpCookiePairHeaderValueCollec
     vcall(it, Slot_IHttpRequestHeaderCollection_get_Cookie, Fn_IHttpRequestHeaderCollection_get_Cookie)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Cookie")
     result = adopt[HttpCookiePairHeaderValueCollection](tmp)
 
+proc date*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Date
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestHeaderCollection_get_Date, Fn_IHttpRequestHeaderCollection_get_Date)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Date")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_Date")
+    release(tmp)
+
 proc expect*(self: HttpRequestHeaderCollection): HttpExpectationHeaderValueCollection  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Expect
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
@@ -3706,6 +3929,30 @@ proc `from=`*(self: HttpRequestHeaderCollection, value: string)  =
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
     withHString(value, h0):
       vcall(it, Slot_IHttpRequestHeaderCollection_put_From, Fn_IHttpRequestHeaderCollection_put_From)(it, h0).check("HttpRequestHeaderCollection.put_From")
+
+proc ifModifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfModifiedSince
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestHeaderCollection_get_IfModifiedSince, Fn_IHttpRequestHeaderCollection_get_IfModifiedSince)(it, tmp.addr).check("HttpRequestHeaderCollection.get_IfModifiedSince")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfModifiedSince")
+    release(tmp)
+
+proc ifUnmodifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfUnmodifiedSince
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestHeaderCollection_get_IfUnmodifiedSince, Fn_IHttpRequestHeaderCollection_get_IfUnmodifiedSince)(it, tmp.addr).check("HttpRequestHeaderCollection.get_IfUnmodifiedSince")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfUnmodifiedSince")
+    release(tmp)
+
+proc maxForwards*(self: HttpRequestHeaderCollection): Option[uint32]  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_MaxForwards
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestHeaderCollection_get_MaxForwards, Fn_IHttpRequestHeaderCollection_get_MaxForwards)(it, tmp.addr).check("HttpRequestHeaderCollection.get_MaxForwards")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "HttpRequestHeaderCollection.get_MaxForwards")
+    release(tmp)
 
 proc proxyAuthorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_ProxyAuthorization
@@ -3770,6 +4017,14 @@ proc toString*(self: HttpRequestHeaderCollection): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpRequestHeaderCollection.ToString")
     result = takeString(tmp)
 
+proc age*(self: HttpResponseHeaderCollection): Option[TimeSpan]  =
+  ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Age
+  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpResponseHeaderCollection_get_Age, Fn_IHttpResponseHeaderCollection_get_Age)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Age")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpResponseHeaderCollection.get_Age")
+    release(tmp)
+
 proc allow*(self: HttpResponseHeaderCollection): HttpMethodHeaderValueCollection  =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Allow
   withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
@@ -3790,6 +4045,14 @@ proc connection*(self: HttpResponseHeaderCollection): HttpConnectionOptionHeader
     var tmp: pointer
     vcall(it, Slot_IHttpResponseHeaderCollection_get_Connection, Fn_IHttpResponseHeaderCollection_get_Connection)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Connection")
     result = adopt[HttpConnectionOptionHeaderValueCollection](tmp)
+
+proc date*(self: HttpResponseHeaderCollection): Option[DateTime]  =
+  ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Date
+  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpResponseHeaderCollection_get_Date, Fn_IHttpResponseHeaderCollection_get_Date)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Date")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpResponseHeaderCollection.get_Date")
+    release(tmp)
 
 proc location*(self: HttpResponseHeaderCollection): Uri  =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Location
@@ -4171,6 +4434,14 @@ proc path*(self: HttpCookie): string  =
     var tmp: HSTRING
     vcall(it, Slot_IHttpCookie_get_Path, Fn_IHttpCookie_get_Path)(it, tmp.addr).check("HttpCookie.get_Path")
     result = takeString(tmp)
+
+proc expires*(self: HttpCookie): Option[DateTime]  =
+  ## Windows.Web.Http.HttpCookie.get_Expires
+  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpCookie_get_Expires, Fn_IHttpCookie_get_Expires)(it, tmp.addr).check("HttpCookie.get_Expires")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpCookie.get_Expires")
+    release(tmp)
 
 proc httpOnly*(self: HttpCookie): bool  =
   ## Windows.Web.Http.HttpCookie.get_HttpOnly

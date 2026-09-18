@@ -36,6 +36,12 @@ const IID_IVector_1_IAudioEffectDefinition* = GUID(
 const IID_TypedEventHandler_2_AudioEffectsPackConfiguration_Object* = GUID(
     data1: 0x41CDCF69'u32, data2: 0x8822'u16, data3: 0x5062'u16,
     data4: [0xAF'u8, 0x8B, 0x68, 0xE3, 0x2E, 0xF9, 0x88, 0x4D])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_TypedEventHandler_2_AudioFileInputNode_Object* = GUID(
     data1: 0x4481085B'u32, data2: 0x8B8B'u16, data3: 0x5520'u16,
     data4: [0x98'u8, 0x25, 0xE9, 0x67, 0x1D, 0xA2, 0xA8, 0x9F])
@@ -114,6 +120,9 @@ const IID_IAsyncOperation_1_SetDefaultSpatialAudioFormatResult* = GUID(
 const IID_TypedEventHandler_2_SpatialAudioDeviceConfiguration_Object* = GUID(
     data1: 0x34CB725D'u32, data2: 0xD620'u16, data3: 0x5C8D'u16,
     data4: [0x97'u8, 0xF6, 0xA3, 0xEB, 0xDF, 0xF1, 0xF9, 0x64])
+const IID_IReference_1_Rect* = GUID(
+    data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
+    data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
 const IID_AsyncOperationCompletedHandler_1_AdvancedCapturedPhoto* = GUID(
     data1: 0xEDF3452C'u32, data2: 0xD918'u16, data3: 0x5C95'u16,
     data4: [0x8E'u8, 0x3A, 0x24, 0x50, 0x44, 0xDD, 0x70, 0xDF])
@@ -147,6 +156,9 @@ const IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object* = 
 const IID_IVectorView_1_AppBroadcastPlugIn* = GUID(
     data1: 0x05AFEE04'u32, data2: 0x1168'u16, data3: 0x5677'u16,
     data4: [0xA0'u8, 0x5E, 0x98, 0x54, 0xB4, 0x6B, 0x31, 0x9B])
+const IID_IReference_1_U4* = GUID(
+    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
+    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
 const IID_TypedEventHandler_2_AppBroadcastPreview_AppBroadcastPreviewStateChangedEventArgs* = GUID(
     data1: 0x41D8B8E1'u32, data2: 0xDCE7'u16, data3: 0x5EBC'u16,
     data4: [0x94'u8, 0x0F, 0xDE, 0x7D, 0xD2, 0xA6, 0x2A, 0xB5])
@@ -180,6 +192,9 @@ const IID_TypedEventHandler_2_AppCapture_Object* = GUID(
 const IID_TypedEventHandler_2_AppCaptureMetadataWriter_Object* = GUID(
     data1: 0x1AAED84C'u32, data2: 0xED87'u16, data3: 0x5F38'u16,
     data4: [0xA9'u8, 0xD1, 0x35, 0x53, 0x12, 0x8D, 0x4A, 0x62])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureRecordingStateChangedEventArgs* = GUID(
     data1: 0x227CBF02'u32, data2: 0x2DFB'u16, data3: 0x5425'u16,
     data4: [0x85'u8, 0xB1, 0x0D, 0x62, 0xCE, 0x5D, 0x12, 0x43])
@@ -195,6 +210,21 @@ const IID_TypedEventHandler_2_AppCaptureState_AppCaptureMicrophoneCaptureStateCh
 const IID_TypedEventHandler_2_AppCaptureState_Object* = GUID(
     data1: 0xB74AE481'u32, data2: 0x777B'u16, data3: 0x5BC9'u16,
     data4: [0x83'u8, 0xDA, 0x56, 0x2D, 0x90, 0x5A, 0x43, 0xF1])
+const IID_IReference_1_F4* = GUID(
+    data1: 0x719CC2BA'u32, data2: 0x3E76'u16, data3: 0x5DEF'u16,
+    data4: [0x9F'u8, 0x1A, 0x38, 0xD8, 0x5A, 0x14, 0x5E, 0xA8])
+const IID_IReference_1_CaptureSceneMode* = GUID(
+    data1: 0xE20596AA'u32, data2: 0x0BBE'u16, data3: 0x5203'u16,
+    data4: [0xBE'u8, 0x6B, 0x6B, 0x71, 0xFF, 0x5B, 0x08, 0x43])
+const IID_IReference_1_MediaCaptureFocusState* = GUID(
+    data1: 0x58820185'u32, data2: 0x5DA0'u16, data3: 0x5FAA'u16,
+    data4: [0x86'u8, 0xDA, 0x9B, 0xD9, 0xF0, 0x39, 0x74, 0xFA])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
+const IID_IReference_1_WhiteBalanceGain* = GUID(
+    data1: 0x79C7838A'u32, data2: 0x39E2'u16, data3: 0x5287'u16,
+    data4: [0xAC'u8, 0x3B, 0xB1, 0x18, 0xDB, 0x25, 0x10, 0x02])
 const IID_TypedEventHandler_2_VariablePhotoSequenceCapture_VariablePhotoCapturedEventArgs* = GUID(
     data1: 0xBAB30230'u32, data2: 0x3DCD'u16, data3: 0x58E2'u16,
     data4: [0xAA'u8, 0xC5, 0xA4, 0x5F, 0x3E, 0x6F, 0x80, 0x97])
@@ -387,6 +417,12 @@ const IID_AsyncOperationCompletedHandler_1_GlobalSystemMediaTransportControlsSes
 const IID_IAsyncOperation_1_GlobalSystemMediaTransportControlsSessionManager* = GUID(
     data1: 0x3EEC115E'u32, data2: 0x7346'u16, data3: 0x5C27'u16,
     data4: [0x8C'u8, 0x5F, 0xDA, 0x78, 0x51, 0x4A, 0x27, 0x7B])
+const IID_IReference_1_MediaPlaybackType* = GUID(
+    data1: 0xE289F7D8'u32, data2: 0x6BA7'u16, data3: 0x50AB'u16,
+    data4: [0x9F'u8, 0x13, 0x6E, 0x4E, 0x51, 0xD1, 0x5C, 0xA4])
+const IID_IReference_1_MediaPlaybackAutoRepeatMode* = GUID(
+    data1: 0x50A7F41F'u32, data2: 0x58D5'u16, data3: 0x5C4D'u16,
+    data4: [0x94'u8, 0x75, 0x8D, 0xD1, 0xAC, 0xD6, 0x58, 0x36])
 const IID_TypedEventHandler_2_AudioTrack_AudioTrackOpenFailedEventArgs* = GUID(
     data1: 0xB5B7E554'u32, data2: 0x2476'u16, data3: 0x5667'u16,
     data4: [0x9C'u8, 0x9A, 0x1C, 0x7A, 0x7D, 0x09, 0xAC, 0xE2])
@@ -453,6 +489,9 @@ const IID_IVectorView_1_MseSourceBuffer* = GUID(
 const IID_TypedEventHandler_2_MseStreamSource_Object* = GUID(
     data1: 0x724BF4EF'u32, data2: 0xDE7A'u16, data3: 0x5DBD'u16,
     data4: [0x81'u8, 0x5E, 0x52, 0x2A, 0x87, 0xBC, 0x33, 0x44])
+const IID_IReference_1_MseTimeRange* = GUID(
+    data1: 0x2FFFD101'u32, data2: 0x16F8'u16, data3: 0x596D'u16,
+    data4: [0xA8'u8, 0x8E, 0x65, 0x9B, 0x6F, 0x58, 0x46, 0x41])
 const IID_TypedEventHandler_2_SceneAnalysisEffect_SceneAnalyzedEventArgs* = GUID(
     data1: 0x48630F8C'u32, data2: 0xDBDE'u16, data3: 0x569E'u16,
     data4: [0xA0'u8, 0xC8, 0x75, 0x88, 0xD1, 0xD2, 0xBD, 0x03])
@@ -501,6 +540,9 @@ const IID_IVector_1_FrameController* = GUID(
 const IID_IVectorView_1_DigitalWindowCapability* = GUID(
     data1: 0x18CB0C91'u32, data2: 0x2753'u16, data3: 0x542F'u16,
     data4: [0xA3'u8, 0x3A, 0xE4, 0xF9, 0x41, 0x0F, 0x92, 0x3B])
+const IID_IReference_1_ManualFocusDistance* = GUID(
+    data1: 0xB0060B8A'u32, data2: 0x1105'u16, data3: 0x5AD4'u16,
+    data4: [0x96'u8, 0x3D, 0xF6, 0xCF, 0x19, 0x05, 0xD3, 0x49])
 const IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs* = GUID(
     data1: 0x97D07327'u32, data2: 0x2C78'u16, data3: 0x57BC'u16,
     data4: [0x98'u8, 0xE6, 0xA2, 0x4C, 0xD0, 0x24, 0xCF, 0x5B])
@@ -615,6 +657,9 @@ const IID_AsyncOperationCompletedHandler_1_PhotoImportFindItemsResult* = GUID(
 const IID_IAsyncOperationWithProgress_2_PhotoImportFindItemsResult_U4* = GUID(
     data1: 0x6E6F9B4E'u32, data2: 0xC6E1'u16, data3: 0x5364'u16,
     data4: [0xA6'u8, 0x50, 0x11, 0xC3, 0x52, 0x11, 0xBE, 0xAD])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_IVectorView_1_PhotoImportStorageMedium* = GUID(
     data1: 0x35499439'u32, data2: 0xE03E'u16, data3: 0x5711'u16,
     data4: [0xA9'u8, 0x55, 0xF7, 0xC4, 0x59, 0x28, 0xBC, 0x90])
@@ -834,6 +879,9 @@ const IID_AsyncOperationCompletedHandler_1_Playlist* = GUID(
 const IID_IAsyncOperation_1_Playlist* = GUID(
     data1: 0x8FFB74AB'u32, data2: 0x912F'u16, data3: 0x5BC1'u16,
     data4: [0x87'u8, 0xFA, 0x28, 0x65, 0xF6, 0x73, 0xCB, 0xFC])
+const IID_IReference_1_HdcpProtection* = GUID(
+    data1: 0x8E330979'u32, data2: 0x2FEF'u16, data3: 0x5D68'u16,
+    data4: [0x88'u8, 0xAA, 0xA9, 0xEE, 0x66, 0x97, 0xD1, 0x17])
 const IID_TypedEventHandler_2_HdcpSession_Object* = GUID(
     data1: 0xF82AE043'u32, data2: 0x54FB'u16, data3: 0x5366'u16,
     data4: [0xA6'u8, 0x07, 0x19, 0xB6, 0x8E, 0x6B, 0xAB, 0x8C])
@@ -915,6 +963,12 @@ const IID_AsyncOperationCompletedHandler_1_AdaptiveMediaSourceCreationResult* = 
 const IID_IAsyncOperation_1_AdaptiveMediaSourceCreationResult* = GUID(
     data1: 0xBE0BCC1D'u32, data2: 0xD606'u16, data3: 0x59D2'u16,
     data4: [0xB2'u8, 0xF9, 0xFF, 0x20, 0x45, 0x43, 0xDA, 0x12])
+const IID_IReference_1_U8* = GUID(
+    data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
+    data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
+const IID_IReference_1_AdaptiveMediaSourceResourceType* = GUID(
+    data1: 0x74C8C3AA'u32, data2: 0xDE03'u16, data3: 0x5BF0'u16,
+    data4: [0xAA'u8, 0xE8, 0xAA, 0x8B, 0x69, 0x20, 0x66, 0xB3])
 const IID_TypedEventHandler_2_AdaptiveMediaSourceDiagnostics_AdaptiveMediaSourceDiagnosticAvailableEventArgs* = GUID(
     data1: 0xFD4CE6B5'u32, data2: 0x7C3B'u16, data3: 0x58F4'u16,
     data4: [0x9E'u8, 0xFC, 0x1D, 0x9E, 0xE6, 0xA0, 0x9D, 0x21])
@@ -9544,6 +9598,30 @@ proc seek*(self: AudioFileInputNode, a1: TimeSpan)  =
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
     vcall(it, Slot_IAudioFileInputNode_Seek, Fn_IAudioFileInputNode_Seek)(it, a1).check("AudioFileInputNode.Seek")
 
+proc startTime*(self: AudioFileInputNode): Option[TimeSpan]  =
+  ## Windows.Media.Audio.AudioFileInputNode.get_StartTime
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioFileInputNode_get_StartTime, Fn_IAudioFileInputNode_get_StartTime)(it, tmp.addr).check("AudioFileInputNode.get_StartTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFileInputNode.get_StartTime")
+    release(tmp)
+
+proc endTime*(self: AudioFileInputNode): Option[TimeSpan]  =
+  ## Windows.Media.Audio.AudioFileInputNode.get_EndTime
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioFileInputNode_get_EndTime, Fn_IAudioFileInputNode_get_EndTime)(it, tmp.addr).check("AudioFileInputNode.get_EndTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFileInputNode.get_EndTime")
+    release(tmp)
+
+proc loopCount*(self: AudioFileInputNode): Option[int32]  =
+  ## Windows.Media.Audio.AudioFileInputNode.get_LoopCount
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioFileInputNode_get_LoopCount, Fn_IAudioFileInputNode_get_LoopCount)(it, tmp.addr).check("AudioFileInputNode.get_LoopCount")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "AudioFileInputNode.get_LoopCount")
+    release(tmp)
+
 proc duration*(self: AudioFileInputNode): TimeSpan  =
   ## Windows.Media.Audio.AudioFileInputNode.get_Duration
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
@@ -11260,6 +11338,30 @@ proc seek*(self: MediaSourceAudioInputNode, a1: TimeSpan)  =
   withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
     vcall(it, Slot_IMediaSourceAudioInputNode_Seek, Fn_IMediaSourceAudioInputNode_Seek)(it, a1).check("MediaSourceAudioInputNode.Seek")
 
+proc startTime*(self: MediaSourceAudioInputNode): Option[TimeSpan]  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.get_StartTime
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaSourceAudioInputNode_get_StartTime, Fn_IMediaSourceAudioInputNode_get_StartTime)(it, tmp.addr).check("MediaSourceAudioInputNode.get_StartTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaSourceAudioInputNode.get_StartTime")
+    release(tmp)
+
+proc endTime*(self: MediaSourceAudioInputNode): Option[TimeSpan]  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.get_EndTime
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaSourceAudioInputNode_get_EndTime, Fn_IMediaSourceAudioInputNode_get_EndTime)(it, tmp.addr).check("MediaSourceAudioInputNode.get_EndTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaSourceAudioInputNode.get_EndTime")
+    release(tmp)
+
+proc loopCount*(self: MediaSourceAudioInputNode): Option[int32]  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.get_LoopCount
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaSourceAudioInputNode_get_LoopCount, Fn_IMediaSourceAudioInputNode_get_LoopCount)(it, tmp.addr).check("MediaSourceAudioInputNode.get_LoopCount")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MediaSourceAudioInputNode.get_LoopCount")
+    release(tmp)
+
 proc duration*(self: MediaSourceAudioInputNode): TimeSpan  =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.get_Duration
   withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
@@ -11906,6 +12008,30 @@ proc isReadOnly*(self: AudioFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("AudioFrame.get_IsReadOnly")
     result = tmp
 
+proc relativeTime*(self: AudioFrame): Option[TimeSpan]  =
+  ## Windows.Media.AudioFrame.get_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_RelativeTime, Fn_IMediaFrame_get_RelativeTime)(it, tmp.addr).check("AudioFrame.get_RelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFrame.get_RelativeTime")
+    release(tmp)
+
+proc systemRelativeTime*(self: AudioFrame): Option[TimeSpan]  =
+  ## Windows.Media.AudioFrame.get_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("AudioFrame.get_SystemRelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFrame.get_SystemRelativeTime")
+    release(tmp)
+
+proc duration*(self: AudioFrame): Option[TimeSpan]  =
+  ## Windows.Media.AudioFrame.get_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_Duration, Fn_IMediaFrame_get_Duration)(it, tmp.addr).check("AudioFrame.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFrame.get_Duration")
+    release(tmp)
+
 proc `isDiscontinuous=`*(self: AudioFrame, value: bool)  =
   ## Windows.Media.AudioFrame.put_IsDiscontinuous
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -11964,6 +12090,14 @@ proc context*(self: AdvancedCapturedPhoto): pointer  =
     var tmp: pointer
     vcall(it, Slot_IAdvancedCapturedPhoto_get_Context, Fn_IAdvancedCapturedPhoto_get_Context)(it, tmp.addr).check("AdvancedCapturedPhoto.get_Context")
     result = tmp
+
+proc frameBoundsRelativeToReferencePhoto*(self: AdvancedCapturedPhoto): Option[Rect]  =
+  ## Windows.Media.Capture.AdvancedCapturedPhoto.get_FrameBoundsRelativeToReferencePhoto
+  withIface(self.p, IID_IAdvancedCapturedPhoto2, "IAdvancedCapturedPhoto2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdvancedCapturedPhoto2_get_FrameBoundsRelativeToReferencePhoto, Fn_IAdvancedCapturedPhoto2_get_FrameBoundsRelativeToReferencePhoto)(it, tmp.addr).check("AdvancedCapturedPhoto.get_FrameBoundsRelativeToReferencePhoto")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "AdvancedCapturedPhoto.get_FrameBoundsRelativeToReferencePhoto")
+    release(tmp)
 
 proc captureAsync*(self: AdvancedPhotoCapture): Future[AdvancedCapturedPhoto] {.async.} =
   ## Windows.Media.Capture.AdvancedPhotoCapture.CaptureAsync
@@ -12701,6 +12835,14 @@ proc previewState*(self: AppBroadcastPreview): AppBroadcastPreviewState  =
     var tmp: AppBroadcastPreviewState
     vcall(it, Slot_IAppBroadcastPreview_get_PreviewState, Fn_IAppBroadcastPreview_get_PreviewState)(it, tmp.addr).check("AppBroadcastPreview.get_PreviewState")
     result = tmp
+
+proc errorCode*(self: AppBroadcastPreview): Option[uint32]  =
+  ## Windows.Media.Capture.AppBroadcastPreview.get_ErrorCode
+  withIface(self.p, IID_IAppBroadcastPreview, "IAppBroadcastPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppBroadcastPreview_get_ErrorCode, Fn_IAppBroadcastPreview_get_ErrorCode)(it, tmp.addr).check("AppBroadcastPreview.get_ErrorCode")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AppBroadcastPreview.get_ErrorCode")
+    release(tmp)
 
 proc onPreviewStateChanged*(self: AppBroadcastPreview,
     handler: proc(sender: pointer, args: AppBroadcastPreviewStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -13671,6 +13813,30 @@ proc state*(self: AppCaptureRecordOperation): AppCaptureRecordingState  =
     vcall(it, Slot_IAppCaptureRecordOperation_get_State, Fn_IAppCaptureRecordOperation_get_State)(it, tmp.addr).check("AppCaptureRecordOperation.get_State")
     result = tmp
 
+proc errorCode*(self: AppCaptureRecordOperation): Option[uint32]  =
+  ## Windows.Media.Capture.AppCaptureRecordOperation.get_ErrorCode
+  withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureRecordOperation_get_ErrorCode, Fn_IAppCaptureRecordOperation_get_ErrorCode)(it, tmp.addr).check("AppCaptureRecordOperation.get_ErrorCode")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AppCaptureRecordOperation.get_ErrorCode")
+    release(tmp)
+
+proc duration*(self: AppCaptureRecordOperation): Option[TimeSpan]  =
+  ## Windows.Media.Capture.AppCaptureRecordOperation.get_Duration
+  withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureRecordOperation_get_Duration, Fn_IAppCaptureRecordOperation_get_Duration)(it, tmp.addr).check("AppCaptureRecordOperation.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AppCaptureRecordOperation.get_Duration")
+    release(tmp)
+
+proc isFileTruncated*(self: AppCaptureRecordOperation): Option[bool]  =
+  ## Windows.Media.Capture.AppCaptureRecordOperation.get_IsFileTruncated
+  withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureRecordOperation_get_IsFileTruncated, Fn_IAppCaptureRecordOperation_get_IsFileTruncated)(it, tmp.addr).check("AppCaptureRecordOperation.get_IsFileTruncated")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "AppCaptureRecordOperation.get_IsFileTruncated")
+    release(tmp)
+
 proc onStateChanged*(self: AppCaptureRecordOperation,
     handler: proc(sender: pointer, args: AppCaptureRecordingStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureRecordOperation.add_StateChanged
@@ -14305,12 +14471,116 @@ proc controlValues*(self: CapturedFrame): CapturedFrameControlValues  =
     vcall(it, Slot_ICapturedFrame2_get_ControlValues, Fn_ICapturedFrame2_get_ControlValues)(it, tmp.addr).check("CapturedFrame.get_ControlValues")
     result = adopt[CapturedFrameControlValues](tmp)
 
+proc exposure*(self: CapturedFrameControlValues): Option[TimeSpan]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_Exposure
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_Exposure, Fn_ICapturedFrameControlValues_get_Exposure)(it, tmp.addr).check("CapturedFrameControlValues.get_Exposure")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "CapturedFrameControlValues.get_Exposure")
+    release(tmp)
+
+proc exposureCompensation*(self: CapturedFrameControlValues): Option[float32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_ExposureCompensation
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_ExposureCompensation, Fn_ICapturedFrameControlValues_get_ExposureCompensation)(it, tmp.addr).check("CapturedFrameControlValues.get_ExposureCompensation")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "CapturedFrameControlValues.get_ExposureCompensation")
+    release(tmp)
+
+proc isoSpeed*(self: CapturedFrameControlValues): Option[uint32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_IsoSpeed
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_IsoSpeed, Fn_ICapturedFrameControlValues_get_IsoSpeed)(it, tmp.addr).check("CapturedFrameControlValues.get_IsoSpeed")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "CapturedFrameControlValues.get_IsoSpeed")
+    release(tmp)
+
+proc focus*(self: CapturedFrameControlValues): Option[uint32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_Focus
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_Focus, Fn_ICapturedFrameControlValues_get_Focus)(it, tmp.addr).check("CapturedFrameControlValues.get_Focus")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "CapturedFrameControlValues.get_Focus")
+    release(tmp)
+
+proc sceneMode*(self: CapturedFrameControlValues): Option[CaptureSceneMode]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_SceneMode
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_SceneMode, Fn_ICapturedFrameControlValues_get_SceneMode)(it, tmp.addr).check("CapturedFrameControlValues.get_SceneMode")
+    result = readReference[CaptureSceneMode](tmp, IID_IReference_1_CaptureSceneMode, "CapturedFrameControlValues.get_SceneMode")
+    release(tmp)
+
+proc flashed*(self: CapturedFrameControlValues): Option[bool]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_Flashed
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_Flashed, Fn_ICapturedFrameControlValues_get_Flashed)(it, tmp.addr).check("CapturedFrameControlValues.get_Flashed")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "CapturedFrameControlValues.get_Flashed")
+    release(tmp)
+
+proc flashPowerPercent*(self: CapturedFrameControlValues): Option[float32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_FlashPowerPercent
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_FlashPowerPercent, Fn_ICapturedFrameControlValues_get_FlashPowerPercent)(it, tmp.addr).check("CapturedFrameControlValues.get_FlashPowerPercent")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "CapturedFrameControlValues.get_FlashPowerPercent")
+    release(tmp)
+
+proc whiteBalance*(self: CapturedFrameControlValues): Option[uint32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_WhiteBalance
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_WhiteBalance, Fn_ICapturedFrameControlValues_get_WhiteBalance)(it, tmp.addr).check("CapturedFrameControlValues.get_WhiteBalance")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "CapturedFrameControlValues.get_WhiteBalance")
+    release(tmp)
+
+proc zoomFactor*(self: CapturedFrameControlValues): Option[float32]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_ZoomFactor
+  withIface(self.p, IID_ICapturedFrameControlValues, "ICapturedFrameControlValues", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues_get_ZoomFactor, Fn_ICapturedFrameControlValues_get_ZoomFactor)(it, tmp.addr).check("CapturedFrameControlValues.get_ZoomFactor")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "CapturedFrameControlValues.get_ZoomFactor")
+    release(tmp)
+
+proc focusState*(self: CapturedFrameControlValues): Option[MediaCaptureFocusState]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_FocusState
+  withIface(self.p, IID_ICapturedFrameControlValues2, "ICapturedFrameControlValues2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues2_get_FocusState, Fn_ICapturedFrameControlValues2_get_FocusState)(it, tmp.addr).check("CapturedFrameControlValues.get_FocusState")
+    result = readReference[MediaCaptureFocusState](tmp, IID_IReference_1_MediaCaptureFocusState, "CapturedFrameControlValues.get_FocusState")
+    release(tmp)
+
+proc isoDigitalGain*(self: CapturedFrameControlValues): Option[float64]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_IsoDigitalGain
+  withIface(self.p, IID_ICapturedFrameControlValues2, "ICapturedFrameControlValues2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues2_get_IsoDigitalGain, Fn_ICapturedFrameControlValues2_get_IsoDigitalGain)(it, tmp.addr).check("CapturedFrameControlValues.get_IsoDigitalGain")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "CapturedFrameControlValues.get_IsoDigitalGain")
+    release(tmp)
+
+proc isoAnalogGain*(self: CapturedFrameControlValues): Option[float64]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_IsoAnalogGain
+  withIface(self.p, IID_ICapturedFrameControlValues2, "ICapturedFrameControlValues2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues2_get_IsoAnalogGain, Fn_ICapturedFrameControlValues2_get_IsoAnalogGain)(it, tmp.addr).check("CapturedFrameControlValues.get_IsoAnalogGain")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "CapturedFrameControlValues.get_IsoAnalogGain")
+    release(tmp)
+
 proc sensorFrameRate*(self: CapturedFrameControlValues): MediaRatio  =
   ## Windows.Media.Capture.CapturedFrameControlValues.get_SensorFrameRate
   withIface(self.p, IID_ICapturedFrameControlValues2, "ICapturedFrameControlValues2", it):
     var tmp: pointer
     vcall(it, Slot_ICapturedFrameControlValues2_get_SensorFrameRate, Fn_ICapturedFrameControlValues2_get_SensorFrameRate)(it, tmp.addr).check("CapturedFrameControlValues.get_SensorFrameRate")
     result = adopt[MediaRatio](tmp)
+
+proc whiteBalanceGain*(self: CapturedFrameControlValues): Option[WhiteBalanceGain]  =
+  ## Windows.Media.Capture.CapturedFrameControlValues.get_WhiteBalanceGain
+  withIface(self.p, IID_ICapturedFrameControlValues2, "ICapturedFrameControlValues2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameControlValues2_get_WhiteBalanceGain, Fn_ICapturedFrameControlValues2_get_WhiteBalanceGain)(it, tmp.addr).check("CapturedFrameControlValues.get_WhiteBalanceGain")
+    result = readReference[WhiteBalanceGain](tmp, IID_IReference_1_WhiteBalanceGain, "CapturedFrameControlValues.get_WhiteBalanceGain")
+    release(tmp)
 
 proc frame*(self: CapturedPhoto): CapturedFrame  =
   ## Windows.Media.Capture.CapturedPhoto.get_Frame
@@ -14339,6 +14609,14 @@ proc captureTimeOffset*(self: VariablePhotoCapturedEventArgs): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IVariablePhotoCapturedEventArgs_get_CaptureTimeOffset, Fn_IVariablePhotoCapturedEventArgs_get_CaptureTimeOffset)(it, tmp.addr).check("VariablePhotoCapturedEventArgs.get_CaptureTimeOffset")
     result = tmp
+
+proc usedFrameControllerIndex*(self: VariablePhotoCapturedEventArgs): Option[uint32]  =
+  ## Windows.Media.Capture.Core.VariablePhotoCapturedEventArgs.get_UsedFrameControllerIndex
+  withIface(self.p, IID_IVariablePhotoCapturedEventArgs, "IVariablePhotoCapturedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IVariablePhotoCapturedEventArgs_get_UsedFrameControllerIndex, Fn_IVariablePhotoCapturedEventArgs_get_UsedFrameControllerIndex)(it, tmp.addr).check("VariablePhotoCapturedEventArgs.get_UsedFrameControllerIndex")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "VariablePhotoCapturedEventArgs.get_UsedFrameControllerIndex")
+    release(tmp)
 
 proc capturedFrameControlValues*(self: VariablePhotoCapturedEventArgs): CapturedFrameControlValues  =
   ## Windows.Media.Capture.Core.VariablePhotoCapturedEventArgs.get_CapturedFrameControlValues
@@ -14616,6 +14894,14 @@ proc format*(self: MediaFrameReference): MediaFrameFormat  =
     var tmp: pointer
     vcall(it, Slot_IMediaFrameReference_get_Format, Fn_IMediaFrameReference_get_Format)(it, tmp.addr).check("MediaFrameReference.get_Format")
     result = adopt[MediaFrameFormat](tmp)
+
+proc systemRelativeTime*(self: MediaFrameReference): Option[TimeSpan]  =
+  ## Windows.Media.Capture.Frames.MediaFrameReference.get_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrameReference, "IMediaFrameReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameReference_get_SystemRelativeTime, Fn_IMediaFrameReference_get_SystemRelativeTime)(it, tmp.addr).check("MediaFrameReference.get_SystemRelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaFrameReference.get_SystemRelativeTime")
+    release(tmp)
 
 proc duration*(self: MediaFrameReference): TimeSpan  =
   ## Windows.Media.Capture.Frames.MediaFrameReference.get_Duration
@@ -16077,6 +16363,30 @@ proc cameraSoundRequiredForRegion*(self: MediaCaptureSettings): bool  =
     vcall(it, Slot_IMediaCaptureSettings2_get_CameraSoundRequiredForRegion, Fn_IMediaCaptureSettings2_get_CameraSoundRequiredForRegion)(it, tmp.addr).check("MediaCaptureSettings.get_CameraSoundRequiredForRegion")
     result = tmp
 
+proc horizontal35mmEquivalentFocalLength*(self: MediaCaptureSettings): Option[uint32]  =
+  ## Windows.Media.Capture.MediaCaptureSettings.get_Horizontal35mmEquivalentFocalLength
+  withIface(self.p, IID_IMediaCaptureSettings2, "IMediaCaptureSettings2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureSettings2_get_Horizontal35mmEquivalentFocalLength, Fn_IMediaCaptureSettings2_get_Horizontal35mmEquivalentFocalLength)(it, tmp.addr).check("MediaCaptureSettings.get_Horizontal35mmEquivalentFocalLength")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "MediaCaptureSettings.get_Horizontal35mmEquivalentFocalLength")
+    release(tmp)
+
+proc pitchOffsetDegrees*(self: MediaCaptureSettings): Option[int32]  =
+  ## Windows.Media.Capture.MediaCaptureSettings.get_PitchOffsetDegrees
+  withIface(self.p, IID_IMediaCaptureSettings2, "IMediaCaptureSettings2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureSettings2_get_PitchOffsetDegrees, Fn_IMediaCaptureSettings2_get_PitchOffsetDegrees)(it, tmp.addr).check("MediaCaptureSettings.get_PitchOffsetDegrees")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MediaCaptureSettings.get_PitchOffsetDegrees")
+    release(tmp)
+
+proc vertical35mmEquivalentFocalLength*(self: MediaCaptureSettings): Option[uint32]  =
+  ## Windows.Media.Capture.MediaCaptureSettings.get_Vertical35mmEquivalentFocalLength
+  withIface(self.p, IID_IMediaCaptureSettings2, "IMediaCaptureSettings2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureSettings2_get_Vertical35mmEquivalentFocalLength, Fn_IMediaCaptureSettings2_get_Vertical35mmEquivalentFocalLength)(it, tmp.addr).check("MediaCaptureSettings.get_Vertical35mmEquivalentFocalLength")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "MediaCaptureSettings.get_Vertical35mmEquivalentFocalLength")
+    release(tmp)
+
 proc mediaCategory*(self: MediaCaptureSettings): MediaCategory  =
   ## Windows.Media.Capture.MediaCaptureSettings.get_MediaCategory
   withIface(self.p, IID_IMediaCaptureSettings2, "IMediaCaptureSettings2", it):
@@ -16644,6 +16954,22 @@ proc geographicRegion*(self: ContentRestrictionsBrowsePolicy): string  =
     vcall(it, Slot_IContentRestrictionsBrowsePolicy_get_GeographicRegion, Fn_IContentRestrictionsBrowsePolicy_get_GeographicRegion)(it, tmp.addr).check("ContentRestrictionsBrowsePolicy.get_GeographicRegion")
     result = takeString(tmp)
 
+proc maxBrowsableAgeRating*(self: ContentRestrictionsBrowsePolicy): Option[uint32]  =
+  ## Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy.get_MaxBrowsableAgeRating
+  withIface(self.p, IID_IContentRestrictionsBrowsePolicy, "IContentRestrictionsBrowsePolicy", it):
+    var tmp: pointer
+    vcall(it, Slot_IContentRestrictionsBrowsePolicy_get_MaxBrowsableAgeRating, Fn_IContentRestrictionsBrowsePolicy_get_MaxBrowsableAgeRating)(it, tmp.addr).check("ContentRestrictionsBrowsePolicy.get_MaxBrowsableAgeRating")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ContentRestrictionsBrowsePolicy.get_MaxBrowsableAgeRating")
+    release(tmp)
+
+proc preferredAgeRating*(self: ContentRestrictionsBrowsePolicy): Option[uint32]  =
+  ## Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy.get_PreferredAgeRating
+  withIface(self.p, IID_IContentRestrictionsBrowsePolicy, "IContentRestrictionsBrowsePolicy", it):
+    var tmp: pointer
+    vcall(it, Slot_IContentRestrictionsBrowsePolicy_get_PreferredAgeRating, Fn_IContentRestrictionsBrowsePolicy_get_PreferredAgeRating)(it, tmp.addr).check("ContentRestrictionsBrowsePolicy.get_PreferredAgeRating")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "ContentRestrictionsBrowsePolicy.get_PreferredAgeRating")
+    release(tmp)
+
 proc id*(self: RatedContentDescription): string  =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.get_Id
   withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
@@ -16950,6 +17276,14 @@ proc albumTrackCount*(self: GlobalSystemMediaTransportControlsSessionMediaProper
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_AlbumTrackCount, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_AlbumTrackCount)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_AlbumTrackCount")
     result = tmp
 
+proc playbackType*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): Option[MediaPlaybackType]  =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties.get_PlaybackType
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionMediaProperties, "IGlobalSystemMediaTransportControlsSessionMediaProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_PlaybackType, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_PlaybackType)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_PlaybackType")
+    result = readReference[MediaPlaybackType](tmp, IID_IReference_1_MediaPlaybackType, "GlobalSystemMediaTransportControlsSessionMediaProperties.get_PlaybackType")
+    release(tmp)
+
 proc thumbnail*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): pointer  =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties.get_Thumbnail
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionMediaProperties, "IGlobalSystemMediaTransportControlsSessionMediaProperties", it):
@@ -17076,6 +17410,38 @@ proc playbackStatus*(self: GlobalSystemMediaTransportControlsSessionPlaybackInfo
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackStatus, Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackStatus)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackStatus")
     result = tmp
 
+proc playbackType*(self: GlobalSystemMediaTransportControlsSessionPlaybackInfo): Option[MediaPlaybackType]  =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackType
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionPlaybackInfo, "IGlobalSystemMediaTransportControlsSessionPlaybackInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackType, Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackType)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackType")
+    result = readReference[MediaPlaybackType](tmp, IID_IReference_1_MediaPlaybackType, "GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackType")
+    release(tmp)
+
+proc autoRepeatMode*(self: GlobalSystemMediaTransportControlsSessionPlaybackInfo): Option[MediaPlaybackAutoRepeatMode]  =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_AutoRepeatMode
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionPlaybackInfo, "IGlobalSystemMediaTransportControlsSessionPlaybackInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_AutoRepeatMode, Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_AutoRepeatMode)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_AutoRepeatMode")
+    result = readReference[MediaPlaybackAutoRepeatMode](tmp, IID_IReference_1_MediaPlaybackAutoRepeatMode, "GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_AutoRepeatMode")
+    release(tmp)
+
+proc playbackRate*(self: GlobalSystemMediaTransportControlsSessionPlaybackInfo): Option[float64]  =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackRate
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionPlaybackInfo, "IGlobalSystemMediaTransportControlsSessionPlaybackInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackRate, Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackRate)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackRate")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_PlaybackRate")
+    release(tmp)
+
+proc isShuffleActive*(self: GlobalSystemMediaTransportControlsSessionPlaybackInfo): Option[bool]  =
+  ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_IsShuffleActive
+  withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionPlaybackInfo, "IGlobalSystemMediaTransportControlsSessionPlaybackInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_IsShuffleActive, Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_IsShuffleActive)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_IsShuffleActive")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "GlobalSystemMediaTransportControlsSessionPlaybackInfo.get_IsShuffleActive")
+    release(tmp)
+
 proc startTime*(self: GlobalSystemMediaTransportControlsSessionTimelineProperties): TimeSpan  =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionTimelineProperties.get_StartTime
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionTimelineProperties, "IGlobalSystemMediaTransportControlsSessionTimelineProperties", it):
@@ -17157,6 +17523,22 @@ proc language*(self: AudioStreamDescriptor): string  =
     var tmp: HSTRING
     vcall(it, Slot_IMediaStreamDescriptor_get_Language, Fn_IMediaStreamDescriptor_get_Language)(it, tmp.addr).check("AudioStreamDescriptor.get_Language")
     result = takeString(tmp)
+
+proc leadingEncoderPadding*(self: AudioStreamDescriptor): Option[uint32]  =
+  ## Windows.Media.Core.AudioStreamDescriptor.get_LeadingEncoderPadding
+  withIface(self.p, IID_IAudioStreamDescriptor2, "IAudioStreamDescriptor2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioStreamDescriptor2_get_LeadingEncoderPadding, Fn_IAudioStreamDescriptor2_get_LeadingEncoderPadding)(it, tmp.addr).check("AudioStreamDescriptor.get_LeadingEncoderPadding")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AudioStreamDescriptor.get_LeadingEncoderPadding")
+    release(tmp)
+
+proc trailingEncoderPadding*(self: AudioStreamDescriptor): Option[uint32]  =
+  ## Windows.Media.Core.AudioStreamDescriptor.get_TrailingEncoderPadding
+  withIface(self.p, IID_IAudioStreamDescriptor2, "IAudioStreamDescriptor2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioStreamDescriptor2_get_TrailingEncoderPadding, Fn_IAudioStreamDescriptor2_get_TrailingEncoderPadding)(it, tmp.addr).check("AudioStreamDescriptor.get_TrailingEncoderPadding")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AudioStreamDescriptor.get_TrailingEncoderPadding")
+    release(tmp)
 
 proc `label=`*(self: AudioStreamDescriptor, value: string)  =
   ## Windows.Media.Core.AudioStreamDescriptor.put_Label
@@ -17940,6 +18322,30 @@ proc isReadOnly*(self: FaceDetectionEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("FaceDetectionEffectFrame.get_IsReadOnly")
     result = tmp
 
+proc relativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.get_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_RelativeTime, Fn_IMediaFrame_get_RelativeTime)(it, tmp.addr).check("FaceDetectionEffectFrame.get_RelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FaceDetectionEffectFrame.get_RelativeTime")
+    release(tmp)
+
+proc systemRelativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.get_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("FaceDetectionEffectFrame.get_SystemRelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FaceDetectionEffectFrame.get_SystemRelativeTime")
+    release(tmp)
+
+proc duration*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.get_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_Duration, Fn_IMediaFrame_get_Duration)(it, tmp.addr).check("FaceDetectionEffectFrame.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FaceDetectionEffectFrame.get_Duration")
+    release(tmp)
+
 proc `isDiscontinuous=`*(self: FaceDetectionEffectFrame, value: bool)  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.put_IsDiscontinuous
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -18226,6 +18632,14 @@ proc customProperties*(self: MediaSource): ValueSet  =
     var tmp: pointer
     vcall(it, Slot_IMediaSource2_get_CustomProperties, Fn_IMediaSource2_get_CustomProperties)(it, tmp.addr).check("MediaSource.get_CustomProperties")
     result = adopt[ValueSet](tmp)
+
+proc duration*(self: MediaSource): Option[TimeSpan]  =
+  ## Windows.Media.Core.MediaSource.get_Duration
+  withIface(self.p, IID_IMediaSource2, "IMediaSource2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaSource2_get_Duration, Fn_IMediaSource2_get_Duration)(it, tmp.addr).check("MediaSource.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaSource.get_Duration")
+    release(tmp)
 
 proc isOpen*(self: MediaSource): bool  =
   ## Windows.Media.Core.MediaSource.get_IsOpen
@@ -18734,6 +19148,14 @@ proc removeSampleRendered*(self: MediaStreamSource, token: EventRegistrationToke
   withIface(self.p, IID_IMediaStreamSource2, "IMediaStreamSource2", it):
     vcall(it, Slot_IMediaStreamSource2_remove_SampleRendered, Fn_IMediaStreamSource2_remove_SampleRendered)(it, token).check("MediaStreamSource.remove_SampleRendered")
 
+proc maxSupportedPlaybackRate*(self: MediaStreamSource): Option[float64]  =
+  ## Windows.Media.Core.MediaStreamSource.get_MaxSupportedPlaybackRate
+  withIface(self.p, IID_IMediaStreamSource3, "IMediaStreamSource3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaStreamSource3_get_MaxSupportedPlaybackRate, Fn_IMediaStreamSource3_get_MaxSupportedPlaybackRate)(it, tmp.addr).check("MediaStreamSource.get_MaxSupportedPlaybackRate")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MediaStreamSource.get_MaxSupportedPlaybackRate")
+    release(tmp)
+
 proc `isLive=`*(self: MediaStreamSource, value: bool)  =
   ## Windows.Media.Core.MediaStreamSource.put_IsLive
   withIface(self.p, IID_IMediaStreamSource4, "IMediaStreamSource4", it):
@@ -18831,6 +19253,14 @@ proc request*(self: MediaStreamSourceStartingEventArgs): MediaStreamSourceStarti
     var tmp: pointer
     vcall(it, Slot_IMediaStreamSourceStartingEventArgs_get_Request, Fn_IMediaStreamSourceStartingEventArgs_get_Request)(it, tmp.addr).check("MediaStreamSourceStartingEventArgs.get_Request")
     result = adopt[MediaStreamSourceStartingRequest](tmp)
+
+proc startPosition*(self: MediaStreamSourceStartingRequest): Option[TimeSpan]  =
+  ## Windows.Media.Core.MediaStreamSourceStartingRequest.get_StartPosition
+  withIface(self.p, IID_IMediaStreamSourceStartingRequest, "IMediaStreamSourceStartingRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaStreamSourceStartingRequest_get_StartPosition, Fn_IMediaStreamSourceStartingRequest_get_StartPosition)(it, tmp.addr).check("MediaStreamSourceStartingRequest.get_StartPosition")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaStreamSourceStartingRequest.get_StartPosition")
+    release(tmp)
 
 proc getDeferral*(self: MediaStreamSourceStartingRequest): MediaStreamSourceStartingRequestDeferral  =
   ## Windows.Media.Core.MediaStreamSourceStartingRequest.GetDeferral
@@ -19020,6 +19450,14 @@ proc `appendWindowStart=`*(self: MseSourceBuffer, value: TimeSpan)  =
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
     vcall(it, Slot_IMseSourceBuffer_put_AppendWindowStart, Fn_IMseSourceBuffer_put_AppendWindowStart)(it, value).check("MseSourceBuffer.put_AppendWindowStart")
 
+proc appendWindowEnd*(self: MseSourceBuffer): Option[TimeSpan]  =
+  ## Windows.Media.Core.MseSourceBuffer.get_AppendWindowEnd
+  withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMseSourceBuffer_get_AppendWindowEnd, Fn_IMseSourceBuffer_get_AppendWindowEnd)(it, tmp.addr).check("MseSourceBuffer.get_AppendWindowEnd")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MseSourceBuffer.get_AppendWindowEnd")
+    release(tmp)
+
 proc appendBuffer*(self: MseSourceBuffer, a1: pointer)  =
   ## Windows.Media.Core.MseSourceBuffer.AppendBuffer
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
@@ -19168,6 +19606,14 @@ proc readyState*(self: MseStreamSource): MseReadyState  =
     vcall(it, Slot_IMseStreamSource_get_ReadyState, Fn_IMseStreamSource_get_ReadyState)(it, tmp.addr).check("MseStreamSource.get_ReadyState")
     result = tmp
 
+proc duration*(self: MseStreamSource): Option[TimeSpan]  =
+  ## Windows.Media.Core.MseStreamSource.get_Duration
+  withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IMseStreamSource_get_Duration, Fn_IMseStreamSource_get_Duration)(it, tmp.addr).check("MseStreamSource.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MseStreamSource.get_Duration")
+    release(tmp)
+
 proc addSourceBuffer*(self: MseStreamSource, a1: string): MseSourceBuffer  =
   ## Windows.Media.Core.MseStreamSource.AddSourceBuffer
   withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
@@ -19186,6 +19632,14 @@ proc endOfStream*(self: MseStreamSource, a1: MseEndOfStreamStatus)  =
   ## Windows.Media.Core.MseStreamSource.EndOfStream
   withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
     vcall(it, Slot_IMseStreamSource_EndOfStream, Fn_IMseStreamSource_EndOfStream)(it, a1).check("MseStreamSource.EndOfStream")
+
+proc liveSeekableRange*(self: MseStreamSource): Option[MseTimeRange]  =
+  ## Windows.Media.Core.MseStreamSource.get_LiveSeekableRange
+  withIface(self.p, IID_IMseStreamSource2, "IMseStreamSource2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMseStreamSource2_get_LiveSeekableRange, Fn_IMseStreamSource2_get_LiveSeekableRange)(it, tmp.addr).check("MseStreamSource.get_LiveSeekableRange")
+    result = readReference[MseTimeRange](tmp, IID_IReference_1_MseTimeRange, "MseStreamSource.get_LiveSeekableRange")
+    release(tmp)
 
 proc isContentTypeSupported*(_: typedesc[MseStreamSource], a1: string): bool  =
   ## Windows.Media.Core.MseStreamSource.IsContentTypeSupported
@@ -19311,6 +19765,30 @@ proc isReadOnly*(self: SceneAnalysisEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_IsReadOnly")
     result = tmp
 
+proc relativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.get_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_RelativeTime, Fn_IMediaFrame_get_RelativeTime)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_RelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "SceneAnalysisEffectFrame.get_RelativeTime")
+    release(tmp)
+
+proc systemRelativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.get_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_SystemRelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "SceneAnalysisEffectFrame.get_SystemRelativeTime")
+    release(tmp)
+
+proc duration*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.get_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_Duration, Fn_IMediaFrame_get_Duration)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "SceneAnalysisEffectFrame.get_Duration")
+    release(tmp)
+
 proc `isDiscontinuous=`*(self: SceneAnalysisEffectFrame, value: bool)  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.put_IsDiscontinuous
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -19365,6 +19843,22 @@ proc `text=`*(self: SpeechCue, value: string)  =
   withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
     withHString(value, h0):
       vcall(it, Slot_ISpeechCue_put_Text, Fn_ISpeechCue_put_Text)(it, h0).check("SpeechCue.put_Text")
+
+proc startPositionInInput*(self: SpeechCue): Option[int32]  =
+  ## Windows.Media.Core.SpeechCue.get_StartPositionInInput
+  withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechCue_get_StartPositionInInput, Fn_ISpeechCue_get_StartPositionInInput)(it, tmp.addr).check("SpeechCue.get_StartPositionInInput")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "SpeechCue.get_StartPositionInInput")
+    release(tmp)
+
+proc endPositionInInput*(self: SpeechCue): Option[int32]  =
+  ## Windows.Media.Core.SpeechCue.get_EndPositionInInput
+  withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechCue_get_EndPositionInInput, Fn_ISpeechCue_get_EndPositionInInput)(it, tmp.addr).check("SpeechCue.get_EndPositionInInput")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "SpeechCue.get_EndPositionInInput")
+    release(tmp)
 
 proc `startTime=`*(self: SpeechCue, value: TimeSpan)  =
   ## Windows.Media.Core.SpeechCue.put_StartTime
@@ -21096,6 +21590,14 @@ proc focusControl*(self: FrameController): FrameFocusControl  =
     vcall(it, Slot_IFrameController_get_FocusControl, Fn_IFrameController_get_FocusControl)(it, tmp.addr).check("FrameController.get_FocusControl")
     result = adopt[FrameFocusControl](tmp)
 
+proc photoConfirmationEnabled*(self: FrameController): Option[bool]  =
+  ## Windows.Media.Devices.Core.FrameController.get_PhotoConfirmationEnabled
+  withIface(self.p, IID_IFrameController, "IFrameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameController_get_PhotoConfirmationEnabled, Fn_IFrameController_get_PhotoConfirmationEnabled)(it, tmp.addr).check("FrameController.get_PhotoConfirmationEnabled")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "FrameController.get_PhotoConfirmationEnabled")
+    release(tmp)
+
 proc flashControl*(self: FrameController): FrameFlashControl  =
   ## Windows.Media.Devices.Core.FrameController.get_FlashControl
   withIface(self.p, IID_IFrameController2, "IFrameController2", it):
@@ -21159,6 +21661,14 @@ proc step*(self: FrameExposureCompensationCapabilities): float32  =
     vcall(it, Slot_IFrameExposureCompensationCapabilities_get_Step, Fn_IFrameExposureCompensationCapabilities_get_Step)(it, tmp.addr).check("FrameExposureCompensationCapabilities.get_Step")
     result = tmp
 
+proc value*(self: FrameExposureCompensationControl): Option[float32]  =
+  ## Windows.Media.Devices.Core.FrameExposureCompensationControl.get_Value
+  withIface(self.p, IID_IFrameExposureCompensationControl, "IFrameExposureCompensationControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameExposureCompensationControl_get_Value, Fn_IFrameExposureCompensationControl_get_Value)(it, tmp.addr).check("FrameExposureCompensationControl.get_Value")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "FrameExposureCompensationControl.get_Value")
+    release(tmp)
+
 proc autoValue*(self: FrameExposureControl): bool  =
   ## Windows.Media.Devices.Core.FrameExposureControl.get_Auto
   withIface(self.p, IID_IFrameExposureControl, "IFrameExposureControl", it):
@@ -21170,6 +21680,14 @@ proc `autoValue=`*(self: FrameExposureControl, value: bool)  =
   ## Windows.Media.Devices.Core.FrameExposureControl.put_Auto
   withIface(self.p, IID_IFrameExposureControl, "IFrameExposureControl", it):
     vcall(it, Slot_IFrameExposureControl_put_Auto, Fn_IFrameExposureControl_put_Auto)(it, value).check("FrameExposureControl.put_Auto")
+
+proc value*(self: FrameExposureControl): Option[TimeSpan]  =
+  ## Windows.Media.Devices.Core.FrameExposureControl.get_Value
+  withIface(self.p, IID_IFrameExposureControl, "IFrameExposureControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameExposureControl_get_Value, Fn_IFrameExposureControl_get_Value)(it, tmp.addr).check("FrameExposureControl.get_Value")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FrameExposureControl.get_Value")
+    release(tmp)
 
 proc supported*(self: FrameFlashCapabilities): bool  =
   ## Windows.Media.Devices.Core.FrameFlashCapabilities.get_Supported
@@ -21268,6 +21786,14 @@ proc step*(self: FrameFocusCapabilities): uint32  =
     vcall(it, Slot_IFrameFocusCapabilities_get_Step, Fn_IFrameFocusCapabilities_get_Step)(it, tmp.addr).check("FrameFocusCapabilities.get_Step")
     result = tmp
 
+proc value*(self: FrameFocusControl): Option[uint32]  =
+  ## Windows.Media.Devices.Core.FrameFocusControl.get_Value
+  withIface(self.p, IID_IFrameFocusControl, "IFrameFocusControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameFocusControl_get_Value, Fn_IFrameFocusControl_get_Value)(it, tmp.addr).check("FrameFocusControl.get_Value")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "FrameFocusControl.get_Value")
+    release(tmp)
+
 proc supported*(self: FrameIsoSpeedCapabilities): bool  =
   ## Windows.Media.Devices.Core.FrameIsoSpeedCapabilities.get_Supported
   withIface(self.p, IID_IFrameIsoSpeedCapabilities, "IFrameIsoSpeedCapabilities", it):
@@ -21307,6 +21833,14 @@ proc `autoValue=`*(self: FrameIsoSpeedControl, value: bool)  =
   ## Windows.Media.Devices.Core.FrameIsoSpeedControl.put_Auto
   withIface(self.p, IID_IFrameIsoSpeedControl, "IFrameIsoSpeedControl", it):
     vcall(it, Slot_IFrameIsoSpeedControl_put_Auto, Fn_IFrameIsoSpeedControl_put_Auto)(it, value).check("FrameIsoSpeedControl.put_Auto")
+
+proc value*(self: FrameIsoSpeedControl): Option[uint32]  =
+  ## Windows.Media.Devices.Core.FrameIsoSpeedControl.get_Value
+  withIface(self.p, IID_IFrameIsoSpeedControl, "IFrameIsoSpeedControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameIsoSpeedControl_get_Value, Fn_IFrameIsoSpeedControl_get_Value)(it, tmp.addr).check("FrameIsoSpeedControl.get_Value")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "FrameIsoSpeedControl.get_Value")
+    release(tmp)
 
 proc supported*(self: VariablePhotoSequenceController): bool  =
   ## Windows.Media.Devices.Core.VariablePhotoSequenceController.get_Supported
@@ -21882,6 +22416,22 @@ proc `autoFocusRange=`*(self: FocusSettings, value: AutoFocusRange)  =
   ## Windows.Media.Devices.FocusSettings.put_AutoFocusRange
   withIface(self.p, IID_IFocusSettings, "IFocusSettings", it):
     vcall(it, Slot_IFocusSettings_put_AutoFocusRange, Fn_IFocusSettings_put_AutoFocusRange)(it, value).check("FocusSettings.put_AutoFocusRange")
+
+proc value*(self: FocusSettings): Option[uint32]  =
+  ## Windows.Media.Devices.FocusSettings.get_Value
+  withIface(self.p, IID_IFocusSettings, "IFocusSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusSettings_get_Value, Fn_IFocusSettings_get_Value)(it, tmp.addr).check("FocusSettings.get_Value")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "FocusSettings.get_Value")
+    release(tmp)
+
+proc distance*(self: FocusSettings): Option[ManualFocusDistance]  =
+  ## Windows.Media.Devices.FocusSettings.get_Distance
+  withIface(self.p, IID_IFocusSettings, "IFocusSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusSettings_get_Distance, Fn_IFocusSettings_get_Distance)(it, tmp.addr).check("FocusSettings.get_Distance")
+    result = readReference[ManualFocusDistance](tmp, IID_IReference_1_ManualFocusDistance, "FocusSettings.get_Distance")
+    release(tmp)
 
 proc waitForFocus*(self: FocusSettings): bool  =
   ## Windows.Media.Devices.FocusSettings.get_WaitForFocus
@@ -25005,12 +25555,36 @@ proc powerSource*(self: PhotoImportSource): PhotoImportPowerSource  =
     vcall(it, Slot_IPhotoImportSource_get_PowerSource, Fn_IPhotoImportSource_get_PowerSource)(it, tmp.addr).check("PhotoImportSource.get_PowerSource")
     result = tmp
 
+proc batteryLevelPercent*(self: PhotoImportSource): Option[uint32]  =
+  ## Windows.Media.Import.PhotoImportSource.get_BatteryLevelPercent
+  withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportSource_get_BatteryLevelPercent, Fn_IPhotoImportSource_get_BatteryLevelPercent)(it, tmp.addr).check("PhotoImportSource.get_BatteryLevelPercent")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "PhotoImportSource.get_BatteryLevelPercent")
+    release(tmp)
+
+proc dateTime*(self: PhotoImportSource): Option[DateTime]  =
+  ## Windows.Media.Import.PhotoImportSource.get_DateTime
+  withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportSource_get_DateTime, Fn_IPhotoImportSource_get_DateTime)(it, tmp.addr).check("PhotoImportSource.get_DateTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "PhotoImportSource.get_DateTime")
+    release(tmp)
+
 proc storageMedia*(self: PhotoImportSource): seq[PhotoImportStorageMedium]  =
   ## Windows.Media.Import.PhotoImportSource.get_StorageMedia
   withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportSource_get_StorageMedia, Fn_IPhotoImportSource_get_StorageMedia)(it, tmp.addr).check("PhotoImportSource.get_StorageMedia")
     result = toSeq[PhotoImportStorageMedium](tmp, IID_IVectorView_1_PhotoImportStorageMedium)
+    release(tmp)
+
+proc isLocked*(self: PhotoImportSource): Option[bool]  =
+  ## Windows.Media.Import.PhotoImportSource.get_IsLocked
+  withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhotoImportSource_get_IsLocked, Fn_IPhotoImportSource_get_IsLocked)(it, tmp.addr).check("PhotoImportSource.get_IsLocked")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "PhotoImportSource.get_IsLocked")
     release(tmp)
 
 proc isMassStorage*(self: PhotoImportSource): bool  =
@@ -26997,6 +27571,14 @@ proc removeStateChanged*(self: MediaTimelineController, token: EventRegistration
   withIface(self.p, IID_IMediaTimelineController, "IMediaTimelineController", it):
     vcall(it, Slot_IMediaTimelineController_remove_StateChanged, Fn_IMediaTimelineController_remove_StateChanged)(it, token).check("MediaTimelineController.remove_StateChanged")
 
+proc duration*(self: MediaTimelineController): Option[TimeSpan]  =
+  ## Windows.Media.MediaTimelineController.get_Duration
+  withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaTimelineController2_get_Duration, Fn_IMediaTimelineController2_get_Duration)(it, tmp.addr).check("MediaTimelineController.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaTimelineController.get_Duration")
+    release(tmp)
+
 proc isLoopingEnabled*(self: MediaTimelineController): bool  =
   ## Windows.Media.MediaTimelineController.get_IsLoopingEnabled
   withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
@@ -27890,6 +28472,14 @@ proc lines*(self: OcrResult): seq[OcrLine]  =
     result = toSeq[OcrLine](tmp, IID_IVectorView_1_OcrLine)
     release(tmp)
 
+proc textAngle*(self: OcrResult): Option[float64]  =
+  ## Windows.Media.Ocr.OcrResult.get_TextAngle
+  withIface(self.p, IID_IOcrResult, "IOcrResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IOcrResult_get_TextAngle, Fn_IOcrResult_get_TextAngle)(it, tmp.addr).check("OcrResult.get_TextAngle")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "OcrResult.get_TextAngle")
+    release(tmp)
+
 proc text*(self: OcrResult): string  =
   ## Windows.Media.Ocr.OcrResult.get_Text
   withIface(self.p, IID_IOcrResult, "IOcrResult", it):
@@ -28536,12 +29126,28 @@ proc description*(self: SourceChangeRequestedEventArgs): string  =
     vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Description, Fn_ISourceChangeRequestedEventArgs_get_Description)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Description")
     result = takeString(tmp)
 
+proc date*(self: SourceChangeRequestedEventArgs): Option[DateTime]  =
+  ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Date
+  withIface(self.p, IID_ISourceChangeRequestedEventArgs, "ISourceChangeRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Date, Fn_ISourceChangeRequestedEventArgs_get_Date)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Date")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "SourceChangeRequestedEventArgs.get_Date")
+    release(tmp)
+
 proc thumbnail*(self: SourceChangeRequestedEventArgs): pointer  =
   ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Thumbnail
   withIface(self.p, IID_ISourceChangeRequestedEventArgs, "ISourceChangeRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Thumbnail, Fn_ISourceChangeRequestedEventArgs_get_Thumbnail)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Thumbnail")
     result = tmp
+
+proc rating*(self: SourceChangeRequestedEventArgs): Option[uint32]  =
+  ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Rating
+  withIface(self.p, IID_ISourceChangeRequestedEventArgs, "ISourceChangeRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Rating, Fn_ISourceChangeRequestedEventArgs_get_Rating)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Rating")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "SourceChangeRequestedEventArgs.get_Rating")
+    release(tmp)
 
 proc volume*(self: VolumeChangeRequestedEventArgs): float64  =
   ## Windows.Media.PlayTo.VolumeChangeRequestedEventArgs.get_Volume
@@ -28646,6 +29252,14 @@ proc playbackList*(self: MediaBreak): MediaPlaybackList  =
     var tmp: pointer
     vcall(it, Slot_IMediaBreak_get_PlaybackList, Fn_IMediaBreak_get_PlaybackList)(it, tmp.addr).check("MediaBreak.get_PlaybackList")
     result = adopt[MediaPlaybackList](tmp)
+
+proc presentationPosition*(self: MediaBreak): Option[TimeSpan]  =
+  ## Windows.Media.Playback.MediaBreak.get_PresentationPosition
+  withIface(self.p, IID_IMediaBreak, "IMediaBreak", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaBreak_get_PresentationPosition, Fn_IMediaBreak_get_PresentationPosition)(it, tmp.addr).check("MediaBreak.get_PresentationPosition")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaBreak.get_PresentationPosition")
+    release(tmp)
 
 proc insertionMethod*(self: MediaBreak): MediaBreakInsertionMethod  =
   ## Windows.Media.Playback.MediaBreak.get_InsertionMethod
@@ -29606,6 +30220,14 @@ proc startTime*(self: MediaPlaybackItem): TimeSpan  =
     vcall(it, Slot_IMediaPlaybackItem2_get_StartTime, Fn_IMediaPlaybackItem2_get_StartTime)(it, tmp.addr).check("MediaPlaybackItem.get_StartTime")
     result = tmp
 
+proc durationLimit*(self: MediaPlaybackItem): Option[TimeSpan]  =
+  ## Windows.Media.Playback.MediaPlaybackItem.get_DurationLimit
+  withIface(self.p, IID_IMediaPlaybackItem2, "IMediaPlaybackItem2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackItem2_get_DurationLimit, Fn_IMediaPlaybackItem2_get_DurationLimit)(it, tmp.addr).check("MediaPlaybackItem.get_DurationLimit")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaPlaybackItem.get_DurationLimit")
+    release(tmp)
+
 proc canSkip*(self: MediaPlaybackItem): bool  =
   ## Windows.Media.Playback.MediaPlaybackItem.get_CanSkip
   withIface(self.p, IID_IMediaPlaybackItem2, "IMediaPlaybackItem2", it):
@@ -29849,6 +30471,14 @@ proc moveTo*(self: MediaPlaybackList, a1: uint32): MediaPlaybackItem  =
     vcall(it, Slot_IMediaPlaybackList_MoveTo, Fn_IMediaPlaybackList_MoveTo)(it, a1, tmp.addr).check("MediaPlaybackList.MoveTo")
     result = adopt[MediaPlaybackItem](tmp)
 
+proc maxPrefetchTime*(self: MediaPlaybackList): Option[TimeSpan]  =
+  ## Windows.Media.Playback.MediaPlaybackList.get_MaxPrefetchTime
+  withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackList2_get_MaxPrefetchTime, Fn_IMediaPlaybackList2_get_MaxPrefetchTime)(it, tmp.addr).check("MediaPlaybackList.get_MaxPrefetchTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaPlaybackList.get_MaxPrefetchTime")
+    release(tmp)
+
 proc startingItem*(self: MediaPlaybackList): MediaPlaybackItem  =
   ## Windows.Media.Playback.MediaPlaybackList.get_StartingItem
   withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
@@ -29868,6 +30498,14 @@ proc shuffledItems*(self: MediaPlaybackList): seq[MediaPlaybackItem]  =
     var tmp: pointer
     vcall(it, Slot_IMediaPlaybackList2_get_ShuffledItems, Fn_IMediaPlaybackList2_get_ShuffledItems)(it, tmp.addr).check("MediaPlaybackList.get_ShuffledItems")
     result = toSeq[MediaPlaybackItem](tmp, IID_IVectorView_1_MediaPlaybackItem)
+    release(tmp)
+
+proc maxPlayedItemsToKeepOpen*(self: MediaPlaybackList): Option[uint32]  =
+  ## Windows.Media.Playback.MediaPlaybackList.get_MaxPlayedItemsToKeepOpen
+  withIface(self.p, IID_IMediaPlaybackList3, "IMediaPlaybackList3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackList3_get_MaxPlayedItemsToKeepOpen, Fn_IMediaPlaybackList3_get_MaxPlayedItemsToKeepOpen)(it, tmp.addr).check("MediaPlaybackList.get_MaxPlayedItemsToKeepOpen")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "MediaPlaybackList.get_MaxPlayedItemsToKeepOpen")
     release(tmp)
 
 proc onPlaybackStateChanged*(self: MediaPlaybackSession,
@@ -31283,6 +31921,14 @@ proc isEffectiveProtectionAtLeast*(self: HdcpSession, a1: HdcpProtection): bool 
     vcall(it, Slot_IHdcpSession_IsEffectiveProtectionAtLeast, Fn_IHdcpSession_IsEffectiveProtectionAtLeast)(it, a1, tmp.addr).check("HdcpSession.IsEffectiveProtectionAtLeast")
     result = tmp
 
+proc getEffectiveProtection*(self: HdcpSession): Option[HdcpProtection]  =
+  ## Windows.Media.Protection.HdcpSession.GetEffectiveProtection
+  withIface(self.p, IID_IHdcpSession, "IHdcpSession", it):
+    var tmp: pointer
+    vcall(it, Slot_IHdcpSession_GetEffectiveProtection, Fn_IHdcpSession_GetEffectiveProtection)(it, tmp.addr).check("HdcpSession.GetEffectiveProtection")
+    result = readReference[HdcpProtection](tmp, IID_IReference_1_HdcpProtection, "HdcpSession.GetEffectiveProtection")
+    release(tmp)
+
 proc onProtectionChanged*(self: HdcpSession,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.HdcpSession.add_ProtectionChanged
@@ -31983,6 +32629,14 @@ proc usableForPlay*(self: PlayReadyLicense): bool  =
     vcall(it, Slot_IPlayReadyLicense_get_UsableForPlay, Fn_IPlayReadyLicense_get_UsableForPlay)(it, tmp.addr).check("PlayReadyLicense.get_UsableForPlay")
     result = tmp
 
+proc expirationDate*(self: PlayReadyLicense): Option[DateTime]  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyLicense.get_ExpirationDate
+  withIface(self.p, IID_IPlayReadyLicense, "IPlayReadyLicense", it):
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadyLicense_get_ExpirationDate, Fn_IPlayReadyLicense_get_ExpirationDate)(it, tmp.addr).check("PlayReadyLicense.get_ExpirationDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "PlayReadyLicense.get_ExpirationDate")
+    release(tmp)
+
 proc expireAfterFirstPlay*(self: PlayReadyLicense): uint32  =
   ## Windows.Media.Protection.PlayReady.PlayReadyLicense.get_ExpireAfterFirstPlay
   withIface(self.p, IID_IPlayReadyLicense, "IPlayReadyLicense", it):
@@ -32516,6 +33170,22 @@ proc playReadySecurityVersion*(_: typedesc[PlayReadyStatics]): uint32  =
     var tmp: uint32
     vcall(it, Slot_IPlayReadyStatics_get_PlayReadySecurityVersion, Fn_IPlayReadyStatics_get_PlayReadySecurityVersion)(it, tmp.addr).check("PlayReadyStatics.get_PlayReadySecurityVersion")
     result = tmp
+
+proc hardwareDRMDisabledAtTime*(_: typedesc[PlayReadyStatics]): Option[DateTime]  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyStatics.get_HardwareDRMDisabledAtTime
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadyStatics", IID_IPlayReadyStatics5, it):
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadyStatics5_get_HardwareDRMDisabledAtTime, Fn_IPlayReadyStatics5_get_HardwareDRMDisabledAtTime)(it, tmp.addr).check("PlayReadyStatics.get_HardwareDRMDisabledAtTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "PlayReadyStatics.get_HardwareDRMDisabledAtTime")
+    release(tmp)
+
+proc hardwareDRMDisabledUntilTime*(_: typedesc[PlayReadyStatics]): Option[DateTime]  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyStatics.get_HardwareDRMDisabledUntilTime
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadyStatics", IID_IPlayReadyStatics5, it):
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadyStatics5_get_HardwareDRMDisabledUntilTime, Fn_IPlayReadyStatics5_get_HardwareDRMDisabledUntilTime)(it, tmp.addr).check("PlayReadyStatics.get_HardwareDRMDisabledUntilTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "PlayReadyStatics.get_HardwareDRMDisabledUntilTime")
+    release(tmp)
 
 proc resetHardwareDRMDisabled*(_: typedesc[PlayReadyStatics])  =
   ## Windows.Media.Protection.PlayReady.PlayReadyStatics.ResetHardwareDRMDisabled
@@ -33477,6 +34147,22 @@ proc currentPlaybackBitrate*(self: AdaptiveMediaSource): uint32  =
     vcall(it, Slot_IAdaptiveMediaSource_get_CurrentPlaybackBitrate, Fn_IAdaptiveMediaSource_get_CurrentPlaybackBitrate)(it, tmp.addr).check("AdaptiveMediaSource.get_CurrentPlaybackBitrate")
     result = tmp
 
+proc desiredMinBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_DesiredMinBitrate
+  withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource_get_DesiredMinBitrate, Fn_IAdaptiveMediaSource_get_DesiredMinBitrate)(it, tmp.addr).check("AdaptiveMediaSource.get_DesiredMinBitrate")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AdaptiveMediaSource.get_DesiredMinBitrate")
+    release(tmp)
+
+proc desiredMaxBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_DesiredMaxBitrate
+  withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource_get_DesiredMaxBitrate, Fn_IAdaptiveMediaSource_get_DesiredMaxBitrate)(it, tmp.addr).check("AdaptiveMediaSource.get_DesiredMaxBitrate")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AdaptiveMediaSource.get_DesiredMaxBitrate")
+    release(tmp)
+
 proc audioOnlyPlayback*(self: AdaptiveMediaSource): bool  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_AudioOnlyPlayback
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
@@ -33605,6 +34291,30 @@ proc advancedSettings*(self: AdaptiveMediaSource): AdaptiveMediaSourceAdvancedSe
     vcall(it, Slot_IAdaptiveMediaSource2_get_AdvancedSettings, Fn_IAdaptiveMediaSource2_get_AdvancedSettings)(it, tmp.addr).check("AdaptiveMediaSource.get_AdvancedSettings")
     result = adopt[AdaptiveMediaSourceAdvancedSettings](tmp)
 
+proc minLiveOffset*(self: AdaptiveMediaSource): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_MinLiveOffset
+  withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource3_get_MinLiveOffset, Fn_IAdaptiveMediaSource3_get_MinLiveOffset)(it, tmp.addr).check("AdaptiveMediaSource.get_MinLiveOffset")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSource.get_MinLiveOffset")
+    release(tmp)
+
+proc maxSeekableWindowSize*(self: AdaptiveMediaSource): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_MaxSeekableWindowSize
+  withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource3_get_MaxSeekableWindowSize, Fn_IAdaptiveMediaSource3_get_MaxSeekableWindowSize)(it, tmp.addr).check("AdaptiveMediaSource.get_MaxSeekableWindowSize")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSource.get_MaxSeekableWindowSize")
+    release(tmp)
+
+proc desiredSeekableWindowSize*(self: AdaptiveMediaSource): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_DesiredSeekableWindowSize
+  withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource3_get_DesiredSeekableWindowSize, Fn_IAdaptiveMediaSource3_get_DesiredSeekableWindowSize)(it, tmp.addr).check("AdaptiveMediaSource.get_DesiredSeekableWindowSize")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSource.get_DesiredSeekableWindowSize")
+    release(tmp)
+
 proc diagnostics*(self: AdaptiveMediaSource): AdaptiveMediaSourceDiagnostics  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_Diagnostics
   withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
@@ -33661,6 +34371,46 @@ proc `allSegmentsIndependent=`*(self: AdaptiveMediaSourceAdvancedSettings, value
   withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
     vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_put_AllSegmentsIndependent, Fn_IAdaptiveMediaSourceAdvancedSettings_put_AllSegmentsIndependent)(it, value).check("AdaptiveMediaSourceAdvancedSettings.put_AllSegmentsIndependent")
 
+proc desiredBitrateHeadroomRatio*(self: AdaptiveMediaSourceAdvancedSettings): Option[float64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings.get_DesiredBitrateHeadroomRatio
+  withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_get_DesiredBitrateHeadroomRatio, Fn_IAdaptiveMediaSourceAdvancedSettings_get_DesiredBitrateHeadroomRatio)(it, tmp.addr).check("AdaptiveMediaSourceAdvancedSettings.get_DesiredBitrateHeadroomRatio")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "AdaptiveMediaSourceAdvancedSettings.get_DesiredBitrateHeadroomRatio")
+    release(tmp)
+
+proc bitrateDowngradeTriggerRatio*(self: AdaptiveMediaSourceAdvancedSettings): Option[float64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio
+  withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_get_BitrateDowngradeTriggerRatio, Fn_IAdaptiveMediaSourceAdvancedSettings_get_BitrateDowngradeTriggerRatio)(it, tmp.addr).check("AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio")
+    release(tmp)
+
+proc position*(self: AdaptiveMediaSourceCorrelatedTimes): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCorrelatedTimes.get_Position
+  withIface(self.p, IID_IAdaptiveMediaSourceCorrelatedTimes, "IAdaptiveMediaSourceCorrelatedTimes", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceCorrelatedTimes_get_Position, Fn_IAdaptiveMediaSourceCorrelatedTimes_get_Position)(it, tmp.addr).check("AdaptiveMediaSourceCorrelatedTimes.get_Position")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceCorrelatedTimes.get_Position")
+    release(tmp)
+
+proc presentationTimeStamp*(self: AdaptiveMediaSourceCorrelatedTimes): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCorrelatedTimes.get_PresentationTimeStamp
+  withIface(self.p, IID_IAdaptiveMediaSourceCorrelatedTimes, "IAdaptiveMediaSourceCorrelatedTimes", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceCorrelatedTimes_get_PresentationTimeStamp, Fn_IAdaptiveMediaSourceCorrelatedTimes_get_PresentationTimeStamp)(it, tmp.addr).check("AdaptiveMediaSourceCorrelatedTimes.get_PresentationTimeStamp")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceCorrelatedTimes.get_PresentationTimeStamp")
+    release(tmp)
+
+proc programDateTime*(self: AdaptiveMediaSourceCorrelatedTimes): Option[DateTime]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCorrelatedTimes.get_ProgramDateTime
+  withIface(self.p, IID_IAdaptiveMediaSourceCorrelatedTimes, "IAdaptiveMediaSourceCorrelatedTimes", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceCorrelatedTimes_get_ProgramDateTime, Fn_IAdaptiveMediaSourceCorrelatedTimes_get_ProgramDateTime)(it, tmp.addr).check("AdaptiveMediaSourceCorrelatedTimes.get_ProgramDateTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AdaptiveMediaSourceCorrelatedTimes.get_ProgramDateTime")
+    release(tmp)
+
 proc status*(self: AdaptiveMediaSourceCreationResult): AdaptiveMediaSourceCreationStatus  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationResult.get_Status
   withIface(self.p, IID_IAdaptiveMediaSourceCreationResult, "IAdaptiveMediaSourceCreationResult", it):
@@ -33689,6 +34439,38 @@ proc diagnosticType*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Ada
     vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_DiagnosticType, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_DiagnosticType)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_DiagnosticType")
     result = tmp
 
+proc requestId*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[int32]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_RequestId
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_RequestId, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_RequestId)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_RequestId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_RequestId")
+    release(tmp)
+
+proc position*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Position
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_Position, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_Position)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Position")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Position")
+    release(tmp)
+
+proc segmentId*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_SegmentId
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_SegmentId, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_SegmentId)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_SegmentId")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_SegmentId")
+    release(tmp)
+
+proc resourceType*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[AdaptiveMediaSourceResourceType]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceType
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceType, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceType)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceType")
+    result = readReference[AdaptiveMediaSourceResourceType](tmp, IID_IReference_1_AdaptiveMediaSourceResourceType, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceType")
+    release(tmp)
+
 proc resourceUri*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Uri  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceUri
   withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
@@ -33696,12 +34478,44 @@ proc resourceUri*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Uri  =
     vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceUri, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceUri)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceUri")
     result = adopt[Uri](tmp)
 
+proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceByteRangeOffset)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeOffset")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeOffset")
+    release(tmp)
+
+proc resourceByteRangeLength*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceByteRangeLength")
+    release(tmp)
+
+proc bitrate*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[uint32]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Bitrate
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_Bitrate, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_Bitrate)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Bitrate")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_Bitrate")
+    release(tmp)
+
 proc extendedError*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): HRESULT  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ExtendedError
   withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs2, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs2", it):
     var tmp: HRESULT
     vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs2_get_ExtendedError, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs2_get_ExtendedError)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ExtendedError")
     result = tmp
+
+proc resourceDuration*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceDuration
+  withIface(self.p, IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs3, "IAdaptiveMediaSourceDiagnosticAvailableEventArgs3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs3_get_ResourceDuration, Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs3_get_ResourceDuration)(it, tmp.addr).check("AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceDuration")
+    release(tmp)
 
 proc resourceContentType*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs): string  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs.get_ResourceContentType
@@ -33764,6 +34578,22 @@ proc resourceUri*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): Uri  =
     vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceUri, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceUri)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceUri")
     result = adopt[Uri](tmp)
 
+proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs, "IAdaptiveMediaSourceDownloadCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceByteRangeOffset)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeOffset")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeOffset")
+    release(tmp)
+
+proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs, "IAdaptiveMediaSourceDownloadCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeLength")
+    release(tmp)
+
 proc requestId*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): int32  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_RequestId
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs2, "IAdaptiveMediaSourceDownloadCompletedEventArgs2", it):
@@ -33777,6 +34607,22 @@ proc statistics*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): AdaptiveM
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs2_get_Statistics, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs2_get_Statistics)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_Statistics")
     result = adopt[AdaptiveMediaSourceDownloadStatistics](tmp)
+
+proc position*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_Position
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs2, "IAdaptiveMediaSourceDownloadCompletedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs2_get_Position, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs2_get_Position)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_Position")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadCompletedEventArgs.get_Position")
+    release(tmp)
+
+proc resourceDuration*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceDuration
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs3, "IAdaptiveMediaSourceDownloadCompletedEventArgs3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs3_get_ResourceDuration, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs3_get_ResourceDuration)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceDuration")
+    release(tmp)
 
 proc resourceContentType*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): string  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceContentType
@@ -33799,6 +34645,22 @@ proc resourceUri*(self: AdaptiveMediaSourceDownloadFailedEventArgs): Uri  =
     vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceUri, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceUri)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceUri")
     result = adopt[Uri](tmp)
 
+proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDownloadFailedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs, "IAdaptiveMediaSourceDownloadFailedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeOffset)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeOffset")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeOffset")
+    release(tmp)
+
+proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadFailedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs, "IAdaptiveMediaSourceDownloadFailedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeLength")
+    release(tmp)
+
 proc requestId*(self: AdaptiveMediaSourceDownloadFailedEventArgs): int32  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_RequestId
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs2, "IAdaptiveMediaSourceDownloadFailedEventArgs2", it):
@@ -33819,6 +34681,22 @@ proc statistics*(self: AdaptiveMediaSourceDownloadFailedEventArgs): AdaptiveMedi
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs2_get_Statistics, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs2_get_Statistics)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_Statistics")
     result = adopt[AdaptiveMediaSourceDownloadStatistics](tmp)
+
+proc position*(self: AdaptiveMediaSourceDownloadFailedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_Position
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs2, "IAdaptiveMediaSourceDownloadFailedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs2_get_Position, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs2_get_Position)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_Position")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadFailedEventArgs.get_Position")
+    release(tmp)
+
+proc resourceDuration*(self: AdaptiveMediaSourceDownloadFailedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceDuration
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs3, "IAdaptiveMediaSourceDownloadFailedEventArgs3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs3_get_ResourceDuration, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs3_get_ResourceDuration)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceDuration")
+    release(tmp)
 
 proc resourceContentType*(self: AdaptiveMediaSourceDownloadFailedEventArgs): string  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceContentType
@@ -33846,6 +34724,22 @@ proc resourceUri*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): Uri  =
     vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceUri, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceUri)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceUri")
     result = adopt[Uri](tmp)
 
+proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadRequestedEventArgs, "IAdaptiveMediaSourceDownloadRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceByteRangeOffset)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeOffset")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeOffset")
+    release(tmp)
+
+proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadRequestedEventArgs, "IAdaptiveMediaSourceDownloadRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceByteRangeLength")
+    release(tmp)
+
 proc `result`*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): AdaptiveMediaSourceDownloadResult  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_Result
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadRequestedEventArgs, "IAdaptiveMediaSourceDownloadRequestedEventArgs", it):
@@ -33866,6 +34760,22 @@ proc requestId*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): int32  =
     var tmp: int32
     vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs2_get_RequestId, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs2_get_RequestId)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_RequestId")
     result = tmp
+
+proc position*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_Position
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadRequestedEventArgs2, "IAdaptiveMediaSourceDownloadRequestedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs2_get_Position, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs2_get_Position)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_Position")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadRequestedEventArgs.get_Position")
+    release(tmp)
+
+proc resourceDuration*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceDuration
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadRequestedEventArgs3, "IAdaptiveMediaSourceDownloadRequestedEventArgs3", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs3_get_ResourceDuration, Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs3_get_ResourceDuration)(it, tmp.addr).check("AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceDuration")
+    release(tmp)
 
 proc resourceContentType*(self: AdaptiveMediaSourceDownloadRequestedEventArgs): string  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadRequestedEventArgs.get_ResourceContentType
@@ -33936,12 +34846,52 @@ proc `extendedStatus=`*(self: AdaptiveMediaSourceDownloadResult, value: uint32) 
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult, "IAdaptiveMediaSourceDownloadResult", it):
     vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_ExtendedStatus, Fn_IAdaptiveMediaSourceDownloadResult_put_ExtendedStatus)(it, value).check("AdaptiveMediaSourceDownloadResult.put_ExtendedStatus")
 
+proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDownloadResult): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult2, "IAdaptiveMediaSourceDownloadResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeOffset)(it, tmp.addr).check("AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeOffset")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeOffset")
+    release(tmp)
+
+proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadResult): Option[uint64]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult2, "IAdaptiveMediaSourceDownloadResult2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength")
+    release(tmp)
+
 proc contentBytesReceivedCount*(self: AdaptiveMediaSourceDownloadStatistics): uint64  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadStatistics.get_ContentBytesReceivedCount
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadStatistics, "IAdaptiveMediaSourceDownloadStatistics", it):
     var tmp: uint64
     vcall(it, Slot_IAdaptiveMediaSourceDownloadStatistics_get_ContentBytesReceivedCount, Fn_IAdaptiveMediaSourceDownloadStatistics_get_ContentBytesReceivedCount)(it, tmp.addr).check("AdaptiveMediaSourceDownloadStatistics.get_ContentBytesReceivedCount")
     result = tmp
+
+proc timeToHeadersReceived*(self: AdaptiveMediaSourceDownloadStatistics): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadStatistics.get_TimeToHeadersReceived
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadStatistics, "IAdaptiveMediaSourceDownloadStatistics", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadStatistics_get_TimeToHeadersReceived, Fn_IAdaptiveMediaSourceDownloadStatistics_get_TimeToHeadersReceived)(it, tmp.addr).check("AdaptiveMediaSourceDownloadStatistics.get_TimeToHeadersReceived")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadStatistics.get_TimeToHeadersReceived")
+    release(tmp)
+
+proc timeToFirstByteReceived*(self: AdaptiveMediaSourceDownloadStatistics): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadStatistics.get_TimeToFirstByteReceived
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadStatistics, "IAdaptiveMediaSourceDownloadStatistics", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadStatistics_get_TimeToFirstByteReceived, Fn_IAdaptiveMediaSourceDownloadStatistics_get_TimeToFirstByteReceived)(it, tmp.addr).check("AdaptiveMediaSourceDownloadStatistics.get_TimeToFirstByteReceived")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadStatistics.get_TimeToFirstByteReceived")
+    release(tmp)
+
+proc timeToLastByteReceived*(self: AdaptiveMediaSourceDownloadStatistics): Option[TimeSpan]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadStatistics.get_TimeToLastByteReceived
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadStatistics, "IAdaptiveMediaSourceDownloadStatistics", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadStatistics_get_TimeToLastByteReceived, Fn_IAdaptiveMediaSourceDownloadStatistics_get_TimeToLastByteReceived)(it, tmp.addr).check("AdaptiveMediaSourceDownloadStatistics.get_TimeToLastByteReceived")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSourceDownloadStatistics.get_TimeToLastByteReceived")
+    release(tmp)
 
 proc oldValue*(self: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs): uint32  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourcePlaybackBitrateChangedEventArgs.get_OldValue
@@ -34628,6 +35578,30 @@ proc isReadOnly*(self: VideoFrame): bool  =
     var tmp: bool
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("VideoFrame.get_IsReadOnly")
     result = tmp
+
+proc relativeTime*(self: VideoFrame): Option[TimeSpan]  =
+  ## Windows.Media.VideoFrame.get_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_RelativeTime, Fn_IMediaFrame_get_RelativeTime)(it, tmp.addr).check("VideoFrame.get_RelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "VideoFrame.get_RelativeTime")
+    release(tmp)
+
+proc systemRelativeTime*(self: VideoFrame): Option[TimeSpan]  =
+  ## Windows.Media.VideoFrame.get_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("VideoFrame.get_SystemRelativeTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "VideoFrame.get_SystemRelativeTime")
+    release(tmp)
+
+proc duration*(self: VideoFrame): Option[TimeSpan]  =
+  ## Windows.Media.VideoFrame.get_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrame_get_Duration, Fn_IMediaFrame_get_Duration)(it, tmp.addr).check("VideoFrame.get_Duration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "VideoFrame.get_Duration")
+    release(tmp)
 
 proc `isDiscontinuous=`*(self: VideoFrame, value: bool)  =
   ## Windows.Media.VideoFrame.put_IsDiscontinuous

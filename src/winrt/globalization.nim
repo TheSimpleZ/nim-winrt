@@ -22,6 +22,15 @@ const IID_IVectorView_1_String* = GUID(
 const IID_IVectorView_1_JapanesePhoneme* = GUID(
     data1: 0x4CDC5BD0'u32, data2: 0xD4AA'u16, data3: 0x5B60'u16,
     data4: [0xBF'u8, 0x25, 0x71, 0x44, 0x90, 0x50, 0x50, 0xF9])
+const IID_IReference_1_I8* = GUID(
+    data1: 0x4DDA9E24'u32, data2: 0xE69F'u16, data3: 0x5C6A'u16,
+    data4: [0xA0'u8, 0xA6, 0x93, 0x42, 0x73, 0x65, 0xAF, 0x2A])
+const IID_IReference_1_U8* = GUID(
+    data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
+    data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 
 type
   ApplicationLanguages* = object
@@ -2840,6 +2849,33 @@ proc `currency=`*(self: CurrencyFormatter, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_ICurrencyFormatter_put_Currency, Fn_ICurrencyFormatter_put_Currency)(it, h0).check("CurrencyFormatter.put_Currency")
 
+proc parseInt*(self: CurrencyFormatter, a1: string): Option[int64]  =
+  ## Windows.Globalization.NumberFormatting.CurrencyFormatter.ParseInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseInt, Fn_INumberParser_ParseInt)(it, h0, tmp.addr).check("CurrencyFormatter.ParseInt")
+      result = readReference[int64](tmp, IID_IReference_1_I8, "CurrencyFormatter.ParseInt")
+      release(tmp)
+
+proc parseUInt*(self: CurrencyFormatter, a1: string): Option[uint64]  =
+  ## Windows.Globalization.NumberFormatting.CurrencyFormatter.ParseUInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseUInt, Fn_INumberParser_ParseUInt)(it, h0, tmp.addr).check("CurrencyFormatter.ParseUInt")
+      result = readReference[uint64](tmp, IID_IReference_1_U8, "CurrencyFormatter.ParseUInt")
+      release(tmp)
+
+proc parseDouble*(self: CurrencyFormatter, a1: string): Option[float64]  =
+  ## Windows.Globalization.NumberFormatting.CurrencyFormatter.ParseDouble
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseDouble, Fn_INumberParser_ParseDouble)(it, h0, tmp.addr).check("CurrencyFormatter.ParseDouble")
+      result = readReference[float64](tmp, IID_IReference_1_F8, "CurrencyFormatter.ParseDouble")
+      release(tmp)
+
 proc formatInt*(self: CurrencyFormatter, a1: int64): string  =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.FormatInt
   withIface(self.p, IID_INumberFormatter2, "INumberFormatter2", it):
@@ -3170,6 +3206,33 @@ proc formatDouble*(self: DecimalFormatter, a1: float64): string  =
     vcall(it, Slot_INumberFormatter2_FormatDouble, Fn_INumberFormatter2_FormatDouble)(it, a1, tmp.addr).check("DecimalFormatter.FormatDouble")
     result = takeString(tmp)
 
+proc parseInt*(self: DecimalFormatter, a1: string): Option[int64]  =
+  ## Windows.Globalization.NumberFormatting.DecimalFormatter.ParseInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseInt, Fn_INumberParser_ParseInt)(it, h0, tmp.addr).check("DecimalFormatter.ParseInt")
+      result = readReference[int64](tmp, IID_IReference_1_I8, "DecimalFormatter.ParseInt")
+      release(tmp)
+
+proc parseUInt*(self: DecimalFormatter, a1: string): Option[uint64]  =
+  ## Windows.Globalization.NumberFormatting.DecimalFormatter.ParseUInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseUInt, Fn_INumberParser_ParseUInt)(it, h0, tmp.addr).check("DecimalFormatter.ParseUInt")
+      result = readReference[uint64](tmp, IID_IReference_1_U8, "DecimalFormatter.ParseUInt")
+      release(tmp)
+
+proc parseDouble*(self: DecimalFormatter, a1: string): Option[float64]  =
+  ## Windows.Globalization.NumberFormatting.DecimalFormatter.ParseDouble
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseDouble, Fn_INumberParser_ParseDouble)(it, h0, tmp.addr).check("DecimalFormatter.ParseDouble")
+      result = readReference[float64](tmp, IID_IReference_1_F8, "DecimalFormatter.ParseDouble")
+      release(tmp)
+
 proc significantDigits*(self: DecimalFormatter): int32  =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_SignificantDigits
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
@@ -3453,6 +3516,33 @@ proc formatDouble*(self: PercentFormatter, a1: float64): string  =
     vcall(it, Slot_INumberFormatter2_FormatDouble, Fn_INumberFormatter2_FormatDouble)(it, a1, tmp.addr).check("PercentFormatter.FormatDouble")
     result = takeString(tmp)
 
+proc parseInt*(self: PercentFormatter, a1: string): Option[int64]  =
+  ## Windows.Globalization.NumberFormatting.PercentFormatter.ParseInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseInt, Fn_INumberParser_ParseInt)(it, h0, tmp.addr).check("PercentFormatter.ParseInt")
+      result = readReference[int64](tmp, IID_IReference_1_I8, "PercentFormatter.ParseInt")
+      release(tmp)
+
+proc parseUInt*(self: PercentFormatter, a1: string): Option[uint64]  =
+  ## Windows.Globalization.NumberFormatting.PercentFormatter.ParseUInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseUInt, Fn_INumberParser_ParseUInt)(it, h0, tmp.addr).check("PercentFormatter.ParseUInt")
+      result = readReference[uint64](tmp, IID_IReference_1_U8, "PercentFormatter.ParseUInt")
+      release(tmp)
+
+proc parseDouble*(self: PercentFormatter, a1: string): Option[float64]  =
+  ## Windows.Globalization.NumberFormatting.PercentFormatter.ParseDouble
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseDouble, Fn_INumberParser_ParseDouble)(it, h0, tmp.addr).check("PercentFormatter.ParseDouble")
+      result = readReference[float64](tmp, IID_IReference_1_F8, "PercentFormatter.ParseDouble")
+      release(tmp)
+
 proc significantDigits*(self: PercentFormatter): int32  =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_SignificantDigits
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
@@ -3625,6 +3715,33 @@ proc formatDouble*(self: PermilleFormatter, a1: float64): string  =
     var tmp: HSTRING
     vcall(it, Slot_INumberFormatter2_FormatDouble, Fn_INumberFormatter2_FormatDouble)(it, a1, tmp.addr).check("PermilleFormatter.FormatDouble")
     result = takeString(tmp)
+
+proc parseInt*(self: PermilleFormatter, a1: string): Option[int64]  =
+  ## Windows.Globalization.NumberFormatting.PermilleFormatter.ParseInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseInt, Fn_INumberParser_ParseInt)(it, h0, tmp.addr).check("PermilleFormatter.ParseInt")
+      result = readReference[int64](tmp, IID_IReference_1_I8, "PermilleFormatter.ParseInt")
+      release(tmp)
+
+proc parseUInt*(self: PermilleFormatter, a1: string): Option[uint64]  =
+  ## Windows.Globalization.NumberFormatting.PermilleFormatter.ParseUInt
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseUInt, Fn_INumberParser_ParseUInt)(it, h0, tmp.addr).check("PermilleFormatter.ParseUInt")
+      result = readReference[uint64](tmp, IID_IReference_1_U8, "PermilleFormatter.ParseUInt")
+      release(tmp)
+
+proc parseDouble*(self: PermilleFormatter, a1: string): Option[float64]  =
+  ## Windows.Globalization.NumberFormatting.PermilleFormatter.ParseDouble
+  withIface(self.p, IID_INumberParser, "INumberParser", it):
+    withHString(a1, h0):
+      var tmp: pointer
+      vcall(it, Slot_INumberParser_ParseDouble, Fn_INumberParser_ParseDouble)(it, h0, tmp.addr).check("PermilleFormatter.ParseDouble")
+      result = readReference[float64](tmp, IID_IReference_1_F8, "PermilleFormatter.ParseDouble")
+      release(tmp)
 
 proc significantDigits*(self: PermilleFormatter): int32  =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_SignificantDigits

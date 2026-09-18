@@ -78,6 +78,9 @@ const IID_IAsyncOperation_1_GameListEntry* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
@@ -2176,6 +2179,54 @@ proc relatedProcessNames*(self: GameModeConfiguration): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_IGameModeConfiguration_get_RelatedProcessNames, Fn_IGameModeConfiguration_get_RelatedProcessNames)(it, tmp.addr).check("GameModeConfiguration.get_RelatedProcessNames")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc percentGpuTimeAllocatedToGame*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuTimeAllocatedToGame
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_PercentGpuTimeAllocatedToGame, Fn_IGameModeConfiguration_get_PercentGpuTimeAllocatedToGame)(it, tmp.addr).check("GameModeConfiguration.get_PercentGpuTimeAllocatedToGame")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuTimeAllocatedToGame")
+    release(tmp)
+
+proc percentGpuMemoryAllocatedToGame*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToGame, Fn_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToGame)(it, tmp.addr).check("GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame")
+    release(tmp)
+
+proc percentGpuMemoryAllocatedToSystemCompositor*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToSystemCompositor, Fn_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToSystemCompositor)(it, tmp.addr).check("GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor")
+    release(tmp)
+
+proc maxCpuCount*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_MaxCpuCount
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_MaxCpuCount, Fn_IGameModeConfiguration_get_MaxCpuCount)(it, tmp.addr).check("GameModeConfiguration.get_MaxCpuCount")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_MaxCpuCount")
+    release(tmp)
+
+proc cpuExclusivityMaskLow*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskLow
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_CpuExclusivityMaskLow, Fn_IGameModeConfiguration_get_CpuExclusivityMaskLow)(it, tmp.addr).check("GameModeConfiguration.get_CpuExclusivityMaskLow")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_CpuExclusivityMaskLow")
+    release(tmp)
+
+proc cpuExclusivityMaskHigh*(self: GameModeConfiguration): Option[int32]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskHigh
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameModeConfiguration_get_CpuExclusivityMaskHigh, Fn_IGameModeConfiguration_get_CpuExclusivityMaskHigh)(it, tmp.addr).check("GameModeConfiguration.get_CpuExclusivityMaskHigh")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_CpuExclusivityMaskHigh")
     release(tmp)
 
 proc affinitizeToExclusiveCpus*(self: GameModeConfiguration): bool  =

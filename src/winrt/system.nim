@@ -99,6 +99,12 @@ const IID_AsyncOperationCompletedHandler_1_LaunchUriResult* = GUID(
 const IID_IAsyncOperation_1_LaunchUriResult* = GUID(
     data1: 0x7F97FC15'u32, data2: 0x1CD6'u16, data3: 0x54B7'u16,
     data4: [0xA2'u8, 0x90, 0xAC, 0xB6, 0x0D, 0xBA, 0x81, 0xA1])
+const IID_IReference_1_Point* = GUID(
+    data1: 0x84F14C22'u32, data2: 0xA00A'u16, data3: 0x5272'u16,
+    data4: [0x8D'u8, 0x3D, 0x82, 0x11, 0x2E, 0x66, 0xDF, 0x00])
+const IID_IReference_1_Rect* = GUID(
+    data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
+    data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
@@ -4016,6 +4022,22 @@ proc `limitPickerToCurrentAppAndAppUriHandlers=`*(self: LauncherOptions, value: 
   ## Windows.System.LauncherOptions.put_LimitPickerToCurrentAppAndAppUriHandlers
   withIface(self.p, IID_ILauncherOptions4, "ILauncherOptions4", it):
     vcall(it, Slot_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers, Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers)(it, value).check("LauncherOptions.put_LimitPickerToCurrentAppAndAppUriHandlers")
+
+proc invocationPoint*(self: LauncherUIOptions): Option[Point]  =
+  ## Windows.System.LauncherUIOptions.get_InvocationPoint
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_ILauncherUIOptions_get_InvocationPoint, Fn_ILauncherUIOptions_get_InvocationPoint)(it, tmp.addr).check("LauncherUIOptions.get_InvocationPoint")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "LauncherUIOptions.get_InvocationPoint")
+    release(tmp)
+
+proc selectionRect*(self: LauncherUIOptions): Option[Rect]  =
+  ## Windows.System.LauncherUIOptions.get_SelectionRect
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_ILauncherUIOptions_get_SelectionRect, Fn_ILauncherUIOptions_get_SelectionRect)(it, tmp.addr).check("LauncherUIOptions.get_SelectionRect")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "LauncherUIOptions.get_SelectionRect")
+    release(tmp)
 
 proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64  =
   ## Windows.System.MemoryManager.get_AppMemoryUsage

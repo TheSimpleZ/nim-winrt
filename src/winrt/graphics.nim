@@ -48,6 +48,9 @@ const IID_TypedEventHandler_2_DisplayEnhancementOverride_DisplayEnhancementOverr
 const IID_TypedEventHandler_2_DisplayInformation_Object* = GUID(
     data1: 0x86C4F619'u32, data2: 0x67B6'u16, data3: 0x51C7'u16,
     data4: [0xB3'u8, 0x0D, 0xD8, 0xCF, 0x13, 0x62, 0x53, 0x27])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_IVector_1_HolographicQuadLayer* = GUID(
     data1: 0x0ABD448E'u32, data2: 0xB4F8'u16, data3: 0x5CE6'u16,
     data4: [0xA4'u8, 0x08, 0x0A, 0xA7, 0xD8, 0xED, 0x40, 0xA1])
@@ -129,6 +132,9 @@ const IID_IVector_1_String* = GUID(
 const IID_TypedEventHandler_2_PrintManager_PrintTaskRequestedEventArgs* = GUID(
     data1: 0x8A8CB877'u32, data2: 0x70C5'u16, data3: 0x54CE'u16,
     data4: [0x8B'u8, 0x42, 0xD7, 0x90, 0xE2, 0x91, 0x48, 0x59])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrintTicketValidationRequestedEventArgs* = GUID(
     data1: 0xAD13135A'u32, data2: 0x1C8F'u16, data3: 0x5EBD'u16,
     data4: [0xA4'u8, 0x26, 0xEB, 0x74, 0x34, 0x63, 0x9D, 0x11])
@@ -3799,6 +3805,14 @@ proc rawPixelsPerViewPixel*(self: DisplayInformation): float64  =
     vcall(it, Slot_IDisplayInformation2_get_RawPixelsPerViewPixel, Fn_IDisplayInformation2_get_RawPixelsPerViewPixel)(it, tmp.addr).check("DisplayInformation.get_RawPixelsPerViewPixel")
     result = tmp
 
+proc diagonalSizeInInches*(self: DisplayInformation): Option[float64]  =
+  ## Windows.Graphics.Display.DisplayInformation.get_DiagonalSizeInInches
+  withIface(self.p, IID_IDisplayInformation3, "IDisplayInformation3", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayInformation3_get_DiagonalSizeInInches, Fn_IDisplayInformation3_get_DiagonalSizeInInches)(it, tmp.addr).check("DisplayInformation.get_DiagonalSizeInInches")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "DisplayInformation.get_DiagonalSizeInInches")
+    release(tmp)
+
 proc screenWidthInRawPixels*(self: DisplayInformation): uint32  =
   ## Windows.Graphics.Display.DisplayInformation.get_ScreenWidthInRawPixels
   withIface(self.p, IID_IDisplayInformation4, "IDisplayInformation4", it):
@@ -7183,6 +7197,16 @@ proc supportedContracts*(self: PrintSupportAppInfo): PrintSupportAppContracts  =
     var tmp: PrintSupportAppContracts
     vcall(it, Slot_IPrintSupportAppInfo_get_SupportedContracts, Fn_IPrintSupportAppInfo_get_SupportedContracts)(it, tmp.addr).check("PrintSupportAppInfo.get_SupportedContracts")
     result = tmp
+
+proc getPrintJobShowsUI*(_: typedesc[PrintSupportAppInfo], a1: string, a2: WorkflowPrintTicket): Option[bool]  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.GetPrintJobShowsUI
+  withStatics("Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo", IID_IPrintSupportAppInfoStatics, it):
+    withHString(a1, h0):
+      withIface(a2.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p1):
+        var tmp: pointer
+        vcall(it, Slot_IPrintSupportAppInfoStatics_GetPrintJobShowsUI, Fn_IPrintSupportAppInfoStatics_GetPrintJobShowsUI)(it, h0, p1, tmp.addr).check("PrintSupportAppInfo.GetPrintJobShowsUI")
+        result = readReference[bool](tmp, IID_IReference_1_Bool, "PrintSupportAppInfo.GetPrintJobShowsUI")
+        release(tmp)
 
 proc fromPrinterName*(_: typedesc[PrintSupportAppInfo], a1: string): PrintSupportAppInfo  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.FromPrinterName

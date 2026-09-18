@@ -10,7 +10,11 @@
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
 
-import std/[os, strformat, strutils, widestrs]
+import std/[options, os, strformat, strutils, widestrs]
+
+# A method that may not have a value returns `Option[T]`, so anyone holding one
+# needs `isSome` and `get` without a second import.
+export options
 
 # ------------------------------------------------------------------- basics
 
@@ -548,3 +552,35 @@ proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
       view, i, item.addr)
       .check("collection.GetAt")
     result.add takeString(item)
+
+# ---------------------------------------------------------------- references
+
+# `IReference<T>` is how WinRT says "a T, or nothing". It is an interface, so
+# the absence is a null pointer rather than a sentinel value, and the value
+# itself is read through `get_Value` — slot 6, the first method after
+# IInspectable's six, on every instantiation.
+#
+# Nim already has a word for that shape, so this is where the projection stops
+# looking like COM and starts looking like Nim.
+const SlotReferenceValue = 6
+
+type FnReferenceValue[T] =
+  proc(self: pointer, value: ptr T): HRESULT {.abi.}
+
+proc readReference*[T](box: pointer, iid: GUID, what: string): Option[T] =
+  ## The value inside an `IReference<T>`, or `none` if there was not one.
+  ##
+  ## The box itself stays the caller's to release; only the narrowed interface
+  ## is released here.
+  if box.isNil: return none(T)
+  let typed = queryInterface(box, iid)
+  if typed.isNil:
+    raise newException(WinRtError, "winrt: " & what &
+      " is not the reference type its signature declares")
+  try:
+    var v: T
+    vcall(typed, SlotReferenceValue, FnReferenceValue[T])(typed, v.addr)
+      .check(what & ".get_Value")
+    result = some(v)
+  finally:
+    release(typed)

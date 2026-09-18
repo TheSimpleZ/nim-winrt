@@ -39,6 +39,15 @@ const IID_IVector_1_SettingsCommand* = GUID(
 const IID_TypedEventHandler_2_SettingsPane_SettingsPaneCommandsRequestedEventArgs* = GUID(
     data1: 0xF39A56A2'u32, data2: 0x7DB1'u16, data3: 0x5C48'u16,
     data4: [0x9E'u8, 0x13, 0x7D, 0xC4, 0x85, 0xA4, 0xA9, 0x9E])
+const IID_IReference_1_F4* = GUID(
+    data1: 0x719CC2BA'u32, data2: 0x3E76'u16, data3: 0x5DEF'u16,
+    data4: [0x9F'u8, 0x1A, 0x38, 0xD8, 0x5A, 0x14, 0x5E, 0xA8])
+const IID_IReference_1_Vector2* = GUID(
+    data1: 0x48F6A69E'u32, data2: 0x8465'u16, data3: 0x57AE'u16,
+    data4: [0x94'u8, 0x00, 0x97, 0x64, 0x08, 0x7F, 0x65, 0xAD])
+const IID_IReference_1_Vector3* = GUID(
+    data1: 0x1EE770FF'u32, data2: 0xC954'u16, data3: 0x59CA'u16,
+    data4: [0xA7'u8, 0x54, 0x61, 0x99, 0xA9, 0xBE, 0x28, 0x2C])
 const IID_TypedEventHandler_2_CompositionCapabilities_Object* = GUID(
     data1: 0x6E8CC6F4'u32, data2: 0x6CF5'u16, data3: 0x5994'u16,
     data4: [0x94'u8, 0x47, 0x72, 0x61, 0x71, 0x23, 0x6E, 0xA8])
@@ -210,6 +219,12 @@ const IID_IVectorView_1_InkStrokeRenderingSegment* = GUID(
 const IID_IVectorView_1_InkPoint* = GUID(
     data1: 0xD1AC414B'u32, data2: 0xC87D'u16, data3: 0x540F'u16,
     data4: [0x8A'u8, 0xB1, 0x4E, 0x0D, 0x09, 0xD9, 0xD2, 0x83])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
 const IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs* = GUID(
     data1: 0xBF66B962'u32, data2: 0x702D'u16, data3: 0x5C07'u16,
     data4: [0xA2'u8, 0xD5, 0x15, 0xF2, 0x15, 0x83, 0xC4, 0x3A])
@@ -237,6 +252,9 @@ const IID_TypedEventHandler_2_PhysicalGestureRecognizer_TappedEventArgs* = GUID(
 const IID_TypedEventHandler_2_PhysicalGestureRecognizer_HoldingEventArgs* = GUID(
     data1: 0xADAA5F37'u32, data2: 0xBA59'u16, data3: 0x5C13'u16,
     data4: [0x83'u8, 0xE1, 0x81, 0x1A, 0x8C, 0x1C, 0x26, 0xEE])
+const IID_IReference_1_Rect* = GUID(
+    data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
+    data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
 const IID_TypedEventHandler_2_KeyboardInputProcessor_Object* = GUID(
     data1: 0xF2171EB7'u32, data2: 0xE800'u16, data3: 0x51CF'u16,
     data4: [0xA5'u8, 0xBF, 0xDB, 0xD9, 0xE3, 0x84, 0xBC, 0xA8])
@@ -357,6 +375,9 @@ const IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSource
 const IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionDetectedEventArgs* = GUID(
     data1: 0x0F223F8F'u32, data2: 0xF220'u16, data3: 0x5388'u16,
     data4: [0x8F'u8, 0xE6, 0xB3, 0xB7, 0xE7, 0x93, 0x09, 0x87])
+const IID_IReference_1_Quaternion* = GUID(
+    data1: 0xB27004BB'u32, data2: 0xC014'u16, data3: 0x5DCE'u16,
+    data4: [0x9A'u8, 0x21, 0x79, 0x9C, 0x5A, 0x3C, 0x14, 0x61])
 const IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionButtonEventArgs* = GUID(
     data1: 0xB19C7B2A'u32, data2: 0xA907'u16, data3: 0x5297'u16,
     data4: [0x82'u8, 0x79, 0xAD, 0xBA, 0x11, 0x40, 0x21, 0x8D])
@@ -495,6 +516,12 @@ const IID_TypedEventHandler_2_CoreTextEditContext_CoreTextCompositionCompletedEv
 const IID_TypedEventHandler_2_CoreTextEditContext_Object* = GUID(
     data1: 0xEF53B467'u32, data2: 0xC472'u16, data3: 0x5B59'u16,
     data4: [0xA8'u8, 0x27, 0x38, 0xAD, 0xC3, 0xA9, 0xD3, 0x26])
+const IID_IReference_1_UIElementType* = GUID(
+    data1: 0xE17E08C9'u32, data2: 0x7DEB'u16, data3: 0x51D1'u16,
+    data4: [0x84'u8, 0x87, 0x33, 0x4E, 0xB3, 0xFE, 0x46, 0x91])
+const IID_IReference_1_UnderlineType* = GUID(
+    data1: 0x1B63EC17'u32, data2: 0x7B2B'u16, data3: 0x59FE'u16,
+    data4: [0xAB'u8, 0x9D, 0xB6, 0x0E, 0xA4, 0xF9, 0xC9, 0xB8])
 const IID_TypedEventHandler_2_CoreTextServicesManager_Object* = GUID(
     data1: 0x112FB01D'u32, data2: 0x260A'u16, data3: 0x51C6'u16,
     data4: [0x91'u8, 0x98, 0x5D, 0xB3, 0xE6, 0xE9, 0xEF, 0x3D])
@@ -522,6 +549,9 @@ const IID_TypedEventHandler_2_ApplicationView_Object* = GUID(
 const IID_IVectorView_1_DisplayRegion* = GUID(
     data1: 0x9460DEBB'u32, data2: 0xA0D6'u16, data3: 0x5AB8'u16,
     data4: [0x84'u8, 0xF5, 0x90, 0x87, 0xF2, 0xA6, 0xBB, 0x67])
+const IID_IReference_1_Color* = GUID(
+    data1: 0xAB8E5D11'u32, data2: 0xB0C1'u16, data3: 0x5A21'u16,
+    data4: [0x95'u8, 0xAE, 0xF1, 0x6B, 0xF3, 0xA3, 0x76, 0x24])
 const IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewAnimationStartingEventArgs* = GUID(
     data1: 0xCFD46669'u32, data2: 0x0E5A'u16, data3: 0x5C60'u16,
     data4: [0xA8'u8, 0xA2, 0xDC, 0x2D, 0x89, 0x97, 0x89, 0xDA])
@@ -708,6 +738,9 @@ const IID_TypedEventHandler_2_Control_FocusEngagedEventArgs* = GUID(
 const IID_TypedEventHandler_2_Control_FocusDisengagedEventArgs* = GUID(
     data1: 0x38B4535C'u32, data2: 0x2785'u16, data3: 0x5122'u16,
     data4: [0x96'u8, 0xFE, 0xD4, 0x4F, 0x79, 0x5B, 0x9C, 0xB2])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxSuggestionChosenEventArgs* = GUID(
     data1: 0x7996A97E'u32, data2: 0x615E'u16, data3: 0x5FF5'u16,
     data4: [0xBE'u8, 0x3D, 0x0F, 0xF9, 0xFE, 0x43, 0x45, 0x1C])
@@ -909,6 +942,9 @@ const IID_IAsyncOperation_1_MapModel3D* = GUID(
 const IID_TypedEventHandler_2_MapScene_MapTargetCameraChangedEventArgs* = GUID(
     data1: 0x766ED4A8'u32, data2: 0xE810'u16, data3: 0x5F78'u16,
     data4: [0xBC'u8, 0x96, 0x9A, 0xFF, 0x9F, 0x58, 0xCF, 0xCA])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_TypedEventHandler_2_MediaElement_PartialMediaFailureDetectedEventArgs* = GUID(
     data1: 0xB402B0CA'u32, data2: 0xBECA'u16, data3: 0x5537'u16,
     data4: [0x81'u8, 0x92, 0x8F, 0x30, 0xF7, 0xCB, 0x5D, 0x0E])
@@ -951,6 +987,9 @@ const IID_TypedEventHandler_2_Pivot_PivotItemEventArgs* = GUID(
 const IID_TypedEventHandler_2_ColorSpectrum_ColorChangedEventArgs* = GUID(
     data1: 0x650CFA09'u32, data2: 0x70C2'u16, data3: 0x5151'u16,
     data4: [0xA2'u8, 0xCD, 0x27, 0x57, 0x0F, 0xB9, 0x55, 0x6B])
+const IID_IReference_1_Point* = GUID(
+    data1: 0x84F14C22'u32, data2: 0xA00A'u16, data3: 0x5272'u16,
+    data4: [0x8D'u8, 0x3D, 0x82, 0x11, 0x2E, 0x66, 0xDF, 0x00])
 const IID_TypedEventHandler_2_RatingControl_Object* = GUID(
     data1: 0x180BE111'u32, data2: 0xC600'u16, data3: 0x5E5D'u16,
     data4: [0x82'u8, 0x66, 0xFB, 0x29, 0xB9, 0x65, 0x6A, 0xF4])
@@ -1209,6 +1248,9 @@ const IID_TypedEventHandler_2_XamlUICommand_ExecuteRequestedEventArgs* = GUID(
 const IID_TypedEventHandler_2_XamlUICommand_CanExecuteRequestedEventArgs* = GUID(
     data1: 0xBC9F083E'u32, data2: 0xF27F'u16, data3: 0x51E3'u16,
     data4: [0x84'u8, 0x7E, 0x62, 0x0E, 0x04, 0x7B, 0x4A, 0x0C])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_TypedEventHandler_2_ConnectedAnimation_Object* = GUID(
     data1: 0x44CAA9EA'u32, data2: 0x7598'u16, data3: 0x517A'u16,
     data4: [0xB7'u8, 0x8E, 0xAB, 0xD2, 0x0D, 0x93, 0xD5, 0x87])
@@ -15138,6 +15180,22 @@ proc `stopBehavior=`*(self: NaturalMotionAnimation, value: AnimationStopBehavior
   withIface(self.p, IID_INaturalMotionAnimation, "INaturalMotionAnimation", it):
     vcall(it, Slot_INaturalMotionAnimation_put_StopBehavior, Fn_INaturalMotionAnimation_put_StopBehavior)(it, value).check("NaturalMotionAnimation.put_StopBehavior")
 
+proc finalValue*(self: ScalarNaturalMotionAnimation): Option[float32]  =
+  ## Windows.UI.Composition.ScalarNaturalMotionAnimation.get_FinalValue
+  withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IScalarNaturalMotionAnimation_get_FinalValue, Fn_IScalarNaturalMotionAnimation_get_FinalValue)(it, tmp.addr).check("ScalarNaturalMotionAnimation.get_FinalValue")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "ScalarNaturalMotionAnimation.get_FinalValue")
+    release(tmp)
+
+proc initialValue*(self: ScalarNaturalMotionAnimation): Option[float32]  =
+  ## Windows.UI.Composition.ScalarNaturalMotionAnimation.get_InitialValue
+  withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IScalarNaturalMotionAnimation_get_InitialValue, Fn_IScalarNaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("ScalarNaturalMotionAnimation.get_InitialValue")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "ScalarNaturalMotionAnimation.get_InitialValue")
+    release(tmp)
+
 proc initialVelocity*(self: ScalarNaturalMotionAnimation): float32  =
   ## Windows.UI.Composition.ScalarNaturalMotionAnimation.get_InitialVelocity
   withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
@@ -15174,6 +15232,22 @@ proc `restitution=`*(self: BounceScalarNaturalMotionAnimation, value: float32)  
   withIface(self.p, IID_IBounceScalarNaturalMotionAnimation, "IBounceScalarNaturalMotionAnimation", it):
     vcall(it, Slot_IBounceScalarNaturalMotionAnimation_put_Restitution, Fn_IBounceScalarNaturalMotionAnimation_put_Restitution)(it, value).check("BounceScalarNaturalMotionAnimation.put_Restitution")
 
+proc finalValue*(self: Vector2NaturalMotionAnimation): Option[Vector2]  =
+  ## Windows.UI.Composition.Vector2NaturalMotionAnimation.get_FinalValue
+  withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IVector2NaturalMotionAnimation_get_FinalValue, Fn_IVector2NaturalMotionAnimation_get_FinalValue)(it, tmp.addr).check("Vector2NaturalMotionAnimation.get_FinalValue")
+    result = readReference[Vector2](tmp, IID_IReference_1_Vector2, "Vector2NaturalMotionAnimation.get_FinalValue")
+    release(tmp)
+
+proc initialValue*(self: Vector2NaturalMotionAnimation): Option[Vector2]  =
+  ## Windows.UI.Composition.Vector2NaturalMotionAnimation.get_InitialValue
+  withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IVector2NaturalMotionAnimation_get_InitialValue, Fn_IVector2NaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("Vector2NaturalMotionAnimation.get_InitialValue")
+    result = readReference[Vector2](tmp, IID_IReference_1_Vector2, "Vector2NaturalMotionAnimation.get_InitialValue")
+    release(tmp)
+
 proc initialVelocity*(self: Vector2NaturalMotionAnimation): Vector2  =
   ## Windows.UI.Composition.Vector2NaturalMotionAnimation.get_InitialVelocity
   withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
@@ -15209,6 +15283,22 @@ proc `restitution=`*(self: BounceVector2NaturalMotionAnimation, value: float32) 
   ## Windows.UI.Composition.BounceVector2NaturalMotionAnimation.put_Restitution
   withIface(self.p, IID_IBounceVector2NaturalMotionAnimation, "IBounceVector2NaturalMotionAnimation", it):
     vcall(it, Slot_IBounceVector2NaturalMotionAnimation_put_Restitution, Fn_IBounceVector2NaturalMotionAnimation_put_Restitution)(it, value).check("BounceVector2NaturalMotionAnimation.put_Restitution")
+
+proc finalValue*(self: Vector3NaturalMotionAnimation): Option[Vector3]  =
+  ## Windows.UI.Composition.Vector3NaturalMotionAnimation.get_FinalValue
+  withIface(self.p, IID_IVector3NaturalMotionAnimation, "IVector3NaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IVector3NaturalMotionAnimation_get_FinalValue, Fn_IVector3NaturalMotionAnimation_get_FinalValue)(it, tmp.addr).check("Vector3NaturalMotionAnimation.get_FinalValue")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "Vector3NaturalMotionAnimation.get_FinalValue")
+    release(tmp)
+
+proc initialValue*(self: Vector3NaturalMotionAnimation): Option[Vector3]  =
+  ## Windows.UI.Composition.Vector3NaturalMotionAnimation.get_InitialValue
+  withIface(self.p, IID_IVector3NaturalMotionAnimation, "IVector3NaturalMotionAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IVector3NaturalMotionAnimation_get_InitialValue, Fn_IVector3NaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("Vector3NaturalMotionAnimation.get_InitialValue")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "Vector3NaturalMotionAnimation.get_InitialValue")
+    release(tmp)
 
 proc initialVelocity*(self: Vector3NaturalMotionAnimation): Vector3  =
   ## Windows.UI.Composition.Vector3NaturalMotionAnimation.get_InitialVelocity
@@ -18300,6 +18390,14 @@ proc position*(self: InteractionTracker): Vector3  =
     vcall(it, Slot_IInteractionTracker_get_Position, Fn_IInteractionTracker_get_Position)(it, tmp.addr).check("InteractionTracker.get_Position")
     result = tmp
 
+proc positionInertiaDecayRate*(self: InteractionTracker): Option[Vector3]  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.get_PositionInertiaDecayRate
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    var tmp: pointer
+    vcall(it, Slot_IInteractionTracker_get_PositionInertiaDecayRate, Fn_IInteractionTracker_get_PositionInertiaDecayRate)(it, tmp.addr).check("InteractionTracker.get_PositionInertiaDecayRate")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "InteractionTracker.get_PositionInertiaDecayRate")
+    release(tmp)
+
 proc positionVelocityInPixelsPerSecond*(self: InteractionTracker): Vector3  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.get_PositionVelocityInPixelsPerSecond
   withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
@@ -18313,6 +18411,14 @@ proc scale*(self: InteractionTracker): float32  =
     var tmp: float32
     vcall(it, Slot_IInteractionTracker_get_Scale, Fn_IInteractionTracker_get_Scale)(it, tmp.addr).check("InteractionTracker.get_Scale")
     result = tmp
+
+proc scaleInertiaDecayRate*(self: InteractionTracker): Option[float32]  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.get_ScaleInertiaDecayRate
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    var tmp: pointer
+    vcall(it, Slot_IInteractionTracker_get_ScaleInertiaDecayRate, Fn_IInteractionTracker_get_ScaleInertiaDecayRate)(it, tmp.addr).check("InteractionTracker.get_ScaleInertiaDecayRate")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "InteractionTracker.get_ScaleInertiaDecayRate")
+    release(tmp)
 
 proc scaleVelocityInPercentPerSecond*(self: InteractionTracker): float32  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.get_ScaleVelocityInPercentPerSecond
@@ -18571,6 +18677,22 @@ proc create*(_: typedesc[InteractionTrackerInertiaRestingValue], a1: Compositor)
       var tmp: pointer
       vcall(it, Slot_IInteractionTrackerInertiaRestingValueStatics_Create, Fn_IInteractionTrackerInertiaRestingValueStatics_Create)(it, p0, tmp.addr).check("InteractionTrackerInertiaRestingValue.Create")
       result = adopt[InteractionTrackerInertiaRestingValue](tmp)
+
+proc modifiedRestingPosition*(self: InteractionTrackerInertiaStateEnteredArgs): Option[Vector3]  =
+  ## Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingPosition
+  withIface(self.p, IID_IInteractionTrackerInertiaStateEnteredArgs, "IInteractionTrackerInertiaStateEnteredArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IInteractionTrackerInertiaStateEnteredArgs_get_ModifiedRestingPosition, Fn_IInteractionTrackerInertiaStateEnteredArgs_get_ModifiedRestingPosition)(it, tmp.addr).check("InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingPosition")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingPosition")
+    release(tmp)
+
+proc modifiedRestingScale*(self: InteractionTrackerInertiaStateEnteredArgs): Option[float32]  =
+  ## Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingScale
+  withIface(self.p, IID_IInteractionTrackerInertiaStateEnteredArgs, "IInteractionTrackerInertiaStateEnteredArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IInteractionTrackerInertiaStateEnteredArgs_get_ModifiedRestingScale, Fn_IInteractionTrackerInertiaStateEnteredArgs_get_ModifiedRestingScale)(it, tmp.addr).check("InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingScale")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "InteractionTrackerInertiaStateEnteredArgs.get_ModifiedRestingScale")
+    release(tmp)
 
 proc naturalRestingPosition*(self: InteractionTrackerInertiaStateEnteredArgs): Vector3  =
   ## Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs.get_NaturalRestingPosition
@@ -20208,6 +20330,14 @@ proc createInstance*(_: typedesc[AnimationDescription], a1: AnimationEffect, a2:
     vcall(it, Slot_IAnimationDescriptionFactory_CreateInstance, Fn_IAnimationDescriptionFactory_CreateInstance)(it, a1, a2, tmp.addr).check("AnimationDescription.CreateInstance")
     result = adopt[AnimationDescription](tmp)
 
+proc initialOpacity*(self: OpacityAnimation): Option[float32]  =
+  ## Windows.UI.Core.AnimationMetrics.OpacityAnimation.get_InitialOpacity
+  withIface(self.p, IID_IOpacityAnimation, "IOpacityAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IOpacityAnimation_get_InitialOpacity, Fn_IOpacityAnimation_get_InitialOpacity)(it, tmp.addr).check("OpacityAnimation.get_InitialOpacity")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "OpacityAnimation.get_InitialOpacity")
+    release(tmp)
+
 proc finalOpacity*(self: OpacityAnimation): float32  =
   ## Windows.UI.Core.AnimationMetrics.OpacityAnimation.get_FinalOpacity
   withIface(self.p, IID_IOpacityAnimation, "IOpacityAnimation", it):
@@ -20284,6 +20414,22 @@ proc control2*(self: PropertyAnimation): Point  =
     var tmp: Point
     vcall(it, Slot_IPropertyAnimation_get_Control2, Fn_IPropertyAnimation_get_Control2)(it, tmp.addr).check("PropertyAnimation.get_Control2")
     result = tmp
+
+proc initialScaleX*(self: ScaleAnimation): Option[float32]  =
+  ## Windows.UI.Core.AnimationMetrics.ScaleAnimation.get_InitialScaleX
+  withIface(self.p, IID_IScaleAnimation, "IScaleAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IScaleAnimation_get_InitialScaleX, Fn_IScaleAnimation_get_InitialScaleX)(it, tmp.addr).check("ScaleAnimation.get_InitialScaleX")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "ScaleAnimation.get_InitialScaleX")
+    release(tmp)
+
+proc initialScaleY*(self: ScaleAnimation): Option[float32]  =
+  ## Windows.UI.Core.AnimationMetrics.ScaleAnimation.get_InitialScaleY
+  withIface(self.p, IID_IScaleAnimation, "IScaleAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IScaleAnimation_get_InitialScaleY, Fn_IScaleAnimation_get_InitialScaleY)(it, tmp.addr).check("ScaleAnimation.get_InitialScaleY")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "ScaleAnimation.get_InitialScaleY")
+    release(tmp)
 
 proc finalScaleX*(self: ScaleAnimation): float32  =
   ## Windows.UI.Core.AnimationMetrics.ScaleAnimation.get_FinalScaleX
@@ -24716,6 +24862,22 @@ proc id*(self: InkStroke): uint32  =
     vcall(it, Slot_IInkStroke3_get_Id, Fn_IInkStroke3_get_Id)(it, tmp.addr).check("InkStroke.get_Id")
     result = tmp
 
+proc strokeStartedTime*(self: InkStroke): Option[DateTime]  =
+  ## Windows.UI.Input.Inking.InkStroke.get_StrokeStartedTime
+  withIface(self.p, IID_IInkStroke3, "IInkStroke3", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStroke3_get_StrokeStartedTime, Fn_IInkStroke3_get_StrokeStartedTime)(it, tmp.addr).check("InkStroke.get_StrokeStartedTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "InkStroke.get_StrokeStartedTime")
+    release(tmp)
+
+proc strokeDuration*(self: InkStroke): Option[TimeSpan]  =
+  ## Windows.UI.Input.Inking.InkStroke.get_StrokeDuration
+  withIface(self.p, IID_IInkStroke3, "IInkStroke3", it):
+    var tmp: pointer
+    vcall(it, Slot_IInkStroke3_get_StrokeDuration, Fn_IInkStroke3_get_StrokeDuration)(it, tmp.addr).check("InkStroke.get_StrokeDuration")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "InkStroke.get_StrokeDuration")
+    release(tmp)
+
 proc pointerId*(self: InkStroke): uint32  =
   ## Windows.UI.Input.Inking.InkStroke.get_PointerId
   withIface(self.p, IID_IInkStroke4, "IInkStroke4", it):
@@ -25987,6 +26149,14 @@ proc getUsageValue*(self: PointerPointProperties, a1: uint32, a2: uint32): int32
     vcall(it, Slot_IPointerPointProperties_GetUsageValue, Fn_IPointerPointProperties_GetUsageValue)(it, a1, a2, tmp.addr).check("PointerPointProperties.GetUsageValue")
     result = tmp
 
+proc zDistance*(self: PointerPointProperties): Option[float32]  =
+  ## Windows.UI.Input.PointerPointProperties.get_ZDistance
+  withIface(self.p, IID_IPointerPointProperties2, "IPointerPointProperties2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerPointProperties2_get_ZDistance, Fn_IPointerPointProperties2_get_ZDistance)(it, tmp.addr).check("PointerPointProperties.get_ZDistance")
+    result = readReference[float32](tmp, IID_IReference_1_F4, "PointerPointProperties.get_ZDistance")
+    release(tmp)
+
 proc `isContactFeedbackEnabled=`*(self: PointerVisualizationSettings, value: bool)  =
   ## Windows.UI.Input.PointerVisualizationSettings.put_IsContactFeedbackEnabled
   withIface(self.p, IID_IPointerVisualizationSettings, "IPointerVisualizationSettings", it):
@@ -26514,6 +26684,22 @@ proc focusedTextBoxInfo*(self: KeyboardInputProcessor): TextBoxInfo  =
     var tmp: pointer
     vcall(it, Slot_IKeyboardInputProcessor_get_FocusedTextBoxInfo, Fn_IKeyboardInputProcessor_get_FocusedTextBoxInfo)(it, tmp.addr).check("KeyboardInputProcessor.get_FocusedTextBoxInfo")
     result = adopt[TextBoxInfo](tmp)
+
+proc focusedTextBoxBounds*(self: KeyboardInputProcessor): Option[Rect]  =
+  ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.get_FocusedTextBoxBounds
+  withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
+    var tmp: pointer
+    vcall(it, Slot_IKeyboardInputProcessor_get_FocusedTextBoxBounds, Fn_IKeyboardInputProcessor_get_FocusedTextBoxBounds)(it, tmp.addr).check("KeyboardInputProcessor.get_FocusedTextBoxBounds")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "KeyboardInputProcessor.get_FocusedTextBoxBounds")
+    release(tmp)
+
+proc selectionBounds*(self: KeyboardInputProcessor): Option[Rect]  =
+  ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.get_SelectionBounds
+  withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
+    var tmp: pointer
+    vcall(it, Slot_IKeyboardInputProcessor_get_SelectionBounds, Fn_IKeyboardInputProcessor_get_SelectionBounds)(it, tmp.addr).check("KeyboardInputProcessor.get_SelectionBounds")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "KeyboardInputProcessor.get_SelectionBounds")
+    release(tmp)
 
 proc conversionMode*(self: KeyboardInputProcessor): TextConversionMode  =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.get_ConversionMode
@@ -27063,6 +27249,22 @@ proc focusedTextBoxInfo*(self: TextInputProvider): TextBoxInfo  =
     var tmp: pointer
     vcall(it, Slot_ITextInputProvider_get_FocusedTextBoxInfo, Fn_ITextInputProvider_get_FocusedTextBoxInfo)(it, tmp.addr).check("TextInputProvider.get_FocusedTextBoxInfo")
     result = adopt[TextBoxInfo](tmp)
+
+proc focusedTextBoxBounds*(self: TextInputProvider): Option[Rect]  =
+  ## Windows.UI.Input.Preview.Text.TextInputProvider.get_FocusedTextBoxBounds
+  withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_ITextInputProvider_get_FocusedTextBoxBounds, Fn_ITextInputProvider_get_FocusedTextBoxBounds)(it, tmp.addr).check("TextInputProvider.get_FocusedTextBoxBounds")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "TextInputProvider.get_FocusedTextBoxBounds")
+    release(tmp)
+
+proc selectionBounds*(self: TextInputProvider): Option[Rect]  =
+  ## Windows.UI.Input.Preview.Text.TextInputProvider.get_SelectionBounds
+  withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_ITextInputProvider_get_SelectionBounds, Fn_ITextInputProvider_get_SelectionBounds)(it, tmp.addr).check("TextInputProvider.get_SelectionBounds")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "TextInputProvider.get_SelectionBounds")
+    release(tmp)
 
 proc createEditSession*(self: TextInputProvider): TextEditSession  =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.CreateEditSession
@@ -28398,12 +28600,44 @@ proc pressKind*(self: SpatialInteractionSourceEventArgs): SpatialInteractionPres
     vcall(it, Slot_ISpatialInteractionSourceEventArgs2_get_PressKind, Fn_ISpatialInteractionSourceEventArgs2_get_PressKind)(it, tmp.addr).check("SpatialInteractionSourceEventArgs.get_PressKind")
     result = tmp
 
+proc position*(self: SpatialInteractionSourceLocation): Option[Vector3]  =
+  ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_Position
+  withIface(self.p, IID_ISpatialInteractionSourceLocation, "ISpatialInteractionSourceLocation", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialInteractionSourceLocation_get_Position, Fn_ISpatialInteractionSourceLocation_get_Position)(it, tmp.addr).check("SpatialInteractionSourceLocation.get_Position")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "SpatialInteractionSourceLocation.get_Position")
+    release(tmp)
+
+proc velocity*(self: SpatialInteractionSourceLocation): Option[Vector3]  =
+  ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_Velocity
+  withIface(self.p, IID_ISpatialInteractionSourceLocation, "ISpatialInteractionSourceLocation", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialInteractionSourceLocation_get_Velocity, Fn_ISpatialInteractionSourceLocation_get_Velocity)(it, tmp.addr).check("SpatialInteractionSourceLocation.get_Velocity")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "SpatialInteractionSourceLocation.get_Velocity")
+    release(tmp)
+
+proc orientation*(self: SpatialInteractionSourceLocation): Option[Quaternion]  =
+  ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_Orientation
+  withIface(self.p, IID_ISpatialInteractionSourceLocation2, "ISpatialInteractionSourceLocation2", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialInteractionSourceLocation2_get_Orientation, Fn_ISpatialInteractionSourceLocation2_get_Orientation)(it, tmp.addr).check("SpatialInteractionSourceLocation.get_Orientation")
+    result = readReference[Quaternion](tmp, IID_IReference_1_Quaternion, "SpatialInteractionSourceLocation.get_Orientation")
+    release(tmp)
+
 proc positionAccuracy*(self: SpatialInteractionSourceLocation): SpatialInteractionSourcePositionAccuracy  =
   ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_PositionAccuracy
   withIface(self.p, IID_ISpatialInteractionSourceLocation3, "ISpatialInteractionSourceLocation3", it):
     var tmp: SpatialInteractionSourcePositionAccuracy
     vcall(it, Slot_ISpatialInteractionSourceLocation3_get_PositionAccuracy, Fn_ISpatialInteractionSourceLocation3_get_PositionAccuracy)(it, tmp.addr).check("SpatialInteractionSourceLocation.get_PositionAccuracy")
     result = tmp
+
+proc angularVelocity*(self: SpatialInteractionSourceLocation): Option[Vector3]  =
+  ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_AngularVelocity
+  withIface(self.p, IID_ISpatialInteractionSourceLocation3, "ISpatialInteractionSourceLocation3", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialInteractionSourceLocation3_get_AngularVelocity, Fn_ISpatialInteractionSourceLocation3_get_AngularVelocity)(it, tmp.addr).check("SpatialInteractionSourceLocation.get_AngularVelocity")
+    result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "SpatialInteractionSourceLocation.get_AngularVelocity")
+    release(tmp)
 
 proc sourcePointerPose*(self: SpatialInteractionSourceLocation): SpatialPointerInteractionSourcePose  =
   ## Windows.UI.Input.Spatial.SpatialInteractionSourceLocation.get_SourcePointerPose
@@ -28984,6 +29218,14 @@ proc kind*(self: AdaptiveNotificationText): AdaptiveNotificationContentKind  =
     vcall(it, Slot_IAdaptiveNotificationContent_get_Kind, Fn_IAdaptiveNotificationContent_get_Kind)(it, tmp.addr).check("AdaptiveNotificationText.get_Kind")
     result = tmp
 
+proc expirationTime*(self: BadgeNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.BadgeNotification.get_ExpirationTime
+  withIface(self.p, IID_IBadgeNotification, "IBadgeNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_IBadgeNotification_get_ExpirationTime, Fn_IBadgeNotification_get_ExpirationTime)(it, tmp.addr).check("BadgeNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "BadgeNotification.get_ExpirationTime")
+    release(tmp)
+
 proc createBadgeUpdaterForApplication*(_: typedesc[BadgeUpdateManager]): BadgeUpdater  =
   ## Windows.UI.Notifications.BadgeUpdateManager.CreateBadgeUpdaterForApplication
   withStatics("Windows.UI.Notifications.BadgeUpdateManager", IID_IBadgeUpdateManagerStatics, it):
@@ -29294,6 +29536,14 @@ proc newNotification*(): Notification =
   ## Activate a `Windows.UI.Notifications.Notification`.
   adopt[Notification](activateAs("Windows.UI.Notifications.Notification", IID_INotification))
 
+proc expirationTime*(self: Notification): Option[DateTime]  =
+  ## Windows.UI.Notifications.Notification.get_ExpirationTime
+  withIface(self.p, IID_INotification, "INotification", it):
+    var tmp: pointer
+    vcall(it, Slot_INotification_get_ExpirationTime, Fn_INotification_get_ExpirationTime)(it, tmp.addr).check("Notification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Notification.get_ExpirationTime")
+    release(tmp)
+
 proc visual*(self: Notification): NotificationVisual  =
   ## Windows.UI.Notifications.Notification.get_Visual
   withIface(self.p, IID_INotification, "INotification", it):
@@ -29398,6 +29648,14 @@ proc deliveryTime*(self: ScheduledTileNotification): DateTime  =
     vcall(it, Slot_IScheduledTileNotification_get_DeliveryTime, Fn_IScheduledTileNotification_get_DeliveryTime)(it, tmp.addr).check("ScheduledTileNotification.get_DeliveryTime")
     result = tmp
 
+proc expirationTime*(self: ScheduledTileNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.ScheduledTileNotification.get_ExpirationTime
+  withIface(self.p, IID_IScheduledTileNotification, "IScheduledTileNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_IScheduledTileNotification_get_ExpirationTime, Fn_IScheduledTileNotification_get_ExpirationTime)(it, tmp.addr).check("ScheduledTileNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ScheduledTileNotification.get_ExpirationTime")
+    release(tmp)
+
 proc `tag=`*(self: ScheduledTileNotification, value: string)  =
   ## Windows.UI.Notifications.ScheduledTileNotification.put_Tag
   withIface(self.p, IID_IScheduledTileNotification, "IScheduledTileNotification", it):
@@ -29430,6 +29688,14 @@ proc deliveryTime*(self: ScheduledToastNotification): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IScheduledToastNotification_get_DeliveryTime, Fn_IScheduledToastNotification_get_DeliveryTime)(it, tmp.addr).check("ScheduledToastNotification.get_DeliveryTime")
     result = tmp
+
+proc snoozeInterval*(self: ScheduledToastNotification): Option[TimeSpan]  =
+  ## Windows.UI.Notifications.ScheduledToastNotification.get_SnoozeInterval
+  withIface(self.p, IID_IScheduledToastNotification, "IScheduledToastNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_IScheduledToastNotification_get_SnoozeInterval, Fn_IScheduledToastNotification_get_SnoozeInterval)(it, tmp.addr).check("ScheduledToastNotification.get_SnoozeInterval")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "ScheduledToastNotification.get_SnoozeInterval")
+    release(tmp)
 
 proc maximumSnoozeCount*(self: ScheduledToastNotification): uint32  =
   ## Windows.UI.Notifications.ScheduledToastNotification.get_MaximumSnoozeCount
@@ -29514,6 +29780,14 @@ proc `remoteId=`*(self: ScheduledToastNotification, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IScheduledToastNotification3_put_RemoteId, Fn_IScheduledToastNotification3_put_RemoteId)(it, h0).check("ScheduledToastNotification.put_RemoteId")
 
+proc expirationTime*(self: ScheduledToastNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.ScheduledToastNotification.get_ExpirationTime
+  withIface(self.p, IID_IScheduledToastNotification4, "IScheduledToastNotification4", it):
+    var tmp: pointer
+    vcall(it, Slot_IScheduledToastNotification4_get_ExpirationTime, Fn_IScheduledToastNotification4_get_ExpirationTime)(it, tmp.addr).check("ScheduledToastNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ScheduledToastNotification.get_ExpirationTime")
+    release(tmp)
+
 proc cancel*(self: ScheduledToastNotificationShowingEventArgs): bool  =
   ## Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs.get_Cancel
   withIface(self.p, IID_IScheduledToastNotificationShowingEventArgs, "IScheduledToastNotificationShowingEventArgs", it):
@@ -29546,6 +29820,14 @@ proc arguments*(self: ShownTileNotification): string  =
     var tmp: HSTRING
     vcall(it, Slot_IShownTileNotification_get_Arguments, Fn_IShownTileNotification_get_Arguments)(it, tmp.addr).check("ShownTileNotification.get_Arguments")
     result = takeString(tmp)
+
+proc expirationTime*(self: TileFlyoutNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.TileFlyoutNotification.get_ExpirationTime
+  withIface(self.p, IID_ITileFlyoutNotification, "ITileFlyoutNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_ITileFlyoutNotification_get_ExpirationTime, Fn_ITileFlyoutNotification_get_ExpirationTime)(it, tmp.addr).check("TileFlyoutNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "TileFlyoutNotification.get_ExpirationTime")
+    release(tmp)
 
 proc createTileFlyoutUpdaterForApplication*(_: typedesc[TileFlyoutUpdateManager]): TileFlyoutUpdater  =
   ## Windows.UI.Notifications.TileFlyoutUpdateManager.CreateTileFlyoutUpdaterForApplication
@@ -29604,6 +29886,14 @@ proc setting*(self: TileFlyoutUpdater): NotificationSetting  =
     var tmp: NotificationSetting
     vcall(it, Slot_ITileFlyoutUpdater_get_Setting, Fn_ITileFlyoutUpdater_get_Setting)(it, tmp.addr).check("TileFlyoutUpdater.get_Setting")
     result = tmp
+
+proc expirationTime*(self: TileNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.TileNotification.get_ExpirationTime
+  withIface(self.p, IID_ITileNotification, "ITileNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_ITileNotification_get_ExpirationTime, Fn_ITileNotification_get_ExpirationTime)(it, tmp.addr).check("TileNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "TileNotification.get_ExpirationTime")
+    release(tmp)
 
 proc `tag=`*(self: TileNotification, value: string)  =
   ## Windows.UI.Notifications.TileNotification.put_Tag
@@ -29861,6 +30151,14 @@ proc errorCode*(self: ToastFailedEventArgs): HRESULT  =
     var tmp: HRESULT
     vcall(it, Slot_IToastFailedEventArgs_get_ErrorCode, Fn_IToastFailedEventArgs_get_ErrorCode)(it, tmp.addr).check("ToastFailedEventArgs.get_ErrorCode")
     result = tmp
+
+proc expirationTime*(self: ToastNotification): Option[DateTime]  =
+  ## Windows.UI.Notifications.ToastNotification.get_ExpirationTime
+  withIface(self.p, IID_IToastNotification, "IToastNotification", it):
+    var tmp: pointer
+    vcall(it, Slot_IToastNotification_get_ExpirationTime, Fn_IToastNotification_get_ExpirationTime)(it, tmp.addr).check("ToastNotification.get_ExpirationTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ToastNotification.get_ExpirationTime")
+    release(tmp)
 
 proc onDismissed*(self: ToastNotification,
     handler: proc(sender: pointer, args: ToastDismissedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -30961,6 +31259,14 @@ proc startTime*(self: AppTaskInfo): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IAppTaskInfo_get_StartTime, Fn_IAppTaskInfo_get_StartTime)(it, tmp.addr).check("AppTaskInfo.get_StartTime")
     result = tmp
+
+proc endTime*(self: AppTaskInfo): Option[DateTime]  =
+  ## Windows.UI.Shell.Tasks.AppTaskInfo.get_EndTime
+  withIface(self.p, IID_IAppTaskInfo, "IAppTaskInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppTaskInfo_get_EndTime, Fn_IAppTaskInfo_get_EndTime)(it, tmp.addr).check("AppTaskInfo.get_EndTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppTaskInfo.get_EndTime")
+    release(tmp)
 
 proc id*(self: AppTaskInfo): string  =
   ## Windows.UI.Shell.Tasks.AppTaskInfo.get_Id
@@ -32338,6 +32644,38 @@ proc rangeValue*(self: CoreTextFormatUpdatingEventArgs): CoreTextRange  =
     var tmp: CoreTextRange
     vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_Range, Fn_ICoreTextFormatUpdatingEventArgs_get_Range)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_Range")
     result = tmp
+
+proc textColor*(self: CoreTextFormatUpdatingEventArgs): Option[UIElementType]  =
+  ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.get_TextColor
+  withIface(self.p, IID_ICoreTextFormatUpdatingEventArgs, "ICoreTextFormatUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_TextColor, Fn_ICoreTextFormatUpdatingEventArgs_get_TextColor)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_TextColor")
+    result = readReference[UIElementType](tmp, IID_IReference_1_UIElementType, "CoreTextFormatUpdatingEventArgs.get_TextColor")
+    release(tmp)
+
+proc backgroundColor*(self: CoreTextFormatUpdatingEventArgs): Option[UIElementType]  =
+  ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.get_BackgroundColor
+  withIface(self.p, IID_ICoreTextFormatUpdatingEventArgs, "ICoreTextFormatUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_BackgroundColor, Fn_ICoreTextFormatUpdatingEventArgs_get_BackgroundColor)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_BackgroundColor")
+    result = readReference[UIElementType](tmp, IID_IReference_1_UIElementType, "CoreTextFormatUpdatingEventArgs.get_BackgroundColor")
+    release(tmp)
+
+proc underlineColor*(self: CoreTextFormatUpdatingEventArgs): Option[UIElementType]  =
+  ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.get_UnderlineColor
+  withIface(self.p, IID_ICoreTextFormatUpdatingEventArgs, "ICoreTextFormatUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_UnderlineColor, Fn_ICoreTextFormatUpdatingEventArgs_get_UnderlineColor)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_UnderlineColor")
+    result = readReference[UIElementType](tmp, IID_IReference_1_UIElementType, "CoreTextFormatUpdatingEventArgs.get_UnderlineColor")
+    release(tmp)
+
+proc underlineType*(self: CoreTextFormatUpdatingEventArgs): Option[UnderlineType]  =
+  ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.get_UnderlineType
+  withIface(self.p, IID_ICoreTextFormatUpdatingEventArgs, "ICoreTextFormatUpdatingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICoreTextFormatUpdatingEventArgs_get_UnderlineType, Fn_ICoreTextFormatUpdatingEventArgs_get_UnderlineType)(it, tmp.addr).check("CoreTextFormatUpdatingEventArgs.get_UnderlineType")
+    result = readReference[UnderlineType](tmp, IID_IReference_1_UnderlineType, "CoreTextFormatUpdatingEventArgs.get_UnderlineType")
+    release(tmp)
 
 proc reason*(self: CoreTextFormatUpdatingEventArgs): CoreTextFormatUpdatingReason  =
   ## Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs.get_Reason
@@ -33985,6 +34323,102 @@ proc switchAsync*(_: typedesc[ApplicationViewSwitcher], a1: int32, a2: int32, a3
   withStatics("Windows.UI.ViewManagement.ApplicationViewSwitcher", IID_IApplicationViewSwitcherStatics, it):
     vcall(it, Slot_IApplicationViewSwitcherStatics_SwitchAsync3, Fn_IApplicationViewSwitcherStatics_SwitchAsync3)(it, a1, a2, a3, op.addr).check("ApplicationViewSwitcher.SwitchAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "ApplicationViewSwitcher.SwitchAsync")
+
+proc foregroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ForegroundColor, Fn_IApplicationViewTitleBar_get_ForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ForegroundColor")
+    release(tmp)
+
+proc backgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_BackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_BackgroundColor, Fn_IApplicationViewTitleBar_get_BackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_BackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_BackgroundColor")
+    release(tmp)
+
+proc buttonForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonForegroundColor")
+    release(tmp)
+
+proc buttonBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonBackgroundColor, Fn_IApplicationViewTitleBar_get_ButtonBackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonBackgroundColor")
+    release(tmp)
+
+proc buttonHoverForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonHoverForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonHoverForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonHoverForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonHoverForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonHoverForegroundColor")
+    release(tmp)
+
+proc buttonHoverBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonHoverBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonHoverBackgroundColor, Fn_IApplicationViewTitleBar_get_ButtonHoverBackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonHoverBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonHoverBackgroundColor")
+    release(tmp)
+
+proc buttonPressedForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonPressedForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonPressedForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonPressedForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonPressedForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonPressedForegroundColor")
+    release(tmp)
+
+proc buttonPressedBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonPressedBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonPressedBackgroundColor, Fn_IApplicationViewTitleBar_get_ButtonPressedBackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonPressedBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonPressedBackgroundColor")
+    release(tmp)
+
+proc inactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_InactiveForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_InactiveForegroundColor, Fn_IApplicationViewTitleBar_get_InactiveForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_InactiveForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_InactiveForegroundColor")
+    release(tmp)
+
+proc inactiveBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_InactiveBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_InactiveBackgroundColor, Fn_IApplicationViewTitleBar_get_InactiveBackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_InactiveBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_InactiveBackgroundColor")
+    release(tmp)
+
+proc buttonInactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonInactiveForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonInactiveForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonInactiveForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonInactiveForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonInactiveForegroundColor")
+    release(tmp)
+
+proc buttonInactiveBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonInactiveBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationViewTitleBar_get_ButtonInactiveBackgroundColor, Fn_IApplicationViewTitleBar_get_ButtonInactiveBackgroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonInactiveBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonInactiveBackgroundColor")
+    release(tmp)
 
 proc newApplicationViewTransferContext*(): ApplicationViewTransferContext =
   ## Activate a `Windows.UI.ViewManagement.ApplicationViewTransferContext`.
@@ -36006,6 +36440,78 @@ proc setPreferredVisibility*(self: AppWindowTitleBar, a1: AppWindowTitleBarVisib
   withIface(self.p, IID_IAppWindowTitleBarVisibility, "IAppWindowTitleBarVisibility", it):
     vcall(it, Slot_IAppWindowTitleBarVisibility_SetPreferredVisibility, Fn_IAppWindowTitleBarVisibility_SetPreferredVisibility)(it, a1).check("AppWindowTitleBar.SetPreferredVisibility")
 
+proc backgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_BackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_BackgroundColor, Fn_IAppWindowTitleBar_get_BackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_BackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_BackgroundColor")
+    release(tmp)
+
+proc buttonBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonBackgroundColor")
+    release(tmp)
+
+proc buttonForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonForegroundColor, Fn_IAppWindowTitleBar_get_ButtonForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonForegroundColor")
+    release(tmp)
+
+proc buttonHoverBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonHoverBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonHoverBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonHoverBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonHoverBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonHoverBackgroundColor")
+    release(tmp)
+
+proc buttonHoverForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonHoverForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonHoverForegroundColor, Fn_IAppWindowTitleBar_get_ButtonHoverForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonHoverForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonHoverForegroundColor")
+    release(tmp)
+
+proc buttonInactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonInactiveBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonInactiveBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonInactiveBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonInactiveBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonInactiveBackgroundColor")
+    release(tmp)
+
+proc buttonInactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonInactiveForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonInactiveForegroundColor, Fn_IAppWindowTitleBar_get_ButtonInactiveForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonInactiveForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonInactiveForegroundColor")
+    release(tmp)
+
+proc buttonPressedBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonPressedBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonPressedBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonPressedBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonPressedBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonPressedBackgroundColor")
+    release(tmp)
+
+proc buttonPressedForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonPressedForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ButtonPressedForegroundColor, Fn_IAppWindowTitleBar_get_ButtonPressedForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonPressedForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonPressedForegroundColor")
+    release(tmp)
+
 proc extendsContentIntoTitleBar*(self: AppWindowTitleBar): bool  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ExtendsContentIntoTitleBar
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -36017,6 +36523,30 @@ proc `extendsContentIntoTitleBar=`*(self: AppWindowTitleBar, value: bool)  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ExtendsContentIntoTitleBar
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
     vcall(it, Slot_IAppWindowTitleBar_put_ExtendsContentIntoTitleBar, Fn_IAppWindowTitleBar_put_ExtendsContentIntoTitleBar)(it, value).check("AppWindowTitleBar.put_ExtendsContentIntoTitleBar")
+
+proc foregroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_ForegroundColor, Fn_IAppWindowTitleBar_get_ForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ForegroundColor")
+    release(tmp)
+
+proc inactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_InactiveBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_InactiveBackgroundColor, Fn_IAppWindowTitleBar_get_InactiveBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_InactiveBackgroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_InactiveBackgroundColor")
+    release(tmp)
+
+proc inactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.get_InactiveForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppWindowTitleBar_get_InactiveForegroundColor, Fn_IAppWindowTitleBar_get_InactiveForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_InactiveForegroundColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_InactiveForegroundColor")
+    release(tmp)
 
 proc isVisible*(self: AppWindowTitleBar): bool  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_IsVisible
@@ -39738,6 +40268,14 @@ proc `animationDesired=`*(self: BringIntoViewOptions, value: bool)  =
   withIface(self.p, IID_IBringIntoViewOptions, "IBringIntoViewOptions", it):
     vcall(it, Slot_IBringIntoViewOptions_put_AnimationDesired, Fn_IBringIntoViewOptions_put_AnimationDesired)(it, value).check("BringIntoViewOptions.put_AnimationDesired")
 
+proc targetRect*(self: BringIntoViewOptions): Option[Rect]  =
+  ## Windows.UI.Xaml.BringIntoViewOptions.get_TargetRect
+  withIface(self.p, IID_IBringIntoViewOptions, "IBringIntoViewOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IBringIntoViewOptions_get_TargetRect, Fn_IBringIntoViewOptions_get_TargetRect)(it, tmp.addr).check("BringIntoViewOptions.get_TargetRect")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "BringIntoViewOptions.get_TargetRect")
+    release(tmp)
+
 proc horizontalAlignmentRatio*(self: BringIntoViewOptions): float64  =
   ## Windows.UI.Xaml.BringIntoViewOptions.get_HorizontalAlignmentRatio
   withIface(self.p, IID_IBringIntoViewOptions2, "IBringIntoViewOptions2", it):
@@ -39932,6 +40470,222 @@ proc newColorPaletteResources*(): ColorPaletteResources =
   ## Compose a `Windows.UI.Xaml.ColorPaletteResources`.
   adopt[ColorPaletteResources](composeAs("Windows.UI.Xaml.ColorPaletteResources", IID_IColorPaletteResourcesFactory,
                      IID_IColorPaletteResources, 6))
+
+proc altHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_AltHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_AltHigh, Fn_IColorPaletteResources_get_AltHigh)(it, tmp.addr).check("ColorPaletteResources.get_AltHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltHigh")
+    release(tmp)
+
+proc altLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_AltLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_AltLow, Fn_IColorPaletteResources_get_AltLow)(it, tmp.addr).check("ColorPaletteResources.get_AltLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltLow")
+    release(tmp)
+
+proc altMedium*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_AltMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_AltMedium, Fn_IColorPaletteResources_get_AltMedium)(it, tmp.addr).check("ColorPaletteResources.get_AltMedium")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMedium")
+    release(tmp)
+
+proc altMediumHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_AltMediumHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_AltMediumHigh, Fn_IColorPaletteResources_get_AltMediumHigh)(it, tmp.addr).check("ColorPaletteResources.get_AltMediumHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMediumHigh")
+    release(tmp)
+
+proc altMediumLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_AltMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_AltMediumLow, Fn_IColorPaletteResources_get_AltMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_AltMediumLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMediumLow")
+    release(tmp)
+
+proc baseHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_BaseHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_BaseHigh, Fn_IColorPaletteResources_get_BaseHigh)(it, tmp.addr).check("ColorPaletteResources.get_BaseHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseHigh")
+    release(tmp)
+
+proc baseLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_BaseLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_BaseLow, Fn_IColorPaletteResources_get_BaseLow)(it, tmp.addr).check("ColorPaletteResources.get_BaseLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseLow")
+    release(tmp)
+
+proc baseMedium*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_BaseMedium, Fn_IColorPaletteResources_get_BaseMedium)(it, tmp.addr).check("ColorPaletteResources.get_BaseMedium")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMedium")
+    release(tmp)
+
+proc baseMediumHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMediumHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_BaseMediumHigh, Fn_IColorPaletteResources_get_BaseMediumHigh)(it, tmp.addr).check("ColorPaletteResources.get_BaseMediumHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMediumHigh")
+    release(tmp)
+
+proc baseMediumLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_BaseMediumLow, Fn_IColorPaletteResources_get_BaseMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_BaseMediumLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMediumLow")
+    release(tmp)
+
+proc chromeAltLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeAltLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeAltLow, Fn_IColorPaletteResources_get_ChromeAltLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeAltLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeAltLow")
+    release(tmp)
+
+proc chromeBlackHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeBlackHigh, Fn_IColorPaletteResources_get_ChromeBlackHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackHigh")
+    release(tmp)
+
+proc chromeBlackLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeBlackLow, Fn_IColorPaletteResources_get_ChromeBlackLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackLow")
+    release(tmp)
+
+proc chromeBlackMediumLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeBlackMediumLow, Fn_IColorPaletteResources_get_ChromeBlackMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackMediumLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackMediumLow")
+    release(tmp)
+
+proc chromeBlackMedium*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeBlackMedium, Fn_IColorPaletteResources_get_ChromeBlackMedium)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackMedium")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackMedium")
+    release(tmp)
+
+proc chromeDisabledHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeDisabledHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeDisabledHigh, Fn_IColorPaletteResources_get_ChromeDisabledHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeDisabledHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeDisabledHigh")
+    release(tmp)
+
+proc chromeDisabledLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeDisabledLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeDisabledLow, Fn_IColorPaletteResources_get_ChromeDisabledLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeDisabledLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeDisabledLow")
+    release(tmp)
+
+proc chromeHigh*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeHigh, Fn_IColorPaletteResources_get_ChromeHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeHigh")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeHigh")
+    release(tmp)
+
+proc chromeLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeLow, Fn_IColorPaletteResources_get_ChromeLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeLow")
+    release(tmp)
+
+proc chromeMedium*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeMedium, Fn_IColorPaletteResources_get_ChromeMedium)(it, tmp.addr).check("ColorPaletteResources.get_ChromeMedium")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeMedium")
+    release(tmp)
+
+proc chromeMediumLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeMediumLow, Fn_IColorPaletteResources_get_ChromeMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeMediumLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeMediumLow")
+    release(tmp)
+
+proc chromeWhite*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeWhite
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeWhite, Fn_IColorPaletteResources_get_ChromeWhite)(it, tmp.addr).check("ColorPaletteResources.get_ChromeWhite")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeWhite")
+    release(tmp)
+
+proc chromeGray*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeGray
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ChromeGray, Fn_IColorPaletteResources_get_ChromeGray)(it, tmp.addr).check("ColorPaletteResources.get_ChromeGray")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeGray")
+    release(tmp)
+
+proc listLow*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ListLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ListLow, Fn_IColorPaletteResources_get_ListLow)(it, tmp.addr).check("ColorPaletteResources.get_ListLow")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ListLow")
+    release(tmp)
+
+proc listMedium*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ListMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ListMedium, Fn_IColorPaletteResources_get_ListMedium)(it, tmp.addr).check("ColorPaletteResources.get_ListMedium")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ListMedium")
+    release(tmp)
+
+proc errorText*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_ErrorText
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_ErrorText, Fn_IColorPaletteResources_get_ErrorText)(it, tmp.addr).check("ColorPaletteResources.get_ErrorText")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ErrorText")
+    release(tmp)
+
+proc accent*(self: ColorPaletteResources): Option[Color]  =
+  ## Windows.UI.Xaml.ColorPaletteResources.get_Accent
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPaletteResources_get_Accent, Fn_IColorPaletteResources_get_Accent)(it, tmp.addr).check("ColorPaletteResources.get_Accent")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_Accent")
+    release(tmp)
 
 proc anchor*(self: AnchorRequestedEventArgs): UIElement  =
   ## Windows.UI.Xaml.Controls.AnchorRequestedEventArgs.get_Anchor
@@ -44389,6 +45143,14 @@ proc newToggleButton*(): ToggleButton =
   adopt[ToggleButton](composeAs("Windows.UI.Xaml.Controls.Primitives.ToggleButton", IID_IToggleButtonFactory,
                      IID_IToggleButton, 6))
 
+proc isChecked*(self: ToggleButton): Option[bool]  =
+  ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.get_IsChecked
+  withIface(self.p, IID_IToggleButton, "IToggleButton", it):
+    var tmp: pointer
+    vcall(it, Slot_IToggleButton_get_IsChecked, Fn_IToggleButton_get_IsChecked)(it, tmp.addr).check("ToggleButton.get_IsChecked")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "ToggleButton.get_IsChecked")
+    release(tmp)
+
 proc isThreeState*(self: ToggleButton): bool  =
   ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.get_IsThreeState
   withIface(self.p, IID_IToggleButton, "IToggleButton", it):
@@ -45594,6 +46356,14 @@ proc newCalendarDatePicker*(): CalendarDatePicker =
   adopt[CalendarDatePicker](composeAs("Windows.UI.Xaml.Controls.CalendarDatePicker", IID_ICalendarDatePickerFactory,
                      IID_ICalendarDatePicker, 6))
 
+proc date*(self: CalendarDatePicker): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_Date
+  withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_ICalendarDatePicker_get_Date, Fn_ICalendarDatePicker_get_Date)(it, tmp.addr).check("CalendarDatePicker.get_Date")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "CalendarDatePicker.get_Date")
+    release(tmp)
+
 proc isCalendarOpen*(self: CalendarDatePicker): bool  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_IsCalendarOpen
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
@@ -46003,6 +46773,22 @@ proc isGroupLabelVisibleProperty*(_: typedesc[CalendarDatePicker]): DependencyPr
     var tmp: pointer
     vcall(it, Slot_ICalendarDatePickerStatics_get_IsGroupLabelVisibleProperty, Fn_ICalendarDatePickerStatics_get_IsGroupLabelVisibleProperty)(it, tmp.addr).check("CalendarDatePicker.get_IsGroupLabelVisibleProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc newDate*(self: CalendarDatePickerDateChangedEventArgs): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.CalendarDatePickerDateChangedEventArgs.get_NewDate
+  withIface(self.p, IID_ICalendarDatePickerDateChangedEventArgs, "ICalendarDatePickerDateChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICalendarDatePickerDateChangedEventArgs_get_NewDate, Fn_ICalendarDatePickerDateChangedEventArgs_get_NewDate)(it, tmp.addr).check("CalendarDatePickerDateChangedEventArgs.get_NewDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "CalendarDatePickerDateChangedEventArgs.get_NewDate")
+    release(tmp)
+
+proc oldDate*(self: CalendarDatePickerDateChangedEventArgs): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.CalendarDatePickerDateChangedEventArgs.get_OldDate
+  withIface(self.p, IID_ICalendarDatePickerDateChangedEventArgs, "ICalendarDatePickerDateChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ICalendarDatePickerDateChangedEventArgs_get_OldDate, Fn_ICalendarDatePickerDateChangedEventArgs_get_OldDate)(it, tmp.addr).check("CalendarDatePickerDateChangedEventArgs.get_OldDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "CalendarDatePickerDateChangedEventArgs.get_OldDate")
+    release(tmp)
 
 proc newCalendarView*(): CalendarView =
   ## Compose a `Windows.UI.Xaml.Controls.CalendarView`.
@@ -47860,6 +48646,14 @@ proc `color=`*(self: ColorPicker, value: Color)  =
   withIface(self.p, IID_IColorPicker, "IColorPicker", it):
     vcall(it, Slot_IColorPicker_put_Color, Fn_IColorPicker_put_Color)(it, value).check("ColorPicker.put_Color")
 
+proc previousColor*(self: ColorPicker): Option[Color]  =
+  ## Windows.UI.Xaml.Controls.ColorPicker.get_PreviousColor
+  withIface(self.p, IID_IColorPicker, "IColorPicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorPicker_get_PreviousColor, Fn_IColorPicker_get_PreviousColor)(it, tmp.addr).check("ColorPicker.get_PreviousColor")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPicker.get_PreviousColor")
+    release(tmp)
+
 proc isAlphaEnabled*(self: ColorPicker): bool  =
   ## Windows.UI.Xaml.Controls.ColorPicker.get_IsAlphaEnabled
   withIface(self.p, IID_IColorPicker, "IColorPicker", it):
@@ -48332,6 +49126,14 @@ proc `selectedValuePath=`*(self: Selector, value: string)  =
   withIface(self.p, IID_ISelector, "ISelector", it):
     withHString(value, h0):
       vcall(it, Slot_ISelector_put_SelectedValuePath, Fn_ISelector_put_SelectedValuePath)(it, h0).check("Selector.put_SelectedValuePath")
+
+proc isSynchronizedWithCurrentItem*(self: Selector): Option[bool]  =
+  ## Windows.UI.Xaml.Controls.Primitives.Selector.get_IsSynchronizedWithCurrentItem
+  withIface(self.p, IID_ISelector, "ISelector", it):
+    var tmp: pointer
+    vcall(it, Slot_ISelector_get_IsSynchronizedWithCurrentItem, Fn_ISelector_get_IsSynchronizedWithCurrentItem)(it, tmp.addr).check("Selector.get_IsSynchronizedWithCurrentItem")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "Selector.get_IsSynchronizedWithCurrentItem")
+    release(tmp)
 
 proc onSelectionChanged*(self: Selector,
     handler: proc(sender: pointer, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -50745,6 +51547,14 @@ proc `lightDismissOverlayMode=`*(self: DatePicker, value: LightDismissOverlayMod
   withIface(self.p, IID_IDatePicker2, "IDatePicker2", it):
     vcall(it, Slot_IDatePicker2_put_LightDismissOverlayMode, Fn_IDatePicker2_put_LightDismissOverlayMode)(it, value).check("DatePicker.put_LightDismissOverlayMode")
 
+proc selectedDate*(self: DatePicker): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.DatePicker.get_SelectedDate
+  withIface(self.p, IID_IDatePicker3, "IDatePicker3", it):
+    var tmp: pointer
+    vcall(it, Slot_IDatePicker3_get_SelectedDate, Fn_IDatePicker3_get_SelectedDate)(it, tmp.addr).check("DatePicker.get_SelectedDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DatePicker.get_SelectedDate")
+    release(tmp)
+
 proc onSelectedDateChanged*(self: DatePicker,
     handler: proc(sender: pointer, args: DatePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.DatePicker.add_SelectedDateChanged
@@ -51213,6 +52023,22 @@ proc isDefaultShadowEnabledProperty*(_: typedesc[DatePickerFlyoutPresenter]): De
     var tmp: pointer
     vcall(it, Slot_IDatePickerFlyoutPresenterStatics2_get_IsDefaultShadowEnabledProperty, Fn_IDatePickerFlyoutPresenterStatics2_get_IsDefaultShadowEnabledProperty)(it, tmp.addr).check("DatePickerFlyoutPresenter.get_IsDefaultShadowEnabledProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc oldDate*(self: DatePickerSelectedValueChangedEventArgs): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.DatePickerSelectedValueChangedEventArgs.get_OldDate
+  withIface(self.p, IID_IDatePickerSelectedValueChangedEventArgs, "IDatePickerSelectedValueChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDatePickerSelectedValueChangedEventArgs_get_OldDate, Fn_IDatePickerSelectedValueChangedEventArgs_get_OldDate)(it, tmp.addr).check("DatePickerSelectedValueChangedEventArgs.get_OldDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DatePickerSelectedValueChangedEventArgs.get_OldDate")
+    release(tmp)
+
+proc newDate*(self: DatePickerSelectedValueChangedEventArgs): Option[DateTime]  =
+  ## Windows.UI.Xaml.Controls.DatePickerSelectedValueChangedEventArgs.get_NewDate
+  withIface(self.p, IID_IDatePickerSelectedValueChangedEventArgs, "IDatePickerSelectedValueChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDatePickerSelectedValueChangedEventArgs_get_NewDate, Fn_IDatePickerSelectedValueChangedEventArgs_get_NewDate)(it, tmp.addr).check("DatePickerSelectedValueChangedEventArgs.get_NewDate")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DatePickerSelectedValueChangedEventArgs.get_NewDate")
+    release(tmp)
 
 proc oldDate*(self: DatePickerValueChangedEventArgs): DateTime  =
   ## Windows.UI.Xaml.Controls.DatePickerValueChangedEventArgs.get_OldDate
@@ -59196,6 +60022,14 @@ proc audioStreamCount*(self: MediaElement): int32  =
     vcall(it, Slot_IMediaElement_get_AudioStreamCount, Fn_IMediaElement_get_AudioStreamCount)(it, tmp.addr).check("MediaElement.get_AudioStreamCount")
     result = tmp
 
+proc audioStreamIndex*(self: MediaElement): Option[int32]  =
+  ## Windows.UI.Xaml.Controls.MediaElement.get_AudioStreamIndex
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaElement_get_AudioStreamIndex, Fn_IMediaElement_get_AudioStreamIndex)(it, tmp.addr).check("MediaElement.get_AudioStreamIndex")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MediaElement.get_AudioStreamIndex")
+    release(tmp)
+
 proc playbackRate*(self: MediaElement): float64  =
   ## Windows.UI.Xaml.Controls.MediaElement.get_PlaybackRate
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
@@ -60689,6 +61523,15 @@ proc dropoutOrderProperty*(_: typedesc[MediaTransportControlsHelper]): Dependenc
     var tmp: pointer
     vcall(it, Slot_IMediaTransportControlsHelperStatics_get_DropoutOrderProperty, Fn_IMediaTransportControlsHelperStatics_get_DropoutOrderProperty)(it, tmp.addr).check("MediaTransportControlsHelper.get_DropoutOrderProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc getDropoutOrder*(_: typedesc[MediaTransportControlsHelper], a1: UIElement): Option[int32]  =
+  ## Windows.UI.Xaml.Controls.MediaTransportControlsHelper.GetDropoutOrder
+  withStatics("Windows.UI.Xaml.Controls.MediaTransportControlsHelper", IID_IMediaTransportControlsHelperStatics, it):
+    withIface(a1.p, IID_IUIElement, "IUIElement", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaTransportControlsHelperStatics_GetDropoutOrder, Fn_IMediaTransportControlsHelperStatics_GetDropoutOrder)(it, p0, tmp.addr).check("MediaTransportControlsHelper.GetDropoutOrder")
+      result = readReference[int32](tmp, IID_IReference_1_I4, "MediaTransportControlsHelper.GetDropoutOrder")
+      release(tmp)
 
 proc newMenuBar*(): MenuBar =
   ## Compose a `Windows.UI.Xaml.Controls.MenuBar`.
@@ -64925,6 +65768,22 @@ proc newFlyoutShowOptions*(): FlyoutShowOptions =
   ## Compose a `Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions`.
   adopt[FlyoutShowOptions](composeAs("Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions", IID_IFlyoutShowOptionsFactory,
                      IID_IFlyoutShowOptions, 6))
+
+proc position*(self: FlyoutShowOptions): Option[Point]  =
+  ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.get_Position
+  withIface(self.p, IID_IFlyoutShowOptions, "IFlyoutShowOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IFlyoutShowOptions_get_Position, Fn_IFlyoutShowOptions_get_Position)(it, tmp.addr).check("FlyoutShowOptions.get_Position")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "FlyoutShowOptions.get_Position")
+    release(tmp)
+
+proc exclusionRect*(self: FlyoutShowOptions): Option[Rect]  =
+  ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.get_ExclusionRect
+  withIface(self.p, IID_IFlyoutShowOptions, "IFlyoutShowOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IFlyoutShowOptions_get_ExclusionRect, Fn_IFlyoutShowOptions_get_ExclusionRect)(it, tmp.addr).check("FlyoutShowOptions.get_ExclusionRect")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "FlyoutShowOptions.get_ExclusionRect")
+    release(tmp)
 
 proc showMode*(self: FlyoutShowOptions): FlyoutShowMode  =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.get_ShowMode
@@ -75646,6 +76505,14 @@ proc `lightDismissOverlayMode=`*(self: TimePicker, value: LightDismissOverlayMod
   withIface(self.p, IID_ITimePicker2, "ITimePicker2", it):
     vcall(it, Slot_ITimePicker2_put_LightDismissOverlayMode, Fn_ITimePicker2_put_LightDismissOverlayMode)(it, value).check("TimePicker.put_LightDismissOverlayMode")
 
+proc selectedTime*(self: TimePicker): Option[TimeSpan]  =
+  ## Windows.UI.Xaml.Controls.TimePicker.get_SelectedTime
+  withIface(self.p, IID_ITimePicker3, "ITimePicker3", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimePicker3_get_SelectedTime, Fn_ITimePicker3_get_SelectedTime)(it, tmp.addr).check("TimePicker.get_SelectedTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "TimePicker.get_SelectedTime")
+    release(tmp)
+
 proc onSelectedTimeChanged*(self: TimePicker,
     handler: proc(sender: pointer, args: TimePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TimePicker.add_SelectedTimeChanged
@@ -75813,6 +76680,22 @@ proc isDefaultShadowEnabledProperty*(_: typedesc[TimePickerFlyoutPresenter]): De
     var tmp: pointer
     vcall(it, Slot_ITimePickerFlyoutPresenterStatics2_get_IsDefaultShadowEnabledProperty, Fn_ITimePickerFlyoutPresenterStatics2_get_IsDefaultShadowEnabledProperty)(it, tmp.addr).check("TimePickerFlyoutPresenter.get_IsDefaultShadowEnabledProperty")
     result = adopt[DependencyProperty](tmp)
+
+proc oldTime*(self: TimePickerSelectedValueChangedEventArgs): Option[TimeSpan]  =
+  ## Windows.UI.Xaml.Controls.TimePickerSelectedValueChangedEventArgs.get_OldTime
+  withIface(self.p, IID_ITimePickerSelectedValueChangedEventArgs, "ITimePickerSelectedValueChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimePickerSelectedValueChangedEventArgs_get_OldTime, Fn_ITimePickerSelectedValueChangedEventArgs_get_OldTime)(it, tmp.addr).check("TimePickerSelectedValueChangedEventArgs.get_OldTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "TimePickerSelectedValueChangedEventArgs.get_OldTime")
+    release(tmp)
+
+proc newTime*(self: TimePickerSelectedValueChangedEventArgs): Option[TimeSpan]  =
+  ## Windows.UI.Xaml.Controls.TimePickerSelectedValueChangedEventArgs.get_NewTime
+  withIface(self.p, IID_ITimePickerSelectedValueChangedEventArgs, "ITimePickerSelectedValueChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimePickerSelectedValueChangedEventArgs_get_NewTime, Fn_ITimePickerSelectedValueChangedEventArgs_get_NewTime)(it, tmp.addr).check("TimePickerSelectedValueChangedEventArgs.get_NewTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "TimePickerSelectedValueChangedEventArgs.get_NewTime")
+    release(tmp)
 
 proc oldTime*(self: TimePickerValueChangedEventArgs): TimeSpan  =
   ## Windows.UI.Xaml.Controls.TimePickerValueChangedEventArgs.get_OldTime
@@ -76218,6 +77101,14 @@ proc onOpened*(self: ToolTip,
 proc removeOpened*(self: ToolTip, token: EventRegistrationToken) =
   withIface(self.p, IID_IToolTip, "IToolTip", it):
     vcall(it, Slot_IToolTip_remove_Opened, Fn_IToolTip_remove_Opened)(it, token).check("ToolTip.remove_Opened")
+
+proc placementRect*(self: ToolTip): Option[Rect]  =
+  ## Windows.UI.Xaml.Controls.ToolTip.get_PlacementRect
+  withIface(self.p, IID_IToolTip2, "IToolTip2", it):
+    var tmp: pointer
+    vcall(it, Slot_IToolTip2_get_PlacementRect, Fn_IToolTip2_get_PlacementRect)(it, tmp.addr).check("ToolTip.get_PlacementRect")
+    result = readReference[Rect](tmp, IID_IReference_1_Rect, "ToolTip.get_PlacementRect")
+    release(tmp)
 
 proc placementRectProperty*(_: typedesc[ToolTip]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.ToolTip.get_PlacementRectProperty
@@ -85066,6 +85957,14 @@ proc `alwaysUseFallback=`*(self: AcrylicBrush, value: bool)  =
   withIface(self.p, IID_IAcrylicBrush, "IAcrylicBrush", it):
     vcall(it, Slot_IAcrylicBrush_put_AlwaysUseFallback, Fn_IAcrylicBrush_put_AlwaysUseFallback)(it, value).check("AcrylicBrush.put_AlwaysUseFallback")
 
+proc tintLuminosityOpacity*(self: AcrylicBrush): Option[float64]  =
+  ## Windows.UI.Xaml.Media.AcrylicBrush.get_TintLuminosityOpacity
+  withIface(self.p, IID_IAcrylicBrush2, "IAcrylicBrush2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAcrylicBrush2_get_TintLuminosityOpacity, Fn_IAcrylicBrush2_get_TintLuminosityOpacity)(it, tmp.addr).check("AcrylicBrush.get_TintLuminosityOpacity")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "AcrylicBrush.get_TintLuminosityOpacity")
+    release(tmp)
+
 proc backgroundSourceProperty*(_: typedesc[AcrylicBrush]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.AcrylicBrush.get_BackgroundSourceProperty
   withStatics("Windows.UI.Xaml.Media.AcrylicBrush", IID_IAcrylicBrushStatics, it):
@@ -85253,6 +86152,14 @@ proc `autoReverse=`*(self: Timeline, value: bool)  =
   withIface(self.p, IID_ITimeline, "ITimeline", it):
     vcall(it, Slot_ITimeline_put_AutoReverse, Fn_ITimeline_put_AutoReverse)(it, value).check("Timeline.put_AutoReverse")
 
+proc beginTime*(self: Timeline): Option[TimeSpan]  =
+  ## Windows.UI.Xaml.Media.Animation.Timeline.get_BeginTime
+  withIface(self.p, IID_ITimeline, "ITimeline", it):
+    var tmp: pointer
+    vcall(it, Slot_ITimeline_get_BeginTime, Fn_ITimeline_get_BeginTime)(it, tmp.addr).check("Timeline.get_BeginTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "Timeline.get_BeginTime")
+    release(tmp)
+
 proc duration*(self: Timeline): Duration  =
   ## Windows.UI.Xaml.Media.Animation.Timeline.get_Duration
   withIface(self.p, IID_ITimeline, "ITimeline", it):
@@ -85377,6 +86284,30 @@ proc repeatBehaviorProperty*(_: typedesc[Timeline]): DependencyProperty  =
 proc newColorAnimation*(): ColorAnimation =
   ## Activate a `Windows.UI.Xaml.Media.Animation.ColorAnimation`.
   adopt[ColorAnimation](activateAs("Windows.UI.Xaml.Media.Animation.ColorAnimation", IID_IColorAnimation))
+
+proc `from`*(self: ColorAnimation): Option[Color]  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_From
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorAnimation_get_From, Fn_IColorAnimation_get_From)(it, tmp.addr).check("ColorAnimation.get_From")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_From")
+    release(tmp)
+
+proc to*(self: ColorAnimation): Option[Color]  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_To
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorAnimation_get_To, Fn_IColorAnimation_get_To)(it, tmp.addr).check("ColorAnimation.get_To")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_To")
+    release(tmp)
+
+proc by*(self: ColorAnimation): Option[Color]  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_By
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorAnimation_get_By, Fn_IColorAnimation_get_By)(it, tmp.addr).check("ColorAnimation.get_By")
+    result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_By")
+    release(tmp)
 
 proc easingFunction*(self: ColorAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_EasingFunction
@@ -85963,6 +86894,30 @@ proc newDiscretePointKeyFrame*(): DiscretePointKeyFrame =
 proc newDoubleAnimation*(): DoubleAnimation =
   ## Activate a `Windows.UI.Xaml.Media.Animation.DoubleAnimation`.
   adopt[DoubleAnimation](activateAs("Windows.UI.Xaml.Media.Animation.DoubleAnimation", IID_IDoubleAnimation))
+
+proc `from`*(self: DoubleAnimation): Option[float64]  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_From
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IDoubleAnimation_get_From, Fn_IDoubleAnimation_get_From)(it, tmp.addr).check("DoubleAnimation.get_From")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_From")
+    release(tmp)
+
+proc to*(self: DoubleAnimation): Option[float64]  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_To
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IDoubleAnimation_get_To, Fn_IDoubleAnimation_get_To)(it, tmp.addr).check("DoubleAnimation.get_To")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_To")
+    release(tmp)
+
+proc by*(self: DoubleAnimation): Option[float64]  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_By
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IDoubleAnimation_get_By, Fn_IDoubleAnimation_get_By)(it, tmp.addr).check("DoubleAnimation.get_By")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_By")
+    release(tmp)
 
 proc easingFunction*(self: DoubleAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_EasingFunction
@@ -86748,6 +87703,30 @@ proc edgeProperty*(_: typedesc[PaneThemeTransition]): DependencyProperty  =
 proc newPointAnimation*(): PointAnimation =
   ## Activate a `Windows.UI.Xaml.Media.Animation.PointAnimation`.
   adopt[PointAnimation](activateAs("Windows.UI.Xaml.Media.Animation.PointAnimation", IID_IPointAnimation))
+
+proc `from`*(self: PointAnimation): Option[Point]  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_From
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointAnimation_get_From, Fn_IPointAnimation_get_From)(it, tmp.addr).check("PointAnimation.get_From")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_From")
+    release(tmp)
+
+proc to*(self: PointAnimation): Option[Point]  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_To
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointAnimation_get_To, Fn_IPointAnimation_get_To)(it, tmp.addr).check("PointAnimation.get_To")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_To")
+    release(tmp)
+
+proc by*(self: PointAnimation): Option[Point]  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_By
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointAnimation_get_By, Fn_IPointAnimation_get_By)(it, tmp.addr).check("PointAnimation.get_By")
+    result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_By")
+    release(tmp)
 
 proc easingFunction*(self: PointAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_EasingFunction

@@ -18,6 +18,9 @@ export asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IReference_1_SpatialRay* = GUID(
+    data1: 0x44DD686B'u32, data2: 0xC7D8'u16, data3: 0x582C'u16,
+    data4: [0x91'u8, 0xC2, 0xD9, 0x8E, 0x60, 0x4D, 0xCF, 0xD4])
 const IID_TypedEventHandler_2_SpatialAnchor_SpatialAnchorRawCoordinateSystemAdjustedEventArgs* = GUID(
     data1: 0xFA43F9E4'u32, data2: 0x3558'u16, data3: 0x59C8'u16,
     data4: [0x9A'u8, 0x77, 0x6E, 0x8B, 0x76, 0x5A, 0xDC, 0xC8])
@@ -33,6 +36,9 @@ const IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore* = GUID(
 const IID_IAsyncOperation_1_SpatialAnchorStore* = GUID(
     data1: 0x1CD05E51'u32, data2: 0x1457'u16, data3: 0x5023'u16,
     data4: [0x8F'u8, 0x5D, 0xFE, 0x5E, 0x5A, 0x95, 0x34, 0x23])
+const IID_IReference_1_Matrix4x4* = GUID(
+    data1: 0xDACBFFDC'u32, data2: 0x68EF'u16, data3: 0x5FD0'u16,
+    data4: [0xB6'u8, 0x57, 0x78, 0x2D, 0x0A, 0xC9, 0x80, 0x7E])
 const IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityAddedEventArgs* = GUID(
     data1: 0xF8EDAE01'u32, data2: 0x6A30'u16, data3: 0x52CC'u16,
     data4: [0xB5'u8, 0x43, 0x8A, 0xBD, 0xB2, 0x65, 0x29, 0xB4])
@@ -51,6 +57,9 @@ const IID_TypedEventHandler_2_SpatialLocator_Object* = GUID(
 const IID_TypedEventHandler_2_SpatialLocator_SpatialLocatorPositionalTrackingDeactivatingEventArgs* = GUID(
     data1: 0x34BF236C'u32, data2: 0xE5D6'u16, data3: 0x501F'u16,
     data4: [0x86'u8, 0x93, 0xBC, 0x1D, 0x8D, 0x43, 0x1D, 0x7E])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
@@ -60,6 +69,9 @@ const IID_AsyncOperationCompletedHandler_1_SpatialStageFrameOfReference* = GUID(
 const IID_IAsyncOperation_1_SpatialStageFrameOfReference* = GUID(
     data1: 0xB4D8B1BF'u32, data2: 0x1D66'u16, data3: 0x5458'u16,
     data4: [0xA5'u8, 0xDF, 0x3F, 0x4F, 0x6C, 0x36, 0x6C, 0x58])
+const IID_IReference_1_SpatialBoundingOrientedBox* = GUID(
+    data1: 0x09F88309'u32, data2: 0x9F81'u16, data3: 0x5207'u16,
+    data4: [0xBD'u8, 0xB2, 0xAB, 0xEF, 0x92, 0x6D, 0xB1, 0x8F])
 const IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh* = GUID(
     data1: 0x4680F7F6'u32, data2: 0x44C5'u16, data3: 0x5FC6'u16,
     data4: [0x8D'u8, 0x51, 0xD6, 0x96, 0x29, 0x15, 0xFA, 0x23])
@@ -587,6 +599,14 @@ proc isCalibrationValid*(self: EyesPose): bool  =
     vcall(it, Slot_IEyesPose_get_IsCalibrationValid, Fn_IEyesPose_get_IsCalibrationValid)(it, tmp.addr).check("EyesPose.get_IsCalibrationValid")
     result = tmp
 
+proc gaze*(self: EyesPose): Option[SpatialRay]  =
+  ## Windows.Perception.People.EyesPose.get_Gaze
+  withIface(self.p, IID_IEyesPose, "IEyesPose", it):
+    var tmp: pointer
+    vcall(it, Slot_IEyesPose_get_Gaze, Fn_IEyesPose_get_Gaze)(it, tmp.addr).check("EyesPose.get_Gaze")
+    result = readReference[SpatialRay](tmp, IID_IReference_1_SpatialRay, "EyesPose.get_Gaze")
+    release(tmp)
+
 proc updateTimestamp*(self: EyesPose): PerceptionTimestamp  =
   ## Windows.Perception.People.EyesPose.get_UpdateTimestamp
   withIface(self.p, IID_IEyesPose, "IEyesPose", it):
@@ -959,6 +979,15 @@ proc fromFrustum*(_: typedesc[SpatialBoundingVolume], a1: SpatialCoordinateSyste
       var tmp: pointer
       vcall(it, Slot_ISpatialBoundingVolumeStatics_FromFrustum, Fn_ISpatialBoundingVolumeStatics_FromFrustum)(it, p0, a2, tmp.addr).check("SpatialBoundingVolume.FromFrustum")
       result = adopt[SpatialBoundingVolume](tmp)
+
+proc tryGetTransformTo*(self: SpatialCoordinateSystem, a1: SpatialCoordinateSystem): Option[Matrix4x4]  =
+  ## Windows.Perception.Spatial.SpatialCoordinateSystem.TryGetTransformTo
+  withIface(self.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", it):
+    withIface(a1.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialCoordinateSystem_TryGetTransformTo, Fn_ISpatialCoordinateSystem_TryGetTransformTo)(it, p0, tmp.addr).check("SpatialCoordinateSystem.TryGetTransformTo")
+      result = readReference[Matrix4x4](tmp, IID_IReference_1_Matrix4x4, "SpatialCoordinateSystem.TryGetTransformTo")
+      release(tmp)
 
 proc id*(self: SpatialEntity): string  =
   ## Windows.Perception.Spatial.SpatialEntity.get_Id
@@ -1352,6 +1381,15 @@ proc getStationaryCoordinateSystemAtTimestamp*(self: SpatialLocatorAttachedFrame
       vcall(it, Slot_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp, Fn_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp)(it, p0, tmp.addr).check("SpatialLocatorAttachedFrameOfReference.GetStationaryCoordinateSystemAtTimestamp")
       result = adopt[SpatialCoordinateSystem](tmp)
 
+proc tryGetRelativeHeadingAtTimestamp*(self: SpatialLocatorAttachedFrameOfReference, a1: PerceptionTimestamp): Option[float64]  =
+  ## Windows.Perception.Spatial.SpatialLocatorAttachedFrameOfReference.TryGetRelativeHeadingAtTimestamp
+  withIface(self.p, IID_ISpatialLocatorAttachedFrameOfReference, "ISpatialLocatorAttachedFrameOfReference", it):
+    withIface(a1.p, IID_IPerceptionTimestamp, "IPerceptionTimestamp", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp, Fn_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp)(it, p0, tmp.addr).check("SpatialLocatorAttachedFrameOfReference.TryGetRelativeHeadingAtTimestamp")
+      result = readReference[float64](tmp, IID_IReference_1_F8, "SpatialLocatorAttachedFrameOfReference.TryGetRelativeHeadingAtTimestamp")
+      release(tmp)
+
 proc canceled*(self: SpatialLocatorPositionalTrackingDeactivatingEventArgs): bool  =
   ## Windows.Perception.Spatial.SpatialLocatorPositionalTrackingDeactivatingEventArgs.get_Canceled
   withIface(self.p, IID_ISpatialLocatorPositionalTrackingDeactivatingEventArgs, "ISpatialLocatorPositionalTrackingDeactivatingEventArgs", it):
@@ -1446,6 +1484,15 @@ proc updateTime*(self: SpatialSurfaceInfo): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_ISpatialSurfaceInfo_get_UpdateTime, Fn_ISpatialSurfaceInfo_get_UpdateTime)(it, tmp.addr).check("SpatialSurfaceInfo.get_UpdateTime")
     result = tmp
+
+proc tryGetBounds*(self: SpatialSurfaceInfo, a1: SpatialCoordinateSystem): Option[SpatialBoundingOrientedBox]  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryGetBounds
+  withIface(self.p, IID_ISpatialSurfaceInfo, "ISpatialSurfaceInfo", it):
+    withIface(a1.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialSurfaceInfo_TryGetBounds, Fn_ISpatialSurfaceInfo_TryGetBounds)(it, p0, tmp.addr).check("SpatialSurfaceInfo.TryGetBounds")
+      result = readReference[SpatialBoundingOrientedBox](tmp, IID_IReference_1_SpatialBoundingOrientedBox, "SpatialSurfaceInfo.TryGetBounds")
+      release(tmp)
 
 proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, a1: float64): Future[SpatialSurfaceMesh] {.async.} =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync

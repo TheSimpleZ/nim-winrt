@@ -99,6 +99,15 @@ func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
   else:
     (false, SigType(kind: skVoid))
 
+const ReferenceIface = "Windows.Foundation.IReference`1"
+
+func referenceValue(c: Ctx, t: SigType): SigType =
+  ## The type inside an `IReference<T>`, if `t` is one.
+  if t.kind == skUnsupported and t.args.len == 1 and t.name == ReferenceIface:
+    t.args[0]
+  else:
+    SigType(kind: skVoid)
+
 const CollectionIfaces = [
   "Windows.Foundation.Collections.IVectorView`1",
   "Windows.Foundation.Collections.IVector`1",
@@ -144,6 +153,9 @@ func asyncSpelling(c: Ctx, res: SigType): string =
     else: ""
   else: ""
 
+func skipReason(c: Ctx, t: SigType, inReturn = false): string
+func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
+
 func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## Why this type has no wrapper spelling. "" means it has one.
   ##
@@ -154,8 +166,10 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   case t.kind
   of skUnsupported:
     let a = c.asyncResult(t)
+    let r = c.referenceValue(t)
     let e = c.collectionElement(t)
     if inReturn and a.isAsync and c.asyncSpelling(a.res).len > 0: ""
+    elif inReturn and r.kind != skVoid and c.skipReason(r).len == 0: ""
     elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
@@ -185,6 +199,12 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     if a.isAsync:
       let sp = c.asyncSpelling(a.res)
       return if sp == "void": "" else: sp
+  if inReturn:
+    # `IReference<T>` is WinRT's nullable, and Nim already has that word.
+    let r = c.referenceValue(t)
+    if r.kind != skVoid:
+      let v = c.nimTypeOf(r)
+      return if v.len > 0: "Option[" & v & "]" else: ""
   let elem = c.collectionElement(t)
   if elem.kind != skVoid:
     let e = c.elementSpelling(elem)
@@ -778,7 +798,15 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         else:
           # The declared return is a trailing out-parameter at the ABI.
           let retElem = c.collectionElement(sig.returns)
-          var collectionIid = ""
+          let retRef = c.referenceValue(sig.returns)
+          var collectionIid, referenceIid = ""
+          if retRef.kind != skVoid:
+            let computed = sigCtx.parameterizedIid(sig.returns)
+            if computed.len == 0:
+              skipped.inc
+              skipReasons.inc "a reference whose IID could not be computed"
+              continue
+            referenceIid = genericIidConst(computed, sig.returns)
           if retElem.kind != skVoid:
             # The IID of `IVectorView<Gamepad>` is declared nowhere: WinRT
             # derives it by hashing a signature string, which `piid` does at
@@ -802,13 +830,20 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skString: lines.add &"{indent}result = takeString(tmp)"
           of skEnum: lines.add &"{indent}result = tmp"
           of skUnsupported:
-            # The collection itself is ours to release; its elements were
-            # adopted while walking it.
-            let elemType = c.elementSpelling(retElem)
-            if elemType == "string":
-              lines.add &"{indent}result = toSeqString(tmp, {collectionIid})"
+            if retRef.kind != skVoid:
+              # `IReference<T>` is an interface, so "no value" arrives as a
+              # null pointer rather than a sentinel.
+              let inner = c.nimTypeOf(retRef)
+              lines.add &"{indent}result = readReference[{inner}](" &
+                        &"tmp, {referenceIid}, \"{what}\")"
             else:
-              lines.add &"{indent}result = toSeq[{elemType}](tmp, {collectionIid})"
+              # The collection itself is ours to release; its elements were
+              # adopted while walking it.
+              let elemType = c.elementSpelling(retElem)
+              if elemType == "string":
+                lines.add &"{indent}result = toSeqString(tmp, {collectionIid})"
+              else:
+                lines.add &"{indent}result = toSeq[{elemType}](tmp, {collectionIid})"
             lines.add &"{indent}release(tmp)"
           of skInterface:
             if asClass(sig.returns.name).len > 0:

@@ -24,6 +24,9 @@ const IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object* = GUID(
 const IID_TypedEventHandler_2_ActionCatalog_Object* = GUID(
     data1: 0x6FC189B6'u32, data2: 0xF223'u16, data3: 0x5959'u16,
     data4: [0x86'u8, 0x76, 0xDB, 0x86, 0x04, 0x9C, 0x04, 0xD9])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs* = GUID(
     data1: 0x9154A3ED'u32, data2: 0xC383'u16, data3: 0x5BDD'u16,
     data4: [0xA8'u8, 0xAE, 0xFA, 0xB2, 0xC1, 0x38, 0x69, 0xD5])
@@ -1699,6 +1702,14 @@ proc `creator=`*(self: RemoteFileActionEntity, value: ContactActionEntity)  =
   withIface(self.p, IID_IRemoteFileActionEntity2, "IRemoteFileActionEntity2", it):
     withIface(value.p, IID_IContactActionEntity, "IContactActionEntity", p0):
       vcall(it, Slot_IRemoteFileActionEntity2_put_Creator, Fn_IRemoteFileActionEntity2_put_Creator)(it, p0).check("RemoteFileActionEntity.put_Creator")
+
+proc lastUpdatedTime*(self: RemoteFileActionEntity): Option[DateTime]  =
+  ## Windows.AI.Actions.RemoteFileActionEntity.get_LastUpdatedTime
+  withIface(self.p, IID_IRemoteFileActionEntity2, "IRemoteFileActionEntity2", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteFileActionEntity2_get_LastUpdatedTime, Fn_IRemoteFileActionEntity2_get_LastUpdatedTime)(it, tmp.addr).check("RemoteFileActionEntity.get_LastUpdatedTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "RemoteFileActionEntity.get_LastUpdatedTime")
+    release(tmp)
 
 proc isComplete*(self: StreamingTextActionEntity): bool  =
   ## Windows.AI.Actions.StreamingTextActionEntity.get_IsComplete

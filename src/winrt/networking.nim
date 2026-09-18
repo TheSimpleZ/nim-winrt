@@ -36,6 +36,9 @@ const IID_AsyncOperationCompletedHandler_1_UploadOperation* = GUID(
 const IID_IAsyncOperation_1_UploadOperation* = GUID(
     data1: 0x44212EA1'u32, data2: 0xB524'u16, data3: 0x5AEE'u16,
     data4: [0xA3'u8, 0x20, 0x71, 0x99, 0x22, 0x53, 0x81, 0xD1])
+const IID_IReference_1_DateTime* = GUID(
+    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
+    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
 const IID_IVector_1_Uri* = GUID(
     data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
     data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
@@ -51,12 +54,27 @@ const IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IReference_1_Guid* = GUID(
+    data1: 0x7D50F649'u32, data2: 0x632C'u16, data3: 0x51F9'u16,
+    data4: [0x84'u8, 0x9A, 0xEE, 0x49, 0x42, 0x89, 0x33, 0xEA])
+const IID_IReference_1_U1* = GUID(
+    data1: 0xE5198CC8'u32, data2: 0x2873'u16, data3: 0x55F5'u16,
+    data4: [0xB0'u8, 0xA1, 0x84, 0xFF, 0x9E, 0x4A, 0xAD, 0x62])
+const IID_IReference_1_Bool* = GUID(
+    data1: 0x3C00FD60'u32, data2: 0x2950'u16, data3: 0x5939'u16,
+    data4: [0xA2'u8, 0x1A, 0x2D, 0x12, 0xC5, 0xA0, 0x1B, 0x8A])
 const IID_AsyncOperationCompletedHandler_1_ConnectionSession* = GUID(
     data1: 0x3BC680D8'u32, data2: 0x9E83'u16, data3: 0x5086'u16,
     data4: [0x8F'u8, 0x49, 0x7A, 0x29, 0xBF, 0xB1, 0xC7, 0xE1])
 const IID_IAsyncOperation_1_ConnectionSession* = GUID(
     data1: 0x94FC6211'u32, data2: 0x4702'u16, data3: 0x5D24'u16,
     data4: [0x81'u8, 0xBF, 0x17, 0x0C, 0xA7, 0x81, 0x89, 0x95])
+const IID_IReference_1_U4* = GUID(
+    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
+    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
+const IID_IReference_1_U8* = GUID(
+    data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
+    data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
 const IID_AsyncOperationCompletedHandler_1_ConnectionProfile* = GUID(
     data1: 0xE4F0C96A'u32, data2: 0x0571'u16, data3: 0x59F4'u16,
     data4: [0xA9'u8, 0xA9, 0xAF, 0xAC, 0x3E, 0x61, 0xCA, 0xA0])
@@ -81,6 +99,9 @@ const IID_IAsyncOperation_1_ProxyConfiguration* = GUID(
 const IID_IVectorView_1_Uri* = GUID(
     data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
     data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IReference_1_I4* = GUID(
+    data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
+    data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
 const IID_IVectorView_1_ESimProfile* = GUID(
     data1: 0xC776F3A9'u32, data2: 0x6E7F'u16, data3: 0x5144'u16,
     data4: [0x89'u8, 0xF7, 0x8F, 0x5E, 0xC1, 0x16, 0x5B, 0xA4])
@@ -144,6 +165,15 @@ const IID_TypedEventHandler_2_MobileBroadbandAccountWatcher_MobileBroadbandAccou
 const IID_TypedEventHandler_2_MobileBroadbandAccountWatcher_Object* = GUID(
     data1: 0xE4DC9CFC'u32, data2: 0xF462'u16, data3: 0x5AFD'u16,
     data4: [0x85'u8, 0x6D, 0x04, 0xAC, 0xE2, 0x29, 0xD0, 0x0E])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
+const IID_IReference_1_TimeSpan* = GUID(
+    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
+    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
+const IID_IReference_1_I8* = GUID(
+    data1: 0x4DDA9E24'u32, data2: 0xE69F'u16, data3: 0x5C6A'u16,
+    data4: [0xA0'u8, 0xA6, 0x93, 0x42, 0x73, 0x65, 0xAF, 0x2A])
 const IID_IVectorView_1_MobileBroadbandCellCdma* = GUID(
     data1: 0x2896BC34'u32, data2: 0x7401'u16, data3: 0x5D22'u16,
     data4: [0xBF'u8, 0x9F, 0xDB, 0x82, 0x5D, 0x09, 0xC9, 0x51])
@@ -3905,6 +3935,14 @@ proc createWithCompletionGroup*(_: typedesc[BackgroundUploader], a1: BackgroundT
       vcall(it, Slot_IBackgroundUploaderFactory_CreateWithCompletionGroup, Fn_IBackgroundUploaderFactory_CreateWithCompletionGroup)(it, p0, tmp.addr).check("BackgroundUploader.CreateWithCompletionGroup")
       result = adopt[BackgroundUploader](tmp)
 
+proc lastSuccessfulPrefetchTime*(_: typedesc[ContentPrefetcher]): Option[DateTime]  =
+  ## Windows.Networking.BackgroundTransfer.ContentPrefetcher.get_LastSuccessfulPrefetchTime
+  withStatics("Windows.Networking.BackgroundTransfer.ContentPrefetcher", IID_IContentPrefetcherTime, it):
+    var tmp: pointer
+    vcall(it, Slot_IContentPrefetcherTime_get_LastSuccessfulPrefetchTime, Fn_IContentPrefetcherTime_get_LastSuccessfulPrefetchTime)(it, tmp.addr).check("ContentPrefetcher.get_LastSuccessfulPrefetchTime")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ContentPrefetcher.get_LastSuccessfulPrefetchTime")
+    release(tmp)
+
 proc contentUris*(_: typedesc[ContentPrefetcher]): seq[Uri]  =
   ## Windows.Networking.BackgroundTransfer.ContentPrefetcher.get_ContentUris
   withStatics("Windows.Networking.BackgroundTransfer.ContentPrefetcher", IID_IContentPrefetcher, it):
@@ -4501,6 +4539,22 @@ proc wlanConnectionProfileDetails*(self: ConnectionProfile): WlanConnectionProfi
     vcall(it, Slot_IConnectionProfile2_get_WlanConnectionProfileDetails, Fn_IConnectionProfile2_get_WlanConnectionProfileDetails)(it, tmp.addr).check("ConnectionProfile.get_WlanConnectionProfileDetails")
     result = adopt[WlanConnectionProfileDetails](tmp)
 
+proc serviceProviderGuid*(self: ConnectionProfile): Option[GUID]  =
+  ## Windows.Networking.Connectivity.ConnectionProfile.get_ServiceProviderGuid
+  withIface(self.p, IID_IConnectionProfile2, "IConnectionProfile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfile2_get_ServiceProviderGuid, Fn_IConnectionProfile2_get_ServiceProviderGuid)(it, tmp.addr).check("ConnectionProfile.get_ServiceProviderGuid")
+    result = readReference[GUID](tmp, IID_IReference_1_Guid, "ConnectionProfile.get_ServiceProviderGuid")
+    release(tmp)
+
+proc getSignalBars*(self: ConnectionProfile): Option[uint8]  =
+  ## Windows.Networking.Connectivity.ConnectionProfile.GetSignalBars
+  withIface(self.p, IID_IConnectionProfile2, "IConnectionProfile2", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfile2_GetSignalBars, Fn_IConnectionProfile2_GetSignalBars)(it, tmp.addr).check("ConnectionProfile.GetSignalBars")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "ConnectionProfile.GetSignalBars")
+    release(tmp)
+
 proc getDomainConnectivityLevel*(self: ConnectionProfile): DomainConnectivityLevel  =
   ## Windows.Networking.Connectivity.ConnectionProfile.GetDomainConnectivityLevel
   withIface(self.p, IID_IConnectionProfile2, "IConnectionProfile2", it):
@@ -4574,12 +4628,52 @@ proc networkCostType*(self: ConnectionProfileFilter): NetworkCostType  =
     vcall(it, Slot_IConnectionProfileFilter_get_NetworkCostType, Fn_IConnectionProfileFilter_get_NetworkCostType)(it, tmp.addr).check("ConnectionProfileFilter.get_NetworkCostType")
     result = tmp
 
+proc serviceProviderGuid*(self: ConnectionProfileFilter): Option[GUID]  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_ServiceProviderGuid
+  withIface(self.p, IID_IConnectionProfileFilter, "IConnectionProfileFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfileFilter_get_ServiceProviderGuid, Fn_IConnectionProfileFilter_get_ServiceProviderGuid)(it, tmp.addr).check("ConnectionProfileFilter.get_ServiceProviderGuid")
+    result = readReference[GUID](tmp, IID_IReference_1_Guid, "ConnectionProfileFilter.get_ServiceProviderGuid")
+    release(tmp)
+
+proc isRoaming*(self: ConnectionProfileFilter): Option[bool]  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsRoaming
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfileFilter2_get_IsRoaming, Fn_IConnectionProfileFilter2_get_IsRoaming)(it, tmp.addr).check("ConnectionProfileFilter.get_IsRoaming")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsRoaming")
+    release(tmp)
+
+proc isOverDataLimit*(self: ConnectionProfileFilter): Option[bool]  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsOverDataLimit
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfileFilter2_get_IsOverDataLimit, Fn_IConnectionProfileFilter2_get_IsOverDataLimit)(it, tmp.addr).check("ConnectionProfileFilter.get_IsOverDataLimit")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsOverDataLimit")
+    release(tmp)
+
+proc isBackgroundDataUsageRestricted*(self: ConnectionProfileFilter): Option[bool]  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsBackgroundDataUsageRestricted
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfileFilter2_get_IsBackgroundDataUsageRestricted, Fn_IConnectionProfileFilter2_get_IsBackgroundDataUsageRestricted)(it, tmp.addr).check("ConnectionProfileFilter.get_IsBackgroundDataUsageRestricted")
+    result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsBackgroundDataUsageRestricted")
+    release(tmp)
+
 proc rawData*(self: ConnectionProfileFilter): pointer  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_RawData
   withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
     var tmp: pointer
     vcall(it, Slot_IConnectionProfileFilter2_get_RawData, Fn_IConnectionProfileFilter2_get_RawData)(it, tmp.addr).check("ConnectionProfileFilter.get_RawData")
     result = tmp
+
+proc purposeGuid*(self: ConnectionProfileFilter): Option[GUID]  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_PurposeGuid
+  withIface(self.p, IID_IConnectionProfileFilter3, "IConnectionProfileFilter3", it):
+    var tmp: pointer
+    vcall(it, Slot_IConnectionProfileFilter3_get_PurposeGuid, Fn_IConnectionProfileFilter3_get_PurposeGuid)(it, tmp.addr).check("ConnectionProfileFilter.get_PurposeGuid")
+    result = readReference[GUID](tmp, IID_IReference_1_Guid, "ConnectionProfileFilter.get_PurposeGuid")
+    release(tmp)
 
 proc connectionProfile*(self: ConnectionSession): ConnectionProfile  =
   ## Windows.Networking.Connectivity.ConnectionSession.get_ConnectionProfile
@@ -4634,6 +4728,46 @@ proc dataPlanUsage*(self: DataPlanStatus): DataPlanUsage  =
     vcall(it, Slot_IDataPlanStatus_get_DataPlanUsage, Fn_IDataPlanStatus_get_DataPlanUsage)(it, tmp.addr).check("DataPlanStatus.get_DataPlanUsage")
     result = adopt[DataPlanUsage](tmp)
 
+proc dataLimitInMegabytes*(self: DataPlanStatus): Option[uint32]  =
+  ## Windows.Networking.Connectivity.DataPlanStatus.get_DataLimitInMegabytes
+  withIface(self.p, IID_IDataPlanStatus, "IDataPlanStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPlanStatus_get_DataLimitInMegabytes, Fn_IDataPlanStatus_get_DataLimitInMegabytes)(it, tmp.addr).check("DataPlanStatus.get_DataLimitInMegabytes")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "DataPlanStatus.get_DataLimitInMegabytes")
+    release(tmp)
+
+proc inboundBitsPerSecond*(self: DataPlanStatus): Option[uint64]  =
+  ## Windows.Networking.Connectivity.DataPlanStatus.get_InboundBitsPerSecond
+  withIface(self.p, IID_IDataPlanStatus, "IDataPlanStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPlanStatus_get_InboundBitsPerSecond, Fn_IDataPlanStatus_get_InboundBitsPerSecond)(it, tmp.addr).check("DataPlanStatus.get_InboundBitsPerSecond")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "DataPlanStatus.get_InboundBitsPerSecond")
+    release(tmp)
+
+proc outboundBitsPerSecond*(self: DataPlanStatus): Option[uint64]  =
+  ## Windows.Networking.Connectivity.DataPlanStatus.get_OutboundBitsPerSecond
+  withIface(self.p, IID_IDataPlanStatus, "IDataPlanStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPlanStatus_get_OutboundBitsPerSecond, Fn_IDataPlanStatus_get_OutboundBitsPerSecond)(it, tmp.addr).check("DataPlanStatus.get_OutboundBitsPerSecond")
+    result = readReference[uint64](tmp, IID_IReference_1_U8, "DataPlanStatus.get_OutboundBitsPerSecond")
+    release(tmp)
+
+proc nextBillingCycle*(self: DataPlanStatus): Option[DateTime]  =
+  ## Windows.Networking.Connectivity.DataPlanStatus.get_NextBillingCycle
+  withIface(self.p, IID_IDataPlanStatus, "IDataPlanStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPlanStatus_get_NextBillingCycle, Fn_IDataPlanStatus_get_NextBillingCycle)(it, tmp.addr).check("DataPlanStatus.get_NextBillingCycle")
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DataPlanStatus.get_NextBillingCycle")
+    release(tmp)
+
+proc maxTransferSizeInMegabytes*(self: DataPlanStatus): Option[uint32]  =
+  ## Windows.Networking.Connectivity.DataPlanStatus.get_MaxTransferSizeInMegabytes
+  withIface(self.p, IID_IDataPlanStatus, "IDataPlanStatus", it):
+    var tmp: pointer
+    vcall(it, Slot_IDataPlanStatus_get_MaxTransferSizeInMegabytes, Fn_IDataPlanStatus_get_MaxTransferSizeInMegabytes)(it, tmp.addr).check("DataPlanStatus.get_MaxTransferSizeInMegabytes")
+    result = readReference[uint32](tmp, IID_IReference_1_U4, "DataPlanStatus.get_MaxTransferSizeInMegabytes")
+    release(tmp)
+
 proc megabytesUsed*(self: DataPlanUsage): uint32  =
   ## Windows.Networking.Connectivity.DataPlanUsage.get_MegabytesUsed
   withIface(self.p, IID_IDataPlanUsage, "IDataPlanUsage", it):
@@ -4668,6 +4802,14 @@ proc networkAdapter*(self: IPInformation): NetworkAdapter  =
     var tmp: pointer
     vcall(it, Slot_IIPInformation_get_NetworkAdapter, Fn_IIPInformation_get_NetworkAdapter)(it, tmp.addr).check("IPInformation.get_NetworkAdapter")
     result = adopt[NetworkAdapter](tmp)
+
+proc prefixLength*(self: IPInformation): Option[uint8]  =
+  ## Windows.Networking.Connectivity.IPInformation.get_PrefixLength
+  withIface(self.p, IID_IIPInformation, "IIPInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IIPInformation_get_PrefixLength, Fn_IIPInformation_get_PrefixLength)(it, tmp.addr).check("IPInformation.get_PrefixLength")
+    result = readReference[uint8](tmp, IID_IReference_1_U1, "IPInformation.get_PrefixLength")
+    release(tmp)
 
 proc infrastructureId*(self: LanIdentifier): LanIdentifierData  =
   ## Windows.Networking.Connectivity.LanIdentifier.get_InfrastructureId
@@ -5125,6 +5267,14 @@ proc createHostName*(_: typedesc[HostName], a1: string): HostName  =
       vcall(it, Slot_IHostNameFactory_CreateHostName, Fn_IHostNameFactory_CreateHostName)(it, h0, tmp.addr).check("HostName.CreateHostName")
       result = adopt[HostName](tmp)
 
+proc availableMemoryInBytes*(self: ESim): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.ESim.get_AvailableMemoryInBytes
+  withIface(self.p, IID_IESim, "IESim", it):
+    var tmp: pointer
+    vcall(it, Slot_IESim_get_AvailableMemoryInBytes, Fn_IESim_get_AvailableMemoryInBytes)(it, tmp.addr).check("ESim.get_AvailableMemoryInBytes")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ESim.get_AvailableMemoryInBytes")
+    release(tmp)
+
 proc eid*(self: ESim): string  =
   ## Windows.Networking.NetworkOperators.ESim.get_Eid
   withIface(self.p, IID_IESim, "IESim", it):
@@ -5241,6 +5391,14 @@ proc discoverAsync*(self: ESim, a1: string, a2: string): Future[ESimDiscoverResu
       withHString(a2, h1):
         vcall(it, Slot_IESim2_DiscoverAsync2, Fn_IESim2_DiscoverAsync2)(it, h0, h1, op.addr).check("ESim.DiscoverAsync")
   result = adopt[ESimDiscoverResult](await awaitObject(op, IID_IAsyncOperation_1_ESimDiscoverResult, IID_AsyncOperationCompletedHandler_1_ESimDiscoverResult, "ESim.DiscoverAsync"))
+
+proc slotIndex*(self: ESim): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.ESim.get_SlotIndex
+  withIface(self.p, IID_IESim3, "IESim3", it):
+    var tmp: pointer
+    vcall(it, Slot_IESim3_get_SlotIndex, Fn_IESim3_get_SlotIndex)(it, tmp.addr).check("ESim.get_SlotIndex")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "ESim.get_SlotIndex")
+    release(tmp)
 
 proc eSim*(self: ESimAddedEventArgs): ESim  =
   ## Windows.Networking.NetworkOperators.ESimAddedEventArgs.get_ESim
@@ -6004,12 +6162,148 @@ proc createWithIndex*(_: typedesc[MobileBroadbandAntennaSar], a1: int32, a2: int
     vcall(it, Slot_IMobileBroadbandAntennaSarFactory_CreateWithIndex, Fn_IMobileBroadbandAntennaSarFactory_CreateWithIndex)(it, a1, a2, tmp.addr).check("MobileBroadbandAntennaSar.CreateWithIndex")
     result = adopt[MobileBroadbandAntennaSar](tmp)
 
+proc baseStationId*(self: MobileBroadbandCellCdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_BaseStationId
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_BaseStationId, Fn_IMobileBroadbandCellCdma_get_BaseStationId)(it, tmp.addr).check("MobileBroadbandCellCdma.get_BaseStationId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellCdma.get_BaseStationId")
+    release(tmp)
+
+proc baseStationPNCode*(self: MobileBroadbandCellCdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_BaseStationPNCode
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_BaseStationPNCode, Fn_IMobileBroadbandCellCdma_get_BaseStationPNCode)(it, tmp.addr).check("MobileBroadbandCellCdma.get_BaseStationPNCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellCdma.get_BaseStationPNCode")
+    release(tmp)
+
+proc baseStationLatitude*(self: MobileBroadbandCellCdma): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_BaseStationLatitude
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_BaseStationLatitude, Fn_IMobileBroadbandCellCdma_get_BaseStationLatitude)(it, tmp.addr).check("MobileBroadbandCellCdma.get_BaseStationLatitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellCdma.get_BaseStationLatitude")
+    release(tmp)
+
+proc baseStationLongitude*(self: MobileBroadbandCellCdma): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_BaseStationLongitude
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_BaseStationLongitude, Fn_IMobileBroadbandCellCdma_get_BaseStationLongitude)(it, tmp.addr).check("MobileBroadbandCellCdma.get_BaseStationLongitude")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellCdma.get_BaseStationLongitude")
+    release(tmp)
+
+proc baseStationLastBroadcastGpsTime*(self: MobileBroadbandCellCdma): Option[TimeSpan]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_BaseStationLastBroadcastGpsTime
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_BaseStationLastBroadcastGpsTime, Fn_IMobileBroadbandCellCdma_get_BaseStationLastBroadcastGpsTime)(it, tmp.addr).check("MobileBroadbandCellCdma.get_BaseStationLastBroadcastGpsTime")
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MobileBroadbandCellCdma.get_BaseStationLastBroadcastGpsTime")
+    release(tmp)
+
+proc networkId*(self: MobileBroadbandCellCdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_NetworkId
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_NetworkId, Fn_IMobileBroadbandCellCdma_get_NetworkId)(it, tmp.addr).check("MobileBroadbandCellCdma.get_NetworkId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellCdma.get_NetworkId")
+    release(tmp)
+
+proc pilotSignalStrengthInDB*(self: MobileBroadbandCellCdma): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_PilotSignalStrengthInDB
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_PilotSignalStrengthInDB, Fn_IMobileBroadbandCellCdma_get_PilotSignalStrengthInDB)(it, tmp.addr).check("MobileBroadbandCellCdma.get_PilotSignalStrengthInDB")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellCdma.get_PilotSignalStrengthInDB")
+    release(tmp)
+
+proc systemId*(self: MobileBroadbandCellCdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellCdma.get_SystemId
+  withIface(self.p, IID_IMobileBroadbandCellCdma, "IMobileBroadbandCellCdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellCdma_get_SystemId, Fn_IMobileBroadbandCellCdma_get_SystemId)(it, tmp.addr).check("MobileBroadbandCellCdma.get_SystemId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellCdma.get_SystemId")
+    release(tmp)
+
+proc baseStationId*(self: MobileBroadbandCellGsm): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_BaseStationId
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_BaseStationId, Fn_IMobileBroadbandCellGsm_get_BaseStationId)(it, tmp.addr).check("MobileBroadbandCellGsm.get_BaseStationId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellGsm.get_BaseStationId")
+    release(tmp)
+
+proc cellId*(self: MobileBroadbandCellGsm): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_CellId
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_CellId, Fn_IMobileBroadbandCellGsm_get_CellId)(it, tmp.addr).check("MobileBroadbandCellGsm.get_CellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellGsm.get_CellId")
+    release(tmp)
+
+proc channelNumber*(self: MobileBroadbandCellGsm): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_ChannelNumber
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_ChannelNumber, Fn_IMobileBroadbandCellGsm_get_ChannelNumber)(it, tmp.addr).check("MobileBroadbandCellGsm.get_ChannelNumber")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellGsm.get_ChannelNumber")
+    release(tmp)
+
+proc locationAreaCode*(self: MobileBroadbandCellGsm): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_LocationAreaCode
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_LocationAreaCode, Fn_IMobileBroadbandCellGsm_get_LocationAreaCode)(it, tmp.addr).check("MobileBroadbandCellGsm.get_LocationAreaCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellGsm.get_LocationAreaCode")
+    release(tmp)
+
 proc providerId*(self: MobileBroadbandCellGsm): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_ProviderId
   withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
     var tmp: HSTRING
     vcall(it, Slot_IMobileBroadbandCellGsm_get_ProviderId, Fn_IMobileBroadbandCellGsm_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellGsm.get_ProviderId")
     result = takeString(tmp)
+
+proc receivedSignalStrengthInDBm*(self: MobileBroadbandCellGsm): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_ReceivedSignalStrengthInDBm
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_ReceivedSignalStrengthInDBm, Fn_IMobileBroadbandCellGsm_get_ReceivedSignalStrengthInDBm)(it, tmp.addr).check("MobileBroadbandCellGsm.get_ReceivedSignalStrengthInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellGsm.get_ReceivedSignalStrengthInDBm")
+    release(tmp)
+
+proc timingAdvanceInBitPeriods*(self: MobileBroadbandCellGsm): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellGsm.get_TimingAdvanceInBitPeriods
+  withIface(self.p, IID_IMobileBroadbandCellGsm, "IMobileBroadbandCellGsm", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellGsm_get_TimingAdvanceInBitPeriods, Fn_IMobileBroadbandCellGsm_get_TimingAdvanceInBitPeriods)(it, tmp.addr).check("MobileBroadbandCellGsm.get_TimingAdvanceInBitPeriods")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellGsm.get_TimingAdvanceInBitPeriods")
+    release(tmp)
+
+proc cellId*(self: MobileBroadbandCellLte): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_CellId
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_CellId, Fn_IMobileBroadbandCellLte_get_CellId)(it, tmp.addr).check("MobileBroadbandCellLte.get_CellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellLte.get_CellId")
+    release(tmp)
+
+proc channelNumber*(self: MobileBroadbandCellLte): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_ChannelNumber
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_ChannelNumber, Fn_IMobileBroadbandCellLte_get_ChannelNumber)(it, tmp.addr).check("MobileBroadbandCellLte.get_ChannelNumber")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellLte.get_ChannelNumber")
+    release(tmp)
+
+proc physicalCellId*(self: MobileBroadbandCellLte): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_PhysicalCellId
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_PhysicalCellId, Fn_IMobileBroadbandCellLte_get_PhysicalCellId)(it, tmp.addr).check("MobileBroadbandCellLte.get_PhysicalCellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellLte.get_PhysicalCellId")
+    release(tmp)
 
 proc providerId*(self: MobileBroadbandCellLte): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_ProviderId
@@ -6018,12 +6312,148 @@ proc providerId*(self: MobileBroadbandCellLte): string  =
     vcall(it, Slot_IMobileBroadbandCellLte_get_ProviderId, Fn_IMobileBroadbandCellLte_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellLte.get_ProviderId")
     result = takeString(tmp)
 
+proc referenceSignalReceivedPowerInDBm*(self: MobileBroadbandCellLte): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_ReferenceSignalReceivedPowerInDBm
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_ReferenceSignalReceivedPowerInDBm, Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedPowerInDBm)(it, tmp.addr).check("MobileBroadbandCellLte.get_ReferenceSignalReceivedPowerInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellLte.get_ReferenceSignalReceivedPowerInDBm")
+    release(tmp)
+
+proc referenceSignalReceivedQualityInDBm*(self: MobileBroadbandCellLte): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_ReferenceSignalReceivedQualityInDBm
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_ReferenceSignalReceivedQualityInDBm, Fn_IMobileBroadbandCellLte_get_ReferenceSignalReceivedQualityInDBm)(it, tmp.addr).check("MobileBroadbandCellLte.get_ReferenceSignalReceivedQualityInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellLte.get_ReferenceSignalReceivedQualityInDBm")
+    release(tmp)
+
+proc timingAdvanceInBitPeriods*(self: MobileBroadbandCellLte): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_TimingAdvanceInBitPeriods
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_TimingAdvanceInBitPeriods, Fn_IMobileBroadbandCellLte_get_TimingAdvanceInBitPeriods)(it, tmp.addr).check("MobileBroadbandCellLte.get_TimingAdvanceInBitPeriods")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellLte.get_TimingAdvanceInBitPeriods")
+    release(tmp)
+
+proc trackingAreaCode*(self: MobileBroadbandCellLte): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellLte.get_TrackingAreaCode
+  withIface(self.p, IID_IMobileBroadbandCellLte, "IMobileBroadbandCellLte", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellLte_get_TrackingAreaCode, Fn_IMobileBroadbandCellLte_get_TrackingAreaCode)(it, tmp.addr).check("MobileBroadbandCellLte.get_TrackingAreaCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellLte.get_TrackingAreaCode")
+    release(tmp)
+
+proc cellId*(self: MobileBroadbandCellNR): Option[int64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_CellId
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_CellId, Fn_IMobileBroadbandCellNR_get_CellId)(it, tmp.addr).check("MobileBroadbandCellNR.get_CellId")
+    result = readReference[int64](tmp, IID_IReference_1_I8, "MobileBroadbandCellNR.get_CellId")
+    release(tmp)
+
+proc channelNumber*(self: MobileBroadbandCellNR): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_ChannelNumber
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_ChannelNumber, Fn_IMobileBroadbandCellNR_get_ChannelNumber)(it, tmp.addr).check("MobileBroadbandCellNR.get_ChannelNumber")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellNR.get_ChannelNumber")
+    release(tmp)
+
+proc physicalCellId*(self: MobileBroadbandCellNR): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_PhysicalCellId
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_PhysicalCellId, Fn_IMobileBroadbandCellNR_get_PhysicalCellId)(it, tmp.addr).check("MobileBroadbandCellNR.get_PhysicalCellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellNR.get_PhysicalCellId")
+    release(tmp)
+
 proc providerId*(self: MobileBroadbandCellNR): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_ProviderId
   withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
     var tmp: HSTRING
     vcall(it, Slot_IMobileBroadbandCellNR_get_ProviderId, Fn_IMobileBroadbandCellNR_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellNR.get_ProviderId")
     result = takeString(tmp)
+
+proc referenceSignalReceivedPowerInDBm*(self: MobileBroadbandCellNR): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_ReferenceSignalReceivedPowerInDBm
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_ReferenceSignalReceivedPowerInDBm, Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedPowerInDBm)(it, tmp.addr).check("MobileBroadbandCellNR.get_ReferenceSignalReceivedPowerInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellNR.get_ReferenceSignalReceivedPowerInDBm")
+    release(tmp)
+
+proc referenceSignalReceivedQualityInDBm*(self: MobileBroadbandCellNR): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_ReferenceSignalReceivedQualityInDBm
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_ReferenceSignalReceivedQualityInDBm, Fn_IMobileBroadbandCellNR_get_ReferenceSignalReceivedQualityInDBm)(it, tmp.addr).check("MobileBroadbandCellNR.get_ReferenceSignalReceivedQualityInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellNR.get_ReferenceSignalReceivedQualityInDBm")
+    release(tmp)
+
+proc timingAdvanceInNanoseconds*(self: MobileBroadbandCellNR): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_TimingAdvanceInNanoseconds
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_TimingAdvanceInNanoseconds, Fn_IMobileBroadbandCellNR_get_TimingAdvanceInNanoseconds)(it, tmp.addr).check("MobileBroadbandCellNR.get_TimingAdvanceInNanoseconds")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellNR.get_TimingAdvanceInNanoseconds")
+    release(tmp)
+
+proc trackingAreaCode*(self: MobileBroadbandCellNR): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_TrackingAreaCode
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_TrackingAreaCode, Fn_IMobileBroadbandCellNR_get_TrackingAreaCode)(it, tmp.addr).check("MobileBroadbandCellNR.get_TrackingAreaCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellNR.get_TrackingAreaCode")
+    release(tmp)
+
+proc signalToNoiseRatioInDB*(self: MobileBroadbandCellNR): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellNR.get_SignalToNoiseRatioInDB
+  withIface(self.p, IID_IMobileBroadbandCellNR, "IMobileBroadbandCellNR", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellNR_get_SignalToNoiseRatioInDB, Fn_IMobileBroadbandCellNR_get_SignalToNoiseRatioInDB)(it, tmp.addr).check("MobileBroadbandCellNR.get_SignalToNoiseRatioInDB")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellNR.get_SignalToNoiseRatioInDB")
+    release(tmp)
+
+proc cellId*(self: MobileBroadbandCellTdscdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_CellId
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_CellId, Fn_IMobileBroadbandCellTdscdma_get_CellId)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_CellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellTdscdma.get_CellId")
+    release(tmp)
+
+proc cellParameterId*(self: MobileBroadbandCellTdscdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_CellParameterId
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_CellParameterId, Fn_IMobileBroadbandCellTdscdma_get_CellParameterId)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_CellParameterId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellTdscdma.get_CellParameterId")
+    release(tmp)
+
+proc channelNumber*(self: MobileBroadbandCellTdscdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_ChannelNumber
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_ChannelNumber, Fn_IMobileBroadbandCellTdscdma_get_ChannelNumber)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_ChannelNumber")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellTdscdma.get_ChannelNumber")
+    release(tmp)
+
+proc locationAreaCode*(self: MobileBroadbandCellTdscdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_LocationAreaCode
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_LocationAreaCode, Fn_IMobileBroadbandCellTdscdma_get_LocationAreaCode)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_LocationAreaCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellTdscdma.get_LocationAreaCode")
+    release(tmp)
+
+proc pathLossInDB*(self: MobileBroadbandCellTdscdma): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_PathLossInDB
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_PathLossInDB, Fn_IMobileBroadbandCellTdscdma_get_PathLossInDB)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_PathLossInDB")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellTdscdma.get_PathLossInDB")
+    release(tmp)
 
 proc providerId*(self: MobileBroadbandCellTdscdma): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_ProviderId
@@ -6032,12 +6462,84 @@ proc providerId*(self: MobileBroadbandCellTdscdma): string  =
     vcall(it, Slot_IMobileBroadbandCellTdscdma_get_ProviderId, Fn_IMobileBroadbandCellTdscdma_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_ProviderId")
     result = takeString(tmp)
 
+proc receivedSignalCodePowerInDBm*(self: MobileBroadbandCellTdscdma): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_ReceivedSignalCodePowerInDBm
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_ReceivedSignalCodePowerInDBm, Fn_IMobileBroadbandCellTdscdma_get_ReceivedSignalCodePowerInDBm)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_ReceivedSignalCodePowerInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellTdscdma.get_ReceivedSignalCodePowerInDBm")
+    release(tmp)
+
+proc timingAdvanceInBitPeriods*(self: MobileBroadbandCellTdscdma): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellTdscdma.get_TimingAdvanceInBitPeriods
+  withIface(self.p, IID_IMobileBroadbandCellTdscdma, "IMobileBroadbandCellTdscdma", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellTdscdma_get_TimingAdvanceInBitPeriods, Fn_IMobileBroadbandCellTdscdma_get_TimingAdvanceInBitPeriods)(it, tmp.addr).check("MobileBroadbandCellTdscdma.get_TimingAdvanceInBitPeriods")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellTdscdma.get_TimingAdvanceInBitPeriods")
+    release(tmp)
+
+proc cellId*(self: MobileBroadbandCellUmts): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_CellId
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_CellId, Fn_IMobileBroadbandCellUmts_get_CellId)(it, tmp.addr).check("MobileBroadbandCellUmts.get_CellId")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellUmts.get_CellId")
+    release(tmp)
+
+proc channelNumber*(self: MobileBroadbandCellUmts): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_ChannelNumber
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_ChannelNumber, Fn_IMobileBroadbandCellUmts_get_ChannelNumber)(it, tmp.addr).check("MobileBroadbandCellUmts.get_ChannelNumber")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellUmts.get_ChannelNumber")
+    release(tmp)
+
+proc locationAreaCode*(self: MobileBroadbandCellUmts): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_LocationAreaCode
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_LocationAreaCode, Fn_IMobileBroadbandCellUmts_get_LocationAreaCode)(it, tmp.addr).check("MobileBroadbandCellUmts.get_LocationAreaCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellUmts.get_LocationAreaCode")
+    release(tmp)
+
+proc pathLossInDB*(self: MobileBroadbandCellUmts): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_PathLossInDB
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_PathLossInDB, Fn_IMobileBroadbandCellUmts_get_PathLossInDB)(it, tmp.addr).check("MobileBroadbandCellUmts.get_PathLossInDB")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellUmts.get_PathLossInDB")
+    release(tmp)
+
+proc primaryScramblingCode*(self: MobileBroadbandCellUmts): Option[int32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_PrimaryScramblingCode
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_PrimaryScramblingCode, Fn_IMobileBroadbandCellUmts_get_PrimaryScramblingCode)(it, tmp.addr).check("MobileBroadbandCellUmts.get_PrimaryScramblingCode")
+    result = readReference[int32](tmp, IID_IReference_1_I4, "MobileBroadbandCellUmts.get_PrimaryScramblingCode")
+    release(tmp)
+
 proc providerId*(self: MobileBroadbandCellUmts): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_ProviderId
   withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
     var tmp: HSTRING
     vcall(it, Slot_IMobileBroadbandCellUmts_get_ProviderId, Fn_IMobileBroadbandCellUmts_get_ProviderId)(it, tmp.addr).check("MobileBroadbandCellUmts.get_ProviderId")
     result = takeString(tmp)
+
+proc receivedSignalCodePowerInDBm*(self: MobileBroadbandCellUmts): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_ReceivedSignalCodePowerInDBm
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_ReceivedSignalCodePowerInDBm, Fn_IMobileBroadbandCellUmts_get_ReceivedSignalCodePowerInDBm)(it, tmp.addr).check("MobileBroadbandCellUmts.get_ReceivedSignalCodePowerInDBm")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellUmts.get_ReceivedSignalCodePowerInDBm")
+    release(tmp)
+
+proc signalToNoiseRatioInDB*(self: MobileBroadbandCellUmts): Option[float64]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandCellUmts.get_SignalToNoiseRatioInDB
+  withIface(self.p, IID_IMobileBroadbandCellUmts, "IMobileBroadbandCellUmts", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandCellUmts_get_SignalToNoiseRatioInDB, Fn_IMobileBroadbandCellUmts_get_SignalToNoiseRatioInDB)(it, tmp.addr).check("MobileBroadbandCellUmts.get_SignalToNoiseRatioInDB")
+    result = readReference[float64](tmp, IID_IReference_1_F8, "MobileBroadbandCellUmts.get_SignalToNoiseRatioInDB")
+    release(tmp)
 
 proc neighboringCellsCdma*(self: MobileBroadbandCellsInfo): seq[MobileBroadbandCellCdma]  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandCellsInfo.get_NeighboringCellsCdma
