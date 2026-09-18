@@ -1980,6 +1980,15 @@ proc empty*(_: typedesc[GuidHelper]): GUID  =
     vcall(it, Slot_IGuidHelperStatics_get_Empty, Fn_IGuidHelperStatics_get_Empty)(it, tmp.addr).check("GuidHelper.get_Empty")
     result = tmp
 
+proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool  =
+  ## Windows.Foundation.GuidHelper.Equals
+  withStatics("Windows.Foundation.GuidHelper", IID_IGuidHelperStatics, it):
+    var by0 = target
+    var by1 = value
+    var tmp: bool
+    vcall(it, Slot_IGuidHelperStatics_Equals, Fn_IGuidHelperStatics_Equals)(it, by0.addr, by1.addr, tmp.addr).check("GuidHelper.Equals")
+    result = tmp
+
 proc createReference*(self: MemoryBuffer): pointer  =
   ## Windows.Foundation.MemoryBuffer.CreateReference
   withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):

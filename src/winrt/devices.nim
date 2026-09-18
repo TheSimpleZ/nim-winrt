@@ -19288,6 +19288,16 @@ proc openPin*(self: GpioController, pinNumber: int32, sharingMode: GpioSharingMo
     vcall(it, Slot_IGpioController_OpenPin2, Fn_IGpioController_OpenPin2)(it, pinNumber, sharingMode, tmp.addr).check("GpioController.OpenPin")
     result = adopt[GpioPin](tmp)
 
+proc tryOpenPin*(self: GpioController, pinNumber: int32, sharingMode: GpioSharingMode): tuple[value: bool, pin: GpioPin, openStatus: GpioOpenStatus]  =
+  ## Windows.Devices.Gpio.GpioController.TryOpenPin
+  withIface(self.p, IID_IGpioController, "IGpioController", it):
+    var pin: pointer
+    var openStatus: GpioOpenStatus
+    var ret: bool
+    var tmp: bool
+    vcall(it, Slot_IGpioController_TryOpenPin, Fn_IGpioController_TryOpenPin)(it, pinNumber, sharingMode, pin.addr, openStatus.addr, tmp.addr).check("GpioController.TryOpenPin")
+    ret = tmp
+
 proc getControllersAsync*(_: typedesc[GpioController], provider: pointer): Future[seq[GpioController]] {.async.} =
   ## Windows.Devices.Gpio.GpioController.GetControllersAsync
   var op: pointer
@@ -23294,6 +23304,16 @@ proc isCorrelatedWith*(self: PerceptionColorFrameSource, targetId: string): bool
       vcall(it, Slot_IPerceptionColorFrameSource_IsCorrelatedWith, Fn_IPerceptionColorFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionColorFrameSource.IsCorrelatedWith")
       result = tmp
 
+proc tryGetTransformTo*(self: PerceptionColorFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4]  =
+  ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetTransformTo
+  withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
+    withHString(targetId, h0):
+      var a2: Matrix4x4
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IPerceptionColorFrameSource_TryGetTransformTo, Fn_IPerceptionColorFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionColorFrameSource.TryGetTransformTo")
+      ret = tmp
+
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionColorFrameSource, correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
@@ -23772,6 +23792,16 @@ proc isCorrelatedWith*(self: PerceptionDepthFrameSource, targetId: string): bool
       vcall(it, Slot_IPerceptionDepthFrameSource_IsCorrelatedWith, Fn_IPerceptionDepthFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionDepthFrameSource.IsCorrelatedWith")
       result = tmp
 
+proc tryGetTransformTo*(self: PerceptionDepthFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4]  =
+  ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetTransformTo
+  withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
+    withHString(targetId, h0):
+      var a2: Matrix4x4
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IPerceptionDepthFrameSource_TryGetTransformTo, Fn_IPerceptionDepthFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionDepthFrameSource.TryGetTransformTo")
+      ret = tmp
+
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionDepthFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
@@ -24222,6 +24252,16 @@ proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, targetId: string): b
       var tmp: bool
       vcall(it, Slot_IPerceptionInfraredFrameSource_IsCorrelatedWith, Fn_IPerceptionInfraredFrameSource_IsCorrelatedWith)(it, h0, tmp.addr).check("PerceptionInfraredFrameSource.IsCorrelatedWith")
       result = tmp
+
+proc tryGetTransformTo*(self: PerceptionInfraredFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4]  =
+  ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetTransformTo
+  withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
+    withHString(targetId, h0):
+      var a2: Matrix4x4
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IPerceptionInfraredFrameSource_TryGetTransformTo, Fn_IPerceptionInfraredFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionInfraredFrameSource.TryGetTransformTo")
+      ret = tmp
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionInfraredFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
@@ -38900,6 +38940,16 @@ proc remoteWakeup*(self: UsbConfigurationDescriptor): bool  =
     vcall(it, Slot_IUsbConfigurationDescriptor_get_RemoteWakeup, Fn_IUsbConfigurationDescriptor_get_RemoteWakeup)(it, tmp.addr).check("UsbConfigurationDescriptor.get_RemoteWakeup")
     result = tmp
 
+proc tryParse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbConfigurationDescriptor]  =
+  ## Windows.Devices.Usb.UsbConfigurationDescriptor.TryParse
+  withStatics("Windows.Devices.Usb.UsbConfigurationDescriptor", IID_IUsbConfigurationDescriptorStatics, it):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+      var parsed: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IUsbConfigurationDescriptorStatics_TryParse, Fn_IUsbConfigurationDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbConfigurationDescriptor.TryParse")
+      ret = tmp
+
 proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor): UsbConfigurationDescriptor  =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbConfigurationDescriptor", IID_IUsbConfigurationDescriptorStatics, it):
@@ -39244,6 +39294,16 @@ proc asInterruptOutEndpointDescriptor*(self: UsbEndpointDescriptor): UsbInterrup
     vcall(it, Slot_IUsbEndpointDescriptor_get_AsInterruptOutEndpointDescriptor, Fn_IUsbEndpointDescriptor_get_AsInterruptOutEndpointDescriptor)(it, tmp.addr).check("UsbEndpointDescriptor.get_AsInterruptOutEndpointDescriptor")
     result = adopt[UsbInterruptOutEndpointDescriptor](tmp)
 
+proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbEndpointDescriptor]  =
+  ## Windows.Devices.Usb.UsbEndpointDescriptor.TryParse
+  withStatics("Windows.Devices.Usb.UsbEndpointDescriptor", IID_IUsbEndpointDescriptorStatics, it):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+      var parsed: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IUsbEndpointDescriptorStatics_TryParse, Fn_IUsbEndpointDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbEndpointDescriptor.TryParse")
+      ret = tmp
+
 proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): UsbEndpointDescriptor  =
   ## Windows.Devices.Usb.UsbEndpointDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbEndpointDescriptor", IID_IUsbEndpointDescriptorStatics, it):
@@ -39341,6 +39401,16 @@ proc interfaceNumber*(self: UsbInterfaceDescriptor): uint8  =
     var tmp: uint8
     vcall(it, Slot_IUsbInterfaceDescriptor_get_InterfaceNumber, Fn_IUsbInterfaceDescriptor_get_InterfaceNumber)(it, tmp.addr).check("UsbInterfaceDescriptor.get_InterfaceNumber")
     result = tmp
+
+proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbInterfaceDescriptor]  =
+  ## Windows.Devices.Usb.UsbInterfaceDescriptor.TryParse
+  withStatics("Windows.Devices.Usb.UsbInterfaceDescriptor", IID_IUsbInterfaceDescriptorStatics, it):
+    withIface(descriptor.p, IID_IUsbDescriptor, "IUsbDescriptor", p0):
+      var parsed: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IUsbInterfaceDescriptorStatics_TryParse, Fn_IUsbInterfaceDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbInterfaceDescriptor.TryParse")
+      ret = tmp
 
 proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): UsbInterfaceDescriptor  =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.Parse

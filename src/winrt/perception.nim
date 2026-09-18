@@ -690,6 +690,16 @@ proc updateTimestamp*(self: HandMeshVertexState): PerceptionTimestamp  =
     vcall(it, Slot_IHandMeshVertexState_get_UpdateTimestamp, Fn_IHandMeshVertexState_get_UpdateTimestamp)(it, tmp.addr).check("HandMeshVertexState.get_UpdateTimestamp")
     result = adopt[PerceptionTimestamp](tmp)
 
+proc tryGetJoint*(self: HandPose, coordinateSystem: SpatialCoordinateSystem, joint: HandJointKind): tuple[value: bool, jointPose: JointPose]  =
+  ## Windows.Perception.People.HandPose.TryGetJoint
+  withIface(self.p, IID_IHandPose, "IHandPose", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var jointPose: JointPose
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IHandPose_TryGetJoint, Fn_IHandPose_TryGetJoint)(it, p0, joint, jointPose.addr, tmp.addr).check("HandPose.TryGetJoint")
+      ret = tmp
+
 proc getRelativeJoint*(self: HandPose, joint: HandJointKind, referenceJoint: HandJointKind): JointPose  =
   ## Windows.Perception.People.HandPose.GetRelativeJoint
   withIface(self.p, IID_IHandPose, "IHandPose", it):

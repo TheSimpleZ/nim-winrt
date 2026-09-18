@@ -178,7 +178,14 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## `inReturn` matters for collections: reading one into a `seq` is
   ## straightforward, and building a WinRT collection out of a Nim `seq` to
   ## pass *in* is not, so they are carried one way only.
-  if t.byRef: return "a second out-parameter"
+  if t.byRef:
+    # WinRT gives a method one declared return and any number of `[out]`
+    # parameters beside it. Nim spells that as a tuple, so an out-parameter is
+    # fine as long as its own type is.
+    var bare = t
+    bare.byRef = false
+    return if c.skipReason(bare, inReturn = true).len == 0: ""
+           else: "a second out-parameter"
   case t.kind
   of skUnsupported:
     let a = c.asyncResult(t)
@@ -209,7 +216,10 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   ## `IReference<T>`, the async operations, the maps — is left unmapped rather
   ## than spelled `pointer`, which would read as a typed API while giving none
   ## of the safety.
-  if t.byRef: return ""   # out-parameters beyond the return value are unmapped
+  if t.byRef:
+    var bare = t
+    bare.byRef = false
+    return c.nimTypeOf(bare, inReturn = true)
   if inReturn:
     let a = c.asyncResult(t)
     if a.isAsync:
@@ -629,8 +639,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       var seen = initCountTable[string]()
       for mi in first ..< stop:
         let raw = md.str(md.cell(tMethodDef, mi, "Name"))
-        seen.inc sanitize(raw)
-        let dup = seen[sanitize(raw)]
+        # Keyed exactly as `generate.nim` keys it, on the identifier Nim will
+        # see rather than on the metadata's spelling. `ITextRange` declares
+        # both `get_Text` and `GetText`, and prefixed with `Slot_` those are one
+        # identifier to the compiler — so the ABI suffixed the second, and this
+        # has to arrive at the same name or it calls a signature that is not
+        # there.
+        seen.inc nimIdent(&"Slot_{iface}_{sanitize(raw)}")
+        let dup = seen[nimIdent(&"Slot_{iface}_{sanitize(raw)}")]
         let tag = &"{iface}_{sanitize(raw)}" & (if dup > 1: $dup else: "")
 
         # An event is a pair: `add_X(handler) -> token` and `remove_X(token)`.
@@ -717,14 +733,29 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         let isPut = raw.startsWith("put_")
 
         # Map every part before emitting any of it.
-        var argTypes: seq[string]
+        # WinRT gives a method one declared return and any number of `[out]`
+        # parameters beside it. Those are results, not arguments, so they leave
+        # the parameter list and join the return as a tuple.
+        # `[out]` is recorded in the Param table, not in the signature: WinRT
+        # passes an `[in]` struct by reference too, so `GuidHelper.Equals` has
+        # two by-reference *inputs*.
+        let pflags = md.paramFlags(mi)
+        var argTypes, outTypes: seq[string]
+        var inputs, outputs: seq[int]
         var ok = true
-        for p in sig.params:
-          let n = c.nimTypeOf(p)
+        for i, p in sig.params:
+          let isOut = p.byRef and
+                      (pflags.getOrDefault(i + 1, 0) and paramOut) != 0
+          let n = c.nimTypeOf(p, inReturn = p.byRef)
           if n.len == 0:
             ok = false
             break
-          argTypes.add n
+          if isOut:
+            outTypes.add n
+            outputs.add i
+          else:
+            argTypes.add n
+            inputs.add i
         if not ok:
           skipped.inc
           noteSkip(sig)
@@ -733,13 +764,29 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         # "produces nothing" have to be told apart before the guard below.
         let async = c.asyncResult(sig.returns)
         let asyncVoid = async.isAsync and c.asyncSpelling(async.res) == "void"
-        let retType =
+        let declared =
           if sig.returns.kind == skVoid: ""
           else: c.nimTypeOf(sig.returns, inReturn = true)
-        if sig.returns.kind != skVoid and retType.len == 0 and not asyncVoid:
+        if sig.returns.kind != skVoid and declared.len == 0 and not asyncVoid:
           skipped.inc
           noteSkip(sig)
           continue
+        if outputs.len > 0 and (async.isAsync or sig.returns.kind == skUnsupported):
+          # A tuple of an awaited value, or of a collection walked after the
+          # fact, is more than this knows how to assemble.
+          skipped.inc
+          skipReasons.inc "an out-parameter beside a generic return"
+          continue
+        let outNames = argumentNames(mi, sig.params.len, isPut)
+        var retType = declared
+        var valueField = "value"
+        for i in outputs:
+          if outNames[i] == valueField: valueField = "returned"
+        if outputs.len > 0:
+          var fields: seq[string]
+          if declared.len > 0: fields.add &"{valueField}: {declared}"
+          for k, i in outputs: fields.add &"{outNames[i]}: {outTypes[k]}"
+          retType = "tuple[" & fields.join(", ") & "]"
 
         let bare =
           if isGet or isPut: safeMemberName(sanitize(raw[4 .. ^1]))
@@ -751,21 +798,45 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           continue
         emitted.incl key
 
-        let argNames = argumentNames(mi, argTypes.len, isPut)
         var params = @[recv]
-        for i, at in argTypes:
-          params.add &"{argNames[i]}: {at}"
+        for k, i in inputs:
+          params.add &"{outNames[i]}: {argTypes[k]}"
 
         # A class argument needs a QueryInterface of its own, and a string
         # needs an HSTRING; both open a scope, so the body is built up as
         # lines with a running indent.
         var lines: seq[string]
+        var outExpr: seq[string]
         var callArgs = @["it"]
         var indent = "  "
         lines.add &"{indent}{enter}"
         indent.add "  "
         for i, p in sig.params:
-          let pn = argNames[i]
+          let pn = outNames[i]
+          if p.byRef:
+            let isOut = (pflags.getOrDefault(i + 1, 0) and paramOut) != 0
+            if isOut:
+              # A local the call writes into; its value leaves in the tuple.
+              # A string or an object arrives in its ABI shape and is converted
+              # on the way out, exactly as a declared return would be.
+              case p.kind
+              of skString:
+                lines.add &"{indent}var {pn}: HSTRING"
+                outExpr.add &"takeString({pn})"
+              of skInterface, skObject:
+                lines.add &"{indent}var {pn}: pointer"
+                let oc = asClass(p.name)
+                outExpr.add (if oc.len > 0: &"adopt[{shortName(oc)}]({pn})"
+                             else: pn)
+              else:
+                lines.add &"{indent}var {pn}: {c.nimTypeOf(p, inReturn = true)}"
+                outExpr.add pn
+            else:
+              # By-reference input: the callee wants an address, and a
+              # parameter is immutable, so it is copied first.
+              lines.add &"{indent}var by{i} = {pn}"
+            callArgs.add (if isOut: &"{pn}.addr" else: &"by{i}.addr")
+            continue
           case p.kind
           of skString:
             lines.add &"{indent}withHString({pn}, h{i}):"
@@ -793,6 +864,12 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           continue
 
         let what = &"{cls}.{raw}"
+        # With out-parameters the declared return is one field of a tuple, so
+        # it lands in a local first.
+        let sink = if outputs.len > 0: "ret" else: "result"
+        if outputs.len > 0 and declared.len > 0:
+          lines.add &"{indent}var ret: {declared}"
+
         if async.isAsync:
           # Starting the operation is quick — it hands back an object and the
           # work happens elsewhere — so the ABI call stays inside the dispatch
@@ -888,35 +965,34 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skString: lines.add &"{indent}var tmp: HSTRING"
           of skInterface, skObject: lines.add &"{indent}var tmp: pointer"
           of skUnsupported: lines.add &"{indent}var tmp: pointer"
-          of skEnum: lines.add &"{indent}var tmp: {retType}"
-          else: lines.add &"{indent}var tmp: {retType}"
+          else: lines.add &"{indent}var tmp: {declared}"
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
           case sig.returns.kind
-          of skString: lines.add &"{indent}result = takeString(tmp)"
-          of skEnum: lines.add &"{indent}result = tmp"
+          of skString: lines.add &"{indent}{sink} = takeString(tmp)"
+          of skEnum: lines.add &"{indent}{sink} = tmp"
           of skUnsupported:
             if retRef.kind != skVoid:
               # `IReference<T>` is an interface, so "no value" arrives as a
               # null pointer rather than a sentinel.
               let inner = c.nimTypeOf(retRef)
-              lines.add &"{indent}result = readReference[{inner}](" &
+              lines.add &"{indent}{sink} = readReference[{inner}](" &
                         &"tmp, {referenceIid}, \"{what}\")"
             else:
               # The collection itself is ours to release; its elements were
               # adopted while walking it.
               let elemType = c.elementSpelling(retElem)
               if elemType == "string":
-                lines.add &"{indent}result = toSeqString(tmp, {collectionIid})"
+                lines.add &"{indent}{sink} = toSeqString(tmp, {collectionIid})"
               else:
-                lines.add &"{indent}result = toSeq[{elemType}](tmp, {collectionIid})"
+                lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, {collectionIid})"
             lines.add &"{indent}release(tmp)"
           of skInterface:
             if asClass(sig.returns.name).len > 0:
-              lines.add &"{indent}result = adopt[{retType}](tmp)"
+              lines.add &"{indent}{sink} = adopt[{declared}](tmp)"
             else:
-              lines.add &"{indent}result = tmp"
-          else: lines.add &"{indent}result = tmp"
+              lines.add &"{indent}{sink} = tmp"
+          else: lines.add &"{indent}{sink} = tmp"
 
         if async.isAsync:
           let r = if retType.len > 0: &": Future[{retType}]" else: ""

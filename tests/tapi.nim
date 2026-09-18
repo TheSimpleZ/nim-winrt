@@ -121,3 +121,11 @@ suite "generated API":
     # Setting one is not generated: handing a value *in* means boxing it
     # through PropertyValue, which is the other half of IReference and is not
     # done yet.
+
+  test "a by-reference input is not an out-parameter":
+    # `GuidHelper.Equals(GUID, GUID)` passes both by reference because they are
+    # structs, not because they are outputs. The Param table says `[in]`, and
+    # only that says otherwise.
+    let a = guid("00000000-0000-0000-C000-000000000046")
+    check GuidHelper.equals(a, a)
+    check not GuidHelper.equals(a, GuidHelper.empty)

@@ -579,6 +579,24 @@ proc methodRange*(m: WinMd, typeIndex: int): (int, int) =
     else: m.rows.getOrDefault(tMethodDef, 0) + 1
   (first, stop)
 
+const
+  paramIn* = 0x0001    ## Param.Flags bit for `[in]`
+  paramOut* = 0x0002   ## Param.Flags bit for `[out]`
+
+proc paramFlags*(m: WinMd, methodIndex: int): Table[int, int] =
+  ## Sequence number -> that parameter's Param.Flags.
+  ##
+  ## This is the only place `[out]` is recorded. A signature's BYREF marker
+  ## does not mean it: WinRT passes an `[in]` struct by reference too, so
+  ## `GuidHelper.Equals(GUID, GUID)` has two by-reference *inputs*.
+  let first = m.cell(tMethodDef, methodIndex, "ParamList")
+  let last = m.rows.getOrDefault(tMethodDef, 0)
+  let stop =
+    if methodIndex < last: m.cell(tMethodDef, methodIndex + 1, "ParamList")
+    else: m.rows.getOrDefault(tParam, 0) + 1
+  for i in first ..< stop:
+    result[m.cell(tParam, i, "Sequence")] = m.cell(tParam, i, "Flags")
+
 proc paramNames*(m: WinMd, methodIndex: int): Table[int, string] =
   ## Sequence number -> the name the metadata gives that parameter.
   ##

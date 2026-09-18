@@ -6116,6 +6116,16 @@ proc issueCredentialsAsync*(self: HotspotAuthenticationContext, userName: string
           vcall(it, Slot_IHotspotAuthenticationContext2_IssueCredentialsAsync, Fn_IHotspotAuthenticationContext2_IssueCredentialsAsync)(it, h0, h1, h2, markAsManualConnectOnFailure, op.addr).check("HotspotAuthenticationContext.IssueCredentialsAsync")
   result = adopt[HotspotCredentialsAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_HotspotCredentialsAuthenticationResult, IID_AsyncOperationCompletedHandler_1_HotspotCredentialsAuthenticationResult, "HotspotAuthenticationContext.IssueCredentialsAsync"))
 
+proc tryGetAuthenticationContext*(_: typedesc[HotspotAuthenticationContext], evenToken: string): tuple[value: bool, context: HotspotAuthenticationContext]  =
+  ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.TryGetAuthenticationContext
+  withStatics("Windows.Networking.NetworkOperators.HotspotAuthenticationContext", IID_IHotspotAuthenticationContextStatics, it):
+    withHString(evenToken, h0):
+      var context: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext, Fn_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext)(it, h0, context.addr, tmp.addr).check("HotspotAuthenticationContext.TryGetAuthenticationContext")
+      ret = tmp
+
 proc eventToken*(self: HotspotAuthenticationEventDetails): string  =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationEventDetails.get_EventToken
   withIface(self.p, IID_IHotspotAuthenticationEventDetails, "IHotspotAuthenticationEventDetails", it):
@@ -11019,6 +11029,12 @@ proc stop*(self: VpnChannel)  =
   ## Windows.Networking.Vpn.VpnChannel.Stop
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     vcall(it, Slot_IVpnChannel_Stop, Fn_IVpnChannel_Stop)(it).check("VpnChannel.Stop")
+
+proc requestVpnPacketBuffer*(self: VpnChannel, `type`: VpnDataPathType): tuple[vpnPacketBuffer: VpnPacketBuffer]  =
+  ## Windows.Networking.Vpn.VpnChannel.RequestVpnPacketBuffer
+  withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
+    var vpnPacketBuffer: pointer
+    vcall(it, Slot_IVpnChannel_RequestVpnPacketBuffer, Fn_IVpnChannel_RequestVpnPacketBuffer)(it, `type`, vpnPacketBuffer.addr).check("VpnChannel.RequestVpnPacketBuffer")
 
 proc logDiagnosticMessage*(self: VpnChannel, message: string)  =
   ## Windows.Networking.Vpn.VpnChannel.LogDiagnosticMessage

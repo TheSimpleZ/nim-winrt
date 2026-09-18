@@ -23160,12 +23160,30 @@ proc capabilities*(self: MediaDeviceControl): MediaDeviceControlCapabilities  =
     vcall(it, Slot_IMediaDeviceControl_get_Capabilities, Fn_IMediaDeviceControl_get_Capabilities)(it, tmp.addr).check("MediaDeviceControl.get_Capabilities")
     result = adopt[MediaDeviceControlCapabilities](tmp)
 
+proc tryGetValue*(self: MediaDeviceControl): tuple[returned: bool, value: float64]  =
+  ## Windows.Media.Devices.MediaDeviceControl.TryGetValue
+  withIface(self.p, IID_IMediaDeviceControl, "IMediaDeviceControl", it):
+    var value: float64
+    var ret: bool
+    var tmp: bool
+    vcall(it, Slot_IMediaDeviceControl_TryGetValue, Fn_IMediaDeviceControl_TryGetValue)(it, value.addr, tmp.addr).check("MediaDeviceControl.TryGetValue")
+    ret = tmp
+
 proc trySetValue*(self: MediaDeviceControl, value: float64): bool  =
   ## Windows.Media.Devices.MediaDeviceControl.TrySetValue
   withIface(self.p, IID_IMediaDeviceControl, "IMediaDeviceControl", it):
     var tmp: bool
     vcall(it, Slot_IMediaDeviceControl_TrySetValue, Fn_IMediaDeviceControl_TrySetValue)(it, value, tmp.addr).check("MediaDeviceControl.TrySetValue")
     result = tmp
+
+proc tryGetAuto*(self: MediaDeviceControl): tuple[returned: bool, value: bool]  =
+  ## Windows.Media.Devices.MediaDeviceControl.TryGetAuto
+  withIface(self.p, IID_IMediaDeviceControl, "IMediaDeviceControl", it):
+    var value: bool
+    var ret: bool
+    var tmp: bool
+    vcall(it, Slot_IMediaDeviceControl_TryGetAuto, Fn_IMediaDeviceControl_TryGetAuto)(it, value.addr, tmp.addr).check("MediaDeviceControl.TryGetAuto")
+    ret = tmp
 
 proc trySetAuto*(self: MediaDeviceControl, value: bool): bool  =
   ## Windows.Media.Devices.MediaDeviceControl.TrySetAuto
@@ -23550,6 +23568,15 @@ proc trySetPowerlineFrequency*(self: VideoDeviceController, value: PowerlineFreq
     var tmp: bool
     vcall(it, Slot_IVideoDeviceController_TrySetPowerlineFrequency, Fn_IVideoDeviceController_TrySetPowerlineFrequency)(it, value, tmp.addr).check("VideoDeviceController.TrySetPowerlineFrequency")
     result = tmp
+
+proc tryGetPowerlineFrequency*(self: VideoDeviceController): tuple[returned: bool, value: PowerlineFrequency]  =
+  ## Windows.Media.Devices.VideoDeviceController.TryGetPowerlineFrequency
+  withIface(self.p, IID_IVideoDeviceController, "IVideoDeviceController", it):
+    var value: PowerlineFrequency
+    var ret: bool
+    var tmp: bool
+    vcall(it, Slot_IVideoDeviceController_TryGetPowerlineFrequency, Fn_IVideoDeviceController_TryGetPowerlineFrequency)(it, value.addr, tmp.addr).check("VideoDeviceController.TryGetPowerlineFrequency")
+    ret = tmp
 
 proc getMediaStreamProperties*(self: VideoDeviceController, mediaStreamType: MediaStreamType): pointer  =
   ## Windows.Media.Devices.VideoDeviceController.GetMediaStreamProperties

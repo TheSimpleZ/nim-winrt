@@ -726,6 +726,16 @@ proc parse*(_: typedesc[JsonArray], input: string): JsonArray  =
       vcall(it, Slot_IJsonArrayStatics_Parse, Fn_IJsonArrayStatics_Parse)(it, h0, tmp.addr).check("JsonArray.Parse")
       result = adopt[JsonArray](tmp)
 
+proc tryParse*(_: typedesc[JsonArray], input: string): tuple[value: bool, a2: JsonArray]  =
+  ## Windows.Data.Json.JsonArray.TryParse
+  withStatics("Windows.Data.Json.JsonArray", IID_IJsonArrayStatics, it):
+    withHString(input, h0):
+      var a2: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IJsonArrayStatics_TryParse, Fn_IJsonArrayStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonArray.TryParse")
+      ret = tmp
+
 proc getJsonStatus*(_: typedesc[JsonError], hresult: int32): JsonErrorStatus  =
   ## Windows.Data.Json.JsonError.GetJsonStatus
   withStatics("Windows.Data.Json.JsonError", IID_IJsonErrorStatics2, it):
@@ -908,6 +918,16 @@ proc parse*(_: typedesc[JsonObject], input: string): JsonObject  =
       vcall(it, Slot_IJsonObjectStatics_Parse, Fn_IJsonObjectStatics_Parse)(it, h0, tmp.addr).check("JsonObject.Parse")
       result = adopt[JsonObject](tmp)
 
+proc tryParse*(_: typedesc[JsonObject], input: string): tuple[value: bool, a2: JsonObject]  =
+  ## Windows.Data.Json.JsonObject.TryParse
+  withStatics("Windows.Data.Json.JsonObject", IID_IJsonObjectStatics, it):
+    withHString(input, h0):
+      var a2: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IJsonObjectStatics_TryParse, Fn_IJsonObjectStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonObject.TryParse")
+      ret = tmp
+
 proc valueType*(self: JsonValue): JsonValueType  =
   ## Windows.Data.Json.JsonValue.get_ValueType
   withIface(self.p, IID_IJsonValue, "IJsonValue", it):
@@ -978,6 +998,16 @@ proc parse*(_: typedesc[JsonValue], input: string): JsonValue  =
       var tmp: pointer
       vcall(it, Slot_IJsonValueStatics_Parse, Fn_IJsonValueStatics_Parse)(it, h0, tmp.addr).check("JsonValue.Parse")
       result = adopt[JsonValue](tmp)
+
+proc tryParse*(_: typedesc[JsonValue], input: string): tuple[value: bool, a2: JsonValue]  =
+  ## Windows.Data.Json.JsonValue.TryParse
+  withStatics("Windows.Data.Json.JsonValue", IID_IJsonValueStatics, it):
+    withHString(input, h0):
+      var a2: pointer
+      var ret: bool
+      var tmp: bool
+      vcall(it, Slot_IJsonValueStatics_TryParse, Fn_IJsonValueStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonValue.TryParse")
+      ret = tmp
 
 proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateBooleanValue
@@ -1453,6 +1483,13 @@ proc getCodepointFromSurrogatePair*(_: typedesc[UnicodeCharacters], highSurrogat
     var tmp: uint32
     vcall(it, Slot_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair, Fn_IUnicodeCharactersStatics_GetCodepointFromSurrogatePair)(it, highSurrogate, lowSurrogate, tmp.addr).check("UnicodeCharacters.GetCodepointFromSurrogatePair")
     result = tmp
+
+proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters], codepoint: uint32): tuple[highSurrogate: uint16, lowSurrogate: uint16]  =
+  ## Windows.Data.Text.UnicodeCharacters.GetSurrogatePairFromCodepoint
+  withStatics("Windows.Data.Text.UnicodeCharacters", IID_IUnicodeCharactersStatics, it):
+    var highSurrogate: uint16
+    var lowSurrogate: uint16
+    vcall(it, Slot_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint, Fn_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint)(it, codepoint, highSurrogate.addr, lowSurrogate.addr).check("UnicodeCharacters.GetSurrogatePairFromCodepoint")
 
 proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsHighSurrogate
