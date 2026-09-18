@@ -220,23 +220,39 @@ get right.
 
 Every interface in `Windows.winmd` that carries a GUID is here — 8,178 of them,
 33,719 vtable slots, 1,724 enums and 124 structs, with 98% of the slots given a
-generated signature. On top of that sit 4,465 classes with 25,980 methods,
-properties and constructors, and 2,840 events.
+generated signature. On top of that sit 4,482 classes with 29,734 methods,
+properties and constructors, and 2,840 events: **91% of the class surface**.
 
-What the API layer does not reach, it says so rather than guessing:
+The other 9% is reported rather than guessed at — every generator run prints
+what it skipped and why. It falls into two kinds.
 
-* **Collections.** `IVector<T>`, `IVectorView<T>` and `IMap<K, V>` are not Nim
-  `seq`s or tables yet. A method taking or returning one is skipped, and the
-  ABI still has it.
-* **Async results that are a primitive or a nested collection.** A method
-  returning `IAsyncOperation<T>` is waited on and returns `Future[T]`, but only
-  where `T` is an object, a string or nothing. 667 whose `T` is an `int32` or
-  another collection are still skipped.
-* **Arrays.** A handful of methods take or return one; they have no generated
-  signature at either layer.
+**Deliberately bounded.** A method whose parameter is a class, enum or struct
+belonging to a third namespace group is skipped, because naming it would mean
+importing that group's module. Each module imports `winrt/foundation` for this
+reason and stops there: importing every dependency recovers about 900 more
+methods and takes `import winrt/ui` from ten seconds to sixty-four. That is a
+trade, not an omission, and the ABI layer still has every one of them.
 
-Both of those are the next things to build, and neither is a limit of the
-approach — the metadata describes them fully.
+| | methods |
+| --- | ---: |
+| a class or interface from a third namespace | 933 |
+| an enum from one | 251 |
+| a struct from one | 77 |
+
+**Not built yet.** Each needs machinery that does not exist rather than a
+decision:
+
+| | methods | what it needs |
+| --- | ---: | --- |
+| a collection as a *parameter* | 703 | a COM object exposing a Nim `seq` as `IIterable<T>` |
+| an array | 285 | element types through the reader, and three ABI conventions |
+| `IReference<T>` as a *parameter* | 282 | boxing a value through `PropertyValue` |
+| `IMap<K, V>` / `IMapView<K, V>` | 126 | iterating `IKeyValuePair<K, V>` |
+| an async result this cannot fetch | 119 | the remaining `GetResults` shapes |
+
+Reading a collection, awaiting an operation, unwrapping an `IReference<T>` and
+receiving out-parameters all work — it is the other direction that is missing
+in each case.
 
 ## Troubleshooting
 
