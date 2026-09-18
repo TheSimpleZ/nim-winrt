@@ -142,17 +142,6 @@ typed as an opaque pointer, by generic:
   804  IReference`1
 ```
 
-### `structs.nim` — should this struct be added to `foreign.nim`?
-
-```
-nim c -r tools/structs.nim <winmd> <namespace-prefix>
-```
-
-Ranks structs by how many methods mention them and prints the fields each one
-would need, saying whether they are all primitives. That is the decision
-`foreign.nim` records: a struct crosses the ABI by value, so a signature naming
-one cannot be generated until Nim has its exact layout.
-
 ### `piidcheck.nim` — are the computed generic IIDs right?
 
 ```
@@ -173,18 +162,6 @@ there is no way to tell from the IID alone — the signature string is the part
 you can check by eye against the Windows Runtime ABI documentation, and a live
 `QueryInterface` is the only real proof. `examples/events.nim` uses the IID
 above and Windows accepts it, which is that proof for one case.
-
-### `stats.nim` — how big would a wrapper API be?
-
-```
-nim c -r tools/stats.nim <winmd> <namespace-prefix>
-```
-
-Classes, how they are constructed, methods on their own interfaces versus
-methods inherited through the base chain, and how deep that chain goes. This
-is what decided the shape of `tools/wrappers.nim`: emitting the full inherited
-surface per class would have meant 94,521 procs instead of about 4,900 for the
-same API. Rerun it before making that kind of decision again.
 
 ## Adding a struct layout
 
