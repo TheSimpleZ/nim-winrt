@@ -658,6 +658,15 @@ const IID_IAsyncOperation_1_IVectorView_110* = GUID(
 const IID_IVectorView_1_IVpnProfile* = GUID(
     data1: 0xF1DC8F7D'u32, data2: 0xCA33'u16, data3: 0x53FD'u16,
     data4: [0x9D'u8, 0x4C, 0x40, 0xC5, 0x1B, 0x58, 0x73, 0xEC])
+const IID_IIterable_1_VpnNamespaceInfo* = GUID(
+    data1: 0x17781D03'u32, data2: 0xDDCF'u16, data3: 0x553F'u16,
+    data4: [0xAB'u8, 0xA8, 0xD2, 0xE8, 0x15, 0x5C, 0xB6, 0xB8])
+const IID_IVectorView_1_VpnNamespaceInfo* = GUID(
+    data1: 0xC6ED05A9'u32, data2: 0x4DC7'u16, data3: 0x507D'u16,
+    data4: [0x9C'u8, 0x92, 0x7C, 0x78, 0xC2, 0xEF, 0x47, 0x86])
+const IID_IIterator_1_VpnNamespaceInfo* = GUID(
+    data1: 0x91E28244'u32, data2: 0x7555'u16, data3: 0x594D'u16,
+    data4: [0xB5'u8, 0x4D, 0x9C, 0x87, 0x09, 0x5E, 0x79, 0xA2])
 const IID_IVector_1_VpnNamespaceInfo* = GUID(
     data1: 0x056BDDF2'u32, data2: 0x135D'u16, data3: 0x542E'u16,
     data4: [0xA3'u8, 0x22, 0x36, 0xAA, 0x4C, 0xA0, 0xE6, 0x0D])
@@ -670,6 +679,15 @@ const IID_IVector_1_VpnRoute* = GUID(
 const IID_IVector_1_VpnTrafficFilter* = GUID(
     data1: 0x2A5B9AD8'u32, data2: 0xF005'u16, data3: 0x5F69'u16,
     data4: [0xAD'u8, 0x81, 0x30, 0x06, 0x42, 0xE7, 0xC6, 0x67])
+const IID_IIterable_1_VpnRoute* = GUID(
+    data1: 0xBBF498D5'u32, data2: 0xB9EF'u16, data3: 0x55F1'u16,
+    data4: [0x97'u8, 0xB1, 0x77, 0xA0, 0x66, 0x39, 0xE4, 0xE2])
+const IID_IVectorView_1_VpnRoute* = GUID(
+    data1: 0x43701A74'u32, data2: 0xE497'u16, data3: 0x5559'u16,
+    data4: [0xA7'u8, 0x1B, 0x11, 0xD0, 0x15, 0x6F, 0xA8, 0x39])
+const IID_IIterator_1_VpnRoute* = GUID(
+    data1: 0x44F813AC'u32, data2: 0x052F'u16, data3: 0x514B'u16,
+    data4: [0xA7'u8, 0x76, 0xAA, 0xD3, 0x7A, 0x64, 0xFD, 0xC6])
 const IID_TypedEventHandler_2_XboxLiveDeviceAddress_Object* = GUID(
     data1: 0x7FA76199'u32, data2: 0xD1B8'u16, data3: 0x5494'u16,
     data4: [0xA0'u8, 0x42, 0x70, 0x02, 0xA4, 0x16, 0xAD, 0xC3])
@@ -10083,6 +10101,13 @@ proc newVpnNamespaceAssignment*(): VpnNamespaceAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnNamespaceAssignment`.
   adopt[VpnNamespaceAssignment](activateAs("Windows.Networking.Vpn.VpnNamespaceAssignment", IID_IVpnNamespaceAssignment))
 
+proc `namespaceList=`*(self: VpnNamespaceAssignment, value: seq[VpnNamespaceInfo])  =
+  ## Windows.Networking.Vpn.VpnNamespaceAssignment.put_NamespaceList
+  withIface(self.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", it):
+    let p0 = asIterable[VpnNamespaceInfo](value, IID_IIterable_1_VpnNamespaceInfo, IID_IVectorView_1_VpnNamespaceInfo, IID_IIterator_1_VpnNamespaceInfo, IID_IVector_1_VpnNamespaceInfo)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnNamespaceAssignment_put_NamespaceList, Fn_IVpnNamespaceAssignment_put_NamespaceList)(it, p0).check("VpnNamespaceAssignment.put_NamespaceList")
+
 proc namespaceList*(self: VpnNamespaceAssignment): seq[VpnNamespaceInfo]  =
   ## Windows.Networking.Vpn.VpnNamespaceAssignment.get_NamespaceList
   withIface(self.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", it):
@@ -10117,6 +10142,13 @@ proc namespace*(self: VpnNamespaceInfo): string  =
     vcall(it, Slot_IVpnNamespaceInfo_get_Namespace, Fn_IVpnNamespaceInfo_get_Namespace)(it, tmp.addr).check("VpnNamespaceInfo.get_Namespace")
     result = takeString(tmp)
 
+proc `dnsServers=`*(self: VpnNamespaceInfo, value: seq[HostName])  =
+  ## Windows.Networking.Vpn.VpnNamespaceInfo.put_DnsServers
+  withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
+    let p0 = asIterable[HostName](value, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName, IID_IVector_1_HostName)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnNamespaceInfo_put_DnsServers, Fn_IVpnNamespaceInfo_put_DnsServers)(it, p0).check("VpnNamespaceInfo.put_DnsServers")
+
 proc dnsServers*(self: VpnNamespaceInfo): seq[HostName]  =
   ## Windows.Networking.Vpn.VpnNamespaceInfo.get_DnsServers
   withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
@@ -10125,6 +10157,13 @@ proc dnsServers*(self: VpnNamespaceInfo): seq[HostName]  =
     result = toSeq[HostName](tmp, IID_IVector_1_HostName)
     release(tmp)
 
+proc `webProxyServers=`*(self: VpnNamespaceInfo, value: seq[HostName])  =
+  ## Windows.Networking.Vpn.VpnNamespaceInfo.put_WebProxyServers
+  withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
+    let p0 = asIterable[HostName](value, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName, IID_IVector_1_HostName)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnNamespaceInfo_put_WebProxyServers, Fn_IVpnNamespaceInfo_put_WebProxyServers)(it, p0).check("VpnNamespaceInfo.put_WebProxyServers")
+
 proc webProxyServers*(self: VpnNamespaceInfo): seq[HostName]  =
   ## Windows.Networking.Vpn.VpnNamespaceInfo.get_WebProxyServers
   withIface(self.p, IID_IVpnNamespaceInfo, "IVpnNamespaceInfo", it):
@@ -10132,6 +10171,18 @@ proc webProxyServers*(self: VpnNamespaceInfo): seq[HostName]  =
     vcall(it, Slot_IVpnNamespaceInfo_get_WebProxyServers, Fn_IVpnNamespaceInfo_get_WebProxyServers)(it, tmp.addr).check("VpnNamespaceInfo.get_WebProxyServers")
     result = toSeq[HostName](tmp, IID_IVector_1_HostName)
     release(tmp)
+
+proc createVpnNamespaceInfo*(_: typedesc[VpnNamespaceInfo], name: string, dnsServerList: seq[HostName], proxyServerList: seq[HostName]): VpnNamespaceInfo  =
+  ## Windows.Networking.Vpn.VpnNamespaceInfo.CreateVpnNamespaceInfo
+  withStatics("Windows.Networking.Vpn.VpnNamespaceInfo", IID_IVpnNamespaceInfoFactory, it):
+    withHString(name, h0):
+      let p1 = asIterable[HostName](dnsServerList, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName, IID_IVector_1_HostName)
+      defer: discard release(p1)
+      let p2 = asIterable[HostName](proxyServerList, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName, IID_IVector_1_HostName)
+      defer: discard release(p2)
+      var tmp: pointer
+      vcall(it, Slot_IVpnNamespaceInfoFactory_CreateVpnNamespaceInfo, Fn_IVpnNamespaceInfoFactory_CreateVpnNamespaceInfo)(it, h0, p1, p2, tmp.addr).check("VpnNamespaceInfo.CreateVpnNamespaceInfo")
+      result = adopt[VpnNamespaceInfo](tmp)
 
 proc newVpnNativeProfile*(): VpnNativeProfile =
   ## Activate a `Windows.Networking.Vpn.VpnNativeProfile`.
@@ -10586,6 +10637,20 @@ proc newVpnRouteAssignment*(): VpnRouteAssignment =
   ## Activate a `Windows.Networking.Vpn.VpnRouteAssignment`.
   adopt[VpnRouteAssignment](activateAs("Windows.Networking.Vpn.VpnRouteAssignment", IID_IVpnRouteAssignment))
 
+proc `ipv4InclusionRoutes=`*(self: VpnRouteAssignment, value: seq[VpnRoute])  =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.put_Ipv4InclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    let p0 = asIterable[VpnRoute](value, IID_IIterable_1_VpnRoute, IID_IVectorView_1_VpnRoute, IID_IIterator_1_VpnRoute, IID_IVector_1_VpnRoute)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnRouteAssignment_put_Ipv4InclusionRoutes, Fn_IVpnRouteAssignment_put_Ipv4InclusionRoutes)(it, p0).check("VpnRouteAssignment.put_Ipv4InclusionRoutes")
+
+proc `ipv6InclusionRoutes=`*(self: VpnRouteAssignment, value: seq[VpnRoute])  =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.put_Ipv6InclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    let p0 = asIterable[VpnRoute](value, IID_IIterable_1_VpnRoute, IID_IVectorView_1_VpnRoute, IID_IIterator_1_VpnRoute, IID_IVector_1_VpnRoute)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnRouteAssignment_put_Ipv6InclusionRoutes, Fn_IVpnRouteAssignment_put_Ipv6InclusionRoutes)(it, p0).check("VpnRouteAssignment.put_Ipv6InclusionRoutes")
+
 proc ipv4InclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute]  =
   ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv4InclusionRoutes
   withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
@@ -10601,6 +10666,20 @@ proc ipv6InclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute]  =
     vcall(it, Slot_IVpnRouteAssignment_get_Ipv6InclusionRoutes, Fn_IVpnRouteAssignment_get_Ipv6InclusionRoutes)(it, tmp.addr).check("VpnRouteAssignment.get_Ipv6InclusionRoutes")
     result = toSeq[VpnRoute](tmp, IID_IVector_1_VpnRoute)
     release(tmp)
+
+proc `ipv4ExclusionRoutes=`*(self: VpnRouteAssignment, value: seq[VpnRoute])  =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.put_Ipv4ExclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    let p0 = asIterable[VpnRoute](value, IID_IIterable_1_VpnRoute, IID_IVectorView_1_VpnRoute, IID_IIterator_1_VpnRoute, IID_IVector_1_VpnRoute)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnRouteAssignment_put_Ipv4ExclusionRoutes, Fn_IVpnRouteAssignment_put_Ipv4ExclusionRoutes)(it, p0).check("VpnRouteAssignment.put_Ipv4ExclusionRoutes")
+
+proc `ipv6ExclusionRoutes=`*(self: VpnRouteAssignment, value: seq[VpnRoute])  =
+  ## Windows.Networking.Vpn.VpnRouteAssignment.put_Ipv6ExclusionRoutes
+  withIface(self.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", it):
+    let p0 = asIterable[VpnRoute](value, IID_IIterable_1_VpnRoute, IID_IVectorView_1_VpnRoute, IID_IIterator_1_VpnRoute, IID_IVector_1_VpnRoute)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnRouteAssignment_put_Ipv6ExclusionRoutes, Fn_IVpnRouteAssignment_put_Ipv6ExclusionRoutes)(it, p0).check("VpnRouteAssignment.put_Ipv6ExclusionRoutes")
 
 proc ipv4ExclusionRoutes*(self: VpnRouteAssignment): seq[VpnRoute]  =
   ## Windows.Networking.Vpn.VpnRouteAssignment.get_Ipv4ExclusionRoutes

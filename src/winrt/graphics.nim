@@ -31,6 +31,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -166,6 +167,21 @@ const IID_AsyncOperationCompletedHandler_1_BitmapDecoder* = GUID(
 const IID_IAsyncOperation_1_BitmapDecoder* = GUID(
     data1: 0xAA94D8E9'u32, data2: 0xCAEF'u16, data3: 0x53F6'u16,
     data4: [0x82'u8, 0x3D, 0x91, 0xB6, 0xE8, 0x34, 0x05, 0x10])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x05F9430C'u32, data2: 0x2F22'u16, data3: 0x5638'u16,
+    data4: [0xAA'u8, 0x89, 0x8C, 0x9A, 0xBC, 0xD5, 0x4F, 0xF9])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x2AD3FB0C'u32, data2: 0x0656'u16, data3: 0x5302'u16,
+    data4: [0xB5'u8, 0x04, 0x31, 0x53, 0xBE, 0x84, 0x51, 0x61])
+const IID_IKeyValuePair_2_String_BitmapTypedValue* = GUID(
+    data1: 0x93621BF0'u32, data2: 0xDAE9'u16, data3: 0x5F00'u16,
+    data4: [0x94'u8, 0xAC, 0x79, 0x5A, 0xA9, 0x43, 0xDC, 0xA6])
+const IID_IMapView_2_String_BitmapTypedValue* = GUID(
+    data1: 0x9CDA5A9A'u32, data2: 0x8924'u16, data3: 0x5B3B'u16,
+    data4: [0x8B'u8, 0x19, 0x89, 0x4D, 0x8D, 0xA9, 0x9D, 0xDE])
+const IID_IMap_2_String_BitmapTypedValue* = GUID(
+    data1: 0x2C70EF8D'u32, data2: 0x5D4C'u16, data3: 0x5185'u16,
+    data4: [0x8D'u8, 0xB7, 0xFE, 0xD8, 0x77, 0x28, 0x16, 0x5D])
 const IID_AsyncOperationCompletedHandler_1_BitmapEncoder* = GUID(
     data1: 0x5DF1AFC5'u32, data2: 0x478D'u16, data3: 0x55DD'u16,
     data4: [0xB3'u8, 0x17, 0x02, 0x42, 0x74, 0x06, 0x2A, 0x0D])
@@ -202,7 +218,7 @@ const IID_IVectorView_1_Object* = GUID(
 const IID_IKeyValuePair_2_String_IPrintOptionDetails* = GUID(
     data1: 0xF5D9C723'u32, data2: 0xA4B1'u16, data3: 0x5FC8'u16,
     data4: [0x9F'u8, 0x78, 0x0B, 0x95, 0xB7, 0x16, 0x72, 0x0B])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0x6770CF39'u32, data2: 0x094F'u16, data3: 0x59C5'u16,
     data4: [0x8A'u8, 0x5D, 0xE3, 0xB5, 0xDC, 0x64, 0xDB, 0x0F])
 const IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs* = GUID(
@@ -301,18 +317,27 @@ const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowJobNotifica
 const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowVirtualPrinterUIEventArgs* = GUID(
     data1: 0x8174FE97'u32, data2: 0x12E1'u16, data3: 0x5D8A'u16,
     data4: [0xB0'u8, 0x2D, 0x78, 0x3D, 0xBD, 0x7E, 0x92, 0xA5])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
+    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
+const IID_IIterator_1_IKeyValuePair_22* = GUID(
+    data1: 0x8A501320'u32, data2: 0x0647'u16, data3: 0x58A4'u16,
+    data4: [0x8A'u8, 0xF8, 0x8D, 0x63, 0x93, 0x6C, 0xE4, 0x8A])
+const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
+    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
+    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
+const IID_IMapView_2_String_IppAttributeValue* = GUID(
+    data1: 0xA2379F3E'u32, data2: 0x0733'u16, data3: 0x5491'u16,
+    data4: [0x98'u8, 0xB8, 0x08, 0xB3, 0x13, 0x4A, 0xB2, 0x3D])
+const IID_IMap_2_String_IppAttributeValue* = GUID(
+    data1: 0xE7F72BA5'u32, data2: 0xE881'u16, data3: 0x550D'u16,
+    data4: [0x93'u8, 0x9B, 0xF5, 0x4C, 0xB3, 0x19, 0x62, 0xE8])
 const IID_AsyncOperationCompletedHandler_1_StorageFile* = GUID(
     data1: 0xE521C894'u32, data2: 0x2C26'u16, data3: 0x5946'u16,
     data4: [0x9E'u8, 0x61, 0x2B, 0x5E, 0x18, 0x8D, 0x01, 0xED])
 const IID_IAsyncOperation_1_StorageFile* = GUID(
     data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
     data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
-const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
-    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
-    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
-    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
-    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
 const IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus* = GUID(
     data1: 0x2CF68098'u32, data2: 0xE07D'u16, data3: 0x5362'u16,
     data4: [0xA2'u8, 0xAD, 0x35, 0x65, 0x51, 0x32, 0x7D, 0xF2])
@@ -403,7 +428,7 @@ const IID_IVector_1_Printing3DComponent* = GUID(
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationWithProgressCompletedHandler_2_Bool_F8* = GUID(
@@ -2838,6 +2863,15 @@ proc goToNextFrameAsync*(self: BitmapEncoder) {.async.} =
     vcall(it, Slot_IBitmapEncoder_GoToNextFrameAsync, Fn_IBitmapEncoder_GoToNextFrameAsync)(it, op.addr).check("BitmapEncoder.GoToNextFrameAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "BitmapEncoder.GoToNextFrameAsync")
 
+proc goToNextFrameAsync*(self: BitmapEncoder, encodingOptions: Table[string, BitmapTypedValue]) {.async.} =
+  ## Windows.Graphics.Imaging.BitmapEncoder.GoToNextFrameAsync
+  var op: pointer
+  withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
+    let p0 = asMap(encodingOptions, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_BitmapTypedValue, view: IID_IMapView_2_String_BitmapTypedValue, map: IID_IMap_2_String_BitmapTypedValue))
+    defer: discard release(p0)
+    vcall(it, Slot_IBitmapEncoder_GoToNextFrameAsync2, Fn_IBitmapEncoder_GoToNextFrameAsync2)(it, p0, op.addr).check("BitmapEncoder.GoToNextFrameAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "BitmapEncoder.GoToNextFrameAsync")
+
 proc flushAsync*(self: BitmapEncoder) {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.FlushAsync
   var op: pointer
@@ -2914,6 +2948,16 @@ proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID, stream: WinRtObje
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
     withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
       vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, encoderId, p1, op.addr).check("BitmapEncoder.CreateAsync")
+  result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, alPlain, "BitmapEncoder.CreateAsync"))
+
+proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID, stream: WinRtObject, encodingOptions: Table[string, BitmapTypedValue]): Future[BitmapEncoder] {.async.} =
+  ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+      let p2 = asMap(encodingOptions, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_BitmapTypedValue, view: IID_IMapView_2_String_BitmapTypedValue, map: IID_IMap_2_String_BitmapTypedValue))
+      defer: discard release(p2)
+      vcall(it, Slot_IBitmapEncoderStatics_CreateAsync2, Fn_IBitmapEncoderStatics_CreateAsync2)(it, encoderId, p1, p2, op.addr).check("BitmapEncoder.CreateAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, alPlain, "BitmapEncoder.CreateAsync"))
 
 proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: WinRtObject, bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
@@ -3039,6 +3083,15 @@ proc getSoftwareBitmapAsync*(self: BitmapFrame, pixelFormat: BitmapPixelFormat, 
     withIface(transform.p, IID_IBitmapTransform, "IBitmapTransform", p2):
       vcall(it, Slot_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3, Fn_IBitmapFrameWithSoftwareBitmap_GetSoftwareBitmapAsync3)(it, pixelFormat, alphaMode, p2, exifOrientationMode, colorManagementMode, op.addr).check("BitmapFrame.GetSoftwareBitmapAsync")
   result = adopt[SoftwareBitmap](await awaitObject(op, IID_IAsyncOperation_1_SoftwareBitmap, IID_AsyncOperationCompletedHandler_1_SoftwareBitmap, alPlain, "BitmapFrame.GetSoftwareBitmapAsync"))
+
+proc setPropertiesAsync*(self: BitmapProperties, propertiesToSet: Table[string, BitmapTypedValue]) {.async.} =
+  ## Windows.Graphics.Imaging.BitmapProperties.SetPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IBitmapProperties, "IBitmapProperties", it):
+    let p0 = asMap(propertiesToSet, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_BitmapTypedValue, view: IID_IMapView_2_String_BitmapTypedValue, map: IID_IMap_2_String_BitmapTypedValue))
+    defer: discard release(p0)
+    vcall(it, Slot_IBitmapProperties_SetPropertiesAsync, Fn_IBitmapProperties_SetPropertiesAsync)(it, p0, op.addr).check("BitmapProperties.SetPropertiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "BitmapProperties.SetPropertiesAsync")
 
 proc getPropertiesAsync*(self: BitmapProperties, propertiesToRetrieve: seq[string]): Future[BitmapPropertySet] {.async.} =
   ## Windows.Graphics.Imaging.BitmapProperties.GetPropertiesAsync
@@ -4896,7 +4949,7 @@ proc options*(self: PrintTaskOptionDetails): Table[string, WinRtObject]  =
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintTaskOptionDetails_get_Options, Fn_IPrintTaskOptionDetails_get_Options)(it, tmp.addr).check("PrintTaskOptionDetails.get_Options")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_IPrintOptionDetails)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IPrintOptionDetails)
     release(tmp)
 
 proc createItemListOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomItemListOptionDetails  =
@@ -7464,6 +7517,16 @@ proc createJobOnPrinter*(self: PrintWorkflowPdlModificationRequestedEventArgs, t
       vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter)(it, h0, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinter")
       result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
+proc createJobOnPrinterWithAttributes*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributes: Table[string, IppAttributeValue], targetContentType: string): PrintWorkflowPdlTargetStream  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributes
+  withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
+    let p0 = asMap(jobAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+    defer: discard release(p0)
+    withHString(targetContentType, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributes, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributes)(it, p0, h1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributes")
+      result = adopt[PrintWorkflowPdlTargetStream](tmp)
+
 proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: Buffer, targetContentType: string): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
@@ -7486,6 +7549,18 @@ proc getDeferral*(self: PrintWorkflowPdlModificationRequestedEventArgs): Deferra
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
+
+proc createJobOnPrinterWithAttributes*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributes: Table[string, IppAttributeValue], targetContentType: string, operationAttributes: Table[string, IppAttributeValue], jobAttributesMergePolicy: PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributes
+  withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs2, "IPrintWorkflowPdlModificationRequestedEventArgs2", it):
+    let p0 = asMap(jobAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+    defer: discard release(p0)
+    withHString(targetContentType, h1):
+      let p2 = asMap(operationAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+      defer: discard release(p2)
+      var tmp: pointer
+      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributes, Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributes)(it, p0, h1, p2, jobAttributesMergePolicy, operationAttributesMergePolicy, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributes")
+      result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
 proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: Buffer, targetContentType: string, operationAttributesBuffer: Buffer, jobAttributesMergePolicy: PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
@@ -7579,7 +7654,7 @@ proc getJobAttributes*(self: PrintWorkflowPrinterJob, attributeNames: seq[string
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobAttributes, Fn_IPrintWorkflowPrinterJob_GetJobAttributes)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.GetJobAttributes")
-    result = toTable[string, IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IppAttributeValue)
+    result = toTable[string, IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IppAttributeValue)
     release(tmp)
 
 proc setJobAttributesFromBuffer*(self: PrintWorkflowPrinterJob, jobAttributesBuffer: Buffer): IppSetAttributesResult  =
@@ -7590,6 +7665,15 @@ proc setJobAttributesFromBuffer*(self: PrintWorkflowPrinterJob, jobAttributesBuf
       vcall(it, Slot_IPrintWorkflowPrinterJob_SetJobAttributesFromBuffer, Fn_IPrintWorkflowPrinterJob_SetJobAttributesFromBuffer)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.SetJobAttributesFromBuffer")
       result = adopt[IppSetAttributesResult](tmp)
 
+proc setJobAttributes*(self: PrintWorkflowPrinterJob, jobAttributes: Table[string, IppAttributeValue]): IppSetAttributesResult  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.SetJobAttributes
+  withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
+    let p0 = asMap(jobAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowPrinterJob_SetJobAttributes, Fn_IPrintWorkflowPrinterJob_SetJobAttributes)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.SetJobAttributes")
+    result = adopt[IppSetAttributesResult](tmp)
+
 proc convertPrintTicketToJobAttributes*(self: PrintWorkflowPrinterJob, printTicket: WorkflowPrintTicket, targetPdlFormat: string): Table[string, IppAttributeValue]  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.ConvertPrintTicketToJobAttributes
   withIface(self.p, IID_IPrintWorkflowPrinterJob2, "IPrintWorkflowPrinterJob2", it):
@@ -7597,7 +7681,7 @@ proc convertPrintTicketToJobAttributes*(self: PrintWorkflowPrinterJob, printTick
       withHString(targetPdlFormat, h1):
         var tmp: pointer
         vcall(it, Slot_IPrintWorkflowPrinterJob2_ConvertPrintTicketToJobAttributes, Fn_IPrintWorkflowPrinterJob2_ConvertPrintTicketToJobAttributes)(it, p0, h1, tmp.addr).check("PrintWorkflowPrinterJob.ConvertPrintTicketToJobAttributes")
-        result = toTable[string, IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IppAttributeValue)
+        result = toTable[string, IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IppAttributeValue)
         release(tmp)
 
 proc printerJob*(self: PrintWorkflowPrinterJobStatusChangedEventArgs): PrintWorkflowPrinterJob  =
@@ -8774,7 +8858,7 @@ proc metadata*(self: Printing3DModel): Table[string, string]  =
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_get_Metadata, Fn_IPrinting3DModel_get_Metadata)(it, tmp.addr).check("Printing3DModel.get_Metadata")
-    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc repairAsync*(self: Printing3DModel) {.async.} =

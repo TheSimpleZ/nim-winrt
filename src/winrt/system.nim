@@ -33,6 +33,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -126,6 +127,21 @@ const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionS
 const IID_IVectorView_1_ProcessDiagnosticInfo* = GUID(
     data1: 0x74AB2473'u32, data2: 0x9624'u16, data3: 0x5A06'u16,
     data4: [0x90'u8, 0x25, 0x6D, 0x91, 0xE6, 0x22, 0xBF, 0x8E])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_IVectorView_1_Guid* = GUID(
     data1: 0x9520E64B'u32, data2: 0x15B2'u16, data3: 0x52A6'u16,
     data4: [0x98'u8, 0xED, 0x31, 0x91, 0xFA, 0x6C, 0xF6, 0x8A])
@@ -201,7 +217,7 @@ const IID_EventHandler_1_AppMemoryUsageLimitChangingEventArgs* = GUID(
 const IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration* = GUID(
     data1: 0x81B90641'u32, data2: 0x0B65'u16, data3: 0x56EF'u16,
     data4: [0xB0'u8, 0x40, 0x45, 0x7F, 0x2E, 0x7B, 0xE3, 0x5A])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0x36BFAE51'u32, data2: 0x120D'u16, data3: 0x5970'u16,
     data4: [0xB9'u8, 0x25, 0xDF, 0xE1, 0xB2, 0x26, 0xBF, 0x9A])
 const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_PowerThermalChannelDataReceivedEventArgs* = GUID(
@@ -246,7 +262,7 @@ const IID_IVectorView_1_UnsupportedAppRequirement* = GUID(
 const IID_IKeyValuePair_2_String_Object* = GUID(
     data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
     data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
@@ -291,12 +307,6 @@ const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = GUID(
 const IID_IAsyncOperation_1_RemoteSystemAccessStatus* = GUID(
     data1: 0xD76DA678'u32, data2: 0xDD76'u16, data3: 0x5460'u16,
     data4: [0x87'u8, 0x45, 0x91, 0x5B, 0x44, 0x10, 0xC9, 0x05])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
-    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
-    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = GUID(
     data1: 0xFBA14773'u32, data2: 0x5038'u16, data3: 0x511A'u16,
     data4: [0x95'u8, 0xA3, 0x4B, 0xA4, 0x53, 0x49, 0x10, 0x0A])
@@ -1714,6 +1724,16 @@ proc isScenarioEnabled*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID
     vcall(it, Slot_IPlatformDiagnosticActionsStatics_IsScenarioEnabled, Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled)(it, scenarioId, tmp.addr).check("PlatformDiagnosticActions.IsScenarioEnabled")
     result = tmp
 
+proc tryEscalateScenario*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID, escalationType: PlatformDiagnosticEscalationType, outputDirectory: string, timestampOutputDirectory: bool, forceEscalationUpload: bool, triggers: Table[string, string]): bool  =
+  ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.TryEscalateScenario
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+    withHString(outputDirectory, h2):
+      let p5 = asMap(triggers, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+      defer: discard release(p5)
+      var tmp: bool
+      vcall(it, Slot_IPlatformDiagnosticActionsStatics_TryEscalateScenario, Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario)(it, scenarioId, escalationType, h2, timestampOutputDirectory, forceEscalationUpload, p5, tmp.addr).check("PlatformDiagnosticActions.TryEscalateScenario")
+      result = tmp
+
 proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions], partner: string, feature: string, isScenarioNamespace: bool, downloadOverCostedNetwork: bool, downloadOverBattery: bool): PlatformDiagnosticActionState  =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.DownloadLatestSettingsForNamespace
   withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
@@ -3099,7 +3119,7 @@ proc getChannelConfigurations*(self: PowerThermalChannelDataConsumer): Table[Pow
   withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
     var tmp: pointer
     vcall(it, Slot_IPowerThermalChannelDataConsumer_GetChannelConfigurations, Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations)(it, tmp.addr).check("PowerThermalChannelDataConsumer.GetChannelConfigurations")
-    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
+    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
     release(tmp)
 
 proc start*(self: PowerThermalChannelDataConsumer)  =
@@ -3184,7 +3204,7 @@ proc getChannelConfigurations*(self: PowerThermalChannelDataProducer): Table[Pow
   withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
     var tmp: pointer
     vcall(it, Slot_IPowerThermalChannelDataProducer_GetChannelConfigurations, Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations)(it, tmp.addr).check("PowerThermalChannelDataProducer.GetChannelConfigurations")
-    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
+    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
     release(tmp)
 
 proc disableChannel*(self: PowerThermalChannelDataProducer, channelId: PowerThermalChannelId)  =
@@ -3747,7 +3767,7 @@ proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject]  =
   withStatics("Windows.System.Profile.RetailInfo", IID_IRetailInfoStatics, it):
     var tmp: pointer
     vcall(it, Slot_IRetailInfoStatics_get_Properties, Fn_IRetailInfoStatics_get_Properties)(it, tmp.addr).check("RetailInfo.get_Properties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool  =
@@ -4479,7 +4499,7 @@ proc attributes*(self: RemoteSystemApp): Table[string, string]  =
   withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemApp_get_Attributes, Fn_IRemoteSystemApp_get_Attributes)(it, tmp.addr).check("RemoteSystemApp.get_Attributes")
-    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc user*(self: RemoteSystemApp): User  =
@@ -4508,7 +4528,7 @@ proc attributes*(self: RemoteSystemAppRegistration): Table[string, string]  =
   withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemAppRegistration_get_Attributes, Fn_IRemoteSystemAppRegistration_get_Attributes)(it, tmp.addr).check("RemoteSystemAppRegistration.get_Attributes")
-    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] {.async.} =

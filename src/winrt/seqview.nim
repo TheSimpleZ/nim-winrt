@@ -4,14 +4,22 @@
 ## a method that takes an `IIterable<T>` or an `IVectorView<T>` wants an object
 ## implementing those interfaces, so one is built around the seq.
 ##
-## ## Two interfaces, two vtables
+## ## Three interfaces, three vtables
 ##
-## A COM object that implements two interfaces cannot have one vtable, because
-## `IIterable<T>` and `IVectorView<T>` both put their own first method at slot
-## 6 — `First` for one, `GetAt` for the other. So the object begins with two
-## vtable pointers, and `QueryInterface` hands out the address of whichever
-## field matches. Each method then recovers the object by subtracting that
-## field's offset, which is the standard COM arrangement for this.
+## A COM object that implements several interfaces cannot have one vtable,
+## because `IIterable<T>`, `IVectorView<T>` and `IVector<T>` all put their own
+## first method at slot 6 — `First` for one, `GetAt` for the others. So the
+## object begins with three vtable pointers, and `QueryInterface` hands out the
+## address of whichever field matches. Each method then recovers the object by
+## subtracting that field's offset, which is the standard COM arrangement.
+##
+## `IVector<T>` is the mutable one, and is offered only when asked for and
+## only over objects and strings. A callee that appends to it appends to the
+## view's copy, which is what every projection does — C++/WinRT hands over a
+## `single_threaded_vector` the caller no longer holds. Values are left out
+## because `Append(T)` takes the element *by value*, which is a different C
+## signature per element type; no method in the metadata takes an
+## `IVector<T>` of values, so nothing is lost.
 ##
 ## `IIterable<T>::First` has to return a separate object again, because an
 ## iterator has its own position.
@@ -49,6 +57,25 @@ type
     indexOf: proc(self: pointer, item: pointer, index: ptr uint32,
                   found: ptr bool): HRESULT {.abi.}
 
+  VectorVtbl {.pure.} = object
+    base: InspectableVtbl
+    getAt: proc(self: pointer, index: uint32,
+                item: ptr pointer): HRESULT {.abi.}
+    getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
+    getView: proc(self: pointer, view: ptr pointer): HRESULT {.abi.}
+    indexOf: proc(self: pointer, item: pointer, index: ptr uint32,
+                  found: ptr bool): HRESULT {.abi.}
+    setAt: proc(self: pointer, index: uint32, item: pointer): HRESULT {.abi.}
+    insertAt: proc(self: pointer, index: uint32, item: pointer): HRESULT {.abi.}
+    removeAt: proc(self: pointer, index: uint32): HRESULT {.abi.}
+    append: proc(self: pointer, item: pointer): HRESULT {.abi.}
+    removeAtEnd: proc(self: pointer): HRESULT {.abi.}
+    clear: proc(self: pointer): HRESULT {.abi.}
+    getMany: proc(self: pointer, start, capacity: uint32, items: ptr pointer,
+                  actual: ptr uint32): HRESULT {.abi.}
+    replaceAll: proc(self: pointer, count: uint32,
+                     items: ptr pointer): HRESULT {.abi.}
+
   IteratorVtbl {.pure.} = object
     base: InspectableVtbl
     getCurrent: proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
@@ -62,10 +89,13 @@ type
     ## COM's rather than Nim's.
     iterableVtbl: ptr IterableVtbl    ## must stay first
     viewVtbl: ptr ViewVtbl
+    vectorVtbl: ptr VectorVtbl
     refs: int32
     iterableIid, viewIid, iteratorIid: GUID
+    vectorIid: GUID                   ## zero when `IVector<T>` is not offered
     kind: ElementKind
-    count: int32
+    count, capacity: int32
+    version: int32                    ## bumped by every mutation
     items: ptr UncheckedArray[pointer]
     # For `ekValue` the elements are not pointers at all: `items` is a flat
     # buffer of `count * stride` bytes and `GetAt` copies `stride` of them into
@@ -79,7 +109,11 @@ type
     refs: int32
     iid: GUID
     owner: ptr SeqView
+    version: int32                    ## the view's, when this was made
     pos: int32
+
+const E_CHANGED_STATE = cast[HRESULT](0x8000000C'u32)
+  ## What WinRT answers when a collection changes under an iterator.
 
 const IidAgile = GUID(
   data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
@@ -92,6 +126,9 @@ proc fromIterable(self: pointer): ptr SeqView {.inline.} =
 
 proc fromView(self: pointer): ptr SeqView {.inline.} =
   cast[ptr SeqView](cast[uint](self) - uint(offsetOf(SeqView, viewVtbl)))
+
+proc fromVector(self: pointer): ptr SeqView {.inline.} =
+  cast[ptr SeqView](cast[uint](self) - uint(offsetOf(SeqView, vectorVtbl)))
 
 proc valueAt(v: ptr SeqView, slot: int32): pointer {.inline.} =
   cast[pointer](cast[uint](v.items) + uint(slot * v.stride))
@@ -113,6 +150,26 @@ proc retain(v: ptr SeqView, slot: int32, item: ptr pointer): HRESULT =
     item[] = cast[pointer](dup)
   of ekValue: discard   # handled above
 
+proc keep(v: ptr SeqView, item: pointer): pointer =
+  ## An element a caller handed in, as the view will own it: an object is
+  ## retained, a string duplicated.
+  case v.kind
+  of ekObject:
+    if not item.isNil: discard addRef(item)
+    item
+  of ekString:
+    var dup: HSTRING
+    discard windowsDuplicateString(cast[HSTRING](item), dup.addr)
+    cast[pointer](dup)
+  of ekValue: nil                     # never offered `IVector<T>`
+
+proc drop(v: ptr SeqView, item: pointer) =
+  if item.isNil: return
+  case v.kind
+  of ekObject: discard release(item)
+  of ekString: discard windowsDeleteString(cast[HSTRING](item))
+  of ekValue: discard
+
 proc destroy(v: ptr SeqView) =
   if v.kind != ekValue:                 # values own nothing
     for i in 0 ..< v.count:
@@ -122,7 +179,7 @@ proc destroy(v: ptr SeqView) =
       of ekObject: discard release(raw)
       of ekString: discard windowsDeleteString(cast[HSTRING](raw))
       of ekValue: discard
-  if v.count > 0: deallocShared(v.items)
+  if v.capacity > 0: deallocShared(v.items)
   deallocShared(v)
 
 # --------------------------------------------------------------- IInspectable
@@ -153,6 +210,19 @@ proc viewReleaseV(self: pointer): uint32 {.abi.} =
     return 0
   uint32(v.refs)
 
+proc vecAddRef(self: pointer): uint32 {.abi.} =
+  let v = fromVector(self)
+  v.refs.inc
+  uint32(v.refs)
+
+proc vecRelease(self: pointer): uint32 {.abi.} =
+  let v = fromVector(self)
+  v.refs.dec
+  if v.refs <= 0:
+    destroy(v)
+    return 0
+  uint32(v.refs)
+
 proc answer(v: ptr SeqView, riid: ptr GUID, ppv: ptr pointer): HRESULT =
   ## Whichever vtable the caller asked for.
   if riid[] == IID_IUnknown or riid[] == IID_IInspectable or
@@ -162,6 +232,10 @@ proc answer(v: ptr SeqView, riid: ptr GUID, ppv: ptr pointer): HRESULT =
     return S_OK
   if riid[] == v.viewIid:
     ppv[] = cast[pointer](v.viewVtbl.addr)
+    v.refs.inc
+    return S_OK
+  if v.vectorIid != GUID() and riid[] == v.vectorIid:
+    ppv[] = cast[pointer](v.vectorVtbl.addr)
     v.refs.inc
     return S_OK
   ppv[] = nil
@@ -176,6 +250,11 @@ proc viewQueryV(self: pointer, riid: ptr GUID,
                 ppv: ptr pointer): HRESULT {.abi.} =
   if ppv.isNil: return E_POINTER
   answer(fromView(self), riid, ppv)
+
+proc vecQuery(self: pointer, riid: ptr GUID,
+              ppv: ptr pointer): HRESULT {.abi.} =
+  if ppv.isNil: return E_POINTER
+  answer(fromVector(self), riid, ppv)
 
 proc noIids(self: pointer, count: ptr uint32,
             iids: ptr ptr GUID): HRESULT {.abi.} =
@@ -203,12 +282,11 @@ proc viewGetSize(self: pointer, size: ptr uint32): HRESULT {.abi.} =
   size[] = uint32(fromView(self).count)
   S_OK
 
-proc viewIndexOf(self: pointer, item: pointer, index: ptr uint32,
-                 found: ptr bool): HRESULT {.abi.} =
+proc indexOf(v: ptr SeqView, item: pointer, index: ptr uint32,
+             found: ptr bool): HRESULT =
   ## Identity only. WinRT wants `IUnknown` identity for objects and value
   ## equality for strings; a view built to be read once is not worth the second
   ## of those, and saying "not found" is allowed.
-  let v = fromView(self)
   index[] = 0
   found[] = false
   if v.kind == ekObject:
@@ -225,6 +303,121 @@ proc viewIndexOf(self: pointer, item: pointer, index: ptr uint32,
         index[] = uint32(i)
         found[] = true
         break
+  S_OK
+
+proc viewIndexOf(self: pointer, item: pointer, index: ptr uint32,
+                 found: ptr bool): HRESULT {.abi.} =
+  indexOf(fromView(self), item, index, found)
+
+# ----------------------------------------------------------------- IVector<T>
+
+proc grow(v: ptr SeqView) =
+  ## Room for one more element.
+  if v.count < v.capacity: return
+  let cap = max(4'i32, v.capacity * 2)
+  v.items = cast[ptr UncheckedArray[pointer]](
+    reallocShared0(v.items, int(v.capacity) * sizeof(pointer),
+                   int(cap) * sizeof(pointer)))
+  v.capacity = cap
+
+proc vecGetAt(self: pointer, index: uint32,
+              item: ptr pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  if index >= uint32(v.count): return E_BOUNDS
+  retain(v, int32(index), item)
+
+proc vecGetSize(self: pointer, size: ptr uint32): HRESULT {.abi.} =
+  size[] = uint32(fromVector(self).count)
+  S_OK
+
+proc vecGetView(self: pointer, view: ptr pointer): HRESULT {.abi.} =
+  ## The view is this same object through its other vtable.
+  let v = fromVector(self)
+  view[] = cast[pointer](v.viewVtbl.addr)
+  v.refs.inc
+  S_OK
+
+proc vecIndexOf(self: pointer, item: pointer, index: ptr uint32,
+                found: ptr bool): HRESULT {.abi.} =
+  indexOf(fromVector(self), item, index, found)
+
+proc vecSetAt(self: pointer, index: uint32, item: pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  if index >= uint32(v.count): return E_BOUNDS
+  drop(v, v.items[index])
+  v.items[index] = keep(v, item)
+  v.version.inc
+  S_OK
+
+proc vecInsertAt(self: pointer, index: uint32, item: pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  if index > uint32(v.count): return E_BOUNDS
+  v.grow()
+  for i in countdown(v.count, int32(index) + 1):
+    v.items[i] = v.items[i - 1]
+  v.items[index] = keep(v, item)
+  v.count.inc
+  v.version.inc
+  S_OK
+
+proc vecRemoveAt(self: pointer, index: uint32): HRESULT {.abi.} =
+  let v = fromVector(self)
+  if index >= uint32(v.count): return E_BOUNDS
+  drop(v, v.items[index])
+  for i in int32(index) ..< v.count - 1:
+    v.items[i] = v.items[i + 1]
+  v.count.dec
+  v.version.inc
+  S_OK
+
+proc vecAppend(self: pointer, item: pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  v.grow()
+  v.items[v.count] = keep(v, item)
+  v.count.inc
+  v.version.inc
+  S_OK
+
+proc vecRemoveAtEnd(self: pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  if v.count == 0: return E_BOUNDS
+  v.count.dec
+  drop(v, v.items[v.count])
+  v.version.inc
+  S_OK
+
+proc vecClear(self: pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  for i in 0 ..< v.count: drop(v, v.items[i])
+  v.count = 0
+  v.version.inc
+  S_OK
+
+proc vecGetMany(self: pointer, start, capacity: uint32, items: ptr pointer,
+                actual: ptr uint32): HRESULT {.abi.} =
+  let v = fromVector(self)
+  let dest = cast[ptr UncheckedArray[pointer]](items)
+  var n = 0'u32
+  while n < capacity and start + n < uint32(v.count):
+    let hr = retain(v, int32(start + n), dest[n].addr)
+    if failed(hr):
+      actual[] = n
+      return hr
+    n.inc
+  actual[] = n
+  S_OK
+
+proc vecReplaceAll(self: pointer, count: uint32,
+                   items: ptr pointer): HRESULT {.abi.} =
+  let v = fromVector(self)
+  for i in 0 ..< v.count: drop(v, v.items[i])
+  v.count = 0
+  let src = cast[ptr UncheckedArray[pointer]](items)
+  for i in 0 ..< int32(count):
+    v.grow()
+    v.items[v.count] = keep(v, src[i])
+    v.count.inc
+  v.version.inc
   S_OK
 
 # -------------------------------------------------------------- IIterator<T>
@@ -257,6 +450,7 @@ proc iterQuery(self: pointer, riid: ptr GUID,
 
 proc iterCurrent(self: pointer, item: ptr pointer): HRESULT {.abi.} =
   let it = cast[ptr SeqIterator](self)
+  if it.version != it.owner.version: return E_CHANGED_STATE
   if it.pos >= it.owner.count: return E_BOUNDS
   retain(it.owner, it.pos, item)
 
@@ -267,6 +461,7 @@ proc iterHasCurrent(self: pointer, has: ptr bool): HRESULT {.abi.} =
 
 proc iterMoveNext(self: pointer, has: ptr bool): HRESULT {.abi.} =
   let it = cast[ptr SeqIterator](self)
+  if it.version != it.owner.version: return E_CHANGED_STATE
   if it.pos < it.owner.count: it.pos.inc
   has[] = it.pos < it.owner.count
   S_OK
@@ -300,6 +495,7 @@ proc viewFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
   it.refs = 1
   it.iid = v.iteratorIid
   it.owner = v
+  it.version = v.version
   it.pos = 0
   discard viewAddRef(cast[pointer](v))    # the iterator keeps the view alive
   outIt[] = cast[pointer](it)
@@ -316,30 +512,44 @@ var viewVtbl = ViewVtbl(
          getTrustLevel: baseTrust),
   getAt: viewGetAt, getSize: viewGetSize, indexOf: viewIndexOf)
 
+var vectorVtbl = VectorVtbl(
+  base: InspectableVtbl(queryInterface: vecQuery, addRef: vecAddRef,
+         release: vecRelease, getIids: noIids, getRuntimeClassName: noName,
+         getTrustLevel: baseTrust),
+  getAt: vecGetAt, getSize: vecGetSize, getView: vecGetView,
+  indexOf: vecIndexOf, setAt: vecSetAt, insertAt: vecInsertAt,
+  removeAt: vecRemoveAt, append: vecAppend, removeAtEnd: vecRemoveAtEnd,
+  clear: vecClear, getMany: vecGetMany, replaceAll: vecReplaceAll)
+
 proc newSeqView(kind: ElementKind, n: int,
-                iterableIid, viewIid, iteratorIid: GUID,
+                iterableIid, viewIid, iteratorIid, vectorIid: GUID,
                 stride = sizeof(pointer)): ptr SeqView =
   result = cast[ptr SeqView](allocShared0(sizeof(SeqView)))
   result.iterableVtbl = iterableVtbl.addr
   result.viewVtbl = viewVtbl.addr
+  result.vectorVtbl = vectorVtbl.addr
   result.refs = 1
   result.iterableIid = iterableIid
   result.viewIid = viewIid
   result.iteratorIid = iteratorIid
+  result.vectorIid = vectorIid
   result.kind = kind
   result.count = int32(n)
+  result.capacity = int32(n)
   result.stride = int32(stride)
   if n > 0:
     result.items = cast[ptr UncheckedArray[pointer]](allocShared0(n * stride))
 
-proc asIterable*[T](items: seq[T],
-                    iterableIid, viewIid, iteratorIid: GUID): pointer =
+proc asIterable*[T](items: seq[T], iterableIid, viewIid, iteratorIid: GUID,
+                    vectorIid = GUID()): pointer =
   ## A seq of objects, as something WinRT can iterate.
   ##
   ## Returned with a reference count of 1. Pass it to the method and release
   ## it; the object frees itself once the callee lets go, which may be after
-  ## the call returns.
-  let v = newSeqView(ekObject, items.len, iterableIid, viewIid, iteratorIid)
+  ## the call returns. With `vectorIid` it also answers for `IVector<T>`, over
+  ## its own copy of the elements.
+  let v = newSeqView(ekObject, items.len, iterableIid, viewIid, iteratorIid,
+                     vectorIid)
   for i, x in items:
     let p = x.p
     if not p.isNil: discard addRef(p)
@@ -352,15 +562,17 @@ proc asIterableValue*[T](items: seq[T],
   ## flat buffer the view owns. `T` has to be a plain type with no destructor;
   ## every WinRT value type is.
   let v = newSeqView(ekValue, items.len, iterableIid, viewIid, iteratorIid,
-                     sizeof(T))
+                     GUID(), sizeof(T))
   for i, x in items:
     cast[ptr T](valueAt(v, int32(i)))[] = x
   cast[pointer](v)
 
 proc asIterableString*(items: seq[string],
-                       iterableIid, viewIid, iteratorIid: GUID): pointer =
+                       iterableIid, viewIid, iteratorIid: GUID,
+                       vectorIid = GUID()): pointer =
   ## The same for a seq of strings, each copied into an HSTRING the view owns.
-  let v = newSeqView(ekString, items.len, iterableIid, viewIid, iteratorIid)
+  let v = newSeqView(ekString, items.len, iterableIid, viewIid, iteratorIid,
+                     vectorIid)
   for i, s in items:
     v.items[i] = cast[pointer](s.toHString)
   cast[pointer](v)

@@ -42,6 +42,7 @@ const tdInterface = 0x20'u32
 const GenericIidMarker = "##<computed-iids>##\n"
 const AsyncImportMarker = "##<async-import>##\n"
 const SeqViewImportMarker = "##<seqview-import>##\n"
+const MapViewImportMarker = "##<mapview-import>##\n"
 const AbiImportMarker = "##<abi-imports>##\n"
 const ReferenceImportMarker = "##<reference-import>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
@@ -235,12 +236,15 @@ const CollectionIfaces = [
 ]
 
 const PassableIfaces = [
-  ## The read-only shapes, which is all a seq can honestly stand in for.
-  ## `IVector<T>` is mutable — a callee may append to it — and handing over
-  ## something that refuses would be worse than not generating the method.
   "Windows.Foundation.Collections.IIterable`1",
   "Windows.Foundation.Collections.IVectorView`1",
+  "Windows.Foundation.Collections.IVector`1",
 ]
+
+const
+  IterableIface = "Windows.Foundation.Collections.IIterable`1"
+  VectorIface = "Windows.Foundation.Collections.IVector`1"
+  PairIface = "Windows.Foundation.Collections.IKeyValuePair`2"
 
 const MapIfaces = [
   "Windows.Foundation.Collections.IMapView`2",
@@ -299,10 +303,42 @@ func mapValueSpelling(c: Ctx, v: SigType): string =
 
 func passableCollection(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a collection a Nim seq can be passed as.
+  ##
+  ## `IVector<T>` is the mutable one, and `seqview` offers it over objects and
+  ## strings only: `Append(T)` takes its element by value, so a vector of
+  ## structs would need a different `Invoke` shape per struct.
   if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces:
-    t.args[0]
+    if t.name == VectorIface and
+       t.args[0].kind notin {skString, skInterface, skObject}:
+      SigType(kind: skVoid)
+    else:
+      t.args[0]
   else:
     SigType(kind: skVoid)
+
+func passableMap(c: Ctx, t: SigType): tuple[found: bool, key, val: SigType] =
+  ## The key and value types, if `t` is a map a Nim `Table` can be passed as:
+  ## `IMap<K, V>`, `IMapView<K, V>` or `IIterable<IKeyValuePair<K, V>>`.
+  ##
+  ## Keys are strings or GUIDs and values are strings or objects — the shapes
+  ## that arrive at `Lookup` and `Insert` as one pointer-sized argument, which
+  ## is what lets `mapview` serve every instantiation from one vtable.
+  var args: seq[SigType]
+  if t.kind != skUnsupported: return
+  if t.name in MapIfaces and t.args.len == 2:
+    args = t.args
+  elif t.name == IterableIface and t.args.len == 1 and
+       t.args[0].kind == skUnsupported and t.args[0].name == PairIface and
+       t.args[0].args.len == 2:
+    args = t.args[0].args
+  else:
+    return
+  let keyOk = args[0].kind == skString or
+              (args[0].kind == skStruct and args[0].name == "System.Guid")
+  let valOk = args[1].kind in {skString, skInterface, skObject} and
+              c.mapValueSpelling(args[1]).len > 0
+  if keyOk and valOk: (true, args[0], args[1])
+  else: (false, SigType(kind: skVoid), SigType(kind: skVoid))
 
 func collectionElement(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a read-only-walkable WinRT collection.
@@ -401,6 +437,7 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     elif inReturn and c.mapValueSpelling(c.mapValue(t)).len > 0: ""
     elif not inReturn and r.kind != skVoid and
          (boxSlot(r) >= 0 or selfBoxed(r)) and c.skipReason(r).len == 0: ""
+    elif not inReturn and c.passableMap(t).found: ""
     elif not inReturn and passable.kind != skVoid and
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
@@ -450,6 +487,10 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     if boxSlot(refv) < 0 and not selfBoxed(refv): return ""
     let v = c.nimTypeOf(refv)
     return if v.len > 0: "Option[" & v & "]" else: ""
+  if not inReturn:
+    let pm = c.passableMap(t)
+    if pm.found:
+      return &"Table[{c.mapKeySpelling(pm.key)}, {c.mapValueSpelling(pm.val)}]"
   if inReturn:
     let mv = c.mapValue(t)
     if mv.kind != skVoid:
@@ -678,6 +719,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var takenNames: HashSet[string]
   var usesAsync = false
   var usesSeqView = false
+  var usesMapView = false
   var usesReference = false
   for t in md.types:
     # Every class is walked, so this module can *name* any of them in a
@@ -787,6 +829,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # one does not drag `std/asyncdispatch` into programs that never await.
   buf.add AsyncImportMarker
   buf.add SeqViewImportMarker
+  buf.add MapViewImportMarker
   buf.add ReferenceImportMarker
   buf.add "\n"
   # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
@@ -1338,10 +1381,44 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               lines.add &"{indent}defer: discard release(p{i})"
               callArgs.add &"p{i}"
               continue
+            let pm = c.passableMap(p)
+            if pm.found:
+              # A Table the callee can read as a map or walk as pairs. Five
+              # instantiations are involved and none is declared anywhere, so
+              # all five IIDs are computed here.
+              let pairT = SigType(kind: skUnsupported, name: PairIface,
+                                  args: @[pm.key, pm.val])
+              let shapes = [
+                ("iterable", SigType(kind: skUnsupported, name: IterableIface,
+                                     args: @[pairT])),
+                ("cursor", SigType(kind: skUnsupported, args: @[pairT],
+                                   name: "Windows.Foundation.Collections.IIterator`1")),
+                ("pair", pairT),
+                ("view", SigType(kind: skUnsupported, args: @[pm.key, pm.val],
+                                 name: "Windows.Foundation.Collections.IMapView`2")),
+                ("map", SigType(kind: skUnsupported, args: @[pm.key, pm.val],
+                                name: "Windows.Foundation.Collections.IMap`2"))]
+              var fields: seq[string]
+              var made = true
+              for (field, st) in shapes:
+                let computed = sigCtx.parameterizedIid(st)
+                if computed.len == 0:
+                  made = false
+                  break
+                fields.add &"{field}: {genericIidConst(computed, st)}"
+              if not made:
+                ok = false
+                break
+              usesMapView = true
+              lines.add &"{indent}let p{i} = asMap({pn}, MapIids(" &
+                        fields.join(", ") & "))"
+              lines.add &"{indent}defer: discard release(p{i})"
+              callArgs.add &"p{i}"
+              continue
             # A seq the callee can iterate. All three IIDs are needed: the one
             # it asked for, the view it may narrow to, and the iterator it gets
             # from `First` — none of which is declared anywhere, so all three
-            # are computed here.
+            # are computed here. A mutable `IVector<T>` needs a fourth.
             let elem = c.passableCollection(p)
             let es = c.elementSpelling(elem)
             var iids: array[3, string]
@@ -1358,12 +1435,20 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             if not made:
               ok = false
               break
+            var vectorArg = ""
+            if p.name == VectorIface:
+              let st = SigType(kind: skUnsupported, name: VectorIface, args: @[elem])
+              let computed = sigCtx.parameterizedIid(st)
+              if computed.len == 0:
+                ok = false
+                break
+              vectorArg = ", " & genericIidConst(computed, st)
             usesSeqView = true
             let ctor = if es == "string": "asIterableString"
                        elif elementIsValue(elem): &"asIterableValue[{es}]"
                        else: &"asIterable[{es}]"
             lines.add &"{indent}let p{i} = {ctor}({pn}, {iids[0]}, " &
-                      &"{iids[1]}, {iids[2]})"
+                      &"{iids[1]}, {iids[2]}{vectorArg})"
             lines.add &"{indent}defer: discard release(p{i})"
             callArgs.add &"p{i}"
           else:
@@ -1615,6 +1700,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   let refPath = corePath.rsplit('/', 1)[0] & "/reference"
   buf = buf.replace(ReferenceImportMarker,
     if usesReference: &"import {refPath}\n" else: "")
+  let mapPath = corePath.rsplit('/', 1)[0] & "/mapview"
+  buf = buf.replace(MapViewImportMarker,
+    if usesMapView: &"import {mapPath}\n" else: "")
   let seqPath = corePath.rsplit('/', 1)[0] & "/seqview"
   buf = buf.replace(SeqViewImportMarker,
     if usesSeqView: &"import {seqPath}\n" else: "")

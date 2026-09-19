@@ -29,18 +29,28 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
-const IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object* = GUID(
-    data1: 0xB40F316F'u32, data2: 0xED8E'u16, data3: 0x58BA'u16,
-    data4: [0x92'u8, 0x74, 0x7C, 0xEE, 0xC6, 0x67, 0x46, 0xB2])
-const IID_IKeyValuePair_2_String_Object* = GUID(
-    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
-    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
 const IID_IIterable_1_IKeyValuePair_2* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x5DB5FA32'u32, data2: 0x707C'u16, data3: 0x5849'u16,
+    data4: [0xA0'u8, 0x6B, 0x91, 0xC8, 0xEB, 0x9D, 0x10, 0xE8])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IMapView_2_String_Object* = GUID(
+    data1: 0xBB78502A'u32, data2: 0xF79D'u16, data3: 0x54FA'u16,
+    data4: [0x92'u8, 0xC9, 0x90, 0xC5, 0x03, 0x9F, 0xDF, 0x7E])
+const IID_IMap_2_String_Object* = GUID(
+    data1: 0x1B0D3570'u32, data2: 0x0877'u16, data3: 0x5EC2'u16,
+    data4: [0x8A'u8, 0x2C, 0x3B, 0x95, 0x39, 0x50, 0x6A, 0xCA])
+const IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object* = GUID(
+    data1: 0xB40F316F'u32, data2: 0xED8E'u16, data3: 0x58BA'u16,
+    data4: [0x92'u8, 0x74, 0x7C, 0xEE, 0xC6, 0x67, 0x46, 0xB2])
 const IID_TypedEventHandler_2_ActionCatalog_Object* = GUID(
     data1: 0x6FC189B6'u32, data2: 0xF223'u16, data3: 0x5959'u16,
     data4: [0x86'u8, 0x76, 0xDB, 0x86, 0x04, 0x9C, 0x04, 0xD9])
@@ -334,6 +344,17 @@ proc createAppointmentEntity*(self: ActionEntityFactory, sourceId: string, appoi
           var tmp: pointer
           vcall(it, Slot_IActionEntityFactory6_CreateAppointmentEntity, Fn_IActionEntityFactory6_CreateAppointmentEntity)(it, h0, p1, n2, d2, tmp.addr).check("ActionEntityFactory.CreateAppointmentEntity")
           result = adopt[AppointmentActionEntity](tmp)
+
+proc createCustomTextEntity*(self: ActionEntityFactory, kind: string, keyPhrase: string, props: Table[string, WinRtObject]): CustomTextActionEntity  =
+  ## Windows.AI.Actions.ActionEntityFactory.CreateCustomTextEntity
+  withIface(self.p, IID_IActionEntityFactory7, "IActionEntityFactory7", it):
+    withHString(kind, h0):
+      withHString(keyPhrase, h1):
+        let p2 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_Object, view: IID_IMapView_2_String_Object, map: IID_IMap_2_String_Object))
+        defer: discard release(p2)
+        var tmp: pointer
+        vcall(it, Slot_IActionEntityFactory7_CreateCustomTextEntity, Fn_IActionEntityFactory7_CreateCustomTextEntity)(it, h0, h1, p2, tmp.addr).check("ActionEntityFactory.CreateCustomTextEntity")
+        result = adopt[CustomTextActionEntity](tmp)
 
 proc createArrayEntityWithCustomKind*(self: ActionEntityFactory, elementKind: ActionEntityKind, customKind: string, entities: openArray[ActionEntity]): ArrayActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateArrayEntityWithCustomKind
@@ -1658,6 +1679,16 @@ proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding, 
         vcall(it, Slot_ILearningModelSession_EvaluateAsync, Fn_ILearningModelSession_EvaluateAsync)(it, p0, h1, op.addr).check("LearningModelSession.EvaluateAsync")
   result = adopt[LearningModelEvaluationResult](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResult, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult, alPlain, "LearningModelSession.EvaluateAsync"))
 
+proc evaluateFeaturesAsync*(self: LearningModelSession, features: Table[string, WinRtObject], correlationId: string): Future[LearningModelEvaluationResult] {.async.} =
+  ## Windows.AI.MachineLearning.LearningModelSession.EvaluateFeaturesAsync
+  var op: pointer
+  withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
+    let p0 = asMap(features, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_Object, view: IID_IMapView_2_String_Object, map: IID_IMap_2_String_Object))
+    defer: discard release(p0)
+    withHString(correlationId, h1):
+      vcall(it, Slot_ILearningModelSession_EvaluateFeaturesAsync, Fn_ILearningModelSession_EvaluateFeaturesAsync)(it, p0, h1, op.addr).check("LearningModelSession.EvaluateFeaturesAsync")
+  result = adopt[LearningModelEvaluationResult](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResult, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult, alPlain, "LearningModelSession.EvaluateFeaturesAsync"))
+
 proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding, correlationId: string): LearningModelEvaluationResult  =
   ## Windows.AI.MachineLearning.LearningModelSession.Evaluate
   withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
@@ -1666,6 +1697,16 @@ proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding, corre
         var tmp: pointer
         vcall(it, Slot_ILearningModelSession_Evaluate, Fn_ILearningModelSession_Evaluate)(it, p0, h1, tmp.addr).check("LearningModelSession.Evaluate")
         result = adopt[LearningModelEvaluationResult](tmp)
+
+proc evaluateFeatures*(self: LearningModelSession, features: Table[string, WinRtObject], correlationId: string): LearningModelEvaluationResult  =
+  ## Windows.AI.MachineLearning.LearningModelSession.EvaluateFeatures
+  withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
+    let p0 = asMap(features, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_Object, view: IID_IMapView_2_String_Object, map: IID_IMap_2_String_Object))
+    defer: discard release(p0)
+    withHString(correlationId, h1):
+      var tmp: pointer
+      vcall(it, Slot_ILearningModelSession_EvaluateFeatures, Fn_ILearningModelSession_EvaluateFeatures)(it, p0, h1, tmp.addr).check("LearningModelSession.EvaluateFeatures")
+      result = adopt[LearningModelEvaluationResult](tmp)
 
 proc close*(self: LearningModelSession)  =
   ## Windows.AI.MachineLearning.LearningModelSession.Close
@@ -1992,6 +2033,16 @@ proc evaluateAsync*(self: LearningModelPreview, binding: LearningModelBindingPre
       withHString(correlationId, h1):
         vcall(it, Slot_ILearningModelPreview_EvaluateAsync, Fn_ILearningModelPreview_EvaluateAsync)(it, p0, h1, op.addr).check("LearningModelPreview.EvaluateAsync")
   result = adopt[LearningModelEvaluationResultPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResultPreview, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview, alPlain, "LearningModelPreview.EvaluateAsync"))
+
+proc evaluateFeaturesAsync*(self: LearningModelPreview, features: Table[string, WinRtObject], correlationId: string): Future[LearningModelEvaluationResultPreview] {.async.} =
+  ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateFeaturesAsync
+  var op: pointer
+  withIface(self.p, IID_ILearningModelPreview, "ILearningModelPreview", it):
+    let p0 = asMap(features, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_Object, view: IID_IMapView_2_String_Object, map: IID_IMap_2_String_Object))
+    defer: discard release(p0)
+    withHString(correlationId, h1):
+      vcall(it, Slot_ILearningModelPreview_EvaluateFeaturesAsync, Fn_ILearningModelPreview_EvaluateFeaturesAsync)(it, p0, h1, op.addr).check("LearningModelPreview.EvaluateFeaturesAsync")
+  result = adopt[LearningModelEvaluationResultPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelEvaluationResultPreview, IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview, alPlain, "LearningModelPreview.EvaluateFeaturesAsync"))
 
 proc description*(self: LearningModelPreview): LearningModelDescriptionPreview  =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_Description

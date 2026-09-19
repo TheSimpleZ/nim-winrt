@@ -27,6 +27,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -159,24 +160,33 @@ const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
 const IID_IAsyncOperation_1_U4* = GUID(
     data1: 0xEF60385F'u32, data2: 0xBE78'u16, data3: 0x584B'u16,
     data4: [0xAA'u8, 0xEF, 0x78, 0x29, 0xAD, 0xA2, 0xB0, 0xDE])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x790ACB62'u32, data2: 0xC4B3'u16, data3: 0x57EA'u16,
+    data4: [0xA1'u8, 0x52, 0x9E, 0x21, 0x93, 0x71, 0xC6, 0xDC])
+const IID_IMapView_2_String_IBuffer* = GUID(
+    data1: 0x2CFEEC4F'u32, data2: 0xE261'u16, data3: 0x5F4C'u16,
+    data4: [0xAE'u8, 0xE1, 0xC7, 0x85, 0x18, 0xE9, 0xD5, 0xB9])
+const IID_IMap_2_String_IBuffer* = GUID(
+    data1: 0xD480AFB0'u32, data2: 0x9296'u16, data3: 0x5717'u16,
+    data4: [0xA6'u8, 0x29, 0xCE, 0x85, 0xE5, 0x9E, 0x51, 0x1D])
 const IID_IIterable_1_String* = GUID(
     data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
     data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
 const IID_IIterator_1_String* = GUID(
     data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
     data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
-const IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult* = GUID(
-    data1: 0x9D96282C'u32, data2: 0xB6AB'u16, data3: 0x5CD3'u16,
-    data4: [0x99'u8, 0x1B, 0xA3, 0x58, 0xC5, 0x31, 0xBC, 0xB6])
-const IID_IAsyncOperation_1_GameSaveBlobGetResult* = GUID(
-    data1: 0x7023B023'u32, data2: 0x7AED'u16, data3: 0x526C'u16,
-    data4: [0xB3'u8, 0xBC, 0xBE, 0x12, 0xE3, 0x5C, 0xE1, 0xCF])
 const IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult* = GUID(
     data1: 0xEE53E64F'u32, data2: 0x5319'u16, data3: 0x56FD'u16,
     data4: [0xA2'u8, 0x8A, 0x2C, 0x47, 0x4F, 0xC4, 0x2E, 0x48])
 const IID_IAsyncOperation_1_GameSaveOperationResult* = GUID(
     data1: 0x1C27FB97'u32, data2: 0x1E1A'u16, data3: 0x516F'u16,
     data4: [0xAB'u8, 0xB2, 0x12, 0xC1, 0x8E, 0x18, 0x21, 0x8D])
+const IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult* = GUID(
+    data1: 0x9D96282C'u32, data2: 0xB6AB'u16, data3: 0x5CD3'u16,
+    data4: [0x99'u8, 0x1B, 0xA3, 0x58, 0xC5, 0x31, 0xBC, 0xB6])
+const IID_IAsyncOperation_1_GameSaveBlobGetResult* = GUID(
+    data1: 0x7023B023'u32, data2: 0x7AED'u16, data3: 0x526C'u16,
+    data4: [0xB3'u8, 0xBC, 0xBE, 0x12, 0xE3, 0x5C, 0xE1, 0xCF])
 const IID_IVectorView_1_GameSaveContainerInfo* = GUID(
     data1: 0x9C490594'u32, data2: 0x0846'u16, data3: 0x50F5'u16,
     data4: [0xB2'u8, 0xEF, 0xC6, 0xF0, 0x3E, 0xE6, 0x86, 0x8A])
@@ -2507,6 +2517,27 @@ proc provider*(self: GameSaveContainer): GameSaveProvider  =
     var tmp: pointer
     vcall(it, Slot_IGameSaveContainer_get_Provider, Fn_IGameSaveContainer_get_Provider)(it, tmp.addr).check("GameSaveContainer.get_Provider")
     result = adopt[GameSaveProvider](tmp)
+
+proc submitUpdatesAsync*(self: GameSaveContainer, blobsToWrite: Table[string, Buffer], blobsToDelete: seq[string], displayName: string): Future[GameSaveOperationResult] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.SubmitUpdatesAsync
+  var op: pointer
+  withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
+    let p0 = asMap(blobsToWrite, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
+    defer: discard release(p0)
+    let p1 = asIterableString(blobsToDelete, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p1)
+    withHString(displayName, h2):
+      vcall(it, Slot_IGameSaveContainer_SubmitUpdatesAsync, Fn_IGameSaveContainer_SubmitUpdatesAsync)(it, p0, p1, h2, op.addr).check("GameSaveContainer.SubmitUpdatesAsync")
+  result = adopt[GameSaveOperationResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult, IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult, alPlain, "GameSaveContainer.SubmitUpdatesAsync"))
+
+proc readAsync*(self: GameSaveContainer, blobsToRead: Table[string, Buffer]): Future[GameSaveOperationResult] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.ReadAsync
+  var op: pointer
+  withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
+    let p0 = asMap(blobsToRead, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
+    defer: discard release(p0)
+    vcall(it, Slot_IGameSaveContainer_ReadAsync, Fn_IGameSaveContainer_ReadAsync)(it, p0, op.addr).check("GameSaveContainer.ReadAsync")
+  result = adopt[GameSaveOperationResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult, IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult, alPlain, "GameSaveContainer.ReadAsync"))
 
 proc getAsync*(self: GameSaveContainer, blobsToRead: seq[string]): Future[GameSaveBlobGetResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.GetAsync

@@ -27,6 +27,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -189,6 +190,15 @@ const IID_IIterator_1_WebAccount* = GUID(
 const IID_IVectorView_1_WebTokenResponse* = GUID(
     data1: 0x199E065C'u32, data2: 0x8195'u16, data3: 0x55DA'u16,
     data4: [0x9C'u8, 0x10, 0x8A, 0xEA, 0xF9, 0xAC, 0x10, 0x62])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = GUID(
     data1: 0xC2090D8C'u32, data2: 0x37D8'u16, data3: 0x5C47'u16,
     data4: [0x95'u8, 0x81, 0x0F, 0x17, 0xB9, 0x1A, 0x0C, 0xD3])
@@ -1967,6 +1977,17 @@ proc pullCookiesAsync*(_: typedesc[WebAccountManager], uriString: string, caller
         vcall(it, Slot_IWebAccountManagerStatics2_PullCookiesAsync, Fn_IWebAccountManagerStatics2_PullCookiesAsync)(it, h0, h1, op.addr).check("WebAccountManager.PullCookiesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.PullCookiesAsync")
 
+proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string, webAccountUserName: string, props: Table[string, string], scope: WebAccountScope): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountScopeManagerStatics, it):
+    withHString(webAccountId, h0):
+      withHString(webAccountUserName, h1):
+        let p2 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+        defer: discard release(p2)
+        vcall(it, Slot_IWebAccountScopeManagerStatics_AddWebAccountAsync, Fn_IWebAccountScopeManagerStatics_AddWebAccountAsync)(it, h0, h1, p2, scope, op.addr).check("WebAccountManager.AddWebAccountAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountAsync"))
+
 proc setScopeAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, scope: WebAccountScope) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetScopeAsync
   var op: pointer
@@ -1982,6 +2003,28 @@ proc getScope*(_: typedesc[WebAccountManager], webAccount: WebAccount): WebAccou
       var tmp: WebAccountScope
       vcall(it, Slot_IWebAccountScopeManagerStatics_GetScope, Fn_IWebAccountScopeManagerStatics_GetScope)(it, p0, tmp.addr).check("WebAccountManager.GetScope")
       result = tmp
+
+proc updateWebAccountPropertiesAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, webAccountUserName: string, additionalProperties: Table[string, string]) {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.UpdateWebAccountPropertiesAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
+    withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
+      withHString(webAccountUserName, h1):
+        let p2 = asMap(additionalProperties, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+        defer: discard release(p2)
+        vcall(it, Slot_IWebAccountManagerStatics_UpdateWebAccountPropertiesAsync, Fn_IWebAccountManagerStatics_UpdateWebAccountPropertiesAsync)(it, p0, h1, p2, op.addr).check("WebAccountManager.UpdateWebAccountPropertiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.UpdateWebAccountPropertiesAsync")
+
+proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string, webAccountUserName: string, props: Table[string, string]): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
+    withHString(webAccountId, h0):
+      withHString(webAccountUserName, h1):
+        let p2 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+        defer: discard release(p2)
+        vcall(it, Slot_IWebAccountManagerStatics_AddWebAccountAsync, Fn_IWebAccountManagerStatics_AddWebAccountAsync)(it, h0, h1, p2, op.addr).check("WebAccountManager.AddWebAccountAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountAsync"))
 
 proc deleteWebAccountAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.DeleteWebAccountAsync
@@ -2055,6 +2098,18 @@ proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: We
       vcall(it, Slot_IWebAccountManagerStatics_ClearWebAccountPictureAsync, Fn_IWebAccountManagerStatics_ClearWebAccountPictureAsync)(it, p0, op.addr).check("WebAccountManager.ClearWebAccountPictureAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.ClearWebAccountPictureAsync")
 
+proc addWebAccountAsync*(_: typedesc[WebAccountManager], webAccountId: string, webAccountUserName: string, props: Table[string, string], scope: WebAccountScope, perUserWebAccountId: string): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
+    withHString(webAccountId, h0):
+      withHString(webAccountUserName, h1):
+        let p2 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+        defer: discard release(p2)
+        withHString(perUserWebAccountId, h4):
+          vcall(it, Slot_IWebAccountMapManagerStatics_AddWebAccountAsync, Fn_IWebAccountMapManagerStatics_AddWebAccountAsync)(it, h0, h1, p2, scope, h4, op.addr).check("WebAccountManager.AddWebAccountAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountAsync"))
+
 proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager], perAppAccount: WebAccount, perUserWebAccountId: string) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetPerAppToPerUserAccountAsync
   var op: pointer
@@ -2104,6 +2159,43 @@ proc findAllProviderWebAccountsForUserAsync*(_: typedesc[WebAccountManager], use
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "WebAccountManager.FindAllProviderWebAccountsForUserAsync")
   result = toSeq[WebAccount](coll, IID_IVectorView_1_WebAccount)
   discard release(coll)
+
+proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User, webAccountId: string, webAccountUserName: string, props: Table[string, string]): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountForUserAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(webAccountId, h1):
+        withHString(webAccountUserName, h2):
+          let p3 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+          defer: discard release(p3)
+          vcall(it, Slot_IWebAccountManagerStatics3_AddWebAccountForUserAsync, Fn_IWebAccountManagerStatics3_AddWebAccountForUserAsync)(it, p0, h1, h2, p3, op.addr).check("WebAccountManager.AddWebAccountForUserAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountForUserAsync"))
+
+proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User, webAccountId: string, webAccountUserName: string, props: Table[string, string], scope: WebAccountScope): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountForUserAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(webAccountId, h1):
+        withHString(webAccountUserName, h2):
+          let p3 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+          defer: discard release(p3)
+          vcall(it, Slot_IWebAccountManagerStatics3_AddWebAccountForUserAsync2, Fn_IWebAccountManagerStatics3_AddWebAccountForUserAsync2)(it, p0, h1, h2, p3, scope, op.addr).check("WebAccountManager.AddWebAccountForUserAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountForUserAsync"))
+
+proc addWebAccountForUserAsync*(_: typedesc[WebAccountManager], user: User, webAccountId: string, webAccountUserName: string, props: Table[string, string], scope: WebAccountScope, perUserWebAccountId: string): Future[WebAccount] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.AddWebAccountForUserAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(webAccountId, h1):
+        withHString(webAccountUserName, h2):
+          let p3 = asMap(props, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+          defer: discard release(p3)
+          withHString(perUserWebAccountId, h5):
+            vcall(it, Slot_IWebAccountManagerStatics3_AddWebAccountForUserAsync3, Fn_IWebAccountManagerStatics3_AddWebAccountForUserAsync3)(it, p0, h1, h2, p3, scope, h5, op.addr).check("WebAccountManager.AddWebAccountForUserAsync")
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.AddWebAccountForUserAsync"))
 
 proc reportCompleted*(self: WebAccountProviderAddAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation.ReportCompleted

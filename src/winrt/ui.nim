@@ -41,6 +41,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
@@ -225,6 +226,15 @@ const IID_EventHandler_1_BackRequestedEventArgs* = GUID(
 const IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs* = GUID(
     data1: 0xB62D7F11'u32, data2: 0xC7B1'u16, data3: 0x5BF0'u16,
     data4: [0xA3'u8, 0x47, 0x33, 0x66, 0x25, 0x2D, 0xB4, 0xCE])
+const IID_IIterable_1_PointerPoint* = GUID(
+    data1: 0xF6F2CBA6'u32, data2: 0x7076'u16, data3: 0x5B59'u16,
+    data4: [0x96'u8, 0x31, 0xF6, 0xAC, 0x32, 0xB5, 0x76, 0x95])
+const IID_IVectorView_1_PointerPoint* = GUID(
+    data1: 0xF0F57411'u32, data2: 0x7786'u16, data3: 0x5174'u16,
+    data4: [0x87'u8, 0x52, 0x4C, 0x5E, 0x83, 0x4B, 0x6D, 0xA2])
+const IID_IIterator_1_PointerPoint* = GUID(
+    data1: 0x721FE01C'u32, data2: 0x5AD4'u16, data3: 0x5262'u16,
+    data4: [0xB0'u8, 0x78, 0x3A, 0xB3, 0x45, 0x10, 0x5D, 0xB8])
 const IID_TypedEventHandler_2_GestureRecognizer_TappedEventArgs* = GUID(
     data1: 0x27F3AD57'u32, data2: 0x8994'u16, data3: 0x5712'u16,
     data4: [0x8B'u8, 0x83, 0xA9, 0x3B, 0xA1, 0x7C, 0x03, 0xC2])
@@ -603,6 +613,15 @@ const IID_IVectorView_1_UserNotification* = GUID(
 const IID_IVectorView_1_AdaptiveNotificationText* = GUID(
     data1: 0xB60DE92B'u32, data2: 0x4E12'u16, data3: 0x55AF'u16,
     data4: [0xB4'u8, 0x2F, 0xAF, 0xE2, 0xD7, 0x0B, 0xA2, 0x78])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_IVector_1_NotificationBinding* = GUID(
     data1: 0x7F7D8AD7'u32, data2: 0xB4D2'u16, data3: 0x5A03'u16,
     data4: [0xBE'u8, 0x6F, 0x2B, 0x89, 0x87, 0x5F, 0xB3, 0x2D])
@@ -1185,6 +1204,15 @@ const IID_TypedEventHandler_2_InkToolbar_InkToolbarIsStencilButtonCheckedChanged
 const IID_IVector_1_Brush* = GUID(
     data1: 0xA8CD84E4'u32, data2: 0x3EDF'u16, data3: 0x5172'u16,
     data4: [0x8F'u8, 0x77, 0x10, 0xE9, 0x10, 0xE5, 0xDC, 0x5D])
+const IID_IIterable_1_Brush* = GUID(
+    data1: 0xB07E92D5'u32, data2: 0x06B3'u16, data3: 0x5DD2'u16,
+    data4: [0x8D'u8, 0x49, 0x34, 0x9F, 0xFB, 0xD8, 0x46, 0x34])
+const IID_IVectorView_1_Brush* = GUID(
+    data1: 0x2C463363'u32, data2: 0xEF52'u16, data3: 0x5DD5'u16,
+    data4: [0xBA'u8, 0x90, 0x41, 0x5D, 0x89, 0x33, 0xBE, 0xC9])
+const IID_IIterator_1_Brush* = GUID(
+    data1: 0x5D4853D4'u32, data2: 0x3F43'u16, data3: 0x5ABA'u16,
+    data4: [0xA0'u8, 0x74, 0xF2, 0x1B, 0x30, 0x92, 0x7B, 0xF6])
 const IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object* = GUID(
     data1: 0x127A421C'u32, data2: 0xAE3F'u16, data3: 0x53DF'u16,
     data4: [0xB9'u8, 0xAD, 0x17, 0x68, 0x47, 0xF3, 0x2C, 0xDE])
@@ -1269,6 +1297,15 @@ const IID_TypedEventHandler_2_MapControl_MapContextRequestedEventArgs* = GUID(
 const IID_IVector_1_MapLayer* = GUID(
     data1: 0x62782500'u32, data2: 0xA9CC'u16, data3: 0x57F1'u16,
     data4: [0xB8'u8, 0x1B, 0x6E, 0xBC, 0xC9, 0x21, 0x22, 0x45])
+const IID_IIterable_1_MapLayer* = GUID(
+    data1: 0x508E2CE9'u32, data2: 0x1984'u16, data3: 0x5FC8'u16,
+    data4: [0xA4'u8, 0x91, 0x62, 0xE8, 0x88, 0x95, 0x39, 0xF4])
+const IID_IVectorView_1_MapLayer* = GUID(
+    data1: 0x963326B9'u32, data2: 0x6770'u16, data3: 0x52F1'u16,
+    data4: [0xB6'u8, 0xC6, 0x51, 0x94, 0x41, 0xF8, 0x73, 0xC3])
+const IID_IIterator_1_MapLayer* = GUID(
+    data1: 0xAF2283FF'u32, data2: 0x250E'u16, data3: 0x56D1'u16,
+    data4: [0x96'u8, 0xD4, 0x9F, 0x78, 0xE1, 0x64, 0xCB, 0xC6])
 const IID_IVectorView_1_LocalLocation* = GUID(
     data1: 0x619192F2'u32, data2: 0x4F9D'u16, data3: 0x5629'u16,
     data4: [0xAB'u8, 0x01, 0xB1, 0x85, 0x12, 0x50, 0x3D, 0x73])
@@ -1302,6 +1339,12 @@ const IID_IKeyValuePair_2_String_Object* = GUID(
 const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
+const IID_IIterable_1_MapElement* = GUID(
+    data1: 0x81D25C25'u32, data2: 0xA4B3'u16, data3: 0x5D0D'u16,
+    data4: [0x92'u8, 0xAB, 0x26, 0x36, 0x0C, 0x2A, 0x7F, 0xAC])
+const IID_IIterator_1_MapElement* = GUID(
+    data1: 0xF916B428'u32, data2: 0x3B74'u16, data3: 0x5AD4'u16,
+    data4: [0x9D'u8, 0x97, 0x1B, 0x0A, 0x38, 0x7A, 0xEC, 0xB5])
 const IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerClickEventArgs* = GUID(
     data1: 0xD3EE3FAA'u32, data2: 0x6A6F'u16, data3: 0x576A'u16,
     data4: [0x99'u8, 0x00, 0x52, 0x8E, 0x8E, 0xBA, 0x92, 0x86])
@@ -1398,6 +1441,12 @@ const IID_TypedEventHandler_2_ColorSpectrum_ColorChangedEventArgs* = GUID(
 const IID_IReference_1_Point* = GUID(
     data1: 0x84F14C22'u32, data2: 0xA00A'u16, data3: 0x5272'u16,
     data4: [0x8D'u8, 0x3D, 0x82, 0x11, 0x2E, 0x66, 0xDF, 0x00])
+const IID_IIterable_1_Object* = GUID(
+    data1: 0x092B849B'u32, data2: 0x60B1'u16, data3: 0x52BE'u16,
+    data4: [0xA4'u8, 0x4A, 0x6F, 0xE8, 0xE9, 0x33, 0xCB, 0xE4])
+const IID_IIterator_1_Object* = GUID(
+    data1: 0x44A94F2D'u32, data2: 0x04F8'u16, data3: 0x5091'u16,
+    data4: [0xB3'u8, 0x36, 0xBE, 0x78, 0x92, 0xDD, 0x10, 0xBE])
 const IID_TypedEventHandler_2_RatingControl_Object* = GUID(
     data1: 0x180BE111'u32, data2: 0xC600'u16, data3: 0x5E5D'u16,
     data4: [0x82'u8, 0x66, 0xFB, 0x29, 0xB9, 0x65, 0x6A, 0xF4])
@@ -1671,6 +1720,18 @@ const IID_TypedEventHandler_2_XamlUICommand_ExecuteRequestedEventArgs* = GUID(
 const IID_TypedEventHandler_2_XamlUICommand_CanExecuteRequestedEventArgs* = GUID(
     data1: 0xBC9F083E'u32, data2: 0xF27F'u16, data3: 0x51E3'u16,
     data4: [0x84'u8, 0x7E, 0x62, 0x0E, 0x04, 0x7B, 0x4A, 0x0C])
+const IID_IIterable_1_IRandomAccessStream* = GUID(
+    data1: 0xBA666A00'u32, data2: 0x1555'u16, data3: 0x5DF4'u16,
+    data4: [0x81'u8, 0xA5, 0x07, 0xD2, 0x3F, 0x7F, 0xFC, 0xEB])
+const IID_IVectorView_1_IRandomAccessStream* = GUID(
+    data1: 0x92CD0A46'u32, data2: 0x2266'u16, data3: 0x5CD6'u16,
+    data4: [0x92'u8, 0x93, 0xE1, 0x11, 0x29, 0x9F, 0x27, 0x93])
+const IID_IIterator_1_IRandomAccessStream* = GUID(
+    data1: 0xC875446A'u32, data2: 0x587F'u16, data3: 0x58DA'u16,
+    data4: [0x89'u8, 0x7E, 0x3B, 0xBE, 0x5E, 0xC7, 0xC3, 0x0B])
+const IID_IVector_1_IRandomAccessStream* = GUID(
+    data1: 0x2736B66B'u32, data2: 0xDAA3'u16, data3: 0x5E0C'u16,
+    data4: [0x98'u8, 0x42, 0x6A, 0x0F, 0x44, 0xB5, 0x44, 0x0B])
 const IID_TypedEventHandler_2_ConnectedAnimation_Object* = GUID(
     data1: 0x44CAA9EA'u32, data2: 0x7598'u16, data3: 0x517A'u16,
     data4: [0xB7'u8, 0x8E, 0xAB, 0xD2, 0x0D, 0x93, 0xD5, 0x87])
@@ -12105,6 +12166,13 @@ proc processDownEvent*(self: GestureRecognizer, value: PointerPoint)  =
     withIface(value.p, IID_IPointerPoint, "IPointerPoint", p0):
       vcall(it, Slot_IGestureRecognizer_ProcessDownEvent, Fn_IGestureRecognizer_ProcessDownEvent)(it, p0).check("GestureRecognizer.ProcessDownEvent")
 
+proc processMoveEvents*(self: GestureRecognizer, value: seq[PointerPoint])  =
+  ## Windows.UI.Input.GestureRecognizer.ProcessMoveEvents
+  withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
+    let p0 = asIterable[PointerPoint](value, IID_IIterable_1_PointerPoint, IID_IVectorView_1_PointerPoint, IID_IIterator_1_PointerPoint, IID_IVector_1_PointerPoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IGestureRecognizer_ProcessMoveEvents, Fn_IGestureRecognizer_ProcessMoveEvents)(it, p0).check("GestureRecognizer.ProcessMoveEvents")
+
 proc processUpEvent*(self: GestureRecognizer, value: PointerPoint)  =
   ## Windows.UI.Input.GestureRecognizer.ProcessUpEvent
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
@@ -15463,6 +15531,13 @@ proc processDownEvent*(self: PhysicalGestureRecognizer, value: PointerPoint)  =
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
     withIface(value.p, IID_IPointerPoint, "IPointerPoint", p0):
       vcall(it, Slot_IPhysicalGestureRecognizer_ProcessDownEvent, Fn_IPhysicalGestureRecognizer_ProcessDownEvent)(it, p0).check("PhysicalGestureRecognizer.ProcessDownEvent")
+
+proc processMoveEvents*(self: PhysicalGestureRecognizer, value: seq[PointerPoint])  =
+  ## Windows.UI.Input.PhysicalGestureRecognizer.ProcessMoveEvents
+  withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
+    let p0 = asIterable[PointerPoint](value, IID_IIterable_1_PointerPoint, IID_IVectorView_1_PointerPoint, IID_IIterator_1_PointerPoint, IID_IVector_1_PointerPoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IPhysicalGestureRecognizer_ProcessMoveEvents, Fn_IPhysicalGestureRecognizer_ProcessMoveEvents)(it, p0).check("PhysicalGestureRecognizer.ProcessMoveEvents")
 
 proc processUpEvent*(self: PhysicalGestureRecognizer, value: PointerPoint)  =
   ## Windows.UI.Input.PhysicalGestureRecognizer.ProcessUpEvent
@@ -19749,6 +19824,24 @@ proc `sequenceNumber=`*(self: NotificationData, value: uint32)  =
   ## Windows.UI.Notifications.NotificationData.put_SequenceNumber
   withIface(self.p, IID_INotificationData, "INotificationData", it):
     vcall(it, Slot_INotificationData_put_SequenceNumber, Fn_INotificationData_put_SequenceNumber)(it, value).check("NotificationData.put_SequenceNumber")
+
+proc createNotificationData*(_: typedesc[NotificationData], initialValues: Table[string, string], sequenceNumber: uint32): NotificationData  =
+  ## Windows.UI.Notifications.NotificationData.CreateNotificationData
+  withStatics("Windows.UI.Notifications.NotificationData", IID_INotificationDataFactory, it):
+    let p0 = asMap(initialValues, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_INotificationDataFactory_CreateNotificationData, Fn_INotificationDataFactory_CreateNotificationData)(it, p0, sequenceNumber, tmp.addr).check("NotificationData.CreateNotificationData")
+    result = adopt[NotificationData](tmp)
+
+proc createNotificationData*(_: typedesc[NotificationData], initialValues: Table[string, string]): NotificationData  =
+  ## Windows.UI.Notifications.NotificationData.CreateNotificationData
+  withStatics("Windows.UI.Notifications.NotificationData", IID_INotificationDataFactory, it):
+    let p0 = asMap(initialValues, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_INotificationDataFactory_CreateNotificationData2, Fn_INotificationDataFactory_CreateNotificationData2)(it, p0, tmp.addr).check("NotificationData.CreateNotificationData")
+    result = adopt[NotificationData](tmp)
 
 proc language*(self: NotificationVisual): string  =
   ## Windows.UI.Notifications.NotificationVisual.get_Language
@@ -49150,6 +49243,13 @@ proc palette*(self: InkToolbarPenButton): seq[Brush]  =
     result = toSeq[Brush](tmp, IID_IVector_1_Brush)
     release(tmp)
 
+proc `palette=`*(self: InkToolbarPenButton, value: seq[Brush])  =
+  ## Windows.UI.Xaml.Controls.InkToolbarPenButton.put_Palette
+  withIface(self.p, IID_IInkToolbarPenButton, "IInkToolbarPenButton", it):
+    let p0 = asIterable[Brush](value, IID_IIterable_1_Brush, IID_IVectorView_1_Brush, IID_IIterator_1_Brush, IID_IVector_1_Brush)
+    defer: discard release(p0)
+    vcall(it, Slot_IInkToolbarPenButton_put_Palette, Fn_IInkToolbarPenButton_put_Palette)(it, p0).check("InkToolbarPenButton.put_Palette")
+
 proc minStrokeWidth*(self: InkToolbarPenButton): float64  =
   ## Windows.UI.Xaml.Controls.InkToolbarPenButton.get_MinStrokeWidth
   withIface(self.p, IID_IInkToolbarPenButton, "IInkToolbarPenButton", it):
@@ -52143,6 +52243,13 @@ proc layers*(self: MapControl): seq[MapLayer]  =
     result = toSeq[MapLayer](tmp, IID_IVector_1_MapLayer)
     release(tmp)
 
+proc `layers=`*(self: MapControl, value: seq[MapLayer])  =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.put_Layers
+  withIface(self.p, IID_IMapControl6, "IMapControl6", it):
+    let p0 = asIterable[MapLayer](value, IID_IIterable_1_MapLayer, IID_IVectorView_1_MapLayer, IID_IIterator_1_MapLayer, IID_IVector_1_MapLayer)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapControl6_put_Layers, Fn_IMapControl6_put_Layers)(it, p0).check("MapControl.put_Layers")
+
 proc tryGetLocationFromOffset*(self: MapControl, offset: Point): tuple[value: bool, location: Geopoint]  =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TryGetLocationFromOffset
   withIface(self.p, IID_IMapControl6, "IMapControl6", it):
@@ -53103,6 +53210,13 @@ proc mapElements*(self: MapElementsLayer): seq[MapElement]  =
     vcall(it, Slot_IMapElementsLayer_get_MapElements, Fn_IMapElementsLayer_get_MapElements)(it, tmp.addr).check("MapElementsLayer.get_MapElements")
     result = toSeq[MapElement](tmp, IID_IVector_1_MapElement)
     release(tmp)
+
+proc `mapElements=`*(self: MapElementsLayer, value: seq[MapElement])  =
+  ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.put_MapElements
+  withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
+    let p0 = asIterable[MapElement](value, IID_IIterable_1_MapElement, IID_IVectorView_1_MapElement, IID_IIterator_1_MapElement, IID_IVector_1_MapElement)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapElementsLayer_put_MapElements, Fn_IMapElementsLayer_put_MapElements)(it, p0).check("MapElementsLayer.put_MapElements")
 
 proc onMapElementClick*(self: MapElementsLayer,
     handler: proc(sender: pointer, args: MapElementsLayerClickEventArgs)): EventRegistrationToken {.discardable.} =
@@ -62868,6 +62982,13 @@ proc items*(self: LoopingSelector): seq[WinRtObject]  =
     vcall(it, Slot_ILoopingSelector_get_Items, Fn_ILoopingSelector_get_Items)(it, tmp.addr).check("LoopingSelector.get_Items")
     result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
     release(tmp)
+
+proc `items=`*(self: LoopingSelector, value: seq[WinRtObject])  =
+  ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.put_Items
+  withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
+    let p0 = asIterable[WinRtObject](value, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object, IID_IVector_1_Object)
+    defer: discard release(p0)
+    vcall(it, Slot_ILoopingSelector_put_Items, Fn_ILoopingSelector_put_Items)(it, p0).check("LoopingSelector.put_Items")
 
 proc selectedIndex*(self: LoopingSelector): int32  =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.get_SelectedIndex
@@ -74086,6 +74207,13 @@ proc allowedScriptNotifyUris*(self: WebView): seq[Uri]  =
     result = toSeq[Uri](tmp, IID_IVector_1_Uri)
     release(tmp)
 
+proc `allowedScriptNotifyUris=`*(self: WebView, value: seq[Uri])  =
+  ## Windows.UI.Xaml.Controls.WebView.put_AllowedScriptNotifyUris
+  withIface(self.p, IID_IWebView, "IWebView", it):
+    let p0 = asIterable[Uri](value, IID_IIterable_1_Uri, IID_IVectorView_1_Uri, IID_IIterator_1_Uri, IID_IVector_1_Uri)
+    defer: discard release(p0)
+    vcall(it, Slot_IWebView_put_AllowedScriptNotifyUris, Fn_IWebView_put_AllowedScriptNotifyUris)(it, p0).check("WebView.put_AllowedScriptNotifyUris")
+
 proc dataTransferPackage*(self: WebView): DataPackage  =
   ## Windows.UI.Xaml.Controls.WebView.get_DataTransferPackage
   withIface(self.p, IID_IWebView, "IWebView", it):
@@ -81849,6 +81977,18 @@ proc provideValue*(self: MarkupExtension): WinRtObject  =
     var tmp: pointer
     vcall(it, Slot_IMarkupExtensionOverrides_ProvideValue, Fn_IMarkupExtensionOverrides_ProvideValue)(it, tmp.addr).check("MarkupExtension.ProvideValue")
     result = adopt[WinRtObject](tmp)
+
+proc write*(_: typedesc[XamlBinaryWriter], inputStreams: seq[WinRtObject], outputStreams: seq[WinRtObject], xamlMetadataProvider: WinRtObject): XamlBinaryWriterErrorInformation  =
+  ## Windows.UI.Xaml.Markup.XamlBinaryWriter.Write
+  withStatics("Windows.UI.Xaml.Markup.XamlBinaryWriter", IID_IXamlBinaryWriterStatics, it):
+    let p0 = asIterable[WinRtObject](inputStreams, IID_IIterable_1_IRandomAccessStream, IID_IVectorView_1_IRandomAccessStream, IID_IIterator_1_IRandomAccessStream, IID_IVector_1_IRandomAccessStream)
+    defer: discard release(p0)
+    let p1 = asIterable[WinRtObject](outputStreams, IID_IIterable_1_IRandomAccessStream, IID_IVectorView_1_IRandomAccessStream, IID_IIterator_1_IRandomAccessStream, IID_IVector_1_IRandomAccessStream)
+    defer: discard release(p1)
+    withIface(xamlMetadataProvider.p, IID_IXamlMetadataProvider, "IXamlMetadataProvider", p2):
+      var tmp: XamlBinaryWriterErrorInformation
+      vcall(it, Slot_IXamlBinaryWriterStatics_Write, Fn_IXamlBinaryWriterStatics_Write)(it, p0, p1, p2, tmp.addr).check("XamlBinaryWriter.Write")
+      result = tmp
 
 proc dataTemplateComponentProperty*(_: typedesc[XamlBindingHelper]): DependencyProperty  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.get_DataTemplateComponentProperty

@@ -43,6 +43,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
@@ -833,12 +834,21 @@ const IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventA
 const IID_TypedEventHandler_2_DialDevicePicker_Object* = GUID(
     data1: 0xDAC94028'u32, data2: 0x1B44'u16, data3: 0x5F45'u16,
     data4: [0xB9'u8, 0xE3, 0xAB, 0xCF, 0x4A, 0xB0, 0x44, 0xBF])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
 const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_AsyncOperationCompletedHandler_1_BackgroundAudioTrack* = GUID(
     data1: 0xB8830BC7'u32, data2: 0x188B'u16, data3: 0x5C25'u16,
     data4: [0xA3'u8, 0xBB, 0x95, 0x90, 0x52, 0xBC, 0xB7, 0x40])
@@ -10289,6 +10299,13 @@ proc ratings*(self: RatedContentDescription): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
+proc `ratings=`*(self: RatedContentDescription, value: seq[string])  =
+  ## Windows.Media.ContentRestrictions.RatedContentDescription.put_Ratings
+  withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
+    let p0 = asIterableString(value, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String, IID_IVector_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IRatedContentDescription_put_Ratings, Fn_IRatedContentDescription_put_Ratings)(it, p0).check("RatedContentDescription.put_Ratings")
+
 proc create*(_: typedesc[RatedContentDescription], id: string, title: string, category: RatedContentCategory): RatedContentDescription  =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.Create
   withStatics("Windows.Media.ContentRestrictions.RatedContentDescription", IID_IRatedContentDescriptionFactory, it):
@@ -17949,6 +17966,15 @@ proc device*(self: DialDisconnectButtonClickedEventArgs): DialDevice  =
     var tmp: pointer
     vcall(it, Slot_IDialDisconnectButtonClickedEventArgs_get_Device, Fn_IDialDisconnectButtonClickedEventArgs_get_Device)(it, tmp.addr).check("DialDisconnectButtonClickedEventArgs.get_Device")
     result = adopt[DialDevice](tmp)
+
+proc setAdditionalDataAsync*(self: DialReceiverApp, additionalData: Table[string, string]) {.async.} =
+  ## Windows.Media.DialProtocol.DialReceiverApp.SetAdditionalDataAsync
+  var op: pointer
+  withIface(self.p, IID_IDialReceiverApp, "IDialReceiverApp", it):
+    let p0 = asMap(additionalData, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    vcall(it, Slot_IDialReceiverApp_SetAdditionalDataAsync, Fn_IDialReceiverApp_SetAdditionalDataAsync)(it, p0, op.addr).check("DialReceiverApp.SetAdditionalDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "DialReceiverApp.SetAdditionalDataAsync")
 
 proc getUniqueDeviceNameAsync*(self: DialReceiverApp): Future[string] {.async.} =
   ## Windows.Media.DialProtocol.DialReceiverApp.GetUniqueDeviceNameAsync
@@ -27022,6 +27048,15 @@ proc onContentIDReceived*(self: NDStreamParserNotifier, licenseFetchDescriptor: 
   withIface(self.p, IID_INDStreamParserNotifier, "INDStreamParserNotifier", it):
     withIface(licenseFetchDescriptor.p, IID_INDLicenseFetchDescriptor, "INDLicenseFetchDescriptor", p0):
       vcall(it, Slot_INDStreamParserNotifier_OnContentIDReceived, Fn_INDStreamParserNotifier_OnContentIDReceived)(it, p0).check("NDStreamParserNotifier.OnContentIDReceived")
+
+proc onMediaStreamDescriptorCreated*(self: NDStreamParserNotifier, audioStreamDescriptors: seq[AudioStreamDescriptor], videoStreamDescriptors: seq[VideoStreamDescriptor])  =
+  ## Windows.Media.Protection.PlayReady.NDStreamParserNotifier.OnMediaStreamDescriptorCreated
+  withIface(self.p, IID_INDStreamParserNotifier, "INDStreamParserNotifier", it):
+    let p0 = asIterable[AudioStreamDescriptor](audioStreamDescriptors, IID_IIterable_1_AudioStreamDescriptor, IID_IVectorView_1_AudioStreamDescriptor, IID_IIterator_1_AudioStreamDescriptor, IID_IVector_1_AudioStreamDescriptor)
+    defer: discard release(p0)
+    let p1 = asIterable[VideoStreamDescriptor](videoStreamDescriptors, IID_IIterable_1_VideoStreamDescriptor, IID_IVectorView_1_VideoStreamDescriptor, IID_IIterator_1_VideoStreamDescriptor, IID_IVector_1_VideoStreamDescriptor)
+    defer: discard release(p1)
+    vcall(it, Slot_INDStreamParserNotifier_OnMediaStreamDescriptorCreated, Fn_INDStreamParserNotifier_OnMediaStreamDescriptorCreated)(it, p0, p1).check("NDStreamParserNotifier.OnMediaStreamDescriptorCreated")
 
 proc onSampleParsed*(self: NDStreamParserNotifier, streamID: uint32, streamType: NDMediaStreamType, streamSample: MediaStreamSample, pts: int64, ccFormat: NDClosedCaptionFormat, ccDataBytes: openArray[uint8])  =
   ## Windows.Media.Protection.PlayReady.NDStreamParserNotifier.OnSampleParsed

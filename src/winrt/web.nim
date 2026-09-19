@@ -31,6 +31,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -202,10 +203,25 @@ const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpP
 const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = GUID(
     data1: 0x7382F299'u32, data2: 0xBBBD'u16, data3: 0x5BD3'u16,
     data4: [0xB1'u8, 0x43, 0x88, 0x87, 0xC6, 0x27, 0x92, 0x9B])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_IKeyValuePair_2_String_Object* = GUID(
     data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
     data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_IVector_1_SyndicationPerson* = GUID(
@@ -3732,6 +3748,15 @@ proc toString*(self: HttpFormUrlEncodedContent): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpFormUrlEncodedContent.ToString")
     result = takeString(tmp)
 
+proc create*(_: typedesc[HttpFormUrlEncodedContent], content: Table[string, string]): HttpFormUrlEncodedContent  =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.Create
+  withStatics("Windows.Web.Http.HttpFormUrlEncodedContent", IID_IHttpFormUrlEncodedContentFactory, it):
+    let p0 = asMap(content, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IHttpFormUrlEncodedContentFactory_Create, Fn_IHttpFormUrlEncodedContentFactory_Create)(it, p0, tmp.addr).check("HttpFormUrlEncodedContent.Create")
+    result = adopt[HttpFormUrlEncodedContent](tmp)
+
 proc extendedError*(self: HttpGetBufferResult): HRESULT  =
   ## Windows.Web.Http.HttpGetBufferResult.get_ExtendedError
   withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
@@ -4176,7 +4201,7 @@ proc properties*(self: HttpRequestMessage): Table[string, WinRtObject]  =
   withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
     var tmp: pointer
     vcall(it, Slot_IHttpRequestMessage_get_Properties, Fn_IHttpRequestMessage_get_Properties)(it, tmp.addr).check("HttpRequestMessage.get_Properties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc requestUri*(self: HttpRequestMessage): Uri  =

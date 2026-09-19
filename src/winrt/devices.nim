@@ -31,6 +31,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
@@ -413,6 +414,15 @@ const IID_IReference_1_Bool* = GUID(
 const IID_IVectorView_1_DisplayModeInfo* = GUID(
     data1: 0x339BE624'u32, data2: 0xF7DC'u16, data3: 0x562C'u16,
     data4: [0xB5'u8, 0xD2, 0x1B, 0x44, 0x05, 0xBD, 0xB7, 0xE2])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x4F25059A'u32, data2: 0x0B9A'u16, data3: 0x5F25'u16,
+    data4: [0x9B'u8, 0x9E, 0x4B, 0x9F, 0x1D, 0x22, 0xFF, 0x65])
+const IID_IMapView_2_Guid_Object* = GUID(
+    data1: 0xE4D2C732'u32, data2: 0xBBC1'u16, data3: 0x5EF4'u16,
+    data4: [0x86'u8, 0x9F, 0x50, 0x07, 0xCE, 0xB5, 0x5F, 0x6E])
+const IID_IMap_2_Guid_Object* = GUID(
+    data1: 0x5EE3189C'u32, data2: 0x7DBF'u16, data3: 0x5998'u16,
+    data4: [0xAD'u8, 0x07, 0x54, 0x14, 0xFB, 0x82, 0x56, 0x7C])
 const IID_TypedEventHandler_2_DisplaySource_Object* = GUID(
     data1: 0x65F431E8'u32, data2: 0xEFC4'u16, data3: 0x552F'u16,
     data4: [0x84'u8, 0x04, 0x32, 0x15, 0x31, 0x58, 0x38, 0x39])
@@ -1043,6 +1053,21 @@ const IID_IIterable_1_U4* = GUID(
 const IID_IIterator_1_U4* = GUID(
     data1: 0xF06A2739'u32, data2: 0x9443'u16, data3: 0x5EF0'u16,
     data4: [0xB2'u8, 0x84, 0xDC, 0x5A, 0xFF, 0x3E, 0x7D, 0x10])
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
+const IID_IIterator_1_IKeyValuePair_22* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IMapView_2_String_String* = GUID(
+    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
+    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
+const IID_IMap_2_String_String* = GUID(
+    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
+    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
 const IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerDataReceivedEventArgs* = GUID(
     data1: 0x4F64E49A'u32, data2: 0xBD8C'u16, data3: 0x549D'u16,
     data4: [0x97'u8, 0x0C, 0xA5, 0xA2, 0x50, 0xBD, 0x27, 0xCA])
@@ -1154,12 +1179,6 @@ const IID_AsyncOperationCompletedHandler_1_MagneticStripeReader* = GUID(
 const IID_IAsyncOperation_1_MagneticStripeReader* = GUID(
     data1: 0x93726E09'u32, data2: 0x817C'u16, data3: 0x5F33'u16,
     data4: [0xBE'u8, 0xE4, 0x09, 0x0D, 0xE7, 0x07, 0x4F, 0x19])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_25* = GUID(
-    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
-    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter* = GUID(
     data1: 0x01EB0DC3'u32, data2: 0x3C30'u16, data3: 0x5EEA'u16,
     data4: [0x9F'u8, 0xCE, 0xEF, 0xB3, 0x98, 0xE0, 0xBE, 0x34])
@@ -1322,6 +1341,21 @@ const IID_IVectorView_1_IppIntegerRange* = GUID(
 const IID_IIterator_1_IppIntegerRange* = GUID(
     data1: 0x55F88707'u32, data2: 0xEE5C'u16, data3: 0x5616'u16,
     data4: [0x94'u8, 0x1D, 0x08, 0x9B, 0x69, 0xF0, 0xB4, 0x8E])
+const IID_IIterable_1_IKeyValuePair_26* = GUID(
+    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
+    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
+const IID_IIterator_1_IKeyValuePair_23* = GUID(
+    data1: 0x8A501320'u32, data2: 0x0647'u16, data3: 0x58A4'u16,
+    data4: [0x8A'u8, 0xF8, 0x8D, 0x63, 0x93, 0x6C, 0xE4, 0x8A])
+const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
+    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
+    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
+const IID_IMapView_2_String_IppAttributeValue* = GUID(
+    data1: 0xA2379F3E'u32, data2: 0x0733'u16, data3: 0x5491'u16,
+    data4: [0x98'u8, 0xB8, 0x08, 0xB3, 0x13, 0x4A, 0xB2, 0x3D])
+const IID_IMap_2_String_IppAttributeValue* = GUID(
+    data1: 0xE7F72BA5'u32, data2: 0xE881'u16, data3: 0x550D'u16,
+    data4: [0x93'u8, 0x9B, 0xF5, 0x4C, 0xB3, 0x19, 0x62, 0xE8])
 const IID_IIterable_1_IppTextWithLanguage* = GUID(
     data1: 0xDA3D8CB6'u32, data2: 0x082A'u16, data3: 0x5993'u16,
     data4: [0x86'u8, 0x40, 0xAC, 0x24, 0x6F, 0xD7, 0x12, 0x44])
@@ -1340,12 +1374,15 @@ const IID_IVectorView_1_Uri* = GUID(
 const IID_IIterator_1_Uri* = GUID(
     data1: 0x1C157D0F'u32, data2: 0x5EFE'u16, data3: 0x5CEC'u16,
     data4: [0xBB'u8, 0xD6, 0x0C, 0x6C, 0xE9, 0xAF, 0x07, 0xA5])
-const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
-    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
-    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
-const IID_IIterable_1_IKeyValuePair_26* = GUID(
-    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
-    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
+const IID_IIterator_1_IKeyValuePair_24* = GUID(
+    data1: 0x5DB5FA32'u32, data2: 0x707C'u16, data3: 0x5849'u16,
+    data4: [0xA0'u8, 0x6B, 0x91, 0xC8, 0xEB, 0x9D, 0x10, 0xE8])
+const IID_IMapView_2_String_Object* = GUID(
+    data1: 0xBB78502A'u32, data2: 0xF79D'u16, data3: 0x54FA'u16,
+    data4: [0x92'u8, 0xC9, 0x90, 0xC5, 0x03, 0x9F, 0xDF, 0x7E])
+const IID_IMap_2_String_Object* = GUID(
+    data1: 0x1B0D3570'u32, data2: 0x0877'u16, data3: 0x5EC2'u16,
+    data4: [0x8A'u8, 0x2C, 0x3B, 0x95, 0x39, 0x50, 0x6A, 0xCA])
 const IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult* = GUID(
     data1: 0xD76C8C10'u32, data2: 0xCD9F'u16, data3: 0x5F12'u16,
     data4: [0xBE'u8, 0x2B, 0xD4, 0xDD, 0x5D, 0xA0, 0x45, 0xC0])
@@ -2033,6 +2070,15 @@ const IID_TypedEventHandler_2_WiFiDirectServiceSession_WiFiDirectServiceRemotePo
 const IID_IVector_1_WiFiDirectInformationElement* = GUID(
     data1: 0xB8C55492'u32, data2: 0xE4DE'u16, data3: 0x5BA7'u16,
     data4: [0x84'u8, 0x76, 0xD3, 0xBA, 0xB5, 0x57, 0xCD, 0xD6])
+const IID_IIterable_1_WiFiDirectInformationElement* = GUID(
+    data1: 0x19C1CA4E'u32, data2: 0x9561'u16, data3: 0x5253'u16,
+    data4: [0x96'u8, 0xD9, 0xDB, 0xAF, 0x28, 0xD4, 0x7D, 0x89])
+const IID_IVectorView_1_WiFiDirectInformationElement* = GUID(
+    data1: 0x6DCFFADB'u32, data2: 0x04C5'u16, data3: 0x535E'u16,
+    data4: [0xAD'u8, 0xD4, 0x13, 0x89, 0xB3, 0xBE, 0x6E, 0xCA])
+const IID_IIterator_1_WiFiDirectInformationElement* = GUID(
+    data1: 0xCF806026'u32, data2: 0xC915'u16, data3: 0x553E'u16,
+    data4: [0xAF'u8, 0x3C, 0x8D, 0xA4, 0x38, 0x71, 0xB6, 0x93])
 const IID_IVector_1_WiFiDirectConfigurationMethod* = GUID(
     data1: 0x9B498BC0'u32, data2: 0xB474'u16, data3: 0x5587'u16,
     data4: [0xB6'u8, 0x5C, 0xE6, 0x00, 0x96, 0x5F, 0x8F, 0xD0])
@@ -8386,6 +8432,15 @@ proc properties*(self: DisplayPrimaryDescription): Table[GUID, WinRtObject]  =
     result = toTable[GUID, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_Guid_Object)
     release(tmp)
 
+proc createWithProperties*(_: typedesc[DisplayPrimaryDescription], extraProperties: Table[GUID, WinRtObject], width: uint32, height: uint32, pixelFormat: DirectXPixelFormat, colorSpace: DirectXColorSpace, isStereo: bool, multisampleDescription: Direct3DMultisampleDescription): DisplayPrimaryDescription  =
+  ## Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateWithProperties
+  withStatics("Windows.Devices.Display.Core.DisplayPrimaryDescription", IID_IDisplayPrimaryDescriptionStatics, it):
+    let p0 = asMap(extraProperties, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_Guid_Object, view: IID_IMapView_2_Guid_Object, map: IID_IMap_2_Guid_Object))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPrimaryDescriptionStatics_CreateWithProperties, Fn_IDisplayPrimaryDescriptionStatics_CreateWithProperties)(it, p0, width, height, pixelFormat, colorSpace, isStereo, multisampleDescription, tmp.addr).check("DisplayPrimaryDescription.CreateWithProperties")
+    result = adopt[DisplayPrimaryDescription](tmp)
+
 proc createInstance*(_: typedesc[DisplayPrimaryDescription], width: uint32, height: uint32, pixelFormat: DirectXPixelFormat, colorSpace: DirectXColorSpace, isStereo: bool, multisampleDescription: Direct3DMultisampleDescription): DisplayPrimaryDescription  =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance
   withStatics("Windows.Devices.Display.Core.DisplayPrimaryDescription", IID_IDisplayPrimaryDescriptionFactory, it):
@@ -8801,6 +8856,15 @@ proc properties*(self: DisplayWireFormat): Table[GUID, WinRtObject]  =
     vcall(it, Slot_IDisplayWireFormat_get_Properties, Fn_IDisplayWireFormat_get_Properties)(it, tmp.addr).check("DisplayWireFormat.get_Properties")
     result = toTable[GUID, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_Guid_Object)
     release(tmp)
+
+proc createWithProperties*(_: typedesc[DisplayWireFormat], extraProperties: Table[GUID, WinRtObject], pixelEncoding: DisplayWireFormatPixelEncoding, bitsPerChannel: int32, colorSpace: DisplayWireFormatColorSpace, eotf: DisplayWireFormatEotf, hdrMetadata: DisplayWireFormatHdrMetadata): DisplayWireFormat  =
+  ## Windows.Devices.Display.Core.DisplayWireFormat.CreateWithProperties
+  withStatics("Windows.Devices.Display.Core.DisplayWireFormat", IID_IDisplayWireFormatStatics, it):
+    let p0 = asMap(extraProperties, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_Guid_Object, view: IID_IMapView_2_Guid_Object, map: IID_IMap_2_Guid_Object))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IDisplayWireFormatStatics_CreateWithProperties, Fn_IDisplayWireFormatStatics_CreateWithProperties)(it, p0, pixelEncoding, bitsPerChannel, colorSpace, eotf, hdrMetadata, tmp.addr).check("DisplayWireFormat.CreateWithProperties")
+    result = adopt[DisplayWireFormat](tmp)
 
 proc createInstance*(_: typedesc[DisplayWireFormat], pixelEncoding: DisplayWireFormatPixelEncoding, bitsPerChannel: int32, colorSpace: DisplayWireFormatColorSpace, eotf: DisplayWireFormatEotf, hdrMetadata: DisplayWireFormatHdrMetadata): DisplayWireFormat  =
   ## Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance
@@ -18689,6 +18753,15 @@ proc resetStatisticsAsync*(self: ClaimedBarcodeScanner, statisticsCategories: se
     vcall(it, Slot_IClaimedBarcodeScanner_ResetStatisticsAsync, Fn_IClaimedBarcodeScanner_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedBarcodeScanner.ResetStatisticsAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ClaimedBarcodeScanner.ResetStatisticsAsync")
 
+proc updateStatisticsAsync*(self: ClaimedBarcodeScanner, statistics: Table[string, string]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.UpdateStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
+    let p0 = asMap(statistics, MapIids(iterable: IID_IIterable_1_IKeyValuePair_25, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedBarcodeScanner_UpdateStatisticsAsync, Fn_IClaimedBarcodeScanner_UpdateStatisticsAsync)(it, p0, op.addr).check("ClaimedBarcodeScanner.UpdateStatisticsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ClaimedBarcodeScanner.UpdateStatisticsAsync")
+
 proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetActiveProfileAsync
   var op: pointer
@@ -18952,6 +19025,15 @@ proc resetStatisticsAsync*(self: ClaimedCashDrawer, statisticsCategories: seq[st
     defer: discard release(p0)
     vcall(it, Slot_IClaimedCashDrawer_ResetStatisticsAsync, Fn_IClaimedCashDrawer_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedCashDrawer.ResetStatisticsAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ClaimedCashDrawer.ResetStatisticsAsync")
+
+proc updateStatisticsAsync*(self: ClaimedCashDrawer, statistics: Table[string, string]): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedCashDrawer.UpdateStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedCashDrawer, "IClaimedCashDrawer", it):
+    let p0 = asMap(statistics, MapIids(iterable: IID_IIterable_1_IKeyValuePair_25, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedCashDrawer_UpdateStatisticsAsync, Fn_IClaimedCashDrawer_UpdateStatisticsAsync)(it, p0, op.addr).check("ClaimedCashDrawer.UpdateStatisticsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ClaimedCashDrawer.UpdateStatisticsAsync")
 
 proc onReleaseDeviceRequested*(self: ClaimedCashDrawer,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -19533,6 +19615,15 @@ proc resetStatisticsAsync*(self: ClaimedMagneticStripeReader, statisticsCategori
     vcall(it, Slot_IClaimedMagneticStripeReader_ResetStatisticsAsync, Fn_IClaimedMagneticStripeReader_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedMagneticStripeReader.ResetStatisticsAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ClaimedMagneticStripeReader.ResetStatisticsAsync")
 
+proc updateStatisticsAsync*(self: ClaimedMagneticStripeReader, statistics: Table[string, string]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.UpdateStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
+    let p0 = asMap(statistics, MapIids(iterable: IID_IIterable_1_IKeyValuePair_25, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedMagneticStripeReader_UpdateStatisticsAsync, Fn_IClaimedMagneticStripeReader_UpdateStatisticsAsync)(it, p0, op.addr).check("ClaimedMagneticStripeReader.UpdateStatisticsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ClaimedMagneticStripeReader.UpdateStatisticsAsync")
+
 proc onBankCardDataReceived*(self: ClaimedMagneticStripeReader,
     handler: proc(sender: pointer, args: MagneticStripeReaderBankCardDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_BankCardDataReceived
@@ -19759,6 +19850,15 @@ proc resetStatisticsAsync*(self: ClaimedPosPrinter, statisticsCategories: seq[st
     defer: discard release(p0)
     vcall(it, Slot_IClaimedPosPrinter_ResetStatisticsAsync, Fn_IClaimedPosPrinter_ResetStatisticsAsync)(it, p0, op.addr).check("ClaimedPosPrinter.ResetStatisticsAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ClaimedPosPrinter.ResetStatisticsAsync")
+
+proc updateStatisticsAsync*(self: ClaimedPosPrinter, statistics: Table[string, string]): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedPosPrinter.UpdateStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedPosPrinter, "IClaimedPosPrinter", it):
+    let p0 = asMap(statistics, MapIids(iterable: IID_IIterable_1_IKeyValuePair_25, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedPosPrinter_UpdateStatisticsAsync, Fn_IClaimedPosPrinter_UpdateStatisticsAsync)(it, p0, op.addr).check("ClaimedPosPrinter.UpdateStatisticsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ClaimedPosPrinter.UpdateStatisticsAsync")
 
 proc onReleaseDeviceRequested*(self: ClaimedPosPrinter,
     handler: proc(sender: pointer, args: PosPrinterReleaseDeviceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -24247,6 +24347,15 @@ proc createRangeOfIntegerArray*(_: typedesc[IppAttributeValue], values: seq[IppI
     vcall(it, Slot_IIppAttributeValueStatics_CreateRangeOfIntegerArray, Fn_IIppAttributeValueStatics_CreateRangeOfIntegerArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateRangeOfIntegerArray")
     result = adopt[IppAttributeValue](tmp)
 
+proc createCollection*(_: typedesc[IppAttributeValue], memberAttributes: Table[string, IppAttributeValue]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateCollection
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asMap(memberAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_26, cursor: IID_IIterator_1_IKeyValuePair_23, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateCollection, Fn_IIppAttributeValueStatics_CreateCollection)(it, p0, tmp.addr).check("IppAttributeValue.CreateCollection")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createTextWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -24479,6 +24588,15 @@ proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuff
       vcall(it, Slot_IIppPrintDevice_SetPrinterAttributesFromBuffer, Fn_IIppPrintDevice_SetPrinterAttributesFromBuffer)(it, p0, tmp.addr).check("IppPrintDevice.SetPrinterAttributesFromBuffer")
       result = adopt[IppSetAttributesResult](tmp)
 
+proc setPrinterAttributes*(self: IppPrintDevice, printerAttributes: Table[string, IppAttributeValue]): IppSetAttributesResult  =
+  ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributes
+  withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
+    let p0 = asMap(printerAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_26, cursor: IID_IIterator_1_IKeyValuePair_23, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppPrintDevice_SetPrinterAttributes, Fn_IIppPrintDevice_SetPrinterAttributes)(it, p0, tmp.addr).check("IppPrintDevice.SetPrinterAttributes")
+    result = adopt[IppSetAttributesResult](tmp)
+
 proc getMaxSupportedPdfSize*(self: IppPrintDevice): uint64  =
   ## Windows.Devices.Printers.IppPrintDevice.GetMaxSupportedPdfSize
   withIface(self.p, IID_IIppPrintDevice2, "IIppPrintDevice2", it):
@@ -24561,6 +24679,15 @@ proc getDeviceProperties*(self: IppPrintDevice): ValueSet  =
     var tmp: pointer
     vcall(it, Slot_IIppPrintDevice5_GetDeviceProperties, Fn_IIppPrintDevice5_GetDeviceProperties)(it, tmp.addr).check("IppPrintDevice.GetDeviceProperties")
     result = adopt[ValueSet](tmp)
+
+proc replaceDeviceProperties*(self: IppPrintDevice, deviceProperties: Table[string, WinRtObject]): ReplaceDevicePropertiesResult  =
+  ## Windows.Devices.Printers.IppPrintDevice.ReplaceDeviceProperties
+  withIface(self.p, IID_IIppPrintDevice5, "IIppPrintDevice5", it):
+    let p0 = asMap(deviceProperties, MapIids(iterable: IID_IIterable_1_IKeyValuePair_24, cursor: IID_IIterator_1_IKeyValuePair_24, pair: IID_IKeyValuePair_2_String_Object, view: IID_IMapView_2_String_Object, map: IID_IMap_2_String_Object))
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppPrintDevice5_ReplaceDeviceProperties, Fn_IIppPrintDevice5_ReplaceDeviceProperties)(it, p0, tmp.addr).check("IppPrintDevice.ReplaceDeviceProperties")
+    result = adopt[ReplaceDevicePropertiesResult](tmp)
 
 proc getDeviceSelector*(_: typedesc[IppPrintDevice]): string  =
   ## Windows.Devices.Printers.IppPrintDevice.GetDeviceSelector
@@ -29583,6 +29710,16 @@ proc maxAppletIds*(_: typedesc[SmartCardAppletIdGroup]): uint16  =
     var tmp: uint16
     vcall(it, Slot_ISmartCardAppletIdGroupStatics_get_MaxAppletIds, Fn_ISmartCardAppletIdGroupStatics_get_MaxAppletIds)(it, tmp.addr).check("SmartCardAppletIdGroup.get_MaxAppletIds")
     result = tmp
+
+proc create*(_: typedesc[SmartCardAppletIdGroup], displayName: string, appletIds: seq[Buffer], emulationCategory: SmartCardEmulationCategory, emulationType: SmartCardEmulationType): SmartCardAppletIdGroup  =
+  ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.Create
+  withStatics("Windows.Devices.SmartCards.SmartCardAppletIdGroup", IID_ISmartCardAppletIdGroupFactory, it):
+    withHString(displayName, h0):
+      let p1 = asIterable[Buffer](appletIds, IID_IIterable_1_IBuffer, IID_IVectorView_1_IBuffer, IID_IIterator_1_IBuffer, IID_IVector_1_IBuffer)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_ISmartCardAppletIdGroupFactory_Create, Fn_ISmartCardAppletIdGroupFactory_Create)(it, h0, p1, emulationCategory, emulationType, tmp.addr).check("SmartCardAppletIdGroup.Create")
+      result = adopt[SmartCardAppletIdGroup](tmp)
 
 proc activationPolicy*(self: SmartCardAppletIdGroupRegistration): SmartCardAppletIdGroupActivationPolicy  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.get_ActivationPolicy
@@ -34694,6 +34831,13 @@ proc informationElements*(self: WiFiDirectAdvertisement): seq[WiFiDirectInformat
     vcall(it, Slot_IWiFiDirectAdvertisement_get_InformationElements, Fn_IWiFiDirectAdvertisement_get_InformationElements)(it, tmp.addr).check("WiFiDirectAdvertisement.get_InformationElements")
     result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
     release(tmp)
+
+proc `informationElements=`*(self: WiFiDirectAdvertisement, value: seq[WiFiDirectInformationElement])  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.put_InformationElements
+  withIface(self.p, IID_IWiFiDirectAdvertisement, "IWiFiDirectAdvertisement", it):
+    let p0 = asIterable[WiFiDirectInformationElement](value, IID_IIterable_1_WiFiDirectInformationElement, IID_IVectorView_1_WiFiDirectInformationElement, IID_IIterator_1_WiFiDirectInformationElement, IID_IVector_1_WiFiDirectInformationElement)
+    defer: discard release(p0)
+    vcall(it, Slot_IWiFiDirectAdvertisement_put_InformationElements, Fn_IWiFiDirectAdvertisement_put_InformationElements)(it, p0).check("WiFiDirectAdvertisement.put_InformationElements")
 
 proc listenStateDiscoverability*(self: WiFiDirectAdvertisement): WiFiDirectAdvertisementListenStateDiscoverability  =
   ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.get_ListenStateDiscoverability

@@ -25,6 +25,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./mapview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -70,6 +71,15 @@ const IID_IKeyValuePair_2_String_SpatialAnchor* = GUID(
 const IID_IIterable_1_IKeyValuePair_2* = GUID(
     data1: 0x55F0FA8A'u32, data2: 0xAFD4'u16, data3: 0x5541'u16,
     data4: [0xA1'u8, 0xC3, 0x36, 0xF1, 0x21, 0x47, 0xD6, 0x06])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x67A5F318'u32, data2: 0x0232'u16, data3: 0x5900'u16,
+    data4: [0xAC'u8, 0x7E, 0x5C, 0x64, 0x7D, 0x73, 0x1C, 0xBC])
+const IID_IMapView_2_String_SpatialAnchor* = GUID(
+    data1: 0x2D344564'u32, data2: 0x21B1'u16, data3: 0x5470'u16,
+    data4: [0xB0'u8, 0x13, 0x48, 0x8C, 0xDD, 0xE4, 0x5C, 0x48])
+const IID_IMap_2_String_SpatialAnchor* = GUID(
+    data1: 0x25298593'u32, data2: 0x9BAF'u16, data3: 0x5A73'u16,
+    data4: [0xA1'u8, 0xB6, 0xCD, 0x5E, 0x40, 0xA5, 0xE8, 0x34])
 const IID_IReference_1_Matrix4x4* = GUID(
     data1: 0xDACBFFDC'u32, data2: 0x68EF'u16, data3: 0x5FD0'u16,
     data4: [0xB6'u8, 0x57, 0x78, 0x2D, 0x0A, 0xC9, 0x80, 0x7E])
@@ -582,6 +592,16 @@ proc clear*(self: SpatialAnchorStore)  =
   ## Windows.Perception.Spatial.SpatialAnchorStore.Clear
   withIface(self.p, IID_ISpatialAnchorStore, "ISpatialAnchorStore", it):
     vcall(it, Slot_ISpatialAnchorStore_Clear, Fn_ISpatialAnchorStore_Clear)(it).check("SpatialAnchorStore.Clear")
+
+proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager], anchors: Table[string, SpatialAnchor], stream: WinRtObject): Future[bool] {.async.} =
+  ## Windows.Perception.Spatial.SpatialAnchorTransferManager.TryExportAnchorsAsync
+  var op: pointer
+  withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager", IID_ISpatialAnchorTransferManagerStatics, it):
+    let p0 = asMap(anchors, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_SpatialAnchor, view: IID_IMapView_2_String_SpatialAnchor, map: IID_IMap_2_String_SpatialAnchor))
+    defer: discard release(p0)
+    withIface(stream.p, IID_IOutputStream, "IOutputStream", p1):
+      vcall(it, Slot_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync, Fn_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync)(it, p0, p1, op.addr).check("SpatialAnchorTransferManager.TryExportAnchorsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "SpatialAnchorTransferManager.TryExportAnchorsAsync")
 
 proc requestAccessAsync*(_: typedesc[SpatialAnchorTransferManager]): Future[SpatialPerceptionAccessStatus] {.async.} =
   ## Windows.Perception.Spatial.SpatialAnchorTransferManager.RequestAccessAsync
