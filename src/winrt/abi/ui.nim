@@ -10,6 +10,8 @@
 ## Every method returns HRESULT and its declared return type becomes
 ## a trailing out-parameter.
 
+import std/hashes
+export hashes
 import ../core
 include ../abidef
 export core
@@ -28759,7 +28761,7 @@ type Fn_IComboBoxTemplateSettings_get_DropDownClosedHeight* = proc(self: pointer
 const Slot_IComboBoxTemplateSettings_get_DropDownOffset* = 8
 type Fn_IComboBoxTemplateSettings_get_DropDownOffset* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IComboBoxTemplateSettings_get_SelectedItemDirection* = 9
-type Fn_IComboBoxTemplateSettings_get_SelectedItemDirection* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+type Fn_IComboBoxTemplateSettings_get_SelectedItemDirection* = proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IComboBoxTemplateSettings2
 const IID_IComboBoxTemplateSettings2* = GUID(
@@ -36586,9 +36588,9 @@ type Fn_IDragOverThemeAnimation_get_ToOffset* = proc(self: pointer, value: ptr f
 const Slot_IDragOverThemeAnimation_put_ToOffset* = 9
 type Fn_IDragOverThemeAnimation_put_ToOffset* = proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IDragOverThemeAnimation_get_Direction* = 10
-type Fn_IDragOverThemeAnimation_get_Direction* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+type Fn_IDragOverThemeAnimation_get_Direction* = proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
 const Slot_IDragOverThemeAnimation_put_Direction* = 11
-type Fn_IDragOverThemeAnimation_put_Direction* = proc(self: pointer, a1: int32): HRESULT {.abi.}
+type Fn_IDragOverThemeAnimation_put_Direction* = proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IDragOverThemeAnimationStatics
 const IID_IDragOverThemeAnimationStatics* = GUID(
@@ -37459,9 +37461,9 @@ type Fn_ISplitCloseThemeAnimation_get_OffsetFromCenter* = proc(self: pointer, va
 const Slot_ISplitCloseThemeAnimation_put_OffsetFromCenter* = 23
 type Fn_ISplitCloseThemeAnimation_put_OffsetFromCenter* = proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_get_ContentTranslationDirection* = 24
-type Fn_ISplitCloseThemeAnimation_get_ContentTranslationDirection* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+type Fn_ISplitCloseThemeAnimation_get_ContentTranslationDirection* = proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_put_ContentTranslationDirection* = 25
-type Fn_ISplitCloseThemeAnimation_put_ContentTranslationDirection* = proc(self: pointer, a1: int32): HRESULT {.abi.}
+type Fn_ISplitCloseThemeAnimation_put_ContentTranslationDirection* = proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_get_ContentTranslationOffset* = 26
 type Fn_ISplitCloseThemeAnimation_get_ContentTranslationOffset* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_put_ContentTranslationOffset* = 27
@@ -37535,9 +37537,9 @@ type Fn_ISplitOpenThemeAnimation_get_OffsetFromCenter* = proc(self: pointer, val
 const Slot_ISplitOpenThemeAnimation_put_OffsetFromCenter* = 23
 type Fn_ISplitOpenThemeAnimation_put_OffsetFromCenter* = proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_get_ContentTranslationDirection* = 24
-type Fn_ISplitOpenThemeAnimation_get_ContentTranslationDirection* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
+type Fn_ISplitOpenThemeAnimation_get_ContentTranslationDirection* = proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_put_ContentTranslationDirection* = 25
-type Fn_ISplitOpenThemeAnimation_put_ContentTranslationDirection* = proc(self: pointer, a1: int32): HRESULT {.abi.}
+type Fn_ISplitOpenThemeAnimation_put_ContentTranslationDirection* = proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_get_ContentTranslationOffset* = 26
 type Fn_ISplitOpenThemeAnimation_get_ContentTranslationOffset* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_put_ContentTranslationOffset* = 27

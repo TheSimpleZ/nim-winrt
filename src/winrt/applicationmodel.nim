@@ -297,9 +297,21 @@ const IID_IKeyValuePair_2_String_BackgroundTaskRegistrationGroup* = GUID(
 const IID_IIterable_1_IKeyValuePair_2* = GUID(
     data1: 0x04428524'u32, data2: 0x7D54'u16, data3: 0x59B4'u16,
     data4: [0xBF'u8, 0x17, 0xAC, 0x57, 0xC4, 0xCE, 0x6B, 0x40])
+const IID_IKeyValuePair_2_Guid_IBackgroundTaskRegistration* = GUID(
+    data1: 0x5A1F6D75'u32, data2: 0x8678'u16, data3: 0x547C'u16,
+    data4: [0x8F'u8, 0xD7, 0xFB, 0xCE, 0xB6, 0xEB, 0xF9, 0x68])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x80FB0327'u32, data2: 0x5A00'u16, data3: 0x55CC'u16,
+    data4: [0x85'u8, 0xDB, 0xA8, 0x52, 0x71, 0x99, 0x81, 0xB9])
 const IID_TypedEventHandler_2_BackgroundTaskRegistrationGroup_BackgroundActivatedEventArgs* = GUID(
     data1: 0xD4F89768'u32, data2: 0x688F'u16, data3: 0x59EC'u16,
     data4: [0xBF'u8, 0x24, 0xC2, 0xAF, 0x6A, 0x31, 0x0F, 0xA4])
+const IID_IKeyValuePair_2_Guid_BackgroundTaskRegistration* = GUID(
+    data1: 0x9BCB843B'u32, data2: 0x221B'u16, data3: 0x5FBE'u16,
+    data4: [0x9B'u8, 0x20, 0x70, 0x28, 0xBC, 0x4E, 0x86, 0x53])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0x62AE0FDA'u32, data2: 0xB238'u16, data3: 0x554F'u16,
+    data4: [0xA2'u8, 0x75, 0x1D, 0xC1, 0x6D, 0x6C, 0xA0, 0x3A])
 const IID_IReference_1_I2* = GUID(
     data1: 0x6EC9E41B'u32, data2: 0x6709'u16, data3: 0x5647'u16,
     data4: [0x99'u8, 0x18, 0xA1, 0x27, 0x01, 0x10, 0xFC, 0x4E])
@@ -444,7 +456,7 @@ const IID_IAsyncOperation_1_PhoneLine* = GUID(
 const IID_IKeyValuePair_2_String_Object* = GUID(
     data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
     data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus* = GUID(
@@ -501,6 +513,12 @@ const IID_IVectorView_1_ChatConversation* = GUID(
 const IID_IVector_1_ChatMessageAttachment* = GUID(
     data1: 0xAD2127F1'u32, data2: 0x3216'u16, data3: 0x58FB'u16,
     data4: [0x81'u8, 0x54, 0xB2, 0x41, 0xA6, 0x0B, 0x42, 0x52])
+const IID_IKeyValuePair_2_String_ChatMessageStatus* = GUID(
+    data1: 0x4F426A27'u32, data2: 0x6D23'u16, data3: 0x58B6'u16,
+    data4: [0x9F'u8, 0x29, 0x4F, 0x88, 0xED, 0x27, 0x4B, 0xCD])
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
+    data1: 0x57D87C13'u32, data2: 0x48E9'u16, data3: 0x546F'u16,
+    data4: [0x9B'u8, 0x4E, 0xA3, 0x90, 0x6E, 0x1E, 0x7C, 0x24])
 const IID_IVector_1_ChatRecipientDeliveryInfo* = GUID(
     data1: 0x14640361'u32, data2: 0x3F8D'u16, data3: 0x5606'u16,
     data4: [0x8F'u8, 0xCB, 0x97, 0x32, 0x08, 0xB7, 0x6D, 0x72])
@@ -1017,7 +1035,7 @@ const IID_TypedEventHandler_2_DataPackage_Object* = GUID(
 const IID_IKeyValuePair_2_String_RandomAccessStreamReference* = GUID(
     data1: 0xE5195792'u32, data2: 0xAEAB'u16, data3: 0x56E8'u16,
     data4: [0xBD'u8, 0x30, 0x13, 0x72, 0xC4, 0x34, 0x0B, 0xF6])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
+const IID_IIterable_1_IKeyValuePair_26* = GUID(
     data1: 0xC9729BA7'u32, data2: 0x5E20'u16, data3: 0x569D'u16,
     data4: [0xA3'u8, 0xD1, 0x97, 0xA4, 0xE6, 0x53, 0xE5, 0xBB])
 const IID_IIterable_1_IStorageItem* = GUID(
@@ -1077,9 +1095,9 @@ const IID_AsyncOperationCompletedHandler_1_StorageFile* = GUID(
 const IID_IAsyncOperation_1_StorageFile* = GUID(
     data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
     data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
-const IID_AsyncOperationCompletedHandler_1_TransferTargetInvokeResult* = GUID(
-    data1: 0xAF577E2B'u32, data2: 0x3C17'u16, data3: 0x5E28'u16,
-    data4: [0x89'u8, 0x3D, 0x08, 0x92, 0xA2, 0x7B, 0xF8, 0x51])
+const IID_AsyncOperationWithProgressCompletedHandler_2_TransferTargetInvokeResult_F8* = GUID(
+    data1: 0xB3A0B269'u32, data2: 0x36E0'u16, data3: 0x5C7E'u16,
+    data4: [0xA7'u8, 0x79, 0xF7, 0xC4, 0xAE, 0x4F, 0xBA, 0x85])
 const IID_IAsyncOperationWithProgress_2_TransferTargetInvokeResult_F8* = GUID(
     data1: 0x1822BCA9'u32, data2: 0x47A2'u16, data3: 0x58AD'u16,
     data4: [0x8C'u8, 0x40, 0x05, 0x4C, 0x4B, 0x5A, 0xAF, 0x2D])
@@ -1413,9 +1431,9 @@ const IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveOptionalPackagesR
 const IID_IAsyncOperation_1_PackageCatalogRemoveOptionalPackagesResult* = GUID(
     data1: 0xCFC179AA'u32, data2: 0xFB98'u16, data3: 0x54EF'u16,
     data4: [0x8E'u8, 0xA8, 0x64, 0x49, 0x93, 0x47, 0xB7, 0xF7])
-const IID_AsyncOperationCompletedHandler_1_PackageCatalogAddResourcePackageResult* = GUID(
-    data1: 0x2BBB12A6'u32, data2: 0x6E81'u16, data3: 0x5DB5'u16,
-    data4: [0xB6'u8, 0x42, 0x73, 0xA3, 0x97, 0xBA, 0x97, 0xA5])
+const IID_AsyncOperationWithProgressCompletedHandler_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress* = GUID(
+    data1: 0x76FD3482'u32, data2: 0x764C'u16, data3: 0x5806'u16,
+    data4: [0x87'u8, 0x58, 0x03, 0x5A, 0xEF, 0xB6, 0xA5, 0x48])
 const IID_IAsyncOperationWithProgress_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress* = GUID(
     data1: 0xB147E038'u32, data2: 0xCC1F'u16, data3: 0x567F'u16,
     data4: [0xB1'u8, 0xF1, 0x64, 0xD5, 0xD4, 0x00, 0x33, 0x09])
@@ -1545,6 +1563,12 @@ const IID_AsyncOperationCompletedHandler_1_IRandomAccessStream* = GUID(
 const IID_IAsyncOperation_1_IRandomAccessStream* = GUID(
     data1: 0x430ECECE'u32, data2: 0x1418'u16, data3: 0x5D19'u16,
     data4: [0x81'u8, 0xB2, 0x5D, 0xDB, 0x38, 0x16, 0x03, 0xCC])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_27* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IIterable_1_ResourceQualifier* = GUID(
     data1: 0x2EEE68E2'u32, data2: 0x687C'u16, data3: 0x5F7A'u16,
     data4: [0xA1'u8, 0x4E, 0x58, 0x8C, 0x4D, 0x30, 0x89, 0xE1])
@@ -1554,7 +1578,7 @@ const IID_IIterator_1_ResourceQualifier* = GUID(
 const IID_IKeyValuePair_2_String_ResourceMap* = GUID(
     data1: 0x159782BA'u32, data2: 0x798D'u16, data3: 0x5AE6'u16,
     data4: [0x85'u8, 0xC7, 0xC7, 0xBB, 0x55, 0x1A, 0xAE, 0x61])
-const IID_IIterable_1_IKeyValuePair_24* = GUID(
+const IID_IIterable_1_IKeyValuePair_28* = GUID(
     data1: 0x9895431E'u32, data2: 0xA817'u16, data3: 0x5509'u16,
     data4: [0x91'u8, 0xE6, 0xD9, 0x0A, 0x93, 0x3E, 0xD8, 0x30])
 const IID_IIterable_1_IStorageFile* = GUID(
@@ -1572,12 +1596,6 @@ const IID_IVectorView_1_NamedResource* = GUID(
 const IID_IVectorView_1_ResourceMap* = GUID(
     data1: 0xF2656EF5'u32, data2: 0xFC27'u16, data3: 0x5C24'u16,
     data4: [0xA8'u8, 0xC2, 0x16, 0x97, 0xE0, 0xBE, 0x73, 0x6F])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_25* = GUID(
-    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
-    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IVectorView_1_IndexedResourceQualifier* = GUID(
     data1: 0x239DED48'u32, data2: 0xCE04'u16, data3: 0x51F2'u16,
     data4: [0xB2'u8, 0xC9, 0xA5, 0xE5, 0xAB, 0x67, 0x1B, 0x8D])
@@ -1590,6 +1608,9 @@ const IID_IAsyncOperation_1_IVectorView_134* = GUID(
 const IID_IVectorView_1_IndexedResourceCandidate* = GUID(
     data1: 0x1DA243F1'u32, data2: 0xBB95'u16, data3: 0x543E'u16,
     data4: [0x95'u8, 0xC6, 0x5F, 0xD1, 0x96, 0xB3, 0x4B, 0x6F])
+const IID_IObservableVector_1_SearchSuggestion* = GUID(
+    data1: 0x1CC36C46'u32, data2: 0x19BE'u16, data3: 0x5D6B'u16,
+    data4: [0xA5'u8, 0x6D, 0x04, 0x74, 0x13, 0x25, 0x2C, 0x69])
 const IID_TypedEventHandler_2_SearchSuggestionManager_SearchSuggestionsRequestedEventArgs* = GUID(
     data1: 0x7E7F3CDF'u32, data2: 0x80D9'u16, data3: 0x5646'u16,
     data4: [0x87'u8, 0x43, 0xEC, 0x1E, 0x38, 0x64, 0x5D, 0x68])
@@ -1683,7 +1704,7 @@ const IID_IAsyncOperation_1_ListingInformation* = GUID(
 const IID_IKeyValuePair_2_String_ProductLicense* = GUID(
     data1: 0xFF71C38C'u32, data2: 0x3E6E'u16, data3: 0x5E60'u16,
     data4: [0x99'u8, 0x4B, 0x92, 0x01, 0x43, 0x6D, 0xEE, 0xD1])
-const IID_IIterable_1_IKeyValuePair_26* = GUID(
+const IID_IIterable_1_IKeyValuePair_29* = GUID(
     data1: 0xFFE05002'u32, data2: 0x6E65'u16, data3: 0x5001'u16,
     data4: [0xA7'u8, 0x52, 0x9B, 0x27, 0xED, 0x3E, 0x28, 0x39])
 const IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult* = GUID(
@@ -1695,13 +1716,13 @@ const IID_IAsyncOperation_1_LicenseSatisfactionResult* = GUID(
 const IID_IKeyValuePair_2_String_LicenseSatisfactionInfo* = GUID(
     data1: 0x69426B8F'u32, data2: 0x88D8'u16, data3: 0x5546'u16,
     data4: [0x92'u8, 0xEE, 0x53, 0xF7, 0x53, 0x07, 0x84, 0x5B])
-const IID_IIterable_1_IKeyValuePair_27* = GUID(
+const IID_IIterable_1_IKeyValuePair_210* = GUID(
     data1: 0xAC935021'u32, data2: 0xE04B'u16, data3: 0x5226'u16,
     data4: [0x81'u8, 0x19, 0x5B, 0x73, 0xD0, 0xB8, 0xBE, 0x5B])
 const IID_IKeyValuePair_2_String_ProductListing* = GUID(
     data1: 0x61A02C5D'u32, data2: 0x4007'u16, data3: 0x573E'u16,
     data4: [0x8A'u8, 0x01, 0x02, 0x59, 0x71, 0x49, 0x27, 0xDF])
-const IID_IIterable_1_IKeyValuePair_28* = GUID(
+const IID_IIterable_1_IKeyValuePair_211* = GUID(
     data1: 0x3A7D9A2F'u32, data2: 0x2A82'u16, data3: 0x59F8'u16,
     data4: [0xBD'u8, 0x7C, 0xD6, 0x91, 0xCA, 0x16, 0x98, 0x63])
 const IID_TypedEventHandler_2_AppInstallItem_Object* = GUID(
@@ -1920,7 +1941,7 @@ const IID_IAsyncOperation_1_UserDataTaskList* = GUID(
 const IID_IKeyValuePair_2_String_VoiceCommandDefinition* = GUID(
     data1: 0xA932BFDA'u32, data2: 0x2CE5'u16, data3: 0x5012'u16,
     data4: [0xAE'u8, 0x83, 0xF3, 0x97, 0x97, 0x6E, 0x4A, 0x86])
-const IID_IIterable_1_IKeyValuePair_29* = GUID(
+const IID_IIterable_1_IKeyValuePair_212* = GUID(
     data1: 0x67693DD1'u32, data2: 0xAC45'u16, data3: 0x5EF3'u16,
     data4: [0x9B'u8, 0xA6, 0x4D, 0x78, 0x70, 0x9D, 0x9E, 0xE0])
 const IID_IVector_1_VoiceCommandContentTile* = GUID(
@@ -1983,25 +2004,25 @@ const IID_IAsyncOperation_1_WalletItemSystemStore* = GUID(
 const IID_IKeyValuePair_2_String_WalletTransaction* = GUID(
     data1: 0xF50232E9'u32, data2: 0x7CE3'u16, data3: 0x559B'u16,
     data4: [0xBA'u8, 0xAD, 0x67, 0x26, 0xFF, 0xA4, 0xE7, 0x9B])
-const IID_IIterable_1_IKeyValuePair_210* = GUID(
+const IID_IIterable_1_IKeyValuePair_213* = GUID(
     data1: 0x4FD2CA58'u32, data2: 0xB7A2'u16, data3: 0x5923'u16,
     data4: [0x93'u8, 0x80, 0x49, 0xC1, 0x1C, 0x69, 0xC3, 0x9A])
 const IID_IKeyValuePair_2_String_WalletRelevantLocation* = GUID(
     data1: 0x031812FC'u32, data2: 0xA4F7'u16, data3: 0x5127'u16,
     data4: [0x9E'u8, 0xC4, 0xD9, 0x26, 0x21, 0xCB, 0x3F, 0x90])
-const IID_IIterable_1_IKeyValuePair_211* = GUID(
+const IID_IIterable_1_IKeyValuePair_214* = GUID(
     data1: 0xE55E510C'u32, data2: 0x4028'u16, data3: 0x5DF0'u16,
     data4: [0xB7'u8, 0x8B, 0x27, 0xBD, 0x06, 0x98, 0x0B, 0x0B])
 const IID_IKeyValuePair_2_String_WalletItemCustomProperty* = GUID(
     data1: 0x1AA9CD86'u32, data2: 0x9376'u16, data3: 0x5EBB'u16,
     data4: [0xB4'u8, 0x5C, 0x8D, 0xAD, 0x7E, 0x66, 0xF9, 0xF7])
-const IID_IIterable_1_IKeyValuePair_212* = GUID(
+const IID_IIterable_1_IKeyValuePair_215* = GUID(
     data1: 0x3F45154C'u32, data2: 0x0C0D'u16, data3: 0x5DF9'u16,
     data4: [0xA5'u8, 0x57, 0x25, 0x9F, 0x20, 0xC9, 0x27, 0xAE])
 const IID_IKeyValuePair_2_String_WalletVerb* = GUID(
     data1: 0x1FE3A179'u32, data2: 0xFFA8'u16, data3: 0x5F52'u16,
     data4: [0x98'u8, 0x23, 0x9C, 0x3D, 0xFF, 0x73, 0xC5, 0x6A])
-const IID_IIterable_1_IKeyValuePair_213* = GUID(
+const IID_IIterable_1_IKeyValuePair_216* = GUID(
     data1: 0x6D2EF172'u32, data2: 0x8AE3'u16, data3: 0x572E'u16,
     data4: [0xAE'u8, 0x44, 0x8E, 0xE3, 0xFD, 0x49, 0xD1, 0x9F])
 const IID_AsyncOperationCompletedHandler_1_WalletItemStore* = GUID(
@@ -2244,12 +2265,12 @@ proc user*(self: AppointmentsProviderShowTimeFrameActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("AppointmentsProviderShowTimeFrameActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc taskInstance*(self: BackgroundActivatedEventArgs): pointer  =
+proc taskInstance*(self: BackgroundActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.BackgroundActivatedEventArgs.get_TaskInstance
   withIface(self.p, IID_IBackgroundActivatedEventArgs, "IBackgroundActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundActivatedEventArgs_get_TaskInstance, Fn_IBackgroundActivatedEventArgs_get_TaskInstance)(it, tmp.addr).check("BackgroundActivatedEventArgs.get_TaskInstance")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc connectionId*(self: BarcodeScannerPreviewActivatedEventArgs): string  =
   ## Windows.ApplicationModel.Activation.BarcodeScannerPreviewActivatedEventArgs.get_ConnectionId
@@ -3860,12 +3881,12 @@ proc currentlyShownApplicationViewId*(self: ToastNotificationActivatedEventArgs)
     vcall(it, Slot_IApplicationViewActivatedEventArgs_get_CurrentlyShownApplicationViewId, Fn_IApplicationViewActivatedEventArgs_get_CurrentlyShownApplicationViewId)(it, tmp.addr).check("ToastNotificationActivatedEventArgs.get_CurrentlyShownApplicationViewId")
     result = tmp
 
-proc operation*(self: UserDataAccountProviderActivatedEventArgs): pointer  =
+proc operation*(self: UserDataAccountProviderActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.UserDataAccountProviderActivatedEventArgs.get_Operation
   withIface(self.p, IID_IUserDataAccountProviderActivatedEventArgs, "IUserDataAccountProviderActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataAccountProviderActivatedEventArgs_get_Operation, Fn_IUserDataAccountProviderActivatedEventArgs_get_Operation)(it, tmp.addr).check("UserDataAccountProviderActivatedEventArgs.get_Operation")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: UserDataAccountProviderActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.UserDataAccountProviderActivatedEventArgs.get_Kind
@@ -3965,12 +3986,12 @@ proc splashScreen*(self: WalletActionActivatedEventArgs): SplashScreen  =
     vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("WalletActionActivatedEventArgs.get_SplashScreen")
     result = adopt[SplashScreen](tmp)
 
-proc operation*(self: WebAccountProviderActivatedEventArgs): pointer  =
+proc operation*(self: WebAccountProviderActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.WebAccountProviderActivatedEventArgs.get_Operation
   withIface(self.p, IID_IWebAccountProviderActivatedEventArgs, "IWebAccountProviderActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderActivatedEventArgs_get_Operation, Fn_IWebAccountProviderActivatedEventArgs_get_Operation)(it, tmp.addr).check("WebAccountProviderActivatedEventArgs.get_Operation")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: WebAccountProviderActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.WebAccountProviderActivatedEventArgs.get_Kind
@@ -4091,19 +4112,19 @@ proc appInfo*(self: AppExtension): AppInfo  =
     vcall(it, Slot_IAppExtension_get_AppInfo, Fn_IAppExtension_get_AppInfo)(it, tmp.addr).check("AppExtension.get_AppInfo")
     result = adopt[AppInfo](tmp)
 
-proc getExtensionPropertiesAsync*(self: AppExtension): Future[ApplicationDataContainerSettings] {.async.} =
+proc getExtensionPropertiesAsync*(self: AppExtension): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetExtensionPropertiesAsync
   var op: pointer
   withIface(self.p, IID_IAppExtension, "IAppExtension", it):
     vcall(it, Slot_IAppExtension_GetExtensionPropertiesAsync, Fn_IAppExtension_GetExtensionPropertiesAsync)(it, op.addr).check("AppExtension.GetExtensionPropertiesAsync")
-  result = adopt[ApplicationDataContainerSettings](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "AppExtension.GetExtensionPropertiesAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, alPlain, "AppExtension.GetExtensionPropertiesAsync"))
 
 proc getPublicFolderAsync*(self: AppExtension): Future[StorageFolder] {.async.} =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetPublicFolderAsync
   var op: pointer
   withIface(self.p, IID_IAppExtension, "IAppExtension", it):
     vcall(it, Slot_IAppExtension_GetPublicFolderAsync, Fn_IAppExtension_GetPublicFolderAsync)(it, op.addr).check("AppExtension.GetPublicFolderAsync")
-  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "AppExtension.GetPublicFolderAsync"))
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, alPlain, "AppExtension.GetPublicFolderAsync"))
 
 proc appUserModelId*(self: AppExtension): string  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.get_AppUserModelId
@@ -4112,12 +4133,12 @@ proc appUserModelId*(self: AppExtension): string  =
     vcall(it, Slot_IAppExtension2_get_AppUserModelId, Fn_IAppExtension2_get_AppUserModelId)(it, tmp.addr).check("AppExtension.get_AppUserModelId")
     result = takeString(tmp)
 
-proc getExtensionProperties*(self: AppExtension): ApplicationDataContainerSettings  =
+proc getExtensionProperties*(self: AppExtension): WinRtObject  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetExtensionProperties
   withIface(self.p, IID_IAppExtension3, "IAppExtension3", it):
     var tmp: pointer
     vcall(it, Slot_IAppExtension3_GetExtensionProperties, Fn_IAppExtension3_GetExtensionProperties)(it, tmp.addr).check("AppExtension.GetExtensionProperties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc getPublicPath*(self: AppExtension): string  =
   ## Windows.ApplicationModel.AppExtensions.AppExtension.GetPublicPath
@@ -4138,7 +4159,7 @@ proc findAllAsync*(self: AppExtensionCatalog): Future[seq[AppExtension]] {.async
   var op: pointer
   withIface(self.p, IID_IAppExtensionCatalog, "IAppExtensionCatalog", it):
     vcall(it, Slot_IAppExtensionCatalog_FindAllAsync, Fn_IAppExtensionCatalog_FindAllAsync)(it, op.addr).check("AppExtensionCatalog.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "AppExtensionCatalog.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "AppExtensionCatalog.FindAllAsync")
   result = toSeq[AppExtension](coll, IID_IVectorView_1_AppExtension)
   discard release(coll)
 
@@ -4148,7 +4169,7 @@ proc requestRemovePackageAsync*(self: AppExtensionCatalog, packageFullName: stri
   withIface(self.p, IID_IAppExtensionCatalog, "IAppExtensionCatalog", it):
     withHString(packageFullName, h0):
       vcall(it, Slot_IAppExtensionCatalog_RequestRemovePackageAsync, Fn_IAppExtensionCatalog_RequestRemovePackageAsync)(it, h0, op.addr).check("AppExtensionCatalog.RequestRemovePackageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppExtensionCatalog.RequestRemovePackageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppExtensionCatalog.RequestRemovePackageAsync")
 
 proc onPackageInstalled*(self: AppExtensionCatalog,
     handler: proc(sender: pointer, args: AppExtensionPackageInstalledEventArgs)): EventRegistrationToken {.discardable.} =
@@ -4564,12 +4585,12 @@ proc recommendedInstance*(_: typedesc[AppInstance]): AppInstance  =
     vcall(it, Slot_IAppInstanceStatics_get_RecommendedInstance, Fn_IAppInstanceStatics_get_RecommendedInstance)(it, tmp.addr).check("AppInstance.get_RecommendedInstance")
     result = adopt[AppInstance](tmp)
 
-proc getActivatedEventArgs*(_: typedesc[AppInstance]): WebUIPrintWorkflowForegroundTaskActivatedEventArgs  =
+proc getActivatedEventArgs*(_: typedesc[AppInstance]): WinRtObject  =
   ## Windows.ApplicationModel.AppInstance.GetActivatedEventArgs
   withStatics("Windows.ApplicationModel.AppInstance", IID_IAppInstanceStatics, it):
     var tmp: pointer
     vcall(it, Slot_IAppInstanceStatics_GetActivatedEventArgs, Fn_IAppInstanceStatics_GetActivatedEventArgs)(it, tmp.addr).check("AppInstance.GetActivatedEventArgs")
-    result = adopt[WebUIPrintWorkflowForegroundTaskActivatedEventArgs](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc findOrRegisterInstanceForKey*(_: typedesc[AppInstance], key: string): AppInstance  =
   ## Windows.ApplicationModel.AppInstance.FindOrRegisterInstanceForKey
@@ -4598,7 +4619,7 @@ proc findAppServiceProvidersAsync*(_: typedesc[AppServiceCatalog], appServiceNam
   withStatics("Windows.ApplicationModel.AppService.AppServiceCatalog", IID_IAppServiceCatalogStatics, it):
     withHString(appServiceName, h0):
       vcall(it, Slot_IAppServiceCatalogStatics_FindAppServiceProvidersAsync, Fn_IAppServiceCatalogStatics_FindAppServiceProvidersAsync)(it, h0, op.addr).check("AppServiceCatalog.FindAppServiceProvidersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "AppServiceCatalog.FindAppServiceProvidersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "AppServiceCatalog.FindAppServiceProvidersAsync")
   result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
   discard release(coll)
 
@@ -4644,7 +4665,7 @@ proc openAsync*(self: AppServiceConnection): Future[AppServiceConnectionStatus] 
   var op: pointer
   withIface(self.p, IID_IAppServiceConnection, "IAppServiceConnection", it):
     vcall(it, Slot_IAppServiceConnection_OpenAsync, Fn_IAppServiceConnection_OpenAsync)(it, op.addr).check("AppServiceConnection.OpenAsync")
-  result = await awaitValue[AppServiceConnectionStatus](op, IID_IAsyncOperation_1_AppServiceConnectionStatus, IID_AsyncOperationCompletedHandler_1_AppServiceConnectionStatus, "AppServiceConnection.OpenAsync")
+  result = await awaitValue[AppServiceConnectionStatus](op, IID_IAsyncOperation_1_AppServiceConnectionStatus, IID_AsyncOperationCompletedHandler_1_AppServiceConnectionStatus, alPlain, "AppServiceConnection.OpenAsync")
 
 proc sendMessageAsync*(self: AppServiceConnection, message: ValueSet): Future[AppServiceResponse] {.async.} =
   ## Windows.ApplicationModel.AppService.AppServiceConnection.SendMessageAsync
@@ -4652,7 +4673,7 @@ proc sendMessageAsync*(self: AppServiceConnection, message: ValueSet): Future[Ap
   withIface(self.p, IID_IAppServiceConnection, "IAppServiceConnection", it):
     withIface(message.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IAppServiceConnection_SendMessageAsync, Fn_IAppServiceConnection_SendMessageAsync)(it, p0, op.addr).check("AppServiceConnection.SendMessageAsync")
-  result = adopt[AppServiceResponse](await awaitObject(op, IID_IAsyncOperation_1_AppServiceResponse, IID_AsyncOperationCompletedHandler_1_AppServiceResponse, "AppServiceConnection.SendMessageAsync"))
+  result = adopt[AppServiceResponse](await awaitObject(op, IID_IAsyncOperation_1_AppServiceResponse, IID_AsyncOperationCompletedHandler_1_AppServiceResponse, alPlain, "AppServiceConnection.SendMessageAsync"))
 
 proc onRequestReceived*(self: AppServiceConnection,
     handler: proc(sender: pointer, args: AppServiceRequestReceivedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -4698,7 +4719,7 @@ proc openRemoteAsync*(self: AppServiceConnection, remoteSystemConnectionRequest:
   withIface(self.p, IID_IAppServiceConnection2, "IAppServiceConnection2", it):
     withIface(remoteSystemConnectionRequest.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", p0):
       vcall(it, Slot_IAppServiceConnection2_OpenRemoteAsync, Fn_IAppServiceConnection2_OpenRemoteAsync)(it, p0, op.addr).check("AppServiceConnection.OpenRemoteAsync")
-  result = await awaitValue[AppServiceConnectionStatus](op, IID_IAsyncOperation_1_AppServiceConnectionStatus, IID_AsyncOperationCompletedHandler_1_AppServiceConnectionStatus, "AppServiceConnection.OpenRemoteAsync")
+  result = await awaitValue[AppServiceConnectionStatus](op, IID_IAsyncOperation_1_AppServiceConnectionStatus, IID_AsyncOperationCompletedHandler_1_AppServiceConnectionStatus, alPlain, "AppServiceConnection.OpenRemoteAsync")
 
 proc user*(self: AppServiceConnection): User  =
   ## Windows.ApplicationModel.AppService.AppServiceConnection.get_User
@@ -4726,7 +4747,7 @@ proc sendStatelessMessageAsync*(_: typedesc[AppServiceConnection], connection: A
       withIface(connectionRequest.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", p1):
         withIface(message.p, IID_IPropertySet, "IPropertySet", p2):
           vcall(it, Slot_IAppServiceConnectionStatics_SendStatelessMessageAsync, Fn_IAppServiceConnectionStatics_SendStatelessMessageAsync)(it, p0, p1, p2, op.addr).check("AppServiceConnection.SendStatelessMessageAsync")
-  result = adopt[StatelessAppServiceResponse](await awaitObject(op, IID_IAsyncOperation_1_StatelessAppServiceResponse, IID_AsyncOperationCompletedHandler_1_StatelessAppServiceResponse, "AppServiceConnection.SendStatelessMessageAsync"))
+  result = adopt[StatelessAppServiceResponse](await awaitObject(op, IID_IAsyncOperation_1_StatelessAppServiceResponse, IID_AsyncOperationCompletedHandler_1_StatelessAppServiceResponse, alPlain, "AppServiceConnection.SendStatelessMessageAsync"))
 
 proc complete*(self: AppServiceDeferral)  =
   ## Windows.ApplicationModel.AppService.AppServiceDeferral.Complete
@@ -4746,7 +4767,7 @@ proc sendResponseAsync*(self: AppServiceRequest, message: ValueSet): Future[AppS
   withIface(self.p, IID_IAppServiceRequest, "IAppServiceRequest", it):
     withIface(message.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IAppServiceRequest_SendResponseAsync, Fn_IAppServiceRequest_SendResponseAsync)(it, p0, op.addr).check("AppServiceRequest.SendResponseAsync")
-  result = await awaitValue[AppServiceResponseStatus](op, IID_IAsyncOperation_1_AppServiceResponseStatus, IID_AsyncOperationCompletedHandler_1_AppServiceResponseStatus, "AppServiceRequest.SendResponseAsync")
+  result = await awaitValue[AppServiceResponseStatus](op, IID_IAsyncOperation_1_AppServiceResponseStatus, IID_AsyncOperationCompletedHandler_1_AppServiceResponseStatus, alPlain, "AppServiceRequest.SendResponseAsync")
 
 proc request*(self: AppServiceRequestReceivedEventArgs): AppServiceRequest  =
   ## Windows.ApplicationModel.AppService.AppServiceRequestReceivedEventArgs.get_Request
@@ -4810,7 +4831,7 @@ proc checkCallerForCapabilityAsync*(self: AppServiceTriggerDetails, capabilityNa
   withIface(self.p, IID_IAppServiceTriggerDetails3, "IAppServiceTriggerDetails3", it):
     withHString(capabilityName, h0):
       vcall(it, Slot_IAppServiceTriggerDetails3_CheckCallerForCapabilityAsync, Fn_IAppServiceTriggerDetails3_CheckCallerForCapabilityAsync)(it, h0, op.addr).check("AppServiceTriggerDetails.CheckCallerForCapabilityAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppServiceTriggerDetails.CheckCallerForCapabilityAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppServiceTriggerDetails.CheckCallerForCapabilityAsync")
 
 proc callerRemoteConnectionToken*(self: AppServiceTriggerDetails): string  =
   ## Windows.ApplicationModel.AppService.AppServiceTriggerDetails.get_CallerRemoteConnectionToken
@@ -5241,7 +5262,7 @@ proc findAppointmentsAsync*(self: AppointmentCalendar, rangeStart: DateTime, ran
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     vcall(it, Slot_IAppointmentCalendar_FindAppointmentsAsync, Fn_IAppointmentCalendar_FindAppointmentsAsync)(it, rangeStart, rangeLength, op.addr).check("AppointmentCalendar.FindAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5251,7 +5272,7 @@ proc findAppointmentsAsync*(self: AppointmentCalendar, rangeStart: DateTime, ran
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withIface(options.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", p2):
       vcall(it, Slot_IAppointmentCalendar_FindAppointmentsAsync2, Fn_IAppointmentCalendar_FindAppointmentsAsync2)(it, rangeStart, rangeLength, p2, op.addr).check("AppointmentCalendar.FindAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5261,7 +5282,7 @@ proc findExceptionsFromMasterAsync*(self: AppointmentCalendar, masterLocalId: st
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(masterLocalId, h0):
       vcall(it, Slot_IAppointmentCalendar_FindExceptionsFromMasterAsync, Fn_IAppointmentCalendar_FindExceptionsFromMasterAsync)(it, h0, op.addr).check("AppointmentCalendar.FindExceptionsFromMasterAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14, IID_AsyncOperationCompletedHandler_1_IVectorView_14, "AppointmentCalendar.FindExceptionsFromMasterAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14, IID_AsyncOperationCompletedHandler_1_IVectorView_14, alPlain, "AppointmentCalendar.FindExceptionsFromMasterAsync")
   result = toSeq[AppointmentException](coll, IID_IVectorView_1_AppointmentException)
   discard release(coll)
 
@@ -5271,7 +5292,7 @@ proc findAllInstancesAsync*(self: AppointmentCalendar, masterLocalId: string, ra
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(masterLocalId, h0):
       vcall(it, Slot_IAppointmentCalendar_FindAllInstancesAsync, Fn_IAppointmentCalendar_FindAllInstancesAsync)(it, h0, rangeStart, rangeLength, op.addr).check("AppointmentCalendar.FindAllInstancesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindAllInstancesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindAllInstancesAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5282,7 +5303,7 @@ proc findAllInstancesAsync*(self: AppointmentCalendar, masterLocalId: string, ra
     withHString(masterLocalId, h0):
       withIface(pOptions.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", p3):
         vcall(it, Slot_IAppointmentCalendar_FindAllInstancesAsync2, Fn_IAppointmentCalendar_FindAllInstancesAsync2)(it, h0, rangeStart, rangeLength, p3, op.addr).check("AppointmentCalendar.FindAllInstancesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindAllInstancesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindAllInstancesAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5292,7 +5313,7 @@ proc getAppointmentAsync*(self: AppointmentCalendar, localId: string): Future[Ap
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentCalendar_GetAppointmentAsync, Fn_IAppointmentCalendar_GetAppointmentAsync)(it, h0, op.addr).check("AppointmentCalendar.GetAppointmentAsync")
-  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, "AppointmentCalendar.GetAppointmentAsync"))
+  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, alPlain, "AppointmentCalendar.GetAppointmentAsync"))
 
 proc getAppointmentInstanceAsync*(self: AppointmentCalendar, localId: string, instanceStartTime: DateTime): Future[Appointment] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.GetAppointmentInstanceAsync
@@ -5300,14 +5321,14 @@ proc getAppointmentInstanceAsync*(self: AppointmentCalendar, localId: string, in
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentCalendar_GetAppointmentInstanceAsync, Fn_IAppointmentCalendar_GetAppointmentInstanceAsync)(it, h0, instanceStartTime, op.addr).check("AppointmentCalendar.GetAppointmentInstanceAsync")
-  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, "AppointmentCalendar.GetAppointmentInstanceAsync"))
+  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, alPlain, "AppointmentCalendar.GetAppointmentInstanceAsync"))
 
 proc findUnexpandedAppointmentsAsync*(self: AppointmentCalendar): Future[seq[Appointment]] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.FindUnexpandedAppointmentsAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     vcall(it, Slot_IAppointmentCalendar_FindUnexpandedAppointmentsAsync, Fn_IAppointmentCalendar_FindUnexpandedAppointmentsAsync)(it, op.addr).check("AppointmentCalendar.FindUnexpandedAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindUnexpandedAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindUnexpandedAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5317,7 +5338,7 @@ proc findUnexpandedAppointmentsAsync*(self: AppointmentCalendar, options: FindAp
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withIface(options.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", p0):
       vcall(it, Slot_IAppointmentCalendar_FindUnexpandedAppointmentsAsync2, Fn_IAppointmentCalendar_FindUnexpandedAppointmentsAsync2)(it, p0, op.addr).check("AppointmentCalendar.FindUnexpandedAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentCalendar.FindUnexpandedAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentCalendar.FindUnexpandedAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -5326,14 +5347,14 @@ proc deleteAsync*(self: AppointmentCalendar) {.async.} =
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     vcall(it, Slot_IAppointmentCalendar_DeleteAsync, Fn_IAppointmentCalendar_DeleteAsync)(it, op.addr).check("AppointmentCalendar.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.DeleteAsync")
 
 proc saveAsync*(self: AppointmentCalendar) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.SaveAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     vcall(it, Slot_IAppointmentCalendar_SaveAsync, Fn_IAppointmentCalendar_SaveAsync)(it, op.addr).check("AppointmentCalendar.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.SaveAsync")
 
 proc deleteAppointmentAsync*(self: AppointmentCalendar, localId: string) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.DeleteAppointmentAsync
@@ -5341,7 +5362,7 @@ proc deleteAppointmentAsync*(self: AppointmentCalendar, localId: string) {.async
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentCalendar_DeleteAppointmentAsync, Fn_IAppointmentCalendar_DeleteAppointmentAsync)(it, h0, op.addr).check("AppointmentCalendar.DeleteAppointmentAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.DeleteAppointmentAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.DeleteAppointmentAsync")
 
 proc deleteAppointmentInstanceAsync*(self: AppointmentCalendar, localId: string, instanceStartTime: DateTime) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.DeleteAppointmentInstanceAsync
@@ -5349,7 +5370,7 @@ proc deleteAppointmentInstanceAsync*(self: AppointmentCalendar, localId: string,
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentCalendar_DeleteAppointmentInstanceAsync, Fn_IAppointmentCalendar_DeleteAppointmentInstanceAsync)(it, h0, instanceStartTime, op.addr).check("AppointmentCalendar.DeleteAppointmentInstanceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.DeleteAppointmentInstanceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.DeleteAppointmentInstanceAsync")
 
 proc saveAppointmentAsync*(self: AppointmentCalendar, pAppointment: Appointment) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.SaveAppointmentAsync
@@ -5357,7 +5378,7 @@ proc saveAppointmentAsync*(self: AppointmentCalendar, pAppointment: Appointment)
   withIface(self.p, IID_IAppointmentCalendar, "IAppointmentCalendar", it):
     withIface(pAppointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentCalendar_SaveAppointmentAsync, Fn_IAppointmentCalendar_SaveAppointmentAsync)(it, p0, op.addr).check("AppointmentCalendar.SaveAppointmentAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.SaveAppointmentAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.SaveAppointmentAsync")
 
 proc syncManager*(self: AppointmentCalendar): AppointmentCalendarSyncManager  =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.get_SyncManager
@@ -5486,7 +5507,7 @@ proc tryCreateOrUpdateAppointmentAsync*(self: AppointmentCalendar, appointment: 
   withIface(self.p, IID_IAppointmentCalendar2, "IAppointmentCalendar2", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentCalendar2_TryCreateOrUpdateAppointmentAsync, Fn_IAppointmentCalendar2_TryCreateOrUpdateAppointmentAsync)(it, p0, notifyInvitees, op.addr).check("AppointmentCalendar.TryCreateOrUpdateAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryCreateOrUpdateAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendar.TryCreateOrUpdateAppointmentAsync")
 
 proc tryCancelMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, subject: string, comment: string, notifyInvitees: bool): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryCancelMeetingAsync
@@ -5496,7 +5517,7 @@ proc tryCancelMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, sub
       withHString(subject, h1):
         withHString(comment, h2):
           vcall(it, Slot_IAppointmentCalendar2_TryCancelMeetingAsync, Fn_IAppointmentCalendar2_TryCancelMeetingAsync)(it, p0, h1, h2, notifyInvitees, op.addr).check("AppointmentCalendar.TryCancelMeetingAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryCancelMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendar.TryCancelMeetingAsync")
 
 proc tryForwardMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, invitees: seq[AppointmentInvitee], subject: string, forwardHeader: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryForwardMeetingAsync
@@ -5509,7 +5530,7 @@ proc tryForwardMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, in
         withHString(forwardHeader, h3):
           withHString(comment, h4):
             vcall(it, Slot_IAppointmentCalendar2_TryForwardMeetingAsync, Fn_IAppointmentCalendar2_TryForwardMeetingAsync)(it, p0, p1, h2, h3, h4, op.addr).check("AppointmentCalendar.TryForwardMeetingAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryForwardMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendar.TryForwardMeetingAsync")
 
 proc tryProposeNewTimeForMeetingAsync*(self: AppointmentCalendar, meeting: Appointment, newStartTime: DateTime, newDuration: TimeSpan, subject: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryProposeNewTimeForMeetingAsync
@@ -5519,7 +5540,7 @@ proc tryProposeNewTimeForMeetingAsync*(self: AppointmentCalendar, meeting: Appoi
       withHString(subject, h3):
         withHString(comment, h4):
           vcall(it, Slot_IAppointmentCalendar2_TryProposeNewTimeForMeetingAsync, Fn_IAppointmentCalendar2_TryProposeNewTimeForMeetingAsync)(it, p0, newStartTime, newDuration, h3, h4, op.addr).check("AppointmentCalendar.TryProposeNewTimeForMeetingAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryProposeNewTimeForMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendar.TryProposeNewTimeForMeetingAsync")
 
 proc tryUpdateMeetingResponseAsync*(self: AppointmentCalendar, meeting: Appointment, response: AppointmentParticipantResponse, subject: string, comment: string, sendUpdate: bool): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.TryUpdateMeetingResponseAsync
@@ -5529,14 +5550,14 @@ proc tryUpdateMeetingResponseAsync*(self: AppointmentCalendar, meeting: Appointm
       withHString(subject, h2):
         withHString(comment, h3):
           vcall(it, Slot_IAppointmentCalendar2_TryUpdateMeetingResponseAsync, Fn_IAppointmentCalendar2_TryUpdateMeetingResponseAsync)(it, p0, response, h2, h3, sendUpdate, op.addr).check("AppointmentCalendar.TryUpdateMeetingResponseAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendar.TryUpdateMeetingResponseAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendar.TryUpdateMeetingResponseAsync")
 
 proc registerSyncManagerAsync*(self: AppointmentCalendar) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendar.RegisterSyncManagerAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendar3, "IAppointmentCalendar3", it):
     vcall(it, Slot_IAppointmentCalendar3_RegisterSyncManagerAsync, Fn_IAppointmentCalendar3_RegisterSyncManagerAsync)(it, op.addr).check("AppointmentCalendar.RegisterSyncManagerAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendar.RegisterSyncManagerAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendar.RegisterSyncManagerAsync")
 
 proc status*(self: AppointmentCalendarSyncManager): AppointmentCalendarSyncStatus  =
   ## Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager.get_Status
@@ -5564,7 +5585,7 @@ proc syncAsync*(self: AppointmentCalendarSyncManager): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarSyncManager, "IAppointmentCalendarSyncManager", it):
     vcall(it, Slot_IAppointmentCalendarSyncManager_SyncAsync, Fn_IAppointmentCalendarSyncManager_SyncAsync)(it, op.addr).check("AppointmentCalendarSyncManager.SyncAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentCalendarSyncManager.SyncAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentCalendarSyncManager.SyncAsync")
 
 proc onSyncStatusChanged*(self: AppointmentCalendarSyncManager,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -5696,7 +5717,7 @@ proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager], appointmentId
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics2, it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerStatics2_ShowAppointmentDetailsAsync, Fn_IAppointmentManagerStatics2_ShowAppointmentDetailsAsync)(it, h0, op.addr).check("AppointmentManager.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManager.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManager.ShowAppointmentDetailsAsync")
 
 proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager], appointmentId: string, instanceStartDate: DateTime) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowAppointmentDetailsAsync
@@ -5704,7 +5725,7 @@ proc showAppointmentDetailsAsync*(_: typedesc[AppointmentManager], appointmentId
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics2, it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerStatics2_ShowAppointmentDetailsAsync2, Fn_IAppointmentManagerStatics2_ShowAppointmentDetailsAsync2)(it, h0, instanceStartDate, op.addr).check("AppointmentManager.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManager.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManager.ShowAppointmentDetailsAsync")
 
 proc showEditNewAppointmentAsync*(_: typedesc[AppointmentManager], appointment: Appointment): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowEditNewAppointmentAsync
@@ -5712,14 +5733,14 @@ proc showEditNewAppointmentAsync*(_: typedesc[AppointmentManager], appointment: 
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics2, it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerStatics2_ShowEditNewAppointmentAsync, Fn_IAppointmentManagerStatics2_ShowEditNewAppointmentAsync)(it, p0, op.addr).check("AppointmentManager.ShowEditNewAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowEditNewAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowEditNewAppointmentAsync")
 
 proc requestStoreAsync*(_: typedesc[AppointmentManager], options: AppointmentStoreAccessType): Future[AppointmentStore] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.RequestStoreAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics2, it):
     vcall(it, Slot_IAppointmentManagerStatics2_RequestStoreAsync, Fn_IAppointmentManagerStatics2_RequestStoreAsync)(it, options, op.addr).check("AppointmentManager.RequestStoreAsync")
-  result = adopt[AppointmentStore](await awaitObject(op, IID_IAsyncOperation_1_AppointmentStore, IID_AsyncOperationCompletedHandler_1_AppointmentStore, "AppointmentManager.RequestStoreAsync"))
+  result = adopt[AppointmentStore](await awaitObject(op, IID_IAsyncOperation_1_AppointmentStore, IID_AsyncOperationCompletedHandler_1_AppointmentStore, alPlain, "AppointmentManager.RequestStoreAsync"))
 
 proc showAddAppointmentAsync*(_: typedesc[AppointmentManager], appointment: Appointment, selection: Rect): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowAddAppointmentAsync
@@ -5727,7 +5748,7 @@ proc showAddAppointmentAsync*(_: typedesc[AppointmentManager], appointment: Appo
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerStatics_ShowAddAppointmentAsync, Fn_IAppointmentManagerStatics_ShowAddAppointmentAsync)(it, p0, selection, op.addr).check("AppointmentManager.ShowAddAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowAddAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowAddAppointmentAsync")
 
 proc showAddAppointmentAsync*(_: typedesc[AppointmentManager], appointment: Appointment, selection: Rect, preferredPlacement: Placement): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowAddAppointmentAsync
@@ -5735,7 +5756,7 @@ proc showAddAppointmentAsync*(_: typedesc[AppointmentManager], appointment: Appo
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerStatics_ShowAddAppointmentAsync2, Fn_IAppointmentManagerStatics_ShowAddAppointmentAsync2)(it, p0, selection, preferredPlacement, op.addr).check("AppointmentManager.ShowAddAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowAddAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowAddAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, appointment: Appointment, selection: Rect): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowReplaceAppointmentAsync
@@ -5744,7 +5765,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerStatics_ShowReplaceAppointmentAsync, Fn_IAppointmentManagerStatics_ShowReplaceAppointmentAsync)(it, h0, p1, selection, op.addr).check("AppointmentManager.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowReplaceAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, appointment: Appointment, selection: Rect, preferredPlacement: Placement): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowReplaceAppointmentAsync
@@ -5753,7 +5774,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerStatics_ShowReplaceAppointmentAsync2, Fn_IAppointmentManagerStatics_ShowReplaceAppointmentAsync2)(it, h0, p1, selection, preferredPlacement, op.addr).check("AppointmentManager.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowReplaceAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, appointment: Appointment, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowReplaceAppointmentAsync
@@ -5762,7 +5783,7 @@ proc showReplaceAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerStatics_ShowReplaceAppointmentAsync3, Fn_IAppointmentManagerStatics_ShowReplaceAppointmentAsync3)(it, h0, p1, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentManager.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManager.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManager.ShowReplaceAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, selection: Rect): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowRemoveAppointmentAsync
@@ -5770,7 +5791,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId:
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerStatics_ShowRemoveAppointmentAsync, Fn_IAppointmentManagerStatics_ShowRemoveAppointmentAsync)(it, h0, selection, op.addr).check("AppointmentManager.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManager.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManager.ShowRemoveAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, selection: Rect, preferredPlacement: Placement): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowRemoveAppointmentAsync
@@ -5778,7 +5799,7 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId:
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerStatics_ShowRemoveAppointmentAsync2, Fn_IAppointmentManagerStatics_ShowRemoveAppointmentAsync2)(it, h0, selection, preferredPlacement, op.addr).check("AppointmentManager.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManager.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManager.ShowRemoveAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId: string, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowRemoveAppointmentAsync
@@ -5786,14 +5807,14 @@ proc showRemoveAppointmentAsync*(_: typedesc[AppointmentManager], appointmentId:
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerStatics_ShowRemoveAppointmentAsync3, Fn_IAppointmentManagerStatics_ShowRemoveAppointmentAsync3)(it, h0, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentManager.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManager.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManager.ShowRemoveAppointmentAsync")
 
 proc showTimeFrameAsync*(_: typedesc[AppointmentManager], timeToShow: DateTime, duration: TimeSpan) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.ShowTimeFrameAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Appointments.AppointmentManager", IID_IAppointmentManagerStatics, it):
     vcall(it, Slot_IAppointmentManagerStatics_ShowTimeFrameAsync, Fn_IAppointmentManagerStatics_ShowTimeFrameAsync)(it, timeToShow, duration, op.addr).check("AppointmentManager.ShowTimeFrameAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManager.ShowTimeFrameAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManager.ShowTimeFrameAsync")
 
 proc getForUser*(_: typedesc[AppointmentManager], user: User): AppointmentManagerForUser  =
   ## Windows.ApplicationModel.Appointments.AppointmentManager.GetForUser
@@ -5809,7 +5830,7 @@ proc showAddAppointmentAsync*(self: AppointmentManagerForUser, appointment: Appo
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowAddAppointmentAsync, Fn_IAppointmentManagerForUser_ShowAddAppointmentAsync)(it, p0, selection, op.addr).check("AppointmentManagerForUser.ShowAddAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowAddAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowAddAppointmentAsync")
 
 proc showAddAppointmentAsync*(self: AppointmentManagerForUser, appointment: Appointment, selection: Rect, preferredPlacement: Placement): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowAddAppointmentAsync
@@ -5817,7 +5838,7 @@ proc showAddAppointmentAsync*(self: AppointmentManagerForUser, appointment: Appo
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowAddAppointmentAsync2, Fn_IAppointmentManagerForUser_ShowAddAppointmentAsync2)(it, p0, selection, preferredPlacement, op.addr).check("AppointmentManagerForUser.ShowAddAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowAddAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowAddAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, appointment: Appointment, selection: Rect): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowReplaceAppointmentAsync
@@ -5826,7 +5847,7 @@ proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerForUser_ShowReplaceAppointmentAsync, Fn_IAppointmentManagerForUser_ShowReplaceAppointmentAsync)(it, h0, p1, selection, op.addr).check("AppointmentManagerForUser.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, appointment: Appointment, selection: Rect, preferredPlacement: Placement): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowReplaceAppointmentAsync
@@ -5835,7 +5856,7 @@ proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerForUser_ShowReplaceAppointmentAsync2, Fn_IAppointmentManagerForUser_ShowReplaceAppointmentAsync2)(it, h0, p1, selection, preferredPlacement, op.addr).check("AppointmentManagerForUser.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, appointment: Appointment, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowReplaceAppointmentAsync
@@ -5844,7 +5865,7 @@ proc showReplaceAppointmentAsync*(self: AppointmentManagerForUser, appointmentId
     withHString(appointmentId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentManagerForUser_ShowReplaceAppointmentAsync3, Fn_IAppointmentManagerForUser_ShowReplaceAppointmentAsync3)(it, h0, p1, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentManagerForUser.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowReplaceAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, selection: Rect): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowRemoveAppointmentAsync
@@ -5852,7 +5873,7 @@ proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId:
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowRemoveAppointmentAsync, Fn_IAppointmentManagerForUser_ShowRemoveAppointmentAsync)(it, h0, selection, op.addr).check("AppointmentManagerForUser.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, selection: Rect, preferredPlacement: Placement): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowRemoveAppointmentAsync
@@ -5860,7 +5881,7 @@ proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId:
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowRemoveAppointmentAsync2, Fn_IAppointmentManagerForUser_ShowRemoveAppointmentAsync2)(it, h0, selection, preferredPlacement, op.addr).check("AppointmentManagerForUser.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId: string, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowRemoveAppointmentAsync
@@ -5868,14 +5889,14 @@ proc showRemoveAppointmentAsync*(self: AppointmentManagerForUser, appointmentId:
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowRemoveAppointmentAsync3, Fn_IAppointmentManagerForUser_ShowRemoveAppointmentAsync3)(it, h0, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentManagerForUser.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentManagerForUser.ShowRemoveAppointmentAsync")
 
 proc showTimeFrameAsync*(self: AppointmentManagerForUser, timeToShow: DateTime, duration: TimeSpan) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowTimeFrameAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     vcall(it, Slot_IAppointmentManagerForUser_ShowTimeFrameAsync, Fn_IAppointmentManagerForUser_ShowTimeFrameAsync)(it, timeToShow, duration, op.addr).check("AppointmentManagerForUser.ShowTimeFrameAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManagerForUser.ShowTimeFrameAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManagerForUser.ShowTimeFrameAsync")
 
 proc showAppointmentDetailsAsync*(self: AppointmentManagerForUser, appointmentId: string) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowAppointmentDetailsAsync
@@ -5883,7 +5904,7 @@ proc showAppointmentDetailsAsync*(self: AppointmentManagerForUser, appointmentId
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowAppointmentDetailsAsync, Fn_IAppointmentManagerForUser_ShowAppointmentDetailsAsync)(it, h0, op.addr).check("AppointmentManagerForUser.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManagerForUser.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManagerForUser.ShowAppointmentDetailsAsync")
 
 proc showAppointmentDetailsAsync*(self: AppointmentManagerForUser, appointmentId: string, instanceStartDate: DateTime) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowAppointmentDetailsAsync
@@ -5891,7 +5912,7 @@ proc showAppointmentDetailsAsync*(self: AppointmentManagerForUser, appointmentId
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withHString(appointmentId, h0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowAppointmentDetailsAsync2, Fn_IAppointmentManagerForUser_ShowAppointmentDetailsAsync2)(it, h0, instanceStartDate, op.addr).check("AppointmentManagerForUser.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentManagerForUser.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentManagerForUser.ShowAppointmentDetailsAsync")
 
 proc showEditNewAppointmentAsync*(self: AppointmentManagerForUser, appointment: Appointment): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.ShowEditNewAppointmentAsync
@@ -5899,14 +5920,14 @@ proc showEditNewAppointmentAsync*(self: AppointmentManagerForUser, appointment: 
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentManagerForUser_ShowEditNewAppointmentAsync, Fn_IAppointmentManagerForUser_ShowEditNewAppointmentAsync)(it, p0, op.addr).check("AppointmentManagerForUser.ShowEditNewAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentManagerForUser.ShowEditNewAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentManagerForUser.ShowEditNewAppointmentAsync")
 
 proc requestStoreAsync*(self: AppointmentManagerForUser, options: AppointmentStoreAccessType): Future[AppointmentStore] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.RequestStoreAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentManagerForUser, "IAppointmentManagerForUser", it):
     vcall(it, Slot_IAppointmentManagerForUser_RequestStoreAsync, Fn_IAppointmentManagerForUser_RequestStoreAsync)(it, options, op.addr).check("AppointmentManagerForUser.RequestStoreAsync")
-  result = adopt[AppointmentStore](await awaitObject(op, IID_IAsyncOperation_1_AppointmentStore, IID_AsyncOperationCompletedHandler_1_AppointmentStore, "AppointmentManagerForUser.RequestStoreAsync"))
+  result = adopt[AppointmentStore](await awaitObject(op, IID_IAsyncOperation_1_AppointmentStore, IID_AsyncOperationCompletedHandler_1_AppointmentStore, alPlain, "AppointmentManagerForUser.RequestStoreAsync"))
 
 proc user*(self: AppointmentManagerForUser): User  =
   ## Windows.ApplicationModel.Appointments.AppointmentManagerForUser.get_User
@@ -6274,7 +6295,7 @@ proc createAppointmentCalendarAsync*(self: AppointmentStore, name: string): Futu
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(name, h0):
       vcall(it, Slot_IAppointmentStore_CreateAppointmentCalendarAsync, Fn_IAppointmentStore_CreateAppointmentCalendarAsync)(it, h0, op.addr).check("AppointmentStore.CreateAppointmentCalendarAsync")
-  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, "AppointmentStore.CreateAppointmentCalendarAsync"))
+  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, alPlain, "AppointmentStore.CreateAppointmentCalendarAsync"))
 
 proc getAppointmentCalendarAsync*(self: AppointmentStore, calendarId: string): Future[AppointmentCalendar] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.GetAppointmentCalendarAsync
@@ -6282,7 +6303,7 @@ proc getAppointmentCalendarAsync*(self: AppointmentStore, calendarId: string): F
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(calendarId, h0):
       vcall(it, Slot_IAppointmentStore_GetAppointmentCalendarAsync, Fn_IAppointmentStore_GetAppointmentCalendarAsync)(it, h0, op.addr).check("AppointmentStore.GetAppointmentCalendarAsync")
-  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, "AppointmentStore.GetAppointmentCalendarAsync"))
+  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, alPlain, "AppointmentStore.GetAppointmentCalendarAsync"))
 
 proc getAppointmentAsync*(self: AppointmentStore, localId: string): Future[Appointment] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.GetAppointmentAsync
@@ -6290,7 +6311,7 @@ proc getAppointmentAsync*(self: AppointmentStore, localId: string): Future[Appoi
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_GetAppointmentAsync, Fn_IAppointmentStore_GetAppointmentAsync)(it, h0, op.addr).check("AppointmentStore.GetAppointmentAsync")
-  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, "AppointmentStore.GetAppointmentAsync"))
+  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, alPlain, "AppointmentStore.GetAppointmentAsync"))
 
 proc getAppointmentInstanceAsync*(self: AppointmentStore, localId: string, instanceStartTime: DateTime): Future[Appointment] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.GetAppointmentInstanceAsync
@@ -6298,14 +6319,14 @@ proc getAppointmentInstanceAsync*(self: AppointmentStore, localId: string, insta
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_GetAppointmentInstanceAsync, Fn_IAppointmentStore_GetAppointmentInstanceAsync)(it, h0, instanceStartTime, op.addr).check("AppointmentStore.GetAppointmentInstanceAsync")
-  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, "AppointmentStore.GetAppointmentInstanceAsync"))
+  result = adopt[Appointment](await awaitObject(op, IID_IAsyncOperation_1_Appointment, IID_AsyncOperationCompletedHandler_1_Appointment, alPlain, "AppointmentStore.GetAppointmentInstanceAsync"))
 
 proc findAppointmentCalendarsAsync*(self: AppointmentStore): Future[seq[AppointmentCalendar]] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.FindAppointmentCalendarsAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     vcall(it, Slot_IAppointmentStore_FindAppointmentCalendarsAsync, Fn_IAppointmentStore_FindAppointmentCalendarsAsync)(it, op.addr).check("AppointmentStore.FindAppointmentCalendarsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "AppointmentStore.FindAppointmentCalendarsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, alPlain, "AppointmentStore.FindAppointmentCalendarsAsync")
   result = toSeq[AppointmentCalendar](coll, IID_IVectorView_1_AppointmentCalendar)
   discard release(coll)
 
@@ -6314,7 +6335,7 @@ proc findAppointmentCalendarsAsync*(self: AppointmentStore, options: FindAppoint
   var op: pointer
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     vcall(it, Slot_IAppointmentStore_FindAppointmentCalendarsAsync2, Fn_IAppointmentStore_FindAppointmentCalendarsAsync2)(it, options, op.addr).check("AppointmentStore.FindAppointmentCalendarsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "AppointmentStore.FindAppointmentCalendarsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, alPlain, "AppointmentStore.FindAppointmentCalendarsAsync")
   result = toSeq[AppointmentCalendar](coll, IID_IVectorView_1_AppointmentCalendar)
   discard release(coll)
 
@@ -6323,7 +6344,7 @@ proc findAppointmentsAsync*(self: AppointmentStore, rangeStart: DateTime, rangeL
   var op: pointer
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     vcall(it, Slot_IAppointmentStore_FindAppointmentsAsync, Fn_IAppointmentStore_FindAppointmentsAsync)(it, rangeStart, rangeLength, op.addr).check("AppointmentStore.FindAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentStore.FindAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentStore.FindAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -6333,7 +6354,7 @@ proc findAppointmentsAsync*(self: AppointmentStore, rangeStart: DateTime, rangeL
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withIface(options.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", p2):
       vcall(it, Slot_IAppointmentStore_FindAppointmentsAsync2, Fn_IAppointmentStore_FindAppointmentsAsync2)(it, rangeStart, rangeLength, p2, op.addr).check("AppointmentStore.FindAppointmentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "AppointmentStore.FindAppointmentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "AppointmentStore.FindAppointmentsAsync")
   result = toSeq[Appointment](coll, IID_IVectorView_1_Appointment)
   discard release(coll)
 
@@ -6343,7 +6364,7 @@ proc findConflictAsync*(self: AppointmentStore, appointment: Appointment): Futur
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentStore_FindConflictAsync, Fn_IAppointmentStore_FindConflictAsync)(it, p0, op.addr).check("AppointmentStore.FindConflictAsync")
-  result = adopt[AppointmentConflictResult](await awaitObject(op, IID_IAsyncOperation_1_AppointmentConflictResult, IID_AsyncOperationCompletedHandler_1_AppointmentConflictResult, "AppointmentStore.FindConflictAsync"))
+  result = adopt[AppointmentConflictResult](await awaitObject(op, IID_IAsyncOperation_1_AppointmentConflictResult, IID_AsyncOperationCompletedHandler_1_AppointmentConflictResult, alPlain, "AppointmentStore.FindConflictAsync"))
 
 proc findConflictAsync*(self: AppointmentStore, appointment: Appointment, instanceStartTime: DateTime): Future[AppointmentConflictResult] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.FindConflictAsync
@@ -6351,7 +6372,7 @@ proc findConflictAsync*(self: AppointmentStore, appointment: Appointment, instan
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentStore_FindConflictAsync2, Fn_IAppointmentStore_FindConflictAsync2)(it, p0, instanceStartTime, op.addr).check("AppointmentStore.FindConflictAsync")
-  result = adopt[AppointmentConflictResult](await awaitObject(op, IID_IAsyncOperation_1_AppointmentConflictResult, IID_AsyncOperationCompletedHandler_1_AppointmentConflictResult, "AppointmentStore.FindConflictAsync"))
+  result = adopt[AppointmentConflictResult](await awaitObject(op, IID_IAsyncOperation_1_AppointmentConflictResult, IID_AsyncOperationCompletedHandler_1_AppointmentConflictResult, alPlain, "AppointmentStore.FindConflictAsync"))
 
 proc moveAppointmentAsync*(self: AppointmentStore, appointment: Appointment, destinationCalendar: AppointmentCalendar) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.MoveAppointmentAsync
@@ -6360,7 +6381,7 @@ proc moveAppointmentAsync*(self: AppointmentStore, appointment: Appointment, des
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       withIface(destinationCalendar.p, IID_IAppointmentCalendar, "IAppointmentCalendar", p1):
         vcall(it, Slot_IAppointmentStore_MoveAppointmentAsync, Fn_IAppointmentStore_MoveAppointmentAsync)(it, p0, p1, op.addr).check("AppointmentStore.MoveAppointmentAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentStore.MoveAppointmentAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentStore.MoveAppointmentAsync")
 
 proc showAddAppointmentAsync*(self: AppointmentStore, appointment: Appointment, selection: Rect): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowAddAppointmentAsync
@@ -6368,7 +6389,7 @@ proc showAddAppointmentAsync*(self: AppointmentStore, appointment: Appointment, 
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentStore_ShowAddAppointmentAsync, Fn_IAppointmentStore_ShowAddAppointmentAsync)(it, p0, selection, op.addr).check("AppointmentStore.ShowAddAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentStore.ShowAddAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentStore.ShowAddAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(self: AppointmentStore, localId: string, appointment: Appointment, selection: Rect): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowReplaceAppointmentAsync
@@ -6377,7 +6398,7 @@ proc showReplaceAppointmentAsync*(self: AppointmentStore, localId: string, appoi
     withHString(localId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentStore_ShowReplaceAppointmentAsync, Fn_IAppointmentStore_ShowReplaceAppointmentAsync)(it, h0, p1, selection, op.addr).check("AppointmentStore.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentStore.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentStore.ShowReplaceAppointmentAsync")
 
 proc showReplaceAppointmentAsync*(self: AppointmentStore, localId: string, appointment: Appointment, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowReplaceAppointmentAsync
@@ -6386,7 +6407,7 @@ proc showReplaceAppointmentAsync*(self: AppointmentStore, localId: string, appoi
     withHString(localId, h0):
       withIface(appointment.p, IID_IAppointment, "IAppointment", p1):
         vcall(it, Slot_IAppointmentStore_ShowReplaceAppointmentAsync2, Fn_IAppointmentStore_ShowReplaceAppointmentAsync2)(it, h0, p1, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentStore.ShowReplaceAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentStore.ShowReplaceAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentStore.ShowReplaceAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(self: AppointmentStore, localId: string, selection: Rect): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowRemoveAppointmentAsync
@@ -6394,7 +6415,7 @@ proc showRemoveAppointmentAsync*(self: AppointmentStore, localId: string, select
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_ShowRemoveAppointmentAsync, Fn_IAppointmentStore_ShowRemoveAppointmentAsync)(it, h0, selection, op.addr).check("AppointmentStore.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentStore.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentStore.ShowRemoveAppointmentAsync")
 
 proc showRemoveAppointmentAsync*(self: AppointmentStore, localId: string, selection: Rect, preferredPlacement: Placement, instanceStartDate: DateTime): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowRemoveAppointmentAsync
@@ -6402,7 +6423,7 @@ proc showRemoveAppointmentAsync*(self: AppointmentStore, localId: string, select
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_ShowRemoveAppointmentAsync2, Fn_IAppointmentStore_ShowRemoveAppointmentAsync2)(it, h0, selection, preferredPlacement, instanceStartDate, op.addr).check("AppointmentStore.ShowRemoveAppointmentAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppointmentStore.ShowRemoveAppointmentAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppointmentStore.ShowRemoveAppointmentAsync")
 
 proc showAppointmentDetailsAsync*(self: AppointmentStore, localId: string) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowAppointmentDetailsAsync
@@ -6410,7 +6431,7 @@ proc showAppointmentDetailsAsync*(self: AppointmentStore, localId: string) {.asy
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_ShowAppointmentDetailsAsync, Fn_IAppointmentStore_ShowAppointmentDetailsAsync)(it, h0, op.addr).check("AppointmentStore.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentStore.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentStore.ShowAppointmentDetailsAsync")
 
 proc showAppointmentDetailsAsync*(self: AppointmentStore, localId: string, instanceStartDate: DateTime) {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowAppointmentDetailsAsync
@@ -6418,7 +6439,7 @@ proc showAppointmentDetailsAsync*(self: AppointmentStore, localId: string, insta
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(localId, h0):
       vcall(it, Slot_IAppointmentStore_ShowAppointmentDetailsAsync2, Fn_IAppointmentStore_ShowAppointmentDetailsAsync2)(it, h0, instanceStartDate, op.addr).check("AppointmentStore.ShowAppointmentDetailsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentStore.ShowAppointmentDetailsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentStore.ShowAppointmentDetailsAsync")
 
 proc showEditNewAppointmentAsync*(self: AppointmentStore, appointment: Appointment): Future[string] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.ShowEditNewAppointmentAsync
@@ -6426,7 +6447,7 @@ proc showEditNewAppointmentAsync*(self: AppointmentStore, appointment: Appointme
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withIface(appointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentStore_ShowEditNewAppointmentAsync, Fn_IAppointmentStore_ShowEditNewAppointmentAsync)(it, p0, op.addr).check("AppointmentStore.ShowEditNewAppointmentAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "AppointmentStore.ShowEditNewAppointmentAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "AppointmentStore.ShowEditNewAppointmentAsync")
 
 proc findLocalIdsFromRoamingIdAsync*(self: AppointmentStore, roamingId: string): Future[seq[string]] {.async.} =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.FindLocalIdsFromRoamingIdAsync
@@ -6434,7 +6455,7 @@ proc findLocalIdsFromRoamingIdAsync*(self: AppointmentStore, roamingId: string):
   withIface(self.p, IID_IAppointmentStore, "IAppointmentStore", it):
     withHString(roamingId, h0):
       vcall(it, Slot_IAppointmentStore_FindLocalIdsFromRoamingIdAsync, Fn_IAppointmentStore_FindLocalIdsFromRoamingIdAsync)(it, h0, op.addr).check("AppointmentStore.FindLocalIdsFromRoamingIdAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "AppointmentStore.FindLocalIdsFromRoamingIdAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "AppointmentStore.FindLocalIdsFromRoamingIdAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -6464,7 +6485,7 @@ proc createAppointmentCalendarAsync*(self: AppointmentStore, name: string, userD
     withHString(name, h0):
       withHString(userDataAccountId, h1):
         vcall(it, Slot_IAppointmentStore2_CreateAppointmentCalendarAsync, Fn_IAppointmentStore2_CreateAppointmentCalendarAsync)(it, h0, h1, op.addr).check("AppointmentStore.CreateAppointmentCalendarAsync")
-  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, "AppointmentStore.CreateAppointmentCalendarAsync"))
+  result = adopt[AppointmentCalendar](await awaitObject(op, IID_IAsyncOperation_1_AppointmentCalendar, IID_AsyncOperationCompletedHandler_1_AppointmentCalendar, alPlain, "AppointmentStore.CreateAppointmentCalendarAsync"))
 
 proc getChangeTracker*(self: AppointmentStore, identity: string): AppointmentStoreChangeTracker  =
   ## Windows.ApplicationModel.Appointments.AppointmentStore.GetChangeTracker
@@ -6500,7 +6521,7 @@ proc readBatchAsync*(self: AppointmentStoreChangeReader): Future[seq[Appointment
   var op: pointer
   withIface(self.p, IID_IAppointmentStoreChangeReader, "IAppointmentStoreChangeReader", it):
     vcall(it, Slot_IAppointmentStoreChangeReader_ReadBatchAsync, Fn_IAppointmentStoreChangeReader_ReadBatchAsync)(it, op.addr).check("AppointmentStoreChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, "AppointmentStoreChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, alPlain, "AppointmentStoreChangeReader.ReadBatchAsync")
   result = toSeq[AppointmentStoreChange](coll, IID_IVectorView_1_AppointmentStoreChange)
   discard release(coll)
 
@@ -6764,14 +6785,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarCancelMeetingRequest) {.asyn
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarCancelMeetingRequest, "IAppointmentCalendarCancelMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarCancelMeetingRequest_ReportCompletedAsync, Fn_IAppointmentCalendarCancelMeetingRequest_ReportCompletedAsync)(it, op.addr).check("AppointmentCalendarCancelMeetingRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarCancelMeetingRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarCancelMeetingRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarCancelMeetingRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarCancelMeetingRequest, "IAppointmentCalendarCancelMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarCancelMeetingRequest_ReportFailedAsync, Fn_IAppointmentCalendarCancelMeetingRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarCancelMeetingRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarCancelMeetingRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarCancelMeetingRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarCancelMeetingRequestEventArgs): AppointmentCalendarCancelMeetingRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequestEventArgs.get_Request
@@ -6822,14 +6843,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarCreateOrUpdateAppointmentReq
   withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
     withIface(createdOrUpdatedAppointment.p, IID_IAppointment, "IAppointment", p0):
       vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequest_ReportCompletedAsync, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequest_ReportCompletedAsync)(it, p0, op.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
     vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequest_ReportFailedAsync, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarCreateOrUpdateAppointmentRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs): AppointmentCalendarCreateOrUpdateAppointmentRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs.get_Request
@@ -6901,14 +6922,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarForwardMeetingRequest) {.asy
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequest, "IAppointmentCalendarForwardMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_ReportCompletedAsync, Fn_IAppointmentCalendarForwardMeetingRequest_ReportCompletedAsync)(it, op.addr).check("AppointmentCalendarForwardMeetingRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarForwardMeetingRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarForwardMeetingRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarForwardMeetingRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarForwardMeetingRequest, "IAppointmentCalendarForwardMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarForwardMeetingRequest_ReportFailedAsync, Fn_IAppointmentCalendarForwardMeetingRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarForwardMeetingRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarForwardMeetingRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarForwardMeetingRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarForwardMeetingRequestEventArgs): AppointmentCalendarForwardMeetingRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequestEventArgs.get_Request
@@ -6979,14 +7000,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarProposeNewTimeForMeetingRequ
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarProposeNewTimeForMeetingRequest, "IAppointmentCalendarProposeNewTimeForMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequest_ReportCompletedAsync, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequest_ReportCompletedAsync)(it, op.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarProposeNewTimeForMeetingRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarProposeNewTimeForMeetingRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarProposeNewTimeForMeetingRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarProposeNewTimeForMeetingRequest, "IAppointmentCalendarProposeNewTimeForMeetingRequest", it):
     vcall(it, Slot_IAppointmentCalendarProposeNewTimeForMeetingRequest_ReportFailedAsync, Fn_IAppointmentCalendarProposeNewTimeForMeetingRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarProposeNewTimeForMeetingRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarProposeNewTimeForMeetingRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarProposeNewTimeForMeetingRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs): AppointmentCalendarProposeNewTimeForMeetingRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs.get_Request
@@ -7014,14 +7035,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarSyncManagerSyncRequest) {.as
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarSyncManagerSyncRequest, "IAppointmentCalendarSyncManagerSyncRequest", it):
     vcall(it, Slot_IAppointmentCalendarSyncManagerSyncRequest_ReportCompletedAsync, Fn_IAppointmentCalendarSyncManagerSyncRequest_ReportCompletedAsync)(it, op.addr).check("AppointmentCalendarSyncManagerSyncRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarSyncManagerSyncRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarSyncManagerSyncRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarSyncManagerSyncRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarSyncManagerSyncRequest, "IAppointmentCalendarSyncManagerSyncRequest", it):
     vcall(it, Slot_IAppointmentCalendarSyncManagerSyncRequest_ReportFailedAsync, Fn_IAppointmentCalendarSyncManagerSyncRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarSyncManagerSyncRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarSyncManagerSyncRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarSyncManagerSyncRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarSyncManagerSyncRequestEventArgs): AppointmentCalendarSyncManagerSyncRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs.get_Request
@@ -7092,14 +7113,14 @@ proc reportCompletedAsync*(self: AppointmentCalendarUpdateMeetingResponseRequest
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarUpdateMeetingResponseRequest, "IAppointmentCalendarUpdateMeetingResponseRequest", it):
     vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequest_ReportCompletedAsync, Fn_IAppointmentCalendarUpdateMeetingResponseRequest_ReportCompletedAsync)(it, op.addr).check("AppointmentCalendarUpdateMeetingResponseRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarUpdateMeetingResponseRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarUpdateMeetingResponseRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: AppointmentCalendarUpdateMeetingResponseRequest) {.async.} =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IAppointmentCalendarUpdateMeetingResponseRequest, "IAppointmentCalendarUpdateMeetingResponseRequest", it):
     vcall(it, Slot_IAppointmentCalendarUpdateMeetingResponseRequest_ReportFailedAsync, Fn_IAppointmentCalendarUpdateMeetingResponseRequest_ReportFailedAsync)(it, op.addr).check("AppointmentCalendarUpdateMeetingResponseRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppointmentCalendarUpdateMeetingResponseRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppointmentCalendarUpdateMeetingResponseRequest.ReportFailedAsync")
 
 proc request*(self: AppointmentCalendarUpdateMeetingResponseRequestEventArgs): AppointmentCalendarUpdateMeetingResponseRequest  =
   ## Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequestEventArgs.get_Request
@@ -7327,7 +7348,7 @@ proc requestAccessAsync*(_: typedesc[AlarmApplicationManager]): Future[AlarmAcce
   var op: pointer
   withStatics("Windows.ApplicationModel.Background.AlarmApplicationManager", IID_IAlarmApplicationManagerStatics, it):
     vcall(it, Slot_IAlarmApplicationManagerStatics_RequestAccessAsync, Fn_IAlarmApplicationManagerStatics_RequestAccessAsync)(it, op.addr).check("AlarmApplicationManager.RequestAccessAsync")
-  result = await awaitValue[AlarmAccessStatus](op, IID_IAsyncOperation_1_AlarmAccessStatus, IID_AsyncOperationCompletedHandler_1_AlarmAccessStatus, "AlarmApplicationManager.RequestAccessAsync")
+  result = await awaitValue[AlarmAccessStatus](op, IID_IAsyncOperation_1_AlarmAccessStatus, IID_AsyncOperationCompletedHandler_1_AlarmAccessStatus, alPlain, "AlarmApplicationManager.RequestAccessAsync")
 
 proc getAccessStatus*(_: typedesc[AlarmApplicationManager]): AlarmAccessStatus  =
   ## Windows.ApplicationModel.Background.AlarmApplicationManager.GetAccessStatus
@@ -7440,7 +7461,7 @@ proc requestAsync*(self: ApplicationTrigger): Future[ApplicationTriggerResult] {
   var op: pointer
   withIface(self.p, IID_IApplicationTrigger, "IApplicationTrigger", it):
     vcall(it, Slot_IApplicationTrigger_RequestAsync, Fn_IApplicationTrigger_RequestAsync)(it, op.addr).check("ApplicationTrigger.RequestAsync")
-  result = await awaitValue[ApplicationTriggerResult](op, IID_IAsyncOperation_1_ApplicationTriggerResult, IID_AsyncOperationCompletedHandler_1_ApplicationTriggerResult, "ApplicationTrigger.RequestAsync")
+  result = await awaitValue[ApplicationTriggerResult](op, IID_IAsyncOperation_1_ApplicationTriggerResult, IID_AsyncOperationCompletedHandler_1_ApplicationTriggerResult, alPlain, "ApplicationTrigger.RequestAsync")
 
 proc requestAsync*(self: ApplicationTrigger, arguments: ValueSet): Future[ApplicationTriggerResult] {.async.} =
   ## Windows.ApplicationModel.Background.ApplicationTrigger.RequestAsync
@@ -7448,7 +7469,7 @@ proc requestAsync*(self: ApplicationTrigger, arguments: ValueSet): Future[Applic
   withIface(self.p, IID_IApplicationTrigger, "IApplicationTrigger", it):
     withIface(arguments.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IApplicationTrigger_RequestAsync2, Fn_IApplicationTrigger_RequestAsync2)(it, p0, op.addr).check("ApplicationTrigger.RequestAsync")
-  result = await awaitValue[ApplicationTriggerResult](op, IID_IAsyncOperation_1_ApplicationTriggerResult, IID_AsyncOperationCompletedHandler_1_ApplicationTriggerResult, "ApplicationTrigger.RequestAsync")
+  result = await awaitValue[ApplicationTriggerResult](op, IID_IAsyncOperation_1_ApplicationTriggerResult, IID_AsyncOperationCompletedHandler_1_ApplicationTriggerResult, alPlain, "ApplicationTrigger.RequestAsync")
 
 proc arguments*(self: ApplicationTriggerDetails): ValueSet  =
   ## Windows.ApplicationModel.Background.ApplicationTriggerDetails.get_Arguments
@@ -7467,14 +7488,14 @@ proc requestAccessKindAsync*(_: typedesc[BackgroundExecutionManager], requestedA
   withStatics("Windows.ApplicationModel.Background.BackgroundExecutionManager", IID_IBackgroundExecutionManagerStatics2, it):
     withHString(reason, h1):
       vcall(it, Slot_IBackgroundExecutionManagerStatics2_RequestAccessKindAsync, Fn_IBackgroundExecutionManagerStatics2_RequestAccessKindAsync)(it, requestedAccess, h1, op.addr).check("BackgroundExecutionManager.RequestAccessKindAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BackgroundExecutionManager.RequestAccessKindAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "BackgroundExecutionManager.RequestAccessKindAsync")
 
 proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager]): Future[BackgroundAccessStatus] {.async.} =
   ## Windows.ApplicationModel.Background.BackgroundExecutionManager.RequestAccessAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Background.BackgroundExecutionManager", IID_IBackgroundExecutionManagerStatics, it):
     vcall(it, Slot_IBackgroundExecutionManagerStatics_RequestAccessAsync, Fn_IBackgroundExecutionManagerStatics_RequestAccessAsync)(it, op.addr).check("BackgroundExecutionManager.RequestAccessAsync")
-  result = await awaitValue[BackgroundAccessStatus](op, IID_IAsyncOperation_1_BackgroundAccessStatus, IID_AsyncOperationCompletedHandler_1_BackgroundAccessStatus, "BackgroundExecutionManager.RequestAccessAsync")
+  result = await awaitValue[BackgroundAccessStatus](op, IID_IAsyncOperation_1_BackgroundAccessStatus, IID_AsyncOperationCompletedHandler_1_BackgroundAccessStatus, alPlain, "BackgroundExecutionManager.RequestAccessAsync")
 
 proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager], applicationId: string): Future[BackgroundAccessStatus] {.async.} =
   ## Windows.ApplicationModel.Background.BackgroundExecutionManager.RequestAccessAsync
@@ -7482,7 +7503,7 @@ proc requestAccessAsync*(_: typedesc[BackgroundExecutionManager], applicationId:
   withStatics("Windows.ApplicationModel.Background.BackgroundExecutionManager", IID_IBackgroundExecutionManagerStatics, it):
     withHString(applicationId, h0):
       vcall(it, Slot_IBackgroundExecutionManagerStatics_RequestAccessAsync2, Fn_IBackgroundExecutionManagerStatics_RequestAccessAsync2)(it, h0, op.addr).check("BackgroundExecutionManager.RequestAccessAsync")
-  result = await awaitValue[BackgroundAccessStatus](op, IID_IAsyncOperation_1_BackgroundAccessStatus, IID_AsyncOperationCompletedHandler_1_BackgroundAccessStatus, "BackgroundExecutionManager.RequestAccessAsync")
+  result = await awaitValue[BackgroundAccessStatus](op, IID_IAsyncOperation_1_BackgroundAccessStatus, IID_AsyncOperationCompletedHandler_1_BackgroundAccessStatus, alPlain, "BackgroundExecutionManager.RequestAccessAsync")
 
 proc removeAccess*(_: typedesc[BackgroundExecutionManager])  =
   ## Windows.ApplicationModel.Background.BackgroundExecutionManager.RemoveAccess
@@ -7516,7 +7537,7 @@ proc requestAccessKindForModernStandbyAsync*(_: typedesc[BackgroundExecutionMana
   withStatics("Windows.ApplicationModel.Background.BackgroundExecutionManager", IID_IBackgroundExecutionManagerStatics3, it):
     withHString(reason, h1):
       vcall(it, Slot_IBackgroundExecutionManagerStatics3_RequestAccessKindForModernStandbyAsync, Fn_IBackgroundExecutionManagerStatics3_RequestAccessKindForModernStandbyAsync)(it, requestedAccess, h1, op.addr).check("BackgroundExecutionManager.RequestAccessKindForModernStandbyAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BackgroundExecutionManager.RequestAccessKindForModernStandbyAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "BackgroundExecutionManager.RequestAccessKindForModernStandbyAsync")
 
 proc getAccessStatusForModernStandby*(_: typedesc[BackgroundExecutionManager]): BackgroundAccessStatus  =
   ## Windows.ApplicationModel.Background.BackgroundExecutionManager.GetAccessStatusForModernStandby
@@ -7550,16 +7571,17 @@ proc taskEntryPoint*(self: BackgroundTaskBuilder): string  =
     vcall(it, Slot_IBackgroundTaskBuilder_get_TaskEntryPoint, Fn_IBackgroundTaskBuilder_get_TaskEntryPoint)(it, tmp.addr).check("BackgroundTaskBuilder.get_TaskEntryPoint")
     result = takeString(tmp)
 
-proc setTrigger*(self: BackgroundTaskBuilder, trigger: WiFiOnDemandHotspotUpdateMetadataTrigger)  =
+proc setTrigger*(self: BackgroundTaskBuilder, trigger: WinRtObject)  =
   ## Windows.ApplicationModel.Background.BackgroundTaskBuilder.SetTrigger
   withIface(self.p, IID_IBackgroundTaskBuilder, "IBackgroundTaskBuilder", it):
     withIface(trigger.p, IID_IBackgroundTrigger, "IBackgroundTrigger", p0):
       vcall(it, Slot_IBackgroundTaskBuilder_SetTrigger, Fn_IBackgroundTaskBuilder_SetTrigger)(it, p0).check("BackgroundTaskBuilder.SetTrigger")
 
-proc addCondition*(self: BackgroundTaskBuilder, condition: pointer)  =
+proc addCondition*(self: BackgroundTaskBuilder, condition: WinRtObject)  =
   ## Windows.ApplicationModel.Background.BackgroundTaskBuilder.AddCondition
   withIface(self.p, IID_IBackgroundTaskBuilder, "IBackgroundTaskBuilder", it):
-    vcall(it, Slot_IBackgroundTaskBuilder_AddCondition, Fn_IBackgroundTaskBuilder_AddCondition)(it, condition).check("BackgroundTaskBuilder.AddCondition")
+    withIface(condition.p, IID_IBackgroundCondition, "IBackgroundCondition", p0):
+      vcall(it, Slot_IBackgroundTaskBuilder_AddCondition, Fn_IBackgroundTaskBuilder_AddCondition)(it, p0).check("BackgroundTaskBuilder.AddCondition")
 
 proc `name=`*(self: BackgroundTaskBuilder, value: string)  =
   ## Windows.ApplicationModel.Background.BackgroundTaskBuilder.put_Name
@@ -7657,6 +7679,12 @@ proc isRunningTaskInStandbySupported*(_: typedesc[BackgroundTaskBuilder]): bool 
     vcall(it, Slot_IBackgroundTaskBuilderStatics_get_IsRunningTaskInStandbySupported, Fn_IBackgroundTaskBuilderStatics_get_IsRunningTaskInStandbySupported)(it, tmp.addr).check("BackgroundTaskBuilder.get_IsRunningTaskInStandbySupported")
     result = tmp
 
+proc invoke*(self: BackgroundTaskCanceledEventHandler, sender: WinRtObject, reason: BackgroundTaskCancellationReason)  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskCanceledEventHandler.Invoke
+  withIface(self.p, IID_BackgroundTaskCanceledEventHandler, "BackgroundTaskCanceledEventHandler", it):
+    withIface(sender.p, IID_IBackgroundTaskInstance, "IBackgroundTaskInstance", p0):
+      vcall(it, Slot_BackgroundTaskCanceledEventHandler_Invoke, Fn_BackgroundTaskCanceledEventHandler_Invoke)(it, p0, reason).check("BackgroundTaskCanceledEventHandler.Invoke")
+
 proc instanceId*(self: BackgroundTaskCompletedEventArgs): GUID  =
   ## Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs.get_InstanceId
   withIface(self.p, IID_IBackgroundTaskCompletedEventArgs, "IBackgroundTaskCompletedEventArgs", it):
@@ -7668,6 +7696,13 @@ proc checkResult*(self: BackgroundTaskCompletedEventArgs)  =
   ## Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs.CheckResult
   withIface(self.p, IID_IBackgroundTaskCompletedEventArgs, "IBackgroundTaskCompletedEventArgs", it):
     vcall(it, Slot_IBackgroundTaskCompletedEventArgs_CheckResult, Fn_IBackgroundTaskCompletedEventArgs_CheckResult)(it).check("BackgroundTaskCompletedEventArgs.CheckResult")
+
+proc invoke*(self: BackgroundTaskCompletedEventHandler, sender: BackgroundTaskRegistration, args: BackgroundTaskCompletedEventArgs)  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskCompletedEventHandler.Invoke
+  withIface(self.p, IID_BackgroundTaskCompletedEventHandler, "BackgroundTaskCompletedEventHandler", it):
+    withIface(sender.p, IID_IBackgroundTaskRegistration, "IBackgroundTaskRegistration", p0):
+      withIface(args.p, IID_IBackgroundTaskCompletedEventArgs, "IBackgroundTaskCompletedEventArgs", p1):
+        vcall(it, Slot_BackgroundTaskCompletedEventHandler_Invoke, Fn_BackgroundTaskCompletedEventHandler_Invoke)(it, p0, p1).check("BackgroundTaskCompletedEventHandler.Invoke")
 
 proc complete*(self: BackgroundTaskDeferral)  =
   ## Windows.ApplicationModel.Background.BackgroundTaskDeferral.Complete
@@ -7687,6 +7722,13 @@ proc progress*(self: BackgroundTaskProgressEventArgs): uint32  =
     var tmp: uint32
     vcall(it, Slot_IBackgroundTaskProgressEventArgs_get_Progress, Fn_IBackgroundTaskProgressEventArgs_get_Progress)(it, tmp.addr).check("BackgroundTaskProgressEventArgs.get_Progress")
     result = tmp
+
+proc invoke*(self: BackgroundTaskProgressEventHandler, sender: BackgroundTaskRegistration, args: BackgroundTaskProgressEventArgs)  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskProgressEventHandler.Invoke
+  withIface(self.p, IID_BackgroundTaskProgressEventHandler, "BackgroundTaskProgressEventHandler", it):
+    withIface(sender.p, IID_IBackgroundTaskRegistration, "IBackgroundTaskRegistration", p0):
+      withIface(args.p, IID_IBackgroundTaskProgressEventArgs, "IBackgroundTaskProgressEventArgs", p1):
+        vcall(it, Slot_BackgroundTaskProgressEventHandler_Invoke, Fn_BackgroundTaskProgressEventHandler_Invoke)(it, p0, p1).check("BackgroundTaskProgressEventHandler.Invoke")
 
 proc taskId*(self: BackgroundTaskRegistration): GUID  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.get_TaskId
@@ -7745,12 +7787,12 @@ proc unregister*(self: BackgroundTaskRegistration, cancelTask: bool)  =
   withIface(self.p, IID_IBackgroundTaskRegistration, "IBackgroundTaskRegistration", it):
     vcall(it, Slot_IBackgroundTaskRegistration_Unregister, Fn_IBackgroundTaskRegistration_Unregister)(it, cancelTask).check("BackgroundTaskRegistration.Unregister")
 
-proc trigger*(self: BackgroundTaskRegistration): WiFiOnDemandHotspotUpdateMetadataTrigger  =
+proc trigger*(self: BackgroundTaskRegistration): WinRtObject  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.get_Trigger
   withIface(self.p, IID_IBackgroundTaskRegistration2, "IBackgroundTaskRegistration2", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTaskRegistration2_get_Trigger, Fn_IBackgroundTaskRegistration2_get_Trigger)(it, tmp.addr).check("BackgroundTaskRegistration.get_Trigger")
-    result = adopt[WiFiOnDemandHotspotUpdateMetadataTrigger](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc taskGroup*(self: BackgroundTaskRegistration): BackgroundTaskRegistrationGroup  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.get_TaskGroup
@@ -7778,7 +7820,7 @@ proc allTaskGroups*(_: typedesc[BackgroundTaskRegistration]): Table[string, Back
   withStatics("Windows.ApplicationModel.Background.BackgroundTaskRegistration", IID_IBackgroundTaskRegistrationStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTaskRegistrationStatics2_get_AllTaskGroups, Fn_IBackgroundTaskRegistrationStatics2_get_AllTaskGroups)(it, tmp.addr).check("BackgroundTaskRegistration.get_AllTaskGroups")
-    result = toTable[BackgroundTaskRegistrationGroup](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_BackgroundTaskRegistrationGroup)
+    result = toTable[string, BackgroundTaskRegistrationGroup](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_BackgroundTaskRegistrationGroup)
     release(tmp)
 
 proc getTaskGroup*(_: typedesc[BackgroundTaskRegistration], groupId: string): BackgroundTaskRegistrationGroup  =
@@ -7788,6 +7830,14 @@ proc getTaskGroup*(_: typedesc[BackgroundTaskRegistration], groupId: string): Ba
       var tmp: pointer
       vcall(it, Slot_IBackgroundTaskRegistrationStatics2_GetTaskGroup, Fn_IBackgroundTaskRegistrationStatics2_GetTaskGroup)(it, h0, tmp.addr).check("BackgroundTaskRegistration.GetTaskGroup")
       result = adopt[BackgroundTaskRegistrationGroup](tmp)
+
+proc allTasks*(_: typedesc[BackgroundTaskRegistration]): Table[GUID, BackgroundTaskRegistration]  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.get_AllTasks
+  withStatics("Windows.ApplicationModel.Background.BackgroundTaskRegistration", IID_IBackgroundTaskRegistrationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTaskRegistrationStatics_get_AllTasks, Fn_IBackgroundTaskRegistrationStatics_get_AllTasks)(it, tmp.addr).check("BackgroundTaskRegistration.get_AllTasks")
+    result = toTable[GUID, BackgroundTaskRegistration](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_Guid_IBackgroundTaskRegistration)
+    release(tmp)
 
 proc id*(self: BackgroundTaskRegistrationGroup): string  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.get_Id
@@ -7821,6 +7871,14 @@ proc onBackgroundActivated*(self: BackgroundTaskRegistrationGroup,
 proc removeBackgroundActivated*(self: BackgroundTaskRegistrationGroup, token: EventRegistrationToken) =
   withIface(self.p, IID_IBackgroundTaskRegistrationGroup, "IBackgroundTaskRegistrationGroup", it):
     vcall(it, Slot_IBackgroundTaskRegistrationGroup_remove_BackgroundActivated, Fn_IBackgroundTaskRegistrationGroup_remove_BackgroundActivated)(it, token).check("BackgroundTaskRegistrationGroup.remove_BackgroundActivated")
+
+proc allTasks*(self: BackgroundTaskRegistrationGroup): Table[GUID, BackgroundTaskRegistration]  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.get_AllTasks
+  withIface(self.p, IID_IBackgroundTaskRegistrationGroup, "IBackgroundTaskRegistrationGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTaskRegistrationGroup_get_AllTasks, Fn_IBackgroundTaskRegistrationGroup_get_AllTasks)(it, tmp.addr).check("BackgroundTaskRegistrationGroup.get_AllTasks")
+    result = toTable[GUID, BackgroundTaskRegistration](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_Guid_BackgroundTaskRegistration)
+    release(tmp)
 
 proc create*(_: typedesc[BackgroundTaskRegistrationGroup], id: string): BackgroundTaskRegistrationGroup  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup.Create
@@ -8177,7 +8235,7 @@ proc fromIdAsync*(_: typedesc[DeviceConnectionChangeTrigger], deviceId: string):
   withStatics("Windows.ApplicationModel.Background.DeviceConnectionChangeTrigger", IID_IDeviceConnectionChangeTriggerStatics, it):
     withHString(deviceId, h0):
       vcall(it, Slot_IDeviceConnectionChangeTriggerStatics_FromIdAsync, Fn_IDeviceConnectionChangeTriggerStatics_FromIdAsync)(it, h0, op.addr).check("DeviceConnectionChangeTrigger.FromIdAsync")
-  result = adopt[DeviceConnectionChangeTrigger](await awaitObject(op, IID_IAsyncOperation_1_DeviceConnectionChangeTrigger, IID_AsyncOperationCompletedHandler_1_DeviceConnectionChangeTrigger, "DeviceConnectionChangeTrigger.FromIdAsync"))
+  result = adopt[DeviceConnectionChangeTrigger](await awaitObject(op, IID_IAsyncOperation_1_DeviceConnectionChangeTrigger, IID_AsyncOperationCompletedHandler_1_DeviceConnectionChangeTrigger, alPlain, "DeviceConnectionChangeTrigger.FromIdAsync"))
 
 proc triggerQualifier*(self: DeviceManufacturerNotificationTrigger): string  =
   ## Windows.ApplicationModel.Background.DeviceManufacturerNotificationTrigger.get_TriggerQualifier
@@ -8211,7 +8269,7 @@ proc requestAsync*(self: DeviceServicingTrigger, deviceId: string, expectedDurat
   withIface(self.p, IID_IDeviceServicingTrigger, "IDeviceServicingTrigger", it):
     withHString(deviceId, h0):
       vcall(it, Slot_IDeviceServicingTrigger_RequestAsync, Fn_IDeviceServicingTrigger_RequestAsync)(it, h0, expectedDuration, op.addr).check("DeviceServicingTrigger.RequestAsync")
-  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, "DeviceServicingTrigger.RequestAsync")
+  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, alPlain, "DeviceServicingTrigger.RequestAsync")
 
 proc requestAsync*(self: DeviceServicingTrigger, deviceId: string, expectedDuration: TimeSpan, arguments: string): Future[DeviceTriggerResult] {.async.} =
   ## Windows.ApplicationModel.Background.DeviceServicingTrigger.RequestAsync
@@ -8220,7 +8278,7 @@ proc requestAsync*(self: DeviceServicingTrigger, deviceId: string, expectedDurat
     withHString(deviceId, h0):
       withHString(arguments, h2):
         vcall(it, Slot_IDeviceServicingTrigger_RequestAsync2, Fn_IDeviceServicingTrigger_RequestAsync2)(it, h0, expectedDuration, h2, op.addr).check("DeviceServicingTrigger.RequestAsync")
-  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, "DeviceServicingTrigger.RequestAsync")
+  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, alPlain, "DeviceServicingTrigger.RequestAsync")
 
 proc newDeviceUseTrigger*(): DeviceUseTrigger =
   ## Activate a `Windows.ApplicationModel.Background.DeviceUseTrigger`.
@@ -8232,7 +8290,7 @@ proc requestAsync*(self: DeviceUseTrigger, deviceId: string): Future[DeviceTrigg
   withIface(self.p, IID_IDeviceUseTrigger, "IDeviceUseTrigger", it):
     withHString(deviceId, h0):
       vcall(it, Slot_IDeviceUseTrigger_RequestAsync, Fn_IDeviceUseTrigger_RequestAsync)(it, h0, op.addr).check("DeviceUseTrigger.RequestAsync")
-  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, "DeviceUseTrigger.RequestAsync")
+  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, alPlain, "DeviceUseTrigger.RequestAsync")
 
 proc requestAsync*(self: DeviceUseTrigger, deviceId: string, arguments: string): Future[DeviceTriggerResult] {.async.} =
   ## Windows.ApplicationModel.Background.DeviceUseTrigger.RequestAsync
@@ -8241,7 +8299,7 @@ proc requestAsync*(self: DeviceUseTrigger, deviceId: string, arguments: string):
     withHString(deviceId, h0):
       withHString(arguments, h1):
         vcall(it, Slot_IDeviceUseTrigger_RequestAsync2, Fn_IDeviceUseTrigger_RequestAsync2)(it, h0, h1, op.addr).check("DeviceUseTrigger.RequestAsync")
-  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, "DeviceUseTrigger.RequestAsync")
+  result = await awaitValue[DeviceTriggerResult](op, IID_IAsyncOperation_1_DeviceTriggerResult, IID_AsyncOperationCompletedHandler_1_DeviceTriggerResult, alPlain, "DeviceUseTrigger.RequestAsync")
 
 proc newEmailStoreNotificationTrigger*(): EmailStoreNotificationTrigger =
   ## Activate a `Windows.ApplicationModel.Background.EmailStoreNotificationTrigger`.
@@ -8310,7 +8368,7 @@ proc createAsync*(_: typedesc[GattServiceProviderTrigger], triggerId: string, se
   withStatics("Windows.ApplicationModel.Background.GattServiceProviderTrigger", IID_IGattServiceProviderTriggerStatics, it):
     withHString(triggerId, h0):
       vcall(it, Slot_IGattServiceProviderTriggerStatics_CreateAsync, Fn_IGattServiceProviderTriggerStatics_CreateAsync)(it, h0, serviceUuid, op.addr).check("GattServiceProviderTrigger.CreateAsync")
-  result = adopt[GattServiceProviderTriggerResult](await awaitObject(op, IID_IAsyncOperation_1_GattServiceProviderTriggerResult, IID_AsyncOperationCompletedHandler_1_GattServiceProviderTriggerResult, "GattServiceProviderTrigger.CreateAsync"))
+  result = adopt[GattServiceProviderTriggerResult](await awaitObject(op, IID_IAsyncOperation_1_GattServiceProviderTriggerResult, IID_AsyncOperationCompletedHandler_1_GattServiceProviderTriggerResult, alPlain, "GattServiceProviderTrigger.CreateAsync"))
 
 proc trigger*(self: GattServiceProviderTriggerResult): GattServiceProviderTrigger  =
   ## Windows.ApplicationModel.Background.GattServiceProviderTriggerResult.get_Trigger
@@ -8386,7 +8444,7 @@ proc requestAsync*(self: MediaProcessingTrigger): Future[MediaProcessingTriggerR
   var op: pointer
   withIface(self.p, IID_IMediaProcessingTrigger, "IMediaProcessingTrigger", it):
     vcall(it, Slot_IMediaProcessingTrigger_RequestAsync, Fn_IMediaProcessingTrigger_RequestAsync)(it, op.addr).check("MediaProcessingTrigger.RequestAsync")
-  result = await awaitValue[MediaProcessingTriggerResult](op, IID_IAsyncOperation_1_MediaProcessingTriggerResult, IID_AsyncOperationCompletedHandler_1_MediaProcessingTriggerResult, "MediaProcessingTrigger.RequestAsync")
+  result = await awaitValue[MediaProcessingTriggerResult](op, IID_IAsyncOperation_1_MediaProcessingTriggerResult, IID_AsyncOperationCompletedHandler_1_MediaProcessingTriggerResult, alPlain, "MediaProcessingTrigger.RequestAsync")
 
 proc requestAsync*(self: MediaProcessingTrigger, arguments: ValueSet): Future[MediaProcessingTriggerResult] {.async.} =
   ## Windows.ApplicationModel.Background.MediaProcessingTrigger.RequestAsync
@@ -8394,7 +8452,7 @@ proc requestAsync*(self: MediaProcessingTrigger, arguments: ValueSet): Future[Me
   withIface(self.p, IID_IMediaProcessingTrigger, "IMediaProcessingTrigger", it):
     withIface(arguments.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IMediaProcessingTrigger_RequestAsync2, Fn_IMediaProcessingTrigger_RequestAsync2)(it, p0, op.addr).check("MediaProcessingTrigger.RequestAsync")
-  result = await awaitValue[MediaProcessingTriggerResult](op, IID_IAsyncOperation_1_MediaProcessingTriggerResult, IID_AsyncOperationCompletedHandler_1_MediaProcessingTriggerResult, "MediaProcessingTrigger.RequestAsync")
+  result = await awaitValue[MediaProcessingTriggerResult](op, IID_IAsyncOperation_1_MediaProcessingTriggerResult, IID_AsyncOperationCompletedHandler_1_MediaProcessingTriggerResult, alPlain, "MediaProcessingTrigger.RequestAsync")
 
 proc newMobileBroadbandDeviceServiceNotificationTrigger*(): MobileBroadbandDeviceServiceNotificationTrigger =
   ## Activate a `Windows.ApplicationModel.Background.MobileBroadbandDeviceServiceNotificationTrigger`.
@@ -8539,7 +8597,7 @@ proc newSecondaryAuthenticationFactorAuthenticationTrigger*(): SecondaryAuthenti
   ## Activate a `Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger`.
   adopt[SecondaryAuthenticationFactorAuthenticationTrigger](activateAs("Windows.ApplicationModel.Background.SecondaryAuthenticationFactorAuthenticationTrigger", IID_ISecondaryAuthenticationFactorAuthenticationTrigger))
 
-proc create*(_: typedesc[SensorDataThresholdTrigger], threshold: ProximitySensorDataThreshold): SensorDataThresholdTrigger  =
+proc create*(_: typedesc[SensorDataThresholdTrigger], threshold: WinRtObject): SensorDataThresholdTrigger  =
   ## Windows.ApplicationModel.Background.SensorDataThresholdTrigger.Create
   withStatics("Windows.ApplicationModel.Background.SensorDataThresholdTrigger", IID_ISensorDataThresholdTriggerFactory, it):
     withIface(threshold.p, IID_ISensorDataThreshold, "ISensorDataThreshold", p0):
@@ -9448,7 +9506,7 @@ proc getPhoneCallInfoAsync*(self: PhoneCall): Future[PhoneCallInfo] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_GetPhoneCallInfoAsync, Fn_IPhoneCall_GetPhoneCallInfoAsync)(it, op.addr).check("PhoneCall.GetPhoneCallInfoAsync")
-  result = adopt[PhoneCallInfo](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallInfo, IID_AsyncOperationCompletedHandler_1_PhoneCallInfo, "PhoneCall.GetPhoneCallInfoAsync"))
+  result = adopt[PhoneCallInfo](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallInfo, IID_AsyncOperationCompletedHandler_1_PhoneCallInfo, alPlain, "PhoneCall.GetPhoneCallInfoAsync"))
 
 proc `end`*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.End
@@ -9462,7 +9520,7 @@ proc endAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_EndAsync, Fn_IPhoneCall_EndAsync)(it, op.addr).check("PhoneCall.EndAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.EndAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.EndAsync")
 
 proc sendDtmfKey*(self: PhoneCall, key: DtmfKey, dtmfToneAudioPlayback: DtmfToneAudioPlayback): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.SendDtmfKey
@@ -9476,7 +9534,7 @@ proc sendDtmfKeyAsync*(self: PhoneCall, key: DtmfKey, dtmfToneAudioPlayback: Dtm
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_SendDtmfKeyAsync, Fn_IPhoneCall_SendDtmfKeyAsync)(it, key, dtmfToneAudioPlayback, op.addr).check("PhoneCall.SendDtmfKeyAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.SendDtmfKeyAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.SendDtmfKeyAsync")
 
 proc acceptIncoming*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.AcceptIncoming
@@ -9490,7 +9548,7 @@ proc acceptIncomingAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.a
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_AcceptIncomingAsync, Fn_IPhoneCall_AcceptIncomingAsync)(it, op.addr).check("PhoneCall.AcceptIncomingAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.AcceptIncomingAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.AcceptIncomingAsync")
 
 proc hold*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.Hold
@@ -9504,7 +9562,7 @@ proc holdAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_HoldAsync, Fn_IPhoneCall_HoldAsync)(it, op.addr).check("PhoneCall.HoldAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.HoldAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.HoldAsync")
 
 proc resumeFromHold*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.ResumeFromHold
@@ -9518,7 +9576,7 @@ proc resumeFromHoldAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.a
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_ResumeFromHoldAsync, Fn_IPhoneCall_ResumeFromHoldAsync)(it, op.addr).check("PhoneCall.ResumeFromHoldAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.ResumeFromHoldAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.ResumeFromHoldAsync")
 
 proc mute*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.Mute
@@ -9532,7 +9590,7 @@ proc muteAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_MuteAsync, Fn_IPhoneCall_MuteAsync)(it, op.addr).check("PhoneCall.MuteAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.MuteAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.MuteAsync")
 
 proc unmute*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.Unmute
@@ -9546,7 +9604,7 @@ proc unmuteAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_UnmuteAsync, Fn_IPhoneCall_UnmuteAsync)(it, op.addr).check("PhoneCall.UnmuteAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.UnmuteAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.UnmuteAsync")
 
 proc rejectIncoming*(self: PhoneCall): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.RejectIncoming
@@ -9560,7 +9618,7 @@ proc rejectIncomingAsync*(self: PhoneCall): Future[PhoneCallOperationStatus] {.a
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_RejectIncomingAsync, Fn_IPhoneCall_RejectIncomingAsync)(it, op.addr).check("PhoneCall.RejectIncomingAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.RejectIncomingAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.RejectIncomingAsync")
 
 proc changeAudioDevice*(self: PhoneCall, endpoint: PhoneCallAudioDevice): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCall.ChangeAudioDevice
@@ -9574,7 +9632,7 @@ proc changeAudioDeviceAsync*(self: PhoneCall, endpoint: PhoneCallAudioDevice): F
   var op: pointer
   withIface(self.p, IID_IPhoneCall, "IPhoneCall", it):
     vcall(it, Slot_IPhoneCall_ChangeAudioDeviceAsync, Fn_IPhoneCall_ChangeAudioDeviceAsync)(it, endpoint, op.addr).check("PhoneCall.ChangeAudioDeviceAsync")
-  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, "PhoneCall.ChangeAudioDeviceAsync")
+  result = await awaitValue[PhoneCallOperationStatus](op, IID_IAsyncOperation_1_PhoneCallOperationStatus, IID_AsyncOperationCompletedHandler_1_PhoneCallOperationStatus, alPlain, "PhoneCall.ChangeAudioDeviceAsync")
 
 proc getFromId*(_: typedesc[PhoneCall], callId: string): PhoneCall  =
   ## Windows.ApplicationModel.Calls.PhoneCall.GetFromId
@@ -9615,7 +9673,7 @@ proc setCallBlockingListAsync*(_: typedesc[PhoneCallBlocking], phoneNumberList: 
     let p0 = asIterableString(phoneNumberList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPhoneCallBlockingStatics_SetCallBlockingListAsync, Fn_IPhoneCallBlockingStatics_SetCallBlockingListAsync)(it, p0, op.addr).check("PhoneCallBlocking.SetCallBlockingListAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneCallBlocking.SetCallBlockingListAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PhoneCallBlocking.SetCallBlockingListAsync")
 
 proc newPhoneCallHistoryEntry*(): PhoneCallHistoryEntry =
   ## Activate a `Windows.ApplicationModel.Calls.PhoneCallHistoryEntry`.
@@ -9925,7 +9983,7 @@ proc readBatchAsync*(self: PhoneCallHistoryEntryReader): Future[seq[PhoneCallHis
   var op: pointer
   withIface(self.p, IID_IPhoneCallHistoryEntryReader, "IPhoneCallHistoryEntryReader", it):
     vcall(it, Slot_IPhoneCallHistoryEntryReader_ReadBatchAsync, Fn_IPhoneCallHistoryEntryReader_ReadBatchAsync)(it, op.addr).check("PhoneCallHistoryEntryReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, "PhoneCallHistoryEntryReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, alPlain, "PhoneCallHistoryEntryReader.ReadBatchAsync")
   result = toSeq[PhoneCallHistoryEntry](coll, IID_IVectorView_1_PhoneCallHistoryEntry)
   discard release(coll)
 
@@ -9942,14 +10000,14 @@ proc requestStoreAsync*(_: typedesc[PhoneCallHistoryManager], accessType: PhoneC
   var op: pointer
   withStatics("Windows.ApplicationModel.Calls.PhoneCallHistoryManager", IID_IPhoneCallHistoryManagerStatics, it):
     vcall(it, Slot_IPhoneCallHistoryManagerStatics_RequestStoreAsync, Fn_IPhoneCallHistoryManagerStatics_RequestStoreAsync)(it, accessType, op.addr).check("PhoneCallHistoryManager.RequestStoreAsync")
-  result = adopt[PhoneCallHistoryStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryStore, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryStore, "PhoneCallHistoryManager.RequestStoreAsync"))
+  result = adopt[PhoneCallHistoryStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryStore, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryStore, alPlain, "PhoneCallHistoryManager.RequestStoreAsync"))
 
 proc requestStoreAsync*(self: PhoneCallHistoryManagerForUser, accessType: PhoneCallHistoryStoreAccessType): Future[PhoneCallHistoryStore] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryManagerForUser.RequestStoreAsync
   var op: pointer
   withIface(self.p, IID_IPhoneCallHistoryManagerForUser, "IPhoneCallHistoryManagerForUser", it):
     vcall(it, Slot_IPhoneCallHistoryManagerForUser_RequestStoreAsync, Fn_IPhoneCallHistoryManagerForUser_RequestStoreAsync)(it, accessType, op.addr).check("PhoneCallHistoryManagerForUser.RequestStoreAsync")
-  result = adopt[PhoneCallHistoryStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryStore, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryStore, "PhoneCallHistoryManagerForUser.RequestStoreAsync"))
+  result = adopt[PhoneCallHistoryStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryStore, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryStore, alPlain, "PhoneCallHistoryManagerForUser.RequestStoreAsync"))
 
 proc user*(self: PhoneCallHistoryManagerForUser): User  =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryManagerForUser.get_User
@@ -9964,7 +10022,7 @@ proc getEntryAsync*(self: PhoneCallHistoryStore, callHistoryEntryId: string): Fu
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     withHString(callHistoryEntryId, h0):
       vcall(it, Slot_IPhoneCallHistoryStore_GetEntryAsync, Fn_IPhoneCallHistoryStore_GetEntryAsync)(it, h0, op.addr).check("PhoneCallHistoryStore.GetEntryAsync")
-  result = adopt[PhoneCallHistoryEntry](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryEntry, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryEntry, "PhoneCallHistoryStore.GetEntryAsync"))
+  result = adopt[PhoneCallHistoryEntry](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallHistoryEntry, IID_AsyncOperationCompletedHandler_1_PhoneCallHistoryEntry, alPlain, "PhoneCallHistoryStore.GetEntryAsync"))
 
 proc getEntryReader*(self: PhoneCallHistoryStore): PhoneCallHistoryEntryReader  =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetEntryReader
@@ -9987,7 +10045,7 @@ proc saveEntryAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallHis
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     withIface(callHistoryEntry.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", p0):
       vcall(it, Slot_IPhoneCallHistoryStore_SaveEntryAsync, Fn_IPhoneCallHistoryStore_SaveEntryAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.SaveEntryAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.SaveEntryAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.SaveEntryAsync")
 
 proc deleteEntryAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallHistoryEntry) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.DeleteEntryAsync
@@ -9995,7 +10053,7 @@ proc deleteEntryAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallH
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     withIface(callHistoryEntry.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", p0):
       vcall(it, Slot_IPhoneCallHistoryStore_DeleteEntryAsync, Fn_IPhoneCallHistoryStore_DeleteEntryAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.DeleteEntryAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.DeleteEntryAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.DeleteEntryAsync")
 
 proc deleteEntriesAsync*(self: PhoneCallHistoryStore, callHistoryEntries: seq[PhoneCallHistoryEntry]) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.DeleteEntriesAsync
@@ -10004,7 +10062,7 @@ proc deleteEntriesAsync*(self: PhoneCallHistoryStore, callHistoryEntries: seq[Ph
     let p0 = asIterable[PhoneCallHistoryEntry](callHistoryEntries, IID_IIterable_1_PhoneCallHistoryEntry, IID_IVectorView_1_PhoneCallHistoryEntry, IID_IIterator_1_PhoneCallHistoryEntry)
     defer: discard release(p0)
     vcall(it, Slot_IPhoneCallHistoryStore_DeleteEntriesAsync, Fn_IPhoneCallHistoryStore_DeleteEntriesAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.DeleteEntriesAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.DeleteEntriesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.DeleteEntriesAsync")
 
 proc markEntryAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneCallHistoryEntry) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkEntryAsSeenAsync
@@ -10012,7 +10070,7 @@ proc markEntryAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntry: PhoneC
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     withIface(callHistoryEntry.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", p0):
       vcall(it, Slot_IPhoneCallHistoryStore_MarkEntryAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkEntryAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkEntryAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkEntryAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.MarkEntryAsSeenAsync")
 
 proc markEntriesAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntries: seq[PhoneCallHistoryEntry]) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkEntriesAsSeenAsync
@@ -10021,21 +10079,21 @@ proc markEntriesAsSeenAsync*(self: PhoneCallHistoryStore, callHistoryEntries: se
     let p0 = asIterable[PhoneCallHistoryEntry](callHistoryEntries, IID_IIterable_1_PhoneCallHistoryEntry, IID_IVectorView_1_PhoneCallHistoryEntry, IID_IIterator_1_PhoneCallHistoryEntry)
     defer: discard release(p0)
     vcall(it, Slot_IPhoneCallHistoryStore_MarkEntriesAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkEntriesAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkEntriesAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkEntriesAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.MarkEntriesAsSeenAsync")
 
 proc getUnseenCountAsync*(self: PhoneCallHistoryStore): Future[uint32] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetUnseenCountAsync
   var op: pointer
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     vcall(it, Slot_IPhoneCallHistoryStore_GetUnseenCountAsync, Fn_IPhoneCallHistoryStore_GetUnseenCountAsync)(it, op.addr).check("PhoneCallHistoryStore.GetUnseenCountAsync")
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "PhoneCallHistoryStore.GetUnseenCountAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, alPlain, "PhoneCallHistoryStore.GetUnseenCountAsync")
 
 proc markAllAsSeenAsync*(self: PhoneCallHistoryStore) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkAllAsSeenAsync
   var op: pointer
   withIface(self.p, IID_IPhoneCallHistoryStore, "IPhoneCallHistoryStore", it):
     vcall(it, Slot_IPhoneCallHistoryStore_MarkAllAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkAllAsSeenAsync)(it, op.addr).check("PhoneCallHistoryStore.MarkAllAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkAllAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.MarkAllAsSeenAsync")
 
 proc getSourcesUnseenCountAsync*(self: PhoneCallHistoryStore, sourceIds: seq[string]): Future[uint32] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.GetSourcesUnseenCountAsync
@@ -10044,7 +10102,7 @@ proc getSourcesUnseenCountAsync*(self: PhoneCallHistoryStore, sourceIds: seq[str
     let p0 = asIterableString(sourceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPhoneCallHistoryStore_GetSourcesUnseenCountAsync, Fn_IPhoneCallHistoryStore_GetSourcesUnseenCountAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.GetSourcesUnseenCountAsync")
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "PhoneCallHistoryStore.GetSourcesUnseenCountAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, alPlain, "PhoneCallHistoryStore.GetSourcesUnseenCountAsync")
 
 proc markSourcesAsSeenAsync*(self: PhoneCallHistoryStore, sourceIds: seq[string]) {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryStore.MarkSourcesAsSeenAsync
@@ -10053,7 +10111,7 @@ proc markSourcesAsSeenAsync*(self: PhoneCallHistoryStore, sourceIds: seq[string]
     let p0 = asIterableString(sourceIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPhoneCallHistoryStore_MarkSourcesAsSeenAsync, Fn_IPhoneCallHistoryStore_MarkSourcesAsSeenAsync)(it, p0, op.addr).check("PhoneCallHistoryStore.MarkSourcesAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneCallHistoryStore.MarkSourcesAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneCallHistoryStore.MarkSourcesAsSeenAsync")
 
 proc lineId*(self: PhoneCallInfo): GUID  =
   ## Windows.ApplicationModel.Calls.PhoneCallInfo.get_LineId
@@ -10147,7 +10205,7 @@ proc requestStoreAsync*(_: typedesc[PhoneCallManager]): Future[PhoneCallStore] {
   var op: pointer
   withStatics("Windows.ApplicationModel.Calls.PhoneCallManager", IID_IPhoneCallManagerStatics2, it):
     vcall(it, Slot_IPhoneCallManagerStatics2_RequestStoreAsync, Fn_IPhoneCallManagerStatics2_RequestStoreAsync)(it, op.addr).check("PhoneCallManager.RequestStoreAsync")
-  result = adopt[PhoneCallStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallStore, IID_AsyncOperationCompletedHandler_1_PhoneCallStore, "PhoneCallManager.RequestStoreAsync"))
+  result = adopt[PhoneCallStore](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallStore, IID_AsyncOperationCompletedHandler_1_PhoneCallStore, alPlain, "PhoneCallManager.RequestStoreAsync"))
 
 proc isEmergencyPhoneNumberAsync*(self: PhoneCallStore, number: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallStore.IsEmergencyPhoneNumberAsync
@@ -10155,14 +10213,14 @@ proc isEmergencyPhoneNumberAsync*(self: PhoneCallStore, number: string): Future[
   withIface(self.p, IID_IPhoneCallStore, "IPhoneCallStore", it):
     withHString(number, h0):
       vcall(it, Slot_IPhoneCallStore_IsEmergencyPhoneNumberAsync, Fn_IPhoneCallStore_IsEmergencyPhoneNumberAsync)(it, h0, op.addr).check("PhoneCallStore.IsEmergencyPhoneNumberAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneCallStore.IsEmergencyPhoneNumberAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PhoneCallStore.IsEmergencyPhoneNumberAsync")
 
 proc getDefaultLineAsync*(self: PhoneCallStore): Future[GUID] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneCallStore.GetDefaultLineAsync
   var op: pointer
   withIface(self.p, IID_IPhoneCallStore, "IPhoneCallStore", it):
     vcall(it, Slot_IPhoneCallStore_GetDefaultLineAsync, Fn_IPhoneCallStore_GetDefaultLineAsync)(it, op.addr).check("PhoneCallStore.GetDefaultLineAsync")
-  result = await awaitValue[GUID](op, IID_IAsyncOperation_1_Guid, IID_AsyncOperationCompletedHandler_1_Guid, "PhoneCallStore.GetDefaultLineAsync")
+  result = await awaitValue[GUID](op, IID_IAsyncOperation_1_Guid, IID_AsyncOperationCompletedHandler_1_Guid, alPlain, "PhoneCallStore.GetDefaultLineAsync")
 
 proc requestLineWatcher*(self: PhoneCallStore): PhoneLineWatcher  =
   ## Windows.ApplicationModel.Calls.PhoneCallStore.RequestLineWatcher
@@ -10184,7 +10242,7 @@ proc getCapabilitiesAsync*(_: typedesc[PhoneCallVideoCapabilitiesManager], phone
   withStatics("Windows.ApplicationModel.Calls.PhoneCallVideoCapabilitiesManager", IID_IPhoneCallVideoCapabilitiesManagerStatics, it):
     withHString(phoneNumber, h0):
       vcall(it, Slot_IPhoneCallVideoCapabilitiesManagerStatics_GetCapabilitiesAsync, Fn_IPhoneCallVideoCapabilitiesManagerStatics_GetCapabilitiesAsync)(it, h0, op.addr).check("PhoneCallVideoCapabilitiesManager.GetCapabilitiesAsync")
-  result = adopt[PhoneCallVideoCapabilities](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallVideoCapabilities, IID_AsyncOperationCompletedHandler_1_PhoneCallVideoCapabilities, "PhoneCallVideoCapabilitiesManager.GetCapabilitiesAsync"))
+  result = adopt[PhoneCallVideoCapabilities](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallVideoCapabilities, IID_AsyncOperationCompletedHandler_1_PhoneCallVideoCapabilities, alPlain, "PhoneCallVideoCapabilitiesManager.GetCapabilitiesAsync"))
 
 proc operationStatus*(self: PhoneCallsResult): PhoneLineOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneCallsResult.get_OperationStatus
@@ -10390,7 +10448,7 @@ proc isImmediateDialNumberAsync*(self: PhoneLine, number: string): Future[bool] 
   withIface(self.p, IID_IPhoneLine, "IPhoneLine", it):
     withHString(number, h0):
       vcall(it, Slot_IPhoneLine_IsImmediateDialNumberAsync, Fn_IPhoneLine_IsImmediateDialNumberAsync)(it, h0, op.addr).check("PhoneLine.IsImmediateDialNumberAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneLine.IsImmediateDialNumberAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PhoneLine.IsImmediateDialNumberAsync")
 
 proc dial*(self: PhoneLine, number: string, displayName: string)  =
   ## Windows.ApplicationModel.Calls.PhoneLine.Dial
@@ -10433,7 +10491,7 @@ proc dialWithResultAsync*(self: PhoneLine, number: string, displayName: string):
     withHString(number, h0):
       withHString(displayName, h1):
         vcall(it, Slot_IPhoneLine3_DialWithResultAsync, Fn_IPhoneLine3_DialWithResultAsync)(it, h0, h1, op.addr).check("PhoneLine.DialWithResultAsync")
-  result = adopt[PhoneLineDialResult](await awaitObject(op, IID_IAsyncOperation_1_PhoneLineDialResult, IID_AsyncOperationCompletedHandler_1_PhoneLineDialResult, "PhoneLine.DialWithResultAsync"))
+  result = adopt[PhoneLineDialResult](await awaitObject(op, IID_IAsyncOperation_1_PhoneLineDialResult, IID_AsyncOperationCompletedHandler_1_PhoneLineDialResult, alPlain, "PhoneLine.DialWithResultAsync"))
 
 proc getAllActivePhoneCalls*(self: PhoneLine): PhoneCallsResult  =
   ## Windows.ApplicationModel.Calls.PhoneLine.GetAllActivePhoneCalls
@@ -10447,14 +10505,14 @@ proc getAllActivePhoneCallsAsync*(self: PhoneLine): Future[PhoneCallsResult] {.a
   var op: pointer
   withIface(self.p, IID_IPhoneLine3, "IPhoneLine3", it):
     vcall(it, Slot_IPhoneLine3_GetAllActivePhoneCallsAsync, Fn_IPhoneLine3_GetAllActivePhoneCallsAsync)(it, op.addr).check("PhoneLine.GetAllActivePhoneCallsAsync")
-  result = adopt[PhoneCallsResult](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallsResult, IID_AsyncOperationCompletedHandler_1_PhoneCallsResult, "PhoneLine.GetAllActivePhoneCallsAsync"))
+  result = adopt[PhoneCallsResult](await awaitObject(op, IID_IAsyncOperation_1_PhoneCallsResult, IID_AsyncOperationCompletedHandler_1_PhoneCallsResult, alPlain, "PhoneLine.GetAllActivePhoneCallsAsync"))
 
 proc fromIdAsync*(_: typedesc[PhoneLine], lineId: GUID): Future[PhoneLine] {.async.} =
   ## Windows.ApplicationModel.Calls.PhoneLine.FromIdAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Calls.PhoneLine", IID_IPhoneLineStatics, it):
     vcall(it, Slot_IPhoneLineStatics_FromIdAsync, Fn_IPhoneLineStatics_FromIdAsync)(it, lineId, op.addr).check("PhoneLine.FromIdAsync")
-  result = adopt[PhoneLine](await awaitObject(op, IID_IAsyncOperation_1_PhoneLine, IID_AsyncOperationCompletedHandler_1_PhoneLine, "PhoneLine.FromIdAsync"))
+  result = adopt[PhoneLine](await awaitObject(op, IID_IAsyncOperation_1_PhoneLine, IID_AsyncOperationCompletedHandler_1_PhoneLine, alPlain, "PhoneLine.FromIdAsync"))
 
 proc simState*(self: PhoneLineCellularDetails): PhoneSimState  =
   ## Windows.ApplicationModel.Calls.PhoneLineCellularDetails.get_SimState
@@ -10503,7 +10561,7 @@ proc extendedProperties*(self: PhoneLineConfiguration): Table[string, WinRtObjec
   withIface(self.p, IID_IPhoneLineConfiguration, "IPhoneLineConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IPhoneLineConfiguration_get_ExtendedProperties, Fn_IPhoneLineConfiguration_get_ExtendedProperties)(it, tmp.addr).check("PhoneLineConfiguration.get_ExtendedProperties")
-    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc dialCallStatus*(self: PhoneLineDialResult): PhoneCallOperationStatus  =
@@ -10539,7 +10597,7 @@ proc requestAccessAsync*(self: PhoneLineTransportDevice): Future[DeviceAccessSta
   var op: pointer
   withIface(self.p, IID_IPhoneLineTransportDevice, "IPhoneLineTransportDevice", it):
     vcall(it, Slot_IPhoneLineTransportDevice_RequestAccessAsync, Fn_IPhoneLineTransportDevice_RequestAccessAsync)(it, op.addr).check("PhoneLineTransportDevice.RequestAccessAsync")
-  result = await awaitValue[DeviceAccessStatus](op, IID_IAsyncOperation_1_DeviceAccessStatus, IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus, "PhoneLineTransportDevice.RequestAccessAsync")
+  result = await awaitValue[DeviceAccessStatus](op, IID_IAsyncOperation_1_DeviceAccessStatus, IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus, alPlain, "PhoneLineTransportDevice.RequestAccessAsync")
 
 proc registerApp*(self: PhoneLineTransportDevice)  =
   ## Windows.ApplicationModel.Calls.PhoneLineTransportDevice.RegisterApp
@@ -10582,7 +10640,7 @@ proc connectAsync*(self: PhoneLineTransportDevice): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneLineTransportDevice, "IPhoneLineTransportDevice", it):
     vcall(it, Slot_IPhoneLineTransportDevice_ConnectAsync, Fn_IPhoneLineTransportDevice_ConnectAsync)(it, op.addr).check("PhoneLineTransportDevice.ConnectAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneLineTransportDevice.ConnectAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PhoneLineTransportDevice.ConnectAsync")
 
 proc audioRoutingStatus*(self: PhoneLineTransportDevice): TransportDeviceAudioRoutingStatus  =
   ## Windows.ApplicationModel.Calls.PhoneLineTransportDevice.get_AudioRoutingStatus
@@ -10803,7 +10861,7 @@ proc dialVoicemailAsync*(self: PhoneVoicemail) {.async.} =
   var op: pointer
   withIface(self.p, IID_IPhoneVoicemail, "IPhoneVoicemail", it):
     vcall(it, Slot_IPhoneVoicemail_DialVoicemailAsync, Fn_IPhoneVoicemail_DialVoicemailAsync)(it, op.addr).check("PhoneVoicemail.DialVoicemailAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PhoneVoicemail.DialVoicemailAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PhoneVoicemail.DialVoicemailAsync")
 
 proc newPhoneCallOrigin*(): PhoneCallOrigin =
   ## Activate a `Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin`.
@@ -10886,7 +10944,7 @@ proc requestSetAsActiveCallOriginAppAsync*(_: typedesc[PhoneCallOriginManager]):
   var op: pointer
   withStatics("Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager", IID_IPhoneCallOriginManagerStatics2, it):
     vcall(it, Slot_IPhoneCallOriginManagerStatics2_RequestSetAsActiveCallOriginAppAsync, Fn_IPhoneCallOriginManagerStatics2_RequestSetAsActiveCallOriginAppAsync)(it, op.addr).check("PhoneCallOriginManager.RequestSetAsActiveCallOriginAppAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PhoneCallOriginManager.RequestSetAsActiveCallOriginAppAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PhoneCallOriginManager.RequestSetAsActiveCallOriginAppAsync")
 
 proc isCurrentAppActiveCallOriginApp*(_: typedesc[PhoneCallOriginManager]): bool  =
   ## Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager.get_IsCurrentAppActiveCallOriginApp
@@ -10912,7 +10970,7 @@ proc reserveCallResourcesAsync*(self: VoipCallCoordinator, taskEntryPoint: strin
   withIface(self.p, IID_IVoipCallCoordinator, "IVoipCallCoordinator", it):
     withHString(taskEntryPoint, h0):
       vcall(it, Slot_IVoipCallCoordinator_ReserveCallResourcesAsync, Fn_IVoipCallCoordinator_ReserveCallResourcesAsync)(it, h0, op.addr).check("VoipCallCoordinator.ReserveCallResourcesAsync")
-  result = await awaitValue[VoipPhoneCallResourceReservationStatus](op, IID_IAsyncOperation_1_VoipPhoneCallResourceReservationStatus, IID_AsyncOperationCompletedHandler_1_VoipPhoneCallResourceReservationStatus, "VoipCallCoordinator.ReserveCallResourcesAsync")
+  result = await awaitValue[VoipPhoneCallResourceReservationStatus](op, IID_IAsyncOperation_1_VoipPhoneCallResourceReservationStatus, IID_AsyncOperationCompletedHandler_1_VoipPhoneCallResourceReservationStatus, alPlain, "VoipCallCoordinator.ReserveCallResourcesAsync")
 
 proc onMuteStateChanged*(self: VoipCallCoordinator,
     handler: proc(sender: pointer, args: MuteChangeEventArgs)): EventRegistrationToken {.discardable.} =
@@ -11046,7 +11104,7 @@ proc reserveCallResourcesAsync*(self: VoipCallCoordinator): Future[VoipPhoneCall
   var op: pointer
   withIface(self.p, IID_IVoipCallCoordinator4, "IVoipCallCoordinator4", it):
     vcall(it, Slot_IVoipCallCoordinator4_ReserveCallResourcesAsync, Fn_IVoipCallCoordinator4_ReserveCallResourcesAsync)(it, op.addr).check("VoipCallCoordinator.ReserveCallResourcesAsync")
-  result = await awaitValue[VoipPhoneCallResourceReservationStatus](op, IID_IAsyncOperation_1_VoipPhoneCallResourceReservationStatus, IID_AsyncOperationCompletedHandler_1_VoipPhoneCallResourceReservationStatus, "VoipCallCoordinator.ReserveCallResourcesAsync")
+  result = await awaitValue[VoipPhoneCallResourceReservationStatus](op, IID_IAsyncOperation_1_VoipPhoneCallResourceReservationStatus, IID_AsyncOperationCompletedHandler_1_VoipPhoneCallResourceReservationStatus, alPlain, "VoipCallCoordinator.ReserveCallResourcesAsync")
 
 proc requestNewIncomingCallWithOptions*(self: VoipCallCoordinator, callOptions: IncomingVoipPhoneCallOptions): VoipPhoneCall  =
   ## Windows.ApplicationModel.Calls.VoipCallCoordinator.RequestNewIncomingCallWithOptions
@@ -11346,7 +11404,7 @@ proc getCachedCapabilitiesAsync*(_: typedesc[ChatCapabilitiesManager], address: 
     withHString(address, h0):
       withHString(transportId, h1):
         vcall(it, Slot_IChatCapabilitiesManagerStatics2_GetCachedCapabilitiesAsync, Fn_IChatCapabilitiesManagerStatics2_GetCachedCapabilitiesAsync)(it, h0, h1, op.addr).check("ChatCapabilitiesManager.GetCachedCapabilitiesAsync")
-  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, "ChatCapabilitiesManager.GetCachedCapabilitiesAsync"))
+  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, alPlain, "ChatCapabilitiesManager.GetCachedCapabilitiesAsync"))
 
 proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager], address: string, transportId: string): Future[ChatCapabilities] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync
@@ -11355,7 +11413,7 @@ proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager], addr
     withHString(address, h0):
       withHString(transportId, h1):
         vcall(it, Slot_IChatCapabilitiesManagerStatics2_GetCapabilitiesFromNetworkAsync, Fn_IChatCapabilitiesManagerStatics2_GetCapabilitiesFromNetworkAsync)(it, h0, h1, op.addr).check("ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync")
-  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, "ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync"))
+  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, alPlain, "ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync"))
 
 proc getCachedCapabilitiesAsync*(_: typedesc[ChatCapabilitiesManager], address: string): Future[ChatCapabilities] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatCapabilitiesManager.GetCachedCapabilitiesAsync
@@ -11363,7 +11421,7 @@ proc getCachedCapabilitiesAsync*(_: typedesc[ChatCapabilitiesManager], address: 
   withStatics("Windows.ApplicationModel.Chat.ChatCapabilitiesManager", IID_IChatCapabilitiesManagerStatics, it):
     withHString(address, h0):
       vcall(it, Slot_IChatCapabilitiesManagerStatics_GetCachedCapabilitiesAsync, Fn_IChatCapabilitiesManagerStatics_GetCachedCapabilitiesAsync)(it, h0, op.addr).check("ChatCapabilitiesManager.GetCachedCapabilitiesAsync")
-  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, "ChatCapabilitiesManager.GetCachedCapabilitiesAsync"))
+  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, alPlain, "ChatCapabilitiesManager.GetCachedCapabilitiesAsync"))
 
 proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager], address: string): Future[ChatCapabilities] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync
@@ -11371,7 +11429,7 @@ proc getCapabilitiesFromNetworkAsync*(_: typedesc[ChatCapabilitiesManager], addr
   withStatics("Windows.ApplicationModel.Chat.ChatCapabilitiesManager", IID_IChatCapabilitiesManagerStatics, it):
     withHString(address, h0):
       vcall(it, Slot_IChatCapabilitiesManagerStatics_GetCapabilitiesFromNetworkAsync, Fn_IChatCapabilitiesManagerStatics_GetCapabilitiesFromNetworkAsync)(it, h0, op.addr).check("ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync")
-  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, "ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync"))
+  result = adopt[ChatCapabilities](await awaitObject(op, IID_IAsyncOperation_1_ChatCapabilities, IID_AsyncOperationCompletedHandler_1_ChatCapabilities, alPlain, "ChatCapabilitiesManager.GetCapabilitiesFromNetworkAsync"))
 
 proc hasUnreadMessages*(self: ChatConversation): bool  =
   ## Windows.ApplicationModel.Chat.ChatConversation.get_HasUnreadMessages
@@ -11439,7 +11497,7 @@ proc deleteAsync*(self: ChatConversation) {.async.} =
   var op: pointer
   withIface(self.p, IID_IChatConversation, "IChatConversation", it):
     vcall(it, Slot_IChatConversation_DeleteAsync, Fn_IChatConversation_DeleteAsync)(it, op.addr).check("ChatConversation.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatConversation.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatConversation.DeleteAsync")
 
 proc getMessageReader*(self: ChatConversation): ChatMessageReader  =
   ## Windows.ApplicationModel.Chat.ChatConversation.GetMessageReader
@@ -11453,21 +11511,21 @@ proc markMessagesAsReadAsync*(self: ChatConversation) {.async.} =
   var op: pointer
   withIface(self.p, IID_IChatConversation, "IChatConversation", it):
     vcall(it, Slot_IChatConversation_MarkMessagesAsReadAsync, Fn_IChatConversation_MarkMessagesAsReadAsync)(it, op.addr).check("ChatConversation.MarkMessagesAsReadAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatConversation.MarkMessagesAsReadAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatConversation.MarkMessagesAsReadAsync")
 
 proc markMessagesAsReadAsync*(self: ChatConversation, value: DateTime) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatConversation.MarkMessagesAsReadAsync
   var op: pointer
   withIface(self.p, IID_IChatConversation, "IChatConversation", it):
     vcall(it, Slot_IChatConversation_MarkMessagesAsReadAsync2, Fn_IChatConversation_MarkMessagesAsReadAsync2)(it, value, op.addr).check("ChatConversation.MarkMessagesAsReadAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatConversation.MarkMessagesAsReadAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatConversation.MarkMessagesAsReadAsync")
 
 proc saveAsync*(self: ChatConversation) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatConversation.SaveAsync
   var op: pointer
   withIface(self.p, IID_IChatConversation, "IChatConversation", it):
     vcall(it, Slot_IChatConversation_SaveAsync, Fn_IChatConversation_SaveAsync)(it, op.addr).check("ChatConversation.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatConversation.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatConversation.SaveAsync")
 
 proc notifyLocalParticipantComposing*(self: ChatConversation, transportId: string, participantAddress: string, isComposing: bool)  =
   ## Windows.ApplicationModel.Chat.ChatConversation.NotifyLocalParticipantComposing
@@ -11526,7 +11584,7 @@ proc readBatchAsync*(self: ChatConversationReader): Future[seq[ChatConversation]
   var op: pointer
   withIface(self.p, IID_IChatConversationReader, "IChatConversationReader", it):
     vcall(it, Slot_IChatConversationReader_ReadBatchAsync, Fn_IChatConversationReader_ReadBatchAsync)(it, op.addr).check("ChatConversationReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19, IID_AsyncOperationCompletedHandler_1_IVectorView_19, "ChatConversationReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19, IID_AsyncOperationCompletedHandler_1_IVectorView_19, alPlain, "ChatConversationReader.ReadBatchAsync")
   result = toSeq[ChatConversation](coll, IID_IVectorView_1_ChatConversation)
   discard release(coll)
 
@@ -11535,7 +11593,7 @@ proc readBatchAsync*(self: ChatConversationReader, count: int32): Future[seq[Cha
   var op: pointer
   withIface(self.p, IID_IChatConversationReader, "IChatConversationReader", it):
     vcall(it, Slot_IChatConversationReader_ReadBatchAsync2, Fn_IChatConversationReader_ReadBatchAsync2)(it, count, op.addr).check("ChatConversationReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19, IID_AsyncOperationCompletedHandler_1_IVectorView_19, "ChatConversationReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19, IID_AsyncOperationCompletedHandler_1_IVectorView_19, alPlain, "ChatConversationReader.ReadBatchAsync")
   result = toSeq[ChatConversation](coll, IID_IVectorView_1_ChatConversation)
   discard release(coll)
 
@@ -11682,6 +11740,14 @@ proc recipients*(self: ChatMessage): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_IChatMessage_get_Recipients, Fn_IChatMessage_get_Recipients)(it, tmp.addr).check("ChatMessage.get_Recipients")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc recipientSendStatuses*(self: ChatMessage): Table[string, ChatMessageStatus]  =
+  ## Windows.ApplicationModel.Chat.ChatMessage.get_RecipientSendStatuses
+  withIface(self.p, IID_IChatMessage, "IChatMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessage_get_RecipientSendStatuses, Fn_IChatMessage_get_RecipientSendStatuses)(it, tmp.addr).check("ChatMessage.get_RecipientSendStatuses")
+    result = toTable[string, ChatMessageStatus](tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_ChatMessageStatus)
     release(tmp)
 
 proc status*(self: ChatMessage): ChatMessageStatus  =
@@ -11912,14 +11978,14 @@ proc itemKind*(self: ChatMessage): ChatItemKind  =
     vcall(it, Slot_IChatItem_get_ItemKind, Fn_IChatItem_get_ItemKind)(it, tmp.addr).check("ChatMessage.get_ItemKind")
     result = tmp
 
-proc dataStreamReference*(self: ChatMessageAttachment): RandomAccessStreamReference  =
+proc dataStreamReference*(self: ChatMessageAttachment): WinRtObject  =
   ## Windows.ApplicationModel.Chat.ChatMessageAttachment.get_DataStreamReference
   withIface(self.p, IID_IChatMessageAttachment, "IChatMessageAttachment", it):
     var tmp: pointer
     vcall(it, Slot_IChatMessageAttachment_get_DataStreamReference, Fn_IChatMessageAttachment_get_DataStreamReference)(it, tmp.addr).check("ChatMessageAttachment.get_DataStreamReference")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `dataStreamReference=`*(self: ChatMessageAttachment, value: RandomAccessStreamReference)  =
+proc `dataStreamReference=`*(self: ChatMessageAttachment, value: WinRtObject)  =
   ## Windows.ApplicationModel.Chat.ChatMessageAttachment.put_DataStreamReference
   withIface(self.p, IID_IChatMessageAttachment, "IChatMessageAttachment", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -11963,14 +12029,14 @@ proc `text=`*(self: ChatMessageAttachment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IChatMessageAttachment_put_Text, Fn_IChatMessageAttachment_put_Text)(it, h0).check("ChatMessageAttachment.put_Text")
 
-proc thumbnail*(self: ChatMessageAttachment): RandomAccessStreamReference  =
+proc thumbnail*(self: ChatMessageAttachment): WinRtObject  =
   ## Windows.ApplicationModel.Chat.ChatMessageAttachment.get_Thumbnail
   withIface(self.p, IID_IChatMessageAttachment2, "IChatMessageAttachment2", it):
     var tmp: pointer
     vcall(it, Slot_IChatMessageAttachment2_get_Thumbnail, Fn_IChatMessageAttachment2_get_Thumbnail)(it, tmp.addr).check("ChatMessageAttachment.get_Thumbnail")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `thumbnail=`*(self: ChatMessageAttachment, value: RandomAccessStreamReference)  =
+proc `thumbnail=`*(self: ChatMessageAttachment, value: WinRtObject)  =
   ## Windows.ApplicationModel.Chat.ChatMessageAttachment.put_Thumbnail
   withIface(self.p, IID_IChatMessageAttachment2, "IChatMessageAttachment2", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -12001,7 +12067,7 @@ proc `originalFileName=`*(self: ChatMessageAttachment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IChatMessageAttachment2_put_OriginalFileName, Fn_IChatMessageAttachment2_put_OriginalFileName)(it, h0).check("ChatMessageAttachment.put_OriginalFileName")
 
-proc createChatMessageAttachment*(_: typedesc[ChatMessageAttachment], mimeType: string, dataStreamReference: RandomAccessStreamReference): ChatMessageAttachment  =
+proc createChatMessageAttachment*(_: typedesc[ChatMessageAttachment], mimeType: string, dataStreamReference: WinRtObject): ChatMessageAttachment  =
   ## Windows.ApplicationModel.Chat.ChatMessageAttachment.CreateChatMessageAttachment
   withStatics("Windows.ApplicationModel.Chat.ChatMessageAttachment", IID_IChatMessageAttachmentFactory, it):
     withHString(mimeType, h0):
@@ -12016,7 +12082,7 @@ proc markMessageAsBlockedAsync*(_: typedesc[ChatMessageBlocking], localChatMessa
   withStatics("Windows.ApplicationModel.Chat.ChatMessageBlocking", IID_IChatMessageBlockingStatic, it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageBlockingStatic_MarkMessageAsBlockedAsync, Fn_IChatMessageBlockingStatic_MarkMessageAsBlockedAsync)(it, h0, blocked, op.addr).check("ChatMessageBlocking.MarkMessageAsBlockedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageBlocking.MarkMessageAsBlockedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageBlocking.MarkMessageAsBlockedAsync")
 
 proc changeType*(self: ChatMessageChange): ChatMessageChangeType  =
   ## Windows.ApplicationModel.Chat.ChatMessageChange.get_ChangeType
@@ -12048,7 +12114,7 @@ proc readBatchAsync*(self: ChatMessageChangeReader): Future[seq[ChatMessageChang
   var op: pointer
   withIface(self.p, IID_IChatMessageChangeReader, "IChatMessageChangeReader", it):
     vcall(it, Slot_IChatMessageChangeReader_ReadBatchAsync, Fn_IChatMessageChangeReader_ReadBatchAsync)(it, op.addr).check("ChatMessageChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, "ChatMessageChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, alPlain, "ChatMessageChangeReader.ReadBatchAsync")
   result = toSeq[ChatMessageChange](coll, IID_IVectorView_1_ChatMessageChange)
   discard release(coll)
 
@@ -12086,7 +12152,7 @@ proc getTransportsAsync*(_: typedesc[ChatMessageManager]): Future[seq[ChatMessag
   var op: pointer
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManagerStatic, it):
     vcall(it, Slot_IChatMessageManagerStatic_GetTransportsAsync, Fn_IChatMessageManagerStatic_GetTransportsAsync)(it, op.addr).check("ChatMessageManager.GetTransportsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_111, IID_AsyncOperationCompletedHandler_1_IVectorView_111, "ChatMessageManager.GetTransportsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_111, IID_AsyncOperationCompletedHandler_1_IVectorView_111, alPlain, "ChatMessageManager.GetTransportsAsync")
   result = toSeq[ChatMessageTransport](coll, IID_IVectorView_1_ChatMessageTransport)
   discard release(coll)
 
@@ -12095,7 +12161,7 @@ proc requestStoreAsync*(_: typedesc[ChatMessageManager]): Future[ChatMessageStor
   var op: pointer
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManagerStatic, it):
     vcall(it, Slot_IChatMessageManagerStatic_RequestStoreAsync, Fn_IChatMessageManagerStatic_RequestStoreAsync)(it, op.addr).check("ChatMessageManager.RequestStoreAsync")
-  result = adopt[ChatMessageStore](await awaitObject(op, IID_IAsyncOperation_1_ChatMessageStore, IID_AsyncOperationCompletedHandler_1_ChatMessageStore, "ChatMessageManager.RequestStoreAsync"))
+  result = adopt[ChatMessageStore](await awaitObject(op, IID_IAsyncOperation_1_ChatMessageStore, IID_AsyncOperationCompletedHandler_1_ChatMessageStore, alPlain, "ChatMessageManager.RequestStoreAsync"))
 
 proc showComposeSmsMessageAsync*(_: typedesc[ChatMessageManager], message: ChatMessage) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageManager.ShowComposeSmsMessageAsync
@@ -12103,7 +12169,7 @@ proc showComposeSmsMessageAsync*(_: typedesc[ChatMessageManager], message: ChatM
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManagerStatic, it):
     withIface(message.p, IID_IChatMessage, "IChatMessage", p0):
       vcall(it, Slot_IChatMessageManagerStatic_ShowComposeSmsMessageAsync, Fn_IChatMessageManagerStatic_ShowComposeSmsMessageAsync)(it, p0, op.addr).check("ChatMessageManager.ShowComposeSmsMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageManager.ShowComposeSmsMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageManager.ShowComposeSmsMessageAsync")
 
 proc showSmsSettings*(_: typedesc[ChatMessageManager])  =
   ## Windows.ApplicationModel.Chat.ChatMessageManager.ShowSmsSettings
@@ -12115,14 +12181,14 @@ proc requestSyncManagerAsync*(_: typedesc[ChatMessageManager]): Future[ChatSyncM
   var op: pointer
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManagerStatics3, it):
     vcall(it, Slot_IChatMessageManagerStatics3_RequestSyncManagerAsync, Fn_IChatMessageManagerStatics3_RequestSyncManagerAsync)(it, op.addr).check("ChatMessageManager.RequestSyncManagerAsync")
-  result = adopt[ChatSyncManager](await awaitObject(op, IID_IAsyncOperation_1_ChatSyncManager, IID_AsyncOperationCompletedHandler_1_ChatSyncManager, "ChatMessageManager.RequestSyncManagerAsync"))
+  result = adopt[ChatSyncManager](await awaitObject(op, IID_IAsyncOperation_1_ChatSyncManager, IID_AsyncOperationCompletedHandler_1_ChatSyncManager, alPlain, "ChatMessageManager.RequestSyncManagerAsync"))
 
 proc registerTransportAsync*(_: typedesc[ChatMessageManager]): Future[string] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageManager.RegisterTransportAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManager2Statics, it):
     vcall(it, Slot_IChatMessageManager2Statics_RegisterTransportAsync, Fn_IChatMessageManager2Statics_RegisterTransportAsync)(it, op.addr).check("ChatMessageManager.RegisterTransportAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ChatMessageManager.RegisterTransportAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "ChatMessageManager.RegisterTransportAsync")
 
 proc getTransportAsync*(_: typedesc[ChatMessageManager], transportId: string): Future[ChatMessageTransport] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageManager.GetTransportAsync
@@ -12130,7 +12196,7 @@ proc getTransportAsync*(_: typedesc[ChatMessageManager], transportId: string): F
   withStatics("Windows.ApplicationModel.Chat.ChatMessageManager", IID_IChatMessageManager2Statics, it):
     withHString(transportId, h0):
       vcall(it, Slot_IChatMessageManager2Statics_GetTransportAsync, Fn_IChatMessageManager2Statics_GetTransportAsync)(it, h0, op.addr).check("ChatMessageManager.GetTransportAsync")
-  result = adopt[ChatMessageTransport](await awaitObject(op, IID_IAsyncOperation_1_ChatMessageTransport, IID_AsyncOperationCompletedHandler_1_ChatMessageTransport, "ChatMessageManager.GetTransportAsync"))
+  result = adopt[ChatMessageTransport](await awaitObject(op, IID_IAsyncOperation_1_ChatMessageTransport, IID_AsyncOperationCompletedHandler_1_ChatMessageTransport, alPlain, "ChatMessageManager.GetTransportAsync"))
 
 proc chatMessage*(self: ChatMessageNotificationTriggerDetails): ChatMessage  =
   ## Windows.ApplicationModel.Chat.ChatMessageNotificationTriggerDetails.get_ChatMessage
@@ -12172,7 +12238,7 @@ proc readBatchAsync*(self: ChatMessageReader): Future[seq[ChatMessage]] {.async.
   var op: pointer
   withIface(self.p, IID_IChatMessageReader, "IChatMessageReader", it):
     vcall(it, Slot_IChatMessageReader_ReadBatchAsync, Fn_IChatMessageReader_ReadBatchAsync)(it, op.addr).check("ChatMessageReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ChatMessageReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, alPlain, "ChatMessageReader.ReadBatchAsync")
   result = toSeq[ChatMessage](coll, IID_IVectorView_1_ChatMessage)
   discard release(coll)
 
@@ -12181,7 +12247,7 @@ proc readBatchAsync*(self: ChatMessageReader, count: int32): Future[seq[ChatMess
   var op: pointer
   withIface(self.p, IID_IChatMessageReader2, "IChatMessageReader2", it):
     vcall(it, Slot_IChatMessageReader2_ReadBatchAsync, Fn_IChatMessageReader2_ReadBatchAsync)(it, count, op.addr).check("ChatMessageReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ChatMessageReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, alPlain, "ChatMessageReader.ReadBatchAsync")
   result = toSeq[ChatMessage](coll, IID_IVectorView_1_ChatMessage)
   discard release(coll)
 
@@ -12198,7 +12264,7 @@ proc deleteMessageAsync*(self: ChatMessageStore, localMessageId: string) {.async
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withHString(localMessageId, h0):
       vcall(it, Slot_IChatMessageStore_DeleteMessageAsync, Fn_IChatMessageStore_DeleteMessageAsync)(it, h0, op.addr).check("ChatMessageStore.DeleteMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.DeleteMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.DeleteMessageAsync")
 
 proc downloadMessageAsync*(self: ChatMessageStore, localChatMessageId: string) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.DownloadMessageAsync
@@ -12206,7 +12272,7 @@ proc downloadMessageAsync*(self: ChatMessageStore, localChatMessageId: string) {
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore_DownloadMessageAsync, Fn_IChatMessageStore_DownloadMessageAsync)(it, h0, op.addr).check("ChatMessageStore.DownloadMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.DownloadMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.DownloadMessageAsync")
 
 proc getMessageAsync*(self: ChatMessageStore, localChatMessageId: string): Future[ChatMessage] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetMessageAsync
@@ -12214,7 +12280,7 @@ proc getMessageAsync*(self: ChatMessageStore, localChatMessageId: string): Futur
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore_GetMessageAsync, Fn_IChatMessageStore_GetMessageAsync)(it, h0, op.addr).check("ChatMessageStore.GetMessageAsync")
-  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, "ChatMessageStore.GetMessageAsync"))
+  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, alPlain, "ChatMessageStore.GetMessageAsync"))
 
 proc getMessageReader*(self: ChatMessageStore): ChatMessageReader  =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetMessageReader
@@ -12236,7 +12302,7 @@ proc markMessageReadAsync*(self: ChatMessageStore, localChatMessageId: string) {
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore_MarkMessageReadAsync, Fn_IChatMessageStore_MarkMessageReadAsync)(it, h0, op.addr).check("ChatMessageStore.MarkMessageReadAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.MarkMessageReadAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.MarkMessageReadAsync")
 
 proc retrySendMessageAsync*(self: ChatMessageStore, localChatMessageId: string) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.RetrySendMessageAsync
@@ -12244,7 +12310,7 @@ proc retrySendMessageAsync*(self: ChatMessageStore, localChatMessageId: string) 
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore_RetrySendMessageAsync, Fn_IChatMessageStore_RetrySendMessageAsync)(it, h0, op.addr).check("ChatMessageStore.RetrySendMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.RetrySendMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.RetrySendMessageAsync")
 
 proc sendMessageAsync*(self: ChatMessageStore, chatMessage: ChatMessage) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.SendMessageAsync
@@ -12252,7 +12318,7 @@ proc sendMessageAsync*(self: ChatMessageStore, chatMessage: ChatMessage) {.async
   withIface(self.p, IID_IChatMessageStore, "IChatMessageStore", it):
     withIface(chatMessage.p, IID_IChatMessage, "IChatMessage", p0):
       vcall(it, Slot_IChatMessageStore_SendMessageAsync, Fn_IChatMessageStore_SendMessageAsync)(it, p0, op.addr).check("ChatMessageStore.SendMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.SendMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.SendMessageAsync")
 
 proc validateMessage*(self: ChatMessageStore, chatMessage: ChatMessage): ChatMessageValidationResult  =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.ValidateMessage
@@ -12289,7 +12355,7 @@ proc forwardMessageAsync*(self: ChatMessageStore, localChatMessageId: string, ad
       let p1 = asIterableString(addresses, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
       defer: discard release(p1)
       vcall(it, Slot_IChatMessageStore2_ForwardMessageAsync, Fn_IChatMessageStore2_ForwardMessageAsync)(it, h0, p1, op.addr).check("ChatMessageStore.ForwardMessageAsync")
-  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, "ChatMessageStore.ForwardMessageAsync"))
+  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, alPlain, "ChatMessageStore.ForwardMessageAsync"))
 
 proc getConversationAsync*(self: ChatMessageStore, conversationId: string): Future[ChatConversation] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationAsync
@@ -12297,7 +12363,7 @@ proc getConversationAsync*(self: ChatMessageStore, conversationId: string): Futu
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withHString(conversationId, h0):
       vcall(it, Slot_IChatMessageStore2_GetConversationAsync, Fn_IChatMessageStore2_GetConversationAsync)(it, h0, op.addr).check("ChatMessageStore.GetConversationAsync")
-  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, "ChatMessageStore.GetConversationAsync"))
+  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, alPlain, "ChatMessageStore.GetConversationAsync"))
 
 proc getConversationAsync*(self: ChatMessageStore, conversationId: string, transportIds: seq[string]): Future[ChatConversation] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationAsync
@@ -12307,7 +12373,7 @@ proc getConversationAsync*(self: ChatMessageStore, conversationId: string, trans
       let p1 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
       defer: discard release(p1)
       vcall(it, Slot_IChatMessageStore2_GetConversationAsync2, Fn_IChatMessageStore2_GetConversationAsync2)(it, h0, p1, op.addr).check("ChatMessageStore.GetConversationAsync")
-  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, "ChatMessageStore.GetConversationAsync"))
+  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, alPlain, "ChatMessageStore.GetConversationAsync"))
 
 proc getConversationFromThreadingInfoAsync*(self: ChatMessageStore, threadingInfo: ChatConversationThreadingInfo): Future[ChatConversation] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationFromThreadingInfoAsync
@@ -12315,7 +12381,7 @@ proc getConversationFromThreadingInfoAsync*(self: ChatMessageStore, threadingInf
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withIface(threadingInfo.p, IID_IChatConversationThreadingInfo, "IChatConversationThreadingInfo", p0):
       vcall(it, Slot_IChatMessageStore2_GetConversationFromThreadingInfoAsync, Fn_IChatMessageStore2_GetConversationFromThreadingInfoAsync)(it, p0, op.addr).check("ChatMessageStore.GetConversationFromThreadingInfoAsync")
-  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, "ChatMessageStore.GetConversationFromThreadingInfoAsync"))
+  result = adopt[ChatConversation](await awaitObject(op, IID_IAsyncOperation_1_ChatConversation, IID_AsyncOperationCompletedHandler_1_ChatConversation, alPlain, "ChatMessageStore.GetConversationFromThreadingInfoAsync"))
 
 proc getConversationReader*(self: ChatMessageStore): ChatConversationReader  =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetConversationReader
@@ -12340,14 +12406,14 @@ proc getMessageByRemoteIdAsync*(self: ChatMessageStore, transportId: string, rem
     withHString(transportId, h0):
       withHString(remoteId, h1):
         vcall(it, Slot_IChatMessageStore2_GetMessageByRemoteIdAsync, Fn_IChatMessageStore2_GetMessageByRemoteIdAsync)(it, h0, h1, op.addr).check("ChatMessageStore.GetMessageByRemoteIdAsync")
-  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, "ChatMessageStore.GetMessageByRemoteIdAsync"))
+  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, alPlain, "ChatMessageStore.GetMessageByRemoteIdAsync"))
 
 proc getUnseenCountAsync*(self: ChatMessageStore): Future[int32] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetUnseenCountAsync
   var op: pointer
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     vcall(it, Slot_IChatMessageStore2_GetUnseenCountAsync, Fn_IChatMessageStore2_GetUnseenCountAsync)(it, op.addr).check("ChatMessageStore.GetUnseenCountAsync")
-  result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, "ChatMessageStore.GetUnseenCountAsync")
+  result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, alPlain, "ChatMessageStore.GetUnseenCountAsync")
 
 proc getUnseenCountAsync*(self: ChatMessageStore, transportIds: seq[string]): Future[int32] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetUnseenCountAsync
@@ -12356,14 +12422,14 @@ proc getUnseenCountAsync*(self: ChatMessageStore, transportIds: seq[string]): Fu
     let p0 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IChatMessageStore2_GetUnseenCountAsync2, Fn_IChatMessageStore2_GetUnseenCountAsync2)(it, p0, op.addr).check("ChatMessageStore.GetUnseenCountAsync")
-  result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, "ChatMessageStore.GetUnseenCountAsync")
+  result = await awaitValue[int32](op, IID_IAsyncOperation_1_I4, IID_AsyncOperationCompletedHandler_1_I4, alPlain, "ChatMessageStore.GetUnseenCountAsync")
 
 proc markAsSeenAsync*(self: ChatMessageStore) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.MarkAsSeenAsync
   var op: pointer
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     vcall(it, Slot_IChatMessageStore2_MarkAsSeenAsync, Fn_IChatMessageStore2_MarkAsSeenAsync)(it, op.addr).check("ChatMessageStore.MarkAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.MarkAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.MarkAsSeenAsync")
 
 proc markAsSeenAsync*(self: ChatMessageStore, transportIds: seq[string]) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.MarkAsSeenAsync
@@ -12372,7 +12438,7 @@ proc markAsSeenAsync*(self: ChatMessageStore, transportIds: seq[string]) {.async
     let p0 = asIterableString(transportIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IChatMessageStore2_MarkAsSeenAsync2, Fn_IChatMessageStore2_MarkAsSeenAsync2)(it, p0, op.addr).check("ChatMessageStore.MarkAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.MarkAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.MarkAsSeenAsync")
 
 proc getSearchReader*(self: ChatMessageStore, value: ChatQueryOptions): ChatSearchReader  =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.GetSearchReader
@@ -12388,7 +12454,7 @@ proc saveMessageAsync*(self: ChatMessageStore, chatMessage: ChatMessage) {.async
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withIface(chatMessage.p, IID_IChatMessage, "IChatMessage", p0):
       vcall(it, Slot_IChatMessageStore2_SaveMessageAsync, Fn_IChatMessageStore2_SaveMessageAsync)(it, p0, op.addr).check("ChatMessageStore.SaveMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageStore.SaveMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageStore.SaveMessageAsync")
 
 proc tryCancelDownloadMessageAsync*(self: ChatMessageStore, localChatMessageId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.TryCancelDownloadMessageAsync
@@ -12396,7 +12462,7 @@ proc tryCancelDownloadMessageAsync*(self: ChatMessageStore, localChatMessageId: 
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore2_TryCancelDownloadMessageAsync, Fn_IChatMessageStore2_TryCancelDownloadMessageAsync)(it, h0, op.addr).check("ChatMessageStore.TryCancelDownloadMessageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ChatMessageStore.TryCancelDownloadMessageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ChatMessageStore.TryCancelDownloadMessageAsync")
 
 proc tryCancelSendMessageAsync*(self: ChatMessageStore, localChatMessageId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Chat.ChatMessageStore.TryCancelSendMessageAsync
@@ -12404,7 +12470,7 @@ proc tryCancelSendMessageAsync*(self: ChatMessageStore, localChatMessageId: stri
   withIface(self.p, IID_IChatMessageStore2, "IChatMessageStore2", it):
     withHString(localChatMessageId, h0):
       vcall(it, Slot_IChatMessageStore2_TryCancelSendMessageAsync, Fn_IChatMessageStore2_TryCancelSendMessageAsync)(it, h0, op.addr).check("ChatMessageStore.TryCancelSendMessageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ChatMessageStore.TryCancelSendMessageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ChatMessageStore.TryCancelSendMessageAsync")
 
 proc onStoreChanged*(self: ChatMessageStore,
     handler: proc(sender: pointer, args: ChatMessageStoreChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -12431,7 +12497,7 @@ proc getMessageBySyncIdAsync*(self: ChatMessageStore, syncId: string): Future[Ch
   withIface(self.p, IID_IChatMessageStore3, "IChatMessageStore3", it):
     withHString(syncId, h0):
       vcall(it, Slot_IChatMessageStore3_GetMessageBySyncIdAsync, Fn_IChatMessageStore3_GetMessageBySyncIdAsync)(it, h0, op.addr).check("ChatMessageStore.GetMessageBySyncIdAsync")
-  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, "ChatMessageStore.GetMessageBySyncIdAsync"))
+  result = adopt[ChatMessage](await awaitObject(op, IID_IAsyncOperation_1_ChatMessage, IID_AsyncOperationCompletedHandler_1_ChatMessage, alPlain, "ChatMessageStore.GetMessageBySyncIdAsync"))
 
 proc id*(self: ChatMessageStoreChangedEventArgs): string  =
   ## Windows.ApplicationModel.Chat.ChatMessageStoreChangedEventArgs.get_Id
@@ -12480,7 +12546,7 @@ proc requestSetAsNotificationProviderAsync*(self: ChatMessageTransport) {.async.
   var op: pointer
   withIface(self.p, IID_IChatMessageTransport, "IChatMessageTransport", it):
     vcall(it, Slot_IChatMessageTransport_RequestSetAsNotificationProviderAsync, Fn_IChatMessageTransport_RequestSetAsNotificationProviderAsync)(it, op.addr).check("ChatMessageTransport.RequestSetAsNotificationProviderAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatMessageTransport.RequestSetAsNotificationProviderAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatMessageTransport.RequestSetAsNotificationProviderAsync")
 
 proc configuration*(self: ChatMessageTransport): ChatMessageTransportConfiguration  =
   ## Windows.ApplicationModel.Chat.ChatMessageTransport.get_Configuration
@@ -12529,7 +12595,7 @@ proc extendedProperties*(self: ChatMessageTransportConfiguration): Table[string,
   withIface(self.p, IID_IChatMessageTransportConfiguration, "IChatMessageTransportConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IChatMessageTransportConfiguration_get_ExtendedProperties, Fn_IChatMessageTransportConfiguration_get_ExtendedProperties)(it, tmp.addr).check("ChatMessageTransportConfiguration.get_ExtendedProperties")
-    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc maxPartCount*(self: ChatMessageValidationResult): Option[uint32]  =
@@ -12667,7 +12733,7 @@ proc readBatchAsync*(self: ChatSearchReader): Future[seq[WinRtObject]] {.async.}
   var op: pointer
   withIface(self.p, IID_IChatSearchReader, "IChatSearchReader", it):
     vcall(it, Slot_IChatSearchReader_ReadBatchAsync, Fn_IChatSearchReader_ReadBatchAsync)(it, op.addr).check("ChatSearchReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "ChatSearchReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, alPlain, "ChatSearchReader.ReadBatchAsync")
   result = toSeq[WinRtObject](coll, IID_IVectorView_1_IChatItem)
   discard release(coll)
 
@@ -12676,7 +12742,7 @@ proc readBatchAsync*(self: ChatSearchReader, count: int32): Future[seq[WinRtObje
   var op: pointer
   withIface(self.p, IID_IChatSearchReader, "IChatSearchReader", it):
     vcall(it, Slot_IChatSearchReader_ReadBatchAsync2, Fn_IChatSearchReader_ReadBatchAsync2)(it, count, op.addr).check("ChatSearchReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "ChatSearchReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, alPlain, "ChatSearchReader.ReadBatchAsync")
   result = toSeq[WinRtObject](coll, IID_IVectorView_1_IChatItem)
   discard release(coll)
 
@@ -12717,14 +12783,14 @@ proc associateAccountAsync*(self: ChatSyncManager, webAccount: WebAccount) {.asy
   withIface(self.p, IID_IChatSyncManager, "IChatSyncManager", it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IChatSyncManager_AssociateAccountAsync, Fn_IChatSyncManager_AssociateAccountAsync)(it, p0, op.addr).check("ChatSyncManager.AssociateAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatSyncManager.AssociateAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatSyncManager.AssociateAccountAsync")
 
 proc unassociateAccountAsync*(self: ChatSyncManager) {.async.} =
   ## Windows.ApplicationModel.Chat.ChatSyncManager.UnassociateAccountAsync
   var op: pointer
   withIface(self.p, IID_IChatSyncManager, "IChatSyncManager", it):
     vcall(it, Slot_IChatSyncManager_UnassociateAccountAsync, Fn_IChatSyncManager_UnassociateAccountAsync)(it, op.addr).check("ChatSyncManager.UnassociateAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatSyncManager.UnassociateAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatSyncManager.UnassociateAccountAsync")
 
 proc isAccountAssociated*(self: ChatSyncManager, webAccount: WebAccount): bool  =
   ## Windows.ApplicationModel.Chat.ChatSyncManager.IsAccountAssociated
@@ -12745,7 +12811,7 @@ proc setConfigurationAsync*(self: ChatSyncManager, configuration: ChatSyncConfig
   withIface(self.p, IID_IChatSyncManager, "IChatSyncManager", it):
     withIface(configuration.p, IID_IChatSyncConfiguration, "IChatSyncConfiguration", p0):
       vcall(it, Slot_IChatSyncManager_SetConfigurationAsync, Fn_IChatSyncManager_SetConfigurationAsync)(it, p0, op.addr).check("ChatSyncManager.SetConfigurationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ChatSyncManager.SetConfigurationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ChatSyncManager.SetConfigurationAsync")
 
 proc transportId*(self: RcsEndUserMessage): string  =
   ## Windows.ApplicationModel.Chat.RcsEndUserMessage.get_TransportId
@@ -12789,7 +12855,7 @@ proc sendResponseAsync*(self: RcsEndUserMessage, action: RcsEndUserMessageAction
   withIface(self.p, IID_IRcsEndUserMessage, "IRcsEndUserMessage", it):
     withIface(action.p, IID_IRcsEndUserMessageAction, "IRcsEndUserMessageAction", p0):
       vcall(it, Slot_IRcsEndUserMessage_SendResponseAsync, Fn_IRcsEndUserMessage_SendResponseAsync)(it, p0, op.addr).check("RcsEndUserMessage.SendResponseAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "RcsEndUserMessage.SendResponseAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "RcsEndUserMessage.SendResponseAsync")
 
 proc sendResponseWithPinAsync*(self: RcsEndUserMessage, action: RcsEndUserMessageAction, pin: string) {.async.} =
   ## Windows.ApplicationModel.Chat.RcsEndUserMessage.SendResponseWithPinAsync
@@ -12798,7 +12864,7 @@ proc sendResponseWithPinAsync*(self: RcsEndUserMessage, action: RcsEndUserMessag
     withIface(action.p, IID_IRcsEndUserMessageAction, "IRcsEndUserMessageAction", p0):
       withHString(pin, h1):
         vcall(it, Slot_IRcsEndUserMessage_SendResponseWithPinAsync, Fn_IRcsEndUserMessage_SendResponseWithPinAsync)(it, p0, h1, op.addr).check("RcsEndUserMessage.SendResponseWithPinAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "RcsEndUserMessage.SendResponseWithPinAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "RcsEndUserMessage.SendResponseWithPinAsync")
 
 proc label*(self: RcsEndUserMessageAction): string  =
   ## Windows.ApplicationModel.Chat.RcsEndUserMessageAction.get_Label
@@ -12885,7 +12951,7 @@ proc getTransportsAsync*(_: typedesc[RcsManager]): Future[seq[RcsTransport]] {.a
   var op: pointer
   withStatics("Windows.ApplicationModel.Chat.RcsManager", IID_IRcsManagerStatics, it):
     vcall(it, Slot_IRcsManagerStatics_GetTransportsAsync, Fn_IRcsManagerStatics_GetTransportsAsync)(it, op.addr).check("RcsManager.GetTransportsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_114, IID_AsyncOperationCompletedHandler_1_IVectorView_114, "RcsManager.GetTransportsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_114, IID_AsyncOperationCompletedHandler_1_IVectorView_114, alPlain, "RcsManager.GetTransportsAsync")
   result = toSeq[RcsTransport](coll, IID_IVectorView_1_RcsTransport)
   discard release(coll)
 
@@ -12895,7 +12961,7 @@ proc getTransportAsync*(_: typedesc[RcsManager], transportId: string): Future[Rc
   withStatics("Windows.ApplicationModel.Chat.RcsManager", IID_IRcsManagerStatics, it):
     withHString(transportId, h0):
       vcall(it, Slot_IRcsManagerStatics_GetTransportAsync, Fn_IRcsManagerStatics_GetTransportAsync)(it, h0, op.addr).check("RcsManager.GetTransportAsync")
-  result = adopt[RcsTransport](await awaitObject(op, IID_IAsyncOperation_1_RcsTransport, IID_AsyncOperationCompletedHandler_1_RcsTransport, "RcsManager.GetTransportAsync"))
+  result = adopt[RcsTransport](await awaitObject(op, IID_IAsyncOperation_1_RcsTransport, IID_AsyncOperationCompletedHandler_1_RcsTransport, alPlain, "RcsManager.GetTransportAsync"))
 
 proc leaveConversationAsync*(_: typedesc[RcsManager], conversation: ChatConversation) {.async.} =
   ## Windows.ApplicationModel.Chat.RcsManager.LeaveConversationAsync
@@ -12903,7 +12969,7 @@ proc leaveConversationAsync*(_: typedesc[RcsManager], conversation: ChatConversa
   withStatics("Windows.ApplicationModel.Chat.RcsManager", IID_IRcsManagerStatics, it):
     withIface(conversation.p, IID_IChatConversation, "IChatConversation", p0):
       vcall(it, Slot_IRcsManagerStatics_LeaveConversationAsync, Fn_IRcsManagerStatics_LeaveConversationAsync)(it, p0, op.addr).check("RcsManager.LeaveConversationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "RcsManager.LeaveConversationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "RcsManager.LeaveConversationAsync")
 
 proc serviceKind*(self: RcsServiceKindSupportedChangedEventArgs): RcsServiceKind  =
   ## Windows.ApplicationModel.Chat.RcsServiceKindSupportedChangedEventArgs.get_ServiceKind
@@ -12917,7 +12983,7 @@ proc extendedProperties*(self: RcsTransport): Table[string, WinRtObject]  =
   withIface(self.p, IID_IRcsTransport, "IRcsTransport", it):
     var tmp: pointer
     vcall(it, Slot_IRcsTransport_get_ExtendedProperties, Fn_IRcsTransport_get_ExtendedProperties)(it, tmp.addr).check("RcsTransport.get_ExtendedProperties")
-    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc isActive*(self: RcsTransport): bool  =
@@ -13057,7 +13123,7 @@ proc isBlockedNumberAsync*(_: typedesc[CommunicationBlockingAccessManager], numb
   withStatics("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager", IID_ICommunicationBlockingAccessManagerStatics, it):
     withHString(number, h0):
       vcall(it, Slot_ICommunicationBlockingAccessManagerStatics_IsBlockedNumberAsync, Fn_ICommunicationBlockingAccessManagerStatics_IsBlockedNumberAsync)(it, h0, op.addr).check("CommunicationBlockingAccessManager.IsBlockedNumberAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CommunicationBlockingAccessManager.IsBlockedNumberAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "CommunicationBlockingAccessManager.IsBlockedNumberAsync")
 
 proc showBlockNumbersUI*(_: typedesc[CommunicationBlockingAccessManager], phoneNumbers: seq[string]): bool  =
   ## Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager.ShowBlockNumbersUI
@@ -13092,7 +13158,7 @@ proc requestSetAsActiveBlockingAppAsync*(_: typedesc[CommunicationBlockingAppMan
   var op: pointer
   withStatics("Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager", IID_ICommunicationBlockingAppManagerStatics2, it):
     vcall(it, Slot_ICommunicationBlockingAppManagerStatics2_RequestSetAsActiveBlockingAppAsync, Fn_ICommunicationBlockingAppManagerStatics2_RequestSetAsActiveBlockingAppAsync)(it, op.addr).check("CommunicationBlockingAppManager.RequestSetAsActiveBlockingAppAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CommunicationBlockingAppManager.RequestSetAsActiveBlockingAppAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "CommunicationBlockingAppManager.RequestSetAsActiveBlockingAppAsync")
 
 proc isCurrentAppActiveBlockingApp*(_: typedesc[CommunicationBlockingAppManager]): bool  =
   ## Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager.get_IsCurrentAppActiveBlockingApp
@@ -13112,7 +13178,7 @@ proc findRawContactsAsync*(self: AggregateContactManager, contact: Contact): Fut
   withIface(self.p, IID_IAggregateContactManager, "IAggregateContactManager", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IAggregateContactManager_FindRawContactsAsync, Fn_IAggregateContactManager_FindRawContactsAsync)(it, p0, op.addr).check("AggregateContactManager.FindRawContactsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, "AggregateContactManager.FindRawContactsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, alPlain, "AggregateContactManager.FindRawContactsAsync")
   result = toSeq[Contact](coll, IID_IVectorView_1_Contact)
   discard release(coll)
 
@@ -13123,7 +13189,7 @@ proc tryLinkContactsAsync*(self: AggregateContactManager, primaryContact: Contac
     withIface(primaryContact.p, IID_IContact, "IContact", p0):
       withIface(secondaryContact.p, IID_IContact, "IContact", p1):
         vcall(it, Slot_IAggregateContactManager_TryLinkContactsAsync, Fn_IAggregateContactManager_TryLinkContactsAsync)(it, p0, p1, op.addr).check("AggregateContactManager.TryLinkContactsAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "AggregateContactManager.TryLinkContactsAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "AggregateContactManager.TryLinkContactsAsync"))
 
 proc unlinkRawContactAsync*(self: AggregateContactManager, contact: Contact) {.async.} =
   ## Windows.ApplicationModel.Contacts.AggregateContactManager.UnlinkRawContactAsync
@@ -13131,7 +13197,7 @@ proc unlinkRawContactAsync*(self: AggregateContactManager, contact: Contact) {.a
   withIface(self.p, IID_IAggregateContactManager, "IAggregateContactManager", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IAggregateContactManager_UnlinkRawContactAsync, Fn_IAggregateContactManager_UnlinkRawContactAsync)(it, p0, op.addr).check("AggregateContactManager.UnlinkRawContactAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AggregateContactManager.UnlinkRawContactAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AggregateContactManager.UnlinkRawContactAsync")
 
 proc trySetPreferredSourceForPictureAsync*(self: AggregateContactManager, aggregateContact: Contact, rawContact: Contact): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.AggregateContactManager.TrySetPreferredSourceForPictureAsync
@@ -13140,7 +13206,7 @@ proc trySetPreferredSourceForPictureAsync*(self: AggregateContactManager, aggreg
     withIface(aggregateContact.p, IID_IContact, "IContact", p0):
       withIface(rawContact.p, IID_IContact, "IContact", p1):
         vcall(it, Slot_IAggregateContactManager_TrySetPreferredSourceForPictureAsync, Fn_IAggregateContactManager_TrySetPreferredSourceForPictureAsync)(it, p0, p1, op.addr).check("AggregateContactManager.TrySetPreferredSourceForPictureAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AggregateContactManager.TrySetPreferredSourceForPictureAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AggregateContactManager.TrySetPreferredSourceForPictureAsync")
 
 proc setRemoteIdentificationInformationAsync*(self: AggregateContactManager, contactListId: string, remoteSourceId: string, accountId: string) {.async.} =
   ## Windows.ApplicationModel.Contacts.AggregateContactManager.SetRemoteIdentificationInformationAsync
@@ -13150,7 +13216,7 @@ proc setRemoteIdentificationInformationAsync*(self: AggregateContactManager, con
       withHString(remoteSourceId, h1):
         withHString(accountId, h2):
           vcall(it, Slot_IAggregateContactManager2_SetRemoteIdentificationInformationAsync, Fn_IAggregateContactManager2_SetRemoteIdentificationInformationAsync)(it, h0, h1, h2, op.addr).check("AggregateContactManager.SetRemoteIdentificationInformationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AggregateContactManager.SetRemoteIdentificationInformationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AggregateContactManager.SetRemoteIdentificationInformationAsync")
 
 proc newContact*(): Contact =
   ## Activate a `Windows.ApplicationModel.Contacts.Contact`.
@@ -13169,14 +13235,14 @@ proc `name=`*(self: Contact, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IContact_put_Name, Fn_IContact_put_Name)(it, h0).check("Contact.put_Name")
 
-proc thumbnail*(self: Contact): RandomAccessStreamReference  =
+proc thumbnail*(self: Contact): WinRtObject  =
   ## Windows.ApplicationModel.Contacts.Contact.get_Thumbnail
   withIface(self.p, IID_IContact, "IContact", it):
     var tmp: pointer
     vcall(it, Slot_IContact_get_Thumbnail, Fn_IContact_get_Thumbnail)(it, tmp.addr).check("Contact.get_Thumbnail")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `thumbnail=`*(self: Contact, value: RandomAccessStreamReference)  =
+proc `thumbnail=`*(self: Contact, value: WinRtObject)  =
   ## Windows.ApplicationModel.Contacts.Contact.put_Thumbnail
   withIface(self.p, IID_IContact, "IContact", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -13288,12 +13354,12 @@ proc websites*(self: Contact): seq[ContactWebsite]  =
     result = toSeq[ContactWebsite](tmp, IID_IVector_1_ContactWebsite)
     release(tmp)
 
-proc providerProperties*(self: Contact): ApplicationDataContainerSettings  =
+proc providerProperties*(self: Contact): WinRtObject  =
   ## Windows.ApplicationModel.Contacts.Contact.get_ProviderProperties
   withIface(self.p, IID_IContact2, "IContact2", it):
     var tmp: pointer
     vcall(it, Slot_IContact2_get_ProviderProperties, Fn_IContact2_get_ProviderProperties)(it, tmp.addr).check("Contact.get_ProviderProperties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc firstName*(self: Contact): string  =
   ## Windows.ApplicationModel.Contacts.Contact.get_FirstName
@@ -13466,28 +13532,28 @@ proc isDisplayPictureManuallySet*(self: Contact): bool  =
     vcall(it, Slot_IContact3_get_IsDisplayPictureManuallySet, Fn_IContact3_get_IsDisplayPictureManuallySet)(it, tmp.addr).check("Contact.get_IsDisplayPictureManuallySet")
     result = tmp
 
-proc largeDisplayPicture*(self: Contact): RandomAccessStreamReference  =
+proc largeDisplayPicture*(self: Contact): WinRtObject  =
   ## Windows.ApplicationModel.Contacts.Contact.get_LargeDisplayPicture
   withIface(self.p, IID_IContact3, "IContact3", it):
     var tmp: pointer
     vcall(it, Slot_IContact3_get_LargeDisplayPicture, Fn_IContact3_get_LargeDisplayPicture)(it, tmp.addr).check("Contact.get_LargeDisplayPicture")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc smallDisplayPicture*(self: Contact): RandomAccessStreamReference  =
+proc smallDisplayPicture*(self: Contact): WinRtObject  =
   ## Windows.ApplicationModel.Contacts.Contact.get_SmallDisplayPicture
   withIface(self.p, IID_IContact3, "IContact3", it):
     var tmp: pointer
     vcall(it, Slot_IContact3_get_SmallDisplayPicture, Fn_IContact3_get_SmallDisplayPicture)(it, tmp.addr).check("Contact.get_SmallDisplayPicture")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc sourceDisplayPicture*(self: Contact): RandomAccessStreamReference  =
+proc sourceDisplayPicture*(self: Contact): WinRtObject  =
   ## Windows.ApplicationModel.Contacts.Contact.get_SourceDisplayPicture
   withIface(self.p, IID_IContact3, "IContact3", it):
     var tmp: pointer
     vcall(it, Slot_IContact3_get_SourceDisplayPicture, Fn_IContact3_get_SourceDisplayPicture)(it, tmp.addr).check("Contact.get_SourceDisplayPicture")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `sourceDisplayPicture=`*(self: Contact, value: RandomAccessStreamReference)  =
+proc `sourceDisplayPicture=`*(self: Contact, value: WinRtObject)  =
   ## Windows.ApplicationModel.Contacts.Contact.put_SourceDisplayPicture
   withIface(self.p, IID_IContact3, "IContact3", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -13756,7 +13822,7 @@ proc deleteAsync*(self: ContactAnnotationList) {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     vcall(it, Slot_IContactAnnotationList_DeleteAsync, Fn_IContactAnnotationList_DeleteAsync)(it, op.addr).check("ContactAnnotationList.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactAnnotationList.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactAnnotationList.DeleteAsync")
 
 proc trySaveAnnotationAsync*(self: ContactAnnotationList, annotation: ContactAnnotation): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationList.TrySaveAnnotationAsync
@@ -13764,7 +13830,7 @@ proc trySaveAnnotationAsync*(self: ContactAnnotationList, annotation: ContactAnn
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     withIface(annotation.p, IID_IContactAnnotation, "IContactAnnotation", p0):
       vcall(it, Slot_IContactAnnotationList_TrySaveAnnotationAsync, Fn_IContactAnnotationList_TrySaveAnnotationAsync)(it, p0, op.addr).check("ContactAnnotationList.TrySaveAnnotationAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactAnnotationList.TrySaveAnnotationAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactAnnotationList.TrySaveAnnotationAsync")
 
 proc getAnnotationAsync*(self: ContactAnnotationList, annotationId: string): Future[ContactAnnotation] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationList.GetAnnotationAsync
@@ -13772,7 +13838,7 @@ proc getAnnotationAsync*(self: ContactAnnotationList, annotationId: string): Fut
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     withHString(annotationId, h0):
       vcall(it, Slot_IContactAnnotationList_GetAnnotationAsync, Fn_IContactAnnotationList_GetAnnotationAsync)(it, h0, op.addr).check("ContactAnnotationList.GetAnnotationAsync")
-  result = adopt[ContactAnnotation](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotation, IID_AsyncOperationCompletedHandler_1_ContactAnnotation, "ContactAnnotationList.GetAnnotationAsync"))
+  result = adopt[ContactAnnotation](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotation, IID_AsyncOperationCompletedHandler_1_ContactAnnotation, alPlain, "ContactAnnotationList.GetAnnotationAsync"))
 
 proc findAnnotationsByRemoteIdAsync*(self: ContactAnnotationList, remoteId: string): Future[seq[ContactAnnotation]] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationList.FindAnnotationsByRemoteIdAsync
@@ -13780,7 +13846,7 @@ proc findAnnotationsByRemoteIdAsync*(self: ContactAnnotationList, remoteId: stri
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     withHString(remoteId, h0):
       vcall(it, Slot_IContactAnnotationList_FindAnnotationsByRemoteIdAsync, Fn_IContactAnnotationList_FindAnnotationsByRemoteIdAsync)(it, h0, op.addr).check("ContactAnnotationList.FindAnnotationsByRemoteIdAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "ContactAnnotationList.FindAnnotationsByRemoteIdAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, alPlain, "ContactAnnotationList.FindAnnotationsByRemoteIdAsync")
   result = toSeq[ContactAnnotation](coll, IID_IVectorView_1_ContactAnnotation)
   discard release(coll)
 
@@ -13789,7 +13855,7 @@ proc findAnnotationsAsync*(self: ContactAnnotationList): Future[seq[ContactAnnot
   var op: pointer
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     vcall(it, Slot_IContactAnnotationList_FindAnnotationsAsync, Fn_IContactAnnotationList_FindAnnotationsAsync)(it, op.addr).check("ContactAnnotationList.FindAnnotationsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "ContactAnnotationList.FindAnnotationsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, alPlain, "ContactAnnotationList.FindAnnotationsAsync")
   result = toSeq[ContactAnnotation](coll, IID_IVectorView_1_ContactAnnotation)
   discard release(coll)
 
@@ -13799,7 +13865,7 @@ proc deleteAnnotationAsync*(self: ContactAnnotationList, annotation: ContactAnno
   withIface(self.p, IID_IContactAnnotationList, "IContactAnnotationList", it):
     withIface(annotation.p, IID_IContactAnnotation, "IContactAnnotation", p0):
       vcall(it, Slot_IContactAnnotationList_DeleteAnnotationAsync, Fn_IContactAnnotationList_DeleteAnnotationAsync)(it, p0, op.addr).check("ContactAnnotationList.DeleteAnnotationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactAnnotationList.DeleteAnnotationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactAnnotationList.DeleteAnnotationAsync")
 
 proc findContactIdsByEmailAsync*(self: ContactAnnotationStore, emailAddress: string): Future[seq[string]] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationStore.FindContactIdsByEmailAsync
@@ -13807,7 +13873,7 @@ proc findContactIdsByEmailAsync*(self: ContactAnnotationStore, emailAddress: str
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withHString(emailAddress, h0):
       vcall(it, Slot_IContactAnnotationStore_FindContactIdsByEmailAsync, Fn_IContactAnnotationStore_FindContactIdsByEmailAsync)(it, h0, op.addr).check("ContactAnnotationStore.FindContactIdsByEmailAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "ContactAnnotationStore.FindContactIdsByEmailAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ContactAnnotationStore.FindContactIdsByEmailAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -13817,7 +13883,7 @@ proc findContactIdsByPhoneNumberAsync*(self: ContactAnnotationStore, phoneNumber
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withHString(phoneNumber, h0):
       vcall(it, Slot_IContactAnnotationStore_FindContactIdsByPhoneNumberAsync, Fn_IContactAnnotationStore_FindContactIdsByPhoneNumberAsync)(it, h0, op.addr).check("ContactAnnotationStore.FindContactIdsByPhoneNumberAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "ContactAnnotationStore.FindContactIdsByPhoneNumberAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ContactAnnotationStore.FindContactIdsByPhoneNumberAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -13827,7 +13893,7 @@ proc findAnnotationsForContactAsync*(self: ContactAnnotationStore, contact: Cont
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactAnnotationStore_FindAnnotationsForContactAsync, Fn_IContactAnnotationStore_FindAnnotationsForContactAsync)(it, p0, op.addr).check("ContactAnnotationStore.FindAnnotationsForContactAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "ContactAnnotationStore.FindAnnotationsForContactAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, alPlain, "ContactAnnotationStore.FindAnnotationsForContactAsync")
   result = toSeq[ContactAnnotation](coll, IID_IVectorView_1_ContactAnnotation)
   discard release(coll)
 
@@ -13837,14 +13903,14 @@ proc disableAnnotationAsync*(self: ContactAnnotationStore, annotation: ContactAn
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withIface(annotation.p, IID_IContactAnnotation, "IContactAnnotation", p0):
       vcall(it, Slot_IContactAnnotationStore_DisableAnnotationAsync, Fn_IContactAnnotationStore_DisableAnnotationAsync)(it, p0, op.addr).check("ContactAnnotationStore.DisableAnnotationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactAnnotationStore.DisableAnnotationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactAnnotationStore.DisableAnnotationAsync")
 
 proc createAnnotationListAsync*(self: ContactAnnotationStore): Future[ContactAnnotationList] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationStore.CreateAnnotationListAsync
   var op: pointer
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     vcall(it, Slot_IContactAnnotationStore_CreateAnnotationListAsync, Fn_IContactAnnotationStore_CreateAnnotationListAsync)(it, op.addr).check("ContactAnnotationStore.CreateAnnotationListAsync")
-  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, "ContactAnnotationStore.CreateAnnotationListAsync"))
+  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, alPlain, "ContactAnnotationStore.CreateAnnotationListAsync"))
 
 proc createAnnotationListAsync*(self: ContactAnnotationStore, userDataAccountId: string): Future[ContactAnnotationList] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationStore.CreateAnnotationListAsync
@@ -13852,7 +13918,7 @@ proc createAnnotationListAsync*(self: ContactAnnotationStore, userDataAccountId:
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withHString(userDataAccountId, h0):
       vcall(it, Slot_IContactAnnotationStore_CreateAnnotationListAsync2, Fn_IContactAnnotationStore_CreateAnnotationListAsync2)(it, h0, op.addr).check("ContactAnnotationStore.CreateAnnotationListAsync")
-  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, "ContactAnnotationStore.CreateAnnotationListAsync"))
+  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, alPlain, "ContactAnnotationStore.CreateAnnotationListAsync"))
 
 proc getAnnotationListAsync*(self: ContactAnnotationStore, annotationListId: string): Future[ContactAnnotationList] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationStore.GetAnnotationListAsync
@@ -13860,14 +13926,14 @@ proc getAnnotationListAsync*(self: ContactAnnotationStore, annotationListId: str
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     withHString(annotationListId, h0):
       vcall(it, Slot_IContactAnnotationStore_GetAnnotationListAsync, Fn_IContactAnnotationStore_GetAnnotationListAsync)(it, h0, op.addr).check("ContactAnnotationStore.GetAnnotationListAsync")
-  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, "ContactAnnotationStore.GetAnnotationListAsync"))
+  result = adopt[ContactAnnotationList](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationList, IID_AsyncOperationCompletedHandler_1_ContactAnnotationList, alPlain, "ContactAnnotationStore.GetAnnotationListAsync"))
 
 proc findAnnotationListsAsync*(self: ContactAnnotationStore): Future[seq[ContactAnnotationList]] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactAnnotationStore.FindAnnotationListsAsync
   var op: pointer
   withIface(self.p, IID_IContactAnnotationStore, "IContactAnnotationStore", it):
     vcall(it, Slot_IContactAnnotationStore_FindAnnotationListsAsync, Fn_IContactAnnotationStore_FindAnnotationListsAsync)(it, op.addr).check("ContactAnnotationStore.FindAnnotationListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "ContactAnnotationStore.FindAnnotationListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, alPlain, "ContactAnnotationStore.FindAnnotationListsAsync")
   result = toSeq[ContactAnnotationList](coll, IID_IVectorView_1_ContactAnnotationList)
   discard release(coll)
 
@@ -13877,7 +13943,7 @@ proc findAnnotationsForContactListAsync*(self: ContactAnnotationStore, contactLi
   withIface(self.p, IID_IContactAnnotationStore2, "IContactAnnotationStore2", it):
     withHString(contactListId, h0):
       vcall(it, Slot_IContactAnnotationStore2_FindAnnotationsForContactListAsync, Fn_IContactAnnotationStore2_FindAnnotationsForContactListAsync)(it, h0, op.addr).check("ContactAnnotationStore.FindAnnotationsForContactListAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "ContactAnnotationStore.FindAnnotationsForContactListAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, alPlain, "ContactAnnotationStore.FindAnnotationsForContactListAsync")
   result = toSeq[ContactAnnotation](coll, IID_IVectorView_1_ContactAnnotation)
   discard release(coll)
 
@@ -13973,7 +14039,7 @@ proc readBatchAsync*(self: ContactChangeReader): Future[seq[ContactChange]] {.as
   var op: pointer
   withIface(self.p, IID_IContactChangeReader, "IContactChangeReader", it):
     vcall(it, Slot_IContactChangeReader_ReadBatchAsync, Fn_IContactChangeReader_ReadBatchAsync)(it, op.addr).check("ContactChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_118, IID_AsyncOperationCompletedHandler_1_IVectorView_118, "ContactChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_118, IID_AsyncOperationCompletedHandler_1_IVectorView_118, alPlain, "ContactChangeReader.ReadBatchAsync")
   result = toSeq[ContactChange](coll, IID_IVectorView_1_ContactChange)
   discard release(coll)
 
@@ -14304,12 +14370,12 @@ proc name*(self: ContactInformation): string  =
     vcall(it, Slot_IContactInformation_get_Name, Fn_IContactInformation_get_Name)(it, tmp.addr).check("ContactInformation.get_Name")
     result = takeString(tmp)
 
-proc getThumbnailAsync*(self: ContactInformation): Future[StorageItemThumbnail] {.async.} =
+proc getThumbnailAsync*(self: ContactInformation): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IID_IContactInformation, "IContactInformation", it):
     vcall(it, Slot_IContactInformation_GetThumbnailAsync, Fn_IContactInformation_GetThumbnailAsync)(it, op.addr).check("ContactInformation.GetThumbnailAsync")
-  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "ContactInformation.GetThumbnailAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, alPlain, "ContactInformation.GetThumbnailAsync"))
 
 proc emails*(self: ContactInformation): seq[ContactField]  =
   ## Windows.ApplicationModel.Contacts.ContactInformation.get_Emails
@@ -14701,14 +14767,14 @@ proc saveAsync*(self: ContactList) {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactList, "IContactList", it):
     vcall(it, Slot_IContactList_SaveAsync, Fn_IContactList_SaveAsync)(it, op.addr).check("ContactList.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactList.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactList.SaveAsync")
 
 proc deleteAsync*(self: ContactList) {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.DeleteAsync
   var op: pointer
   withIface(self.p, IID_IContactList, "IContactList", it):
     vcall(it, Slot_IContactList_DeleteAsync, Fn_IContactList_DeleteAsync)(it, op.addr).check("ContactList.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactList.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactList.DeleteAsync")
 
 proc getContactFromRemoteIdAsync*(self: ContactList, remoteId: string): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.GetContactFromRemoteIdAsync
@@ -14716,14 +14782,14 @@ proc getContactFromRemoteIdAsync*(self: ContactList, remoteId: string): Future[C
   withIface(self.p, IID_IContactList, "IContactList", it):
     withHString(remoteId, h0):
       vcall(it, Slot_IContactList_GetContactFromRemoteIdAsync, Fn_IContactList_GetContactFromRemoteIdAsync)(it, h0, op.addr).check("ContactList.GetContactFromRemoteIdAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactList.GetContactFromRemoteIdAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactList.GetContactFromRemoteIdAsync"))
 
 proc getMeContactAsync*(self: ContactList): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.GetMeContactAsync
   var op: pointer
   withIface(self.p, IID_IContactList, "IContactList", it):
     vcall(it, Slot_IContactList_GetMeContactAsync, Fn_IContactList_GetMeContactAsync)(it, op.addr).check("ContactList.GetMeContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactList.GetMeContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactList.GetMeContactAsync"))
 
 proc getContactReader*(self: ContactList): ContactReader  =
   ## Windows.ApplicationModel.Contacts.ContactList.GetContactReader
@@ -14746,7 +14812,7 @@ proc saveContactAsync*(self: ContactList, contact: Contact) {.async.} =
   withIface(self.p, IID_IContactList, "IContactList", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactList_SaveContactAsync, Fn_IContactList_SaveContactAsync)(it, p0, op.addr).check("ContactList.SaveContactAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactList.SaveContactAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactList.SaveContactAsync")
 
 proc deleteContactAsync*(self: ContactList, contact: Contact) {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.DeleteContactAsync
@@ -14754,7 +14820,7 @@ proc deleteContactAsync*(self: ContactList, contact: Contact) {.async.} =
   withIface(self.p, IID_IContactList, "IContactList", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactList_DeleteContactAsync, Fn_IContactList_DeleteContactAsync)(it, p0, op.addr).check("ContactList.DeleteContactAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactList.DeleteContactAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactList.DeleteContactAsync")
 
 proc getContactAsync*(self: ContactList, contactId: string): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.GetContactAsync
@@ -14762,14 +14828,14 @@ proc getContactAsync*(self: ContactList, contactId: string): Future[Contact] {.a
   withIface(self.p, IID_IContactList, "IContactList", it):
     withHString(contactId, h0):
       vcall(it, Slot_IContactList_GetContactAsync, Fn_IContactList_GetContactAsync)(it, h0, op.addr).check("ContactList.GetContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactList.GetContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactList.GetContactAsync"))
 
 proc registerSyncManagerAsync*(self: ContactList) {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactList.RegisterSyncManagerAsync
   var op: pointer
   withIface(self.p, IID_IContactList2, "IContactList2", it):
     vcall(it, Slot_IContactList2_RegisterSyncManagerAsync, Fn_IContactList2_RegisterSyncManagerAsync)(it, op.addr).check("ContactList.RegisterSyncManagerAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactList.RegisterSyncManagerAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactList.RegisterSyncManagerAsync")
 
 proc `supportsServerSearch=`*(self: ContactList, value: bool)  =
   ## Windows.ApplicationModel.Contacts.ContactList.put_SupportsServerSearch
@@ -14804,7 +14870,7 @@ proc tryCreateOrUpdateContactAsync*(self: ContactListLimitedWriteOperations, con
   withIface(self.p, IID_IContactListLimitedWriteOperations, "IContactListLimitedWriteOperations", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactListLimitedWriteOperations_TryCreateOrUpdateContactAsync, Fn_IContactListLimitedWriteOperations_TryCreateOrUpdateContactAsync)(it, p0, op.addr).check("ContactListLimitedWriteOperations.TryCreateOrUpdateContactAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactListLimitedWriteOperations.TryCreateOrUpdateContactAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactListLimitedWriteOperations.TryCreateOrUpdateContactAsync")
 
 proc tryDeleteContactAsync*(self: ContactListLimitedWriteOperations, contactId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactListLimitedWriteOperations.TryDeleteContactAsync
@@ -14812,7 +14878,7 @@ proc tryDeleteContactAsync*(self: ContactListLimitedWriteOperations, contactId: 
   withIface(self.p, IID_IContactListLimitedWriteOperations, "IContactListLimitedWriteOperations", it):
     withHString(contactId, h0):
       vcall(it, Slot_IContactListLimitedWriteOperations_TryDeleteContactAsync, Fn_IContactListLimitedWriteOperations_TryDeleteContactAsync)(it, h0, op.addr).check("ContactListLimitedWriteOperations.TryDeleteContactAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactListLimitedWriteOperations.TryDeleteContactAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactListLimitedWriteOperations.TryDeleteContactAsync")
 
 proc canSyncDescriptions*(self: ContactListSyncConstraints): bool  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_CanSyncDescriptions
@@ -15257,7 +15323,7 @@ proc syncAsync*(self: ContactListSyncManager): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactListSyncManager, "IContactListSyncManager", it):
     vcall(it, Slot_IContactListSyncManager_SyncAsync, Fn_IContactListSyncManager_SyncAsync)(it, op.addr).check("ContactListSyncManager.SyncAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactListSyncManager.SyncAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactListSyncManager.SyncAsync")
 
 proc onSyncStatusChanged*(self: ContactListSyncManager,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -15397,7 +15463,7 @@ proc requestStoreAsync*(_: typedesc[ContactManager]): Future[ContactStore] {.asy
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics2, it):
     vcall(it, Slot_IContactManagerStatics2_RequestStoreAsync, Fn_IContactManagerStatics2_RequestStoreAsync)(it, op.addr).check("ContactManager.RequestStoreAsync")
-  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, "ContactManager.RequestStoreAsync"))
+  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, alPlain, "ContactManager.RequestStoreAsync"))
 
 proc showContactCard*(_: typedesc[ContactManager], contact: Contact, selection: Rect)  =
   ## Windows.ApplicationModel.Contacts.ContactManager.ShowContactCard
@@ -15424,7 +15490,7 @@ proc isShowFullContactCardSupportedAsync*(_: typedesc[ContactManager]): Future[b
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics5, it):
     vcall(it, Slot_IContactManagerStatics5_IsShowFullContactCardSupportedAsync, Fn_IContactManagerStatics5_IsShowFullContactCardSupportedAsync)(it, op.addr).check("ContactManager.IsShowFullContactCardSupportedAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactManager.IsShowFullContactCardSupportedAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactManager.IsShowFullContactCardSupportedAsync")
 
 proc includeMiddleNameInSystemDisplayAndSort*(_: typedesc[ContactManager]): bool  =
   ## Windows.ApplicationModel.Contacts.ContactManager.get_IncludeMiddleNameInSystemDisplayAndSort
@@ -15444,7 +15510,7 @@ proc convertContactToVCardAsync*(_: typedesc[ContactManager], contact: Contact):
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics3, it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactManagerStatics3_ConvertContactToVCardAsync, Fn_IContactManagerStatics3_ConvertContactToVCardAsync)(it, p0, op.addr).check("ContactManager.ConvertContactToVCardAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, "ContactManager.ConvertContactToVCardAsync"))
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, alPlain, "ContactManager.ConvertContactToVCardAsync"))
 
 proc convertContactToVCardAsync*(_: typedesc[ContactManager], contact: Contact, maxBytes: uint32): Future[RandomAccessStreamReference] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManager.ConvertContactToVCardAsync
@@ -15452,29 +15518,29 @@ proc convertContactToVCardAsync*(_: typedesc[ContactManager], contact: Contact, 
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics3, it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactManagerStatics3_ConvertContactToVCardAsync2, Fn_IContactManagerStatics3_ConvertContactToVCardAsync2)(it, p0, maxBytes, op.addr).check("ContactManager.ConvertContactToVCardAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, "ContactManager.ConvertContactToVCardAsync"))
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, alPlain, "ContactManager.ConvertContactToVCardAsync"))
 
-proc convertVCardToContactAsync*(_: typedesc[ContactManager], vCard: RandomAccessStreamReference): Future[Contact] {.async.} =
+proc convertVCardToContactAsync*(_: typedesc[ContactManager], vCard: WinRtObject): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManager.ConvertVCardToContactAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics3, it):
     withIface(vCard.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IContactManagerStatics3_ConvertVCardToContactAsync, Fn_IContactManagerStatics3_ConvertVCardToContactAsync)(it, p0, op.addr).check("ContactManager.ConvertVCardToContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactManager.ConvertVCardToContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactManager.ConvertVCardToContactAsync"))
 
 proc requestStoreAsync*(_: typedesc[ContactManager], accessType: ContactStoreAccessType): Future[ContactStore] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics3, it):
     vcall(it, Slot_IContactManagerStatics3_RequestStoreAsync, Fn_IContactManagerStatics3_RequestStoreAsync)(it, accessType, op.addr).check("ContactManager.RequestStoreAsync")
-  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, "ContactManager.RequestStoreAsync"))
+  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, alPlain, "ContactManager.RequestStoreAsync"))
 
 proc requestAnnotationStoreAsync*(_: typedesc[ContactManager], accessType: ContactAnnotationStoreAccessType): Future[ContactAnnotationStore] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactManager", IID_IContactManagerStatics3, it):
     vcall(it, Slot_IContactManagerStatics3_RequestAnnotationStoreAsync, Fn_IContactManagerStatics3_RequestAnnotationStoreAsync)(it, accessType, op.addr).check("ContactManager.RequestAnnotationStoreAsync")
-  result = adopt[ContactAnnotationStore](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationStore, IID_AsyncOperationCompletedHandler_1_ContactAnnotationStore, "ContactManager.RequestAnnotationStoreAsync"))
+  result = adopt[ContactAnnotationStore](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationStore, IID_AsyncOperationCompletedHandler_1_ContactAnnotationStore, alPlain, "ContactManager.RequestAnnotationStoreAsync"))
 
 proc isShowContactCardSupported*(_: typedesc[ContactManager]): bool  =
   ## Windows.ApplicationModel.Contacts.ContactManager.IsShowContactCardSupported
@@ -15551,7 +15617,7 @@ proc convertContactToVCardAsync*(self: ContactManagerForUser, contact: Contact):
   withIface(self.p, IID_IContactManagerForUser, "IContactManagerForUser", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactManagerForUser_ConvertContactToVCardAsync, Fn_IContactManagerForUser_ConvertContactToVCardAsync)(it, p0, op.addr).check("ContactManagerForUser.ConvertContactToVCardAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, "ContactManagerForUser.ConvertContactToVCardAsync"))
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, alPlain, "ContactManagerForUser.ConvertContactToVCardAsync"))
 
 proc convertContactToVCardAsync*(self: ContactManagerForUser, contact: Contact, maxBytes: uint32): Future[RandomAccessStreamReference] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManagerForUser.ConvertContactToVCardAsync
@@ -15559,29 +15625,29 @@ proc convertContactToVCardAsync*(self: ContactManagerForUser, contact: Contact, 
   withIface(self.p, IID_IContactManagerForUser, "IContactManagerForUser", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactManagerForUser_ConvertContactToVCardAsync2, Fn_IContactManagerForUser_ConvertContactToVCardAsync2)(it, p0, maxBytes, op.addr).check("ContactManagerForUser.ConvertContactToVCardAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, "ContactManagerForUser.ConvertContactToVCardAsync"))
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, alPlain, "ContactManagerForUser.ConvertContactToVCardAsync"))
 
-proc convertVCardToContactAsync*(self: ContactManagerForUser, vCard: RandomAccessStreamReference): Future[Contact] {.async.} =
+proc convertVCardToContactAsync*(self: ContactManagerForUser, vCard: WinRtObject): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManagerForUser.ConvertVCardToContactAsync
   var op: pointer
   withIface(self.p, IID_IContactManagerForUser, "IContactManagerForUser", it):
     withIface(vCard.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IContactManagerForUser_ConvertVCardToContactAsync, Fn_IContactManagerForUser_ConvertVCardToContactAsync)(it, p0, op.addr).check("ContactManagerForUser.ConvertVCardToContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactManagerForUser.ConvertVCardToContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactManagerForUser.ConvertVCardToContactAsync"))
 
 proc requestStoreAsync*(self: ContactManagerForUser, accessType: ContactStoreAccessType): Future[ContactStore] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManagerForUser.RequestStoreAsync
   var op: pointer
   withIface(self.p, IID_IContactManagerForUser, "IContactManagerForUser", it):
     vcall(it, Slot_IContactManagerForUser_RequestStoreAsync, Fn_IContactManagerForUser_RequestStoreAsync)(it, accessType, op.addr).check("ContactManagerForUser.RequestStoreAsync")
-  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, "ContactManagerForUser.RequestStoreAsync"))
+  result = adopt[ContactStore](await awaitObject(op, IID_IAsyncOperation_1_ContactStore, IID_AsyncOperationCompletedHandler_1_ContactStore, alPlain, "ContactManagerForUser.RequestStoreAsync"))
 
 proc requestAnnotationStoreAsync*(self: ContactManagerForUser, accessType: ContactAnnotationStoreAccessType): Future[ContactAnnotationStore] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactManagerForUser.RequestAnnotationStoreAsync
   var op: pointer
   withIface(self.p, IID_IContactManagerForUser, "IContactManagerForUser", it):
     vcall(it, Slot_IContactManagerForUser_RequestAnnotationStoreAsync, Fn_IContactManagerForUser_RequestAnnotationStoreAsync)(it, accessType, op.addr).check("ContactManagerForUser.RequestAnnotationStoreAsync")
-  result = adopt[ContactAnnotationStore](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationStore, IID_AsyncOperationCompletedHandler_1_ContactAnnotationStore, "ContactManagerForUser.RequestAnnotationStoreAsync"))
+  result = adopt[ContactAnnotationStore](await awaitObject(op, IID_IAsyncOperation_1_ContactAnnotationStore, IID_AsyncOperationCompletedHandler_1_ContactAnnotationStore, alPlain, "ContactManagerForUser.RequestAnnotationStoreAsync"))
 
 proc systemDisplayNameOrder*(self: ContactManagerForUser): ContactNameOrder  =
   ## Windows.ApplicationModel.Contacts.ContactManagerForUser.get_SystemDisplayNameOrder
@@ -15804,14 +15870,14 @@ proc pickSingleContactAsync*(self: ContactPicker): Future[ContactInformation] {.
   var op: pointer
   withIface(self.p, IID_IContactPicker, "IContactPicker", it):
     vcall(it, Slot_IContactPicker_PickSingleContactAsync, Fn_IContactPicker_PickSingleContactAsync)(it, op.addr).check("ContactPicker.PickSingleContactAsync")
-  result = adopt[ContactInformation](await awaitObject(op, IID_IAsyncOperation_1_ContactInformation, IID_AsyncOperationCompletedHandler_1_ContactInformation, "ContactPicker.PickSingleContactAsync"))
+  result = adopt[ContactInformation](await awaitObject(op, IID_IAsyncOperation_1_ContactInformation, IID_AsyncOperationCompletedHandler_1_ContactInformation, alPlain, "ContactPicker.PickSingleContactAsync"))
 
 proc pickMultipleContactsAsync*(self: ContactPicker): Future[seq[ContactInformation]] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactPicker.PickMultipleContactsAsync
   var op: pointer
   withIface(self.p, IID_IContactPicker, "IContactPicker", it):
     vcall(it, Slot_IContactPicker_PickMultipleContactsAsync, Fn_IContactPicker_PickMultipleContactsAsync)(it, op.addr).check("ContactPicker.PickMultipleContactsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_119, IID_AsyncOperationCompletedHandler_1_IVectorView_119, "ContactPicker.PickMultipleContactsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_119, IID_AsyncOperationCompletedHandler_1_IVectorView_119, alPlain, "ContactPicker.PickMultipleContactsAsync")
   result = toSeq[ContactInformation](coll, IID_IVectorView_1_ContactInformation)
   discard release(coll)
 
@@ -15828,14 +15894,14 @@ proc pickContactAsync*(self: ContactPicker): Future[Contact] {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactPicker2, "IContactPicker2", it):
     vcall(it, Slot_IContactPicker2_PickContactAsync, Fn_IContactPicker2_PickContactAsync)(it, op.addr).check("ContactPicker.PickContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactPicker.PickContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactPicker.PickContactAsync"))
 
 proc pickContactsAsync*(self: ContactPicker): Future[seq[Contact]] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactPicker.PickContactsAsync
   var op: pointer
   withIface(self.p, IID_IContactPicker2, "IContactPicker2", it):
     vcall(it, Slot_IContactPicker2_PickContactsAsync, Fn_IContactPicker2_PickContactsAsync)(it, op.addr).check("ContactPicker.PickContactsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, "ContactPicker.PickContactsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "ContactPicker.PickContactsAsync")
   result = toSeq[Contact](coll, IID_IVector_1_Contact)
   discard release(coll)
 
@@ -15859,7 +15925,7 @@ proc isSupportedAsync*(_: typedesc[ContactPicker]): Future[bool] {.async.} =
   var op: pointer
   withStatics("Windows.ApplicationModel.Contacts.ContactPicker", IID_IContactPickerStatics, it):
     vcall(it, Slot_IContactPickerStatics_IsSupportedAsync, Fn_IContactPickerStatics_IsSupportedAsync)(it, op.addr).check("ContactPicker.IsSupportedAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ContactPicker.IsSupportedAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ContactPicker.IsSupportedAsync")
 
 proc newContactQueryOptions*(): ContactQueryOptions =
   ## Activate a `Windows.ApplicationModel.Contacts.ContactQueryOptions`.
@@ -15982,7 +16048,7 @@ proc readBatchAsync*(self: ContactReader): Future[ContactBatch] {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactReader, "IContactReader", it):
     vcall(it, Slot_IContactReader_ReadBatchAsync, Fn_IContactReader_ReadBatchAsync)(it, op.addr).check("ContactReader.ReadBatchAsync")
-  result = adopt[ContactBatch](await awaitObject(op, IID_IAsyncOperation_1_ContactBatch, IID_AsyncOperationCompletedHandler_1_ContactBatch, "ContactReader.ReadBatchAsync"))
+  result = adopt[ContactBatch](await awaitObject(op, IID_IAsyncOperation_1_ContactBatch, IID_AsyncOperationCompletedHandler_1_ContactBatch, alPlain, "ContactReader.ReadBatchAsync"))
 
 proc getMatchingPropertiesWithMatchReason*(self: ContactReader, contact: Contact): seq[ContactMatchReason]  =
   ## Windows.ApplicationModel.Contacts.ContactReader.GetMatchingPropertiesWithMatchReason
@@ -16040,7 +16106,7 @@ proc findContactsAsync*(self: ContactStore): Future[seq[Contact]] {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactStore, "IContactStore", it):
     vcall(it, Slot_IContactStore_FindContactsAsync, Fn_IContactStore_FindContactsAsync)(it, op.addr).check("ContactStore.FindContactsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, "ContactStore.FindContactsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, alPlain, "ContactStore.FindContactsAsync")
   result = toSeq[Contact](coll, IID_IVectorView_1_Contact)
   discard release(coll)
 
@@ -16050,7 +16116,7 @@ proc findContactsAsync*(self: ContactStore, searchText: string): Future[seq[Cont
   withIface(self.p, IID_IContactStore, "IContactStore", it):
     withHString(searchText, h0):
       vcall(it, Slot_IContactStore_FindContactsAsync2, Fn_IContactStore_FindContactsAsync2)(it, h0, op.addr).check("ContactStore.FindContactsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, "ContactStore.FindContactsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, alPlain, "ContactStore.FindContactsAsync")
   result = toSeq[Contact](coll, IID_IVectorView_1_Contact)
   discard release(coll)
 
@@ -16060,7 +16126,7 @@ proc getContactAsync*(self: ContactStore, contactId: string): Future[Contact] {.
   withIface(self.p, IID_IContactStore, "IContactStore", it):
     withHString(contactId, h0):
       vcall(it, Slot_IContactStore_GetContactAsync, Fn_IContactStore_GetContactAsync)(it, h0, op.addr).check("ContactStore.GetContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactStore.GetContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactStore.GetContactAsync"))
 
 proc changeTracker*(self: ContactStore): ContactChangeTracker  =
   ## Windows.ApplicationModel.Contacts.ContactStore.get_ChangeTracker
@@ -16100,7 +16166,7 @@ proc findContactListsAsync*(self: ContactStore): Future[seq[ContactList]] {.asyn
   var op: pointer
   withIface(self.p, IID_IContactStore2, "IContactStore2", it):
     vcall(it, Slot_IContactStore2_FindContactListsAsync, Fn_IContactStore2_FindContactListsAsync)(it, op.addr).check("ContactStore.FindContactListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_120, IID_AsyncOperationCompletedHandler_1_IVectorView_120, "ContactStore.FindContactListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_120, IID_AsyncOperationCompletedHandler_1_IVectorView_120, alPlain, "ContactStore.FindContactListsAsync")
   result = toSeq[ContactList](coll, IID_IVectorView_1_ContactList)
   discard release(coll)
 
@@ -16110,7 +16176,7 @@ proc getContactListAsync*(self: ContactStore, contactListId: string): Future[Con
   withIface(self.p, IID_IContactStore2, "IContactStore2", it):
     withHString(contactListId, h0):
       vcall(it, Slot_IContactStore2_GetContactListAsync, Fn_IContactStore2_GetContactListAsync)(it, h0, op.addr).check("ContactStore.GetContactListAsync")
-  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, "ContactStore.GetContactListAsync"))
+  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, alPlain, "ContactStore.GetContactListAsync"))
 
 proc createContactListAsync*(self: ContactStore, displayName: string): Future[ContactList] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactStore.CreateContactListAsync
@@ -16118,14 +16184,14 @@ proc createContactListAsync*(self: ContactStore, displayName: string): Future[Co
   withIface(self.p, IID_IContactStore2, "IContactStore2", it):
     withHString(displayName, h0):
       vcall(it, Slot_IContactStore2_CreateContactListAsync, Fn_IContactStore2_CreateContactListAsync)(it, h0, op.addr).check("ContactStore.CreateContactListAsync")
-  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, "ContactStore.CreateContactListAsync"))
+  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, alPlain, "ContactStore.CreateContactListAsync"))
 
 proc getMeContactAsync*(self: ContactStore): Future[Contact] {.async.} =
   ## Windows.ApplicationModel.Contacts.ContactStore.GetMeContactAsync
   var op: pointer
   withIface(self.p, IID_IContactStore2, "IContactStore2", it):
     vcall(it, Slot_IContactStore2_GetMeContactAsync, Fn_IContactStore2_GetMeContactAsync)(it, op.addr).check("ContactStore.GetMeContactAsync")
-  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, "ContactStore.GetMeContactAsync"))
+  result = adopt[Contact](await awaitObject(op, IID_IAsyncOperation_1_Contact, IID_AsyncOperationCompletedHandler_1_Contact, alPlain, "ContactStore.GetMeContactAsync"))
 
 proc getContactReader*(self: ContactStore): ContactReader  =
   ## Windows.ApplicationModel.Contacts.ContactStore.GetContactReader
@@ -16149,7 +16215,7 @@ proc createContactListAsync*(self: ContactStore, displayName: string, userDataAc
     withHString(displayName, h0):
       withHString(userDataAccountId, h1):
         vcall(it, Slot_IContactStore2_CreateContactListAsync2, Fn_IContactStore2_CreateContactListAsync2)(it, h0, h1, op.addr).check("ContactStore.CreateContactListAsync")
-  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, "ContactStore.CreateContactListAsync"))
+  result = adopt[ContactList](await awaitObject(op, IID_IAsyncOperation_1_ContactList, IID_AsyncOperationCompletedHandler_1_ContactList, alPlain, "ContactStore.CreateContactListAsync"))
 
 proc getChangeTracker*(self: ContactStore, identity: string): ContactChangeTracker  =
   ## Windows.ApplicationModel.Contacts.ContactStore.GetChangeTracker
@@ -16310,14 +16376,14 @@ proc reportCompletedAsync*(self: ContactListCreateOrUpdateContactRequest, create
   withIface(self.p, IID_IContactListCreateOrUpdateContactRequest, "IContactListCreateOrUpdateContactRequest", it):
     withIface(createdOrUpdatedContact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactListCreateOrUpdateContactRequest_ReportCompletedAsync, Fn_IContactListCreateOrUpdateContactRequest_ReportCompletedAsync)(it, p0, op.addr).check("ContactListCreateOrUpdateContactRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListCreateOrUpdateContactRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListCreateOrUpdateContactRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: ContactListCreateOrUpdateContactRequest) {.async.} =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IContactListCreateOrUpdateContactRequest, "IContactListCreateOrUpdateContactRequest", it):
     vcall(it, Slot_IContactListCreateOrUpdateContactRequest_ReportFailedAsync, Fn_IContactListCreateOrUpdateContactRequest_ReportFailedAsync)(it, op.addr).check("ContactListCreateOrUpdateContactRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListCreateOrUpdateContactRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListCreateOrUpdateContactRequest.ReportFailedAsync")
 
 proc request*(self: ContactListCreateOrUpdateContactRequestEventArgs): ContactListCreateOrUpdateContactRequest  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequestEventArgs.get_Request
@@ -16352,14 +16418,14 @@ proc reportCompletedAsync*(self: ContactListDeleteContactRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactListDeleteContactRequest, "IContactListDeleteContactRequest", it):
     vcall(it, Slot_IContactListDeleteContactRequest_ReportCompletedAsync, Fn_IContactListDeleteContactRequest_ReportCompletedAsync)(it, op.addr).check("ContactListDeleteContactRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListDeleteContactRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListDeleteContactRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: ContactListDeleteContactRequest) {.async.} =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IContactListDeleteContactRequest, "IContactListDeleteContactRequest", it):
     vcall(it, Slot_IContactListDeleteContactRequest_ReportFailedAsync, Fn_IContactListDeleteContactRequest_ReportFailedAsync)(it, op.addr).check("ContactListDeleteContactRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListDeleteContactRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListDeleteContactRequest.ReportFailedAsync")
 
 proc request*(self: ContactListDeleteContactRequestEventArgs): ContactListDeleteContactRequest  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs.get_Request
@@ -16409,21 +16475,21 @@ proc saveContactAsync*(self: ContactListServerSearchReadBatchRequest, contact: C
   withIface(self.p, IID_IContactListServerSearchReadBatchRequest, "IContactListServerSearchReadBatchRequest", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IContactListServerSearchReadBatchRequest_SaveContactAsync, Fn_IContactListServerSearchReadBatchRequest_SaveContactAsync)(it, p0, op.addr).check("ContactListServerSearchReadBatchRequest.SaveContactAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListServerSearchReadBatchRequest.SaveContactAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListServerSearchReadBatchRequest.SaveContactAsync")
 
 proc reportCompletedAsync*(self: ContactListServerSearchReadBatchRequest) {.async.} =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequest.ReportCompletedAsync
   var op: pointer
   withIface(self.p, IID_IContactListServerSearchReadBatchRequest, "IContactListServerSearchReadBatchRequest", it):
     vcall(it, Slot_IContactListServerSearchReadBatchRequest_ReportCompletedAsync, Fn_IContactListServerSearchReadBatchRequest_ReportCompletedAsync)(it, op.addr).check("ContactListServerSearchReadBatchRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListServerSearchReadBatchRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListServerSearchReadBatchRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: ContactListServerSearchReadBatchRequest, batchStatus: ContactBatchStatus) {.async.} =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IContactListServerSearchReadBatchRequest, "IContactListServerSearchReadBatchRequest", it):
     vcall(it, Slot_IContactListServerSearchReadBatchRequest_ReportFailedAsync, Fn_IContactListServerSearchReadBatchRequest_ReportFailedAsync)(it, batchStatus, op.addr).check("ContactListServerSearchReadBatchRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListServerSearchReadBatchRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListServerSearchReadBatchRequest.ReportFailedAsync")
 
 proc request*(self: ContactListServerSearchReadBatchRequestEventArgs): ContactListServerSearchReadBatchRequest  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequestEventArgs.get_Request
@@ -16451,14 +16517,14 @@ proc reportCompletedAsync*(self: ContactListSyncManagerSyncRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IContactListSyncManagerSyncRequest, "IContactListSyncManagerSyncRequest", it):
     vcall(it, Slot_IContactListSyncManagerSyncRequest_ReportCompletedAsync, Fn_IContactListSyncManagerSyncRequest_ReportCompletedAsync)(it, op.addr).check("ContactListSyncManagerSyncRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListSyncManagerSyncRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListSyncManagerSyncRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: ContactListSyncManagerSyncRequest) {.async.} =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IContactListSyncManagerSyncRequest, "IContactListSyncManagerSyncRequest", it):
     vcall(it, Slot_IContactListSyncManagerSyncRequest_ReportFailedAsync, Fn_IContactListSyncManagerSyncRequest_ReportFailedAsync)(it, op.addr).check("ContactListSyncManagerSyncRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ContactListSyncManagerSyncRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContactListSyncManagerSyncRequest.ReportFailedAsync")
 
 proc request*(self: ContactListSyncManagerSyncRequestEventArgs): ContactListSyncManagerSyncRequest  =
   ## Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequestEventArgs.get_Request
@@ -16569,7 +16635,7 @@ proc requestPinContactAsync*(self: PinnedContactManager, contact: Contact, surfa
   withIface(self.p, IID_IPinnedContactManager, "IPinnedContactManager", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IPinnedContactManager_RequestPinContactAsync, Fn_IPinnedContactManager_RequestPinContactAsync)(it, p0, surface, op.addr).check("PinnedContactManager.RequestPinContactAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PinnedContactManager.RequestPinContactAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PinnedContactManager.RequestPinContactAsync")
 
 proc requestPinContactsAsync*(self: PinnedContactManager, contacts: seq[Contact], surface: PinnedContactSurface): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.RequestPinContactsAsync
@@ -16578,7 +16644,7 @@ proc requestPinContactsAsync*(self: PinnedContactManager, contacts: seq[Contact]
     let p0 = asIterable[Contact](contacts, IID_IIterable_1_Contact, IID_IVectorView_1_Contact, IID_IIterator_1_Contact)
     defer: discard release(p0)
     vcall(it, Slot_IPinnedContactManager_RequestPinContactsAsync, Fn_IPinnedContactManager_RequestPinContactsAsync)(it, p0, surface, op.addr).check("PinnedContactManager.RequestPinContactsAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PinnedContactManager.RequestPinContactsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PinnedContactManager.RequestPinContactsAsync")
 
 proc requestUnpinContactAsync*(self: PinnedContactManager, contact: Contact, surface: PinnedContactSurface): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.RequestUnpinContactAsync
@@ -16586,7 +16652,7 @@ proc requestUnpinContactAsync*(self: PinnedContactManager, contact: Contact, sur
   withIface(self.p, IID_IPinnedContactManager, "IPinnedContactManager", it):
     withIface(contact.p, IID_IContact, "IContact", p0):
       vcall(it, Slot_IPinnedContactManager_RequestUnpinContactAsync, Fn_IPinnedContactManager_RequestUnpinContactAsync)(it, p0, surface, op.addr).check("PinnedContactManager.RequestUnpinContactAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PinnedContactManager.RequestUnpinContactAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PinnedContactManager.RequestUnpinContactAsync")
 
 proc signalContactActivity*(self: PinnedContactManager, contact: Contact)  =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.SignalContactActivity
@@ -16599,7 +16665,7 @@ proc getPinnedContactIdsAsync*(self: PinnedContactManager): Future[PinnedContact
   var op: pointer
   withIface(self.p, IID_IPinnedContactManager, "IPinnedContactManager", it):
     vcall(it, Slot_IPinnedContactManager_GetPinnedContactIdsAsync, Fn_IPinnedContactManager_GetPinnedContactIdsAsync)(it, op.addr).check("PinnedContactManager.GetPinnedContactIdsAsync")
-  result = adopt[PinnedContactIdsQueryResult](await awaitObject(op, IID_IAsyncOperation_1_PinnedContactIdsQueryResult, IID_AsyncOperationCompletedHandler_1_PinnedContactIdsQueryResult, "PinnedContactManager.GetPinnedContactIdsAsync"))
+  result = adopt[PinnedContactIdsQueryResult](await awaitObject(op, IID_IAsyncOperation_1_PinnedContactIdsQueryResult, IID_AsyncOperationCompletedHandler_1_PinnedContactIdsQueryResult, alPlain, "PinnedContactManager.GetPinnedContactIdsAsync"))
 
 proc getDefault*(_: typedesc[PinnedContactManager]): PinnedContactManager  =
   ## Windows.ApplicationModel.Contacts.PinnedContactManager.GetDefault
@@ -16741,7 +16807,7 @@ proc setEnabledAsync*(self: ActivationSignalDetectionConfiguration, value: bool)
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_SetEnabledAsync, Fn_IActivationSignalDetectionConfiguration_SetEnabledAsync)(it, value, op.addr).check("ActivationSignalDetectionConfiguration.SetEnabledAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetectionConfiguration.SetEnabledAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetectionConfiguration.SetEnabledAsync")
 
 proc availabilityInfo*(self: ActivationSignalDetectionConfiguration): DetectionConfigurationAvailabilityInfo  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.get_AvailabilityInfo
@@ -16769,21 +16835,21 @@ proc removeAvailabilityChanged*(self: ActivationSignalDetectionConfiguration, to
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_remove_AvailabilityChanged, Fn_IActivationSignalDetectionConfiguration_remove_AvailabilityChanged)(it, token).check("ActivationSignalDetectionConfiguration.remove_AvailabilityChanged")
 
-proc setModelData*(self: ActivationSignalDetectionConfiguration, dataType: string, data: InputStreamOverStream)  =
+proc setModelData*(self: ActivationSignalDetectionConfiguration, dataType: string, data: WinRtObject)  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetModelData
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     withHString(dataType, h0):
       withIface(data.p, IID_IInputStream, "IInputStream", p1):
         vcall(it, Slot_IActivationSignalDetectionConfiguration_SetModelData, Fn_IActivationSignalDetectionConfiguration_SetModelData)(it, h0, p1).check("ActivationSignalDetectionConfiguration.SetModelData")
 
-proc setModelDataAsync*(self: ActivationSignalDetectionConfiguration, dataType: string, data: InputStreamOverStream) {.async.} =
+proc setModelDataAsync*(self: ActivationSignalDetectionConfiguration, dataType: string, data: WinRtObject) {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetModelDataAsync
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     withHString(dataType, h0):
       withIface(data.p, IID_IInputStream, "IInputStream", p1):
         vcall(it, Slot_IActivationSignalDetectionConfiguration_SetModelDataAsync, Fn_IActivationSignalDetectionConfiguration_SetModelDataAsync)(it, h0, p1, op.addr).check("ActivationSignalDetectionConfiguration.SetModelDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetectionConfiguration.SetModelDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetectionConfiguration.SetModelDataAsync")
 
 proc getModelDataType*(self: ActivationSignalDetectionConfiguration): string  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.GetModelDataType
@@ -16797,21 +16863,21 @@ proc getModelDataTypeAsync*(self: ActivationSignalDetectionConfiguration): Futur
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_GetModelDataTypeAsync, Fn_IActivationSignalDetectionConfiguration_GetModelDataTypeAsync)(it, op.addr).check("ActivationSignalDetectionConfiguration.GetModelDataTypeAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ActivationSignalDetectionConfiguration.GetModelDataTypeAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "ActivationSignalDetectionConfiguration.GetModelDataTypeAsync")
 
-proc getModelData*(self: ActivationSignalDetectionConfiguration): InputStreamOverStream  =
+proc getModelData*(self: ActivationSignalDetectionConfiguration): WinRtObject  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.GetModelData
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IActivationSignalDetectionConfiguration_GetModelData, Fn_IActivationSignalDetectionConfiguration_GetModelData)(it, tmp.addr).check("ActivationSignalDetectionConfiguration.GetModelData")
-    result = adopt[InputStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc getModelDataAsync*(self: ActivationSignalDetectionConfiguration): Future[InputStreamOverStream] {.async.} =
+proc getModelDataAsync*(self: ActivationSignalDetectionConfiguration): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.GetModelDataAsync
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_GetModelDataAsync, Fn_IActivationSignalDetectionConfiguration_GetModelDataAsync)(it, op.addr).check("ActivationSignalDetectionConfiguration.GetModelDataAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IInputStream, IID_AsyncOperationCompletedHandler_1_IInputStream, "ActivationSignalDetectionConfiguration.GetModelDataAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IInputStream, IID_AsyncOperationCompletedHandler_1_IInputStream, alPlain, "ActivationSignalDetectionConfiguration.GetModelDataAsync"))
 
 proc clearModelData*(self: ActivationSignalDetectionConfiguration)  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.ClearModelData
@@ -16823,7 +16889,7 @@ proc clearModelDataAsync*(self: ActivationSignalDetectionConfiguration) {.async.
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_ClearModelDataAsync, Fn_IActivationSignalDetectionConfiguration_ClearModelDataAsync)(it, op.addr).check("ActivationSignalDetectionConfiguration.ClearModelDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetectionConfiguration.ClearModelDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetectionConfiguration.ClearModelDataAsync")
 
 proc trainingStepsCompleted*(self: ActivationSignalDetectionConfiguration): uint32  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.get_TrainingStepsCompleted
@@ -16846,7 +16912,7 @@ proc trainingDataFormat*(self: ActivationSignalDetectionConfiguration): Activati
     vcall(it, Slot_IActivationSignalDetectionConfiguration_get_TrainingDataFormat, Fn_IActivationSignalDetectionConfiguration_get_TrainingDataFormat)(it, tmp.addr).check("ActivationSignalDetectionConfiguration.get_TrainingDataFormat")
     result = tmp
 
-proc applyTrainingData*(self: ActivationSignalDetectionConfiguration, trainingDataFormat: ActivationSignalDetectionTrainingDataFormat, trainingData: InputStreamOverStream): DetectionConfigurationTrainingStatus  =
+proc applyTrainingData*(self: ActivationSignalDetectionConfiguration, trainingDataFormat: ActivationSignalDetectionTrainingDataFormat, trainingData: WinRtObject): DetectionConfigurationTrainingStatus  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.ApplyTrainingData
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     withIface(trainingData.p, IID_IInputStream, "IInputStream", p1):
@@ -16854,13 +16920,13 @@ proc applyTrainingData*(self: ActivationSignalDetectionConfiguration, trainingDa
       vcall(it, Slot_IActivationSignalDetectionConfiguration_ApplyTrainingData, Fn_IActivationSignalDetectionConfiguration_ApplyTrainingData)(it, trainingDataFormat, p1, tmp.addr).check("ActivationSignalDetectionConfiguration.ApplyTrainingData")
       result = tmp
 
-proc applyTrainingDataAsync*(self: ActivationSignalDetectionConfiguration, trainingDataFormat: ActivationSignalDetectionTrainingDataFormat, trainingData: InputStreamOverStream): Future[DetectionConfigurationTrainingStatus] {.async.} =
+proc applyTrainingDataAsync*(self: ActivationSignalDetectionConfiguration, trainingDataFormat: ActivationSignalDetectionTrainingDataFormat, trainingData: WinRtObject): Future[DetectionConfigurationTrainingStatus] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.ApplyTrainingDataAsync
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     withIface(trainingData.p, IID_IInputStream, "IInputStream", p1):
       vcall(it, Slot_IActivationSignalDetectionConfiguration_ApplyTrainingDataAsync, Fn_IActivationSignalDetectionConfiguration_ApplyTrainingDataAsync)(it, trainingDataFormat, p1, op.addr).check("ActivationSignalDetectionConfiguration.ApplyTrainingDataAsync")
-  result = await awaitValue[DetectionConfigurationTrainingStatus](op, IID_IAsyncOperation_1_DetectionConfigurationTrainingStatus, IID_AsyncOperationCompletedHandler_1_DetectionConfigurationTrainingStatus, "ActivationSignalDetectionConfiguration.ApplyTrainingDataAsync")
+  result = await awaitValue[DetectionConfigurationTrainingStatus](op, IID_IAsyncOperation_1_DetectionConfigurationTrainingStatus, IID_AsyncOperationCompletedHandler_1_DetectionConfigurationTrainingStatus, alPlain, "ActivationSignalDetectionConfiguration.ApplyTrainingDataAsync")
 
 proc clearTrainingData*(self: ActivationSignalDetectionConfiguration)  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.ClearTrainingData
@@ -16872,14 +16938,14 @@ proc clearTrainingDataAsync*(self: ActivationSignalDetectionConfiguration) {.asy
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration, "IActivationSignalDetectionConfiguration", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration_ClearTrainingDataAsync, Fn_IActivationSignalDetectionConfiguration_ClearTrainingDataAsync)(it, op.addr).check("ActivationSignalDetectionConfiguration.ClearTrainingDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetectionConfiguration.ClearTrainingDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetectionConfiguration.ClearTrainingDataAsync")
 
 proc close*(self: ActivationSignalDetectionConfiguration)  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ActivationSignalDetectionConfiguration.Close")
 
-proc setModelDataWithResult*(self: ActivationSignalDetectionConfiguration, dataType: string, data: InputStreamOverStream): ActivationSignalDetectionConfigurationSetModelDataResult  =
+proc setModelDataWithResult*(self: ActivationSignalDetectionConfiguration, dataType: string, data: WinRtObject): ActivationSignalDetectionConfigurationSetModelDataResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetModelDataWithResult
   withIface(self.p, IID_IActivationSignalDetectionConfiguration2, "IActivationSignalDetectionConfiguration2", it):
     withHString(dataType, h0):
@@ -16888,21 +16954,21 @@ proc setModelDataWithResult*(self: ActivationSignalDetectionConfiguration, dataT
         vcall(it, Slot_IActivationSignalDetectionConfiguration2_SetModelDataWithResult, Fn_IActivationSignalDetectionConfiguration2_SetModelDataWithResult)(it, h0, p1, tmp.addr).check("ActivationSignalDetectionConfiguration.SetModelDataWithResult")
         result = tmp
 
-proc setModelDataWithResultAsync*(self: ActivationSignalDetectionConfiguration, dataType: string, data: InputStreamOverStream): Future[ActivationSignalDetectionConfigurationSetModelDataResult] {.async.} =
+proc setModelDataWithResultAsync*(self: ActivationSignalDetectionConfiguration, dataType: string, data: WinRtObject): Future[ActivationSignalDetectionConfigurationSetModelDataResult] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetModelDataWithResultAsync
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration2, "IActivationSignalDetectionConfiguration2", it):
     withHString(dataType, h0):
       withIface(data.p, IID_IInputStream, "IInputStream", p1):
         vcall(it, Slot_IActivationSignalDetectionConfiguration2_SetModelDataWithResultAsync, Fn_IActivationSignalDetectionConfiguration2_SetModelDataWithResultAsync)(it, h0, p1, op.addr).check("ActivationSignalDetectionConfiguration.SetModelDataWithResultAsync")
-  result = await awaitValue[ActivationSignalDetectionConfigurationSetModelDataResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationSetModelDataResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationSetModelDataResult, "ActivationSignalDetectionConfiguration.SetModelDataWithResultAsync")
+  result = await awaitValue[ActivationSignalDetectionConfigurationSetModelDataResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationSetModelDataResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationSetModelDataResult, alPlain, "ActivationSignalDetectionConfiguration.SetModelDataWithResultAsync")
 
 proc setEnabledWithResultAsync*(self: ActivationSignalDetectionConfiguration, value: bool): Future[ActivationSignalDetectionConfigurationStateChangeResult] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetEnabledWithResultAsync
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetectionConfiguration2, "IActivationSignalDetectionConfiguration2", it):
     vcall(it, Slot_IActivationSignalDetectionConfiguration2_SetEnabledWithResultAsync, Fn_IActivationSignalDetectionConfiguration2_SetEnabledWithResultAsync)(it, value, op.addr).check("ActivationSignalDetectionConfiguration.SetEnabledWithResultAsync")
-  result = await awaitValue[ActivationSignalDetectionConfigurationStateChangeResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationStateChangeResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationStateChangeResult, "ActivationSignalDetectionConfiguration.SetEnabledWithResultAsync")
+  result = await awaitValue[ActivationSignalDetectionConfigurationStateChangeResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationStateChangeResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationStateChangeResult, alPlain, "ActivationSignalDetectionConfiguration.SetEnabledWithResultAsync")
 
 proc setEnabledWithResult*(self: ActivationSignalDetectionConfiguration, value: bool): ActivationSignalDetectionConfigurationStateChangeResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration.SetEnabledWithResult
@@ -16992,7 +17058,7 @@ proc getSupportedModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signa
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
     withHString(signalId, h0):
       vcall(it, Slot_IActivationSignalDetector_GetSupportedModelIdsForSignalIdAsync, Fn_IActivationSignalDetector_GetSupportedModelIdsForSignalIdAsync)(it, h0, op.addr).check("ActivationSignalDetector.GetSupportedModelIdsForSignalIdAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "ActivationSignalDetector.GetSupportedModelIdsForSignalIdAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ActivationSignalDetector.GetSupportedModelIdsForSignalIdAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -17012,7 +17078,7 @@ proc createConfigurationAsync*(self: ActivationSignalDetector, signalId: string,
       withHString(modelId, h1):
         withHString(displayName, h2):
           vcall(it, Slot_IActivationSignalDetector_CreateConfigurationAsync, Fn_IActivationSignalDetector_CreateConfigurationAsync)(it, h0, h1, h2, op.addr).check("ActivationSignalDetector.CreateConfigurationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetector.CreateConfigurationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetector.CreateConfigurationAsync")
 
 proc getConfigurations*(self: ActivationSignalDetector): seq[ActivationSignalDetectionConfiguration]  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetConfigurations
@@ -17027,7 +17093,7 @@ proc getConfigurationsAsync*(self: ActivationSignalDetector): Future[seq[Activat
   var op: pointer
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
     vcall(it, Slot_IActivationSignalDetector_GetConfigurationsAsync, Fn_IActivationSignalDetector_GetConfigurationsAsync)(it, op.addr).check("ActivationSignalDetector.GetConfigurationsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_121, IID_AsyncOperationCompletedHandler_1_IVectorView_121, "ActivationSignalDetector.GetConfigurationsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_121, IID_AsyncOperationCompletedHandler_1_IVectorView_121, alPlain, "ActivationSignalDetector.GetConfigurationsAsync")
   result = toSeq[ActivationSignalDetectionConfiguration](coll, IID_IVectorView_1_ActivationSignalDetectionConfiguration)
   discard release(coll)
 
@@ -17047,7 +17113,7 @@ proc getConfigurationAsync*(self: ActivationSignalDetector, signalId: string, mo
     withHString(signalId, h0):
       withHString(modelId, h1):
         vcall(it, Slot_IActivationSignalDetector_GetConfigurationAsync, Fn_IActivationSignalDetector_GetConfigurationAsync)(it, h0, h1, op.addr).check("ActivationSignalDetector.GetConfigurationAsync")
-  result = adopt[ActivationSignalDetectionConfiguration](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetectionConfiguration, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfiguration, "ActivationSignalDetector.GetConfigurationAsync"))
+  result = adopt[ActivationSignalDetectionConfiguration](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetectionConfiguration, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfiguration, alPlain, "ActivationSignalDetector.GetConfigurationAsync"))
 
 proc removeConfiguration*(self: ActivationSignalDetector, signalId: string, modelId: string)  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.RemoveConfiguration
@@ -17063,7 +17129,7 @@ proc removeConfigurationAsync*(self: ActivationSignalDetector, signalId: string,
     withHString(signalId, h0):
       withHString(modelId, h1):
         vcall(it, Slot_IActivationSignalDetector_RemoveConfigurationAsync, Fn_IActivationSignalDetector_RemoveConfigurationAsync)(it, h0, h1, op.addr).check("ActivationSignalDetector.RemoveConfigurationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ActivationSignalDetector.RemoveConfigurationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ActivationSignalDetector.RemoveConfigurationAsync")
 
 proc getAvailableModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signalId: string): Future[seq[string]] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync
@@ -17071,7 +17137,7 @@ proc getAvailableModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signa
   withIface(self.p, IID_IActivationSignalDetector2, "IActivationSignalDetector2", it):
     withHString(signalId, h0):
       vcall(it, Slot_IActivationSignalDetector2_GetAvailableModelIdsForSignalIdAsync, Fn_IActivationSignalDetector2_GetAvailableModelIdsForSignalIdAsync)(it, h0, op.addr).check("ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12, IID_AsyncOperationCompletedHandler_1_IVector_12, "ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12, IID_AsyncOperationCompletedHandler_1_IVector_12, alPlain, "ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync")
   result = toSeqString(coll, IID_IVector_1_String)
   discard release(coll)
 
@@ -17092,7 +17158,7 @@ proc createConfigurationWithResultAsync*(self: ActivationSignalDetector, signalI
       withHString(modelId, h1):
         withHString(displayName, h2):
           vcall(it, Slot_IActivationSignalDetector2_CreateConfigurationWithResultAsync, Fn_IActivationSignalDetector2_CreateConfigurationWithResultAsync)(it, h0, h1, h2, op.addr).check("ActivationSignalDetector.CreateConfigurationWithResultAsync")
-  result = adopt[ActivationSignalDetectionConfigurationCreationResult](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationCreationResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationCreationResult, "ActivationSignalDetector.CreateConfigurationWithResultAsync"))
+  result = adopt[ActivationSignalDetectionConfigurationCreationResult](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationCreationResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationCreationResult, alPlain, "ActivationSignalDetector.CreateConfigurationWithResultAsync"))
 
 proc createConfigurationWithResult*(self: ActivationSignalDetector, signalId: string, modelId: string, displayName: string): ActivationSignalDetectionConfigurationCreationResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.CreateConfigurationWithResult
@@ -17111,7 +17177,7 @@ proc removeConfigurationWithResultAsync*(self: ActivationSignalDetector, signalI
     withHString(signalId, h0):
       withHString(modelId, h1):
         vcall(it, Slot_IActivationSignalDetector2_RemoveConfigurationWithResultAsync, Fn_IActivationSignalDetector2_RemoveConfigurationWithResultAsync)(it, h0, h1, op.addr).check("ActivationSignalDetector.RemoveConfigurationWithResultAsync")
-  result = await awaitValue[ActivationSignalDetectionConfigurationRemovalResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationRemovalResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationRemovalResult, "ActivationSignalDetector.RemoveConfigurationWithResultAsync")
+  result = await awaitValue[ActivationSignalDetectionConfigurationRemovalResult](op, IID_IAsyncOperation_1_ActivationSignalDetectionConfigurationRemovalResult, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetectionConfigurationRemovalResult, alPlain, "ActivationSignalDetector.RemoveConfigurationWithResultAsync")
 
 proc removeConfigurationWithResult*(self: ActivationSignalDetector, signalId: string, modelId: string): ActivationSignalDetectionConfigurationRemovalResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector.RemoveConfigurationWithResult
@@ -17142,7 +17208,7 @@ proc getAllActivationSignalDetectorsAsync*(self: ConversationalAgentDetectorMana
   var op: pointer
   withIface(self.p, IID_IConversationalAgentDetectorManager, "IConversationalAgentDetectorManager", it):
     vcall(it, Slot_IConversationalAgentDetectorManager_GetAllActivationSignalDetectorsAsync, Fn_IConversationalAgentDetectorManager_GetAllActivationSignalDetectorsAsync)(it, op.addr).check("ConversationalAgentDetectorManager.GetAllActivationSignalDetectorsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_122, IID_AsyncOperationCompletedHandler_1_IVectorView_122, "ConversationalAgentDetectorManager.GetAllActivationSignalDetectorsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_122, IID_AsyncOperationCompletedHandler_1_IVectorView_122, alPlain, "ConversationalAgentDetectorManager.GetAllActivationSignalDetectorsAsync")
   result = toSeq[ActivationSignalDetector](coll, IID_IVectorView_1_ActivationSignalDetector)
   discard release(coll)
 
@@ -17159,7 +17225,7 @@ proc getActivationSignalDetectorsAsync*(self: ConversationalAgentDetectorManager
   var op: pointer
   withIface(self.p, IID_IConversationalAgentDetectorManager, "IConversationalAgentDetectorManager", it):
     vcall(it, Slot_IConversationalAgentDetectorManager_GetActivationSignalDetectorsAsync, Fn_IConversationalAgentDetectorManager_GetActivationSignalDetectorsAsync)(it, kind, op.addr).check("ConversationalAgentDetectorManager.GetActivationSignalDetectorsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_122, IID_AsyncOperationCompletedHandler_1_IVectorView_122, "ConversationalAgentDetectorManager.GetActivationSignalDetectorsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_122, IID_AsyncOperationCompletedHandler_1_IVectorView_122, alPlain, "ConversationalAgentDetectorManager.GetActivationSignalDetectorsAsync")
   result = toSeq[ActivationSignalDetector](coll, IID_IVectorView_1_ActivationSignalDetector)
   discard release(coll)
 
@@ -17177,7 +17243,7 @@ proc getActivationSignalDetectorFromIdAsync*(self: ConversationalAgentDetectorMa
   withIface(self.p, IID_IConversationalAgentDetectorManager2, "IConversationalAgentDetectorManager2", it):
     withHString(detectorId, h0):
       vcall(it, Slot_IConversationalAgentDetectorManager2_GetActivationSignalDetectorFromIdAsync, Fn_IConversationalAgentDetectorManager2_GetActivationSignalDetectorFromIdAsync)(it, h0, op.addr).check("ConversationalAgentDetectorManager.GetActivationSignalDetectorFromIdAsync")
-  result = adopt[ActivationSignalDetector](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetector, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetector, "ConversationalAgentDetectorManager.GetActivationSignalDetectorFromIdAsync"))
+  result = adopt[ActivationSignalDetector](await awaitObject(op, IID_IAsyncOperation_1_ActivationSignalDetector, IID_AsyncOperationCompletedHandler_1_ActivationSignalDetector, alPlain, "ConversationalAgentDetectorManager.GetActivationSignalDetectorFromIdAsync"))
 
 proc default*(_: typedesc[ConversationalAgentDetectorManager]): ConversationalAgentDetectorManager  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager.get_Default
@@ -17304,7 +17370,7 @@ proc requestInterruptibleAsync*(self: ConversationalAgentSession, interruptible:
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_RequestInterruptibleAsync, Fn_IConversationalAgentSession_RequestInterruptibleAsync)(it, interruptible, op.addr).check("ConversationalAgentSession.RequestInterruptibleAsync")
-  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, "ConversationalAgentSession.RequestInterruptibleAsync")
+  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, alPlain, "ConversationalAgentSession.RequestInterruptibleAsync")
 
 proc requestInterruptible*(self: ConversationalAgentSession, interruptible: bool): ConversationalAgentSessionUpdateResponse  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.RequestInterruptible
@@ -17318,7 +17384,7 @@ proc requestAgentStateChangeAsync*(self: ConversationalAgentSession, state: Conv
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_RequestAgentStateChangeAsync, Fn_IConversationalAgentSession_RequestAgentStateChangeAsync)(it, state, op.addr).check("ConversationalAgentSession.RequestAgentStateChangeAsync")
-  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, "ConversationalAgentSession.RequestAgentStateChangeAsync")
+  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, alPlain, "ConversationalAgentSession.RequestAgentStateChangeAsync")
 
 proc requestAgentStateChange*(self: ConversationalAgentSession, state: ConversationalAgentState): ConversationalAgentSessionUpdateResponse  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.RequestAgentStateChange
@@ -17332,7 +17398,7 @@ proc requestForegroundActivationAsync*(self: ConversationalAgentSession): Future
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_RequestForegroundActivationAsync, Fn_IConversationalAgentSession_RequestForegroundActivationAsync)(it, op.addr).check("ConversationalAgentSession.RequestForegroundActivationAsync")
-  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, "ConversationalAgentSession.RequestForegroundActivationAsync")
+  result = await awaitValue[ConversationalAgentSessionUpdateResponse](op, IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateResponse, alPlain, "ConversationalAgentSession.RequestForegroundActivationAsync")
 
 proc requestForegroundActivation*(self: ConversationalAgentSession): ConversationalAgentSessionUpdateResponse  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.RequestForegroundActivation
@@ -17346,7 +17412,7 @@ proc getAudioClientAsync*(self: ConversationalAgentSession): Future[WinRtObject]
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetAudioClientAsync, Fn_IConversationalAgentSession_GetAudioClientAsync)(it, op.addr).check("ConversationalAgentSession.GetAudioClientAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, "ConversationalAgentSession.GetAudioClientAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, alPlain, "ConversationalAgentSession.GetAudioClientAsync"))
 
 proc getAudioClient*(self: ConversationalAgentSession): WinRtObject  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetAudioClient
@@ -17361,7 +17427,7 @@ proc createAudioDeviceInputNodeAsync*(self: ConversationalAgentSession, graph: A
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     withIface(graph.p, IID_IAudioGraph, "IAudioGraph", p0):
       vcall(it, Slot_IConversationalAgentSession_CreateAudioDeviceInputNodeAsync, Fn_IConversationalAgentSession_CreateAudioDeviceInputNodeAsync)(it, p0, op.addr).check("ConversationalAgentSession.CreateAudioDeviceInputNodeAsync")
-  result = adopt[AudioDeviceInputNode](await awaitObject(op, IID_IAsyncOperation_1_AudioDeviceInputNode, IID_AsyncOperationCompletedHandler_1_AudioDeviceInputNode, "ConversationalAgentSession.CreateAudioDeviceInputNodeAsync"))
+  result = adopt[AudioDeviceInputNode](await awaitObject(op, IID_IAsyncOperation_1_AudioDeviceInputNode, IID_AsyncOperationCompletedHandler_1_AudioDeviceInputNode, alPlain, "ConversationalAgentSession.CreateAudioDeviceInputNodeAsync"))
 
 proc createAudioDeviceInputNode*(self: ConversationalAgentSession, graph: AudioGraph): AudioDeviceInputNode  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.CreateAudioDeviceInputNode
@@ -17376,7 +17442,7 @@ proc getAudioCaptureDeviceIdAsync*(self: ConversationalAgentSession): Future[str
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetAudioCaptureDeviceIdAsync, Fn_IConversationalAgentSession_GetAudioCaptureDeviceIdAsync)(it, op.addr).check("ConversationalAgentSession.GetAudioCaptureDeviceIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ConversationalAgentSession.GetAudioCaptureDeviceIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "ConversationalAgentSession.GetAudioCaptureDeviceIdAsync")
 
 proc getAudioCaptureDeviceId*(self: ConversationalAgentSession): string  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetAudioCaptureDeviceId
@@ -17390,7 +17456,7 @@ proc getAudioRenderDeviceIdAsync*(self: ConversationalAgentSession): Future[stri
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetAudioRenderDeviceIdAsync, Fn_IConversationalAgentSession_GetAudioRenderDeviceIdAsync)(it, op.addr).check("ConversationalAgentSession.GetAudioRenderDeviceIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ConversationalAgentSession.GetAudioRenderDeviceIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "ConversationalAgentSession.GetAudioRenderDeviceIdAsync")
 
 proc getAudioRenderDeviceId*(self: ConversationalAgentSession): string  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetAudioRenderDeviceId
@@ -17404,7 +17470,7 @@ proc getSignalModelIdAsync*(self: ConversationalAgentSession): Future[uint32] {.
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetSignalModelIdAsync, Fn_IConversationalAgentSession_GetSignalModelIdAsync)(it, op.addr).check("ConversationalAgentSession.GetSignalModelIdAsync")
-  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "ConversationalAgentSession.GetSignalModelIdAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, alPlain, "ConversationalAgentSession.GetSignalModelIdAsync")
 
 proc getSignalModelId*(self: ConversationalAgentSession): uint32  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetSignalModelId
@@ -17418,7 +17484,7 @@ proc setSignalModelIdAsync*(self: ConversationalAgentSession, signalModelId: uin
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_SetSignalModelIdAsync, Fn_IConversationalAgentSession_SetSignalModelIdAsync)(it, signalModelId, op.addr).check("ConversationalAgentSession.SetSignalModelIdAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ConversationalAgentSession.SetSignalModelIdAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ConversationalAgentSession.SetSignalModelIdAsync")
 
 proc setSignalModelId*(self: ConversationalAgentSession, signalModelId: uint32): bool  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.SetSignalModelId
@@ -17432,7 +17498,7 @@ proc getSupportedSignalModelIdsAsync*(self: ConversationalAgentSession): Future[
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetSupportedSignalModelIdsAsync, Fn_IConversationalAgentSession_GetSupportedSignalModelIdsAsync)(it, op.addr).check("ConversationalAgentSession.GetSupportedSignalModelIdsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_123, IID_AsyncOperationCompletedHandler_1_IVectorView_123, "ConversationalAgentSession.GetSupportedSignalModelIdsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_123, IID_AsyncOperationCompletedHandler_1_IVectorView_123, alPlain, "ConversationalAgentSession.GetSupportedSignalModelIdsAsync")
   result = toSeqValue[uint32](coll, IID_IVectorView_1_U4)
   discard release(coll)
 
@@ -17449,7 +17515,7 @@ proc requestActivationAsync*(self: ConversationalAgentSession, activationKind: C
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     vcall(it, Slot_IConversationalAgentSession2_RequestActivationAsync, Fn_IConversationalAgentSession2_RequestActivationAsync)(it, activationKind, op.addr).check("ConversationalAgentSession.RequestActivationAsync")
-  result = await awaitValue[ConversationalAgentActivationResult](op, IID_IAsyncOperation_1_ConversationalAgentActivationResult, IID_AsyncOperationCompletedHandler_1_ConversationalAgentActivationResult, "ConversationalAgentSession.RequestActivationAsync")
+  result = await awaitValue[ConversationalAgentActivationResult](op, IID_IAsyncOperation_1_ConversationalAgentActivationResult, IID_AsyncOperationCompletedHandler_1_ConversationalAgentActivationResult, alPlain, "ConversationalAgentSession.RequestActivationAsync")
 
 proc requestActivation*(self: ConversationalAgentSession, activationKind: ConversationalAgentActivationKind): ConversationalAgentActivationResult  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.RequestActivation
@@ -17463,7 +17529,7 @@ proc setSupportLockScreenActivationAsync*(self: ConversationalAgentSession, lock
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     vcall(it, Slot_IConversationalAgentSession2_SetSupportLockScreenActivationAsync, Fn_IConversationalAgentSession2_SetSupportLockScreenActivationAsync)(it, lockScreenActivationSupported, op.addr).check("ConversationalAgentSession.SetSupportLockScreenActivationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ConversationalAgentSession.SetSupportLockScreenActivationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ConversationalAgentSession.SetSupportLockScreenActivationAsync")
 
 proc setSupportLockScreenActivation*(self: ConversationalAgentSession, lockScreenActivationSupported: bool)  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.SetSupportLockScreenActivation
@@ -17483,7 +17549,7 @@ proc getMissingPrerequisitesAsync*(self: ConversationalAgentSession): Future[seq
   var op: pointer
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     vcall(it, Slot_IConversationalAgentSession2_GetMissingPrerequisitesAsync, Fn_IConversationalAgentSession2_GetMissingPrerequisitesAsync)(it, op.addr).check("ConversationalAgentSession.GetMissingPrerequisitesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_124, IID_AsyncOperationCompletedHandler_1_IVectorView_124, "ConversationalAgentSession.GetMissingPrerequisitesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_124, IID_AsyncOperationCompletedHandler_1_IVectorView_124, alPlain, "ConversationalAgentSession.GetMissingPrerequisitesAsync")
   result = toSeqValue[ConversationalAgentVoiceActivationPrerequisiteKind](coll, IID_IVectorView_1_ConversationalAgentVoiceActivationPrerequisiteKind)
   discard release(coll)
 
@@ -17497,7 +17563,7 @@ proc getCurrentSessionAsync*(_: typedesc[ConversationalAgentSession]): Future[Co
   var op: pointer
   withStatics("Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession", IID_IConversationalAgentSessionStatics, it):
     vcall(it, Slot_IConversationalAgentSessionStatics_GetCurrentSessionAsync, Fn_IConversationalAgentSessionStatics_GetCurrentSessionAsync)(it, op.addr).check("ConversationalAgentSession.GetCurrentSessionAsync")
-  result = adopt[ConversationalAgentSession](await awaitObject(op, IID_IAsyncOperation_1_ConversationalAgentSession, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSession, "ConversationalAgentSession.GetCurrentSessionAsync"))
+  result = adopt[ConversationalAgentSession](await awaitObject(op, IID_IAsyncOperation_1_ConversationalAgentSession, IID_AsyncOperationCompletedHandler_1_ConversationalAgentSession, alPlain, "ConversationalAgentSession.GetCurrentSessionAsync"))
 
 proc getCurrentSessionSync*(_: typedesc[ConversationalAgentSession]): ConversationalAgentSession  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetCurrentSessionSync
@@ -17656,7 +17722,7 @@ proc launchAsync*(self: AppListEntry): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IAppListEntry, "IAppListEntry", it):
     vcall(it, Slot_IAppListEntry_LaunchAsync, Fn_IAppListEntry_LaunchAsync)(it, op.addr).check("AppListEntry.LaunchAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppListEntry.LaunchAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppListEntry.LaunchAsync")
 
 proc appUserModelId*(self: AppListEntry): string  =
   ## Windows.ApplicationModel.Core.AppListEntry.get_AppUserModelId
@@ -17671,7 +17737,7 @@ proc launchForUserAsync*(self: AppListEntry, user: User): Future[bool] {.async.}
   withIface(self.p, IID_IAppListEntry3, "IAppListEntry3", it):
     withIface(user.p, IID_IUser, "IUser", p0):
       vcall(it, Slot_IAppListEntry3_LaunchForUserAsync, Fn_IAppListEntry3_LaunchForUserAsync)(it, p0, op.addr).check("AppListEntry.LaunchForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppListEntry.LaunchForUserAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppListEntry.LaunchForUserAsync")
 
 proc appInfo*(self: AppListEntry): AppInfo  =
   ## Windows.ApplicationModel.Core.AppListEntry.get_AppInfo
@@ -17757,12 +17823,12 @@ proc removeResuming*(_: typedesc[CoreApplication], token: EventRegistrationToken
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
     vcall(it, Slot_ICoreApplication_remove_Resuming, Fn_ICoreApplication_remove_Resuming)(it, token).check("CoreApplication.remove_Resuming")
 
-proc properties*(_: typedesc[CoreApplication]): ApplicationDataContainerSettings  =
+proc properties*(_: typedesc[CoreApplication]): WinRtObject  =
   ## Windows.ApplicationModel.Core.CoreApplication.get_Properties
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
     var tmp: pointer
     vcall(it, Slot_ICoreApplication_get_Properties, Fn_ICoreApplication_get_Properties)(it, tmp.addr).check("CoreApplication.get_Properties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc getCurrentView*(_: typedesc[CoreApplication]): CoreApplicationView  =
   ## Windows.ApplicationModel.Core.CoreApplication.GetCurrentView
@@ -17777,10 +17843,11 @@ proc run*(_: typedesc[CoreApplication], viewSource: FrameworkViewSource)  =
     withIface(viewSource.p, IID_IFrameworkViewSource, "IFrameworkViewSource", p0):
       vcall(it, Slot_ICoreApplication_Run, Fn_ICoreApplication_Run)(it, p0).check("CoreApplication.Run")
 
-proc runWithActivationFactories*(_: typedesc[CoreApplication], activationFactoryCallback: pointer)  =
+proc runWithActivationFactories*(_: typedesc[CoreApplication], activationFactoryCallback: WinRtObject)  =
   ## Windows.ApplicationModel.Core.CoreApplication.RunWithActivationFactories
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
-    vcall(it, Slot_ICoreApplication_RunWithActivationFactories, Fn_ICoreApplication_RunWithActivationFactories)(it, activationFactoryCallback).check("CoreApplication.RunWithActivationFactories")
+    withIface(activationFactoryCallback.p, IID_IGetActivationFactory, "IGetActivationFactory", p0):
+      vcall(it, Slot_ICoreApplication_RunWithActivationFactories, Fn_ICoreApplication_RunWithActivationFactories)(it, p0).check("CoreApplication.RunWithActivationFactories")
 
 proc requestRestartAsync*(_: typedesc[CoreApplication], launchArguments: string): Future[AppRestartFailureReason] {.async.} =
   ## Windows.ApplicationModel.Core.CoreApplication.RequestRestartAsync
@@ -17788,7 +17855,7 @@ proc requestRestartAsync*(_: typedesc[CoreApplication], launchArguments: string)
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication3, it):
     withHString(launchArguments, h0):
       vcall(it, Slot_ICoreApplication3_RequestRestartAsync, Fn_ICoreApplication3_RequestRestartAsync)(it, h0, op.addr).check("CoreApplication.RequestRestartAsync")
-  result = await awaitValue[AppRestartFailureReason](op, IID_IAsyncOperation_1_AppRestartFailureReason, IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason, "CoreApplication.RequestRestartAsync")
+  result = await awaitValue[AppRestartFailureReason](op, IID_IAsyncOperation_1_AppRestartFailureReason, IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason, alPlain, "CoreApplication.RequestRestartAsync")
 
 proc requestRestartForUserAsync*(_: typedesc[CoreApplication], user: User, launchArguments: string): Future[AppRestartFailureReason] {.async.} =
   ## Windows.ApplicationModel.Core.CoreApplication.RequestRestartForUserAsync
@@ -17797,7 +17864,7 @@ proc requestRestartForUserAsync*(_: typedesc[CoreApplication], user: User, launc
     withIface(user.p, IID_IUser, "IUser", p0):
       withHString(launchArguments, h1):
         vcall(it, Slot_ICoreApplication3_RequestRestartForUserAsync, Fn_ICoreApplication3_RequestRestartForUserAsync)(it, p0, h1, op.addr).check("CoreApplication.RequestRestartForUserAsync")
-  result = await awaitValue[AppRestartFailureReason](op, IID_IAsyncOperation_1_AppRestartFailureReason, IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason, "CoreApplication.RequestRestartForUserAsync")
+  result = await awaitValue[AppRestartFailureReason](op, IID_IAsyncOperation_1_AppRestartFailureReason, IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason, alPlain, "CoreApplication.RequestRestartForUserAsync")
 
 proc onBackgroundActivated*(_: typedesc[CoreApplication],
     handler: proc(sender: pointer, args: BackgroundActivatedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -18001,12 +18068,12 @@ proc removeHostedViewClosing*(self: CoreApplicationView, token: EventRegistratio
   withIface(self.p, IID_ICoreApplicationView3, "ICoreApplicationView3", it):
     vcall(it, Slot_ICoreApplicationView3_remove_HostedViewClosing, Fn_ICoreApplicationView3_remove_HostedViewClosing)(it, token).check("CoreApplicationView.remove_HostedViewClosing")
 
-proc properties*(self: CoreApplicationView): ApplicationDataContainerSettings  =
+proc properties*(self: CoreApplicationView): WinRtObject  =
   ## Windows.ApplicationModel.Core.CoreApplicationView.get_Properties
   withIface(self.p, IID_ICoreApplicationView5, "ICoreApplicationView5", it):
     var tmp: pointer
     vcall(it, Slot_ICoreApplicationView5_get_Properties, Fn_ICoreApplicationView5_get_Properties)(it, tmp.addr).check("CoreApplicationView.get_Properties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc dispatcherQueue*(self: CoreApplicationView): DispatcherQueue  =
   ## Windows.ApplicationModel.Core.CoreApplicationView.get_DispatcherQueue
@@ -18124,7 +18191,7 @@ proc getHistoryItemsAsync*(_: typedesc[Clipboard]): Future[ClipboardHistoryItems
   var op: pointer
   withStatics("Windows.ApplicationModel.DataTransfer.Clipboard", IID_IClipboardStatics2, it):
     vcall(it, Slot_IClipboardStatics2_GetHistoryItemsAsync, Fn_IClipboardStatics2_GetHistoryItemsAsync)(it, op.addr).check("Clipboard.GetHistoryItemsAsync")
-  result = adopt[ClipboardHistoryItemsResult](await awaitObject(op, IID_IAsyncOperation_1_ClipboardHistoryItemsResult, IID_AsyncOperationCompletedHandler_1_ClipboardHistoryItemsResult, "Clipboard.GetHistoryItemsAsync"))
+  result = adopt[ClipboardHistoryItemsResult](await awaitObject(op, IID_IAsyncOperation_1_ClipboardHistoryItemsResult, IID_AsyncOperationCompletedHandler_1_ClipboardHistoryItemsResult, alPlain, "Clipboard.GetHistoryItemsAsync"))
 
 proc clearHistory*(_: typedesc[Clipboard]): bool  =
   ## Windows.ApplicationModel.DataTransfer.Clipboard.ClearHistory
@@ -18425,11 +18492,11 @@ proc setData*(self: DataPackage, formatId: string, value: WinRtObject)  =
     withHString(formatId, h0):
       vcall(it, Slot_IDataPackage_SetData, Fn_IDataPackage_SetData)(it, h0, value.p).check("DataPackage.SetData")
 
-proc setDataProvider*(self: DataPackage, formatId: string, delayRenderer: proc(sender: DataProviderRequest))  =
+proc setDataProvider*(self: DataPackage, formatId: string, delayRenderer: proc(a0: DataProviderRequest))  =
   ## Windows.ApplicationModel.DataTransfer.DataPackage.SetDataProvider
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     withHString(formatId, h0):
-      let d1 = newDelegate(IID_DataProviderHandler, proc(a: pointer) = delayRenderer(borrow[DataProviderRequest](a)))
+      let d1 = newDelegate(IID_DataProviderHandler, proc(a0: pointer) = delayRenderer(borrow[DataProviderRequest](a0)))
       defer: discard release(d1)
       vcall(it, Slot_IDataPackage_SetDataProvider, Fn_IDataPackage_SetDataProvider)(it, h0, d1).check("DataPackage.SetDataProvider")
 
@@ -18456,7 +18523,7 @@ proc resourceMap*(self: DataPackage): Table[string, RandomAccessStreamReference]
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackage_get_ResourceMap, Fn_IDataPackage_get_ResourceMap)(it, tmp.addr).check("DataPackage.get_ResourceMap")
-    result = toTable[RandomAccessStreamReference](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_RandomAccessStreamReference)
+    result = toTable[string, RandomAccessStreamReference](tmp, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_RandomAccessStreamReference)
     release(tmp)
 
 proc setRtf*(self: DataPackage, value: string)  =
@@ -18561,14 +18628,14 @@ proc `description=`*(self: DataPackagePropertySet, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IDataPackagePropertySet_put_Description, Fn_IDataPackagePropertySet_put_Description)(it, h0).check("DataPackagePropertySet.put_Description")
 
-proc thumbnail*(self: DataPackagePropertySet): RandomAccessStreamReference  =
+proc thumbnail*(self: DataPackagePropertySet): WinRtObject  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_Thumbnail
   withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackagePropertySet_get_Thumbnail, Fn_IDataPackagePropertySet_get_Thumbnail)(it, tmp.addr).check("DataPackagePropertySet.get_Thumbnail")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `thumbnail=`*(self: DataPackagePropertySet, value: RandomAccessStreamReference)  =
+proc `thumbnail=`*(self: DataPackagePropertySet, value: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.put_Thumbnail
   withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -18647,14 +18714,14 @@ proc `packageFamilyName=`*(self: DataPackagePropertySet, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IDataPackagePropertySet2_put_PackageFamilyName, Fn_IDataPackagePropertySet2_put_PackageFamilyName)(it, h0).check("DataPackagePropertySet.put_PackageFamilyName")
 
-proc square30x30Logo*(self: DataPackagePropertySet): RandomAccessStreamReference  =
+proc square30x30Logo*(self: DataPackagePropertySet): WinRtObject  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.get_Square30x30Logo
   withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackagePropertySet2_get_Square30x30Logo, Fn_IDataPackagePropertySet2_get_Square30x30Logo)(it, tmp.addr).check("DataPackagePropertySet.get_Square30x30Logo")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `square30x30Logo=`*(self: DataPackagePropertySet, value: RandomAccessStreamReference)  =
+proc `square30x30Logo=`*(self: DataPackagePropertySet, value: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySet.put_Square30x30Logo
   withIface(self.p, IID_IDataPackagePropertySet2, "IDataPackagePropertySet2", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -18762,12 +18829,12 @@ proc contentSourceApplicationLink*(self: DataPackagePropertySetView): Uri  =
     vcall(it, Slot_IDataPackagePropertySetView2_get_ContentSourceApplicationLink, Fn_IDataPackagePropertySetView2_get_ContentSourceApplicationLink)(it, tmp.addr).check("DataPackagePropertySetView.get_ContentSourceApplicationLink")
     result = adopt[Uri](tmp)
 
-proc square30x30Logo*(self: DataPackagePropertySetView): RandomAccessStreamReference  =
+proc square30x30Logo*(self: DataPackagePropertySetView): WinRtObject  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_Square30x30Logo
   withIface(self.p, IID_IDataPackagePropertySetView2, "IDataPackagePropertySetView2", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackagePropertySetView2_get_Square30x30Logo, Fn_IDataPackagePropertySetView2_get_Square30x30Logo)(it, tmp.addr).check("DataPackagePropertySetView.get_Square30x30Logo")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc logoBackgroundColor*(self: DataPackagePropertySetView): Color  =
   ## Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView.get_LogoBackgroundColor
@@ -18838,14 +18905,14 @@ proc getDataAsync*(self: DataPackageView, formatId: string): Future[WinRtObject]
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     withHString(formatId, h0):
       vcall(it, Slot_IDataPackageView_GetDataAsync, Fn_IDataPackageView_GetDataAsync)(it, h0, op.addr).check("DataPackageView.GetDataAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, "DataPackageView.GetDataAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, alPlain, "DataPackageView.GetDataAsync"))
 
 proc getTextAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetTextAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetTextAsync, Fn_IDataPackageView_GetTextAsync)(it, op.addr).check("DataPackageView.GetTextAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetTextAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "DataPackageView.GetTextAsync")
 
 proc getTextAsync*(self: DataPackageView, formatId: string): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetTextAsync
@@ -18853,42 +18920,42 @@ proc getTextAsync*(self: DataPackageView, formatId: string): Future[string] {.as
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     withHString(formatId, h0):
       vcall(it, Slot_IDataPackageView_GetTextAsync2, Fn_IDataPackageView_GetTextAsync2)(it, h0, op.addr).check("DataPackageView.GetTextAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetTextAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "DataPackageView.GetTextAsync")
 
 proc getUriAsync*(self: DataPackageView): Future[Uri] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetUriAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetUriAsync, Fn_IDataPackageView_GetUriAsync)(it, op.addr).check("DataPackageView.GetUriAsync")
-  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetUriAsync"))
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, alPlain, "DataPackageView.GetUriAsync"))
 
 proc getHtmlFormatAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetHtmlFormatAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetHtmlFormatAsync, Fn_IDataPackageView_GetHtmlFormatAsync)(it, op.addr).check("DataPackageView.GetHtmlFormatAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetHtmlFormatAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "DataPackageView.GetHtmlFormatAsync")
 
 proc getRtfAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetRtfAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetRtfAsync, Fn_IDataPackageView_GetRtfAsync)(it, op.addr).check("DataPackageView.GetRtfAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "DataPackageView.GetRtfAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "DataPackageView.GetRtfAsync")
 
 proc getBitmapAsync*(self: DataPackageView): Future[RandomAccessStreamReference] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetBitmapAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetBitmapAsync, Fn_IDataPackageView_GetBitmapAsync)(it, op.addr).check("DataPackageView.GetBitmapAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, "DataPackageView.GetBitmapAsync"))
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_RandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_RandomAccessStreamReference, alPlain, "DataPackageView.GetBitmapAsync"))
 
 proc getStorageItemsAsync*(self: DataPackageView): Future[seq[WinRtObject]] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetStorageItemsAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetStorageItemsAsync, Fn_IDataPackageView_GetStorageItemsAsync)(it, op.addr).check("DataPackageView.GetStorageItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_125, IID_AsyncOperationCompletedHandler_1_IVectorView_125, "DataPackageView.GetStorageItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_125, IID_AsyncOperationCompletedHandler_1_IVectorView_125, alPlain, "DataPackageView.GetStorageItemsAsync")
   result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
   discard release(coll)
 
@@ -18897,21 +18964,21 @@ proc getApplicationLinkAsync*(self: DataPackageView): Future[Uri] {.async.} =
   var op: pointer
   withIface(self.p, IID_IDataPackageView2, "IDataPackageView2", it):
     vcall(it, Slot_IDataPackageView2_GetApplicationLinkAsync, Fn_IDataPackageView2_GetApplicationLinkAsync)(it, op.addr).check("DataPackageView.GetApplicationLinkAsync")
-  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetApplicationLinkAsync"))
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, alPlain, "DataPackageView.GetApplicationLinkAsync"))
 
 proc getWebLinkAsync*(self: DataPackageView): Future[Uri] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetWebLinkAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView2, "IDataPackageView2", it):
     vcall(it, Slot_IDataPackageView2_GetWebLinkAsync, Fn_IDataPackageView2_GetWebLinkAsync)(it, op.addr).check("DataPackageView.GetWebLinkAsync")
-  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, "DataPackageView.GetWebLinkAsync"))
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, alPlain, "DataPackageView.GetWebLinkAsync"))
 
 proc requestAccessAsync*(self: DataPackageView): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.RequestAccessAsync
   var op: pointer
   withIface(self.p, IID_IDataPackageView3, "IDataPackageView3", it):
     vcall(it, Slot_IDataPackageView3_RequestAccessAsync, Fn_IDataPackageView3_RequestAccessAsync)(it, op.addr).check("DataPackageView.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "DataPackageView.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "DataPackageView.RequestAccessAsync")
 
 proc requestAccessAsync*(self: DataPackageView, enterpriseId: string): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.RequestAccessAsync
@@ -18919,7 +18986,7 @@ proc requestAccessAsync*(self: DataPackageView, enterpriseId: string): Future[Pr
   withIface(self.p, IID_IDataPackageView3, "IDataPackageView3", it):
     withHString(enterpriseId, h0):
       vcall(it, Slot_IDataPackageView3_RequestAccessAsync2, Fn_IDataPackageView3_RequestAccessAsync2)(it, h0, op.addr).check("DataPackageView.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "DataPackageView.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "DataPackageView.RequestAccessAsync")
 
 proc unlockAndAssumeEnterpriseIdentity*(self: DataPackageView): ProtectionPolicyEvaluationResult  =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.UnlockAndAssumeEnterpriseIdentity
@@ -18938,6 +19005,12 @@ proc complete*(self: DataProviderDeferral)  =
   ## Windows.ApplicationModel.DataTransfer.DataProviderDeferral.Complete
   withIface(self.p, IID_IDataProviderDeferral, "IDataProviderDeferral", it):
     vcall(it, Slot_IDataProviderDeferral_Complete, Fn_IDataProviderDeferral_Complete)(it).check("DataProviderDeferral.Complete")
+
+proc invoke*(self: DataProviderHandler, request: DataProviderRequest)  =
+  ## Windows.ApplicationModel.DataTransfer.DataProviderHandler.Invoke
+  withIface(self.p, IID_DataProviderHandler, "DataProviderHandler", it):
+    withIface(request.p, IID_IDataProviderRequest, "IDataProviderRequest", p0):
+      vcall(it, Slot_DataProviderHandler_Invoke, Fn_DataProviderHandler_Invoke)(it, p0).check("DataProviderHandler.Invoke")
 
 proc formatId*(self: DataProviderRequest): string  =
   ## Windows.ApplicationModel.DataTransfer.DataProviderRequest.get_FormatId
@@ -19203,7 +19276,7 @@ proc startAsync*(self: CoreDragOperation): Future[DataPackageOperation] {.async.
   var op: pointer
   withIface(self.p, IID_ICoreDragOperation, "ICoreDragOperation", it):
     vcall(it, Slot_ICoreDragOperation_StartAsync, Fn_ICoreDragOperation_StartAsync)(it, op.addr).check("CoreDragOperation.StartAsync")
-  result = await awaitValue[DataPackageOperation](op, IID_IAsyncOperation_1_DataPackageOperation, IID_AsyncOperationCompletedHandler_1_DataPackageOperation, "CoreDragOperation.StartAsync")
+  result = await awaitValue[DataPackageOperation](op, IID_IAsyncOperation_1_DataPackageOperation, IID_AsyncOperationCompletedHandler_1_DataPackageOperation, alPlain, "CoreDragOperation.StartAsync")
 
 proc allowedOperations*(self: CoreDragOperation): DataPackageOperation  =
   ## Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragOperation.get_AllowedOperations
@@ -19283,10 +19356,11 @@ proc clear*(self: CoreDragUIOverride)  =
   withIface(self.p, IID_ICoreDragUIOverride, "ICoreDragUIOverride", it):
     vcall(it, Slot_ICoreDragUIOverride_Clear, Fn_ICoreDragUIOverride_Clear)(it).check("CoreDragUIOverride.Clear")
 
-proc setTarget*(self: CoreDropOperationTargetRequestedEventArgs, target: pointer)  =
+proc setTarget*(self: CoreDropOperationTargetRequestedEventArgs, target: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDropOperationTargetRequestedEventArgs.SetTarget
   withIface(self.p, IID_ICoreDropOperationTargetRequestedEventArgs, "ICoreDropOperationTargetRequestedEventArgs", it):
-    vcall(it, Slot_ICoreDropOperationTargetRequestedEventArgs_SetTarget, Fn_ICoreDropOperationTargetRequestedEventArgs_SetTarget)(it, target).check("CoreDropOperationTargetRequestedEventArgs.SetTarget")
+    withIface(target.p, IID_ICoreDropOperationTarget, "ICoreDropOperationTarget", p0):
+      vcall(it, Slot_ICoreDropOperationTargetRequestedEventArgs_SetTarget, Fn_ICoreDropOperationTargetRequestedEventArgs_SetTarget)(it, p0).check("CoreDropOperationTargetRequestedEventArgs.SetTarget")
 
 proc getStaticFragment*(_: typedesc[HtmlFormatHelper], htmlFormat: string): string  =
   ## Windows.ApplicationModel.DataTransfer.HtmlFormatHelper.GetStaticFragment
@@ -19358,16 +19432,22 @@ proc `tag=`*(self: ShareProvider, value: WinRtObject)  =
   withIface(self.p, IID_IShareProvider, "IShareProvider", it):
     vcall(it, Slot_IShareProvider_put_Tag, Fn_IShareProvider_put_Tag)(it, value.p).check("ShareProvider.put_Tag")
 
-proc create*(_: typedesc[ShareProvider], title: string, displayIcon: RandomAccessStreamReference, backgroundColor: Color, handler: proc(sender: ShareProviderOperation)): ShareProvider  =
+proc create*(_: typedesc[ShareProvider], title: string, displayIcon: RandomAccessStreamReference, backgroundColor: Color, handler: proc(a0: ShareProviderOperation)): ShareProvider  =
   ## Windows.ApplicationModel.DataTransfer.ShareProvider.Create
   withStatics("Windows.ApplicationModel.DataTransfer.ShareProvider", IID_IShareProviderFactory, it):
     withHString(title, h0):
       withIface(displayIcon.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p1):
-        let d3 = newDelegate(IID_ShareProviderHandler, proc(a: pointer) = handler(borrow[ShareProviderOperation](a)))
+        let d3 = newDelegate(IID_ShareProviderHandler, proc(a0: pointer) = handler(borrow[ShareProviderOperation](a0)))
         defer: discard release(d3)
         var tmp: pointer
         vcall(it, Slot_IShareProviderFactory_Create, Fn_IShareProviderFactory_Create)(it, h0, p1, backgroundColor, d3, tmp.addr).check("ShareProvider.Create")
         result = adopt[ShareProvider](tmp)
+
+proc invoke*(self: ShareProviderHandler, operation: ShareProviderOperation)  =
+  ## Windows.ApplicationModel.DataTransfer.ShareProviderHandler.Invoke
+  withIface(self.p, IID_ShareProviderHandler, "ShareProviderHandler", it):
+    withIface(operation.p, IID_IShareProviderOperation, "IShareProviderOperation", p0):
+      vcall(it, Slot_ShareProviderHandler_Invoke, Fn_ShareProviderHandler_Invoke)(it, p0).check("ShareProviderHandler.Invoke")
 
 proc data*(self: ShareProviderOperation): DataPackageView  =
   ## Windows.ApplicationModel.DataTransfer.ShareProviderOperation.get_Data
@@ -19592,7 +19672,7 @@ proc redeemTokenForFileAsync*(_: typedesc[SharedStorageAccessManager], token: st
   withStatics("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager", IID_ISharedStorageAccessManagerStatics, it):
     withHString(token, h0):
       vcall(it, Slot_ISharedStorageAccessManagerStatics_RedeemTokenForFileAsync, Fn_ISharedStorageAccessManagerStatics_RedeemTokenForFileAsync)(it, h0, op.addr).check("SharedStorageAccessManager.RedeemTokenForFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "SharedStorageAccessManager.RedeemTokenForFileAsync"))
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "SharedStorageAccessManager.RedeemTokenForFileAsync"))
 
 proc removeFile*(_: typedesc[SharedStorageAccessManager], token: string)  =
   ## Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager.RemoveFile
@@ -19684,12 +19764,12 @@ proc label*(self: TransferTarget): string  =
     vcall(it, Slot_ITransferTarget_get_Label, Fn_ITransferTarget_get_Label)(it, tmp.addr).check("TransferTarget.get_Label")
     result = takeString(tmp)
 
-proc displayIcon*(self: TransferTarget): RandomAccessStreamReference  =
+proc displayIcon*(self: TransferTarget): WinRtObject  =
   ## Windows.ApplicationModel.DataTransfer.TransferTarget.get_DisplayIcon
   withIface(self.p, IID_ITransferTarget, "ITransferTarget", it):
     var tmp: pointer
     vcall(it, Slot_ITransferTarget_get_DisplayIcon, Fn_ITransferTarget_get_DisplayIcon)(it, tmp.addr).check("TransferTarget.get_DisplayIcon")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc isEnabled*(self: TransferTarget): bool  =
   ## Windows.ApplicationModel.DataTransfer.TransferTarget.get_IsEnabled
@@ -19784,7 +19864,7 @@ proc transferToAsync*(self: TransferTargetWatcher, target: TransferTarget, paren
   withIface(self.p, IID_ITransferTargetWatcher, "ITransferTargetWatcher", it):
     withIface(target.p, IID_ITransferTarget, "ITransferTarget", p0):
       vcall(it, Slot_ITransferTargetWatcher_TransferToAsync, Fn_ITransferTargetWatcher_TransferToAsync)(it, p0, parentWindowHandle, op.addr).check("TransferTargetWatcher.TransferToAsync")
-  result = adopt[TransferTargetInvokeResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_TransferTargetInvokeResult_F8, IID_AsyncOperationCompletedHandler_1_TransferTargetInvokeResult, "TransferTargetWatcher.TransferToAsync"))
+  result = adopt[TransferTargetInvokeResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_TransferTargetInvokeResult_F8, IID_AsyncOperationWithProgressCompletedHandler_2_TransferTargetInvokeResult_F8, alProgress, "TransferTargetWatcher.TransferToAsync"))
 
 proc onAdded*(self: TransferTargetWatcher,
     handler: proc(sender: pointer, args: TransferTargetChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -20227,14 +20307,14 @@ proc reportCompletedAsync*(self: EmailMailboxCreateFolderRequest, folder: EmailF
   withIface(self.p, IID_IEmailMailboxCreateFolderRequest, "IEmailMailboxCreateFolderRequest", it):
     withIface(folder.p, IID_IEmailFolder, "IEmailFolder", p0):
       vcall(it, Slot_IEmailMailboxCreateFolderRequest_ReportCompletedAsync, Fn_IEmailMailboxCreateFolderRequest_ReportCompletedAsync)(it, p0, op.addr).check("EmailMailboxCreateFolderRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxCreateFolderRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxCreateFolderRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxCreateFolderRequest, status: EmailMailboxCreateFolderStatus) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxCreateFolderRequest, "IEmailMailboxCreateFolderRequest", it):
     vcall(it, Slot_IEmailMailboxCreateFolderRequest_ReportFailedAsync, Fn_IEmailMailboxCreateFolderRequest_ReportFailedAsync)(it, status, op.addr).check("EmailMailboxCreateFolderRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxCreateFolderRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxCreateFolderRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxCreateFolderRequestEventArgs): EmailMailboxCreateFolderRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequestEventArgs.get_Request
@@ -20269,14 +20349,14 @@ proc reportCompletedAsync*(self: EmailMailboxDeleteFolderRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDeleteFolderRequest, "IEmailMailboxDeleteFolderRequest", it):
     vcall(it, Slot_IEmailMailboxDeleteFolderRequest_ReportCompletedAsync, Fn_IEmailMailboxDeleteFolderRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxDeleteFolderRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDeleteFolderRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDeleteFolderRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxDeleteFolderRequest, status: EmailMailboxDeleteFolderStatus) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDeleteFolderRequest, "IEmailMailboxDeleteFolderRequest", it):
     vcall(it, Slot_IEmailMailboxDeleteFolderRequest_ReportFailedAsync, Fn_IEmailMailboxDeleteFolderRequest_ReportFailedAsync)(it, status, op.addr).check("EmailMailboxDeleteFolderRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDeleteFolderRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDeleteFolderRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxDeleteFolderRequestEventArgs): EmailMailboxDeleteFolderRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequestEventArgs.get_Request
@@ -20318,14 +20398,14 @@ proc reportCompletedAsync*(self: EmailMailboxDownloadAttachmentRequest) {.async.
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDownloadAttachmentRequest, "IEmailMailboxDownloadAttachmentRequest", it):
     vcall(it, Slot_IEmailMailboxDownloadAttachmentRequest_ReportCompletedAsync, Fn_IEmailMailboxDownloadAttachmentRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxDownloadAttachmentRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDownloadAttachmentRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDownloadAttachmentRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxDownloadAttachmentRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDownloadAttachmentRequest, "IEmailMailboxDownloadAttachmentRequest", it):
     vcall(it, Slot_IEmailMailboxDownloadAttachmentRequest_ReportFailedAsync, Fn_IEmailMailboxDownloadAttachmentRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxDownloadAttachmentRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDownloadAttachmentRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDownloadAttachmentRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxDownloadAttachmentRequestEventArgs): EmailMailboxDownloadAttachmentRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequestEventArgs.get_Request
@@ -20360,14 +20440,14 @@ proc reportCompletedAsync*(self: EmailMailboxDownloadMessageRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDownloadMessageRequest, "IEmailMailboxDownloadMessageRequest", it):
     vcall(it, Slot_IEmailMailboxDownloadMessageRequest_ReportCompletedAsync, Fn_IEmailMailboxDownloadMessageRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxDownloadMessageRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDownloadMessageRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDownloadMessageRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxDownloadMessageRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxDownloadMessageRequest, "IEmailMailboxDownloadMessageRequest", it):
     vcall(it, Slot_IEmailMailboxDownloadMessageRequest_ReportFailedAsync, Fn_IEmailMailboxDownloadMessageRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxDownloadMessageRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxDownloadMessageRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxDownloadMessageRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxDownloadMessageRequestEventArgs): EmailMailboxDownloadMessageRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequestEventArgs.get_Request
@@ -20402,14 +20482,14 @@ proc reportCompletedAsync*(self: EmailMailboxEmptyFolderRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxEmptyFolderRequest, "IEmailMailboxEmptyFolderRequest", it):
     vcall(it, Slot_IEmailMailboxEmptyFolderRequest_ReportCompletedAsync, Fn_IEmailMailboxEmptyFolderRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxEmptyFolderRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxEmptyFolderRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxEmptyFolderRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxEmptyFolderRequest, status: EmailMailboxEmptyFolderStatus) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxEmptyFolderRequest, "IEmailMailboxEmptyFolderRequest", it):
     vcall(it, Slot_IEmailMailboxEmptyFolderRequest_ReportFailedAsync, Fn_IEmailMailboxEmptyFolderRequest_ReportFailedAsync)(it, status, op.addr).check("EmailMailboxEmptyFolderRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxEmptyFolderRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxEmptyFolderRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxEmptyFolderRequestEventArgs): EmailMailboxEmptyFolderRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequestEventArgs.get_Request
@@ -20480,14 +20560,14 @@ proc reportCompletedAsync*(self: EmailMailboxForwardMeetingRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxForwardMeetingRequest, "IEmailMailboxForwardMeetingRequest", it):
     vcall(it, Slot_IEmailMailboxForwardMeetingRequest_ReportCompletedAsync, Fn_IEmailMailboxForwardMeetingRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxForwardMeetingRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxForwardMeetingRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxForwardMeetingRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxForwardMeetingRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxForwardMeetingRequest, "IEmailMailboxForwardMeetingRequest", it):
     vcall(it, Slot_IEmailMailboxForwardMeetingRequest_ReportFailedAsync, Fn_IEmailMailboxForwardMeetingRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxForwardMeetingRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxForwardMeetingRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxForwardMeetingRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxForwardMeetingRequestEventArgs): EmailMailboxForwardMeetingRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequestEventArgs.get_Request
@@ -20523,14 +20603,14 @@ proc reportCompletedAsync*(self: EmailMailboxGetAutoReplySettingsRequest, autoRe
   withIface(self.p, IID_IEmailMailboxGetAutoReplySettingsRequest, "IEmailMailboxGetAutoReplySettingsRequest", it):
     withIface(autoReplySettings.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", p0):
       vcall(it, Slot_IEmailMailboxGetAutoReplySettingsRequest_ReportCompletedAsync, Fn_IEmailMailboxGetAutoReplySettingsRequest_ReportCompletedAsync)(it, p0, op.addr).check("EmailMailboxGetAutoReplySettingsRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxGetAutoReplySettingsRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxGetAutoReplySettingsRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxGetAutoReplySettingsRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxGetAutoReplySettingsRequest, "IEmailMailboxGetAutoReplySettingsRequest", it):
     vcall(it, Slot_IEmailMailboxGetAutoReplySettingsRequest_ReportFailedAsync, Fn_IEmailMailboxGetAutoReplySettingsRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxGetAutoReplySettingsRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxGetAutoReplySettingsRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxGetAutoReplySettingsRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxGetAutoReplySettingsRequestEventArgs): EmailMailboxGetAutoReplySettingsRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequestEventArgs.get_Request
@@ -20579,14 +20659,14 @@ proc reportCompletedAsync*(self: EmailMailboxMoveFolderRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxMoveFolderRequest, "IEmailMailboxMoveFolderRequest", it):
     vcall(it, Slot_IEmailMailboxMoveFolderRequest_ReportCompletedAsync, Fn_IEmailMailboxMoveFolderRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxMoveFolderRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxMoveFolderRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxMoveFolderRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxMoveFolderRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxMoveFolderRequest, "IEmailMailboxMoveFolderRequest", it):
     vcall(it, Slot_IEmailMailboxMoveFolderRequest_ReportFailedAsync, Fn_IEmailMailboxMoveFolderRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxMoveFolderRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxMoveFolderRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxMoveFolderRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxMoveFolderRequestEventArgs): EmailMailboxMoveFolderRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequestEventArgs.get_Request
@@ -20649,14 +20729,14 @@ proc reportCompletedAsync*(self: EmailMailboxProposeNewTimeForMeetingRequest) {.
   var op: pointer
   withIface(self.p, IID_IEmailMailboxProposeNewTimeForMeetingRequest, "IEmailMailboxProposeNewTimeForMeetingRequest", it):
     vcall(it, Slot_IEmailMailboxProposeNewTimeForMeetingRequest_ReportCompletedAsync, Fn_IEmailMailboxProposeNewTimeForMeetingRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxProposeNewTimeForMeetingRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxProposeNewTimeForMeetingRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxProposeNewTimeForMeetingRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxProposeNewTimeForMeetingRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxProposeNewTimeForMeetingRequest, "IEmailMailboxProposeNewTimeForMeetingRequest", it):
     vcall(it, Slot_IEmailMailboxProposeNewTimeForMeetingRequest_ReportFailedAsync, Fn_IEmailMailboxProposeNewTimeForMeetingRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxProposeNewTimeForMeetingRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxProposeNewTimeForMeetingRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxProposeNewTimeForMeetingRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxProposeNewTimeForMeetingRequestEventArgs): EmailMailboxProposeNewTimeForMeetingRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequestEventArgs.get_Request
@@ -20694,14 +20774,14 @@ proc reportCompletedAsync*(self: EmailMailboxResolveRecipientsRequest, resolutio
     let p0 = asIterable[EmailRecipientResolutionResult](resolutionResults, IID_IIterable_1_EmailRecipientResolutionResult, IID_IVectorView_1_EmailRecipientResolutionResult, IID_IIterator_1_EmailRecipientResolutionResult)
     defer: discard release(p0)
     vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_ReportCompletedAsync, Fn_IEmailMailboxResolveRecipientsRequest_ReportCompletedAsync)(it, p0, op.addr).check("EmailMailboxResolveRecipientsRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxResolveRecipientsRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxResolveRecipientsRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxResolveRecipientsRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxResolveRecipientsRequest, "IEmailMailboxResolveRecipientsRequest", it):
     vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_ReportFailedAsync, Fn_IEmailMailboxResolveRecipientsRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxResolveRecipientsRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxResolveRecipientsRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxResolveRecipientsRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxResolveRecipientsRequestEventArgs): EmailMailboxResolveRecipientsRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequestEventArgs.get_Request
@@ -20758,21 +20838,21 @@ proc saveMessageAsync*(self: EmailMailboxServerSearchReadBatchRequest, message: 
   withIface(self.p, IID_IEmailMailboxServerSearchReadBatchRequest, "IEmailMailboxServerSearchReadBatchRequest", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailMailboxServerSearchReadBatchRequest_SaveMessageAsync, Fn_IEmailMailboxServerSearchReadBatchRequest_SaveMessageAsync)(it, p0, op.addr).check("EmailMailboxServerSearchReadBatchRequest.SaveMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxServerSearchReadBatchRequest.SaveMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxServerSearchReadBatchRequest.SaveMessageAsync")
 
 proc reportCompletedAsync*(self: EmailMailboxServerSearchReadBatchRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequest.ReportCompletedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxServerSearchReadBatchRequest, "IEmailMailboxServerSearchReadBatchRequest", it):
     vcall(it, Slot_IEmailMailboxServerSearchReadBatchRequest_ReportCompletedAsync, Fn_IEmailMailboxServerSearchReadBatchRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxServerSearchReadBatchRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxServerSearchReadBatchRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxServerSearchReadBatchRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxServerSearchReadBatchRequest, batchStatus: EmailBatchStatus) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxServerSearchReadBatchRequest, "IEmailMailboxServerSearchReadBatchRequest", it):
     vcall(it, Slot_IEmailMailboxServerSearchReadBatchRequest_ReportFailedAsync, Fn_IEmailMailboxServerSearchReadBatchRequest_ReportFailedAsync)(it, batchStatus, op.addr).check("EmailMailboxServerSearchReadBatchRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxServerSearchReadBatchRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxServerSearchReadBatchRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxServerSearchReadBatchRequestEventArgs): EmailMailboxServerSearchReadBatchRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequestEventArgs.get_Request
@@ -20807,14 +20887,14 @@ proc reportCompletedAsync*(self: EmailMailboxSetAutoReplySettingsRequest) {.asyn
   var op: pointer
   withIface(self.p, IID_IEmailMailboxSetAutoReplySettingsRequest, "IEmailMailboxSetAutoReplySettingsRequest", it):
     vcall(it, Slot_IEmailMailboxSetAutoReplySettingsRequest_ReportCompletedAsync, Fn_IEmailMailboxSetAutoReplySettingsRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxSetAutoReplySettingsRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxSetAutoReplySettingsRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxSetAutoReplySettingsRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxSetAutoReplySettingsRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxSetAutoReplySettingsRequest, "IEmailMailboxSetAutoReplySettingsRequest", it):
     vcall(it, Slot_IEmailMailboxSetAutoReplySettingsRequest_ReportFailedAsync, Fn_IEmailMailboxSetAutoReplySettingsRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxSetAutoReplySettingsRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxSetAutoReplySettingsRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxSetAutoReplySettingsRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxSetAutoReplySettingsRequestEventArgs): EmailMailboxSetAutoReplySettingsRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequestEventArgs.get_Request
@@ -20842,14 +20922,14 @@ proc reportCompletedAsync*(self: EmailMailboxSyncManagerSyncRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxSyncManagerSyncRequest, "IEmailMailboxSyncManagerSyncRequest", it):
     vcall(it, Slot_IEmailMailboxSyncManagerSyncRequest_ReportCompletedAsync, Fn_IEmailMailboxSyncManagerSyncRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxSyncManagerSyncRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxSyncManagerSyncRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxSyncManagerSyncRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxSyncManagerSyncRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxSyncManagerSyncRequest, "IEmailMailboxSyncManagerSyncRequest", it):
     vcall(it, Slot_IEmailMailboxSyncManagerSyncRequest_ReportFailedAsync, Fn_IEmailMailboxSyncManagerSyncRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxSyncManagerSyncRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxSyncManagerSyncRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxSyncManagerSyncRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxSyncManagerSyncRequestEventArgs): EmailMailboxSyncManagerSyncRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequestEventArgs.get_Request
@@ -20912,14 +20992,14 @@ proc reportCompletedAsync*(self: EmailMailboxUpdateMeetingResponseRequest) {.asy
   var op: pointer
   withIface(self.p, IID_IEmailMailboxUpdateMeetingResponseRequest, "IEmailMailboxUpdateMeetingResponseRequest", it):
     vcall(it, Slot_IEmailMailboxUpdateMeetingResponseRequest_ReportCompletedAsync, Fn_IEmailMailboxUpdateMeetingResponseRequest_ReportCompletedAsync)(it, op.addr).check("EmailMailboxUpdateMeetingResponseRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxUpdateMeetingResponseRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxUpdateMeetingResponseRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxUpdateMeetingResponseRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxUpdateMeetingResponseRequest, "IEmailMailboxUpdateMeetingResponseRequest", it):
     vcall(it, Slot_IEmailMailboxUpdateMeetingResponseRequest_ReportFailedAsync, Fn_IEmailMailboxUpdateMeetingResponseRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxUpdateMeetingResponseRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxUpdateMeetingResponseRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxUpdateMeetingResponseRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxUpdateMeetingResponseRequestEventArgs): EmailMailboxUpdateMeetingResponseRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequestEventArgs.get_Request
@@ -20957,14 +21037,14 @@ proc reportCompletedAsync*(self: EmailMailboxValidateCertificatesRequest, valida
     let p0 = asIterableValue[EmailCertificateValidationStatus](validationStatuses, IID_IIterable_1_EmailCertificateValidationStatus, IID_IVectorView_1_EmailCertificateValidationStatus, IID_IIterator_1_EmailCertificateValidationStatus)
     defer: discard release(p0)
     vcall(it, Slot_IEmailMailboxValidateCertificatesRequest_ReportCompletedAsync, Fn_IEmailMailboxValidateCertificatesRequest_ReportCompletedAsync)(it, p0, op.addr).check("EmailMailboxValidateCertificatesRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxValidateCertificatesRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxValidateCertificatesRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: EmailMailboxValidateCertificatesRequest) {.async.} =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailboxValidateCertificatesRequest, "IEmailMailboxValidateCertificatesRequest", it):
     vcall(it, Slot_IEmailMailboxValidateCertificatesRequest_ReportFailedAsync, Fn_IEmailMailboxValidateCertificatesRequest_ReportFailedAsync)(it, op.addr).check("EmailMailboxValidateCertificatesRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailboxValidateCertificatesRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailboxValidateCertificatesRequest.ReportFailedAsync")
 
 proc request*(self: EmailMailboxValidateCertificatesRequestEventArgs): EmailMailboxValidateCertificatesRequest  =
   ## Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequestEventArgs.get_Request
@@ -20997,14 +21077,14 @@ proc `fileName=`*(self: EmailAttachment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IEmailAttachment_put_FileName, Fn_IEmailAttachment_put_FileName)(it, h0).check("EmailAttachment.put_FileName")
 
-proc data*(self: EmailAttachment): RandomAccessStreamReference  =
+proc data*(self: EmailAttachment): WinRtObject  =
   ## Windows.ApplicationModel.Email.EmailAttachment.get_Data
   withIface(self.p, IID_IEmailAttachment, "IEmailAttachment", it):
     var tmp: pointer
     vcall(it, Slot_IEmailAttachment_get_Data, Fn_IEmailAttachment_get_Data)(it, tmp.addr).check("EmailAttachment.get_Data")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `data=`*(self: EmailAttachment, value: RandomAccessStreamReference)  =
+proc `data=`*(self: EmailAttachment, value: WinRtObject)  =
   ## Windows.ApplicationModel.Email.EmailAttachment.put_Data
   withIface(self.p, IID_IEmailAttachment, "IEmailAttachment", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -21099,7 +21179,7 @@ proc `mimeType=`*(self: EmailAttachment, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IEmailAttachment2_put_MimeType, Fn_IEmailAttachment2_put_MimeType)(it, h0).check("EmailAttachment.put_MimeType")
 
-proc create*(_: typedesc[EmailAttachment], fileName: string, data: RandomAccessStreamReference): EmailAttachment  =
+proc create*(_: typedesc[EmailAttachment], fileName: string, data: WinRtObject): EmailAttachment  =
   ## Windows.ApplicationModel.Email.EmailAttachment.Create
   withStatics("Windows.ApplicationModel.Email.EmailAttachment", IID_IEmailAttachmentFactory, it):
     withHString(fileName, h0):
@@ -21108,7 +21188,7 @@ proc create*(_: typedesc[EmailAttachment], fileName: string, data: RandomAccessS
         vcall(it, Slot_IEmailAttachmentFactory_Create, Fn_IEmailAttachmentFactory_Create)(it, h0, p1, tmp.addr).check("EmailAttachment.Create")
         result = adopt[EmailAttachment](tmp)
 
-proc create*(_: typedesc[EmailAttachment], fileName: string, data: RandomAccessStreamReference, mimeType: string): EmailAttachment  =
+proc create*(_: typedesc[EmailAttachment], fileName: string, data: WinRtObject, mimeType: string): EmailAttachment  =
   ## Windows.ApplicationModel.Email.EmailAttachment.Create
   withStatics("Windows.ApplicationModel.Email.EmailAttachment", IID_IEmailAttachmentFactory2, it):
     withHString(fileName, h0):
@@ -21214,7 +21294,7 @@ proc findMessagesAsync*(self: EmailConversation): Future[seq[EmailMessage]] {.as
   var op: pointer
   withIface(self.p, IID_IEmailConversation, "IEmailConversation", it):
     vcall(it, Slot_IEmailConversation_FindMessagesAsync, Fn_IEmailConversation_FindMessagesAsync)(it, op.addr).check("EmailConversation.FindMessagesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, "EmailConversation.FindMessagesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, alPlain, "EmailConversation.FindMessagesAsync")
   result = toSeq[EmailMessage](coll, IID_IVectorView_1_EmailMessage)
   discard release(coll)
 
@@ -21223,7 +21303,7 @@ proc findMessagesAsync*(self: EmailConversation, count: uint32): Future[seq[Emai
   var op: pointer
   withIface(self.p, IID_IEmailConversation, "IEmailConversation", it):
     vcall(it, Slot_IEmailConversation_FindMessagesAsync2, Fn_IEmailConversation_FindMessagesAsync2)(it, count, op.addr).check("EmailConversation.FindMessagesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, "EmailConversation.FindMessagesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_126, IID_AsyncOperationCompletedHandler_1_IVectorView_126, alPlain, "EmailConversation.FindMessagesAsync")
   result = toSeq[EmailMessage](coll, IID_IVectorView_1_EmailMessage)
   discard release(coll)
 
@@ -21247,7 +21327,7 @@ proc readBatchAsync*(self: EmailConversationReader): Future[EmailConversationBat
   var op: pointer
   withIface(self.p, IID_IEmailConversationReader, "IEmailConversationReader", it):
     vcall(it, Slot_IEmailConversationReader_ReadBatchAsync, Fn_IEmailConversationReader_ReadBatchAsync)(it, op.addr).check("EmailConversationReader.ReadBatchAsync")
-  result = adopt[EmailConversationBatch](await awaitObject(op, IID_IAsyncOperation_1_EmailConversationBatch, IID_AsyncOperationCompletedHandler_1_EmailConversationBatch, "EmailConversationReader.ReadBatchAsync"))
+  result = adopt[EmailConversationBatch](await awaitObject(op, IID_IAsyncOperation_1_EmailConversationBatch, IID_AsyncOperationCompletedHandler_1_EmailConversationBatch, alPlain, "EmailConversationReader.ReadBatchAsync"))
 
 proc id*(self: EmailFolder): string  =
   ## Windows.ApplicationModel.Email.EmailFolder.get_Id
@@ -21333,21 +21413,21 @@ proc createFolderAsync*(self: EmailFolder, name: string): Future[EmailFolder] {.
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     withHString(name, h0):
       vcall(it, Slot_IEmailFolder_CreateFolderAsync, Fn_IEmailFolder_CreateFolderAsync)(it, h0, op.addr).check("EmailFolder.CreateFolderAsync")
-  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, "EmailFolder.CreateFolderAsync"))
+  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, alPlain, "EmailFolder.CreateFolderAsync"))
 
 proc deleteAsync*(self: EmailFolder) {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.DeleteAsync
   var op: pointer
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     vcall(it, Slot_IEmailFolder_DeleteAsync, Fn_IEmailFolder_DeleteAsync)(it, op.addr).check("EmailFolder.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailFolder.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailFolder.DeleteAsync")
 
 proc findChildFoldersAsync*(self: EmailFolder): Future[seq[EmailFolder]] {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.FindChildFoldersAsync
   var op: pointer
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     vcall(it, Slot_IEmailFolder_FindChildFoldersAsync, Fn_IEmailFolder_FindChildFoldersAsync)(it, op.addr).check("EmailFolder.FindChildFoldersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_127, IID_AsyncOperationCompletedHandler_1_IVectorView_127, "EmailFolder.FindChildFoldersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_127, IID_AsyncOperationCompletedHandler_1_IVectorView_127, alPlain, "EmailFolder.FindChildFoldersAsync")
   result = toSeq[EmailFolder](coll, IID_IVectorView_1_EmailFolder)
   discard release(coll)
 
@@ -21372,7 +21452,7 @@ proc getMessageAsync*(self: EmailFolder, id: string): Future[EmailMessage] {.asy
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailFolder_GetMessageAsync, Fn_IEmailFolder_GetMessageAsync)(it, h0, op.addr).check("EmailFolder.GetMessageAsync")
-  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, "EmailFolder.GetMessageAsync"))
+  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, alPlain, "EmailFolder.GetMessageAsync"))
 
 proc getMessageReader*(self: EmailFolder): EmailMessageReader  =
   ## Windows.ApplicationModel.Email.EmailFolder.GetMessageReader
@@ -21394,7 +21474,7 @@ proc getMessageCountsAsync*(self: EmailFolder): Future[EmailItemCounts] {.async.
   var op: pointer
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     vcall(it, Slot_IEmailFolder_GetMessageCountsAsync, Fn_IEmailFolder_GetMessageCountsAsync)(it, op.addr).check("EmailFolder.GetMessageCountsAsync")
-  result = adopt[EmailItemCounts](await awaitObject(op, IID_IAsyncOperation_1_EmailItemCounts, IID_AsyncOperationCompletedHandler_1_EmailItemCounts, "EmailFolder.GetMessageCountsAsync"))
+  result = adopt[EmailItemCounts](await awaitObject(op, IID_IAsyncOperation_1_EmailItemCounts, IID_AsyncOperationCompletedHandler_1_EmailItemCounts, alPlain, "EmailFolder.GetMessageCountsAsync"))
 
 proc tryMoveAsync*(self: EmailFolder, newParentFolder: EmailFolder): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.TryMoveAsync
@@ -21402,7 +21482,7 @@ proc tryMoveAsync*(self: EmailFolder, newParentFolder: EmailFolder): Future[bool
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     withIface(newParentFolder.p, IID_IEmailFolder, "IEmailFolder", p0):
       vcall(it, Slot_IEmailFolder_TryMoveAsync, Fn_IEmailFolder_TryMoveAsync)(it, p0, op.addr).check("EmailFolder.TryMoveAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailFolder.TryMoveAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailFolder.TryMoveAsync")
 
 proc tryMoveAsync*(self: EmailFolder, newParentFolder: EmailFolder, newFolderName: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.TryMoveAsync
@@ -21411,14 +21491,14 @@ proc tryMoveAsync*(self: EmailFolder, newParentFolder: EmailFolder, newFolderNam
     withIface(newParentFolder.p, IID_IEmailFolder, "IEmailFolder", p0):
       withHString(newFolderName, h1):
         vcall(it, Slot_IEmailFolder_TryMoveAsync2, Fn_IEmailFolder_TryMoveAsync2)(it, p0, h1, op.addr).check("EmailFolder.TryMoveAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailFolder.TryMoveAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailFolder.TryMoveAsync")
 
 proc trySaveAsync*(self: EmailFolder): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.TrySaveAsync
   var op: pointer
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     vcall(it, Slot_IEmailFolder_TrySaveAsync, Fn_IEmailFolder_TrySaveAsync)(it, op.addr).check("EmailFolder.TrySaveAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailFolder.TrySaveAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailFolder.TrySaveAsync")
 
 proc saveMessageAsync*(self: EmailFolder, message: EmailMessage) {.async.} =
   ## Windows.ApplicationModel.Email.EmailFolder.SaveMessageAsync
@@ -21426,7 +21506,7 @@ proc saveMessageAsync*(self: EmailFolder, message: EmailMessage) {.async.} =
   withIface(self.p, IID_IEmailFolder, "IEmailFolder", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailFolder_SaveMessageAsync, Fn_IEmailFolder_SaveMessageAsync)(it, p0, op.addr).check("EmailFolder.SaveMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailFolder.SaveMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailFolder.SaveMessageAsync")
 
 proc newEmailIrmInfo*(): EmailIrmInfo =
   ## Activate a `Windows.ApplicationModel.Email.EmailIrmInfo`.
@@ -21822,7 +21902,7 @@ proc deleteAsync*(self: EmailMailbox) {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     vcall(it, Slot_IEmailMailbox_DeleteAsync, Fn_IEmailMailbox_DeleteAsync)(it, op.addr).check("EmailMailbox.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.DeleteAsync")
 
 proc getConversationAsync*(self: EmailMailbox, id: string): Future[EmailConversation] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.GetConversationAsync
@@ -21830,7 +21910,7 @@ proc getConversationAsync*(self: EmailMailbox, id: string): Future[EmailConversa
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailMailbox_GetConversationAsync, Fn_IEmailMailbox_GetConversationAsync)(it, h0, op.addr).check("EmailMailbox.GetConversationAsync")
-  result = adopt[EmailConversation](await awaitObject(op, IID_IAsyncOperation_1_EmailConversation, IID_AsyncOperationCompletedHandler_1_EmailConversation, "EmailMailbox.GetConversationAsync"))
+  result = adopt[EmailConversation](await awaitObject(op, IID_IAsyncOperation_1_EmailConversation, IID_AsyncOperationCompletedHandler_1_EmailConversation, alPlain, "EmailMailbox.GetConversationAsync"))
 
 proc getFolderAsync*(self: EmailMailbox, id: string): Future[EmailFolder] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.GetFolderAsync
@@ -21838,7 +21918,7 @@ proc getFolderAsync*(self: EmailMailbox, id: string): Future[EmailFolder] {.asyn
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailMailbox_GetFolderAsync, Fn_IEmailMailbox_GetFolderAsync)(it, h0, op.addr).check("EmailMailbox.GetFolderAsync")
-  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, "EmailMailbox.GetFolderAsync"))
+  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, alPlain, "EmailMailbox.GetFolderAsync"))
 
 proc getMessageAsync*(self: EmailMailbox, id: string): Future[EmailMessage] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.GetMessageAsync
@@ -21846,21 +21926,21 @@ proc getMessageAsync*(self: EmailMailbox, id: string): Future[EmailMessage] {.as
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailMailbox_GetMessageAsync, Fn_IEmailMailbox_GetMessageAsync)(it, h0, op.addr).check("EmailMailbox.GetMessageAsync")
-  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, "EmailMailbox.GetMessageAsync"))
+  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, alPlain, "EmailMailbox.GetMessageAsync"))
 
 proc getSpecialFolderAsync*(self: EmailMailbox, folderType: EmailSpecialFolderKind): Future[EmailFolder] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.GetSpecialFolderAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     vcall(it, Slot_IEmailMailbox_GetSpecialFolderAsync, Fn_IEmailMailbox_GetSpecialFolderAsync)(it, folderType, op.addr).check("EmailMailbox.GetSpecialFolderAsync")
-  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, "EmailMailbox.GetSpecialFolderAsync"))
+  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, alPlain, "EmailMailbox.GetSpecialFolderAsync"))
 
 proc saveAsync*(self: EmailMailbox) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.SaveAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     vcall(it, Slot_IEmailMailbox_SaveAsync, Fn_IEmailMailbox_SaveAsync)(it, op.addr).check("EmailMailbox.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.SaveAsync")
 
 proc markMessageAsSeenAsync*(self: EmailMailbox, messageId: string) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.MarkMessageAsSeenAsync
@@ -21868,7 +21948,7 @@ proc markMessageAsSeenAsync*(self: EmailMailbox, messageId: string) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(messageId, h0):
       vcall(it, Slot_IEmailMailbox_MarkMessageAsSeenAsync, Fn_IEmailMailbox_MarkMessageAsSeenAsync)(it, h0, op.addr).check("EmailMailbox.MarkMessageAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.MarkMessageAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.MarkMessageAsSeenAsync")
 
 proc markFolderAsSeenAsync*(self: EmailMailbox, folderId: string) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.MarkFolderAsSeenAsync
@@ -21876,7 +21956,7 @@ proc markFolderAsSeenAsync*(self: EmailMailbox, folderId: string) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(folderId, h0):
       vcall(it, Slot_IEmailMailbox_MarkFolderAsSeenAsync, Fn_IEmailMailbox_MarkFolderAsSeenAsync)(it, h0, op.addr).check("EmailMailbox.MarkFolderAsSeenAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.MarkFolderAsSeenAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.MarkFolderAsSeenAsync")
 
 proc markMessageReadAsync*(self: EmailMailbox, messageId: string, isRead: bool) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.MarkMessageReadAsync
@@ -21884,7 +21964,7 @@ proc markMessageReadAsync*(self: EmailMailbox, messageId: string, isRead: bool) 
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(messageId, h0):
       vcall(it, Slot_IEmailMailbox_MarkMessageReadAsync, Fn_IEmailMailbox_MarkMessageReadAsync)(it, h0, isRead, op.addr).check("EmailMailbox.MarkMessageReadAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.MarkMessageReadAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.MarkMessageReadAsync")
 
 proc changeMessageFlagStateAsync*(self: EmailMailbox, messageId: string, flagState: EmailFlagState) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.ChangeMessageFlagStateAsync
@@ -21892,7 +21972,7 @@ proc changeMessageFlagStateAsync*(self: EmailMailbox, messageId: string, flagSta
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(messageId, h0):
       vcall(it, Slot_IEmailMailbox_ChangeMessageFlagStateAsync, Fn_IEmailMailbox_ChangeMessageFlagStateAsync)(it, h0, flagState, op.addr).check("EmailMailbox.ChangeMessageFlagStateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.ChangeMessageFlagStateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.ChangeMessageFlagStateAsync")
 
 proc tryMoveMessageAsync*(self: EmailMailbox, messageId: string, newParentFolderId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryMoveMessageAsync
@@ -21901,7 +21981,7 @@ proc tryMoveMessageAsync*(self: EmailMailbox, messageId: string, newParentFolder
     withHString(messageId, h0):
       withHString(newParentFolderId, h1):
         vcall(it, Slot_IEmailMailbox_TryMoveMessageAsync, Fn_IEmailMailbox_TryMoveMessageAsync)(it, h0, h1, op.addr).check("EmailMailbox.TryMoveMessageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryMoveMessageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryMoveMessageAsync")
 
 proc tryMoveFolderAsync*(self: EmailMailbox, folderId: string, newParentFolderId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryMoveFolderAsync
@@ -21910,7 +21990,7 @@ proc tryMoveFolderAsync*(self: EmailMailbox, folderId: string, newParentFolderId
     withHString(folderId, h0):
       withHString(newParentFolderId, h1):
         vcall(it, Slot_IEmailMailbox_TryMoveFolderAsync, Fn_IEmailMailbox_TryMoveFolderAsync)(it, h0, h1, op.addr).check("EmailMailbox.TryMoveFolderAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryMoveFolderAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryMoveFolderAsync")
 
 proc tryMoveFolderAsync*(self: EmailMailbox, folderId: string, newParentFolderId: string, newFolderName: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryMoveFolderAsync
@@ -21920,7 +22000,7 @@ proc tryMoveFolderAsync*(self: EmailMailbox, folderId: string, newParentFolderId
       withHString(newParentFolderId, h1):
         withHString(newFolderName, h2):
           vcall(it, Slot_IEmailMailbox_TryMoveFolderAsync2, Fn_IEmailMailbox_TryMoveFolderAsync2)(it, h0, h1, h2, op.addr).check("EmailMailbox.TryMoveFolderAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryMoveFolderAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryMoveFolderAsync")
 
 proc deleteMessageAsync*(self: EmailMailbox, messageId: string) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.DeleteMessageAsync
@@ -21928,7 +22008,7 @@ proc deleteMessageAsync*(self: EmailMailbox, messageId: string) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(messageId, h0):
       vcall(it, Slot_IEmailMailbox_DeleteMessageAsync, Fn_IEmailMailbox_DeleteMessageAsync)(it, h0, op.addr).check("EmailMailbox.DeleteMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.DeleteMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.DeleteMessageAsync")
 
 proc markFolderSyncEnabledAsync*(self: EmailMailbox, folderId: string, isSyncEnabled: bool) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.MarkFolderSyncEnabledAsync
@@ -21936,7 +22016,7 @@ proc markFolderSyncEnabledAsync*(self: EmailMailbox, folderId: string, isSyncEna
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(folderId, h0):
       vcall(it, Slot_IEmailMailbox_MarkFolderSyncEnabledAsync, Fn_IEmailMailbox_MarkFolderSyncEnabledAsync)(it, h0, isSyncEnabled, op.addr).check("EmailMailbox.MarkFolderSyncEnabledAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.MarkFolderSyncEnabledAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.MarkFolderSyncEnabledAsync")
 
 proc sendMessageAsync*(self: EmailMailbox, message: EmailMessage) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.SendMessageAsync
@@ -21944,7 +22024,7 @@ proc sendMessageAsync*(self: EmailMailbox, message: EmailMessage) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailMailbox_SendMessageAsync, Fn_IEmailMailbox_SendMessageAsync)(it, p0, op.addr).check("EmailMailbox.SendMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.SendMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.SendMessageAsync")
 
 proc saveDraftAsync*(self: EmailMailbox, message: EmailMessage) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.SaveDraftAsync
@@ -21952,7 +22032,7 @@ proc saveDraftAsync*(self: EmailMailbox, message: EmailMessage) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailMailbox_SaveDraftAsync, Fn_IEmailMailbox_SaveDraftAsync)(it, p0, op.addr).check("EmailMailbox.SaveDraftAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.SaveDraftAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.SaveDraftAsync")
 
 proc downloadMessageAsync*(self: EmailMailbox, messageId: string) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.DownloadMessageAsync
@@ -21960,7 +22040,7 @@ proc downloadMessageAsync*(self: EmailMailbox, messageId: string) {.async.} =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(messageId, h0):
       vcall(it, Slot_IEmailMailbox_DownloadMessageAsync, Fn_IEmailMailbox_DownloadMessageAsync)(it, h0, op.addr).check("EmailMailbox.DownloadMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.DownloadMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.DownloadMessageAsync")
 
 proc downloadAttachmentAsync*(self: EmailMailbox, attachmentId: string) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.DownloadAttachmentAsync
@@ -21968,7 +22048,7 @@ proc downloadAttachmentAsync*(self: EmailMailbox, attachmentId: string) {.async.
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withHString(attachmentId, h0):
       vcall(it, Slot_IEmailMailbox_DownloadAttachmentAsync, Fn_IEmailMailbox_DownloadAttachmentAsync)(it, h0, op.addr).check("EmailMailbox.DownloadAttachmentAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.DownloadAttachmentAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.DownloadAttachmentAsync")
 
 proc createResponseMessageAsync*(self: EmailMailbox, messageId: string, responseType: EmailMessageResponseKind, subject: string, responseHeaderType: EmailMessageBodyKind, responseHeader: string): Future[EmailMessage] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.CreateResponseMessageAsync
@@ -21978,7 +22058,7 @@ proc createResponseMessageAsync*(self: EmailMailbox, messageId: string, response
       withHString(subject, h2):
         withHString(responseHeader, h4):
           vcall(it, Slot_IEmailMailbox_CreateResponseMessageAsync, Fn_IEmailMailbox_CreateResponseMessageAsync)(it, h0, responseType, h2, responseHeaderType, h4, op.addr).check("EmailMailbox.CreateResponseMessageAsync")
-  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, "EmailMailbox.CreateResponseMessageAsync"))
+  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, alPlain, "EmailMailbox.CreateResponseMessageAsync"))
 
 proc tryUpdateMeetingResponseAsync*(self: EmailMailbox, meeting: EmailMessage, response: EmailMeetingResponseType, subject: string, comment: string, sendUpdate: bool): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryUpdateMeetingResponseAsync
@@ -21988,7 +22068,7 @@ proc tryUpdateMeetingResponseAsync*(self: EmailMailbox, meeting: EmailMessage, r
       withHString(subject, h2):
         withHString(comment, h3):
           vcall(it, Slot_IEmailMailbox_TryUpdateMeetingResponseAsync, Fn_IEmailMailbox_TryUpdateMeetingResponseAsync)(it, p0, response, h2, h3, sendUpdate, op.addr).check("EmailMailbox.TryUpdateMeetingResponseAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryUpdateMeetingResponseAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryUpdateMeetingResponseAsync")
 
 proc tryForwardMeetingAsync*(self: EmailMailbox, meeting: EmailMessage, recipients: seq[EmailRecipient], subject: string, forwardHeaderType: EmailMessageBodyKind, forwardHeader: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryForwardMeetingAsync
@@ -22001,7 +22081,7 @@ proc tryForwardMeetingAsync*(self: EmailMailbox, meeting: EmailMessage, recipien
         withHString(forwardHeader, h4):
           withHString(comment, h5):
             vcall(it, Slot_IEmailMailbox_TryForwardMeetingAsync, Fn_IEmailMailbox_TryForwardMeetingAsync)(it, p0, p1, h2, forwardHeaderType, h4, h5, op.addr).check("EmailMailbox.TryForwardMeetingAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryForwardMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryForwardMeetingAsync")
 
 proc tryProposeNewTimeForMeetingAsync*(self: EmailMailbox, meeting: EmailMessage, newStartTime: DateTime, newDuration: TimeSpan, subject: string, comment: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryProposeNewTimeForMeetingAsync
@@ -22011,7 +22091,7 @@ proc tryProposeNewTimeForMeetingAsync*(self: EmailMailbox, meeting: EmailMessage
       withHString(subject, h3):
         withHString(comment, h4):
           vcall(it, Slot_IEmailMailbox_TryProposeNewTimeForMeetingAsync, Fn_IEmailMailbox_TryProposeNewTimeForMeetingAsync)(it, p0, newStartTime, newDuration, h3, h4, op.addr).check("EmailMailbox.TryProposeNewTimeForMeetingAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TryProposeNewTimeForMeetingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TryProposeNewTimeForMeetingAsync")
 
 proc onMailboxChanged*(self: EmailMailbox,
     handler: proc(sender: pointer, args: EmailMailboxChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -22038,7 +22118,7 @@ proc sendMessageAsync*(self: EmailMailbox, message: EmailMessage, smartSend: boo
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailMailbox_SendMessageAsync2, Fn_IEmailMailbox_SendMessageAsync2)(it, p0, smartSend, op.addr).check("EmailMailbox.SendMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.SendMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.SendMessageAsync")
 
 proc trySetAutoReplySettingsAsync*(self: EmailMailbox, autoReplySettings: EmailMailboxAutoReplySettings): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TrySetAutoReplySettingsAsync
@@ -22046,14 +22126,14 @@ proc trySetAutoReplySettingsAsync*(self: EmailMailbox, autoReplySettings: EmailM
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     withIface(autoReplySettings.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", p0):
       vcall(it, Slot_IEmailMailbox_TrySetAutoReplySettingsAsync, Fn_IEmailMailbox_TrySetAutoReplySettingsAsync)(it, p0, op.addr).check("EmailMailbox.TrySetAutoReplySettingsAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailbox.TrySetAutoReplySettingsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailbox.TrySetAutoReplySettingsAsync")
 
 proc tryGetAutoReplySettingsAsync*(self: EmailMailbox, requestedFormat: EmailMailboxAutoReplyMessageResponseKind): Future[EmailMailboxAutoReplySettings] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryGetAutoReplySettingsAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     vcall(it, Slot_IEmailMailbox_TryGetAutoReplySettingsAsync, Fn_IEmailMailbox_TryGetAutoReplySettingsAsync)(it, requestedFormat, op.addr).check("EmailMailbox.TryGetAutoReplySettingsAsync")
-  result = adopt[EmailMailboxAutoReplySettings](await awaitObject(op, IID_IAsyncOperation_1_EmailMailboxAutoReplySettings, IID_AsyncOperationCompletedHandler_1_EmailMailboxAutoReplySettings, "EmailMailbox.TryGetAutoReplySettingsAsync"))
+  result = adopt[EmailMailboxAutoReplySettings](await awaitObject(op, IID_IAsyncOperation_1_EmailMailboxAutoReplySettings, IID_AsyncOperationCompletedHandler_1_EmailMailboxAutoReplySettings, alPlain, "EmailMailbox.TryGetAutoReplySettingsAsync"))
 
 proc linkedMailboxId*(self: EmailMailbox): string  =
   ## Windows.ApplicationModel.Email.EmailMailbox.get_LinkedMailboxId
@@ -22083,7 +22163,7 @@ proc resolveRecipientsAsync*(self: EmailMailbox, recipients: seq[string]): Futur
     let p0 = asIterableString(recipients, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IEmailMailbox3_ResolveRecipientsAsync, Fn_IEmailMailbox3_ResolveRecipientsAsync)(it, p0, op.addr).check("EmailMailbox.ResolveRecipientsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_128, IID_AsyncOperationCompletedHandler_1_IVectorView_128, "EmailMailbox.ResolveRecipientsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_128, IID_AsyncOperationCompletedHandler_1_IVectorView_128, alPlain, "EmailMailbox.ResolveRecipientsAsync")
   result = toSeq[EmailRecipientResolutionResult](coll, IID_IVectorView_1_EmailRecipientResolutionResult)
   discard release(coll)
 
@@ -22094,7 +22174,7 @@ proc validateCertificatesAsync*(self: EmailMailbox, certificates: seq[Certificat
     let p0 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
     defer: discard release(p0)
     vcall(it, Slot_IEmailMailbox3_ValidateCertificatesAsync, Fn_IEmailMailbox3_ValidateCertificatesAsync)(it, p0, op.addr).check("EmailMailbox.ValidateCertificatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_129, IID_AsyncOperationCompletedHandler_1_IVectorView_129, "EmailMailbox.ValidateCertificatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_129, IID_AsyncOperationCompletedHandler_1_IVectorView_129, alPlain, "EmailMailbox.ValidateCertificatesAsync")
   result = toSeqValue[EmailCertificateValidationStatus](coll, IID_IVectorView_1_EmailCertificateValidationStatus)
   discard release(coll)
 
@@ -22104,7 +22184,7 @@ proc tryEmptyFolderAsync*(self: EmailMailbox, folderId: string): Future[EmailMai
   withIface(self.p, IID_IEmailMailbox3, "IEmailMailbox3", it):
     withHString(folderId, h0):
       vcall(it, Slot_IEmailMailbox3_TryEmptyFolderAsync, Fn_IEmailMailbox3_TryEmptyFolderAsync)(it, h0, op.addr).check("EmailMailbox.TryEmptyFolderAsync")
-  result = await awaitValue[EmailMailboxEmptyFolderStatus](op, IID_IAsyncOperation_1_EmailMailboxEmptyFolderStatus, IID_AsyncOperationCompletedHandler_1_EmailMailboxEmptyFolderStatus, "EmailMailbox.TryEmptyFolderAsync")
+  result = await awaitValue[EmailMailboxEmptyFolderStatus](op, IID_IAsyncOperation_1_EmailMailboxEmptyFolderStatus, IID_AsyncOperationCompletedHandler_1_EmailMailboxEmptyFolderStatus, alPlain, "EmailMailbox.TryEmptyFolderAsync")
 
 proc tryCreateFolderAsync*(self: EmailMailbox, parentFolderId: string, name: string): Future[EmailMailboxCreateFolderResult] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryCreateFolderAsync
@@ -22113,7 +22193,7 @@ proc tryCreateFolderAsync*(self: EmailMailbox, parentFolderId: string, name: str
     withHString(parentFolderId, h0):
       withHString(name, h1):
         vcall(it, Slot_IEmailMailbox3_TryCreateFolderAsync, Fn_IEmailMailbox3_TryCreateFolderAsync)(it, h0, h1, op.addr).check("EmailMailbox.TryCreateFolderAsync")
-  result = adopt[EmailMailboxCreateFolderResult](await awaitObject(op, IID_IAsyncOperation_1_EmailMailboxCreateFolderResult, IID_AsyncOperationCompletedHandler_1_EmailMailboxCreateFolderResult, "EmailMailbox.TryCreateFolderAsync"))
+  result = adopt[EmailMailboxCreateFolderResult](await awaitObject(op, IID_IAsyncOperation_1_EmailMailboxCreateFolderResult, IID_AsyncOperationCompletedHandler_1_EmailMailboxCreateFolderResult, alPlain, "EmailMailbox.TryCreateFolderAsync"))
 
 proc tryDeleteFolderAsync*(self: EmailMailbox, folderId: string): Future[EmailMailboxDeleteFolderStatus] {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.TryDeleteFolderAsync
@@ -22121,14 +22201,14 @@ proc tryDeleteFolderAsync*(self: EmailMailbox, folderId: string): Future[EmailMa
   withIface(self.p, IID_IEmailMailbox3, "IEmailMailbox3", it):
     withHString(folderId, h0):
       vcall(it, Slot_IEmailMailbox3_TryDeleteFolderAsync, Fn_IEmailMailbox3_TryDeleteFolderAsync)(it, h0, op.addr).check("EmailMailbox.TryDeleteFolderAsync")
-  result = await awaitValue[EmailMailboxDeleteFolderStatus](op, IID_IAsyncOperation_1_EmailMailboxDeleteFolderStatus, IID_AsyncOperationCompletedHandler_1_EmailMailboxDeleteFolderStatus, "EmailMailbox.TryDeleteFolderAsync")
+  result = await awaitValue[EmailMailboxDeleteFolderStatus](op, IID_IAsyncOperation_1_EmailMailboxDeleteFolderStatus, IID_AsyncOperationCompletedHandler_1_EmailMailboxDeleteFolderStatus, alPlain, "EmailMailbox.TryDeleteFolderAsync")
 
 proc registerSyncManagerAsync*(self: EmailMailbox) {.async.} =
   ## Windows.ApplicationModel.Email.EmailMailbox.RegisterSyncManagerAsync
   var op: pointer
   withIface(self.p, IID_IEmailMailbox4, "IEmailMailbox4", it):
     vcall(it, Slot_IEmailMailbox4_RegisterSyncManagerAsync, Fn_IEmailMailbox4_RegisterSyncManagerAsync)(it, op.addr).check("EmailMailbox.RegisterSyncManagerAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailMailbox.RegisterSyncManagerAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailMailbox.RegisterSyncManagerAsync")
 
 proc getChangeTracker*(self: EmailMailbox, identity: string): EmailMailboxChangeTracker  =
   ## Windows.ApplicationModel.Email.EmailMailbox.GetChangeTracker
@@ -22469,7 +22549,7 @@ proc readBatchAsync*(self: EmailMailboxChangeReader): Future[seq[EmailMailboxCha
   var op: pointer
   withIface(self.p, IID_IEmailMailboxChangeReader, "IEmailMailboxChangeReader", it):
     vcall(it, Slot_IEmailMailboxChangeReader_ReadBatchAsync, Fn_IEmailMailboxChangeReader_ReadBatchAsync)(it, op.addr).check("EmailMailboxChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_130, IID_AsyncOperationCompletedHandler_1_IVectorView_130, "EmailMailboxChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_130, IID_AsyncOperationCompletedHandler_1_IVectorView_130, alPlain, "EmailMailboxChangeReader.ReadBatchAsync")
   result = toSeq[EmailMailboxChange](coll, IID_IVectorView_1_EmailMailboxChange)
   discard release(coll)
 
@@ -22627,7 +22707,7 @@ proc syncAsync*(self: EmailMailboxSyncManager): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IEmailMailboxSyncManager, "IEmailMailboxSyncManager", it):
     vcall(it, Slot_IEmailMailboxSyncManager_SyncAsync, Fn_IEmailMailboxSyncManager_SyncAsync)(it, op.addr).check("EmailMailboxSyncManager.SyncAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "EmailMailboxSyncManager.SyncAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "EmailMailboxSyncManager.SyncAsync")
 
 proc onSyncStatusChanged*(self: EmailMailboxSyncManager,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -22676,7 +22756,7 @@ proc requestStoreAsync*(_: typedesc[EmailManager], accessType: EmailStoreAccessT
   var op: pointer
   withStatics("Windows.ApplicationModel.Email.EmailManager", IID_IEmailManagerStatics2, it):
     vcall(it, Slot_IEmailManagerStatics2_RequestStoreAsync, Fn_IEmailManagerStatics2_RequestStoreAsync)(it, accessType, op.addr).check("EmailManager.RequestStoreAsync")
-  result = adopt[EmailStore](await awaitObject(op, IID_IAsyncOperation_1_EmailStore, IID_AsyncOperationCompletedHandler_1_EmailStore, "EmailManager.RequestStoreAsync"))
+  result = adopt[EmailStore](await awaitObject(op, IID_IAsyncOperation_1_EmailStore, IID_AsyncOperationCompletedHandler_1_EmailStore, alPlain, "EmailManager.RequestStoreAsync"))
 
 proc showComposeNewEmailAsync*(_: typedesc[EmailManager], message: EmailMessage) {.async.} =
   ## Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync
@@ -22684,7 +22764,7 @@ proc showComposeNewEmailAsync*(_: typedesc[EmailManager], message: EmailMessage)
   withStatics("Windows.ApplicationModel.Email.EmailManager", IID_IEmailManagerStatics, it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailManagerStatics_ShowComposeNewEmailAsync, Fn_IEmailManagerStatics_ShowComposeNewEmailAsync)(it, p0, op.addr).check("EmailManager.ShowComposeNewEmailAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailManager.ShowComposeNewEmailAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailManager.ShowComposeNewEmailAsync")
 
 proc showComposeNewEmailAsync*(self: EmailManagerForUser, message: EmailMessage) {.async.} =
   ## Windows.ApplicationModel.Email.EmailManagerForUser.ShowComposeNewEmailAsync
@@ -22692,14 +22772,14 @@ proc showComposeNewEmailAsync*(self: EmailManagerForUser, message: EmailMessage)
   withIface(self.p, IID_IEmailManagerForUser, "IEmailManagerForUser", it):
     withIface(message.p, IID_IEmailMessage, "IEmailMessage", p0):
       vcall(it, Slot_IEmailManagerForUser_ShowComposeNewEmailAsync, Fn_IEmailManagerForUser_ShowComposeNewEmailAsync)(it, p0, op.addr).check("EmailManagerForUser.ShowComposeNewEmailAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "EmailManagerForUser.ShowComposeNewEmailAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "EmailManagerForUser.ShowComposeNewEmailAsync")
 
 proc requestStoreAsync*(self: EmailManagerForUser, accessType: EmailStoreAccessType): Future[EmailStore] {.async.} =
   ## Windows.ApplicationModel.Email.EmailManagerForUser.RequestStoreAsync
   var op: pointer
   withIface(self.p, IID_IEmailManagerForUser, "IEmailManagerForUser", it):
     vcall(it, Slot_IEmailManagerForUser_RequestStoreAsync, Fn_IEmailManagerForUser_RequestStoreAsync)(it, accessType, op.addr).check("EmailManagerForUser.RequestStoreAsync")
-  result = adopt[EmailStore](await awaitObject(op, IID_IAsyncOperation_1_EmailStore, IID_AsyncOperationCompletedHandler_1_EmailStore, "EmailManagerForUser.RequestStoreAsync"))
+  result = adopt[EmailStore](await awaitObject(op, IID_IAsyncOperation_1_EmailStore, IID_AsyncOperationCompletedHandler_1_EmailStore, alPlain, "EmailManagerForUser.RequestStoreAsync"))
 
 proc user*(self: EmailManagerForUser): User  =
   ## Windows.ApplicationModel.Email.EmailManagerForUser.get_User
@@ -23230,27 +23310,27 @@ proc `meetingInfo=`*(self: EmailMessage, value: EmailMeetingInfo)  =
     withIface(value.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", p0):
       vcall(it, Slot_IEmailMessage2_put_MeetingInfo, Fn_IEmailMessage2_put_MeetingInfo)(it, p0).check("EmailMessage.put_MeetingInfo")
 
-proc getBodyStream*(self: EmailMessage, `type`: EmailMessageBodyKind): RandomAccessStreamReference  =
+proc getBodyStream*(self: EmailMessage, `type`: EmailMessageBodyKind): WinRtObject  =
   ## Windows.ApplicationModel.Email.EmailMessage.GetBodyStream
   withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
     var tmp: pointer
     vcall(it, Slot_IEmailMessage2_GetBodyStream, Fn_IEmailMessage2_GetBodyStream)(it, `type`, tmp.addr).check("EmailMessage.GetBodyStream")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc setBodyStream*(self: EmailMessage, `type`: EmailMessageBodyKind, stream: RandomAccessStreamReference)  =
+proc setBodyStream*(self: EmailMessage, `type`: EmailMessageBodyKind, stream: WinRtObject)  =
   ## Windows.ApplicationModel.Email.EmailMessage.SetBodyStream
   withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
     withIface(stream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p1):
       vcall(it, Slot_IEmailMessage2_SetBodyStream, Fn_IEmailMessage2_SetBodyStream)(it, `type`, p1).check("EmailMessage.SetBodyStream")
 
-proc smimeData*(self: EmailMessage): RandomAccessStreamReference  =
+proc smimeData*(self: EmailMessage): WinRtObject  =
   ## Windows.ApplicationModel.Email.EmailMessage.get_SmimeData
   withIface(self.p, IID_IEmailMessage3, "IEmailMessage3", it):
     var tmp: pointer
     vcall(it, Slot_IEmailMessage3_get_SmimeData, Fn_IEmailMessage3_get_SmimeData)(it, tmp.addr).check("EmailMessage.get_SmimeData")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `smimeData=`*(self: EmailMessage, value: RandomAccessStreamReference)  =
+proc `smimeData=`*(self: EmailMessage, value: WinRtObject)  =
   ## Windows.ApplicationModel.Email.EmailMessage.put_SmimeData
   withIface(self.p, IID_IEmailMessage3, "IEmailMessage3", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -23309,7 +23389,7 @@ proc readBatchAsync*(self: EmailMessageReader): Future[EmailMessageBatch] {.asyn
   var op: pointer
   withIface(self.p, IID_IEmailMessageReader, "IEmailMessageReader", it):
     vcall(it, Slot_IEmailMessageReader_ReadBatchAsync, Fn_IEmailMessageReader_ReadBatchAsync)(it, op.addr).check("EmailMessageReader.ReadBatchAsync")
-  result = adopt[EmailMessageBatch](await awaitObject(op, IID_IAsyncOperation_1_EmailMessageBatch, IID_AsyncOperationCompletedHandler_1_EmailMessageBatch, "EmailMessageReader.ReadBatchAsync"))
+  result = adopt[EmailMessageBatch](await awaitObject(op, IID_IAsyncOperation_1_EmailMessageBatch, IID_AsyncOperationCompletedHandler_1_EmailMessageBatch, alPlain, "EmailMessageReader.ReadBatchAsync"))
 
 proc newEmailQueryOptions*(): EmailQueryOptions =
   ## Activate a `Windows.ApplicationModel.Email.EmailQueryOptions`.
@@ -23502,7 +23582,7 @@ proc findMailboxesAsync*(self: EmailStore): Future[seq[EmailMailbox]] {.async.} 
   var op: pointer
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     vcall(it, Slot_IEmailStore_FindMailboxesAsync, Fn_IEmailStore_FindMailboxesAsync)(it, op.addr).check("EmailStore.FindMailboxesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "EmailStore.FindMailboxesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, alPlain, "EmailStore.FindMailboxesAsync")
   result = toSeq[EmailMailbox](coll, IID_IVectorView_1_EmailMailbox)
   discard release(coll)
 
@@ -23542,7 +23622,7 @@ proc getMailboxAsync*(self: EmailStore, id: string): Future[EmailMailbox] {.asyn
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailStore_GetMailboxAsync, Fn_IEmailStore_GetMailboxAsync)(it, h0, op.addr).check("EmailStore.GetMailboxAsync")
-  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, "EmailStore.GetMailboxAsync"))
+  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, alPlain, "EmailStore.GetMailboxAsync"))
 
 proc getConversationAsync*(self: EmailStore, id: string): Future[EmailConversation] {.async.} =
   ## Windows.ApplicationModel.Email.EmailStore.GetConversationAsync
@@ -23550,7 +23630,7 @@ proc getConversationAsync*(self: EmailStore, id: string): Future[EmailConversati
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailStore_GetConversationAsync, Fn_IEmailStore_GetConversationAsync)(it, h0, op.addr).check("EmailStore.GetConversationAsync")
-  result = adopt[EmailConversation](await awaitObject(op, IID_IAsyncOperation_1_EmailConversation, IID_AsyncOperationCompletedHandler_1_EmailConversation, "EmailStore.GetConversationAsync"))
+  result = adopt[EmailConversation](await awaitObject(op, IID_IAsyncOperation_1_EmailConversation, IID_AsyncOperationCompletedHandler_1_EmailConversation, alPlain, "EmailStore.GetConversationAsync"))
 
 proc getFolderAsync*(self: EmailStore, id: string): Future[EmailFolder] {.async.} =
   ## Windows.ApplicationModel.Email.EmailStore.GetFolderAsync
@@ -23558,7 +23638,7 @@ proc getFolderAsync*(self: EmailStore, id: string): Future[EmailFolder] {.async.
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailStore_GetFolderAsync, Fn_IEmailStore_GetFolderAsync)(it, h0, op.addr).check("EmailStore.GetFolderAsync")
-  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, "EmailStore.GetFolderAsync"))
+  result = adopt[EmailFolder](await awaitObject(op, IID_IAsyncOperation_1_EmailFolder, IID_AsyncOperationCompletedHandler_1_EmailFolder, alPlain, "EmailStore.GetFolderAsync"))
 
 proc getMessageAsync*(self: EmailStore, id: string): Future[EmailMessage] {.async.} =
   ## Windows.ApplicationModel.Email.EmailStore.GetMessageAsync
@@ -23566,7 +23646,7 @@ proc getMessageAsync*(self: EmailStore, id: string): Future[EmailMessage] {.asyn
   withIface(self.p, IID_IEmailStore, "IEmailStore", it):
     withHString(id, h0):
       vcall(it, Slot_IEmailStore_GetMessageAsync, Fn_IEmailStore_GetMessageAsync)(it, h0, op.addr).check("EmailStore.GetMessageAsync")
-  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, "EmailStore.GetMessageAsync"))
+  result = adopt[EmailMessage](await awaitObject(op, IID_IAsyncOperation_1_EmailMessage, IID_AsyncOperationCompletedHandler_1_EmailMessage, alPlain, "EmailStore.GetMessageAsync"))
 
 proc createMailboxAsync*(self: EmailStore, accountName: string, accountAddress: string): Future[EmailMailbox] {.async.} =
   ## Windows.ApplicationModel.Email.EmailStore.CreateMailboxAsync
@@ -23575,7 +23655,7 @@ proc createMailboxAsync*(self: EmailStore, accountName: string, accountAddress: 
     withHString(accountName, h0):
       withHString(accountAddress, h1):
         vcall(it, Slot_IEmailStore_CreateMailboxAsync, Fn_IEmailStore_CreateMailboxAsync)(it, h0, h1, op.addr).check("EmailStore.CreateMailboxAsync")
-  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, "EmailStore.CreateMailboxAsync"))
+  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, alPlain, "EmailStore.CreateMailboxAsync"))
 
 proc createMailboxAsync*(self: EmailStore, accountName: string, accountAddress: string, userDataAccountId: string): Future[EmailMailbox] {.async.} =
   ## Windows.ApplicationModel.Email.EmailStore.CreateMailboxAsync
@@ -23585,7 +23665,7 @@ proc createMailboxAsync*(self: EmailStore, accountName: string, accountAddress: 
       withHString(accountAddress, h1):
         withHString(userDataAccountId, h2):
           vcall(it, Slot_IEmailStore_CreateMailboxAsync2, Fn_IEmailStore_CreateMailboxAsync2)(it, h0, h1, h2, op.addr).check("EmailStore.CreateMailboxAsync")
-  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, "EmailStore.CreateMailboxAsync"))
+  result = adopt[EmailMailbox](await awaitObject(op, IID_IAsyncOperation_1_EmailMailbox, IID_AsyncOperationCompletedHandler_1_EmailMailbox, alPlain, "EmailStore.CreateMailboxAsync"))
 
 proc getDeferral*(self: EnteredBackgroundEventArgs): Deferral  =
   ## Windows.ApplicationModel.EnteredBackgroundEventArgs.GetDeferral
@@ -23666,7 +23746,7 @@ proc requestExtensionAsync*(self: ExtendedExecutionSession): Future[ExtendedExec
   var op: pointer
   withIface(self.p, IID_IExtendedExecutionSession, "IExtendedExecutionSession", it):
     vcall(it, Slot_IExtendedExecutionSession_RequestExtensionAsync, Fn_IExtendedExecutionSession_RequestExtensionAsync)(it, op.addr).check("ExtendedExecutionSession.RequestExtensionAsync")
-  result = await awaitValue[ExtendedExecutionResult](op, IID_IAsyncOperation_1_ExtendedExecutionResult, IID_AsyncOperationCompletedHandler_1_ExtendedExecutionResult, "ExtendedExecutionSession.RequestExtensionAsync")
+  result = await awaitValue[ExtendedExecutionResult](op, IID_IAsyncOperation_1_ExtendedExecutionResult, IID_AsyncOperationCompletedHandler_1_ExtendedExecutionResult, alPlain, "ExtendedExecutionSession.RequestExtensionAsync")
 
 proc close*(self: ExtendedExecutionSession)  =
   ## Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession.Close
@@ -23721,7 +23801,7 @@ proc requestExtensionAsync*(self: ExtendedExecutionForegroundSession): Future[Ex
   var op: pointer
   withIface(self.p, IID_IExtendedExecutionForegroundSession, "IExtendedExecutionForegroundSession", it):
     vcall(it, Slot_IExtendedExecutionForegroundSession_RequestExtensionAsync, Fn_IExtendedExecutionForegroundSession_RequestExtensionAsync)(it, op.addr).check("ExtendedExecutionForegroundSession.RequestExtensionAsync")
-  result = await awaitValue[ExtendedExecutionForegroundResult](op, IID_IAsyncOperation_1_ExtendedExecutionForegroundResult, IID_AsyncOperationCompletedHandler_1_ExtendedExecutionForegroundResult, "ExtendedExecutionForegroundSession.RequestExtensionAsync")
+  result = await awaitValue[ExtendedExecutionForegroundResult](op, IID_IAsyncOperation_1_ExtendedExecutionForegroundResult, IID_AsyncOperationCompletedHandler_1_ExtendedExecutionForegroundResult, alPlain, "ExtendedExecutionForegroundSession.RequestExtensionAsync")
 
 proc reason*(self: ExtendedExecutionForegroundSession): ExtendedExecutionForegroundReason  =
   ## Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundSession.get_Reason
@@ -23826,7 +23906,7 @@ proc launchFullTrustProcessForCurrentAppAsync*(_: typedesc[FullTrustProcessLaunc
   var op: pointer
   withStatics("Windows.ApplicationModel.FullTrustProcessLauncher", IID_IFullTrustProcessLauncherStatics, it):
     vcall(it, Slot_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForCurrentAppAsync, Fn_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForCurrentAppAsync)(it, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
 
 proc launchFullTrustProcessForCurrentAppAsync*(_: typedesc[FullTrustProcessLauncher], parameterGroupId: string) {.async.} =
   ## Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync
@@ -23834,7 +23914,7 @@ proc launchFullTrustProcessForCurrentAppAsync*(_: typedesc[FullTrustProcessLaunc
   withStatics("Windows.ApplicationModel.FullTrustProcessLauncher", IID_IFullTrustProcessLauncherStatics, it):
     withHString(parameterGroupId, h0):
       vcall(it, Slot_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForCurrentAppAsync2, Fn_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForCurrentAppAsync2)(it, h0, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync")
 
 proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher], fullTrustPackageRelativeAppId: string) {.async.} =
   ## Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync
@@ -23842,7 +23922,7 @@ proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher], f
   withStatics("Windows.ApplicationModel.FullTrustProcessLauncher", IID_IFullTrustProcessLauncherStatics, it):
     withHString(fullTrustPackageRelativeAppId, h0):
       vcall(it, Slot_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForAppAsync, Fn_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForAppAsync)(it, h0, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
 
 proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher], fullTrustPackageRelativeAppId: string, parameterGroupId: string) {.async.} =
   ## Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync
@@ -23851,7 +23931,7 @@ proc launchFullTrustProcessForAppAsync*(_: typedesc[FullTrustProcessLauncher], f
     withHString(fullTrustPackageRelativeAppId, h0):
       withHString(parameterGroupId, h1):
         vcall(it, Slot_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForAppAsync2, Fn_IFullTrustProcessLauncherStatics_LaunchFullTrustProcessForAppAsync2)(it, h0, h1, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppAsync")
 
 proc launchFullTrustProcessForCurrentAppWithArgumentsAsync*(_: typedesc[FullTrustProcessLauncher], commandLine: string): Future[FullTrustProcessLaunchResult] {.async.} =
   ## Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync
@@ -23859,7 +23939,7 @@ proc launchFullTrustProcessForCurrentAppWithArgumentsAsync*(_: typedesc[FullTrus
   withStatics("Windows.ApplicationModel.FullTrustProcessLauncher", IID_IFullTrustProcessLauncherStatics2, it):
     withHString(commandLine, h0):
       vcall(it, Slot_IFullTrustProcessLauncherStatics2_LaunchFullTrustProcessForCurrentAppWithArgumentsAsync, Fn_IFullTrustProcessLauncherStatics2_LaunchFullTrustProcessForCurrentAppWithArgumentsAsync)(it, h0, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync")
-  result = adopt[FullTrustProcessLaunchResult](await awaitObject(op, IID_IAsyncOperation_1_FullTrustProcessLaunchResult, IID_AsyncOperationCompletedHandler_1_FullTrustProcessLaunchResult, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync"))
+  result = adopt[FullTrustProcessLaunchResult](await awaitObject(op, IID_IAsyncOperation_1_FullTrustProcessLaunchResult, IID_AsyncOperationCompletedHandler_1_FullTrustProcessLaunchResult, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppWithArgumentsAsync"))
 
 proc launchFullTrustProcessForAppWithArgumentsAsync*(_: typedesc[FullTrustProcessLauncher], fullTrustPackageRelativeAppId: string, commandLine: string): Future[FullTrustProcessLaunchResult] {.async.} =
   ## Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForAppWithArgumentsAsync
@@ -23868,7 +23948,7 @@ proc launchFullTrustProcessForAppWithArgumentsAsync*(_: typedesc[FullTrustProces
     withHString(fullTrustPackageRelativeAppId, h0):
       withHString(commandLine, h1):
         vcall(it, Slot_IFullTrustProcessLauncherStatics2_LaunchFullTrustProcessForAppWithArgumentsAsync, Fn_IFullTrustProcessLauncherStatics2_LaunchFullTrustProcessForAppWithArgumentsAsync)(it, h0, h1, op.addr).check("FullTrustProcessLauncher.LaunchFullTrustProcessForAppWithArgumentsAsync")
-  result = adopt[FullTrustProcessLaunchResult](await awaitObject(op, IID_IAsyncOperation_1_FullTrustProcessLaunchResult, IID_AsyncOperationCompletedHandler_1_FullTrustProcessLaunchResult, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppWithArgumentsAsync"))
+  result = adopt[FullTrustProcessLaunchResult](await awaitObject(op, IID_IAsyncOperation_1_FullTrustProcessLaunchResult, IID_AsyncOperationCompletedHandler_1_FullTrustProcessLaunchResult, alPlain, "FullTrustProcessLauncher.LaunchFullTrustProcessForAppWithArgumentsAsync"))
 
 proc setPlacementOverride*(self: HolographicKeyboard, coordinateSystem: SpatialCoordinateSystem, topCenterPosition: Vector3, orientation: Quaternion)  =
   ## Windows.ApplicationModel.Holographic.HolographicKeyboard.SetPlacementOverride
@@ -23964,19 +24044,19 @@ proc getForCurrentView*(_: typedesc[LockApplicationHost]): LockApplicationHost  
     vcall(it, Slot_ILockApplicationHostStatics_GetForCurrentView, Fn_ILockApplicationHostStatics_GetForCurrentView)(it, tmp.addr).check("LockApplicationHost.GetForCurrentView")
     result = adopt[LockApplicationHost](tmp)
 
-proc logo*(self: LockScreenBadge): RandomAccessStreamOverStream  =
+proc logo*(self: LockScreenBadge): WinRtObject  =
   ## Windows.ApplicationModel.LockScreen.LockScreenBadge.get_Logo
   withIface(self.p, IID_ILockScreenBadge, "ILockScreenBadge", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenBadge_get_Logo, Fn_ILockScreenBadge_get_Logo)(it, tmp.addr).check("LockScreenBadge.get_Logo")
-    result = adopt[RandomAccessStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc glyph*(self: LockScreenBadge): RandomAccessStreamOverStream  =
+proc glyph*(self: LockScreenBadge): WinRtObject  =
   ## Windows.ApplicationModel.LockScreen.LockScreenBadge.get_Glyph
   withIface(self.p, IID_ILockScreenBadge, "ILockScreenBadge", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenBadge_get_Glyph, Fn_ILockScreenBadge_get_Glyph)(it, tmp.addr).check("LockScreenBadge.get_Glyph")
-    result = adopt[RandomAccessStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc number*(self: LockScreenBadge): Option[uint32]  =
   ## Windows.ApplicationModel.LockScreen.LockScreenBadge.get_Number
@@ -24017,12 +24097,12 @@ proc removeLockScreenImageChanged*(self: LockScreenInfo, token: EventRegistratio
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     vcall(it, Slot_ILockScreenInfo_remove_LockScreenImageChanged, Fn_ILockScreenInfo_remove_LockScreenImageChanged)(it, token).check("LockScreenInfo.remove_LockScreenImageChanged")
 
-proc lockScreenImage*(self: LockScreenInfo): RandomAccessStreamOverStream  =
+proc lockScreenImage*(self: LockScreenInfo): WinRtObject  =
   ## Windows.ApplicationModel.LockScreen.LockScreenInfo.get_LockScreenImage
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenInfo_get_LockScreenImage, Fn_ILockScreenInfo_get_LockScreenImage)(it, tmp.addr).check("LockScreenInfo.get_LockScreenImage")
-    result = adopt[RandomAccessStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc onBadgesChanged*(self: LockScreenInfo,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -24097,12 +24177,12 @@ proc removeAlarmIconChanged*(self: LockScreenInfo, token: EventRegistrationToken
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     vcall(it, Slot_ILockScreenInfo_remove_AlarmIconChanged, Fn_ILockScreenInfo_remove_AlarmIconChanged)(it, token).check("LockScreenInfo.remove_AlarmIconChanged")
 
-proc alarmIcon*(self: LockScreenInfo): RandomAccessStreamOverStream  =
+proc alarmIcon*(self: LockScreenInfo): WinRtObject  =
   ## Windows.ApplicationModel.LockScreen.LockScreenInfo.get_AlarmIcon
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenInfo_get_AlarmIcon, Fn_ILockScreenInfo_get_AlarmIcon)(it, tmp.addr).check("LockScreenInfo.get_AlarmIcon")
-    result = adopt[RandomAccessStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc complete*(self: LockScreenUnlockingDeferral)  =
   ## Windows.ApplicationModel.LockScreen.LockScreenUnlockingDeferral.Complete
@@ -24220,7 +24300,7 @@ proc getAppListEntriesAsync*(self: Package): Future[seq[AppListEntry]] {.async.}
   var op: pointer
   withIface(self.p, IID_IPackage3, "IPackage3", it):
     vcall(it, Slot_IPackage3_GetAppListEntriesAsync, Fn_IPackage3_GetAppListEntriesAsync)(it, op.addr).check("Package.GetAppListEntriesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, "Package.GetAppListEntriesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_132, IID_AsyncOperationCompletedHandler_1_IVectorView_132, alPlain, "Package.GetAppListEntriesAsync")
   result = toSeq[AppListEntry](coll, IID_IVectorView_1_AppListEntry)
   discard release(coll)
 
@@ -24263,14 +24343,14 @@ proc verifyContentIntegrityAsync*(self: Package): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPackage4, "IPackage4", it):
     vcall(it, Slot_IPackage4_VerifyContentIntegrityAsync, Fn_IPackage4_VerifyContentIntegrityAsync)(it, op.addr).check("Package.VerifyContentIntegrityAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Package.VerifyContentIntegrityAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Package.VerifyContentIntegrityAsync")
 
 proc getContentGroupsAsync*(self: Package): Future[seq[PackageContentGroup]] {.async.} =
   ## Windows.ApplicationModel.Package.GetContentGroupsAsync
   var op: pointer
   withIface(self.p, IID_IPackage5, "IPackage5", it):
     vcall(it, Slot_IPackage5_GetContentGroupsAsync, Fn_IPackage5_GetContentGroupsAsync)(it, op.addr).check("Package.GetContentGroupsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, "Package.GetContentGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, alPlain, "Package.GetContentGroupsAsync")
   result = toSeq[PackageContentGroup](coll, IID_IVector_1_PackageContentGroup)
   discard release(coll)
 
@@ -24280,7 +24360,7 @@ proc getContentGroupAsync*(self: Package, name: string): Future[PackageContentGr
   withIface(self.p, IID_IPackage5, "IPackage5", it):
     withHString(name, h0):
       vcall(it, Slot_IPackage5_GetContentGroupAsync, Fn_IPackage5_GetContentGroupAsync)(it, h0, op.addr).check("Package.GetContentGroupAsync")
-  result = adopt[PackageContentGroup](await awaitObject(op, IID_IAsyncOperation_1_PackageContentGroup, IID_AsyncOperationCompletedHandler_1_PackageContentGroup, "Package.GetContentGroupAsync"))
+  result = adopt[PackageContentGroup](await awaitObject(op, IID_IAsyncOperation_1_PackageContentGroup, IID_AsyncOperationCompletedHandler_1_PackageContentGroup, alPlain, "Package.GetContentGroupAsync"))
 
 proc stageContentGroupsAsync*(self: Package, names: seq[string]): Future[seq[PackageContentGroup]] {.async.} =
   ## Windows.ApplicationModel.Package.StageContentGroupsAsync
@@ -24289,7 +24369,7 @@ proc stageContentGroupsAsync*(self: Package, names: seq[string]): Future[seq[Pac
     let p0 = asIterableString(names, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPackage5_StageContentGroupsAsync, Fn_IPackage5_StageContentGroupsAsync)(it, p0, op.addr).check("Package.StageContentGroupsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, "Package.StageContentGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, alPlain, "Package.StageContentGroupsAsync")
   result = toSeq[PackageContentGroup](coll, IID_IVector_1_PackageContentGroup)
   discard release(coll)
 
@@ -24300,7 +24380,7 @@ proc stageContentGroupsAsync*(self: Package, names: seq[string], moveToHeadOfQue
     let p0 = asIterableString(names, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPackage5_StageContentGroupsAsync2, Fn_IPackage5_StageContentGroupsAsync2)(it, p0, moveToHeadOfQueue, op.addr).check("Package.StageContentGroupsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, "Package.StageContentGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_13, IID_AsyncOperationCompletedHandler_1_IVector_13, alPlain, "Package.StageContentGroupsAsync")
   result = toSeq[PackageContentGroup](coll, IID_IVector_1_PackageContentGroup)
   discard release(coll)
 
@@ -24309,7 +24389,7 @@ proc setInUseAsync*(self: Package, inUse: bool): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IPackage5, "IPackage5", it):
     vcall(it, Slot_IPackage5_SetInUseAsync, Fn_IPackage5_SetInUseAsync)(it, inUse, op.addr).check("Package.SetInUseAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Package.SetInUseAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Package.SetInUseAsync")
 
 proc getAppInstallerInfo*(self: Package): AppInstallerInfo  =
   ## Windows.ApplicationModel.Package.GetAppInstallerInfo
@@ -24323,7 +24403,7 @@ proc checkUpdateAvailabilityAsync*(self: Package): Future[PackageUpdateAvailabil
   var op: pointer
   withIface(self.p, IID_IPackage6, "IPackage6", it):
     vcall(it, Slot_IPackage6_CheckUpdateAvailabilityAsync, Fn_IPackage6_CheckUpdateAvailabilityAsync)(it, op.addr).check("Package.CheckUpdateAvailabilityAsync")
-  result = adopt[PackageUpdateAvailabilityResult](await awaitObject(op, IID_IAsyncOperation_1_PackageUpdateAvailabilityResult, IID_AsyncOperationCompletedHandler_1_PackageUpdateAvailabilityResult, "Package.CheckUpdateAvailabilityAsync"))
+  result = adopt[PackageUpdateAvailabilityResult](await awaitObject(op, IID_IAsyncOperation_1_PackageUpdateAvailabilityResult, IID_AsyncOperationCompletedHandler_1_PackageUpdateAvailabilityResult, alPlain, "Package.CheckUpdateAvailabilityAsync"))
 
 proc mutableLocation*(self: Package): StorageFolder  =
   ## Windows.ApplicationModel.Package.get_MutableLocation
@@ -24567,7 +24647,7 @@ proc addOptionalPackageAsync*(self: PackageCatalog, optionalPackageFamilyName: s
   withIface(self.p, IID_IPackageCatalog2, "IPackageCatalog2", it):
     withHString(optionalPackageFamilyName, h0):
       vcall(it, Slot_IPackageCatalog2_AddOptionalPackageAsync, Fn_IPackageCatalog2_AddOptionalPackageAsync)(it, h0, op.addr).check("PackageCatalog.AddOptionalPackageAsync")
-  result = adopt[PackageCatalogAddOptionalPackageResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogAddOptionalPackageResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogAddOptionalPackageResult, "PackageCatalog.AddOptionalPackageAsync"))
+  result = adopt[PackageCatalogAddOptionalPackageResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogAddOptionalPackageResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogAddOptionalPackageResult, alPlain, "PackageCatalog.AddOptionalPackageAsync"))
 
 proc removeOptionalPackagesAsync*(self: PackageCatalog, optionalPackageFamilyNames: seq[string]): Future[PackageCatalogRemoveOptionalPackagesResult] {.async.} =
   ## Windows.ApplicationModel.PackageCatalog.RemoveOptionalPackagesAsync
@@ -24576,7 +24656,7 @@ proc removeOptionalPackagesAsync*(self: PackageCatalog, optionalPackageFamilyNam
     let p0 = asIterableString(optionalPackageFamilyNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPackageCatalog3_RemoveOptionalPackagesAsync, Fn_IPackageCatalog3_RemoveOptionalPackagesAsync)(it, p0, op.addr).check("PackageCatalog.RemoveOptionalPackagesAsync")
-  result = adopt[PackageCatalogRemoveOptionalPackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveOptionalPackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveOptionalPackagesResult, "PackageCatalog.RemoveOptionalPackagesAsync"))
+  result = adopt[PackageCatalogRemoveOptionalPackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveOptionalPackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveOptionalPackagesResult, alPlain, "PackageCatalog.RemoveOptionalPackagesAsync"))
 
 proc addResourcePackageAsync*(self: PackageCatalog, resourcePackageFamilyName: string, resourceID: string, options: AddResourcePackageOptions): Future[PackageCatalogAddResourcePackageResult] {.async.} =
   ## Windows.ApplicationModel.PackageCatalog.AddResourcePackageAsync
@@ -24585,7 +24665,7 @@ proc addResourcePackageAsync*(self: PackageCatalog, resourcePackageFamilyName: s
     withHString(resourcePackageFamilyName, h0):
       withHString(resourceID, h1):
         vcall(it, Slot_IPackageCatalog4_AddResourcePackageAsync, Fn_IPackageCatalog4_AddResourcePackageAsync)(it, h0, h1, options, op.addr).check("PackageCatalog.AddResourcePackageAsync")
-  result = adopt[PackageCatalogAddResourcePackageResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress, IID_AsyncOperationCompletedHandler_1_PackageCatalogAddResourcePackageResult, "PackageCatalog.AddResourcePackageAsync"))
+  result = adopt[PackageCatalogAddResourcePackageResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress, IID_AsyncOperationWithProgressCompletedHandler_2_PackageCatalogAddResourcePackageResult_PackageInstallProgress, alProgress, "PackageCatalog.AddResourcePackageAsync"))
 
 proc removeResourcePackagesAsync*(self: PackageCatalog, resourcePackages: seq[Package]): Future[PackageCatalogRemoveResourcePackagesResult] {.async.} =
   ## Windows.ApplicationModel.PackageCatalog.RemoveResourcePackagesAsync
@@ -24594,7 +24674,7 @@ proc removeResourcePackagesAsync*(self: PackageCatalog, resourcePackages: seq[Pa
     let p0 = asIterable[Package](resourcePackages, IID_IIterable_1_Package, IID_IVectorView_1_Package, IID_IIterator_1_Package)
     defer: discard release(p0)
     vcall(it, Slot_IPackageCatalog4_RemoveResourcePackagesAsync, Fn_IPackageCatalog4_RemoveResourcePackagesAsync)(it, p0, op.addr).check("PackageCatalog.RemoveResourcePackagesAsync")
-  result = adopt[PackageCatalogRemoveResourcePackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveResourcePackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveResourcePackagesResult, "PackageCatalog.RemoveResourcePackagesAsync"))
+  result = adopt[PackageCatalogRemoveResourcePackagesResult](await awaitObject(op, IID_IAsyncOperation_1_PackageCatalogRemoveResourcePackagesResult, IID_AsyncOperationCompletedHandler_1_PackageCatalogRemoveResourcePackagesResult, alPlain, "PackageCatalog.RemoveResourcePackagesAsync"))
 
 proc openForPackage*(_: typedesc[PackageCatalog], package: Package): PackageCatalog  =
   ## Windows.ApplicationModel.PackageCatalog.OpenForPackage
@@ -24795,19 +24875,19 @@ proc package*(self: PackageExtension): Package  =
     vcall(it, Slot_IPackageExtension_get_Package, Fn_IPackageExtension_get_Package)(it, tmp.addr).check("PackageExtension.get_Package")
     result = adopt[Package](tmp)
 
-proc getExtensionProperties*(self: PackageExtension): ApplicationDataContainerSettings  =
+proc getExtensionProperties*(self: PackageExtension): WinRtObject  =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetExtensionProperties
   withIface(self.p, IID_IPackageExtension, "IPackageExtension", it):
     var tmp: pointer
     vcall(it, Slot_IPackageExtension_GetExtensionProperties, Fn_IPackageExtension_GetExtensionProperties)(it, tmp.addr).check("PackageExtension.GetExtensionProperties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc getExtensionPropertiesAsync*(self: PackageExtension): Future[ApplicationDataContainerSettings] {.async.} =
+proc getExtensionPropertiesAsync*(self: PackageExtension): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetExtensionPropertiesAsync
   var op: pointer
   withIface(self.p, IID_IPackageExtension, "IPackageExtension", it):
     vcall(it, Slot_IPackageExtension_GetExtensionPropertiesAsync, Fn_IPackageExtension_GetExtensionPropertiesAsync)(it, op.addr).check("PackageExtension.GetExtensionPropertiesAsync")
-  result = adopt[ApplicationDataContainerSettings](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "PackageExtension.GetExtensionPropertiesAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, alPlain, "PackageExtension.GetExtensionPropertiesAsync"))
 
 proc getPublicPath*(self: PackageExtension): string  =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtension.GetPublicPath
@@ -24828,7 +24908,7 @@ proc getPublicFolderAsync*(self: PackageExtension): Future[StorageFolder] {.asyn
   var op: pointer
   withIface(self.p, IID_IPackageExtension, "IPackageExtension", it):
     vcall(it, Slot_IPackageExtension_GetPublicFolderAsync, Fn_IPackageExtension_GetPublicFolderAsync)(it, op.addr).check("PackageExtension.GetPublicFolderAsync")
-  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "PackageExtension.GetPublicFolderAsync"))
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, alPlain, "PackageExtension.GetPublicFolderAsync"))
 
 proc findAll*(self: PackageExtensionCatalog): seq[PackageExtension]  =
   ## Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog.FindAll
@@ -24843,7 +24923,7 @@ proc findAllAsync*(self: PackageExtensionCatalog): Future[seq[PackageExtension]]
   var op: pointer
   withIface(self.p, IID_IPackageExtensionCatalog, "IPackageExtensionCatalog", it):
     vcall(it, Slot_IPackageExtensionCatalog_FindAllAsync, Fn_IPackageExtensionCatalog_FindAllAsync)(it, op.addr).check("PackageExtensionCatalog.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_133, IID_AsyncOperationCompletedHandler_1_IVectorView_133, "PackageExtensionCatalog.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_133, IID_AsyncOperationCompletedHandler_1_IVectorView_133, alPlain, "PackageExtensionCatalog.FindAllAsync")
   result = toSeq[PackageExtension](coll, IID_IVectorView_1_PackageExtension)
   discard release(coll)
 
@@ -24853,7 +24933,7 @@ proc requestRemovePackageAsync*(self: PackageExtensionCatalog, packageFullName: 
   withIface(self.p, IID_IPackageExtensionCatalog, "IPackageExtensionCatalog", it):
     withHString(packageFullName, h0):
       vcall(it, Slot_IPackageExtensionCatalog_RequestRemovePackageAsync, Fn_IPackageExtensionCatalog_RequestRemovePackageAsync)(it, h0, op.addr).check("PackageExtensionCatalog.RequestRemovePackageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "PackageExtensionCatalog.RequestRemovePackageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "PackageExtensionCatalog.RequestRemovePackageAsync")
 
 proc onPackageInstalled*(self: PackageExtensionCatalog,
     handler: proc(sender: pointer, args: PackageExtensionPackageInstalledEventArgs)): EventRegistrationToken {.discardable.} =
@@ -25802,7 +25882,7 @@ proc getSupportedMethodIdsAsync*(self: PaymentMediator): Future[seq[string]] {.a
   var op: pointer
   withIface(self.p, IID_IPaymentMediator, "IPaymentMediator", it):
     vcall(it, Slot_IPaymentMediator_GetSupportedMethodIdsAsync, Fn_IPaymentMediator_GetSupportedMethodIdsAsync)(it, op.addr).check("PaymentMediator.GetSupportedMethodIdsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "PaymentMediator.GetSupportedMethodIdsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "PaymentMediator.GetSupportedMethodIdsAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -25812,17 +25892,17 @@ proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRe
   withIface(self.p, IID_IPaymentMediator, "IPaymentMediator", it):
     withIface(paymentRequest.p, IID_IPaymentRequest, "IPaymentRequest", p0):
       vcall(it, Slot_IPaymentMediator_SubmitPaymentRequestAsync, Fn_IPaymentMediator_SubmitPaymentRequestAsync)(it, p0, op.addr).check("PaymentMediator.SubmitPaymentRequestAsync")
-  result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, "PaymentMediator.SubmitPaymentRequestAsync"))
+  result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, alPlain, "PaymentMediator.SubmitPaymentRequestAsync"))
 
-proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRequest, changeHandler: proc(sender: PaymentRequest, args: PaymentRequestChangedArgs)): Future[PaymentRequestSubmitResult] {.async.} =
+proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRequest, changeHandler: proc(a0: PaymentRequest, a1: PaymentRequestChangedArgs)): Future[PaymentRequestSubmitResult] {.async.} =
   ## Windows.ApplicationModel.Payments.PaymentMediator.SubmitPaymentRequestAsync
   var op: pointer
   withIface(self.p, IID_IPaymentMediator, "IPaymentMediator", it):
     withIface(paymentRequest.p, IID_IPaymentRequest, "IPaymentRequest", p0):
-      let d1 = newEventDelegate(IID_PaymentRequestChangedHandler, proc(s, a: pointer) = changeHandler(borrow[PaymentRequest](s), borrow[PaymentRequestChangedArgs](a)))
+      let d1 = newDelegate(IID_PaymentRequestChangedHandler, proc(a0: pointer, a1: pointer) = changeHandler(borrow[PaymentRequest](a0), borrow[PaymentRequestChangedArgs](a1)))
       defer: discard release(d1)
       vcall(it, Slot_IPaymentMediator_SubmitPaymentRequestAsync2, Fn_IPaymentMediator_SubmitPaymentRequestAsync2)(it, p0, d1, op.addr).check("PaymentMediator.SubmitPaymentRequestAsync")
-  result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, "PaymentMediator.SubmitPaymentRequestAsync"))
+  result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, alPlain, "PaymentMediator.SubmitPaymentRequestAsync"))
 
 proc canMakePaymentAsync*(self: PaymentMediator, paymentRequest: PaymentRequest): Future[PaymentCanMakePaymentResult] {.async.} =
   ## Windows.ApplicationModel.Payments.PaymentMediator.CanMakePaymentAsync
@@ -25830,7 +25910,7 @@ proc canMakePaymentAsync*(self: PaymentMediator, paymentRequest: PaymentRequest)
   withIface(self.p, IID_IPaymentMediator2, "IPaymentMediator2", it):
     withIface(paymentRequest.p, IID_IPaymentRequest, "IPaymentRequest", p0):
       vcall(it, Slot_IPaymentMediator2_CanMakePaymentAsync, Fn_IPaymentMediator2_CanMakePaymentAsync)(it, p0, op.addr).check("PaymentMediator.CanMakePaymentAsync")
-  result = adopt[PaymentCanMakePaymentResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentCanMakePaymentResult, IID_AsyncOperationCompletedHandler_1_PaymentCanMakePaymentResult, "PaymentMediator.CanMakePaymentAsync"))
+  result = adopt[PaymentCanMakePaymentResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentCanMakePaymentResult, IID_AsyncOperationCompletedHandler_1_PaymentCanMakePaymentResult, alPlain, "PaymentMediator.CanMakePaymentAsync"))
 
 proc newPaymentMerchantInfo*(): PaymentMerchantInfo =
   ## Activate a `Windows.ApplicationModel.Payments.PaymentMerchantInfo`.
@@ -26065,6 +26145,13 @@ proc acknowledge*(self: PaymentRequestChangedArgs, changeResult: PaymentRequestC
     withIface(changeResult.p, IID_IPaymentRequestChangedResult, "IPaymentRequestChangedResult", p0):
       vcall(it, Slot_IPaymentRequestChangedArgs_Acknowledge, Fn_IPaymentRequestChangedArgs_Acknowledge)(it, p0).check("PaymentRequestChangedArgs.Acknowledge")
 
+proc invoke*(self: PaymentRequestChangedHandler, paymentRequest: PaymentRequest, args: PaymentRequestChangedArgs)  =
+  ## Windows.ApplicationModel.Payments.PaymentRequestChangedHandler.Invoke
+  withIface(self.p, IID_PaymentRequestChangedHandler, "PaymentRequestChangedHandler", it):
+    withIface(paymentRequest.p, IID_IPaymentRequest, "IPaymentRequest", p0):
+      withIface(args.p, IID_IPaymentRequestChangedArgs, "IPaymentRequestChangedArgs", p1):
+        vcall(it, Slot_PaymentRequestChangedHandler_Invoke, Fn_PaymentRequestChangedHandler_Invoke)(it, p0, p1).check("PaymentRequestChangedHandler.Invoke")
+
 proc changeAcceptedByMerchant*(self: PaymentRequestChangedResult): bool  =
   ## Windows.ApplicationModel.Payments.PaymentRequestChangedResult.get_ChangeAcceptedByMerchant
   withIface(self.p, IID_IPaymentRequestChangedResult, "IPaymentRequestChangedResult", it):
@@ -26179,7 +26266,7 @@ proc completeAsync*(self: PaymentResponse, status: PaymentRequestCompletionStatu
   var op: pointer
   withIface(self.p, IID_IPaymentResponse, "IPaymentResponse", it):
     vcall(it, Slot_IPaymentResponse_CompleteAsync, Fn_IPaymentResponse_CompleteAsync)(it, status, op.addr).check("PaymentResponse.CompleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PaymentResponse.CompleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PaymentResponse.CompleteAsync")
 
 proc label*(self: PaymentShippingOption): string  =
   ## Windows.ApplicationModel.Payments.PaymentShippingOption.get_Label
@@ -26311,14 +26398,14 @@ proc registerAsync*(self: PaymentAppManager, supportedPaymentMethodIds: seq[stri
     let p0 = asIterableString(supportedPaymentMethodIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IPaymentAppManager_RegisterAsync, Fn_IPaymentAppManager_RegisterAsync)(it, p0, op.addr).check("PaymentAppManager.RegisterAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PaymentAppManager.RegisterAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PaymentAppManager.RegisterAsync")
 
 proc unregisterAsync*(self: PaymentAppManager) {.async.} =
   ## Windows.ApplicationModel.Payments.Provider.PaymentAppManager.UnregisterAsync
   var op: pointer
   withIface(self.p, IID_IPaymentAppManager, "IPaymentAppManager", it):
     vcall(it, Slot_IPaymentAppManager_UnregisterAsync, Fn_IPaymentAppManager_UnregisterAsync)(it, op.addr).check("PaymentAppManager.UnregisterAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PaymentAppManager.UnregisterAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PaymentAppManager.UnregisterAsync")
 
 proc current*(_: typedesc[PaymentAppManager]): PaymentAppManager  =
   ## Windows.ApplicationModel.Payments.Provider.PaymentAppManager.get_Current
@@ -26379,7 +26466,7 @@ proc updateShippingAddressAsync*(self: PaymentTransaction, shippingAddress: Paym
   withIface(self.p, IID_IPaymentTransaction, "IPaymentTransaction", it):
     withIface(shippingAddress.p, IID_IPaymentAddress, "IPaymentAddress", p0):
       vcall(it, Slot_IPaymentTransaction_UpdateShippingAddressAsync, Fn_IPaymentTransaction_UpdateShippingAddressAsync)(it, p0, op.addr).check("PaymentTransaction.UpdateShippingAddressAsync")
-  result = adopt[PaymentRequestChangedResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestChangedResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestChangedResult, "PaymentTransaction.UpdateShippingAddressAsync"))
+  result = adopt[PaymentRequestChangedResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestChangedResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestChangedResult, alPlain, "PaymentTransaction.UpdateShippingAddressAsync"))
 
 proc updateSelectedShippingOptionAsync*(self: PaymentTransaction, selectedShippingOption: PaymentShippingOption): Future[PaymentRequestChangedResult] {.async.} =
   ## Windows.ApplicationModel.Payments.Provider.PaymentTransaction.UpdateSelectedShippingOptionAsync
@@ -26387,7 +26474,7 @@ proc updateSelectedShippingOptionAsync*(self: PaymentTransaction, selectedShippi
   withIface(self.p, IID_IPaymentTransaction, "IPaymentTransaction", it):
     withIface(selectedShippingOption.p, IID_IPaymentShippingOption, "IPaymentShippingOption", p0):
       vcall(it, Slot_IPaymentTransaction_UpdateSelectedShippingOptionAsync, Fn_IPaymentTransaction_UpdateSelectedShippingOptionAsync)(it, p0, op.addr).check("PaymentTransaction.UpdateSelectedShippingOptionAsync")
-  result = adopt[PaymentRequestChangedResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestChangedResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestChangedResult, "PaymentTransaction.UpdateSelectedShippingOptionAsync"))
+  result = adopt[PaymentRequestChangedResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestChangedResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestChangedResult, alPlain, "PaymentTransaction.UpdateSelectedShippingOptionAsync"))
 
 proc acceptAsync*(self: PaymentTransaction, paymentToken: PaymentToken): Future[PaymentTransactionAcceptResult] {.async.} =
   ## Windows.ApplicationModel.Payments.Provider.PaymentTransaction.AcceptAsync
@@ -26395,7 +26482,7 @@ proc acceptAsync*(self: PaymentTransaction, paymentToken: PaymentToken): Future[
   withIface(self.p, IID_IPaymentTransaction, "IPaymentTransaction", it):
     withIface(paymentToken.p, IID_IPaymentToken, "IPaymentToken", p0):
       vcall(it, Slot_IPaymentTransaction_AcceptAsync, Fn_IPaymentTransaction_AcceptAsync)(it, p0, op.addr).check("PaymentTransaction.AcceptAsync")
-  result = adopt[PaymentTransactionAcceptResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentTransactionAcceptResult, IID_AsyncOperationCompletedHandler_1_PaymentTransactionAcceptResult, "PaymentTransaction.AcceptAsync"))
+  result = adopt[PaymentTransactionAcceptResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentTransactionAcceptResult, IID_AsyncOperationCompletedHandler_1_PaymentTransactionAcceptResult, alPlain, "PaymentTransaction.AcceptAsync"))
 
 proc reject*(self: PaymentTransaction)  =
   ## Windows.ApplicationModel.Payments.Provider.PaymentTransaction.Reject
@@ -26408,7 +26495,7 @@ proc fromIdAsync*(_: typedesc[PaymentTransaction], id: string): Future[PaymentTr
   withStatics("Windows.ApplicationModel.Payments.Provider.PaymentTransaction", IID_IPaymentTransactionStatics, it):
     withHString(id, h0):
       vcall(it, Slot_IPaymentTransactionStatics_FromIdAsync, Fn_IPaymentTransactionStatics_FromIdAsync)(it, h0, op.addr).check("PaymentTransaction.FromIdAsync")
-  result = adopt[PaymentTransaction](await awaitObject(op, IID_IAsyncOperation_1_PaymentTransaction, IID_AsyncOperationCompletedHandler_1_PaymentTransaction, "PaymentTransaction.FromIdAsync"))
+  result = adopt[PaymentTransaction](await awaitObject(op, IID_IAsyncOperation_1_PaymentTransaction, IID_AsyncOperationCompletedHandler_1_PaymentTransaction, alPlain, "PaymentTransaction.FromIdAsync"))
 
 proc status*(self: PaymentTransactionAcceptResult): PaymentRequestCompletionStatus  =
   ## Windows.ApplicationModel.Payments.Provider.PaymentTransactionAcceptResult.get_Status
@@ -26424,7 +26511,7 @@ proc isCurrentViewPresentedOnHolographicDisplay*(_: typedesc[HolographicApplicat
     vcall(it, Slot_IHolographicApplicationPreviewStatics_IsCurrentViewPresentedOnHolographicDisplay, Fn_IHolographicApplicationPreviewStatics_IsCurrentViewPresentedOnHolographicDisplay)(it, tmp.addr).check("HolographicApplicationPreview.IsCurrentViewPresentedOnHolographicDisplay")
     result = tmp
 
-proc isHolographicActivation*(_: typedesc[HolographicApplicationPreview], activatedEventArgs: WebUIPrintWorkflowForegroundTaskActivatedEventArgs): bool  =
+proc isHolographicActivation*(_: typedesc[HolographicApplicationPreview], activatedEventArgs: WinRtObject): bool  =
   ## Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview.IsHolographicActivation
   withStatics("Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview", IID_IHolographicApplicationPreviewStatics, it):
     withIface(activatedEventArgs.p, IID_IActivatedEventArgs, "IActivatedEventArgs", p0):
@@ -26462,7 +26549,7 @@ proc setThumbnailAsync*(self: InkWorkspaceHostedAppManager, bitmap: SoftwareBitm
   withIface(self.p, IID_IInkWorkspaceHostedAppManager, "IInkWorkspaceHostedAppManager", it):
     withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       vcall(it, Slot_IInkWorkspaceHostedAppManager_SetThumbnailAsync, Fn_IInkWorkspaceHostedAppManager_SetThumbnailAsync)(it, p0, op.addr).check("InkWorkspaceHostedAppManager.SetThumbnailAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "InkWorkspaceHostedAppManager.SetThumbnailAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "InkWorkspaceHostedAppManager.SetThumbnailAsync")
 
 proc getForCurrentApp*(_: typedesc[InkWorkspaceHostedAppManager]): InkWorkspaceHostedAppManager  =
   ## Windows.ApplicationModel.Preview.InkWorkspace.InkWorkspaceHostedAppManager.GetForCurrentApp
@@ -26545,7 +26632,7 @@ proc setNotesThumbnailAsync*(self: NotesWindowManagerPreview, thumbnail: Buffer)
   withIface(self.p, IID_INotesWindowManagerPreview, "INotesWindowManagerPreview", it):
     withIface(thumbnail.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_INotesWindowManagerPreview_SetNotesThumbnailAsync, Fn_INotesWindowManagerPreview_SetNotesThumbnailAsync)(it, p0, op.addr).check("NotesWindowManagerPreview.SetNotesThumbnailAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "NotesWindowManagerPreview.SetNotesThumbnailAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "NotesWindowManagerPreview.SetNotesThumbnailAsync")
 
 proc onSystemLockStateChanged*(self: NotesWindowManagerPreview,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -26628,7 +26715,7 @@ proc setThumbnailImageForTaskSwitcherAsync*(self: NotesWindowManagerPreview, bit
   withIface(self.p, IID_INotesWindowManagerPreview2, "INotesWindowManagerPreview2", it):
     withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       vcall(it, Slot_INotesWindowManagerPreview2_SetThumbnailImageForTaskSwitcherAsync, Fn_INotesWindowManagerPreview2_SetThumbnailImageForTaskSwitcherAsync)(it, p0, op.addr).check("NotesWindowManagerPreview.SetThumbnailImageForTaskSwitcherAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "NotesWindowManagerPreview.SetThumbnailImageForTaskSwitcherAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "NotesWindowManagerPreview.SetThumbnailImageForTaskSwitcherAsync")
 
 proc getForCurrentApp*(_: typedesc[NotesWindowManagerPreview]): NotesWindowManagerPreview  =
   ## Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview.GetForCurrentApp
@@ -26791,7 +26878,7 @@ proc getValueAsFileAsync*(self: ResourceCandidate): Future[StorageFile] {.async.
   var op: pointer
   withIface(self.p, IID_IResourceCandidate, "IResourceCandidate", it):
     vcall(it, Slot_IResourceCandidate_GetValueAsFileAsync, Fn_IResourceCandidate_GetValueAsFileAsync)(it, op.addr).check("ResourceCandidate.GetValueAsFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "ResourceCandidate.GetValueAsFileAsync"))
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "ResourceCandidate.GetValueAsFileAsync"))
 
 proc getQualifierValue*(self: ResourceCandidate, qualifierName: string): string  =
   ## Windows.ApplicationModel.Resources.Core.ResourceCandidate.GetQualifierValue
@@ -26801,12 +26888,12 @@ proc getQualifierValue*(self: ResourceCandidate, qualifierName: string): string 
       vcall(it, Slot_IResourceCandidate_GetQualifierValue, Fn_IResourceCandidate_GetQualifierValue)(it, h0, tmp.addr).check("ResourceCandidate.GetQualifierValue")
       result = takeString(tmp)
 
-proc getValueAsStreamAsync*(self: ResourceCandidate): Future[RandomAccessStreamOverStream] {.async.} =
+proc getValueAsStreamAsync*(self: ResourceCandidate): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.Resources.Core.ResourceCandidate.GetValueAsStreamAsync
   var op: pointer
   withIface(self.p, IID_IResourceCandidate2, "IResourceCandidate2", it):
     vcall(it, Slot_IResourceCandidate2_GetValueAsStreamAsync, Fn_IResourceCandidate2_GetValueAsStreamAsync)(it, op.addr).check("ResourceCandidate.GetValueAsStreamAsync")
-  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "ResourceCandidate.GetValueAsStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, alPlain, "ResourceCandidate.GetValueAsStreamAsync"))
 
 proc kind*(self: ResourceCandidate): ResourceCandidateKind  =
   ## Windows.ApplicationModel.Resources.Core.ResourceCandidate.get_Kind
@@ -26818,6 +26905,14 @@ proc kind*(self: ResourceCandidate): ResourceCandidateKind  =
 proc newResourceContext*(): ResourceContext =
   ## Activate a `Windows.ApplicationModel.Resources.Core.ResourceContext`.
   adopt[ResourceContext](activateAs("Windows.ApplicationModel.Resources.Core.ResourceContext", IID_IResourceContext))
+
+proc qualifierValues*(self: ResourceContext): Table[string, string]  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceContext.get_QualifierValues
+  withIface(self.p, IID_IResourceContext, "IResourceContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceContext_get_QualifierValues, Fn_IResourceContext_get_QualifierValues)(it, tmp.addr).check("ResourceContext.get_QualifierValues")
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc reset*(self: ResourceContext)  =
   ## Windows.ApplicationModel.Resources.Core.ResourceContext.Reset
@@ -26929,7 +27024,7 @@ proc allResourceMaps*(self: ResourceManager): Table[string, ResourceMap]  =
   withIface(self.p, IID_IResourceManager, "IResourceManager", it):
     var tmp: pointer
     vcall(it, Slot_IResourceManager_get_AllResourceMaps, Fn_IResourceManager_get_AllResourceMaps)(it, tmp.addr).check("ResourceManager.get_AllResourceMaps")
-    result = toTable[ResourceMap](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_ResourceMap)
+    result = toTable[string, ResourceMap](tmp, IID_IIterable_1_IKeyValuePair_28, IID_IKeyValuePair_2_String_ResourceMap)
     release(tmp)
 
 proc defaultContext*(self: ResourceManager): ResourceContext  =
@@ -27072,7 +27167,7 @@ proc metadata*(self: IndexedResourceCandidate): Table[string, string]  =
   withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
     var tmp: pointer
     vcall(it, Slot_IIndexedResourceCandidate_get_Metadata, Fn_IIndexedResourceCandidate_get_Metadata)(it, tmp.addr).check("IndexedResourceCandidate.get_Metadata")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc qualifiers*(self: IndexedResourceCandidate): seq[IndexedResourceQualifier]  =
@@ -27126,7 +27221,7 @@ proc indexFileContentsAsync*(self: ResourceIndexer, file: Uri): Future[seq[Index
   withIface(self.p, IID_IResourceIndexer, "IResourceIndexer", it):
     withIface(file.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IResourceIndexer_IndexFileContentsAsync, Fn_IResourceIndexer_IndexFileContentsAsync)(it, p0, op.addr).check("ResourceIndexer.IndexFileContentsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_134, IID_AsyncOperationCompletedHandler_1_IVectorView_134, "ResourceIndexer.IndexFileContentsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_134, IID_AsyncOperationCompletedHandler_1_IVectorView_134, alPlain, "ResourceIndexer.IndexFileContentsAsync")
   result = toSeq[IndexedResourceCandidate](coll, IID_IVectorView_1_IndexedResourceCandidate)
   discard release(coll)
 
@@ -27257,12 +27352,12 @@ proc detailText*(self: SearchSuggestion): string  =
     vcall(it, Slot_ISearchSuggestion_get_DetailText, Fn_ISearchSuggestion_get_DetailText)(it, tmp.addr).check("SearchSuggestion.get_DetailText")
     result = takeString(tmp)
 
-proc image*(self: SearchSuggestion): RandomAccessStreamReference  =
+proc image*(self: SearchSuggestion): WinRtObject  =
   ## Windows.ApplicationModel.Search.Core.SearchSuggestion.get_Image
   withIface(self.p, IID_ISearchSuggestion, "ISearchSuggestion", it):
     var tmp: pointer
     vcall(it, Slot_ISearchSuggestion_get_Image, Fn_ISearchSuggestion_get_Image)(it, tmp.addr).check("SearchSuggestion.get_Image")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc imageAlternateText*(self: SearchSuggestion): string  =
   ## Windows.ApplicationModel.Search.Core.SearchSuggestion.get_ImageAlternateText
@@ -27326,6 +27421,14 @@ proc setQuery*(self: SearchSuggestionManager, queryText: string, language: strin
       withHString(language, h1):
         withIface(linguisticDetails.p, IID_ISearchQueryLinguisticDetails, "ISearchQueryLinguisticDetails", p2):
           vcall(it, Slot_ISearchSuggestionManager_SetQuery3, Fn_ISearchSuggestionManager_SetQuery3)(it, h0, h1, p2).check("SearchSuggestionManager.SetQuery")
+
+proc suggestions*(self: SearchSuggestionManager): seq[SearchSuggestion]  =
+  ## Windows.ApplicationModel.Search.Core.SearchSuggestionManager.get_Suggestions
+  withIface(self.p, IID_ISearchSuggestionManager, "ISearchSuggestionManager", it):
+    var tmp: pointer
+    vcall(it, Slot_ISearchSuggestionManager_get_Suggestions, Fn_ISearchSuggestionManager_get_Suggestions)(it, tmp.addr).check("SearchSuggestionManager.get_Suggestions")
+    result = toSeq[SearchSuggestion](tmp, IID_IObservableVector_1_SearchSuggestion)
+    release(tmp)
 
 proc addToHistory*(self: SearchSuggestionManager, queryText: string)  =
   ## Windows.ApplicationModel.Search.Core.SearchSuggestionManager.AddToHistory
@@ -27842,7 +27945,7 @@ proc appendQuerySuggestions*(self: SearchSuggestionCollection, suggestions: seq[
     defer: discard release(p0)
     vcall(it, Slot_ISearchSuggestionCollection_AppendQuerySuggestions, Fn_ISearchSuggestionCollection_AppendQuerySuggestions)(it, p0).check("SearchSuggestionCollection.AppendQuerySuggestions")
 
-proc appendResultSuggestion*(self: SearchSuggestionCollection, text: string, detailText: string, tag: string, image: RandomAccessStreamReference, imageAlternateText: string)  =
+proc appendResultSuggestion*(self: SearchSuggestionCollection, text: string, detailText: string, tag: string, image: WinRtObject, imageAlternateText: string)  =
   ## Windows.ApplicationModel.Search.SearchSuggestionCollection.AppendResultSuggestion
   withIface(self.p, IID_ISearchSuggestionCollection, "ISearchSuggestionCollection", it):
     withHString(text, h0):
@@ -27928,7 +28031,7 @@ proc commitAsync*(self: SocialDashboardItemUpdater) {.async.} =
   var op: pointer
   withIface(self.p, IID_ISocialDashboardItemUpdater, "ISocialDashboardItemUpdater", it):
     vcall(it, Slot_ISocialDashboardItemUpdater_CommitAsync, Fn_ISocialDashboardItemUpdater_CommitAsync)(it, op.addr).check("SocialDashboardItemUpdater.CommitAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SocialDashboardItemUpdater.CommitAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SocialDashboardItemUpdater.CommitAsync")
 
 proc targetUri*(self: SocialDashboardItemUpdater): Uri  =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater.get_TargetUri
@@ -27970,7 +28073,7 @@ proc commitAsync*(self: SocialFeedUpdater) {.async.} =
   var op: pointer
   withIface(self.p, IID_ISocialFeedUpdater, "ISocialFeedUpdater", it):
     vcall(it, Slot_ISocialFeedUpdater_CommitAsync, Fn_ISocialFeedUpdater_CommitAsync)(it, op.addr).check("SocialFeedUpdater.CommitAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SocialFeedUpdater.CommitAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SocialFeedUpdater.CommitAsync")
 
 proc createSocialFeedUpdaterAsync*(_: typedesc[SocialInfoProviderManager], kind: SocialFeedKind, mode: SocialFeedUpdateMode, ownerRemoteId: string): Future[SocialFeedUpdater] {.async.} =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager.CreateSocialFeedUpdaterAsync
@@ -27978,7 +28081,7 @@ proc createSocialFeedUpdaterAsync*(_: typedesc[SocialInfoProviderManager], kind:
   withStatics("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager", IID_ISocialInfoProviderManagerStatics, it):
     withHString(ownerRemoteId, h2):
       vcall(it, Slot_ISocialInfoProviderManagerStatics_CreateSocialFeedUpdaterAsync, Fn_ISocialInfoProviderManagerStatics_CreateSocialFeedUpdaterAsync)(it, kind, mode, h2, op.addr).check("SocialInfoProviderManager.CreateSocialFeedUpdaterAsync")
-  result = adopt[SocialFeedUpdater](await awaitObject(op, IID_IAsyncOperation_1_SocialFeedUpdater, IID_AsyncOperationCompletedHandler_1_SocialFeedUpdater, "SocialInfoProviderManager.CreateSocialFeedUpdaterAsync"))
+  result = adopt[SocialFeedUpdater](await awaitObject(op, IID_IAsyncOperation_1_SocialFeedUpdater, IID_AsyncOperationCompletedHandler_1_SocialFeedUpdater, alPlain, "SocialInfoProviderManager.CreateSocialFeedUpdaterAsync"))
 
 proc createDashboardItemUpdaterAsync*(_: typedesc[SocialInfoProviderManager], ownerRemoteId: string): Future[SocialDashboardItemUpdater] {.async.} =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager.CreateDashboardItemUpdaterAsync
@@ -27986,7 +28089,7 @@ proc createDashboardItemUpdaterAsync*(_: typedesc[SocialInfoProviderManager], ow
   withStatics("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager", IID_ISocialInfoProviderManagerStatics, it):
     withHString(ownerRemoteId, h0):
       vcall(it, Slot_ISocialInfoProviderManagerStatics_CreateDashboardItemUpdaterAsync, Fn_ISocialInfoProviderManagerStatics_CreateDashboardItemUpdaterAsync)(it, h0, op.addr).check("SocialInfoProviderManager.CreateDashboardItemUpdaterAsync")
-  result = adopt[SocialDashboardItemUpdater](await awaitObject(op, IID_IAsyncOperation_1_SocialDashboardItemUpdater, IID_AsyncOperationCompletedHandler_1_SocialDashboardItemUpdater, "SocialInfoProviderManager.CreateDashboardItemUpdaterAsync"))
+  result = adopt[SocialDashboardItemUpdater](await awaitObject(op, IID_IAsyncOperation_1_SocialDashboardItemUpdater, IID_AsyncOperationCompletedHandler_1_SocialDashboardItemUpdater, alPlain, "SocialInfoProviderManager.CreateDashboardItemUpdaterAsync"))
 
 proc updateBadgeCountValue*(_: typedesc[SocialInfoProviderManager], itemRemoteId: string, newCount: int32)  =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager.UpdateBadgeCountValue
@@ -28005,14 +28108,14 @@ proc provisionAsync*(_: typedesc[SocialInfoProviderManager]): Future[bool] {.asy
   var op: pointer
   withStatics("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager", IID_ISocialInfoProviderManagerStatics, it):
     vcall(it, Slot_ISocialInfoProviderManagerStatics_ProvisionAsync, Fn_ISocialInfoProviderManagerStatics_ProvisionAsync)(it, op.addr).check("SocialInfoProviderManager.ProvisionAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SocialInfoProviderManager.ProvisionAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "SocialInfoProviderManager.ProvisionAsync")
 
 proc deprovisionAsync*(_: typedesc[SocialInfoProviderManager]) {.async.} =
   ## Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager.DeprovisionAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager", IID_ISocialInfoProviderManagerStatics, it):
     vcall(it, Slot_ISocialInfoProviderManagerStatics_DeprovisionAsync, Fn_ISocialInfoProviderManagerStatics_DeprovisionAsync)(it, op.addr).check("SocialInfoProviderManager.DeprovisionAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SocialInfoProviderManager.DeprovisionAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SocialInfoProviderManager.DeprovisionAsync")
 
 proc newSocialFeedChildItem*(): SocialFeedChildItem =
   ## Activate a `Windows.ApplicationModel.SocialInfo.SocialFeedChildItem`.
@@ -28361,13 +28464,13 @@ proc `bitmapSize=`*(self: SocialItemThumbnail, value: BitmapSize)  =
   withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
     vcall(it, Slot_ISocialItemThumbnail_put_BitmapSize, Fn_ISocialItemThumbnail_put_BitmapSize)(it, value).check("SocialItemThumbnail.put_BitmapSize")
 
-proc setImageAsync*(self: SocialItemThumbnail, image: InputStreamOverStream) {.async.} =
+proc setImageAsync*(self: SocialItemThumbnail, image: WinRtObject) {.async.} =
   ## Windows.ApplicationModel.SocialInfo.SocialItemThumbnail.SetImageAsync
   var op: pointer
   withIface(self.p, IID_ISocialItemThumbnail, "ISocialItemThumbnail", it):
     withIface(image.p, IID_IInputStream, "IInputStream", p0):
       vcall(it, Slot_ISocialItemThumbnail_SetImageAsync, Fn_ISocialItemThumbnail_SetImageAsync)(it, p0, op.addr).check("SocialItemThumbnail.SetImageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SocialItemThumbnail.SetImageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SocialItemThumbnail.SetImageAsync")
 
 proc displayName*(self: SocialUserInfo): string  =
   ## Windows.ApplicationModel.SocialInfo.SocialUserInfo.get_DisplayName
@@ -28426,7 +28529,7 @@ proc requestEnableAsync*(self: StartupTask): Future[StartupTaskState] {.async.} 
   var op: pointer
   withIface(self.p, IID_IStartupTask, "IStartupTask", it):
     vcall(it, Slot_IStartupTask_RequestEnableAsync, Fn_IStartupTask_RequestEnableAsync)(it, op.addr).check("StartupTask.RequestEnableAsync")
-  result = await awaitValue[StartupTaskState](op, IID_IAsyncOperation_1_StartupTaskState, IID_AsyncOperationCompletedHandler_1_StartupTaskState, "StartupTask.RequestEnableAsync")
+  result = await awaitValue[StartupTaskState](op, IID_IAsyncOperation_1_StartupTaskState, IID_AsyncOperationCompletedHandler_1_StartupTaskState, alPlain, "StartupTask.RequestEnableAsync")
 
 proc disable*(self: StartupTask)  =
   ## Windows.ApplicationModel.StartupTask.Disable
@@ -28452,7 +28555,7 @@ proc getForCurrentPackageAsync*(_: typedesc[StartupTask]): Future[seq[StartupTas
   var op: pointer
   withStatics("Windows.ApplicationModel.StartupTask", IID_IStartupTaskStatics, it):
     vcall(it, Slot_IStartupTaskStatics_GetForCurrentPackageAsync, Fn_IStartupTaskStatics_GetForCurrentPackageAsync)(it, op.addr).check("StartupTask.GetForCurrentPackageAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_135, IID_AsyncOperationCompletedHandler_1_IVectorView_135, "StartupTask.GetForCurrentPackageAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_135, IID_AsyncOperationCompletedHandler_1_IVectorView_135, alPlain, "StartupTask.GetForCurrentPackageAsync")
   result = toSeq[StartupTask](coll, IID_IVectorView_1_StartupTask)
   discard release(coll)
 
@@ -28462,7 +28565,7 @@ proc getAsync*(_: typedesc[StartupTask], taskId: string): Future[StartupTask] {.
   withStatics("Windows.ApplicationModel.StartupTask", IID_IStartupTaskStatics, it):
     withHString(taskId, h0):
       vcall(it, Slot_IStartupTaskStatics_GetAsync, Fn_IStartupTaskStatics_GetAsync)(it, h0, op.addr).check("StartupTask.GetAsync")
-  result = adopt[StartupTask](await awaitObject(op, IID_IAsyncOperation_1_StartupTask, IID_AsyncOperationCompletedHandler_1_StartupTask, "StartupTask.GetAsync"))
+  result = adopt[StartupTask](await awaitObject(op, IID_IAsyncOperation_1_StartupTask, IID_AsyncOperationCompletedHandler_1_StartupTask, alPlain, "StartupTask.GetAsync"))
 
 proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentApp], productId: string, transactionId: GUID): Future[FulfillmentResult] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.ReportConsumableFulfillmentAsync
@@ -28470,7 +28573,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentApp], productId: strin
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppWithConsumables, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppWithConsumables_ReportConsumableFulfillmentAsync, Fn_ICurrentAppWithConsumables_ReportConsumableFulfillmentAsync)(it, h0, transactionId, op.addr).check("CurrentApp.ReportConsumableFulfillmentAsync")
-  result = await awaitValue[FulfillmentResult](op, IID_IAsyncOperation_1_FulfillmentResult, IID_AsyncOperationCompletedHandler_1_FulfillmentResult, "CurrentApp.ReportConsumableFulfillmentAsync")
+  result = await awaitValue[FulfillmentResult](op, IID_IAsyncOperation_1_FulfillmentResult, IID_AsyncOperationCompletedHandler_1_FulfillmentResult, alPlain, "CurrentApp.ReportConsumableFulfillmentAsync")
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string): Future[PurchaseResults] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.RequestProductPurchaseAsync
@@ -28478,7 +28581,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string): F
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppWithConsumables, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppWithConsumables_RequestProductPurchaseAsync, Fn_ICurrentAppWithConsumables_RequestProductPurchaseAsync)(it, h0, op.addr).check("CurrentApp.RequestProductPurchaseAsync")
-  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, "CurrentApp.RequestProductPurchaseAsync"))
+  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, alPlain, "CurrentApp.RequestProductPurchaseAsync"))
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string, offerId: string, displayProperties: ProductPurchaseDisplayProperties): Future[PurchaseResults] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.RequestProductPurchaseAsync
@@ -28488,14 +28591,14 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string, of
       withHString(offerId, h1):
         withIface(displayProperties.p, IID_IProductPurchaseDisplayProperties, "IProductPurchaseDisplayProperties", p2):
           vcall(it, Slot_ICurrentAppWithConsumables_RequestProductPurchaseAsync2, Fn_ICurrentAppWithConsumables_RequestProductPurchaseAsync2)(it, h0, h1, p2, op.addr).check("CurrentApp.RequestProductPurchaseAsync")
-  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, "CurrentApp.RequestProductPurchaseAsync"))
+  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, alPlain, "CurrentApp.RequestProductPurchaseAsync"))
 
 proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentApp]): Future[seq[UnfulfilledConsumable]] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.GetUnfulfilledConsumablesAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppWithConsumables, it):
     vcall(it, Slot_ICurrentAppWithConsumables_GetUnfulfilledConsumablesAsync, Fn_ICurrentAppWithConsumables_GetUnfulfilledConsumablesAsync)(it, op.addr).check("CurrentApp.GetUnfulfilledConsumablesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "CurrentApp.GetUnfulfilledConsumablesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, alPlain, "CurrentApp.GetUnfulfilledConsumablesAsync")
   result = toSeq[UnfulfilledConsumable](coll, IID_IVectorView_1_UnfulfilledConsumable)
   discard release(coll)
 
@@ -28525,7 +28628,7 @@ proc requestAppPurchaseAsync*(_: typedesc[CurrentApp], includeReceipt: bool): Fu
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
     vcall(it, Slot_ICurrentApp_RequestAppPurchaseAsync, Fn_ICurrentApp_RequestAppPurchaseAsync)(it, includeReceipt, op.addr).check("CurrentApp.RequestAppPurchaseAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.RequestAppPurchaseAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.RequestAppPurchaseAsync")
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string, includeReceipt: bool): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.RequestProductPurchaseAsync
@@ -28533,21 +28636,21 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentApp], productId: string, in
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentApp_RequestProductPurchaseAsync, Fn_ICurrentApp_RequestProductPurchaseAsync)(it, h0, includeReceipt, op.addr).check("CurrentApp.RequestProductPurchaseAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.RequestProductPurchaseAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.RequestProductPurchaseAsync")
 
 proc loadListingInformationAsync*(_: typedesc[CurrentApp]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.LoadListingInformationAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
     vcall(it, Slot_ICurrentApp_LoadListingInformationAsync, Fn_ICurrentApp_LoadListingInformationAsync)(it, op.addr).check("CurrentApp.LoadListingInformationAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentApp.LoadListingInformationAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentApp.LoadListingInformationAsync"))
 
 proc getAppReceiptAsync*(_: typedesc[CurrentApp]): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.GetAppReceiptAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
     vcall(it, Slot_ICurrentApp_GetAppReceiptAsync, Fn_ICurrentApp_GetAppReceiptAsync)(it, op.addr).check("CurrentApp.GetAppReceiptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetAppReceiptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.GetAppReceiptAsync")
 
 proc getProductReceiptAsync*(_: typedesc[CurrentApp], productId: string): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.GetProductReceiptAsync
@@ -28555,14 +28658,14 @@ proc getProductReceiptAsync*(_: typedesc[CurrentApp], productId: string): Future
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentApp, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentApp_GetProductReceiptAsync, Fn_ICurrentApp_GetProductReceiptAsync)(it, h0, op.addr).check("CurrentApp.GetProductReceiptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetProductReceiptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.GetProductReceiptAsync")
 
 proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentApp]): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.GetAppPurchaseCampaignIdAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentApp", IID_ICurrentAppWithCampaignId, it):
     vcall(it, Slot_ICurrentAppWithCampaignId_GetAppPurchaseCampaignIdAsync, Fn_ICurrentAppWithCampaignId_GetAppPurchaseCampaignIdAsync)(it, op.addr).check("CurrentApp.GetAppPurchaseCampaignIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetAppPurchaseCampaignIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.GetAppPurchaseCampaignIdAsync")
 
 proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentApp], productIds: seq[string]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.LoadListingInformationByProductIdsAsync
@@ -28571,7 +28674,7 @@ proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentApp], productId
     let p0 = asIterableString(productIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_ICurrentAppStaticsWithFiltering_LoadListingInformationByProductIdsAsync, Fn_ICurrentAppStaticsWithFiltering_LoadListingInformationByProductIdsAsync)(it, p0, op.addr).check("CurrentApp.LoadListingInformationByProductIdsAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentApp.LoadListingInformationByProductIdsAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentApp.LoadListingInformationByProductIdsAsync"))
 
 proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentApp], keywords: seq[string]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.LoadListingInformationByKeywordsAsync
@@ -28580,7 +28683,7 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentApp], keywords: s
     let p0 = asIterableString(keywords, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_ICurrentAppStaticsWithFiltering_LoadListingInformationByKeywordsAsync, Fn_ICurrentAppStaticsWithFiltering_LoadListingInformationByKeywordsAsync)(it, p0, op.addr).check("CurrentApp.LoadListingInformationByKeywordsAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentApp.LoadListingInformationByKeywordsAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentApp.LoadListingInformationByKeywordsAsync"))
 
 proc reportProductFulfillment*(_: typedesc[CurrentApp], productId: string)  =
   ## Windows.ApplicationModel.Store.CurrentApp.ReportProductFulfillment
@@ -28595,7 +28698,7 @@ proc getCustomerPurchaseIdAsync*(_: typedesc[CurrentApp], serviceTicket: string,
     withHString(serviceTicket, h0):
       withHString(publisherUserId, h1):
         vcall(it, Slot_ICurrentApp2Statics_GetCustomerPurchaseIdAsync, Fn_ICurrentApp2Statics_GetCustomerPurchaseIdAsync)(it, h0, h1, op.addr).check("CurrentApp.GetCustomerPurchaseIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetCustomerPurchaseIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.GetCustomerPurchaseIdAsync")
 
 proc getCustomerCollectionsIdAsync*(_: typedesc[CurrentApp], serviceTicket: string, publisherUserId: string): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentApp.GetCustomerCollectionsIdAsync
@@ -28604,7 +28707,7 @@ proc getCustomerCollectionsIdAsync*(_: typedesc[CurrentApp], serviceTicket: stri
     withHString(serviceTicket, h0):
       withHString(publisherUserId, h1):
         vcall(it, Slot_ICurrentApp2Statics_GetCustomerCollectionsIdAsync, Fn_ICurrentApp2Statics_GetCustomerCollectionsIdAsync)(it, h0, h1, op.addr).check("CurrentApp.GetCustomerCollectionsIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentApp.GetCustomerCollectionsIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentApp.GetCustomerCollectionsIdAsync")
 
 proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentAppSimulator], productId: string, transactionId: GUID): Future[FulfillmentResult] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.ReportConsumableFulfillmentAsync
@@ -28612,7 +28715,7 @@ proc reportConsumableFulfillmentAsync*(_: typedesc[CurrentAppSimulator], product
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorWithConsumables, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppSimulatorWithConsumables_ReportConsumableFulfillmentAsync, Fn_ICurrentAppSimulatorWithConsumables_ReportConsumableFulfillmentAsync)(it, h0, transactionId, op.addr).check("CurrentAppSimulator.ReportConsumableFulfillmentAsync")
-  result = await awaitValue[FulfillmentResult](op, IID_IAsyncOperation_1_FulfillmentResult, IID_AsyncOperationCompletedHandler_1_FulfillmentResult, "CurrentAppSimulator.ReportConsumableFulfillmentAsync")
+  result = await awaitValue[FulfillmentResult](op, IID_IAsyncOperation_1_FulfillmentResult, IID_AsyncOperationCompletedHandler_1_FulfillmentResult, alPlain, "CurrentAppSimulator.ReportConsumableFulfillmentAsync")
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: string): Future[PurchaseResults] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.RequestProductPurchaseAsync
@@ -28620,7 +28723,7 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: s
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorWithConsumables, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppSimulatorWithConsumables_RequestProductPurchaseAsync, Fn_ICurrentAppSimulatorWithConsumables_RequestProductPurchaseAsync)(it, h0, op.addr).check("CurrentAppSimulator.RequestProductPurchaseAsync")
-  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, "CurrentAppSimulator.RequestProductPurchaseAsync"))
+  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, alPlain, "CurrentAppSimulator.RequestProductPurchaseAsync"))
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: string, offerId: string, displayProperties: ProductPurchaseDisplayProperties): Future[PurchaseResults] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.RequestProductPurchaseAsync
@@ -28630,14 +28733,14 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: s
       withHString(offerId, h1):
         withIface(displayProperties.p, IID_IProductPurchaseDisplayProperties, "IProductPurchaseDisplayProperties", p2):
           vcall(it, Slot_ICurrentAppSimulatorWithConsumables_RequestProductPurchaseAsync2, Fn_ICurrentAppSimulatorWithConsumables_RequestProductPurchaseAsync2)(it, h0, h1, p2, op.addr).check("CurrentAppSimulator.RequestProductPurchaseAsync")
-  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, "CurrentAppSimulator.RequestProductPurchaseAsync"))
+  result = adopt[PurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_PurchaseResults, IID_AsyncOperationCompletedHandler_1_PurchaseResults, alPlain, "CurrentAppSimulator.RequestProductPurchaseAsync"))
 
 proc getUnfulfilledConsumablesAsync*(_: typedesc[CurrentAppSimulator]): Future[seq[UnfulfilledConsumable]] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.GetUnfulfilledConsumablesAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorWithConsumables, it):
     vcall(it, Slot_ICurrentAppSimulatorWithConsumables_GetUnfulfilledConsumablesAsync, Fn_ICurrentAppSimulatorWithConsumables_GetUnfulfilledConsumablesAsync)(it, op.addr).check("CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, "CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_136, IID_AsyncOperationCompletedHandler_1_IVectorView_136, alPlain, "CurrentAppSimulator.GetUnfulfilledConsumablesAsync")
   result = toSeq[UnfulfilledConsumable](coll, IID_IVectorView_1_UnfulfilledConsumable)
   discard release(coll)
 
@@ -28646,7 +28749,7 @@ proc getAppPurchaseCampaignIdAsync*(_: typedesc[CurrentAppSimulator]): Future[st
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulatorWithCampaignId, it):
     vcall(it, Slot_ICurrentAppSimulatorWithCampaignId_GetAppPurchaseCampaignIdAsync, Fn_ICurrentAppSimulatorWithCampaignId_GetAppPurchaseCampaignIdAsync)(it, op.addr).check("CurrentAppSimulator.GetAppPurchaseCampaignIdAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.GetAppPurchaseCampaignIdAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentAppSimulator.GetAppPurchaseCampaignIdAsync")
 
 proc licenseInformation*(_: typedesc[CurrentAppSimulator]): LicenseInformation  =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.get_LicenseInformation
@@ -28674,7 +28777,7 @@ proc requestAppPurchaseAsync*(_: typedesc[CurrentAppSimulator], includeReceipt: 
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     vcall(it, Slot_ICurrentAppSimulator_RequestAppPurchaseAsync, Fn_ICurrentAppSimulator_RequestAppPurchaseAsync)(it, includeReceipt, op.addr).check("CurrentAppSimulator.RequestAppPurchaseAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.RequestAppPurchaseAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentAppSimulator.RequestAppPurchaseAsync")
 
 proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: string, includeReceipt: bool): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.RequestProductPurchaseAsync
@@ -28682,21 +28785,21 @@ proc requestProductPurchaseAsync*(_: typedesc[CurrentAppSimulator], productId: s
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppSimulator_RequestProductPurchaseAsync, Fn_ICurrentAppSimulator_RequestProductPurchaseAsync)(it, h0, includeReceipt, op.addr).check("CurrentAppSimulator.RequestProductPurchaseAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.RequestProductPurchaseAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentAppSimulator.RequestProductPurchaseAsync")
 
 proc loadListingInformationAsync*(_: typedesc[CurrentAppSimulator]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.LoadListingInformationAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     vcall(it, Slot_ICurrentAppSimulator_LoadListingInformationAsync, Fn_ICurrentAppSimulator_LoadListingInformationAsync)(it, op.addr).check("CurrentAppSimulator.LoadListingInformationAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentAppSimulator.LoadListingInformationAsync"))
 
 proc getAppReceiptAsync*(_: typedesc[CurrentAppSimulator]): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.GetAppReceiptAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     vcall(it, Slot_ICurrentAppSimulator_GetAppReceiptAsync, Fn_ICurrentAppSimulator_GetAppReceiptAsync)(it, op.addr).check("CurrentAppSimulator.GetAppReceiptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.GetAppReceiptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentAppSimulator.GetAppReceiptAsync")
 
 proc getProductReceiptAsync*(_: typedesc[CurrentAppSimulator], productId: string): Future[string] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.GetProductReceiptAsync
@@ -28704,7 +28807,7 @@ proc getProductReceiptAsync*(_: typedesc[CurrentAppSimulator], productId: string
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     withHString(productId, h0):
       vcall(it, Slot_ICurrentAppSimulator_GetProductReceiptAsync, Fn_ICurrentAppSimulator_GetProductReceiptAsync)(it, h0, op.addr).check("CurrentAppSimulator.GetProductReceiptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CurrentAppSimulator.GetProductReceiptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CurrentAppSimulator.GetProductReceiptAsync")
 
 proc reloadSimulatorAsync*(_: typedesc[CurrentAppSimulator], simulatorSettingsFile: StorageFile) {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.ReloadSimulatorAsync
@@ -28712,7 +28815,7 @@ proc reloadSimulatorAsync*(_: typedesc[CurrentAppSimulator], simulatorSettingsFi
   withStatics("Windows.ApplicationModel.Store.CurrentAppSimulator", IID_ICurrentAppSimulator, it):
     withIface(simulatorSettingsFile.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_ICurrentAppSimulator_ReloadSimulatorAsync, Fn_ICurrentAppSimulator_ReloadSimulatorAsync)(it, p0, op.addr).check("CurrentAppSimulator.ReloadSimulatorAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CurrentAppSimulator.ReloadSimulatorAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CurrentAppSimulator.ReloadSimulatorAsync")
 
 proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentAppSimulator], productIds: seq[string]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.LoadListingInformationByProductIdsAsync
@@ -28721,7 +28824,7 @@ proc loadListingInformationByProductIdsAsync*(_: typedesc[CurrentAppSimulator], 
     let p0 = asIterableString(productIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByProductIdsAsync, Fn_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByProductIdsAsync)(it, p0, op.addr).check("CurrentAppSimulator.LoadListingInformationByProductIdsAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationByProductIdsAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentAppSimulator.LoadListingInformationByProductIdsAsync"))
 
 proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentAppSimulator], keywords: seq[string]): Future[ListingInformation] {.async.} =
   ## Windows.ApplicationModel.Store.CurrentAppSimulator.LoadListingInformationByKeywordsAsync
@@ -28730,14 +28833,19 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentAppSimulator], ke
     let p0 = asIterableString(keywords, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync, Fn_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync)(it, p0, op.addr).check("CurrentAppSimulator.LoadListingInformationByKeywordsAsync")
-  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationByKeywordsAsync"))
+  result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, alPlain, "CurrentAppSimulator.LoadListingInformationByKeywordsAsync"))
+
+proc invoke*(self: LicenseChangedEventHandler)  =
+  ## Windows.ApplicationModel.Store.LicenseChangedEventHandler.Invoke
+  withIface(self.p, IID_LicenseChangedEventHandler, "LicenseChangedEventHandler", it):
+    vcall(it, Slot_LicenseChangedEventHandler_Invoke, Fn_LicenseChangedEventHandler_Invoke)(it).check("LicenseChangedEventHandler.Invoke")
 
 proc productLicenses*(self: LicenseInformation): Table[string, ProductLicense]  =
   ## Windows.ApplicationModel.Store.LicenseInformation.get_ProductLicenses
   withIface(self.p, IID_ILicenseInformation, "ILicenseInformation", it):
     var tmp: pointer
     vcall(it, Slot_ILicenseInformation_get_ProductLicenses, Fn_ILicenseInformation_get_ProductLicenses)(it, tmp.addr).check("LicenseInformation.get_ProductLicenses")
-    result = toTable[ProductLicense](tmp, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_ProductLicense)
+    result = toTable[string, ProductLicense](tmp, IID_IIterable_1_IKeyValuePair_29, IID_IKeyValuePair_2_String_ProductLicense)
     release(tmp)
 
 proc isActive*(self: LicenseInformation): bool  =
@@ -28771,7 +28879,7 @@ proc addLicenseAsync*(_: typedesc[LicenseManager], license: Buffer) {.async.} =
   withStatics("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager", IID_ILicenseManagerStatics, it):
     withIface(license.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_ILicenseManagerStatics_AddLicenseAsync, Fn_ILicenseManagerStatics_AddLicenseAsync)(it, p0, op.addr).check("LicenseManager.AddLicenseAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "LicenseManager.AddLicenseAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "LicenseManager.AddLicenseAsync")
 
 proc getSatisfactionInfosAsync*(_: typedesc[LicenseManager], contentIds: seq[string], keyIds: seq[string]): Future[LicenseSatisfactionResult] {.async.} =
   ## Windows.ApplicationModel.Store.LicenseManagement.LicenseManager.GetSatisfactionInfosAsync
@@ -28782,14 +28890,14 @@ proc getSatisfactionInfosAsync*(_: typedesc[LicenseManager], contentIds: seq[str
     let p1 = asIterableString(keyIds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p1)
     vcall(it, Slot_ILicenseManagerStatics_GetSatisfactionInfosAsync, Fn_ILicenseManagerStatics_GetSatisfactionInfosAsync)(it, p0, p1, op.addr).check("LicenseManager.GetSatisfactionInfosAsync")
-  result = adopt[LicenseSatisfactionResult](await awaitObject(op, IID_IAsyncOperation_1_LicenseSatisfactionResult, IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult, "LicenseManager.GetSatisfactionInfosAsync"))
+  result = adopt[LicenseSatisfactionResult](await awaitObject(op, IID_IAsyncOperation_1_LicenseSatisfactionResult, IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult, alPlain, "LicenseManager.GetSatisfactionInfosAsync"))
 
 proc refreshLicensesAsync*(_: typedesc[LicenseManager], refreshOption: LicenseRefreshOption) {.async.} =
   ## Windows.ApplicationModel.Store.LicenseManagement.LicenseManager.RefreshLicensesAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.LicenseManagement.LicenseManager", IID_ILicenseManagerStatics2, it):
     vcall(it, Slot_ILicenseManagerStatics2_RefreshLicensesAsync, Fn_ILicenseManagerStatics2_RefreshLicensesAsync)(it, refreshOption, op.addr).check("LicenseManager.RefreshLicensesAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "LicenseManager.RefreshLicensesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "LicenseManager.RefreshLicensesAsync")
 
 proc satisfiedByDevice*(self: LicenseSatisfactionInfo): bool  =
   ## Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionInfo.get_SatisfiedByDevice
@@ -28845,7 +28953,7 @@ proc licenseSatisfactionInfos*(self: LicenseSatisfactionResult): Table[string, L
   withIface(self.p, IID_ILicenseSatisfactionResult, "ILicenseSatisfactionResult", it):
     var tmp: pointer
     vcall(it, Slot_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos, Fn_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos)(it, tmp.addr).check("LicenseSatisfactionResult.get_LicenseSatisfactionInfos")
-    result = toTable[LicenseSatisfactionInfo](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_LicenseSatisfactionInfo)
+    result = toTable[string, LicenseSatisfactionInfo](tmp, IID_IIterable_1_IKeyValuePair_210, IID_IKeyValuePair_2_String_LicenseSatisfactionInfo)
     release(tmp)
 
 proc extendedError*(self: LicenseSatisfactionResult): HRESULT  =
@@ -28874,7 +28982,7 @@ proc productListings*(self: ListingInformation): Table[string, ProductListing]  
   withIface(self.p, IID_IListingInformation, "IListingInformation", it):
     var tmp: pointer
     vcall(it, Slot_IListingInformation_get_ProductListings, Fn_IListingInformation_get_ProductListings)(it, tmp.addr).check("ListingInformation.get_ProductListings")
-    result = toTable[ProductListing](tmp, IID_IIterable_1_IKeyValuePair_28, IID_IKeyValuePair_2_String_ProductListing)
+    result = toTable[string, ProductListing](tmp, IID_IIterable_1_IKeyValuePair_211, IID_IKeyValuePair_2_String_ProductListing)
     release(tmp)
 
 proc formattedPrice*(self: ListingInformation): string  =
@@ -29240,7 +29348,7 @@ proc getIsApplicableAsync*(self: AppInstallManager, productId: string, skuId: st
     withHString(productId, h0):
       withHString(skuId, h1):
         vcall(it, Slot_IAppInstallManager_GetIsApplicableAsync, Fn_IAppInstallManager_GetIsApplicableAsync)(it, h0, h1, op.addr).check("AppInstallManager.GetIsApplicableAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsApplicableAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsApplicableAsync")
 
 proc startAppInstallAsync*(self: AppInstallManager, productId: string, skuId: string, repair: bool, forceUseOfNonRemovableStorage: bool): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.StartAppInstallAsync
@@ -29249,7 +29357,7 @@ proc startAppInstallAsync*(self: AppInstallManager, productId: string, skuId: st
     withHString(productId, h0):
       withHString(skuId, h1):
         vcall(it, Slot_IAppInstallManager_StartAppInstallAsync, Fn_IAppInstallManager_StartAppInstallAsync)(it, h0, h1, repair, forceUseOfNonRemovableStorage, op.addr).check("AppInstallManager.StartAppInstallAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.StartAppInstallAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.StartAppInstallAsync"))
 
 proc updateAppByPackageFamilyNameAsync*(self: AppInstallManager, packageFamilyName: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.UpdateAppByPackageFamilyNameAsync
@@ -29257,7 +29365,7 @@ proc updateAppByPackageFamilyNameAsync*(self: AppInstallManager, packageFamilyNa
   withIface(self.p, IID_IAppInstallManager, "IAppInstallManager", it):
     withHString(packageFamilyName, h0):
       vcall(it, Slot_IAppInstallManager_UpdateAppByPackageFamilyNameAsync, Fn_IAppInstallManager_UpdateAppByPackageFamilyNameAsync)(it, h0, op.addr).check("AppInstallManager.UpdateAppByPackageFamilyNameAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.UpdateAppByPackageFamilyNameAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.UpdateAppByPackageFamilyNameAsync"))
 
 proc searchForUpdatesAsync*(self: AppInstallManager, productId: string, skuId: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForUpdatesAsync
@@ -29266,14 +29374,14 @@ proc searchForUpdatesAsync*(self: AppInstallManager, productId: string, skuId: s
     withHString(productId, h0):
       withHString(skuId, h1):
         vcall(it, Slot_IAppInstallManager_SearchForUpdatesAsync, Fn_IAppInstallManager_SearchForUpdatesAsync)(it, h0, h1, op.addr).check("AppInstallManager.SearchForUpdatesAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.SearchForUpdatesAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.SearchForUpdatesAsync"))
 
 proc searchForAllUpdatesAsync*(self: AppInstallManager): Future[seq[AppInstallItem]] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForAllUpdatesAsync
   var op: pointer
   withIface(self.p, IID_IAppInstallManager, "IAppInstallManager", it):
     vcall(it, Slot_IAppInstallManager_SearchForAllUpdatesAsync, Fn_IAppInstallManager_SearchForAllUpdatesAsync)(it, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29284,7 +29392,7 @@ proc isStoreBlockedByPolicyAsync*(self: AppInstallManager, storeClientName: stri
     withHString(storeClientName, h0):
       withHString(storeClientPublisher, h1):
         vcall(it, Slot_IAppInstallManager_IsStoreBlockedByPolicyAsync, Fn_IAppInstallManager_IsStoreBlockedByPolicyAsync)(it, h0, h1, op.addr).check("AppInstallManager.IsStoreBlockedByPolicyAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.IsStoreBlockedByPolicyAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.IsStoreBlockedByPolicyAsync")
 
 proc getIsAppAllowedToInstallAsync*(self: AppInstallManager, productId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.GetIsAppAllowedToInstallAsync
@@ -29292,7 +29400,7 @@ proc getIsAppAllowedToInstallAsync*(self: AppInstallManager, productId: string):
   withIface(self.p, IID_IAppInstallManager, "IAppInstallManager", it):
     withHString(productId, h0):
       vcall(it, Slot_IAppInstallManager_GetIsAppAllowedToInstallAsync, Fn_IAppInstallManager_GetIsAppAllowedToInstallAsync)(it, h0, op.addr).check("AppInstallManager.GetIsAppAllowedToInstallAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsAppAllowedToInstallAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsAppAllowedToInstallAsync")
 
 proc startAppInstallAsync*(self: AppInstallManager, productId: string, skuId: string, repair: bool, forceUseOfNonRemovableStorage: bool, catalogId: string, bundleId: string, correlationVector: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.StartAppInstallAsync
@@ -29304,7 +29412,7 @@ proc startAppInstallAsync*(self: AppInstallManager, productId: string, skuId: st
           withHString(bundleId, h5):
             withHString(correlationVector, h6):
               vcall(it, Slot_IAppInstallManager2_StartAppInstallAsync, Fn_IAppInstallManager2_StartAppInstallAsync)(it, h0, h1, repair, forceUseOfNonRemovableStorage, h4, h5, h6, op.addr).check("AppInstallManager.StartAppInstallAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.StartAppInstallAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.StartAppInstallAsync"))
 
 proc updateAppByPackageFamilyNameAsync*(self: AppInstallManager, packageFamilyName: string, correlationVector: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.UpdateAppByPackageFamilyNameAsync
@@ -29313,7 +29421,7 @@ proc updateAppByPackageFamilyNameAsync*(self: AppInstallManager, packageFamilyNa
     withHString(packageFamilyName, h0):
       withHString(correlationVector, h1):
         vcall(it, Slot_IAppInstallManager2_UpdateAppByPackageFamilyNameAsync, Fn_IAppInstallManager2_UpdateAppByPackageFamilyNameAsync)(it, h0, h1, op.addr).check("AppInstallManager.UpdateAppByPackageFamilyNameAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.UpdateAppByPackageFamilyNameAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.UpdateAppByPackageFamilyNameAsync"))
 
 proc searchForUpdatesAsync*(self: AppInstallManager, productId: string, skuId: string, catalogId: string, correlationVector: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForUpdatesAsync
@@ -29324,7 +29432,7 @@ proc searchForUpdatesAsync*(self: AppInstallManager, productId: string, skuId: s
         withHString(catalogId, h2):
           withHString(correlationVector, h3):
             vcall(it, Slot_IAppInstallManager2_SearchForUpdatesAsync, Fn_IAppInstallManager2_SearchForUpdatesAsync)(it, h0, h1, h2, h3, op.addr).check("AppInstallManager.SearchForUpdatesAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.SearchForUpdatesAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.SearchForUpdatesAsync"))
 
 proc searchForAllUpdatesAsync*(self: AppInstallManager, correlationVector: string): Future[seq[AppInstallItem]] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForAllUpdatesAsync
@@ -29332,7 +29440,7 @@ proc searchForAllUpdatesAsync*(self: AppInstallManager, correlationVector: strin
   withIface(self.p, IID_IAppInstallManager2, "IAppInstallManager2", it):
     withHString(correlationVector, h0):
       vcall(it, Slot_IAppInstallManager2_SearchForAllUpdatesAsync, Fn_IAppInstallManager2_SearchForAllUpdatesAsync)(it, h0, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29345,7 +29453,7 @@ proc getIsAppAllowedToInstallAsync*(self: AppInstallManager, productId: string, 
         withHString(catalogId, h2):
           withHString(correlationVector, h3):
             vcall(it, Slot_IAppInstallManager2_GetIsAppAllowedToInstallAsync, Fn_IAppInstallManager2_GetIsAppAllowedToInstallAsync)(it, h0, h1, h2, h3, op.addr).check("AppInstallManager.GetIsAppAllowedToInstallAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsAppAllowedToInstallAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsAppAllowedToInstallAsync")
 
 proc cancel*(self: AppInstallManager, productId: string, correlationVector: string)  =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.Cancel
@@ -29379,7 +29487,7 @@ proc startProductInstallAsync*(self: AppInstallManager, productId: string, catal
             withHString(correlationVector, h6):
               withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p7):
                 vcall(it, Slot_IAppInstallManager3_StartProductInstallAsync, Fn_IAppInstallManager3_StartProductInstallAsync)(it, h0, h1, h2, h3, repair, forceUseOfNonRemovableStorage, h6, p7, op.addr).check("AppInstallManager.StartProductInstallAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.StartProductInstallAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.StartProductInstallAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29395,7 +29503,7 @@ proc startProductInstallForUserAsync*(self: AppInstallManager, user: User, produ
               withHString(correlationVector, h7):
                 withIface(targetVolume.p, IID_IPackageVolume, "IPackageVolume", p8):
                   vcall(it, Slot_IAppInstallManager3_StartProductInstallForUserAsync, Fn_IAppInstallManager3_StartProductInstallForUserAsync)(it, p0, h1, h2, h3, h4, repair, forceUseOfNonRemovableStorage, h7, p8, op.addr).check("AppInstallManager.StartProductInstallForUserAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.StartProductInstallForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.StartProductInstallForUserAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29407,7 +29515,7 @@ proc updateAppByPackageFamilyNameForUserAsync*(self: AppInstallManager, user: Us
       withHString(packageFamilyName, h1):
         withHString(correlationVector, h2):
           vcall(it, Slot_IAppInstallManager3_UpdateAppByPackageFamilyNameForUserAsync, Fn_IAppInstallManager3_UpdateAppByPackageFamilyNameForUserAsync)(it, p0, h1, h2, op.addr).check("AppInstallManager.UpdateAppByPackageFamilyNameForUserAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.UpdateAppByPackageFamilyNameForUserAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.UpdateAppByPackageFamilyNameForUserAsync"))
 
 proc searchForUpdatesForUserAsync*(self: AppInstallManager, user: User, productId: string, skuId: string, catalogId: string, correlationVector: string): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForUpdatesForUserAsync
@@ -29419,7 +29527,7 @@ proc searchForUpdatesForUserAsync*(self: AppInstallManager, user: User, productI
           withHString(catalogId, h3):
             withHString(correlationVector, h4):
               vcall(it, Slot_IAppInstallManager3_SearchForUpdatesForUserAsync, Fn_IAppInstallManager3_SearchForUpdatesForUserAsync)(it, p0, h1, h2, h3, h4, op.addr).check("AppInstallManager.SearchForUpdatesForUserAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.SearchForUpdatesForUserAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.SearchForUpdatesForUserAsync"))
 
 proc searchForAllUpdatesForUserAsync*(self: AppInstallManager, user: User, correlationVector: string): Future[seq[AppInstallItem]] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForAllUpdatesForUserAsync
@@ -29428,7 +29536,7 @@ proc searchForAllUpdatesForUserAsync*(self: AppInstallManager, user: User, corre
     withIface(user.p, IID_IUser, "IUser", p0):
       withHString(correlationVector, h1):
         vcall(it, Slot_IAppInstallManager3_SearchForAllUpdatesForUserAsync, Fn_IAppInstallManager3_SearchForAllUpdatesForUserAsync)(it, p0, h1, op.addr).check("AppInstallManager.SearchForAllUpdatesForUserAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.SearchForAllUpdatesForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.SearchForAllUpdatesForUserAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29442,7 +29550,7 @@ proc getIsAppAllowedToInstallForUserAsync*(self: AppInstallManager, user: User, 
           withHString(catalogId, h3):
             withHString(correlationVector, h4):
               vcall(it, Slot_IAppInstallManager3_GetIsAppAllowedToInstallForUserAsync, Fn_IAppInstallManager3_GetIsAppAllowedToInstallForUserAsync)(it, p0, h1, h2, h3, h4, op.addr).check("AppInstallManager.GetIsAppAllowedToInstallForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsAppAllowedToInstallForUserAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsAppAllowedToInstallForUserAsync")
 
 proc getIsApplicableForUserAsync*(self: AppInstallManager, user: User, productId: string, skuId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.GetIsApplicableForUserAsync
@@ -29452,7 +29560,7 @@ proc getIsApplicableForUserAsync*(self: AppInstallManager, user: User, productId
       withHString(productId, h1):
         withHString(skuId, h2):
           vcall(it, Slot_IAppInstallManager3_GetIsApplicableForUserAsync, Fn_IAppInstallManager3_GetIsApplicableForUserAsync)(it, p0, h1, h2, op.addr).check("AppInstallManager.GetIsApplicableForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsApplicableForUserAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsApplicableForUserAsync")
 
 proc moveToFrontOfDownloadQueue*(self: AppInstallManager, productId: string, correlationVector: string)  =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.MoveToFrontOfDownloadQueue
@@ -29469,7 +29577,7 @@ proc getFreeUserEntitlementAsync*(self: AppInstallManager, storeId: string, camp
       withHString(campaignId, h1):
         withHString(correlationVector, h2):
           vcall(it, Slot_IAppInstallManager4_GetFreeUserEntitlementAsync, Fn_IAppInstallManager4_GetFreeUserEntitlementAsync)(it, h0, h1, h2, op.addr).check("AppInstallManager.GetFreeUserEntitlementAsync")
-  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, "AppInstallManager.GetFreeUserEntitlementAsync"))
+  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, alPlain, "AppInstallManager.GetFreeUserEntitlementAsync"))
 
 proc getFreeUserEntitlementForUserAsync*(self: AppInstallManager, user: User, storeId: string, campaignId: string, correlationVector: string): Future[GetEntitlementResult] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.GetFreeUserEntitlementForUserAsync
@@ -29480,7 +29588,7 @@ proc getFreeUserEntitlementForUserAsync*(self: AppInstallManager, user: User, st
         withHString(campaignId, h2):
           withHString(correlationVector, h3):
             vcall(it, Slot_IAppInstallManager4_GetFreeUserEntitlementForUserAsync, Fn_IAppInstallManager4_GetFreeUserEntitlementForUserAsync)(it, p0, h1, h2, h3, op.addr).check("AppInstallManager.GetFreeUserEntitlementForUserAsync")
-  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, "AppInstallManager.GetFreeUserEntitlementForUserAsync"))
+  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, alPlain, "AppInstallManager.GetFreeUserEntitlementForUserAsync"))
 
 proc getFreeDeviceEntitlementAsync*(self: AppInstallManager, storeId: string, campaignId: string, correlationVector: string): Future[GetEntitlementResult] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.GetFreeDeviceEntitlementAsync
@@ -29490,7 +29598,7 @@ proc getFreeDeviceEntitlementAsync*(self: AppInstallManager, storeId: string, ca
       withHString(campaignId, h1):
         withHString(correlationVector, h2):
           vcall(it, Slot_IAppInstallManager4_GetFreeDeviceEntitlementAsync, Fn_IAppInstallManager4_GetFreeDeviceEntitlementAsync)(it, h0, h1, h2, op.addr).check("AppInstallManager.GetFreeDeviceEntitlementAsync")
-  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, "AppInstallManager.GetFreeDeviceEntitlementAsync"))
+  result = adopt[GetEntitlementResult](await awaitObject(op, IID_IAsyncOperation_1_GetEntitlementResult, IID_AsyncOperationCompletedHandler_1_GetEntitlementResult, alPlain, "AppInstallManager.GetFreeDeviceEntitlementAsync"))
 
 proc appInstallItemsWithGroupSupport*(self: AppInstallManager): seq[AppInstallItem]  =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.get_AppInstallItemsWithGroupSupport
@@ -29508,7 +29616,7 @@ proc searchForAllUpdatesAsync*(self: AppInstallManager, correlationVector: strin
       withHString(clientId, h1):
         withIface(updateOptions.p, IID_IAppUpdateOptions, "IAppUpdateOptions", p2):
           vcall(it, Slot_IAppInstallManager6_SearchForAllUpdatesAsync, Fn_IAppInstallManager6_SearchForAllUpdatesAsync)(it, h0, h1, p2, op.addr).check("AppInstallManager.SearchForAllUpdatesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.SearchForAllUpdatesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.SearchForAllUpdatesAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29521,7 +29629,7 @@ proc searchForAllUpdatesForUserAsync*(self: AppInstallManager, user: User, corre
         withHString(clientId, h2):
           withIface(updateOptions.p, IID_IAppUpdateOptions, "IAppUpdateOptions", p3):
             vcall(it, Slot_IAppInstallManager6_SearchForAllUpdatesForUserAsync, Fn_IAppInstallManager6_SearchForAllUpdatesForUserAsync)(it, p0, h1, h2, p3, op.addr).check("AppInstallManager.SearchForAllUpdatesForUserAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.SearchForAllUpdatesForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.SearchForAllUpdatesForUserAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29535,7 +29643,7 @@ proc searchForUpdatesAsync*(self: AppInstallManager, productId: string, skuId: s
           withHString(clientId, h3):
             withIface(updateOptions.p, IID_IAppUpdateOptions, "IAppUpdateOptions", p4):
               vcall(it, Slot_IAppInstallManager6_SearchForUpdatesAsync, Fn_IAppInstallManager6_SearchForUpdatesAsync)(it, h0, h1, h2, h3, p4, op.addr).check("AppInstallManager.SearchForUpdatesAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.SearchForUpdatesAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.SearchForUpdatesAsync"))
 
 proc searchForUpdatesForUserAsync*(self: AppInstallManager, user: User, productId: string, skuId: string, correlationVector: string, clientId: string, updateOptions: AppUpdateOptions): Future[AppInstallItem] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.SearchForUpdatesForUserAsync
@@ -29548,7 +29656,7 @@ proc searchForUpdatesForUserAsync*(self: AppInstallManager, user: User, productI
             withHString(clientId, h4):
               withIface(updateOptions.p, IID_IAppUpdateOptions, "IAppUpdateOptions", p5):
                 vcall(it, Slot_IAppInstallManager6_SearchForUpdatesForUserAsync, Fn_IAppInstallManager6_SearchForUpdatesForUserAsync)(it, p0, h1, h2, h3, h4, p5, op.addr).check("AppInstallManager.SearchForUpdatesForUserAsync")
-  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, "AppInstallManager.SearchForUpdatesForUserAsync"))
+  result = adopt[AppInstallItem](await awaitObject(op, IID_IAsyncOperation_1_AppInstallItem, IID_AsyncOperationCompletedHandler_1_AppInstallItem, alPlain, "AppInstallManager.SearchForUpdatesForUserAsync"))
 
 proc startProductInstallAsync*(self: AppInstallManager, productId: string, flightId: string, clientId: string, correlationVector: string, installOptions: AppInstallOptions): Future[seq[AppInstallItem]] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.StartProductInstallAsync
@@ -29560,7 +29668,7 @@ proc startProductInstallAsync*(self: AppInstallManager, productId: string, fligh
           withHString(correlationVector, h3):
             withIface(installOptions.p, IID_IAppInstallOptions, "IAppInstallOptions", p4):
               vcall(it, Slot_IAppInstallManager6_StartProductInstallAsync, Fn_IAppInstallManager6_StartProductInstallAsync)(it, h0, h1, h2, h3, p4, op.addr).check("AppInstallManager.StartProductInstallAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.StartProductInstallAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.StartProductInstallAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29575,7 +29683,7 @@ proc startProductInstallForUserAsync*(self: AppInstallManager, user: User, produ
             withHString(correlationVector, h4):
               withIface(installOptions.p, IID_IAppInstallOptions, "IAppInstallOptions", p5):
                 vcall(it, Slot_IAppInstallManager6_StartProductInstallForUserAsync, Fn_IAppInstallManager6_StartProductInstallForUserAsync)(it, p0, h1, h2, h3, h4, p5, op.addr).check("AppInstallManager.StartProductInstallForUserAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, "AppInstallManager.StartProductInstallForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_137, IID_AsyncOperationCompletedHandler_1_IVectorView_137, alPlain, "AppInstallManager.StartProductInstallForUserAsync")
   result = toSeq[AppInstallItem](coll, IID_IVectorView_1_AppInstallItem)
   discard release(coll)
 
@@ -29587,7 +29695,7 @@ proc getIsPackageIdentityAllowedToInstallAsync*(self: AppInstallManager, correla
       withHString(packageIdentityName, h1):
         withHString(publisherCertificateName, h2):
           vcall(it, Slot_IAppInstallManager6_GetIsPackageIdentityAllowedToInstallAsync, Fn_IAppInstallManager6_GetIsPackageIdentityAllowedToInstallAsync)(it, h0, h1, h2, op.addr).check("AppInstallManager.GetIsPackageIdentityAllowedToInstallAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsPackageIdentityAllowedToInstallAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsPackageIdentityAllowedToInstallAsync")
 
 proc getIsPackageIdentityAllowedToInstallForUserAsync*(self: AppInstallManager, user: User, correlationVector: string, packageIdentityName: string, publisherCertificateName: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.GetIsPackageIdentityAllowedToInstallForUserAsync
@@ -29598,7 +29706,7 @@ proc getIsPackageIdentityAllowedToInstallForUserAsync*(self: AppInstallManager, 
         withHString(packageIdentityName, h2):
           withHString(publisherCertificateName, h3):
             vcall(it, Slot_IAppInstallManager6_GetIsPackageIdentityAllowedToInstallForUserAsync, Fn_IAppInstallManager6_GetIsPackageIdentityAllowedToInstallForUserAsync)(it, p0, h1, h2, h3, op.addr).check("AppInstallManager.GetIsPackageIdentityAllowedToInstallForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "AppInstallManager.GetIsPackageIdentityAllowedToInstallForUserAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppInstallManager.GetIsPackageIdentityAllowedToInstallForUserAsync")
 
 proc canInstallForAllUsers*(self: AppInstallManager): bool  =
   ## Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.get_CanInstallForAllUsers
@@ -29991,7 +30099,7 @@ proc filterUnsupportedSystemFeaturesAsync*(_: typedesc[StoreConfiguration], syst
     let p0 = asIterableValue[StoreSystemFeature](systemFeatures, IID_IIterable_1_StoreSystemFeature, IID_IVectorView_1_StoreSystemFeature, IID_IIterator_1_StoreSystemFeature)
     defer: discard release(p0)
     vcall(it, Slot_IStoreConfigurationStatics_FilterUnsupportedSystemFeaturesAsync, Fn_IStoreConfigurationStatics_FilterUnsupportedSystemFeaturesAsync)(it, p0, op.addr).check("StoreConfiguration.FilterUnsupportedSystemFeaturesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_138, IID_AsyncOperationCompletedHandler_1_IVectorView_138, "StoreConfiguration.FilterUnsupportedSystemFeaturesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_138, IID_AsyncOperationCompletedHandler_1_IVectorView_138, alPlain, "StoreConfiguration.FilterUnsupportedSystemFeaturesAsync")
   result = toSeqValue[StoreSystemFeature](coll, IID_IVectorView_1_StoreSystemFeature)
   discard release(coll)
 
@@ -30044,12 +30152,12 @@ proc hasStoreWebAccountForUser*(_: typedesc[StoreConfiguration], user: User): bo
       vcall(it, Slot_IStoreConfigurationStatics3_HasStoreWebAccountForUser, Fn_IStoreConfigurationStatics3_HasStoreWebAccountForUser)(it, p0, tmp.addr).check("StoreConfiguration.HasStoreWebAccountForUser")
       result = tmp
 
-proc getStoreLogDataAsync*(_: typedesc[StoreConfiguration], options: StoreLogOptions): Future[RandomAccessStreamReference] {.async.} =
+proc getStoreLogDataAsync*(_: typedesc[StoreConfiguration], options: StoreLogOptions): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.GetStoreLogDataAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.Preview.StoreConfiguration", IID_IStoreConfigurationStatics3, it):
     vcall(it, Slot_IStoreConfigurationStatics3_GetStoreLogDataAsync, Fn_IStoreConfigurationStatics3_GetStoreLogDataAsync)(it, options, op.addr).check("StoreConfiguration.GetStoreLogDataAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, "StoreConfiguration.GetStoreLogDataAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, alPlain, "StoreConfiguration.GetStoreLogDataAsync"))
 
 proc setStoreWebAccountIdForUser*(_: typedesc[StoreConfiguration], user: User, webAccountId: string)  =
   ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.SetStoreWebAccountIdForUser
@@ -30177,14 +30285,14 @@ proc requestProductPurchaseByProductIdAndSkuIdAsync*(_: typedesc[StorePreview], 
     withHString(productId, h0):
       withHString(skuId, h1):
         vcall(it, Slot_IStorePreview_RequestProductPurchaseByProductIdAndSkuIdAsync, Fn_IStorePreview_RequestProductPurchaseByProductIdAndSkuIdAsync)(it, h0, h1, op.addr).check("StorePreview.RequestProductPurchaseByProductIdAndSkuIdAsync")
-  result = adopt[StorePreviewPurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_StorePreviewPurchaseResults, IID_AsyncOperationCompletedHandler_1_StorePreviewPurchaseResults, "StorePreview.RequestProductPurchaseByProductIdAndSkuIdAsync"))
+  result = adopt[StorePreviewPurchaseResults](await awaitObject(op, IID_IAsyncOperation_1_StorePreviewPurchaseResults, IID_AsyncOperationCompletedHandler_1_StorePreviewPurchaseResults, alPlain, "StorePreview.RequestProductPurchaseByProductIdAndSkuIdAsync"))
 
 proc loadAddOnProductInfosAsync*(_: typedesc[StorePreview]): Future[seq[StorePreviewProductInfo]] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.StorePreview.LoadAddOnProductInfosAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Store.Preview.StorePreview", IID_IStorePreview, it):
     vcall(it, Slot_IStorePreview_LoadAddOnProductInfosAsync, Fn_IStorePreview_LoadAddOnProductInfosAsync)(it, op.addr).check("StorePreview.LoadAddOnProductInfosAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_139, IID_AsyncOperationCompletedHandler_1_IVectorView_139, "StorePreview.LoadAddOnProductInfosAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_139, IID_AsyncOperationCompletedHandler_1_IVectorView_139, alPlain, "StorePreview.LoadAddOnProductInfosAsync")
   result = toSeq[StorePreviewProductInfo](coll, IID_IVectorView_1_StorePreviewProductInfo)
   discard release(coll)
 
@@ -30301,7 +30409,7 @@ proc requestTokenWithUIElementHostingAsync*(_: typedesc[WebAuthenticationCoreMan
     withIface(request.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       withIface(uiElement.p, IID_IUIElement, "IUIElement", p1):
         vcall(it, Slot_IWebAuthenticationCoreManagerHelper_RequestTokenWithUIElementHostingAsync, Fn_IWebAuthenticationCoreManagerHelper_RequestTokenWithUIElementHostingAsync)(it, p0, p1, op.addr).check("WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync"))
 
 proc requestTokenWithUIElementHostingAsync*(_: typedesc[WebAuthenticationCoreManagerHelper], request: WebTokenRequest, webAccount: WebAccount, uiElement: UIElement): Future[WebTokenRequestResult] {.async.} =
   ## Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync
@@ -30311,7 +30419,7 @@ proc requestTokenWithUIElementHostingAsync*(_: typedesc[WebAuthenticationCoreMan
       withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p1):
         withIface(uiElement.p, IID_IUIElement, "IUIElement", p2):
           vcall(it, Slot_IWebAuthenticationCoreManagerHelper_RequestTokenWithUIElementHostingAsync2, Fn_IWebAuthenticationCoreManagerHelper_RequestTokenWithUIElementHostingAsync2)(it, p0, p1, p2, op.addr).check("WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManagerHelper.RequestTokenWithUIElementHostingAsync"))
 
 proc productId*(self: ProductLicense): string  =
   ## Windows.ApplicationModel.Store.ProductLicense.get_ProductId
@@ -30566,7 +30674,7 @@ proc deleteUserActivitySessionsInTimeRangeAsync*(_: typedesc[CoreUserActivityMan
   withStatics("Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager", IID_ICoreUserActivityManagerStatics, it):
     withIface(channel.p, IID_IUserActivityChannel, "IUserActivityChannel", p0):
       vcall(it, Slot_ICoreUserActivityManagerStatics_DeleteUserActivitySessionsInTimeRangeAsync, Fn_ICoreUserActivityManagerStatics_DeleteUserActivitySessionsInTimeRangeAsync)(it, p0, startTime, endTime, op.addr).check("CoreUserActivityManager.DeleteUserActivitySessionsInTimeRangeAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CoreUserActivityManager.DeleteUserActivitySessionsInTimeRangeAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CoreUserActivityManager.DeleteUserActivitySessionsInTimeRangeAsync")
 
 proc state*(self: UserActivity): UserActivityState  =
   ## Windows.ApplicationModel.UserActivities.UserActivity.get_State
@@ -30659,7 +30767,7 @@ proc saveAsync*(self: UserActivity) {.async.} =
   var op: pointer
   withIface(self.p, IID_IUserActivity, "IUserActivity", it):
     vcall(it, Slot_IUserActivity_SaveAsync, Fn_IUserActivity_SaveAsync)(it, op.addr).check("UserActivity.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserActivity.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserActivity.SaveAsync")
 
 proc createSession*(self: UserActivity): UserActivitySession  =
   ## Windows.ApplicationModel.UserActivities.UserActivity.CreateSession
@@ -30777,7 +30885,7 @@ proc getOrCreateUserActivityAsync*(self: UserActivityChannel, activityId: string
   withIface(self.p, IID_IUserActivityChannel, "IUserActivityChannel", it):
     withHString(activityId, h0):
       vcall(it, Slot_IUserActivityChannel_GetOrCreateUserActivityAsync, Fn_IUserActivityChannel_GetOrCreateUserActivityAsync)(it, h0, op.addr).check("UserActivityChannel.GetOrCreateUserActivityAsync")
-  result = adopt[UserActivity](await awaitObject(op, IID_IAsyncOperation_1_UserActivity, IID_AsyncOperationCompletedHandler_1_UserActivity, "UserActivityChannel.GetOrCreateUserActivityAsync"))
+  result = adopt[UserActivity](await awaitObject(op, IID_IAsyncOperation_1_UserActivity, IID_AsyncOperationCompletedHandler_1_UserActivity, alPlain, "UserActivityChannel.GetOrCreateUserActivityAsync"))
 
 proc deleteActivityAsync*(self: UserActivityChannel, activityId: string) {.async.} =
   ## Windows.ApplicationModel.UserActivities.UserActivityChannel.DeleteActivityAsync
@@ -30785,21 +30893,21 @@ proc deleteActivityAsync*(self: UserActivityChannel, activityId: string) {.async
   withIface(self.p, IID_IUserActivityChannel, "IUserActivityChannel", it):
     withHString(activityId, h0):
       vcall(it, Slot_IUserActivityChannel_DeleteActivityAsync, Fn_IUserActivityChannel_DeleteActivityAsync)(it, h0, op.addr).check("UserActivityChannel.DeleteActivityAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserActivityChannel.DeleteActivityAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserActivityChannel.DeleteActivityAsync")
 
 proc deleteAllActivitiesAsync*(self: UserActivityChannel) {.async.} =
   ## Windows.ApplicationModel.UserActivities.UserActivityChannel.DeleteAllActivitiesAsync
   var op: pointer
   withIface(self.p, IID_IUserActivityChannel, "IUserActivityChannel", it):
     vcall(it, Slot_IUserActivityChannel_DeleteAllActivitiesAsync, Fn_IUserActivityChannel_DeleteAllActivitiesAsync)(it, op.addr).check("UserActivityChannel.DeleteAllActivitiesAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserActivityChannel.DeleteAllActivitiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserActivityChannel.DeleteAllActivitiesAsync")
 
 proc getRecentUserActivitiesAsync*(self: UserActivityChannel, maxUniqueActivities: int32): Future[seq[UserActivitySessionHistoryItem]] {.async.} =
   ## Windows.ApplicationModel.UserActivities.UserActivityChannel.GetRecentUserActivitiesAsync
   var op: pointer
   withIface(self.p, IID_IUserActivityChannel2, "IUserActivityChannel2", it):
     vcall(it, Slot_IUserActivityChannel2_GetRecentUserActivitiesAsync, Fn_IUserActivityChannel2_GetRecentUserActivitiesAsync)(it, maxUniqueActivities, op.addr).check("UserActivityChannel.GetRecentUserActivitiesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_14, IID_AsyncOperationCompletedHandler_1_IVector_14, "UserActivityChannel.GetRecentUserActivitiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_14, IID_AsyncOperationCompletedHandler_1_IVector_14, alPlain, "UserActivityChannel.GetRecentUserActivitiesAsync")
   result = toSeq[UserActivitySessionHistoryItem](coll, IID_IVector_1_UserActivitySessionHistoryItem)
   discard release(coll)
 
@@ -30809,7 +30917,7 @@ proc getSessionHistoryItemsForUserActivityAsync*(self: UserActivityChannel, acti
   withIface(self.p, IID_IUserActivityChannel2, "IUserActivityChannel2", it):
     withHString(activityId, h0):
       vcall(it, Slot_IUserActivityChannel2_GetSessionHistoryItemsForUserActivityAsync, Fn_IUserActivityChannel2_GetSessionHistoryItemsForUserActivityAsync)(it, h0, startTime, op.addr).check("UserActivityChannel.GetSessionHistoryItemsForUserActivityAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_14, IID_AsyncOperationCompletedHandler_1_IVector_14, "UserActivityChannel.GetSessionHistoryItemsForUserActivityAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_14, IID_AsyncOperationCompletedHandler_1_IVector_14, alPlain, "UserActivityChannel.GetSessionHistoryItemsForUserActivityAsync")
   result = toSeq[UserActivitySessionHistoryItem](coll, IID_IVector_1_UserActivitySessionHistoryItem)
   discard release(coll)
 
@@ -30987,17 +31095,18 @@ proc `attribution=`*(self: UserActivityVisualElements, value: UserActivityAttrib
     withIface(value.p, IID_IUserActivityAttribution, "IUserActivityAttribution", p0):
       vcall(it, Slot_IUserActivityVisualElements_put_Attribution, Fn_IUserActivityVisualElements_put_Attribution)(it, p0).check("UserActivityVisualElements.put_Attribution")
 
-proc `content=`*(self: UserActivityVisualElements, value: pointer)  =
+proc `content=`*(self: UserActivityVisualElements, value: WinRtObject)  =
   ## Windows.ApplicationModel.UserActivities.UserActivityVisualElements.put_Content
   withIface(self.p, IID_IUserActivityVisualElements, "IUserActivityVisualElements", it):
-    vcall(it, Slot_IUserActivityVisualElements_put_Content, Fn_IUserActivityVisualElements_put_Content)(it, value).check("UserActivityVisualElements.put_Content")
+    withIface(value.p, IID_IAdaptiveCard, "IAdaptiveCard", p0):
+      vcall(it, Slot_IUserActivityVisualElements_put_Content, Fn_IUserActivityVisualElements_put_Content)(it, p0).check("UserActivityVisualElements.put_Content")
 
-proc content*(self: UserActivityVisualElements): pointer  =
+proc content*(self: UserActivityVisualElements): WinRtObject  =
   ## Windows.ApplicationModel.UserActivities.UserActivityVisualElements.get_Content
   withIface(self.p, IID_IUserActivityVisualElements, "IUserActivityVisualElements", it):
     var tmp: pointer
     vcall(it, Slot_IUserActivityVisualElements_get_Content, Fn_IUserActivityVisualElements_get_Content)(it, tmp.addr).check("UserActivityVisualElements.get_Content")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc attributionDisplayText*(self: UserActivityVisualElements): string  =
   ## Windows.ApplicationModel.UserActivities.UserActivityVisualElements.get_AttributionDisplayText
@@ -31657,7 +31766,7 @@ proc addAndShowDeviceAccountsAsync*(_: typedesc[UserDataAccountSystemAccessManag
     let p0 = asIterable[DeviceAccountConfiguration](accounts, IID_IIterable_1_DeviceAccountConfiguration, IID_IVectorView_1_DeviceAccountConfiguration, IID_IIterator_1_DeviceAccountConfiguration)
     defer: discard release(p0)
     vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync, Fn_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync)(it, p0, op.addr).check("UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -31667,7 +31776,7 @@ proc suppressLocalAccountWithAccountAsync*(_: typedesc[UserDataAccountSystemAcce
   withStatics("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager", IID_IUserDataAccountSystemAccessManagerStatics2, it):
     withHString(userDataAccountId, h0):
       vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics2_SuppressLocalAccountWithAccountAsync, Fn_IUserDataAccountSystemAccessManagerStatics2_SuppressLocalAccountWithAccountAsync)(it, h0, op.addr).check("UserDataAccountSystemAccessManager.SuppressLocalAccountWithAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccountSystemAccessManager.SuppressLocalAccountWithAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccountSystemAccessManager.SuppressLocalAccountWithAccountAsync")
 
 proc createDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], account: DeviceAccountConfiguration): Future[string] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager.CreateDeviceAccountAsync
@@ -31675,7 +31784,7 @@ proc createDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], 
   withStatics("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager", IID_IUserDataAccountSystemAccessManagerStatics2, it):
     withIface(account.p, IID_IDeviceAccountConfiguration, "IDeviceAccountConfiguration", p0):
       vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics2_CreateDeviceAccountAsync, Fn_IUserDataAccountSystemAccessManagerStatics2_CreateDeviceAccountAsync)(it, p0, op.addr).check("UserDataAccountSystemAccessManager.CreateDeviceAccountAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserDataAccountSystemAccessManager.CreateDeviceAccountAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserDataAccountSystemAccessManager.CreateDeviceAccountAsync")
 
 proc deleteDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], accountId: string) {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager.DeleteDeviceAccountAsync
@@ -31683,7 +31792,7 @@ proc deleteDeviceAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], 
   withStatics("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager", IID_IUserDataAccountSystemAccessManagerStatics2, it):
     withHString(accountId, h0):
       vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics2_DeleteDeviceAccountAsync, Fn_IUserDataAccountSystemAccessManagerStatics2_DeleteDeviceAccountAsync)(it, h0, op.addr).check("UserDataAccountSystemAccessManager.DeleteDeviceAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccountSystemAccessManager.DeleteDeviceAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccountSystemAccessManager.DeleteDeviceAccountAsync")
 
 proc getDeviceAccountConfigurationAsync*(_: typedesc[UserDataAccountSystemAccessManager], accountId: string): Future[DeviceAccountConfiguration] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager.GetDeviceAccountConfigurationAsync
@@ -31691,7 +31800,7 @@ proc getDeviceAccountConfigurationAsync*(_: typedesc[UserDataAccountSystemAccess
   withStatics("Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager", IID_IUserDataAccountSystemAccessManagerStatics2, it):
     withHString(accountId, h0):
       vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics2_GetDeviceAccountConfigurationAsync, Fn_IUserDataAccountSystemAccessManagerStatics2_GetDeviceAccountConfigurationAsync)(it, h0, op.addr).check("UserDataAccountSystemAccessManager.GetDeviceAccountConfigurationAsync")
-  result = adopt[DeviceAccountConfiguration](await awaitObject(op, IID_IAsyncOperation_1_DeviceAccountConfiguration, IID_AsyncOperationCompletedHandler_1_DeviceAccountConfiguration, "UserDataAccountSystemAccessManager.GetDeviceAccountConfigurationAsync"))
+  result = adopt[DeviceAccountConfiguration](await awaitObject(op, IID_IAsyncOperation_1_DeviceAccountConfiguration, IID_AsyncOperationCompletedHandler_1_DeviceAccountConfiguration, alPlain, "UserDataAccountSystemAccessManager.GetDeviceAccountConfigurationAsync"))
 
 proc id*(self: UserDataAccount): string  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_Id
@@ -31725,12 +31834,12 @@ proc `otherAppReadAccess=`*(self: UserDataAccount, value: UserDataAccountOtherAp
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_put_OtherAppReadAccess, Fn_IUserDataAccount_put_OtherAppReadAccess)(it, value).check("UserDataAccount.put_OtherAppReadAccess")
 
-proc icon*(self: UserDataAccount): RandomAccessStreamReference  =
+proc icon*(self: UserDataAccount): WinRtObject  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_Icon
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataAccount_get_Icon, Fn_IUserDataAccount_get_Icon)(it, tmp.addr).check("UserDataAccount.get_Icon")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc deviceAccountTypeId*(self: UserDataAccount): string  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_DeviceAccountTypeId
@@ -31751,21 +31860,21 @@ proc saveAsync*(self: UserDataAccount) {.async.} =
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_SaveAsync, Fn_IUserDataAccount_SaveAsync)(it, op.addr).check("UserDataAccount.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccount.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccount.SaveAsync")
 
 proc deleteAsync*(self: UserDataAccount) {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.DeleteAsync
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_DeleteAsync, Fn_IUserDataAccount_DeleteAsync)(it, op.addr).check("UserDataAccount.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccount.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccount.DeleteAsync")
 
 proc findAppointmentCalendarsAsync*(self: UserDataAccount): Future[seq[AppointmentCalendar]] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.FindAppointmentCalendarsAsync
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_FindAppointmentCalendarsAsync, Fn_IUserDataAccount_FindAppointmentCalendarsAsync)(it, op.addr).check("UserDataAccount.FindAppointmentCalendarsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "UserDataAccount.FindAppointmentCalendarsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, alPlain, "UserDataAccount.FindAppointmentCalendarsAsync")
   result = toSeq[AppointmentCalendar](coll, IID_IVectorView_1_AppointmentCalendar)
   discard release(coll)
 
@@ -31774,7 +31883,7 @@ proc findEmailMailboxesAsync*(self: UserDataAccount): Future[seq[EmailMailbox]] 
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_FindEmailMailboxesAsync, Fn_IUserDataAccount_FindEmailMailboxesAsync)(it, op.addr).check("UserDataAccount.FindEmailMailboxesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, "UserDataAccount.FindEmailMailboxesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_131, IID_AsyncOperationCompletedHandler_1_IVectorView_131, alPlain, "UserDataAccount.FindEmailMailboxesAsync")
   result = toSeq[EmailMailbox](coll, IID_IVectorView_1_EmailMailbox)
   discard release(coll)
 
@@ -31783,7 +31892,7 @@ proc findContactListsAsync*(self: UserDataAccount): Future[seq[ContactList]] {.a
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_FindContactListsAsync, Fn_IUserDataAccount_FindContactListsAsync)(it, op.addr).check("UserDataAccount.FindContactListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_120, IID_AsyncOperationCompletedHandler_1_IVectorView_120, "UserDataAccount.FindContactListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_120, IID_AsyncOperationCompletedHandler_1_IVectorView_120, alPlain, "UserDataAccount.FindContactListsAsync")
   result = toSeq[ContactList](coll, IID_IVectorView_1_ContactList)
   discard release(coll)
 
@@ -31792,7 +31901,7 @@ proc findContactAnnotationListsAsync*(self: UserDataAccount): Future[seq[Contact
   var op: pointer
   withIface(self.p, IID_IUserDataAccount, "IUserDataAccount", it):
     vcall(it, Slot_IUserDataAccount_FindContactAnnotationListsAsync, Fn_IUserDataAccount_FindContactAnnotationListsAsync)(it, op.addr).check("UserDataAccount.FindContactAnnotationListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "UserDataAccount.FindContactAnnotationListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, alPlain, "UserDataAccount.FindContactAnnotationListsAsync")
   result = toSeq[ContactAnnotationList](coll, IID_IVectorView_1_ContactAnnotationList)
   discard release(coll)
 
@@ -31843,19 +31952,19 @@ proc `canShowCreateContactGroup=`*(self: UserDataAccount, value: bool)  =
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_put_CanShowCreateContactGroup, Fn_IUserDataAccount4_put_CanShowCreateContactGroup)(it, value).check("UserDataAccount.put_CanShowCreateContactGroup")
 
-proc providerProperties*(self: UserDataAccount): ApplicationDataContainerSettings  =
+proc providerProperties*(self: UserDataAccount): WinRtObject  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.get_ProviderProperties
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataAccount4_get_ProviderProperties, Fn_IUserDataAccount4_get_ProviderProperties)(it, tmp.addr).check("UserDataAccount.get_ProviderProperties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc findUserDataTaskListsAsync*(self: UserDataAccount): Future[seq[UserDataTaskList]] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.FindUserDataTaskListsAsync
   var op: pointer
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_FindUserDataTaskListsAsync, Fn_IUserDataAccount4_FindUserDataTaskListsAsync)(it, op.addr).check("UserDataAccount.FindUserDataTaskListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_140, IID_AsyncOperationCompletedHandler_1_IVectorView_140, "UserDataAccount.FindUserDataTaskListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_140, IID_AsyncOperationCompletedHandler_1_IVectorView_140, alPlain, "UserDataAccount.FindUserDataTaskListsAsync")
   result = toSeq[UserDataTaskList](coll, IID_IVectorView_1_UserDataTaskList)
   discard release(coll)
 
@@ -31864,7 +31973,7 @@ proc findContactGroupsAsync*(self: UserDataAccount): Future[seq[ContactGroup]] {
   var op: pointer
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_FindContactGroupsAsync, Fn_IUserDataAccount4_FindContactGroupsAsync)(it, op.addr).check("UserDataAccount.FindContactGroupsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_141, IID_AsyncOperationCompletedHandler_1_IVectorView_141, "UserDataAccount.FindContactGroupsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_141, IID_AsyncOperationCompletedHandler_1_IVectorView_141, alPlain, "UserDataAccount.FindContactGroupsAsync")
   result = toSeq[ContactGroup](coll, IID_IVectorView_1_ContactGroup)
   discard release(coll)
 
@@ -31873,14 +31982,14 @@ proc tryShowCreateContactGroupAsync*(self: UserDataAccount): Future[string] {.as
   var op: pointer
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_TryShowCreateContactGroupAsync, Fn_IUserDataAccount4_TryShowCreateContactGroupAsync)(it, op.addr).check("UserDataAccount.TryShowCreateContactGroupAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserDataAccount.TryShowCreateContactGroupAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserDataAccount.TryShowCreateContactGroupAsync")
 
 proc `isProtectedUnderLock=`*(self: UserDataAccount, value: bool)  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.put_IsProtectedUnderLock
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     vcall(it, Slot_IUserDataAccount4_put_IsProtectedUnderLock, Fn_IUserDataAccount4_put_IsProtectedUnderLock)(it, value).check("UserDataAccount.put_IsProtectedUnderLock")
 
-proc `icon=`*(self: UserDataAccount, value: RandomAccessStreamReference)  =
+proc `icon=`*(self: UserDataAccount, value: WinRtObject)  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccount.put_Icon
   withIface(self.p, IID_IUserDataAccount4, "IUserDataAccount4", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -31891,14 +32000,14 @@ proc requestStoreAsync*(_: typedesc[UserDataAccountManager], storeAccessType: Us
   var op: pointer
   withStatics("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager", IID_IUserDataAccountManagerStatics, it):
     vcall(it, Slot_IUserDataAccountManagerStatics_RequestStoreAsync, Fn_IUserDataAccountManagerStatics_RequestStoreAsync)(it, storeAccessType, op.addr).check("UserDataAccountManager.RequestStoreAsync")
-  result = adopt[UserDataAccountStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccountStore, IID_AsyncOperationCompletedHandler_1_UserDataAccountStore, "UserDataAccountManager.RequestStoreAsync"))
+  result = adopt[UserDataAccountStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccountStore, IID_AsyncOperationCompletedHandler_1_UserDataAccountStore, alPlain, "UserDataAccountManager.RequestStoreAsync"))
 
 proc showAddAccountAsync*(_: typedesc[UserDataAccountManager], contentKinds: UserDataAccountContentKinds): Future[string] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager.ShowAddAccountAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager", IID_IUserDataAccountManagerStatics, it):
     vcall(it, Slot_IUserDataAccountManagerStatics_ShowAddAccountAsync, Fn_IUserDataAccountManagerStatics_ShowAddAccountAsync)(it, contentKinds, op.addr).check("UserDataAccountManager.ShowAddAccountAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserDataAccountManager.ShowAddAccountAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserDataAccountManager.ShowAddAccountAsync")
 
 proc showAccountSettingsAsync*(_: typedesc[UserDataAccountManager], id: string) {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager.ShowAccountSettingsAsync
@@ -31906,7 +32015,7 @@ proc showAccountSettingsAsync*(_: typedesc[UserDataAccountManager], id: string) 
   withStatics("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager", IID_IUserDataAccountManagerStatics, it):
     withHString(id, h0):
       vcall(it, Slot_IUserDataAccountManagerStatics_ShowAccountSettingsAsync, Fn_IUserDataAccountManagerStatics_ShowAccountSettingsAsync)(it, h0, op.addr).check("UserDataAccountManager.ShowAccountSettingsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccountManager.ShowAccountSettingsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccountManager.ShowAccountSettingsAsync")
 
 proc showAccountErrorResolverAsync*(_: typedesc[UserDataAccountManager], id: string) {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager.ShowAccountErrorResolverAsync
@@ -31914,7 +32023,7 @@ proc showAccountErrorResolverAsync*(_: typedesc[UserDataAccountManager], id: str
   withStatics("Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager", IID_IUserDataAccountManagerStatics, it):
     withHString(id, h0):
       vcall(it, Slot_IUserDataAccountManagerStatics_ShowAccountErrorResolverAsync, Fn_IUserDataAccountManagerStatics_ShowAccountErrorResolverAsync)(it, h0, op.addr).check("UserDataAccountManager.ShowAccountErrorResolverAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataAccountManager.ShowAccountErrorResolverAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataAccountManager.ShowAccountErrorResolverAsync")
 
 proc getForUser*(_: typedesc[UserDataAccountManager], user: User): UserDataAccountManagerForUser  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager.GetForUser
@@ -31929,7 +32038,7 @@ proc requestStoreAsync*(self: UserDataAccountManagerForUser, storeAccessType: Us
   var op: pointer
   withIface(self.p, IID_IUserDataAccountManagerForUser, "IUserDataAccountManagerForUser", it):
     vcall(it, Slot_IUserDataAccountManagerForUser_RequestStoreAsync, Fn_IUserDataAccountManagerForUser_RequestStoreAsync)(it, storeAccessType, op.addr).check("UserDataAccountManagerForUser.RequestStoreAsync")
-  result = adopt[UserDataAccountStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccountStore, IID_AsyncOperationCompletedHandler_1_UserDataAccountStore, "UserDataAccountManagerForUser.RequestStoreAsync"))
+  result = adopt[UserDataAccountStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccountStore, IID_AsyncOperationCompletedHandler_1_UserDataAccountStore, alPlain, "UserDataAccountManagerForUser.RequestStoreAsync"))
 
 proc user*(self: UserDataAccountManagerForUser): User  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser.get_User
@@ -31943,7 +32052,7 @@ proc findAccountsAsync*(self: UserDataAccountStore): Future[seq[UserDataAccount]
   var op: pointer
   withIface(self.p, IID_IUserDataAccountStore, "IUserDataAccountStore", it):
     vcall(it, Slot_IUserDataAccountStore_FindAccountsAsync, Fn_IUserDataAccountStore_FindAccountsAsync)(it, op.addr).check("UserDataAccountStore.FindAccountsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_142, IID_AsyncOperationCompletedHandler_1_IVectorView_142, "UserDataAccountStore.FindAccountsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_142, IID_AsyncOperationCompletedHandler_1_IVectorView_142, alPlain, "UserDataAccountStore.FindAccountsAsync")
   result = toSeq[UserDataAccount](coll, IID_IVectorView_1_UserDataAccount)
   discard release(coll)
 
@@ -31953,7 +32062,7 @@ proc getAccountAsync*(self: UserDataAccountStore, id: string): Future[UserDataAc
   withIface(self.p, IID_IUserDataAccountStore, "IUserDataAccountStore", it):
     withHString(id, h0):
       vcall(it, Slot_IUserDataAccountStore_GetAccountAsync, Fn_IUserDataAccountStore_GetAccountAsync)(it, h0, op.addr).check("UserDataAccountStore.GetAccountAsync")
-  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, "UserDataAccountStore.GetAccountAsync"))
+  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, alPlain, "UserDataAccountStore.GetAccountAsync"))
 
 proc createAccountAsync*(self: UserDataAccountStore, userDisplayName: string): Future[UserDataAccount] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore.CreateAccountAsync
@@ -31961,7 +32070,7 @@ proc createAccountAsync*(self: UserDataAccountStore, userDisplayName: string): F
   withIface(self.p, IID_IUserDataAccountStore, "IUserDataAccountStore", it):
     withHString(userDisplayName, h0):
       vcall(it, Slot_IUserDataAccountStore_CreateAccountAsync, Fn_IUserDataAccountStore_CreateAccountAsync)(it, h0, op.addr).check("UserDataAccountStore.CreateAccountAsync")
-  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, "UserDataAccountStore.CreateAccountAsync"))
+  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, alPlain, "UserDataAccountStore.CreateAccountAsync"))
 
 proc createAccountAsync*(self: UserDataAccountStore, userDisplayName: string, packageRelativeAppId: string): Future[UserDataAccount] {.async.} =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore.CreateAccountAsync
@@ -31970,7 +32079,7 @@ proc createAccountAsync*(self: UserDataAccountStore, userDisplayName: string, pa
     withHString(userDisplayName, h0):
       withHString(packageRelativeAppId, h1):
         vcall(it, Slot_IUserDataAccountStore2_CreateAccountAsync, Fn_IUserDataAccountStore2_CreateAccountAsync)(it, h0, h1, op.addr).check("UserDataAccountStore.CreateAccountAsync")
-  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, "UserDataAccountStore.CreateAccountAsync"))
+  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, alPlain, "UserDataAccountStore.CreateAccountAsync"))
 
 proc onStoreChanged*(self: UserDataAccountStore,
     handler: proc(sender: pointer, args: UserDataAccountStoreChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -31999,7 +32108,7 @@ proc createAccountAsync*(self: UserDataAccountStore, userDisplayName: string, pa
       withHString(packageRelativeAppId, h1):
         withHString(enterpriseId, h2):
           vcall(it, Slot_IUserDataAccountStore3_CreateAccountAsync, Fn_IUserDataAccountStore3_CreateAccountAsync)(it, h0, h1, h2, op.addr).check("UserDataAccountStore.CreateAccountAsync")
-  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, "UserDataAccountStore.CreateAccountAsync"))
+  result = adopt[UserDataAccount](await awaitObject(op, IID_IAsyncOperation_1_UserDataAccount, IID_AsyncOperationCompletedHandler_1_UserDataAccount, alPlain, "UserDataAccountStore.CreateAccountAsync"))
 
 proc getDeferral*(self: UserDataAccountStoreChangedEventArgs): Deferral  =
   ## Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs.GetDeferral
@@ -32135,14 +32244,14 @@ proc reportCompletedAsync*(self: UserDataTaskListCompleteTaskRequest, completedT
   withIface(self.p, IID_IUserDataTaskListCompleteTaskRequest, "IUserDataTaskListCompleteTaskRequest", it):
     withHString(completedTaskId, h0):
       vcall(it, Slot_IUserDataTaskListCompleteTaskRequest_ReportCompletedAsync, Fn_IUserDataTaskListCompleteTaskRequest_ReportCompletedAsync)(it, h0, op.addr).check("UserDataTaskListCompleteTaskRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListCompleteTaskRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListCompleteTaskRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: UserDataTaskListCompleteTaskRequest) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListCompleteTaskRequest, "IUserDataTaskListCompleteTaskRequest", it):
     vcall(it, Slot_IUserDataTaskListCompleteTaskRequest_ReportFailedAsync, Fn_IUserDataTaskListCompleteTaskRequest_ReportFailedAsync)(it, op.addr).check("UserDataTaskListCompleteTaskRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListCompleteTaskRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListCompleteTaskRequest.ReportFailedAsync")
 
 proc request*(self: UserDataTaskListCompleteTaskRequestEventArgs): UserDataTaskListCompleteTaskRequest  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequestEventArgs.get_Request
@@ -32178,14 +32287,14 @@ proc reportCompletedAsync*(self: UserDataTaskListCreateOrUpdateTaskRequest, crea
   withIface(self.p, IID_IUserDataTaskListCreateOrUpdateTaskRequest, "IUserDataTaskListCreateOrUpdateTaskRequest", it):
     withIface(createdOrUpdatedUserDataTask.p, IID_IUserDataTask, "IUserDataTask", p0):
       vcall(it, Slot_IUserDataTaskListCreateOrUpdateTaskRequest_ReportCompletedAsync, Fn_IUserDataTaskListCreateOrUpdateTaskRequest_ReportCompletedAsync)(it, p0, op.addr).check("UserDataTaskListCreateOrUpdateTaskRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListCreateOrUpdateTaskRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListCreateOrUpdateTaskRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: UserDataTaskListCreateOrUpdateTaskRequest) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListCreateOrUpdateTaskRequest, "IUserDataTaskListCreateOrUpdateTaskRequest", it):
     vcall(it, Slot_IUserDataTaskListCreateOrUpdateTaskRequest_ReportFailedAsync, Fn_IUserDataTaskListCreateOrUpdateTaskRequest_ReportFailedAsync)(it, op.addr).check("UserDataTaskListCreateOrUpdateTaskRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListCreateOrUpdateTaskRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListCreateOrUpdateTaskRequest.ReportFailedAsync")
 
 proc request*(self: UserDataTaskListCreateOrUpdateTaskRequestEventArgs): UserDataTaskListCreateOrUpdateTaskRequest  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs.get_Request
@@ -32220,14 +32329,14 @@ proc reportCompletedAsync*(self: UserDataTaskListDeleteTaskRequest) {.async.} =
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListDeleteTaskRequest, "IUserDataTaskListDeleteTaskRequest", it):
     vcall(it, Slot_IUserDataTaskListDeleteTaskRequest_ReportCompletedAsync, Fn_IUserDataTaskListDeleteTaskRequest_ReportCompletedAsync)(it, op.addr).check("UserDataTaskListDeleteTaskRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListDeleteTaskRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListDeleteTaskRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: UserDataTaskListDeleteTaskRequest) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListDeleteTaskRequest, "IUserDataTaskListDeleteTaskRequest", it):
     vcall(it, Slot_IUserDataTaskListDeleteTaskRequest_ReportFailedAsync, Fn_IUserDataTaskListDeleteTaskRequest_ReportFailedAsync)(it, op.addr).check("UserDataTaskListDeleteTaskRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListDeleteTaskRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListDeleteTaskRequest.ReportFailedAsync")
 
 proc request*(self: UserDataTaskListDeleteTaskRequestEventArgs): UserDataTaskListDeleteTaskRequest  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequestEventArgs.get_Request
@@ -32262,14 +32371,14 @@ proc reportCompletedAsync*(self: UserDataTaskListSkipOccurrenceRequest) {.async.
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListSkipOccurrenceRequest, "IUserDataTaskListSkipOccurrenceRequest", it):
     vcall(it, Slot_IUserDataTaskListSkipOccurrenceRequest_ReportCompletedAsync, Fn_IUserDataTaskListSkipOccurrenceRequest_ReportCompletedAsync)(it, op.addr).check("UserDataTaskListSkipOccurrenceRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListSkipOccurrenceRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListSkipOccurrenceRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: UserDataTaskListSkipOccurrenceRequest) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListSkipOccurrenceRequest, "IUserDataTaskListSkipOccurrenceRequest", it):
     vcall(it, Slot_IUserDataTaskListSkipOccurrenceRequest_ReportFailedAsync, Fn_IUserDataTaskListSkipOccurrenceRequest_ReportFailedAsync)(it, op.addr).check("UserDataTaskListSkipOccurrenceRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListSkipOccurrenceRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListSkipOccurrenceRequest.ReportFailedAsync")
 
 proc request*(self: UserDataTaskListSkipOccurrenceRequestEventArgs): UserDataTaskListSkipOccurrenceRequest  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequestEventArgs.get_Request
@@ -32297,14 +32406,14 @@ proc reportCompletedAsync*(self: UserDataTaskListSyncManagerSyncRequest) {.async
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListSyncManagerSyncRequest, "IUserDataTaskListSyncManagerSyncRequest", it):
     vcall(it, Slot_IUserDataTaskListSyncManagerSyncRequest_ReportCompletedAsync, Fn_IUserDataTaskListSyncManagerSyncRequest_ReportCompletedAsync)(it, op.addr).check("UserDataTaskListSyncManagerSyncRequest.ReportCompletedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListSyncManagerSyncRequest.ReportCompletedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListSyncManagerSyncRequest.ReportCompletedAsync")
 
 proc reportFailedAsync*(self: UserDataTaskListSyncManagerSyncRequest) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListSyncManagerSyncRequest, "IUserDataTaskListSyncManagerSyncRequest", it):
     vcall(it, Slot_IUserDataTaskListSyncManagerSyncRequest_ReportFailedAsync, Fn_IUserDataTaskListSyncManagerSyncRequest_ReportFailedAsync)(it, op.addr).check("UserDataTaskListSyncManagerSyncRequest.ReportFailedAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskListSyncManagerSyncRequest.ReportFailedAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskListSyncManagerSyncRequest.ReportFailedAsync")
 
 proc request*(self: UserDataTaskListSyncManagerSyncRequestEventArgs): UserDataTaskListSyncManagerSyncRequest  =
   ## Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequestEventArgs.get_Request
@@ -32591,7 +32700,7 @@ proc registerSyncManagerAsync*(self: UserDataTaskList) {.async.} =
   var op: pointer
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     vcall(it, Slot_IUserDataTaskList_RegisterSyncManagerAsync, Fn_IUserDataTaskList_RegisterSyncManagerAsync)(it, op.addr).check("UserDataTaskList.RegisterSyncManagerAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskList.RegisterSyncManagerAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskList.RegisterSyncManagerAsync")
 
 proc getTaskReader*(self: UserDataTaskList): UserDataTaskReader  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.GetTaskReader
@@ -32614,7 +32723,7 @@ proc getTaskAsync*(self: UserDataTaskList, userDataTask: string): Future[UserDat
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     withHString(userDataTask, h0):
       vcall(it, Slot_IUserDataTaskList_GetTaskAsync, Fn_IUserDataTaskList_GetTaskAsync)(it, h0, op.addr).check("UserDataTaskList.GetTaskAsync")
-  result = adopt[UserDataTask](await awaitObject(op, IID_IAsyncOperation_1_UserDataTask, IID_AsyncOperationCompletedHandler_1_UserDataTask, "UserDataTaskList.GetTaskAsync"))
+  result = adopt[UserDataTask](await awaitObject(op, IID_IAsyncOperation_1_UserDataTask, IID_AsyncOperationCompletedHandler_1_UserDataTask, alPlain, "UserDataTaskList.GetTaskAsync"))
 
 proc saveTaskAsync*(self: UserDataTaskList, userDataTask: UserDataTask) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.SaveTaskAsync
@@ -32622,7 +32731,7 @@ proc saveTaskAsync*(self: UserDataTaskList, userDataTask: UserDataTask) {.async.
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     withIface(userDataTask.p, IID_IUserDataTask, "IUserDataTask", p0):
       vcall(it, Slot_IUserDataTaskList_SaveTaskAsync, Fn_IUserDataTaskList_SaveTaskAsync)(it, p0, op.addr).check("UserDataTaskList.SaveTaskAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskList.SaveTaskAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskList.SaveTaskAsync")
 
 proc deleteTaskAsync*(self: UserDataTaskList, userDataTaskId: string) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.DeleteTaskAsync
@@ -32630,21 +32739,21 @@ proc deleteTaskAsync*(self: UserDataTaskList, userDataTaskId: string) {.async.} 
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     withHString(userDataTaskId, h0):
       vcall(it, Slot_IUserDataTaskList_DeleteTaskAsync, Fn_IUserDataTaskList_DeleteTaskAsync)(it, h0, op.addr).check("UserDataTaskList.DeleteTaskAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskList.DeleteTaskAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskList.DeleteTaskAsync")
 
 proc deleteAsync*(self: UserDataTaskList) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.DeleteAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     vcall(it, Slot_IUserDataTaskList_DeleteAsync, Fn_IUserDataTaskList_DeleteAsync)(it, op.addr).check("UserDataTaskList.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskList.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskList.DeleteAsync")
 
 proc saveAsync*(self: UserDataTaskList) {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskList.SaveAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskList, "IUserDataTaskList", it):
     vcall(it, Slot_IUserDataTaskList_SaveAsync, Fn_IUserDataTaskList_SaveAsync)(it, op.addr).check("UserDataTaskList.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserDataTaskList.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserDataTaskList.SaveAsync")
 
 proc tryCompleteTaskAsync*(self: UserDataTaskListLimitedWriteOperations, userDataTaskId: string): Future[string] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations.TryCompleteTaskAsync
@@ -32652,7 +32761,7 @@ proc tryCompleteTaskAsync*(self: UserDataTaskListLimitedWriteOperations, userDat
   withIface(self.p, IID_IUserDataTaskListLimitedWriteOperations, "IUserDataTaskListLimitedWriteOperations", it):
     withHString(userDataTaskId, h0):
       vcall(it, Slot_IUserDataTaskListLimitedWriteOperations_TryCompleteTaskAsync, Fn_IUserDataTaskListLimitedWriteOperations_TryCompleteTaskAsync)(it, h0, op.addr).check("UserDataTaskListLimitedWriteOperations.TryCompleteTaskAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserDataTaskListLimitedWriteOperations.TryCompleteTaskAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserDataTaskListLimitedWriteOperations.TryCompleteTaskAsync")
 
 proc tryCreateOrUpdateTaskAsync*(self: UserDataTaskListLimitedWriteOperations, userDataTask: UserDataTask): Future[bool] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations.TryCreateOrUpdateTaskAsync
@@ -32660,7 +32769,7 @@ proc tryCreateOrUpdateTaskAsync*(self: UserDataTaskListLimitedWriteOperations, u
   withIface(self.p, IID_IUserDataTaskListLimitedWriteOperations, "IUserDataTaskListLimitedWriteOperations", it):
     withIface(userDataTask.p, IID_IUserDataTask, "IUserDataTask", p0):
       vcall(it, Slot_IUserDataTaskListLimitedWriteOperations_TryCreateOrUpdateTaskAsync, Fn_IUserDataTaskListLimitedWriteOperations_TryCreateOrUpdateTaskAsync)(it, p0, op.addr).check("UserDataTaskListLimitedWriteOperations.TryCreateOrUpdateTaskAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserDataTaskListLimitedWriteOperations.TryCreateOrUpdateTaskAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserDataTaskListLimitedWriteOperations.TryCreateOrUpdateTaskAsync")
 
 proc tryDeleteTaskAsync*(self: UserDataTaskListLimitedWriteOperations, userDataTaskId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations.TryDeleteTaskAsync
@@ -32668,7 +32777,7 @@ proc tryDeleteTaskAsync*(self: UserDataTaskListLimitedWriteOperations, userDataT
   withIface(self.p, IID_IUserDataTaskListLimitedWriteOperations, "IUserDataTaskListLimitedWriteOperations", it):
     withHString(userDataTaskId, h0):
       vcall(it, Slot_IUserDataTaskListLimitedWriteOperations_TryDeleteTaskAsync, Fn_IUserDataTaskListLimitedWriteOperations_TryDeleteTaskAsync)(it, h0, op.addr).check("UserDataTaskListLimitedWriteOperations.TryDeleteTaskAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserDataTaskListLimitedWriteOperations.TryDeleteTaskAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserDataTaskListLimitedWriteOperations.TryDeleteTaskAsync")
 
 proc trySkipOccurrenceAsync*(self: UserDataTaskListLimitedWriteOperations, userDataTaskId: string): Future[bool] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations.TrySkipOccurrenceAsync
@@ -32676,7 +32785,7 @@ proc trySkipOccurrenceAsync*(self: UserDataTaskListLimitedWriteOperations, userD
   withIface(self.p, IID_IUserDataTaskListLimitedWriteOperations, "IUserDataTaskListLimitedWriteOperations", it):
     withHString(userDataTaskId, h0):
       vcall(it, Slot_IUserDataTaskListLimitedWriteOperations_TrySkipOccurrenceAsync, Fn_IUserDataTaskListLimitedWriteOperations_TrySkipOccurrenceAsync)(it, h0, op.addr).check("UserDataTaskListLimitedWriteOperations.TrySkipOccurrenceAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserDataTaskListLimitedWriteOperations.TrySkipOccurrenceAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserDataTaskListLimitedWriteOperations.TrySkipOccurrenceAsync")
 
 proc lastAttemptedSyncTime*(self: UserDataTaskListSyncManager): DateTime  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager.get_LastAttemptedSyncTime
@@ -32719,7 +32828,7 @@ proc syncAsync*(self: UserDataTaskListSyncManager): Future[bool] {.async.} =
   var op: pointer
   withIface(self.p, IID_IUserDataTaskListSyncManager, "IUserDataTaskListSyncManager", it):
     vcall(it, Slot_IUserDataTaskListSyncManager_SyncAsync, Fn_IUserDataTaskListSyncManager_SyncAsync)(it, op.addr).check("UserDataTaskListSyncManager.SyncAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserDataTaskListSyncManager.SyncAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserDataTaskListSyncManager.SyncAsync")
 
 proc onSyncStatusChanged*(self: UserDataTaskListSyncManager,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -32745,7 +32854,7 @@ proc requestStoreAsync*(self: UserDataTaskManager, accessType: UserDataTaskStore
   var op: pointer
   withIface(self.p, IID_IUserDataTaskManager, "IUserDataTaskManager", it):
     vcall(it, Slot_IUserDataTaskManager_RequestStoreAsync, Fn_IUserDataTaskManager_RequestStoreAsync)(it, accessType, op.addr).check("UserDataTaskManager.RequestStoreAsync")
-  result = adopt[UserDataTaskStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskStore, IID_AsyncOperationCompletedHandler_1_UserDataTaskStore, "UserDataTaskManager.RequestStoreAsync"))
+  result = adopt[UserDataTaskStore](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskStore, IID_AsyncOperationCompletedHandler_1_UserDataTaskStore, alPlain, "UserDataTaskManager.RequestStoreAsync"))
 
 proc user*(self: UserDataTaskManager): User  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskManager.get_User
@@ -32802,7 +32911,7 @@ proc readBatchAsync*(self: UserDataTaskReader): Future[UserDataTaskBatch] {.asyn
   var op: pointer
   withIface(self.p, IID_IUserDataTaskReader, "IUserDataTaskReader", it):
     vcall(it, Slot_IUserDataTaskReader_ReadBatchAsync, Fn_IUserDataTaskReader_ReadBatchAsync)(it, op.addr).check("UserDataTaskReader.ReadBatchAsync")
-  result = adopt[UserDataTaskBatch](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskBatch, IID_AsyncOperationCompletedHandler_1_UserDataTaskBatch, "UserDataTaskReader.ReadBatchAsync"))
+  result = adopt[UserDataTaskBatch](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskBatch, IID_AsyncOperationCompletedHandler_1_UserDataTaskBatch, alPlain, "UserDataTaskReader.ReadBatchAsync"))
 
 proc newUserDataTaskRecurrenceProperties*(): UserDataTaskRecurrenceProperties =
   ## Activate a `Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties`.
@@ -32986,7 +33095,7 @@ proc createListAsync*(self: UserDataTaskStore, name: string): Future[UserDataTas
   withIface(self.p, IID_IUserDataTaskStore, "IUserDataTaskStore", it):
     withHString(name, h0):
       vcall(it, Slot_IUserDataTaskStore_CreateListAsync, Fn_IUserDataTaskStore_CreateListAsync)(it, h0, op.addr).check("UserDataTaskStore.CreateListAsync")
-  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, "UserDataTaskStore.CreateListAsync"))
+  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, alPlain, "UserDataTaskStore.CreateListAsync"))
 
 proc createListAsync*(self: UserDataTaskStore, name: string, userDataAccountId: string): Future[UserDataTaskList] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskStore.CreateListAsync
@@ -32995,14 +33104,14 @@ proc createListAsync*(self: UserDataTaskStore, name: string, userDataAccountId: 
     withHString(name, h0):
       withHString(userDataAccountId, h1):
         vcall(it, Slot_IUserDataTaskStore_CreateListAsync2, Fn_IUserDataTaskStore_CreateListAsync2)(it, h0, h1, op.addr).check("UserDataTaskStore.CreateListAsync")
-  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, "UserDataTaskStore.CreateListAsync"))
+  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, alPlain, "UserDataTaskStore.CreateListAsync"))
 
 proc findListsAsync*(self: UserDataTaskStore): Future[seq[UserDataTaskList]] {.async.} =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskStore.FindListsAsync
   var op: pointer
   withIface(self.p, IID_IUserDataTaskStore, "IUserDataTaskStore", it):
     vcall(it, Slot_IUserDataTaskStore_FindListsAsync, Fn_IUserDataTaskStore_FindListsAsync)(it, op.addr).check("UserDataTaskStore.FindListsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_140, IID_AsyncOperationCompletedHandler_1_IVectorView_140, "UserDataTaskStore.FindListsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_140, IID_AsyncOperationCompletedHandler_1_IVectorView_140, alPlain, "UserDataTaskStore.FindListsAsync")
   result = toSeq[UserDataTaskList](coll, IID_IVectorView_1_UserDataTaskList)
   discard release(coll)
 
@@ -33012,7 +33121,7 @@ proc getListAsync*(self: UserDataTaskStore, taskListId: string): Future[UserData
   withIface(self.p, IID_IUserDataTaskStore, "IUserDataTaskStore", it):
     withHString(taskListId, h0):
       vcall(it, Slot_IUserDataTaskStore_GetListAsync, Fn_IUserDataTaskStore_GetListAsync)(it, h0, op.addr).check("UserDataTaskStore.GetListAsync")
-  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, "UserDataTaskStore.GetListAsync"))
+  result = adopt[UserDataTaskList](await awaitObject(op, IID_IAsyncOperation_1_UserDataTaskList, IID_AsyncOperationCompletedHandler_1_UserDataTaskList, alPlain, "UserDataTaskStore.GetListAsync"))
 
 proc commandName*(self: VoiceCommand): string  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommand.get_CommandName
@@ -33170,7 +33279,7 @@ proc setPhraseListAsync*(self: VoiceCommandDefinition, phraseListName: string, p
       let p1 = asIterableString(phraseList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
       defer: discard release(p1)
       vcall(it, Slot_IVoiceCommandDefinition_SetPhraseListAsync, Fn_IVoiceCommandDefinition_SetPhraseListAsync)(it, h0, p1, op.addr).check("VoiceCommandDefinition.SetPhraseListAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandDefinition.SetPhraseListAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandDefinition.SetPhraseListAsync")
 
 proc installCommandDefinitionsFromStorageFileAsync*(_: typedesc[VoiceCommandDefinitionManager], file: StorageFile) {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync
@@ -33178,14 +33287,14 @@ proc installCommandDefinitionsFromStorageFileAsync*(_: typedesc[VoiceCommandDefi
   withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager", IID_IVoiceCommandDefinitionManagerStatics, it):
     withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IVoiceCommandDefinitionManagerStatics_InstallCommandDefinitionsFromStorageFileAsync, Fn_IVoiceCommandDefinitionManagerStatics_InstallCommandDefinitionsFromStorageFileAsync)(it, p0, op.addr).check("VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync")
 
 proc installedCommandDefinitions*(_: typedesc[VoiceCommandDefinitionManager]): Table[string, VoiceCommandDefinition]  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.get_InstalledCommandDefinitions
   withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager", IID_IVoiceCommandDefinitionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions, Fn_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions)(it, tmp.addr).check("VoiceCommandDefinitionManager.get_InstalledCommandDefinitions")
-    result = toTable[VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_29, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
+    result = toTable[string, VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
     release(tmp)
 
 proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentTile  =
@@ -33292,7 +33401,7 @@ proc getVoiceCommandAsync*(self: VoiceCommandServiceConnection): Future[VoiceCom
   var op: pointer
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     vcall(it, Slot_IVoiceCommandServiceConnection_GetVoiceCommandAsync, Fn_IVoiceCommandServiceConnection_GetVoiceCommandAsync)(it, op.addr).check("VoiceCommandServiceConnection.GetVoiceCommandAsync")
-  result = adopt[VoiceCommand](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommand, IID_AsyncOperationCompletedHandler_1_VoiceCommand, "VoiceCommandServiceConnection.GetVoiceCommandAsync"))
+  result = adopt[VoiceCommand](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommand, IID_AsyncOperationCompletedHandler_1_VoiceCommand, alPlain, "VoiceCommandServiceConnection.GetVoiceCommandAsync"))
 
 proc requestConfirmationAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse): Future[VoiceCommandConfirmationResult] {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.RequestConfirmationAsync
@@ -33300,7 +33409,7 @@ proc requestConfirmationAsync*(self: VoiceCommandServiceConnection, response: Vo
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_RequestConfirmationAsync, Fn_IVoiceCommandServiceConnection_RequestConfirmationAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.RequestConfirmationAsync")
-  result = adopt[VoiceCommandConfirmationResult](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommandConfirmationResult, IID_AsyncOperationCompletedHandler_1_VoiceCommandConfirmationResult, "VoiceCommandServiceConnection.RequestConfirmationAsync"))
+  result = adopt[VoiceCommandConfirmationResult](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommandConfirmationResult, IID_AsyncOperationCompletedHandler_1_VoiceCommandConfirmationResult, alPlain, "VoiceCommandServiceConnection.RequestConfirmationAsync"))
 
 proc requestDisambiguationAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse): Future[VoiceCommandDisambiguationResult] {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.RequestDisambiguationAsync
@@ -33308,7 +33417,7 @@ proc requestDisambiguationAsync*(self: VoiceCommandServiceConnection, response: 
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_RequestDisambiguationAsync, Fn_IVoiceCommandServiceConnection_RequestDisambiguationAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.RequestDisambiguationAsync")
-  result = adopt[VoiceCommandDisambiguationResult](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommandDisambiguationResult, IID_AsyncOperationCompletedHandler_1_VoiceCommandDisambiguationResult, "VoiceCommandServiceConnection.RequestDisambiguationAsync"))
+  result = adopt[VoiceCommandDisambiguationResult](await awaitObject(op, IID_IAsyncOperation_1_VoiceCommandDisambiguationResult, IID_AsyncOperationCompletedHandler_1_VoiceCommandDisambiguationResult, alPlain, "VoiceCommandServiceConnection.RequestDisambiguationAsync"))
 
 proc reportProgressAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse) {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.ReportProgressAsync
@@ -33316,7 +33425,7 @@ proc reportProgressAsync*(self: VoiceCommandServiceConnection, response: VoiceCo
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_ReportProgressAsync, Fn_IVoiceCommandServiceConnection_ReportProgressAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.ReportProgressAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandServiceConnection.ReportProgressAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandServiceConnection.ReportProgressAsync")
 
 proc reportSuccessAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse) {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.ReportSuccessAsync
@@ -33324,7 +33433,7 @@ proc reportSuccessAsync*(self: VoiceCommandServiceConnection, response: VoiceCom
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_ReportSuccessAsync, Fn_IVoiceCommandServiceConnection_ReportSuccessAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.ReportSuccessAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandServiceConnection.ReportSuccessAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandServiceConnection.ReportSuccessAsync")
 
 proc reportFailureAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse) {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.ReportFailureAsync
@@ -33332,7 +33441,7 @@ proc reportFailureAsync*(self: VoiceCommandServiceConnection, response: VoiceCom
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_ReportFailureAsync, Fn_IVoiceCommandServiceConnection_ReportFailureAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.ReportFailureAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandServiceConnection.ReportFailureAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandServiceConnection.ReportFailureAsync")
 
 proc requestAppLaunchAsync*(self: VoiceCommandServiceConnection, response: VoiceCommandResponse) {.async.} =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.RequestAppLaunchAsync
@@ -33340,7 +33449,7 @@ proc requestAppLaunchAsync*(self: VoiceCommandServiceConnection, response: Voice
   withIface(self.p, IID_IVoiceCommandServiceConnection, "IVoiceCommandServiceConnection", it):
     withIface(response.p, IID_IVoiceCommandResponse, "IVoiceCommandResponse", p0):
       vcall(it, Slot_IVoiceCommandServiceConnection_RequestAppLaunchAsync, Fn_IVoiceCommandServiceConnection_RequestAppLaunchAsync)(it, p0, op.addr).check("VoiceCommandServiceConnection.RequestAppLaunchAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandServiceConnection.RequestAppLaunchAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VoiceCommandServiceConnection.RequestAppLaunchAsync")
 
 proc language*(self: VoiceCommandServiceConnection): Language  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection.get_Language
@@ -33411,7 +33520,7 @@ proc getItemsAsync*(self: WalletItemSystemStore): Future[seq[WalletItem]] {.asyn
   var op: pointer
   withIface(self.p, IID_IWalletItemSystemStore, "IWalletItemSystemStore", it):
     vcall(it, Slot_IWalletItemSystemStore_GetItemsAsync, Fn_IWalletItemSystemStore_GetItemsAsync)(it, op.addr).check("WalletItemSystemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, "WalletItemSystemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, alPlain, "WalletItemSystemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
@@ -33421,15 +33530,15 @@ proc deleteAsync*(self: WalletItemSystemStore, item: WalletItem) {.async.} =
   withIface(self.p, IID_IWalletItemSystemStore, "IWalletItemSystemStore", it):
     withIface(item.p, IID_IWalletItem, "IWalletItem", p0):
       vcall(it, Slot_IWalletItemSystemStore_DeleteAsync, Fn_IWalletItemSystemStore_DeleteAsync)(it, p0, op.addr).check("WalletItemSystemStore.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemSystemStore.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemSystemStore.DeleteAsync")
 
-proc importItemAsync*(self: WalletItemSystemStore, stream: RandomAccessStreamReference): Future[WalletItem] {.async.} =
+proc importItemAsync*(self: WalletItemSystemStore, stream: WinRtObject): Future[WalletItem] {.async.} =
   ## Windows.ApplicationModel.Wallet.System.WalletItemSystemStore.ImportItemAsync
   var op: pointer
   withIface(self.p, IID_IWalletItemSystemStore, "IWalletItemSystemStore", it):
     withIface(stream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItemSystemStore_ImportItemAsync, Fn_IWalletItemSystemStore_ImportItemAsync)(it, p0, op.addr).check("WalletItemSystemStore.ImportItemAsync")
-  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, "WalletItemSystemStore.ImportItemAsync"))
+  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, alPlain, "WalletItemSystemStore.ImportItemAsync"))
 
 proc getAppStatusForItem*(self: WalletItemSystemStore, item: WalletItem): WalletItemAppAssociation  =
   ## Windows.ApplicationModel.Wallet.System.WalletItemSystemStore.GetAppStatusForItem
@@ -33445,7 +33554,7 @@ proc launchAppForItemAsync*(self: WalletItemSystemStore, item: WalletItem): Futu
   withIface(self.p, IID_IWalletItemSystemStore, "IWalletItemSystemStore", it):
     withIface(item.p, IID_IWalletItem, "IWalletItem", p0):
       vcall(it, Slot_IWalletItemSystemStore_LaunchAppForItemAsync, Fn_IWalletItemSystemStore_LaunchAppForItemAsync)(it, p0, op.addr).check("WalletItemSystemStore.LaunchAppForItemAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "WalletItemSystemStore.LaunchAppForItemAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "WalletItemSystemStore.LaunchAppForItemAsync")
 
 proc onItemsChanged*(self: WalletItemSystemStore,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -33471,7 +33580,7 @@ proc requestStoreAsync*(_: typedesc[WalletManagerSystem]): Future[WalletItemSyst
   var op: pointer
   withStatics("Windows.ApplicationModel.Wallet.System.WalletManagerSystem", IID_IWalletManagerSystemStatics, it):
     vcall(it, Slot_IWalletManagerSystemStatics_RequestStoreAsync, Fn_IWalletManagerSystemStatics_RequestStoreAsync)(it, op.addr).check("WalletManagerSystem.RequestStoreAsync")
-  result = adopt[WalletItemSystemStore](await awaitObject(op, IID_IAsyncOperation_1_WalletItemSystemStore, IID_AsyncOperationCompletedHandler_1_WalletItemSystemStore, "WalletManagerSystem.RequestStoreAsync"))
+  result = adopt[WalletItemSystemStore](await awaitObject(op, IID_IAsyncOperation_1_WalletItemSystemStore, IID_AsyncOperationCompletedHandler_1_WalletItemSystemStore, alPlain, "WalletManagerSystem.RequestStoreAsync"))
 
 proc symbology*(self: WalletBarcode): WalletBarcodeSymbology  =
   ## Windows.ApplicationModel.Wallet.WalletBarcode.get_Symbology
@@ -33487,12 +33596,12 @@ proc value*(self: WalletBarcode): string  =
     vcall(it, Slot_IWalletBarcode_get_Value, Fn_IWalletBarcode_get_Value)(it, tmp.addr).check("WalletBarcode.get_Value")
     result = takeString(tmp)
 
-proc getImageAsync*(self: WalletBarcode): Future[RandomAccessStreamReference] {.async.} =
+proc getImageAsync*(self: WalletBarcode): Future[WinRtObject] {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletBarcode.GetImageAsync
   var op: pointer
   withIface(self.p, IID_IWalletBarcode, "IWalletBarcode", it):
     vcall(it, Slot_IWalletBarcode_GetImageAsync, Fn_IWalletBarcode_GetImageAsync)(it, op.addr).check("WalletBarcode.GetImageAsync")
-  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, "WalletBarcode.GetImageAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, alPlain, "WalletBarcode.GetImageAsync"))
 
 proc createWalletBarcode*(_: typedesc[WalletBarcode], symbology: WalletBarcodeSymbology, value: string): WalletBarcode  =
   ## Windows.ApplicationModel.Wallet.WalletBarcode.CreateWalletBarcode
@@ -33502,7 +33611,7 @@ proc createWalletBarcode*(_: typedesc[WalletBarcode], symbology: WalletBarcodeSy
       vcall(it, Slot_IWalletBarcodeFactory_CreateWalletBarcode, Fn_IWalletBarcodeFactory_CreateWalletBarcode)(it, symbology, h1, tmp.addr).check("WalletBarcode.CreateWalletBarcode")
       result = adopt[WalletBarcode](tmp)
 
-proc createCustomWalletBarcode*(_: typedesc[WalletBarcode], streamToBarcodeImage: RandomAccessStreamReference): WalletBarcode  =
+proc createCustomWalletBarcode*(_: typedesc[WalletBarcode], streamToBarcodeImage: WinRtObject): WalletBarcode  =
   ## Windows.ApplicationModel.Wallet.WalletBarcode.CreateCustomWalletBarcode
   withStatics("Windows.ApplicationModel.Wallet.WalletBarcode", IID_IWalletBarcodeFactory, it):
     withIface(streamToBarcodeImage.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -33605,40 +33714,40 @@ proc `expirationDate=`*(self: WalletItem, value: Option[DateTime])  =
     defer: discard release(p0)
     vcall(it, Slot_IWalletItem_put_ExpirationDate, Fn_IWalletItem_put_ExpirationDate)(it, p0).check("WalletItem.put_ExpirationDate")
 
-proc logo159x159*(self: WalletItem): RandomAccessStreamReference  =
+proc logo159x159*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Logo159x159
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Logo159x159, Fn_IWalletItem_get_Logo159x159)(it, tmp.addr).check("WalletItem.get_Logo159x159")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `logo159x159=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `logo159x159=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_Logo159x159
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItem_put_Logo159x159, Fn_IWalletItem_put_Logo159x159)(it, p0).check("WalletItem.put_Logo159x159")
 
-proc logo336x336*(self: WalletItem): RandomAccessStreamReference  =
+proc logo336x336*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Logo336x336
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Logo336x336, Fn_IWalletItem_get_Logo336x336)(it, tmp.addr).check("WalletItem.get_Logo336x336")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `logo336x336=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `logo336x336=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_Logo336x336
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItem_put_Logo336x336, Fn_IWalletItem_put_Logo336x336)(it, p0).check("WalletItem.put_Logo336x336")
 
-proc logo99x99*(self: WalletItem): RandomAccessStreamReference  =
+proc logo99x99*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Logo99x99
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Logo99x99, Fn_IWalletItem_get_Logo99x99)(it, tmp.addr).check("WalletItem.get_Logo99x99")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `logo99x99=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `logo99x99=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_Logo99x99
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -33730,53 +33839,53 @@ proc `bodyFontColor=`*(self: WalletItem, value: Color)  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     vcall(it, Slot_IWalletItem_put_BodyFontColor, Fn_IWalletItem_put_BodyFontColor)(it, value).check("WalletItem.put_BodyFontColor")
 
-proc headerBackgroundImage*(self: WalletItem): RandomAccessStreamReference  =
+proc headerBackgroundImage*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_HeaderBackgroundImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_HeaderBackgroundImage, Fn_IWalletItem_get_HeaderBackgroundImage)(it, tmp.addr).check("WalletItem.get_HeaderBackgroundImage")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `headerBackgroundImage=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `headerBackgroundImage=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_HeaderBackgroundImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItem_put_HeaderBackgroundImage, Fn_IWalletItem_put_HeaderBackgroundImage)(it, p0).check("WalletItem.put_HeaderBackgroundImage")
 
-proc bodyBackgroundImage*(self: WalletItem): RandomAccessStreamReference  =
+proc bodyBackgroundImage*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_BodyBackgroundImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_BodyBackgroundImage, Fn_IWalletItem_get_BodyBackgroundImage)(it, tmp.addr).check("WalletItem.get_BodyBackgroundImage")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `bodyBackgroundImage=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `bodyBackgroundImage=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_BodyBackgroundImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItem_put_BodyBackgroundImage, Fn_IWalletItem_put_BodyBackgroundImage)(it, p0).check("WalletItem.put_BodyBackgroundImage")
 
-proc logoImage*(self: WalletItem): RandomAccessStreamReference  =
+proc logoImage*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_LogoImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_LogoImage, Fn_IWalletItem_get_LogoImage)(it, tmp.addr).check("WalletItem.get_LogoImage")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `logoImage=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `logoImage=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_LogoImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItem_put_LogoImage, Fn_IWalletItem_put_LogoImage)(it, p0).check("WalletItem.put_LogoImage")
 
-proc promotionalImage*(self: WalletItem): RandomAccessStreamReference  =
+proc promotionalImage*(self: WalletItem): WinRtObject  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_PromotionalImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_PromotionalImage, Fn_IWalletItem_get_PromotionalImage)(it, tmp.addr).check("WalletItem.get_PromotionalImage")
-    result = adopt[RandomAccessStreamReference](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `promotionalImage=`*(self: WalletItem, value: RandomAccessStreamReference)  =
+proc `promotionalImage=`*(self: WalletItem, value: WinRtObject)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_PromotionalImage
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
@@ -33815,7 +33924,7 @@ proc transactionHistory*(self: WalletItem): Table[string, WalletTransaction]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_TransactionHistory, Fn_IWalletItem_get_TransactionHistory)(it, tmp.addr).check("WalletItem.get_TransactionHistory")
-    result = toTable[WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_210, IID_IKeyValuePair_2_String_WalletTransaction)
+    result = toTable[string, WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_213, IID_IKeyValuePair_2_String_WalletTransaction)
     release(tmp)
 
 proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]  =
@@ -33823,7 +33932,7 @@ proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_RelevantLocations, Fn_IWalletItem_get_RelevantLocations)(it, tmp.addr).check("WalletItem.get_RelevantLocations")
-    result = toTable[WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_211, IID_IKeyValuePair_2_String_WalletRelevantLocation)
+    result = toTable[string, WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_214, IID_IKeyValuePair_2_String_WalletRelevantLocation)
     release(tmp)
 
 proc isMoreTransactionHistoryLaunchable*(self: WalletItem): bool  =
@@ -33843,7 +33952,7 @@ proc displayProperties*(self: WalletItem): Table[string, WalletItemCustomPropert
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_DisplayProperties, Fn_IWalletItem_get_DisplayProperties)(it, tmp.addr).check("WalletItem.get_DisplayProperties")
-    result = toTable[WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
+    result = toTable[string, WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_215, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
     release(tmp)
 
 proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
@@ -33851,7 +33960,7 @@ proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Verbs, Fn_IWalletItem_get_Verbs)(it, tmp.addr).check("WalletItem.get_Verbs")
-    result = toTable[WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_213, IID_IKeyValuePair_2_String_WalletVerb)
+    result = toTable[string, WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_216, IID_IKeyValuePair_2_String_WalletVerb)
     release(tmp)
 
 proc createWalletItem*(_: typedesc[WalletItem], kind: WalletItemKind, displayName: string): WalletItem  =
@@ -33940,14 +34049,14 @@ proc addAsync*(self: WalletItemStore, id: string, item: WalletItem) {.async.} =
     withHString(id, h0):
       withIface(item.p, IID_IWalletItem, "IWalletItem", p1):
         vcall(it, Slot_IWalletItemStore_AddAsync, Fn_IWalletItemStore_AddAsync)(it, h0, p1, op.addr).check("WalletItemStore.AddAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.AddAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.AddAsync")
 
 proc clearAsync*(self: WalletItemStore) {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.ClearAsync
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_ClearAsync, Fn_IWalletItemStore_ClearAsync)(it, op.addr).check("WalletItemStore.ClearAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.ClearAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.ClearAsync")
 
 proc getWalletItemAsync*(self: WalletItemStore, id: string): Future[WalletItem] {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.GetWalletItemAsync
@@ -33955,14 +34064,14 @@ proc getWalletItemAsync*(self: WalletItemStore, id: string): Future[WalletItem] 
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     withHString(id, h0):
       vcall(it, Slot_IWalletItemStore_GetWalletItemAsync, Fn_IWalletItemStore_GetWalletItemAsync)(it, h0, op.addr).check("WalletItemStore.GetWalletItemAsync")
-  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, "WalletItemStore.GetWalletItemAsync"))
+  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, alPlain, "WalletItemStore.GetWalletItemAsync"))
 
 proc getItemsAsync*(self: WalletItemStore): Future[seq[WalletItem]] {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.GetItemsAsync
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_GetItemsAsync, Fn_IWalletItemStore_GetItemsAsync)(it, op.addr).check("WalletItemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, "WalletItemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, alPlain, "WalletItemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
@@ -33971,17 +34080,17 @@ proc getItemsAsync*(self: WalletItemStore, kind: WalletItemKind): Future[seq[Wal
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_GetItemsAsync2, Fn_IWalletItemStore_GetItemsAsync2)(it, kind, op.addr).check("WalletItemStore.GetItemsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, "WalletItemStore.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_143, IID_AsyncOperationCompletedHandler_1_IVectorView_143, alPlain, "WalletItemStore.GetItemsAsync")
   result = toSeq[WalletItem](coll, IID_IVectorView_1_WalletItem)
   discard release(coll)
 
-proc importItemAsync*(self: WalletItemStore, stream: RandomAccessStreamReference): Future[WalletItem] {.async.} =
+proc importItemAsync*(self: WalletItemStore, stream: WinRtObject): Future[WalletItem] {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.ImportItemAsync
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     withIface(stream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
       vcall(it, Slot_IWalletItemStore_ImportItemAsync, Fn_IWalletItemStore_ImportItemAsync)(it, p0, op.addr).check("WalletItemStore.ImportItemAsync")
-  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, "WalletItemStore.ImportItemAsync"))
+  result = adopt[WalletItem](await awaitObject(op, IID_IAsyncOperation_1_WalletItem, IID_AsyncOperationCompletedHandler_1_WalletItem, alPlain, "WalletItemStore.ImportItemAsync"))
 
 proc deleteAsync*(self: WalletItemStore, id: string) {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.DeleteAsync
@@ -33989,14 +34098,14 @@ proc deleteAsync*(self: WalletItemStore, id: string) {.async.} =
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     withHString(id, h0):
       vcall(it, Slot_IWalletItemStore_DeleteAsync, Fn_IWalletItemStore_DeleteAsync)(it, h0, op.addr).check("WalletItemStore.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.DeleteAsync")
 
 proc showAsync*(self: WalletItemStore) {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.ShowAsync
   var op: pointer
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     vcall(it, Slot_IWalletItemStore_ShowAsync, Fn_IWalletItemStore_ShowAsync)(it, op.addr).check("WalletItemStore.ShowAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.ShowAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.ShowAsync")
 
 proc showAsync*(self: WalletItemStore, id: string) {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.ShowAsync
@@ -34004,7 +34113,7 @@ proc showAsync*(self: WalletItemStore, id: string) {.async.} =
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     withHString(id, h0):
       vcall(it, Slot_IWalletItemStore_ShowAsync2, Fn_IWalletItemStore_ShowAsync2)(it, h0, op.addr).check("WalletItemStore.ShowAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.ShowAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.ShowAsync")
 
 proc updateAsync*(self: WalletItemStore, item: WalletItem) {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletItemStore.UpdateAsync
@@ -34012,14 +34121,14 @@ proc updateAsync*(self: WalletItemStore, item: WalletItem) {.async.} =
   withIface(self.p, IID_IWalletItemStore, "IWalletItemStore", it):
     withIface(item.p, IID_IWalletItem, "IWalletItem", p0):
       vcall(it, Slot_IWalletItemStore_UpdateAsync, Fn_IWalletItemStore_UpdateAsync)(it, p0, op.addr).check("WalletItemStore.UpdateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WalletItemStore.UpdateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WalletItemStore.UpdateAsync")
 
 proc requestStoreAsync*(_: typedesc[WalletManager]): Future[WalletItemStore] {.async.} =
   ## Windows.ApplicationModel.Wallet.WalletManager.RequestStoreAsync
   var op: pointer
   withStatics("Windows.ApplicationModel.Wallet.WalletManager", IID_IWalletManagerStatics, it):
     vcall(it, Slot_IWalletManagerStatics_RequestStoreAsync, Fn_IWalletManagerStatics_RequestStoreAsync)(it, op.addr).check("WalletManager.RequestStoreAsync")
-  result = adopt[WalletItemStore](await awaitObject(op, IID_IAsyncOperation_1_WalletItemStore, IID_AsyncOperationCompletedHandler_1_WalletItemStore, "WalletManager.RequestStoreAsync"))
+  result = adopt[WalletItemStore](await awaitObject(op, IID_IAsyncOperation_1_WalletItemStore, IID_AsyncOperationCompletedHandler_1_WalletItemStore, alPlain, "WalletManager.RequestStoreAsync"))
 
 proc newWalletRelevantLocation*(): WalletRelevantLocation =
   ## Activate a `Windows.ApplicationModel.Wallet.WalletRelevantLocation`.

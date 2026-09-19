@@ -34,30 +34,39 @@ import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
-const IID_AsyncOperationCompletedHandler_1_ServiceDocument* = GUID(
-    data1: 0xBB14E5CE'u32, data2: 0xC6B1'u16, data3: 0x5DFA'u16,
-    data4: [0x90'u8, 0x68, 0xBC, 0x89, 0x69, 0x71, 0xA0, 0x6F])
+const IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress* = GUID(
+    data1: 0x5F03B1D3'u32, data2: 0x470D'u16, data3: 0x5BE7'u16,
+    data4: [0x81'u8, 0x76, 0x1C, 0x9A, 0x46, 0x01, 0x09, 0x00])
 const IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress* = GUID(
     data1: 0xDA07ABF4'u32, data2: 0x91FA'u16, data3: 0x5C96'u16,
     data4: [0x84'u8, 0xCB, 0x45, 0x9E, 0xA9, 0x7B, 0x93, 0x4D])
-const IID_AsyncOperationCompletedHandler_1_IInputStream* = GUID(
-    data1: 0xD0BD0125'u32, data2: 0x9049'u16, data3: 0x57A3'u16,
-    data4: [0xBD'u8, 0x66, 0xE2, 0x52, 0x5D, 0x98, 0xC8, 0x14])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress* = GUID(
+    data1: 0x76772EC1'u32, data2: 0xC26F'u16, data3: 0x5F6E'u16,
+    data4: [0x8D'u8, 0x3B, 0x83, 0x14, 0x10, 0x7C, 0xEF, 0xEB])
 const IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress* = GUID(
     data1: 0xF71CFF65'u32, data2: 0xE737'u16, data3: 0x5345'u16,
     data4: [0xB3'u8, 0x8F, 0xFD, 0x44, 0x5D, 0x2D, 0xC7, 0xE2])
-const IID_AsyncOperationCompletedHandler_1_SyndicationItem* = GUID(
-    data1: 0x4270AF00'u32, data2: 0xB160'u16, data3: 0x5B37'u16,
-    data4: [0x8C'u8, 0x4F, 0x98, 0x3C, 0x1B, 0xAB, 0xF9, 0xC9])
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress* = GUID(
+    data1: 0x9DE7422B'u32, data2: 0x4BC3'u16, data3: 0x5546'u16,
+    data4: [0x87'u8, 0xB8, 0x2E, 0xEB, 0xFD, 0x60, 0xBE, 0x48])
 const IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress* = GUID(
     data1: 0x44FA5A15'u32, data2: 0x1204'u16, data3: 0x521C'u16,
     data4: [0x85'u8, 0xE5, 0x01, 0x25, 0x93, 0x01, 0xD5, 0x27])
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress* = GUID(
+    data1: 0x8A796EA9'u32, data2: 0xFF95'u16, data3: 0x50EF'u16,
+    data4: [0x93'u8, 0xEA, 0x71, 0x1B, 0xF7, 0x94, 0x64, 0x73])
 const IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress* = GUID(
     data1: 0xE57D0717'u32, data2: 0x27C0'u16, data3: 0x561E'u16,
     data4: [0xB4'u8, 0xB3, 0x72, 0xAA, 0x2B, 0x1E, 0x3F, 0xC9])
-const IID_AsyncOperationCompletedHandler_1_SyndicationFeed* = GUID(
-    data1: 0xF44A41C9'u32, data2: 0xFDB9'u16, data3: 0x5027'u16,
-    data4: [0x88'u8, 0x6C, 0xBD, 0x1B, 0x02, 0xD7, 0x33, 0x0D])
+const IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress* = GUID(
+    data1: 0xF1C031C8'u32, data2: 0x90BF'u16, data3: 0x5CAE'u16,
+    data4: [0xAD'u8, 0xF6, 0x15, 0x5B, 0x4A, 0xED, 0xFB, 0x60])
+const IID_IAsyncActionWithProgress_1_TransferProgress* = GUID(
+    data1: 0xB7EB83F5'u32, data2: 0xA746'u16, data3: 0x50F2'u16,
+    data4: [0xB9'u8, 0x1F, 0x31, 0x80, 0x31, 0x61, 0xCC, 0xC7])
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress* = GUID(
+    data1: 0x0E3D7F70'u32, data2: 0x4E8C'u16, data3: 0x5260'u16,
+    data4: [0xA7'u8, 0xE5, 0x78, 0x6E, 0x05, 0xBD, 0xED, 0x99])
 const IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress* = GUID(
     data1: 0x92EAF151'u32, data2: 0x415E'u16, data3: 0x5F87'u16,
     data4: [0x80'u8, 0x95, 0x78, 0x16, 0x23, 0xC8, 0x89, 0x98])
@@ -100,9 +109,9 @@ const IID_IVector_1_ChainValidationResult* = GUID(
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
     data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
-const IID_AsyncOperationCompletedHandler_1_HttpResponseMessage* = GUID(
-    data1: 0xCFE26C2B'u32, data2: 0xEC28'u16, data3: 0x5D16'u16,
-    data4: [0xB2'u8, 0xB7, 0x67, 0xFB, 0xA5, 0x66, 0x69, 0x44])
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress* = GUID(
+    data1: 0xBEADB572'u32, data2: 0xF9A3'u16, data3: 0x5E93'u16,
+    data4: [0xB6'u8, 0xCA, 0xE3, 0x11, 0xB6, 0x59, 0x33, 0xFC])
 const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = GUID(
     data1: 0x5D144364'u32, data2: 0x77D7'u16, data3: 0x5ECA'u16,
     data4: [0x8B'u8, 0x09, 0x93, 0x6A, 0x69, 0x44, 0x66, 0x52])
@@ -127,57 +136,69 @@ const IID_IReference_1_U8* = GUID(
 const IID_IReference_1_U4* = GUID(
     data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
     data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
-const IID_AsyncOperationCompletedHandler_1_U8* = GUID(
-    data1: 0xEE8AEB02'u32, data2: 0xFB00'u16, data3: 0x51FA'u16,
-    data4: [0x8F'u8, 0x57, 0x32, 0x58, 0x3E, 0xA2, 0x41, 0xF9])
+const IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8* = GUID(
+    data1: 0xD2024E41'u32, data2: 0x5500'u16, data3: 0x5B5A'u16,
+    data4: [0xBA'u8, 0x46, 0xCB, 0x70, 0x09, 0x59, 0x6A, 0x2F])
 const IID_IAsyncOperationWithProgress_2_U8_U8* = GUID(
     data1: 0x8F1DB6E3'u32, data2: 0x6556'u16, data3: 0x5516'u16,
     data4: [0x82'u8, 0x5C, 0x10, 0x21, 0xEE, 0x27, 0xCD, 0x0C])
-const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
-    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
-    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8* = GUID(
+    data1: 0xABC81235'u32, data2: 0x39C7'u16, data3: 0x59BF'u16,
+    data4: [0x99'u8, 0x48, 0x2D, 0x14, 0xA9, 0x3D, 0x40, 0xFD])
 const IID_IAsyncOperationWithProgress_2_IBuffer_U8* = GUID(
     data1: 0xAD960E7F'u32, data2: 0xD73B'u16, data3: 0x56E4'u16,
     data4: [0xA5'u8, 0x8C, 0x6E, 0xC7, 0x67, 0x8C, 0xFD, 0x88])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8* = GUID(
+    data1: 0x8DB69706'u32, data2: 0x3DD1'u16, data3: 0x5A28'u16,
+    data4: [0x98'u8, 0x6A, 0x93, 0xBE, 0x07, 0x76, 0xD9, 0xC3])
 const IID_IAsyncOperationWithProgress_2_IInputStream_U8* = GUID(
     data1: 0x455AA601'u32, data2: 0xF13E'u16, data3: 0x5DEE'u16,
     data4: [0xB9'u8, 0xCB, 0x16, 0xB5, 0x31, 0x99, 0x63, 0x27])
-const IID_AsyncOperationCompletedHandler_1_String* = GUID(
-    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
-    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
+const IID_AsyncOperationWithProgressCompletedHandler_2_String_U8* = GUID(
+    data1: 0xBD75EEBE'u32, data2: 0xE7B5'u16, data3: 0x5AF6'u16,
+    data4: [0x84'u8, 0x15, 0xA4, 0xB9, 0xC9, 0x04, 0x52, 0x02])
 const IID_IAsyncOperationWithProgress_2_String_U8* = GUID(
     data1: 0xC8BBCB29'u32, data2: 0x6B64'u16, data3: 0x5CE2'u16,
     data4: [0xA8'u8, 0x31, 0x03, 0x8F, 0x6E, 0x02, 0x19, 0x9E])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress* = GUID(
+    data1: 0xB0CF2F85'u32, data2: 0x6992'u16, data3: 0x52BE'u16,
+    data4: [0x8F'u8, 0x0B, 0x93, 0x96, 0x4B, 0x14, 0xD9, 0x63])
 const IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress* = GUID(
     data1: 0x88D9BB75'u32, data2: 0xAFB4'u16, data3: 0x5F32'u16,
     data4: [0x9D'u8, 0x7E, 0xD3, 0xBF, 0x37, 0x85, 0x35, 0x4C])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress* = GUID(
+    data1: 0x504A34EC'u32, data2: 0x5499'u16, data3: 0x5A16'u16,
+    data4: [0xBF'u8, 0xFC, 0x3C, 0xCB, 0x64, 0xA3, 0x54, 0x7A])
 const IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress* = GUID(
     data1: 0x0B97C784'u32, data2: 0xDF17'u16, data3: 0x571F'u16,
     data4: [0x83'u8, 0x37, 0x44, 0x7D, 0xFF, 0x06, 0x8A, 0x9C])
+const IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress* = GUID(
+    data1: 0x98AB9ACB'u32, data2: 0x38DB'u16, data3: 0x588F'u16,
+    data4: [0xA5'u8, 0xF9, 0x9F, 0x48, 0x4B, 0x22, 0x00, 0xCD])
 const IID_IAsyncOperationWithProgress_2_String_HttpProgress* = GUID(
     data1: 0x91ECBE45'u32, data2: 0xE889'u16, data3: 0x5518'u16,
     data4: [0xBD'u8, 0x8D, 0xC5, 0xBD, 0xE1, 0x63, 0x10, 0x9B])
-const IID_AsyncOperationCompletedHandler_1_HttpRequestResult* = GUID(
-    data1: 0xDE86D48A'u32, data2: 0x50DE'u16, data3: 0x553F'u16,
-    data4: [0x9F'u8, 0x74, 0xAF, 0xDA, 0xB6, 0xA9, 0x1C, 0x52])
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress* = GUID(
+    data1: 0xFDFC3D8F'u32, data2: 0x08BB'u16, data3: 0x5D82'u16,
+    data4: [0xBF'u8, 0xDE, 0xAE, 0x09, 0x2E, 0x7E, 0x3F, 0xE1])
 const IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress* = GUID(
     data1: 0x97388336'u32, data2: 0x2EAC'u16, data3: 0x5D76'u16,
     data4: [0xB2'u8, 0x28, 0xD3, 0x2E, 0xF9, 0xA3, 0x81, 0x75])
-const IID_AsyncOperationCompletedHandler_1_HttpGetBufferResult* = GUID(
-    data1: 0xD221992A'u32, data2: 0x561C'u16, data3: 0x5642'u16,
-    data4: [0xB3'u8, 0x3A, 0x9C, 0xF9, 0xC9, 0x15, 0xC8, 0x71])
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress* = GUID(
+    data1: 0x6BEC534A'u32, data2: 0x1901'u16, data3: 0x5FA2'u16,
+    data4: [0x96'u8, 0x86, 0x9A, 0x51, 0x0F, 0x6B, 0x12, 0x17])
 const IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress* = GUID(
     data1: 0xB128FBC4'u32, data2: 0x19C0'u16, data3: 0x5FE1'u16,
     data4: [0xAE'u8, 0xC6, 0xD2, 0xE6, 0x4B, 0xD2, 0x28, 0x62])
-const IID_AsyncOperationCompletedHandler_1_HttpGetInputStreamResult* = GUID(
-    data1: 0x3E42610E'u32, data2: 0xFB03'u16, data3: 0x5ACF'u16,
-    data4: [0xB3'u8, 0x13, 0x2C, 0x69, 0x05, 0x2D, 0xD3, 0xB5])
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress* = GUID(
+    data1: 0x789B1519'u32, data2: 0x4AE1'u16, data3: 0x5475'u16,
+    data4: [0xBB'u8, 0x01, 0x67, 0x34, 0xCA, 0xD4, 0x78, 0xFF])
 const IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress* = GUID(
     data1: 0x6E1CE5AC'u32, data2: 0xC10B'u16, data3: 0x5D09'u16,
     data4: [0xAD'u8, 0x43, 0xF4, 0xDD, 0xEA, 0xDA, 0x85, 0x7A])
-const IID_AsyncOperationCompletedHandler_1_HttpGetStringResult* = GUID(
-    data1: 0xA75C24E6'u32, data2: 0xF479'u16, data3: 0x5DF7'u16,
-    data4: [0x88'u8, 0x09, 0xD2, 0x47, 0x6D, 0xD4, 0x3B, 0x53])
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress* = GUID(
+    data1: 0x625DF3B5'u32, data2: 0xBFF7'u16, data3: 0x517A'u16,
+    data4: [0x93'u8, 0x59, 0x1D, 0xC2, 0x8F, 0xB0, 0xF5, 0x86])
 const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = GUID(
     data1: 0x7382F299'u32, data2: 0xBBBD'u16, data3: 0x5BD3'u16,
     data4: [0xB1'u8, 0x43, 0x88, 0x87, 0xC6, 0x27, 0x92, 0x9B])
@@ -208,6 +229,9 @@ const IID_IIterable_1_String* = GUID(
 const IID_IIterator_1_String* = GUID(
     data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
     data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_AsyncOperationCompletedHandler_1_String* = GUID(
+    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
+    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
 const IID_IAsyncOperation_1_String* = GUID(
     data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
     data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
@@ -286,15 +310,15 @@ proc retrieveServiceDocumentAsync*(self: AtomPubClient, uri: Uri): Future[Servic
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAtomPubClient_RetrieveServiceDocumentAsync, Fn_IAtomPubClient_RetrieveServiceDocumentAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveServiceDocumentAsync")
-  result = adopt[ServiceDocument](await awaitObject(op, IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_ServiceDocument, "AtomPubClient.RetrieveServiceDocumentAsync"))
+  result = adopt[ServiceDocument](await awaitObject(op, IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress, alProgress, "AtomPubClient.RetrieveServiceDocumentAsync"))
 
-proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri): Future[InputStreamOverStream] {.async.} =
+proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri): Future[WinRtObject] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveMediaResourceAsync
   var op: pointer
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAtomPubClient_RetrieveMediaResourceAsync, Fn_IAtomPubClient_RetrieveMediaResourceAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveMediaResourceAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_IInputStream, "AtomPubClient.RetrieveMediaResourceAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress, alProgress, "AtomPubClient.RetrieveMediaResourceAsync"))
 
 proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveResourceAsync
@@ -302,7 +326,7 @@ proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationIt
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAtomPubClient_RetrieveResourceAsync, Fn_IAtomPubClient_RetrieveResourceAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_SyndicationItem, "AtomPubClient.RetrieveResourceAsync"))
+  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress, alProgress, "AtomPubClient.RetrieveResourceAsync"))
 
 proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string, item: SyndicationItem): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.CreateResourceAsync
@@ -312,9 +336,9 @@ proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string, it
       withHString(description, h1):
         withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p2):
           vcall(it, Slot_IAtomPubClient_CreateResourceAsync, Fn_IAtomPubClient_CreateResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.CreateResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationCompletedHandler_1_SyndicationItem, "AtomPubClient.CreateResourceAsync"))
+  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress, alProgress, "AtomPubClient.CreateResourceAsync"))
 
-proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, description: string, mediaStream: InputStreamOverStream): Future[SyndicationItem] {.async.} =
+proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, description: string, mediaStream: WinRtObject): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.CreateMediaResourceAsync
   var op: pointer
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
@@ -323,9 +347,9 @@ proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
         withHString(description, h2):
           withIface(mediaStream.p, IID_IInputStream, "IInputStream", p3):
             vcall(it, Slot_IAtomPubClient_CreateMediaResourceAsync, Fn_IAtomPubClient_CreateMediaResourceAsync)(it, p0, h1, h2, p3, op.addr).check("AtomPubClient.CreateMediaResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationCompletedHandler_1_SyndicationItem, "AtomPubClient.CreateMediaResourceAsync"))
+  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress, alProgress, "AtomPubClient.CreateMediaResourceAsync"))
 
-proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, mediaStream: InputStreamOverStream) {.async.} =
+proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, mediaStream: WinRtObject) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateMediaResourceAsync
   var op: pointer
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
@@ -333,7 +357,7 @@ proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
       withHString(mediaType, h1):
         withIface(mediaStream.p, IID_IInputStream, "IInputStream", p2):
           vcall(it, Slot_IAtomPubClient_UpdateMediaResourceAsync, Fn_IAtomPubClient_UpdateMediaResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.UpdateMediaResourceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.UpdateMediaResourceAsync")
+  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateMediaResourceAsync")
 
 proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceAsync
@@ -342,7 +366,7 @@ proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem) 
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p1):
         vcall(it, Slot_IAtomPubClient_UpdateResourceAsync, Fn_IAtomPubClient_UpdateResourceAsync)(it, p0, p1, op.addr).check("AtomPubClient.UpdateResourceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.UpdateResourceAsync")
+  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateResourceAsync")
 
 proc updateResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceItemAsync
@@ -350,7 +374,7 @@ proc updateResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.asyn
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p0):
       vcall(it, Slot_IAtomPubClient_UpdateResourceItemAsync, Fn_IAtomPubClient_UpdateResourceItemAsync)(it, p0, op.addr).check("AtomPubClient.UpdateResourceItemAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.UpdateResourceItemAsync")
+  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateResourceItemAsync")
 
 proc deleteResourceAsync*(self: AtomPubClient, uri: Uri) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceAsync
@@ -358,7 +382,7 @@ proc deleteResourceAsync*(self: AtomPubClient, uri: Uri) {.async.} =
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAtomPubClient_DeleteResourceAsync, Fn_IAtomPubClient_DeleteResourceAsync)(it, p0, op.addr).check("AtomPubClient.DeleteResourceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.DeleteResourceAsync")
+  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.DeleteResourceAsync")
 
 proc deleteResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceItemAsync
@@ -366,7 +390,7 @@ proc deleteResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.asyn
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p0):
       vcall(it, Slot_IAtomPubClient_DeleteResourceItemAsync, Fn_IAtomPubClient_DeleteResourceItemAsync)(it, p0, op.addr).check("AtomPubClient.DeleteResourceItemAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.DeleteResourceItemAsync")
+  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.DeleteResourceItemAsync")
 
 proc cancelAsyncOperations*(self: AtomPubClient)  =
   ## Windows.Web.AtomPub.AtomPubClient.CancelAsyncOperations
@@ -448,7 +472,7 @@ proc retrieveFeedAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationFeed] 
   withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_SyndicationFeed, "AtomPubClient.RetrieveFeedAsync"))
+  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress, alProgress, "AtomPubClient.RetrieveFeedAsync"))
 
 proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient], serverCredential: PasswordCredential): AtomPubClient  =
   ## Windows.Web.AtomPub.AtomPubClient.CreateAtomPubClientWithCredentials
@@ -458,12 +482,12 @@ proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient], serverCrede
       vcall(it, Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials, Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials)(it, p0, tmp.addr).check("AtomPubClient.CreateAtomPubClientWithCredentials")
       result = adopt[AtomPubClient](tmp)
 
-proc title*(self: ResourceCollection): SyndicationText  =
+proc title*(self: ResourceCollection): WinRtObject  =
   ## Windows.Web.AtomPub.ResourceCollection.get_Title
   withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
     var tmp: pointer
     vcall(it, Slot_IResourceCollection_get_Title, Fn_IResourceCollection_get_Title)(it, tmp.addr).check("ResourceCollection.get_Title")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc uri*(self: ResourceCollection): Uri  =
   ## Windows.Web.AtomPub.ResourceCollection.get_Uri
@@ -672,12 +696,12 @@ proc getXmlDocument*(self: ServiceDocument, format: SyndicationFormat): XmlDocum
     vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("ServiceDocument.GetXmlDocument")
     result = adopt[XmlDocument](tmp)
 
-proc title*(self: Workspace): SyndicationText  =
+proc title*(self: Workspace): WinRtObject  =
   ## Windows.Web.AtomPub.Workspace.get_Title
   withIface(self.p, IID_IWorkspace, "IWorkspace", it):
     var tmp: pointer
     vcall(it, Slot_IWorkspace_get_Title, Fn_IWorkspace_get_Title)(it, tmp.addr).check("Workspace.get_Title")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc collections*(self: Workspace): seq[ResourceCollection]  =
   ## Windows.Web.AtomPub.Workspace.get_Collections
@@ -1250,7 +1274,7 @@ proc sendRequestAsync*(self: HttpBaseProtocolFilter, request: HttpRequestMessage
   withIface(self.p, IID_IHttpFilter, "IHttpFilter", it):
     withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IHttpFilter_SendRequestAsync, Fn_IHttpFilter_SendRequestAsync)(it, p0, op.addr).check("HttpBaseProtocolFilter.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpBaseProtocolFilter.SendRequestAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpBaseProtocolFilter.SendRequestAsync"))
 
 proc close*(self: HttpBaseProtocolFilter)  =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.Close
@@ -3246,28 +3270,28 @@ proc bufferAllAsync*(self: HttpBufferContent): Future[uint64] {.async.} =
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpBufferContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpBufferContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpBufferContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpBufferContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpBufferContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpBufferContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpBufferContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpBufferContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpBufferContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpBufferContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpBufferContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpBufferContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpBufferContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpBufferContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpBufferContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpBufferContent.TryComputeLength
@@ -3279,13 +3303,13 @@ proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpBufferContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpBufferContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpBufferContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpBufferContent.WriteToStreamAsync")
 
 proc close*(self: HttpBufferContent)  =
   ## Windows.Web.Http.HttpBufferContent.Close
@@ -3325,7 +3349,7 @@ proc deleteAsync*(self: HttpClient, uri: Uri): Future[HttpResponseMessage] {.asy
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_DeleteAsync, Fn_IHttpClient_DeleteAsync)(it, p0, op.addr).check("HttpClient.DeleteAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.DeleteAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.DeleteAsync"))
 
 proc getAsync*(self: HttpClient, uri: Uri): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.GetAsync
@@ -3333,7 +3357,7 @@ proc getAsync*(self: HttpClient, uri: Uri): Future[HttpResponseMessage] {.async.
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetAsync, Fn_IHttpClient_GetAsync)(it, p0, op.addr).check("HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.GetAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.GetAsync"))
 
 proc getAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.GetAsync
@@ -3341,7 +3365,7 @@ proc getAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOptio
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetAsync2, Fn_IHttpClient_GetAsync2)(it, p0, completionOption, op.addr).check("HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.GetAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.GetAsync"))
 
 proc getBufferAsync*(self: HttpClient, uri: Uri): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpClient.GetBufferAsync
@@ -3349,15 +3373,15 @@ proc getBufferAsync*(self: HttpClient, uri: Uri): Future[Buffer] {.async.} =
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetBufferAsync, Fn_IHttpClient_GetBufferAsync)(it, p0, op.addr).check("HttpClient.GetBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpClient.GetBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress, alProgress, "HttpClient.GetBufferAsync"))
 
-proc getInputStreamAsync*(self: HttpClient, uri: Uri): Future[InputStreamOverStream] {.async.} =
+proc getInputStreamAsync*(self: HttpClient, uri: Uri): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpClient.GetInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetInputStreamAsync, Fn_IHttpClient_GetInputStreamAsync)(it, p0, op.addr).check("HttpClient.GetInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpClient.GetInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress, alProgress, "HttpClient.GetInputStreamAsync"))
 
 proc getStringAsync*(self: HttpClient, uri: Uri): Future[string] {.async.} =
   ## Windows.Web.Http.HttpClient.GetStringAsync
@@ -3365,25 +3389,25 @@ proc getStringAsync*(self: HttpClient, uri: Uri): Future[string] {.async.} =
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetStringAsync, Fn_IHttpClient_GetStringAsync)(it, p0, op.addr).check("HttpClient.GetStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_HttpProgress, IID_AsyncOperationCompletedHandler_1_String, "HttpClient.GetStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress, alProgress, "HttpClient.GetStringAsync")
 
-proc postAsync*(self: HttpClient, uri: Uri, content: HttpStringContent): Future[HttpResponseMessage] {.async.} =
+proc postAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.PostAsync
   var op: pointer
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
         vcall(it, Slot_IHttpClient_PostAsync, Fn_IHttpClient_PostAsync)(it, p0, p1, op.addr).check("HttpClient.PostAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.PostAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.PostAsync"))
 
-proc putAsync*(self: HttpClient, uri: Uri, content: HttpStringContent): Future[HttpResponseMessage] {.async.} =
+proc putAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.PutAsync
   var op: pointer
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
         vcall(it, Slot_IHttpClient_PutAsync, Fn_IHttpClient_PutAsync)(it, p0, p1, op.addr).check("HttpClient.PutAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.PutAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.PutAsync"))
 
 proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
@@ -3391,7 +3415,7 @@ proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future[Ht
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IHttpClient_SendRequestAsync, Fn_IHttpClient_SendRequestAsync)(it, p0, op.addr).check("HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.SendRequestAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.SendRequestAsync"))
 
 proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage, completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
@@ -3399,7 +3423,7 @@ proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage, completion
   withIface(self.p, IID_IHttpClient, "IHttpClient", it):
     withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IHttpClient_SendRequestAsync2, Fn_IHttpClient_SendRequestAsync2)(it, p0, completionOption, op.addr).check("HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.SendRequestAsync"))
+  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.SendRequestAsync"))
 
 proc defaultRequestHeaders*(self: HttpClient): HttpRequestHeaderCollection  =
   ## Windows.Web.Http.HttpClient.get_DefaultRequestHeaders
@@ -3414,7 +3438,7 @@ proc tryDeleteAsync*(self: HttpClient, uri: Uri): Future[HttpRequestResult] {.as
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryDeleteAsync, Fn_IHttpClient2_TryDeleteAsync)(it, p0, op.addr).check("HttpClient.TryDeleteAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TryDeleteAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryDeleteAsync"))
 
 proc tryGetAsync*(self: HttpClient, uri: Uri): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetAsync
@@ -3422,7 +3446,7 @@ proc tryGetAsync*(self: HttpClient, uri: Uri): Future[HttpRequestResult] {.async
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryGetAsync, Fn_IHttpClient2_TryGetAsync)(it, p0, op.addr).check("HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TryGetAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryGetAsync"))
 
 proc tryGetAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetAsync
@@ -3430,7 +3454,7 @@ proc tryGetAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOp
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryGetAsync2, Fn_IHttpClient2_TryGetAsync2)(it, p0, completionOption, op.addr).check("HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TryGetAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryGetAsync"))
 
 proc tryGetBufferAsync*(self: HttpClient, uri: Uri): Future[HttpGetBufferResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetBufferAsync
@@ -3438,7 +3462,7 @@ proc tryGetBufferAsync*(self: HttpClient, uri: Uri): Future[HttpGetBufferResult]
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryGetBufferAsync, Fn_IHttpClient2_TryGetBufferAsync)(it, p0, op.addr).check("HttpClient.TryGetBufferAsync")
-  result = adopt[HttpGetBufferResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpGetBufferResult, "HttpClient.TryGetBufferAsync"))
+  result = adopt[HttpGetBufferResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress, alProgress, "HttpClient.TryGetBufferAsync"))
 
 proc tryGetInputStreamAsync*(self: HttpClient, uri: Uri): Future[HttpGetInputStreamResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetInputStreamAsync
@@ -3446,7 +3470,7 @@ proc tryGetInputStreamAsync*(self: HttpClient, uri: Uri): Future[HttpGetInputStr
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryGetInputStreamAsync, Fn_IHttpClient2_TryGetInputStreamAsync)(it, p0, op.addr).check("HttpClient.TryGetInputStreamAsync")
-  result = adopt[HttpGetInputStreamResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpGetInputStreamResult, "HttpClient.TryGetInputStreamAsync"))
+  result = adopt[HttpGetInputStreamResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress, alProgress, "HttpClient.TryGetInputStreamAsync"))
 
 proc tryGetStringAsync*(self: HttpClient, uri: Uri): Future[HttpGetStringResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetStringAsync
@@ -3454,25 +3478,25 @@ proc tryGetStringAsync*(self: HttpClient, uri: Uri): Future[HttpGetStringResult]
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient2_TryGetStringAsync, Fn_IHttpClient2_TryGetStringAsync)(it, p0, op.addr).check("HttpClient.TryGetStringAsync")
-  result = adopt[HttpGetStringResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpGetStringResult, "HttpClient.TryGetStringAsync"))
+  result = adopt[HttpGetStringResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress, alProgress, "HttpClient.TryGetStringAsync"))
 
-proc tryPostAsync*(self: HttpClient, uri: Uri, content: HttpStringContent): Future[HttpRequestResult] {.async.} =
+proc tryPostAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryPostAsync
   var op: pointer
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
         vcall(it, Slot_IHttpClient2_TryPostAsync, Fn_IHttpClient2_TryPostAsync)(it, p0, p1, op.addr).check("HttpClient.TryPostAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TryPostAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryPostAsync"))
 
-proc tryPutAsync*(self: HttpClient, uri: Uri, content: HttpStringContent): Future[HttpRequestResult] {.async.} =
+proc tryPutAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryPutAsync
   var op: pointer
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
         vcall(it, Slot_IHttpClient2_TryPutAsync, Fn_IHttpClient2_TryPutAsync)(it, p0, p1, op.addr).check("HttpClient.TryPutAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TryPutAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryPutAsync"))
 
 proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
@@ -3480,7 +3504,7 @@ proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IHttpClient2_TrySendRequestAsync, Fn_IHttpClient2_TrySendRequestAsync)(it, p0, op.addr).check("HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TrySendRequestAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TrySendRequestAsync"))
 
 proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage, completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
@@ -3488,7 +3512,7 @@ proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage, complet
   withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
     withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
       vcall(it, Slot_IHttpClient2_TrySendRequestAsync2, Fn_IHttpClient2_TrySendRequestAsync2)(it, p0, completionOption, op.addr).check("HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpRequestResult, "HttpClient.TrySendRequestAsync"))
+  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TrySendRequestAsync"))
 
 proc defaultPrivacyAnnotation*(self: HttpClient): string  =
   ## Windows.Web.Http.HttpClient.get_DefaultPrivacyAnnotation
@@ -3515,12 +3539,13 @@ proc toString*(self: HttpClient): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpClient.ToString")
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpClient], filter: pointer): HttpClient  =
+proc create*(_: typedesc[HttpClient], filter: WinRtObject): HttpClient  =
   ## Windows.Web.Http.HttpClient.Create
   withStatics("Windows.Web.Http.HttpClient", IID_IHttpClientFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IHttpClientFactory_Create, Fn_IHttpClientFactory_Create)(it, filter, tmp.addr).check("HttpClient.Create")
-    result = adopt[HttpClient](tmp)
+    withIface(filter.p, IID_IHttpFilter, "IHttpFilter", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpClientFactory_Create, Fn_IHttpClientFactory_Create)(it, p0, tmp.addr).check("HttpClient.Create")
+      result = adopt[HttpClient](tmp)
 
 proc name*(self: HttpCookie): string  =
   ## Windows.Web.Http.HttpCookie.get_Name
@@ -3654,28 +3679,28 @@ proc bufferAllAsync*(self: HttpFormUrlEncodedContent): Future[uint64] {.async.} 
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpFormUrlEncodedContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpFormUrlEncodedContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpFormUrlEncodedContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpFormUrlEncodedContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpFormUrlEncodedContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpFormUrlEncodedContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.TryComputeLength
@@ -3687,13 +3712,13 @@ proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, leng
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpFormUrlEncodedContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpFormUrlEncodedContent.WriteToStreamAsync")
 
 proc close*(self: HttpFormUrlEncodedContent)  =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.Close
@@ -3782,12 +3807,12 @@ proc succeeded*(self: HttpGetInputStreamResult): bool  =
     vcall(it, Slot_IHttpGetInputStreamResult_get_Succeeded, Fn_IHttpGetInputStreamResult_get_Succeeded)(it, tmp.addr).check("HttpGetInputStreamResult.get_Succeeded")
     result = tmp
 
-proc value*(self: HttpGetInputStreamResult): InputStreamOverStream  =
+proc value*(self: HttpGetInputStreamResult): WinRtObject  =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_Value
   withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
     var tmp: pointer
     vcall(it, Slot_IHttpGetInputStreamResult_get_Value, Fn_IHttpGetInputStreamResult_get_Value)(it, tmp.addr).check("HttpGetInputStreamResult.get_Value")
-    result = adopt[InputStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc close*(self: HttpGetInputStreamResult)  =
   ## Windows.Web.Http.HttpGetInputStreamResult.Close
@@ -3923,7 +3948,7 @@ proc newHttpMultipartContent*(): HttpMultipartContent =
   ## Activate a `Windows.Web.Http.HttpMultipartContent`.
   adopt[HttpMultipartContent](activateAs("Windows.Web.Http.HttpMultipartContent", IID_IHttpMultipartContent))
 
-proc add*(self: HttpMultipartContent, content: HttpStringContent)  =
+proc add*(self: HttpMultipartContent, content: WinRtObject)  =
   ## Windows.Web.Http.HttpMultipartContent.Add
   withIface(self.p, IID_IHttpMultipartContent, "IHttpMultipartContent", it):
     withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
@@ -3941,28 +3966,28 @@ proc bufferAllAsync*(self: HttpMultipartContent): Future[uint64] {.async.} =
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpMultipartContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpMultipartContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpMultipartContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpMultipartContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpMultipartContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpMultipartContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpMultipartContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpMultipartContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpMultipartContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpMultipartContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpMultipartContent.TryComputeLength
@@ -3974,13 +3999,13 @@ proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: u
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartContent)  =
   ## Windows.Web.Http.HttpMultipartContent.Close
@@ -4015,20 +4040,20 @@ proc newHttpMultipartFormDataContent*(): HttpMultipartFormDataContent =
   ## Activate a `Windows.Web.Http.HttpMultipartFormDataContent`.
   adopt[HttpMultipartFormDataContent](activateAs("Windows.Web.Http.HttpMultipartFormDataContent", IID_IHttpMultipartFormDataContent))
 
-proc add*(self: HttpMultipartFormDataContent, content: HttpStringContent)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject)  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
   withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
     withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
       vcall(it, Slot_IHttpMultipartFormDataContent_Add, Fn_IHttpMultipartFormDataContent_Add)(it, p0).check("HttpMultipartFormDataContent.Add")
 
-proc add*(self: HttpMultipartFormDataContent, content: HttpStringContent, name: string)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject, name: string)  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
   withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
     withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
       withHString(name, h1):
         vcall(it, Slot_IHttpMultipartFormDataContent_Add2, Fn_IHttpMultipartFormDataContent_Add2)(it, p0, h1).check("HttpMultipartFormDataContent.Add")
 
-proc add*(self: HttpMultipartFormDataContent, content: HttpStringContent, name: string, fileName: string)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject, name: string, fileName: string)  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
   withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
     withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
@@ -4048,28 +4073,28 @@ proc bufferAllAsync*(self: HttpMultipartFormDataContent): Future[uint64] {.async
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartFormDataContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartFormDataContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpMultipartFormDataContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpMultipartFormDataContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpMultipartFormDataContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpMultipartFormDataContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpMultipartFormDataContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpMultipartFormDataContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpMultipartFormDataContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpMultipartFormDataContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.TryComputeLength
@@ -4081,13 +4106,13 @@ proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, l
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartFormDataContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartFormDataContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartFormDataContent)  =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Close
@@ -4113,14 +4138,14 @@ proc newHttpRequestMessage*(): HttpRequestMessage =
   ## Activate a `Windows.Web.Http.HttpRequestMessage`.
   adopt[HttpRequestMessage](activateAs("Windows.Web.Http.HttpRequestMessage", IID_IHttpRequestMessage))
 
-proc content*(self: HttpRequestMessage): HttpStringContent  =
+proc content*(self: HttpRequestMessage): WinRtObject  =
   ## Windows.Web.Http.HttpRequestMessage.get_Content
   withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
     var tmp: pointer
     vcall(it, Slot_IHttpRequestMessage_get_Content, Fn_IHttpRequestMessage_get_Content)(it, tmp.addr).check("HttpRequestMessage.get_Content")
-    result = adopt[HttpStringContent](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: HttpRequestMessage, value: HttpStringContent)  =
+proc `content=`*(self: HttpRequestMessage, value: WinRtObject)  =
   ## Windows.Web.Http.HttpRequestMessage.put_Content
   withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
     withIface(value.p, IID_IHttpContent, "IHttpContent", p0):
@@ -4151,7 +4176,7 @@ proc properties*(self: HttpRequestMessage): Table[string, WinRtObject]  =
   withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
     var tmp: pointer
     vcall(it, Slot_IHttpRequestMessage_get_Properties, Fn_IHttpRequestMessage_get_Properties)(it, tmp.addr).check("HttpRequestMessage.get_Properties")
-    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc requestUri*(self: HttpRequestMessage): Uri  =
@@ -4252,14 +4277,14 @@ proc newHttpResponseMessage*(): HttpResponseMessage =
   ## Activate a `Windows.Web.Http.HttpResponseMessage`.
   adopt[HttpResponseMessage](activateAs("Windows.Web.Http.HttpResponseMessage", IID_IHttpResponseMessage))
 
-proc content*(self: HttpResponseMessage): HttpStringContent  =
+proc content*(self: HttpResponseMessage): WinRtObject  =
   ## Windows.Web.Http.HttpResponseMessage.get_Content
   withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
     var tmp: pointer
     vcall(it, Slot_IHttpResponseMessage_get_Content, Fn_IHttpResponseMessage_get_Content)(it, tmp.addr).check("HttpResponseMessage.get_Content")
-    result = adopt[HttpStringContent](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: HttpResponseMessage, value: HttpStringContent)  =
+proc `content=`*(self: HttpResponseMessage, value: WinRtObject)  =
   ## Windows.Web.Http.HttpResponseMessage.put_Content
   withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
     withIface(value.p, IID_IHttpContent, "IHttpContent", p0):
@@ -4379,28 +4404,28 @@ proc bufferAllAsync*(self: HttpStreamContent): Future[uint64] {.async.} =
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStreamContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStreamContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpStreamContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStreamContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpStreamContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpStreamContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpStreamContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpStreamContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStreamContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpStreamContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpStreamContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpStreamContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStreamContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpStreamContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpStreamContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpStreamContent.TryComputeLength
@@ -4412,13 +4437,13 @@ proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpStreamContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStreamContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStreamContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStreamContent.WriteToStreamAsync")
 
 proc close*(self: HttpStreamContent)  =
   ## Windows.Web.Http.HttpStreamContent.Close
@@ -4432,7 +4457,7 @@ proc toString*(self: HttpStreamContent): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpStreamContent.ToString")
     result = takeString(tmp)
 
-proc createFromInputStream*(_: typedesc[HttpStreamContent], content: InputStreamOverStream): HttpStreamContent  =
+proc createFromInputStream*(_: typedesc[HttpStreamContent], content: WinRtObject): HttpStreamContent  =
   ## Windows.Web.Http.HttpStreamContent.CreateFromInputStream
   withStatics("Windows.Web.Http.HttpStreamContent", IID_IHttpStreamContentFactory, it):
     withIface(content.p, IID_IInputStream, "IInputStream", p0):
@@ -4452,28 +4477,28 @@ proc bufferAllAsync*(self: HttpStringContent): Future[uint64] {.async.} =
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStringContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.BufferAllAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStringContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpStringContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsBufferAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStringContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpStringContent.ReadAsBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpStringContent.ReadAsBufferAsync"))
 
-proc readAsInputStreamAsync*(self: HttpStringContent): Future[InputStreamOverStream] {.async.} =
+proc readAsInputStreamAsync*(self: HttpStringContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsInputStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStringContent.ReadAsInputStreamAsync")
-  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpStringContent.ReadAsInputStreamAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpStringContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpStringContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStringContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationCompletedHandler_1_String, "HttpStringContent.ReadAsStringAsync")
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpStringContent.ReadAsStringAsync")
 
 proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint64]  =
   ## Windows.Web.Http.HttpStringContent.TryComputeLength
@@ -4485,13 +4510,13 @@ proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpStringContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStringContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
       vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStringContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.WriteToStreamAsync")
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStringContent.WriteToStreamAsync")
 
 proc close*(self: HttpStringContent)  =
   ## Windows.Web.Http.HttpStringContent.Close
@@ -4848,7 +4873,7 @@ proc retrieveFeedAsync*(self: SyndicationClient, uri: Uri): Future[SyndicationFe
   withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("SyndicationClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_SyndicationFeed, "SyndicationClient.RetrieveFeedAsync"))
+  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress, alProgress, "SyndicationClient.RetrieveFeedAsync"))
 
 proc createSyndicationClient*(_: typedesc[SyndicationClient], serverCredential: PasswordCredential): SyndicationClient  =
   ## Windows.Web.Syndication.SyndicationClient.CreateSyndicationClient
@@ -5133,40 +5158,40 @@ proc `imageUri=`*(self: SyndicationFeed, value: Uri)  =
     withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_ISyndicationFeed_put_ImageUri, Fn_ISyndicationFeed_put_ImageUri)(it, p0).check("SyndicationFeed.put_ImageUri")
 
-proc rights*(self: SyndicationFeed): SyndicationText  =
+proc rights*(self: SyndicationFeed): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationFeed.get_Rights
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationFeed_get_Rights, Fn_ISyndicationFeed_get_Rights)(it, tmp.addr).check("SyndicationFeed.get_Rights")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `rights=`*(self: SyndicationFeed, value: SyndicationText)  =
+proc `rights=`*(self: SyndicationFeed, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationFeed.put_Rights
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
       vcall(it, Slot_ISyndicationFeed_put_Rights, Fn_ISyndicationFeed_put_Rights)(it, p0).check("SyndicationFeed.put_Rights")
 
-proc subtitle*(self: SyndicationFeed): SyndicationText  =
+proc subtitle*(self: SyndicationFeed): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationFeed.get_Subtitle
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationFeed_get_Subtitle, Fn_ISyndicationFeed_get_Subtitle)(it, tmp.addr).check("SyndicationFeed.get_Subtitle")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `subtitle=`*(self: SyndicationFeed, value: SyndicationText)  =
+proc `subtitle=`*(self: SyndicationFeed, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationFeed.put_Subtitle
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
       vcall(it, Slot_ISyndicationFeed_put_Subtitle, Fn_ISyndicationFeed_put_Subtitle)(it, p0).check("SyndicationFeed.put_Subtitle")
 
-proc title*(self: SyndicationFeed): SyndicationText  =
+proc title*(self: SyndicationFeed): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationFeed.get_Title
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationFeed_get_Title, Fn_ISyndicationFeed_get_Title)(it, tmp.addr).check("SyndicationFeed.get_Title")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: SyndicationFeed, value: SyndicationText)  =
+proc `title=`*(self: SyndicationFeed, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationFeed.put_Title
   withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
@@ -5542,14 +5567,14 @@ proc `publishedDate=`*(self: SyndicationItem, value: DateTime)  =
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     vcall(it, Slot_ISyndicationItem_put_PublishedDate, Fn_ISyndicationItem_put_PublishedDate)(it, value).check("SyndicationItem.put_PublishedDate")
 
-proc rights*(self: SyndicationItem): SyndicationText  =
+proc rights*(self: SyndicationItem): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationItem.get_Rights
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationItem_get_Rights, Fn_ISyndicationItem_get_Rights)(it, tmp.addr).check("SyndicationItem.get_Rights")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `rights=`*(self: SyndicationItem, value: SyndicationText)  =
+proc `rights=`*(self: SyndicationItem, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationItem.put_Rights
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
@@ -5568,27 +5593,27 @@ proc `source=`*(self: SyndicationItem, value: SyndicationFeed)  =
     withIface(value.p, IID_ISyndicationFeed, "ISyndicationFeed", p0):
       vcall(it, Slot_ISyndicationItem_put_Source, Fn_ISyndicationItem_put_Source)(it, p0).check("SyndicationItem.put_Source")
 
-proc summary*(self: SyndicationItem): SyndicationText  =
+proc summary*(self: SyndicationItem): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationItem.get_Summary
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationItem_get_Summary, Fn_ISyndicationItem_get_Summary)(it, tmp.addr).check("SyndicationItem.get_Summary")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `summary=`*(self: SyndicationItem, value: SyndicationText)  =
+proc `summary=`*(self: SyndicationItem, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationItem.put_Summary
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
       vcall(it, Slot_ISyndicationItem_put_Summary, Fn_ISyndicationItem_put_Summary)(it, p0).check("SyndicationItem.put_Summary")
 
-proc title*(self: SyndicationItem): SyndicationText  =
+proc title*(self: SyndicationItem): WinRtObject  =
   ## Windows.Web.Syndication.SyndicationItem.get_Title
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     var tmp: pointer
     vcall(it, Slot_ISyndicationItem_get_Title, Fn_ISyndicationItem_get_Title)(it, tmp.addr).check("SyndicationItem.get_Title")
-    result = adopt[SyndicationText](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: SyndicationItem, value: SyndicationText)  =
+proc `title=`*(self: SyndicationItem, value: WinRtObject)  =
   ## Windows.Web.Syndication.SyndicationItem.put_Title
   withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
     withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
@@ -6431,11 +6456,12 @@ proc navigateToString*(self: WebViewControl, text: string)  =
     withHString(text, h0):
       vcall(it, Slot_IWebViewControl_NavigateToString, Fn_IWebViewControl_NavigateToString)(it, h0).check("WebViewControl.NavigateToString")
 
-proc navigateToLocalStreamUri*(self: WebViewControl, source: Uri, streamResolver: pointer)  =
+proc navigateToLocalStreamUri*(self: WebViewControl, source: Uri, streamResolver: WinRtObject)  =
   ## Windows.Web.UI.Interop.WebViewControl.NavigateToLocalStreamUri
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     withIface(source.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IWebViewControl_NavigateToLocalStreamUri, Fn_IWebViewControl_NavigateToLocalStreamUri)(it, p0, streamResolver).check("WebViewControl.NavigateToLocalStreamUri")
+      withIface(streamResolver.p, IID_IUriToStreamResolver, "IUriToStreamResolver", p1):
+        vcall(it, Slot_IWebViewControl_NavigateToLocalStreamUri, Fn_IWebViewControl_NavigateToLocalStreamUri)(it, p0, p1).check("WebViewControl.NavigateToLocalStreamUri")
 
 proc navigateWithHttpRequestMessage*(self: WebViewControl, requestMessage: HttpRequestMessage)  =
   ## Windows.Web.UI.Interop.WebViewControl.NavigateWithHttpRequestMessage
@@ -6451,22 +6477,22 @@ proc invokeScriptAsync*(self: WebViewControl, scriptName: string, arguments: seq
       let p1 = asIterableString(arguments, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
       defer: discard release(p1)
       vcall(it, Slot_IWebViewControl_InvokeScriptAsync, Fn_IWebViewControl_InvokeScriptAsync)(it, h0, p1, op.addr).check("WebViewControl.InvokeScriptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "WebViewControl.InvokeScriptAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "WebViewControl.InvokeScriptAsync")
 
-proc capturePreviewToStreamAsync*(self: WebViewControl, stream: RandomAccessStreamOverStream) {.async.} =
+proc capturePreviewToStreamAsync*(self: WebViewControl, stream: WinRtObject) {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync
   var op: pointer
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
       vcall(it, Slot_IWebViewControl_CapturePreviewToStreamAsync, Fn_IWebViewControl_CapturePreviewToStreamAsync)(it, p0, op.addr).check("WebViewControl.CapturePreviewToStreamAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebViewControl.CapturePreviewToStreamAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebViewControl.CapturePreviewToStreamAsync")
 
 proc captureSelectedContentToDataPackageAsync*(self: WebViewControl): Future[DataPackage] {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CaptureSelectedContentToDataPackageAsync
   var op: pointer
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     vcall(it, Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync, Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync)(it, op.addr).check("WebViewControl.CaptureSelectedContentToDataPackageAsync")
-  result = adopt[DataPackage](await awaitObject(op, IID_IAsyncOperation_1_DataPackage, IID_AsyncOperationCompletedHandler_1_DataPackage, "WebViewControl.CaptureSelectedContentToDataPackageAsync"))
+  result = adopt[DataPackage](await awaitObject(op, IID_IAsyncOperation_1_DataPackage, IID_AsyncOperationCompletedHandler_1_DataPackage, alPlain, "WebViewControl.CaptureSelectedContentToDataPackageAsync"))
 
 proc buildLocalStreamUri*(self: WebViewControl, contentIdentifier: string, relativePath: string): Uri  =
   ## Windows.Web.UI.Interop.WebViewControl.BuildLocalStreamUri
@@ -7019,7 +7045,7 @@ proc createWebViewControlAsync*(self: WebViewControlProcess, hostWindowHandle: i
   var op: pointer
   withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
     vcall(it, Slot_IWebViewControlProcess_CreateWebViewControlAsync, Fn_IWebViewControlProcess_CreateWebViewControlAsync)(it, hostWindowHandle, bounds, op.addr).check("WebViewControlProcess.CreateWebViewControlAsync")
-  result = adopt[WebViewControl](await awaitObject(op, IID_IAsyncOperation_1_WebViewControl, IID_AsyncOperationCompletedHandler_1_WebViewControl, "WebViewControlProcess.CreateWebViewControlAsync"))
+  result = adopt[WebViewControl](await awaitObject(op, IID_IAsyncOperation_1_WebViewControl, IID_AsyncOperationCompletedHandler_1_WebViewControl, alPlain, "WebViewControlProcess.CreateWebViewControlAsync"))
 
 proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl]  =
   ## Windows.Web.UI.Interop.WebViewControlProcess.GetWebViewControls

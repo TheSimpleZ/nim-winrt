@@ -2850,14 +2850,14 @@ proc `significantDigits=`*(self: CurrencyFormatter, value: int32)  =
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
     vcall(it, Slot_ISignificantDigitsOption_put_SignificantDigits, Fn_ISignificantDigitsOption_put_SignificantDigits)(it, value).check("CurrencyFormatter.put_SignificantDigits")
 
-proc numberRounder*(self: CurrencyFormatter): SignificantDigitsNumberRounder  =
+proc numberRounder*(self: CurrencyFormatter): WinRtObject  =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.get_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     var tmp: pointer
     vcall(it, Slot_INumberRounderOption_get_NumberRounder, Fn_INumberRounderOption_get_NumberRounder)(it, tmp.addr).check("CurrencyFormatter.get_NumberRounder")
-    result = adopt[SignificantDigitsNumberRounder](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `numberRounder=`*(self: CurrencyFormatter, value: SignificantDigitsNumberRounder)  =
+proc `numberRounder=`*(self: CurrencyFormatter, value: WinRtObject)  =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.put_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     withIface(value.p, IID_INumberRounder, "INumberRounder", p0):
@@ -3069,14 +3069,14 @@ proc `significantDigits=`*(self: DecimalFormatter, value: int32)  =
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
     vcall(it, Slot_ISignificantDigitsOption_put_SignificantDigits, Fn_ISignificantDigitsOption_put_SignificantDigits)(it, value).check("DecimalFormatter.put_SignificantDigits")
 
-proc numberRounder*(self: DecimalFormatter): SignificantDigitsNumberRounder  =
+proc numberRounder*(self: DecimalFormatter): WinRtObject  =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.get_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     var tmp: pointer
     vcall(it, Slot_INumberRounderOption_get_NumberRounder, Fn_INumberRounderOption_get_NumberRounder)(it, tmp.addr).check("DecimalFormatter.get_NumberRounder")
-    result = adopt[SignificantDigitsNumberRounder](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `numberRounder=`*(self: DecimalFormatter, value: SignificantDigitsNumberRounder)  =
+proc `numberRounder=`*(self: DecimalFormatter, value: WinRtObject)  =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.put_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     withIface(value.p, IID_INumberRounder, "INumberRounder", p0):
@@ -3398,14 +3398,14 @@ proc `significantDigits=`*(self: PercentFormatter, value: int32)  =
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
     vcall(it, Slot_ISignificantDigitsOption_put_SignificantDigits, Fn_ISignificantDigitsOption_put_SignificantDigits)(it, value).check("PercentFormatter.put_SignificantDigits")
 
-proc numberRounder*(self: PercentFormatter): SignificantDigitsNumberRounder  =
+proc numberRounder*(self: PercentFormatter): WinRtObject  =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.get_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     var tmp: pointer
     vcall(it, Slot_INumberRounderOption_get_NumberRounder, Fn_INumberRounderOption_get_NumberRounder)(it, tmp.addr).check("PercentFormatter.get_NumberRounder")
-    result = adopt[SignificantDigitsNumberRounder](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `numberRounder=`*(self: PercentFormatter, value: SignificantDigitsNumberRounder)  =
+proc `numberRounder=`*(self: PercentFormatter, value: WinRtObject)  =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.put_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     withIface(value.p, IID_INumberRounder, "INumberRounder", p0):
@@ -3608,14 +3608,14 @@ proc `significantDigits=`*(self: PermilleFormatter, value: int32)  =
   withIface(self.p, IID_ISignificantDigitsOption, "ISignificantDigitsOption", it):
     vcall(it, Slot_ISignificantDigitsOption_put_SignificantDigits, Fn_ISignificantDigitsOption_put_SignificantDigits)(it, value).check("PermilleFormatter.put_SignificantDigits")
 
-proc numberRounder*(self: PermilleFormatter): SignificantDigitsNumberRounder  =
+proc numberRounder*(self: PermilleFormatter): WinRtObject  =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.get_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     var tmp: pointer
     vcall(it, Slot_INumberRounderOption_get_NumberRounder, Fn_INumberRounderOption_get_NumberRounder)(it, tmp.addr).check("PermilleFormatter.get_NumberRounder")
-    result = adopt[SignificantDigitsNumberRounder](tmp)
+    result = adopt[WinRtObject](tmp)
 
-proc `numberRounder=`*(self: PermilleFormatter, value: SignificantDigitsNumberRounder)  =
+proc `numberRounder=`*(self: PermilleFormatter, value: WinRtObject)  =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.put_NumberRounder
   withIface(self.p, IID_INumberRounderOption, "INumberRounderOption", it):
     withIface(value.p, IID_INumberRounder, "INumberRounder", p0):

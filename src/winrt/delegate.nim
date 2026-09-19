@@ -19,73 +19,59 @@
 ## * **An event handler must not report failure.** XAML treats a failing
 ##   HRESULT out of its own event dispatch as fatal and tears the process down,
 ##   so one bug in one handler would end the application with nothing in the
-##   log. See `eventInvoke`.
+##   log. See `guarded`.
 ##
-## ## One table, three shapes
+## ## One table, one shape per signature
 ##
-## A WinRT delegate's `Invoke` takes nothing, one argument or two — a
-## `DispatcherQueueHandler` just runs, an event handler gets a sender and
-## event arguments — and those are different vtable layouts that cannot be
-## interchanged. On x64 the extra arguments ride in registers, so calling
-## through the wrong shape happens to survive, which is worse than failing: it
-## works until the day it does not.
+## `Invoke` takes whatever the delegate declares: nothing, an object, a sender
+## and arguments, a `SignalNotifier` and a `bool`. Each of those is a different
+## C signature, and calling through the wrong one reads an argument out of a
+## register that never held it. So the trampoline is generic over the argument
+## types and instantiated per delegate signature, and its vtable with it —
+## `{.global.}` inside a generic proc is one table per instantiation.
 ##
-## So there are three `Invoke` trampolines and three vtables, and *everything
-## else* is shared. Handlers are normalised to two parameters on the way in,
-## with the shorter kinds ignoring what they do not have. That matters because
-## the bookkeeping below — the slot table, the free list, the refcounting —
-## would otherwise be written three times, and a fix to one copy is a fix
-## missing from the others.
+## Everything else is shared: the object layout, the refcounting, and the
+## table of live handlers below. A closure's environment is GC-managed and the
+## COM object is not, so the closure cannot live inside the object; it lives
+## here, where the GC can see it, and the object holds its index.
 
 import ./core
 include ./abidef
 
 type
-  VoidProc* = proc() {.closure.}
-    ## A delegate whose `Invoke` takes nothing at all — `DispatcherQueueHandler`
-    ## and the other "just run this" callbacks.
-
-  DelegateProc* = proc(args: pointer) {.closure.}
-    ## A delegate whose `Invoke` takes one argument.
-
   EventProc* = proc(sender, args: pointer) {.closure.}
     ## A WinRT event handler: sender, then event arguments.
 
-  StoredProc = proc(a, b: pointer) {.closure.}
-    ## How all three kinds are kept, the shorter ones wrapped to ignore the
-    ## arguments they do not take.
+  Stored = ref object of RootObj
+    ## A handler as the table keeps it. Each argument shape derives from this
+    ## and the trampoline for that shape knows which one it holds.
+    swallow: bool   ## report S_OK even if the handler raised
 
-  DelegateVtbl {.pure.} = object
+  Stored0 = ref object of Stored
+    fn: proc() {.closure.}
+  Stored1[A] = ref object of Stored
+    fn: proc(a: A) {.closure.}
+  Stored2[A, B] = ref object of Stored
+    fn: proc(a: A, b: B) {.closure.}
+  Stored3[A, B, C] = ref object of Stored
+    fn: proc(a: A, b: B, c: C) {.closure.}
+
+  Vtbl = object
+    ## IUnknown, then Invoke. The type of `invoke` differs per shape, so the
+    ## slot is a bare pointer here and each shape's table is built over it.
     queryInterface: proc(self: pointer, riid: ptr GUID,
                          ppv: ptr pointer): HRESULT {.callback.}
     addRef: proc(self: pointer): uint32 {.callback.}
     release: proc(self: pointer): uint32 {.callback.}
-    invoke: proc(self: pointer, args: pointer): HRESULT {.callback.}
-
-  VoidVtbl {.pure.} = object
-    queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.callback.}
-    addRef: proc(self: pointer): uint32 {.callback.}
-    release: proc(self: pointer): uint32 {.callback.}
-    invoke: proc(self: pointer): HRESULT {.callback.}
-
-  EventVtbl {.pure.} = object
-    queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.callback.}
-    addRef: proc(self: pointer): uint32 {.callback.}
-    release: proc(self: pointer): uint32 {.callback.}
-    invoke: proc(self: pointer, sender, args: pointer): HRESULT {.callback.}
+    invoke: pointer
 
   DelegateImpl {.pure.} = object
     ## Manually allocated, because its lifetime belongs to COM and not to Nim.
-    vtbl: ptr DelegateVtbl   ## must stay first
+    vtbl: ptr Vtbl           ## must stay first
     refs: int32
     iid: GUID
     slot: int32              ## index into `handlers`
-# Handlers live here so the GC can see them: a closure's environment is
-# GC-managed and the COM object is not, so burying one inside the other gives a
-# callback into freed memory some minutes after it starts working.
-#
+
 # An entry is cleared rather than removed, because a live delegate holds its
 # index. The index then goes on a free list and is handed to the next delegate,
 # which is what stops a long-running app from growing one dead slot per
@@ -93,10 +79,10 @@ type
 # otherwise never stop growing. Reuse is safe precisely because a slot is only
 # freed when the delegate holding it has been destroyed.
 var
-  handlers: seq[StoredProc] = @[]
+  handlers: seq[Stored] = @[]
   freeSlots: seq[int32] = @[]
 
-proc takeSlot(handler: StoredProc): int32 =
+proc takeSlot(handler: Stored): int32 =
   if freeSlots.len > 0:
     result = freeSlots.pop()
     handlers[result] = handler
@@ -109,7 +95,7 @@ proc dropSlot(slot: int32) =
     handlers[slot] = nil
     freeSlots.add slot
 
-proc handlerAt(self: pointer): StoredProc =
+proc handlerAt(self: pointer): Stored =
   let d = cast[ptr DelegateImpl](self)
   if d.slot < 0 or d.slot >= handlers.len.int32: nil
   else: handlers[d.slot]
@@ -158,107 +144,101 @@ proc queryInterface(self: pointer, riid: ptr GUID,
 
 # --------------------------------------------------------------- Invoke
 
-proc plainInvoke(self: pointer, args: pointer): HRESULT {.callback.} =
-  ## The one-argument shape, used for lifecycle callbacks.
+template guarded(self: pointer, body: untyped): HRESULT =
+  ## Run the handler and decide what to tell the runtime.
   ##
-  ## This one *does* report failure, unlike `eventInvoke`: if the application's
-  ## initialization callback cannot do its job there is nothing to carry on
-  ## with, and `Application.Start` should say so.
-  let handler = handlerAt(self)
-  if handler.isNil:
-    return E_FAIL
-  try:
-    handler(args, nil)
-    S_OK
-  except CatchableError as e:
-    report("handler", e.msg)
+  ## A handler that raises is contained and reported either way. Whether the
+  ## call then *fails* depends on who is asking. A method that took a callback
+  ## — the application's initialization, a work item — is entitled to hear that
+  ## it did not run. An event source is not: a failing HRESULT out of XAML's
+  ## own event dispatch tears the process down, and the event has been
+  ## delivered either way, so those report success regardless.
+  let stored {.inject.} = handlerAt(self)
+  if stored.isNil:
     E_FAIL
-  except Exception as e:
-    report("handler (defect)", e.msg)
-    E_FAIL
+  else:
+    var hr = S_OK
+    try:
+      body
+    except CatchableError as e:
+      report("handler", e.msg)
+      if not stored.swallow: hr = E_FAIL
+    except Exception as e:
+      report("handler (defect)", e.msg)
+      if not stored.swallow: hr = E_FAIL
+    hr
 
-proc voidInvoke(self: pointer): HRESULT {.callback.} =
-  ## The no-argument shape. Like `plainInvoke` it reports failure: the caller
-  ## asked for work to be done and is entitled to know it was not.
-  let handler = handlerAt(self)
-  if handler.isNil:
-    return E_FAIL
-  try:
-    handler(nil, nil)
-    S_OK
-  except CatchableError as e:
-    report("handler", e.msg)
-    E_FAIL
-  except Exception as e:
-    report("handler (defect)", e.msg)
-    E_FAIL
+proc invoke0(self: pointer): HRESULT {.callback.} =
+  guarded(self): Stored0(stored).fn()
 
-proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.callback.} =
-  ## The two-argument shape, and it always returns S_OK.
-  ##
-  ## A failing HRESULT out of an event handler is not a neutral way to report a
-  ## problem: XAML treats a failure returned from its own event dispatch as
-  ## fatal and tears the application down, so one bug in one handler ends the
-  ## process with nothing in the log. There is nothing useful the runtime
-  ## could do with it in any case — the event has been delivered either way. So
-  ## the exception is contained, reported, and the event reported as handled.
-  let handler = handlerAt(self)
-  if handler.isNil:
-    return S_OK
-  try:
-    handler(sender, args)
-  except CatchableError as e:
-    report("event handler", e.msg)
-  except Exception as e:
-    report("event handler (defect)", e.msg)
-  S_OK
+proc invoke1[A](self: pointer, a: A): HRESULT {.callback.} =
+  guarded(self): Stored1[A](stored).fn(a)
 
-# One vtable per shape, shared by every delegate of that shape: the tables are
-# identical and only the object's IID and slot differ. That also keeps the
-# number of distinct trampolines constant however many delegates exist.
-var plainVtbl = DelegateVtbl(
-  queryInterface: queryInterface, addRef: addRef, release: release,
-  invoke: plainInvoke)
+proc invoke2[A, B](self: pointer, a: A, b: B): HRESULT {.callback.} =
+  guarded(self): Stored2[A, B](stored).fn(a, b)
 
-var voidVtbl = VoidVtbl(
-  queryInterface: queryInterface, addRef: addRef, release: release,
-  invoke: voidInvoke)
+proc invoke3[A, B, C](self: pointer, a: A, b: B, c: C): HRESULT {.callback.} =
+  guarded(self): Stored3[A, B, C](stored).fn(a, b, c)
 
-var eventVtbl = EventVtbl(
-  queryInterface: queryInterface, addRef: addRef, release: release,
-  invoke: eventInvoke)
-
-proc make(iid: GUID, handler: StoredProc, vtbl: pointer): pointer =
+proc make(iid: GUID, handler: Stored, vtbl: ptr Vtbl): pointer =
   let d = cast[ptr DelegateImpl](allocShared0(sizeof(DelegateImpl)))
-  d.vtbl = cast[ptr DelegateVtbl](vtbl)
+  d.vtbl = vtbl
   d.refs = 1
   d.iid = iid
   d.slot = takeSlot(handler)
   cast[pointer](d)
 
+# Each constructor returns a delegate with a refcount of 1. Hand it to the
+# method or `add_Xxx` that wanted it, which takes its own reference, and
+# release yours; the object frees itself when the runtime lets go, which may
+# be after the call returns.
+#
+# `A`, `B` and `C` are the types `Invoke` is declared with *at the ABI* — a
+# `pointer` for an object, an `HSTRING` for a string, a `bool`, an enum, a
+# struct by value. The generated wrappers build a closure of that shape around
+# the one the caller wrote.
+
+proc newDelegate*(iid: GUID, handler: proc() {.closure.}): pointer =
+  ## A delegate whose `Invoke` takes no arguments.
+  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
+  var vtbl {.global.} = Vtbl(queryInterface: queryInterface, addRef: addRef,
+                             release: release, invoke: cast[pointer](invoke0))
+  make(iid, Stored0(fn: handler), vtbl.addr)
+
+proc newDelegate*[A](iid: GUID, handler: proc(a: A) {.closure.}): pointer =
+  ## A delegate whose `Invoke` takes one argument.
+  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
+  var vtbl {.global.} = Vtbl(queryInterface: queryInterface, addRef: addRef,
+                             release: release,
+                             invoke: cast[pointer](invoke1[A]))
+  make(iid, Stored1[A](fn: handler), vtbl.addr)
+
+proc newDelegate*[A, B](iid: GUID,
+                        handler: proc(a: A, b: B) {.closure.}): pointer =
+  ## A delegate whose `Invoke` takes two arguments.
+  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
+  var vtbl {.global.} = Vtbl(queryInterface: queryInterface, addRef: addRef,
+                             release: release,
+                             invoke: cast[pointer](invoke2[A, B]))
+  make(iid, Stored2[A, B](fn: handler), vtbl.addr)
+
+proc newDelegate*[A, B, C](iid: GUID,
+                           handler: proc(a: A, b: B, c: C) {.closure.}): pointer =
+  ## A delegate whose `Invoke` takes three arguments.
+  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
+  var vtbl {.global.} = Vtbl(queryInterface: queryInterface, addRef: addRef,
+                             release: release,
+                             invoke: cast[pointer](invoke3[A, B, C]))
+  make(iid, Stored3[A, B, C](fn: handler), vtbl.addr)
+
 proc newEventDelegate*(iid: GUID, handler: EventProc): pointer =
-  ## A COM delegate for a WinRT *event*, whose `Invoke` takes a sender and
-  ## event arguments.
-  ##
-  ## Returned with a refcount of 1. Hand it to `add_Xxx`, which AddRefs it, and
-  ## release your own reference; the object frees itself when the event source
-  ## lets go.
+  ## A delegate for a WinRT *event*: sender and arguments, and a handler that
+  ## raises is reported but never fails the event.
   doAssert not handler.isNil, "winrt: event handler must not be nil"
-  make(iid, handler, eventVtbl.addr)
-
-proc newDelegate*(iid: GUID, handler: DelegateProc): pointer =
-  ## A COM delegate whose `Invoke` takes a single argument.
-  ##
-  ## Returned with a refcount of 1, like `newEventDelegate`.
-  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, proc(a, b: pointer) = handler(a), plainVtbl.addr)
-
-proc newVoidDelegate*(iid: GUID, handler: VoidProc): pointer =
-  ## A COM delegate whose `Invoke` takes no arguments.
-  ##
-  ## Returned with a refcount of 1, like `newEventDelegate`.
-  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, proc(a, b: pointer) = handler(), voidVtbl.addr)
+  var vtbl {.global.} = Vtbl(queryInterface: queryInterface, addRef: addRef,
+                             release: release,
+                             invoke: cast[pointer](invoke2[pointer, pointer]))
+  make(iid, Stored2[pointer, pointer](fn: handler, swallow: true), vtbl.addr)
 
 proc delegateTableSizes*(): tuple[slots, free: int] =
   ## Diagnostic: how many slots the handler table holds, and how many of those

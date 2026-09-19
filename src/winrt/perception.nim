@@ -115,6 +115,12 @@ const IID_IAsyncOperation_1_SpatialSurfaceMesh* = GUID(
 const IID_IVectorView_1_DirectXPixelFormat* = GUID(
     data1: 0x1EDDA1C2'u32, data2: 0x0F6E'u16, data3: 0x516C'u16,
     data4: [0x80'u8, 0xB8, 0x76, 0x87, 0xDC, 0xD1, 0x28, 0x0E])
+const IID_IKeyValuePair_2_Guid_SpatialSurfaceInfo* = GUID(
+    data1: 0xA6BDF94A'u32, data2: 0x2697'u16, data3: 0x5FF2'u16,
+    data4: [0x89'u8, 0xDC, 0xA1, 0x7C, 0xEC, 0xDC, 0xDA, 0x6C])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x868757D1'u32, data2: 0xBE21'u16, data3: 0x51D9'u16,
+    data4: [0x8D'u8, 0xEE, 0xA9, 0x58, 0xB9, 0xDE, 0xEC, 0x71])
 const IID_IIterable_1_SpatialBoundingVolume* = GUID(
     data1: 0x89E8F1EE'u32, data2: 0x3A2A'u16, data3: 0x5B69'u16,
     data4: [0xA7'u8, 0x86, 0xCD, 0xDC, 0xF7, 0x45, 0x6A, 0x3A])
@@ -129,10 +135,11 @@ const IID_TypedEventHandler_2_SpatialSurfaceObserver_Object* = GUID(
     data4: [0x90'u8, 0x14, 0xB0, 0xF5, 0xF6, 0x5A, 0x35, 0x39])
 
 
-proc setActivationFactoryProvider*(_: typedesc[CorePerceptionAutomation], provider: pointer)  =
+proc setActivationFactoryProvider*(_: typedesc[CorePerceptionAutomation], provider: WinRtObject)  =
   ## Windows.Perception.Automation.Core.CorePerceptionAutomation.SetActivationFactoryProvider
   withStatics("Windows.Perception.Automation.Core.CorePerceptionAutomation", IID_ICorePerceptionAutomationStatics, it):
-    vcall(it, Slot_ICorePerceptionAutomationStatics_SetActivationFactoryProvider, Fn_ICorePerceptionAutomationStatics_SetActivationFactoryProvider)(it, provider).check("CorePerceptionAutomation.SetActivationFactoryProvider")
+    withIface(provider.p, IID_IGetActivationFactory, "IGetActivationFactory", p0):
+      vcall(it, Slot_ICorePerceptionAutomationStatics_SetActivationFactoryProvider, Fn_ICorePerceptionAutomationStatics_SetActivationFactoryProvider)(it, p0).check("CorePerceptionAutomation.SetActivationFactoryProvider")
 
 proc isCalibrationValid*(self: EyesPose): bool  =
   ## Windows.Perception.People.EyesPose.get_IsCalibrationValid
@@ -168,7 +175,7 @@ proc requestAccessAsync*(_: typedesc[EyesPose]): Future[GazeInputAccessStatus] {
   var op: pointer
   withStatics("Windows.Perception.People.EyesPose", IID_IEyesPoseStatics, it):
     vcall(it, Slot_IEyesPoseStatics_RequestAccessAsync, Fn_IEyesPoseStatics_RequestAccessAsync)(it, op.addr).check("EyesPose.RequestAccessAsync")
-  result = await awaitValue[GazeInputAccessStatus](op, IID_IAsyncOperation_1_GazeInputAccessStatus, IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus, "EyesPose.RequestAccessAsync")
+  result = await awaitValue[GazeInputAccessStatus](op, IID_IAsyncOperation_1_GazeInputAccessStatus, IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus, alPlain, "EyesPose.RequestAccessAsync")
 
 proc source*(self: HandMeshObserver): SpatialInteractionSource  =
   ## Windows.Perception.People.HandMeshObserver.get_Source
@@ -509,16 +516,16 @@ proc getAnchorExportSufficiencyAsync*(self: SpatialAnchorExporter, anchor: Spati
   withIface(self.p, IID_ISpatialAnchorExporter, "ISpatialAnchorExporter", it):
     withIface(anchor.p, IID_ISpatialAnchor, "ISpatialAnchor", p0):
       vcall(it, Slot_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync, Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync)(it, p0, purpose, op.addr).check("SpatialAnchorExporter.GetAnchorExportSufficiencyAsync")
-  result = adopt[SpatialAnchorExportSufficiency](await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorExportSufficiency, IID_AsyncOperationCompletedHandler_1_SpatialAnchorExportSufficiency, "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"))
+  result = adopt[SpatialAnchorExportSufficiency](await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorExportSufficiency, IID_AsyncOperationCompletedHandler_1_SpatialAnchorExportSufficiency, alPlain, "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"))
 
-proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor, purpose: SpatialAnchorExportPurpose, stream: OutputStreamOverStream): Future[bool] {.async.} =
+proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor, purpose: SpatialAnchorExportPurpose, stream: WinRtObject): Future[bool] {.async.} =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.TryExportAnchorAsync
   var op: pointer
   withIface(self.p, IID_ISpatialAnchorExporter, "ISpatialAnchorExporter", it):
     withIface(anchor.p, IID_ISpatialAnchor, "ISpatialAnchor", p0):
       withIface(stream.p, IID_IOutputStream, "IOutputStream", p2):
         vcall(it, Slot_ISpatialAnchorExporter_TryExportAnchorAsync, Fn_ISpatialAnchorExporter_TryExportAnchorAsync)(it, p0, purpose, p2, op.addr).check("SpatialAnchorExporter.TryExportAnchorAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SpatialAnchorExporter.TryExportAnchorAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "SpatialAnchorExporter.TryExportAnchorAsync")
 
 proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter  =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.GetDefault
@@ -532,14 +539,14 @@ proc requestAccessAsync*(_: typedesc[SpatialAnchorExporter]): Future[SpatialPerc
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorExporter", IID_ISpatialAnchorExporterStatics, it):
     vcall(it, Slot_ISpatialAnchorExporterStatics_RequestAccessAsync, Fn_ISpatialAnchorExporterStatics_RequestAccessAsync)(it, op.addr).check("SpatialAnchorExporter.RequestAccessAsync")
-  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, "SpatialAnchorExporter.RequestAccessAsync")
+  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, alPlain, "SpatialAnchorExporter.RequestAccessAsync")
 
 proc requestStoreAsync*(_: typedesc[SpatialAnchorManager]): Future[SpatialAnchorStore] {.async.} =
   ## Windows.Perception.Spatial.SpatialAnchorManager.RequestStoreAsync
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorManager", IID_ISpatialAnchorManagerStatics, it):
     vcall(it, Slot_ISpatialAnchorManagerStatics_RequestStoreAsync, Fn_ISpatialAnchorManagerStatics_RequestStoreAsync)(it, op.addr).check("SpatialAnchorManager.RequestStoreAsync")
-  result = adopt[SpatialAnchorStore](await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorStore, IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore, "SpatialAnchorManager.RequestStoreAsync"))
+  result = adopt[SpatialAnchorStore](await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorStore, IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore, alPlain, "SpatialAnchorManager.RequestStoreAsync"))
 
 proc oldRawCoordinateSystemToNewRawCoordinateSystemTransform*(self: SpatialAnchorRawCoordinateSystemAdjustedEventArgs): Matrix4x4  =
   ## Windows.Perception.Spatial.SpatialAnchorRawCoordinateSystemAdjustedEventArgs.get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform
@@ -553,7 +560,7 @@ proc getAllSavedAnchors*(self: SpatialAnchorStore): Table[string, SpatialAnchor]
   withIface(self.p, IID_ISpatialAnchorStore, "ISpatialAnchorStore", it):
     var tmp: pointer
     vcall(it, Slot_ISpatialAnchorStore_GetAllSavedAnchors, Fn_ISpatialAnchorStore_GetAllSavedAnchors)(it, tmp.addr).check("SpatialAnchorStore.GetAllSavedAnchors")
-    result = toTable[SpatialAnchor](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_SpatialAnchor)
+    result = toTable[string, SpatialAnchor](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_SpatialAnchor)
     release(tmp)
 
 proc trySave*(self: SpatialAnchorStore, id: string, anchor: SpatialAnchor): bool  =
@@ -581,7 +588,7 @@ proc requestAccessAsync*(_: typedesc[SpatialAnchorTransferManager]): Future[Spat
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager", IID_ISpatialAnchorTransferManagerStatics, it):
     vcall(it, Slot_ISpatialAnchorTransferManagerStatics_RequestAccessAsync, Fn_ISpatialAnchorTransferManagerStatics_RequestAccessAsync)(it, op.addr).check("SpatialAnchorTransferManager.RequestAccessAsync")
-  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, "SpatialAnchorTransferManager.RequestAccessAsync")
+  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, alPlain, "SpatialAnchorTransferManager.RequestAccessAsync")
 
 proc fromBox*(_: typedesc[SpatialBoundingVolume], coordinateSystem: SpatialCoordinateSystem, box: SpatialBoundingBox): SpatialBoundingVolume  =
   ## Windows.Perception.Spatial.SpatialBoundingVolume.FromBox
@@ -682,7 +689,7 @@ proc saveAsync*(self: SpatialEntityStore, entity: SpatialEntity) {.async.} =
   withIface(self.p, IID_ISpatialEntityStore, "ISpatialEntityStore", it):
     withIface(entity.p, IID_ISpatialEntity, "ISpatialEntity", p0):
       vcall(it, Slot_ISpatialEntityStore_SaveAsync, Fn_ISpatialEntityStore_SaveAsync)(it, p0, op.addr).check("SpatialEntityStore.SaveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SpatialEntityStore.SaveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SpatialEntityStore.SaveAsync")
 
 proc removeAsync*(self: SpatialEntityStore, entity: SpatialEntity) {.async.} =
   ## Windows.Perception.Spatial.SpatialEntityStore.RemoveAsync
@@ -690,7 +697,7 @@ proc removeAsync*(self: SpatialEntityStore, entity: SpatialEntity) {.async.} =
   withIface(self.p, IID_ISpatialEntityStore, "ISpatialEntityStore", it):
     withIface(entity.p, IID_ISpatialEntity, "ISpatialEntity", p0):
       vcall(it, Slot_ISpatialEntityStore_RemoveAsync, Fn_ISpatialEntityStore_RemoveAsync)(it, p0, op.addr).check("SpatialEntityStore.RemoveAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SpatialEntityStore.RemoveAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SpatialEntityStore.RemoveAsync")
 
 proc createEntityWatcher*(self: SpatialEntityStore): SpatialEntityWatcher  =
   ## Windows.Perception.Spatial.SpatialEntityStore.CreateEntityWatcher
@@ -1114,7 +1121,7 @@ proc requestNewStageAsync*(_: typedesc[SpatialStageFrameOfReference]): Future[Sp
   var op: pointer
   withStatics("Windows.Perception.Spatial.SpatialStageFrameOfReference", IID_ISpatialStageFrameOfReferenceStatics, it):
     vcall(it, Slot_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync, Fn_ISpatialStageFrameOfReferenceStatics_RequestNewStageAsync)(it, op.addr).check("SpatialStageFrameOfReference.RequestNewStageAsync")
-  result = adopt[SpatialStageFrameOfReference](await awaitObject(op, IID_IAsyncOperation_1_SpatialStageFrameOfReference, IID_AsyncOperationCompletedHandler_1_SpatialStageFrameOfReference, "SpatialStageFrameOfReference.RequestNewStageAsync"))
+  result = adopt[SpatialStageFrameOfReference](await awaitObject(op, IID_IAsyncOperation_1_SpatialStageFrameOfReference, IID_AsyncOperationCompletedHandler_1_SpatialStageFrameOfReference, alPlain, "SpatialStageFrameOfReference.RequestNewStageAsync"))
 
 proc coordinateSystem*(self: SpatialStationaryFrameOfReference): SpatialCoordinateSystem  =
   ## Windows.Perception.Spatial.SpatialStationaryFrameOfReference.get_CoordinateSystem
@@ -1151,7 +1158,7 @@ proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, maxTrianglesPerCubicMe
   var op: pointer
   withIface(self.p, IID_ISpatialSurfaceInfo, "ISpatialSurfaceInfo", it):
     vcall(it, Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync, Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync)(it, maxTrianglesPerCubicMeter, op.addr).check("SpatialSurfaceInfo.TryComputeLatestMeshAsync")
-  result = adopt[SpatialSurfaceMesh](await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh, IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
+  result = adopt[SpatialSurfaceMesh](await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh, IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh, alPlain, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
 
 proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, maxTrianglesPerCubicMeter: float64, options: SpatialSurfaceMeshOptions): Future[SpatialSurfaceMesh] {.async.} =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo.TryComputeLatestMeshAsync
@@ -1159,7 +1166,7 @@ proc tryComputeLatestMeshAsync*(self: SpatialSurfaceInfo, maxTrianglesPerCubicMe
   withIface(self.p, IID_ISpatialSurfaceInfo, "ISpatialSurfaceInfo", it):
     withIface(options.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", p1):
       vcall(it, Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2, Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync2)(it, maxTrianglesPerCubicMeter, p1, op.addr).check("SpatialSurfaceInfo.TryComputeLatestMeshAsync")
-  result = adopt[SpatialSurfaceMesh](await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh, IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
+  result = adopt[SpatialSurfaceMesh](await awaitObject(op, IID_IAsyncOperation_1_SpatialSurfaceMesh, IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh, alPlain, "SpatialSurfaceInfo.TryComputeLatestMeshAsync"))
 
 proc surfaceInfo*(self: SpatialSurfaceMesh): SpatialSurfaceInfo  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh.get_SurfaceInfo
@@ -1311,6 +1318,14 @@ proc newSpatialSurfaceObserver*(): SpatialSurfaceObserver =
   ## Activate a `Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver`.
   adopt[SpatialSurfaceObserver](activateAs("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver", IID_ISpatialSurfaceObserver))
 
+proc getObservedSurfaces*(self: SpatialSurfaceObserver): Table[GUID, SpatialSurfaceInfo]  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.GetObservedSurfaces
+  withIface(self.p, IID_ISpatialSurfaceObserver, "ISpatialSurfaceObserver", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialSurfaceObserver_GetObservedSurfaces, Fn_ISpatialSurfaceObserver_GetObservedSurfaces)(it, tmp.addr).check("SpatialSurfaceObserver.GetObservedSurfaces")
+    result = toTable[GUID, SpatialSurfaceInfo](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_Guid_SpatialSurfaceInfo)
+    release(tmp)
+
 proc setBoundingVolume*(self: SpatialSurfaceObserver, bounds: SpatialBoundingVolume)  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.SetBoundingVolume
   withIface(self.p, IID_ISpatialSurfaceObserver, "ISpatialSurfaceObserver", it):
@@ -1348,7 +1363,7 @@ proc requestAccessAsync*(_: typedesc[SpatialSurfaceObserver]): Future[SpatialPer
   var op: pointer
   withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver", IID_ISpatialSurfaceObserverStatics, it):
     vcall(it, Slot_ISpatialSurfaceObserverStatics_RequestAccessAsync, Fn_ISpatialSurfaceObserverStatics_RequestAccessAsync)(it, op.addr).check("SpatialSurfaceObserver.RequestAccessAsync")
-  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, "SpatialSurfaceObserver.RequestAccessAsync")
+  result = await awaitValue[SpatialPerceptionAccessStatus](op, IID_IAsyncOperation_1_SpatialPerceptionAccessStatus, IID_AsyncOperationCompletedHandler_1_SpatialPerceptionAccessStatus, alPlain, "SpatialSurfaceObserver.RequestAccessAsync")
 
 proc isSupported*(_: typedesc[SpatialSurfaceObserver]): bool  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.IsSupported

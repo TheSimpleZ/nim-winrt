@@ -46,6 +46,12 @@ const IID_TypedEventHandler_2_ILoggingChannel_Object* = GUID(
     data4: [0x9A'u8, 0xFF, 0x01, 0x4E, 0x7C, 0x45, 0x46, 0x55])
 
 
+proc invoke*(self: AsyncActionCompletedHandler, asyncInfo: WinRtObject, asyncStatus: AsyncStatus)  =
+  ## Windows.Foundation.AsyncActionCompletedHandler.Invoke
+  withIface(self.p, IID_AsyncActionCompletedHandler, "AsyncActionCompletedHandler", it):
+    withIface(asyncInfo.p, IID_IAsyncAction, "IAsyncAction", p0):
+      vcall(it, Slot_AsyncActionCompletedHandler_Invoke, Fn_AsyncActionCompletedHandler_Invoke)(it, p0, asyncStatus).check("AsyncActionCompletedHandler.Invoke")
+
 proc newPropertySet*(): PropertySet =
   ## Activate a `Windows.Foundation.Collections.PropertySet`.
   adopt[PropertySet](activateAs("Windows.Foundation.Collections.PropertySet", IID_IPropertySet))
@@ -67,11 +73,16 @@ proc close*(self: Deferral)  =
 proc create*(_: typedesc[Deferral], handler: proc()): Deferral  =
   ## Windows.Foundation.Deferral.Create
   withStatics("Windows.Foundation.Deferral", IID_IDeferralFactory, it):
-    let d0 = newVoidDelegate(IID_DeferralCompletedHandler, handler)
+    let d0 = newDelegate(IID_DeferralCompletedHandler, handler)
     defer: discard release(d0)
     var tmp: pointer
     vcall(it, Slot_IDeferralFactory_Create, Fn_IDeferralFactory_Create)(it, d0, tmp.addr).check("Deferral.Create")
     result = adopt[Deferral](tmp)
+
+proc invoke*(self: DeferralCompletedHandler)  =
+  ## Windows.Foundation.DeferralCompletedHandler.Invoke
+  withIface(self.p, IID_DeferralCompletedHandler, "DeferralCompletedHandler", it):
+    vcall(it, Slot_DeferralCompletedHandler_Invoke, Fn_DeferralCompletedHandler_Invoke)(it).check("DeferralCompletedHandler.Invoke")
 
 proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, operationName: string, relatedContext: uint64)  =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationCreation
@@ -144,7 +155,7 @@ proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32): Futur
   var op: pointer
   withStatics("Windows.Foundation.Diagnostics.ErrorDetails", IID_IErrorDetailsStatics, it):
     vcall(it, Slot_IErrorDetailsStatics_CreateFromHResultAsync, Fn_IErrorDetailsStatics_CreateFromHResultAsync)(it, errorCode, op.addr).check("ErrorDetails.CreateFromHResultAsync")
-  result = adopt[ErrorDetails](await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails, IID_AsyncOperationCompletedHandler_1_ErrorDetails, "ErrorDetails.CreateFromHResultAsync"))
+  result = adopt[ErrorDetails](await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails, IID_AsyncOperationCompletedHandler_1_ErrorDetails, alPlain, "ErrorDetails.CreateFromHResultAsync"))
 
 proc name*(self: FileLoggingSession): string  =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
@@ -176,7 +187,7 @@ proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.a
   var op: pointer
   withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
     vcall(it, Slot_IFileLoggingSession_CloseAndSaveToFileAsync, Fn_IFileLoggingSession_CloseAndSaveToFileAsync)(it, op.addr).check("FileLoggingSession.CloseAndSaveToFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "FileLoggingSession.CloseAndSaveToFileAsync"))
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "FileLoggingSession.CloseAndSaveToFileAsync"))
 
 proc onLogFileGenerated*(self: FileLoggingSession,
     handler: proc(sender: pointer, args: LogFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -1474,7 +1485,7 @@ proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder, fileName: str
     withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
       withHString(fileName, h1):
         vcall(it, Slot_ILoggingSession_SaveToFileAsync, Fn_ILoggingSession_SaveToFileAsync)(it, p0, h1, op.addr).check("LoggingSession.SaveToFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "LoggingSession.SaveToFileAsync"))
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "LoggingSession.SaveToFileAsync"))
 
 proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel)  =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
@@ -1560,12 +1571,12 @@ proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool  =
     vcall(it, Slot_IGuidHelperStatics_Equals, Fn_IGuidHelperStatics_Equals)(it, by0.addr, by1.addr, tmp.addr).check("GuidHelper.Equals")
     result = tmp
 
-proc createReference*(self: MemoryBuffer): pointer  =
+proc createReference*(self: MemoryBuffer): WinRtObject  =
   ## Windows.Foundation.MemoryBuffer.CreateReference
   withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
     var tmp: pointer
     vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("MemoryBuffer.CreateReference")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc close*(self: MemoryBuffer)  =
   ## Windows.Foundation.MemoryBuffer.Close

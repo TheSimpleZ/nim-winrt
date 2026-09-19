@@ -72,6 +72,16 @@ var runDefines: HashSet[string]   ## short names this run will define from metad
 var emitted: HashSet[string]      ## `nimIdent` of every IID constant written
 var emittedEnums: HashSet[string] ## Nim names of the enums written
 var enumFullNames: HashSet[string]
+var valueSpelling: Table[string, string]
+  ## Full name -> the Nim name it was written under, where those differ.
+  ##
+  ## Two enums in the whole of `Windows.winmd` share a short name with another
+  ## one: `AnimationDirection` is a composition easing and a XAML slide, and
+  ## `PackageStatus` is an app model state and a deployment one. Writing every
+  ## value type into a single module makes that a collision rather than two
+  ## modules' private business, so the second is written under its namespace's
+  ## last segment — `PrimitivesAnimationDirection` — and every signature that
+  ## names it is redirected here.
   ## Metadata names of those same enums, for resolving a struct field's type.
 
 proc nimType(t: SigType): string =
@@ -102,14 +112,17 @@ proc nimType(t: SigType): string =
       # `ptr int32` is the difference between reading a result and decoding
       # one. Falls back to the raw width for an enum from another winmd, which
       # has no type here to name.
-      if t.name in enumFullNames: shortName(t.name) else: "int32"
+      if t.name in enumFullNames:
+        valueSpelling.getOrDefault(t.name, shortName(t.name))
+      else: "int32"
     of skStruct:
       # A struct crosses by value, so Nim must know its exact layout. Nim emits
       # these as plain C structs, which means the C compiler applies the same
       # x64 ABI that WinUI's own C++ was built with.
       if t.name in foreignEnums: "int32"
       elif t.name in aliasOf: aliasOf[t.name]
-      elif t.name in structNames: shortName(t.name)
+      elif t.name in structNames:
+        valueSpelling.getOrDefault(t.name, shortName(t.name))
       else: ""
     of skUnsupported:
       # A generic instantiation is still an interface pointer on the wire —
@@ -223,6 +236,9 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
   # `export` as well as `import`: a signature in this module may name a type
   # another one defines, and someone who imports this module to use that
   # signature needs the type to come with it.
+  # `hashes` because a generated struct carries a `hash` of its own, so that
+  # a map keyed by one can become a Nim `Table`.
+  buf.add "import std/hashes\nexport hashes\n"
   buf.add &"import {corePath}\n"
   # The calling contract, written once and included rather than imported:
   # a user pragma does not cross a module boundary in Nim.
@@ -267,8 +283,14 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
     if t.fullName in aliasOf: continue
     let members = md.enumMembers(t.index)
     if members.len == 0: continue
-    let ident = sanitize(t.name)
-    if ident in emittedEnums: continue
+    var ident = sanitize(t.name)
+    if ident in emittedEnums:
+      # Qualified by the namespace it came from, which is what tells the two
+      # apart for a reader as well as for the compiler.
+      let parts = t.namespace.split('.')
+      ident = sanitize(parts[^1]) & ident
+      if ident in emittedEnums: continue
+      valueSpelling[t.fullName] = ident
     emittedEnums.incl ident
     enumFullNames.incl t.fullName
 
@@ -423,7 +445,8 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
           let ft = md.fieldType(fi)
           let fname = sanitize(md.str(md.cell(tField, fi, "Name")))
           let n =
-            if ft.kind == skEnum and ft.name in enumFullNames: shortName(ft.name)
+            if ft.kind == skEnum and ft.name in enumFullNames:
+              valueSpelling.getOrDefault(ft.name, shortName(ft.name))
             elif ft.kind == skEnum: "int32"
             else: nimType(ft)
           if n.len == 0 or n == "void":
@@ -438,6 +461,11 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
       buf.add &"## {p.full}  ({note})\n"
       buf.add &"type {shortName(p.full)}* {{.pure.}} = object\n"
       for f in fields: buf.add f & "\n"
+      # A WinRT struct is plain data, so its bytes are its identity. Without
+      # this a map keyed by one — `IMapView<PowerThermalChannelId, ...>` — has
+      # no Nim `Table` to become.
+      buf.add &"proc hash*(x: {shortName(p.full)}): Hash =\n"
+      buf.add  "  hashData(x.unsafeAddr, sizeof(x))\n"
       buf.add "\n"
       structNames.incl p.full
       emittedStructs.incl shortName(p.full)

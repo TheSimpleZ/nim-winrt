@@ -55,6 +55,9 @@ type
     guidOf*: Table[int, string]          ## TypeDef row -> declared IID
     indexOf*: Table[string, int]         ## full name -> TypeDef row
     defaultIface*: Table[string, string] ## class -> its default interface
+    paramDefault*: Table[string, SigType]
+      ## class -> its default interface where that is a parameterised one, as
+      ## `DeviceInformationCollection`'s is `IVectorView<DeviceInformation>`
     md*: WinMd
 
 const primitiveSig = {
@@ -164,9 +167,15 @@ proc signatureOf*(c: SigContext, t: SigType): string =
       if c.md.isDelegate(idx): "delegate(" & guidToSignature(c.guidOf[idx]) & ")"
       else: guidToSignature(c.guidOf[idx])
     else:
-      # A runtime class is described by its default interface.
+      # A runtime class is described by its default interface — which for a
+      # collection class is an instantiation, described in turn by its own
+      # signature.
       let default = c.defaultIface.getOrDefault(t.name, "")
-      if default.len == 0: return ""
+      if default.len == 0:
+        if t.name notin c.paramDefault: return ""
+        let inner = c.signatureOf(c.paramDefault[t.name])
+        if inner.len == 0: return ""
+        return "rc(" & t.name & ";" & inner & ")"
       let di = c.indexOf.getOrDefault(default, 0)
       if di == 0 or di notin c.guidOf: return ""
       "rc(" & t.name & ";" & guidToSignature(c.guidOf[di]) & ")"

@@ -444,6 +444,15 @@ const IID_AsyncOperationCompletedHandler_1_EasComplianceResults* = GUID(
 const IID_IAsyncOperation_1_EasComplianceResults* = GUID(
     data1: 0xFC3A733A'u32, data2: 0x7DED'u16, data3: 0x5E92'u16,
     data4: [0xA5'u8, 0x69, 0xB4, 0x33, 0x89, 0xEE, 0x88, 0x27])
+const IID_IIterable_1_Object* = GUID(
+    data1: 0x092B849B'u32, data2: 0x60B1'u16, data3: 0x52BE'u16,
+    data4: [0xA4'u8, 0x4A, 0x6F, 0xE8, 0xE9, 0x33, 0xCB, 0xE4])
+const IID_IVectorView_1_Object* = GUID(
+    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
+    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
+const IID_IIterator_1_Object* = GUID(
+    data1: 0x44A94F2D'u32, data2: 0x04F8'u16, data3: 0x5091'u16,
+    data4: [0xB3'u8, 0x36, 0xBE, 0x78, 0x92, 0xDD, 0x10, 0xBE])
 const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult* = GUID(
     data1: 0x0687867C'u32, data2: 0x5E3F'u16, data3: 0x53BB'u16,
     data4: [0x91'u8, 0xC0, 0xCC, 0x93, 0x19, 0x48, 0xD5, 0x24])
@@ -462,15 +471,6 @@ const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileR
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult* = GUID(
     data1: 0xAF891FA2'u32, data2: 0x3F89'u16, data3: 0x5E5B'u16,
     data4: [0xA7'u8, 0x2B, 0xDF, 0x93, 0x6B, 0xB1, 0xAD, 0x45])
-const IID_IIterable_1_Object* = GUID(
-    data1: 0x092B849B'u32, data2: 0x60B1'u16, data3: 0x52BE'u16,
-    data4: [0xA4'u8, 0x4A, 0x6F, 0xE8, 0xE9, 0x33, 0xCB, 0xE4])
-const IID_IVectorView_1_Object* = GUID(
-    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
-    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
-const IID_IIterator_1_Object* = GUID(
-    data1: 0x44A94F2D'u32, data2: 0x04F8'u16, data3: 0x5091'u16,
-    data4: [0xB3'u8, 0x36, 0xBE, 0x78, 0x92, 0xDD, 0x10, 0xBE])
 const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult* = GUID(
     data1: 0x34A084E3'u32, data2: 0xDEA5'u16, data3: 0x5E5B'u16,
     data4: [0x8D'u8, 0x86, 0xA3, 0x15, 0x84, 0xE7, 0x48, 0x93])
@@ -483,9 +483,9 @@ const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileRe
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult* = GUID(
     data1: 0x76CE76BF'u32, data2: 0xEC05'u16, data3: 0x513D'u16,
     data4: [0x84'u8, 0x3F, 0x79, 0xAF, 0x17, 0x66, 0xE4, 0x90])
-const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult* = GUID(
-    data1: 0xC4F89A89'u32, data2: 0x29CE'u16, data3: 0x5B9C'u16,
-    data4: [0xB2'u8, 0x9C, 0x16, 0xA4, 0xA8, 0xE2, 0x7C, 0xC8])
+const IID_AsyncOperationWithProgressCompletedHandler_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress* = GUID(
+    data1: 0x6C4E60B8'u32, data2: 0xED93'u16, data3: 0x5E10'u16,
+    data4: [0x96'u8, 0xC5, 0xFA, 0xFA, 0xDB, 0x68, 0xFF, 0x31])
 const IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress* = GUID(
     data1: 0xDF32B4B4'u32, data2: 0x4508'u16, data3: 0x594A'u16,
     data4: [0x83'u8, 0x0B, 0xB4, 0x6C, 0xED, 0x2A, 0x4A, 0xE0])
@@ -495,6 +495,9 @@ const IID_IVectorView_1_IsolatedWindowsEnvironment* = GUID(
 const IID_IVectorView_1_IsolatedWindowsEnvironmentHostError* = GUID(
     data1: 0xA830F621'u32, data2: 0xA4AE'u16, data3: 0x5F5C'u16,
     data4: [0xA0'u8, 0x03, 0x98, 0x5F, 0xE3, 0xE0, 0x1E, 0x51])
+const IID_AsyncOperationWithProgressCompletedHandler_2_Bool_IsolatedWindowsEnvironmentSignInProgress* = GUID(
+    data1: 0xE55295A4'u32, data2: 0xD669'u16, data3: 0x5922'u16,
+    data4: [0xBF'u8, 0x42, 0xBB, 0xE7, 0xEA, 0xEB, 0x45, 0x96])
 const IID_IAsyncOperationWithProgress_2_Bool_IsolatedWindowsEnvironmentSignInProgress* = GUID(
     data1: 0x3342214C'u32, data2: 0x85A9'u16, data3: 0x5729'u16,
     data4: [0xB0'u8, 0xF1, 0xFC, 0x66, 0x76, 0x40, 0x07, 0x8A])
@@ -506,7 +509,7 @@ proc getOneTimePassCodeAsync*(self: MicrosoftAccountMultiFactorAuthenticationMan
   withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
     withHString(userAccountId, h0):
       vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync)(it, h0, codeLength, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync")
-  result = adopt[MicrosoftAccountMultiFactorOneTimeCodedInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, "MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync"))
+  result = adopt[MicrosoftAccountMultiFactorOneTimeCodedInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorOneTimeCodedInfo, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync"))
 
 proc addDeviceAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountId: string, authenticationToken: string, wnsChannelId: string): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.AddDeviceAsync
@@ -516,7 +519,7 @@ proc addDeviceAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, use
       withHString(authenticationToken, h1):
         withHString(wnsChannelId, h2):
           vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_AddDeviceAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_AddDeviceAsync)(it, h0, h1, h2, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.AddDeviceAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.AddDeviceAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.AddDeviceAsync")
 
 proc removeDeviceAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountId: string): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.RemoveDeviceAsync
@@ -524,7 +527,7 @@ proc removeDeviceAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, 
   withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
     withHString(userAccountId, h0):
       vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_RemoveDeviceAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_RemoveDeviceAsync)(it, h0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.RemoveDeviceAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.RemoveDeviceAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.RemoveDeviceAsync")
 
 proc updateWnsChannelAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountId: string, channelUri: string): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync
@@ -533,7 +536,7 @@ proc updateWnsChannelAsync*(self: MicrosoftAccountMultiFactorAuthenticationManag
     withHString(userAccountId, h0):
       withHString(channelUri, h1):
         vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync)(it, h0, h1, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.UpdateWnsChannelAsync")
 
 proc getSessionsAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountIdList: seq[string]): Future[MicrosoftAccountMultiFactorGetSessionsResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync
@@ -542,7 +545,7 @@ proc getSessionsAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, u
     let p0 = asIterableString(userAccountIdList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync)(it, p0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync")
-  result = adopt[MicrosoftAccountMultiFactorGetSessionsResult](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorGetSessionsResult, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorGetSessionsResult, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync"))
+  result = adopt[MicrosoftAccountMultiFactorGetSessionsResult](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorGetSessionsResult, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorGetSessionsResult, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAsync"))
 
 proc getSessionsAndUnregisteredAccountsAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountIdList: seq[string]): Future[MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync
@@ -551,7 +554,7 @@ proc getSessionsAndUnregisteredAccountsAsync*(self: MicrosoftAccountMultiFactorA
     let p0 = asIterableString(userAccountIdList, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAndUnregisteredAccountsAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAndUnregisteredAccountsAsync)(it, p0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync")
-  result = adopt[MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync"))
+  result = adopt[MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo](await awaitObject(op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.GetSessionsAndUnregisteredAccountsAsync"))
 
 proc approveSessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, sessionAuthentictionStatus: MicrosoftAccountMultiFactorSessionAuthenticationStatus, authenticationSessionInfo: MicrosoftAccountMultiFactorSessionInfo): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync
@@ -559,7 +562,7 @@ proc approveSessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager
   withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
     withIface(authenticationSessionInfo.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", p1):
       vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync)(it, sessionAuthentictionStatus, p1, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
 
 proc approveSessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, sessionAuthentictionStatus: MicrosoftAccountMultiFactorSessionAuthenticationStatus, userAccountId: string, sessionId: string, sessionAuthenticationType: MicrosoftAccountMultiFactorAuthenticationType): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync
@@ -568,7 +571,7 @@ proc approveSessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager
     withHString(userAccountId, h1):
       withHString(sessionId, h2):
         vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync2, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync2)(it, sessionAuthentictionStatus, h1, h2, sessionAuthenticationType, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.ApproveSessionAsync")
 
 proc denySessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, authenticationSessionInfo: MicrosoftAccountMultiFactorSessionInfo): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync
@@ -576,7 +579,7 @@ proc denySessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, a
   withIface(self.p, IID_IMicrosoftAccountMultiFactorAuthenticationManager, "IMicrosoftAccountMultiFactorAuthenticationManager", it):
     withIface(authenticationSessionInfo.p, IID_IMicrosoftAccountMultiFactorSessionInfo, "IMicrosoftAccountMultiFactorSessionInfo", p0):
       vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync)(it, p0, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
 
 proc denySessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountId: string, sessionId: string, sessionAuthenticationType: MicrosoftAccountMultiFactorAuthenticationType): Future[MicrosoftAccountMultiFactorServiceResponse] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync
@@ -585,7 +588,7 @@ proc denySessionAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, u
     withHString(userAccountId, h0):
       withHString(sessionId, h1):
         vcall(it, Slot_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync2, Fn_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync2)(it, h0, h1, sessionAuthenticationType, op.addr).check("MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
-  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, "MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
+  result = await awaitValue[MicrosoftAccountMultiFactorServiceResponse](op, IID_IAsyncOperation_1_MicrosoftAccountMultiFactorServiceResponse, IID_AsyncOperationCompletedHandler_1_MicrosoftAccountMultiFactorServiceResponse, alPlain, "MicrosoftAccountMultiFactorAuthenticationManager.DenySessionAsync")
 
 proc current*(_: typedesc[MicrosoftAccountMultiFactorAuthenticationManager]): MicrosoftAccountMultiFactorAuthenticationManager  =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.get_Current
@@ -749,7 +752,7 @@ proc getRegistrationsAsync*(self: EnterpriseKeyCredentialRegistrationManager): F
   var op: pointer
   withIface(self.p, IID_IEnterpriseKeyCredentialRegistrationManager, "IEnterpriseKeyCredentialRegistrationManager", it):
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationManager_GetRegistrationsAsync, Fn_IEnterpriseKeyCredentialRegistrationManager_GetRegistrationsAsync)(it, op.addr).check("EnterpriseKeyCredentialRegistrationManager.GetRegistrationsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "EnterpriseKeyCredentialRegistrationManager.GetRegistrationsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "EnterpriseKeyCredentialRegistrationManager.GetRegistrationsAsync")
   result = toSeq[EnterpriseKeyCredentialRegistrationInfo](coll, IID_IVectorView_1_EnterpriseKeyCredentialRegistrationInfo)
   discard release(coll)
 
@@ -795,7 +798,7 @@ proc finishAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthenticatio
     withIface(deviceHmac.p, IID_IBuffer, "IBuffer", p0):
       withIface(sessionHmac.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync)(it, p0, p1, op.addr).check("SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
-  result = await awaitValue[SecondaryAuthenticationFactorFinishAuthenticationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, "SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
+  result = await awaitValue[SecondaryAuthenticationFactorFinishAuthenticationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, alPlain, "SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
 
 proc abortAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, errorLogMessage: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync
@@ -803,7 +806,7 @@ proc abortAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     withHString(errorLogMessage, h0):
       vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_AbortAuthenticationAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorAuthentication.AbortAuthenticationAsync")
 
 proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], deviceName: string, message: SecondaryAuthenticationFactorAuthenticationMessage) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync
@@ -811,7 +814,7 @@ proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuth
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     withHString(deviceName, h0):
       vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync)(it, h0, message, op.addr).check("SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
 
 proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], deviceId: string, serviceAuthenticationNonce: Buffer): Future[SecondaryAuthenticationFactorAuthenticationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync
@@ -820,7 +823,7 @@ proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthenti
     withHString(deviceId, h0):
       withIface(serviceAuthenticationNonce.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync)(it, h0, p1, op.addr).check("SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync")
-  result = adopt[SecondaryAuthenticationFactorAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
+  result = adopt[SecondaryAuthenticationFactorAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult, alPlain, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
 
 proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuthentication],
     handler: proc(sender: pointer, args: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -846,7 +849,7 @@ proc getAuthenticationStageInfoAsync*(_: typedesc[SecondaryAuthenticationFactorA
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_GetAuthenticationStageInfoAsync)(it, op.addr).check("SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync")
-  result = adopt[SecondaryAuthenticationFactorAuthenticationStageInfo](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationStageInfo, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationStageInfo, "SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync"))
+  result = adopt[SecondaryAuthenticationFactorAuthenticationStageInfo](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationStageInfo, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationStageInfo, alPlain, "SecondaryAuthenticationFactorAuthentication.GetAuthenticationStageInfoAsync"))
 
 proc status*(self: SecondaryAuthenticationFactorAuthenticationResult): SecondaryAuthenticationFactorAuthenticationStatus  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationResult.get_Status
@@ -930,7 +933,7 @@ proc updateDevicePresenceAsync*(self: SecondaryAuthenticationFactorInfo, presenc
   var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo2, "ISecondaryAuthenticationFactorInfo2", it):
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync, Fn_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync)(it, presenceState, op.addr).check("SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorInfo.UpdateDevicePresenceAsync")
 
 proc isAuthenticationSupported*(self: SecondaryAuthenticationFactorInfo): bool  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_IsAuthenticationSupported
@@ -945,7 +948,7 @@ proc finishRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistrati
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistration, "ISecondaryAuthenticationFactorRegistration", it):
     withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync)(it, p0, op.addr).check("SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
 
 proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, errorLogMessage: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync
@@ -953,7 +956,7 @@ proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistratio
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistration, "ISecondaryAuthenticationFactorRegistration", it):
     withHString(errorLogMessage, h0):
       vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
 
 proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, capabilities: SecondaryAuthenticationFactorDeviceCapabilities, deviceFriendlyName: string, deviceModelNumber: string, deviceKey: Buffer, mutualAuthenticationKey: Buffer): Future[SecondaryAuthenticationFactorRegistrationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync
@@ -965,14 +968,14 @@ proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFact
           withIface(deviceKey.p, IID_IBuffer, "IBuffer", p4):
             withIface(mutualAuthenticationKey.p, IID_IBuffer, "IBuffer", p5):
               vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync)(it, h0, capabilities, h2, h3, p4, p5, op.addr).check("SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync")
-  result = adopt[SecondaryAuthenticationFactorRegistrationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorRegistrationResult, "SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync"))
+  result = adopt[SecondaryAuthenticationFactorRegistrationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorRegistrationResult, alPlain, "SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync"))
 
 proc findAllRegisteredDeviceInfoAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], queryType: SecondaryAuthenticationFactorDeviceFindScope): Future[seq[SecondaryAuthenticationFactorInfo]] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.FindAllRegisteredDeviceInfoAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_FindAllRegisteredDeviceInfoAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_FindAllRegisteredDeviceInfoAsync)(it, queryType, op.addr).check("SecondaryAuthenticationFactorRegistration.FindAllRegisteredDeviceInfoAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "SecondaryAuthenticationFactorRegistration.FindAllRegisteredDeviceInfoAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "SecondaryAuthenticationFactorRegistration.FindAllRegisteredDeviceInfoAsync")
   result = toSeq[SecondaryAuthenticationFactorInfo](coll, IID_IVectorView_1_SecondaryAuthenticationFactorInfo)
   discard release(coll)
 
@@ -982,7 +985,7 @@ proc unregisterDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistratio
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(deviceId, h0):
       vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
 
 proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceConfigurationData: Buffer) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync
@@ -991,7 +994,7 @@ proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFact
     withHString(deviceId, h0):
       withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync)(it, h0, p1, op.addr).check("SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
 
 proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceInstancePath: string, monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync
@@ -1000,7 +1003,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
     withHString(deviceId, h0):
       withHString(deviceInstancePath, h1):
         vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync)(it, h0, h1, monitoringMode, op.addr).check("SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
-  result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
+  result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, alPlain, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
 
 proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceInstancePath: string, monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode, deviceFriendlyName: string, deviceModelNumber: string, deviceConfigurationData: Buffer): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync
@@ -1012,7 +1015,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
           withHString(deviceModelNumber, h4):
             withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p5):
               vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2)(it, h0, h1, monitoringMode, h3, h4, p5, op.addr).check("SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
-  result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
+  result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, alPlain, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
 
 proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync
@@ -1020,7 +1023,7 @@ proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticatio
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics, it):
     withHString(deviceId, h0):
       vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SecondaryAuthenticationFactorRegistration.UnregisterDevicePresenceMonitoringAsync")
 
 proc isDevicePresenceMonitoringSupported*(_: typedesc[SecondaryAuthenticationFactorRegistration]): bool  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.IsDevicePresenceMonitoringSupported
@@ -1170,7 +1173,7 @@ proc getTicketAsync*(self: OnlineIdSystemAuthenticatorForUser, request: OnlineId
   withIface(self.p, IID_IOnlineIdSystemAuthenticatorForUser, "IOnlineIdSystemAuthenticatorForUser", it):
     withIface(request.p, IID_IOnlineIdServiceTicketRequest, "IOnlineIdServiceTicketRequest", p0):
       vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync, Fn_IOnlineIdSystemAuthenticatorForUser_GetTicketAsync)(it, p0, op.addr).check("OnlineIdSystemAuthenticatorForUser.GetTicketAsync")
-  result = adopt[OnlineIdSystemTicketResult](await awaitObject(op, IID_IAsyncOperation_1_OnlineIdSystemTicketResult, IID_AsyncOperationCompletedHandler_1_OnlineIdSystemTicketResult, "OnlineIdSystemAuthenticatorForUser.GetTicketAsync"))
+  result = adopt[OnlineIdSystemTicketResult](await awaitObject(op, IID_IAsyncOperation_1_OnlineIdSystemTicketResult, IID_AsyncOperationCompletedHandler_1_OnlineIdSystemTicketResult, alPlain, "OnlineIdSystemAuthenticatorForUser.GetTicketAsync"))
 
 proc `applicationId=`*(self: OnlineIdSystemAuthenticatorForUser, value: GUID)  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.put_ApplicationId
@@ -1225,6 +1228,20 @@ proc extendedError*(self: OnlineIdSystemTicketResult): HRESULT  =
     var tmp: HRESULT
     vcall(it, Slot_IOnlineIdSystemTicketResult_get_ExtendedError, Fn_IOnlineIdSystemTicketResult_get_ExtendedError)(it, tmp.addr).check("OnlineIdSystemTicketResult.get_ExtendedError")
     result = tmp
+
+proc `completed=`*(self: SignOutUserOperation, value: proc(a0: WinRtObject, a1: AsyncStatus))  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.put_Completed
+  withIface(self.p, IID_IAsyncAction, "IAsyncAction", it):
+    let d0 = newDelegate(IID_AsyncActionCompletedHandler, proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1))
+    defer: discard release(d0)
+    vcall(it, Slot_IAsyncAction_put_Completed, Fn_IAsyncAction_put_Completed)(it, d0).check("SignOutUserOperation.put_Completed")
+
+proc completed*(self: SignOutUserOperation): AsyncActionCompletedHandler  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.get_Completed
+  withIface(self.p, IID_IAsyncAction, "IAsyncAction", it):
+    var tmp: pointer
+    vcall(it, Slot_IAsyncAction_get_Completed, Fn_IAsyncAction_get_Completed)(it, tmp.addr).check("SignOutUserOperation.get_Completed")
+    result = adopt[AsyncActionCompletedHandler](tmp)
 
 proc getResults*(self: SignOutUserOperation)  =
   ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.GetResults
@@ -1467,7 +1484,7 @@ proc properties*(self: WebAuthenticationAddAccountResponse): Table[string, strin
   withIface(self.p, IID_IWebAuthenticationAddAccountResponse, "IWebAuthenticationAddAccountResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationAddAccountResponse_get_Properties, Fn_IWebAuthenticationAddAccountResponse_get_Properties)(it, tmp.addr).check("WebAuthenticationAddAccountResponse.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc createWithAccount*(_: typedesc[WebAuthenticationAddAccountResponse], webAccount: WebAccount): WebAuthenticationAddAccountResponse  =
@@ -1505,7 +1522,7 @@ proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], request: 
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(request.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
 
 proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebTokenRequest, webAccount: WebAccount): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.GetTokenSilentlyAsync
@@ -1514,7 +1531,7 @@ proc getTokenSilentlyAsync*(_: typedesc[WebAuthenticationCoreManager], request: 
     withIface(request.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2, Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2)(it, p0, p1, op.addr).check("WebAuthenticationCoreManager.GetTokenSilentlyAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManager.GetTokenSilentlyAsync"))
 
 proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebTokenRequest): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.RequestTokenAsync
@@ -1522,7 +1539,7 @@ proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebT
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withIface(request.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManager.RequestTokenAsync"))
 
 proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebTokenRequest, webAccount: WebAccount): Future[WebTokenRequestResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.RequestTokenAsync
@@ -1531,7 +1548,7 @@ proc requestTokenAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebT
     withIface(request.p, IID_IWebTokenRequest, "IWebTokenRequest", p0):
       withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2, Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2)(it, p0, p1, op.addr).check("WebAuthenticationCoreManager.RequestTokenAsync")
-  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, "WebAuthenticationCoreManager.RequestTokenAsync"))
+  result = adopt[WebTokenRequestResult](await awaitObject(op, IID_IAsyncOperation_1_WebTokenRequestResult, IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult, alPlain, "WebAuthenticationCoreManager.RequestTokenAsync"))
 
 proc findAccountAsync*(_: typedesc[WebAuthenticationCoreManager], provider: WebAccountProvider, webAccountId: string): Future[WebAccount] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountAsync
@@ -1540,7 +1557,7 @@ proc findAccountAsync*(_: typedesc[WebAuthenticationCoreManager], provider: WebA
     withIface(provider.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
       withHString(webAccountId, h1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountAsync)(it, p0, h1, op.addr).check("WebAuthenticationCoreManager.FindAccountAsync")
-  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, "WebAuthenticationCoreManager.FindAccountAsync"))
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAuthenticationCoreManager.FindAccountAsync"))
 
 proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountProviderAsync
@@ -1548,7 +1565,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAcc
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics, it):
     withHString(webAccountProviderId, h0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync)(it, h0, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
 proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string, authority: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountProviderAsync
@@ -1557,7 +1574,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAcc
     withHString(webAccountProviderId, h0):
       withHString(authority, h1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
 proc addAccountWithTransferTokenAsync*(_: typedesc[WebAuthenticationCoreManager], request: WebAuthenticationTransferTokenRequest): Future[WebAuthenticationAddAccountResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync
@@ -1565,7 +1582,7 @@ proc addAccountWithTransferTokenAsync*(_: typedesc[WebAuthenticationCoreManager]
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics5, it):
     withIface(request.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", p0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync, Fn_IWebAuthenticationCoreManagerStatics5_AddAccountWithTransferTokenAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync")
-  result = adopt[WebAuthenticationAddAccountResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationAddAccountResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationAddAccountResult, "WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync"))
+  result = adopt[WebAuthenticationAddAccountResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationAddAccountResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationAddAccountResult, alPlain, "WebAuthenticationCoreManager.AddAccountWithTransferTokenAsync"))
 
 proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], provider: WebAccountProvider): Future[FindAllAccountsResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAllAccountsAsync
@@ -1573,7 +1590,7 @@ proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], provider: 
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withIface(provider.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync)(it, p0, op.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
-  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
+  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, alPlain, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
 
 proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], provider: WebAccountProvider, clientId: string): Future[FindAllAccountsResult] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAllAccountsAsync
@@ -1582,7 +1599,7 @@ proc findAllAccountsAsync*(_: typedesc[WebAuthenticationCoreManager], provider: 
     withIface(provider.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
       withHString(clientId, h1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2)(it, p0, h1, op.addr).check("WebAuthenticationCoreManager.FindAllAccountsAsync")
-  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
+  result = adopt[FindAllAccountsResult](await awaitObject(op, IID_IAsyncOperation_1_FindAllAccountsResult, IID_AsyncOperationCompletedHandler_1_FindAllAccountsResult, alPlain, "WebAuthenticationCoreManager.FindAllAccountsAsync"))
 
 proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
@@ -1590,7 +1607,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], 
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
     withHString(webAccountProviderId, h0):
       vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync)(it, h0, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
 proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string, authority: string): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
@@ -1599,7 +1616,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], 
     withHString(webAccountProviderId, h0):
       withHString(authority, h1):
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
 proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string, authority: string, user: User): Future[WebAccountProvider] {.async.} =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
@@ -1609,7 +1626,7 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], 
       withHString(authority, h1):
         withIface(user.p, IID_IUser, "IUser", p2):
           vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3)(it, h0, h1, p2, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
 proc createWebAccountMonitor*(_: typedesc[WebAuthenticationCoreManager], webAccounts: seq[WebAccount]): WebAccountMonitor  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.CreateWebAccountMonitor
@@ -1628,7 +1645,7 @@ proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAcc
       withHString(authority, h1):
         withIface(user.p, IID_IUser, "IUser", p2):
           vcall(it, Slot_IWebAuthenticationCoreManagerStatics2_FindAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics2_FindAccountProviderAsync)(it, h0, h1, p2, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
-  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, alPlain, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
 proc webAccountProvider*(self: WebAuthenticationTransferTokenRequest): WebAccountProvider  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_WebAccountProvider
@@ -1655,7 +1672,7 @@ proc properties*(self: WebAuthenticationTransferTokenRequest): Table[string, str
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationTransferTokenRequest_get_Properties, Fn_IWebAuthenticationTransferTokenRequest_get_Properties)(it, tmp.addr).check("WebAuthenticationTransferTokenRequest.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc correlationId*(self: WebAuthenticationTransferTokenRequest): string  =
@@ -1709,7 +1726,7 @@ proc properties*(self: WebProviderError): Table[string, string]  =
   withIface(self.p, IID_IWebProviderError, "IWebProviderError", it):
     var tmp: pointer
     vcall(it, Slot_IWebProviderError_get_Properties, Fn_IWebProviderError_get_Properties)(it, tmp.addr).check("WebProviderError.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc create*(_: typedesc[WebProviderError], errorCode: uint32, errorMessage: string): WebProviderError  =
@@ -1753,7 +1770,7 @@ proc properties*(self: WebTokenRequest): Table[string, string]  =
   withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenRequest_get_Properties, Fn_IWebTokenRequest_get_Properties)(it, tmp.addr).check("WebTokenRequest.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc appProperties*(self: WebTokenRequest): Table[string, string]  =
@@ -1761,7 +1778,7 @@ proc appProperties*(self: WebTokenRequest): Table[string, string]  =
   withIface(self.p, IID_IWebTokenRequest2, "IWebTokenRequest2", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenRequest2_get_AppProperties, Fn_IWebTokenRequest2_get_AppProperties)(it, tmp.addr).check("WebTokenRequest.get_AppProperties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc correlationId*(self: WebTokenRequest): string  =
@@ -1841,7 +1858,7 @@ proc invalidateCacheAsync*(self: WebTokenRequestResult) {.async.} =
   var op: pointer
   withIface(self.p, IID_IWebTokenRequestResult, "IWebTokenRequestResult", it):
     vcall(it, Slot_IWebTokenRequestResult_InvalidateCacheAsync, Fn_IWebTokenRequestResult_InvalidateCacheAsync)(it, op.addr).check("WebTokenRequestResult.InvalidateCacheAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebTokenRequestResult.InvalidateCacheAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebTokenRequestResult.InvalidateCacheAsync")
 
 proc newWebTokenResponse*(): WebTokenResponse =
   ## Activate a `Windows.Security.Authentication.Web.Core.WebTokenResponse`.
@@ -1873,7 +1890,7 @@ proc properties*(self: WebTokenResponse): Table[string, string]  =
   withIface(self.p, IID_IWebTokenResponse, "IWebTokenResponse", it):
     var tmp: pointer
     vcall(it, Slot_IWebTokenResponse_get_Properties, Fn_IWebTokenResponse_get_Properties)(it, tmp.addr).check("WebTokenResponse.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc createWithToken*(_: typedesc[WebTokenResponse], token: string): WebTokenResponse  =
@@ -1948,7 +1965,7 @@ proc pullCookiesAsync*(_: typedesc[WebAccountManager], uriString: string, caller
     withHString(uriString, h0):
       withHString(callerPFN, h1):
         vcall(it, Slot_IWebAccountManagerStatics2_PullCookiesAsync, Fn_IWebAccountManagerStatics2_PullCookiesAsync)(it, h0, h1, op.addr).check("WebAccountManager.PullCookiesAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.PullCookiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.PullCookiesAsync")
 
 proc setScopeAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, scope: WebAccountScope) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetScopeAsync
@@ -1956,7 +1973,7 @@ proc setScopeAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, scop
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountScopeManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountScopeManagerStatics_SetScopeAsync, Fn_IWebAccountScopeManagerStatics_SetScopeAsync)(it, p0, scope, op.addr).check("WebAccountManager.SetScopeAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetScopeAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.SetScopeAsync")
 
 proc getScope*(_: typedesc[WebAccountManager], webAccount: WebAccount): WebAccountScope  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.GetScope
@@ -1972,14 +1989,14 @@ proc deleteWebAccountAsync*(_: typedesc[WebAccountManager], webAccount: WebAccou
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountManagerStatics_DeleteWebAccountAsync, Fn_IWebAccountManagerStatics_DeleteWebAccountAsync)(it, p0, op.addr).check("WebAccountManager.DeleteWebAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.DeleteWebAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.DeleteWebAccountAsync")
 
 proc findAllProviderWebAccountsAsync*(_: typedesc[WebAccountManager]): Future[seq[WebAccount]] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.FindAllProviderWebAccountsAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     vcall(it, Slot_IWebAccountManagerStatics_FindAllProviderWebAccountsAsync, Fn_IWebAccountManagerStatics_FindAllProviderWebAccountsAsync)(it, op.addr).check("WebAccountManager.FindAllProviderWebAccountsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "WebAccountManager.FindAllProviderWebAccountsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "WebAccountManager.FindAllProviderWebAccountsAsync")
   result = toSeq[WebAccount](coll, IID_IVectorView_1_WebAccount)
   discard release(coll)
 
@@ -1991,7 +2008,7 @@ proc pushCookiesAsync*(_: typedesc[WebAccountManager], uri: Uri, cookies: seq[Ht
       let p1 = asIterable[HttpCookie](cookies, IID_IIterable_1_HttpCookie, IID_IVectorView_1_HttpCookie, IID_IIterator_1_HttpCookie)
       defer: discard release(p1)
       vcall(it, Slot_IWebAccountManagerStatics_PushCookiesAsync, Fn_IWebAccountManagerStatics_PushCookiesAsync)(it, p0, p1, op.addr).check("WebAccountManager.PushCookiesAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.PushCookiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.PushCookiesAsync")
 
 proc setViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, view: WebAccountClientView) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetViewAsync
@@ -2000,7 +2017,7 @@ proc setViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, view:
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       withIface(view.p, IID_IWebAccountClientView, "IWebAccountClientView", p1):
         vcall(it, Slot_IWebAccountManagerStatics_SetViewAsync, Fn_IWebAccountManagerStatics_SetViewAsync)(it, p0, p1, op.addr).check("WebAccountManager.SetViewAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetViewAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.SetViewAsync")
 
 proc clearViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, applicationCallbackUri: Uri) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearViewAsync
@@ -2009,7 +2026,7 @@ proc clearViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, app
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       withIface(applicationCallbackUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
         vcall(it, Slot_IWebAccountManagerStatics_ClearViewAsync, Fn_IWebAccountManagerStatics_ClearViewAsync)(it, p0, p1, op.addr).check("WebAccountManager.ClearViewAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearViewAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.ClearViewAsync")
 
 proc getViewsAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount): Future[seq[WebAccountClientView]] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.GetViewsAsync
@@ -2017,18 +2034,18 @@ proc getViewsAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount): Fut
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountManagerStatics_GetViewsAsync, Fn_IWebAccountManagerStatics_GetViewsAsync)(it, p0, op.addr).check("WebAccountManager.GetViewsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14, IID_AsyncOperationCompletedHandler_1_IVectorView_14, "WebAccountManager.GetViewsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14, IID_AsyncOperationCompletedHandler_1_IVectorView_14, alPlain, "WebAccountManager.GetViewsAsync")
   result = toSeq[WebAccountClientView](coll, IID_IVectorView_1_WebAccountClientView)
   discard release(coll)
 
-proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, webAccountPicture: RandomAccessStreamOverStream) {.async.} =
+proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, webAccountPicture: WinRtObject) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetWebAccountPictureAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       withIface(webAccountPicture.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
         vcall(it, Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync, Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync)(it, p0, p1, op.addr).check("WebAccountManager.SetWebAccountPictureAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetWebAccountPictureAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.SetWebAccountPictureAsync")
 
 proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearWebAccountPictureAsync
@@ -2036,7 +2053,7 @@ proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: We
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountManagerStatics_ClearWebAccountPictureAsync, Fn_IWebAccountManagerStatics_ClearWebAccountPictureAsync)(it, p0, op.addr).check("WebAccountManager.ClearWebAccountPictureAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearWebAccountPictureAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.ClearWebAccountPictureAsync")
 
 proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager], perAppAccount: WebAccount, perUserWebAccountId: string) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetPerAppToPerUserAccountAsync
@@ -2045,7 +2062,7 @@ proc setPerAppToPerUserAccountAsync*(_: typedesc[WebAccountManager], perAppAccou
     withIface(perAppAccount.p, IID_IWebAccount, "IWebAccount", p0):
       withHString(perUserWebAccountId, h1):
         vcall(it, Slot_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync, Fn_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync)(it, p0, h1, op.addr).check("WebAccountManager.SetPerAppToPerUserAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetPerAppToPerUserAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.SetPerAppToPerUserAccountAsync")
 
 proc getPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], perAppAccount: WebAccount): Future[WebAccount] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.GetPerUserFromPerAppAccountAsync
@@ -2053,7 +2070,7 @@ proc getPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], perAppAcc
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
     withIface(perAppAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync)(it, p0, op.addr).check("WebAccountManager.GetPerUserFromPerAppAccountAsync")
-  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, "WebAccountManager.GetPerUserFromPerAppAccountAsync"))
+  result = adopt[WebAccount](await awaitObject(op, IID_IAsyncOperation_1_WebAccount, IID_AsyncOperationCompletedHandler_1_WebAccount, alPlain, "WebAccountManager.GetPerUserFromPerAppAccountAsync"))
 
 proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], perAppAccount: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.ClearPerUserFromPerAppAccountAsync
@@ -2061,14 +2078,14 @@ proc clearPerUserFromPerAppAccountAsync*(_: typedesc[WebAccountManager], perAppA
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountMapManagerStatics, it):
     withIface(perAppAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync, Fn_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync)(it, p0, op.addr).check("WebAccountManager.ClearPerUserFromPerAppAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.ClearPerUserFromPerAppAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.ClearPerUserFromPerAppAccountAsync")
 
 proc invalidateAppCacheForAllAccountsAsync*(_: typedesc[WebAccountManager]) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.InvalidateAppCacheForAllAccountsAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics4, it):
     vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync)(it, op.addr).check("WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.InvalidateAppCacheForAllAccountsAsync")
 
 proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.InvalidateAppCacheForAccountAsync
@@ -2076,7 +2093,7 @@ proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager], webAccou
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics4, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync)(it, p0, op.addr).check("WebAccountManager.InvalidateAppCacheForAccountAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.InvalidateAppCacheForAccountAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccountManager.InvalidateAppCacheForAccountAsync")
 
 proc findAllProviderWebAccountsForUserAsync*(_: typedesc[WebAccountManager], user: User): Future[seq[WebAccount]] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.FindAllProviderWebAccountsForUserAsync
@@ -2084,7 +2101,7 @@ proc findAllProviderWebAccountsForUserAsync*(_: typedesc[WebAccountManager], use
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics3, it):
     withIface(user.p, IID_IUser, "IUser", p0):
       vcall(it, Slot_IWebAccountManagerStatics3_FindAllProviderWebAccountsForUserAsync, Fn_IWebAccountManagerStatics3_FindAllProviderWebAccountsForUserAsync)(it, p0, op.addr).check("WebAccountManager.FindAllProviderWebAccountsForUserAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "WebAccountManager.FindAllProviderWebAccountsForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "WebAccountManager.FindAllProviderWebAccountsForUserAsync")
   result = toSeq[WebAccount](coll, IID_IVectorView_1_WebAccount)
   discard release(coll)
 
@@ -2342,12 +2359,12 @@ proc reportError*(self: WebAccountProviderSignOutAccountOperation, value: WebPro
     withIface(value.p, IID_IWebProviderError, "IWebProviderError", p0):
       vcall(it, Slot_IWebAccountProviderBaseReportOperation_ReportError, Fn_IWebAccountProviderBaseReportOperation_ReportError)(it, p0).check("WebAccountProviderSignOutAccountOperation.ReportError")
 
-proc operation*(self: WebAccountProviderTriggerDetails): pointer  =
+proc operation*(self: WebAccountProviderTriggerDetails): WinRtObject  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails.get_Operation
   withIface(self.p, IID_IWebAccountProviderTokenObjects, "IWebAccountProviderTokenObjects", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderTokenObjects_get_Operation, Fn_IWebAccountProviderTokenObjects_get_Operation)(it, tmp.addr).check("WebAccountProviderTriggerDetails.get_Operation")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc user*(self: WebAccountProviderTriggerDetails): User  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails.get_User
@@ -2391,7 +2408,7 @@ proc getApplicationTokenBindingKeyAsync*(self: WebProviderTokenRequest, keyType:
   withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
     withIface(target.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
       vcall(it, Slot_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync, Fn_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync)(it, keyType, p1, op.addr).check("WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync")
-  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, "WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync"))
+  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, alPlain, "WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync"))
 
 proc getApplicationTokenBindingKeyIdAsync*(self: WebProviderTokenRequest, keyType: TokenBindingKeyType, target: Uri): Future[Buffer] {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync
@@ -2399,7 +2416,7 @@ proc getApplicationTokenBindingKeyIdAsync*(self: WebProviderTokenRequest, keyTyp
   withIface(self.p, IID_IWebProviderTokenRequest2, "IWebProviderTokenRequest2", it):
     withIface(target.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
       vcall(it, Slot_IWebProviderTokenRequest2_GetApplicationTokenBindingKeyIdAsync, Fn_IWebProviderTokenRequest2_GetApplicationTokenBindingKeyIdAsync)(it, keyType, p1, op.addr).check("WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync"))
 
 proc applicationPackageFamilyName*(self: WebProviderTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationPackageFamilyName
@@ -2421,7 +2438,7 @@ proc checkApplicationForCapabilityAsync*(self: WebProviderTokenRequest, capabili
   withIface(self.p, IID_IWebProviderTokenRequest3, "IWebProviderTokenRequest3", it):
     withHString(capabilityName, h0):
       vcall(it, Slot_IWebProviderTokenRequest3_CheckApplicationForCapabilityAsync, Fn_IWebProviderTokenRequest3_CheckApplicationForCapabilityAsync)(it, h0, op.addr).check("WebProviderTokenRequest.CheckApplicationForCapabilityAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "WebProviderTokenRequest.CheckApplicationForCapabilityAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "WebProviderTokenRequest.CheckApplicationForCapabilityAsync")
 
 proc clientResponse*(self: WebProviderTokenResponse): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.get_ClientResponse
@@ -2445,7 +2462,7 @@ proc authenticateAsync*(_: typedesc[WebAuthenticationBroker], options: WebAuthen
     withIface(requestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
       withIface(callbackUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
         vcall(it, Slot_IWebAuthenticationBrokerStatics_AuthenticateAsync, Fn_IWebAuthenticationBrokerStatics_AuthenticateAsync)(it, options, p1, p2, op.addr).check("WebAuthenticationBroker.AuthenticateAsync")
-  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateAsync"))
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, alPlain, "WebAuthenticationBroker.AuthenticateAsync"))
 
 proc authenticateAsync*(_: typedesc[WebAuthenticationBroker], options: WebAuthenticationOptions, requestUri: Uri): Future[WebAuthenticationResult] {.async.} =
   ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateAsync
@@ -2453,7 +2470,7 @@ proc authenticateAsync*(_: typedesc[WebAuthenticationBroker], options: WebAuthen
   withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics, it):
     withIface(requestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
       vcall(it, Slot_IWebAuthenticationBrokerStatics_AuthenticateAsync2, Fn_IWebAuthenticationBrokerStatics_AuthenticateAsync2)(it, options, p1, op.addr).check("WebAuthenticationBroker.AuthenticateAsync")
-  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateAsync"))
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, alPlain, "WebAuthenticationBroker.AuthenticateAsync"))
 
 proc getCurrentApplicationCallbackUri*(_: typedesc[WebAuthenticationBroker]): Uri  =
   ## Windows.Security.Authentication.Web.WebAuthenticationBroker.GetCurrentApplicationCallbackUri
@@ -2489,7 +2506,7 @@ proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker], requestUri
   withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
     withIface(requestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync, Fn_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync)(it, p0, op.addr).check("WebAuthenticationBroker.AuthenticateSilentlyAsync")
-  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, alPlain, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
 
 proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker], requestUri: Uri, options: WebAuthenticationOptions): Future[WebAuthenticationResult] {.async.} =
   ## Windows.Security.Authentication.Web.WebAuthenticationBroker.AuthenticateSilentlyAsync
@@ -2497,7 +2514,7 @@ proc authenticateSilentlyAsync*(_: typedesc[WebAuthenticationBroker], requestUri
   withStatics("Windows.Security.Authentication.Web.WebAuthenticationBroker", IID_IWebAuthenticationBrokerStatics2, it):
     withIface(requestUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync2, Fn_IWebAuthenticationBrokerStatics2_AuthenticateSilentlyAsync2)(it, p0, options, op.addr).check("WebAuthenticationBroker.AuthenticateSilentlyAsync")
-  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
+  result = adopt[WebAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_WebAuthenticationResult, IID_AsyncOperationCompletedHandler_1_WebAuthenticationResult, alPlain, "WebAuthenticationBroker.AuthenticateSilentlyAsync"))
 
 proc responseData*(self: WebAuthenticationResult): string  =
   ## Windows.Security.Authentication.Web.WebAuthenticationResult.get_ResponseData
@@ -2539,7 +2556,7 @@ proc requestAccessAsync*(self: AppCapability): Future[AppCapabilityAccessStatus]
   var op: pointer
   withIface(self.p, IID_IAppCapability, "IAppCapability", it):
     vcall(it, Slot_IAppCapability_RequestAccessAsync, Fn_IAppCapability_RequestAccessAsync)(it, op.addr).check("AppCapability.RequestAccessAsync")
-  result = await awaitValue[AppCapabilityAccessStatus](op, IID_IAsyncOperation_1_AppCapabilityAccessStatus, IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus, "AppCapability.RequestAccessAsync")
+  result = await awaitValue[AppCapabilityAccessStatus](op, IID_IAsyncOperation_1_AppCapabilityAccessStatus, IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus, alPlain, "AppCapability.RequestAccessAsync")
 
 proc checkAccess*(self: AppCapability): AppCapabilityAccessStatus  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.CheckAccess
@@ -2597,6 +2614,14 @@ proc createWithProcessIdForUser*(_: typedesc[AppCapability], user: User, capabil
         vcall(it, Slot_IAppCapabilityStatics_CreateWithProcessIdForUser, Fn_IAppCapabilityStatics_CreateWithProcessIdForUser)(it, p0, h1, pid, tmp.addr).check("AppCapability.CreateWithProcessIdForUser")
         result = adopt[AppCapability](tmp)
 
+proc invoke*(self: AttestationChallengeHandler, challenge: Buffer): Buffer  =
+  ## Windows.Security.Credentials.AttestationChallengeHandler.Invoke
+  withIface(self.p, IID_AttestationChallengeHandler, "AttestationChallengeHandler", it):
+    withIface(challenge.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_AttestationChallengeHandler_Invoke, Fn_AttestationChallengeHandler_Invoke)(it, p0, tmp.addr).check("AttestationChallengeHandler.Invoke")
+      result = adopt[Buffer](tmp)
+
 proc name*(self: KeyCredential): string  =
   ## Windows.Security.Credentials.KeyCredential.get_Name
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
@@ -2624,14 +2649,14 @@ proc requestSignAsync*(self: KeyCredential, data: Buffer): Future[KeyCredentialO
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     withIface(data.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IKeyCredential_RequestSignAsync, Fn_IKeyCredential_RequestSignAsync)(it, p0, op.addr).check("KeyCredential.RequestSignAsync")
-  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestSignAsync"))
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, alPlain, "KeyCredential.RequestSignAsync"))
 
 proc getAttestationAsync*(self: KeyCredential): Future[KeyCredentialAttestationResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredential.GetAttestationAsync
   var op: pointer
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     vcall(it, Slot_IKeyCredential_GetAttestationAsync, Fn_IKeyCredential_GetAttestationAsync)(it, op.addr).check("KeyCredential.GetAttestationAsync")
-  result = adopt[KeyCredentialAttestationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialAttestationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialAttestationResult, "KeyCredential.GetAttestationAsync"))
+  result = adopt[KeyCredentialAttestationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialAttestationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialAttestationResult, alPlain, "KeyCredential.GetAttestationAsync"))
 
 proc requestDeriveSharedSecretAsync*(self: KeyCredential, windowId: WindowId, message: string, encryptedRequest: Buffer): Future[KeyCredentialOperationResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredential.RequestDeriveSharedSecretAsync
@@ -2640,7 +2665,7 @@ proc requestDeriveSharedSecretAsync*(self: KeyCredential, windowId: WindowId, me
     withHString(message, h1):
       withIface(encryptedRequest.p, IID_IBuffer, "IBuffer", p2):
         vcall(it, Slot_IKeyCredential2_RequestDeriveSharedSecretAsync, Fn_IKeyCredential2_RequestDeriveSharedSecretAsync)(it, windowId, h1, p2, op.addr).check("KeyCredential.RequestDeriveSharedSecretAsync")
-  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestDeriveSharedSecretAsync"))
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, alPlain, "KeyCredential.RequestDeriveSharedSecretAsync"))
 
 proc retrieveAuthorizationContext*(self: KeyCredential, encryptedRequest: Buffer): Buffer  =
   ## Windows.Security.Credentials.KeyCredential.RetrieveAuthorizationContext
@@ -2656,7 +2681,7 @@ proc requestSignForWindowAsync*(self: KeyCredential, window: WindowId, data: Buf
   withIface(self.p, IID_IKeyCredentialWithWindow, "IKeyCredentialWithWindow", it):
     withIface(data.p, IID_IBuffer, "IBuffer", p1):
       vcall(it, Slot_IKeyCredentialWithWindow_RequestSignForWindowAsync, Fn_IKeyCredentialWithWindow_RequestSignForWindowAsync)(it, window, p1, op.addr).check("KeyCredential.RequestSignForWindowAsync")
-  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestSignForWindowAsync"))
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, alPlain, "KeyCredential.RequestSignForWindowAsync"))
 
 proc certificateChainBuffer*(self: KeyCredentialAttestationResult): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_CertificateChainBuffer
@@ -2707,7 +2732,7 @@ proc createInstance*(_: typedesc[KeyCredentialCacheConfiguration], cacheOption: 
     vcall(it, Slot_IKeyCredentialCacheConfigurationFactory_CreateInstance, Fn_IKeyCredentialCacheConfigurationFactory_CreateInstance)(it, cacheOption, timeout, usageCount, tmp.addr).check("KeyCredentialCacheConfiguration.CreateInstance")
     result = adopt[KeyCredentialCacheConfiguration](tmp)
 
-proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option: KeyCredentialCreationOption, algorithm: string, message: string, cacheConfiguration: KeyCredentialCacheConfiguration, windowId: WindowId, callbackType: ChallengeResponseKind, attestationCallback: proc(sender: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
+proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option: KeyCredentialCreationOption, algorithm: string, message: string, cacheConfiguration: KeyCredentialCacheConfiguration, windowId: WindowId, callbackType: ChallengeResponseKind, attestationCallback: proc(a0: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateAsync
   var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
@@ -2715,20 +2740,20 @@ proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option
       withHString(algorithm, h2):
         withHString(message, h3):
           withIface(cacheConfiguration.p, IID_IKeyCredentialCacheConfiguration, "IKeyCredentialCacheConfiguration", p4):
-            let d7 = newDelegate(IID_AttestationChallengeHandler, proc(a: pointer) = attestationCallback(borrow[Buffer](a)))
+            let d7 = newDelegate(IID_AttestationChallengeHandler, proc(a0: pointer) = attestationCallback(borrow[Buffer](a0)))
             defer: discard release(d7)
             vcall(it, Slot_IKeyCredentialManagerStatics2_RequestCreateAsync, Fn_IKeyCredentialManagerStatics2_RequestCreateAsync)(it, h0, option, h2, h3, p4, windowId, callbackType, d7, op.addr).check("KeyCredentialManager.RequestCreateAsync")
-  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateAsync"))
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, alPlain, "KeyCredentialManager.RequestCreateAsync"))
 
-proc openAsync*(_: typedesc[KeyCredentialManager], name: string, callbackType: ChallengeResponseKind, attestationCallback: proc(sender: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
+proc openAsync*(_: typedesc[KeyCredentialManager], name: string, callbackType: ChallengeResponseKind, attestationCallback: proc(a0: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.OpenAsync
   var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
     withHString(name, h0):
-      let d2 = newDelegate(IID_AttestationChallengeHandler, proc(a: pointer) = attestationCallback(borrow[Buffer](a)))
+      let d2 = newDelegate(IID_AttestationChallengeHandler, proc(a0: pointer) = attestationCallback(borrow[Buffer](a0)))
       defer: discard release(d2)
       vcall(it, Slot_IKeyCredentialManagerStatics2_OpenAsync, Fn_IKeyCredentialManagerStatics2_OpenAsync)(it, h0, callbackType, d2, op.addr).check("KeyCredentialManager.OpenAsync")
-  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.OpenAsync"))
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, alPlain, "KeyCredentialManager.OpenAsync"))
 
 proc getSecureId*(_: typedesc[KeyCredentialManager]): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialManager.GetSecureId
@@ -2742,14 +2767,14 @@ proc isSupportedAsync*(_: typedesc[KeyCredentialManager]): Future[bool] {.async.
   var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     vcall(it, Slot_IKeyCredentialManagerStatics_IsSupportedAsync, Fn_IKeyCredentialManagerStatics_IsSupportedAsync)(it, op.addr).check("KeyCredentialManager.IsSupportedAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "KeyCredentialManager.IsSupportedAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "KeyCredentialManager.IsSupportedAsync")
 
 proc renewAttestationAsync*(_: typedesc[KeyCredentialManager]) {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RenewAttestationAsync
   var op: pointer
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     vcall(it, Slot_IKeyCredentialManagerStatics_RenewAttestationAsync, Fn_IKeyCredentialManagerStatics_RenewAttestationAsync)(it, op.addr).check("KeyCredentialManager.RenewAttestationAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "KeyCredentialManager.RenewAttestationAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "KeyCredentialManager.RenewAttestationAsync")
 
 proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option: KeyCredentialCreationOption): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateAsync
@@ -2757,7 +2782,7 @@ proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(name, h0):
       vcall(it, Slot_IKeyCredentialManagerStatics_RequestCreateAsync, Fn_IKeyCredentialManagerStatics_RequestCreateAsync)(it, h0, option, op.addr).check("KeyCredentialManager.RequestCreateAsync")
-  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateAsync"))
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, alPlain, "KeyCredentialManager.RequestCreateAsync"))
 
 proc openAsync*(_: typedesc[KeyCredentialManager], name: string): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.OpenAsync
@@ -2765,7 +2790,7 @@ proc openAsync*(_: typedesc[KeyCredentialManager], name: string): Future[KeyCred
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(name, h0):
       vcall(it, Slot_IKeyCredentialManagerStatics_OpenAsync, Fn_IKeyCredentialManagerStatics_OpenAsync)(it, h0, op.addr).check("KeyCredentialManager.OpenAsync")
-  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.OpenAsync"))
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, alPlain, "KeyCredentialManager.OpenAsync"))
 
 proc deleteAsync*(_: typedesc[KeyCredentialManager], name: string) {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.DeleteAsync
@@ -2773,7 +2798,7 @@ proc deleteAsync*(_: typedesc[KeyCredentialManager], name: string) {.async.} =
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics, it):
     withHString(name, h0):
       vcall(it, Slot_IKeyCredentialManagerStatics_DeleteAsync, Fn_IKeyCredentialManagerStatics_DeleteAsync)(it, h0, op.addr).check("KeyCredentialManager.DeleteAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "KeyCredentialManager.DeleteAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "KeyCredentialManager.DeleteAsync")
 
 proc requestCreateForWindowAsync*(_: typedesc[KeyCredentialManager], window: WindowId, name: string, option: KeyCredentialCreationOption): Future[KeyCredentialRetrievalResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateForWindowAsync
@@ -2781,7 +2806,7 @@ proc requestCreateForWindowAsync*(_: typedesc[KeyCredentialManager], window: Win
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerCreateWithWindowStatics, it):
     withHString(name, h1):
       vcall(it, Slot_IKeyCredentialManagerCreateWithWindowStatics_RequestCreateForWindowAsync, Fn_IKeyCredentialManagerCreateWithWindowStatics_RequestCreateForWindowAsync)(it, window, h1, option, op.addr).check("KeyCredentialManager.RequestCreateForWindowAsync")
-  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateForWindowAsync"))
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, alPlain, "KeyCredentialManager.RequestCreateForWindowAsync"))
 
 proc `result`*(self: KeyCredentialOperationResult): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialOperationResult.get_Result
@@ -2859,12 +2884,12 @@ proc retrievePassword*(self: PasswordCredential)  =
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     vcall(it, Slot_IPasswordCredential_RetrievePassword, Fn_IPasswordCredential_RetrievePassword)(it).check("PasswordCredential.RetrievePassword")
 
-proc properties*(self: PasswordCredential): ApplicationDataContainerSettings  =
+proc properties*(self: PasswordCredential): WinRtObject  =
   ## Windows.Security.Credentials.PasswordCredential.get_Properties
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordCredential_get_Properties, Fn_IPasswordCredential_get_Properties)(it, tmp.addr).check("PasswordCredential.get_Properties")
-    result = adopt[ApplicationDataContainerSettings](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc createPasswordCredential*(_: typedesc[PasswordCredential], resource: string, userName: string, password: string): PasswordCredential  =
   ## Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential
@@ -2937,7 +2962,7 @@ proc pickAsync*(_: typedesc[CredentialPicker], options: CredentialPickerOptions)
   withStatics("Windows.Security.Credentials.UI.CredentialPicker", IID_ICredentialPickerStatics, it):
     withIface(options.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", p0):
       vcall(it, Slot_ICredentialPickerStatics_PickAsync, Fn_ICredentialPickerStatics_PickAsync)(it, p0, op.addr).check("CredentialPicker.PickAsync")
-  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, alPlain, "CredentialPicker.PickAsync"))
 
 proc pickAsync*(_: typedesc[CredentialPicker], targetName: string, message: string): Future[CredentialPickerResults] {.async.} =
   ## Windows.Security.Credentials.UI.CredentialPicker.PickAsync
@@ -2946,7 +2971,7 @@ proc pickAsync*(_: typedesc[CredentialPicker], targetName: string, message: stri
     withHString(targetName, h0):
       withHString(message, h1):
         vcall(it, Slot_ICredentialPickerStatics_PickAsync2, Fn_ICredentialPickerStatics_PickAsync2)(it, h0, h1, op.addr).check("CredentialPicker.PickAsync")
-  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, alPlain, "CredentialPicker.PickAsync"))
 
 proc pickAsync*(_: typedesc[CredentialPicker], targetName: string, message: string, caption: string): Future[CredentialPickerResults] {.async.} =
   ## Windows.Security.Credentials.UI.CredentialPicker.PickAsync
@@ -2956,7 +2981,7 @@ proc pickAsync*(_: typedesc[CredentialPicker], targetName: string, message: stri
       withHString(message, h1):
         withHString(caption, h2):
           vcall(it, Slot_ICredentialPickerStatics_PickAsync3, Fn_ICredentialPickerStatics_PickAsync3)(it, h0, h1, h2, op.addr).check("CredentialPicker.PickAsync")
-  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, "CredentialPicker.PickAsync"))
+  result = adopt[CredentialPickerResults](await awaitObject(op, IID_IAsyncOperation_1_CredentialPickerResults, IID_AsyncOperationCompletedHandler_1_CredentialPickerResults, alPlain, "CredentialPicker.PickAsync"))
 
 proc newCredentialPickerOptions*(): CredentialPickerOptions =
   ## Activate a `Windows.Security.Credentials.UI.CredentialPickerOptions`.
@@ -3141,7 +3166,7 @@ proc checkAvailabilityAsync*(_: typedesc[UserConsentVerifier]): Future[UserConse
   var op: pointer
   withStatics("Windows.Security.Credentials.UI.UserConsentVerifier", IID_IUserConsentVerifierStatics, it):
     vcall(it, Slot_IUserConsentVerifierStatics_CheckAvailabilityAsync, Fn_IUserConsentVerifierStatics_CheckAvailabilityAsync)(it, op.addr).check("UserConsentVerifier.CheckAvailabilityAsync")
-  result = await awaitValue[UserConsentVerifierAvailability](op, IID_IAsyncOperation_1_UserConsentVerifierAvailability, IID_AsyncOperationCompletedHandler_1_UserConsentVerifierAvailability, "UserConsentVerifier.CheckAvailabilityAsync")
+  result = await awaitValue[UserConsentVerifierAvailability](op, IID_IAsyncOperation_1_UserConsentVerifierAvailability, IID_AsyncOperationCompletedHandler_1_UserConsentVerifierAvailability, alPlain, "UserConsentVerifier.CheckAvailabilityAsync")
 
 proc requestVerificationAsync*(_: typedesc[UserConsentVerifier], message: string): Future[UserConsentVerificationResult] {.async.} =
   ## Windows.Security.Credentials.UI.UserConsentVerifier.RequestVerificationAsync
@@ -3149,7 +3174,7 @@ proc requestVerificationAsync*(_: typedesc[UserConsentVerifier], message: string
   withStatics("Windows.Security.Credentials.UI.UserConsentVerifier", IID_IUserConsentVerifierStatics, it):
     withHString(message, h0):
       vcall(it, Slot_IUserConsentVerifierStatics_RequestVerificationAsync, Fn_IUserConsentVerifierStatics_RequestVerificationAsync)(it, h0, op.addr).check("UserConsentVerifier.RequestVerificationAsync")
-  result = await awaitValue[UserConsentVerificationResult](op, IID_IAsyncOperation_1_UserConsentVerificationResult, IID_AsyncOperationCompletedHandler_1_UserConsentVerificationResult, "UserConsentVerifier.RequestVerificationAsync")
+  result = await awaitValue[UserConsentVerificationResult](op, IID_IAsyncOperation_1_UserConsentVerificationResult, IID_AsyncOperationCompletedHandler_1_UserConsentVerificationResult, alPlain, "UserConsentVerifier.RequestVerificationAsync")
 
 proc webAccountProvider*(self: WebAccount): WebAccountProvider  =
   ## Windows.Security.Credentials.WebAccount.get_WebAccountProvider
@@ -3184,22 +3209,22 @@ proc properties*(self: WebAccount): Table[string, string]  =
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     var tmp: pointer
     vcall(it, Slot_IWebAccount2_get_Properties, Fn_IWebAccount2_get_Properties)(it, tmp.addr).check("WebAccount.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
-proc getPictureAsync*(self: WebAccount, desizedSize: WebAccountPictureSize): Future[RandomAccessStreamOverStream] {.async.} =
+proc getPictureAsync*(self: WebAccount, desizedSize: WebAccountPictureSize): Future[WinRtObject] {.async.} =
   ## Windows.Security.Credentials.WebAccount.GetPictureAsync
   var op: pointer
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     vcall(it, Slot_IWebAccount2_GetPictureAsync, Fn_IWebAccount2_GetPictureAsync)(it, desizedSize, op.addr).check("WebAccount.GetPictureAsync")
-  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "WebAccount.GetPictureAsync"))
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, alPlain, "WebAccount.GetPictureAsync"))
 
 proc signOutAsync*(self: WebAccount) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync
   var op: pointer
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     vcall(it, Slot_IWebAccount2_SignOutAsync, Fn_IWebAccount2_SignOutAsync)(it, op.addr).check("WebAccount.SignOutAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccount.SignOutAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccount.SignOutAsync")
 
 proc signOutAsync*(self: WebAccount, clientId: string) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync
@@ -3207,7 +3232,7 @@ proc signOutAsync*(self: WebAccount, clientId: string) {.async.} =
   withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
     withHString(clientId, h0):
       vcall(it, Slot_IWebAccount2_SignOutAsync2, Fn_IWebAccount2_SignOutAsync2)(it, h0, op.addr).check("WebAccount.SignOutAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccount.SignOutAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebAccount.SignOutAsync")
 
 proc createWebAccount*(_: typedesc[WebAccount], webAccountProvider: WebAccountProvider, userName: string, state: WebAccountState): WebAccount  =
   ## Windows.Security.Credentials.WebAccount.CreateWebAccount
@@ -3284,7 +3309,7 @@ proc buildChainAsync*(self: Certificate, certificates: seq[Certificate]): Future
     let p0 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
     defer: discard release(p0)
     vcall(it, Slot_ICertificate_BuildChainAsync, Fn_ICertificate_BuildChainAsync)(it, p0, op.addr).check("Certificate.BuildChainAsync")
-  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
+  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, alPlain, "Certificate.BuildChainAsync"))
 
 proc buildChainAsync*(self: Certificate, certificates: seq[Certificate], parameters: ChainBuildingParameters): Future[CertificateChain] {.async.} =
   ## Windows.Security.Cryptography.Certificates.Certificate.BuildChainAsync
@@ -3294,7 +3319,7 @@ proc buildChainAsync*(self: Certificate, certificates: seq[Certificate], paramet
     defer: discard release(p0)
     withIface(parameters.p, IID_IChainBuildingParameters, "IChainBuildingParameters", p1):
       vcall(it, Slot_ICertificate_BuildChainAsync2, Fn_ICertificate_BuildChainAsync2)(it, p0, p1, op.addr).check("Certificate.BuildChainAsync")
-  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
+  result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, alPlain, "Certificate.BuildChainAsync"))
 
 proc serialNumber*(self: Certificate): seq[uint8]  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_SerialNumber
@@ -3501,7 +3526,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], pfxData: str
         withHString(friendlyName, h5):
           withHString(keyStorageProvider, h6):
             vcall(it, Slot_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics2_ImportPfxDataAsync)(it, h0, h1, exportable, keyProtectionLevel, installOption, h5, h6, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc createRequestAsync*(_: typedesc[CertificateEnrollmentManager], request: CertificateRequestProperties): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.CreateRequestAsync
@@ -3509,7 +3534,7 @@ proc createRequestAsync*(_: typedesc[CertificateEnrollmentManager], request: Cer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics, it):
     withIface(request.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", p0):
       vcall(it, Slot_ICertificateEnrollmentManagerStatics_CreateRequestAsync, Fn_ICertificateEnrollmentManagerStatics_CreateRequestAsync)(it, p0, op.addr).check("CertificateEnrollmentManager.CreateRequestAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "CertificateEnrollmentManager.CreateRequestAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "CertificateEnrollmentManager.CreateRequestAsync")
 
 proc installCertificateAsync*(_: typedesc[CertificateEnrollmentManager], certificate: string, installOption: InstallOptions) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.InstallCertificateAsync
@@ -3517,7 +3542,7 @@ proc installCertificateAsync*(_: typedesc[CertificateEnrollmentManager], certifi
   withStatics("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager", IID_ICertificateEnrollmentManagerStatics, it):
     withHString(certificate, h0):
       vcall(it, Slot_ICertificateEnrollmentManagerStatics_InstallCertificateAsync, Fn_ICertificateEnrollmentManagerStatics_InstallCertificateAsync)(it, h0, installOption, op.addr).check("CertificateEnrollmentManager.InstallCertificateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.InstallCertificateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CertificateEnrollmentManager.InstallCertificateAsync")
 
 proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], pfxData: string, password: string, exportable: ExportOption, keyProtectionLevel: KeyProtectionLevel, installOption: InstallOptions, friendlyName: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.ImportPfxDataAsync
@@ -3527,7 +3552,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], pfxData: str
       withHString(password, h1):
         withHString(friendlyName, h5):
           vcall(it, Slot_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync)(it, h0, h1, exportable, keyProtectionLevel, installOption, h5, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], pfxData: string, password: string, pfxImportParameters: PfxImportParameters) {.async.} =
   ## Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager.ImportPfxDataAsync
@@ -3537,7 +3562,7 @@ proc importPfxDataAsync*(_: typedesc[CertificateEnrollmentManager], pfxData: str
       withHString(password, h1):
         withIface(pfxImportParameters.p, IID_IPfxImportParameters, "IPfxImportParameters", p2):
           vcall(it, Slot_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync, Fn_ICertificateEnrollmentManagerStatics3_ImportPfxDataAsync)(it, h0, h1, p2, op.addr).check("CertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc newCertificateExtension*(): CertificateExtension =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateExtension`.
@@ -4060,7 +4085,7 @@ proc findAllAsync*(_: typedesc[CertificateStores]): Future[seq[Certificate]] {.a
   var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics, it):
     vcall(it, Slot_ICertificateStoresStatics_FindAllAsync, Fn_ICertificateStoresStatics_FindAllAsync)(it, op.addr).check("CertificateStores.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "CertificateStores.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, alPlain, "CertificateStores.FindAllAsync")
   result = toSeq[Certificate](coll, IID_IVectorView_1_Certificate)
   discard release(coll)
 
@@ -4070,7 +4095,7 @@ proc findAllAsync*(_: typedesc[CertificateStores], query: CertificateQuery): Fut
   withStatics("Windows.Security.Cryptography.Certificates.CertificateStores", IID_ICertificateStoresStatics, it):
     withIface(query.p, IID_ICertificateQuery, "ICertificateQuery", p0):
       vcall(it, Slot_ICertificateStoresStatics_FindAllAsync2, Fn_ICertificateStoresStatics_FindAllAsync2)(it, p0, op.addr).check("CertificateStores.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "CertificateStores.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, alPlain, "CertificateStores.FindAllAsync")
   result = toSeq[Certificate](coll, IID_IVectorView_1_Certificate)
   discard release(coll)
 
@@ -4254,7 +4279,7 @@ proc generateSignatureAsync*(_: typedesc[CmsAttachedSignature], data: Buffer, si
       let p2 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
       defer: discard release(p2)
       vcall(it, Slot_ICmsAttachedSignatureStatics_GenerateSignatureAsync, Fn_ICmsAttachedSignatureStatics_GenerateSignatureAsync)(it, p0, p1, p2, op.addr).check("CmsAttachedSignature.GenerateSignatureAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CmsAttachedSignature.GenerateSignatureAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "CmsAttachedSignature.GenerateSignatureAsync"))
 
 proc createCmsAttachedSignature*(_: typedesc[CmsAttachedSignature], inputBlob: Buffer): CmsAttachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.CreateCmsAttachedSignature
@@ -4280,15 +4305,15 @@ proc signers*(self: CmsDetachedSignature): seq[CmsSignerInfo]  =
     result = toSeq[CmsSignerInfo](tmp, IID_IVectorView_1_CmsSignerInfo)
     release(tmp)
 
-proc verifySignatureAsync*(self: CmsDetachedSignature, data: InputStreamOverStream): Future[SignatureValidationResult] {.async.} =
+proc verifySignatureAsync*(self: CmsDetachedSignature, data: WinRtObject): Future[SignatureValidationResult] {.async.} =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.VerifySignatureAsync
   var op: pointer
   withIface(self.p, IID_ICmsDetachedSignature, "ICmsDetachedSignature", it):
     withIface(data.p, IID_IInputStream, "IInputStream", p0):
       vcall(it, Slot_ICmsDetachedSignature_VerifySignatureAsync, Fn_ICmsDetachedSignature_VerifySignatureAsync)(it, p0, op.addr).check("CmsDetachedSignature.VerifySignatureAsync")
-  result = await awaitValue[SignatureValidationResult](op, IID_IAsyncOperation_1_SignatureValidationResult, IID_AsyncOperationCompletedHandler_1_SignatureValidationResult, "CmsDetachedSignature.VerifySignatureAsync")
+  result = await awaitValue[SignatureValidationResult](op, IID_IAsyncOperation_1_SignatureValidationResult, IID_AsyncOperationCompletedHandler_1_SignatureValidationResult, alPlain, "CmsDetachedSignature.VerifySignatureAsync")
 
-proc generateSignatureAsync*(_: typedesc[CmsDetachedSignature], data: InputStreamOverStream, signers: seq[CmsSignerInfo], certificates: seq[Certificate]): Future[Buffer] {.async.} =
+proc generateSignatureAsync*(_: typedesc[CmsDetachedSignature], data: WinRtObject, signers: seq[CmsSignerInfo], certificates: seq[Certificate]): Future[Buffer] {.async.} =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.GenerateSignatureAsync
   var op: pointer
   withStatics("Windows.Security.Cryptography.Certificates.CmsDetachedSignature", IID_ICmsDetachedSignatureStatics, it):
@@ -4298,7 +4323,7 @@ proc generateSignatureAsync*(_: typedesc[CmsDetachedSignature], data: InputStrea
       let p2 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
       defer: discard release(p2)
       vcall(it, Slot_ICmsDetachedSignatureStatics_GenerateSignatureAsync, Fn_ICmsDetachedSignatureStatics_GenerateSignatureAsync)(it, p0, p1, p2, op.addr).check("CmsDetachedSignature.GenerateSignatureAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CmsDetachedSignature.GenerateSignatureAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "CmsDetachedSignature.GenerateSignatureAsync"))
 
 proc createCmsDetachedSignature*(_: typedesc[CmsDetachedSignature], inputBlob: Buffer): CmsDetachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.CreateCmsDetachedSignature
@@ -4444,7 +4469,7 @@ proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], cr
     withHString(credential, h0):
       withHString(containerName, h1):
         vcall(it, Slot_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync)(it, h0, h1, op.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
 
 proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], credential: string): Future[string] {.async.} =
   ## Windows.Security.Cryptography.Certificates.KeyAttestationHelper.DecryptTpmAttestationCredentialAsync
@@ -4452,7 +4477,7 @@ proc decryptTpmAttestationCredentialAsync*(_: typedesc[KeyAttestationHelper], cr
   withStatics("Windows.Security.Cryptography.Certificates.KeyAttestationHelper", IID_IKeyAttestationHelperStatics, it):
     withHString(credential, h0):
       vcall(it, Slot_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync, Fn_IKeyAttestationHelperStatics_DecryptTpmAttestationCredentialAsync)(it, h0, op.addr).check("KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "KeyAttestationHelper.DecryptTpmAttestationCredentialAsync")
 
 proc getTpmAttestationCredentialId*(_: typedesc[KeyAttestationHelper], credential: string): string  =
   ## Windows.Security.Cryptography.Certificates.KeyAttestationHelper.GetTpmAttestationCredentialId
@@ -4716,7 +4741,7 @@ proc createRequestAsync*(self: UserCertificateEnrollmentManager, request: Certif
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withIface(request.p, IID_ICertificateRequestProperties, "ICertificateRequestProperties", p0):
       vcall(it, Slot_IUserCertificateEnrollmentManager_CreateRequestAsync, Fn_IUserCertificateEnrollmentManager_CreateRequestAsync)(it, p0, op.addr).check("UserCertificateEnrollmentManager.CreateRequestAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserCertificateEnrollmentManager.CreateRequestAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserCertificateEnrollmentManager.CreateRequestAsync")
 
 proc installCertificateAsync*(self: UserCertificateEnrollmentManager, certificate: string, installOption: InstallOptions) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.InstallCertificateAsync
@@ -4724,7 +4749,7 @@ proc installCertificateAsync*(self: UserCertificateEnrollmentManager, certificat
   withIface(self.p, IID_IUserCertificateEnrollmentManager, "IUserCertificateEnrollmentManager", it):
     withHString(certificate, h0):
       vcall(it, Slot_IUserCertificateEnrollmentManager_InstallCertificateAsync, Fn_IUserCertificateEnrollmentManager_InstallCertificateAsync)(it, h0, installOption, op.addr).check("UserCertificateEnrollmentManager.InstallCertificateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.InstallCertificateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserCertificateEnrollmentManager.InstallCertificateAsync")
 
 proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string, password: string, exportable: ExportOption, keyProtectionLevel: KeyProtectionLevel, installOption: InstallOptions, friendlyName: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
@@ -4734,7 +4759,7 @@ proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string
       withHString(password, h1):
         withHString(friendlyName, h5):
           vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync)(it, h0, h1, exportable, keyProtectionLevel, installOption, h5, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string, password: string, exportable: ExportOption, keyProtectionLevel: KeyProtectionLevel, installOption: InstallOptions, friendlyName: string, keyStorageProvider: string) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
@@ -4745,7 +4770,7 @@ proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string
         withHString(friendlyName, h5):
           withHString(keyStorageProvider, h6):
             vcall(it, Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync2, Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync2)(it, h0, h1, exportable, keyProtectionLevel, installOption, h5, h6, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string, password: string, pfxImportParameters: PfxImportParameters) {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateEnrollmentManager.ImportPfxDataAsync
@@ -4755,7 +4780,7 @@ proc importPfxDataAsync*(self: UserCertificateEnrollmentManager, pfxData: string
       withHString(password, h1):
         withIface(pfxImportParameters.p, IID_IPfxImportParameters, "IPfxImportParameters", p2):
           vcall(it, Slot_IUserCertificateEnrollmentManager2_ImportPfxDataAsync, Fn_IUserCertificateEnrollmentManager2_ImportPfxDataAsync)(it, h0, h1, p2, op.addr).check("UserCertificateEnrollmentManager.ImportPfxDataAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "UserCertificateEnrollmentManager.ImportPfxDataAsync")
 
 proc requestAddAsync*(self: UserCertificateStore, certificate: Certificate): Future[bool] {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateStore.RequestAddAsync
@@ -4763,7 +4788,7 @@ proc requestAddAsync*(self: UserCertificateStore, certificate: Certificate): Fut
   withIface(self.p, IID_IUserCertificateStore, "IUserCertificateStore", it):
     withIface(certificate.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_IUserCertificateStore_RequestAddAsync, Fn_IUserCertificateStore_RequestAddAsync)(it, p0, op.addr).check("UserCertificateStore.RequestAddAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserCertificateStore.RequestAddAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserCertificateStore.RequestAddAsync")
 
 proc requestDeleteAsync*(self: UserCertificateStore, certificate: Certificate): Future[bool] {.async.} =
   ## Windows.Security.Cryptography.Certificates.UserCertificateStore.RequestDeleteAsync
@@ -4771,7 +4796,7 @@ proc requestDeleteAsync*(self: UserCertificateStore, certificate: Certificate): 
   withIface(self.p, IID_IUserCertificateStore, "IUserCertificateStore", it):
     withIface(certificate.p, IID_ICertificate, "ICertificate", p0):
       vcall(it, Slot_IUserCertificateStore_RequestDeleteAsync, Fn_IUserCertificateStore_RequestDeleteAsync)(it, p0, op.addr).check("UserCertificateStore.RequestDeleteAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserCertificateStore.RequestDeleteAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserCertificateStore.RequestDeleteAsync")
 
 proc name*(self: UserCertificateStore): string  =
   ## Windows.Security.Cryptography.Certificates.UserCertificateStore.get_Name
@@ -5025,7 +5050,7 @@ proc decryptAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data
       withIface(data.p, IID_IBuffer, "IBuffer", p1):
         withIface(iv.p, IID_IBuffer, "IBuffer", p2):
           vcall(it, Slot_ICryptographicEngineStatics2_DecryptAsync, Fn_ICryptographicEngineStatics2_DecryptAsync)(it, p0, p1, p2, op.addr).check("CryptographicEngine.DecryptAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.DecryptAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "CryptographicEngine.DecryptAsync"))
 
 proc signAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Future[Buffer] {.async.} =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.SignAsync
@@ -5034,7 +5059,7 @@ proc signAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: B
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
       withIface(data.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_ICryptographicEngineStatics2_SignAsync, Fn_ICryptographicEngineStatics2_SignAsync)(it, p0, p1, op.addr).check("CryptographicEngine.SignAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.SignAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "CryptographicEngine.SignAsync"))
 
 proc signHashedDataAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Future[Buffer] {.async.} =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.SignHashedDataAsync
@@ -5043,7 +5068,7 @@ proc signHashedDataAsync*(_: typedesc[CryptographicEngine], key: CryptographicKe
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
       withIface(data.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_ICryptographicEngineStatics2_SignHashedDataAsync, Fn_ICryptographicEngineStatics2_SignHashedDataAsync)(it, p0, p1, op.addr).check("CryptographicEngine.SignHashedDataAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.SignHashedDataAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "CryptographicEngine.SignHashedDataAsync"))
 
 proc encrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, iv: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Encrypt
@@ -5891,7 +5916,7 @@ proc openKeyPairFromCertificateAsync*(_: typedesc[PersistedKeyProvider], certifi
     withIface(certificate.p, IID_ICertificate, "ICertificate", p0):
       withHString(hashAlgorithmName, h1):
         vcall(it, Slot_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync, Fn_IPersistedKeyProviderStatics_OpenKeyPairFromCertificateAsync)(it, p0, h1, padding, op.addr).check("PersistedKeyProvider.OpenKeyPairFromCertificateAsync")
-  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, "PersistedKeyProvider.OpenKeyPairFromCertificateAsync"))
+  result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, alPlain, "PersistedKeyProvider.OpenKeyPairFromCertificateAsync"))
 
 proc openPublicKeyFromCertificate*(_: typedesc[PersistedKeyProvider], certificate: Certificate, hashAlgorithmName: string, padding: CryptographicPadding): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.PersistedKeyProvider.OpenPublicKeyFromCertificate
@@ -6164,7 +6189,7 @@ proc protectAsync*(self: DataProtectionProvider, data: Buffer): Future[Buffer] {
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
     withIface(data.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IDataProtectionProvider_ProtectAsync, Fn_IDataProtectionProvider_ProtectAsync)(it, p0, op.addr).check("DataProtectionProvider.ProtectAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "DataProtectionProvider.ProtectAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "DataProtectionProvider.ProtectAsync"))
 
 proc unprotectAsync*(self: DataProtectionProvider, data: Buffer): Future[Buffer] {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.UnprotectAsync
@@ -6172,25 +6197,25 @@ proc unprotectAsync*(self: DataProtectionProvider, data: Buffer): Future[Buffer]
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
     withIface(data.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IDataProtectionProvider_UnprotectAsync, Fn_IDataProtectionProvider_UnprotectAsync)(it, p0, op.addr).check("DataProtectionProvider.UnprotectAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "DataProtectionProvider.UnprotectAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "DataProtectionProvider.UnprotectAsync"))
 
-proc protectStreamAsync*(self: DataProtectionProvider, src: InputStreamOverStream, dest: OutputStreamOverStream) {.async.} =
+proc protectStreamAsync*(self: DataProtectionProvider, src: WinRtObject, dest: WinRtObject) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.ProtectStreamAsync
   var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
     withIface(src.p, IID_IInputStream, "IInputStream", p0):
       withIface(dest.p, IID_IOutputStream, "IOutputStream", p1):
         vcall(it, Slot_IDataProtectionProvider_ProtectStreamAsync, Fn_IDataProtectionProvider_ProtectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionProvider.ProtectStreamAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.ProtectStreamAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "DataProtectionProvider.ProtectStreamAsync")
 
-proc unprotectStreamAsync*(self: DataProtectionProvider, src: InputStreamOverStream, dest: OutputStreamOverStream) {.async.} =
+proc unprotectStreamAsync*(self: DataProtectionProvider, src: WinRtObject, dest: WinRtObject) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.UnprotectStreamAsync
   var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
     withIface(src.p, IID_IInputStream, "IInputStream", p0):
       withIface(dest.p, IID_IOutputStream, "IOutputStream", p1):
         vcall(it, Slot_IDataProtectionProvider_UnprotectStreamAsync, Fn_IDataProtectionProvider_UnprotectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionProvider.UnprotectStreamAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.UnprotectStreamAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "DataProtectionProvider.UnprotectStreamAsync")
 
 proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], protectionDescriptor: string): DataProtectionProvider  =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.CreateOverloadExplicit
@@ -6221,19 +6246,21 @@ proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): Buffer  =
     vcall(it, Slot_IUserDataBufferUnprotectResult_get_UnprotectedBuffer, Fn_IUserDataBufferUnprotectResult_get_UnprotectedBuffer)(it, tmp.addr).check("UserDataBufferUnprotectResult.get_UnprotectedBuffer")
     result = adopt[Buffer](tmp)
 
-proc protectStorageItemAsync*(self: UserDataProtectionManager, storageItem: pointer, availability: UserDataAvailability): Future[UserDataStorageItemProtectionStatus] {.async.} =
+proc protectStorageItemAsync*(self: UserDataProtectionManager, storageItem: WinRtObject, availability: UserDataAvailability): Future[UserDataStorageItemProtectionStatus] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.ProtectStorageItemAsync
   var op: pointer
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    vcall(it, Slot_IUserDataProtectionManager_ProtectStorageItemAsync, Fn_IUserDataProtectionManager_ProtectStorageItemAsync)(it, storageItem, availability, op.addr).check("UserDataProtectionManager.ProtectStorageItemAsync")
-  result = await awaitValue[UserDataStorageItemProtectionStatus](op, IID_IAsyncOperation_1_UserDataStorageItemProtectionStatus, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionStatus, "UserDataProtectionManager.ProtectStorageItemAsync")
+    withIface(storageItem.p, IID_IStorageItem, "IStorageItem", p0):
+      vcall(it, Slot_IUserDataProtectionManager_ProtectStorageItemAsync, Fn_IUserDataProtectionManager_ProtectStorageItemAsync)(it, p0, availability, op.addr).check("UserDataProtectionManager.ProtectStorageItemAsync")
+  result = await awaitValue[UserDataStorageItemProtectionStatus](op, IID_IAsyncOperation_1_UserDataStorageItemProtectionStatus, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionStatus, alPlain, "UserDataProtectionManager.ProtectStorageItemAsync")
 
-proc getStorageItemProtectionInfoAsync*(self: UserDataProtectionManager, storageItem: pointer): Future[UserDataStorageItemProtectionInfo] {.async.} =
+proc getStorageItemProtectionInfoAsync*(self: UserDataProtectionManager, storageItem: WinRtObject): Future[UserDataStorageItemProtectionInfo] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.GetStorageItemProtectionInfoAsync
   var op: pointer
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    vcall(it, Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync, Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync)(it, storageItem, op.addr).check("UserDataProtectionManager.GetStorageItemProtectionInfoAsync")
-  result = adopt[UserDataStorageItemProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo, "UserDataProtectionManager.GetStorageItemProtectionInfoAsync"))
+    withIface(storageItem.p, IID_IStorageItem, "IStorageItem", p0):
+      vcall(it, Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync, Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync)(it, p0, op.addr).check("UserDataProtectionManager.GetStorageItemProtectionInfoAsync")
+  result = adopt[UserDataStorageItemProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo, alPlain, "UserDataProtectionManager.GetStorageItemProtectionInfoAsync"))
 
 proc protectBufferAsync*(self: UserDataProtectionManager, unprotectedBuffer: Buffer, availability: UserDataAvailability): Future[Buffer] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.ProtectBufferAsync
@@ -6241,7 +6268,7 @@ proc protectBufferAsync*(self: UserDataProtectionManager, unprotectedBuffer: Buf
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
     withIface(unprotectedBuffer.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IUserDataProtectionManager_ProtectBufferAsync, Fn_IUserDataProtectionManager_ProtectBufferAsync)(it, p0, availability, op.addr).check("UserDataProtectionManager.ProtectBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "UserDataProtectionManager.ProtectBufferAsync"))
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, alPlain, "UserDataProtectionManager.ProtectBufferAsync"))
 
 proc unprotectBufferAsync*(self: UserDataProtectionManager, protectedBuffer: Buffer): Future[UserDataBufferUnprotectResult] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.UnprotectBufferAsync
@@ -6249,7 +6276,7 @@ proc unprotectBufferAsync*(self: UserDataProtectionManager, protectedBuffer: Buf
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
     withIface(protectedBuffer.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IUserDataProtectionManager_UnprotectBufferAsync, Fn_IUserDataProtectionManager_UnprotectBufferAsync)(it, p0, op.addr).check("UserDataProtectionManager.UnprotectBufferAsync")
-  result = adopt[UserDataBufferUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_UserDataBufferUnprotectResult, IID_AsyncOperationCompletedHandler_1_UserDataBufferUnprotectResult, "UserDataProtectionManager.UnprotectBufferAsync"))
+  result = adopt[UserDataBufferUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_UserDataBufferUnprotectResult, IID_AsyncOperationCompletedHandler_1_UserDataBufferUnprotectResult, alPlain, "UserDataProtectionManager.UnprotectBufferAsync"))
 
 proc isContinuedDataAvailabilityExpected*(self: UserDataProtectionManager, availability: UserDataAvailability): bool  =
   ## Windows.Security.DataProtection.UserDataProtectionManager.IsContinuedDataAvailabilityExpected
@@ -6334,7 +6361,7 @@ proc protectAsync*(_: typedesc[DataProtectionManager], data: Buffer, identity: s
     withIface(data.p, IID_IBuffer, "IBuffer", p0):
       withHString(identity, h1):
         vcall(it, Slot_IDataProtectionManagerStatics_ProtectAsync, Fn_IDataProtectionManagerStatics_ProtectAsync)(it, p0, h1, op.addr).check("DataProtectionManager.ProtectAsync")
-  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.ProtectAsync"))
+  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, alPlain, "DataProtectionManager.ProtectAsync"))
 
 proc unprotectAsync*(_: typedesc[DataProtectionManager], data: Buffer): Future[BufferProtectUnprotectResult] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectAsync
@@ -6342,9 +6369,9 @@ proc unprotectAsync*(_: typedesc[DataProtectionManager], data: Buffer): Future[B
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withIface(data.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IDataProtectionManagerStatics_UnprotectAsync, Fn_IDataProtectionManagerStatics_UnprotectAsync)(it, p0, op.addr).check("DataProtectionManager.UnprotectAsync")
-  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.UnprotectAsync"))
+  result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, alPlain, "DataProtectionManager.UnprotectAsync"))
 
-proc protectStreamAsync*(_: typedesc[DataProtectionManager], unprotectedStream: InputStreamOverStream, identity: string, protectedStream: OutputStreamOverStream): Future[DataProtectionInfo] {.async.} =
+proc protectStreamAsync*(_: typedesc[DataProtectionManager], unprotectedStream: WinRtObject, identity: string, protectedStream: WinRtObject): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.ProtectStreamAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
@@ -6352,16 +6379,16 @@ proc protectStreamAsync*(_: typedesc[DataProtectionManager], unprotectedStream: 
       withHString(identity, h1):
         withIface(protectedStream.p, IID_IOutputStream, "IOutputStream", p2):
           vcall(it, Slot_IDataProtectionManagerStatics_ProtectStreamAsync, Fn_IDataProtectionManagerStatics_ProtectStreamAsync)(it, p0, h1, p2, op.addr).check("DataProtectionManager.ProtectStreamAsync")
-  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.ProtectStreamAsync"))
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, alPlain, "DataProtectionManager.ProtectStreamAsync"))
 
-proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], protectedStream: InputStreamOverStream, unprotectedStream: OutputStreamOverStream): Future[DataProtectionInfo] {.async.} =
+proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], protectedStream: WinRtObject, unprotectedStream: WinRtObject): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectStreamAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withIface(protectedStream.p, IID_IInputStream, "IInputStream", p0):
       withIface(unprotectedStream.p, IID_IOutputStream, "IOutputStream", p1):
         vcall(it, Slot_IDataProtectionManagerStatics_UnprotectStreamAsync, Fn_IDataProtectionManagerStatics_UnprotectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionManager.UnprotectStreamAsync")
-  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.UnprotectStreamAsync"))
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, alPlain, "DataProtectionManager.UnprotectStreamAsync"))
 
 proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedData: Buffer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetProtectionInfoAsync
@@ -6369,15 +6396,15 @@ proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedData: 
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withIface(protectedData.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IDataProtectionManagerStatics_GetProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync)(it, p0, op.addr).check("DataProtectionManager.GetProtectionInfoAsync")
-  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetProtectionInfoAsync"))
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, alPlain, "DataProtectionManager.GetProtectionInfoAsync"))
 
-proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedStream: InputStreamOverStream): Future[DataProtectionInfo] {.async.} =
+proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedStream: WinRtObject): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetStreamProtectionInfoAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
     withIface(protectedStream.p, IID_IInputStream, "IInputStream", p0):
       vcall(it, Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync)(it, p0, op.addr).check("DataProtectionManager.GetStreamProtectionInfoAsync")
-  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetStreamProtectionInfoAsync"))
+  result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, alPlain, "DataProtectionManager.GetStreamProtectionInfoAsync"))
 
 proc status*(self: FileProtectionInfo): FileProtectionStatus  =
   ## Windows.Security.EnterpriseData.FileProtectionInfo.get_Status
@@ -6413,15 +6440,16 @@ proc isContainerAsync*(_: typedesc[FileProtectionManager], file: StorageFile): F
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
     withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IFileProtectionManagerStatics2_IsContainerAsync, Fn_IFileProtectionManagerStatics2_IsContainerAsync)(it, p0, op.addr).check("FileProtectionManager.IsContainerAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "FileProtectionManager.IsContainerAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "FileProtectionManager.IsContainerAsync")
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: pointer, collisionOption: NameCollisionOption): Future[ProtectedContainerImportResult] {.async.} =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: WinRtObject, collisionOption: NameCollisionOption): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
     withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_IFileProtectionManagerStatics2_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics2_LoadFileFromContainerAsync)(it, p0, target, collisionOption, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
-  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
+      withIface(target.p, IID_IStorageItem, "IStorageItem", p1):
+        vcall(it, Slot_IFileProtectionManagerStatics2_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics2_LoadFileFromContainerAsync)(it, p0, p1, collisionOption, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, alPlain, "FileProtectionManager.LoadFileFromContainerAsync"))
 
 proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: StorageFile, sharedWithIdentities: seq[string]): Future[ProtectedContainerExportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
@@ -6431,29 +6459,33 @@ proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile
       let p1 = asIterableString(sharedWithIdentities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
       defer: discard release(p1)
       vcall(it, Slot_IFileProtectionManagerStatics2_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics2_SaveFileAsContainerAsync)(it, p0, p1, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
-  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
+  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, alPlain, "FileProtectionManager.SaveFileAsContainerAsync"))
 
-proc protectAsync*(_: typedesc[FileProtectionManager], target: pointer, identity: string): Future[FileProtectionInfo] {.async.} =
+proc protectAsync*(_: typedesc[FileProtectionManager], target: WinRtObject, identity: string): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.ProtectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    withHString(identity, h1):
-      vcall(it, Slot_IFileProtectionManagerStatics_ProtectAsync, Fn_IFileProtectionManagerStatics_ProtectAsync)(it, target, h1, op.addr).check("FileProtectionManager.ProtectAsync")
-  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.ProtectAsync"))
+    withIface(target.p, IID_IStorageItem, "IStorageItem", p0):
+      withHString(identity, h1):
+        vcall(it, Slot_IFileProtectionManagerStatics_ProtectAsync, Fn_IFileProtectionManagerStatics_ProtectAsync)(it, p0, h1, op.addr).check("FileProtectionManager.ProtectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, alPlain, "FileProtectionManager.ProtectAsync"))
 
-proc copyProtectionAsync*(_: typedesc[FileProtectionManager], source: pointer, target: pointer): Future[bool] {.async.} =
+proc copyProtectionAsync*(_: typedesc[FileProtectionManager], source: WinRtObject, target: WinRtObject): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.CopyProtectionAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    vcall(it, Slot_IFileProtectionManagerStatics_CopyProtectionAsync, Fn_IFileProtectionManagerStatics_CopyProtectionAsync)(it, source, target, op.addr).check("FileProtectionManager.CopyProtectionAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "FileProtectionManager.CopyProtectionAsync")
+    withIface(source.p, IID_IStorageItem, "IStorageItem", p0):
+      withIface(target.p, IID_IStorageItem, "IStorageItem", p1):
+        vcall(it, Slot_IFileProtectionManagerStatics_CopyProtectionAsync, Fn_IFileProtectionManagerStatics_CopyProtectionAsync)(it, p0, p1, op.addr).check("FileProtectionManager.CopyProtectionAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "FileProtectionManager.CopyProtectionAsync")
 
-proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager], source: pointer): Future[FileProtectionInfo] {.async.} =
+proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager], source: WinRtObject): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.GetProtectionInfoAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    vcall(it, Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync, Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync)(it, source, op.addr).check("FileProtectionManager.GetProtectionInfoAsync")
-  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.GetProtectionInfoAsync"))
+    withIface(source.p, IID_IStorageItem, "IStorageItem", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync, Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync)(it, p0, op.addr).check("FileProtectionManager.GetProtectionInfoAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, alPlain, "FileProtectionManager.GetProtectionInfoAsync"))
 
 proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: StorageFile): Future[ProtectedContainerExportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
@@ -6461,7 +6493,7 @@ proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
     withIface(protectedFile.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync)(it, p0, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
-  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
+  result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, alPlain, "FileProtectionManager.SaveFileAsContainerAsync"))
 
 proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
@@ -6469,15 +6501,16 @@ proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFi
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
     withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync)(it, p0, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
-  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, alPlain, "FileProtectionManager.LoadFileFromContainerAsync"))
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: pointer): Future[ProtectedContainerImportResult] {.async.} =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: WinRtObject): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
     withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, p0, target, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
-  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
+      withIface(target.p, IID_IStorageItem, "IStorageItem", p1):
+        vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, p0, p1, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, alPlain, "FileProtectionManager.LoadFileFromContainerAsync"))
 
 proc createProtectedAndOpenAsync*(_: typedesc[FileProtectionManager], parentFolder: StorageFolder, desiredName: string, identity: string, collisionOption: CreationCollisionOption): Future[ProtectedFileCreateResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.CreateProtectedAndOpenAsync
@@ -6487,37 +6520,42 @@ proc createProtectedAndOpenAsync*(_: typedesc[FileProtectionManager], parentFold
       withHString(desiredName, h1):
         withHString(identity, h2):
           vcall(it, Slot_IFileProtectionManagerStatics_CreateProtectedAndOpenAsync, Fn_IFileProtectionManagerStatics_CreateProtectedAndOpenAsync)(it, p0, h1, h2, collisionOption, op.addr).check("FileProtectionManager.CreateProtectedAndOpenAsync")
-  result = adopt[ProtectedFileCreateResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedFileCreateResult, IID_AsyncOperationCompletedHandler_1_ProtectedFileCreateResult, "FileProtectionManager.CreateProtectedAndOpenAsync"))
+  result = adopt[ProtectedFileCreateResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedFileCreateResult, IID_AsyncOperationCompletedHandler_1_ProtectedFileCreateResult, alPlain, "FileProtectionManager.CreateProtectedAndOpenAsync"))
 
-proc unprotectAsync*(_: typedesc[FileProtectionManager], target: pointer): Future[FileProtectionInfo] {.async.} =
+proc unprotectAsync*(_: typedesc[FileProtectionManager], target: WinRtObject): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.UnprotectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics3, it):
-    vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync, Fn_IFileProtectionManagerStatics3_UnprotectAsync)(it, target, op.addr).check("FileProtectionManager.UnprotectAsync")
-  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
+    withIface(target.p, IID_IStorageItem, "IStorageItem", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync, Fn_IFileProtectionManagerStatics3_UnprotectAsync)(it, p0, op.addr).check("FileProtectionManager.UnprotectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, alPlain, "FileProtectionManager.UnprotectAsync"))
 
-proc unprotectAsync*(_: typedesc[FileProtectionManager], target: pointer, options: FileUnprotectOptions): Future[FileProtectionInfo] {.async.} =
+proc unprotectAsync*(_: typedesc[FileProtectionManager], target: WinRtObject, options: FileUnprotectOptions): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.UnprotectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics3, it):
-    withIface(options.p, IID_IFileUnprotectOptions, "IFileUnprotectOptions", p1):
-      vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync2, Fn_IFileProtectionManagerStatics3_UnprotectAsync2)(it, target, p1, op.addr).check("FileProtectionManager.UnprotectAsync")
-  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.UnprotectAsync"))
+    withIface(target.p, IID_IStorageItem, "IStorageItem", p0):
+      withIface(options.p, IID_IFileUnprotectOptions, "IFileUnprotectOptions", p1):
+        vcall(it, Slot_IFileProtectionManagerStatics3_UnprotectAsync2, Fn_IFileProtectionManagerStatics3_UnprotectAsync2)(it, p0, p1, op.addr).check("FileProtectionManager.UnprotectAsync")
+  result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, alPlain, "FileProtectionManager.UnprotectAsync"))
 
-proc protectAsync*(_: typedesc[FileRevocationManager], storageItem: pointer, enterpriseIdentity: string): Future[FileProtectionStatus] {.async.} =
+proc protectAsync*(_: typedesc[FileRevocationManager], storageItem: WinRtObject, enterpriseIdentity: string): Future[FileProtectionStatus] {.async.} =
   ## Windows.Security.EnterpriseData.FileRevocationManager.ProtectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileRevocationManager", IID_IFileRevocationManagerStatics, it):
-    withHString(enterpriseIdentity, h1):
-      vcall(it, Slot_IFileRevocationManagerStatics_ProtectAsync, Fn_IFileRevocationManagerStatics_ProtectAsync)(it, storageItem, h1, op.addr).check("FileRevocationManager.ProtectAsync")
-  result = await awaitValue[FileProtectionStatus](op, IID_IAsyncOperation_1_FileProtectionStatus, IID_AsyncOperationCompletedHandler_1_FileProtectionStatus, "FileRevocationManager.ProtectAsync")
+    withIface(storageItem.p, IID_IStorageItem, "IStorageItem", p0):
+      withHString(enterpriseIdentity, h1):
+        vcall(it, Slot_IFileRevocationManagerStatics_ProtectAsync, Fn_IFileRevocationManagerStatics_ProtectAsync)(it, p0, h1, op.addr).check("FileRevocationManager.ProtectAsync")
+  result = await awaitValue[FileProtectionStatus](op, IID_IAsyncOperation_1_FileProtectionStatus, IID_AsyncOperationCompletedHandler_1_FileProtectionStatus, alPlain, "FileRevocationManager.ProtectAsync")
 
-proc copyProtectionAsync*(_: typedesc[FileRevocationManager], sourceStorageItem: pointer, targetStorageItem: pointer): Future[bool] {.async.} =
+proc copyProtectionAsync*(_: typedesc[FileRevocationManager], sourceStorageItem: WinRtObject, targetStorageItem: WinRtObject): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.FileRevocationManager.CopyProtectionAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileRevocationManager", IID_IFileRevocationManagerStatics, it):
-    vcall(it, Slot_IFileRevocationManagerStatics_CopyProtectionAsync, Fn_IFileRevocationManagerStatics_CopyProtectionAsync)(it, sourceStorageItem, targetStorageItem, op.addr).check("FileRevocationManager.CopyProtectionAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "FileRevocationManager.CopyProtectionAsync")
+    withIface(sourceStorageItem.p, IID_IStorageItem, "IStorageItem", p0):
+      withIface(targetStorageItem.p, IID_IStorageItem, "IStorageItem", p1):
+        vcall(it, Slot_IFileRevocationManagerStatics_CopyProtectionAsync, Fn_IFileRevocationManagerStatics_CopyProtectionAsync)(it, p0, p1, op.addr).check("FileRevocationManager.CopyProtectionAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "FileRevocationManager.CopyProtectionAsync")
 
 proc revoke*(_: typedesc[FileRevocationManager], enterpriseIdentity: string)  =
   ## Windows.Security.EnterpriseData.FileRevocationManager.Revoke
@@ -6525,12 +6563,13 @@ proc revoke*(_: typedesc[FileRevocationManager], enterpriseIdentity: string)  =
     withHString(enterpriseIdentity, h0):
       vcall(it, Slot_IFileRevocationManagerStatics_Revoke, Fn_IFileRevocationManagerStatics_Revoke)(it, h0).check("FileRevocationManager.Revoke")
 
-proc getStatusAsync*(_: typedesc[FileRevocationManager], storageItem: pointer): Future[FileProtectionStatus] {.async.} =
+proc getStatusAsync*(_: typedesc[FileRevocationManager], storageItem: WinRtObject): Future[FileProtectionStatus] {.async.} =
   ## Windows.Security.EnterpriseData.FileRevocationManager.GetStatusAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileRevocationManager", IID_IFileRevocationManagerStatics, it):
-    vcall(it, Slot_IFileRevocationManagerStatics_GetStatusAsync, Fn_IFileRevocationManagerStatics_GetStatusAsync)(it, storageItem, op.addr).check("FileRevocationManager.GetStatusAsync")
-  result = await awaitValue[FileProtectionStatus](op, IID_IAsyncOperation_1_FileProtectionStatus, IID_AsyncOperationCompletedHandler_1_FileProtectionStatus, "FileRevocationManager.GetStatusAsync")
+    withIface(storageItem.p, IID_IStorageItem, "IStorageItem", p0):
+      vcall(it, Slot_IFileRevocationManagerStatics_GetStatusAsync, Fn_IFileRevocationManagerStatics_GetStatusAsync)(it, p0, op.addr).check("FileRevocationManager.GetStatusAsync")
+  result = await awaitValue[FileProtectionStatus](op, IID_IAsyncOperation_1_FileProtectionStatus, IID_AsyncOperationCompletedHandler_1_FileProtectionStatus, alPlain, "FileRevocationManager.GetStatusAsync")
 
 proc `audit=`*(self: FileUnprotectOptions, value: bool)  =
   ## Windows.Security.EnterpriseData.FileUnprotectOptions.put_Audit
@@ -6624,12 +6663,12 @@ proc file*(self: ProtectedFileCreateResult): StorageFile  =
     vcall(it, Slot_IProtectedFileCreateResult_get_File, Fn_IProtectedFileCreateResult_get_File)(it, tmp.addr).check("ProtectedFileCreateResult.get_File")
     result = adopt[StorageFile](tmp)
 
-proc stream*(self: ProtectedFileCreateResult): RandomAccessStreamOverStream  =
+proc stream*(self: ProtectedFileCreateResult): WinRtObject  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_Stream
   withIface(self.p, IID_IProtectedFileCreateResult, "IProtectedFileCreateResult", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedFileCreateResult_get_Stream, Fn_IProtectedFileCreateResult_get_Stream)(it, tmp.addr).check("ProtectedFileCreateResult.get_Stream")
-    result = adopt[RandomAccessStreamOverStream](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc protectionInfo*(self: ProtectedFileCreateResult): FileProtectionInfo  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_ProtectionInfo
@@ -6767,7 +6806,7 @@ proc getPrimaryManagedIdentityForNetworkEndpointAsync*(_: typedesc[ProtectionPol
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
     withIface(endpointHost.p, IID_IHostName, "IHostName", p0):
       vcall(it, Slot_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync, Fn_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync)(it, p0, op.addr).check("ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync")
 
 proc revokeContent*(_: typedesc[ProtectionPolicyManager], identity: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RevokeContent
@@ -6855,7 +6894,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: s
     withHString(sourceIdentity, h0):
       withHString(targetIdentity, h1):
         vcall(it, Slot_IProtectionPolicyManagerStatics_RequestAccessAsync, Fn_IProtectionPolicyManagerStatics_RequestAccessAsync)(it, h0, h1, op.addr).check("ProtectionPolicyManager.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessAsync")
 
 proc hasContentBeenRevokedSince*(_: typedesc[ProtectionPolicyManager], identity: string, since: DateTime): bool  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.HasContentBeenRevokedSince
@@ -6881,7 +6920,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdent
     withHString(sourceIdentity, h0):
       withHString(appPackageFamilyName, h1):
         vcall(it, Slot_IProtectionPolicyManagerStatics2_RequestAccessForAppAsync, Fn_IProtectionPolicyManagerStatics2_RequestAccessForAppAsync)(it, h0, h1, op.addr).check("ProtectionPolicyManager.RequestAccessForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessForAppAsync")
 
 proc getEnforcementLevel*(_: typedesc[ProtectionPolicyManager], identity: string): EnforcementLevel  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.GetEnforcementLevel
@@ -6950,7 +6989,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: s
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           withHString(messageFromApp, h3):
             vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessAsync)(it, h0, h1, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessAsync")
 
 proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string, appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string, behavior: ProtectionPolicyRequestAccessBehavior): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessForAppAsync
@@ -6961,7 +7000,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdent
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           withHString(messageFromApp, h3):
             vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync)(it, h0, h1, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessForAppAsync")
 
 proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForAppAsync
@@ -6972,7 +7011,7 @@ proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sour
     withHString(appPackageFamilyName, h1):
       withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
         vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync)(it, p0, h1, p2, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
 
 proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string, behavior: ProtectionPolicyRequestAccessBehavior): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForAppAsync
@@ -6984,7 +7023,7 @@ proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sour
       withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
         withHString(messageFromApp, h3):
           vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2)(it, p0, h1, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
 
 proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], processId: uint32, auditInfo: ProtectionPolicyAuditInfo): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForProcessAsync
@@ -6994,7 +7033,7 @@ proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], 
     defer: discard release(p0)
     withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
       vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync)(it, p0, processId, p2, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
 
 proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], processId: uint32, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string, behavior: ProtectionPolicyRequestAccessBehavior): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForProcessAsync
@@ -7005,15 +7044,16 @@ proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], 
     withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
       withHString(messageFromApp, h3):
         vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2)(it, p0, processId, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
 
-proc isFileProtectionRequiredAsync*(_: typedesc[ProtectionPolicyManager], target: pointer, identity: string): Future[bool] {.async.} =
+proc isFileProtectionRequiredAsync*(_: typedesc[ProtectionPolicyManager], target: WinRtObject, identity: string): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsFileProtectionRequiredAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
-    withHString(identity, h1):
-      vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync)(it, target, h1, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ProtectionPolicyManager.IsFileProtectionRequiredAsync")
+    withIface(target.p, IID_IStorageItem, "IStorageItem", p0):
+      withHString(identity, h1):
+        vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync)(it, p0, h1, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ProtectionPolicyManager.IsFileProtectionRequiredAsync")
 
 proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManager], parentFolder: StorageFolder, identity: string, desiredName: string): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync
@@ -7023,7 +7063,7 @@ proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManage
       withHString(identity, h1):
         withHString(desiredName, h2):
           vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync)(it, p0, h1, h2, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
 
 proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.get_PrimaryManagedIdentity
@@ -7048,7 +7088,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: s
       withHString(targetIdentity, h1):
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           vcall(it, Slot_IProtectionPolicyManagerStatics3_RequestAccessAsync, Fn_IProtectionPolicyManagerStatics3_RequestAccessAsync)(it, h0, h1, p2, op.addr).check("ProtectionPolicyManager.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessAsync")
 
 proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string, targetIdentity: string, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessAsync
@@ -7059,7 +7099,7 @@ proc requestAccessAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: s
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           withHString(messageFromApp, h3):
             vcall(it, Slot_IProtectionPolicyManagerStatics3_RequestAccessAsync2, Fn_IProtectionPolicyManagerStatics3_RequestAccessAsync2)(it, h0, h1, p2, h3, op.addr).check("ProtectionPolicyManager.RequestAccessAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessAsync")
 
 proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string, appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessForAppAsync
@@ -7069,7 +7109,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdent
       withHString(appPackageFamilyName, h1):
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           vcall(it, Slot_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync, Fn_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync)(it, h0, h1, p2, op.addr).check("ProtectionPolicyManager.RequestAccessForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessForAppAsync")
 
 proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string, appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string): Future[ProtectionPolicyEvaluationResult] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessForAppAsync
@@ -7080,7 +7120,7 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdent
         withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
           withHString(messageFromApp, h3):
             vcall(it, Slot_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync2, Fn_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync2)(it, h0, h1, p2, h3, op.addr).check("ProtectionPolicyManager.RequestAccessForAppAsync")
-  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, alPlain, "ProtectionPolicyManager.RequestAccessForAppAsync")
 
 proc logAuditEvent*(_: typedesc[ProtectionPolicyManager], sourceIdentity: string, targetIdentity: string, auditInfo: ProtectionPolicyAuditInfo)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.LogAuditEvent
@@ -7267,7 +7307,7 @@ proc applyAsync*(self: EasClientSecurityPolicy): Future[EasComplianceResults] {.
   var op: pointer
   withIface(self.p, IID_IEasClientSecurityPolicy, "IEasClientSecurityPolicy", it):
     vcall(it, Slot_IEasClientSecurityPolicy_ApplyAsync, Fn_IEasClientSecurityPolicy_ApplyAsync)(it, op.addr).check("EasClientSecurityPolicy.ApplyAsync")
-  result = adopt[EasComplianceResults](await awaitObject(op, IID_IAsyncOperation_1_EasComplianceResults, IID_AsyncOperationCompletedHandler_1_EasComplianceResults, "EasClientSecurityPolicy.ApplyAsync"))
+  result = adopt[EasComplianceResults](await awaitObject(op, IID_IAsyncOperation_1_EasComplianceResults, IID_AsyncOperationCompletedHandler_1_EasComplianceResults, alPlain, "EasClientSecurityPolicy.ApplyAsync"))
 
 proc compliant*(self: EasComplianceResults): bool  =
   ## Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults.get_Compliant
@@ -7339,6 +7379,13 @@ proc encryptionProviderType*(self: EasComplianceResults): EasEncryptionProviderT
     vcall(it, Slot_IEasComplianceResults2_get_EncryptionProviderType, Fn_IEasComplianceResults2_get_EncryptionProviderType)(it, tmp.addr).check("EasComplianceResults.get_EncryptionProviderType")
     result = tmp
 
+proc invoke*(self: HostMessageReceivedCallback, receiverId: GUID, message: seq[WinRtObject])  =
+  ## Windows.Security.Isolation.HostMessageReceivedCallback.Invoke
+  withIface(self.p, IID_HostMessageReceivedCallback, "HostMessageReceivedCallback", it):
+    let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+    defer: discard release(p1)
+    vcall(it, Slot_HostMessageReceivedCallback_Invoke, Fn_HostMessageReceivedCallback_Invoke)(it, receiverId, p1).check("HostMessageReceivedCallback.Invoke")
+
 proc id*(self: IsolatedWindowsEnvironment): string  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.get_Id
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
@@ -7353,7 +7400,7 @@ proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, hostExePath: s
     withHString(hostExePath, h0):
       withHString(arguments, h1):
         vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync)(it, h0, h1, activator, op.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
-  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
+  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, alPlain, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
 
 proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, hostExePath: string, arguments: string, activator: IsolatedWindowsEnvironmentActivator, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentStartProcessResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.StartProcessSilentlyAsync
@@ -7363,7 +7410,7 @@ proc startProcessSilentlyAsync*(self: IsolatedWindowsEnvironment, hostExePath: s
       withHString(arguments, h1):
         withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p3):
           vcall(it, Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2, Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2)(it, h0, h1, activator, p3, op.addr).check("IsolatedWindowsEnvironment.StartProcessSilentlyAsync")
-  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
+  result = adopt[IsolatedWindowsEnvironmentStartProcessResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentStartProcessResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentStartProcessResult, alPlain, "IsolatedWindowsEnvironment.StartProcessSilentlyAsync"))
 
 proc shareFolderAsync*(self: IsolatedWindowsEnvironment, hostFolder: string, requestOptions: IsolatedWindowsEnvironmentShareFolderRequestOptions): Future[IsolatedWindowsEnvironmentShareFolderResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFolderAsync
@@ -7372,7 +7419,7 @@ proc shareFolderAsync*(self: IsolatedWindowsEnvironment, hostFolder: string, req
     withHString(hostFolder, h0):
       withIface(requestOptions.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", p1):
         vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync)(it, h0, p1, op.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
-  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
+  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, alPlain, "IsolatedWindowsEnvironment.ShareFolderAsync"))
 
 proc shareFolderAsync*(self: IsolatedWindowsEnvironment, hostFolder: string, requestOptions: IsolatedWindowsEnvironmentShareFolderRequestOptions, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentShareFolderResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFolderAsync
@@ -7382,7 +7429,7 @@ proc shareFolderAsync*(self: IsolatedWindowsEnvironment, hostFolder: string, req
       withIface(requestOptions.p, IID_IIsolatedWindowsEnvironmentShareFolderRequestOptions, "IIsolatedWindowsEnvironmentShareFolderRequestOptions", p1):
         withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
           vcall(it, Slot_IIsolatedWindowsEnvironment_ShareFolderAsync2, Fn_IIsolatedWindowsEnvironment_ShareFolderAsync2)(it, h0, p1, p2, op.addr).check("IsolatedWindowsEnvironment.ShareFolderAsync")
-  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, "IsolatedWindowsEnvironment.ShareFolderAsync"))
+  result = adopt[IsolatedWindowsEnvironmentShareFolderResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFolderResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFolderResult, alPlain, "IsolatedWindowsEnvironment.ShareFolderAsync"))
 
 proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, appExePath: string, argumentsTemplate: string, filePath: string): Future[IsolatedWindowsEnvironmentLaunchFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.LaunchFileWithUIAsync
@@ -7392,7 +7439,7 @@ proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, appExePath: string
       withHString(argumentsTemplate, h1):
         withHString(filePath, h2):
           vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync)(it, h0, h1, h2, op.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
-  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
+  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, alPlain, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
 
 proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, appExePath: string, argumentsTemplate: string, filePath: string, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentLaunchFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.LaunchFileWithUIAsync
@@ -7403,14 +7450,14 @@ proc launchFileWithUIAsync*(self: IsolatedWindowsEnvironment, appExePath: string
         withHString(filePath, h2):
           withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p3):
             vcall(it, Slot_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2, Fn_IIsolatedWindowsEnvironment_LaunchFileWithUIAsync2)(it, h0, h1, h2, p3, op.addr).check("IsolatedWindowsEnvironment.LaunchFileWithUIAsync")
-  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
+  result = adopt[IsolatedWindowsEnvironmentLaunchFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileResult, alPlain, "IsolatedWindowsEnvironment.LaunchFileWithUIAsync"))
 
 proc terminateAsync*(self: IsolatedWindowsEnvironment) {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.TerminateAsync
   var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync, Fn_IIsolatedWindowsEnvironment_TerminateAsync)(it, op.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironment.TerminateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "IsolatedWindowsEnvironment.TerminateAsync")
 
 proc terminateAsync*(self: IsolatedWindowsEnvironment, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters) {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.TerminateAsync
@@ -7418,7 +7465,14 @@ proc terminateAsync*(self: IsolatedWindowsEnvironment, telemetryParameters: Isol
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p0):
       vcall(it, Slot_IIsolatedWindowsEnvironment_TerminateAsync2, Fn_IIsolatedWindowsEnvironment_TerminateAsync2)(it, p0, op.addr).check("IsolatedWindowsEnvironment.TerminateAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironment.TerminateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "IsolatedWindowsEnvironment.TerminateAsync")
+
+proc registerMessageReceiver*(self: IsolatedWindowsEnvironment, receiverId: GUID, messageReceivedCallback: proc(a0: GUID, a1: seq[WinRtObject]))  =
+  ## Windows.Security.Isolation.IsolatedWindowsEnvironment.RegisterMessageReceiver
+  withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
+    let d1 = newDelegate(IID_MessageReceivedCallback, proc(a0: GUID, a1: seq[WinRtObject]) = messageReceivedCallback(a0, a1))
+    defer: discard release(d1)
+    vcall(it, Slot_IIsolatedWindowsEnvironment_RegisterMessageReceiver, Fn_IIsolatedWindowsEnvironment_RegisterMessageReceiver)(it, receiverId, d1).check("IsolatedWindowsEnvironment.RegisterMessageReceiver")
 
 proc unregisterMessageReceiver*(self: IsolatedWindowsEnvironment, receiverId: GUID)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.UnregisterMessageReceiver
@@ -7432,7 +7486,7 @@ proc postMessageToReceiverAsync*(self: IsolatedWindowsEnvironment, receiverId: G
     let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
     defer: discard release(p1)
     vcall(it, Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync, Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync)(it, receiverId, p1, op.addr).check("IsolatedWindowsEnvironment.PostMessageToReceiverAsync")
-  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
+  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, alPlain, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
 
 proc postMessageToReceiverAsync*(self: IsolatedWindowsEnvironment, receiverId: GUID, message: seq[WinRtObject], telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentPostMessageResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.PostMessageToReceiverAsync
@@ -7442,7 +7496,7 @@ proc postMessageToReceiverAsync*(self: IsolatedWindowsEnvironment, receiverId: G
     defer: discard release(p1)
     withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
       vcall(it, Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2, Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2)(it, receiverId, p1, p2, op.addr).check("IsolatedWindowsEnvironment.PostMessageToReceiverAsync")
-  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
+  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, alPlain, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
 
 proc getUserInfo*(self: IsolatedWindowsEnvironment): IsolatedWindowsEnvironmentUserInfo  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.GetUserInfo
@@ -7458,7 +7512,7 @@ proc shareFileAsync*(self: IsolatedWindowsEnvironment, filePath: string, options
     withHString(filePath, h0):
       withIface(options.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", p1):
         vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync)(it, h0, p1, op.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
-  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
+  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, alPlain, "IsolatedWindowsEnvironment.ShareFileAsync"))
 
 proc shareFileAsync*(self: IsolatedWindowsEnvironment, filePath: string, options: IsolatedWindowsEnvironmentShareFileRequestOptions, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentShareFileResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ShareFileAsync
@@ -7468,7 +7522,7 @@ proc shareFileAsync*(self: IsolatedWindowsEnvironment, filePath: string, options
       withIface(options.p, IID_IIsolatedWindowsEnvironmentShareFileRequestOptions, "IIsolatedWindowsEnvironmentShareFileRequestOptions", p1):
         withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
           vcall(it, Slot_IIsolatedWindowsEnvironment3_ShareFileAsync2, Fn_IIsolatedWindowsEnvironment3_ShareFileAsync2)(it, h0, p1, p2, op.addr).check("IsolatedWindowsEnvironment.ShareFileAsync")
-  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, "IsolatedWindowsEnvironment.ShareFileAsync"))
+  result = adopt[IsolatedWindowsEnvironmentShareFileResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentShareFileResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult, alPlain, "IsolatedWindowsEnvironment.ShareFileAsync"))
 
 proc changePriority*(self: IsolatedWindowsEnvironment, priority: IsolatedWindowsEnvironmentCreationPriority)  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.ChangePriority
@@ -7481,7 +7535,7 @@ proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], options: IsolatedWind
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironment", IID_IIsolatedWindowsEnvironmentFactory, it):
     withIface(options.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", p0):
       vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync)(it, p0, op.addr).check("IsolatedWindowsEnvironment.CreateAsync")
-  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult, "IsolatedWindowsEnvironment.CreateAsync"))
+  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, alProgress, "IsolatedWindowsEnvironment.CreateAsync"))
 
 proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], options: IsolatedWindowsEnvironmentOptions, telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentCreateResult] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.CreateAsync
@@ -7490,7 +7544,7 @@ proc createAsync*(_: typedesc[IsolatedWindowsEnvironment], options: IsolatedWind
     withIface(options.p, IID_IIsolatedWindowsEnvironmentOptions, "IIsolatedWindowsEnvironmentOptions", p0):
       withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p1):
         vcall(it, Slot_IIsolatedWindowsEnvironmentFactory_CreateAsync2, Fn_IIsolatedWindowsEnvironmentFactory_CreateAsync2)(it, p0, p1, op.addr).check("IsolatedWindowsEnvironment.CreateAsync")
-  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentCreateResult, "IsolatedWindowsEnvironment.CreateAsync"))
+  result = adopt[IsolatedWindowsEnvironmentCreateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IsolatedWindowsEnvironmentCreateResult_IsolatedWindowsEnvironmentCreateProgress, alProgress, "IsolatedWindowsEnvironment.CreateAsync"))
 
 proc getById*(_: typedesc[IsolatedWindowsEnvironment], environmentId: string): IsolatedWindowsEnvironment  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.GetById
@@ -7871,7 +7925,7 @@ proc waitForExitAsync*(self: IsolatedWindowsEnvironmentProcess) {.async.} =
   var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironmentProcess, "IIsolatedWindowsEnvironmentProcess", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync, Fn_IIsolatedWindowsEnvironmentProcess_WaitForExitAsync)(it, op.addr).check("IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, "IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "IsolatedWindowsEnvironmentProcess.WaitForExitAsync")
 
 proc newIsolatedWindowsEnvironmentShareFileRequestOptions*(): IsolatedWindowsEnvironmentShareFileRequestOptions =
   ## Activate a `Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions`.
@@ -7996,14 +8050,14 @@ proc tryWaitForSignInAsync*(self: IsolatedWindowsEnvironmentUserInfo): Future[bo
   var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironmentUserInfo, "IIsolatedWindowsEnvironmentUserInfo", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentUserInfo_TryWaitForSignInAsync, Fn_IIsolatedWindowsEnvironmentUserInfo_TryWaitForSignInAsync)(it, op.addr).check("IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInAsync")
 
 proc tryWaitForSignInWithProgressAsync*(self: IsolatedWindowsEnvironmentUserInfo): Future[bool] {.async.} =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync
   var op: pointer
   withIface(self.p, IID_IIsolatedWindowsEnvironmentUserInfo2, "IIsolatedWindowsEnvironmentUserInfo2", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentUserInfo2_TryWaitForSignInWithProgressAsync, Fn_IIsolatedWindowsEnvironmentUserInfo2_TryWaitForSignInWithProgressAsync)(it, op.addr).check("IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_IsolatedWindowsEnvironmentSignInProgress, IID_AsyncOperationCompletedHandler_1_Bool, "IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_IsolatedWindowsEnvironmentSignInProgress, IID_AsyncOperationWithProgressCompletedHandler_2_Bool_IsolatedWindowsEnvironmentSignInProgress, alProgress, "IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync")
 
 proc postMessageToReceiver*(_: typedesc[IsolatedWindowsHostMessenger], receiverId: GUID, message: seq[WinRtObject])  =
   ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.PostMessageToReceiver
@@ -8020,8 +8074,22 @@ proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], filePath: string): GU
       vcall(it, Slot_IIsolatedWindowsHostMessengerStatics_GetFileId, Fn_IIsolatedWindowsHostMessengerStatics_GetFileId)(it, h0, tmp.addr).check("IsolatedWindowsHostMessenger.GetFileId")
       result = tmp
 
+proc registerHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger], receiverId: GUID, hostMessageReceivedCallback: proc(a0: GUID, a1: seq[WinRtObject]))  =
+  ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.RegisterHostMessageReceiver
+  withStatics("Windows.Security.Isolation.IsolatedWindowsHostMessenger", IID_IIsolatedWindowsHostMessengerStatics2, it):
+    let d1 = newDelegate(IID_HostMessageReceivedCallback, proc(a0: GUID, a1: seq[WinRtObject]) = hostMessageReceivedCallback(a0, a1))
+    defer: discard release(d1)
+    vcall(it, Slot_IIsolatedWindowsHostMessengerStatics2_RegisterHostMessageReceiver, Fn_IIsolatedWindowsHostMessengerStatics2_RegisterHostMessageReceiver)(it, receiverId, d1).check("IsolatedWindowsHostMessenger.RegisterHostMessageReceiver")
+
 proc unregisterHostMessageReceiver*(_: typedesc[IsolatedWindowsHostMessenger], receiverId: GUID)  =
   ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.UnregisterHostMessageReceiver
   withStatics("Windows.Security.Isolation.IsolatedWindowsHostMessenger", IID_IIsolatedWindowsHostMessengerStatics2, it):
     vcall(it, Slot_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver, Fn_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver)(it, receiverId).check("IsolatedWindowsHostMessenger.UnregisterHostMessageReceiver")
+
+proc invoke*(self: MessageReceivedCallback, receiverId: GUID, message: seq[WinRtObject])  =
+  ## Windows.Security.Isolation.MessageReceivedCallback.Invoke
+  withIface(self.p, IID_MessageReceivedCallback, "MessageReceivedCallback", it):
+    let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+    defer: discard release(p1)
+    vcall(it, Slot_MessageReceivedCallback_Invoke, Fn_MessageReceivedCallback_Invoke)(it, receiverId, p1).check("MessageReceivedCallback.Invoke")
 

@@ -52,12 +52,23 @@ const
     data1: 0x00000036'u32, data2: 0'u16, data3: 0'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
 
-  SlotPutCompleted = 6
   SlotAsyncInfoStatus = 7
   SlotAsyncInfoErrorCode = 8
-  SlotAsyncGetResults = 8
 
 type
+  AsyncLayout* = enum
+    ## Where `put_Completed` and `GetResults` sit, which depends on whether
+    ## the operation reports progress.
+    ##
+    ## `IAsyncAction` and `IAsyncOperation<T>` declare Completed first, so it
+    ## is slot 6 and GetResults is 8. The `WithProgress` pair declare
+    ## `put_Progress` and `get_Progress` first, pushing both two slots down.
+    ## Calling a progress operation through the plain layout hands the
+    ## completion handler to `put_Progress` — which fails, quietly, because
+    ## the handler does not answer for the progress delegate's IID.
+    alPlain      ## Completed at 6, GetResults at 8
+    alProgress   ## Completed at 8, GetResults at 10
+
   AsyncState = enum
     ## Not `AsyncStatus`: `Windows.Foundation.AsyncStatus` is a real enum in the
     ## generated bindings, and two of that name in scope is an ambiguity.
@@ -138,6 +149,12 @@ proc newCompletion(iid: GUID, ev: AsyncEvent): ptr Completion =
   result.iid = iid
   result.ev = ev
 
+func completedSlot(layout: AsyncLayout): int =
+  if layout == alPlain: 6 else: 8
+
+func resultsSlot(layout: AsyncLayout): int =
+  if layout == alPlain: 8 else: 10
+
 proc statusOf(op: pointer, what: string): AsyncState =
   let info = queryInterface(op, IidAsyncInfo)
   if info.isNil:
@@ -171,7 +188,8 @@ proc failureOf(op: pointer, what: string): ref WinRtError =
   else:
     nil
 
-proc settled(op: pointer, handlerIid: GUID, what: string): Future[void] =
+proc settled(op: pointer, handlerIid: GUID, layout: AsyncLayout,
+             what: string): Future[void] =
   ## Completes when the operation does.
   ##
   ## `put_Completed` invokes the handler immediately if the work has already
@@ -191,7 +209,7 @@ proc settled(op: pointer, handlerIid: GUID, what: string): Future[void] =
 
   let handler = newCompletion(handlerIid, ev)
   try:
-    vcall(op, SlotPutCompleted, FnPutCompleted)(op, handler)
+    vcall(op, completedSlot(layout), FnPutCompleted)(op, handler)
       .check(what & ".put_Completed")
   finally:
     # `put_Completed` took its own reference; the object frees itself when the
@@ -202,20 +220,21 @@ proc settled(op: pointer, handlerIid: GUID, what: string): Future[void] =
 # has nothing further to do with it, and releasing in one place means a failed
 # operation is not also a leaked one.
 
-proc awaitVoid*(op: pointer, handlerIid: GUID, what: string) {.async.} =
+proc awaitVoid*(op: pointer, handlerIid: GUID, layout: AsyncLayout,
+                what: string) {.async.} =
   ## An `IAsyncAction`, which produces nothing.
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
-    await settled(op, handlerIid, what)
-    vcall(op, SlotAsyncGetResults, FnResultsVoid)(op)
+    await settled(op, handlerIid, layout, what)
+    vcall(op, resultsSlot(layout), FnResultsVoid)(op)
       .check(what & ".GetResults")
   finally:
     release(op)
 
 template withResults(op: pointer, iid: GUID, what: string,
                      name, body: untyped) =
-  ## `GetResults` is slot 8 on every instantiation, so it has to be called
-  ## through the one the signature declares rather than through whatever
+  ## `GetResults` is numbered per interface, so it has to be called through
+  ## the instantiation the signature declares rather than through whatever
   ## pointer happens to be at hand.
   let name = queryInterface(op, iid)
   if name.isNil:
@@ -226,42 +245,42 @@ template withResults(op: pointer, iid: GUID, what: string,
   finally:
     release(name)
 
-proc awaitObject*(op: pointer, opIid, handlerIid: GUID,
+proc awaitObject*(op: pointer, opIid, handlerIid: GUID, layout: AsyncLayout,
                   what: string): Future[pointer] {.async.} =
   ## An `IAsyncOperation<T>` whose result is an interface pointer.
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
-    await settled(op, handlerIid, what)
+    await settled(op, handlerIid, layout, what)
     withResults(op, opIid, what, iface):
-      vcall(iface, SlotAsyncGetResults, FnResultsPtr)(iface, result.addr)
+      vcall(iface, resultsSlot(layout), FnResultsPtr)(iface, result.addr)
         .check(what & ".GetResults")
   finally:
     release(op)
 
-proc awaitString*(op: pointer, opIid, handlerIid: GUID,
+proc awaitString*(op: pointer, opIid, handlerIid: GUID, layout: AsyncLayout,
                   what: string): Future[string] {.async.} =
   ## The same, for an operation whose result is a string.
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
-    await settled(op, handlerIid, what)
+    await settled(op, handlerIid, layout, what)
     withResults(op, opIid, what, iface):
       var h: HSTRING
-      vcall(iface, SlotAsyncGetResults, FnResultsString)(iface, h.addr)
+      vcall(iface, resultsSlot(layout), FnResultsString)(iface, h.addr)
         .check(what & ".GetResults")
       result = takeString(h)
   finally:
     release(op)
 
-proc awaitValue*[T](op: pointer, opIid, handlerIid: GUID,
+proc awaitValue*[T](op: pointer, opIid, handlerIid: GUID, layout: AsyncLayout,
                     what: string): Future[T] {.async.} =
   ## An `IAsyncOperation<T>` whose result is a value rather than an object —
   ## a number, a boolean, an enum or a struct. It comes back by value through
   ## the same `GetResults` slot, so only the signature differs.
   doAssert not op.isNil, "winrt: " & what & " returned no operation"
   try:
-    await settled(op, handlerIid, what)
+    await settled(op, handlerIid, layout, what)
     withResults(op, opIid, what, iface):
-      vcall(iface, SlotAsyncGetResults, FnResultsValue[T])(iface, result.addr)
+      vcall(iface, resultsSlot(layout), FnResultsValue[T])(iface, result.addr)
         .check(what & ".GetResults")
   finally:
     release(op)

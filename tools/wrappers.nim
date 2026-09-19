@@ -77,6 +77,7 @@ type
     defaultIface: Table[string, string]  ## class -> its default interface
     collide: HashSet[string]             ## short names meaning two things
     delegates: Table[string, seq[SigType]]  ## delegate -> its Invoke params
+    renamed: Table[string, string]       ## value types the ABI had to rename
 
 const
   AsyncOps = [
@@ -105,30 +106,66 @@ func apiName(c: Ctx, full: string): string =
 
 func abiName(c: Ctx, full: string): string =
   ## The same, for the enum or struct side of such a pair.
-  if shortName(full) in c.collide: "types." & shortName(full)
-  else: shortName(full)
+  ##
+  ## `renamed` is the other way a spelling can differ: two enums in the whole
+  ## of the metadata share a short name, so the ABI wrote the second under a
+  ## qualified one and this has to agree or it names a type that is not there.
+  let n = c.renamed.getOrDefault(full, shortName(full))
+  if n in c.collide: "types." & n else: n
 
 func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
 
-func delegateSpelling(c: Ctx, full: string): string =
-  ## A WinRT delegate as the Nim closure a caller would write, or "".
+func abiSpelling(c: Ctx, t: SigType): string =
+  ## A type as it crosses the ABI: objects are pointers, strings are HSTRINGs,
+  ## and everything else is itself.
+  case t.kind
+  of skInterface, skObject: "pointer"
+  of skString: "HSTRING"
+  else: c.nimTypeOf(t)
+
+func fromAbi(c: Ctx, t: SigType, name: string): string =
+  ## The expression turning an ABI argument called `name` into what a caller's
+  ## closure expects. Objects are *borrowed*: the runtime owns the argument for
+  ## the duration of the call.
+  case t.kind
+  of skInterface:
+    let cls = if t.name in c.classes: c.apiName(t.name)
+              elif t.name in c.classOfIface: c.apiName(c.classOfIface[t.name])
+              else: "WinRtObject"
+    &"borrow[{cls}]({name})"
+  of skObject: &"borrow[WinRtObject]({name})"
+  of skString: "$" & name
+  else: name
+
+func delegateSpelling(c: Ctx, args: seq[SigType]): string =
+  ## A delegate with these `Invoke` arguments, as the Nim closure a caller
+  ## would write — or "" if one of them has no spelling.
   ##
-  ## `Invoke` hands over its arguments the way a vtable does, so only the
-  ## pointer-shaped ones can go through `delegate.nim`'s trampolines, which
-  ## take `pointer`. A delegate with a `bool` or an `int32` among its
-  ## arguments — `SignalHandler` is the one that matters — would need its own
-  ## vtable shape, and passing it through one of these would read a boolean
-  ## out of a register that never held one.
-  let args = c.delegates.getOrDefault(full, @[])
-  if args.len > 2: return ""
+  ## Three at most, which is what `delegate.nim` has trampolines for; no
+  ## delegate in the metadata takes more.
+  if args.len > 3: return ""
   var parts: seq[string]
   for i, a in args:
-    if a.kind notin {skInterface, skObject} or a.byRef: return ""
-    let cls = if a.name in c.classes: c.apiName(a.name)
-              elif a.name in c.classOfIface: c.apiName(c.classOfIface[a.name])
-              else: "WinRtObject"
-    parts.add ["sender", "args"][i] & ": " & cls
+    if a.byRef: return ""
+    let n = c.nimTypeOf(a)
+    if n.len == 0: return ""
+    parts.add &"a{i}: {n}"
   "proc(" & parts.join(", ") & ")"
+
+func delegateArgs(c: Ctx, t: SigType): tuple[found: bool, args: seq[SigType]] =
+  ## The `Invoke` arguments of a delegate-typed parameter, named or
+  ## parameterised. `TypedEventHandler<S, A>.Invoke(S, A)`, and
+  ## `EventHandler<A>.Invoke(Object, A)`.
+  if t.kind == skInterface and t.name in c.delegates:
+    (true, c.delegates[t.name])
+  elif t.kind == skUnsupported and
+       t.name == "Windows.Foundation.TypedEventHandler`2" and t.args.len == 2:
+    (true, t.args)
+  elif t.kind == skUnsupported and
+       t.name == "Windows.Foundation.EventHandler`1" and t.args.len == 1:
+    (true, @[SigType(kind: skObject), t.args[0]])
+  else:
+    (false, @[])
 
 func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
   ## Whether `t` is an async operation, and what it eventually produces.
@@ -194,6 +231,7 @@ const CollectionIfaces = [
   "Windows.Foundation.Collections.IVectorView`1",
   "Windows.Foundation.Collections.IVector`1",
   "Windows.Foundation.Collections.IIterable`1",
+  "Windows.Foundation.Collections.IObservableVector`1",
 ]
 
 const PassableIfaces = [
@@ -207,15 +245,40 @@ const PassableIfaces = [
 const MapIfaces = [
   "Windows.Foundation.Collections.IMapView`2",
   "Windows.Foundation.Collections.IMap`2",
+  "Windows.Foundation.Collections.IObservableMap`2",
 ]
 
-func mapValue(c: Ctx, t: SigType): SigType =
-  ## The value type, if `t` is a string-keyed WinRT map.
+func readableAs(t: SigType): SigType =
+  ## The interface a collection is actually read through.
   ##
-  ## String keys only: that is what almost every map in the metadata has, and
-  ## a `Table` needs a key Nim can hash, which an interface pointer is not.
+  ## `IObservableVector<T>` declares only its change event; the reading is
+  ## `IVector<T>`, which it requires. Same for `IObservableMap<K,V>` and
+  ## `IMap<K,V>`. Narrowing to the observable one and calling slot 6 would
+  ## reach `add_VectorChanged`.
+  result = t
+  if t.name == "Windows.Foundation.Collections.IObservableVector`1":
+    result.name = "Windows.Foundation.Collections.IVector`1"
+  elif t.name == "Windows.Foundation.Collections.IObservableMap`2":
+    result.name = "Windows.Foundation.Collections.IMap`2"
+
+func mapKeySpelling(c: Ctx, k: SigType): string =
+  ## A map key as Nim spells it, or "" if it cannot be one.
+  ##
+  ## A `Table` needs a key it can hash and compare. Strings and the value
+  ## types qualify — every generated struct carries a `hash`, and `GUID` has
+  ## one in `core` — but an object does not: two references to one WinRT
+  ## object are equal and two wrappers around them are not.
+  case k.kind
+  of skString: "string"
+  of skChar, skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
+     skF8, skEnum, skStruct:
+    c.nimTypeOf(k)
+  else: ""
+
+func mapValue(c: Ctx, t: SigType): SigType =
+  ## The value type, if `t` is a WinRT map Nim can spell as a `Table`.
   if t.kind == skUnsupported and t.args.len == 2 and t.name in MapIfaces and
-     t.args[0].kind == skString:
+     c.mapKeySpelling(t.args[0]).len > 0:
     t.args[1]
   else:
     SigType(kind: skVoid)
@@ -227,7 +290,11 @@ func mapValueSpelling(c: Ctx, v: SigType): string =
   of skInterface:
     if v.name in c.classes: c.apiName(v.name)
     elif v.name in c.classOfIface: c.apiName(c.classOfIface[v.name])
+    elif v.name in c.ifaceIid: "WinRtObject"
     else: ""
+  of skChar, skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
+     skF8, skEnum, skStruct:
+    c.nimTypeOf(v)
   else: ""
 
 func passableCollection(c: Ctx, t: SigType): SigType =
@@ -292,11 +359,12 @@ func asyncSpelling(c: Ctx, res: SigType): string =
   of skInterface:
     if res.name in c.classes: c.apiName(res.name)
     elif res.name in c.classOfIface: c.apiName(c.classOfIface[res.name])
+    elif res.name in c.ifaceIid: "WinRtObject"
     else: ""
   of skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8:
     c.nimTypeOf(res)
   of skEnum:
-    if res.name in c.enums: shortName(res.name) else: ""
+    if res.name in c.enums: c.abiName(res.name) else: ""
   of skStruct:
     if res.name in c.aliases or res.name in c.structs or
        res.name in foreignEnums: c.nimTypeOf(res)
@@ -319,6 +387,10 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
            else: "a second out-parameter"
   case t.kind
   of skUnsupported:
+    let (isDelegate, dargs) = c.delegateArgs(t)
+    if isDelegate and not inReturn:
+      return if c.delegateSpelling(dargs).len > 0: ""
+             else: "a delegate with an argument that has no spelling"
     let a = c.asyncResult(t)
     let r = c.referenceValue(t)
     let e = c.collectionElement(t)
@@ -341,9 +413,9 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   of skInterface:
     if inReturn and c.asyncResult(t).isAsync: ""
     elif t.name in c.delegates:
-      if inReturn: "a delegate as a result"
-      elif c.delegateSpelling(t.name).len > 0: ""
-      else: "a delegate whose arguments are not all objects"
+      if inReturn: ""
+      elif c.delegateSpelling(c.delegates[t.name]).len > 0: ""
+      else: "a delegate with an argument that has no spelling"
     elif t.name in c.classes or t.name in c.ifaceIid: ""
     else: "an interface from another winmd"
   of skStruct:
@@ -368,6 +440,10 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     if a.isAsync:
       let sp = c.asyncSpelling(a.res)
       return if sp == "void": "" else: sp
+  if not inReturn:
+    let (isDelegate, dargs) = c.delegateArgs(t)
+    if isDelegate and t.kind == skUnsupported:
+      return c.delegateSpelling(dargs)
   # `IReference<T>` in either direction: read out of the box, or put into one.
   let refv = c.referenceValue(t)
   if refv.kind != skVoid and not inReturn:
@@ -377,8 +453,9 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   if inReturn:
     let mv = c.mapValue(t)
     if mv.kind != skVoid:
+      let ks = c.mapKeySpelling(t.args[0])
       let vs = c.mapValueSpelling(mv)
-      return if vs.len > 0: "Table[string, " & vs & "]" else: ""
+      return if vs.len > 0: &"Table[{ks}, {vs}]" else: ""
     # `IReference<T>` is WinRT's nullable, and Nim already has that word.
     let r = c.referenceValue(t)
     if r.kind != skVoid:
@@ -420,12 +497,19 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     # interface for the rest. A class becomes its wrapper type; an interface
     # stays a pointer, because there is no wrapper to give it.
     if t.name in c.delegates:
-      # Only as an argument: a delegate coming *back* would have to be a
-      # callable Nim value wrapping a COM object, which is not what this is.
-      if inReturn: "" else: c.delegateSpelling(t.name)
+      # A delegate is a closure on the way in and an object on the way out:
+      # one the runtime hands back is a COM object with an `invoke`, and the
+      # wrapper type for it is emitted like any class's.
+      if inReturn: c.apiName(t.name) else: c.delegateSpelling(c.delegates[t.name])
     elif t.name in c.classes: c.apiName(t.name)
     elif t.name in c.classOfIface: c.apiName(c.classOfIface[t.name])
-    elif t.name in c.ifaceIid: "pointer"
+    elif t.name in c.ifaceIid:
+      # An interface with no class of its own — `IStorageItem`, `IUICommand`
+      # — or one that several classes share as their default. Still an
+      # object, so still counted; a caller narrows it with `queryInterface`
+      # or passes it on, and any class passes where it is expected because
+      # every class derives from `WinRtObject`.
+      "WinRtObject"
     else: ""
   of skStruct:
     # Structs cross by value and the ABI module has already laid out the ones it
@@ -506,8 +590,16 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # `generate.nim` did: name the loser and the emitted code refers to a slot
   # that was never written.
   var takenIface, takenEnum: HashSet[string]
+  # Before the walk: the alias table decides which enums the ABI declined to
+  # write, and the walk has to agree with it.
+  for (name, nim) in foreignAliases:
+    c.aliases[name] = nim
   for t in md.types:
-    if t.index in iids and (t.flags and tdInterface) != 0:
+    # Interfaces, and delegates: a delegate has an IID, a vtable and one method
+    # of its own, and the wrapper type it gets below reaches `Invoke` through
+    # exactly the machinery an interface's methods use.
+    if t.index in iids and
+       ((t.flags and tdInterface) != 0 or md.isDelegate(t.index)):
       c.ifaceIid.incl t.fullName
       ifaceGroup[t.fullName] = topGroup(t.namespace)
       # `IID_X` and `Slot_X_Y` come from the ABI, which a split module imports
@@ -520,19 +612,26 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           takenIface.incl k
           c.localIface.incl t.fullName
     # Every enum is nameable: `abi/types` declares the lot, so the signature
-    # this layer calls through and the wrapper over it always agree.
-    if t.namespace.startsWith(prefix) and md.isEnum(t.index):
-      let k = nimIdent(sanitize(t.name))
-      if k notin takenEnum:
-        takenEnum.incl k
-        c.enums.incl t.fullName
+    # this layer calls through and the wrapper over it always agree — as long
+    # as this arrives at the same name, which means applying the same rule for
+    # a short name that is already taken.
+    if t.namespace.startsWith(prefix) and md.isEnum(t.index) and
+       t.fullName notin c.aliases and md.enumMembers(t.index).len > 0:
+      # Exactly the filters and the order `generate.nim` uses, because this is
+      # the same decision made twice and a divergence names a type that is not
+      # there.
+      var k = sanitize(t.name)
+      if k in takenEnum:
+        k = sanitize(t.namespace.split('.')[^1]) & k
+        if k in takenEnum: continue
+        c.renamed[t.fullName] = k
+      takenEnum.incl k
+      c.enums.incl t.fullName
   # Mirror what `generate.nim` emitted: the foreign table, plus in-namespace
   # value types. A struct it could not lay out is absent from the ABI module, so a
   # wrapper naming it would not compile.
   for (name, _) in foreignStructs:
     c.structs.incl name
-  for (name, nim) in foreignAliases:
-    c.aliases[name] = nim
   for t in md.types:
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
@@ -574,6 +673,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # one. The IID is computed, but not here: that needs every class's default
   # interface to be known already, and this loop is what works them out.
   var paramDefault = initTable[string, SigType]()
+  var shared: HashSet[string]   ## default interfaces claimed by two classes
   var classOrder: seq[TypeRow]
   var takenNames: HashSet[string]
   var usesAsync = false
@@ -585,8 +685,16 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     let mine = t.namespace.startsWith(ownPrefix)
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
-    if md.isEnum(t.index) or md.isDelegate(t.index): continue
-    let own = impls.getOrDefault(t.index, @[])
+    if md.isEnum(t.index): continue
+    # A delegate is a class too, for the way *out*: a method that returns one
+    # hands back a COM object, and the wrapper for it is an object with an
+    # `invoke`. It is its own only interface, so the loop below emits that
+    # method through the same path as any other.
+    let own = if md.isDelegate(t.index):
+                # Its own TypeDef row, as the coded TypeDefOrRef the table
+                # would hold: tag 0 in the low two bits.
+                (if t.index in iids: @[t.index shl 2] else: @[])
+              else: impls.getOrDefault(t.index, @[])
     # No base and no interfaces means no instance — which is either a plain
     # struct, or a static class whose whole API hangs off its factory.
     if md.baseName(t.index) == "" and own.len == 0 and
@@ -603,9 +711,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         let sg = md.typeDefOrRefSig(coded)
         if sg.kind == skUnsupported and sg.args.len > 0:
           paramDefault[t.fullName] = sg
+          sigCtx.paramDefault[t.fullName] = sg
           break
     if default.len == 0 and t.fullName notin paramDefault and
-       md.baseName(t.index) == "":
+       md.baseName(t.index) == "" and not md.isDelegate(t.index):
       # No instance to have. If the metadata gives it a static interface it is
       # a class like `PowerManager` — real API, reached through the activation
       # factory — so it is kept, as a name to hang those members on.
@@ -623,9 +732,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       c.defaultIface[t.fullName] = default
       sigCtx.defaultIface[t.fullName] = default
       # A factory returns the class's default interface rather than the class,
-      # so this is what lets `CreateUri` be typed as returning a `Uri`.
-      c.classOfIface[default] = t.fullName
+      # so this is what lets `CreateUri` be typed as returning a `Uri`. Only
+      # where the answer is unique: `IUICommand` is the default of both
+      # `UICommand` and `UICommandSeparator`, and adopting one as the other
+      # would put the wrong type name on a live object.
+      if default in c.classOfIface: shared.incl default
+      else: c.classOfIface[default] = t.fullName
     if mine: classOrder.add t
+  for iface in shared: c.classOfIface.del iface
 
   if part == pMembers:
     var valueNames: HashSet[string]
@@ -835,6 +949,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     # its `StaticAttribute`, whose members do not and are reached through the
     # activation factory. `PowerManager` has only the second kind.
     var faces: seq[(string, bool)]
+    if md.isDelegate(t.index):
+      faces.add (t.fullName, false)          # `invoke`, and nothing else
     for coded in impls.getOrDefault(t.index, @[]):
       faces.add (md.typeDefOrRefName(coded), false)
     for n in staticIfaces.getOrDefault(t.index, @[]):
@@ -856,6 +972,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       var seen = initCountTable[string]()
       for mi in first ..< stop:
         let raw = md.str(md.cell(tMethodDef, mi, "Name"))
+        if raw == ".ctor": continue           # a delegate's, never callable
         # Keyed exactly as `generate.nim` keys it, on the identifier Nim will
         # see rather than on the metadata's spelling. `ITextRange` declares
         # both `get_Text` and `GetText`, and prefixed with `Slot_` those are one
@@ -1066,8 +1183,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                 lines.add &"{indent}var {pn}: pointer"
                 let oc = asClass(p.name)
                 outExpr.add (if oc.len > 0: &"adopt[{c.apiName(oc)}]({pn})"
-                             elif p.kind == skObject: &"adopt[WinRtObject]({pn})"
-                             else: pn)
+                             else: &"adopt[WinRtObject]({pn})")
               else:
                 lines.add &"{indent}var {pn}: {c.nimTypeOf(p, inReturn = true)}"
                 outExpr.add pn
@@ -1083,30 +1199,30 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             indent.add "  "
             callArgs.add &"h{i}"
           of skInterface:
-            if p.name in c.delegates:
-              # The caller wrote a closure; the runtime needs a COM object.
-              # Which trampoline depends on how many arguments `Invoke` takes,
-              # and they are not interchangeable — see `delegate.nim`.
-              useIface(p.name)
-              let dargs = c.delegates[p.name]
-              let mk = case dargs.len
-                       of 0: "newVoidDelegate"
-                       of 1: "newDelegate"
-                       else: "newEventDelegate"
-              var fwd: seq[string]
+            let (isDelegate, dargs) = c.delegateArgs(p)
+            if isDelegate:
+              # The caller wrote a closure over Nim types; the runtime needs a
+              # COM object whose `Invoke` has the delegate's exact C signature.
+              # `newDelegate` is generic over that signature, so the shim here
+              # is typed at the ABI and converts on the way through.
+              var iidExpr = ""
+              if p.kind == skInterface:
+                useIface(p.name)
+                iidExpr = "IID_" & shortName(p.name)
+              else:
+                let computed = sigCtx.parameterizedIid(p)
+                if computed.len == 0:
+                  ok = false
+                  break
+                iidExpr = genericIidConst(computed, p)
+              var formal, actual: seq[string]
               for k, a in dargs:
-                # One argument is `a`; two are the sender and the arguments.
-                let nk = if dargs.len == 1: "a" else: ["s", "a"][k]
-                let ac = asClass(a.name)
-                fwd.add (if ac.len > 0: &"borrow[{c.apiName(ac)}]({nk})"
-                         else: &"borrow[WinRtObject]({nk})")
-              let f2 = fwd.join(", ")
-              let shim = case dargs.len
-                         of 0: &"{pn}"
-                         of 1: &"proc(a: pointer) = {pn}({fwd[0]})"
-                         else: &"proc(s, a: pointer) = {pn}({f2})"
-              lines.add &"{indent}let d{i} = {mk}(IID_{shortName(p.name)}, " &
-                        shim & ")"
+                formal.add &"a{k}: {c.abiSpelling(a)}"
+                actual.add c.fromAbi(a, &"a{k}")
+              let shim =
+                if dargs.len == 0: pn
+                else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
+              lines.add &"{indent}let d{i} = newDelegate({iidExpr}, {shim})"
               # The callee takes its own reference; this one was ours.
               lines.add &"{indent}defer: discard release(d{i})"
               callArgs.add &"d{i}"
@@ -1131,6 +1247,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                 ok = false
                 break
               lines.add &"{indent}withIface({pn}.p, {iidExpr}, \"{what}\", p{i}):"
+              indent.add "  "
+              callArgs.add &"p{i}"
+            elif p.name in c.ifaceIid:
+              # A bare interface: whatever object arrived, the callee wants
+              # this one interface of it.
+              useIface(p.name)
+              let wi = shortName(p.name)
+              lines.add &"{indent}withIface({pn}.p, IID_{wi}, \"{wi}\", p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
             else:
@@ -1173,6 +1297,24 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             callArgs.add &"n{i}"
             callArgs.add &"d{i}"
           of skUnsupported:
+            let (isGenericDelegate, gargs) = c.delegateArgs(p)
+            if isGenericDelegate:
+              let computed = sigCtx.parameterizedIid(p)
+              if computed.len == 0:
+                ok = false
+                break
+              let iidExpr = genericIidConst(computed, p)
+              var formal, actual: seq[string]
+              for k, a in gargs:
+                formal.add &"a{k}: {c.abiSpelling(a)}"
+                actual.add c.fromAbi(a, &"a{k}")
+              let shim =
+                if gargs.len == 0: pn
+                else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
+              lines.add &"{indent}let d{i} = newDelegate({iidExpr}, {shim})"
+              lines.add &"{indent}defer: discard release(d{i})"
+              callArgs.add &"d{i}"
+              continue
             let boxed = c.referenceValue(p)
             if boxed.kind != skVoid:
               # `none` is a null pointer, which is exactly how WinRT spells an
@@ -1249,20 +1391,38 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           # object has to answer QueryInterface for the completion handler's.
           # WinRT derives both by hashing a signature string, which `piid` does
           # here so nothing has to at run time.
+          # The `WithProgress` pair number their slots differently and complete
+          # through a different handler, so both are decided from the
+          # operation's name rather than from what it produces.
+          let withProgress = sig.returns.name in [
+            "Windows.Foundation.IAsyncActionWithProgress`1",
+            "Windows.Foundation.IAsyncOperationWithProgress`2"]
+          let layout = if withProgress: "alProgress" else: "alPlain"
           var opIid, handlerIid = ""
-          if asyncVoid:
-            # An action's handler is not parameterised, so its IID is declared
-            # in the metadata like any other delegate's.
+          if asyncVoid and not withProgress:
+            # A plain action's handler is not parameterised, so its IID is
+            # declared in the metadata like any other delegate's.
             useIface("Windows.Foundation.AsyncActionCompletedHandler")
             handlerIid = "IID_AsyncActionCompletedHandler"
           else:
-            let hs = SigType(kind: skUnsupported, args: @[async.res],
-                             name: "Windows.Foundation.AsyncOperationCompletedHandler`1")
+            let hs =
+              if asyncVoid:
+                SigType(kind: skUnsupported, args: sig.returns.args,
+                        name: "Windows.Foundation.AsyncActionWithProgressCompletedHandler`1")
+              elif withProgress:
+                SigType(kind: skUnsupported, args: sig.returns.args,
+                        name: "Windows.Foundation.AsyncOperationWithProgressCompletedHandler`2")
+              else:
+                SigType(kind: skUnsupported, args: @[async.res],
+                        name: "Windows.Foundation.AsyncOperationCompletedHandler`1")
             let hc = sigCtx.parameterizedIid(hs)
             let computed = sigCtx.parameterizedIid(sig.returns)
             if hc.len == 0 or computed.len == 0:
               skipped.inc
               skipReasons.inc "an operation whose IID could not be computed"
+              if dumpSkips:
+                stderr.writeLine "an operation whose IID could not be computed	-> " &
+                                 brief(sig.returns)
               continue
             handlerIid = genericIidConst(hc, hs)
             opIid = genericIidConst(computed, sig.returns)
@@ -1272,14 +1432,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           # Back out to the proc body, past every scope the arguments opened.
           let asyncElem = c.collectionElement(async.res)
           if asyncVoid:
-            lines.add &"  await awaitVoid(op, {handlerIid}, \"{what}\")"
+            lines.add &"  await awaitVoid(op, {handlerIid}, {layout}, \"{what}\")"
           elif retType == "string":
             lines.add &"  result = await awaitString(op, {opIid}, " &
-                      &"{handlerIid}, \"{what}\")"
+                      &"{handlerIid}, {layout}, \"{what}\")"
           elif asyncElem.kind != skVoid:
             # The operation yields a collection; walking it is the same as for
             # any other, once there is something to walk.
-            let inner = sigCtx.parameterizedIid(async.res)
+            let inner = sigCtx.parameterizedIid(readableAs(async.res))
             if inner.len == 0:
               skipped.inc
               skipReasons.inc "an operation whose collection IID could not be computed"
@@ -1287,7 +1447,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let collIid = genericIidConst(inner, async.res)
             let es = c.elementSpelling(asyncElem)
             lines.add &"  let coll = await awaitObject(op, {opIid}, " &
-                      &"{handlerIid}, \"{what}\")"
+                      &"{handlerIid}, {layout}, \"{what}\")"
             if es == "string":
               lines.add &"  result = toSeqString(coll, {collIid})"
             elif elementIsValue(asyncElem):
@@ -1301,10 +1461,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           elif async.res.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
                                   skI8, skU8, skF4, skF8, skEnum, skStruct}:
             lines.add &"  result = await awaitValue[{retType}](op, {opIid}, " &
-                      &"{handlerIid}, \"{what}\")"
+                      &"{handlerIid}, {layout}, \"{what}\")"
           else:
             lines.add &"  result = adopt[{retType}](await awaitObject(" &
-                      &"op, {opIid}, {handlerIid}, \"{what}\"))"
+                      &"op, {opIid}, {handlerIid}, {layout}, \"{what}\"))"
         elif sig.returns.kind == skVoid:
           lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
                     callArgs.join(", ") & &").check(\"{what}\")"
@@ -1341,7 +1501,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             # The IID of `IVectorView<Gamepad>` is declared nowhere: WinRT
             # derives it by hashing a signature string, which `piid` does at
             # generation time so nothing has to at run time.
-            let computed = sigCtx.parameterizedIid(sig.returns)
+            let computed = sigCtx.parameterizedIid(readableAs(sig.returns))
             if computed.len == 0:
               skipped.inc
               skipReasons.inc "a collection whose IID could not be computed"
@@ -1374,13 +1534,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skEnum: lines.add &"{indent}{sink} = tmp"
           of skUnsupported:
             if retMap.kind != skVoid:
+              let ks = c.mapKeySpelling(sig.returns.args[0])
               let vs = c.mapValueSpelling(retMap)
-              if vs == "string":
-                lines.add &"{indent}{sink} = toTableString(tmp, " &
-                          &"{mapIterableIid}, {mapPairIid})"
-              else:
-                lines.add &"{indent}{sink} = toTable[{vs}](tmp, " &
-                          &"{mapIterableIid}, {mapPairIid})"
+              lines.add &"{indent}{sink} = toTable[{ks}, {vs}](tmp, " &
+                        &"{mapIterableIid}, {mapPairIid})"
             elif retRef.kind != skVoid:
               # `IReference<T>` is an interface, so "no value" arrives as a
               # null pointer rather than a sentinel.
@@ -1411,10 +1568,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skObject:
             lines.add &"{indent}{sink} = adopt[WinRtObject](tmp)"
           of skInterface:
-            if asClass(sig.returns.name).len > 0:
-              lines.add &"{indent}{sink} = adopt[{declared}](tmp)"
-            else:
-              lines.add &"{indent}{sink} = tmp"
+            lines.add &"{indent}{sink} = adopt[{declared}](tmp)"
           else: lines.add &"{indent}{sink} = tmp"
 
         # The out-parameters are locals inside whatever scopes the arguments

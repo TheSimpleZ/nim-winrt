@@ -10,6 +10,8 @@
 ## Every method returns HRESULT and its declared return type becomes
 ## a trailing out-parameter.
 
+import std/hashes
+export hashes
 import ../core
 include ../abidef
 export core

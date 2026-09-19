@@ -10,7 +10,7 @@
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
 
-import std/[options, os, strformat, strutils, tables, widestrs]
+import std/[hashes, options, os, strformat, strutils, tables, widestrs]
 
 # A method that may not have a value returns `Option[T]`, so anyone holding one
 # needs `isSome` and `get` without a second import.
@@ -511,6 +511,10 @@ const IID_IAgileObject* = GUID(
   data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
   data4: [0xC0'u8, 0xFF, 0xEE, 0x64, 0xCA, 0x8F, 0x5B, 0x90])
 
+proc hash*(g: GUID): Hash =
+  ## So a `GUID` can key a `Table`: several WinRT maps are keyed by one.
+  hashData(g.unsafeAddr, sizeof(GUID))
+
 type WinRtObject* {.inheritable, pure.} = object
   ## What every projected runtime class is, underneath: one COM pointer.
   ##
@@ -748,6 +752,7 @@ type
   FnCurrent = proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
   FnHasCurrent = proc(self: pointer, has: ptr bool): HRESULT {.abi.}
   FnPairString = proc(self: pointer, v: ptr HSTRING): HRESULT {.abi.}
+  FnPairValue[T] = proc(self: pointer, value: ptr T): HRESULT {.abi.}
   FnPairPtr = proc(self: pointer, v: ptr pointer): HRESULT {.abi.}
 
 template eachPair(map: pointer, iterableIid, pairIid: GUID, body: untyped) =
@@ -782,23 +787,39 @@ template eachPair(map: pointer, iterableIid, pairIid: GUID, body: untyped) =
     finally:
       release(iterable)
 
-proc toTableString*(map: pointer, iterableIid, pairIid: GUID):
-    Table[string, string] =
-  ## Every entry of a `IMapView<String, String>`.
+proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID): Table[K, V] =
+  ## Every entry of a WinRT map, as a Nim `Table`.
+  ##
+  ## Key and value are each one of three shapes — a string, an object, or a
+  ## value read by width — and which one is decided from the Nim type rather
+  ## than by having six of these. An object is *adopted*: `get_Value` hands
+  ## over a reference that is ours.
   eachPair(map, iterableIid, pairIid):
-    var k, v: HSTRING
-    vcall(pair, SlotPairKey, FnPairString)(pair, k.addr).check("pair.get_Key")
-    vcall(pair, SlotPairValue, FnPairString)(pair, v.addr).check("pair.get_Value")
-    result[takeString(k)] = takeString(v)
-
-proc toTable*[V](map: pointer, iterableIid, pairIid: GUID): Table[string, V] =
-  ## The same where the values are objects, which are adopted as they come.
-  eachPair(map, iterableIid, pairIid):
-    var k: HSTRING
-    var v: pointer
-    vcall(pair, SlotPairKey, FnPairString)(pair, k.addr).check("pair.get_Key")
-    vcall(pair, SlotPairValue, FnPairPtr)(pair, v.addr).check("pair.get_Value")
-    result[takeString(k)] = adopt[V](v)
+    var k: K
+    when K is string:
+      var kh: HSTRING
+      vcall(pair, SlotPairKey, FnPairString)(pair, kh.addr).check("pair.get_Key")
+      k = takeString(kh)
+    elif K is WinRtObject:
+      var kp: pointer
+      vcall(pair, SlotPairKey, FnPairPtr)(pair, kp.addr).check("pair.get_Key")
+      k = adopt[K](kp)
+    else:
+      vcall(pair, SlotPairKey, FnPairValue[K])(pair, k.addr).check("pair.get_Key")
+    var v: V
+    when V is string:
+      var vh: HSTRING
+      vcall(pair, SlotPairValue, FnPairString)(pair, vh.addr)
+        .check("pair.get_Value")
+      v = takeString(vh)
+    elif V is WinRtObject:
+      var vp: pointer
+      vcall(pair, SlotPairValue, FnPairPtr)(pair, vp.addr).check("pair.get_Value")
+      v = adopt[V](vp)
+    else:
+      vcall(pair, SlotPairValue, FnPairValue[V])(pair, v.addr)
+        .check("pair.get_Value")
+    result[k] = v
 
 # ------------------------------------------------------------------- boxing
 

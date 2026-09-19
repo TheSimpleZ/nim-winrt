@@ -10,6 +10,8 @@
 ## Every method returns HRESULT and its declared return type becomes
 ## a trailing out-parameter.
 
+import std/hashes
+export hashes
 import ../core
 include ../abidef
 export core
@@ -30260,6 +30262,20 @@ proc `$`*(v: PivotSlideInAnimationGroup): string =
   of 3: "GroupThree"
   else: "PivotSlideInAnimationGroup(" & $ord(v) & ")"
 
+## Windows.UI.Xaml.Controls.Primitives.AnimationDirection  (enum)
+type PrimitivesAnimationDirection* {.pure, size: 4.} = enum
+  Left = 0'i32
+  Top = 1'i32
+  Right = 2'i32
+  Bottom = 3'i32
+proc `$`*(v: PrimitivesAnimationDirection): string =
+  case ord(v)
+  of 0: "Left"
+  of 1: "Top"
+  of 2: "Right"
+  of 3: "Bottom"
+  else: "PrimitivesAnimationDirection(" & $ord(v) & ")"
+
 ## Windows.UI.Xaml.Controls.Primitives.ComponentResourceLocation  (enum)
 type ComponentResourceLocation* {.pure, size: 4.} = enum
   Application = 0'i32
@@ -37144,6 +37160,8 @@ proc `$`*(v: WebErrorStatus): string =
 ## Windows.ApplicationModel.PackageInstallProgress  (struct)
 type PackageInstallProgress* {.pure.} = object
   percentComplete*: uint32
+proc hash*(x: PackageInstallProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.ApplicationModel.PackageVersion  (struct)
 type PackageVersion* {.pure.} = object
@@ -37151,6 +37169,8 @@ type PackageVersion* {.pure.} = object
   minor*: uint16
   build*: uint16
   revision*: uint16
+proc hash*(x: PackageVersion): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo  (struct)
 type ResourceLayoutInfo* {.pure.} = object
@@ -37159,36 +37179,50 @@ type ResourceLayoutInfo* {.pure.} = object
   resourceSubtreeCount*: uint32
   namedResourceCount*: uint32
   checksum*: int32
+proc hash*(x: ResourceLayoutInfo): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Data.Text.TextSegment  (struct)
 type TextSegment* {.pure.} = object
   startPosition*: uint32
   length*: uint32
+proc hash*(x: TextSegment): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Geolocation.BasicGeoposition  (struct)
 type BasicGeoposition* {.pure.} = object
   latitude*: float64
   longitude*: float64
   altitude*: float64
+proc hash*(x: BasicGeoposition): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Haptics.HapticsControllerOverrideToken  (struct)
 type HapticsControllerOverrideToken* {.pure.} = object
   value*: int64
+proc hash*(x: HapticsControllerOverrideToken): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.I2c.I2cTransferResult  (struct)
 type I2cTransferResult* {.pure.} = object
   status*: I2cTransferStatus
   bytesTransferred*: uint32
+proc hash*(x: I2cTransferResult): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.I2c.Provider.ProviderI2cTransferResult  (struct)
 type ProviderI2cTransferResult* {.pure.} = object
   status*: ProviderI2cTransferStatus
   bytesTransferred*: uint32
+proc hash*(x: ProviderI2cTransferResult): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Input.MouseDelta  (struct)
 type MouseDelta* {.pure.} = object
   x*: int32
   y*: int32
+proc hash*(x: MouseDelta): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Input.PointerDeviceUsage  (struct)
 type PointerDeviceUsage* {.pure.} = object
@@ -37200,21 +37234,29 @@ type PointerDeviceUsage* {.pure.} = object
   maxPhysical*: int32
   unit*: uint32
   physicalMultiplier*: float32
+proc hash*(x: PointerDeviceUsage): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.PointOfService.SizeUInt32  (struct)
 type SizeUInt32* {.pure.} = object
   width*: uint32
   height*: uint32
+proc hash*(x: SizeUInt32): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Scanners.ImageScannerResolution  (struct)
 type ImageScannerResolution* {.pure.} = object
   dpiX*: float32
   dpiY*: float32
+proc hash*(x: ImageScannerResolution): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Sensors.LightSensorChromaticity  (struct)
 type LightSensorChromaticity* {.pure.} = object
   x*: float64
   y*: float64
+proc hash*(x: LightSensorChromaticity): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Sms.SmsEncodedLength  (struct)
 type SmsEncodedLength* {.pure.} = object
@@ -37223,14 +37265,20 @@ type SmsEncodedLength* {.pure.} = object
   charactersPerSegment*: uint32
   byteCountLastSegment*: uint32
   bytesPerSegment*: uint32
+proc hash*(x: SmsEncodedLength): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.DateTime  (struct)
 type DateTime* {.pure.} = object
   universalTime*: int64
+proc hash*(x: DateTime): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.EventRegistrationToken  (struct)
 type EventRegistrationToken* {.pure.} = object
   value*: int64
+proc hash*(x: EventRegistrationToken): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Matrix3x2  (struct)
 type Matrix3x2* {.pure.} = object
@@ -37240,6 +37288,8 @@ type Matrix3x2* {.pure.} = object
   m22*: float32
   m31*: float32
   m32*: float32
+proc hash*(x: Matrix3x2): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Matrix4x4  (struct)
 type Matrix4x4* {.pure.} = object
@@ -37259,6 +37309,8 @@ type Matrix4x4* {.pure.} = object
   m42*: float32
   m43*: float32
   m44*: float32
+proc hash*(x: Matrix4x4): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Quaternion  (struct)
 type Quaternion* {.pure.} = object
@@ -37266,22 +37318,30 @@ type Quaternion* {.pure.} = object
   y*: float32
   z*: float32
   w*: float32
+proc hash*(x: Quaternion): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Rational  (struct)
 type Rational* {.pure.} = object
   numerator*: uint32
   denominator*: uint32
+proc hash*(x: Rational): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Vector2  (struct)
 type Vector2* {.pure.} = object
   x*: float32
   y*: float32
+proc hash*(x: Vector2): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Vector3  (struct)
 type Vector3* {.pure.} = object
   x*: float32
   y*: float32
   z*: float32
+proc hash*(x: Vector3): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Vector4  (struct)
 type Vector4* {.pure.} = object
@@ -37289,11 +37349,15 @@ type Vector4* {.pure.} = object
   y*: float32
   z*: float32
   w*: float32
+proc hash*(x: Vector4): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Point  (struct)
 type Point* {.pure.} = object
   x*: float32
   y*: float32
+proc hash*(x: Point): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Rect  (struct)
 type Rect* {.pure.} = object
@@ -37301,20 +37365,28 @@ type Rect* {.pure.} = object
   y*: float32
   width*: float32
   height*: float32
+proc hash*(x: Rect): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Size  (struct)
 type Size* {.pure.} = object
   width*: float32
   height*: float32
+proc hash*(x: Size): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.TimeSpan  (struct)
 type TimeSpan* {.pure.} = object
   duration*: int64
+proc hash*(x: TimeSpan): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.ArcadeStickReading  (struct)
 type ArcadeStickReading* {.pure.} = object
   timestamp*: uint64
   buttons*: ArcadeStickButtons
+proc hash*(x: ArcadeStickReading): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.Custom.GameControllerVersionInfo  (struct)
 type GameControllerVersionInfo* {.pure.} = object
@@ -37322,11 +37394,15 @@ type GameControllerVersionInfo* {.pure.} = object
   minor*: uint16
   build*: uint16
   revision*: uint16
+proc hash*(x: GameControllerVersionInfo): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.Custom.GipFirmwareUpdateProgress  (struct)
 type GipFirmwareUpdateProgress* {.pure.} = object
   percentCompleted*: float64
   currentComponentId*: uint32
+proc hash*(x: GipFirmwareUpdateProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.FlightStickReading  (struct)
 type FlightStickReading* {.pure.} = object
@@ -37337,6 +37413,8 @@ type FlightStickReading* {.pure.} = object
   pitch*: float64
   yaw*: float64
   throttle*: float64
+proc hash*(x: FlightStickReading): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.GamepadReading  (struct)
 type GamepadReading* {.pure.} = object
@@ -37348,6 +37426,8 @@ type GamepadReading* {.pure.} = object
   leftThumbstickY*: float64
   rightThumbstickX*: float64
   rightThumbstickY*: float64
+proc hash*(x: GamepadReading): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.GamepadVibration  (struct)
 type GamepadVibration* {.pure.} = object
@@ -37355,6 +37435,8 @@ type GamepadVibration* {.pure.} = object
   rightMotor*: float64
   leftTrigger*: float64
   rightTrigger*: float64
+proc hash*(x: GamepadVibration): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.Preview.HeadsetGeqGains  (struct)
 type HeadsetGeqGains* {.pure.} = object
@@ -37363,6 +37445,8 @@ type HeadsetGeqGains* {.pure.} = object
   band3Gain*: int32
   band4Gain*: int32
   band5Gain*: int32
+proc hash*(x: HeadsetGeqGains): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.RacingWheelReading  (struct)
 type RacingWheelReading* {.pure.} = object
@@ -37374,17 +37458,23 @@ type RacingWheelReading* {.pure.} = object
   brake*: float64
   clutch*: float64
   handbrake*: float64
+proc hash*(x: RacingWheelReading): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Gaming.Input.UINavigationReading  (struct)
 type UINavigationReading* {.pure.} = object
   timestamp*: uint64
   requiredButtons*: RequiredUINavigationButtons
   optionalButtons*: OptionalUINavigationButtons
+proc hash*(x: UINavigationReading): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription  (struct)
 type Direct3DMultisampleDescription* {.pure.} = object
   count*: int32
   quality*: int32
+proc hash*(x: Direct3DMultisampleDescription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.DirectX.Direct3D11.Direct3DSurfaceDescription  (struct)
 type Direct3DSurfaceDescription* {.pure.} = object
@@ -37392,6 +37482,8 @@ type Direct3DSurfaceDescription* {.pure.} = object
   height*: int32
   format*: DirectXPixelFormat
   multisampleDescription*: Direct3DMultisampleDescription
+proc hash*(x: Direct3DSurfaceDescription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata  (struct)
 type HdmiDisplayHdr2086Metadata* {.pure.} = object
@@ -37407,35 +37499,49 @@ type HdmiDisplayHdr2086Metadata* {.pure.} = object
   minMasteringLuminance*: uint16
   maxContentLightLevel*: uint16
   maxFrameAverageLightLevel*: uint16
+proc hash*(x: HdmiDisplayHdr2086Metadata): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Display.NitRange  (struct)
 type NitRange* {.pure.} = object
   minNits*: float32
   maxNits*: float32
   stepSizeNits*: float32
+proc hash*(x: NitRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.DisplayAdapterId  (struct)
 type DisplayAdapterId* {.pure.} = object
   lowPart*: uint32
   highPart*: int32
+proc hash*(x: DisplayAdapterId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.DisplayId  (struct)
 type DisplayId* {.pure.} = object
   value*: uint64
+proc hash*(x: DisplayId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Holographic.HolographicAdapterId  (struct)
 type HolographicAdapterId* {.pure.} = object
   lowPart*: uint32
   highPart*: int32
+proc hash*(x: HolographicAdapterId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Holographic.HolographicFrameId  (struct)
 type HolographicFrameId* {.pure.} = object
   value*: uint64
+proc hash*(x: HolographicFrameId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Holographic.HolographicStereoTransform  (struct)
 type HolographicStereoTransform* {.pure.} = object
   left*: Matrix4x4
   right*: Matrix4x4
+proc hash*(x: HolographicStereoTransform): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Imaging.BitmapBounds  (struct)
 type BitmapBounds* {.pure.} = object
@@ -37443,6 +37549,8 @@ type BitmapBounds* {.pure.} = object
   y*: uint32
   width*: uint32
   height*: uint32
+proc hash*(x: BitmapBounds): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Imaging.BitmapPlaneDescription  (struct)
 type BitmapPlaneDescription* {.pure.} = object
@@ -37450,16 +37558,22 @@ type BitmapPlaneDescription* {.pure.} = object
   width*: int32
   height*: int32
   stride*: int32
+proc hash*(x: BitmapPlaneDescription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Imaging.BitmapSize  (struct)
 type BitmapSize* {.pure.} = object
   width*: uint32
   height*: uint32
+proc hash*(x: BitmapSize): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.PointInt32  (struct)
 type PointInt32* {.pure.} = object
   x*: int32
   y*: int32
+proc hash*(x: PointInt32): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Printing.PrintPageDescription  (struct)
 type PrintPageDescription* {.pure.} = object
@@ -37467,11 +37581,15 @@ type PrintPageDescription* {.pure.} = object
   imageableRect*: Rect
   dpiX*: uint32
   dpiY*: uint32
+proc hash*(x: PrintPageDescription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.Printing3D.Printing3DBufferDescription  (struct)
 type Printing3DBufferDescription* {.pure.} = object
   format*: Printing3DBufferFormat
   stride*: uint32
+proc hash*(x: Printing3DBufferDescription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.RectInt32  (struct)
 type RectInt32* {.pure.} = object
@@ -37479,32 +37597,44 @@ type RectInt32* {.pure.} = object
   y*: int32
   width*: int32
   height*: int32
+proc hash*(x: RectInt32): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Graphics.SizeInt32  (struct)
 type SizeInt32* {.pure.} = object
   width*: int32
   height*: int32
+proc hash*(x: SizeInt32): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Management.Deployment.DeploymentProgress  (struct)
 type DeploymentProgress* {.pure.} = object
   state*: DeploymentProgressState
   percentage*: uint32
+proc hash*(x: DeploymentProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Capture.WhiteBalanceGain  (struct)
 type WhiteBalanceGain* {.pure.} = object
   r*: float64
   g*: float64
   b*: float64
+proc hash*(x: WhiteBalanceGain): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Core.MseTimeRange  (struct)
 type MseTimeRange* {.pure.} = object
   start*: TimeSpan
   `end`*: TimeSpan
+proc hash*(x: MseTimeRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Core.TimedTextDouble  (struct)
 type TimedTextDouble* {.pure.} = object
   value*: float64
   unit*: TimedTextUnit
+proc hash*(x: TimedTextDouble): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Core.TimedTextPadding  (struct)
 type TimedTextPadding* {.pure.} = object
@@ -37513,18 +37643,24 @@ type TimedTextPadding* {.pure.} = object
   start*: float64
   `end`*: float64
   unit*: TimedTextUnit
+proc hash*(x: TimedTextPadding): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Core.TimedTextPoint  (struct)
 type TimedTextPoint* {.pure.} = object
   x*: float64
   y*: float64
   unit*: TimedTextUnit
+proc hash*(x: TimedTextPoint): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Core.TimedTextSize  (struct)
 type TimedTextSize* {.pure.} = object
   height*: float64
   width*: float64
   unit*: TimedTextUnit
+proc hash*(x: TimedTextSize): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.Import.PhotoImportProgress  (struct)
 type PhotoImportProgress* {.pure.} = object
@@ -37533,11 +37669,15 @@ type PhotoImportProgress* {.pure.} = object
   bytesImported*: uint64
   totalBytesToImport*: uint64
   importProgress*: float64
+proc hash*(x: PhotoImportProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Media.MediaTimeRange  (struct)
 type MediaTimeRange* {.pure.} = object
   start*: TimeSpan
   `end`*: TimeSpan
+proc hash*(x: MediaTimeRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.BackgroundTransfer.BackgroundDownloadProgress  (struct)
 type BackgroundDownloadProgress* {.pure.} = object
@@ -37546,11 +37686,15 @@ type BackgroundDownloadProgress* {.pure.} = object
   status*: BackgroundTransferStatus
   hasResponseChanged*: bool
   hasRestarted*: bool
+proc hash*(x: BackgroundDownloadProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.BackgroundTransfer.BackgroundTransferFileRange  (struct)
 type BackgroundTransferFileRange* {.pure.} = object
   offset*: uint64
   length*: uint64
+proc hash*(x: BackgroundTransferFileRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.BackgroundTransfer.BackgroundUploadProgress  (struct)
 type BackgroundUploadProgress* {.pure.} = object
@@ -37561,21 +37705,29 @@ type BackgroundUploadProgress* {.pure.} = object
   status*: BackgroundTransferStatus
   hasResponseChanged*: bool
   hasRestarted*: bool
+proc hash*(x: BackgroundUploadProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.Connectivity.NetworkUsageStates  (struct)
 type NetworkUsageStates* {.pure.} = object
   roaming*: TriStates
   shared*: TriStates
+proc hash*(x: NetworkUsageStates): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.NetworkOperators.ESimProfileInstallProgress  (struct)
 type ESimProfileInstallProgress* {.pure.} = object
   totalSizeInBytes*: int32
   installedSizeInBytes*: int32
+proc hash*(x: ESimProfileInstallProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.NetworkOperators.ProfileUsage  (struct)
 type ProfileUsage* {.pure.} = object
   usageInMegabytes*: uint32
   lastSyncTime*: DateTime
+proc hash*(x: ProfileUsage): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.Sockets.BandwidthStatistics  (struct)
 type BandwidthStatistics* {.pure.} = object
@@ -37585,6 +37737,8 @@ type BandwidthStatistics* {.pure.} = object
   inboundBitsPerSecondInstability*: uint64
   outboundBandwidthPeaked*: bool
   inboundBandwidthPeaked*: bool
+proc hash*(x: BandwidthStatistics): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Networking.Sockets.RoundTripTimeStatistics  (struct)
 type RoundTripTimeStatistics* {.pure.} = object
@@ -37592,11 +37746,15 @@ type RoundTripTimeStatistics* {.pure.} = object
   max*: uint32
   min*: uint32
   sum*: uint32
+proc hash*(x: RoundTripTimeStatistics): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.People.HandMeshVertex  (struct)
 type HandMeshVertex* {.pure.} = object
   position*: Vector3
   normal*: Vector3
+proc hash*(x: HandMeshVertex): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.People.JointPose  (struct)
 type JointPose* {.pure.} = object
@@ -37604,32 +37762,44 @@ type JointPose* {.pure.} = object
   position*: Vector3
   radius*: float32
   accuracy*: JointPoseAccuracy
+proc hash*(x: JointPose): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.Spatial.SpatialBoundingBox  (struct)
 type SpatialBoundingBox* {.pure.} = object
   center*: Vector3
   extents*: Vector3
+proc hash*(x: SpatialBoundingBox): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.Spatial.SpatialBoundingOrientedBox  (struct)
 type SpatialBoundingOrientedBox* {.pure.} = object
   center*: Vector3
   extents*: Vector3
   orientation*: Quaternion
+proc hash*(x: SpatialBoundingOrientedBox): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.Spatial.SpatialBoundingSphere  (struct)
 type SpatialBoundingSphere* {.pure.} = object
   center*: Vector3
   radius*: float32
+proc hash*(x: SpatialBoundingSphere): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.Spatial.SpatialRay  (struct)
 type SpatialRay* {.pure.} = object
   origin*: Vector3
   direction*: Vector3
+proc hash*(x: SpatialRay): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateProgress  (struct)
 type IsolatedWindowsEnvironmentCreateProgress* {.pure.} = object
   state*: IsolatedWindowsEnvironmentProgressState
   percentComplete*: uint32
+proc hash*(x: IsolatedWindowsEnvironmentCreateProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Services.Store.StorePackageUpdateStatus  (struct)
 type StorePackageUpdateStatus* {.pure.} = object
@@ -37639,21 +37809,29 @@ type StorePackageUpdateStatus* {.pure.} = object
   packageDownloadProgress*: float64
   totalDownloadProgress*: float64
   packageUpdateState*: StorePackageUpdateState
+proc hash*(x: StorePackageUpdateStatus): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Storage.AccessCache.AccessListEntry  (struct)
 type AccessListEntry* {.pure.} = object
   token*: HSTRING
   metadata*: HSTRING
+proc hash*(x: AccessListEntry): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Storage.Search.SortEntry  (struct)
 type SortEntry* {.pure.} = object
   propertyName*: HSTRING
   ascendingOrder*: bool
+proc hash*(x: SortEntry): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.System.Power.Thermal.PowerThermalChannelId  (struct)
 type PowerThermalChannelId* {.pure.} = object
   interfaceType*: GUID
   instanceId*: uint16
+proc hash*(x: PowerThermalChannelId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Color  (struct)
 type Color* {.pure.} = object
@@ -37661,11 +37839,15 @@ type Color* {.pure.} = object
   r*: uint8
   g*: uint8
   b*: uint8
+proc hash*(x: Color): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Composition.InkTrailPoint  (struct)
 type InkTrailPoint* {.pure.} = object
   point*: Point
   radius*: float32
+proc hash*(x: InkTrailPoint): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Core.CorePhysicalKeyStatus  (struct)
 type CorePhysicalKeyStatus* {.pure.} = object
@@ -37675,11 +37857,15 @@ type CorePhysicalKeyStatus* {.pure.} = object
   isMenuKeyDown*: bool
   wasKeyDown*: bool
   isKeyReleased*: bool
+proc hash*(x: CorePhysicalKeyStatus): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Core.CoreProximityEvaluation  (struct)
 type CoreProximityEvaluation* {.pure.} = object
   score*: int32
   adjustedPoint*: Point
+proc hash*(x: CoreProximityEvaluation): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.CrossSlideThresholds  (struct)
 type CrossSlideThresholds* {.pure.} = object
@@ -37687,6 +37873,8 @@ type CrossSlideThresholds* {.pure.} = object
   speedBumpStart*: float32
   speedBumpEnd*: float32
   rearrangeStart*: float32
+proc hash*(x: CrossSlideThresholds): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.ManipulationDelta  (struct)
 type ManipulationDelta* {.pure.} = object
@@ -37694,17 +37882,23 @@ type ManipulationDelta* {.pure.} = object
   scale*: float32
   rotation*: float32
   expansion*: float32
+proc hash*(x: ManipulationDelta): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.ManipulationVelocities  (struct)
 type ManipulationVelocities* {.pure.} = object
   linear*: Point
   angular*: float32
   expansion*: float32
+proc hash*(x: ManipulationVelocities): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputPoint  (struct)
 type InjectedInputPoint* {.pure.} = object
   positionX*: int32
   positionY*: int32
+proc hash*(x: InjectedInputPoint): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputPointerInfo  (struct)
 type InjectedInputPointerInfo* {.pure.} = object
@@ -37713,6 +37907,8 @@ type InjectedInputPointerInfo* {.pure.} = object
   pixelLocation*: InjectedInputPoint
   timeOffsetInMilliseconds*: uint32
   performanceCount*: uint64
+proc hash*(x: InjectedInputPointerInfo): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Injection.InjectedInputRectangle  (struct)
 type InjectedInputRectangle* {.pure.} = object
@@ -37720,15 +37916,21 @@ type InjectedInputRectangle* {.pure.} = object
   top*: int32
   bottom*: int32
   right*: int32
+proc hash*(x: InjectedInputRectangle): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Text.TextBoxId  (struct)
 type TextBoxId* {.pure.} = object
   value*: uint32
+proc hash*(x: TextBoxId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Text.TextInputServiceSubscription  (struct)
 type TextInputServiceSubscription* {.pure.} = object
   requiredEnabledFeatures*: TextBoxFeatures
   requiredDisabledFeatures*: TextBoxFeatures
+proc hash*(x: TextInputServiceSubscription): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Input.Preview.Text.TextStyle  (struct)
 type TextStyle* {.pure.} = object
@@ -37737,42 +37939,60 @@ type TextStyle* {.pure.} = object
   backgroundColor*: Color
   underlineColor*: Color
   underlineType*: UnderlineType
+proc hash*(x: TextStyle): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Text.Core.CoreTextRange  (struct)
 type CoreTextRange* {.pure.} = object
   startCaretPosition*: int32
   endCaretPosition*: int32
+proc hash*(x: CoreTextRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Text.FontWeight  (struct)
 type FontWeight* {.pure.} = object
   weight*: uint16
+proc hash*(x: FontWeight): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration  (struct)
 type AutomationAnnotationTypeRegistration* {.pure.} = object
   localId*: int32
+proc hash*(x: AutomationAnnotationTypeRegistration): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId  (struct)
 type AutomationRemoteOperationOperandId* {.pure.} = object
   value*: int32
+proc hash*(x: AutomationRemoteOperationOperandId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.WindowId  (struct)
 type WindowId* {.pure.} = object
   value*: uint64
+proc hash*(x: WindowId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Automation.Peers.RawElementProviderRuntimeId  (struct)
 type RawElementProviderRuntimeId* {.pure.} = object
   part1*: uint32
   part2*: uint32
+proc hash*(x: RawElementProviderRuntimeId): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange  (struct)
 type MapZoomLevelRange* {.pure.} = object
   min*: float64
   max*: float64
+proc hash*(x: MapZoomLevelRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Controls.Primitives.GeneratorPosition  (struct)
 type GeneratorPosition* {.pure.} = object
   index*: int32
   offset*: int32
+proc hash*(x: GeneratorPosition): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.CornerRadius  (struct)
 type CornerRadius* {.pure.} = object
@@ -37780,51 +38000,71 @@ type CornerRadius* {.pure.} = object
   topRight*: float64
   bottomRight*: float64
   bottomLeft*: float64
+proc hash*(x: CornerRadius): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Data.LoadMoreItemsResult  (struct)
 type LoadMoreItemsResult* {.pure.} = object
   count*: uint32
+proc hash*(x: LoadMoreItemsResult): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Documents.TextRange  (struct)
 type TextRange* {.pure.} = object
   startIndex*: int32
   length*: int32
+proc hash*(x: TextRange): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Duration  (struct)
 type Duration* {.pure.} = object
   timeSpan*: TimeSpan
   `type`*: DurationType
+proc hash*(x: Duration): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.GridLength  (struct)
 type GridLength* {.pure.} = object
   value*: float64
   gridUnitType*: GridUnitType
+proc hash*(x: GridLength): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Interop.TypeName  (struct)
 type TypeName* {.pure.} = object
   name*: HSTRING
   kind*: TypeKind
+proc hash*(x: TypeName): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation  (struct)
 type XamlBinaryWriterErrorInformation* {.pure.} = object
   inputStreamIndex*: uint32
   lineNumber*: uint32
   linePosition*: uint32
+proc hash*(x: XamlBinaryWriterErrorInformation): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Markup.XmlnsDefinition  (struct)
 type XmlnsDefinition* {.pure.} = object
   xmlNamespace*: HSTRING
   namespace*: HSTRING
+proc hash*(x: XmlnsDefinition): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Media.Animation.KeyTime  (struct)
 type KeyTime* {.pure.} = object
   timeSpan*: TimeSpan
+proc hash*(x: KeyTime): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Media.Animation.RepeatBehavior  (struct)
 type RepeatBehavior* {.pure.} = object
   count*: float64
   duration*: TimeSpan
   `type`*: RepeatBehaviorType
+proc hash*(x: RepeatBehavior): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Media.Matrix  (struct)
 type Matrix* {.pure.} = object
@@ -37834,6 +38074,8 @@ type Matrix* {.pure.} = object
   m22*: float64
   offsetX*: float64
   offsetY*: float64
+proc hash*(x: Matrix): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Media.Media3D.Matrix3D  (struct)
 type Matrix3D* {.pure.} = object
@@ -37853,6 +38095,8 @@ type Matrix3D* {.pure.} = object
   offsetY*: float64
   offsetZ*: float64
   m44*: float64
+proc hash*(x: Matrix3D): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.UI.Xaml.Thickness  (struct)
 type Thickness* {.pure.} = object
@@ -37860,6 +38104,8 @@ type Thickness* {.pure.} = object
   top*: float64
   right*: float64
   bottom*: float64
+proc hash*(x: Thickness): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Web.Http.HttpProgress  (struct)
 type HttpProgress* {.pure.} = object
@@ -37869,11 +38115,15 @@ type HttpProgress* {.pure.} = object
   bytesReceived*: uint64
   totalBytesToReceive*: pointer
   retries*: uint32
+proc hash*(x: HttpProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Web.Syndication.RetrievalProgress  (struct)
 type RetrievalProgress* {.pure.} = object
   bytesRetrieved*: uint32
   totalBytesToRetrieve*: uint32
+proc hash*(x: RetrievalProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Web.Syndication.TransferProgress  (struct)
 type TransferProgress* {.pure.} = object
@@ -37881,26 +38131,36 @@ type TransferProgress* {.pure.} = object
   totalBytesToSend*: uint32
   bytesRetrieved*: uint32
   totalBytesToRetrieve*: uint32
+proc hash*(x: TransferProgress): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Display.Core.DisplayPresentationRate  (struct)
 type DisplayPresentationRate* {.pure.} = object
   verticalSyncRate*: Rational
   verticalSyncsPerPresentation*: int32
+proc hash*(x: DisplayPresentationRate): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Gpio.GpioChangeCount  (struct)
 type GpioChangeCount* {.pure.} = object
   count*: uint64
   relativeTime*: TimeSpan
+proc hash*(x: GpioChangeCount): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Devices.Gpio.GpioChangeRecord  (struct)
 type GpioChangeRecord* {.pure.} = object
   relativeTime*: TimeSpan
   edge*: GpioPinEdge
+proc hash*(x: GpioChangeRecord): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Foundation.Numerics.Plane  (struct)
 type Plane* {.pure.} = object
   normal*: Vector3
   d*: float32
+proc hash*(x: Plane): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.Perception.Spatial.SpatialBoundingFrustum  (struct)
 type SpatialBoundingFrustum* {.pure.} = object
@@ -37910,9 +38170,13 @@ type SpatialBoundingFrustum* {.pure.} = object
   left*: Plane
   top*: Plane
   bottom*: Plane
+proc hash*(x: SpatialBoundingFrustum): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
 ## Windows.System.Power.Thermal.PowerThermalChannelData  (struct)
 type PowerThermalChannelData* {.pure.} = object
   id*: PowerThermalChannelId
   value*: int32
+proc hash*(x: PowerThermalChannelData): Hash =
+  hashData(x.unsafeAddr, sizeof(x))
 
