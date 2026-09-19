@@ -51,7 +51,7 @@ nimble install https://github.com/TheSimpleZ/nim-winrt
 or in your `.nimble` file:
 
 ```nim
-requires "https://github.com/TheSimpleZ/nim-winrt >= 0.5.0"
+requires "https://github.com/TheSimpleZ/nim-winrt >= 0.6.0"
 ```
 
 ## A first program
@@ -113,8 +113,10 @@ Each WinRT shape has one Nim spelling, and it is the one you would expect:
 | `T[]` | `openArray[T]` in, `seq[T]` out |
 | `IAsyncOperation<T>` | `Future[T]` |
 | an `[out]` parameter | a field of the returned tuple |
-| a delegate | a closure |
+| a delegate | a closure, run on your thread |
 | an event | `onName(handler)`, which returns a token for `removeName` |
+| an interface Windows should call | `implement(IID_X, XVtbl(...))` |
+| a failure | `WinRtError`, with the `HRESULT` and the runtime's message |
 
 Collections nest — a `FileSavePicker`'s file type choices are a
 `Table[string, seq[string]]` — and a collection you hand *in* is copied, so
@@ -173,16 +175,55 @@ thread the operation finishes on, and the dispatcher is only woken from there �
 thread would be a data race. A module that has no async methods does not
 import `std/asyncdispatch`.
 
-### Callbacks run where the runtime runs them
+### Handlers run on your thread
 
 A closure you hand to `ThreadPool.runAsync`, or to a device watcher's event,
-runs on a thread the runtime chose, not on yours. Nim's memory management
-is not prepared for that thread: **a handler that may run there must not
-allocate or touch garbage-collected memory** — no `echo`, no string building,
-no `seq` appends. Write to a plain variable, or signal the main thread with an
-`AsyncEvent` and do the work there, which is exactly how the async support
-above completes a `Future`. A handler for a UI event runs on the UI thread and
-has no such constraint.
+is invoked by the runtime on a thread of its choosing — and then run by this
+library on the thread that created it, while the runtime's thread waits. So a
+handler can do what any Nim code does: build strings, append to a `seq`,
+touch your objects. What it costs is that your thread has to be running the
+dispatcher for a handler from elsewhere to be delivered — `waitFor`,
+`runForever` or `poll`, not `sleep`. A handler that genuinely wants the
+runtime's thread, such as a work item meant to run in parallel, is made with
+`newDelegate(..., raw = true)` and must not touch garbage-collected memory
+there.
+
+### Implementing an interface
+
+Sometimes Windows wants an object of *yours*: an `INotifyPropertyChanged`
+for data binding, an `ICommand`, a background task, an `IReference<T>` you
+did not want boxed. `implement` takes the interface's vtable type from the
+ABI module with your methods filled in, and returns a COM object Windows can
+hold, query and call:
+
+```nim
+import winrt, winrt/abi/devices
+include winrt/abidef          # the `abi` calling convention for your methods
+
+type FlagsRefVtbl = object of IInspectableVtbl
+  get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT {.abi.}
+
+var flags = BluetoothLEAdvertisementFlags(2)
+let box = implement(IID_IReference_1_BluetoothLEAdvertisementFlags,
+  FlagsRefVtbl(get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT {.abi.} =
+    value[] = cast[ptr BluetoothLEAdvertisementFlags](stateOf(self))[]
+    S_OK),
+  state = flags.addr)
+```
+
+The methods are written at the ABI — raw arguments, an `HRESULT` back —
+with `stateOf(self)` for whatever you attached and `takeString`, `toHString`,
+`adopt` and `borrow` to convert. One interface per object; `QueryInterface`,
+reference counting and the rest of `IInspectable` are filled in for you.
+
+### When a call fails
+
+A failed call raises `WinRtError` carrying the `HRESULT` and the message the
+runtime attached to it, which is usually the useful part:
+
+```text
+Uri.CreateUri failed: E_INVALIDARG: not a uri at all is not a valid absolute URI.
+```
 
 ## Import what you use
 
@@ -303,9 +344,11 @@ Windows this should not happen; for one belonging to a separate runtime, such
 as the Windows App SDK, that runtime is not deployed alongside your executable.
 Assign `activationHint` to add your own explanation to the error.
 
-**A crash inside a callback, with no Nim traceback.** The handler ran on a
-runtime thread and touched Nim's heap — see *Callbacks run where the runtime
-runs them* above.
+**A handler from another thread never runs, or a `waitFor` never returns.**
+Handlers are delivered to the thread that created them by its dispatcher, so
+that thread has to be polling: `waitFor`, `runForever` or `poll`. A thread
+blocked in `sleep`, or in a synchronous call that itself waits for the handler,
+delivers nothing. See *Handlers run on your thread* above.
 
 **`ambiguous identifier`.** Two *different* declarations share a name. It will
 not come from importing two binding modules together — they share one set of

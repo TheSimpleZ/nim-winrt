@@ -349,9 +349,46 @@ the next time it is touched from the main thread. `delegateTableSizes()`
 exposes the table, and `tests/tdelegate.nim` asserts released slots are
 reused.
 
-What the handler itself does is the caller's business, and the same rule
-applies to it: a handler that may run on a runtime thread must not allocate or
-touch GC memory there. Signal the main thread and do the work there.
+The handler itself is not asked to obey that rule. When `Invoke` arrives on a
+thread other than the one that created the delegate, the trampoline describes
+the call in a `Job` on its own stack — the typed arguments and a proc that
+knows how to make the call — pushes it onto a lock-free list, triggers an
+`AsyncEvent` and blocks on a Win32 event. The dispatcher thread, woken by
+`asyncdispatch`, runs the handler and signals. The handler therefore runs on
+the thread that runs the dispatcher, with the runtime's thread waiting, and
+may allocate freely; the cost is that the dispatcher has to be polling for a
+handler from elsewhere to be delivered at all. `newDelegate(..., raw = true)`
+opts out and takes on the rule: no GC memory on the runtime's thread.
+`tests/tdelegate.nim` invokes a delegate from a raw Win32 thread both ways.
+
+## Implementing an interface
+
+`src/winrt/implement.nim` is the general form of what `delegate`, `seqview`,
+`mapview` and `reference` each do by hand: an object on the COM heap whose
+first field points at a vtable, with `QueryInterface`, an atomic reference
+count and the rest of `IInspectable` filled in, and the interface's own
+methods supplied by the caller as `{.abi.}` procs in a copy of the generated
+`XVtbl`. The vtable is copied per object rather than shared per type because
+two objects of one interface may carry different methods. `stateOf(self)`
+returns the pointer the caller attached, which is how a method reaches its
+data without a closure — a method here may be called on any thread, and there
+is no dispatcher in between as there is for a delegate.
+
+One interface per object. An object implementing several unrelated interfaces
+needs a vtable pointer per interface and, in every method, the offset back to
+the object — the arrangement `seqview` uses for `IIterable<T>`,
+`IVectorView<T>` and `IVector<T>` on one object.
+
+## Failures
+
+A WinRT method that fails usually says why: it calls `RoOriginateError` with
+a message before returning, and the runtime keeps that message on the calling
+thread until someone asks. `check` asks, once, right after the call that
+failed, through `GetRestrictedErrorInfo` and `IRestrictedErrorInfo`; the
+message is taken only if it was attached to the same HRESULT, since a stale
+one would describe an earlier failure. When there is none, `FormatMessage`
+supplies the system's description of the code. Either way the exception reads
+`Uri.CreateUri failed: E_INVALIDARG: <what Windows said>`.
 
 ## What is left
 
@@ -359,3 +396,8 @@ Nothing in `Windows.winmd` is skipped: 4,670 classes, 33,056 methods,
 properties and constructors, 2,908 events. The generator still counts and
 prints anything it cannot spell, because a future SDK may add a shape it does
 not know, and `WINRT_DUMP_SKIPS=1 nimble bindings` names each method and why.
+
+An `IAsyncOperation<T>` is a `Future[T]`, and a `Future` has no `cancel` and
+no progress callback, so the `WithProgress` operations are awaited but report
+nothing along the way. That is a consequence of the model chosen, not a
+missing shape.

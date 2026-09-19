@@ -1,9 +1,9 @@
-## Implementing COM objects that the Windows Runtime calls back into.
+## Implementing the delegates the Windows Runtime calls back into.
 ##
 ## Everything else in this library is Nim calling WinRT. This is the other
-## direction: the runtime needs objects it can invoke — the application's start
-## callback, and every event handler — and those have to be real COM objects
-## with a real vtable.
+## direction: the runtime needs objects it can invoke — every event handler,
+## every callback a method takes — and those have to be real COM objects with
+## a real vtable.
 ##
 ## Three details are easy to get wrong and fatal when you do:
 ##
@@ -30,38 +30,45 @@
 ## types and instantiated per delegate signature, and its vtable with it —
 ## `{.global.}` inside a generic proc is one table per instantiation.
 ##
-## ## The thread it arrives on
+## ## Handlers run on the dispatcher thread
 ##
 ## The runtime invokes a delegate on whatever thread suits it: a thread-pool
 ## work item runs on the pool, a device watcher reports from one of its own.
-## That thread is not a Nim thread, and under ORC that rules one thing out
-## entirely: touching a reference count. Copying a `ref` — even the implicit
-## copy in `let h = handlers[i]` — registers the object as a possible cycle
-## root in a per-thread list that only a Nim-started thread has initialised,
-## and a foreign thread crashes on the spot.
+## That thread is not a Nim thread, and Nim's memory management is not
+## prepared for it: copying a `ref` or allocating anything there crashes the
+## process, which rules out `echo`, string building and most handlers anyone
+## would write.
 ##
-## Nor may it allocate: Nim's allocator keeps its state per thread, and on a
-## thread it did not set up the first allocation is a crash. Every object
-## here lives on the COM heap instead — see `comAlloc` in `core`.
+## So a handler runs on the thread that runs `asyncdispatch` — the one that
+## created the delegate — and the runtime's thread waits for it. The
+## trampoline notices it is elsewhere, describes the call in a `Job` on its own
+## stack, pushes that onto a lock-free list, wakes the dispatcher and blocks on
+## an event; the dispatcher runs the handler and signals. Nothing on the
+## foreign thread touches Nim memory. What it costs is that the dispatcher must
+## be running — `waitFor`, `runForever` or `poll` — for a handler from another
+## thread to run at all, and a handler is delivered when the dispatcher gets to
+## it rather than the instant the runtime raised it.
 ##
-## So the path from `Invoke` to the closure holds no `ref` and allocates
-## nothing. The COM object carries the closure's *address*; the closure itself
-## is a plain object the `handlers` table below keeps alive, and the trampoline
-## reads it through a `ptr` and calls it through a `{.cursor.}`. `Release` on
-## a foreign thread has the same problem the other way — dropping the table's
-## reference is a count — so a released delegate is only *retired*, pushed
-## onto a lock-free list threaded through the objects themselves, and the
-## table lets go of its closure the next time it is touched from the main
-## thread.
+## A handler that genuinely wants the runtime's thread — a work item meant to
+## run in parallel — asks for `raw = true` and takes on the rule above: no GC
+## memory there.
 ##
-## What the handler itself does is the caller's business, and the same rules
-## apply to it: a handler that may run on a runtime thread must not allocate
-## or touch GC memory there. Signal the main thread and do the work there —
-## `asyncops` shows the pattern with an `AsyncEvent`.
+## ## What the object holds
+##
+## Nothing GC-managed. The closure's environment is GC memory and the COM
+## object is not, so burying one inside the other gives a callback into freed
+## memory some minutes after it starts working; the closure lives in the
+## `handlers` table below, where the GC can see it, and the object carries its
+## address and its index. The object itself is on the COM heap, because the
+## runtime may release it from any thread, and a release from a foreign thread
+## only *retires* it — onto a lock-free list threaded through the objects — for
+## the dispatcher thread to let go of the closure the next time it is touched.
 
-import std/atomics
+import std/[asyncdispatch, atomics]
 import ./core
 include ./abidef
+
+export asyncdispatch
 
 type
   HandlerObj = object of RootObj
@@ -92,21 +99,41 @@ type
     ## On the COM heap, because its lifetime belongs to COM and not to Nim.
     vtbl: ptr Vtbl           ## must stay first
     refs: int32
+    raw: bool                ## run where invoked, whatever thread that is
     iid: GUID
     handler: pointer         ## the `HandlerObj`, by address — see above
     slot: int32              ## its index in `handlers`
     next: ptr DelegateImpl   ## the retired list, once released
 
-# Handlers live here so the GC can see them: a closure's environment is
-# GC-managed and the COM object is not, so burying one inside the other gives a
-# callback into freed memory some minutes after it starts working.
-#
+  Job {.pure.} = object
+    ## One invocation carried to the dispatcher thread: how to run it, on
+    ## which delegate, and the event that says it has been.
+    run: proc(job: ptr Job): HRESULT {.nimcall, raises: [].}
+    delegate: pointer
+    done: pointer            ## a Win32 event the poster waits on
+    hr: HRESULT
+    next: ptr Job
+
+  Job1[A] {.pure.} = object
+    base: Job
+    a: A
+  Job2[A, B] {.pure.} = object
+    base: Job
+    a: A
+    b: B
+  Job3[A, B, C] {.pure.} = object
+    base: Job
+    a: A
+    b: B
+    c: C
+
+# ---------------------------------------------------------------- the table
+
 # An entry is cleared rather than removed, because a live delegate holds its
 # index. The index then goes on a free list and is handed to the next delegate,
 # which is what stops a long-running app from growing one dead slot per
-# subscription — a tray app that re-subscribes on every device change would
-# otherwise never stop growing. Reuse is safe precisely because a slot is only
-# freed when the delegate holding it has been destroyed.
+# subscription. Reuse is safe precisely because a slot is only freed when the
+# delegate holding it has been destroyed.
 var
   handlers: seq[Handler] = @[]
   freeSlots: seq[int32] = @[]
@@ -120,8 +147,8 @@ proc retire(d: ptr DelegateImpl) =
     discard   # `d.next` now holds the current head; try again
 
 proc drain() =
-  ## Let go of every retired delegate and its handler. Main thread only, like
-  ## the table.
+  ## Let go of every retired delegate and its handler. Dispatcher thread only,
+  ## like the table.
   var d = retired.exchange(nil, moAcquireRelease)
   while not d.isNil:
     handlers[d.slot] = nil
@@ -150,6 +177,69 @@ proc report(what, msg: string) =
     stderr.flushFile()
   except CatchableError:
     discard
+
+# ----------------------------------------------------------- the dispatcher
+
+proc createEventW(attributes: pointer, manualReset, initialState: int32,
+                  name: pointer): pointer
+  {.importc: "CreateEventW", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
+proc setEvent(h: pointer): int32
+  {.importc: "SetEvent", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
+proc waitForSingleObject(h: pointer, ms: uint32): uint32
+  {.importc: "WaitForSingleObject", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
+proc closeHandle(h: pointer): int32
+  {.importc: "CloseHandle", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
+
+var
+  pending: Atomic[ptr Job]   ## jobs posted from other threads, newest first
+  wakeup: AsyncEvent          ## what a poster triggers
+  dispatcherThread: int       ## the thread that created the first delegate
+
+proc runPending(fd: AsyncFD): bool {.gcsafe.} =
+  ## Run every posted job, oldest first, and release each poster.
+  var job = pending.exchange(nil, moAcquireRelease)
+  var ordered: ptr Job = nil
+  while not job.isNil:
+    let next = job.next
+    job.next = ordered
+    ordered = job
+    job = next
+  while not ordered.isNil:
+    # Read `next` before signalling: the job lives on the poster's stack, and
+    # the poster is free to return the moment the event is set.
+    let next = ordered.next
+    # The handler is a closure and touches GC memory; that is fine *here*, on
+    # the dispatcher thread, which is the whole arrangement — but the compiler
+    # cannot see through a proc pointer to know it.
+    {.cast(gcsafe).}:
+      ordered.hr = ordered.run(ordered)
+    discard setEvent(ordered.done)
+    ordered = next
+  false   # stay registered
+
+proc ensureDispatcher() =
+  ## The first delegate decides which thread handlers run on.
+  if wakeup.isNil:
+    wakeup = newAsyncEvent()
+    addEvent(wakeup, runPending)
+    dispatcherThread = getThreadId()
+
+proc carry(job: ptr Job): HRESULT =
+  ## From a thread that is not the dispatcher's: hand the job over and wait.
+  job.done = createEventW(nil, 1, 0, nil)
+  job.next = pending.load(moAcquire)
+  while not pending.compareExchange(job.next, job, moAcquireRelease, moAcquire):
+    discard
+  try:
+    trigger(wakeup)
+  except CatchableError:
+    discard
+  discard waitForSingleObject(job.done, 0xFFFFFFFF'u32)
+  discard closeHandle(job.done)
+  job.hr
+
+proc runsHere(self: pointer): bool {.inline.} =
+  cast[ptr DelegateImpl](self).raw or getThreadId() == dispatcherThread
 
 # ------------------------------------------------------------- IUnknown
 
@@ -186,7 +276,7 @@ template guarded(self: pointer, body: untyped): HRESULT =
   ##
   ## A handler that raises is contained and reported either way. Whether the
   ## call then *fails* depends on who is asking. A method that took a callback
-  ## — the application's initialization, a work item — is entitled to hear that
+  ## — a work item, the application's initialization — is entitled to hear that
   ## it did not run. An event source is not: a failing HRESULT out of XAML's
   ## own event dispatch tears the process down, and the event has been
   ## delivered either way, so those report success regardless.
@@ -206,34 +296,80 @@ template guarded(self: pointer, body: untyped): HRESULT =
       if not stored.swallow: hr = E_FAIL
     hr
 
-# Each trampoline reads its closure through a `ptr` and a `{.cursor.}`: no
-# reference is copied, which is what makes it safe on a thread Nim did not
-# start.
+# Each `run` reads its closure through a `ptr` and a `{.cursor.}`: no
+# reference is copied, so it is safe on the dispatcher thread whatever else is
+# going on, and safe on a raw thread as long as the handler itself is.
 
-proc invoke0(self: pointer): HRESULT {.callback.} =
+proc run0(self: pointer): HRESULT {.raises: [].} =
   guarded(self):
     let fn {.cursor.} = cast[ptr Handler0Obj](stored).fn
     fn()
 
-proc invoke1[A](self: pointer, a: A): HRESULT {.callback.} =
+proc run1[A](self: pointer, a: A): HRESULT {.raises: [].} =
   guarded(self):
     let fn {.cursor.} = cast[ptr Handler1Obj[A]](stored).fn
     fn(a)
 
-proc invoke2[A, B](self: pointer, a: A, b: B): HRESULT {.callback.} =
+proc run2[A, B](self: pointer, a: A, b: B): HRESULT {.raises: [].} =
   guarded(self):
     let fn {.cursor.} = cast[ptr Handler2Obj[A, B]](stored).fn
     fn(a, b)
 
-proc invoke3[A, B, C](self: pointer, a: A, b: B, c: C): HRESULT {.callback.} =
+proc run3[A, B, C](self: pointer, a: A, b: B, c: C): HRESULT {.raises: [].} =
   guarded(self):
     let fn {.cursor.} = cast[ptr Handler3Obj[A, B, C]](stored).fn
     fn(a, b, c)
 
-proc make(iid: GUID, handler: Handler, vtbl: ptr Vtbl): pointer =
+# The same four, as a job the dispatcher runs.
+
+proc job0(job: ptr Job): HRESULT {.nimcall, raises: [].} =
+  run0(job.delegate)
+
+proc job1[A](job: ptr Job): HRESULT {.nimcall, raises: [].} =
+  let j = cast[ptr Job1[A]](job)
+  run1[A](job.delegate, j.a)
+
+proc job2[A, B](job: ptr Job): HRESULT {.nimcall, raises: [].} =
+  let j = cast[ptr Job2[A, B]](job)
+  run2[A, B](job.delegate, j.a, j.b)
+
+proc job3[A, B, C](job: ptr Job): HRESULT {.nimcall, raises: [].} =
+  let j = cast[ptr Job3[A, B, C]](job)
+  run3[A, B, C](job.delegate, j.a, j.b, j.c)
+
+# What the runtime calls. On the dispatcher thread, or for a raw delegate,
+# straight through; from anywhere else, described on this thread's stack and
+# carried over.
+
+proc invoke0(self: pointer): HRESULT {.callback.} =
+  if runsHere(self): return run0(self)
+  var job = Job(run: job0, delegate: self)
+  carry(job.addr)
+
+proc invoke1[A](self: pointer, a: A): HRESULT {.callback.} =
+  if runsHere(self): return run1[A](self, a)
+  var job = Job1[A](base: Job(run: job1[A], delegate: self), a: a)
+  carry(job.base.addr)
+
+proc invoke2[A, B](self: pointer, a: A, b: B): HRESULT {.callback.} =
+  if runsHere(self): return run2[A, B](self, a, b)
+  var job = Job2[A, B](base: Job(run: job2[A, B], delegate: self), a: a, b: b)
+  carry(job.base.addr)
+
+proc invoke3[A, B, C](self: pointer, a: A, b: B, c: C): HRESULT {.callback.} =
+  if runsHere(self): return run3[A, B, C](self, a, b, c)
+  var job = Job3[A, B, C](base: Job(run: job3[A, B, C], delegate: self),
+                          a: a, b: b, c: c)
+  carry(job.base.addr)
+
+# ----------------------------------------------------------- constructors
+
+proc make(iid: GUID, handler: Handler, vtbl: ptr Vtbl, raw: bool): pointer =
+  ensureDispatcher()
   let d = cast[ptr DelegateImpl](comAlloc(sizeof(DelegateImpl)))
   d.vtbl = vtbl
   d.refs = 1
+  d.raw = raw
   d.iid = iid
   d.handler = cast[pointer](handler)
   d.slot = takeSlot(handler)
@@ -258,35 +394,37 @@ template vtable(entry: untyped): ptr Vtbl =
 #
 # `event` is the difference between a callback and an event handler: a
 # handler that raises is reported either way, but only a callback's failure is
-# reported *to the runtime* — see `guarded`.
+# reported *to the runtime* — see `guarded`. `raw` runs the handler on
+# whatever thread the runtime invokes it from, instead of the dispatcher's.
 
 proc newDelegate*(iid: GUID, handler: proc() {.closure.},
-                  event = false): pointer =
+                  event = false, raw = false): pointer =
   ## A delegate whose `Invoke` takes no arguments.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
-  make(iid, Handler((ref Handler0Obj)(fn: handler, swallow: event)), vtable(invoke0))
+  make(iid, Handler((ref Handler0Obj)(fn: handler, swallow: event)),
+       vtable(invoke0), raw)
 
 proc newDelegate*[A](iid: GUID, handler: proc(a: A) {.closure.},
-                     event = false): pointer =
+                     event = false, raw = false): pointer =
   ## A delegate whose `Invoke` takes one argument.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
   make(iid, Handler((ref Handler1Obj[A])(fn: handler, swallow: event)),
-       vtable(invoke1[A]))
+       vtable(invoke1[A]), raw)
 
 proc newDelegate*[A, B](iid: GUID, handler: proc(a: A, b: B) {.closure.},
-                        event = false): pointer =
+                        event = false, raw = false): pointer =
   ## A delegate whose `Invoke` takes two arguments — every event handler.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
   make(iid, Handler((ref Handler2Obj[A, B])(fn: handler, swallow: event)),
-       vtable(invoke2[A, B]))
+       vtable(invoke2[A, B]), raw)
 
 proc newDelegate*[A, B, C](iid: GUID,
                            handler: proc(a: A, b: B, c: C) {.closure.},
-                           event = false): pointer =
+                           event = false, raw = false): pointer =
   ## A delegate whose `Invoke` takes three arguments.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
   make(iid, Handler((ref Handler3Obj[A, B, C])(fn: handler, swallow: event)),
-       vtable(invoke3[A, B, C]))
+       vtable(invoke3[A, B, C]), raw)
 
 proc delegateTableSizes*(): tuple[slots, free: int] =
   ## Diagnostic: how many slots the handler table holds, and how many of those

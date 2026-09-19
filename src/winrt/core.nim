@@ -54,6 +54,15 @@ const
     ## failing generically, and callers test for it.
   E_CHANGED_STATE* = cast[HRESULT](0x8000000C'u32)
     ## A collection changed under an iterator.
+  E_ILLEGAL_METHOD_CALL* = cast[HRESULT](0x8000000E'u32)
+  E_ILLEGAL_STATE_CHANGE* = cast[HRESULT](0x8000000D'u32)
+  RO_E_CLOSED* = cast[HRESULT](0x80000013'u32)
+    ## The object was closed — `IClosable.Close` has already run.
+  E_ABORT* = cast[HRESULT](0x80004004'u32)
+  E_UNEXPECTED* = cast[HRESULT](0x8000FFFF'u32)
+  E_ACCESSDENIED* = cast[HRESULT](0x80070005'u32)
+  E_OUTOFMEMORY* = cast[HRESULT](0x8007000E'u32)
+  E_INVALIDARG* = cast[HRESULT](0x80070057'u32)
 
 func succeeded*(hr: HRESULT): bool {.inline.} =
   ## The sign bit is the failure flag. This cannot be `hr == S_OK`, because
@@ -82,19 +91,24 @@ func name*(hr: HRESULT): string =
   of CLASS_E_CLASSNOTAVAILABLE: "CLASS_E_CLASSNOTAVAILABLE"
   of E_BOUNDS: "E_BOUNDS"
   of E_CHANGED_STATE: "E_CHANGED_STATE"
+  of E_ILLEGAL_METHOD_CALL: "E_ILLEGAL_METHOD_CALL"
+  of E_ILLEGAL_STATE_CHANGE: "E_ILLEGAL_STATE_CHANGE"
+  of RO_E_CLOSED: "RO_E_CLOSED"
+  of E_ABORT: "E_ABORT"
+  of E_UNEXPECTED: "E_UNEXPECTED"
+  of E_ACCESSDENIED: "E_ACCESSDENIED"
+  of E_OUTOFMEMORY: "E_OUTOFMEMORY"
+  of E_INVALIDARG: "E_INVALIDARG"
   else: hr.hex
 
 type
   WinRtError* = object of CatchableError
     hr*: HRESULT
 
-proc check*(hr: HRESULT, what: string) =
+proc check*(hr: HRESULT, what: string)
   ## Raise on failure, keeping the HRESULT attached so callers can branch on
-  ## it rather than on message text.
-  if hr.failed:
-    var e = newException(WinRtError, &"{what} failed: {hr.name}")
-    e.hr = hr
-    raise e
+  ## it rather than on message text. Defined with the failure machinery below,
+  ## once the runtime it asks for the message is imported.
 
 # -------------------------------------------------------------------- imports
 
@@ -138,7 +152,21 @@ proc coTaskMemRealloc(p: pointer, size: uint): pointer
   {.importc: "CoTaskMemRealloc".}
 proc coTaskMemFree(p: pointer) {.importc: "CoTaskMemFree".}
 
+proc getRestrictedErrorInfo(info: ptr pointer): HRESULT
+  {.importc: "GetRestrictedErrorInfo".}
+
 {.pop.}
+
+# Two more, for the text behind a failure: the BSTRs an error-info object
+# hands out are freed through oleaut32, and the system's own description of
+# an HRESULT comes from kernel32.
+proc sysFreeString(s: pointer)
+  {.importc: "SysFreeString", stdcall, dynlib: "oleaut32", raises: [], gcsafe.}
+proc formatMessageW(flags: uint32, source: pointer, messageId, languageId: uint32,
+                    buffer: ptr pointer, size: uint32, args: pointer): uint32
+  {.importc: "FormatMessageW", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
+proc localFree(p: pointer): pointer
+  {.importc: "LocalFree", stdcall, dynlib: "kernel32", raises: [], gcsafe.}
 
 # -------------------------------------------------------------------- strings
 
@@ -336,6 +364,66 @@ proc runtimeClassName*(obj: pointer): string =
     return &"<unavailable: {hr.name}>"
   result = $h
   discard windowsDeleteString(h)
+
+# ----------------------------------------------------------------- failures
+
+# A WinRT method that fails usually says why: it calls `RoOriginateError` with
+# a message before returning the HRESULT, and the runtime keeps that message
+# on the calling thread until someone asks. C++/WinRT asks; so does this.
+# Reading it consumes it, so it is read exactly once, right after the call
+# that failed, by `check`.
+
+const IID_IRestrictedErrorInfo = guid"82BA7092-4C88-427D-A7BC-16DD93FEB67E"
+
+type RestrictedErrorInfoVtbl {.pure.} = object of IUnknownVtbl
+  getErrorDetails: proc(self: pointer, description: ptr pointer,
+                        error: ptr HRESULT, restricted: ptr pointer,
+                        capabilitySid: ptr pointer): HRESULT {.abi.}
+  getReference: proc(self: pointer, reference: ptr pointer): HRESULT {.abi.}
+
+proc takeBstr(b: pointer): string =
+  ## A BSTR is NUL-terminated UTF-16 that is the caller's to free.
+  if b.isNil: return ""
+  result = $cast[WideCString](b)
+  sysFreeString(b)
+
+proc errorMessage*(hr: HRESULT): string =
+  ## What Windows had to say about the failure that just happened on this
+  ## thread, if anything, and otherwise the system's description of the code.
+  ##
+  ## The runtime's message is only taken if it was attached to *this* code:
+  ## a stale one from an earlier failure would describe the wrong thing.
+  var raw: pointer
+  if getRestrictedErrorInfo(raw.addr) == S_OK and not raw.isNil:
+    let info = queryInterface(raw, IID_IRestrictedErrorInfo)
+    release(raw)
+    if not info.isNil:
+      var description, restricted, sid: pointer
+      var code: HRESULT
+      let vtbl = cast[ptr Iface[RestrictedErrorInfoVtbl]](info).vtbl
+      if vtbl.getErrorDetails(info, description.addr, code.addr,
+                              restricted.addr, sid.addr) == S_OK:
+        let r = takeBstr(restricted)
+        let d = takeBstr(description)
+        discard takeBstr(sid)
+        if code == hr:
+          result = if r.len > 0: r else: d
+      release(info)
+      if result.len > 0: return result.strip
+  # FORMAT_MESSAGE_ALLOCATE_BUFFER or FROM_SYSTEM or IGNORE_INSERTS.
+  var buf: pointer
+  let n = formatMessageW(0x1300, nil, cast[uint32](hr), 0, buf.addr, 0, nil)
+  if n > 0 and not buf.isNil:
+    result = ($cast[WideCString](buf)).strip
+    discard localFree(buf)
+
+proc check*(hr: HRESULT, what: string) =
+  if hr.failed:
+    let detail = errorMessage(hr)
+    var e = newException(WinRtError,
+      what & " failed: " & hr.name & (if detail.len > 0: ": " & detail else: ""))
+    e.hr = hr
+    raise e
 
 # ------------------------------------------------- the runtime's lifetime
 

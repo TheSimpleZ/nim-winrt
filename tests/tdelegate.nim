@@ -25,6 +25,20 @@ proc vtblOf(obj: pointer): ptr Vtbl =
   ## What a COM caller does first: the object *is* a pointer to its table.
   cast[ptr ptr Vtbl](obj)[]
 
+# A thread Nim did not start, the way the runtime's threads are.
+proc createThread(attributes: pointer, stackSize: uint, start: pointer,
+                  parameter: pointer, flags: uint32, id: ptr uint32): pointer
+  {.importc: "CreateThread", stdcall, dynlib: "kernel32".}
+proc waitForSingleObject(h: pointer, ms: uint32): uint32
+  {.importc: "WaitForSingleObject", stdcall, dynlib: "kernel32".}
+proc closeHandle(h: pointer): int32
+  {.importc: "CloseHandle", stdcall, dynlib: "kernel32".}
+
+proc invokeElsewhere(d: pointer): uint32 {.stdcall.} =
+  ## What the runtime does: call `Invoke` from its own thread.
+  discard vtblOf(d).invoke1(d, cast[pointer](5))
+  0
+
 const testIid = GUID(
   data1: 0x11111111'u32, data2: 0x2222'u16, data3: 0x3333'u16,
   data4: [0x44'u8, 0x44, 0x55, 0x55, 0x66, 0x66, 0x77, 0x77])
@@ -106,3 +120,31 @@ suite "delegate":
     check live() == base + 1
     check delegateTableSizes().slots == capacity
     discard vtblOf(e).release(e)
+
+  test "a handler invoked from another thread runs on the dispatcher's":
+    let main = getThreadId()
+    var ranOn = 0
+    var text = ""
+    let d = newDelegate(testIid, proc(args: pointer) =
+      ranOn = getThreadId()
+      text = "carried " & $cast[int](args))    # GC memory: safe only here
+    defer: discard vtblOf(d).release(d)
+    let t = createThread(nil, 0, cast[pointer](invokeElsewhere), d, 0, nil)
+    # The invoking thread is blocked until this one runs the handler, which
+    # happens when the dispatcher is polled.
+    while ranOn == 0: poll(10)
+    discard waitForSingleObject(t, 5000)
+    discard closeHandle(t)
+    check ranOn == main
+    check text == "carried 5"
+
+  test "a raw delegate runs where it is invoked":
+    var ranOn = 0
+    let d = newDelegate(testIid, proc(args: pointer) = ranOn = getThreadId(),
+                        raw = true)
+    defer: discard vtblOf(d).release(d)
+    let t = createThread(nil, 0, cast[pointer](invokeElsewhere), d, 0, nil)
+    discard waitForSingleObject(t, 5000)
+    discard closeHandle(t)
+    check ranOn != 0
+    check ranOn != getThreadId()

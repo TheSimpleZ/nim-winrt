@@ -234,11 +234,46 @@ suite "generated API":
     let info = VpnNamespaceInfo.createVpnNamespaceInfo("example", dns, @[])
     check info.dnsServers.mapIt(it.canonicalName) == @["1.1.1.1", "8.8.8.8"]
 
-  test "a delegate argument is a Nim closure, invoked with its argument typed":
-    var ran = false
+  test "a delegate argument is a Nim closure, run on the dispatcher thread":
+    # The pool invokes it on a pool thread; it runs here, where a closure may
+    # allocate — which this one does, freely.
+    let main = getThreadId()
+    var seen = ""
     waitFor ThreadPool.runAsync(proc(action: WinRtObject) =
-      ran = not action.isNil)
-    check ran
+      seen = "thread " & $getThreadId() & " " & action.p.runtimeClassName)
+    check seen == "thread " & $main & " Windows.Foundation.IAsyncAction"
+
+  test "a failed call carries the runtime's own message":
+    try:
+      discard Uri.createUri("not a uri at all")
+      check false
+    except WinRtError as e:
+      check e.hr == E_INVALIDARG
+      check e.msg == "Uri.CreateUri failed: E_INVALIDARG: " &
+                     "not a uri at all is not a valid absolute URI."
+
+  test "an interface implemented in Nim is one Windows can hold and call":
+    # An `IReference<BluetoothLEAdvertisementFlags>` implemented by hand rather
+    # than boxed, handed to Windows through the ABI, read back through the
+    # generated getter: Windows keeps the object, and `readReference` reaches
+    # our `get_Value` through it.
+    type IReferenceFlagsVtbl = object of IInspectableVtbl
+      get_Value: proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags):
+        HRESULT {.stdcall, raises: [], gcsafe.}
+    var flag = BluetoothLEAdvertisementFlags(2'u32)
+    let box = implement(IID_IReference_1_BluetoothLEAdvertisementFlags,
+      IReferenceFlagsVtbl(get_Value:
+        proc(self: pointer, value: ptr BluetoothLEAdvertisementFlags): HRESULT
+            {.stdcall, raises: [], gcsafe.} =
+          value[] = cast[ptr BluetoothLEAdvertisementFlags](stateOf(self))[]
+          S_OK),
+      state = flag.addr)
+    let adv = newBluetoothLEAdvertisement()
+    withIface(adv.p, IBluetoothLEAdvertisement, it):
+      check it.vtbl.put_Flags(it, box), "put_Flags"
+    release(box)                    # Windows holds its own reference now
+    check adv.flags.isSome
+    check uint32(adv.flags.get) == 2
 
   test "an out-parameter comes back in the tuple":
     let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")

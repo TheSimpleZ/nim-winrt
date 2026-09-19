@@ -23,10 +23,10 @@
 ## * `winrt/gaming` — classes, properties, methods and events as ordinary Nim.
 ##   Objects are one pointer wide and reference-counted by the compiler, so
 ##   nothing is released by hand; strings are Nim strings.
-## * `winrt/abi/gaming` — the vtable underneath: an IID per interface, a slot
-##   number per method, and a signature per slot. This is what the layer above
-##   compiles into, and it is there for the roughly 2% of signatures that do
-##   not map cleanly.
+## * `winrt/abi/gaming` — the vtable underneath: an IID per interface and an
+##   object per interface whose fields are its methods. This is what the layer
+##   above compiles into, and what you implement against when Windows is to
+##   call an object of yours — see `winrt/implement`.
 ##
 ## Importing the first gives you the second as well, so there is no cost to
 ## reaching down when you need to.
@@ -72,8 +72,6 @@
 ## `RoActivateInstance`, and a static class implements nothing and has no
 ## instance to hold.
 
-import winrt/core
-import winrt/delegate
+import winrt/[core, delegate, implement]
 
-export core
-export delegate
+export core, delegate, implement
