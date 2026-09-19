@@ -189,7 +189,7 @@ proc abiProc(sig: MethodSig; outParams: Table[int, bool] = initTable[int, bool](
     let r = nimType(sig.returns)
     if r.len == 0: return ""
     parts.add &"value: ptr {r}"
-  "proc(" & parts.join(", ") & "): HRESULT {.abi.}"
+  fill("proc(", parts, "): HRESULT {.abi.}", width = 76)
 
 type Emission = tuple
   enums, enumMembers, structs, interfaces, slots, typed, untyped: int
@@ -517,7 +517,9 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
 
       let fn = abiProc(md.methodSignature(mi))
       if fn.len > 0:
-        buf.add &"type Fn_{tag}* = {fn}\n"
+        # The signature is folded to fit beside its name; a continuation line
+        # of a type expression only has to be indented past `type`.
+        buf.add &"type Fn_{tag}* =\n  " & fn.replace("\n", "\n  ") & "\n"
         typed.inc
       else:
         buf.add &"# Fn_{tag}: signature not mapped\n"

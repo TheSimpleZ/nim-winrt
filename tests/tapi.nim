@@ -176,7 +176,7 @@ suite "generated API":
     let model = newPrinting3DModel()
     check model.metadata.len == 0
 
-    withIface(model.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    withIface(model.p, IPrinting3DModel, it):
       var raw: pointer
       vcall(it, Slot_IPrinting3DModel_get_Metadata, FnGetMeta)(it, raw.addr)
         .check("get_Metadata")

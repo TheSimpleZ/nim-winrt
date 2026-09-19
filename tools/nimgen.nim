@@ -69,19 +69,27 @@ func nimIdent*(name: string): string =
     result.add (if result.len == 0: ch else: ch.toLowerAscii)
 
 proc guidLiteral*(iid: string): string =
-  ## A braced IID as a `GUID(...)` object constructor.
-  ##
-  ## The first three fields are little-endian numbers written big-endian, which
-  ## is why they come out as integer literals while the last eight are bytes.
-  let hex = iid.strip(chars = {'{', '}'}).replace("-", "")
-  doAssert hex.len == 32, "bad IID: " & iid
-  var d4: seq[string]
-  for i in 0 ..< 8:
-    d4.add "0x" & hex[16 + i * 2 ..< 18 + i * 2]
-  "GUID(\n" &
-    &"    data1: 0x{hex[0 ..< 8]}'u32, data2: 0x{hex[8 ..< 12]}'u16, " &
-    &"data3: 0x{hex[12 ..< 16]}'u16,\n" &
-    &"    data4: [{d4[0]}'u8, " & d4[1 .. ^1].join(", ") & "])"
+  ## A braced IID as the expression that builds it: `guid"..."`, parsed at
+  ## compile time, which reads the way a GUID is written everywhere else.
+  let text = iid.strip(chars = {'{', '}'})
+  doAssert text.len == 36, "bad IID: " & iid
+  "guid" & '"' & text & '"'
+
+proc fill*(head: string, items: seq[string], tail = "", width = 80): string =
+  ## `head`, then `items` joined by ", ", then `tail` — folded at `width`
+  ## with continuation lines aligned under the first item, the way a Nim
+  ## call or signature is usually wrapped by hand.
+  var line = head
+  let pad = ' '.repeat(head.len)
+  for i, item in items:
+    let piece = item & (if i < items.high: "," else: "")
+    if line.len > head.len and line.len + 1 + piece.len > width:
+      result.add line & "\n"
+      line = pad & piece
+    else:
+      if line.len > head.len: line.add " "
+      line.add piece
+  result.add line & tail
 
 proc topGroup*(ns: string): string =
   ## `Windows.Devices.Enumeration.Pnp` -> `Windows.Devices`.

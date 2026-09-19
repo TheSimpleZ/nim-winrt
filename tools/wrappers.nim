@@ -40,11 +40,7 @@ import ./nimgen
 const tdInterface = 0x20'u32
 
 const GenericIidMarker = "##<computed-iids>##\n"
-const AsyncImportMarker = "##<async-import>##\n"
-const SeqViewImportMarker = "##<seqview-import>##\n"
-const MapViewImportMarker = "##<mapview-import>##\n"
-const AbiImportMarker = "##<abi-imports>##\n"
-const ReferenceImportMarker = "##<reference-import>##\n"
+const ImportsMarker = "##<imports>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
   ## that names one, but are only discovered while those procs are emitted.
 
@@ -154,14 +150,17 @@ func delegateSpelling(c: Ctx, args: seq[SigType],
   ## where the metadata's convention supplies them — an event's `sender` and
   ## `args`.
   if args.len > 3: return ""
-  var parts: seq[string]
+  var parts, types: seq[string]
   for i, a in args:
     if a.byRef: return ""
     let n = c.nimTypeOf(a)
     if n.len == 0: return ""
     let name = if i < names.len: names[i] else: &"a{i}"
     parts.add &"{name}: {n}"
-  "proc(" & parts.join(", ") & ")"
+    types.add n
+  # An event's shape has a name of its own in `core`.
+  if names.len == 2 and args.len == 2: &"EventHandler[{types[0]}, {types[1]}]"
+  else: "proc(" & parts.join(", ") & ")"
 
 func delegateArgs(c: Ctx, t: SigType): tuple[found: bool, args: seq[SigType]] =
   ## The `Invoke` arguments of a delegate-typed parameter, named or
@@ -453,6 +452,11 @@ func asyncSpelling(c: Ctx, res: SigType): string =
        res.name in foreignEnums: c.nimTypeOf(res)
     else: ""
   else: ""
+
+func trailing(s: string): seq[string] =
+  ## The arguments `innerIidArg` returns, as items — it spells them as a
+  ## trailing ", a, b" for the sites that splice them into a literal.
+  if s.len == 0: @[] else: s[2 .. ^1].split(", ")
 
 proc innerIidArg(c: Ctx, sigCtx: SigContext, elem: SigType,
                  mint: proc(iid: string, t: SigType): string): string =
@@ -898,23 +902,11 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   buf.add "## Each class is a Nim object in a real inheritance chain, so an\n"
   buf.add "## inherited method resolves without being emitted again for every\n"
   buf.add "## subclass, and a derived value passes where a base is expected.\n\n"
-  buf.add &"import {corePath}\n"
-  buf.add &"export {corePath.split('/')[^1]}\n"
-  if part != pClasses:
-    buf.add &"import {abiPath}/types\nexport types\n"
-    buf.add AbiImportMarker
-    buf.add &"import {delegatePath}\n"
-  if part == pMembers:
-    buf.add &"import {classesPath}\n"
-    buf.add &"export {classesPath.split('/')[^1]}\n"
-  # Whether this namespace has any async method is only known once its members
-  # have been walked, so the import is spliced in at the end. A module without
-  # one does not drag `std/asyncdispatch` into programs that never await.
-  buf.add AsyncImportMarker
-  buf.add SeqViewImportMarker
-  buf.add MapViewImportMarker
-  buf.add ReferenceImportMarker
-  buf.add "\n"
+  # Which ABI groups and which runtime modules this one needs is only known
+  # once its members have been walked, so the import block is spliced in at
+  # the end: a module with no async method does not drag `std/asyncdispatch`
+  # into programs that never await.
+  buf.add ImportsMarker
   # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
   # `adopt` and `borrow` are not emitted here. They are the same in every
   # module, so eighteen copies collided the moment a program imported two of
@@ -1092,8 +1084,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       # call site and takes a `typedesc` here.
       let recv = if isStatic: &"_: typedesc[{cls}]" else: &"self: {cls}"
       let enter =
-        if isStatic: &"withStatics(\"{t.fullName}\", IID_{iface}, it):"
-        else: &"withIface(self.p, IID_{iface}, \"{iface}\", it):"
+        if isStatic: fill("  withStatics(", @['"' & t.fullName & '"', iface, "it"], "):")
+        else: &"  withIface(self.p, {iface}, it):"
       let (first, stop) = md.methodRange(byName[ifaceFull])
       var seen = initCountTable[string]()
       for mi in first ..< stop:
@@ -1141,22 +1133,22 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               for k, a in dargs:
                 formal.add &"a{k}: {c.abiSpelling(a)}"
                 actual.add c.fromAbi(a, &"a{k}")
+              # The closure the runtime gets is a named local: a lambda with a block
+              # body does not sit well in an argument list.
               let shim =
-                if dargs.len == 0: "handler"
-                else: &"proc({formal.join(\", \")}) = handler({actual.join(\", \")})"
-              buf.add &"proc on{evName}*({recv},\n"
-              buf.add &"    handler: {closureType}): " &
-                      "EventRegistrationToken {.discardable.} =\n"
+                if dargs.len == 0: ""
+                else: &"    proc shim({formal.join(\", \")}) =\n" &
+                      fill("      handler(", actual, ")") & "\n"
+              buf.add fill(&"proc on{evName}*(", @[recv, &"handler: {closureType}"],
+                           "): EventRegistrationToken {.discardable.} =") & "\n"
               buf.add &"  ## {t.fullName}.{raw}\n"
-              buf.add "  ##\n"
-              buf.add "  ## The token is what `remove" & evName &
-                      "` needs. The delegate is released here because the\n"
-              buf.add "  ## event source took its own reference.\n"
-              buf.add &"  {enter}\n"
-              buf.add &"    let cb = newDelegate({handlerIid}, {shim}, event = true)\n"
+              buf.add &"  ## The token is what `remove{evName}` takes.\n"
+              buf.add enter & "\n"
+              buf.add shim
+              let fn = if dargs.len == 0: "handler" else: "shim"
+              buf.add &"    let cb = newDelegate({handlerIid}, {fn}, event = true)\n"
               buf.add "    try:\n"
-              buf.add &"      vcall(it, Slot_{tag}, Fn_{tag})(it, cb, result.addr)\n"
-              buf.add &"        .check(\"{cls}.{raw}\")\n"
+              buf.add &"      it.call({tag}, cb, result.addr)\n"
               buf.add "    finally:\n"
               buf.add "      release(cb)\n\n"
               events.inc
@@ -1178,9 +1170,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               emitted.incl key
               buf.add &"proc remove{evName}*({recv}, " &
                       "token: EventRegistrationToken) =\n"
-              buf.add &"  {enter}\n"
-              buf.add &"    vcall(it, Slot_{tag}, Fn_{tag})(it, token)" &
-                      &".check(\"{cls}.{raw}\")\n\n"
+              buf.add enter & "\n"
+              buf.add &"    it.call({tag}, token)\n\n"
               events.inc
               continue
           skipped.inc
@@ -1269,7 +1260,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         var outExpr: seq[string]
         var callArgs = @["it"]
         var indent = "  "
-        lines.add &"{indent}{enter}"
+        lines.add enter
         indent.add "  "
         for i, p in sig.params:
           let pn = outNames[i]
@@ -1347,7 +1338,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let shim =
                 if dargs.len == 0: pn
                 else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
-              lines.add &"{indent}let d{i} = newDelegate({iidExpr}, {shim})"
+              lines.add fill(&"{indent}let d{i} = newDelegate(", @[iidExpr, shim], ")")
               # The callee takes its own reference; this one was ours.
               lines.add &"{indent}defer: discard release(d{i})"
               callArgs.add &"d{i}"
@@ -1358,7 +1349,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               var iidExpr, what = ""
               if want.len > 0:
                 useIface(want)
-                iidExpr = "IID_" & c.ifaceName(want)
+                iidExpr = c.ifaceName(want)
                 what = c.ifaceName(want)
               elif pc in paramDefault:
                 let ps = paramDefault[pc]
@@ -1366,12 +1357,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                 if computed.len == 0:
                   ok = false
                   break
-                iidExpr = genericIidConst(computed, ps)
+                # A computed constant, so `withIface` gets its name minus the
+                # `IID_` it will put back.
+                iidExpr = genericIidConst(computed, ps)[4 .. ^1]
                 what = shortName(ps.name)
               else:
                 ok = false
                 break
-              lines.add &"{indent}withIface({pn}.p, {iidExpr}, \"{what}\", p{i}):"
+              lines.add &"{indent}withIface({pn}.p, {iidExpr}, p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
             elif p.name in c.ifaceIid:
@@ -1379,7 +1372,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               # this one interface of it.
               useIface(p.name)
               let wi = c.ifaceName(p.name)
-              lines.add &"{indent}withIface({pn}.p, IID_{wi}, \"{wi}\", p{i}):"
+              lines.add &"{indent}withIface({pn}.p, {wi}, p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
             else:
@@ -1436,7 +1429,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let shim =
                 if gargs.len == 0: pn
                 else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
-              lines.add &"{indent}let d{i} = newDelegate({iidExpr}, {shim})"
+              lines.add fill(&"{indent}let d{i} = newDelegate(", @[iidExpr, shim], ")")
               lines.add &"{indent}defer: discard release(d{i})"
               callArgs.add &"d{i}"
               continue
@@ -1505,10 +1498,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               usesSeqView = true
               lines.add &"{indent}var maps{i}: seq[WinRtObject]"
               lines.add &"{indent}for entries in {pn}:"
-              lines.add &"{indent}  maps{i}.add adopt[WinRtObject](asMap(entries, MapIids(" &
-                        fields.join(", ") & ")))"
-              lines.add &"{indent}let p{i} = asIterable[WinRtObject](maps{i}, " &
-                        &"{outer[0]}, {outer[1]}, {outer[2]})"
+              lines.add fill(&"{indent}  maps{i}.add adopt[WinRtObject](asMap(entries, MapIids(",
+                             fields, ")))")
+              lines.add fill(&"{indent}let p{i} = asIterable[WinRtObject](maps{i}, ",
+                             @outer, ")")
               lines.add &"{indent}defer: discard release(p{i})"
               callArgs.add &"p{i}"
               continue
@@ -1541,8 +1534,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                 ok = false
                 break
               usesMapView = true
-              lines.add &"{indent}let p{i} = asMap({pn}, MapIids(" &
-                        fields.join(", ") & "))"
+              lines.add fill(&"{indent}let p{i} = asMap({pn}, MapIids(", fields, "))")
               lines.add &"{indent}defer: discard release(p{i})"
               callArgs.add &"p{i}"
               continue
@@ -1578,8 +1570,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let ctor = if es == "string": "asIterableString"
                        elif elementIsValue(elem): &"asIterableValue[{es}]"
                        else: &"asIterable[{es}]"
-            lines.add &"{indent}let p{i} = {ctor}({pn}, {iids[0]}, " &
-                      &"{iids[1]}, {iids[2]}{vectorArg})"
+            var collIids = @iids
+            if vectorArg.len > 0: collIids.add vectorArg[2 .. ^1]
+            lines.add fill(&"{indent}let p{i} = {ctor}({pn}, ", collIids, ")")
             lines.add &"{indent}defer: discard release(p{i})"
             callArgs.add &"p{i}"
           else:
@@ -1644,15 +1637,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             handlerIid = genericIidConst(hc, hs)
             opIid = genericIidConst(computed, sig.returns)
           usesAsync = true
-          lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                    callArgs.join(", ") & &", op.addr).check(\"{what}\")"
+          lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1] & "op.addr", ")")
           # Back out to the proc body, past every scope the arguments opened.
           let asyncElem = c.collectionElement(async.res)
           if asyncVoid:
-            lines.add &"  await awaitVoid(op, {handlerIid}, {layout}, \"{what}\")"
+            lines.add fill("  await awaitVoid(", @["op", handlerIid, layout, '"' & what & '"'], ")")
           elif retType == "string":
-            lines.add &"  result = await awaitString(op, {opIid}, " &
-                      &"{handlerIid}, {layout}, \"{what}\")"
+            lines.add fill("  result = await awaitString(",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
           elif c.mapValue(async.res).kind != skVoid:
             # The operation yields a map, read after the wait like any other.
             let pairT = SigType(kind: skUnsupported, args: async.res.args,
@@ -1669,11 +1661,11 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let vs = c.mapValueSpelling(c.mapValue(async.res))
             let innerIid = c.innerIidArg(sigCtx, c.mapValue(async.res),
                                          genericIidConst)
-            lines.add &"  let coll = await awaitObject(op, {opIid}, " &
-                      &"{handlerIid}, {layout}, \"{what}\")"
-            lines.add &"  result = toTable[{ks}, {vs}](coll, " &
-                      &"{genericIidConst(ic, iterT)}, {genericIidConst(pc, pairT)}" &
-                      &"{innerIid})"
+            lines.add fill("  let coll = await awaitObject(",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
+            lines.add fill(&"  result = toTable[{ks}, {vs}](",
+                           @["coll", genericIidConst(ic, iterT),
+                             genericIidConst(pc, pairT)] & trailing(innerIid), ")")
             lines.add "  discard release(coll)"
           elif c.referenceValue(async.res).kind != skVoid:
             # The operation yields an `IReference<T>`: a value, or nothing.
@@ -1685,8 +1677,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let inner = c.nimTypeOf(c.referenceValue(async.res))
             lines.add &"  let box = await awaitObject(op, {opIid}, " &
                       &"{handlerIid}, {layout}, \"{what}\")"
-            lines.add &"  result = readReference[{inner}](box, " &
-                      &"{genericIidConst(computed, async.res)}, \"{what}\")"
+            lines.add fill(&"  result = readReference[{inner}](",
+                           @["box", genericIidConst(computed, async.res),
+                             '"' & what & '"'], ")")
             lines.add "  discard release(box)"
           elif asyncElem.kind != skVoid:
             # The operation yields a collection; walking it is the same as for
@@ -1699,23 +1692,23 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let collIid = genericIidConst(inner, async.res)
             let es = c.elementSpelling(asyncElem)
             let innerIid = c.innerIidArg(sigCtx, asyncElem, genericIidConst)
-            lines.add &"  let coll = await awaitObject(op, {opIid}, " &
-                      &"{handlerIid}, {layout}, \"{what}\")"
-            lines.add &"  result = toSeq[{es}](coll, {collIid}{innerIid})"
+            lines.add fill("  let coll = await awaitObject(",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
+            lines.add fill(&"  result = toSeq[{es}](",
+                           @["coll", collIid] & trailing(innerIid), ")")
             # Explicitly discarded: `release` returns a refcount, and the
             # `{.async.}` transform types a proc body by its last expression,
             # so leaving it bare makes the body a uint32.
             lines.add "  discard release(coll)"
           elif async.res.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
                                   skI8, skU8, skF4, skF8, skEnum, skStruct}:
-            lines.add &"  result = await awaitValue[{retType}](op, {opIid}, " &
-                      &"{handlerIid}, {layout}, \"{what}\")"
+            lines.add fill(&"  result = await awaitValue[{retType}](",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
           else:
-            lines.add &"  result = adopt[{retType}](await awaitObject(" &
-                      &"op, {opIid}, {handlerIid}, {layout}, \"{what}\"))"
+            lines.add fill(&"  result = adopt[{retType}](await awaitObject(",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], "))")
         elif sig.returns.kind == skVoid:
-          lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                    callArgs.join(", ") & &").check(\"{what}\")"
+          lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1], ")")
         else:
           # The declared return is a trailing out-parameter at the ABI.
           let retElem = c.collectionElement(sig.returns)
@@ -1772,12 +1765,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             lines.add &"{indent}var tmp: ptr {raw}"
           else: lines.add &"{indent}var tmp: {declared}"
           if sig.returns.kind == skArray:
-            lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                      callArgs.join(", ") &
-                      &", tmpSize.addr, tmp.addr).check(\"{what}\")"
+            lines.add fill(&"{indent}it.call(",
+                           tag & callArgs[1 .. ^1] & @["tmpSize.addr", "tmp.addr"], ")")
           else:
-            lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                      callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
+            lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1] & "tmp.addr", ")")
           case sig.returns.kind
           of skString: lines.add &"{indent}{sink} = takeString(tmp)"
           of skEnum: lines.add &"{indent}{sink} = tmp"
@@ -1786,20 +1777,21 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let ks = c.mapKeySpelling(sig.returns.args[0])
               let vs = c.mapValueSpelling(retMap)
               let innerIid = c.innerIidArg(sigCtx, retMap, genericIidConst)
-              lines.add &"{indent}{sink} = toTable[{ks}, {vs}](tmp, " &
-                        &"{mapIterableIid}, {mapPairIid}{innerIid})"
+              lines.add fill(&"{indent}{sink} = toTable[{ks}, {vs}](",
+                             @["tmp", mapIterableIid, mapPairIid] & trailing(innerIid),
+                             ")")
             elif retRef.kind != skVoid:
               # `IReference<T>` is an interface, so "no value" arrives as a
               # null pointer rather than a sentinel.
               let inner = c.nimTypeOf(retRef)
-              lines.add &"{indent}{sink} = readReference[{inner}](" &
-                        &"tmp, {referenceIid}, \"{what}\")"
+              lines.add fill(&"{indent}{sink} = readReference[{inner}](",
+                             @["tmp", referenceIid, '"' & what & '"'], ")")
             else:
               # The collection itself is ours to release; its elements were
               # adopted while walking it.
               let elemType = c.elementSpelling(retElem)
-              lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, " &
-                        &"{collectionIid}{innerIid})"
+              lines.add fill(&"{indent}{sink} = toSeq[{elemType}](",
+                             @["tmp", collectionIid] & trailing(innerIid), ")")
             lines.add &"{indent}release(tmp)"
           of skArray:
             let ae = sig.returns.args[0]
@@ -1828,11 +1820,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
 
         if async.isAsync:
           let r = if retType.len > 0: &": Future[{retType}]" else: ""
-          buf.add &"proc {name}*(" & params.join(", ") &
-                  &"){r} {{.async.}} =\n"
+          buf.add fill(&"proc {name}*(", params, &"){r} {{.async.}} =") & "\n"
         else:
-          buf.add &"proc {name}*(" & params.join(", ") & ")" &
-                  (if retType.len > 0: ": " & retType else: "") & "  =\n"
+          let r = if retType.len > 0: ": " & retType else: ""
+          buf.add fill(&"proc {name}*(", params, &"){r} =") & "\n"
         buf.add &"  ## {t.fullName}.{raw}\n"
         if async.isAsync:
           buf.add "  var op: pointer\n"
@@ -1851,21 +1842,29 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     iidBlock.add "\n"
   buf = buf.replace(GenericIidMarker, iidBlock)
   let asyncPath = corePath.rsplit('/', 1)[0] & "/asyncops"
-  buf = buf.replace(AsyncImportMarker,
-    if usesAsync: &"import {asyncPath}\nexport asyncops\n" else: "")
-  var abiBlock = ""
-  for m in sorted(toSeq(usedAbi.items)):
-    abiBlock.add &"import {abiPath}/{m}\nexport {m}\n"
-  buf = buf.replace(AbiImportMarker, abiBlock)
-  let refPath = corePath.rsplit('/', 1)[0] & "/reference"
-  buf = buf.replace(ReferenceImportMarker,
-    if usesReference: &"import {refPath}\n" else: "")
-  let mapPath = corePath.rsplit('/', 1)[0] & "/mapview"
-  buf = buf.replace(MapViewImportMarker,
-    if usesMapView: &"import {mapPath}\n" else: "")
-  let seqPath = corePath.rsplit('/', 1)[0] & "/seqview"
-  buf = buf.replace(SeqViewImportMarker,
-    if usesSeqView: &"import {seqPath}\n" else: "")
+  # `import ./core` and `import ./abi/[types, ...]`: everything a caller
+  # needs to name what this module hands back is exported again, and the
+  # runtime modules it merely uses are not.
+  let here = corePath.rsplit('/', 1)[0]
+  let coreName = corePath.split('/')[^1]
+  var imports = &"import {corePath}\n"
+  var exported = @[coreName]
+  if part != pClasses:
+    let groups = "types" & sorted(toSeq(usedAbi.items))
+    imports.add fill(&"import {abiPath}/[", groups, "]") & "\n"
+    exported.add groups
+    var runtime: seq[string]
+    if part == pMembers: runtime.add "classes"
+    runtime.add "delegate"
+    if usesAsync: runtime.add "asyncops"
+    if usesSeqView: runtime.add "seqview"
+    if usesMapView: runtime.add "mapview"
+    if usesReference: runtime.add "reference"
+    imports.add fill(&"import {here}/[", runtime, "]") & "\n"
+    if part == pMembers: exported.add "classes"
+    if usesAsync: exported.add "asyncops"
+  imports.add fill("export ", exported) & "\n\n"
+  buf = buf.replace(ImportsMarker, imports)
 
   writeFile(outPath, buf)
   echo outPath

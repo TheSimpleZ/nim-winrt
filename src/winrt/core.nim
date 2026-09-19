@@ -10,7 +10,7 @@
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
 
-import std/[hashes, options, os, strformat, strutils, tables, widestrs]
+import std/[hashes, macros, options, os, strformat, strutils, tables, widestrs]
 
 # A method that may not have a value returns `Option[T]`, so anyone holding one
 # needs `isSome` and `get` without a second import.
@@ -424,30 +424,58 @@ proc tryActivationFactory*(classId: string,
 # copies of each and an `ambiguous call` the moment a program imported two of
 # them. They are not specific to any namespace, so they live here.
 
-template withIface*(obj: pointer, iid: GUID, what: string,
-                   name, body: untyped) =
-  ## Dispatch through the interface that declares the method, not
-  ## through whichever one the caller happens to hold. Slots are
-  ## numbered per interface, so the difference is a wrong function
-  ## or a crash, never an error code.
-  let name = queryInterface(obj, iid)
+# An interface is named by its ABI identifier — `IUriRuntimeClass`, not
+# `IID_IUriRuntimeClass` — and the templates build the constant and the
+# error text from that one name. (`IID iface` inside backticks joins the
+# two, and Nim reads `IIDIUriRuntimeClass` and `IID_IUriRuntimeClass` as
+# the same identifier.) The generated code reads
+#
+#     withIface(self.p, IUriRuntimeClass, it):
+#       var tmp: HSTRING
+#       it.call(IUriRuntimeClass_get_Host, tmp.addr)
+#
+# which is the whole of a WinRT method call: narrow to the interface that
+# declares the method, call its slot, check the HRESULT.
+
+template withIface*(obj: pointer, iface, name, body: untyped) =
+  ## Dispatch through the interface that declares the method, not through
+  ## whichever one the caller happens to hold. Slots are numbered per
+  ## interface, so the difference is a wrong function or a crash, never an
+  ## error code.
+  let name = queryInterface(obj, `IID iface`)
   if name.isNil:
-    raise newException(WinRtError, "winui3: object is not a " & what)
+    raise newException(WinRtError, "winrt: object is not a " & astToStr(iface))
   try:
     body
   finally:
     release(name)
 
-template withStatics*(classId: string, iid: GUID,
-                     name, body: untyped) =
-  ## Dispatch to a class with no instances. Everything it can do
-  ## lives on an interface reached through its activation factory,
-  ## which combase caches, so this costs a lookup and an AddRef.
-  let name = activationFactory(classId, iid)
+template withStatics*(classId: string, iface, name, body: untyped) =
+  ## Dispatch to a class with no instances. Everything it can do lives on an
+  ## interface reached through its activation factory, which combase caches,
+  ## so this costs a lookup and an AddRef.
+  let name = activationFactory(classId, `IID iface`)
   try:
     body
   finally:
     release(name)
+
+macro call*(obj: pointer, tag: untyped, args: varargs[untyped]): untyped =
+  ## The method `tag` names — `IUriRuntimeClass_get_Host` — called on `obj`
+  ## with `args`, and its HRESULT checked. `Slot_tag` says where it is and
+  ## `Fn_tag` what it takes; both are generated from the same metadata row,
+  ## so they cannot disagree.
+  ##
+  ## A macro rather than a template only because a template's `varargs` does
+  ## not take zero arguments, and `IClosable_Close` has none.
+  let invoke = newCall(newCall(bindSym"vcall", obj, ident("Slot_" & $tag),
+                               ident("Fn_" & $tag)), obj)
+  for a in args: invoke.add a
+  newCall(bindSym"check", invoke, newLit($tag))
+
+type EventHandler*[S, A] = proc(sender: S, args: A) {.closure.}
+  ## What an event's `on*` proc takes: the sender and the arguments, each as
+  ## the class it is, or `WinRtObject` where the metadata says only `Object`.
 
 proc takeString*(h: HSTRING): string =
   ## Convert an `[out] HSTRING` to a Nim string and delete it.

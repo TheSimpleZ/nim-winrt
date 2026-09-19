@@ -8,312 +8,107 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-export core
-import ./abi/types
-export types
-import ./abi/data
-export data
-import ./abi/foundation
-export foundation
-import ./abi/networking
-export networking
-import ./abi/security
-export security
-import ./abi/storage
-export storage
-import ./abi/system
-export system
-import ./abi/web
-export web
-import ./delegate
-import ./classes
-export classes
-import ./asyncops
-export asyncops
-import ./seqview
-import ./mapview
+import ./abi/[types, data, foundation, networking, security, storage, system,
+              web]
+import ./[classes, delegate, asyncops, seqview, mapview]
+export core, types, data, foundation, networking, security, storage, system,
+       web, classes, asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
-const IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress* = GUID(
-    data1: 0x5F03B1D3'u32, data2: 0x470D'u16, data3: 0x5BE7'u16,
-    data4: [0x81'u8, 0x76, 0x1C, 0x9A, 0x46, 0x01, 0x09, 0x00])
-const IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress* = GUID(
-    data1: 0xDA07ABF4'u32, data2: 0x91FA'u16, data3: 0x5C96'u16,
-    data4: [0x84'u8, 0xCB, 0x45, 0x9E, 0xA9, 0x7B, 0x93, 0x4D])
-const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress* = GUID(
-    data1: 0x76772EC1'u32, data2: 0xC26F'u16, data3: 0x5F6E'u16,
-    data4: [0x8D'u8, 0x3B, 0x83, 0x14, 0x10, 0x7C, 0xEF, 0xEB])
-const IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress* = GUID(
-    data1: 0xF71CFF65'u32, data2: 0xE737'u16, data3: 0x5345'u16,
-    data4: [0xB3'u8, 0x8F, 0xFD, 0x44, 0x5D, 0x2D, 0xC7, 0xE2])
-const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress* = GUID(
-    data1: 0x9DE7422B'u32, data2: 0x4BC3'u16, data3: 0x5546'u16,
-    data4: [0x87'u8, 0xB8, 0x2E, 0xEB, 0xFD, 0x60, 0xBE, 0x48])
-const IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress* = GUID(
-    data1: 0x44FA5A15'u32, data2: 0x1204'u16, data3: 0x521C'u16,
-    data4: [0x85'u8, 0xE5, 0x01, 0x25, 0x93, 0x01, 0xD5, 0x27])
-const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress* = GUID(
-    data1: 0x8A796EA9'u32, data2: 0xFF95'u16, data3: 0x50EF'u16,
-    data4: [0x93'u8, 0xEA, 0x71, 0x1B, 0xF7, 0x94, 0x64, 0x73])
-const IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress* = GUID(
-    data1: 0xE57D0717'u32, data2: 0x27C0'u16, data3: 0x561E'u16,
-    data4: [0xB4'u8, 0xB3, 0x72, 0xAA, 0x2B, 0x1E, 0x3F, 0xC9])
-const IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress* = GUID(
-    data1: 0xF1C031C8'u32, data2: 0x90BF'u16, data3: 0x5CAE'u16,
-    data4: [0xAD'u8, 0xF6, 0x15, 0x5B, 0x4A, 0xED, 0xFB, 0x60])
-const IID_IAsyncActionWithProgress_1_TransferProgress* = GUID(
-    data1: 0xB7EB83F5'u32, data2: 0xA746'u16, data3: 0x50F2'u16,
-    data4: [0xB9'u8, 0x1F, 0x31, 0x80, 0x31, 0x61, 0xCC, 0xC7])
-const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress* = GUID(
-    data1: 0x0E3D7F70'u32, data2: 0x4E8C'u16, data3: 0x5260'u16,
-    data4: [0xA7'u8, 0xE5, 0x78, 0x6E, 0x05, 0xBD, 0xED, 0x99])
-const IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress* = GUID(
-    data1: 0x92EAF151'u32, data2: 0x415E'u16, data3: 0x5F87'u16,
-    data4: [0x80'u8, 0x95, 0x78, 0x16, 0x23, 0xC8, 0x89, 0x98])
-const IID_IVectorView_1_SyndicationCategory* = GUID(
-    data1: 0xA1AC007C'u32, data2: 0x9D94'u16, data3: 0x552E'u16,
-    data4: [0x84'u8, 0x0E, 0x13, 0x9F, 0x10, 0x9A, 0x9B, 0x88])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
-const IID_IVector_1_SyndicationAttribute* = GUID(
-    data1: 0x2FE84E7B'u32, data2: 0x2350'u16, data3: 0x5941'u16,
-    data4: [0x94'u8, 0xB5, 0xA6, 0x46, 0x77, 0xB5, 0x85, 0xD1])
-const IID_IVector_1_ISyndicationNode* = GUID(
-    data1: 0xF4508AFA'u32, data2: 0x9F02'u16, data3: 0x5EB8'u16,
-    data4: [0xA3'u8, 0x89, 0x14, 0xBB, 0xE5, 0x19, 0x3A, 0xC0])
-const IID_IVectorView_1_Workspace* = GUID(
-    data1: 0xD0D7B58D'u32, data2: 0xD97E'u16, data3: 0x5761'u16,
-    data4: [0xBE'u8, 0x66, 0x42, 0xB8, 0x5B, 0x3D, 0x19, 0xC8])
-const IID_IVectorView_1_ResourceCollection* = GUID(
-    data1: 0x32F021C7'u32, data2: 0x368B'u16, data3: 0x5CFA'u16,
-    data4: [0x82'u8, 0x9C, 0x4A, 0xCF, 0x8A, 0x36, 0xC8, 0x10])
-const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs* = GUID(
-    data1: 0xF8E10321'u32, data2: 0x47BD'u16, data3: 0x526A'u16,
-    data4: [0xA9'u8, 0xB2, 0x3B, 0xF1, 0x2F, 0x72, 0x5F, 0x8B])
-const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs* = GUID(
-    data1: 0x2EEF1846'u32, data2: 0x8176'u16, data3: 0x52AF'u16,
-    data4: [0x8D'u8, 0x2B, 0xE0, 0xC9, 0x32, 0x51, 0x2E, 0x9F])
-const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs* = GUID(
-    data1: 0x2281AD23'u32, data2: 0x9C8D'u16, data3: 0x5D82'u16,
-    data4: [0x9B'u8, 0x20, 0xBC, 0xF1, 0x57, 0xB0, 0x4F, 0xD9])
-const IID_IVectorView_1_HttpDiagnosticSourceLocation* = GUID(
-    data1: 0xE9AF27D3'u32, data2: 0x80E8'u16, data3: 0x5AFF'u16,
-    data4: [0xA7'u8, 0xE5, 0x1B, 0x22, 0x17, 0x87, 0xF0, 0x96])
-const IID_IReference_1_DateTime* = GUID(
-    data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
-    data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
-const IID_IVector_1_ChainValidationResult* = GUID(
-    data1: 0xD7828CF7'u32, data2: 0x4301'u16, data3: 0x58D3'u16,
-    data4: [0xAA'u8, 0xB5, 0x06, 0xE5, 0xEE, 0xFC, 0xF7, 0x9F])
-const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
-    data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
-    data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
-const IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress* = GUID(
-    data1: 0xBEADB572'u32, data2: 0xF9A3'u16, data3: 0x5E93'u16,
-    data4: [0xB6'u8, 0xCA, 0xE3, 0x11, 0xB6, 0x59, 0x33, 0xFC])
-const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = GUID(
-    data1: 0x5D144364'u32, data2: 0x77D7'u16, data3: 0x5ECA'u16,
-    data4: [0x8B'u8, 0x09, 0x93, 0x6A, 0x69, 0x44, 0x66, 0x52])
-const IID_IVectorView_1_ChainValidationResult* = GUID(
-    data1: 0xCB383486'u32, data2: 0xC2BC'u16, data3: 0x5756'u16,
-    data4: [0x91'u8, 0x2D, 0x6A, 0x70, 0x8A, 0x07, 0xE5, 0xBD])
-const IID_IVectorView_1_Certificate* = GUID(
-    data1: 0x963F7013'u32, data2: 0x77C2'u16, data3: 0x51C5'u16,
-    data4: [0x80'u8, 0x38, 0xB5, 0xBC, 0xEF, 0x63, 0x3E, 0xDB])
-const IID_IReference_1_TimeSpan* = GUID(
-    data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
-    data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
-const IID_IVector_1_HttpNameValueHeaderValue* = GUID(
-    data1: 0x2CF800D4'u32, data2: 0x35D0'u16, data3: 0x545C'u16,
-    data4: [0xAB'u8, 0x82, 0xF6, 0x79, 0x3B, 0xE7, 0x4C, 0xBA])
-const IID_IReference_1_F8* = GUID(
-    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
-    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
-const IID_IReference_1_U8* = GUID(
-    data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
-    data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
-const IID_IReference_1_U4* = GUID(
-    data1: 0x513EF3AF'u32, data2: 0xE784'u16, data3: 0x5325'u16,
-    data4: [0xA9'u8, 0x1E, 0x97, 0xC2, 0xB8, 0x11, 0x1C, 0xF3])
-const IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8* = GUID(
-    data1: 0xD2024E41'u32, data2: 0x5500'u16, data3: 0x5B5A'u16,
-    data4: [0xBA'u8, 0x46, 0xCB, 0x70, 0x09, 0x59, 0x6A, 0x2F])
-const IID_IAsyncOperationWithProgress_2_U8_U8* = GUID(
-    data1: 0x8F1DB6E3'u32, data2: 0x6556'u16, data3: 0x5516'u16,
-    data4: [0x82'u8, 0x5C, 0x10, 0x21, 0xEE, 0x27, 0xCD, 0x0C])
-const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8* = GUID(
-    data1: 0xABC81235'u32, data2: 0x39C7'u16, data3: 0x59BF'u16,
-    data4: [0x99'u8, 0x48, 0x2D, 0x14, 0xA9, 0x3D, 0x40, 0xFD])
-const IID_IAsyncOperationWithProgress_2_IBuffer_U8* = GUID(
-    data1: 0xAD960E7F'u32, data2: 0xD73B'u16, data3: 0x56E4'u16,
-    data4: [0xA5'u8, 0x8C, 0x6E, 0xC7, 0x67, 0x8C, 0xFD, 0x88])
-const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8* = GUID(
-    data1: 0x8DB69706'u32, data2: 0x3DD1'u16, data3: 0x5A28'u16,
-    data4: [0x98'u8, 0x6A, 0x93, 0xBE, 0x07, 0x76, 0xD9, 0xC3])
-const IID_IAsyncOperationWithProgress_2_IInputStream_U8* = GUID(
-    data1: 0x455AA601'u32, data2: 0xF13E'u16, data3: 0x5DEE'u16,
-    data4: [0xB9'u8, 0xCB, 0x16, 0xB5, 0x31, 0x99, 0x63, 0x27])
-const IID_AsyncOperationWithProgressCompletedHandler_2_String_U8* = GUID(
-    data1: 0xBD75EEBE'u32, data2: 0xE7B5'u16, data3: 0x5AF6'u16,
-    data4: [0x84'u8, 0x15, 0xA4, 0xB9, 0xC9, 0x04, 0x52, 0x02])
-const IID_IAsyncOperationWithProgress_2_String_U8* = GUID(
-    data1: 0xC8BBCB29'u32, data2: 0x6B64'u16, data3: 0x5CE2'u16,
-    data4: [0xA8'u8, 0x31, 0x03, 0x8F, 0x6E, 0x02, 0x19, 0x9E])
-const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress* = GUID(
-    data1: 0xB0CF2F85'u32, data2: 0x6992'u16, data3: 0x52BE'u16,
-    data4: [0x8F'u8, 0x0B, 0x93, 0x96, 0x4B, 0x14, 0xD9, 0x63])
-const IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress* = GUID(
-    data1: 0x88D9BB75'u32, data2: 0xAFB4'u16, data3: 0x5F32'u16,
-    data4: [0x9D'u8, 0x7E, 0xD3, 0xBF, 0x37, 0x85, 0x35, 0x4C])
-const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress* = GUID(
-    data1: 0x504A34EC'u32, data2: 0x5499'u16, data3: 0x5A16'u16,
-    data4: [0xBF'u8, 0xFC, 0x3C, 0xCB, 0x64, 0xA3, 0x54, 0x7A])
-const IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress* = GUID(
-    data1: 0x0B97C784'u32, data2: 0xDF17'u16, data3: 0x571F'u16,
-    data4: [0x83'u8, 0x37, 0x44, 0x7D, 0xFF, 0x06, 0x8A, 0x9C])
-const IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress* = GUID(
-    data1: 0x98AB9ACB'u32, data2: 0x38DB'u16, data3: 0x588F'u16,
-    data4: [0xA5'u8, 0xF9, 0x9F, 0x48, 0x4B, 0x22, 0x00, 0xCD])
-const IID_IAsyncOperationWithProgress_2_String_HttpProgress* = GUID(
-    data1: 0x91ECBE45'u32, data2: 0xE889'u16, data3: 0x5518'u16,
-    data4: [0xBD'u8, 0x8D, 0xC5, 0xBD, 0xE1, 0x63, 0x10, 0x9B])
-const IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress* = GUID(
-    data1: 0xFDFC3D8F'u32, data2: 0x08BB'u16, data3: 0x5D82'u16,
-    data4: [0xBF'u8, 0xDE, 0xAE, 0x09, 0x2E, 0x7E, 0x3F, 0xE1])
-const IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress* = GUID(
-    data1: 0x97388336'u32, data2: 0x2EAC'u16, data3: 0x5D76'u16,
-    data4: [0xB2'u8, 0x28, 0xD3, 0x2E, 0xF9, 0xA3, 0x81, 0x75])
-const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress* = GUID(
-    data1: 0x6BEC534A'u32, data2: 0x1901'u16, data3: 0x5FA2'u16,
-    data4: [0x96'u8, 0x86, 0x9A, 0x51, 0x0F, 0x6B, 0x12, 0x17])
-const IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress* = GUID(
-    data1: 0xB128FBC4'u32, data2: 0x19C0'u16, data3: 0x5FE1'u16,
-    data4: [0xAE'u8, 0xC6, 0xD2, 0xE6, 0x4B, 0xD2, 0x28, 0x62])
-const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress* = GUID(
-    data1: 0x789B1519'u32, data2: 0x4AE1'u16, data3: 0x5475'u16,
-    data4: [0xBB'u8, 0x01, 0x67, 0x34, 0xCA, 0xD4, 0x78, 0xFF])
-const IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress* = GUID(
-    data1: 0x6E1CE5AC'u32, data2: 0xC10B'u16, data3: 0x5D09'u16,
-    data4: [0xAD'u8, 0x43, 0xF4, 0xDD, 0xEA, 0xDA, 0x85, 0x7A])
-const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress* = GUID(
-    data1: 0x625DF3B5'u32, data2: 0xBFF7'u16, data3: 0x517A'u16,
-    data4: [0x93'u8, 0x59, 0x1D, 0xC2, 0x8F, 0xB0, 0xF5, 0x86])
-const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = GUID(
-    data1: 0x7382F299'u32, data2: 0xBBBD'u16, data3: 0x5BD3'u16,
-    data4: [0xB1'u8, 0x43, 0x88, 0x87, 0xC6, 0x27, 0x92, 0x9B])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
-    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
-    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
-const IID_IIterator_1_IKeyValuePair_2* = GUID(
-    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
-    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IMapView_2_String_String* = GUID(
-    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
-    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
-const IID_IMap_2_String_String* = GUID(
-    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
-    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
-const IID_IKeyValuePair_2_String_Object* = GUID(
-    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
-    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
-    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
-    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
-const IID_IVector_1_SyndicationPerson* = GUID(
-    data1: 0xAB772CD6'u32, data2: 0x8CE7'u16, data3: 0x5DB9'u16,
-    data4: [0x83'u8, 0xAC, 0x0D, 0xB9, 0xE4, 0x4A, 0x1B, 0x0C])
-const IID_IVector_1_SyndicationCategory* = GUID(
-    data1: 0x72E456E4'u32, data2: 0x0E52'u16, data3: 0x52CB'u16,
-    data4: [0xB3'u8, 0x63, 0xF3, 0x58, 0x13, 0x27, 0xF0, 0x33])
-const IID_IVector_1_SyndicationItem* = GUID(
-    data1: 0xAA01130B'u32, data2: 0x4631'u16, data3: 0x5117'u16,
-    data4: [0x8C'u8, 0x48, 0xDC, 0x21, 0xB0, 0x29, 0x50, 0x96])
-const IID_IVector_1_SyndicationLink* = GUID(
-    data1: 0xB8FB25A5'u32, data2: 0x01C3'u16, data3: 0x5207'u16,
-    data4: [0x81'u8, 0x4E, 0x89, 0x2B, 0x2B, 0x53, 0x43, 0xF7])
-const IID_IVectorView_1_WebViewControlDeferredPermissionRequest* = GUID(
-    data1: 0xBFFD3DCF'u32, data2: 0x1974'u16, data3: 0x53A2'u16,
-    data4: [0x8D'u8, 0x88, 0x96, 0x6D, 0x84, 0xBA, 0x98, 0xE0])
-const IID_IIterable_1_String* = GUID(
-    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
-    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
-const IID_IIterator_1_String* = GUID(
-    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
-    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
-const IID_AsyncOperationCompletedHandler_1_String* = GUID(
-    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
-    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
-const IID_IAsyncOperation_1_String* = GUID(
-    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
-    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
-const IID_AsyncOperationCompletedHandler_1_DataPackage* = GUID(
-    data1: 0xA93A3B99'u32, data2: 0xE946'u16, data3: 0x57CE'u16,
-    data4: [0xAA'u8, 0xD9, 0xC2, 0x3D, 0x13, 0x8C, 0x35, 0x3E])
-const IID_IAsyncOperation_1_DataPackage* = GUID(
-    data1: 0xA16F2D07'u32, data2: 0xEAD3'u16, data3: 0x53E4'u16,
-    data4: [0x94'u8, 0x90, 0x75, 0xBD, 0xBA, 0xEB, 0x7A, 0x5B])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs* = GUID(
-    data1: 0xE92E0BCC'u32, data2: 0x9AE9'u16, data3: 0x5B9B'u16,
-    data4: [0xA6'u8, 0x84, 0x83, 0xDD, 0x8E, 0xE5, 0x77, 0x75])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs* = GUID(
-    data1: 0x357154FE'u32, data2: 0xEC1A'u16, data3: 0x5FCA'u16,
-    data4: [0xB8'u8, 0x60, 0x62, 0xF0, 0x3D, 0xEC, 0xE4, 0x9D])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs* = GUID(
-    data1: 0xD7DC333E'u32, data2: 0xB521'u16, data3: 0x5B76'u16,
-    data4: [0xA7'u8, 0xFF, 0x48, 0xB4, 0x54, 0xF5, 0x97, 0xE5])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs* = GUID(
-    data1: 0x57A87C53'u32, data2: 0x47A5'u16, data3: 0x5864'u16,
-    data4: [0x98'u8, 0x81, 0xFD, 0x4C, 0x00, 0xF2, 0x30, 0xA9])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs* = GUID(
-    data1: 0xEE8B81D3'u32, data2: 0xBBC2'u16, data3: 0x55B0'u16,
-    data4: [0x87'u8, 0x7B, 0x6B, 0xA8, 0x6E, 0x3A, 0xD8, 0x99])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs* = GUID(
-    data1: 0xBD29249E'u32, data2: 0x4112'u16, data3: 0x533D'u16,
-    data4: [0x96'u8, 0xA2, 0x0A, 0x1C, 0x01, 0x51, 0x9C, 0xAF])
-const IID_TypedEventHandler_2_IWebViewControl_Object* = GUID(
-    data1: 0xB5089479'u32, data2: 0xABD8'u16, data3: 0x5985'u16,
-    data4: [0x8A'u8, 0x93, 0x4C, 0x20, 0x8A, 0x85, 0xE3, 0xA4])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs* = GUID(
-    data1: 0x571626E3'u32, data2: 0x9780'u16, data3: 0x5B37'u16,
-    data4: [0xBE'u8, 0x8A, 0xAB, 0x8E, 0x4E, 0x78, 0x98, 0xCF])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs* = GUID(
-    data1: 0xE5CACC26'u32, data2: 0x2A68'u16, data3: 0x5E0A'u16,
-    data4: [0xB8'u8, 0x2B, 0xB3, 0xD7, 0x56, 0xE1, 0x0A, 0x56])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs* = GUID(
-    data1: 0x8658050C'u32, data2: 0x5E47'u16, data3: 0x5516'u16,
-    data4: [0xB2'u8, 0x5B, 0x57, 0xFA, 0xE2, 0x2C, 0x4B, 0x88])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs* = GUID(
-    data1: 0x317111DF'u32, data2: 0x10C6'u16, data3: 0x559C'u16,
-    data4: [0x85'u8, 0xA1, 0x84, 0x7E, 0xB0, 0xA1, 0xB2, 0xD5])
-const IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs* = GUID(
-    data1: 0x3A6ED2BC'u32, data2: 0x032B'u16, data3: 0x5EC7'u16,
-    data4: [0xA2'u8, 0x0A, 0xC1, 0xEF, 0x49, 0x25, 0x0C, 0x3C])
-const IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs* = GUID(
-    data1: 0x234D40C0'u32, data2: 0x2C51'u16, data3: 0x5128'u16,
-    data4: [0xB9'u8, 0x19, 0x00, 0x3F, 0x1C, 0x0A, 0x8A, 0x26])
-const IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs* = GUID(
-    data1: 0xB24E7B5B'u32, data2: 0xB804'u16, data3: 0x5346'u16,
-    data4: [0x97'u8, 0xB5, 0x02, 0xE6, 0xD9, 0xB6, 0xCB, 0xA8])
-const IID_TypedEventHandler_2_WebViewControl_Object* = GUID(
-    data1: 0x34A6446F'u32, data2: 0x5467'u16, data3: 0x5063'u16,
-    data4: [0xBD'u8, 0xC0, 0x7F, 0xB0, 0x65, 0x75, 0x10, 0xD1])
-const IID_AsyncOperationCompletedHandler_1_WebViewControl* = GUID(
-    data1: 0xD61963D6'u32, data2: 0x806D'u16, data3: 0x50A8'u16,
-    data4: [0xA8'u8, 0x1C, 0x75, 0xD9, 0x35, 0x6A, 0xD5, 0xD7])
-const IID_IAsyncOperation_1_WebViewControl* = GUID(
-    data1: 0xAC3D28AC'u32, data2: 0x8362'u16, data3: 0x51C6'u16,
-    data4: [0xB2'u8, 0xCC, 0x16, 0xF3, 0x67, 0x27, 0x58, 0xF1])
-const IID_IVectorView_1_WebViewControl* = GUID(
-    data1: 0x5ECBD5C0'u32, data2: 0x8282'u16, data3: 0x5FE1'u16,
-    data4: [0xAD'u8, 0x39, 0x37, 0x4C, 0xDE, 0x70, 0xE0, 0xCD])
-const IID_TypedEventHandler_2_WebViewControlProcess_Object* = GUID(
-    data1: 0x0C4182F4'u32, data2: 0xCC4C'u16, data3: 0x55F3'u16,
-    data4: [0xB4'u8, 0x21, 0xD4, 0xE7, 0x49, 0xEB, 0x80, 0xA1])
+const IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress* = guid"5F03B1D3-470D-5BE7-8176-1C9A46010900"
+const IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress* = guid"DA07ABF4-91FA-5C96-84CB-459EA97B934D"
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress* = guid"76772EC1-C26F-5F6E-8D3B-8314107CEFEB"
+const IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress* = guid"F71CFF65-E737-5345-B38F-FD445D2DC7E2"
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress* = guid"9DE7422B-4BC3-5546-87B8-2EEBFD60BE48"
+const IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress* = guid"44FA5A15-1204-521C-85E5-01259301D527"
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress* = guid"8A796EA9-FF95-50EF-93EA-711BF7946473"
+const IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress* = guid"E57D0717-27C0-561E-B4B3-72AA2B1E3FC9"
+const IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress* = guid"F1C031C8-90BF-5CAE-ADF6-155B4AEDFB60"
+const IID_IAsyncActionWithProgress_1_TransferProgress* = guid"B7EB83F5-A746-50F2-B91F-31803161CCC7"
+const IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress* = guid"0E3D7F70-4E8C-5260-A7E5-786E05BDED99"
+const IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress* = guid"92EAF151-415E-5F87-8095-781623C88998"
+const IID_IVectorView_1_SyndicationCategory* = guid"A1AC007C-9D94-552E-840E-139F109A9B88"
+const IID_IVectorView_1_String* = guid"2F13C006-A03A-5F69-B090-75A43E33423E"
+const IID_IVector_1_SyndicationAttribute* = guid"2FE84E7B-2350-5941-94B5-A64677B585D1"
+const IID_IVector_1_ISyndicationNode* = guid"F4508AFA-9F02-5EB8-A389-14BBE5193AC0"
+const IID_IVectorView_1_Workspace* = guid"D0D7B58D-D97E-5761-BE66-42B85B3D19C8"
+const IID_IVectorView_1_ResourceCollection* = guid"32F021C7-368B-5CFA-829C-4ACF8A36C810"
+const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs* = guid"F8E10321-47BD-526A-A9B2-3BF12F725F8B"
+const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs* = guid"2EEF1846-8176-52AF-8D2B-E0C932512E9F"
+const IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs* = guid"2281AD23-9C8D-5D82-9B20-BCF157B04FD9"
+const IID_IVectorView_1_HttpDiagnosticSourceLocation* = guid"E9AF27D3-80E8-5AFF-A7E5-1B221787F096"
+const IID_IReference_1_DateTime* = guid"5541D8A7-497C-5AA4-86FC-7713ADBF2A2C"
+const IID_IVector_1_ChainValidationResult* = guid"D7828CF7-4301-58D3-AAB5-06E5EEFCF79F"
+const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = guid"ED0260C6-41F2-5A04-9A8B-2930D7FF8A9E"
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress* = guid"BEADB572-F9A3-5E93-B6CA-E311B65933FC"
+const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = guid"5D144364-77D7-5ECA-8B09-936A69446652"
+const IID_IVectorView_1_ChainValidationResult* = guid"CB383486-C2BC-5756-912D-6A708A07E5BD"
+const IID_IVectorView_1_Certificate* = guid"963F7013-77C2-51C5-8038-B5BCEF633EDB"
+const IID_IReference_1_TimeSpan* = guid"604D0C4C-91DE-5C2A-935F-362F13EAF800"
+const IID_IVector_1_HttpNameValueHeaderValue* = guid"2CF800D4-35D0-545C-AB82-F6793BE74CBA"
+const IID_IReference_1_F8* = guid"2F2D6C29-5473-5F3E-92E7-96572BB990E2"
+const IID_IReference_1_U8* = guid"6755E376-53BB-568B-A11D-17239868309E"
+const IID_IReference_1_U4* = guid"513EF3AF-E784-5325-A91E-97C2B8111CF3"
+const IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8* = guid"D2024E41-5500-5B5A-BA46-CB7009596A2F"
+const IID_IAsyncOperationWithProgress_2_U8_U8* = guid"8F1DB6E3-6556-5516-825C-1021EE27CD0C"
+const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8* = guid"ABC81235-39C7-59BF-9948-2D14A93D40FD"
+const IID_IAsyncOperationWithProgress_2_IBuffer_U8* = guid"AD960E7F-D73B-56E4-A58C-6EC7678CFD88"
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8* = guid"8DB69706-3DD1-5A28-986A-93BE0776D9C3"
+const IID_IAsyncOperationWithProgress_2_IInputStream_U8* = guid"455AA601-F13E-5DEE-B9CB-16B531996327"
+const IID_AsyncOperationWithProgressCompletedHandler_2_String_U8* = guid"BD75EEBE-E7B5-5AF6-8415-A4B9C9045202"
+const IID_IAsyncOperationWithProgress_2_String_U8* = guid"C8BBCB29-6B64-5CE2-A831-038F6E02199E"
+const IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress* = guid"B0CF2F85-6992-52BE-8F0B-93964B14D963"
+const IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress* = guid"88D9BB75-AFB4-5F32-9D7E-D3BF3785354C"
+const IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress* = guid"504A34EC-5499-5A16-BFFC-3CCB64A3547A"
+const IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress* = guid"0B97C784-DF17-571F-8337-447DFF068A9C"
+const IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress* = guid"98AB9ACB-38DB-588F-A5F9-9F484B2200CD"
+const IID_IAsyncOperationWithProgress_2_String_HttpProgress* = guid"91ECBE45-E889-5518-BD8D-C5BDE163109B"
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress* = guid"FDFC3D8F-08BB-5D82-BFDE-AE092E7E3FE1"
+const IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress* = guid"97388336-2EAC-5D76-B228-D32EF9A38175"
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress* = guid"6BEC534A-1901-5FA2-9686-9A510F6B1217"
+const IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress* = guid"B128FBC4-19C0-5FE1-AEC6-D2E64BD22862"
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress* = guid"789B1519-4AE1-5475-BB01-6734CAD478FF"
+const IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress* = guid"6E1CE5AC-C10B-5D09-AD43-F4DDEADA857A"
+const IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress* = guid"625DF3B5-BFF7-517A-9359-1DC28FB0F586"
+const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = guid"7382F299-BBBD-5BD3-B143-8887C627929B"
+const IID_IIterable_1_IKeyValuePair_2* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
+const IID_IIterator_1_IKeyValuePair_2* = guid"05EB86F1-7140-5517-B88D-CBAEBE57E6B1"
+const IID_IKeyValuePair_2_String_String* = guid"60310303-49C5-52E6-ABC6-A9B36ECCC716"
+const IID_IMapView_2_String_String* = guid"AC7F26F2-FEB7-5B2A-8AC4-345BC62CAEDE"
+const IID_IMap_2_String_String* = guid"F6D1F700-49C2-52AE-8154-826F9908773C"
+const IID_IKeyValuePair_2_String_Object* = guid"09335560-6C6B-5A26-9348-97B781132B20"
+const IID_IIterable_1_IKeyValuePair_22* = guid"FE2F3D47-5D47-5499-8374-430C7CDA0204"
+const IID_IVector_1_SyndicationPerson* = guid"AB772CD6-8CE7-5DB9-83AC-0DB9E44A1B0C"
+const IID_IVector_1_SyndicationCategory* = guid"72E456E4-0E52-52CB-B363-F3581327F033"
+const IID_IVector_1_SyndicationItem* = guid"AA01130B-4631-5117-8C48-DC21B0295096"
+const IID_IVector_1_SyndicationLink* = guid"B8FB25A5-01C3-5207-814E-892B2B5343F7"
+const IID_IVectorView_1_WebViewControlDeferredPermissionRequest* = guid"BFFD3DCF-1974-53A2-8D88-966D84BA98E0"
+const IID_IIterable_1_String* = guid"E2FCC7C1-3BFC-5A0B-B2B0-72E769D1CB7E"
+const IID_IIterator_1_String* = guid"8C304EBB-6615-50A4-8829-879ECD443236"
+const IID_AsyncOperationCompletedHandler_1_String* = guid"B79A741F-7FB5-50AE-9E99-911201EC3D41"
+const IID_IAsyncOperation_1_String* = guid"3E1FE603-F897-5263-B328-0806426B8A79"
+const IID_AsyncOperationCompletedHandler_1_DataPackage* = guid"A93A3B99-E946-57CE-AAD9-C23D138C353E"
+const IID_IAsyncOperation_1_DataPackage* = guid"A16F2D07-EAD3-53E4-9490-75BDBAEB7A5B"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs* = guid"E92E0BCC-9AE9-5B9B-A684-83DD8EE57775"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs* = guid"357154FE-EC1A-5FCA-B860-62F03DECE49D"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs* = guid"D7DC333E-B521-5B76-A7FF-48B454F597E5"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs* = guid"57A87C53-47A5-5864-9881-FD4C00F230A9"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs* = guid"EE8B81D3-BBC2-55B0-877B-6BA86E3AD899"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs* = guid"BD29249E-4112-533D-96A2-0A1C01519CAF"
+const IID_TypedEventHandler_2_IWebViewControl_Object* = guid"B5089479-ABD8-5985-8A93-4C208A85E3A4"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs* = guid"571626E3-9780-5B37-BE8A-AB8E4E7898CF"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs* = guid"E5CACC26-2A68-5E0A-B82B-B3D756E10A56"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs* = guid"8658050C-5E47-5516-B25B-57FAE22C4B88"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs* = guid"317111DF-10C6-559C-85A1-847EB0A1B2D5"
+const IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs* = guid"3A6ED2BC-032B-5EC7-A20A-C1EF49250C3C"
+const IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs* = guid"234D40C0-2C51-5128-B919-003F1C0A8A26"
+const IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs* = guid"B24E7B5B-B804-5346-97B5-02E6D9B6CBA8"
+const IID_TypedEventHandler_2_WebViewControl_Object* = guid"34A6446F-5467-5063-BDC0-7FB0657510D1"
+const IID_AsyncOperationCompletedHandler_1_WebViewControl* = guid"D61963D6-806D-50A8-A81C-75D9356AD5D7"
+const IID_IAsyncOperation_1_WebViewControl* = guid"AC3D28AC-8362-51C6-B2CC-16F3672758F1"
+const IID_IVectorView_1_WebViewControl* = guid"5ECBD5C0-8282-5FE1-AD39-374CDE70E0CD"
+const IID_TypedEventHandler_2_WebViewControlProcess_Object* = guid"0C4182F4-CC4C-55F3-B421-D4E749EB80A1"
 
 
 proc newAtomPubClient*(): AtomPubClient =
@@ -323,3032 +118,3316 @@ proc newAtomPubClient*(): AtomPubClient =
 proc retrieveServiceDocumentAsync*(self: AtomPubClient, uri: Uri): Future[ServiceDocument] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveServiceDocumentAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IAtomPubClient_RetrieveServiceDocumentAsync, Fn_IAtomPubClient_RetrieveServiceDocumentAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveServiceDocumentAsync")
-  result = adopt[ServiceDocument](await awaitObject(op, IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress, alProgress, "AtomPubClient.RetrieveServiceDocumentAsync"))
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IAtomPubClient_RetrieveServiceDocumentAsync, p0, op.addr)
+  result = adopt[ServiceDocument](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_ServiceDocument_RetrievalProgress,
+                                                    alProgress,
+                                                    "AtomPubClient.RetrieveServiceDocumentAsync"))
 
 proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri): Future[WinRtObject] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveMediaResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IAtomPubClient_RetrieveMediaResourceAsync, Fn_IAtomPubClient_RetrieveMediaResourceAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveMediaResourceAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress, alProgress, "AtomPubClient.RetrieveMediaResourceAsync"))
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IAtomPubClient_RetrieveMediaResourceAsync, p0, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_RetrievalProgress,
+                                                alProgress,
+                                                "AtomPubClient.RetrieveMediaResourceAsync"))
 
 proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IAtomPubClient_RetrieveResourceAsync, Fn_IAtomPubClient_RetrieveResourceAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress, alProgress, "AtomPubClient.RetrieveResourceAsync"))
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IAtomPubClient_RetrieveResourceAsync, p0, op.addr)
+  result = adopt[SyndicationItem](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_SyndicationItem_RetrievalProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_RetrievalProgress,
+                                                    alProgress,
+                                                    "AtomPubClient.RetrieveResourceAsync"))
 
-proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string, item: SyndicationItem): Future[SyndicationItem] {.async.} =
+proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string,
+                          item: SyndicationItem): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.CreateResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(description, h1):
-        withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p2):
-          vcall(it, Slot_IAtomPubClient_CreateResourceAsync, Fn_IAtomPubClient_CreateResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.CreateResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress, alProgress, "AtomPubClient.CreateResourceAsync"))
+        withIface(item.p, ISyndicationItem, p2):
+          it.call(IAtomPubClient_CreateResourceAsync, p0, h1, p2, op.addr)
+  result = adopt[SyndicationItem](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
+                                                    alProgress,
+                                                    "AtomPubClient.CreateResourceAsync"))
 
-proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, description: string, mediaStream: WinRtObject): Future[SyndicationItem] {.async.} =
+proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
+                               description: string, mediaStream: WinRtObject): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.CreateMediaResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(mediaType, h1):
         withHString(description, h2):
-          withIface(mediaStream.p, IID_IInputStream, "IInputStream", p3):
-            vcall(it, Slot_IAtomPubClient_CreateMediaResourceAsync, Fn_IAtomPubClient_CreateMediaResourceAsync)(it, p0, h1, h2, p3, op.addr).check("AtomPubClient.CreateMediaResourceAsync")
-  result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress, alProgress, "AtomPubClient.CreateMediaResourceAsync"))
+          withIface(mediaStream.p, IInputStream, p3):
+            it.call(IAtomPubClient_CreateMediaResourceAsync, p0, h1, h2, p3,
+                    op.addr)
+  result = adopt[SyndicationItem](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationItem_TransferProgress,
+                                                    alProgress,
+                                                    "AtomPubClient.CreateMediaResourceAsync"))
 
-proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, mediaStream: WinRtObject) {.async.} =
+proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string,
+                               mediaStream: WinRtObject) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateMediaResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(mediaType, h1):
-        withIface(mediaStream.p, IID_IInputStream, "IInputStream", p2):
-          vcall(it, Slot_IAtomPubClient_UpdateMediaResourceAsync, Fn_IAtomPubClient_UpdateMediaResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.UpdateMediaResourceAsync")
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateMediaResourceAsync")
+        withIface(mediaStream.p, IInputStream, p2):
+          it.call(IAtomPubClient_UpdateMediaResourceAsync, p0, h1, p2, op.addr)
+  await awaitVoid(op,
+                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                  alProgress, "AtomPubClient.UpdateMediaResourceAsync")
 
 proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p1):
-        vcall(it, Slot_IAtomPubClient_UpdateResourceAsync, Fn_IAtomPubClient_UpdateResourceAsync)(it, p0, p1, op.addr).check("AtomPubClient.UpdateResourceAsync")
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateResourceAsync")
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(item.p, ISyndicationItem, p1):
+        it.call(IAtomPubClient_UpdateResourceAsync, p0, p1, op.addr)
+  await awaitVoid(op,
+                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                  alProgress, "AtomPubClient.UpdateResourceAsync")
 
 proc updateResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateResourceItemAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p0):
-      vcall(it, Slot_IAtomPubClient_UpdateResourceItemAsync, Fn_IAtomPubClient_UpdateResourceItemAsync)(it, p0, op.addr).check("AtomPubClient.UpdateResourceItemAsync")
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.UpdateResourceItemAsync")
+  withIface(self.p, IAtomPubClient, it):
+    withIface(item.p, ISyndicationItem, p0):
+      it.call(IAtomPubClient_UpdateResourceItemAsync, p0, op.addr)
+  await awaitVoid(op,
+                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                  alProgress, "AtomPubClient.UpdateResourceItemAsync")
 
 proc deleteResourceAsync*(self: AtomPubClient, uri: Uri) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IAtomPubClient_DeleteResourceAsync, Fn_IAtomPubClient_DeleteResourceAsync)(it, p0, op.addr).check("AtomPubClient.DeleteResourceAsync")
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.DeleteResourceAsync")
+  withIface(self.p, IAtomPubClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IAtomPubClient_DeleteResourceAsync, p0, op.addr)
+  await awaitVoid(op,
+                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                  alProgress, "AtomPubClient.DeleteResourceAsync")
 
 proc deleteResourceItemAsync*(self: AtomPubClient, item: SyndicationItem) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.DeleteResourceItemAsync
   var op: pointer
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    withIface(item.p, IID_ISyndicationItem, "ISyndicationItem", p0):
-      vcall(it, Slot_IAtomPubClient_DeleteResourceItemAsync, Fn_IAtomPubClient_DeleteResourceItemAsync)(it, p0, op.addr).check("AtomPubClient.DeleteResourceItemAsync")
-  await awaitVoid(op, IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress, alProgress, "AtomPubClient.DeleteResourceItemAsync")
+  withIface(self.p, IAtomPubClient, it):
+    withIface(item.p, ISyndicationItem, p0):
+      it.call(IAtomPubClient_DeleteResourceItemAsync, p0, op.addr)
+  await awaitVoid(op,
+                  IID_AsyncActionWithProgressCompletedHandler_1_TransferProgress,
+                  alProgress, "AtomPubClient.DeleteResourceItemAsync")
 
-proc cancelAsyncOperations*(self: AtomPubClient)  =
+proc cancelAsyncOperations*(self: AtomPubClient) =
   ## Windows.Web.AtomPub.AtomPubClient.CancelAsyncOperations
-  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
-    vcall(it, Slot_IAtomPubClient_CancelAsyncOperations, Fn_IAtomPubClient_CancelAsyncOperations)(it).check("AtomPubClient.CancelAsyncOperations")
+  withIface(self.p, IAtomPubClient, it):
+    it.call(IAtomPubClient_CancelAsyncOperations)
 
-proc serverCredential*(self: AtomPubClient): PasswordCredential  =
+proc serverCredential*(self: AtomPubClient): PasswordCredential =
   ## Windows.Web.AtomPub.AtomPubClient.get_ServerCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationClient_get_ServerCredential, Fn_ISyndicationClient_get_ServerCredential)(it, tmp.addr).check("AtomPubClient.get_ServerCredential")
+    it.call(ISyndicationClient_get_ServerCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `serverCredential=`*(self: AtomPubClient, value: PasswordCredential)  =
+proc `serverCredential=`*(self: AtomPubClient, value: PasswordCredential) =
   ## Windows.Web.AtomPub.AtomPubClient.put_ServerCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_ISyndicationClient_put_ServerCredential, Fn_ISyndicationClient_put_ServerCredential)(it, p0).check("AtomPubClient.put_ServerCredential")
+  withIface(self.p, ISyndicationClient, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(ISyndicationClient_put_ServerCredential, p0)
 
-proc proxyCredential*(self: AtomPubClient): PasswordCredential  =
+proc proxyCredential*(self: AtomPubClient): PasswordCredential =
   ## Windows.Web.AtomPub.AtomPubClient.get_ProxyCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationClient_get_ProxyCredential, Fn_ISyndicationClient_get_ProxyCredential)(it, tmp.addr).check("AtomPubClient.get_ProxyCredential")
+    it.call(ISyndicationClient_get_ProxyCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `proxyCredential=`*(self: AtomPubClient, value: PasswordCredential)  =
+proc `proxyCredential=`*(self: AtomPubClient, value: PasswordCredential) =
   ## Windows.Web.AtomPub.AtomPubClient.put_ProxyCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_ISyndicationClient_put_ProxyCredential, Fn_ISyndicationClient_put_ProxyCredential)(it, p0).check("AtomPubClient.put_ProxyCredential")
+  withIface(self.p, ISyndicationClient, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(ISyndicationClient_put_ProxyCredential, p0)
 
-proc maxResponseBufferSize*(self: AtomPubClient): uint32  =
+proc maxResponseBufferSize*(self: AtomPubClient): uint32 =
   ## Windows.Web.AtomPub.AtomPubClient.get_MaxResponseBufferSize
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: uint32
-    vcall(it, Slot_ISyndicationClient_get_MaxResponseBufferSize, Fn_ISyndicationClient_get_MaxResponseBufferSize)(it, tmp.addr).check("AtomPubClient.get_MaxResponseBufferSize")
+    it.call(ISyndicationClient_get_MaxResponseBufferSize, tmp.addr)
     result = tmp
 
-proc `maxResponseBufferSize=`*(self: AtomPubClient, value: uint32)  =
+proc `maxResponseBufferSize=`*(self: AtomPubClient, value: uint32) =
   ## Windows.Web.AtomPub.AtomPubClient.put_MaxResponseBufferSize
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_MaxResponseBufferSize, Fn_ISyndicationClient_put_MaxResponseBufferSize)(it, value).check("AtomPubClient.put_MaxResponseBufferSize")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_MaxResponseBufferSize, value)
 
-proc timeout*(self: AtomPubClient): uint32  =
+proc timeout*(self: AtomPubClient): uint32 =
   ## Windows.Web.AtomPub.AtomPubClient.get_Timeout
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: uint32
-    vcall(it, Slot_ISyndicationClient_get_Timeout, Fn_ISyndicationClient_get_Timeout)(it, tmp.addr).check("AtomPubClient.get_Timeout")
+    it.call(ISyndicationClient_get_Timeout, tmp.addr)
     result = tmp
 
-proc `timeout=`*(self: AtomPubClient, value: uint32)  =
+proc `timeout=`*(self: AtomPubClient, value: uint32) =
   ## Windows.Web.AtomPub.AtomPubClient.put_Timeout
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_Timeout, Fn_ISyndicationClient_put_Timeout)(it, value).check("AtomPubClient.put_Timeout")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_Timeout, value)
 
-proc bypassCacheOnRetrieve*(self: AtomPubClient): bool  =
+proc bypassCacheOnRetrieve*(self: AtomPubClient): bool =
   ## Windows.Web.AtomPub.AtomPubClient.get_BypassCacheOnRetrieve
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: bool
-    vcall(it, Slot_ISyndicationClient_get_BypassCacheOnRetrieve, Fn_ISyndicationClient_get_BypassCacheOnRetrieve)(it, tmp.addr).check("AtomPubClient.get_BypassCacheOnRetrieve")
+    it.call(ISyndicationClient_get_BypassCacheOnRetrieve, tmp.addr)
     result = tmp
 
-proc `bypassCacheOnRetrieve=`*(self: AtomPubClient, value: bool)  =
+proc `bypassCacheOnRetrieve=`*(self: AtomPubClient, value: bool) =
   ## Windows.Web.AtomPub.AtomPubClient.put_BypassCacheOnRetrieve
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_BypassCacheOnRetrieve, Fn_ISyndicationClient_put_BypassCacheOnRetrieve)(it, value).check("AtomPubClient.put_BypassCacheOnRetrieve")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_BypassCacheOnRetrieve, value)
 
-proc setRequestHeader*(self: AtomPubClient, name: string, value: string)  =
+proc setRequestHeader*(self: AtomPubClient, name: string, value: string) =
   ## Windows.Web.AtomPub.AtomPubClient.SetRequestHeader
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_ISyndicationClient_SetRequestHeader, Fn_ISyndicationClient_SetRequestHeader)(it, h0, h1).check("AtomPubClient.SetRequestHeader")
+        it.call(ISyndicationClient_SetRequestHeader, h0, h1)
 
 proc retrieveFeedAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationFeed] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveFeedAsync
   var op: pointer
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress, alProgress, "AtomPubClient.RetrieveFeedAsync"))
+  withIface(self.p, ISyndicationClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationClient_RetrieveFeedAsync, p0, op.addr)
+  result = adopt[SyndicationFeed](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
+                                                    alProgress,
+                                                    "AtomPubClient.RetrieveFeedAsync"))
 
-proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient], serverCredential: PasswordCredential): AtomPubClient  =
+proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient],
+                                         serverCredential: PasswordCredential): AtomPubClient =
   ## Windows.Web.AtomPub.AtomPubClient.CreateAtomPubClientWithCredentials
-  withStatics("Windows.Web.AtomPub.AtomPubClient", IID_IAtomPubClientFactory, it):
-    withIface(serverCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+  withStatics("Windows.Web.AtomPub.AtomPubClient", IAtomPubClientFactory, it):
+    withIface(serverCredential.p, IPasswordCredential, p0):
       var tmp: pointer
-      vcall(it, Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials, Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials)(it, p0, tmp.addr).check("AtomPubClient.CreateAtomPubClientWithCredentials")
+      it.call(IAtomPubClientFactory_CreateAtomPubClientWithCredentials, p0,
+              tmp.addr)
       result = adopt[AtomPubClient](tmp)
 
-proc title*(self: ResourceCollection): WinRtObject  =
+proc title*(self: ResourceCollection): WinRtObject =
   ## Windows.Web.AtomPub.ResourceCollection.get_Title
-  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+  withIface(self.p, IResourceCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IResourceCollection_get_Title, Fn_IResourceCollection_get_Title)(it, tmp.addr).check("ResourceCollection.get_Title")
+    it.call(IResourceCollection_get_Title, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc uri*(self: ResourceCollection): Uri  =
+proc uri*(self: ResourceCollection): Uri =
   ## Windows.Web.AtomPub.ResourceCollection.get_Uri
-  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+  withIface(self.p, IResourceCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IResourceCollection_get_Uri, Fn_IResourceCollection_get_Uri)(it, tmp.addr).check("ResourceCollection.get_Uri")
+    it.call(IResourceCollection_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc categories*(self: ResourceCollection): seq[SyndicationCategory]  =
+proc categories*(self: ResourceCollection): seq[SyndicationCategory] =
   ## Windows.Web.AtomPub.ResourceCollection.get_Categories
-  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+  withIface(self.p, IResourceCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IResourceCollection_get_Categories, Fn_IResourceCollection_get_Categories)(it, tmp.addr).check("ResourceCollection.get_Categories")
-    result = toSeq[SyndicationCategory](tmp, IID_IVectorView_1_SyndicationCategory)
+    it.call(IResourceCollection_get_Categories, tmp.addr)
+    result = toSeq[SyndicationCategory](tmp,
+                                        IID_IVectorView_1_SyndicationCategory)
     release(tmp)
 
-proc accepts*(self: ResourceCollection): seq[string]  =
+proc accepts*(self: ResourceCollection): seq[string] =
   ## Windows.Web.AtomPub.ResourceCollection.get_Accepts
-  withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
+  withIface(self.p, IResourceCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IResourceCollection_get_Accepts, Fn_IResourceCollection_get_Accepts)(it, tmp.addr).check("ResourceCollection.get_Accepts")
+    it.call(IResourceCollection_get_Accepts, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc nodeName*(self: ResourceCollection): string  =
+proc nodeName*(self: ResourceCollection): string =
   ## Windows.Web.AtomPub.ResourceCollection.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("ResourceCollection.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: ResourceCollection, value: string)  =
+proc `nodeName=`*(self: ResourceCollection, value: string) =
   ## Windows.Web.AtomPub.ResourceCollection.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("ResourceCollection.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: ResourceCollection): string  =
+proc nodeNamespace*(self: ResourceCollection): string =
   ## Windows.Web.AtomPub.ResourceCollection.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("ResourceCollection.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: ResourceCollection, value: string)  =
+proc `nodeNamespace=`*(self: ResourceCollection, value: string) =
   ## Windows.Web.AtomPub.ResourceCollection.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("ResourceCollection.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: ResourceCollection): string  =
+proc nodeValue*(self: ResourceCollection): string =
   ## Windows.Web.AtomPub.ResourceCollection.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("ResourceCollection.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: ResourceCollection, value: string)  =
+proc `nodeValue=`*(self: ResourceCollection, value: string) =
   ## Windows.Web.AtomPub.ResourceCollection.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("ResourceCollection.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: ResourceCollection): string  =
+proc language*(self: ResourceCollection): string =
   ## Windows.Web.AtomPub.ResourceCollection.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("ResourceCollection.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: ResourceCollection, value: string)  =
+proc `language=`*(self: ResourceCollection, value: string) =
   ## Windows.Web.AtomPub.ResourceCollection.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("ResourceCollection.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: ResourceCollection): Uri  =
+proc baseUri*(self: ResourceCollection): Uri =
   ## Windows.Web.AtomPub.ResourceCollection.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("ResourceCollection.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: ResourceCollection, value: Uri)  =
+proc `baseUri=`*(self: ResourceCollection, value: Uri) =
   ## Windows.Web.AtomPub.ResourceCollection.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("ResourceCollection.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: ResourceCollection): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: ResourceCollection): seq[SyndicationAttribute] =
   ## Windows.Web.AtomPub.ResourceCollection.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("ResourceCollection.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: ResourceCollection): seq[SyndicationNode]  =
+proc elementExtensions*(self: ResourceCollection): seq[SyndicationNode] =
   ## Windows.Web.AtomPub.ResourceCollection.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("ResourceCollection.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: ResourceCollection, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: ResourceCollection, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.AtomPub.ResourceCollection.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("ResourceCollection.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc workspaces*(self: ServiceDocument): seq[Workspace]  =
+proc workspaces*(self: ServiceDocument): seq[Workspace] =
   ## Windows.Web.AtomPub.ServiceDocument.get_Workspaces
-  withIface(self.p, IID_IServiceDocument, "IServiceDocument", it):
+  withIface(self.p, IServiceDocument, it):
     var tmp: pointer
-    vcall(it, Slot_IServiceDocument_get_Workspaces, Fn_IServiceDocument_get_Workspaces)(it, tmp.addr).check("ServiceDocument.get_Workspaces")
+    it.call(IServiceDocument_get_Workspaces, tmp.addr)
     result = toSeq[Workspace](tmp, IID_IVectorView_1_Workspace)
     release(tmp)
 
-proc nodeName*(self: ServiceDocument): string  =
+proc nodeName*(self: ServiceDocument): string =
   ## Windows.Web.AtomPub.ServiceDocument.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("ServiceDocument.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: ServiceDocument, value: string)  =
+proc `nodeName=`*(self: ServiceDocument, value: string) =
   ## Windows.Web.AtomPub.ServiceDocument.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("ServiceDocument.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: ServiceDocument): string  =
+proc nodeNamespace*(self: ServiceDocument): string =
   ## Windows.Web.AtomPub.ServiceDocument.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("ServiceDocument.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: ServiceDocument, value: string)  =
+proc `nodeNamespace=`*(self: ServiceDocument, value: string) =
   ## Windows.Web.AtomPub.ServiceDocument.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("ServiceDocument.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: ServiceDocument): string  =
+proc nodeValue*(self: ServiceDocument): string =
   ## Windows.Web.AtomPub.ServiceDocument.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("ServiceDocument.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: ServiceDocument, value: string)  =
+proc `nodeValue=`*(self: ServiceDocument, value: string) =
   ## Windows.Web.AtomPub.ServiceDocument.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("ServiceDocument.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: ServiceDocument): string  =
+proc language*(self: ServiceDocument): string =
   ## Windows.Web.AtomPub.ServiceDocument.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("ServiceDocument.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: ServiceDocument, value: string)  =
+proc `language=`*(self: ServiceDocument, value: string) =
   ## Windows.Web.AtomPub.ServiceDocument.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("ServiceDocument.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: ServiceDocument): Uri  =
+proc baseUri*(self: ServiceDocument): Uri =
   ## Windows.Web.AtomPub.ServiceDocument.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("ServiceDocument.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: ServiceDocument, value: Uri)  =
+proc `baseUri=`*(self: ServiceDocument, value: Uri) =
   ## Windows.Web.AtomPub.ServiceDocument.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("ServiceDocument.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: ServiceDocument): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: ServiceDocument): seq[SyndicationAttribute] =
   ## Windows.Web.AtomPub.ServiceDocument.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("ServiceDocument.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: ServiceDocument): seq[SyndicationNode]  =
+proc elementExtensions*(self: ServiceDocument): seq[SyndicationNode] =
   ## Windows.Web.AtomPub.ServiceDocument.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("ServiceDocument.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: ServiceDocument, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: ServiceDocument, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.AtomPub.ServiceDocument.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("ServiceDocument.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc title*(self: Workspace): WinRtObject  =
+proc title*(self: Workspace): WinRtObject =
   ## Windows.Web.AtomPub.Workspace.get_Title
-  withIface(self.p, IID_IWorkspace, "IWorkspace", it):
+  withIface(self.p, IWorkspace, it):
     var tmp: pointer
-    vcall(it, Slot_IWorkspace_get_Title, Fn_IWorkspace_get_Title)(it, tmp.addr).check("Workspace.get_Title")
+    it.call(IWorkspace_get_Title, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc collections*(self: Workspace): seq[ResourceCollection]  =
+proc collections*(self: Workspace): seq[ResourceCollection] =
   ## Windows.Web.AtomPub.Workspace.get_Collections
-  withIface(self.p, IID_IWorkspace, "IWorkspace", it):
+  withIface(self.p, IWorkspace, it):
     var tmp: pointer
-    vcall(it, Slot_IWorkspace_get_Collections, Fn_IWorkspace_get_Collections)(it, tmp.addr).check("Workspace.get_Collections")
+    it.call(IWorkspace_get_Collections, tmp.addr)
     result = toSeq[ResourceCollection](tmp, IID_IVectorView_1_ResourceCollection)
     release(tmp)
 
-proc nodeName*(self: Workspace): string  =
+proc nodeName*(self: Workspace): string =
   ## Windows.Web.AtomPub.Workspace.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("Workspace.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: Workspace, value: string)  =
+proc `nodeName=`*(self: Workspace, value: string) =
   ## Windows.Web.AtomPub.Workspace.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("Workspace.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: Workspace): string  =
+proc nodeNamespace*(self: Workspace): string =
   ## Windows.Web.AtomPub.Workspace.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("Workspace.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: Workspace, value: string)  =
+proc `nodeNamespace=`*(self: Workspace, value: string) =
   ## Windows.Web.AtomPub.Workspace.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("Workspace.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: Workspace): string  =
+proc nodeValue*(self: Workspace): string =
   ## Windows.Web.AtomPub.Workspace.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("Workspace.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: Workspace, value: string)  =
+proc `nodeValue=`*(self: Workspace, value: string) =
   ## Windows.Web.AtomPub.Workspace.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("Workspace.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: Workspace): string  =
+proc language*(self: Workspace): string =
   ## Windows.Web.AtomPub.Workspace.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("Workspace.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: Workspace, value: string)  =
+proc `language=`*(self: Workspace, value: string) =
   ## Windows.Web.AtomPub.Workspace.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("Workspace.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: Workspace): Uri  =
+proc baseUri*(self: Workspace): Uri =
   ## Windows.Web.AtomPub.Workspace.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("Workspace.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: Workspace, value: Uri)  =
+proc `baseUri=`*(self: Workspace, value: Uri) =
   ## Windows.Web.AtomPub.Workspace.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("Workspace.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: Workspace): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: Workspace): seq[SyndicationAttribute] =
   ## Windows.Web.AtomPub.Workspace.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("Workspace.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: Workspace): seq[SyndicationNode]  =
+proc elementExtensions*(self: Workspace): seq[SyndicationNode] =
   ## Windows.Web.AtomPub.Workspace.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("Workspace.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: Workspace, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: Workspace, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.AtomPub.Workspace.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("Workspace.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc start*(self: HttpDiagnosticProvider)  =
+proc start*(self: HttpDiagnosticProvider) =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.Start
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    vcall(it, Slot_IHttpDiagnosticProvider_Start, Fn_IHttpDiagnosticProvider_Start)(it).check("HttpDiagnosticProvider.Start")
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    it.call(IHttpDiagnosticProvider_Start)
 
-proc stop*(self: HttpDiagnosticProvider)  =
+proc stop*(self: HttpDiagnosticProvider) =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.Stop
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    vcall(it, Slot_IHttpDiagnosticProvider_Stop, Fn_IHttpDiagnosticProvider_Stop)(it).check("HttpDiagnosticProvider.Stop")
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    it.call(IHttpDiagnosticProvider_Stop)
 
 proc onRequestSent*(self: HttpDiagnosticProvider,
-    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderRequestSentEventArgs)): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[HttpDiagnosticProvider, HttpDiagnosticProviderRequestSentEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_RequestSent
-  ##
-  ## The token is what `removeRequestSent` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderRequestSentEventArgs](a1)), event = true)
+  ## The token is what `removeRequestSent` takes.
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[HttpDiagnosticProvider](a0),
+              borrow[HttpDiagnosticProviderRequestSentEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IHttpDiagnosticProvider_add_RequestSent, Fn_IHttpDiagnosticProvider_add_RequestSent)(it, cb, result.addr)
-        .check("HttpDiagnosticProvider.add_RequestSent")
+      it.call(IHttpDiagnosticProvider_add_RequestSent, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRequestSent*(self: HttpDiagnosticProvider, token: EventRegistrationToken) =
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    vcall(it, Slot_IHttpDiagnosticProvider_remove_RequestSent, Fn_IHttpDiagnosticProvider_remove_RequestSent)(it, token).check("HttpDiagnosticProvider.remove_RequestSent")
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    it.call(IHttpDiagnosticProvider_remove_RequestSent, token)
 
 proc onResponseReceived*(self: HttpDiagnosticProvider,
-    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderResponseReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[HttpDiagnosticProvider, HttpDiagnosticProviderResponseReceivedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_ResponseReceived
-  ##
-  ## The token is what `removeResponseReceived` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderResponseReceivedEventArgs](a1)), event = true)
+  ## The token is what `removeResponseReceived` takes.
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[HttpDiagnosticProvider](a0),
+              borrow[HttpDiagnosticProviderResponseReceivedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IHttpDiagnosticProvider_add_ResponseReceived, Fn_IHttpDiagnosticProvider_add_ResponseReceived)(it, cb, result.addr)
-        .check("HttpDiagnosticProvider.add_ResponseReceived")
+      it.call(IHttpDiagnosticProvider_add_ResponseReceived, cb, result.addr)
     finally:
       release(cb)
 
 proc removeResponseReceived*(self: HttpDiagnosticProvider, token: EventRegistrationToken) =
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    vcall(it, Slot_IHttpDiagnosticProvider_remove_ResponseReceived, Fn_IHttpDiagnosticProvider_remove_ResponseReceived)(it, token).check("HttpDiagnosticProvider.remove_ResponseReceived")
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    it.call(IHttpDiagnosticProvider_remove_ResponseReceived, token)
 
 proc onRequestResponseCompleted*(self: HttpDiagnosticProvider,
-    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderRequestResponseCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[HttpDiagnosticProvider, HttpDiagnosticProviderRequestResponseCompletedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_RequestResponseCompleted
-  ##
-  ## The token is what `removeRequestResponseCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderRequestResponseCompletedEventArgs](a1)), event = true)
+  ## The token is what `removeRequestResponseCompleted` takes.
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[HttpDiagnosticProvider](a0),
+              borrow[HttpDiagnosticProviderRequestResponseCompletedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IHttpDiagnosticProvider_add_RequestResponseCompleted, Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted)(it, cb, result.addr)
-        .check("HttpDiagnosticProvider.add_RequestResponseCompleted")
+      it.call(IHttpDiagnosticProvider_add_RequestResponseCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRequestResponseCompleted*(self: HttpDiagnosticProvider, token: EventRegistrationToken) =
-  withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    vcall(it, Slot_IHttpDiagnosticProvider_remove_RequestResponseCompleted, Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted)(it, token).check("HttpDiagnosticProvider.remove_RequestResponseCompleted")
+  withIface(self.p, IHttpDiagnosticProvider, it):
+    it.call(IHttpDiagnosticProvider_remove_RequestResponseCompleted, token)
 
-proc createFromProcessDiagnosticInfo*(_: typedesc[HttpDiagnosticProvider], processDiagnosticInfo: ProcessDiagnosticInfo): HttpDiagnosticProvider  =
+proc createFromProcessDiagnosticInfo*(_: typedesc[HttpDiagnosticProvider],
+                                      processDiagnosticInfo: ProcessDiagnosticInfo): HttpDiagnosticProvider =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.CreateFromProcessDiagnosticInfo
-  withStatics("Windows.Web.Http.Diagnostics.HttpDiagnosticProvider", IID_IHttpDiagnosticProviderStatics, it):
-    withIface(processDiagnosticInfo.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", p0):
+  withStatics("Windows.Web.Http.Diagnostics.HttpDiagnosticProvider",
+              IHttpDiagnosticProviderStatics, it):
+    withIface(processDiagnosticInfo.p, IProcessDiagnosticInfo, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo, Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo)(it, p0, tmp.addr).check("HttpDiagnosticProvider.CreateFromProcessDiagnosticInfo")
+      it.call(IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo,
+              p0, tmp.addr)
       result = adopt[HttpDiagnosticProvider](tmp)
 
-proc activityId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): GUID  =
+proc activityId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): GUID =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ActivityId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: GUID
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ActivityId")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ActivityId,
+            tmp.addr)
     result = tmp
 
-proc timestamps*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): HttpDiagnosticProviderRequestResponseTimestamps  =
+proc timestamps*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): HttpDiagnosticProviderRequestResponseTimestamps =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_Timestamps
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_Timestamps")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Timestamps,
+            tmp.addr)
     result = adopt[HttpDiagnosticProviderRequestResponseTimestamps](tmp)
 
-proc requestedUri*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): Uri  =
+proc requestedUri*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): Uri =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_RequestedUri
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_RequestedUri")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_RequestedUri,
+            tmp.addr)
     result = adopt[Uri](tmp)
 
-proc processId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): uint32  =
+proc processId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): uint32 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ProcessId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: uint32
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ProcessId")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ProcessId,
+            tmp.addr)
     result = tmp
 
-proc threadId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): uint32  =
+proc threadId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): uint32 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ThreadId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: uint32
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ThreadId")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId,
+            tmp.addr)
     result = tmp
 
-proc initiator*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): HttpDiagnosticRequestInitiator  =
+proc initiator*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): HttpDiagnosticRequestInitiator =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_Initiator
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: HttpDiagnosticRequestInitiator
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_Initiator")
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator,
+            tmp.addr)
     result = tmp
 
-proc sourceLocations*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): seq[HttpDiagnosticSourceLocation]  =
+proc sourceLocations*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): seq[HttpDiagnosticSourceLocation] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_SourceLocations
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseCompletedEventArgs, "IHttpDiagnosticProviderRequestResponseCompletedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseCompletedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations, Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_SourceLocations")
-    result = toSeq[HttpDiagnosticSourceLocation](tmp, IID_IVectorView_1_HttpDiagnosticSourceLocation)
+    it.call(IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations,
+            tmp.addr)
+    result = toSeq[HttpDiagnosticSourceLocation](tmp,
+                                                 IID_IVectorView_1_HttpDiagnosticSourceLocation)
     release(tmp)
 
-proc cacheCheckedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc cacheCheckedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_CacheCheckedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_CacheCheckedTimestamp")
     release(tmp)
 
-proc connectionInitiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc connectionInitiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionInitiatedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionInitiatedTimestamp")
     release(tmp)
 
-proc nameResolvedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc nameResolvedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_NameResolvedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_NameResolvedTimestamp")
     release(tmp)
 
-proc sslNegotiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc sslNegotiatedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_SslNegotiatedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_SslNegotiatedTimestamp")
     release(tmp)
 
-proc connectionCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc connectionCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_ConnectionCompletedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_ConnectionCompletedTimestamp")
     release(tmp)
 
-proc requestSentTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc requestSentTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestSentTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestSentTimestamp")
     release(tmp)
 
-proc requestCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc requestCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_RequestCompletedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_RequestCompletedTimestamp")
     release(tmp)
 
-proc responseReceivedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc responseReceivedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseReceivedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseReceivedTimestamp")
     release(tmp)
 
-proc responseCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime]  =
+proc responseCompletedTimestamp*(self: HttpDiagnosticProviderRequestResponseTimestamps): Option[DateTime] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestResponseTimestamps, "IHttpDiagnosticProviderRequestResponseTimestamps", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestResponseTimestamps, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp, Fn_IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp")
+    it.call(IHttpDiagnosticProviderRequestResponseTimestamps_get_ResponseCompletedTimestamp,
+            tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDiagnosticProviderRequestResponseTimestamps.get_ResponseCompletedTimestamp")
     release(tmp)
 
-proc timestamp*(self: HttpDiagnosticProviderRequestSentEventArgs): DateTime  =
+proc timestamp*(self: HttpDiagnosticProviderRequestSentEventArgs): DateTime =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_Timestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: DateTime
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_Timestamp")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_Timestamp, tmp.addr)
     result = tmp
 
-proc activityId*(self: HttpDiagnosticProviderRequestSentEventArgs): GUID  =
+proc activityId*(self: HttpDiagnosticProviderRequestSentEventArgs): GUID =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_ActivityId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: GUID
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_ActivityId")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_ActivityId, tmp.addr)
     result = tmp
 
-proc message*(self: HttpDiagnosticProviderRequestSentEventArgs): HttpRequestMessage  =
+proc message*(self: HttpDiagnosticProviderRequestSentEventArgs): HttpRequestMessage =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_Message
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Message, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Message)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_Message")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_Message, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc processId*(self: HttpDiagnosticProviderRequestSentEventArgs): uint32  =
+proc processId*(self: HttpDiagnosticProviderRequestSentEventArgs): uint32 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_ProcessId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: uint32
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_ProcessId")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_ProcessId, tmp.addr)
     result = tmp
 
-proc threadId*(self: HttpDiagnosticProviderRequestSentEventArgs): uint32  =
+proc threadId*(self: HttpDiagnosticProviderRequestSentEventArgs): uint32 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_ThreadId
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: uint32
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_ThreadId")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId, tmp.addr)
     result = tmp
 
-proc initiator*(self: HttpDiagnosticProviderRequestSentEventArgs): HttpDiagnosticRequestInitiator  =
+proc initiator*(self: HttpDiagnosticProviderRequestSentEventArgs): HttpDiagnosticRequestInitiator =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_Initiator
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: HttpDiagnosticRequestInitiator
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_Initiator")
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator, tmp.addr)
     result = tmp
 
-proc sourceLocations*(self: HttpDiagnosticProviderRequestSentEventArgs): seq[HttpDiagnosticSourceLocation]  =
+proc sourceLocations*(self: HttpDiagnosticProviderRequestSentEventArgs): seq[HttpDiagnosticSourceLocation] =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestSentEventArgs.get_SourceLocations
-  withIface(self.p, IID_IHttpDiagnosticProviderRequestSentEventArgs, "IHttpDiagnosticProviderRequestSentEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderRequestSentEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations, Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations)(it, tmp.addr).check("HttpDiagnosticProviderRequestSentEventArgs.get_SourceLocations")
-    result = toSeq[HttpDiagnosticSourceLocation](tmp, IID_IVectorView_1_HttpDiagnosticSourceLocation)
+    it.call(IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations,
+            tmp.addr)
+    result = toSeq[HttpDiagnosticSourceLocation](tmp,
+                                                 IID_IVectorView_1_HttpDiagnosticSourceLocation)
     release(tmp)
 
-proc timestamp*(self: HttpDiagnosticProviderResponseReceivedEventArgs): DateTime  =
+proc timestamp*(self: HttpDiagnosticProviderResponseReceivedEventArgs): DateTime =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderResponseReceivedEventArgs.get_Timestamp
-  withIface(self.p, IID_IHttpDiagnosticProviderResponseReceivedEventArgs, "IHttpDiagnosticProviderResponseReceivedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderResponseReceivedEventArgs, it):
     var tmp: DateTime
-    vcall(it, Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp, Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp)(it, tmp.addr).check("HttpDiagnosticProviderResponseReceivedEventArgs.get_Timestamp")
+    it.call(IHttpDiagnosticProviderResponseReceivedEventArgs_get_Timestamp,
+            tmp.addr)
     result = tmp
 
-proc activityId*(self: HttpDiagnosticProviderResponseReceivedEventArgs): GUID  =
+proc activityId*(self: HttpDiagnosticProviderResponseReceivedEventArgs): GUID =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderResponseReceivedEventArgs.get_ActivityId
-  withIface(self.p, IID_IHttpDiagnosticProviderResponseReceivedEventArgs, "IHttpDiagnosticProviderResponseReceivedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderResponseReceivedEventArgs, it):
     var tmp: GUID
-    vcall(it, Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId, Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId)(it, tmp.addr).check("HttpDiagnosticProviderResponseReceivedEventArgs.get_ActivityId")
+    it.call(IHttpDiagnosticProviderResponseReceivedEventArgs_get_ActivityId,
+            tmp.addr)
     result = tmp
 
-proc message*(self: HttpDiagnosticProviderResponseReceivedEventArgs): HttpResponseMessage  =
+proc message*(self: HttpDiagnosticProviderResponseReceivedEventArgs): HttpResponseMessage =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderResponseReceivedEventArgs.get_Message
-  withIface(self.p, IID_IHttpDiagnosticProviderResponseReceivedEventArgs, "IHttpDiagnosticProviderResponseReceivedEventArgs", it):
+  withIface(self.p, IHttpDiagnosticProviderResponseReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message, Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message)(it, tmp.addr).check("HttpDiagnosticProviderResponseReceivedEventArgs.get_Message")
+    it.call(IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message,
+            tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc sourceUri*(self: HttpDiagnosticSourceLocation): Uri  =
+proc sourceUri*(self: HttpDiagnosticSourceLocation): Uri =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation.get_SourceUri
-  withIface(self.p, IID_IHttpDiagnosticSourceLocation, "IHttpDiagnosticSourceLocation", it):
+  withIface(self.p, IHttpDiagnosticSourceLocation, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDiagnosticSourceLocation_get_SourceUri, Fn_IHttpDiagnosticSourceLocation_get_SourceUri)(it, tmp.addr).check("HttpDiagnosticSourceLocation.get_SourceUri")
+    it.call(IHttpDiagnosticSourceLocation_get_SourceUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc lineNumber*(self: HttpDiagnosticSourceLocation): uint64  =
+proc lineNumber*(self: HttpDiagnosticSourceLocation): uint64 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation.get_LineNumber
-  withIface(self.p, IID_IHttpDiagnosticSourceLocation, "IHttpDiagnosticSourceLocation", it):
+  withIface(self.p, IHttpDiagnosticSourceLocation, it):
     var tmp: uint64
-    vcall(it, Slot_IHttpDiagnosticSourceLocation_get_LineNumber, Fn_IHttpDiagnosticSourceLocation_get_LineNumber)(it, tmp.addr).check("HttpDiagnosticSourceLocation.get_LineNumber")
+    it.call(IHttpDiagnosticSourceLocation_get_LineNumber, tmp.addr)
     result = tmp
 
-proc columnNumber*(self: HttpDiagnosticSourceLocation): uint64  =
+proc columnNumber*(self: HttpDiagnosticSourceLocation): uint64 =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticSourceLocation.get_ColumnNumber
-  withIface(self.p, IID_IHttpDiagnosticSourceLocation, "IHttpDiagnosticSourceLocation", it):
+  withIface(self.p, IHttpDiagnosticSourceLocation, it):
     var tmp: uint64
-    vcall(it, Slot_IHttpDiagnosticSourceLocation_get_ColumnNumber, Fn_IHttpDiagnosticSourceLocation_get_ColumnNumber)(it, tmp.addr).check("HttpDiagnosticSourceLocation.get_ColumnNumber")
+    it.call(IHttpDiagnosticSourceLocation_get_ColumnNumber, tmp.addr)
     result = tmp
 
 proc newHttpBaseProtocolFilter*(): HttpBaseProtocolFilter =
   ## Activate a `Windows.Web.Http.Filters.HttpBaseProtocolFilter`.
   adopt[HttpBaseProtocolFilter](activateAs("Windows.Web.Http.Filters.HttpBaseProtocolFilter", IID_IHttpBaseProtocolFilter))
 
-proc allowAutoRedirect*(self: HttpBaseProtocolFilter): bool  =
+proc allowAutoRedirect*(self: HttpBaseProtocolFilter): bool =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_AllowAutoRedirect
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: bool
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_AllowAutoRedirect, Fn_IHttpBaseProtocolFilter_get_AllowAutoRedirect)(it, tmp.addr).check("HttpBaseProtocolFilter.get_AllowAutoRedirect")
+    it.call(IHttpBaseProtocolFilter_get_AllowAutoRedirect, tmp.addr)
     result = tmp
 
-proc `allowAutoRedirect=`*(self: HttpBaseProtocolFilter, value: bool)  =
+proc `allowAutoRedirect=`*(self: HttpBaseProtocolFilter, value: bool) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_AllowAutoRedirect
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter_put_AllowAutoRedirect, Fn_IHttpBaseProtocolFilter_put_AllowAutoRedirect)(it, value).check("HttpBaseProtocolFilter.put_AllowAutoRedirect")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    it.call(IHttpBaseProtocolFilter_put_AllowAutoRedirect, value)
 
-proc allowUI*(self: HttpBaseProtocolFilter): bool  =
+proc allowUI*(self: HttpBaseProtocolFilter): bool =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_AllowUI
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: bool
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_AllowUI, Fn_IHttpBaseProtocolFilter_get_AllowUI)(it, tmp.addr).check("HttpBaseProtocolFilter.get_AllowUI")
+    it.call(IHttpBaseProtocolFilter_get_AllowUI, tmp.addr)
     result = tmp
 
-proc `allowUI=`*(self: HttpBaseProtocolFilter, value: bool)  =
+proc `allowUI=`*(self: HttpBaseProtocolFilter, value: bool) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_AllowUI
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter_put_AllowUI, Fn_IHttpBaseProtocolFilter_put_AllowUI)(it, value).check("HttpBaseProtocolFilter.put_AllowUI")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    it.call(IHttpBaseProtocolFilter_put_AllowUI, value)
 
-proc automaticDecompression*(self: HttpBaseProtocolFilter): bool  =
+proc automaticDecompression*(self: HttpBaseProtocolFilter): bool =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_AutomaticDecompression
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: bool
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_AutomaticDecompression, Fn_IHttpBaseProtocolFilter_get_AutomaticDecompression)(it, tmp.addr).check("HttpBaseProtocolFilter.get_AutomaticDecompression")
+    it.call(IHttpBaseProtocolFilter_get_AutomaticDecompression, tmp.addr)
     result = tmp
 
-proc `automaticDecompression=`*(self: HttpBaseProtocolFilter, value: bool)  =
+proc `automaticDecompression=`*(self: HttpBaseProtocolFilter, value: bool) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_AutomaticDecompression
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter_put_AutomaticDecompression, Fn_IHttpBaseProtocolFilter_put_AutomaticDecompression)(it, value).check("HttpBaseProtocolFilter.put_AutomaticDecompression")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    it.call(IHttpBaseProtocolFilter_put_AutomaticDecompression, value)
 
-proc cacheControl*(self: HttpBaseProtocolFilter): HttpCacheControl  =
+proc cacheControl*(self: HttpBaseProtocolFilter): HttpCacheControl =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_CacheControl
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_CacheControl, Fn_IHttpBaseProtocolFilter_get_CacheControl)(it, tmp.addr).check("HttpBaseProtocolFilter.get_CacheControl")
+    it.call(IHttpBaseProtocolFilter_get_CacheControl, tmp.addr)
     result = adopt[HttpCacheControl](tmp)
 
-proc cookieManager*(self: HttpBaseProtocolFilter): HttpCookieManager  =
+proc cookieManager*(self: HttpBaseProtocolFilter): HttpCookieManager =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_CookieManager
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_CookieManager, Fn_IHttpBaseProtocolFilter_get_CookieManager)(it, tmp.addr).check("HttpBaseProtocolFilter.get_CookieManager")
+    it.call(IHttpBaseProtocolFilter_get_CookieManager, tmp.addr)
     result = adopt[HttpCookieManager](tmp)
 
-proc clientCertificate*(self: HttpBaseProtocolFilter): Certificate  =
+proc clientCertificate*(self: HttpBaseProtocolFilter): Certificate =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ClientCertificate
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_ClientCertificate, Fn_IHttpBaseProtocolFilter_get_ClientCertificate)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ClientCertificate")
+    it.call(IHttpBaseProtocolFilter_get_ClientCertificate, tmp.addr)
     result = adopt[Certificate](tmp)
 
-proc `clientCertificate=`*(self: HttpBaseProtocolFilter, value: Certificate)  =
+proc `clientCertificate=`*(self: HttpBaseProtocolFilter, value: Certificate) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ClientCertificate
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    withIface(value.p, IID_ICertificate, "ICertificate", p0):
-      vcall(it, Slot_IHttpBaseProtocolFilter_put_ClientCertificate, Fn_IHttpBaseProtocolFilter_put_ClientCertificate)(it, p0).check("HttpBaseProtocolFilter.put_ClientCertificate")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    withIface(value.p, ICertificate, p0):
+      it.call(IHttpBaseProtocolFilter_put_ClientCertificate, p0)
 
-proc ignorableServerCertificateErrors*(self: HttpBaseProtocolFilter): seq[ChainValidationResult]  =
+proc ignorableServerCertificateErrors*(self: HttpBaseProtocolFilter): seq[ChainValidationResult] =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_IgnorableServerCertificateErrors
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors, Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("HttpBaseProtocolFilter.get_IgnorableServerCertificateErrors")
-    result = toSeq[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    it.call(IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors,
+            tmp.addr)
+    result = toSeq[ChainValidationResult](tmp,
+                                          IID_IVector_1_ChainValidationResult)
     release(tmp)
 
-proc maxConnectionsPerServer*(self: HttpBaseProtocolFilter): uint32  =
+proc maxConnectionsPerServer*(self: HttpBaseProtocolFilter): uint32 =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_MaxConnectionsPerServer
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: uint32
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer, Fn_IHttpBaseProtocolFilter_get_MaxConnectionsPerServer)(it, tmp.addr).check("HttpBaseProtocolFilter.get_MaxConnectionsPerServer")
+    it.call(IHttpBaseProtocolFilter_get_MaxConnectionsPerServer, tmp.addr)
     result = tmp
 
-proc `maxConnectionsPerServer=`*(self: HttpBaseProtocolFilter, value: uint32)  =
+proc `maxConnectionsPerServer=`*(self: HttpBaseProtocolFilter, value: uint32) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_MaxConnectionsPerServer
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer, Fn_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer)(it, value).check("HttpBaseProtocolFilter.put_MaxConnectionsPerServer")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    it.call(IHttpBaseProtocolFilter_put_MaxConnectionsPerServer, value)
 
-proc proxyCredential*(self: HttpBaseProtocolFilter): PasswordCredential  =
+proc proxyCredential*(self: HttpBaseProtocolFilter): PasswordCredential =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ProxyCredential
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_ProxyCredential, Fn_IHttpBaseProtocolFilter_get_ProxyCredential)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ProxyCredential")
+    it.call(IHttpBaseProtocolFilter_get_ProxyCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `proxyCredential=`*(self: HttpBaseProtocolFilter, value: PasswordCredential)  =
+proc `proxyCredential=`*(self: HttpBaseProtocolFilter, value: PasswordCredential) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ProxyCredential
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_IHttpBaseProtocolFilter_put_ProxyCredential, Fn_IHttpBaseProtocolFilter_put_ProxyCredential)(it, p0).check("HttpBaseProtocolFilter.put_ProxyCredential")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(IHttpBaseProtocolFilter_put_ProxyCredential, p0)
 
-proc serverCredential*(self: HttpBaseProtocolFilter): PasswordCredential  =
+proc serverCredential*(self: HttpBaseProtocolFilter): PasswordCredential =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ServerCredential
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_ServerCredential, Fn_IHttpBaseProtocolFilter_get_ServerCredential)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ServerCredential")
+    it.call(IHttpBaseProtocolFilter_get_ServerCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `serverCredential=`*(self: HttpBaseProtocolFilter, value: PasswordCredential)  =
+proc `serverCredential=`*(self: HttpBaseProtocolFilter,
+                          value: PasswordCredential) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ServerCredential
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_IHttpBaseProtocolFilter_put_ServerCredential, Fn_IHttpBaseProtocolFilter_put_ServerCredential)(it, p0).check("HttpBaseProtocolFilter.put_ServerCredential")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(IHttpBaseProtocolFilter_put_ServerCredential, p0)
 
-proc useProxy*(self: HttpBaseProtocolFilter): bool  =
+proc useProxy*(self: HttpBaseProtocolFilter): bool =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_UseProxy
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+  withIface(self.p, IHttpBaseProtocolFilter, it):
     var tmp: bool
-    vcall(it, Slot_IHttpBaseProtocolFilter_get_UseProxy, Fn_IHttpBaseProtocolFilter_get_UseProxy)(it, tmp.addr).check("HttpBaseProtocolFilter.get_UseProxy")
+    it.call(IHttpBaseProtocolFilter_get_UseProxy, tmp.addr)
     result = tmp
 
-proc `useProxy=`*(self: HttpBaseProtocolFilter, value: bool)  =
+proc `useProxy=`*(self: HttpBaseProtocolFilter, value: bool) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_UseProxy
-  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter_put_UseProxy, Fn_IHttpBaseProtocolFilter_put_UseProxy)(it, value).check("HttpBaseProtocolFilter.put_UseProxy")
+  withIface(self.p, IHttpBaseProtocolFilter, it):
+    it.call(IHttpBaseProtocolFilter_put_UseProxy, value)
 
-proc maxVersion*(self: HttpBaseProtocolFilter): HttpVersion  =
+proc maxVersion*(self: HttpBaseProtocolFilter): HttpVersion =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_MaxVersion
-  withIface(self.p, IID_IHttpBaseProtocolFilter2, "IHttpBaseProtocolFilter2", it):
+  withIface(self.p, IHttpBaseProtocolFilter2, it):
     var tmp: HttpVersion
-    vcall(it, Slot_IHttpBaseProtocolFilter2_get_MaxVersion, Fn_IHttpBaseProtocolFilter2_get_MaxVersion)(it, tmp.addr).check("HttpBaseProtocolFilter.get_MaxVersion")
+    it.call(IHttpBaseProtocolFilter2_get_MaxVersion, tmp.addr)
     result = tmp
 
-proc `maxVersion=`*(self: HttpBaseProtocolFilter, value: HttpVersion)  =
+proc `maxVersion=`*(self: HttpBaseProtocolFilter, value: HttpVersion) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_MaxVersion
-  withIface(self.p, IID_IHttpBaseProtocolFilter2, "IHttpBaseProtocolFilter2", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter2_put_MaxVersion, Fn_IHttpBaseProtocolFilter2_put_MaxVersion)(it, value).check("HttpBaseProtocolFilter.put_MaxVersion")
+  withIface(self.p, IHttpBaseProtocolFilter2, it):
+    it.call(IHttpBaseProtocolFilter2_put_MaxVersion, value)
 
-proc cookieUsageBehavior*(self: HttpBaseProtocolFilter): HttpCookieUsageBehavior  =
+proc cookieUsageBehavior*(self: HttpBaseProtocolFilter): HttpCookieUsageBehavior =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_CookieUsageBehavior
-  withIface(self.p, IID_IHttpBaseProtocolFilter3, "IHttpBaseProtocolFilter3", it):
+  withIface(self.p, IHttpBaseProtocolFilter3, it):
     var tmp: HttpCookieUsageBehavior
-    vcall(it, Slot_IHttpBaseProtocolFilter3_get_CookieUsageBehavior, Fn_IHttpBaseProtocolFilter3_get_CookieUsageBehavior)(it, tmp.addr).check("HttpBaseProtocolFilter.get_CookieUsageBehavior")
+    it.call(IHttpBaseProtocolFilter3_get_CookieUsageBehavior, tmp.addr)
     result = tmp
 
-proc `cookieUsageBehavior=`*(self: HttpBaseProtocolFilter, value: HttpCookieUsageBehavior)  =
+proc `cookieUsageBehavior=`*(self: HttpBaseProtocolFilter,
+                             value: HttpCookieUsageBehavior) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_CookieUsageBehavior
-  withIface(self.p, IID_IHttpBaseProtocolFilter3, "IHttpBaseProtocolFilter3", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter3_put_CookieUsageBehavior, Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior)(it, value).check("HttpBaseProtocolFilter.put_CookieUsageBehavior")
+  withIface(self.p, IHttpBaseProtocolFilter3, it):
+    it.call(IHttpBaseProtocolFilter3_put_CookieUsageBehavior, value)
 
 proc onServerCustomValidationRequested*(self: HttpBaseProtocolFilter,
-    handler: proc(sender: HttpBaseProtocolFilter, args: HttpServerCustomValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                                        handler: EventHandler[HttpBaseProtocolFilter, HttpServerCustomValidationRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.add_ServerCustomValidationRequested
-  ##
-  ## The token is what `removeServerCustomValidationRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpBaseProtocolFilter](a0), borrow[HttpServerCustomValidationRequestedEventArgs](a1)), event = true)
+  ## The token is what `removeServerCustomValidationRequested` takes.
+  withIface(self.p, IHttpBaseProtocolFilter4, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[HttpBaseProtocolFilter](a0),
+              borrow[HttpServerCustomValidationRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested, Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested)(it, cb, result.addr)
-        .check("HttpBaseProtocolFilter.add_ServerCustomValidationRequested")
+      it.call(IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeServerCustomValidationRequested*(self: HttpBaseProtocolFilter, token: EventRegistrationToken) =
-  withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested, Fn_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested)(it, token).check("HttpBaseProtocolFilter.remove_ServerCustomValidationRequested")
+  withIface(self.p, IHttpBaseProtocolFilter4, it):
+    it.call(IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested, token)
 
-proc clearAuthenticationCache*(self: HttpBaseProtocolFilter)  =
+proc clearAuthenticationCache*(self: HttpBaseProtocolFilter) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.ClearAuthenticationCache
-  withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
-    vcall(it, Slot_IHttpBaseProtocolFilter4_ClearAuthenticationCache, Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache)(it).check("HttpBaseProtocolFilter.ClearAuthenticationCache")
+  withIface(self.p, IHttpBaseProtocolFilter4, it):
+    it.call(IHttpBaseProtocolFilter4_ClearAuthenticationCache)
 
-proc user*(self: HttpBaseProtocolFilter): User  =
+proc user*(self: HttpBaseProtocolFilter): User =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_User
-  withIface(self.p, IID_IHttpBaseProtocolFilter5, "IHttpBaseProtocolFilter5", it):
+  withIface(self.p, IHttpBaseProtocolFilter5, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpBaseProtocolFilter5_get_User, Fn_IHttpBaseProtocolFilter5_get_User)(it, tmp.addr).check("HttpBaseProtocolFilter.get_User")
+    it.call(IHttpBaseProtocolFilter5_get_User, tmp.addr)
     result = adopt[User](tmp)
 
 proc sendRequestAsync*(self: HttpBaseProtocolFilter, request: HttpRequestMessage): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.SendRequestAsync
   var op: pointer
-  withIface(self.p, IID_IHttpFilter, "IHttpFilter", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpFilter_SendRequestAsync, Fn_IHttpFilter_SendRequestAsync)(it, p0, op.addr).check("HttpBaseProtocolFilter.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpBaseProtocolFilter.SendRequestAsync"))
+  withIface(self.p, IHttpFilter, it):
+    withIface(request.p, IHttpRequestMessage, p0):
+      it.call(IHttpFilter_SendRequestAsync, p0, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpBaseProtocolFilter.SendRequestAsync"))
 
-proc close*(self: HttpBaseProtocolFilter)  =
+proc close*(self: HttpBaseProtocolFilter) =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpBaseProtocolFilter.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc createForUser*(_: typedesc[HttpBaseProtocolFilter], user: User): HttpBaseProtocolFilter  =
+proc createForUser*(_: typedesc[HttpBaseProtocolFilter], user: User): HttpBaseProtocolFilter =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.CreateForUser
-  withStatics("Windows.Web.Http.Filters.HttpBaseProtocolFilter", IID_IHttpBaseProtocolFilterStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.Web.Http.Filters.HttpBaseProtocolFilter",
+              IHttpBaseProtocolFilterStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpBaseProtocolFilterStatics_CreateForUser, Fn_IHttpBaseProtocolFilterStatics_CreateForUser)(it, p0, tmp.addr).check("HttpBaseProtocolFilter.CreateForUser")
+      it.call(IHttpBaseProtocolFilterStatics_CreateForUser, p0, tmp.addr)
       result = adopt[HttpBaseProtocolFilter](tmp)
 
-proc readBehavior*(self: HttpCacheControl): HttpCacheReadBehavior  =
+proc readBehavior*(self: HttpCacheControl): HttpCacheReadBehavior =
   ## Windows.Web.Http.Filters.HttpCacheControl.get_ReadBehavior
-  withIface(self.p, IID_IHttpCacheControl, "IHttpCacheControl", it):
+  withIface(self.p, IHttpCacheControl, it):
     var tmp: HttpCacheReadBehavior
-    vcall(it, Slot_IHttpCacheControl_get_ReadBehavior, Fn_IHttpCacheControl_get_ReadBehavior)(it, tmp.addr).check("HttpCacheControl.get_ReadBehavior")
+    it.call(IHttpCacheControl_get_ReadBehavior, tmp.addr)
     result = tmp
 
-proc `readBehavior=`*(self: HttpCacheControl, value: HttpCacheReadBehavior)  =
+proc `readBehavior=`*(self: HttpCacheControl, value: HttpCacheReadBehavior) =
   ## Windows.Web.Http.Filters.HttpCacheControl.put_ReadBehavior
-  withIface(self.p, IID_IHttpCacheControl, "IHttpCacheControl", it):
-    vcall(it, Slot_IHttpCacheControl_put_ReadBehavior, Fn_IHttpCacheControl_put_ReadBehavior)(it, value).check("HttpCacheControl.put_ReadBehavior")
+  withIface(self.p, IHttpCacheControl, it):
+    it.call(IHttpCacheControl_put_ReadBehavior, value)
 
-proc writeBehavior*(self: HttpCacheControl): HttpCacheWriteBehavior  =
+proc writeBehavior*(self: HttpCacheControl): HttpCacheWriteBehavior =
   ## Windows.Web.Http.Filters.HttpCacheControl.get_WriteBehavior
-  withIface(self.p, IID_IHttpCacheControl, "IHttpCacheControl", it):
+  withIface(self.p, IHttpCacheControl, it):
     var tmp: HttpCacheWriteBehavior
-    vcall(it, Slot_IHttpCacheControl_get_WriteBehavior, Fn_IHttpCacheControl_get_WriteBehavior)(it, tmp.addr).check("HttpCacheControl.get_WriteBehavior")
+    it.call(IHttpCacheControl_get_WriteBehavior, tmp.addr)
     result = tmp
 
-proc `writeBehavior=`*(self: HttpCacheControl, value: HttpCacheWriteBehavior)  =
+proc `writeBehavior=`*(self: HttpCacheControl, value: HttpCacheWriteBehavior) =
   ## Windows.Web.Http.Filters.HttpCacheControl.put_WriteBehavior
-  withIface(self.p, IID_IHttpCacheControl, "IHttpCacheControl", it):
-    vcall(it, Slot_IHttpCacheControl_put_WriteBehavior, Fn_IHttpCacheControl_put_WriteBehavior)(it, value).check("HttpCacheControl.put_WriteBehavior")
+  withIface(self.p, IHttpCacheControl, it):
+    it.call(IHttpCacheControl_put_WriteBehavior, value)
 
-proc requestMessage*(self: HttpServerCustomValidationRequestedEventArgs): HttpRequestMessage  =
+proc requestMessage*(self: HttpServerCustomValidationRequestedEventArgs): HttpRequestMessage =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_RequestMessage
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage, Fn_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_RequestMessage")
+    it.call(IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage,
+            tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc serverCertificate*(self: HttpServerCustomValidationRequestedEventArgs): Certificate  =
+proc serverCertificate*(self: HttpServerCustomValidationRequestedEventArgs): Certificate =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificate
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificate")
+    it.call(IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate,
+            tmp.addr)
     result = adopt[Certificate](tmp)
 
-proc serverCertificateErrorSeverity*(self: HttpServerCustomValidationRequestedEventArgs): SocketSslErrorSeverity  =
+proc serverCertificateErrorSeverity*(self: HttpServerCustomValidationRequestedEventArgs): SocketSslErrorSeverity =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: SocketSslErrorSeverity
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity")
+    it.call(IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity,
+            tmp.addr)
     result = tmp
 
-proc serverCertificateErrors*(self: HttpServerCustomValidationRequestedEventArgs): seq[ChainValidationResult]  =
+proc serverCertificateErrors*(self: HttpServerCustomValidationRequestedEventArgs): seq[ChainValidationResult] =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors")
-    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    it.call(IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors,
+            tmp.addr)
+    result = toSeq[ChainValidationResult](tmp,
+                                          IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
-proc serverIntermediateCertificates*(self: HttpServerCustomValidationRequestedEventArgs): seq[Certificate]  =
+proc serverIntermediateCertificates*(self: HttpServerCustomValidationRequestedEventArgs): seq[Certificate] =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates")
+    it.call(IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates,
+            tmp.addr)
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc reject*(self: HttpServerCustomValidationRequestedEventArgs)  =
+proc reject*(self: HttpServerCustomValidationRequestedEventArgs) =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.Reject
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_Reject, Fn_IHttpServerCustomValidationRequestedEventArgs_Reject)(it).check("HttpServerCustomValidationRequestedEventArgs.Reject")
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
+    it.call(IHttpServerCustomValidationRequestedEventArgs_Reject)
 
-proc getDeferral*(self: HttpServerCustomValidationRequestedEventArgs): Deferral  =
+proc getDeferral*(self: HttpServerCustomValidationRequestedEventArgs): Deferral =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.GetDeferral
-  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+  withIface(self.p, IHttpServerCustomValidationRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_GetDeferral, Fn_IHttpServerCustomValidationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.GetDeferral")
+    it.call(IHttpServerCustomValidationRequestedEventArgs_GetDeferral, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc maxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+proc maxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MaxAge
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxAge)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_get_MaxAge, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
     release(tmp)
 
-proc `maxAge=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+proc `maxAge=`*(self: HttpCacheDirectiveHeaderValueCollection,
+                value: Option[TimeSpan]) =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MaxAge
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MaxAge")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_put_MaxAge, p0)
 
-proc maxStale*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+proc maxStale*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MaxStale
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_get_MaxStale, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
     release(tmp)
 
-proc `maxStale=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+proc `maxStale=`*(self: HttpCacheDirectiveHeaderValueCollection,
+                  value: Option[TimeSpan]) =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MaxStale
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MaxStale")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_put_MaxStale, p0)
 
-proc minFresh*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+proc minFresh*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MinFresh
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MinFresh)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_get_MinFresh, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
     release(tmp)
 
-proc `minFresh=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+proc `minFresh=`*(self: HttpCacheDirectiveHeaderValueCollection,
+                  value: Option[TimeSpan]) =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MinFresh
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MinFresh")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_put_MinFresh, p0)
 
-proc sharedMaxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
+proc sharedMaxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
     release(tmp)
 
-proc `sharedMaxAge=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+proc `sharedMaxAge=`*(self: HttpCacheDirectiveHeaderValueCollection,
+                      value: Option[TimeSpan]) =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_SharedMaxAge
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_SharedMaxAge")
+    it.call(IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge, p0)
 
-proc parseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_ParseAdd, Fn_IHttpCacheDirectiveHeaderValueCollection_ParseAdd)(it, h0).check("HttpCacheDirectiveHeaderValueCollection.ParseAdd")
+      it.call(IHttpCacheDirectiveHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+  withIface(self.p, IHttpCacheDirectiveHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd, Fn_IHttpCacheDirectiveHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.TryParseAdd")
+      it.call(IHttpCacheDirectiveHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpCacheDirectiveHeaderValueCollection): string  =
+proc toString*(self: HttpCacheDirectiveHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parameters*(self: HttpChallengeHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpChallengeHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpChallengeHeaderValue, "IHttpChallengeHeaderValue", it):
+  withIface(self.p, IHttpChallengeHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpChallengeHeaderValue_get_Parameters, Fn_IHttpChallengeHeaderValue_get_Parameters)(it, tmp.addr).check("HttpChallengeHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpChallengeHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc scheme*(self: HttpChallengeHeaderValue): string  =
+proc scheme*(self: HttpChallengeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.get_Scheme
-  withIface(self.p, IID_IHttpChallengeHeaderValue, "IHttpChallengeHeaderValue", it):
+  withIface(self.p, IHttpChallengeHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpChallengeHeaderValue_get_Scheme, Fn_IHttpChallengeHeaderValue_get_Scheme)(it, tmp.addr).check("HttpChallengeHeaderValue.get_Scheme")
+    it.call(IHttpChallengeHeaderValue_get_Scheme, tmp.addr)
     result = takeString(tmp)
 
-proc token*(self: HttpChallengeHeaderValue): string  =
+proc token*(self: HttpChallengeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.get_Token
-  withIface(self.p, IID_IHttpChallengeHeaderValue, "IHttpChallengeHeaderValue", it):
+  withIface(self.p, IHttpChallengeHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpChallengeHeaderValue_get_Token, Fn_IHttpChallengeHeaderValue_get_Token)(it, tmp.addr).check("HttpChallengeHeaderValue.get_Token")
+    it.call(IHttpChallengeHeaderValue_get_Token, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpChallengeHeaderValue): string  =
+proc toString*(self: HttpChallengeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpChallengeHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpChallengeHeaderValue], input: string): HttpChallengeHeaderValue  =
+proc parse*(_: typedesc[HttpChallengeHeaderValue], input: string): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue", IID_IHttpChallengeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue",
+              IHttpChallengeHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpChallengeHeaderValueStatics_Parse, Fn_IHttpChallengeHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpChallengeHeaderValue.Parse")
+      it.call(IHttpChallengeHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpChallengeHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpChallengeHeaderValue], input: string): tuple[value: bool, challengeHeaderValue: HttpChallengeHeaderValue]  =
+proc tryParse*(_: typedesc[HttpChallengeHeaderValue], input: string): tuple[value: bool, challengeHeaderValue: HttpChallengeHeaderValue] =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue", IID_IHttpChallengeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue",
+              IHttpChallengeHeaderValueStatics, it):
     withHString(input, h0):
       var challengeHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpChallengeHeaderValueStatics_TryParse, Fn_IHttpChallengeHeaderValueStatics_TryParse)(it, h0, challengeHeaderValue.addr, tmp.addr).check("HttpChallengeHeaderValue.TryParse")
+      it.call(IHttpChallengeHeaderValueStatics_TryParse, h0,
+              challengeHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, challengeHeaderValue: adopt[HttpChallengeHeaderValue](challengeHeaderValue))
 
-proc createFromScheme*(_: typedesc[HttpChallengeHeaderValue], scheme: string): HttpChallengeHeaderValue  =
+proc createFromScheme*(_: typedesc[HttpChallengeHeaderValue], scheme: string): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromScheme
-  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue", IID_IHttpChallengeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue",
+              IHttpChallengeHeaderValueFactory, it):
     withHString(scheme, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpChallengeHeaderValueFactory_CreateFromScheme, Fn_IHttpChallengeHeaderValueFactory_CreateFromScheme)(it, h0, tmp.addr).check("HttpChallengeHeaderValue.CreateFromScheme")
+      it.call(IHttpChallengeHeaderValueFactory_CreateFromScheme, h0, tmp.addr)
       result = adopt[HttpChallengeHeaderValue](tmp)
 
-proc createFromSchemeWithToken*(_: typedesc[HttpChallengeHeaderValue], scheme: string, token: string): HttpChallengeHeaderValue  =
+proc createFromSchemeWithToken*(_: typedesc[HttpChallengeHeaderValue],
+                                scheme: string, token: string): HttpChallengeHeaderValue =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromSchemeWithToken
-  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue", IID_IHttpChallengeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpChallengeHeaderValue",
+              IHttpChallengeHeaderValueFactory, it):
     withHString(scheme, h0):
       withHString(token, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken, Fn_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken)(it, h0, h1, tmp.addr).check("HttpChallengeHeaderValue.CreateFromSchemeWithToken")
+        it.call(IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken, h0,
+                h1, tmp.addr)
         result = adopt[HttpChallengeHeaderValue](tmp)
 
-proc parseAdd*(self: HttpChallengeHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpChallengeHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpChallengeHeaderValueCollection, "IHttpChallengeHeaderValueCollection", it):
+  withIface(self.p, IHttpChallengeHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpChallengeHeaderValueCollection_ParseAdd, Fn_IHttpChallengeHeaderValueCollection_ParseAdd)(it, h0).check("HttpChallengeHeaderValueCollection.ParseAdd")
+      it.call(IHttpChallengeHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpChallengeHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpChallengeHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpChallengeHeaderValueCollection, "IHttpChallengeHeaderValueCollection", it):
+  withIface(self.p, IHttpChallengeHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpChallengeHeaderValueCollection_TryParseAdd, Fn_IHttpChallengeHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpChallengeHeaderValueCollection.TryParseAdd")
+      it.call(IHttpChallengeHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpChallengeHeaderValueCollection): string  =
+proc toString*(self: HttpChallengeHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpChallengeHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc token*(self: HttpConnectionOptionHeaderValue): string  =
+proc token*(self: HttpConnectionOptionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.get_Token
-  withIface(self.p, IID_IHttpConnectionOptionHeaderValue, "IHttpConnectionOptionHeaderValue", it):
+  withIface(self.p, IHttpConnectionOptionHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpConnectionOptionHeaderValue_get_Token, Fn_IHttpConnectionOptionHeaderValue_get_Token)(it, tmp.addr).check("HttpConnectionOptionHeaderValue.get_Token")
+    it.call(IHttpConnectionOptionHeaderValue_get_Token, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpConnectionOptionHeaderValue): string  =
+proc toString*(self: HttpConnectionOptionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpConnectionOptionHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string): HttpConnectionOptionHeaderValue  =
+proc parse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string): HttpConnectionOptionHeaderValue =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue", IID_IHttpConnectionOptionHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue",
+              IHttpConnectionOptionHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpConnectionOptionHeaderValueStatics_Parse, Fn_IHttpConnectionOptionHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpConnectionOptionHeaderValue.Parse")
+      it.call(IHttpConnectionOptionHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpConnectionOptionHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string): tuple[value: bool, connectionOptionHeaderValue: HttpConnectionOptionHeaderValue]  =
+proc tryParse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string): tuple[value: bool, connectionOptionHeaderValue: HttpConnectionOptionHeaderValue] =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue", IID_IHttpConnectionOptionHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue",
+              IHttpConnectionOptionHeaderValueStatics, it):
     withHString(input, h0):
       var connectionOptionHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpConnectionOptionHeaderValueStatics_TryParse, Fn_IHttpConnectionOptionHeaderValueStatics_TryParse)(it, h0, connectionOptionHeaderValue.addr, tmp.addr).check("HttpConnectionOptionHeaderValue.TryParse")
+      it.call(IHttpConnectionOptionHeaderValueStatics_TryParse, h0,
+              connectionOptionHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, connectionOptionHeaderValue: adopt[HttpConnectionOptionHeaderValue](connectionOptionHeaderValue))
 
-proc create*(_: typedesc[HttpConnectionOptionHeaderValue], token: string): HttpConnectionOptionHeaderValue  =
+proc create*(_: typedesc[HttpConnectionOptionHeaderValue], token: string): HttpConnectionOptionHeaderValue =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Create
-  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue", IID_IHttpConnectionOptionHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue",
+              IHttpConnectionOptionHeaderValueFactory, it):
     withHString(token, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpConnectionOptionHeaderValueFactory_Create, Fn_IHttpConnectionOptionHeaderValueFactory_Create)(it, h0, tmp.addr).check("HttpConnectionOptionHeaderValue.Create")
+      it.call(IHttpConnectionOptionHeaderValueFactory_Create, h0, tmp.addr)
       result = adopt[HttpConnectionOptionHeaderValue](tmp)
 
-proc parseAdd*(self: HttpConnectionOptionHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpConnectionOptionHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpConnectionOptionHeaderValueCollection, "IHttpConnectionOptionHeaderValueCollection", it):
+  withIface(self.p, IHttpConnectionOptionHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpConnectionOptionHeaderValueCollection_ParseAdd, Fn_IHttpConnectionOptionHeaderValueCollection_ParseAdd)(it, h0).check("HttpConnectionOptionHeaderValueCollection.ParseAdd")
+      it.call(IHttpConnectionOptionHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpConnectionOptionHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpConnectionOptionHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpConnectionOptionHeaderValueCollection, "IHttpConnectionOptionHeaderValueCollection", it):
+  withIface(self.p, IHttpConnectionOptionHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpConnectionOptionHeaderValueCollection_TryParseAdd, Fn_IHttpConnectionOptionHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpConnectionOptionHeaderValueCollection.TryParseAdd")
+      it.call(IHttpConnectionOptionHeaderValueCollection_TryParseAdd, h0,
+              tmp.addr)
       result = tmp
 
-proc toString*(self: HttpConnectionOptionHeaderValueCollection): string  =
+proc toString*(self: HttpConnectionOptionHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpConnectionOptionHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc contentCoding*(self: HttpContentCodingHeaderValue): string  =
+proc contentCoding*(self: HttpContentCodingHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.get_ContentCoding
-  withIface(self.p, IID_IHttpContentCodingHeaderValue, "IHttpContentCodingHeaderValue", it):
+  withIface(self.p, IHttpContentCodingHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentCodingHeaderValue_get_ContentCoding, Fn_IHttpContentCodingHeaderValue_get_ContentCoding)(it, tmp.addr).check("HttpContentCodingHeaderValue.get_ContentCoding")
+    it.call(IHttpContentCodingHeaderValue_get_ContentCoding, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpContentCodingHeaderValue): string  =
+proc toString*(self: HttpContentCodingHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentCodingHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpContentCodingHeaderValue], input: string): HttpContentCodingHeaderValue  =
+proc parse*(_: typedesc[HttpContentCodingHeaderValue], input: string): HttpContentCodingHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue", IID_IHttpContentCodingHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue",
+              IHttpContentCodingHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentCodingHeaderValueStatics_Parse, Fn_IHttpContentCodingHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpContentCodingHeaderValue.Parse")
+      it.call(IHttpContentCodingHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpContentCodingHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpContentCodingHeaderValue], input: string): tuple[value: bool, contentCodingHeaderValue: HttpContentCodingHeaderValue]  =
+proc tryParse*(_: typedesc[HttpContentCodingHeaderValue], input: string): tuple[value: bool, contentCodingHeaderValue: HttpContentCodingHeaderValue] =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue", IID_IHttpContentCodingHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue",
+              IHttpContentCodingHeaderValueStatics, it):
     withHString(input, h0):
       var contentCodingHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpContentCodingHeaderValueStatics_TryParse, Fn_IHttpContentCodingHeaderValueStatics_TryParse)(it, h0, contentCodingHeaderValue.addr, tmp.addr).check("HttpContentCodingHeaderValue.TryParse")
+      it.call(IHttpContentCodingHeaderValueStatics_TryParse, h0,
+              contentCodingHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, contentCodingHeaderValue: adopt[HttpContentCodingHeaderValue](contentCodingHeaderValue))
 
-proc create*(_: typedesc[HttpContentCodingHeaderValue], contentCoding: string): HttpContentCodingHeaderValue  =
+proc create*(_: typedesc[HttpContentCodingHeaderValue], contentCoding: string): HttpContentCodingHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Create
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue", IID_IHttpContentCodingHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingHeaderValue",
+              IHttpContentCodingHeaderValueFactory, it):
     withHString(contentCoding, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentCodingHeaderValueFactory_Create, Fn_IHttpContentCodingHeaderValueFactory_Create)(it, h0, tmp.addr).check("HttpContentCodingHeaderValue.Create")
+      it.call(IHttpContentCodingHeaderValueFactory_Create, h0, tmp.addr)
       result = adopt[HttpContentCodingHeaderValue](tmp)
 
-proc parseAdd*(self: HttpContentCodingHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpContentCodingHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpContentCodingHeaderValueCollection, "IHttpContentCodingHeaderValueCollection", it):
+  withIface(self.p, IHttpContentCodingHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpContentCodingHeaderValueCollection_ParseAdd, Fn_IHttpContentCodingHeaderValueCollection_ParseAdd)(it, h0).check("HttpContentCodingHeaderValueCollection.ParseAdd")
+      it.call(IHttpContentCodingHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpContentCodingHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpContentCodingHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpContentCodingHeaderValueCollection, "IHttpContentCodingHeaderValueCollection", it):
+  withIface(self.p, IHttpContentCodingHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpContentCodingHeaderValueCollection_TryParseAdd, Fn_IHttpContentCodingHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpContentCodingHeaderValueCollection.TryParseAdd")
+      it.call(IHttpContentCodingHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpContentCodingHeaderValueCollection): string  =
+proc toString*(self: HttpContentCodingHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentCodingHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc contentCoding*(self: HttpContentCodingWithQualityHeaderValue): string  =
+proc contentCoding*(self: HttpContentCodingWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.get_ContentCoding
-  withIface(self.p, IID_IHttpContentCodingWithQualityHeaderValue, "IHttpContentCodingWithQualityHeaderValue", it):
+  withIface(self.p, IHttpContentCodingWithQualityHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding, Fn_IHttpContentCodingWithQualityHeaderValue_get_ContentCoding)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.get_ContentCoding")
+    it.call(IHttpContentCodingWithQualityHeaderValue_get_ContentCoding, tmp.addr)
     result = takeString(tmp)
 
-proc quality*(self: HttpContentCodingWithQualityHeaderValue): Option[float64]  =
+proc quality*(self: HttpContentCodingWithQualityHeaderValue): Option[float64] =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.get_Quality
-  withIface(self.p, IID_IHttpContentCodingWithQualityHeaderValue, "IHttpContentCodingWithQualityHeaderValue", it):
+  withIface(self.p, IHttpContentCodingWithQualityHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentCodingWithQualityHeaderValue_get_Quality, Fn_IHttpContentCodingWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.get_Quality")
-    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpContentCodingWithQualityHeaderValue.get_Quality")
+    it.call(IHttpContentCodingWithQualityHeaderValue_get_Quality, tmp.addr)
+    result = readReference[float64](tmp, IID_IReference_1_F8,
+                                    "HttpContentCodingWithQualityHeaderValue.get_Quality")
     release(tmp)
 
-proc toString*(self: HttpContentCodingWithQualityHeaderValue): string  =
+proc toString*(self: HttpContentCodingWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpContentCodingWithQualityHeaderValue], input: string): HttpContentCodingWithQualityHeaderValue  =
+proc parse*(_: typedesc[HttpContentCodingWithQualityHeaderValue], input: string): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue", IID_IHttpContentCodingWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue",
+              IHttpContentCodingWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueStatics_Parse, Fn_IHttpContentCodingWithQualityHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.Parse")
+      it.call(IHttpContentCodingWithQualityHeaderValueStatics_Parse, h0,
+              tmp.addr)
       result = adopt[HttpContentCodingWithQualityHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpContentCodingWithQualityHeaderValue], input: string): tuple[value: bool, contentCodingWithQualityHeaderValue: HttpContentCodingWithQualityHeaderValue]  =
+proc tryParse*(_: typedesc[HttpContentCodingWithQualityHeaderValue],
+               input: string): tuple[value: bool, contentCodingWithQualityHeaderValue: HttpContentCodingWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue", IID_IHttpContentCodingWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue",
+              IHttpContentCodingWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var contentCodingWithQualityHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueStatics_TryParse, Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse)(it, h0, contentCodingWithQualityHeaderValue.addr, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.TryParse")
+      it.call(IHttpContentCodingWithQualityHeaderValueStatics_TryParse, h0,
+              contentCodingWithQualityHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, contentCodingWithQualityHeaderValue: adopt[HttpContentCodingWithQualityHeaderValue](contentCodingWithQualityHeaderValue))
 
-proc createFromValue*(_: typedesc[HttpContentCodingWithQualityHeaderValue], contentCoding: string): HttpContentCodingWithQualityHeaderValue  =
+proc createFromValue*(_: typedesc[HttpContentCodingWithQualityHeaderValue],
+                      contentCoding: string): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValue
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue", IID_IHttpContentCodingWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue",
+              IHttpContentCodingWithQualityHeaderValueFactory, it):
     withHString(contentCoding, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue, Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue)(it, h0, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.CreateFromValue")
+      it.call(IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue,
+              h0, tmp.addr)
       result = adopt[HttpContentCodingWithQualityHeaderValue](tmp)
 
-proc createFromValueWithQuality*(_: typedesc[HttpContentCodingWithQualityHeaderValue], contentCoding: string, quality: float64): HttpContentCodingWithQualityHeaderValue  =
+proc createFromValueWithQuality*(_: typedesc[HttpContentCodingWithQualityHeaderValue],
+                                 contentCoding: string, quality: float64): HttpContentCodingWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValueWithQuality
-  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue", IID_IHttpContentCodingWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue",
+              IHttpContentCodingWithQualityHeaderValueFactory, it):
     withHString(contentCoding, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality, Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality)(it, h0, quality, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.CreateFromValueWithQuality")
+      it.call(IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality,
+              h0, quality, tmp.addr)
       result = adopt[HttpContentCodingWithQualityHeaderValue](tmp)
 
-proc parseAdd*(self: HttpContentCodingWithQualityHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpContentCodingWithQualityHeaderValueCollection,
+               input: string) =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpContentCodingWithQualityHeaderValueCollection, "IHttpContentCodingWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpContentCodingWithQualityHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd, Fn_IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd)(it, h0).check("HttpContentCodingWithQualityHeaderValueCollection.ParseAdd")
+      it.call(IHttpContentCodingWithQualityHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpContentCodingWithQualityHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpContentCodingWithQualityHeaderValueCollection,
+                  input: string): bool =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpContentCodingWithQualityHeaderValueCollection, "IHttpContentCodingWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpContentCodingWithQualityHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd, Fn_IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpContentCodingWithQualityHeaderValueCollection.TryParseAdd")
+      it.call(IHttpContentCodingWithQualityHeaderValueCollection_TryParseAdd,
+              h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpContentCodingWithQualityHeaderValueCollection): string  =
+proc toString*(self: HttpContentCodingWithQualityHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentCodingWithQualityHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc dispositionType*(self: HttpContentDispositionHeaderValue): string  =
+proc dispositionType*(self: HttpContentDispositionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_DispositionType
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_DispositionType, Fn_IHttpContentDispositionHeaderValue_get_DispositionType)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_DispositionType")
+    it.call(IHttpContentDispositionHeaderValue_get_DispositionType, tmp.addr)
     result = takeString(tmp)
 
-proc `dispositionType=`*(self: HttpContentDispositionHeaderValue, value: string)  =
+proc `dispositionType=`*(self: HttpContentDispositionHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_DispositionType
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpContentDispositionHeaderValue_put_DispositionType, Fn_IHttpContentDispositionHeaderValue_put_DispositionType)(it, h0).check("HttpContentDispositionHeaderValue.put_DispositionType")
+      it.call(IHttpContentDispositionHeaderValue_put_DispositionType, h0)
 
-proc fileName*(self: HttpContentDispositionHeaderValue): string  =
+proc fileName*(self: HttpContentDispositionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_FileName
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_FileName, Fn_IHttpContentDispositionHeaderValue_get_FileName)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_FileName")
+    it.call(IHttpContentDispositionHeaderValue_get_FileName, tmp.addr)
     result = takeString(tmp)
 
-proc `fileName=`*(self: HttpContentDispositionHeaderValue, value: string)  =
+proc `fileName=`*(self: HttpContentDispositionHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_FileName
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpContentDispositionHeaderValue_put_FileName, Fn_IHttpContentDispositionHeaderValue_put_FileName)(it, h0).check("HttpContentDispositionHeaderValue.put_FileName")
+      it.call(IHttpContentDispositionHeaderValue_put_FileName, h0)
 
-proc fileNameStar*(self: HttpContentDispositionHeaderValue): string  =
+proc fileNameStar*(self: HttpContentDispositionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_FileNameStar
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_FileNameStar, Fn_IHttpContentDispositionHeaderValue_get_FileNameStar)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_FileNameStar")
+    it.call(IHttpContentDispositionHeaderValue_get_FileNameStar, tmp.addr)
     result = takeString(tmp)
 
-proc `fileNameStar=`*(self: HttpContentDispositionHeaderValue, value: string)  =
+proc `fileNameStar=`*(self: HttpContentDispositionHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_FileNameStar
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpContentDispositionHeaderValue_put_FileNameStar, Fn_IHttpContentDispositionHeaderValue_put_FileNameStar)(it, h0).check("HttpContentDispositionHeaderValue.put_FileNameStar")
+      it.call(IHttpContentDispositionHeaderValue_put_FileNameStar, h0)
 
-proc name*(self: HttpContentDispositionHeaderValue): string  =
+proc name*(self: HttpContentDispositionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_Name
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_Name, Fn_IHttpContentDispositionHeaderValue_get_Name)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_Name")
+    it.call(IHttpContentDispositionHeaderValue_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc `name=`*(self: HttpContentDispositionHeaderValue, value: string)  =
+proc `name=`*(self: HttpContentDispositionHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_Name
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpContentDispositionHeaderValue_put_Name, Fn_IHttpContentDispositionHeaderValue_put_Name)(it, h0).check("HttpContentDispositionHeaderValue.put_Name")
+      it.call(IHttpContentDispositionHeaderValue_put_Name, h0)
 
-proc parameters*(self: HttpContentDispositionHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpContentDispositionHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_Parameters, Fn_IHttpContentDispositionHeaderValue_get_Parameters)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpContentDispositionHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc size*(self: HttpContentDispositionHeaderValue): Option[uint64]  =
+proc size*(self: HttpContentDispositionHeaderValue): Option[uint64] =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.get_Size
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_get_Size, Fn_IHttpContentDispositionHeaderValue_get_Size)(it, tmp.addr).check("HttpContentDispositionHeaderValue.get_Size")
-    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentDispositionHeaderValue.get_Size")
+    it.call(IHttpContentDispositionHeaderValue_get_Size, tmp.addr)
+    result = readReference[uint64](tmp, IID_IReference_1_U8,
+                                   "HttpContentDispositionHeaderValue.get_Size")
     release(tmp)
 
-proc `size=`*(self: HttpContentDispositionHeaderValue, value: Option[uint64])  =
+proc `size=`*(self: HttpContentDispositionHeaderValue, value: Option[uint64]) =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_Size
-  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+  withIface(self.p, IHttpContentDispositionHeaderValue, it):
     let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpContentDispositionHeaderValue_put_Size, Fn_IHttpContentDispositionHeaderValue_put_Size)(it, p0).check("HttpContentDispositionHeaderValue.put_Size")
+    it.call(IHttpContentDispositionHeaderValue_put_Size, p0)
 
-proc toString*(self: HttpContentDispositionHeaderValue): string  =
+proc toString*(self: HttpContentDispositionHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentDispositionHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpContentDispositionHeaderValue], input: string): HttpContentDispositionHeaderValue  =
+proc parse*(_: typedesc[HttpContentDispositionHeaderValue], input: string): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue", IID_IHttpContentDispositionHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue",
+              IHttpContentDispositionHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentDispositionHeaderValueStatics_Parse, Fn_IHttpContentDispositionHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpContentDispositionHeaderValue.Parse")
+      it.call(IHttpContentDispositionHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpContentDispositionHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpContentDispositionHeaderValue], input: string): tuple[value: bool, contentDispositionHeaderValue: HttpContentDispositionHeaderValue]  =
+proc tryParse*(_: typedesc[HttpContentDispositionHeaderValue], input: string): tuple[value: bool, contentDispositionHeaderValue: HttpContentDispositionHeaderValue] =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue", IID_IHttpContentDispositionHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue",
+              IHttpContentDispositionHeaderValueStatics, it):
     withHString(input, h0):
       var contentDispositionHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpContentDispositionHeaderValueStatics_TryParse, Fn_IHttpContentDispositionHeaderValueStatics_TryParse)(it, h0, contentDispositionHeaderValue.addr, tmp.addr).check("HttpContentDispositionHeaderValue.TryParse")
+      it.call(IHttpContentDispositionHeaderValueStatics_TryParse, h0,
+              contentDispositionHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, contentDispositionHeaderValue: adopt[HttpContentDispositionHeaderValue](contentDispositionHeaderValue))
 
-proc create*(_: typedesc[HttpContentDispositionHeaderValue], dispositionType: string): HttpContentDispositionHeaderValue  =
+proc create*(_: typedesc[HttpContentDispositionHeaderValue],
+             dispositionType: string): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Create
-  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue", IID_IHttpContentDispositionHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentDispositionHeaderValue",
+              IHttpContentDispositionHeaderValueFactory, it):
     withHString(dispositionType, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentDispositionHeaderValueFactory_Create, Fn_IHttpContentDispositionHeaderValueFactory_Create)(it, h0, tmp.addr).check("HttpContentDispositionHeaderValue.Create")
+      it.call(IHttpContentDispositionHeaderValueFactory_Create, h0, tmp.addr)
       result = adopt[HttpContentDispositionHeaderValue](tmp)
 
 proc newHttpContentHeaderCollection*(): HttpContentHeaderCollection =
   ## Activate a `Windows.Web.Http.Headers.HttpContentHeaderCollection`.
   adopt[HttpContentHeaderCollection](activateAs("Windows.Web.Http.Headers.HttpContentHeaderCollection", IID_IHttpContentHeaderCollection))
 
-proc contentDisposition*(self: HttpContentHeaderCollection): HttpContentDispositionHeaderValue  =
+proc contentDisposition*(self: HttpContentHeaderCollection): HttpContentDispositionHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentDisposition
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentDisposition, Fn_IHttpContentHeaderCollection_get_ContentDisposition)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentDisposition")
+    it.call(IHttpContentHeaderCollection_get_ContentDisposition, tmp.addr)
     result = adopt[HttpContentDispositionHeaderValue](tmp)
 
-proc `contentDisposition=`*(self: HttpContentHeaderCollection, value: HttpContentDispositionHeaderValue)  =
+proc `contentDisposition=`*(self: HttpContentHeaderCollection,
+                            value: HttpContentDispositionHeaderValue) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentDisposition
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    withIface(value.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", p0):
-      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentDisposition, Fn_IHttpContentHeaderCollection_put_ContentDisposition)(it, p0).check("HttpContentHeaderCollection.put_ContentDisposition")
+  withIface(self.p, IHttpContentHeaderCollection, it):
+    withIface(value.p, IHttpContentDispositionHeaderValue, p0):
+      it.call(IHttpContentHeaderCollection_put_ContentDisposition, p0)
 
-proc contentEncoding*(self: HttpContentHeaderCollection): HttpContentCodingHeaderValueCollection  =
+proc contentEncoding*(self: HttpContentHeaderCollection): HttpContentCodingHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentEncoding
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentEncoding, Fn_IHttpContentHeaderCollection_get_ContentEncoding)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentEncoding")
+    it.call(IHttpContentHeaderCollection_get_ContentEncoding, tmp.addr)
     result = adopt[HttpContentCodingHeaderValueCollection](tmp)
 
-proc contentLanguage*(self: HttpContentHeaderCollection): HttpLanguageHeaderValueCollection  =
+proc contentLanguage*(self: HttpContentHeaderCollection): HttpLanguageHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLanguage
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentLanguage, Fn_IHttpContentHeaderCollection_get_ContentLanguage)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentLanguage")
+    it.call(IHttpContentHeaderCollection_get_ContentLanguage, tmp.addr)
     result = adopt[HttpLanguageHeaderValueCollection](tmp)
 
-proc contentLength*(self: HttpContentHeaderCollection): Option[uint64]  =
+proc contentLength*(self: HttpContentHeaderCollection): Option[uint64] =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLength
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentLength, Fn_IHttpContentHeaderCollection_get_ContentLength)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentLength")
-    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentHeaderCollection.get_ContentLength")
+    it.call(IHttpContentHeaderCollection_get_ContentLength, tmp.addr)
+    result = readReference[uint64](tmp, IID_IReference_1_U8,
+                                   "HttpContentHeaderCollection.get_ContentLength")
     release(tmp)
 
-proc `contentLength=`*(self: HttpContentHeaderCollection, value: Option[uint64])  =
+proc `contentLength=`*(self: HttpContentHeaderCollection, value: Option[uint64]) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentLength
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpContentHeaderCollection_put_ContentLength, Fn_IHttpContentHeaderCollection_put_ContentLength)(it, p0).check("HttpContentHeaderCollection.put_ContentLength")
+    it.call(IHttpContentHeaderCollection_put_ContentLength, p0)
 
-proc contentLocation*(self: HttpContentHeaderCollection): Uri  =
+proc contentLocation*(self: HttpContentHeaderCollection): Uri =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLocation
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentLocation, Fn_IHttpContentHeaderCollection_get_ContentLocation)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentLocation")
+    it.call(IHttpContentHeaderCollection_get_ContentLocation, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `contentLocation=`*(self: HttpContentHeaderCollection, value: Uri)  =
+proc `contentLocation=`*(self: HttpContentHeaderCollection, value: Uri) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentLocation
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentLocation, Fn_IHttpContentHeaderCollection_put_ContentLocation)(it, p0).check("HttpContentHeaderCollection.put_ContentLocation")
+  withIface(self.p, IHttpContentHeaderCollection, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IHttpContentHeaderCollection_put_ContentLocation, p0)
 
-proc contentMD5*(self: HttpContentHeaderCollection): Buffer  =
+proc contentMD5*(self: HttpContentHeaderCollection): Buffer =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentMD5
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentMD5, Fn_IHttpContentHeaderCollection_get_ContentMD5)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentMD5")
+    it.call(IHttpContentHeaderCollection_get_ContentMD5, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc `contentMD5=`*(self: HttpContentHeaderCollection, value: Buffer)  =
+proc `contentMD5=`*(self: HttpContentHeaderCollection, value: Buffer) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentMD5
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    withIface(value.p, IID_IBuffer, "IBuffer", p0):
-      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentMD5, Fn_IHttpContentHeaderCollection_put_ContentMD5)(it, p0).check("HttpContentHeaderCollection.put_ContentMD5")
+  withIface(self.p, IHttpContentHeaderCollection, it):
+    withIface(value.p, IBuffer, p0):
+      it.call(IHttpContentHeaderCollection_put_ContentMD5, p0)
 
-proc contentRange*(self: HttpContentHeaderCollection): HttpContentRangeHeaderValue  =
+proc contentRange*(self: HttpContentHeaderCollection): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentRange
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentRange, Fn_IHttpContentHeaderCollection_get_ContentRange)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentRange")
+    it.call(IHttpContentHeaderCollection_get_ContentRange, tmp.addr)
     result = adopt[HttpContentRangeHeaderValue](tmp)
 
-proc `contentRange=`*(self: HttpContentHeaderCollection, value: HttpContentRangeHeaderValue)  =
+proc `contentRange=`*(self: HttpContentHeaderCollection,
+                      value: HttpContentRangeHeaderValue) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentRange
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    withIface(value.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", p0):
-      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentRange, Fn_IHttpContentHeaderCollection_put_ContentRange)(it, p0).check("HttpContentHeaderCollection.put_ContentRange")
+  withIface(self.p, IHttpContentHeaderCollection, it):
+    withIface(value.p, IHttpContentRangeHeaderValue, p0):
+      it.call(IHttpContentHeaderCollection_put_ContentRange, p0)
 
-proc contentType*(self: HttpContentHeaderCollection): HttpMediaTypeHeaderValue  =
+proc contentType*(self: HttpContentHeaderCollection): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentType
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_ContentType, Fn_IHttpContentHeaderCollection_get_ContentType)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentType")
+    it.call(IHttpContentHeaderCollection_get_ContentType, tmp.addr)
     result = adopt[HttpMediaTypeHeaderValue](tmp)
 
-proc `contentType=`*(self: HttpContentHeaderCollection, value: HttpMediaTypeHeaderValue)  =
+proc `contentType=`*(self: HttpContentHeaderCollection,
+                     value: HttpMediaTypeHeaderValue) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentType
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    withIface(value.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", p0):
-      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentType, Fn_IHttpContentHeaderCollection_put_ContentType)(it, p0).check("HttpContentHeaderCollection.put_ContentType")
+  withIface(self.p, IHttpContentHeaderCollection, it):
+    withIface(value.p, IHttpMediaTypeHeaderValue, p0):
+      it.call(IHttpContentHeaderCollection_put_ContentType, p0)
 
-proc expires*(self: HttpContentHeaderCollection): Option[DateTime]  =
+proc expires*(self: HttpContentHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_Expires
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_Expires, Fn_IHttpContentHeaderCollection_get_Expires)(it, tmp.addr).check("HttpContentHeaderCollection.get_Expires")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_Expires")
+    it.call(IHttpContentHeaderCollection_get_Expires, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpContentHeaderCollection.get_Expires")
     release(tmp)
 
-proc `expires=`*(self: HttpContentHeaderCollection, value: Option[DateTime])  =
+proc `expires=`*(self: HttpContentHeaderCollection, value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_Expires
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpContentHeaderCollection_put_Expires, Fn_IHttpContentHeaderCollection_put_Expires)(it, p0).check("HttpContentHeaderCollection.put_Expires")
+    it.call(IHttpContentHeaderCollection_put_Expires, p0)
 
-proc lastModified*(self: HttpContentHeaderCollection): Option[DateTime]  =
+proc lastModified*(self: HttpContentHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_LastModified
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentHeaderCollection_get_LastModified, Fn_IHttpContentHeaderCollection_get_LastModified)(it, tmp.addr).check("HttpContentHeaderCollection.get_LastModified")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_LastModified")
+    it.call(IHttpContentHeaderCollection_get_LastModified, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpContentHeaderCollection.get_LastModified")
     release(tmp)
 
-proc `lastModified=`*(self: HttpContentHeaderCollection, value: Option[DateTime])  =
+proc `lastModified=`*(self: HttpContentHeaderCollection, value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_LastModified
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpContentHeaderCollection_put_LastModified, Fn_IHttpContentHeaderCollection_put_LastModified)(it, p0).check("HttpContentHeaderCollection.put_LastModified")
+    it.call(IHttpContentHeaderCollection_put_LastModified, p0)
 
-proc append*(self: HttpContentHeaderCollection, name: string, value: string)  =
+proc append*(self: HttpContentHeaderCollection, name: string, value: string) =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.Append
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_IHttpContentHeaderCollection_Append, Fn_IHttpContentHeaderCollection_Append)(it, h0, h1).check("HttpContentHeaderCollection.Append")
+        it.call(IHttpContentHeaderCollection_Append, h0, h1)
 
-proc tryAppendWithoutValidation*(self: HttpContentHeaderCollection, name: string, value: string): bool  =
+proc tryAppendWithoutValidation*(self: HttpContentHeaderCollection,
+                                 name: string, value: string): bool =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.TryAppendWithoutValidation
-  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+  withIface(self.p, IHttpContentHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: bool
-        vcall(it, Slot_IHttpContentHeaderCollection_TryAppendWithoutValidation, Fn_IHttpContentHeaderCollection_TryAppendWithoutValidation)(it, h0, h1, tmp.addr).check("HttpContentHeaderCollection.TryAppendWithoutValidation")
+        it.call(IHttpContentHeaderCollection_TryAppendWithoutValidation, h0, h1,
+                tmp.addr)
         result = tmp
 
-proc toString*(self: HttpContentHeaderCollection): string  =
+proc toString*(self: HttpContentHeaderCollection): string =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentHeaderCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc firstBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+proc firstBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64] =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_FirstBytePosition
-  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+  withIface(self.p, IHttpContentRangeHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValue_get_FirstBytePosition, Fn_IHttpContentRangeHeaderValue_get_FirstBytePosition)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_FirstBytePosition")
-    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_FirstBytePosition")
+    it.call(IHttpContentRangeHeaderValue_get_FirstBytePosition, tmp.addr)
+    result = readReference[uint64](tmp, IID_IReference_1_U8,
+                                   "HttpContentRangeHeaderValue.get_FirstBytePosition")
     release(tmp)
 
-proc lastBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+proc lastBytePosition*(self: HttpContentRangeHeaderValue): Option[uint64] =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_LastBytePosition
-  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+  withIface(self.p, IHttpContentRangeHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValue_get_LastBytePosition, Fn_IHttpContentRangeHeaderValue_get_LastBytePosition)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_LastBytePosition")
-    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_LastBytePosition")
+    it.call(IHttpContentRangeHeaderValue_get_LastBytePosition, tmp.addr)
+    result = readReference[uint64](tmp, IID_IReference_1_U8,
+                                   "HttpContentRangeHeaderValue.get_LastBytePosition")
     release(tmp)
 
-proc length*(self: HttpContentRangeHeaderValue): Option[uint64]  =
+proc length*(self: HttpContentRangeHeaderValue): Option[uint64] =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_Length
-  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+  withIface(self.p, IHttpContentRangeHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValue_get_Length, Fn_IHttpContentRangeHeaderValue_get_Length)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_Length")
-    result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentRangeHeaderValue.get_Length")
+    it.call(IHttpContentRangeHeaderValue_get_Length, tmp.addr)
+    result = readReference[uint64](tmp, IID_IReference_1_U8,
+                                   "HttpContentRangeHeaderValue.get_Length")
     release(tmp)
 
-proc unit*(self: HttpContentRangeHeaderValue): string  =
+proc unit*(self: HttpContentRangeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.get_Unit
-  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+  withIface(self.p, IHttpContentRangeHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpContentRangeHeaderValue_get_Unit, Fn_IHttpContentRangeHeaderValue_get_Unit)(it, tmp.addr).check("HttpContentRangeHeaderValue.get_Unit")
+    it.call(IHttpContentRangeHeaderValue_get_Unit, tmp.addr)
     result = takeString(tmp)
 
-proc `unit=`*(self: HttpContentRangeHeaderValue, value: string)  =
+proc `unit=`*(self: HttpContentRangeHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.put_Unit
-  withIface(self.p, IID_IHttpContentRangeHeaderValue, "IHttpContentRangeHeaderValue", it):
+  withIface(self.p, IHttpContentRangeHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpContentRangeHeaderValue_put_Unit, Fn_IHttpContentRangeHeaderValue_put_Unit)(it, h0).check("HttpContentRangeHeaderValue.put_Unit")
+      it.call(IHttpContentRangeHeaderValue_put_Unit, h0)
 
-proc toString*(self: HttpContentRangeHeaderValue): string  =
+proc toString*(self: HttpContentRangeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpContentRangeHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpContentRangeHeaderValue], input: string): HttpContentRangeHeaderValue  =
+proc parse*(_: typedesc[HttpContentRangeHeaderValue], input: string): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue", IID_IHttpContentRangeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue",
+              IHttpContentRangeHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpContentRangeHeaderValueStatics_Parse, Fn_IHttpContentRangeHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpContentRangeHeaderValue.Parse")
+      it.call(IHttpContentRangeHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpContentRangeHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpContentRangeHeaderValue], input: string): tuple[value: bool, contentRangeHeaderValue: HttpContentRangeHeaderValue]  =
+proc tryParse*(_: typedesc[HttpContentRangeHeaderValue], input: string): tuple[value: bool, contentRangeHeaderValue: HttpContentRangeHeaderValue] =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue", IID_IHttpContentRangeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue",
+              IHttpContentRangeHeaderValueStatics, it):
     withHString(input, h0):
       var contentRangeHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpContentRangeHeaderValueStatics_TryParse, Fn_IHttpContentRangeHeaderValueStatics_TryParse)(it, h0, contentRangeHeaderValue.addr, tmp.addr).check("HttpContentRangeHeaderValue.TryParse")
+      it.call(IHttpContentRangeHeaderValueStatics_TryParse, h0,
+              contentRangeHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, contentRangeHeaderValue: adopt[HttpContentRangeHeaderValue](contentRangeHeaderValue))
 
-proc createFromLength*(_: typedesc[HttpContentRangeHeaderValue], length: uint64): HttpContentRangeHeaderValue  =
+proc createFromLength*(_: typedesc[HttpContentRangeHeaderValue], length: uint64): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromLength
-  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue", IID_IHttpContentRangeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue",
+              IHttpContentRangeHeaderValueFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValueFactory_CreateFromLength, Fn_IHttpContentRangeHeaderValueFactory_CreateFromLength)(it, length, tmp.addr).check("HttpContentRangeHeaderValue.CreateFromLength")
+    it.call(IHttpContentRangeHeaderValueFactory_CreateFromLength, length,
+            tmp.addr)
     result = adopt[HttpContentRangeHeaderValue](tmp)
 
-proc createFromRange*(_: typedesc[HttpContentRangeHeaderValue], `from`: uint64, to: uint64): HttpContentRangeHeaderValue  =
+proc createFromRange*(_: typedesc[HttpContentRangeHeaderValue], `from`: uint64,
+                      to: uint64): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRange
-  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue", IID_IHttpContentRangeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue",
+              IHttpContentRangeHeaderValueFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValueFactory_CreateFromRange, Fn_IHttpContentRangeHeaderValueFactory_CreateFromRange)(it, `from`, to, tmp.addr).check("HttpContentRangeHeaderValue.CreateFromRange")
+    it.call(IHttpContentRangeHeaderValueFactory_CreateFromRange, `from`, to,
+            tmp.addr)
     result = adopt[HttpContentRangeHeaderValue](tmp)
 
-proc createFromRangeWithLength*(_: typedesc[HttpContentRangeHeaderValue], `from`: uint64, to: uint64, length: uint64): HttpContentRangeHeaderValue  =
+proc createFromRangeWithLength*(_: typedesc[HttpContentRangeHeaderValue],
+                                `from`: uint64, to: uint64, length: uint64): HttpContentRangeHeaderValue =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRangeWithLength
-  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue", IID_IHttpContentRangeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpContentRangeHeaderValue",
+              IHttpContentRangeHeaderValueFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength, Fn_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength)(it, `from`, to, length, tmp.addr).check("HttpContentRangeHeaderValue.CreateFromRangeWithLength")
+    it.call(IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength,
+            `from`, to, length, tmp.addr)
     result = adopt[HttpContentRangeHeaderValue](tmp)
 
-proc name*(self: HttpCookiePairHeaderValue): string  =
+proc name*(self: HttpCookiePairHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.get_Name
-  withIface(self.p, IID_IHttpCookiePairHeaderValue, "IHttpCookiePairHeaderValue", it):
+  withIface(self.p, IHttpCookiePairHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookiePairHeaderValue_get_Name, Fn_IHttpCookiePairHeaderValue_get_Name)(it, tmp.addr).check("HttpCookiePairHeaderValue.get_Name")
+    it.call(IHttpCookiePairHeaderValue_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc value*(self: HttpCookiePairHeaderValue): string  =
+proc value*(self: HttpCookiePairHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.get_Value
-  withIface(self.p, IID_IHttpCookiePairHeaderValue, "IHttpCookiePairHeaderValue", it):
+  withIface(self.p, IHttpCookiePairHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookiePairHeaderValue_get_Value, Fn_IHttpCookiePairHeaderValue_get_Value)(it, tmp.addr).check("HttpCookiePairHeaderValue.get_Value")
+    it.call(IHttpCookiePairHeaderValue_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `value=`*(self: HttpCookiePairHeaderValue, value: string)  =
+proc `value=`*(self: HttpCookiePairHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.put_Value
-  withIface(self.p, IID_IHttpCookiePairHeaderValue, "IHttpCookiePairHeaderValue", it):
+  withIface(self.p, IHttpCookiePairHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpCookiePairHeaderValue_put_Value, Fn_IHttpCookiePairHeaderValue_put_Value)(it, h0).check("HttpCookiePairHeaderValue.put_Value")
+      it.call(IHttpCookiePairHeaderValue_put_Value, h0)
 
-proc toString*(self: HttpCookiePairHeaderValue): string  =
+proc toString*(self: HttpCookiePairHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpCookiePairHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpCookiePairHeaderValue], input: string): HttpCookiePairHeaderValue  =
+proc parse*(_: typedesc[HttpCookiePairHeaderValue], input: string): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue", IID_IHttpCookiePairHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue",
+              IHttpCookiePairHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpCookiePairHeaderValueStatics_Parse, Fn_IHttpCookiePairHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpCookiePairHeaderValue.Parse")
+      it.call(IHttpCookiePairHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpCookiePairHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpCookiePairHeaderValue], input: string): tuple[value: bool, cookiePairHeaderValue: HttpCookiePairHeaderValue]  =
+proc tryParse*(_: typedesc[HttpCookiePairHeaderValue], input: string): tuple[value: bool, cookiePairHeaderValue: HttpCookiePairHeaderValue] =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue", IID_IHttpCookiePairHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue",
+              IHttpCookiePairHeaderValueStatics, it):
     withHString(input, h0):
       var cookiePairHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpCookiePairHeaderValueStatics_TryParse, Fn_IHttpCookiePairHeaderValueStatics_TryParse)(it, h0, cookiePairHeaderValue.addr, tmp.addr).check("HttpCookiePairHeaderValue.TryParse")
+      it.call(IHttpCookiePairHeaderValueStatics_TryParse, h0,
+              cookiePairHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, cookiePairHeaderValue: adopt[HttpCookiePairHeaderValue](cookiePairHeaderValue))
 
-proc createFromName*(_: typedesc[HttpCookiePairHeaderValue], name: string): HttpCookiePairHeaderValue  =
+proc createFromName*(_: typedesc[HttpCookiePairHeaderValue], name: string): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromName
-  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue", IID_IHttpCookiePairHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue",
+              IHttpCookiePairHeaderValueFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpCookiePairHeaderValueFactory_CreateFromName, Fn_IHttpCookiePairHeaderValueFactory_CreateFromName)(it, h0, tmp.addr).check("HttpCookiePairHeaderValue.CreateFromName")
+      it.call(IHttpCookiePairHeaderValueFactory_CreateFromName, h0, tmp.addr)
       result = adopt[HttpCookiePairHeaderValue](tmp)
 
-proc createFromNameWithValue*(_: typedesc[HttpCookiePairHeaderValue], name: string, value: string): HttpCookiePairHeaderValue  =
+proc createFromNameWithValue*(_: typedesc[HttpCookiePairHeaderValue],
+                              name: string, value: string): HttpCookiePairHeaderValue =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromNameWithValue
-  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue", IID_IHttpCookiePairHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpCookiePairHeaderValue",
+              IHttpCookiePairHeaderValueFactory, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue, Fn_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue)(it, h0, h1, tmp.addr).check("HttpCookiePairHeaderValue.CreateFromNameWithValue")
+        it.call(IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue, h0,
+                h1, tmp.addr)
         result = adopt[HttpCookiePairHeaderValue](tmp)
 
-proc parseAdd*(self: HttpCookiePairHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpCookiePairHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpCookiePairHeaderValueCollection, "IHttpCookiePairHeaderValueCollection", it):
+  withIface(self.p, IHttpCookiePairHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpCookiePairHeaderValueCollection_ParseAdd, Fn_IHttpCookiePairHeaderValueCollection_ParseAdd)(it, h0).check("HttpCookiePairHeaderValueCollection.ParseAdd")
+      it.call(IHttpCookiePairHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpCookiePairHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpCookiePairHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpCookiePairHeaderValueCollection, "IHttpCookiePairHeaderValueCollection", it):
+  withIface(self.p, IHttpCookiePairHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpCookiePairHeaderValueCollection_TryParseAdd, Fn_IHttpCookiePairHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpCookiePairHeaderValueCollection.TryParseAdd")
+      it.call(IHttpCookiePairHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpCookiePairHeaderValueCollection): string  =
+proc toString*(self: HttpCookiePairHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpCookiePairHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parameters*(self: HttpCredentialsHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpCredentialsHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", it):
+  withIface(self.p, IHttpCredentialsHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCredentialsHeaderValue_get_Parameters, Fn_IHttpCredentialsHeaderValue_get_Parameters)(it, tmp.addr).check("HttpCredentialsHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpCredentialsHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc scheme*(self: HttpCredentialsHeaderValue): string  =
+proc scheme*(self: HttpCredentialsHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.get_Scheme
-  withIface(self.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", it):
+  withIface(self.p, IHttpCredentialsHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCredentialsHeaderValue_get_Scheme, Fn_IHttpCredentialsHeaderValue_get_Scheme)(it, tmp.addr).check("HttpCredentialsHeaderValue.get_Scheme")
+    it.call(IHttpCredentialsHeaderValue_get_Scheme, tmp.addr)
     result = takeString(tmp)
 
-proc token*(self: HttpCredentialsHeaderValue): string  =
+proc token*(self: HttpCredentialsHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.get_Token
-  withIface(self.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", it):
+  withIface(self.p, IHttpCredentialsHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCredentialsHeaderValue_get_Token, Fn_IHttpCredentialsHeaderValue_get_Token)(it, tmp.addr).check("HttpCredentialsHeaderValue.get_Token")
+    it.call(IHttpCredentialsHeaderValue_get_Token, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpCredentialsHeaderValue): string  =
+proc toString*(self: HttpCredentialsHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpCredentialsHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpCredentialsHeaderValue], input: string): HttpCredentialsHeaderValue  =
+proc parse*(_: typedesc[HttpCredentialsHeaderValue], input: string): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue", IID_IHttpCredentialsHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue",
+              IHttpCredentialsHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpCredentialsHeaderValueStatics_Parse, Fn_IHttpCredentialsHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpCredentialsHeaderValue.Parse")
+      it.call(IHttpCredentialsHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpCredentialsHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpCredentialsHeaderValue], input: string): tuple[value: bool, credentialsHeaderValue: HttpCredentialsHeaderValue]  =
+proc tryParse*(_: typedesc[HttpCredentialsHeaderValue], input: string): tuple[value: bool, credentialsHeaderValue: HttpCredentialsHeaderValue] =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue", IID_IHttpCredentialsHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue",
+              IHttpCredentialsHeaderValueStatics, it):
     withHString(input, h0):
       var credentialsHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpCredentialsHeaderValueStatics_TryParse, Fn_IHttpCredentialsHeaderValueStatics_TryParse)(it, h0, credentialsHeaderValue.addr, tmp.addr).check("HttpCredentialsHeaderValue.TryParse")
+      it.call(IHttpCredentialsHeaderValueStatics_TryParse, h0,
+              credentialsHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, credentialsHeaderValue: adopt[HttpCredentialsHeaderValue](credentialsHeaderValue))
 
-proc createFromScheme*(_: typedesc[HttpCredentialsHeaderValue], scheme: string): HttpCredentialsHeaderValue  =
+proc createFromScheme*(_: typedesc[HttpCredentialsHeaderValue], scheme: string): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromScheme
-  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue", IID_IHttpCredentialsHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue",
+              IHttpCredentialsHeaderValueFactory, it):
     withHString(scheme, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpCredentialsHeaderValueFactory_CreateFromScheme, Fn_IHttpCredentialsHeaderValueFactory_CreateFromScheme)(it, h0, tmp.addr).check("HttpCredentialsHeaderValue.CreateFromScheme")
+      it.call(IHttpCredentialsHeaderValueFactory_CreateFromScheme, h0, tmp.addr)
       result = adopt[HttpCredentialsHeaderValue](tmp)
 
-proc createFromSchemeWithToken*(_: typedesc[HttpCredentialsHeaderValue], scheme: string, token: string): HttpCredentialsHeaderValue  =
+proc createFromSchemeWithToken*(_: typedesc[HttpCredentialsHeaderValue],
+                                scheme: string, token: string): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromSchemeWithToken
-  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue", IID_IHttpCredentialsHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpCredentialsHeaderValue",
+              IHttpCredentialsHeaderValueFactory, it):
     withHString(scheme, h0):
       withHString(token, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken, Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken)(it, h0, h1, tmp.addr).check("HttpCredentialsHeaderValue.CreateFromSchemeWithToken")
+        it.call(IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken,
+                h0, h1, tmp.addr)
         result = adopt[HttpCredentialsHeaderValue](tmp)
 
-proc date*(self: HttpDateOrDeltaHeaderValue): Option[DateTime]  =
+proc date*(self: HttpDateOrDeltaHeaderValue): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.get_Date
-  withIface(self.p, IID_IHttpDateOrDeltaHeaderValue, "IHttpDateOrDeltaHeaderValue", it):
+  withIface(self.p, IHttpDateOrDeltaHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDateOrDeltaHeaderValue_get_Date, Fn_IHttpDateOrDeltaHeaderValue_get_Date)(it, tmp.addr).check("HttpDateOrDeltaHeaderValue.get_Date")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpDateOrDeltaHeaderValue.get_Date")
+    it.call(IHttpDateOrDeltaHeaderValue_get_Date, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpDateOrDeltaHeaderValue.get_Date")
     release(tmp)
 
-proc delta*(self: HttpDateOrDeltaHeaderValue): Option[TimeSpan]  =
+proc delta*(self: HttpDateOrDeltaHeaderValue): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.get_Delta
-  withIface(self.p, IID_IHttpDateOrDeltaHeaderValue, "IHttpDateOrDeltaHeaderValue", it):
+  withIface(self.p, IHttpDateOrDeltaHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpDateOrDeltaHeaderValue_get_Delta, Fn_IHttpDateOrDeltaHeaderValue_get_Delta)(it, tmp.addr).check("HttpDateOrDeltaHeaderValue.get_Delta")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpDateOrDeltaHeaderValue.get_Delta")
+    it.call(IHttpDateOrDeltaHeaderValue_get_Delta, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpDateOrDeltaHeaderValue.get_Delta")
     release(tmp)
 
-proc toString*(self: HttpDateOrDeltaHeaderValue): string  =
+proc toString*(self: HttpDateOrDeltaHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpDateOrDeltaHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string): HttpDateOrDeltaHeaderValue  =
+proc parse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string): HttpDateOrDeltaHeaderValue =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue", IID_IHttpDateOrDeltaHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue",
+              IHttpDateOrDeltaHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpDateOrDeltaHeaderValueStatics_Parse, Fn_IHttpDateOrDeltaHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpDateOrDeltaHeaderValue.Parse")
+      it.call(IHttpDateOrDeltaHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpDateOrDeltaHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string): tuple[value: bool, dateOrDeltaHeaderValue: HttpDateOrDeltaHeaderValue]  =
+proc tryParse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string): tuple[value: bool, dateOrDeltaHeaderValue: HttpDateOrDeltaHeaderValue] =
   ## Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue", IID_IHttpDateOrDeltaHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue",
+              IHttpDateOrDeltaHeaderValueStatics, it):
     withHString(input, h0):
       var dateOrDeltaHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpDateOrDeltaHeaderValueStatics_TryParse, Fn_IHttpDateOrDeltaHeaderValueStatics_TryParse)(it, h0, dateOrDeltaHeaderValue.addr, tmp.addr).check("HttpDateOrDeltaHeaderValue.TryParse")
+      it.call(IHttpDateOrDeltaHeaderValueStatics_TryParse, h0,
+              dateOrDeltaHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, dateOrDeltaHeaderValue: adopt[HttpDateOrDeltaHeaderValue](dateOrDeltaHeaderValue))
 
-proc name*(self: HttpExpectationHeaderValue): string  =
+proc name*(self: HttpExpectationHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.get_Name
-  withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
+  withIface(self.p, IHttpExpectationHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpExpectationHeaderValue_get_Name, Fn_IHttpExpectationHeaderValue_get_Name)(it, tmp.addr).check("HttpExpectationHeaderValue.get_Name")
+    it.call(IHttpExpectationHeaderValue_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc value*(self: HttpExpectationHeaderValue): string  =
+proc value*(self: HttpExpectationHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.get_Value
-  withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
+  withIface(self.p, IHttpExpectationHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpExpectationHeaderValue_get_Value, Fn_IHttpExpectationHeaderValue_get_Value)(it, tmp.addr).check("HttpExpectationHeaderValue.get_Value")
+    it.call(IHttpExpectationHeaderValue_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `value=`*(self: HttpExpectationHeaderValue, value: string)  =
+proc `value=`*(self: HttpExpectationHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.put_Value
-  withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
+  withIface(self.p, IHttpExpectationHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpExpectationHeaderValue_put_Value, Fn_IHttpExpectationHeaderValue_put_Value)(it, h0).check("HttpExpectationHeaderValue.put_Value")
+      it.call(IHttpExpectationHeaderValue_put_Value, h0)
 
-proc parameters*(self: HttpExpectationHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpExpectationHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpExpectationHeaderValue, "IHttpExpectationHeaderValue", it):
+  withIface(self.p, IHttpExpectationHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpExpectationHeaderValue_get_Parameters, Fn_IHttpExpectationHeaderValue_get_Parameters)(it, tmp.addr).check("HttpExpectationHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpExpectationHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc toString*(self: HttpExpectationHeaderValue): string  =
+proc toString*(self: HttpExpectationHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpExpectationHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpExpectationHeaderValue], input: string): HttpExpectationHeaderValue  =
+proc parse*(_: typedesc[HttpExpectationHeaderValue], input: string): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue", IID_IHttpExpectationHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue",
+              IHttpExpectationHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpExpectationHeaderValueStatics_Parse, Fn_IHttpExpectationHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpExpectationHeaderValue.Parse")
+      it.call(IHttpExpectationHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpExpectationHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpExpectationHeaderValue], input: string): tuple[value: bool, expectationHeaderValue: HttpExpectationHeaderValue]  =
+proc tryParse*(_: typedesc[HttpExpectationHeaderValue], input: string): tuple[value: bool, expectationHeaderValue: HttpExpectationHeaderValue] =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue", IID_IHttpExpectationHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue",
+              IHttpExpectationHeaderValueStatics, it):
     withHString(input, h0):
       var expectationHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpExpectationHeaderValueStatics_TryParse, Fn_IHttpExpectationHeaderValueStatics_TryParse)(it, h0, expectationHeaderValue.addr, tmp.addr).check("HttpExpectationHeaderValue.TryParse")
+      it.call(IHttpExpectationHeaderValueStatics_TryParse, h0,
+              expectationHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, expectationHeaderValue: adopt[HttpExpectationHeaderValue](expectationHeaderValue))
 
-proc createFromName*(_: typedesc[HttpExpectationHeaderValue], name: string): HttpExpectationHeaderValue  =
+proc createFromName*(_: typedesc[HttpExpectationHeaderValue], name: string): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromName
-  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue", IID_IHttpExpectationHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue",
+              IHttpExpectationHeaderValueFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpExpectationHeaderValueFactory_CreateFromName, Fn_IHttpExpectationHeaderValueFactory_CreateFromName)(it, h0, tmp.addr).check("HttpExpectationHeaderValue.CreateFromName")
+      it.call(IHttpExpectationHeaderValueFactory_CreateFromName, h0, tmp.addr)
       result = adopt[HttpExpectationHeaderValue](tmp)
 
-proc createFromNameWithValue*(_: typedesc[HttpExpectationHeaderValue], name: string, value: string): HttpExpectationHeaderValue  =
+proc createFromNameWithValue*(_: typedesc[HttpExpectationHeaderValue],
+                              name: string, value: string): HttpExpectationHeaderValue =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromNameWithValue
-  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue", IID_IHttpExpectationHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpExpectationHeaderValue",
+              IHttpExpectationHeaderValueFactory, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue, Fn_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue)(it, h0, h1, tmp.addr).check("HttpExpectationHeaderValue.CreateFromNameWithValue")
+        it.call(IHttpExpectationHeaderValueFactory_CreateFromNameWithValue, h0,
+                h1, tmp.addr)
         result = adopt[HttpExpectationHeaderValue](tmp)
 
-proc parseAdd*(self: HttpExpectationHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpExpectationHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpExpectationHeaderValueCollection, "IHttpExpectationHeaderValueCollection", it):
+  withIface(self.p, IHttpExpectationHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpExpectationHeaderValueCollection_ParseAdd, Fn_IHttpExpectationHeaderValueCollection_ParseAdd)(it, h0).check("HttpExpectationHeaderValueCollection.ParseAdd")
+      it.call(IHttpExpectationHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpExpectationHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpExpectationHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpExpectationHeaderValueCollection, "IHttpExpectationHeaderValueCollection", it):
+  withIface(self.p, IHttpExpectationHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpExpectationHeaderValueCollection_TryParseAdd, Fn_IHttpExpectationHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpExpectationHeaderValueCollection.TryParseAdd")
+      it.call(IHttpExpectationHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpExpectationHeaderValueCollection): string  =
+proc toString*(self: HttpExpectationHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpExpectationHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parseAdd*(self: HttpLanguageHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpLanguageHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpLanguageHeaderValueCollection, "IHttpLanguageHeaderValueCollection", it):
+  withIface(self.p, IHttpLanguageHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpLanguageHeaderValueCollection_ParseAdd, Fn_IHttpLanguageHeaderValueCollection_ParseAdd)(it, h0).check("HttpLanguageHeaderValueCollection.ParseAdd")
+      it.call(IHttpLanguageHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpLanguageHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpLanguageHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpLanguageHeaderValueCollection, "IHttpLanguageHeaderValueCollection", it):
+  withIface(self.p, IHttpLanguageHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpLanguageHeaderValueCollection_TryParseAdd, Fn_IHttpLanguageHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpLanguageHeaderValueCollection.TryParseAdd")
+      it.call(IHttpLanguageHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpLanguageHeaderValueCollection): string  =
+proc toString*(self: HttpLanguageHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpLanguageHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc languageRange*(self: HttpLanguageRangeWithQualityHeaderValue): string  =
+proc languageRange*(self: HttpLanguageRangeWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.get_LanguageRange
-  withIface(self.p, IID_IHttpLanguageRangeWithQualityHeaderValue, "IHttpLanguageRangeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpLanguageRangeWithQualityHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange, Fn_IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.get_LanguageRange")
+    it.call(IHttpLanguageRangeWithQualityHeaderValue_get_LanguageRange, tmp.addr)
     result = takeString(tmp)
 
-proc quality*(self: HttpLanguageRangeWithQualityHeaderValue): Option[float64]  =
+proc quality*(self: HttpLanguageRangeWithQualityHeaderValue): Option[float64] =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.get_Quality
-  withIface(self.p, IID_IHttpLanguageRangeWithQualityHeaderValue, "IHttpLanguageRangeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpLanguageRangeWithQualityHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValue_get_Quality, Fn_IHttpLanguageRangeWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.get_Quality")
-    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpLanguageRangeWithQualityHeaderValue.get_Quality")
+    it.call(IHttpLanguageRangeWithQualityHeaderValue_get_Quality, tmp.addr)
+    result = readReference[float64](tmp, IID_IReference_1_F8,
+                                    "HttpLanguageRangeWithQualityHeaderValue.get_Quality")
     release(tmp)
 
-proc toString*(self: HttpLanguageRangeWithQualityHeaderValue): string  =
+proc toString*(self: HttpLanguageRangeWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], input: string): HttpLanguageRangeWithQualityHeaderValue  =
+proc parse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], input: string): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue", IID_IHttpLanguageRangeWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue",
+              IHttpLanguageRangeWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse, Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.Parse")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueStatics_Parse, h0,
+              tmp.addr)
       result = adopt[HttpLanguageRangeWithQualityHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], input: string): tuple[value: bool, languageRangeWithQualityHeaderValue: HttpLanguageRangeWithQualityHeaderValue]  =
+proc tryParse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue],
+               input: string): tuple[value: bool, languageRangeWithQualityHeaderValue: HttpLanguageRangeWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue", IID_IHttpLanguageRangeWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue",
+              IHttpLanguageRangeWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var languageRangeWithQualityHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse, Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse)(it, h0, languageRangeWithQualityHeaderValue.addr, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.TryParse")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse, h0,
+              languageRangeWithQualityHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, languageRangeWithQualityHeaderValue: adopt[HttpLanguageRangeWithQualityHeaderValue](languageRangeWithQualityHeaderValue))
 
-proc createFromLanguageRange*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], languageRange: string): HttpLanguageRangeWithQualityHeaderValue  =
+proc createFromLanguageRange*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue],
+                              languageRange: string): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange
-  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue", IID_IHttpLanguageRangeWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue",
+              IHttpLanguageRangeWithQualityHeaderValueFactory, it):
     withHString(languageRange, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange, Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange)(it, h0, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange,
+              h0, tmp.addr)
       result = adopt[HttpLanguageRangeWithQualityHeaderValue](tmp)
 
-proc createFromLanguageRangeWithQuality*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], languageRange: string, quality: float64): HttpLanguageRangeWithQualityHeaderValue  =
+proc createFromLanguageRangeWithQuality*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue],
+                                         languageRange: string, quality: float64): HttpLanguageRangeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRangeWithQuality
-  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue", IID_IHttpLanguageRangeWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue",
+              IHttpLanguageRangeWithQualityHeaderValueFactory, it):
     withHString(languageRange, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality, Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality)(it, h0, quality, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRangeWithQuality")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality,
+              h0, quality, tmp.addr)
       result = adopt[HttpLanguageRangeWithQualityHeaderValue](tmp)
 
-proc parseAdd*(self: HttpLanguageRangeWithQualityHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpLanguageRangeWithQualityHeaderValueCollection,
+               input: string) =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpLanguageRangeWithQualityHeaderValueCollection, "IHttpLanguageRangeWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpLanguageRangeWithQualityHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd, Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd)(it, h0).check("HttpLanguageRangeWithQualityHeaderValueCollection.ParseAdd")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpLanguageRangeWithQualityHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpLanguageRangeWithQualityHeaderValueCollection,
+                  input: string): bool =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpLanguageRangeWithQualityHeaderValueCollection, "IHttpLanguageRangeWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpLanguageRangeWithQualityHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd, Fn_IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValueCollection.TryParseAdd")
+      it.call(IHttpLanguageRangeWithQualityHeaderValueCollection_TryParseAdd,
+              h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpLanguageRangeWithQualityHeaderValueCollection): string  =
+proc toString*(self: HttpLanguageRangeWithQualityHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc charSet*(self: HttpMediaTypeHeaderValue): string  =
+proc charSet*(self: HttpMediaTypeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.get_CharSet
-  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpMediaTypeHeaderValue_get_CharSet, Fn_IHttpMediaTypeHeaderValue_get_CharSet)(it, tmp.addr).check("HttpMediaTypeHeaderValue.get_CharSet")
+    it.call(IHttpMediaTypeHeaderValue_get_CharSet, tmp.addr)
     result = takeString(tmp)
 
-proc `charSet=`*(self: HttpMediaTypeHeaderValue, value: string)  =
+proc `charSet=`*(self: HttpMediaTypeHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.put_CharSet
-  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpMediaTypeHeaderValue_put_CharSet, Fn_IHttpMediaTypeHeaderValue_put_CharSet)(it, h0).check("HttpMediaTypeHeaderValue.put_CharSet")
+      it.call(IHttpMediaTypeHeaderValue_put_CharSet, h0)
 
-proc mediaType*(self: HttpMediaTypeHeaderValue): string  =
+proc mediaType*(self: HttpMediaTypeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.get_MediaType
-  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpMediaTypeHeaderValue_get_MediaType, Fn_IHttpMediaTypeHeaderValue_get_MediaType)(it, tmp.addr).check("HttpMediaTypeHeaderValue.get_MediaType")
+    it.call(IHttpMediaTypeHeaderValue_get_MediaType, tmp.addr)
     result = takeString(tmp)
 
-proc `mediaType=`*(self: HttpMediaTypeHeaderValue, value: string)  =
+proc `mediaType=`*(self: HttpMediaTypeHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.put_MediaType
-  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpMediaTypeHeaderValue_put_MediaType, Fn_IHttpMediaTypeHeaderValue_put_MediaType)(it, h0).check("HttpMediaTypeHeaderValue.put_MediaType")
+      it.call(IHttpMediaTypeHeaderValue_put_MediaType, h0)
 
-proc parameters*(self: HttpMediaTypeHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpMediaTypeHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpMediaTypeHeaderValue, "IHttpMediaTypeHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMediaTypeHeaderValue_get_Parameters, Fn_IHttpMediaTypeHeaderValue_get_Parameters)(it, tmp.addr).check("HttpMediaTypeHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpMediaTypeHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc toString*(self: HttpMediaTypeHeaderValue): string  =
+proc toString*(self: HttpMediaTypeHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMediaTypeHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpMediaTypeHeaderValue], input: string): HttpMediaTypeHeaderValue  =
+proc parse*(_: typedesc[HttpMediaTypeHeaderValue], input: string): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue", IID_IHttpMediaTypeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue",
+              IHttpMediaTypeHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMediaTypeHeaderValueStatics_Parse, Fn_IHttpMediaTypeHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpMediaTypeHeaderValue.Parse")
+      it.call(IHttpMediaTypeHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpMediaTypeHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpMediaTypeHeaderValue], input: string): tuple[value: bool, mediaTypeHeaderValue: HttpMediaTypeHeaderValue]  =
+proc tryParse*(_: typedesc[HttpMediaTypeHeaderValue], input: string): tuple[value: bool, mediaTypeHeaderValue: HttpMediaTypeHeaderValue] =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue", IID_IHttpMediaTypeHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue",
+              IHttpMediaTypeHeaderValueStatics, it):
     withHString(input, h0):
       var mediaTypeHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpMediaTypeHeaderValueStatics_TryParse, Fn_IHttpMediaTypeHeaderValueStatics_TryParse)(it, h0, mediaTypeHeaderValue.addr, tmp.addr).check("HttpMediaTypeHeaderValue.TryParse")
+      it.call(IHttpMediaTypeHeaderValueStatics_TryParse, h0,
+              mediaTypeHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, mediaTypeHeaderValue: adopt[HttpMediaTypeHeaderValue](mediaTypeHeaderValue))
 
-proc create*(_: typedesc[HttpMediaTypeHeaderValue], mediaType: string): HttpMediaTypeHeaderValue  =
+proc create*(_: typedesc[HttpMediaTypeHeaderValue], mediaType: string): HttpMediaTypeHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Create
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue", IID_IHttpMediaTypeHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeHeaderValue",
+              IHttpMediaTypeHeaderValueFactory, it):
     withHString(mediaType, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMediaTypeHeaderValueFactory_Create, Fn_IHttpMediaTypeHeaderValueFactory_Create)(it, h0, tmp.addr).check("HttpMediaTypeHeaderValue.Create")
+      it.call(IHttpMediaTypeHeaderValueFactory_Create, h0, tmp.addr)
       result = adopt[HttpMediaTypeHeaderValue](tmp)
 
-proc charSet*(self: HttpMediaTypeWithQualityHeaderValue): string  =
+proc charSet*(self: HttpMediaTypeWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_CharSet
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_CharSet, Fn_IHttpMediaTypeWithQualityHeaderValue_get_CharSet)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_CharSet")
+    it.call(IHttpMediaTypeWithQualityHeaderValue_get_CharSet, tmp.addr)
     result = takeString(tmp)
 
-proc `charSet=`*(self: HttpMediaTypeWithQualityHeaderValue, value: string)  =
+proc `charSet=`*(self: HttpMediaTypeWithQualityHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.put_CharSet
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_put_CharSet, Fn_IHttpMediaTypeWithQualityHeaderValue_put_CharSet)(it, h0).check("HttpMediaTypeWithQualityHeaderValue.put_CharSet")
+      it.call(IHttpMediaTypeWithQualityHeaderValue_put_CharSet, h0)
 
-proc mediaType*(self: HttpMediaTypeWithQualityHeaderValue): string  =
+proc mediaType*(self: HttpMediaTypeWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_MediaType
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_MediaType, Fn_IHttpMediaTypeWithQualityHeaderValue_get_MediaType)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_MediaType")
+    it.call(IHttpMediaTypeWithQualityHeaderValue_get_MediaType, tmp.addr)
     result = takeString(tmp)
 
-proc `mediaType=`*(self: HttpMediaTypeWithQualityHeaderValue, value: string)  =
+proc `mediaType=`*(self: HttpMediaTypeWithQualityHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.put_MediaType
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_put_MediaType, Fn_IHttpMediaTypeWithQualityHeaderValue_put_MediaType)(it, h0).check("HttpMediaTypeWithQualityHeaderValue.put_MediaType")
+      it.call(IHttpMediaTypeWithQualityHeaderValue_put_MediaType, h0)
 
-proc parameters*(self: HttpMediaTypeWithQualityHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpMediaTypeWithQualityHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_Parameters, Fn_IHttpMediaTypeWithQualityHeaderValue_get_Parameters)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpMediaTypeWithQualityHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc quality*(self: HttpMediaTypeWithQualityHeaderValue): Option[float64]  =
+proc quality*(self: HttpMediaTypeWithQualityHeaderValue): Option[float64] =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.get_Quality
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_get_Quality, Fn_IHttpMediaTypeWithQualityHeaderValue_get_Quality)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.get_Quality")
-    result = readReference[float64](tmp, IID_IReference_1_F8, "HttpMediaTypeWithQualityHeaderValue.get_Quality")
+    it.call(IHttpMediaTypeWithQualityHeaderValue_get_Quality, tmp.addr)
+    result = readReference[float64](tmp, IID_IReference_1_F8,
+                                    "HttpMediaTypeWithQualityHeaderValue.get_Quality")
     release(tmp)
 
-proc `quality=`*(self: HttpMediaTypeWithQualityHeaderValue, value: Option[float64])  =
+proc `quality=`*(self: HttpMediaTypeWithQualityHeaderValue,
+                 value: Option[float64]) =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.put_Quality
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValue, it):
     let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_put_Quality, Fn_IHttpMediaTypeWithQualityHeaderValue_put_Quality)(it, p0).check("HttpMediaTypeWithQualityHeaderValue.put_Quality")
+    it.call(IHttpMediaTypeWithQualityHeaderValue_put_Quality, p0)
 
-proc toString*(self: HttpMediaTypeWithQualityHeaderValue): string  =
+proc toString*(self: HttpMediaTypeWithQualityHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string): HttpMediaTypeWithQualityHeaderValue  =
+proc parse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue", IID_IHttpMediaTypeWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue",
+              IHttpMediaTypeWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueStatics_Parse, Fn_IHttpMediaTypeWithQualityHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.Parse")
+      it.call(IHttpMediaTypeWithQualityHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpMediaTypeWithQualityHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string): tuple[value: bool, mediaTypeWithQualityHeaderValue: HttpMediaTypeWithQualityHeaderValue]  =
+proc tryParse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string): tuple[value: bool, mediaTypeWithQualityHeaderValue: HttpMediaTypeWithQualityHeaderValue] =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue", IID_IHttpMediaTypeWithQualityHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue",
+              IHttpMediaTypeWithQualityHeaderValueStatics, it):
     withHString(input, h0):
       var mediaTypeWithQualityHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse, Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse)(it, h0, mediaTypeWithQualityHeaderValue.addr, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.TryParse")
+      it.call(IHttpMediaTypeWithQualityHeaderValueStatics_TryParse, h0,
+              mediaTypeWithQualityHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, mediaTypeWithQualityHeaderValue: adopt[HttpMediaTypeWithQualityHeaderValue](mediaTypeWithQualityHeaderValue))
 
-proc createFromMediaType*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], mediaType: string): HttpMediaTypeWithQualityHeaderValue  =
+proc createFromMediaType*(_: typedesc[HttpMediaTypeWithQualityHeaderValue],
+                          mediaType: string): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue", IID_IHttpMediaTypeWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue",
+              IHttpMediaTypeWithQualityHeaderValueFactory, it):
     withHString(mediaType, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType, Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType)(it, h0, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType")
+      it.call(IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType,
+              h0, tmp.addr)
       result = adopt[HttpMediaTypeWithQualityHeaderValue](tmp)
 
-proc createFromMediaTypeWithQuality*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], mediaType: string, quality: float64): HttpMediaTypeWithQualityHeaderValue  =
+proc createFromMediaTypeWithQuality*(_: typedesc[HttpMediaTypeWithQualityHeaderValue],
+                                     mediaType: string, quality: float64): HttpMediaTypeWithQualityHeaderValue =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaTypeWithQuality
-  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue", IID_IHttpMediaTypeWithQualityHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue",
+              IHttpMediaTypeWithQualityHeaderValueFactory, it):
     withHString(mediaType, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality, Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality)(it, h0, quality, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.CreateFromMediaTypeWithQuality")
+      it.call(IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality,
+              h0, quality, tmp.addr)
       result = adopt[HttpMediaTypeWithQualityHeaderValue](tmp)
 
-proc parseAdd*(self: HttpMediaTypeWithQualityHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpMediaTypeWithQualityHeaderValueCollection,
+               input: string) =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValueCollection, "IHttpMediaTypeWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd, Fn_IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd)(it, h0).check("HttpMediaTypeWithQualityHeaderValueCollection.ParseAdd")
+      it.call(IHttpMediaTypeWithQualityHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpMediaTypeWithQualityHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpMediaTypeWithQualityHeaderValueCollection,
+                  input: string): bool =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValueCollection, "IHttpMediaTypeWithQualityHeaderValueCollection", it):
+  withIface(self.p, IHttpMediaTypeWithQualityHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd, Fn_IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpMediaTypeWithQualityHeaderValueCollection.TryParseAdd")
+      it.call(IHttpMediaTypeWithQualityHeaderValueCollection_TryParseAdd, h0,
+              tmp.addr)
       result = tmp
 
-proc toString*(self: HttpMediaTypeWithQualityHeaderValueCollection): string  =
+proc toString*(self: HttpMediaTypeWithQualityHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMediaTypeWithQualityHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parseAdd*(self: HttpMethodHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpMethodHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpMethodHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpMethodHeaderValueCollection, "IHttpMethodHeaderValueCollection", it):
+  withIface(self.p, IHttpMethodHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpMethodHeaderValueCollection_ParseAdd, Fn_IHttpMethodHeaderValueCollection_ParseAdd)(it, h0).check("HttpMethodHeaderValueCollection.ParseAdd")
+      it.call(IHttpMethodHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpMethodHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpMethodHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpMethodHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpMethodHeaderValueCollection, "IHttpMethodHeaderValueCollection", it):
+  withIface(self.p, IHttpMethodHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpMethodHeaderValueCollection_TryParseAdd, Fn_IHttpMethodHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpMethodHeaderValueCollection.TryParseAdd")
+      it.call(IHttpMethodHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpMethodHeaderValueCollection): string  =
+proc toString*(self: HttpMethodHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpMethodHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMethodHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc name*(self: HttpNameValueHeaderValue): string  =
+proc name*(self: HttpNameValueHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.get_Name
-  withIface(self.p, IID_IHttpNameValueHeaderValue, "IHttpNameValueHeaderValue", it):
+  withIface(self.p, IHttpNameValueHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpNameValueHeaderValue_get_Name, Fn_IHttpNameValueHeaderValue_get_Name)(it, tmp.addr).check("HttpNameValueHeaderValue.get_Name")
+    it.call(IHttpNameValueHeaderValue_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc value*(self: HttpNameValueHeaderValue): string  =
+proc value*(self: HttpNameValueHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.get_Value
-  withIface(self.p, IID_IHttpNameValueHeaderValue, "IHttpNameValueHeaderValue", it):
+  withIface(self.p, IHttpNameValueHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpNameValueHeaderValue_get_Value, Fn_IHttpNameValueHeaderValue_get_Value)(it, tmp.addr).check("HttpNameValueHeaderValue.get_Value")
+    it.call(IHttpNameValueHeaderValue_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `value=`*(self: HttpNameValueHeaderValue, value: string)  =
+proc `value=`*(self: HttpNameValueHeaderValue, value: string) =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.put_Value
-  withIface(self.p, IID_IHttpNameValueHeaderValue, "IHttpNameValueHeaderValue", it):
+  withIface(self.p, IHttpNameValueHeaderValue, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpNameValueHeaderValue_put_Value, Fn_IHttpNameValueHeaderValue_put_Value)(it, h0).check("HttpNameValueHeaderValue.put_Value")
+      it.call(IHttpNameValueHeaderValue_put_Value, h0)
 
-proc toString*(self: HttpNameValueHeaderValue): string  =
+proc toString*(self: HttpNameValueHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpNameValueHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpNameValueHeaderValue], input: string): HttpNameValueHeaderValue  =
+proc parse*(_: typedesc[HttpNameValueHeaderValue], input: string): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue", IID_IHttpNameValueHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue",
+              IHttpNameValueHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpNameValueHeaderValueStatics_Parse, Fn_IHttpNameValueHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpNameValueHeaderValue.Parse")
+      it.call(IHttpNameValueHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpNameValueHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpNameValueHeaderValue], input: string): tuple[value: bool, nameValueHeaderValue: HttpNameValueHeaderValue]  =
+proc tryParse*(_: typedesc[HttpNameValueHeaderValue], input: string): tuple[value: bool, nameValueHeaderValue: HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue", IID_IHttpNameValueHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue",
+              IHttpNameValueHeaderValueStatics, it):
     withHString(input, h0):
       var nameValueHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpNameValueHeaderValueStatics_TryParse, Fn_IHttpNameValueHeaderValueStatics_TryParse)(it, h0, nameValueHeaderValue.addr, tmp.addr).check("HttpNameValueHeaderValue.TryParse")
+      it.call(IHttpNameValueHeaderValueStatics_TryParse, h0,
+              nameValueHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, nameValueHeaderValue: adopt[HttpNameValueHeaderValue](nameValueHeaderValue))
 
-proc createFromName*(_: typedesc[HttpNameValueHeaderValue], name: string): HttpNameValueHeaderValue  =
+proc createFromName*(_: typedesc[HttpNameValueHeaderValue], name: string): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromName
-  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue", IID_IHttpNameValueHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue",
+              IHttpNameValueHeaderValueFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpNameValueHeaderValueFactory_CreateFromName, Fn_IHttpNameValueHeaderValueFactory_CreateFromName)(it, h0, tmp.addr).check("HttpNameValueHeaderValue.CreateFromName")
+      it.call(IHttpNameValueHeaderValueFactory_CreateFromName, h0, tmp.addr)
       result = adopt[HttpNameValueHeaderValue](tmp)
 
-proc createFromNameWithValue*(_: typedesc[HttpNameValueHeaderValue], name: string, value: string): HttpNameValueHeaderValue  =
+proc createFromNameWithValue*(_: typedesc[HttpNameValueHeaderValue],
+                              name: string, value: string): HttpNameValueHeaderValue =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromNameWithValue
-  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue", IID_IHttpNameValueHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpNameValueHeaderValue",
+              IHttpNameValueHeaderValueFactory, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue, Fn_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue)(it, h0, h1, tmp.addr).check("HttpNameValueHeaderValue.CreateFromNameWithValue")
+        it.call(IHttpNameValueHeaderValueFactory_CreateFromNameWithValue, h0,
+                h1, tmp.addr)
         result = adopt[HttpNameValueHeaderValue](tmp)
 
-proc name*(self: HttpProductHeaderValue): string  =
+proc name*(self: HttpProductHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.get_Name
-  withIface(self.p, IID_IHttpProductHeaderValue, "IHttpProductHeaderValue", it):
+  withIface(self.p, IHttpProductHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpProductHeaderValue_get_Name, Fn_IHttpProductHeaderValue_get_Name)(it, tmp.addr).check("HttpProductHeaderValue.get_Name")
+    it.call(IHttpProductHeaderValue_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc version*(self: HttpProductHeaderValue): string  =
+proc version*(self: HttpProductHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.get_Version
-  withIface(self.p, IID_IHttpProductHeaderValue, "IHttpProductHeaderValue", it):
+  withIface(self.p, IHttpProductHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpProductHeaderValue_get_Version, Fn_IHttpProductHeaderValue_get_Version)(it, tmp.addr).check("HttpProductHeaderValue.get_Version")
+    it.call(IHttpProductHeaderValue_get_Version, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpProductHeaderValue): string  =
+proc toString*(self: HttpProductHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpProductHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpProductHeaderValue], input: string): HttpProductHeaderValue  =
+proc parse*(_: typedesc[HttpProductHeaderValue], input: string): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue", IID_IHttpProductHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue",
+              IHttpProductHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpProductHeaderValueStatics_Parse, Fn_IHttpProductHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpProductHeaderValue.Parse")
+      it.call(IHttpProductHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpProductHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpProductHeaderValue], input: string): tuple[value: bool, productHeaderValue: HttpProductHeaderValue]  =
+proc tryParse*(_: typedesc[HttpProductHeaderValue], input: string): tuple[value: bool, productHeaderValue: HttpProductHeaderValue] =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue", IID_IHttpProductHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue",
+              IHttpProductHeaderValueStatics, it):
     withHString(input, h0):
       var productHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpProductHeaderValueStatics_TryParse, Fn_IHttpProductHeaderValueStatics_TryParse)(it, h0, productHeaderValue.addr, tmp.addr).check("HttpProductHeaderValue.TryParse")
+      it.call(IHttpProductHeaderValueStatics_TryParse, h0,
+              productHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, productHeaderValue: adopt[HttpProductHeaderValue](productHeaderValue))
 
-proc createFromName*(_: typedesc[HttpProductHeaderValue], productName: string): HttpProductHeaderValue  =
+proc createFromName*(_: typedesc[HttpProductHeaderValue], productName: string): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromName
-  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue", IID_IHttpProductHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue",
+              IHttpProductHeaderValueFactory, it):
     withHString(productName, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpProductHeaderValueFactory_CreateFromName, Fn_IHttpProductHeaderValueFactory_CreateFromName)(it, h0, tmp.addr).check("HttpProductHeaderValue.CreateFromName")
+      it.call(IHttpProductHeaderValueFactory_CreateFromName, h0, tmp.addr)
       result = adopt[HttpProductHeaderValue](tmp)
 
-proc createFromNameWithVersion*(_: typedesc[HttpProductHeaderValue], productName: string, productVersion: string): HttpProductHeaderValue  =
+proc createFromNameWithVersion*(_: typedesc[HttpProductHeaderValue],
+                                productName: string, productVersion: string): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromNameWithVersion
-  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue", IID_IHttpProductHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductHeaderValue",
+              IHttpProductHeaderValueFactory, it):
     withHString(productName, h0):
       withHString(productVersion, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpProductHeaderValueFactory_CreateFromNameWithVersion, Fn_IHttpProductHeaderValueFactory_CreateFromNameWithVersion)(it, h0, h1, tmp.addr).check("HttpProductHeaderValue.CreateFromNameWithVersion")
+        it.call(IHttpProductHeaderValueFactory_CreateFromNameWithVersion, h0,
+                h1, tmp.addr)
         result = adopt[HttpProductHeaderValue](tmp)
 
-proc product*(self: HttpProductInfoHeaderValue): HttpProductHeaderValue  =
+proc product*(self: HttpProductInfoHeaderValue): HttpProductHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.get_Product
-  withIface(self.p, IID_IHttpProductInfoHeaderValue, "IHttpProductInfoHeaderValue", it):
+  withIface(self.p, IHttpProductInfoHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpProductInfoHeaderValue_get_Product, Fn_IHttpProductInfoHeaderValue_get_Product)(it, tmp.addr).check("HttpProductInfoHeaderValue.get_Product")
+    it.call(IHttpProductInfoHeaderValue_get_Product, tmp.addr)
     result = adopt[HttpProductHeaderValue](tmp)
 
-proc comment*(self: HttpProductInfoHeaderValue): string  =
+proc comment*(self: HttpProductInfoHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.get_Comment
-  withIface(self.p, IID_IHttpProductInfoHeaderValue, "IHttpProductInfoHeaderValue", it):
+  withIface(self.p, IHttpProductInfoHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpProductInfoHeaderValue_get_Comment, Fn_IHttpProductInfoHeaderValue_get_Comment)(it, tmp.addr).check("HttpProductInfoHeaderValue.get_Comment")
+    it.call(IHttpProductInfoHeaderValue_get_Comment, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpProductInfoHeaderValue): string  =
+proc toString*(self: HttpProductInfoHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpProductInfoHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpProductInfoHeaderValue], input: string): HttpProductInfoHeaderValue  =
+proc parse*(_: typedesc[HttpProductInfoHeaderValue], input: string): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue", IID_IHttpProductInfoHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue",
+              IHttpProductInfoHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpProductInfoHeaderValueStatics_Parse, Fn_IHttpProductInfoHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpProductInfoHeaderValue.Parse")
+      it.call(IHttpProductInfoHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpProductInfoHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpProductInfoHeaderValue], input: string): tuple[value: bool, productInfoHeaderValue: HttpProductInfoHeaderValue]  =
+proc tryParse*(_: typedesc[HttpProductInfoHeaderValue], input: string): tuple[value: bool, productInfoHeaderValue: HttpProductInfoHeaderValue] =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue", IID_IHttpProductInfoHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue",
+              IHttpProductInfoHeaderValueStatics, it):
     withHString(input, h0):
       var productInfoHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpProductInfoHeaderValueStatics_TryParse, Fn_IHttpProductInfoHeaderValueStatics_TryParse)(it, h0, productInfoHeaderValue.addr, tmp.addr).check("HttpProductInfoHeaderValue.TryParse")
+      it.call(IHttpProductInfoHeaderValueStatics_TryParse, h0,
+              productInfoHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, productInfoHeaderValue: adopt[HttpProductInfoHeaderValue](productInfoHeaderValue))
 
-proc createFromComment*(_: typedesc[HttpProductInfoHeaderValue], productComment: string): HttpProductInfoHeaderValue  =
+proc createFromComment*(_: typedesc[HttpProductInfoHeaderValue],
+                        productComment: string): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromComment
-  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue", IID_IHttpProductInfoHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue",
+              IHttpProductInfoHeaderValueFactory, it):
     withHString(productComment, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpProductInfoHeaderValueFactory_CreateFromComment, Fn_IHttpProductInfoHeaderValueFactory_CreateFromComment)(it, h0, tmp.addr).check("HttpProductInfoHeaderValue.CreateFromComment")
+      it.call(IHttpProductInfoHeaderValueFactory_CreateFromComment, h0, tmp.addr)
       result = adopt[HttpProductInfoHeaderValue](tmp)
 
-proc createFromNameWithVersion*(_: typedesc[HttpProductInfoHeaderValue], productName: string, productVersion: string): HttpProductInfoHeaderValue  =
+proc createFromNameWithVersion*(_: typedesc[HttpProductInfoHeaderValue],
+                                productName: string, productVersion: string): HttpProductInfoHeaderValue =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromNameWithVersion
-  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue", IID_IHttpProductInfoHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpProductInfoHeaderValue",
+              IHttpProductInfoHeaderValueFactory, it):
     withHString(productName, h0):
       withHString(productVersion, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion, Fn_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion)(it, h0, h1, tmp.addr).check("HttpProductInfoHeaderValue.CreateFromNameWithVersion")
+        it.call(IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion,
+                h0, h1, tmp.addr)
         result = adopt[HttpProductInfoHeaderValue](tmp)
 
-proc parseAdd*(self: HttpProductInfoHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpProductInfoHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpProductInfoHeaderValueCollection, "IHttpProductInfoHeaderValueCollection", it):
+  withIface(self.p, IHttpProductInfoHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpProductInfoHeaderValueCollection_ParseAdd, Fn_IHttpProductInfoHeaderValueCollection_ParseAdd)(it, h0).check("HttpProductInfoHeaderValueCollection.ParseAdd")
+      it.call(IHttpProductInfoHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpProductInfoHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpProductInfoHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpProductInfoHeaderValueCollection, "IHttpProductInfoHeaderValueCollection", it):
+  withIface(self.p, IHttpProductInfoHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpProductInfoHeaderValueCollection_TryParseAdd, Fn_IHttpProductInfoHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpProductInfoHeaderValueCollection.TryParseAdd")
+      it.call(IHttpProductInfoHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpProductInfoHeaderValueCollection): string  =
+proc toString*(self: HttpProductInfoHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpProductInfoHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc accept*(self: HttpRequestHeaderCollection): HttpMediaTypeWithQualityHeaderValueCollection  =
+proc accept*(self: HttpRequestHeaderCollection): HttpMediaTypeWithQualityHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Accept
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Accept, Fn_IHttpRequestHeaderCollection_get_Accept)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Accept")
+    it.call(IHttpRequestHeaderCollection_get_Accept, tmp.addr)
     result = adopt[HttpMediaTypeWithQualityHeaderValueCollection](tmp)
 
-proc acceptEncoding*(self: HttpRequestHeaderCollection): HttpContentCodingWithQualityHeaderValueCollection  =
+proc acceptEncoding*(self: HttpRequestHeaderCollection): HttpContentCodingWithQualityHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_AcceptEncoding
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_AcceptEncoding, Fn_IHttpRequestHeaderCollection_get_AcceptEncoding)(it, tmp.addr).check("HttpRequestHeaderCollection.get_AcceptEncoding")
+    it.call(IHttpRequestHeaderCollection_get_AcceptEncoding, tmp.addr)
     result = adopt[HttpContentCodingWithQualityHeaderValueCollection](tmp)
 
-proc acceptLanguage*(self: HttpRequestHeaderCollection): HttpLanguageRangeWithQualityHeaderValueCollection  =
+proc acceptLanguage*(self: HttpRequestHeaderCollection): HttpLanguageRangeWithQualityHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_AcceptLanguage
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_AcceptLanguage, Fn_IHttpRequestHeaderCollection_get_AcceptLanguage)(it, tmp.addr).check("HttpRequestHeaderCollection.get_AcceptLanguage")
+    it.call(IHttpRequestHeaderCollection_get_AcceptLanguage, tmp.addr)
     result = adopt[HttpLanguageRangeWithQualityHeaderValueCollection](tmp)
 
-proc authorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue  =
+proc authorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Authorization
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Authorization, Fn_IHttpRequestHeaderCollection_get_Authorization)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Authorization")
+    it.call(IHttpRequestHeaderCollection_get_Authorization, tmp.addr)
     result = adopt[HttpCredentialsHeaderValue](tmp)
 
-proc `authorization=`*(self: HttpRequestHeaderCollection, value: HttpCredentialsHeaderValue)  =
+proc `authorization=`*(self: HttpRequestHeaderCollection,
+                       value: HttpCredentialsHeaderValue) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Authorization
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
-    withIface(value.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", p0):
-      vcall(it, Slot_IHttpRequestHeaderCollection_put_Authorization, Fn_IHttpRequestHeaderCollection_put_Authorization)(it, p0).check("HttpRequestHeaderCollection.put_Authorization")
+  withIface(self.p, IHttpRequestHeaderCollection, it):
+    withIface(value.p, IHttpCredentialsHeaderValue, p0):
+      it.call(IHttpRequestHeaderCollection_put_Authorization, p0)
 
-proc cacheControl*(self: HttpRequestHeaderCollection): HttpCacheDirectiveHeaderValueCollection  =
+proc cacheControl*(self: HttpRequestHeaderCollection): HttpCacheDirectiveHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_CacheControl
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_CacheControl, Fn_IHttpRequestHeaderCollection_get_CacheControl)(it, tmp.addr).check("HttpRequestHeaderCollection.get_CacheControl")
+    it.call(IHttpRequestHeaderCollection_get_CacheControl, tmp.addr)
     result = adopt[HttpCacheDirectiveHeaderValueCollection](tmp)
 
-proc connection*(self: HttpRequestHeaderCollection): HttpConnectionOptionHeaderValueCollection  =
+proc connection*(self: HttpRequestHeaderCollection): HttpConnectionOptionHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Connection
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Connection, Fn_IHttpRequestHeaderCollection_get_Connection)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Connection")
+    it.call(IHttpRequestHeaderCollection_get_Connection, tmp.addr)
     result = adopt[HttpConnectionOptionHeaderValueCollection](tmp)
 
-proc cookie*(self: HttpRequestHeaderCollection): HttpCookiePairHeaderValueCollection  =
+proc cookie*(self: HttpRequestHeaderCollection): HttpCookiePairHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Cookie
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Cookie, Fn_IHttpRequestHeaderCollection_get_Cookie)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Cookie")
+    it.call(IHttpRequestHeaderCollection_get_Cookie, tmp.addr)
     result = adopt[HttpCookiePairHeaderValueCollection](tmp)
 
-proc date*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+proc date*(self: HttpRequestHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Date
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Date, Fn_IHttpRequestHeaderCollection_get_Date)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Date")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_Date")
+    it.call(IHttpRequestHeaderCollection_get_Date, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpRequestHeaderCollection.get_Date")
     release(tmp)
 
-proc `date=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+proc `date=`*(self: HttpRequestHeaderCollection, value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Date
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpRequestHeaderCollection_put_Date, Fn_IHttpRequestHeaderCollection_put_Date)(it, p0).check("HttpRequestHeaderCollection.put_Date")
+    it.call(IHttpRequestHeaderCollection_put_Date, p0)
 
-proc expect*(self: HttpRequestHeaderCollection): HttpExpectationHeaderValueCollection  =
+proc expect*(self: HttpRequestHeaderCollection): HttpExpectationHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Expect
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Expect, Fn_IHttpRequestHeaderCollection_get_Expect)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Expect")
+    it.call(IHttpRequestHeaderCollection_get_Expect, tmp.addr)
     result = adopt[HttpExpectationHeaderValueCollection](tmp)
 
-proc `from`*(self: HttpRequestHeaderCollection): string  =
+proc `from`*(self: HttpRequestHeaderCollection): string =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_From
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_From, Fn_IHttpRequestHeaderCollection_get_From)(it, tmp.addr).check("HttpRequestHeaderCollection.get_From")
+    it.call(IHttpRequestHeaderCollection_get_From, tmp.addr)
     result = takeString(tmp)
 
-proc `from=`*(self: HttpRequestHeaderCollection, value: string)  =
+proc `from=`*(self: HttpRequestHeaderCollection, value: string) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_From
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpRequestHeaderCollection_put_From, Fn_IHttpRequestHeaderCollection_put_From)(it, h0).check("HttpRequestHeaderCollection.put_From")
+      it.call(IHttpRequestHeaderCollection_put_From, h0)
 
-proc host*(self: HttpRequestHeaderCollection): HostName  =
+proc host*(self: HttpRequestHeaderCollection): HostName =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Host
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Host, Fn_IHttpRequestHeaderCollection_get_Host)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Host")
+    it.call(IHttpRequestHeaderCollection_get_Host, tmp.addr)
     result = adopt[HostName](tmp)
 
-proc `host=`*(self: HttpRequestHeaderCollection, value: HostName)  =
+proc `host=`*(self: HttpRequestHeaderCollection, value: HostName) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Host
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
-    withIface(value.p, IID_IHostName, "IHostName", p0):
-      vcall(it, Slot_IHttpRequestHeaderCollection_put_Host, Fn_IHttpRequestHeaderCollection_put_Host)(it, p0).check("HttpRequestHeaderCollection.put_Host")
+  withIface(self.p, IHttpRequestHeaderCollection, it):
+    withIface(value.p, IHostName, p0):
+      it.call(IHttpRequestHeaderCollection_put_Host, p0)
 
-proc ifModifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+proc ifModifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfModifiedSince
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_IfModifiedSince, Fn_IHttpRequestHeaderCollection_get_IfModifiedSince)(it, tmp.addr).check("HttpRequestHeaderCollection.get_IfModifiedSince")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfModifiedSince")
+    it.call(IHttpRequestHeaderCollection_get_IfModifiedSince, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpRequestHeaderCollection.get_IfModifiedSince")
     release(tmp)
 
-proc `ifModifiedSince=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+proc `ifModifiedSince=`*(self: HttpRequestHeaderCollection,
+                         value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_IfModifiedSince
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpRequestHeaderCollection_put_IfModifiedSince, Fn_IHttpRequestHeaderCollection_put_IfModifiedSince)(it, p0).check("HttpRequestHeaderCollection.put_IfModifiedSince")
+    it.call(IHttpRequestHeaderCollection_put_IfModifiedSince, p0)
 
-proc ifUnmodifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
+proc ifUnmodifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfUnmodifiedSince
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_IfUnmodifiedSince, Fn_IHttpRequestHeaderCollection_get_IfUnmodifiedSince)(it, tmp.addr).check("HttpRequestHeaderCollection.get_IfUnmodifiedSince")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfUnmodifiedSince")
+    it.call(IHttpRequestHeaderCollection_get_IfUnmodifiedSince, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpRequestHeaderCollection.get_IfUnmodifiedSince")
     release(tmp)
 
-proc `ifUnmodifiedSince=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+proc `ifUnmodifiedSince=`*(self: HttpRequestHeaderCollection,
+                           value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_IfUnmodifiedSince
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpRequestHeaderCollection_put_IfUnmodifiedSince, Fn_IHttpRequestHeaderCollection_put_IfUnmodifiedSince)(it, p0).check("HttpRequestHeaderCollection.put_IfUnmodifiedSince")
+    it.call(IHttpRequestHeaderCollection_put_IfUnmodifiedSince, p0)
 
-proc maxForwards*(self: HttpRequestHeaderCollection): Option[uint32]  =
+proc maxForwards*(self: HttpRequestHeaderCollection): Option[uint32] =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_MaxForwards
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_MaxForwards, Fn_IHttpRequestHeaderCollection_get_MaxForwards)(it, tmp.addr).check("HttpRequestHeaderCollection.get_MaxForwards")
-    result = readReference[uint32](tmp, IID_IReference_1_U4, "HttpRequestHeaderCollection.get_MaxForwards")
+    it.call(IHttpRequestHeaderCollection_get_MaxForwards, tmp.addr)
+    result = readReference[uint32](tmp, IID_IReference_1_U4,
+                                   "HttpRequestHeaderCollection.get_MaxForwards")
     release(tmp)
 
-proc `maxForwards=`*(self: HttpRequestHeaderCollection, value: Option[uint32])  =
+proc `maxForwards=`*(self: HttpRequestHeaderCollection, value: Option[uint32]) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_MaxForwards
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpRequestHeaderCollection_put_MaxForwards, Fn_IHttpRequestHeaderCollection_put_MaxForwards)(it, p0).check("HttpRequestHeaderCollection.put_MaxForwards")
+    it.call(IHttpRequestHeaderCollection_put_MaxForwards, p0)
 
-proc proxyAuthorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue  =
+proc proxyAuthorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_ProxyAuthorization
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_ProxyAuthorization, Fn_IHttpRequestHeaderCollection_get_ProxyAuthorization)(it, tmp.addr).check("HttpRequestHeaderCollection.get_ProxyAuthorization")
+    it.call(IHttpRequestHeaderCollection_get_ProxyAuthorization, tmp.addr)
     result = adopt[HttpCredentialsHeaderValue](tmp)
 
-proc `proxyAuthorization=`*(self: HttpRequestHeaderCollection, value: HttpCredentialsHeaderValue)  =
+proc `proxyAuthorization=`*(self: HttpRequestHeaderCollection,
+                            value: HttpCredentialsHeaderValue) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_ProxyAuthorization
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
-    withIface(value.p, IID_IHttpCredentialsHeaderValue, "IHttpCredentialsHeaderValue", p0):
-      vcall(it, Slot_IHttpRequestHeaderCollection_put_ProxyAuthorization, Fn_IHttpRequestHeaderCollection_put_ProxyAuthorization)(it, p0).check("HttpRequestHeaderCollection.put_ProxyAuthorization")
+  withIface(self.p, IHttpRequestHeaderCollection, it):
+    withIface(value.p, IHttpCredentialsHeaderValue, p0):
+      it.call(IHttpRequestHeaderCollection_put_ProxyAuthorization, p0)
 
-proc referer*(self: HttpRequestHeaderCollection): Uri  =
+proc referer*(self: HttpRequestHeaderCollection): Uri =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Referer
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_Referer, Fn_IHttpRequestHeaderCollection_get_Referer)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Referer")
+    it.call(IHttpRequestHeaderCollection_get_Referer, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `referer=`*(self: HttpRequestHeaderCollection, value: Uri)  =
+proc `referer=`*(self: HttpRequestHeaderCollection, value: Uri) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Referer
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpRequestHeaderCollection_put_Referer, Fn_IHttpRequestHeaderCollection_put_Referer)(it, p0).check("HttpRequestHeaderCollection.put_Referer")
+  withIface(self.p, IHttpRequestHeaderCollection, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IHttpRequestHeaderCollection_put_Referer, p0)
 
-proc transferEncoding*(self: HttpRequestHeaderCollection): HttpTransferCodingHeaderValueCollection  =
+proc transferEncoding*(self: HttpRequestHeaderCollection): HttpTransferCodingHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_TransferEncoding
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_TransferEncoding, Fn_IHttpRequestHeaderCollection_get_TransferEncoding)(it, tmp.addr).check("HttpRequestHeaderCollection.get_TransferEncoding")
+    it.call(IHttpRequestHeaderCollection_get_TransferEncoding, tmp.addr)
     result = adopt[HttpTransferCodingHeaderValueCollection](tmp)
 
-proc userAgent*(self: HttpRequestHeaderCollection): HttpProductInfoHeaderValueCollection  =
+proc userAgent*(self: HttpRequestHeaderCollection): HttpProductInfoHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_UserAgent
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestHeaderCollection_get_UserAgent, Fn_IHttpRequestHeaderCollection_get_UserAgent)(it, tmp.addr).check("HttpRequestHeaderCollection.get_UserAgent")
+    it.call(IHttpRequestHeaderCollection_get_UserAgent, tmp.addr)
     result = adopt[HttpProductInfoHeaderValueCollection](tmp)
 
-proc append*(self: HttpRequestHeaderCollection, name: string, value: string)  =
+proc append*(self: HttpRequestHeaderCollection, name: string, value: string) =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.Append
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_IHttpRequestHeaderCollection_Append, Fn_IHttpRequestHeaderCollection_Append)(it, h0, h1).check("HttpRequestHeaderCollection.Append")
+        it.call(IHttpRequestHeaderCollection_Append, h0, h1)
 
-proc tryAppendWithoutValidation*(self: HttpRequestHeaderCollection, name: string, value: string): bool  =
+proc tryAppendWithoutValidation*(self: HttpRequestHeaderCollection,
+                                 name: string, value: string): bool =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.TryAppendWithoutValidation
-  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+  withIface(self.p, IHttpRequestHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: bool
-        vcall(it, Slot_IHttpRequestHeaderCollection_TryAppendWithoutValidation, Fn_IHttpRequestHeaderCollection_TryAppendWithoutValidation)(it, h0, h1, tmp.addr).check("HttpRequestHeaderCollection.TryAppendWithoutValidation")
+        it.call(IHttpRequestHeaderCollection_TryAppendWithoutValidation, h0, h1,
+                tmp.addr)
         result = tmp
 
-proc toString*(self: HttpRequestHeaderCollection): string  =
+proc toString*(self: HttpRequestHeaderCollection): string =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpRequestHeaderCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc age*(self: HttpResponseHeaderCollection): Option[TimeSpan]  =
+proc age*(self: HttpResponseHeaderCollection): Option[TimeSpan] =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Age
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_Age, Fn_IHttpResponseHeaderCollection_get_Age)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Age")
-    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpResponseHeaderCollection.get_Age")
+    it.call(IHttpResponseHeaderCollection_get_Age, tmp.addr)
+    result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
+                                     "HttpResponseHeaderCollection.get_Age")
     release(tmp)
 
-proc `age=`*(self: HttpResponseHeaderCollection, value: Option[TimeSpan])  =
+proc `age=`*(self: HttpResponseHeaderCollection, value: Option[TimeSpan]) =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_Age
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpResponseHeaderCollection_put_Age, Fn_IHttpResponseHeaderCollection_put_Age)(it, p0).check("HttpResponseHeaderCollection.put_Age")
+    it.call(IHttpResponseHeaderCollection_put_Age, p0)
 
-proc allow*(self: HttpResponseHeaderCollection): HttpMethodHeaderValueCollection  =
+proc allow*(self: HttpResponseHeaderCollection): HttpMethodHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Allow
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_Allow, Fn_IHttpResponseHeaderCollection_get_Allow)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Allow")
+    it.call(IHttpResponseHeaderCollection_get_Allow, tmp.addr)
     result = adopt[HttpMethodHeaderValueCollection](tmp)
 
-proc cacheControl*(self: HttpResponseHeaderCollection): HttpCacheDirectiveHeaderValueCollection  =
+proc cacheControl*(self: HttpResponseHeaderCollection): HttpCacheDirectiveHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_CacheControl
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_CacheControl, Fn_IHttpResponseHeaderCollection_get_CacheControl)(it, tmp.addr).check("HttpResponseHeaderCollection.get_CacheControl")
+    it.call(IHttpResponseHeaderCollection_get_CacheControl, tmp.addr)
     result = adopt[HttpCacheDirectiveHeaderValueCollection](tmp)
 
-proc connection*(self: HttpResponseHeaderCollection): HttpConnectionOptionHeaderValueCollection  =
+proc connection*(self: HttpResponseHeaderCollection): HttpConnectionOptionHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Connection
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_Connection, Fn_IHttpResponseHeaderCollection_get_Connection)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Connection")
+    it.call(IHttpResponseHeaderCollection_get_Connection, tmp.addr)
     result = adopt[HttpConnectionOptionHeaderValueCollection](tmp)
 
-proc date*(self: HttpResponseHeaderCollection): Option[DateTime]  =
+proc date*(self: HttpResponseHeaderCollection): Option[DateTime] =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Date
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_Date, Fn_IHttpResponseHeaderCollection_get_Date)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Date")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpResponseHeaderCollection.get_Date")
+    it.call(IHttpResponseHeaderCollection_get_Date, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpResponseHeaderCollection.get_Date")
     release(tmp)
 
-proc `date=`*(self: HttpResponseHeaderCollection, value: Option[DateTime])  =
+proc `date=`*(self: HttpResponseHeaderCollection, value: Option[DateTime]) =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_Date
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpResponseHeaderCollection_put_Date, Fn_IHttpResponseHeaderCollection_put_Date)(it, p0).check("HttpResponseHeaderCollection.put_Date")
+    it.call(IHttpResponseHeaderCollection_put_Date, p0)
 
-proc location*(self: HttpResponseHeaderCollection): Uri  =
+proc location*(self: HttpResponseHeaderCollection): Uri =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Location
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_Location, Fn_IHttpResponseHeaderCollection_get_Location)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Location")
+    it.call(IHttpResponseHeaderCollection_get_Location, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `location=`*(self: HttpResponseHeaderCollection, value: Uri)  =
+proc `location=`*(self: HttpResponseHeaderCollection, value: Uri) =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_Location
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpResponseHeaderCollection_put_Location, Fn_IHttpResponseHeaderCollection_put_Location)(it, p0).check("HttpResponseHeaderCollection.put_Location")
+  withIface(self.p, IHttpResponseHeaderCollection, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IHttpResponseHeaderCollection_put_Location, p0)
 
-proc proxyAuthenticate*(self: HttpResponseHeaderCollection): HttpChallengeHeaderValueCollection  =
+proc proxyAuthenticate*(self: HttpResponseHeaderCollection): HttpChallengeHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_ProxyAuthenticate
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_ProxyAuthenticate, Fn_IHttpResponseHeaderCollection_get_ProxyAuthenticate)(it, tmp.addr).check("HttpResponseHeaderCollection.get_ProxyAuthenticate")
+    it.call(IHttpResponseHeaderCollection_get_ProxyAuthenticate, tmp.addr)
     result = adopt[HttpChallengeHeaderValueCollection](tmp)
 
-proc retryAfter*(self: HttpResponseHeaderCollection): HttpDateOrDeltaHeaderValue  =
+proc retryAfter*(self: HttpResponseHeaderCollection): HttpDateOrDeltaHeaderValue =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_RetryAfter
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_RetryAfter, Fn_IHttpResponseHeaderCollection_get_RetryAfter)(it, tmp.addr).check("HttpResponseHeaderCollection.get_RetryAfter")
+    it.call(IHttpResponseHeaderCollection_get_RetryAfter, tmp.addr)
     result = adopt[HttpDateOrDeltaHeaderValue](tmp)
 
-proc `retryAfter=`*(self: HttpResponseHeaderCollection, value: HttpDateOrDeltaHeaderValue)  =
+proc `retryAfter=`*(self: HttpResponseHeaderCollection,
+                    value: HttpDateOrDeltaHeaderValue) =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_RetryAfter
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
-    withIface(value.p, IID_IHttpDateOrDeltaHeaderValue, "IHttpDateOrDeltaHeaderValue", p0):
-      vcall(it, Slot_IHttpResponseHeaderCollection_put_RetryAfter, Fn_IHttpResponseHeaderCollection_put_RetryAfter)(it, p0).check("HttpResponseHeaderCollection.put_RetryAfter")
+  withIface(self.p, IHttpResponseHeaderCollection, it):
+    withIface(value.p, IHttpDateOrDeltaHeaderValue, p0):
+      it.call(IHttpResponseHeaderCollection_put_RetryAfter, p0)
 
-proc transferEncoding*(self: HttpResponseHeaderCollection): HttpTransferCodingHeaderValueCollection  =
+proc transferEncoding*(self: HttpResponseHeaderCollection): HttpTransferCodingHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_TransferEncoding
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_TransferEncoding, Fn_IHttpResponseHeaderCollection_get_TransferEncoding)(it, tmp.addr).check("HttpResponseHeaderCollection.get_TransferEncoding")
+    it.call(IHttpResponseHeaderCollection_get_TransferEncoding, tmp.addr)
     result = adopt[HttpTransferCodingHeaderValueCollection](tmp)
 
-proc wwwAuthenticate*(self: HttpResponseHeaderCollection): HttpChallengeHeaderValueCollection  =
+proc wwwAuthenticate*(self: HttpResponseHeaderCollection): HttpChallengeHeaderValueCollection =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_WwwAuthenticate
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseHeaderCollection_get_WwwAuthenticate, Fn_IHttpResponseHeaderCollection_get_WwwAuthenticate)(it, tmp.addr).check("HttpResponseHeaderCollection.get_WwwAuthenticate")
+    it.call(IHttpResponseHeaderCollection_get_WwwAuthenticate, tmp.addr)
     result = adopt[HttpChallengeHeaderValueCollection](tmp)
 
-proc append*(self: HttpResponseHeaderCollection, name: string, value: string)  =
+proc append*(self: HttpResponseHeaderCollection, name: string, value: string) =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.Append
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_IHttpResponseHeaderCollection_Append, Fn_IHttpResponseHeaderCollection_Append)(it, h0, h1).check("HttpResponseHeaderCollection.Append")
+        it.call(IHttpResponseHeaderCollection_Append, h0, h1)
 
-proc tryAppendWithoutValidation*(self: HttpResponseHeaderCollection, name: string, value: string): bool  =
+proc tryAppendWithoutValidation*(self: HttpResponseHeaderCollection,
+                                 name: string, value: string): bool =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.TryAppendWithoutValidation
-  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+  withIface(self.p, IHttpResponseHeaderCollection, it):
     withHString(name, h0):
       withHString(value, h1):
         var tmp: bool
-        vcall(it, Slot_IHttpResponseHeaderCollection_TryAppendWithoutValidation, Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation)(it, h0, h1, tmp.addr).check("HttpResponseHeaderCollection.TryAppendWithoutValidation")
+        it.call(IHttpResponseHeaderCollection_TryAppendWithoutValidation, h0,
+                h1, tmp.addr)
         result = tmp
 
-proc toString*(self: HttpResponseHeaderCollection): string  =
+proc toString*(self: HttpResponseHeaderCollection): string =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpResponseHeaderCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parameters*(self: HttpTransferCodingHeaderValue): seq[HttpNameValueHeaderValue]  =
+proc parameters*(self: HttpTransferCodingHeaderValue): seq[HttpNameValueHeaderValue] =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.get_Parameters
-  withIface(self.p, IID_IHttpTransferCodingHeaderValue, "IHttpTransferCodingHeaderValue", it):
+  withIface(self.p, IHttpTransferCodingHeaderValue, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpTransferCodingHeaderValue_get_Parameters, Fn_IHttpTransferCodingHeaderValue_get_Parameters)(it, tmp.addr).check("HttpTransferCodingHeaderValue.get_Parameters")
-    result = toSeq[HttpNameValueHeaderValue](tmp, IID_IVector_1_HttpNameValueHeaderValue)
+    it.call(IHttpTransferCodingHeaderValue_get_Parameters, tmp.addr)
+    result = toSeq[HttpNameValueHeaderValue](tmp,
+                                             IID_IVector_1_HttpNameValueHeaderValue)
     release(tmp)
 
-proc value*(self: HttpTransferCodingHeaderValue): string  =
+proc value*(self: HttpTransferCodingHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.get_Value
-  withIface(self.p, IID_IHttpTransferCodingHeaderValue, "IHttpTransferCodingHeaderValue", it):
+  withIface(self.p, IHttpTransferCodingHeaderValue, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpTransferCodingHeaderValue_get_Value, Fn_IHttpTransferCodingHeaderValue_get_Value)(it, tmp.addr).check("HttpTransferCodingHeaderValue.get_Value")
+    it.call(IHttpTransferCodingHeaderValue_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpTransferCodingHeaderValue): string  =
+proc toString*(self: HttpTransferCodingHeaderValue): string =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpTransferCodingHeaderValue.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc parse*(_: typedesc[HttpTransferCodingHeaderValue], input: string): HttpTransferCodingHeaderValue  =
+proc parse*(_: typedesc[HttpTransferCodingHeaderValue], input: string): HttpTransferCodingHeaderValue =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Parse
-  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue", IID_IHttpTransferCodingHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue",
+              IHttpTransferCodingHeaderValueStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpTransferCodingHeaderValueStatics_Parse, Fn_IHttpTransferCodingHeaderValueStatics_Parse)(it, h0, tmp.addr).check("HttpTransferCodingHeaderValue.Parse")
+      it.call(IHttpTransferCodingHeaderValueStatics_Parse, h0, tmp.addr)
       result = adopt[HttpTransferCodingHeaderValue](tmp)
 
-proc tryParse*(_: typedesc[HttpTransferCodingHeaderValue], input: string): tuple[value: bool, transferCodingHeaderValue: HttpTransferCodingHeaderValue]  =
+proc tryParse*(_: typedesc[HttpTransferCodingHeaderValue], input: string): tuple[value: bool, transferCodingHeaderValue: HttpTransferCodingHeaderValue] =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.TryParse
-  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue", IID_IHttpTransferCodingHeaderValueStatics, it):
+  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue",
+              IHttpTransferCodingHeaderValueStatics, it):
     withHString(input, h0):
       var transferCodingHeaderValue: pointer
       var ret: bool
       var tmp: bool
-      vcall(it, Slot_IHttpTransferCodingHeaderValueStatics_TryParse, Fn_IHttpTransferCodingHeaderValueStatics_TryParse)(it, h0, transferCodingHeaderValue.addr, tmp.addr).check("HttpTransferCodingHeaderValue.TryParse")
+      it.call(IHttpTransferCodingHeaderValueStatics_TryParse, h0,
+              transferCodingHeaderValue.addr, tmp.addr)
       ret = tmp
       result = (value: ret, transferCodingHeaderValue: adopt[HttpTransferCodingHeaderValue](transferCodingHeaderValue))
 
-proc create*(_: typedesc[HttpTransferCodingHeaderValue], input: string): HttpTransferCodingHeaderValue  =
+proc create*(_: typedesc[HttpTransferCodingHeaderValue], input: string): HttpTransferCodingHeaderValue =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Create
-  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue", IID_IHttpTransferCodingHeaderValueFactory, it):
+  withStatics("Windows.Web.Http.Headers.HttpTransferCodingHeaderValue",
+              IHttpTransferCodingHeaderValueFactory, it):
     withHString(input, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpTransferCodingHeaderValueFactory_Create, Fn_IHttpTransferCodingHeaderValueFactory_Create)(it, h0, tmp.addr).check("HttpTransferCodingHeaderValue.Create")
+      it.call(IHttpTransferCodingHeaderValueFactory_Create, h0, tmp.addr)
       result = adopt[HttpTransferCodingHeaderValue](tmp)
 
-proc parseAdd*(self: HttpTransferCodingHeaderValueCollection, input: string)  =
+proc parseAdd*(self: HttpTransferCodingHeaderValueCollection, input: string) =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection.ParseAdd
-  withIface(self.p, IID_IHttpTransferCodingHeaderValueCollection, "IHttpTransferCodingHeaderValueCollection", it):
+  withIface(self.p, IHttpTransferCodingHeaderValueCollection, it):
     withHString(input, h0):
-      vcall(it, Slot_IHttpTransferCodingHeaderValueCollection_ParseAdd, Fn_IHttpTransferCodingHeaderValueCollection_ParseAdd)(it, h0).check("HttpTransferCodingHeaderValueCollection.ParseAdd")
+      it.call(IHttpTransferCodingHeaderValueCollection_ParseAdd, h0)
 
-proc tryParseAdd*(self: HttpTransferCodingHeaderValueCollection, input: string): bool  =
+proc tryParseAdd*(self: HttpTransferCodingHeaderValueCollection, input: string): bool =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection.TryParseAdd
-  withIface(self.p, IID_IHttpTransferCodingHeaderValueCollection, "IHttpTransferCodingHeaderValueCollection", it):
+  withIface(self.p, IHttpTransferCodingHeaderValueCollection, it):
     withHString(input, h0):
       var tmp: bool
-      vcall(it, Slot_IHttpTransferCodingHeaderValueCollection_TryParseAdd, Fn_IHttpTransferCodingHeaderValueCollection_TryParseAdd)(it, h0, tmp.addr).check("HttpTransferCodingHeaderValueCollection.TryParseAdd")
+      it.call(IHttpTransferCodingHeaderValueCollection_TryParseAdd, h0, tmp.addr)
       result = tmp
 
-proc toString*(self: HttpTransferCodingHeaderValueCollection): string  =
+proc toString*(self: HttpTransferCodingHeaderValueCollection): string =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpTransferCodingHeaderValueCollection.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc headers*(self: HttpBufferContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpBufferContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpBufferContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpBufferContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpBufferContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpBufferContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpBufferContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpBufferContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpBufferContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpBufferContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpBufferContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpBufferContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpBufferContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpBufferContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpBufferContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpBufferContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpBufferContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpBufferContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpBufferContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress, "HttpBufferContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpBufferContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpBufferContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpBufferContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpBufferContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpBufferContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpBufferContent.WriteToStreamAsync")
 
-proc close*(self: HttpBufferContent)  =
+proc close*(self: HttpBufferContent) =
   ## Windows.Web.Http.HttpBufferContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpBufferContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpBufferContent): string  =
+proc toString*(self: HttpBufferContent): string =
   ## Windows.Web.Http.HttpBufferContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpBufferContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc createFromBuffer*(_: typedesc[HttpBufferContent], content: Buffer): HttpBufferContent  =
+proc createFromBuffer*(_: typedesc[HttpBufferContent], content: Buffer): HttpBufferContent =
   ## Windows.Web.Http.HttpBufferContent.CreateFromBuffer
-  withStatics("Windows.Web.Http.HttpBufferContent", IID_IHttpBufferContentFactory, it):
-    withIface(content.p, IID_IBuffer, "IBuffer", p0):
+  withStatics("Windows.Web.Http.HttpBufferContent", IHttpBufferContentFactory,
+              it):
+    withIface(content.p, IBuffer, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpBufferContentFactory_CreateFromBuffer, Fn_IHttpBufferContentFactory_CreateFromBuffer)(it, p0, tmp.addr).check("HttpBufferContent.CreateFromBuffer")
+      it.call(IHttpBufferContentFactory_CreateFromBuffer, p0, tmp.addr)
       result = adopt[HttpBufferContent](tmp)
 
-proc createFromBufferWithOffset*(_: typedesc[HttpBufferContent], content: Buffer, offset: uint32, count: uint32): HttpBufferContent  =
+proc createFromBufferWithOffset*(_: typedesc[HttpBufferContent],
+                                 content: Buffer, offset: uint32, count: uint32): HttpBufferContent =
   ## Windows.Web.Http.HttpBufferContent.CreateFromBufferWithOffset
-  withStatics("Windows.Web.Http.HttpBufferContent", IID_IHttpBufferContentFactory, it):
-    withIface(content.p, IID_IBuffer, "IBuffer", p0):
+  withStatics("Windows.Web.Http.HttpBufferContent", IHttpBufferContentFactory,
+              it):
+    withIface(content.p, IBuffer, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpBufferContentFactory_CreateFromBufferWithOffset, Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset)(it, p0, offset, count, tmp.addr).check("HttpBufferContent.CreateFromBufferWithOffset")
+      it.call(IHttpBufferContentFactory_CreateFromBufferWithOffset, p0, offset,
+              count, tmp.addr)
       result = adopt[HttpBufferContent](tmp)
 
 proc newHttpClient*(): HttpClient =
@@ -3358,4084 +3437,4371 @@ proc newHttpClient*(): HttpClient =
 proc deleteAsync*(self: HttpClient, uri: Uri): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.DeleteAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_DeleteAsync, Fn_IHttpClient_DeleteAsync)(it, p0, op.addr).check("HttpClient.DeleteAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.DeleteAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_DeleteAsync, p0, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.DeleteAsync"))
 
 proc getAsync*(self: HttpClient, uri: Uri): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.GetAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_GetAsync, Fn_IHttpClient_GetAsync)(it, p0, op.addr).check("HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.GetAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_GetAsync, p0, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.GetAsync"))
 
-proc getAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
+proc getAsync*(self: HttpClient, uri: Uri,
+               completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.GetAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_GetAsync2, Fn_IHttpClient_GetAsync2)(it, p0, completionOption, op.addr).check("HttpClient.GetAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.GetAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_GetAsync2, p0, completionOption, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.GetAsync"))
 
 proc getBufferAsync*(self: HttpClient, uri: Uri): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpClient.GetBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_GetBufferAsync, Fn_IHttpClient_GetBufferAsync)(it, p0, op.addr).check("HttpClient.GetBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress, alProgress, "HttpClient.GetBufferAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_GetBufferAsync, p0, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_HttpProgress,
+                                           alProgress,
+                                           "HttpClient.GetBufferAsync"))
 
 proc getInputStreamAsync*(self: HttpClient, uri: Uri): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpClient.GetInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_GetInputStreamAsync, Fn_IHttpClient_GetInputStreamAsync)(it, p0, op.addr).check("HttpClient.GetInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress, alProgress, "HttpClient.GetInputStreamAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_GetInputStreamAsync, p0, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_HttpProgress,
+                                                alProgress,
+                                                "HttpClient.GetInputStreamAsync"))
 
 proc getStringAsync*(self: HttpClient, uri: Uri): Future[string] {.async.} =
   ## Windows.Web.Http.HttpClient.GetStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient_GetStringAsync, Fn_IHttpClient_GetStringAsync)(it, p0, op.addr).check("HttpClient.GetStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress, alProgress, "HttpClient.GetStringAsync")
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient_GetStringAsync, p0, op.addr)
+  result = await awaitString(op,
+                             IID_IAsyncOperationWithProgress_2_String_HttpProgress,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_HttpProgress,
+                             alProgress, "HttpClient.GetStringAsync")
 
 proc postAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.PostAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
-        vcall(it, Slot_IHttpClient_PostAsync, Fn_IHttpClient_PostAsync)(it, p0, p1, op.addr).check("HttpClient.PostAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.PostAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(content.p, IHttpContent, p1):
+        it.call(IHttpClient_PostAsync, p0, p1, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.PostAsync"))
 
 proc putAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.PutAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
-        vcall(it, Slot_IHttpClient_PutAsync, Fn_IHttpClient_PutAsync)(it, p0, p1, op.addr).check("HttpClient.PutAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.PutAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(content.p, IHttpContent, p1):
+        it.call(IHttpClient_PutAsync, p0, p1, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.PutAsync"))
 
 proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpClient_SendRequestAsync, Fn_IHttpClient_SendRequestAsync)(it, p0, op.addr).check("HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.SendRequestAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(request.p, IHttpRequestMessage, p0):
+      it.call(IHttpClient_SendRequestAsync, p0, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.SendRequestAsync"))
 
-proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage, completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
+proc sendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
+                       completionOption: HttpCompletionOption): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.HttpClient.SendRequestAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpClient_SendRequestAsync2, Fn_IHttpClient_SendRequestAsync2)(it, p0, completionOption, op.addr).check("HttpClient.SendRequestAsync")
-  result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress, alProgress, "HttpClient.SendRequestAsync"))
+  withIface(self.p, IHttpClient, it):
+    withIface(request.p, IHttpRequestMessage, p0):
+      it.call(IHttpClient_SendRequestAsync2, p0, completionOption, op.addr)
+  result = adopt[HttpResponseMessage](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpResponseMessage_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.SendRequestAsync"))
 
-proc defaultRequestHeaders*(self: HttpClient): HttpRequestHeaderCollection  =
+proc defaultRequestHeaders*(self: HttpClient): HttpRequestHeaderCollection =
   ## Windows.Web.Http.HttpClient.get_DefaultRequestHeaders
-  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
+  withIface(self.p, IHttpClient, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpClient_get_DefaultRequestHeaders, Fn_IHttpClient_get_DefaultRequestHeaders)(it, tmp.addr).check("HttpClient.get_DefaultRequestHeaders")
+    it.call(IHttpClient_get_DefaultRequestHeaders, tmp.addr)
     result = adopt[HttpRequestHeaderCollection](tmp)
 
 proc tryDeleteAsync*(self: HttpClient, uri: Uri): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryDeleteAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryDeleteAsync, Fn_IHttpClient2_TryDeleteAsync)(it, p0, op.addr).check("HttpClient.TryDeleteAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryDeleteAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryDeleteAsync, p0, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TryDeleteAsync"))
 
 proc tryGetAsync*(self: HttpClient, uri: Uri): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryGetAsync, Fn_IHttpClient2_TryGetAsync)(it, p0, op.addr).check("HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryGetAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryGetAsync, p0, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TryGetAsync"))
 
-proc tryGetAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
+proc tryGetAsync*(self: HttpClient, uri: Uri,
+                  completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryGetAsync2, Fn_IHttpClient2_TryGetAsync2)(it, p0, completionOption, op.addr).check("HttpClient.TryGetAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryGetAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryGetAsync2, p0, completionOption, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TryGetAsync"))
 
 proc tryGetBufferAsync*(self: HttpClient, uri: Uri): Future[HttpGetBufferResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryGetBufferAsync, Fn_IHttpClient2_TryGetBufferAsync)(it, p0, op.addr).check("HttpClient.TryGetBufferAsync")
-  result = adopt[HttpGetBufferResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress, alProgress, "HttpClient.TryGetBufferAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryGetBufferAsync, p0, op.addr)
+  result = adopt[HttpGetBufferResult](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpGetBufferResult_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetBufferResult_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.TryGetBufferAsync"))
 
 proc tryGetInputStreamAsync*(self: HttpClient, uri: Uri): Future[HttpGetInputStreamResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryGetInputStreamAsync, Fn_IHttpClient2_TryGetInputStreamAsync)(it, p0, op.addr).check("HttpClient.TryGetInputStreamAsync")
-  result = adopt[HttpGetInputStreamResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress, alProgress, "HttpClient.TryGetInputStreamAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryGetInputStreamAsync, p0, op.addr)
+  result = adopt[HttpGetInputStreamResult](await awaitObject(op,
+                                                             IID_IAsyncOperationWithProgress_2_HttpGetInputStreamResult_HttpProgress,
+                                                             IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetInputStreamResult_HttpProgress,
+                                                             alProgress,
+                                                             "HttpClient.TryGetInputStreamAsync"))
 
 proc tryGetStringAsync*(self: HttpClient, uri: Uri): Future[HttpGetStringResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryGetStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpClient2_TryGetStringAsync, Fn_IHttpClient2_TryGetStringAsync)(it, p0, op.addr).check("HttpClient.TryGetStringAsync")
-  result = adopt[HttpGetStringResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress, alProgress, "HttpClient.TryGetStringAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(IHttpClient2_TryGetStringAsync, p0, op.addr)
+  result = adopt[HttpGetStringResult](await awaitObject(op,
+                                                        IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress,
+                                                        IID_AsyncOperationWithProgressCompletedHandler_2_HttpGetStringResult_HttpProgress,
+                                                        alProgress,
+                                                        "HttpClient.TryGetStringAsync"))
 
 proc tryPostAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryPostAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
-        vcall(it, Slot_IHttpClient2_TryPostAsync, Fn_IHttpClient2_TryPostAsync)(it, p0, p1, op.addr).check("HttpClient.TryPostAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryPostAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(content.p, IHttpContent, p1):
+        it.call(IHttpClient2_TryPostAsync, p0, p1, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TryPostAsync"))
 
 proc tryPutAsync*(self: HttpClient, uri: Uri, content: WinRtObject): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TryPutAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(content.p, IID_IHttpContent, "IHttpContent", p1):
-        vcall(it, Slot_IHttpClient2_TryPutAsync, Fn_IHttpClient2_TryPutAsync)(it, p0, p1, op.addr).check("HttpClient.TryPutAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TryPutAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(content.p, IHttpContent, p1):
+        it.call(IHttpClient2_TryPutAsync, p0, p1, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TryPutAsync"))
 
 proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpClient2_TrySendRequestAsync, Fn_IHttpClient2_TrySendRequestAsync)(it, p0, op.addr).check("HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TrySendRequestAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(request.p, IHttpRequestMessage, p0):
+      it.call(IHttpClient2_TrySendRequestAsync, p0, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TrySendRequestAsync"))
 
-proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage, completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
+proc trySendRequestAsync*(self: HttpClient, request: HttpRequestMessage,
+                          completionOption: HttpCompletionOption): Future[HttpRequestResult] {.async.} =
   ## Windows.Web.Http.HttpClient.TrySendRequestAsync
   var op: pointer
-  withIface(self.p, IID_IHttpClient2, "IHttpClient2", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpClient2_TrySendRequestAsync2, Fn_IHttpClient2_TrySendRequestAsync2)(it, p0, completionOption, op.addr).check("HttpClient.TrySendRequestAsync")
-  result = adopt[HttpRequestResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress, IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress, alProgress, "HttpClient.TrySendRequestAsync"))
+  withIface(self.p, IHttpClient2, it):
+    withIface(request.p, IHttpRequestMessage, p0):
+      it.call(IHttpClient2_TrySendRequestAsync2, p0, completionOption, op.addr)
+  result = adopt[HttpRequestResult](await awaitObject(op,
+                                                      IID_IAsyncOperationWithProgress_2_HttpRequestResult_HttpProgress,
+                                                      IID_AsyncOperationWithProgressCompletedHandler_2_HttpRequestResult_HttpProgress,
+                                                      alProgress,
+                                                      "HttpClient.TrySendRequestAsync"))
 
-proc defaultPrivacyAnnotation*(self: HttpClient): string  =
+proc defaultPrivacyAnnotation*(self: HttpClient): string =
   ## Windows.Web.Http.HttpClient.get_DefaultPrivacyAnnotation
-  withIface(self.p, IID_IHttpClient3, "IHttpClient3", it):
+  withIface(self.p, IHttpClient3, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpClient3_get_DefaultPrivacyAnnotation, Fn_IHttpClient3_get_DefaultPrivacyAnnotation)(it, tmp.addr).check("HttpClient.get_DefaultPrivacyAnnotation")
+    it.call(IHttpClient3_get_DefaultPrivacyAnnotation, tmp.addr)
     result = takeString(tmp)
 
-proc `defaultPrivacyAnnotation=`*(self: HttpClient, value: string)  =
+proc `defaultPrivacyAnnotation=`*(self: HttpClient, value: string) =
   ## Windows.Web.Http.HttpClient.put_DefaultPrivacyAnnotation
-  withIface(self.p, IID_IHttpClient3, "IHttpClient3", it):
+  withIface(self.p, IHttpClient3, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpClient3_put_DefaultPrivacyAnnotation, Fn_IHttpClient3_put_DefaultPrivacyAnnotation)(it, h0).check("HttpClient.put_DefaultPrivacyAnnotation")
+      it.call(IHttpClient3_put_DefaultPrivacyAnnotation, h0)
 
-proc close*(self: HttpClient)  =
+proc close*(self: HttpClient) =
   ## Windows.Web.Http.HttpClient.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpClient.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpClient): string  =
+proc toString*(self: HttpClient): string =
   ## Windows.Web.Http.HttpClient.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpClient.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpClient], filter: WinRtObject): HttpClient  =
+proc create*(_: typedesc[HttpClient], filter: WinRtObject): HttpClient =
   ## Windows.Web.Http.HttpClient.Create
-  withStatics("Windows.Web.Http.HttpClient", IID_IHttpClientFactory, it):
-    withIface(filter.p, IID_IHttpFilter, "IHttpFilter", p0):
+  withStatics("Windows.Web.Http.HttpClient", IHttpClientFactory, it):
+    withIface(filter.p, IHttpFilter, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpClientFactory_Create, Fn_IHttpClientFactory_Create)(it, p0, tmp.addr).check("HttpClient.Create")
+      it.call(IHttpClientFactory_Create, p0, tmp.addr)
       result = adopt[HttpClient](tmp)
 
-proc name*(self: HttpCookie): string  =
+proc name*(self: HttpCookie): string =
   ## Windows.Web.Http.HttpCookie.get_Name
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookie_get_Name, Fn_IHttpCookie_get_Name)(it, tmp.addr).check("HttpCookie.get_Name")
+    it.call(IHttpCookie_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc domain*(self: HttpCookie): string  =
+proc domain*(self: HttpCookie): string =
   ## Windows.Web.Http.HttpCookie.get_Domain
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookie_get_Domain, Fn_IHttpCookie_get_Domain)(it, tmp.addr).check("HttpCookie.get_Domain")
+    it.call(IHttpCookie_get_Domain, tmp.addr)
     result = takeString(tmp)
 
-proc path*(self: HttpCookie): string  =
+proc path*(self: HttpCookie): string =
   ## Windows.Web.Http.HttpCookie.get_Path
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookie_get_Path, Fn_IHttpCookie_get_Path)(it, tmp.addr).check("HttpCookie.get_Path")
+    it.call(IHttpCookie_get_Path, tmp.addr)
     result = takeString(tmp)
 
-proc expires*(self: HttpCookie): Option[DateTime]  =
+proc expires*(self: HttpCookie): Option[DateTime] =
   ## Windows.Web.Http.HttpCookie.get_Expires
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpCookie_get_Expires, Fn_IHttpCookie_get_Expires)(it, tmp.addr).check("HttpCookie.get_Expires")
-    result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpCookie.get_Expires")
+    it.call(IHttpCookie_get_Expires, tmp.addr)
+    result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
+                                     "HttpCookie.get_Expires")
     release(tmp)
 
-proc `expires=`*(self: HttpCookie, value: Option[DateTime])  =
+proc `expires=`*(self: HttpCookie, value: Option[DateTime]) =
   ## Windows.Web.Http.HttpCookie.put_Expires
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_IHttpCookie_put_Expires, Fn_IHttpCookie_put_Expires)(it, p0).check("HttpCookie.put_Expires")
+    it.call(IHttpCookie_put_Expires, p0)
 
-proc httpOnly*(self: HttpCookie): bool  =
+proc httpOnly*(self: HttpCookie): bool =
   ## Windows.Web.Http.HttpCookie.get_HttpOnly
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: bool
-    vcall(it, Slot_IHttpCookie_get_HttpOnly, Fn_IHttpCookie_get_HttpOnly)(it, tmp.addr).check("HttpCookie.get_HttpOnly")
+    it.call(IHttpCookie_get_HttpOnly, tmp.addr)
     result = tmp
 
-proc `httpOnly=`*(self: HttpCookie, value: bool)  =
+proc `httpOnly=`*(self: HttpCookie, value: bool) =
   ## Windows.Web.Http.HttpCookie.put_HttpOnly
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
-    vcall(it, Slot_IHttpCookie_put_HttpOnly, Fn_IHttpCookie_put_HttpOnly)(it, value).check("HttpCookie.put_HttpOnly")
+  withIface(self.p, IHttpCookie, it):
+    it.call(IHttpCookie_put_HttpOnly, value)
 
-proc secure*(self: HttpCookie): bool  =
+proc secure*(self: HttpCookie): bool =
   ## Windows.Web.Http.HttpCookie.get_Secure
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: bool
-    vcall(it, Slot_IHttpCookie_get_Secure, Fn_IHttpCookie_get_Secure)(it, tmp.addr).check("HttpCookie.get_Secure")
+    it.call(IHttpCookie_get_Secure, tmp.addr)
     result = tmp
 
-proc `secure=`*(self: HttpCookie, value: bool)  =
+proc `secure=`*(self: HttpCookie, value: bool) =
   ## Windows.Web.Http.HttpCookie.put_Secure
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
-    vcall(it, Slot_IHttpCookie_put_Secure, Fn_IHttpCookie_put_Secure)(it, value).check("HttpCookie.put_Secure")
+  withIface(self.p, IHttpCookie, it):
+    it.call(IHttpCookie_put_Secure, value)
 
-proc value*(self: HttpCookie): string  =
+proc value*(self: HttpCookie): string =
   ## Windows.Web.Http.HttpCookie.get_Value
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpCookie_get_Value, Fn_IHttpCookie_get_Value)(it, tmp.addr).check("HttpCookie.get_Value")
+    it.call(IHttpCookie_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `value=`*(self: HttpCookie, value: string)  =
+proc `value=`*(self: HttpCookie, value: string) =
   ## Windows.Web.Http.HttpCookie.put_Value
-  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+  withIface(self.p, IHttpCookie, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpCookie_put_Value, Fn_IHttpCookie_put_Value)(it, h0).check("HttpCookie.put_Value")
+      it.call(IHttpCookie_put_Value, h0)
 
-proc toString*(self: HttpCookie): string  =
+proc toString*(self: HttpCookie): string =
   ## Windows.Web.Http.HttpCookie.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpCookie.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpCookie], name: string, domain: string, path: string): HttpCookie  =
+proc create*(_: typedesc[HttpCookie], name: string, domain: string, path: string): HttpCookie =
   ## Windows.Web.Http.HttpCookie.Create
-  withStatics("Windows.Web.Http.HttpCookie", IID_IHttpCookieFactory, it):
+  withStatics("Windows.Web.Http.HttpCookie", IHttpCookieFactory, it):
     withHString(name, h0):
       withHString(domain, h1):
         withHString(path, h2):
           var tmp: pointer
-          vcall(it, Slot_IHttpCookieFactory_Create, Fn_IHttpCookieFactory_Create)(it, h0, h1, h2, tmp.addr).check("HttpCookie.Create")
+          it.call(IHttpCookieFactory_Create, h0, h1, h2, tmp.addr)
           result = adopt[HttpCookie](tmp)
 
-proc setCookie*(self: HttpCookieManager, cookie: HttpCookie): bool  =
+proc setCookie*(self: HttpCookieManager, cookie: HttpCookie): bool =
   ## Windows.Web.Http.HttpCookieManager.SetCookie
-  withIface(self.p, IID_IHttpCookieManager, "IHttpCookieManager", it):
-    withIface(cookie.p, IID_IHttpCookie, "IHttpCookie", p0):
+  withIface(self.p, IHttpCookieManager, it):
+    withIface(cookie.p, IHttpCookie, p0):
       var tmp: bool
-      vcall(it, Slot_IHttpCookieManager_SetCookie, Fn_IHttpCookieManager_SetCookie)(it, p0, tmp.addr).check("HttpCookieManager.SetCookie")
+      it.call(IHttpCookieManager_SetCookie, p0, tmp.addr)
       result = tmp
 
-proc setCookie*(self: HttpCookieManager, cookie: HttpCookie, thirdParty: bool): bool  =
+proc setCookie*(self: HttpCookieManager, cookie: HttpCookie, thirdParty: bool): bool =
   ## Windows.Web.Http.HttpCookieManager.SetCookie
-  withIface(self.p, IID_IHttpCookieManager, "IHttpCookieManager", it):
-    withIface(cookie.p, IID_IHttpCookie, "IHttpCookie", p0):
+  withIface(self.p, IHttpCookieManager, it):
+    withIface(cookie.p, IHttpCookie, p0):
       var tmp: bool
-      vcall(it, Slot_IHttpCookieManager_SetCookie2, Fn_IHttpCookieManager_SetCookie2)(it, p0, thirdParty, tmp.addr).check("HttpCookieManager.SetCookie")
+      it.call(IHttpCookieManager_SetCookie2, p0, thirdParty, tmp.addr)
       result = tmp
 
-proc deleteCookie*(self: HttpCookieManager, cookie: HttpCookie)  =
+proc deleteCookie*(self: HttpCookieManager, cookie: HttpCookie) =
   ## Windows.Web.Http.HttpCookieManager.DeleteCookie
-  withIface(self.p, IID_IHttpCookieManager, "IHttpCookieManager", it):
-    withIface(cookie.p, IID_IHttpCookie, "IHttpCookie", p0):
-      vcall(it, Slot_IHttpCookieManager_DeleteCookie, Fn_IHttpCookieManager_DeleteCookie)(it, p0).check("HttpCookieManager.DeleteCookie")
+  withIface(self.p, IHttpCookieManager, it):
+    withIface(cookie.p, IHttpCookie, p0):
+      it.call(IHttpCookieManager_DeleteCookie, p0)
 
-proc getCookies*(self: HttpCookieManager, uri: Uri): HttpCookieCollection  =
+proc getCookies*(self: HttpCookieManager, uri: Uri): HttpCookieCollection =
   ## Windows.Web.Http.HttpCookieManager.GetCookies
-  withIface(self.p, IID_IHttpCookieManager, "IHttpCookieManager", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withIface(self.p, IHttpCookieManager, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpCookieManager_GetCookies, Fn_IHttpCookieManager_GetCookies)(it, p0, tmp.addr).check("HttpCookieManager.GetCookies")
+      it.call(IHttpCookieManager_GetCookies, p0, tmp.addr)
       result = adopt[HttpCookieCollection](tmp)
 
-proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpFormUrlEncodedContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpFormUrlEncodedContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpFormUrlEncodedContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpFormUrlEncodedContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpFormUrlEncodedContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpFormUrlEncodedContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpFormUrlEncodedContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpFormUrlEncodedContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpFormUrlEncodedContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress,
+                             "HttpFormUrlEncodedContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpFormUrlEncodedContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: WinRtObject): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpFormUrlEncodedContent,
+                         outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpFormUrlEncodedContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpFormUrlEncodedContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpFormUrlEncodedContent.WriteToStreamAsync")
 
-proc close*(self: HttpFormUrlEncodedContent)  =
+proc close*(self: HttpFormUrlEncodedContent) =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpFormUrlEncodedContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpFormUrlEncodedContent): string  =
+proc toString*(self: HttpFormUrlEncodedContent): string =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpFormUrlEncodedContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpFormUrlEncodedContent], content: Table[string, string]): HttpFormUrlEncodedContent  =
+proc create*(_: typedesc[HttpFormUrlEncodedContent],
+             content: Table[string, string]): HttpFormUrlEncodedContent =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.Create
-  withStatics("Windows.Web.Http.HttpFormUrlEncodedContent", IID_IHttpFormUrlEncodedContentFactory, it):
-    let p0 = asMap(content, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+  withStatics("Windows.Web.Http.HttpFormUrlEncodedContent",
+              IHttpFormUrlEncodedContentFactory, it):
+    let p0 = asMap(content, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2,
+                                    cursor: IID_IIterator_1_IKeyValuePair_2,
+                                    pair: IID_IKeyValuePair_2_String_String,
+                                    view: IID_IMapView_2_String_String,
+                                    map: IID_IMap_2_String_String))
     defer: discard release(p0)
     var tmp: pointer
-    vcall(it, Slot_IHttpFormUrlEncodedContentFactory_Create, Fn_IHttpFormUrlEncodedContentFactory_Create)(it, p0, tmp.addr).check("HttpFormUrlEncodedContent.Create")
+    it.call(IHttpFormUrlEncodedContentFactory_Create, p0, tmp.addr)
     result = adopt[HttpFormUrlEncodedContent](tmp)
 
-proc extendedError*(self: HttpGetBufferResult): HRESULT  =
+proc extendedError*(self: HttpGetBufferResult): HRESULT =
   ## Windows.Web.Http.HttpGetBufferResult.get_ExtendedError
-  withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
+  withIface(self.p, IHttpGetBufferResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IHttpGetBufferResult_get_ExtendedError, Fn_IHttpGetBufferResult_get_ExtendedError)(it, tmp.addr).check("HttpGetBufferResult.get_ExtendedError")
+    it.call(IHttpGetBufferResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc requestMessage*(self: HttpGetBufferResult): HttpRequestMessage  =
+proc requestMessage*(self: HttpGetBufferResult): HttpRequestMessage =
   ## Windows.Web.Http.HttpGetBufferResult.get_RequestMessage
-  withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
+  withIface(self.p, IHttpGetBufferResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetBufferResult_get_RequestMessage, Fn_IHttpGetBufferResult_get_RequestMessage)(it, tmp.addr).check("HttpGetBufferResult.get_RequestMessage")
+    it.call(IHttpGetBufferResult_get_RequestMessage, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc responseMessage*(self: HttpGetBufferResult): HttpResponseMessage  =
+proc responseMessage*(self: HttpGetBufferResult): HttpResponseMessage =
   ## Windows.Web.Http.HttpGetBufferResult.get_ResponseMessage
-  withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
+  withIface(self.p, IHttpGetBufferResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetBufferResult_get_ResponseMessage, Fn_IHttpGetBufferResult_get_ResponseMessage)(it, tmp.addr).check("HttpGetBufferResult.get_ResponseMessage")
+    it.call(IHttpGetBufferResult_get_ResponseMessage, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc succeeded*(self: HttpGetBufferResult): bool  =
+proc succeeded*(self: HttpGetBufferResult): bool =
   ## Windows.Web.Http.HttpGetBufferResult.get_Succeeded
-  withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
+  withIface(self.p, IHttpGetBufferResult, it):
     var tmp: bool
-    vcall(it, Slot_IHttpGetBufferResult_get_Succeeded, Fn_IHttpGetBufferResult_get_Succeeded)(it, tmp.addr).check("HttpGetBufferResult.get_Succeeded")
+    it.call(IHttpGetBufferResult_get_Succeeded, tmp.addr)
     result = tmp
 
-proc value*(self: HttpGetBufferResult): Buffer  =
+proc value*(self: HttpGetBufferResult): Buffer =
   ## Windows.Web.Http.HttpGetBufferResult.get_Value
-  withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
+  withIface(self.p, IHttpGetBufferResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetBufferResult_get_Value, Fn_IHttpGetBufferResult_get_Value)(it, tmp.addr).check("HttpGetBufferResult.get_Value")
+    it.call(IHttpGetBufferResult_get_Value, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc close*(self: HttpGetBufferResult)  =
+proc close*(self: HttpGetBufferResult) =
   ## Windows.Web.Http.HttpGetBufferResult.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpGetBufferResult.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpGetBufferResult): string  =
+proc toString*(self: HttpGetBufferResult): string =
   ## Windows.Web.Http.HttpGetBufferResult.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpGetBufferResult.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc extendedError*(self: HttpGetInputStreamResult): HRESULT  =
+proc extendedError*(self: HttpGetInputStreamResult): HRESULT =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_ExtendedError
-  withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
+  withIface(self.p, IHttpGetInputStreamResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IHttpGetInputStreamResult_get_ExtendedError, Fn_IHttpGetInputStreamResult_get_ExtendedError)(it, tmp.addr).check("HttpGetInputStreamResult.get_ExtendedError")
+    it.call(IHttpGetInputStreamResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc requestMessage*(self: HttpGetInputStreamResult): HttpRequestMessage  =
+proc requestMessage*(self: HttpGetInputStreamResult): HttpRequestMessage =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_RequestMessage
-  withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
+  withIface(self.p, IHttpGetInputStreamResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetInputStreamResult_get_RequestMessage, Fn_IHttpGetInputStreamResult_get_RequestMessage)(it, tmp.addr).check("HttpGetInputStreamResult.get_RequestMessage")
+    it.call(IHttpGetInputStreamResult_get_RequestMessage, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc responseMessage*(self: HttpGetInputStreamResult): HttpResponseMessage  =
+proc responseMessage*(self: HttpGetInputStreamResult): HttpResponseMessage =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_ResponseMessage
-  withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
+  withIface(self.p, IHttpGetInputStreamResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetInputStreamResult_get_ResponseMessage, Fn_IHttpGetInputStreamResult_get_ResponseMessage)(it, tmp.addr).check("HttpGetInputStreamResult.get_ResponseMessage")
+    it.call(IHttpGetInputStreamResult_get_ResponseMessage, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc succeeded*(self: HttpGetInputStreamResult): bool  =
+proc succeeded*(self: HttpGetInputStreamResult): bool =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_Succeeded
-  withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
+  withIface(self.p, IHttpGetInputStreamResult, it):
     var tmp: bool
-    vcall(it, Slot_IHttpGetInputStreamResult_get_Succeeded, Fn_IHttpGetInputStreamResult_get_Succeeded)(it, tmp.addr).check("HttpGetInputStreamResult.get_Succeeded")
+    it.call(IHttpGetInputStreamResult_get_Succeeded, tmp.addr)
     result = tmp
 
-proc value*(self: HttpGetInputStreamResult): WinRtObject  =
+proc value*(self: HttpGetInputStreamResult): WinRtObject =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_Value
-  withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
+  withIface(self.p, IHttpGetInputStreamResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetInputStreamResult_get_Value, Fn_IHttpGetInputStreamResult_get_Value)(it, tmp.addr).check("HttpGetInputStreamResult.get_Value")
+    it.call(IHttpGetInputStreamResult_get_Value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc close*(self: HttpGetInputStreamResult)  =
+proc close*(self: HttpGetInputStreamResult) =
   ## Windows.Web.Http.HttpGetInputStreamResult.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpGetInputStreamResult.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpGetInputStreamResult): string  =
+proc toString*(self: HttpGetInputStreamResult): string =
   ## Windows.Web.Http.HttpGetInputStreamResult.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpGetInputStreamResult.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc extendedError*(self: HttpGetStringResult): HRESULT  =
+proc extendedError*(self: HttpGetStringResult): HRESULT =
   ## Windows.Web.Http.HttpGetStringResult.get_ExtendedError
-  withIface(self.p, IID_IHttpGetStringResult, "IHttpGetStringResult", it):
+  withIface(self.p, IHttpGetStringResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IHttpGetStringResult_get_ExtendedError, Fn_IHttpGetStringResult_get_ExtendedError)(it, tmp.addr).check("HttpGetStringResult.get_ExtendedError")
+    it.call(IHttpGetStringResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc requestMessage*(self: HttpGetStringResult): HttpRequestMessage  =
+proc requestMessage*(self: HttpGetStringResult): HttpRequestMessage =
   ## Windows.Web.Http.HttpGetStringResult.get_RequestMessage
-  withIface(self.p, IID_IHttpGetStringResult, "IHttpGetStringResult", it):
+  withIface(self.p, IHttpGetStringResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetStringResult_get_RequestMessage, Fn_IHttpGetStringResult_get_RequestMessage)(it, tmp.addr).check("HttpGetStringResult.get_RequestMessage")
+    it.call(IHttpGetStringResult_get_RequestMessage, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc responseMessage*(self: HttpGetStringResult): HttpResponseMessage  =
+proc responseMessage*(self: HttpGetStringResult): HttpResponseMessage =
   ## Windows.Web.Http.HttpGetStringResult.get_ResponseMessage
-  withIface(self.p, IID_IHttpGetStringResult, "IHttpGetStringResult", it):
+  withIface(self.p, IHttpGetStringResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpGetStringResult_get_ResponseMessage, Fn_IHttpGetStringResult_get_ResponseMessage)(it, tmp.addr).check("HttpGetStringResult.get_ResponseMessage")
+    it.call(IHttpGetStringResult_get_ResponseMessage, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc succeeded*(self: HttpGetStringResult): bool  =
+proc succeeded*(self: HttpGetStringResult): bool =
   ## Windows.Web.Http.HttpGetStringResult.get_Succeeded
-  withIface(self.p, IID_IHttpGetStringResult, "IHttpGetStringResult", it):
+  withIface(self.p, IHttpGetStringResult, it):
     var tmp: bool
-    vcall(it, Slot_IHttpGetStringResult_get_Succeeded, Fn_IHttpGetStringResult_get_Succeeded)(it, tmp.addr).check("HttpGetStringResult.get_Succeeded")
+    it.call(IHttpGetStringResult_get_Succeeded, tmp.addr)
     result = tmp
 
-proc value*(self: HttpGetStringResult): string  =
+proc value*(self: HttpGetStringResult): string =
   ## Windows.Web.Http.HttpGetStringResult.get_Value
-  withIface(self.p, IID_IHttpGetStringResult, "IHttpGetStringResult", it):
+  withIface(self.p, IHttpGetStringResult, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpGetStringResult_get_Value, Fn_IHttpGetStringResult_get_Value)(it, tmp.addr).check("HttpGetStringResult.get_Value")
+    it.call(IHttpGetStringResult_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc close*(self: HttpGetStringResult)  =
+proc close*(self: HttpGetStringResult) =
   ## Windows.Web.Http.HttpGetStringResult.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpGetStringResult.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpGetStringResult): string  =
+proc toString*(self: HttpGetStringResult): string =
   ## Windows.Web.Http.HttpGetStringResult.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpGetStringResult.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc `method`*(self: HttpMethod): string  =
+proc `method`*(self: HttpMethod): string =
   ## Windows.Web.Http.HttpMethod.get_Method
-  withIface(self.p, IID_IHttpMethod, "IHttpMethod", it):
+  withIface(self.p, IHttpMethod, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpMethod_get_Method, Fn_IHttpMethod_get_Method)(it, tmp.addr).check("HttpMethod.get_Method")
+    it.call(IHttpMethod_get_Method, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: HttpMethod): string  =
+proc toString*(self: HttpMethod): string =
   ## Windows.Web.Http.HttpMethod.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMethod.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc delete*(_: typedesc[HttpMethod]): HttpMethod  =
+proc delete*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Delete
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Delete, Fn_IHttpMethodStatics_get_Delete)(it, tmp.addr).check("HttpMethod.get_Delete")
+    it.call(IHttpMethodStatics_get_Delete, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc get*(_: typedesc[HttpMethod]): HttpMethod  =
+proc get*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Get
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Get, Fn_IHttpMethodStatics_get_Get)(it, tmp.addr).check("HttpMethod.get_Get")
+    it.call(IHttpMethodStatics_get_Get, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc head*(_: typedesc[HttpMethod]): HttpMethod  =
+proc head*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Head
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Head, Fn_IHttpMethodStatics_get_Head)(it, tmp.addr).check("HttpMethod.get_Head")
+    it.call(IHttpMethodStatics_get_Head, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc options*(_: typedesc[HttpMethod]): HttpMethod  =
+proc options*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Options
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Options, Fn_IHttpMethodStatics_get_Options)(it, tmp.addr).check("HttpMethod.get_Options")
+    it.call(IHttpMethodStatics_get_Options, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc patch*(_: typedesc[HttpMethod]): HttpMethod  =
+proc patch*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Patch
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Patch, Fn_IHttpMethodStatics_get_Patch)(it, tmp.addr).check("HttpMethod.get_Patch")
+    it.call(IHttpMethodStatics_get_Patch, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc post*(_: typedesc[HttpMethod]): HttpMethod  =
+proc post*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Post
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Post, Fn_IHttpMethodStatics_get_Post)(it, tmp.addr).check("HttpMethod.get_Post")
+    it.call(IHttpMethodStatics_get_Post, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc put*(_: typedesc[HttpMethod]): HttpMethod  =
+proc put*(_: typedesc[HttpMethod]): HttpMethod =
   ## Windows.Web.Http.HttpMethod.get_Put
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodStatics, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpMethodStatics_get_Put, Fn_IHttpMethodStatics_get_Put)(it, tmp.addr).check("HttpMethod.get_Put")
+    it.call(IHttpMethodStatics_get_Put, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc create*(_: typedesc[HttpMethod], `method`: string): HttpMethod  =
+proc create*(_: typedesc[HttpMethod], `method`: string): HttpMethod =
   ## Windows.Web.Http.HttpMethod.Create
-  withStatics("Windows.Web.Http.HttpMethod", IID_IHttpMethodFactory, it):
+  withStatics("Windows.Web.Http.HttpMethod", IHttpMethodFactory, it):
     withHString(`method`, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMethodFactory_Create, Fn_IHttpMethodFactory_Create)(it, h0, tmp.addr).check("HttpMethod.Create")
+      it.call(IHttpMethodFactory_Create, h0, tmp.addr)
       result = adopt[HttpMethod](tmp)
 
 proc newHttpMultipartContent*(): HttpMultipartContent =
   ## Activate a `Windows.Web.Http.HttpMultipartContent`.
   adopt[HttpMultipartContent](activateAs("Windows.Web.Http.HttpMultipartContent", IID_IHttpMultipartContent))
 
-proc add*(self: HttpMultipartContent, content: WinRtObject)  =
+proc add*(self: HttpMultipartContent, content: WinRtObject) =
   ## Windows.Web.Http.HttpMultipartContent.Add
-  withIface(self.p, IID_IHttpMultipartContent, "IHttpMultipartContent", it):
-    withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
-      vcall(it, Slot_IHttpMultipartContent_Add, Fn_IHttpMultipartContent_Add)(it, p0).check("HttpMultipartContent.Add")
+  withIface(self.p, IHttpMultipartContent, it):
+    withIface(content.p, IHttpContent, p0):
+      it.call(IHttpMultipartContent_Add, p0)
 
-proc headers*(self: HttpMultipartContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpMultipartContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpMultipartContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpMultipartContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpMultipartContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpMultipartContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpMultipartContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpMultipartContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpMultipartContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpMultipartContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpMultipartContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpMultipartContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpMultipartContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress,
+                             "HttpMultipartContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpMultipartContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpMultipartContent.WriteToStreamAsync")
 
-proc close*(self: HttpMultipartContent)  =
+proc close*(self: HttpMultipartContent) =
   ## Windows.Web.Http.HttpMultipartContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpMultipartContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpMultipartContent): string  =
+proc toString*(self: HttpMultipartContent): string =
   ## Windows.Web.Http.HttpMultipartContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMultipartContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc createWithSubtype*(_: typedesc[HttpMultipartContent], subtype: string): HttpMultipartContent  =
+proc createWithSubtype*(_: typedesc[HttpMultipartContent], subtype: string): HttpMultipartContent =
   ## Windows.Web.Http.HttpMultipartContent.CreateWithSubtype
-  withStatics("Windows.Web.Http.HttpMultipartContent", IID_IHttpMultipartContentFactory, it):
+  withStatics("Windows.Web.Http.HttpMultipartContent",
+              IHttpMultipartContentFactory, it):
     withHString(subtype, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMultipartContentFactory_CreateWithSubtype, Fn_IHttpMultipartContentFactory_CreateWithSubtype)(it, h0, tmp.addr).check("HttpMultipartContent.CreateWithSubtype")
+      it.call(IHttpMultipartContentFactory_CreateWithSubtype, h0, tmp.addr)
       result = adopt[HttpMultipartContent](tmp)
 
-proc createWithSubtypeAndBoundary*(_: typedesc[HttpMultipartContent], subtype: string, boundary: string): HttpMultipartContent  =
+proc createWithSubtypeAndBoundary*(_: typedesc[HttpMultipartContent],
+                                   subtype: string, boundary: string): HttpMultipartContent =
   ## Windows.Web.Http.HttpMultipartContent.CreateWithSubtypeAndBoundary
-  withStatics("Windows.Web.Http.HttpMultipartContent", IID_IHttpMultipartContentFactory, it):
+  withStatics("Windows.Web.Http.HttpMultipartContent",
+              IHttpMultipartContentFactory, it):
     withHString(subtype, h0):
       withHString(boundary, h1):
         var tmp: pointer
-        vcall(it, Slot_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary, Fn_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary)(it, h0, h1, tmp.addr).check("HttpMultipartContent.CreateWithSubtypeAndBoundary")
+        it.call(IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary, h0,
+                h1, tmp.addr)
         result = adopt[HttpMultipartContent](tmp)
 
 proc newHttpMultipartFormDataContent*(): HttpMultipartFormDataContent =
   ## Activate a `Windows.Web.Http.HttpMultipartFormDataContent`.
   adopt[HttpMultipartFormDataContent](activateAs("Windows.Web.Http.HttpMultipartFormDataContent", IID_IHttpMultipartFormDataContent))
 
-proc add*(self: HttpMultipartFormDataContent, content: WinRtObject)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject) =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
-  withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
-    withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
-      vcall(it, Slot_IHttpMultipartFormDataContent_Add, Fn_IHttpMultipartFormDataContent_Add)(it, p0).check("HttpMultipartFormDataContent.Add")
+  withIface(self.p, IHttpMultipartFormDataContent, it):
+    withIface(content.p, IHttpContent, p0):
+      it.call(IHttpMultipartFormDataContent_Add, p0)
 
-proc add*(self: HttpMultipartFormDataContent, content: WinRtObject, name: string)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject, name: string) =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
-  withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
-    withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
+  withIface(self.p, IHttpMultipartFormDataContent, it):
+    withIface(content.p, IHttpContent, p0):
       withHString(name, h1):
-        vcall(it, Slot_IHttpMultipartFormDataContent_Add2, Fn_IHttpMultipartFormDataContent_Add2)(it, p0, h1).check("HttpMultipartFormDataContent.Add")
+        it.call(IHttpMultipartFormDataContent_Add2, p0, h1)
 
-proc add*(self: HttpMultipartFormDataContent, content: WinRtObject, name: string, fileName: string)  =
+proc add*(self: HttpMultipartFormDataContent, content: WinRtObject,
+          name: string, fileName: string) =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Add
-  withIface(self.p, IID_IHttpMultipartFormDataContent, "IHttpMultipartFormDataContent", it):
-    withIface(content.p, IID_IHttpContent, "IHttpContent", p0):
+  withIface(self.p, IHttpMultipartFormDataContent, it):
+    withIface(content.p, IHttpContent, p0):
       withHString(name, h1):
         withHString(fileName, h2):
-          vcall(it, Slot_IHttpMultipartFormDataContent_Add3, Fn_IHttpMultipartFormDataContent_Add3)(it, p0, h1, h2).check("HttpMultipartFormDataContent.Add")
+          it.call(IHttpMultipartFormDataContent_Add3, p0, h1, h2)
 
-proc headers*(self: HttpMultipartFormDataContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpMultipartFormDataContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpMultipartFormDataContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpMultipartFormDataContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpMultipartFormDataContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartFormDataContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartFormDataContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpMultipartFormDataContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpMultipartFormDataContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpMultipartFormDataContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpMultipartFormDataContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpMultipartFormDataContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpMultipartFormDataContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpMultipartFormDataContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpMultipartFormDataContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress,
+                             "HttpMultipartFormDataContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpMultipartFormDataContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartFormDataContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
-proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: WinRtObject): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartFormDataContent,
+                         outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartFormDataContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpMultipartFormDataContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpMultipartFormDataContent.WriteToStreamAsync")
 
-proc close*(self: HttpMultipartFormDataContent)  =
+proc close*(self: HttpMultipartFormDataContent) =
   ## Windows.Web.Http.HttpMultipartFormDataContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpMultipartFormDataContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpMultipartFormDataContent): string  =
+proc toString*(self: HttpMultipartFormDataContent): string =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpMultipartFormDataContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc createWithBoundary*(_: typedesc[HttpMultipartFormDataContent], boundary: string): HttpMultipartFormDataContent  =
+proc createWithBoundary*(_: typedesc[HttpMultipartFormDataContent],
+                         boundary: string): HttpMultipartFormDataContent =
   ## Windows.Web.Http.HttpMultipartFormDataContent.CreateWithBoundary
-  withStatics("Windows.Web.Http.HttpMultipartFormDataContent", IID_IHttpMultipartFormDataContentFactory, it):
+  withStatics("Windows.Web.Http.HttpMultipartFormDataContent",
+              IHttpMultipartFormDataContentFactory, it):
     withHString(boundary, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpMultipartFormDataContentFactory_CreateWithBoundary, Fn_IHttpMultipartFormDataContentFactory_CreateWithBoundary)(it, h0, tmp.addr).check("HttpMultipartFormDataContent.CreateWithBoundary")
+      it.call(IHttpMultipartFormDataContentFactory_CreateWithBoundary, h0,
+              tmp.addr)
       result = adopt[HttpMultipartFormDataContent](tmp)
 
 proc newHttpRequestMessage*(): HttpRequestMessage =
   ## Activate a `Windows.Web.Http.HttpRequestMessage`.
   adopt[HttpRequestMessage](activateAs("Windows.Web.Http.HttpRequestMessage", IID_IHttpRequestMessage))
 
-proc content*(self: HttpRequestMessage): WinRtObject  =
+proc content*(self: HttpRequestMessage): WinRtObject =
   ## Windows.Web.Http.HttpRequestMessage.get_Content
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_Content, Fn_IHttpRequestMessage_get_Content)(it, tmp.addr).check("HttpRequestMessage.get_Content")
+    it.call(IHttpRequestMessage_get_Content, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: HttpRequestMessage, value: WinRtObject)  =
+proc `content=`*(self: HttpRequestMessage, value: WinRtObject) =
   ## Windows.Web.Http.HttpRequestMessage.put_Content
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
-    withIface(value.p, IID_IHttpContent, "IHttpContent", p0):
-      vcall(it, Slot_IHttpRequestMessage_put_Content, Fn_IHttpRequestMessage_put_Content)(it, p0).check("HttpRequestMessage.put_Content")
+  withIface(self.p, IHttpRequestMessage, it):
+    withIface(value.p, IHttpContent, p0):
+      it.call(IHttpRequestMessage_put_Content, p0)
 
-proc headers*(self: HttpRequestMessage): HttpRequestHeaderCollection  =
+proc headers*(self: HttpRequestMessage): HttpRequestHeaderCollection =
   ## Windows.Web.Http.HttpRequestMessage.get_Headers
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_Headers, Fn_IHttpRequestMessage_get_Headers)(it, tmp.addr).check("HttpRequestMessage.get_Headers")
+    it.call(IHttpRequestMessage_get_Headers, tmp.addr)
     result = adopt[HttpRequestHeaderCollection](tmp)
 
-proc `method`*(self: HttpRequestMessage): HttpMethod  =
+proc `method`*(self: HttpRequestMessage): HttpMethod =
   ## Windows.Web.Http.HttpRequestMessage.get_Method
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_Method, Fn_IHttpRequestMessage_get_Method)(it, tmp.addr).check("HttpRequestMessage.get_Method")
+    it.call(IHttpRequestMessage_get_Method, tmp.addr)
     result = adopt[HttpMethod](tmp)
 
-proc `method=`*(self: HttpRequestMessage, value: HttpMethod)  =
+proc `method=`*(self: HttpRequestMessage, value: HttpMethod) =
   ## Windows.Web.Http.HttpRequestMessage.put_Method
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
-    withIface(value.p, IID_IHttpMethod, "IHttpMethod", p0):
-      vcall(it, Slot_IHttpRequestMessage_put_Method, Fn_IHttpRequestMessage_put_Method)(it, p0).check("HttpRequestMessage.put_Method")
+  withIface(self.p, IHttpRequestMessage, it):
+    withIface(value.p, IHttpMethod, p0):
+      it.call(IHttpRequestMessage_put_Method, p0)
 
-proc properties*(self: HttpRequestMessage): Table[string, WinRtObject]  =
+proc properties*(self: HttpRequestMessage): Table[string, WinRtObject] =
   ## Windows.Web.Http.HttpRequestMessage.get_Properties
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_Properties, Fn_IHttpRequestMessage_get_Properties)(it, tmp.addr).check("HttpRequestMessage.get_Properties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    it.call(IHttpRequestMessage_get_Properties, tmp.addr)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22,
+                                          IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
-proc requestUri*(self: HttpRequestMessage): Uri  =
+proc requestUri*(self: HttpRequestMessage): Uri =
   ## Windows.Web.Http.HttpRequestMessage.get_RequestUri
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_RequestUri, Fn_IHttpRequestMessage_get_RequestUri)(it, tmp.addr).check("HttpRequestMessage.get_RequestUri")
+    it.call(IHttpRequestMessage_get_RequestUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `requestUri=`*(self: HttpRequestMessage, value: Uri)  =
+proc `requestUri=`*(self: HttpRequestMessage, value: Uri) =
   ## Windows.Web.Http.HttpRequestMessage.put_RequestUri
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IHttpRequestMessage_put_RequestUri, Fn_IHttpRequestMessage_put_RequestUri)(it, p0).check("HttpRequestMessage.put_RequestUri")
+  withIface(self.p, IHttpRequestMessage, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IHttpRequestMessage_put_RequestUri, p0)
 
-proc transportInformation*(self: HttpRequestMessage): HttpTransportInformation  =
+proc transportInformation*(self: HttpRequestMessage): HttpTransportInformation =
   ## Windows.Web.Http.HttpRequestMessage.get_TransportInformation
-  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+  withIface(self.p, IHttpRequestMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestMessage_get_TransportInformation, Fn_IHttpRequestMessage_get_TransportInformation)(it, tmp.addr).check("HttpRequestMessage.get_TransportInformation")
+    it.call(IHttpRequestMessage_get_TransportInformation, tmp.addr)
     result = adopt[HttpTransportInformation](tmp)
 
-proc privacyAnnotation*(self: HttpRequestMessage): string  =
+proc privacyAnnotation*(self: HttpRequestMessage): string =
   ## Windows.Web.Http.HttpRequestMessage.get_PrivacyAnnotation
-  withIface(self.p, IID_IHttpRequestMessage2, "IHttpRequestMessage2", it):
+  withIface(self.p, IHttpRequestMessage2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpRequestMessage2_get_PrivacyAnnotation, Fn_IHttpRequestMessage2_get_PrivacyAnnotation)(it, tmp.addr).check("HttpRequestMessage.get_PrivacyAnnotation")
+    it.call(IHttpRequestMessage2_get_PrivacyAnnotation, tmp.addr)
     result = takeString(tmp)
 
-proc `privacyAnnotation=`*(self: HttpRequestMessage, value: string)  =
+proc `privacyAnnotation=`*(self: HttpRequestMessage, value: string) =
   ## Windows.Web.Http.HttpRequestMessage.put_PrivacyAnnotation
-  withIface(self.p, IID_IHttpRequestMessage2, "IHttpRequestMessage2", it):
+  withIface(self.p, IHttpRequestMessage2, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpRequestMessage2_put_PrivacyAnnotation, Fn_IHttpRequestMessage2_put_PrivacyAnnotation)(it, h0).check("HttpRequestMessage.put_PrivacyAnnotation")
+      it.call(IHttpRequestMessage2_put_PrivacyAnnotation, h0)
 
-proc close*(self: HttpRequestMessage)  =
+proc close*(self: HttpRequestMessage) =
   ## Windows.Web.Http.HttpRequestMessage.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpRequestMessage.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpRequestMessage): string  =
+proc toString*(self: HttpRequestMessage): string =
   ## Windows.Web.Http.HttpRequestMessage.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpRequestMessage.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpRequestMessage], `method`: HttpMethod, uri: Uri): HttpRequestMessage  =
+proc create*(_: typedesc[HttpRequestMessage], `method`: HttpMethod, uri: Uri): HttpRequestMessage =
   ## Windows.Web.Http.HttpRequestMessage.Create
-  withStatics("Windows.Web.Http.HttpRequestMessage", IID_IHttpRequestMessageFactory, it):
-    withIface(`method`.p, IID_IHttpMethod, "IHttpMethod", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+  withStatics("Windows.Web.Http.HttpRequestMessage", IHttpRequestMessageFactory,
+              it):
+    withIface(`method`.p, IHttpMethod, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
         var tmp: pointer
-        vcall(it, Slot_IHttpRequestMessageFactory_Create, Fn_IHttpRequestMessageFactory_Create)(it, p0, p1, tmp.addr).check("HttpRequestMessage.Create")
+        it.call(IHttpRequestMessageFactory_Create, p0, p1, tmp.addr)
         result = adopt[HttpRequestMessage](tmp)
 
-proc extendedError*(self: HttpRequestResult): HRESULT  =
+proc extendedError*(self: HttpRequestResult): HRESULT =
   ## Windows.Web.Http.HttpRequestResult.get_ExtendedError
-  withIface(self.p, IID_IHttpRequestResult, "IHttpRequestResult", it):
+  withIface(self.p, IHttpRequestResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IHttpRequestResult_get_ExtendedError, Fn_IHttpRequestResult_get_ExtendedError)(it, tmp.addr).check("HttpRequestResult.get_ExtendedError")
+    it.call(IHttpRequestResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc requestMessage*(self: HttpRequestResult): HttpRequestMessage  =
+proc requestMessage*(self: HttpRequestResult): HttpRequestMessage =
   ## Windows.Web.Http.HttpRequestResult.get_RequestMessage
-  withIface(self.p, IID_IHttpRequestResult, "IHttpRequestResult", it):
+  withIface(self.p, IHttpRequestResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestResult_get_RequestMessage, Fn_IHttpRequestResult_get_RequestMessage)(it, tmp.addr).check("HttpRequestResult.get_RequestMessage")
+    it.call(IHttpRequestResult_get_RequestMessage, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc responseMessage*(self: HttpRequestResult): HttpResponseMessage  =
+proc responseMessage*(self: HttpRequestResult): HttpResponseMessage =
   ## Windows.Web.Http.HttpRequestResult.get_ResponseMessage
-  withIface(self.p, IID_IHttpRequestResult, "IHttpRequestResult", it):
+  withIface(self.p, IHttpRequestResult, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpRequestResult_get_ResponseMessage, Fn_IHttpRequestResult_get_ResponseMessage)(it, tmp.addr).check("HttpRequestResult.get_ResponseMessage")
+    it.call(IHttpRequestResult_get_ResponseMessage, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc succeeded*(self: HttpRequestResult): bool  =
+proc succeeded*(self: HttpRequestResult): bool =
   ## Windows.Web.Http.HttpRequestResult.get_Succeeded
-  withIface(self.p, IID_IHttpRequestResult, "IHttpRequestResult", it):
+  withIface(self.p, IHttpRequestResult, it):
     var tmp: bool
-    vcall(it, Slot_IHttpRequestResult_get_Succeeded, Fn_IHttpRequestResult_get_Succeeded)(it, tmp.addr).check("HttpRequestResult.get_Succeeded")
+    it.call(IHttpRequestResult_get_Succeeded, tmp.addr)
     result = tmp
 
-proc close*(self: HttpRequestResult)  =
+proc close*(self: HttpRequestResult) =
   ## Windows.Web.Http.HttpRequestResult.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpRequestResult.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpRequestResult): string  =
+proc toString*(self: HttpRequestResult): string =
   ## Windows.Web.Http.HttpRequestResult.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpRequestResult.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
 proc newHttpResponseMessage*(): HttpResponseMessage =
   ## Activate a `Windows.Web.Http.HttpResponseMessage`.
   adopt[HttpResponseMessage](activateAs("Windows.Web.Http.HttpResponseMessage", IID_IHttpResponseMessage))
 
-proc content*(self: HttpResponseMessage): WinRtObject  =
+proc content*(self: HttpResponseMessage): WinRtObject =
   ## Windows.Web.Http.HttpResponseMessage.get_Content
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseMessage_get_Content, Fn_IHttpResponseMessage_get_Content)(it, tmp.addr).check("HttpResponseMessage.get_Content")
+    it.call(IHttpResponseMessage_get_Content, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: HttpResponseMessage, value: WinRtObject)  =
+proc `content=`*(self: HttpResponseMessage, value: WinRtObject) =
   ## Windows.Web.Http.HttpResponseMessage.put_Content
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
-    withIface(value.p, IID_IHttpContent, "IHttpContent", p0):
-      vcall(it, Slot_IHttpResponseMessage_put_Content, Fn_IHttpResponseMessage_put_Content)(it, p0).check("HttpResponseMessage.put_Content")
+  withIface(self.p, IHttpResponseMessage, it):
+    withIface(value.p, IHttpContent, p0):
+      it.call(IHttpResponseMessage_put_Content, p0)
 
-proc headers*(self: HttpResponseMessage): HttpResponseHeaderCollection  =
+proc headers*(self: HttpResponseMessage): HttpResponseHeaderCollection =
   ## Windows.Web.Http.HttpResponseMessage.get_Headers
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseMessage_get_Headers, Fn_IHttpResponseMessage_get_Headers)(it, tmp.addr).check("HttpResponseMessage.get_Headers")
+    it.call(IHttpResponseMessage_get_Headers, tmp.addr)
     result = adopt[HttpResponseHeaderCollection](tmp)
 
-proc isSuccessStatusCode*(self: HttpResponseMessage): bool  =
+proc isSuccessStatusCode*(self: HttpResponseMessage): bool =
   ## Windows.Web.Http.HttpResponseMessage.get_IsSuccessStatusCode
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: bool
-    vcall(it, Slot_IHttpResponseMessage_get_IsSuccessStatusCode, Fn_IHttpResponseMessage_get_IsSuccessStatusCode)(it, tmp.addr).check("HttpResponseMessage.get_IsSuccessStatusCode")
+    it.call(IHttpResponseMessage_get_IsSuccessStatusCode, tmp.addr)
     result = tmp
 
-proc reasonPhrase*(self: HttpResponseMessage): string  =
+proc reasonPhrase*(self: HttpResponseMessage): string =
   ## Windows.Web.Http.HttpResponseMessage.get_ReasonPhrase
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: HSTRING
-    vcall(it, Slot_IHttpResponseMessage_get_ReasonPhrase, Fn_IHttpResponseMessage_get_ReasonPhrase)(it, tmp.addr).check("HttpResponseMessage.get_ReasonPhrase")
+    it.call(IHttpResponseMessage_get_ReasonPhrase, tmp.addr)
     result = takeString(tmp)
 
-proc `reasonPhrase=`*(self: HttpResponseMessage, value: string)  =
+proc `reasonPhrase=`*(self: HttpResponseMessage, value: string) =
   ## Windows.Web.Http.HttpResponseMessage.put_ReasonPhrase
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     withHString(value, h0):
-      vcall(it, Slot_IHttpResponseMessage_put_ReasonPhrase, Fn_IHttpResponseMessage_put_ReasonPhrase)(it, h0).check("HttpResponseMessage.put_ReasonPhrase")
+      it.call(IHttpResponseMessage_put_ReasonPhrase, h0)
 
-proc requestMessage*(self: HttpResponseMessage): HttpRequestMessage  =
+proc requestMessage*(self: HttpResponseMessage): HttpRequestMessage =
   ## Windows.Web.Http.HttpResponseMessage.get_RequestMessage
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseMessage_get_RequestMessage, Fn_IHttpResponseMessage_get_RequestMessage)(it, tmp.addr).check("HttpResponseMessage.get_RequestMessage")
+    it.call(IHttpResponseMessage_get_RequestMessage, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc `requestMessage=`*(self: HttpResponseMessage, value: HttpRequestMessage)  =
+proc `requestMessage=`*(self: HttpResponseMessage, value: HttpRequestMessage) =
   ## Windows.Web.Http.HttpResponseMessage.put_RequestMessage
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
-    withIface(value.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IHttpResponseMessage_put_RequestMessage, Fn_IHttpResponseMessage_put_RequestMessage)(it, p0).check("HttpResponseMessage.put_RequestMessage")
+  withIface(self.p, IHttpResponseMessage, it):
+    withIface(value.p, IHttpRequestMessage, p0):
+      it.call(IHttpResponseMessage_put_RequestMessage, p0)
 
-proc source*(self: HttpResponseMessage): HttpResponseMessageSource  =
+proc source*(self: HttpResponseMessage): HttpResponseMessageSource =
   ## Windows.Web.Http.HttpResponseMessage.get_Source
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: HttpResponseMessageSource
-    vcall(it, Slot_IHttpResponseMessage_get_Source, Fn_IHttpResponseMessage_get_Source)(it, tmp.addr).check("HttpResponseMessage.get_Source")
+    it.call(IHttpResponseMessage_get_Source, tmp.addr)
     result = tmp
 
-proc `source=`*(self: HttpResponseMessage, value: HttpResponseMessageSource)  =
+proc `source=`*(self: HttpResponseMessage, value: HttpResponseMessageSource) =
   ## Windows.Web.Http.HttpResponseMessage.put_Source
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
-    vcall(it, Slot_IHttpResponseMessage_put_Source, Fn_IHttpResponseMessage_put_Source)(it, value).check("HttpResponseMessage.put_Source")
+  withIface(self.p, IHttpResponseMessage, it):
+    it.call(IHttpResponseMessage_put_Source, value)
 
-proc statusCode*(self: HttpResponseMessage): HttpStatusCode  =
+proc statusCode*(self: HttpResponseMessage): HttpStatusCode =
   ## Windows.Web.Http.HttpResponseMessage.get_StatusCode
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: HttpStatusCode
-    vcall(it, Slot_IHttpResponseMessage_get_StatusCode, Fn_IHttpResponseMessage_get_StatusCode)(it, tmp.addr).check("HttpResponseMessage.get_StatusCode")
+    it.call(IHttpResponseMessage_get_StatusCode, tmp.addr)
     result = tmp
 
-proc `statusCode=`*(self: HttpResponseMessage, value: HttpStatusCode)  =
+proc `statusCode=`*(self: HttpResponseMessage, value: HttpStatusCode) =
   ## Windows.Web.Http.HttpResponseMessage.put_StatusCode
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
-    vcall(it, Slot_IHttpResponseMessage_put_StatusCode, Fn_IHttpResponseMessage_put_StatusCode)(it, value).check("HttpResponseMessage.put_StatusCode")
+  withIface(self.p, IHttpResponseMessage, it):
+    it.call(IHttpResponseMessage_put_StatusCode, value)
 
-proc version*(self: HttpResponseMessage): HttpVersion  =
+proc version*(self: HttpResponseMessage): HttpVersion =
   ## Windows.Web.Http.HttpResponseMessage.get_Version
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: HttpVersion
-    vcall(it, Slot_IHttpResponseMessage_get_Version, Fn_IHttpResponseMessage_get_Version)(it, tmp.addr).check("HttpResponseMessage.get_Version")
+    it.call(IHttpResponseMessage_get_Version, tmp.addr)
     result = tmp
 
-proc `version=`*(self: HttpResponseMessage, value: HttpVersion)  =
+proc `version=`*(self: HttpResponseMessage, value: HttpVersion) =
   ## Windows.Web.Http.HttpResponseMessage.put_Version
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
-    vcall(it, Slot_IHttpResponseMessage_put_Version, Fn_IHttpResponseMessage_put_Version)(it, value).check("HttpResponseMessage.put_Version")
+  withIface(self.p, IHttpResponseMessage, it):
+    it.call(IHttpResponseMessage_put_Version, value)
 
-proc ensureSuccessStatusCode*(self: HttpResponseMessage): HttpResponseMessage  =
+proc ensureSuccessStatusCode*(self: HttpResponseMessage): HttpResponseMessage =
   ## Windows.Web.Http.HttpResponseMessage.EnsureSuccessStatusCode
-  withIface(self.p, IID_IHttpResponseMessage, "IHttpResponseMessage", it):
+  withIface(self.p, IHttpResponseMessage, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseMessage_EnsureSuccessStatusCode, Fn_IHttpResponseMessage_EnsureSuccessStatusCode)(it, tmp.addr).check("HttpResponseMessage.EnsureSuccessStatusCode")
+    it.call(IHttpResponseMessage_EnsureSuccessStatusCode, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc close*(self: HttpResponseMessage)  =
+proc close*(self: HttpResponseMessage) =
   ## Windows.Web.Http.HttpResponseMessage.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpResponseMessage.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpResponseMessage): string  =
+proc toString*(self: HttpResponseMessage): string =
   ## Windows.Web.Http.HttpResponseMessage.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpResponseMessage.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[HttpResponseMessage], statusCode: HttpStatusCode): HttpResponseMessage  =
+proc create*(_: typedesc[HttpResponseMessage], statusCode: HttpStatusCode): HttpResponseMessage =
   ## Windows.Web.Http.HttpResponseMessage.Create
-  withStatics("Windows.Web.Http.HttpResponseMessage", IID_IHttpResponseMessageFactory, it):
+  withStatics("Windows.Web.Http.HttpResponseMessage",
+              IHttpResponseMessageFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpResponseMessageFactory_Create, Fn_IHttpResponseMessageFactory_Create)(it, statusCode, tmp.addr).check("HttpResponseMessage.Create")
+    it.call(IHttpResponseMessageFactory_Create, statusCode, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc headers*(self: HttpStreamContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpStreamContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpStreamContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStreamContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpStreamContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStreamContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStreamContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpStreamContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpStreamContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStreamContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpStreamContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpStreamContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpStreamContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStreamContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpStreamContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpStreamContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpStreamContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStreamContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpStreamContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress, "HttpStreamContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpStreamContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStreamContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpStreamContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStreamContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStreamContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpStreamContent.WriteToStreamAsync")
 
-proc close*(self: HttpStreamContent)  =
+proc close*(self: HttpStreamContent) =
   ## Windows.Web.Http.HttpStreamContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpStreamContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpStreamContent): string  =
+proc toString*(self: HttpStreamContent): string =
   ## Windows.Web.Http.HttpStreamContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpStreamContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc createFromInputStream*(_: typedesc[HttpStreamContent], content: WinRtObject): HttpStreamContent  =
+proc createFromInputStream*(_: typedesc[HttpStreamContent], content: WinRtObject): HttpStreamContent =
   ## Windows.Web.Http.HttpStreamContent.CreateFromInputStream
-  withStatics("Windows.Web.Http.HttpStreamContent", IID_IHttpStreamContentFactory, it):
-    withIface(content.p, IID_IInputStream, "IInputStream", p0):
+  withStatics("Windows.Web.Http.HttpStreamContent", IHttpStreamContentFactory,
+              it):
+    withIface(content.p, IInputStream, p0):
       var tmp: pointer
-      vcall(it, Slot_IHttpStreamContentFactory_CreateFromInputStream, Fn_IHttpStreamContentFactory_CreateFromInputStream)(it, p0, tmp.addr).check("HttpStreamContent.CreateFromInputStream")
+      it.call(IHttpStreamContentFactory_CreateFromInputStream, p0, tmp.addr)
       result = adopt[HttpStreamContent](tmp)
 
-proc headers*(self: HttpStringContent): HttpContentHeaderCollection  =
+proc headers*(self: HttpStringContent): HttpContentHeaderCollection =
   ## Windows.Web.Http.HttpStringContent.get_Headers
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpContent_get_Headers, Fn_IHttpContent_get_Headers)(it, tmp.addr).check("HttpStringContent.get_Headers")
+    it.call(IHttpContent_get_Headers, tmp.addr)
     result = adopt[HttpContentHeaderCollection](tmp)
 
 proc bufferAllAsync*(self: HttpStringContent): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStringContent.BufferAllAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStringContent.BufferAllAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStringContent.BufferAllAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_BufferAllAsync, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpStringContent.BufferAllAsync")
 
 proc readAsBufferAsync*(self: HttpStringContent): Future[Buffer] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsBufferAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStringContent.ReadAsBufferAsync")
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8, alProgress, "HttpStringContent.ReadAsBufferAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsBufferAsync, op.addr)
+  result = adopt[Buffer](await awaitObject(op,
+                                           IID_IAsyncOperationWithProgress_2_IBuffer_U8,
+                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U8,
+                                           alProgress,
+                                           "HttpStringContent.ReadAsBufferAsync"))
 
 proc readAsInputStreamAsync*(self: HttpStringContent): Future[WinRtObject] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsInputStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStringContent.ReadAsInputStreamAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8, alProgress, "HttpStringContent.ReadAsInputStreamAsync"))
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsInputStreamAsync, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperationWithProgress_2_IInputStream_U8,
+                                                IID_AsyncOperationWithProgressCompletedHandler_2_IInputStream_U8,
+                                                alProgress,
+                                                "HttpStringContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpStringContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_ReadAsStringAsync, Fn_IHttpContent_ReadAsStringAsync)(it, op.addr).check("HttpStringContent.ReadAsStringAsync")
-  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8, IID_AsyncOperationWithProgressCompletedHandler_2_String_U8, alProgress, "HttpStringContent.ReadAsStringAsync")
+  withIface(self.p, IHttpContent, it):
+    it.call(IHttpContent_ReadAsStringAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperationWithProgress_2_String_U8,
+                             IID_AsyncOperationWithProgressCompletedHandler_2_String_U8,
+                             alProgress, "HttpStringContent.ReadAsStringAsync")
 
-proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint64]  =
+proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint64] =
   ## Windows.Web.Http.HttpStringContent.TryComputeLength
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+  withIface(self.p, IHttpContent, it):
     var length: uint64
     var ret: bool
     var tmp: bool
-    vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStringContent.TryComputeLength")
+    it.call(IHttpContent_TryComputeLength, length.addr, tmp.addr)
     ret = tmp
     result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpStringContent, outputStream: WinRtObject): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStringContent.WriteToStreamAsync")
-  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8, alProgress, "HttpStringContent.WriteToStreamAsync")
+  withIface(self.p, IHttpContent, it):
+    withIface(outputStream.p, IOutputStream, p0):
+      it.call(IHttpContent_WriteToStreamAsync, p0, op.addr)
+  result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8,
+                                    IID_AsyncOperationWithProgressCompletedHandler_2_U8_U8,
+                                    alProgress,
+                                    "HttpStringContent.WriteToStreamAsync")
 
-proc close*(self: HttpStringContent)  =
+proc close*(self: HttpStringContent) =
   ## Windows.Web.Http.HttpStringContent.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpStringContent.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc toString*(self: HttpStringContent): string  =
+proc toString*(self: HttpStringContent): string =
   ## Windows.Web.Http.HttpStringContent.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpStringContent.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc createFromString*(_: typedesc[HttpStringContent], content: string): HttpStringContent  =
+proc createFromString*(_: typedesc[HttpStringContent], content: string): HttpStringContent =
   ## Windows.Web.Http.HttpStringContent.CreateFromString
-  withStatics("Windows.Web.Http.HttpStringContent", IID_IHttpStringContentFactory, it):
+  withStatics("Windows.Web.Http.HttpStringContent", IHttpStringContentFactory,
+              it):
     withHString(content, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpStringContentFactory_CreateFromString, Fn_IHttpStringContentFactory_CreateFromString)(it, h0, tmp.addr).check("HttpStringContent.CreateFromString")
+      it.call(IHttpStringContentFactory_CreateFromString, h0, tmp.addr)
       result = adopt[HttpStringContent](tmp)
 
-proc createFromStringWithEncoding*(_: typedesc[HttpStringContent], content: string, encoding: UnicodeEncoding): HttpStringContent  =
+proc createFromStringWithEncoding*(_: typedesc[HttpStringContent],
+                                   content: string, encoding: UnicodeEncoding): HttpStringContent =
   ## Windows.Web.Http.HttpStringContent.CreateFromStringWithEncoding
-  withStatics("Windows.Web.Http.HttpStringContent", IID_IHttpStringContentFactory, it):
+  withStatics("Windows.Web.Http.HttpStringContent", IHttpStringContentFactory,
+              it):
     withHString(content, h0):
       var tmp: pointer
-      vcall(it, Slot_IHttpStringContentFactory_CreateFromStringWithEncoding, Fn_IHttpStringContentFactory_CreateFromStringWithEncoding)(it, h0, encoding, tmp.addr).check("HttpStringContent.CreateFromStringWithEncoding")
+      it.call(IHttpStringContentFactory_CreateFromStringWithEncoding, h0,
+              encoding, tmp.addr)
       result = adopt[HttpStringContent](tmp)
 
-proc createFromStringWithEncodingAndMediaType*(_: typedesc[HttpStringContent], content: string, encoding: UnicodeEncoding, mediaType: string): HttpStringContent  =
+proc createFromStringWithEncodingAndMediaType*(_: typedesc[HttpStringContent],
+                                               content: string,
+                                               encoding: UnicodeEncoding,
+                                               mediaType: string): HttpStringContent =
   ## Windows.Web.Http.HttpStringContent.CreateFromStringWithEncodingAndMediaType
-  withStatics("Windows.Web.Http.HttpStringContent", IID_IHttpStringContentFactory, it):
+  withStatics("Windows.Web.Http.HttpStringContent", IHttpStringContentFactory,
+              it):
     withHString(content, h0):
       withHString(mediaType, h2):
         var tmp: pointer
-        vcall(it, Slot_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType, Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType)(it, h0, encoding, h2, tmp.addr).check("HttpStringContent.CreateFromStringWithEncodingAndMediaType")
+        it.call(IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType,
+                h0, encoding, h2, tmp.addr)
         result = adopt[HttpStringContent](tmp)
 
-proc serverCertificate*(self: HttpTransportInformation): Certificate  =
+proc serverCertificate*(self: HttpTransportInformation): Certificate =
   ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificate
-  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+  withIface(self.p, IHttpTransportInformation, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificate, Fn_IHttpTransportInformation_get_ServerCertificate)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificate")
+    it.call(IHttpTransportInformation_get_ServerCertificate, tmp.addr)
     result = adopt[Certificate](tmp)
 
-proc serverCertificateErrorSeverity*(self: HttpTransportInformation): SocketSslErrorSeverity  =
+proc serverCertificateErrorSeverity*(self: HttpTransportInformation): SocketSslErrorSeverity =
   ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificateErrorSeverity
-  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+  withIface(self.p, IHttpTransportInformation, it):
     var tmp: SocketSslErrorSeverity
-    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificateErrorSeverity, Fn_IHttpTransportInformation_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificateErrorSeverity")
+    it.call(IHttpTransportInformation_get_ServerCertificateErrorSeverity,
+            tmp.addr)
     result = tmp
 
-proc serverCertificateErrors*(self: HttpTransportInformation): seq[ChainValidationResult]  =
+proc serverCertificateErrors*(self: HttpTransportInformation): seq[ChainValidationResult] =
   ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificateErrors
-  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+  withIface(self.p, IHttpTransportInformation, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificateErrors, Fn_IHttpTransportInformation_get_ServerCertificateErrors)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificateErrors")
-    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    it.call(IHttpTransportInformation_get_ServerCertificateErrors, tmp.addr)
+    result = toSeq[ChainValidationResult](tmp,
+                                          IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
-proc serverIntermediateCertificates*(self: HttpTransportInformation): seq[Certificate]  =
+proc serverIntermediateCertificates*(self: HttpTransportInformation): seq[Certificate] =
   ## Windows.Web.Http.HttpTransportInformation.get_ServerIntermediateCertificates
-  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+  withIface(self.p, IHttpTransportInformation, it):
     var tmp: pointer
-    vcall(it, Slot_IHttpTransportInformation_get_ServerIntermediateCertificates, Fn_IHttpTransportInformation_get_ServerIntermediateCertificates)(it, tmp.addr).check("HttpTransportInformation.get_ServerIntermediateCertificates")
+    it.call(IHttpTransportInformation_get_ServerIntermediateCertificates,
+            tmp.addr)
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
 
-proc toString*(self: HttpTransportInformation): string  =
+proc toString*(self: HttpTransportInformation): string =
   ## Windows.Web.Http.HttpTransportInformation.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpTransportInformation.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
 proc newSyndicationAttribute*(): SyndicationAttribute =
   ## Activate a `Windows.Web.Syndication.SyndicationAttribute`.
   adopt[SyndicationAttribute](activateAs("Windows.Web.Syndication.SyndicationAttribute", IID_ISyndicationAttribute))
 
-proc name*(self: SyndicationAttribute): string  =
+proc name*(self: SyndicationAttribute): string =
   ## Windows.Web.Syndication.SyndicationAttribute.get_Name
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationAttribute_get_Name, Fn_ISyndicationAttribute_get_Name)(it, tmp.addr).check("SyndicationAttribute.get_Name")
+    it.call(ISyndicationAttribute_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc `name=`*(self: SyndicationAttribute, value: string)  =
+proc `name=`*(self: SyndicationAttribute, value: string) =
   ## Windows.Web.Syndication.SyndicationAttribute.put_Name
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationAttribute_put_Name, Fn_ISyndicationAttribute_put_Name)(it, h0).check("SyndicationAttribute.put_Name")
+      it.call(ISyndicationAttribute_put_Name, h0)
 
-proc namespace*(self: SyndicationAttribute): string  =
+proc namespace*(self: SyndicationAttribute): string =
   ## Windows.Web.Syndication.SyndicationAttribute.get_Namespace
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationAttribute_get_Namespace, Fn_ISyndicationAttribute_get_Namespace)(it, tmp.addr).check("SyndicationAttribute.get_Namespace")
+    it.call(ISyndicationAttribute_get_Namespace, tmp.addr)
     result = takeString(tmp)
 
-proc `namespace=`*(self: SyndicationAttribute, value: string)  =
+proc `namespace=`*(self: SyndicationAttribute, value: string) =
   ## Windows.Web.Syndication.SyndicationAttribute.put_Namespace
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationAttribute_put_Namespace, Fn_ISyndicationAttribute_put_Namespace)(it, h0).check("SyndicationAttribute.put_Namespace")
+      it.call(ISyndicationAttribute_put_Namespace, h0)
 
-proc value*(self: SyndicationAttribute): string  =
+proc value*(self: SyndicationAttribute): string =
   ## Windows.Web.Syndication.SyndicationAttribute.get_Value
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationAttribute_get_Value, Fn_ISyndicationAttribute_get_Value)(it, tmp.addr).check("SyndicationAttribute.get_Value")
+    it.call(ISyndicationAttribute_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `value=`*(self: SyndicationAttribute, value: string)  =
+proc `value=`*(self: SyndicationAttribute, value: string) =
   ## Windows.Web.Syndication.SyndicationAttribute.put_Value
-  withIface(self.p, IID_ISyndicationAttribute, "ISyndicationAttribute", it):
+  withIface(self.p, ISyndicationAttribute, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationAttribute_put_Value, Fn_ISyndicationAttribute_put_Value)(it, h0).check("SyndicationAttribute.put_Value")
+      it.call(ISyndicationAttribute_put_Value, h0)
 
-proc createSyndicationAttribute*(_: typedesc[SyndicationAttribute], attributeName: string, attributeNamespace: string, attributeValue: string): SyndicationAttribute  =
+proc createSyndicationAttribute*(_: typedesc[SyndicationAttribute],
+                                 attributeName: string,
+                                 attributeNamespace: string,
+                                 attributeValue: string): SyndicationAttribute =
   ## Windows.Web.Syndication.SyndicationAttribute.CreateSyndicationAttribute
-  withStatics("Windows.Web.Syndication.SyndicationAttribute", IID_ISyndicationAttributeFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationAttribute",
+              ISyndicationAttributeFactory, it):
     withHString(attributeName, h0):
       withHString(attributeNamespace, h1):
         withHString(attributeValue, h2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationAttributeFactory_CreateSyndicationAttribute, Fn_ISyndicationAttributeFactory_CreateSyndicationAttribute)(it, h0, h1, h2, tmp.addr).check("SyndicationAttribute.CreateSyndicationAttribute")
+          it.call(ISyndicationAttributeFactory_CreateSyndicationAttribute, h0,
+                  h1, h2, tmp.addr)
           result = adopt[SyndicationAttribute](tmp)
 
 proc newSyndicationCategory*(): SyndicationCategory =
   ## Activate a `Windows.Web.Syndication.SyndicationCategory`.
   adopt[SyndicationCategory](activateAs("Windows.Web.Syndication.SyndicationCategory", IID_ISyndicationCategory))
 
-proc label*(self: SyndicationCategory): string  =
+proc label*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_Label
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationCategory_get_Label, Fn_ISyndicationCategory_get_Label)(it, tmp.addr).check("SyndicationCategory.get_Label")
+    it.call(ISyndicationCategory_get_Label, tmp.addr)
     result = takeString(tmp)
 
-proc `label=`*(self: SyndicationCategory, value: string)  =
+proc `label=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_Label
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationCategory_put_Label, Fn_ISyndicationCategory_put_Label)(it, h0).check("SyndicationCategory.put_Label")
+      it.call(ISyndicationCategory_put_Label, h0)
 
-proc scheme*(self: SyndicationCategory): string  =
+proc scheme*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_Scheme
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationCategory_get_Scheme, Fn_ISyndicationCategory_get_Scheme)(it, tmp.addr).check("SyndicationCategory.get_Scheme")
+    it.call(ISyndicationCategory_get_Scheme, tmp.addr)
     result = takeString(tmp)
 
-proc `scheme=`*(self: SyndicationCategory, value: string)  =
+proc `scheme=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_Scheme
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationCategory_put_Scheme, Fn_ISyndicationCategory_put_Scheme)(it, h0).check("SyndicationCategory.put_Scheme")
+      it.call(ISyndicationCategory_put_Scheme, h0)
 
-proc term*(self: SyndicationCategory): string  =
+proc term*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_Term
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationCategory_get_Term, Fn_ISyndicationCategory_get_Term)(it, tmp.addr).check("SyndicationCategory.get_Term")
+    it.call(ISyndicationCategory_get_Term, tmp.addr)
     result = takeString(tmp)
 
-proc `term=`*(self: SyndicationCategory, value: string)  =
+proc `term=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_Term
-  withIface(self.p, IID_ISyndicationCategory, "ISyndicationCategory", it):
+  withIface(self.p, ISyndicationCategory, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationCategory_put_Term, Fn_ISyndicationCategory_put_Term)(it, h0).check("SyndicationCategory.put_Term")
+      it.call(ISyndicationCategory_put_Term, h0)
 
-proc nodeName*(self: SyndicationCategory): string  =
+proc nodeName*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationCategory.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationCategory, value: string)  =
+proc `nodeName=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationCategory.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationCategory): string  =
+proc nodeNamespace*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationCategory.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationCategory, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationCategory.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationCategory): string  =
+proc nodeValue*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationCategory.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationCategory, value: string)  =
+proc `nodeValue=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationCategory.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationCategory): string  =
+proc language*(self: SyndicationCategory): string =
   ## Windows.Web.Syndication.SyndicationCategory.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationCategory.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationCategory, value: string)  =
+proc `language=`*(self: SyndicationCategory, value: string) =
   ## Windows.Web.Syndication.SyndicationCategory.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationCategory.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationCategory): Uri  =
+proc baseUri*(self: SyndicationCategory): Uri =
   ## Windows.Web.Syndication.SyndicationCategory.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationCategory.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationCategory, value: Uri)  =
+proc `baseUri=`*(self: SyndicationCategory, value: Uri) =
   ## Windows.Web.Syndication.SyndicationCategory.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationCategory.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationCategory): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationCategory): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationCategory.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationCategory.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationCategory): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationCategory): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationCategory.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationCategory.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationCategory, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationCategory, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationCategory.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationCategory.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationCategory*(_: typedesc[SyndicationCategory], term: string): SyndicationCategory  =
+proc createSyndicationCategory*(_: typedesc[SyndicationCategory], term: string): SyndicationCategory =
   ## Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategory
-  withStatics("Windows.Web.Syndication.SyndicationCategory", IID_ISyndicationCategoryFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationCategory",
+              ISyndicationCategoryFactory, it):
     withHString(term, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationCategoryFactory_CreateSyndicationCategory, Fn_ISyndicationCategoryFactory_CreateSyndicationCategory)(it, h0, tmp.addr).check("SyndicationCategory.CreateSyndicationCategory")
+      it.call(ISyndicationCategoryFactory_CreateSyndicationCategory, h0,
+              tmp.addr)
       result = adopt[SyndicationCategory](tmp)
 
-proc createSyndicationCategoryEx*(_: typedesc[SyndicationCategory], term: string, scheme: string, label: string): SyndicationCategory  =
+proc createSyndicationCategoryEx*(_: typedesc[SyndicationCategory],
+                                  term: string, scheme: string, label: string): SyndicationCategory =
   ## Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategoryEx
-  withStatics("Windows.Web.Syndication.SyndicationCategory", IID_ISyndicationCategoryFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationCategory",
+              ISyndicationCategoryFactory, it):
     withHString(term, h0):
       withHString(scheme, h1):
         withHString(label, h2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationCategoryFactory_CreateSyndicationCategoryEx, Fn_ISyndicationCategoryFactory_CreateSyndicationCategoryEx)(it, h0, h1, h2, tmp.addr).check("SyndicationCategory.CreateSyndicationCategoryEx")
+          it.call(ISyndicationCategoryFactory_CreateSyndicationCategoryEx, h0,
+                  h1, h2, tmp.addr)
           result = adopt[SyndicationCategory](tmp)
 
 proc newSyndicationClient*(): SyndicationClient =
   ## Activate a `Windows.Web.Syndication.SyndicationClient`.
   adopt[SyndicationClient](activateAs("Windows.Web.Syndication.SyndicationClient", IID_ISyndicationClient))
 
-proc serverCredential*(self: SyndicationClient): PasswordCredential  =
+proc serverCredential*(self: SyndicationClient): PasswordCredential =
   ## Windows.Web.Syndication.SyndicationClient.get_ServerCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationClient_get_ServerCredential, Fn_ISyndicationClient_get_ServerCredential)(it, tmp.addr).check("SyndicationClient.get_ServerCredential")
+    it.call(ISyndicationClient_get_ServerCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `serverCredential=`*(self: SyndicationClient, value: PasswordCredential)  =
+proc `serverCredential=`*(self: SyndicationClient, value: PasswordCredential) =
   ## Windows.Web.Syndication.SyndicationClient.put_ServerCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_ISyndicationClient_put_ServerCredential, Fn_ISyndicationClient_put_ServerCredential)(it, p0).check("SyndicationClient.put_ServerCredential")
+  withIface(self.p, ISyndicationClient, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(ISyndicationClient_put_ServerCredential, p0)
 
-proc proxyCredential*(self: SyndicationClient): PasswordCredential  =
+proc proxyCredential*(self: SyndicationClient): PasswordCredential =
   ## Windows.Web.Syndication.SyndicationClient.get_ProxyCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationClient_get_ProxyCredential, Fn_ISyndicationClient_get_ProxyCredential)(it, tmp.addr).check("SyndicationClient.get_ProxyCredential")
+    it.call(ISyndicationClient_get_ProxyCredential, tmp.addr)
     result = adopt[PasswordCredential](tmp)
 
-proc `proxyCredential=`*(self: SyndicationClient, value: PasswordCredential)  =
+proc `proxyCredential=`*(self: SyndicationClient, value: PasswordCredential) =
   ## Windows.Web.Syndication.SyndicationClient.put_ProxyCredential
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
-      vcall(it, Slot_ISyndicationClient_put_ProxyCredential, Fn_ISyndicationClient_put_ProxyCredential)(it, p0).check("SyndicationClient.put_ProxyCredential")
+  withIface(self.p, ISyndicationClient, it):
+    withIface(value.p, IPasswordCredential, p0):
+      it.call(ISyndicationClient_put_ProxyCredential, p0)
 
-proc maxResponseBufferSize*(self: SyndicationClient): uint32  =
+proc maxResponseBufferSize*(self: SyndicationClient): uint32 =
   ## Windows.Web.Syndication.SyndicationClient.get_MaxResponseBufferSize
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: uint32
-    vcall(it, Slot_ISyndicationClient_get_MaxResponseBufferSize, Fn_ISyndicationClient_get_MaxResponseBufferSize)(it, tmp.addr).check("SyndicationClient.get_MaxResponseBufferSize")
+    it.call(ISyndicationClient_get_MaxResponseBufferSize, tmp.addr)
     result = tmp
 
-proc `maxResponseBufferSize=`*(self: SyndicationClient, value: uint32)  =
+proc `maxResponseBufferSize=`*(self: SyndicationClient, value: uint32) =
   ## Windows.Web.Syndication.SyndicationClient.put_MaxResponseBufferSize
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_MaxResponseBufferSize, Fn_ISyndicationClient_put_MaxResponseBufferSize)(it, value).check("SyndicationClient.put_MaxResponseBufferSize")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_MaxResponseBufferSize, value)
 
-proc timeout*(self: SyndicationClient): uint32  =
+proc timeout*(self: SyndicationClient): uint32 =
   ## Windows.Web.Syndication.SyndicationClient.get_Timeout
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: uint32
-    vcall(it, Slot_ISyndicationClient_get_Timeout, Fn_ISyndicationClient_get_Timeout)(it, tmp.addr).check("SyndicationClient.get_Timeout")
+    it.call(ISyndicationClient_get_Timeout, tmp.addr)
     result = tmp
 
-proc `timeout=`*(self: SyndicationClient, value: uint32)  =
+proc `timeout=`*(self: SyndicationClient, value: uint32) =
   ## Windows.Web.Syndication.SyndicationClient.put_Timeout
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_Timeout, Fn_ISyndicationClient_put_Timeout)(it, value).check("SyndicationClient.put_Timeout")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_Timeout, value)
 
-proc bypassCacheOnRetrieve*(self: SyndicationClient): bool  =
+proc bypassCacheOnRetrieve*(self: SyndicationClient): bool =
   ## Windows.Web.Syndication.SyndicationClient.get_BypassCacheOnRetrieve
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     var tmp: bool
-    vcall(it, Slot_ISyndicationClient_get_BypassCacheOnRetrieve, Fn_ISyndicationClient_get_BypassCacheOnRetrieve)(it, tmp.addr).check("SyndicationClient.get_BypassCacheOnRetrieve")
+    it.call(ISyndicationClient_get_BypassCacheOnRetrieve, tmp.addr)
     result = tmp
 
-proc `bypassCacheOnRetrieve=`*(self: SyndicationClient, value: bool)  =
+proc `bypassCacheOnRetrieve=`*(self: SyndicationClient, value: bool) =
   ## Windows.Web.Syndication.SyndicationClient.put_BypassCacheOnRetrieve
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    vcall(it, Slot_ISyndicationClient_put_BypassCacheOnRetrieve, Fn_ISyndicationClient_put_BypassCacheOnRetrieve)(it, value).check("SyndicationClient.put_BypassCacheOnRetrieve")
+  withIface(self.p, ISyndicationClient, it):
+    it.call(ISyndicationClient_put_BypassCacheOnRetrieve, value)
 
-proc setRequestHeader*(self: SyndicationClient, name: string, value: string)  =
+proc setRequestHeader*(self: SyndicationClient, name: string, value: string) =
   ## Windows.Web.Syndication.SyndicationClient.SetRequestHeader
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+  withIface(self.p, ISyndicationClient, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_ISyndicationClient_SetRequestHeader, Fn_ISyndicationClient_SetRequestHeader)(it, h0, h1).check("SyndicationClient.SetRequestHeader")
+        it.call(ISyndicationClient_SetRequestHeader, h0, h1)
 
 proc retrieveFeedAsync*(self: SyndicationClient, uri: Uri): Future[SyndicationFeed] {.async.} =
   ## Windows.Web.Syndication.SyndicationClient.RetrieveFeedAsync
   var op: pointer
-  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("SyndicationClient.RetrieveFeedAsync")
-  result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress, alProgress, "SyndicationClient.RetrieveFeedAsync"))
+  withIface(self.p, ISyndicationClient, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationClient_RetrieveFeedAsync, p0, op.addr)
+  result = adopt[SyndicationFeed](await awaitObject(op,
+                                                    IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress,
+                                                    IID_AsyncOperationWithProgressCompletedHandler_2_SyndicationFeed_RetrievalProgress,
+                                                    alProgress,
+                                                    "SyndicationClient.RetrieveFeedAsync"))
 
-proc createSyndicationClient*(_: typedesc[SyndicationClient], serverCredential: PasswordCredential): SyndicationClient  =
+proc createSyndicationClient*(_: typedesc[SyndicationClient],
+                              serverCredential: PasswordCredential): SyndicationClient =
   ## Windows.Web.Syndication.SyndicationClient.CreateSyndicationClient
-  withStatics("Windows.Web.Syndication.SyndicationClient", IID_ISyndicationClientFactory, it):
-    withIface(serverCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+  withStatics("Windows.Web.Syndication.SyndicationClient",
+              ISyndicationClientFactory, it):
+    withIface(serverCredential.p, IPasswordCredential, p0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationClientFactory_CreateSyndicationClient, Fn_ISyndicationClientFactory_CreateSyndicationClient)(it, p0, tmp.addr).check("SyndicationClient.CreateSyndicationClient")
+      it.call(ISyndicationClientFactory_CreateSyndicationClient, p0, tmp.addr)
       result = adopt[SyndicationClient](tmp)
 
 proc newSyndicationContent*(): SyndicationContent =
   ## Activate a `Windows.Web.Syndication.SyndicationContent`.
   adopt[SyndicationContent](activateAs("Windows.Web.Syndication.SyndicationContent", IID_ISyndicationText))
 
-proc text*(self: SyndicationContent): string  =
+proc text*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_Text
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationText_get_Text, Fn_ISyndicationText_get_Text)(it, tmp.addr).check("SyndicationContent.get_Text")
+    it.call(ISyndicationText_get_Text, tmp.addr)
     result = takeString(tmp)
 
-proc `text=`*(self: SyndicationContent, value: string)  =
+proc `text=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_Text
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationText_put_Text, Fn_ISyndicationText_put_Text)(it, h0).check("SyndicationContent.put_Text")
+      it.call(ISyndicationText_put_Text, h0)
 
-proc `type`*(self: SyndicationContent): string  =
+proc `type`*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_Type
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationText_get_Type, Fn_ISyndicationText_get_Type)(it, tmp.addr).check("SyndicationContent.get_Type")
+    it.call(ISyndicationText_get_Type, tmp.addr)
     result = takeString(tmp)
 
-proc `type=`*(self: SyndicationContent, value: string)  =
+proc `type=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_Type
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationText_put_Type, Fn_ISyndicationText_put_Type)(it, h0).check("SyndicationContent.put_Type")
+      it.call(ISyndicationText_put_Type, h0)
 
-proc xml*(self: SyndicationContent): XmlDocument  =
+proc xml*(self: SyndicationContent): XmlDocument =
   ## Windows.Web.Syndication.SyndicationContent.get_Xml
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationText_get_Xml, Fn_ISyndicationText_get_Xml)(it, tmp.addr).check("SyndicationContent.get_Xml")
+    it.call(ISyndicationText_get_Xml, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc `xml=`*(self: SyndicationContent, value: XmlDocument)  =
+proc `xml=`*(self: SyndicationContent, value: XmlDocument) =
   ## Windows.Web.Syndication.SyndicationContent.put_Xml
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
-    withIface(value.p, IID_IXmlDocument, "IXmlDocument", p0):
-      vcall(it, Slot_ISyndicationText_put_Xml, Fn_ISyndicationText_put_Xml)(it, p0).check("SyndicationContent.put_Xml")
+  withIface(self.p, ISyndicationText, it):
+    withIface(value.p, IXmlDocument, p0):
+      it.call(ISyndicationText_put_Xml, p0)
 
-proc nodeName*(self: SyndicationContent): string  =
+proc nodeName*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationContent.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationContent, value: string)  =
+proc `nodeName=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationContent.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationContent): string  =
+proc nodeNamespace*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationContent.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationContent, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationContent.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationContent): string  =
+proc nodeValue*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationContent.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationContent, value: string)  =
+proc `nodeValue=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationContent.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationContent): string  =
+proc language*(self: SyndicationContent): string =
   ## Windows.Web.Syndication.SyndicationContent.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationContent.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationContent, value: string)  =
+proc `language=`*(self: SyndicationContent, value: string) =
   ## Windows.Web.Syndication.SyndicationContent.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationContent.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationContent): Uri  =
+proc baseUri*(self: SyndicationContent): Uri =
   ## Windows.Web.Syndication.SyndicationContent.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationContent.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationContent, value: Uri)  =
+proc `baseUri=`*(self: SyndicationContent, value: Uri) =
   ## Windows.Web.Syndication.SyndicationContent.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationContent.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationContent): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationContent): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationContent.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationContent.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationContent): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationContent): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationContent.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationContent.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationContent, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationContent, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationContent.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationContent.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc sourceUri*(self: SyndicationContent): Uri  =
+proc sourceUri*(self: SyndicationContent): Uri =
   ## Windows.Web.Syndication.SyndicationContent.get_SourceUri
-  withIface(self.p, IID_ISyndicationContent, "ISyndicationContent", it):
+  withIface(self.p, ISyndicationContent, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationContent_get_SourceUri, Fn_ISyndicationContent_get_SourceUri)(it, tmp.addr).check("SyndicationContent.get_SourceUri")
+    it.call(ISyndicationContent_get_SourceUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `sourceUri=`*(self: SyndicationContent, value: Uri)  =
+proc `sourceUri=`*(self: SyndicationContent, value: Uri) =
   ## Windows.Web.Syndication.SyndicationContent.put_SourceUri
-  withIface(self.p, IID_ISyndicationContent, "ISyndicationContent", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationContent_put_SourceUri, Fn_ISyndicationContent_put_SourceUri)(it, p0).check("SyndicationContent.put_SourceUri")
+  withIface(self.p, ISyndicationContent, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationContent_put_SourceUri, p0)
 
-proc createSyndicationContent*(_: typedesc[SyndicationContent], text: string, `type`: SyndicationTextType): SyndicationContent  =
+proc createSyndicationContent*(_: typedesc[SyndicationContent], text: string,
+                               `type`: SyndicationTextType): SyndicationContent =
   ## Windows.Web.Syndication.SyndicationContent.CreateSyndicationContent
-  withStatics("Windows.Web.Syndication.SyndicationContent", IID_ISyndicationContentFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationContent",
+              ISyndicationContentFactory, it):
     withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationContentFactory_CreateSyndicationContent, Fn_ISyndicationContentFactory_CreateSyndicationContent)(it, h0, `type`, tmp.addr).check("SyndicationContent.CreateSyndicationContent")
+      it.call(ISyndicationContentFactory_CreateSyndicationContent, h0, `type`,
+              tmp.addr)
       result = adopt[SyndicationContent](tmp)
 
-proc createSyndicationContentWithSourceUri*(_: typedesc[SyndicationContent], sourceUri: Uri): SyndicationContent  =
+proc createSyndicationContentWithSourceUri*(_: typedesc[SyndicationContent],
+                                            sourceUri: Uri): SyndicationContent =
   ## Windows.Web.Syndication.SyndicationContent.CreateSyndicationContentWithSourceUri
-  withStatics("Windows.Web.Syndication.SyndicationContent", IID_ISyndicationContentFactory, it):
-    withIface(sourceUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.Web.Syndication.SyndicationContent",
+              ISyndicationContentFactory, it):
+    withIface(sourceUri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri, Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri)(it, p0, tmp.addr).check("SyndicationContent.CreateSyndicationContentWithSourceUri")
+      it.call(ISyndicationContentFactory_CreateSyndicationContentWithSourceUri,
+              p0, tmp.addr)
       result = adopt[SyndicationContent](tmp)
 
-proc getStatus*(_: typedesc[SyndicationError], hresult: int32): SyndicationErrorStatus  =
+proc getStatus*(_: typedesc[SyndicationError], hresult: int32): SyndicationErrorStatus =
   ## Windows.Web.Syndication.SyndicationError.GetStatus
-  withStatics("Windows.Web.Syndication.SyndicationError", IID_ISyndicationErrorStatics, it):
+  withStatics("Windows.Web.Syndication.SyndicationError",
+              ISyndicationErrorStatics, it):
     var tmp: SyndicationErrorStatus
-    vcall(it, Slot_ISyndicationErrorStatics_GetStatus, Fn_ISyndicationErrorStatics_GetStatus)(it, hresult, tmp.addr).check("SyndicationError.GetStatus")
+    it.call(ISyndicationErrorStatics_GetStatus, hresult, tmp.addr)
     result = tmp
 
 proc newSyndicationFeed*(): SyndicationFeed =
   ## Activate a `Windows.Web.Syndication.SyndicationFeed`.
   adopt[SyndicationFeed](activateAs("Windows.Web.Syndication.SyndicationFeed", IID_ISyndicationFeed))
 
-proc authors*(self: SyndicationFeed): seq[SyndicationPerson]  =
+proc authors*(self: SyndicationFeed): seq[SyndicationPerson] =
   ## Windows.Web.Syndication.SyndicationFeed.get_Authors
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Authors, Fn_ISyndicationFeed_get_Authors)(it, tmp.addr).check("SyndicationFeed.get_Authors")
+    it.call(ISyndicationFeed_get_Authors, tmp.addr)
     result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
     release(tmp)
 
-proc categories*(self: SyndicationFeed): seq[SyndicationCategory]  =
+proc categories*(self: SyndicationFeed): seq[SyndicationCategory] =
   ## Windows.Web.Syndication.SyndicationFeed.get_Categories
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Categories, Fn_ISyndicationFeed_get_Categories)(it, tmp.addr).check("SyndicationFeed.get_Categories")
+    it.call(ISyndicationFeed_get_Categories, tmp.addr)
     result = toSeq[SyndicationCategory](tmp, IID_IVector_1_SyndicationCategory)
     release(tmp)
 
-proc contributors*(self: SyndicationFeed): seq[SyndicationPerson]  =
+proc contributors*(self: SyndicationFeed): seq[SyndicationPerson] =
   ## Windows.Web.Syndication.SyndicationFeed.get_Contributors
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Contributors, Fn_ISyndicationFeed_get_Contributors)(it, tmp.addr).check("SyndicationFeed.get_Contributors")
+    it.call(ISyndicationFeed_get_Contributors, tmp.addr)
     result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
     release(tmp)
 
-proc generator*(self: SyndicationFeed): SyndicationGenerator  =
+proc generator*(self: SyndicationFeed): SyndicationGenerator =
   ## Windows.Web.Syndication.SyndicationFeed.get_Generator
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Generator, Fn_ISyndicationFeed_get_Generator)(it, tmp.addr).check("SyndicationFeed.get_Generator")
+    it.call(ISyndicationFeed_get_Generator, tmp.addr)
     result = adopt[SyndicationGenerator](tmp)
 
-proc `generator=`*(self: SyndicationFeed, value: SyndicationGenerator)  =
+proc `generator=`*(self: SyndicationFeed, value: SyndicationGenerator) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Generator
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_ISyndicationGenerator, "ISyndicationGenerator", p0):
-      vcall(it, Slot_ISyndicationFeed_put_Generator, Fn_ISyndicationFeed_put_Generator)(it, p0).check("SyndicationFeed.put_Generator")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, ISyndicationGenerator, p0):
+      it.call(ISyndicationFeed_put_Generator, p0)
 
-proc iconUri*(self: SyndicationFeed): Uri  =
+proc iconUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_IconUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_IconUri, Fn_ISyndicationFeed_get_IconUri)(it, tmp.addr).check("SyndicationFeed.get_IconUri")
+    it.call(ISyndicationFeed_get_IconUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `iconUri=`*(self: SyndicationFeed, value: Uri)  =
+proc `iconUri=`*(self: SyndicationFeed, value: Uri) =
   ## Windows.Web.Syndication.SyndicationFeed.put_IconUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationFeed_put_IconUri, Fn_ISyndicationFeed_put_IconUri)(it, p0).check("SyndicationFeed.put_IconUri")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationFeed_put_IconUri, p0)
 
-proc id*(self: SyndicationFeed): string  =
+proc id*(self: SyndicationFeed): string =
   ## Windows.Web.Syndication.SyndicationFeed.get_Id
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationFeed_get_Id, Fn_ISyndicationFeed_get_Id)(it, tmp.addr).check("SyndicationFeed.get_Id")
+    it.call(ISyndicationFeed_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc `id=`*(self: SyndicationFeed, value: string)  =
+proc `id=`*(self: SyndicationFeed, value: string) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Id
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationFeed_put_Id, Fn_ISyndicationFeed_put_Id)(it, h0).check("SyndicationFeed.put_Id")
+      it.call(ISyndicationFeed_put_Id, h0)
 
-proc items*(self: SyndicationFeed): seq[SyndicationItem]  =
+proc items*(self: SyndicationFeed): seq[SyndicationItem] =
   ## Windows.Web.Syndication.SyndicationFeed.get_Items
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Items, Fn_ISyndicationFeed_get_Items)(it, tmp.addr).check("SyndicationFeed.get_Items")
+    it.call(ISyndicationFeed_get_Items, tmp.addr)
     result = toSeq[SyndicationItem](tmp, IID_IVector_1_SyndicationItem)
     release(tmp)
 
-proc lastUpdatedTime*(self: SyndicationFeed): DateTime  =
+proc lastUpdatedTime*(self: SyndicationFeed): DateTime =
   ## Windows.Web.Syndication.SyndicationFeed.get_LastUpdatedTime
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: DateTime
-    vcall(it, Slot_ISyndicationFeed_get_LastUpdatedTime, Fn_ISyndicationFeed_get_LastUpdatedTime)(it, tmp.addr).check("SyndicationFeed.get_LastUpdatedTime")
+    it.call(ISyndicationFeed_get_LastUpdatedTime, tmp.addr)
     result = tmp
 
-proc `lastUpdatedTime=`*(self: SyndicationFeed, value: DateTime)  =
+proc `lastUpdatedTime=`*(self: SyndicationFeed, value: DateTime) =
   ## Windows.Web.Syndication.SyndicationFeed.put_LastUpdatedTime
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    vcall(it, Slot_ISyndicationFeed_put_LastUpdatedTime, Fn_ISyndicationFeed_put_LastUpdatedTime)(it, value).check("SyndicationFeed.put_LastUpdatedTime")
+  withIface(self.p, ISyndicationFeed, it):
+    it.call(ISyndicationFeed_put_LastUpdatedTime, value)
 
-proc links*(self: SyndicationFeed): seq[SyndicationLink]  =
+proc links*(self: SyndicationFeed): seq[SyndicationLink] =
   ## Windows.Web.Syndication.SyndicationFeed.get_Links
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Links, Fn_ISyndicationFeed_get_Links)(it, tmp.addr).check("SyndicationFeed.get_Links")
+    it.call(ISyndicationFeed_get_Links, tmp.addr)
     result = toSeq[SyndicationLink](tmp, IID_IVector_1_SyndicationLink)
     release(tmp)
 
-proc imageUri*(self: SyndicationFeed): Uri  =
+proc imageUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_ImageUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_ImageUri, Fn_ISyndicationFeed_get_ImageUri)(it, tmp.addr).check("SyndicationFeed.get_ImageUri")
+    it.call(ISyndicationFeed_get_ImageUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `imageUri=`*(self: SyndicationFeed, value: Uri)  =
+proc `imageUri=`*(self: SyndicationFeed, value: Uri) =
   ## Windows.Web.Syndication.SyndicationFeed.put_ImageUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationFeed_put_ImageUri, Fn_ISyndicationFeed_put_ImageUri)(it, p0).check("SyndicationFeed.put_ImageUri")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationFeed_put_ImageUri, p0)
 
-proc rights*(self: SyndicationFeed): WinRtObject  =
+proc rights*(self: SyndicationFeed): WinRtObject =
   ## Windows.Web.Syndication.SyndicationFeed.get_Rights
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Rights, Fn_ISyndicationFeed_get_Rights)(it, tmp.addr).check("SyndicationFeed.get_Rights")
+    it.call(ISyndicationFeed_get_Rights, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `rights=`*(self: SyndicationFeed, value: WinRtObject)  =
+proc `rights=`*(self: SyndicationFeed, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Rights
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationFeed_put_Rights, Fn_ISyndicationFeed_put_Rights)(it, p0).check("SyndicationFeed.put_Rights")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationFeed_put_Rights, p0)
 
-proc subtitle*(self: SyndicationFeed): WinRtObject  =
+proc subtitle*(self: SyndicationFeed): WinRtObject =
   ## Windows.Web.Syndication.SyndicationFeed.get_Subtitle
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Subtitle, Fn_ISyndicationFeed_get_Subtitle)(it, tmp.addr).check("SyndicationFeed.get_Subtitle")
+    it.call(ISyndicationFeed_get_Subtitle, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `subtitle=`*(self: SyndicationFeed, value: WinRtObject)  =
+proc `subtitle=`*(self: SyndicationFeed, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Subtitle
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationFeed_put_Subtitle, Fn_ISyndicationFeed_put_Subtitle)(it, p0).check("SyndicationFeed.put_Subtitle")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationFeed_put_Subtitle, p0)
 
-proc title*(self: SyndicationFeed): WinRtObject  =
+proc title*(self: SyndicationFeed): WinRtObject =
   ## Windows.Web.Syndication.SyndicationFeed.get_Title
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_Title, Fn_ISyndicationFeed_get_Title)(it, tmp.addr).check("SyndicationFeed.get_Title")
+    it.call(ISyndicationFeed_get_Title, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: SyndicationFeed, value: WinRtObject)  =
+proc `title=`*(self: SyndicationFeed, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Title
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationFeed_put_Title, Fn_ISyndicationFeed_put_Title)(it, p0).check("SyndicationFeed.put_Title")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationFeed_put_Title, p0)
 
-proc firstUri*(self: SyndicationFeed): Uri  =
+proc firstUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_FirstUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_FirstUri, Fn_ISyndicationFeed_get_FirstUri)(it, tmp.addr).check("SyndicationFeed.get_FirstUri")
+    it.call(ISyndicationFeed_get_FirstUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc lastUri*(self: SyndicationFeed): Uri  =
+proc lastUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_LastUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_LastUri, Fn_ISyndicationFeed_get_LastUri)(it, tmp.addr).check("SyndicationFeed.get_LastUri")
+    it.call(ISyndicationFeed_get_LastUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc nextUri*(self: SyndicationFeed): Uri  =
+proc nextUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_NextUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_NextUri, Fn_ISyndicationFeed_get_NextUri)(it, tmp.addr).check("SyndicationFeed.get_NextUri")
+    it.call(ISyndicationFeed_get_NextUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc previousUri*(self: SyndicationFeed): Uri  =
+proc previousUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_PreviousUri
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationFeed_get_PreviousUri, Fn_ISyndicationFeed_get_PreviousUri)(it, tmp.addr).check("SyndicationFeed.get_PreviousUri")
+    it.call(ISyndicationFeed_get_PreviousUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc sourceFormat*(self: SyndicationFeed): SyndicationFormat  =
+proc sourceFormat*(self: SyndicationFeed): SyndicationFormat =
   ## Windows.Web.Syndication.SyndicationFeed.get_SourceFormat
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     var tmp: SyndicationFormat
-    vcall(it, Slot_ISyndicationFeed_get_SourceFormat, Fn_ISyndicationFeed_get_SourceFormat)(it, tmp.addr).check("SyndicationFeed.get_SourceFormat")
+    it.call(ISyndicationFeed_get_SourceFormat, tmp.addr)
     result = tmp
 
-proc load*(self: SyndicationFeed, feed: string)  =
+proc load*(self: SyndicationFeed, feed: string) =
   ## Windows.Web.Syndication.SyndicationFeed.Load
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+  withIface(self.p, ISyndicationFeed, it):
     withHString(feed, h0):
-      vcall(it, Slot_ISyndicationFeed_Load, Fn_ISyndicationFeed_Load)(it, h0).check("SyndicationFeed.Load")
+      it.call(ISyndicationFeed_Load, h0)
 
-proc loadFromXml*(self: SyndicationFeed, feedDocument: XmlDocument)  =
+proc loadFromXml*(self: SyndicationFeed, feedDocument: XmlDocument) =
   ## Windows.Web.Syndication.SyndicationFeed.LoadFromXml
-  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
-    withIface(feedDocument.p, IID_IXmlDocument, "IXmlDocument", p0):
-      vcall(it, Slot_ISyndicationFeed_LoadFromXml, Fn_ISyndicationFeed_LoadFromXml)(it, p0).check("SyndicationFeed.LoadFromXml")
+  withIface(self.p, ISyndicationFeed, it):
+    withIface(feedDocument.p, IXmlDocument, p0):
+      it.call(ISyndicationFeed_LoadFromXml, p0)
 
-proc nodeName*(self: SyndicationFeed): string  =
+proc nodeName*(self: SyndicationFeed): string =
   ## Windows.Web.Syndication.SyndicationFeed.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationFeed.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationFeed, value: string)  =
+proc `nodeName=`*(self: SyndicationFeed, value: string) =
   ## Windows.Web.Syndication.SyndicationFeed.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationFeed.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationFeed): string  =
+proc nodeNamespace*(self: SyndicationFeed): string =
   ## Windows.Web.Syndication.SyndicationFeed.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationFeed.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationFeed, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationFeed, value: string) =
   ## Windows.Web.Syndication.SyndicationFeed.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationFeed.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationFeed): string  =
+proc nodeValue*(self: SyndicationFeed): string =
   ## Windows.Web.Syndication.SyndicationFeed.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationFeed.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationFeed, value: string)  =
+proc `nodeValue=`*(self: SyndicationFeed, value: string) =
   ## Windows.Web.Syndication.SyndicationFeed.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationFeed.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationFeed): string  =
+proc language*(self: SyndicationFeed): string =
   ## Windows.Web.Syndication.SyndicationFeed.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationFeed.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationFeed, value: string)  =
+proc `language=`*(self: SyndicationFeed, value: string) =
   ## Windows.Web.Syndication.SyndicationFeed.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationFeed.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationFeed): Uri  =
+proc baseUri*(self: SyndicationFeed): Uri =
   ## Windows.Web.Syndication.SyndicationFeed.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationFeed.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationFeed, value: Uri)  =
+proc `baseUri=`*(self: SyndicationFeed, value: Uri) =
   ## Windows.Web.Syndication.SyndicationFeed.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationFeed.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationFeed): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationFeed): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationFeed.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationFeed.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationFeed): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationFeed): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationFeed.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationFeed.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationFeed, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationFeed, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationFeed.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationFeed.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationFeed*(_: typedesc[SyndicationFeed], title: string, subtitle: string, uri: Uri): SyndicationFeed  =
+proc createSyndicationFeed*(_: typedesc[SyndicationFeed], title: string,
+                            subtitle: string, uri: Uri): SyndicationFeed =
   ## Windows.Web.Syndication.SyndicationFeed.CreateSyndicationFeed
-  withStatics("Windows.Web.Syndication.SyndicationFeed", IID_ISyndicationFeedFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationFeed",
+              ISyndicationFeedFactory, it):
     withHString(title, h0):
       withHString(subtitle, h1):
-        withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        withIface(uri.p, IUriRuntimeClass, p2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationFeedFactory_CreateSyndicationFeed, Fn_ISyndicationFeedFactory_CreateSyndicationFeed)(it, h0, h1, p2, tmp.addr).check("SyndicationFeed.CreateSyndicationFeed")
+          it.call(ISyndicationFeedFactory_CreateSyndicationFeed, h0, h1, p2,
+                  tmp.addr)
           result = adopt[SyndicationFeed](tmp)
 
 proc newSyndicationGenerator*(): SyndicationGenerator =
   ## Activate a `Windows.Web.Syndication.SyndicationGenerator`.
   adopt[SyndicationGenerator](activateAs("Windows.Web.Syndication.SyndicationGenerator", IID_ISyndicationGenerator))
 
-proc text*(self: SyndicationGenerator): string  =
+proc text*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_Text
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
+  withIface(self.p, ISyndicationGenerator, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationGenerator_get_Text, Fn_ISyndicationGenerator_get_Text)(it, tmp.addr).check("SyndicationGenerator.get_Text")
+    it.call(ISyndicationGenerator_get_Text, tmp.addr)
     result = takeString(tmp)
 
-proc `text=`*(self: SyndicationGenerator, value: string)  =
+proc `text=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_Text
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
+  withIface(self.p, ISyndicationGenerator, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationGenerator_put_Text, Fn_ISyndicationGenerator_put_Text)(it, h0).check("SyndicationGenerator.put_Text")
+      it.call(ISyndicationGenerator_put_Text, h0)
 
-proc uri*(self: SyndicationGenerator): Uri  =
+proc uri*(self: SyndicationGenerator): Uri =
   ## Windows.Web.Syndication.SyndicationGenerator.get_Uri
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
+  withIface(self.p, ISyndicationGenerator, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationGenerator_get_Uri, Fn_ISyndicationGenerator_get_Uri)(it, tmp.addr).check("SyndicationGenerator.get_Uri")
+    it.call(ISyndicationGenerator_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `uri=`*(self: SyndicationGenerator, value: Uri)  =
+proc `uri=`*(self: SyndicationGenerator, value: Uri) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_Uri
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationGenerator_put_Uri, Fn_ISyndicationGenerator_put_Uri)(it, p0).check("SyndicationGenerator.put_Uri")
+  withIface(self.p, ISyndicationGenerator, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationGenerator_put_Uri, p0)
 
-proc version*(self: SyndicationGenerator): string  =
+proc version*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_Version
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
+  withIface(self.p, ISyndicationGenerator, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationGenerator_get_Version, Fn_ISyndicationGenerator_get_Version)(it, tmp.addr).check("SyndicationGenerator.get_Version")
+    it.call(ISyndicationGenerator_get_Version, tmp.addr)
     result = takeString(tmp)
 
-proc `version=`*(self: SyndicationGenerator, value: string)  =
+proc `version=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_Version
-  withIface(self.p, IID_ISyndicationGenerator, "ISyndicationGenerator", it):
+  withIface(self.p, ISyndicationGenerator, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationGenerator_put_Version, Fn_ISyndicationGenerator_put_Version)(it, h0).check("SyndicationGenerator.put_Version")
+      it.call(ISyndicationGenerator_put_Version, h0)
 
-proc nodeName*(self: SyndicationGenerator): string  =
+proc nodeName*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationGenerator.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationGenerator, value: string)  =
+proc `nodeName=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationGenerator.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationGenerator): string  =
+proc nodeNamespace*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationGenerator.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationGenerator, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationGenerator.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationGenerator): string  =
+proc nodeValue*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationGenerator.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationGenerator, value: string)  =
+proc `nodeValue=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationGenerator.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationGenerator): string  =
+proc language*(self: SyndicationGenerator): string =
   ## Windows.Web.Syndication.SyndicationGenerator.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationGenerator.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationGenerator, value: string)  =
+proc `language=`*(self: SyndicationGenerator, value: string) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationGenerator.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationGenerator): Uri  =
+proc baseUri*(self: SyndicationGenerator): Uri =
   ## Windows.Web.Syndication.SyndicationGenerator.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationGenerator.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationGenerator, value: Uri)  =
+proc `baseUri=`*(self: SyndicationGenerator, value: Uri) =
   ## Windows.Web.Syndication.SyndicationGenerator.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationGenerator.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationGenerator): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationGenerator): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationGenerator.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationGenerator.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationGenerator): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationGenerator): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationGenerator.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationGenerator.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationGenerator, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationGenerator, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationGenerator.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationGenerator.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationGenerator*(_: typedesc[SyndicationGenerator], text: string): SyndicationGenerator  =
+proc createSyndicationGenerator*(_: typedesc[SyndicationGenerator], text: string): SyndicationGenerator =
   ## Windows.Web.Syndication.SyndicationGenerator.CreateSyndicationGenerator
-  withStatics("Windows.Web.Syndication.SyndicationGenerator", IID_ISyndicationGeneratorFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationGenerator",
+              ISyndicationGeneratorFactory, it):
     withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationGeneratorFactory_CreateSyndicationGenerator, Fn_ISyndicationGeneratorFactory_CreateSyndicationGenerator)(it, h0, tmp.addr).check("SyndicationGenerator.CreateSyndicationGenerator")
+      it.call(ISyndicationGeneratorFactory_CreateSyndicationGenerator, h0,
+              tmp.addr)
       result = adopt[SyndicationGenerator](tmp)
 
 proc newSyndicationItem*(): SyndicationItem =
   ## Activate a `Windows.Web.Syndication.SyndicationItem`.
   adopt[SyndicationItem](activateAs("Windows.Web.Syndication.SyndicationItem", IID_ISyndicationItem))
 
-proc authors*(self: SyndicationItem): seq[SyndicationPerson]  =
+proc authors*(self: SyndicationItem): seq[SyndicationPerson] =
   ## Windows.Web.Syndication.SyndicationItem.get_Authors
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Authors, Fn_ISyndicationItem_get_Authors)(it, tmp.addr).check("SyndicationItem.get_Authors")
+    it.call(ISyndicationItem_get_Authors, tmp.addr)
     result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
     release(tmp)
 
-proc categories*(self: SyndicationItem): seq[SyndicationCategory]  =
+proc categories*(self: SyndicationItem): seq[SyndicationCategory] =
   ## Windows.Web.Syndication.SyndicationItem.get_Categories
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Categories, Fn_ISyndicationItem_get_Categories)(it, tmp.addr).check("SyndicationItem.get_Categories")
+    it.call(ISyndicationItem_get_Categories, tmp.addr)
     result = toSeq[SyndicationCategory](tmp, IID_IVector_1_SyndicationCategory)
     release(tmp)
 
-proc contributors*(self: SyndicationItem): seq[SyndicationPerson]  =
+proc contributors*(self: SyndicationItem): seq[SyndicationPerson] =
   ## Windows.Web.Syndication.SyndicationItem.get_Contributors
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Contributors, Fn_ISyndicationItem_get_Contributors)(it, tmp.addr).check("SyndicationItem.get_Contributors")
+    it.call(ISyndicationItem_get_Contributors, tmp.addr)
     result = toSeq[SyndicationPerson](tmp, IID_IVector_1_SyndicationPerson)
     release(tmp)
 
-proc content*(self: SyndicationItem): SyndicationContent  =
+proc content*(self: SyndicationItem): SyndicationContent =
   ## Windows.Web.Syndication.SyndicationItem.get_Content
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Content, Fn_ISyndicationItem_get_Content)(it, tmp.addr).check("SyndicationItem.get_Content")
+    it.call(ISyndicationItem_get_Content, tmp.addr)
     result = adopt[SyndicationContent](tmp)
 
-proc `content=`*(self: SyndicationItem, value: SyndicationContent)  =
+proc `content=`*(self: SyndicationItem, value: SyndicationContent) =
   ## Windows.Web.Syndication.SyndicationItem.put_Content
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationItem_put_Content, Fn_ISyndicationItem_put_Content)(it, p0).check("SyndicationItem.put_Content")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationItem_put_Content, p0)
 
-proc id*(self: SyndicationItem): string  =
+proc id*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_Id
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationItem_get_Id, Fn_ISyndicationItem_get_Id)(it, tmp.addr).check("SyndicationItem.get_Id")
+    it.call(ISyndicationItem_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc `id=`*(self: SyndicationItem, value: string)  =
+proc `id=`*(self: SyndicationItem, value: string) =
   ## Windows.Web.Syndication.SyndicationItem.put_Id
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationItem_put_Id, Fn_ISyndicationItem_put_Id)(it, h0).check("SyndicationItem.put_Id")
+      it.call(ISyndicationItem_put_Id, h0)
 
-proc lastUpdatedTime*(self: SyndicationItem): DateTime  =
+proc lastUpdatedTime*(self: SyndicationItem): DateTime =
   ## Windows.Web.Syndication.SyndicationItem.get_LastUpdatedTime
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: DateTime
-    vcall(it, Slot_ISyndicationItem_get_LastUpdatedTime, Fn_ISyndicationItem_get_LastUpdatedTime)(it, tmp.addr).check("SyndicationItem.get_LastUpdatedTime")
+    it.call(ISyndicationItem_get_LastUpdatedTime, tmp.addr)
     result = tmp
 
-proc `lastUpdatedTime=`*(self: SyndicationItem, value: DateTime)  =
+proc `lastUpdatedTime=`*(self: SyndicationItem, value: DateTime) =
   ## Windows.Web.Syndication.SyndicationItem.put_LastUpdatedTime
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    vcall(it, Slot_ISyndicationItem_put_LastUpdatedTime, Fn_ISyndicationItem_put_LastUpdatedTime)(it, value).check("SyndicationItem.put_LastUpdatedTime")
+  withIface(self.p, ISyndicationItem, it):
+    it.call(ISyndicationItem_put_LastUpdatedTime, value)
 
-proc links*(self: SyndicationItem): seq[SyndicationLink]  =
+proc links*(self: SyndicationItem): seq[SyndicationLink] =
   ## Windows.Web.Syndication.SyndicationItem.get_Links
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Links, Fn_ISyndicationItem_get_Links)(it, tmp.addr).check("SyndicationItem.get_Links")
+    it.call(ISyndicationItem_get_Links, tmp.addr)
     result = toSeq[SyndicationLink](tmp, IID_IVector_1_SyndicationLink)
     release(tmp)
 
-proc publishedDate*(self: SyndicationItem): DateTime  =
+proc publishedDate*(self: SyndicationItem): DateTime =
   ## Windows.Web.Syndication.SyndicationItem.get_PublishedDate
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: DateTime
-    vcall(it, Slot_ISyndicationItem_get_PublishedDate, Fn_ISyndicationItem_get_PublishedDate)(it, tmp.addr).check("SyndicationItem.get_PublishedDate")
+    it.call(ISyndicationItem_get_PublishedDate, tmp.addr)
     result = tmp
 
-proc `publishedDate=`*(self: SyndicationItem, value: DateTime)  =
+proc `publishedDate=`*(self: SyndicationItem, value: DateTime) =
   ## Windows.Web.Syndication.SyndicationItem.put_PublishedDate
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    vcall(it, Slot_ISyndicationItem_put_PublishedDate, Fn_ISyndicationItem_put_PublishedDate)(it, value).check("SyndicationItem.put_PublishedDate")
+  withIface(self.p, ISyndicationItem, it):
+    it.call(ISyndicationItem_put_PublishedDate, value)
 
-proc rights*(self: SyndicationItem): WinRtObject  =
+proc rights*(self: SyndicationItem): WinRtObject =
   ## Windows.Web.Syndication.SyndicationItem.get_Rights
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Rights, Fn_ISyndicationItem_get_Rights)(it, tmp.addr).check("SyndicationItem.get_Rights")
+    it.call(ISyndicationItem_get_Rights, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `rights=`*(self: SyndicationItem, value: WinRtObject)  =
+proc `rights=`*(self: SyndicationItem, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationItem.put_Rights
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationItem_put_Rights, Fn_ISyndicationItem_put_Rights)(it, p0).check("SyndicationItem.put_Rights")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationItem_put_Rights, p0)
 
-proc source*(self: SyndicationItem): SyndicationFeed  =
+proc source*(self: SyndicationItem): SyndicationFeed =
   ## Windows.Web.Syndication.SyndicationItem.get_Source
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Source, Fn_ISyndicationItem_get_Source)(it, tmp.addr).check("SyndicationItem.get_Source")
+    it.call(ISyndicationItem_get_Source, tmp.addr)
     result = adopt[SyndicationFeed](tmp)
 
-proc `source=`*(self: SyndicationItem, value: SyndicationFeed)  =
+proc `source=`*(self: SyndicationItem, value: SyndicationFeed) =
   ## Windows.Web.Syndication.SyndicationItem.put_Source
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_ISyndicationFeed, "ISyndicationFeed", p0):
-      vcall(it, Slot_ISyndicationItem_put_Source, Fn_ISyndicationItem_put_Source)(it, p0).check("SyndicationItem.put_Source")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, ISyndicationFeed, p0):
+      it.call(ISyndicationItem_put_Source, p0)
 
-proc summary*(self: SyndicationItem): WinRtObject  =
+proc summary*(self: SyndicationItem): WinRtObject =
   ## Windows.Web.Syndication.SyndicationItem.get_Summary
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Summary, Fn_ISyndicationItem_get_Summary)(it, tmp.addr).check("SyndicationItem.get_Summary")
+    it.call(ISyndicationItem_get_Summary, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `summary=`*(self: SyndicationItem, value: WinRtObject)  =
+proc `summary=`*(self: SyndicationItem, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationItem.put_Summary
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationItem_put_Summary, Fn_ISyndicationItem_put_Summary)(it, p0).check("SyndicationItem.put_Summary")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationItem_put_Summary, p0)
 
-proc title*(self: SyndicationItem): WinRtObject  =
+proc title*(self: SyndicationItem): WinRtObject =
   ## Windows.Web.Syndication.SyndicationItem.get_Title
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_Title, Fn_ISyndicationItem_get_Title)(it, tmp.addr).check("SyndicationItem.get_Title")
+    it.call(ISyndicationItem_get_Title, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: SyndicationItem, value: WinRtObject)  =
+proc `title=`*(self: SyndicationItem, value: WinRtObject) =
   ## Windows.Web.Syndication.SyndicationItem.put_Title
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_ISyndicationText, "ISyndicationText", p0):
-      vcall(it, Slot_ISyndicationItem_put_Title, Fn_ISyndicationItem_put_Title)(it, p0).check("SyndicationItem.put_Title")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, ISyndicationText, p0):
+      it.call(ISyndicationItem_put_Title, p0)
 
-proc commentsUri*(self: SyndicationItem): Uri  =
+proc commentsUri*(self: SyndicationItem): Uri =
   ## Windows.Web.Syndication.SyndicationItem.get_CommentsUri
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_CommentsUri, Fn_ISyndicationItem_get_CommentsUri)(it, tmp.addr).check("SyndicationItem.get_CommentsUri")
+    it.call(ISyndicationItem_get_CommentsUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `commentsUri=`*(self: SyndicationItem, value: Uri)  =
+proc `commentsUri=`*(self: SyndicationItem, value: Uri) =
   ## Windows.Web.Syndication.SyndicationItem.put_CommentsUri
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationItem_put_CommentsUri, Fn_ISyndicationItem_put_CommentsUri)(it, p0).check("SyndicationItem.put_CommentsUri")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationItem_put_CommentsUri, p0)
 
-proc editUri*(self: SyndicationItem): Uri  =
+proc editUri*(self: SyndicationItem): Uri =
   ## Windows.Web.Syndication.SyndicationItem.get_EditUri
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_EditUri, Fn_ISyndicationItem_get_EditUri)(it, tmp.addr).check("SyndicationItem.get_EditUri")
+    it.call(ISyndicationItem_get_EditUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc editMediaUri*(self: SyndicationItem): Uri  =
+proc editMediaUri*(self: SyndicationItem): Uri =
   ## Windows.Web.Syndication.SyndicationItem.get_EditMediaUri
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_EditMediaUri, Fn_ISyndicationItem_get_EditMediaUri)(it, tmp.addr).check("SyndicationItem.get_EditMediaUri")
+    it.call(ISyndicationItem_get_EditMediaUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc eTag*(self: SyndicationItem): string  =
+proc eTag*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_ETag
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationItem_get_ETag, Fn_ISyndicationItem_get_ETag)(it, tmp.addr).check("SyndicationItem.get_ETag")
+    it.call(ISyndicationItem_get_ETag, tmp.addr)
     result = takeString(tmp)
 
-proc itemUri*(self: SyndicationItem): Uri  =
+proc itemUri*(self: SyndicationItem): Uri =
   ## Windows.Web.Syndication.SyndicationItem.get_ItemUri
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationItem_get_ItemUri, Fn_ISyndicationItem_get_ItemUri)(it, tmp.addr).check("SyndicationItem.get_ItemUri")
+    it.call(ISyndicationItem_get_ItemUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc load*(self: SyndicationItem, item: string)  =
+proc load*(self: SyndicationItem, item: string) =
   ## Windows.Web.Syndication.SyndicationItem.Load
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+  withIface(self.p, ISyndicationItem, it):
     withHString(item, h0):
-      vcall(it, Slot_ISyndicationItem_Load, Fn_ISyndicationItem_Load)(it, h0).check("SyndicationItem.Load")
+      it.call(ISyndicationItem_Load, h0)
 
-proc loadFromXml*(self: SyndicationItem, itemDocument: XmlDocument)  =
+proc loadFromXml*(self: SyndicationItem, itemDocument: XmlDocument) =
   ## Windows.Web.Syndication.SyndicationItem.LoadFromXml
-  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
-    withIface(itemDocument.p, IID_IXmlDocument, "IXmlDocument", p0):
-      vcall(it, Slot_ISyndicationItem_LoadFromXml, Fn_ISyndicationItem_LoadFromXml)(it, p0).check("SyndicationItem.LoadFromXml")
+  withIface(self.p, ISyndicationItem, it):
+    withIface(itemDocument.p, IXmlDocument, p0):
+      it.call(ISyndicationItem_LoadFromXml, p0)
 
-proc nodeName*(self: SyndicationItem): string  =
+proc nodeName*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationItem.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationItem, value: string)  =
+proc `nodeName=`*(self: SyndicationItem, value: string) =
   ## Windows.Web.Syndication.SyndicationItem.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationItem.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationItem): string  =
+proc nodeNamespace*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationItem.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationItem, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationItem, value: string) =
   ## Windows.Web.Syndication.SyndicationItem.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationItem.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationItem): string  =
+proc nodeValue*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationItem.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationItem, value: string)  =
+proc `nodeValue=`*(self: SyndicationItem, value: string) =
   ## Windows.Web.Syndication.SyndicationItem.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationItem.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationItem): string  =
+proc language*(self: SyndicationItem): string =
   ## Windows.Web.Syndication.SyndicationItem.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationItem.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationItem, value: string)  =
+proc `language=`*(self: SyndicationItem, value: string) =
   ## Windows.Web.Syndication.SyndicationItem.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationItem.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationItem): Uri  =
+proc baseUri*(self: SyndicationItem): Uri =
   ## Windows.Web.Syndication.SyndicationItem.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationItem.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationItem, value: Uri)  =
+proc `baseUri=`*(self: SyndicationItem, value: Uri) =
   ## Windows.Web.Syndication.SyndicationItem.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationItem.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationItem): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationItem): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationItem.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationItem.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationItem): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationItem): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationItem.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationItem.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationItem, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationItem, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationItem.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationItem.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationItem*(_: typedesc[SyndicationItem], title: string, content: SyndicationContent, uri: Uri): SyndicationItem  =
+proc createSyndicationItem*(_: typedesc[SyndicationItem], title: string,
+                            content: SyndicationContent, uri: Uri): SyndicationItem =
   ## Windows.Web.Syndication.SyndicationItem.CreateSyndicationItem
-  withStatics("Windows.Web.Syndication.SyndicationItem", IID_ISyndicationItemFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationItem",
+              ISyndicationItemFactory, it):
     withHString(title, h0):
-      withIface(content.p, IID_ISyndicationText, "ISyndicationText", p1):
-        withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+      withIface(content.p, ISyndicationText, p1):
+        withIface(uri.p, IUriRuntimeClass, p2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationItemFactory_CreateSyndicationItem, Fn_ISyndicationItemFactory_CreateSyndicationItem)(it, h0, p1, p2, tmp.addr).check("SyndicationItem.CreateSyndicationItem")
+          it.call(ISyndicationItemFactory_CreateSyndicationItem, h0, p1, p2,
+                  tmp.addr)
           result = adopt[SyndicationItem](tmp)
 
 proc newSyndicationLink*(): SyndicationLink =
   ## Activate a `Windows.Web.Syndication.SyndicationLink`.
   adopt[SyndicationLink](activateAs("Windows.Web.Syndication.SyndicationLink", IID_ISyndicationLink))
 
-proc length*(self: SyndicationLink): uint32  =
+proc length*(self: SyndicationLink): uint32 =
   ## Windows.Web.Syndication.SyndicationLink.get_Length
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: uint32
-    vcall(it, Slot_ISyndicationLink_get_Length, Fn_ISyndicationLink_get_Length)(it, tmp.addr).check("SyndicationLink.get_Length")
+    it.call(ISyndicationLink_get_Length, tmp.addr)
     result = tmp
 
-proc `length=`*(self: SyndicationLink, value: uint32)  =
+proc `length=`*(self: SyndicationLink, value: uint32) =
   ## Windows.Web.Syndication.SyndicationLink.put_Length
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
-    vcall(it, Slot_ISyndicationLink_put_Length, Fn_ISyndicationLink_put_Length)(it, value).check("SyndicationLink.put_Length")
+  withIface(self.p, ISyndicationLink, it):
+    it.call(ISyndicationLink_put_Length, value)
 
-proc mediaType*(self: SyndicationLink): string  =
+proc mediaType*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_MediaType
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationLink_get_MediaType, Fn_ISyndicationLink_get_MediaType)(it, tmp.addr).check("SyndicationLink.get_MediaType")
+    it.call(ISyndicationLink_get_MediaType, tmp.addr)
     result = takeString(tmp)
 
-proc `mediaType=`*(self: SyndicationLink, value: string)  =
+proc `mediaType=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_MediaType
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationLink_put_MediaType, Fn_ISyndicationLink_put_MediaType)(it, h0).check("SyndicationLink.put_MediaType")
+      it.call(ISyndicationLink_put_MediaType, h0)
 
-proc relationship*(self: SyndicationLink): string  =
+proc relationship*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_Relationship
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationLink_get_Relationship, Fn_ISyndicationLink_get_Relationship)(it, tmp.addr).check("SyndicationLink.get_Relationship")
+    it.call(ISyndicationLink_get_Relationship, tmp.addr)
     result = takeString(tmp)
 
-proc `relationship=`*(self: SyndicationLink, value: string)  =
+proc `relationship=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_Relationship
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationLink_put_Relationship, Fn_ISyndicationLink_put_Relationship)(it, h0).check("SyndicationLink.put_Relationship")
+      it.call(ISyndicationLink_put_Relationship, h0)
 
-proc title*(self: SyndicationLink): string  =
+proc title*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_Title
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationLink_get_Title, Fn_ISyndicationLink_get_Title)(it, tmp.addr).check("SyndicationLink.get_Title")
+    it.call(ISyndicationLink_get_Title, tmp.addr)
     result = takeString(tmp)
 
-proc `title=`*(self: SyndicationLink, value: string)  =
+proc `title=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_Title
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationLink_put_Title, Fn_ISyndicationLink_put_Title)(it, h0).check("SyndicationLink.put_Title")
+      it.call(ISyndicationLink_put_Title, h0)
 
-proc uri*(self: SyndicationLink): Uri  =
+proc uri*(self: SyndicationLink): Uri =
   ## Windows.Web.Syndication.SyndicationLink.get_Uri
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationLink_get_Uri, Fn_ISyndicationLink_get_Uri)(it, tmp.addr).check("SyndicationLink.get_Uri")
+    it.call(ISyndicationLink_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `uri=`*(self: SyndicationLink, value: Uri)  =
+proc `uri=`*(self: SyndicationLink, value: Uri) =
   ## Windows.Web.Syndication.SyndicationLink.put_Uri
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationLink_put_Uri, Fn_ISyndicationLink_put_Uri)(it, p0).check("SyndicationLink.put_Uri")
+  withIface(self.p, ISyndicationLink, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationLink_put_Uri, p0)
 
-proc resourceLanguage*(self: SyndicationLink): string  =
+proc resourceLanguage*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_ResourceLanguage
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationLink_get_ResourceLanguage, Fn_ISyndicationLink_get_ResourceLanguage)(it, tmp.addr).check("SyndicationLink.get_ResourceLanguage")
+    it.call(ISyndicationLink_get_ResourceLanguage, tmp.addr)
     result = takeString(tmp)
 
-proc `resourceLanguage=`*(self: SyndicationLink, value: string)  =
+proc `resourceLanguage=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_ResourceLanguage
-  withIface(self.p, IID_ISyndicationLink, "ISyndicationLink", it):
+  withIface(self.p, ISyndicationLink, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationLink_put_ResourceLanguage, Fn_ISyndicationLink_put_ResourceLanguage)(it, h0).check("SyndicationLink.put_ResourceLanguage")
+      it.call(ISyndicationLink_put_ResourceLanguage, h0)
 
-proc nodeName*(self: SyndicationLink): string  =
+proc nodeName*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationLink.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationLink, value: string)  =
+proc `nodeName=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationLink.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationLink): string  =
+proc nodeNamespace*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationLink.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationLink, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationLink.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationLink): string  =
+proc nodeValue*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationLink.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationLink, value: string)  =
+proc `nodeValue=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationLink.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationLink): string  =
+proc language*(self: SyndicationLink): string =
   ## Windows.Web.Syndication.SyndicationLink.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationLink.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationLink, value: string)  =
+proc `language=`*(self: SyndicationLink, value: string) =
   ## Windows.Web.Syndication.SyndicationLink.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationLink.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationLink): Uri  =
+proc baseUri*(self: SyndicationLink): Uri =
   ## Windows.Web.Syndication.SyndicationLink.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationLink.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationLink, value: Uri)  =
+proc `baseUri=`*(self: SyndicationLink, value: Uri) =
   ## Windows.Web.Syndication.SyndicationLink.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationLink.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationLink): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationLink): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationLink.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationLink.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationLink): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationLink): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationLink.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationLink.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationLink, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationLink, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationLink.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationLink.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationLink*(_: typedesc[SyndicationLink], uri: Uri): SyndicationLink  =
+proc createSyndicationLink*(_: typedesc[SyndicationLink], uri: Uri): SyndicationLink =
   ## Windows.Web.Syndication.SyndicationLink.CreateSyndicationLink
-  withStatics("Windows.Web.Syndication.SyndicationLink", IID_ISyndicationLinkFactory, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.Web.Syndication.SyndicationLink",
+              ISyndicationLinkFactory, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationLinkFactory_CreateSyndicationLink, Fn_ISyndicationLinkFactory_CreateSyndicationLink)(it, p0, tmp.addr).check("SyndicationLink.CreateSyndicationLink")
+      it.call(ISyndicationLinkFactory_CreateSyndicationLink, p0, tmp.addr)
       result = adopt[SyndicationLink](tmp)
 
-proc createSyndicationLinkEx*(_: typedesc[SyndicationLink], uri: Uri, relationship: string, title: string, mediaType: string, length: uint32): SyndicationLink  =
+proc createSyndicationLinkEx*(_: typedesc[SyndicationLink], uri: Uri,
+                              relationship: string, title: string,
+                              mediaType: string, length: uint32): SyndicationLink =
   ## Windows.Web.Syndication.SyndicationLink.CreateSyndicationLinkEx
-  withStatics("Windows.Web.Syndication.SyndicationLink", IID_ISyndicationLinkFactory, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.Web.Syndication.SyndicationLink",
+              ISyndicationLinkFactory, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(relationship, h1):
         withHString(title, h2):
           withHString(mediaType, h3):
             var tmp: pointer
-            vcall(it, Slot_ISyndicationLinkFactory_CreateSyndicationLinkEx, Fn_ISyndicationLinkFactory_CreateSyndicationLinkEx)(it, p0, h1, h2, h3, length, tmp.addr).check("SyndicationLink.CreateSyndicationLinkEx")
+            it.call(ISyndicationLinkFactory_CreateSyndicationLinkEx, p0, h1, h2,
+                    h3, length, tmp.addr)
             result = adopt[SyndicationLink](tmp)
 
 proc newSyndicationNode*(): SyndicationNode =
   ## Activate a `Windows.Web.Syndication.SyndicationNode`.
   adopt[SyndicationNode](activateAs("Windows.Web.Syndication.SyndicationNode", IID_ISyndicationNode))
 
-proc nodeName*(self: SyndicationNode): string  =
+proc nodeName*(self: SyndicationNode): string =
   ## Windows.Web.Syndication.SyndicationNode.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationNode.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationNode, value: string)  =
+proc `nodeName=`*(self: SyndicationNode, value: string) =
   ## Windows.Web.Syndication.SyndicationNode.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationNode.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationNode): string  =
+proc nodeNamespace*(self: SyndicationNode): string =
   ## Windows.Web.Syndication.SyndicationNode.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationNode.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationNode, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationNode, value: string) =
   ## Windows.Web.Syndication.SyndicationNode.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationNode.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationNode): string  =
+proc nodeValue*(self: SyndicationNode): string =
   ## Windows.Web.Syndication.SyndicationNode.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationNode.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationNode, value: string)  =
+proc `nodeValue=`*(self: SyndicationNode, value: string) =
   ## Windows.Web.Syndication.SyndicationNode.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationNode.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationNode): string  =
+proc language*(self: SyndicationNode): string =
   ## Windows.Web.Syndication.SyndicationNode.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationNode.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationNode, value: string)  =
+proc `language=`*(self: SyndicationNode, value: string) =
   ## Windows.Web.Syndication.SyndicationNode.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationNode.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationNode): Uri  =
+proc baseUri*(self: SyndicationNode): Uri =
   ## Windows.Web.Syndication.SyndicationNode.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationNode.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationNode, value: Uri)  =
+proc `baseUri=`*(self: SyndicationNode, value: Uri) =
   ## Windows.Web.Syndication.SyndicationNode.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationNode.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationNode): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationNode): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationNode.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationNode.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationNode): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationNode): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationNode.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationNode.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationNode, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationNode, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationNode.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationNode.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationNode*(_: typedesc[SyndicationNode], nodeName: string, nodeNamespace: string, nodeValue: string): SyndicationNode  =
+proc createSyndicationNode*(_: typedesc[SyndicationNode], nodeName: string,
+                            nodeNamespace: string, nodeValue: string): SyndicationNode =
   ## Windows.Web.Syndication.SyndicationNode.CreateSyndicationNode
-  withStatics("Windows.Web.Syndication.SyndicationNode", IID_ISyndicationNodeFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationNode",
+              ISyndicationNodeFactory, it):
     withHString(nodeName, h0):
       withHString(nodeNamespace, h1):
         withHString(nodeValue, h2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationNodeFactory_CreateSyndicationNode, Fn_ISyndicationNodeFactory_CreateSyndicationNode)(it, h0, h1, h2, tmp.addr).check("SyndicationNode.CreateSyndicationNode")
+          it.call(ISyndicationNodeFactory_CreateSyndicationNode, h0, h1, h2,
+                  tmp.addr)
           result = adopt[SyndicationNode](tmp)
 
 proc newSyndicationPerson*(): SyndicationPerson =
   ## Activate a `Windows.Web.Syndication.SyndicationPerson`.
   adopt[SyndicationPerson](activateAs("Windows.Web.Syndication.SyndicationPerson", IID_ISyndicationPerson))
 
-proc email*(self: SyndicationPerson): string  =
+proc email*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_Email
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
+  withIface(self.p, ISyndicationPerson, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationPerson_get_Email, Fn_ISyndicationPerson_get_Email)(it, tmp.addr).check("SyndicationPerson.get_Email")
+    it.call(ISyndicationPerson_get_Email, tmp.addr)
     result = takeString(tmp)
 
-proc `email=`*(self: SyndicationPerson, value: string)  =
+proc `email=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_Email
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
+  withIface(self.p, ISyndicationPerson, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationPerson_put_Email, Fn_ISyndicationPerson_put_Email)(it, h0).check("SyndicationPerson.put_Email")
+      it.call(ISyndicationPerson_put_Email, h0)
 
-proc name*(self: SyndicationPerson): string  =
+proc name*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_Name
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
+  withIface(self.p, ISyndicationPerson, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationPerson_get_Name, Fn_ISyndicationPerson_get_Name)(it, tmp.addr).check("SyndicationPerson.get_Name")
+    it.call(ISyndicationPerson_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc `name=`*(self: SyndicationPerson, value: string)  =
+proc `name=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_Name
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
+  withIface(self.p, ISyndicationPerson, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationPerson_put_Name, Fn_ISyndicationPerson_put_Name)(it, h0).check("SyndicationPerson.put_Name")
+      it.call(ISyndicationPerson_put_Name, h0)
 
-proc uri*(self: SyndicationPerson): Uri  =
+proc uri*(self: SyndicationPerson): Uri =
   ## Windows.Web.Syndication.SyndicationPerson.get_Uri
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
+  withIface(self.p, ISyndicationPerson, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationPerson_get_Uri, Fn_ISyndicationPerson_get_Uri)(it, tmp.addr).check("SyndicationPerson.get_Uri")
+    it.call(ISyndicationPerson_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `uri=`*(self: SyndicationPerson, value: Uri)  =
+proc `uri=`*(self: SyndicationPerson, value: Uri) =
   ## Windows.Web.Syndication.SyndicationPerson.put_Uri
-  withIface(self.p, IID_ISyndicationPerson, "ISyndicationPerson", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationPerson_put_Uri, Fn_ISyndicationPerson_put_Uri)(it, p0).check("SyndicationPerson.put_Uri")
+  withIface(self.p, ISyndicationPerson, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationPerson_put_Uri, p0)
 
-proc nodeName*(self: SyndicationPerson): string  =
+proc nodeName*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationPerson.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationPerson, value: string)  =
+proc `nodeName=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationPerson.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationPerson): string  =
+proc nodeNamespace*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationPerson.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationPerson, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationPerson.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationPerson): string  =
+proc nodeValue*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationPerson.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationPerson, value: string)  =
+proc `nodeValue=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationPerson.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationPerson): string  =
+proc language*(self: SyndicationPerson): string =
   ## Windows.Web.Syndication.SyndicationPerson.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationPerson.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationPerson, value: string)  =
+proc `language=`*(self: SyndicationPerson, value: string) =
   ## Windows.Web.Syndication.SyndicationPerson.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationPerson.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationPerson): Uri  =
+proc baseUri*(self: SyndicationPerson): Uri =
   ## Windows.Web.Syndication.SyndicationPerson.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationPerson.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationPerson, value: Uri)  =
+proc `baseUri=`*(self: SyndicationPerson, value: Uri) =
   ## Windows.Web.Syndication.SyndicationPerson.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationPerson.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationPerson): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationPerson): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationPerson.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationPerson.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationPerson): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationPerson): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationPerson.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationPerson.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationPerson, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationPerson, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationPerson.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationPerson.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationPerson*(_: typedesc[SyndicationPerson], name: string): SyndicationPerson  =
+proc createSyndicationPerson*(_: typedesc[SyndicationPerson], name: string): SyndicationPerson =
   ## Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPerson
-  withStatics("Windows.Web.Syndication.SyndicationPerson", IID_ISyndicationPersonFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationPerson",
+              ISyndicationPersonFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationPersonFactory_CreateSyndicationPerson, Fn_ISyndicationPersonFactory_CreateSyndicationPerson)(it, h0, tmp.addr).check("SyndicationPerson.CreateSyndicationPerson")
+      it.call(ISyndicationPersonFactory_CreateSyndicationPerson, h0, tmp.addr)
       result = adopt[SyndicationPerson](tmp)
 
-proc createSyndicationPersonEx*(_: typedesc[SyndicationPerson], name: string, email: string, uri: Uri): SyndicationPerson  =
+proc createSyndicationPersonEx*(_: typedesc[SyndicationPerson], name: string,
+                                email: string, uri: Uri): SyndicationPerson =
   ## Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPersonEx
-  withStatics("Windows.Web.Syndication.SyndicationPerson", IID_ISyndicationPersonFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationPerson",
+              ISyndicationPersonFactory, it):
     withHString(name, h0):
       withHString(email, h1):
-        withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        withIface(uri.p, IUriRuntimeClass, p2):
           var tmp: pointer
-          vcall(it, Slot_ISyndicationPersonFactory_CreateSyndicationPersonEx, Fn_ISyndicationPersonFactory_CreateSyndicationPersonEx)(it, h0, h1, p2, tmp.addr).check("SyndicationPerson.CreateSyndicationPersonEx")
+          it.call(ISyndicationPersonFactory_CreateSyndicationPersonEx, h0, h1,
+                  p2, tmp.addr)
           result = adopt[SyndicationPerson](tmp)
 
 proc newSyndicationText*(): SyndicationText =
   ## Activate a `Windows.Web.Syndication.SyndicationText`.
   adopt[SyndicationText](activateAs("Windows.Web.Syndication.SyndicationText", IID_ISyndicationText))
 
-proc text*(self: SyndicationText): string  =
+proc text*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_Text
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationText_get_Text, Fn_ISyndicationText_get_Text)(it, tmp.addr).check("SyndicationText.get_Text")
+    it.call(ISyndicationText_get_Text, tmp.addr)
     result = takeString(tmp)
 
-proc `text=`*(self: SyndicationText, value: string)  =
+proc `text=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_Text
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationText_put_Text, Fn_ISyndicationText_put_Text)(it, h0).check("SyndicationText.put_Text")
+      it.call(ISyndicationText_put_Text, h0)
 
-proc `type`*(self: SyndicationText): string  =
+proc `type`*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_Type
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationText_get_Type, Fn_ISyndicationText_get_Type)(it, tmp.addr).check("SyndicationText.get_Type")
+    it.call(ISyndicationText_get_Type, tmp.addr)
     result = takeString(tmp)
 
-proc `type=`*(self: SyndicationText, value: string)  =
+proc `type=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_Type
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationText_put_Type, Fn_ISyndicationText_put_Type)(it, h0).check("SyndicationText.put_Type")
+      it.call(ISyndicationText_put_Type, h0)
 
-proc xml*(self: SyndicationText): XmlDocument  =
+proc xml*(self: SyndicationText): XmlDocument =
   ## Windows.Web.Syndication.SyndicationText.get_Xml
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+  withIface(self.p, ISyndicationText, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationText_get_Xml, Fn_ISyndicationText_get_Xml)(it, tmp.addr).check("SyndicationText.get_Xml")
+    it.call(ISyndicationText_get_Xml, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc `xml=`*(self: SyndicationText, value: XmlDocument)  =
+proc `xml=`*(self: SyndicationText, value: XmlDocument) =
   ## Windows.Web.Syndication.SyndicationText.put_Xml
-  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
-    withIface(value.p, IID_IXmlDocument, "IXmlDocument", p0):
-      vcall(it, Slot_ISyndicationText_put_Xml, Fn_ISyndicationText_put_Xml)(it, p0).check("SyndicationText.put_Xml")
+  withIface(self.p, ISyndicationText, it):
+    withIface(value.p, IXmlDocument, p0):
+      it.call(ISyndicationText_put_Xml, p0)
 
-proc nodeName*(self: SyndicationText): string  =
+proc nodeName*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeName, Fn_ISyndicationNode_get_NodeName)(it, tmp.addr).check("SyndicationText.get_NodeName")
+    it.call(ISyndicationNode_get_NodeName, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeName=`*(self: SyndicationText, value: string)  =
+proc `nodeName=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_NodeName
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeName, Fn_ISyndicationNode_put_NodeName)(it, h0).check("SyndicationText.put_NodeName")
+      it.call(ISyndicationNode_put_NodeName, h0)
 
-proc nodeNamespace*(self: SyndicationText): string  =
+proc nodeNamespace*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeNamespace, Fn_ISyndicationNode_get_NodeNamespace)(it, tmp.addr).check("SyndicationText.get_NodeNamespace")
+    it.call(ISyndicationNode_get_NodeNamespace, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeNamespace=`*(self: SyndicationText, value: string)  =
+proc `nodeNamespace=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_NodeNamespace
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeNamespace, Fn_ISyndicationNode_put_NodeNamespace)(it, h0).check("SyndicationText.put_NodeNamespace")
+      it.call(ISyndicationNode_put_NodeNamespace, h0)
 
-proc nodeValue*(self: SyndicationText): string  =
+proc nodeValue*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_NodeValue, Fn_ISyndicationNode_get_NodeValue)(it, tmp.addr).check("SyndicationText.get_NodeValue")
+    it.call(ISyndicationNode_get_NodeValue, tmp.addr)
     result = takeString(tmp)
 
-proc `nodeValue=`*(self: SyndicationText, value: string)  =
+proc `nodeValue=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_NodeValue
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_NodeValue, Fn_ISyndicationNode_put_NodeValue)(it, h0).check("SyndicationText.put_NodeValue")
+      it.call(ISyndicationNode_put_NodeValue, h0)
 
-proc language*(self: SyndicationText): string  =
+proc language*(self: SyndicationText): string =
   ## Windows.Web.Syndication.SyndicationText.get_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISyndicationNode_get_Language, Fn_ISyndicationNode_get_Language)(it, tmp.addr).check("SyndicationText.get_Language")
+    it.call(ISyndicationNode_get_Language, tmp.addr)
     result = takeString(tmp)
 
-proc `language=`*(self: SyndicationText, value: string)  =
+proc `language=`*(self: SyndicationText, value: string) =
   ## Windows.Web.Syndication.SyndicationText.put_Language
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     withHString(value, h0):
-      vcall(it, Slot_ISyndicationNode_put_Language, Fn_ISyndicationNode_put_Language)(it, h0).check("SyndicationText.put_Language")
+      it.call(ISyndicationNode_put_Language, h0)
 
-proc baseUri*(self: SyndicationText): Uri  =
+proc baseUri*(self: SyndicationText): Uri =
   ## Windows.Web.Syndication.SyndicationText.get_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_BaseUri, Fn_ISyndicationNode_get_BaseUri)(it, tmp.addr).check("SyndicationText.get_BaseUri")
+    it.call(ISyndicationNode_get_BaseUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `baseUri=`*(self: SyndicationText, value: Uri)  =
+proc `baseUri=`*(self: SyndicationText, value: Uri) =
   ## Windows.Web.Syndication.SyndicationText.put_BaseUri
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ISyndicationNode_put_BaseUri, Fn_ISyndicationNode_put_BaseUri)(it, p0).check("SyndicationText.put_BaseUri")
+  withIface(self.p, ISyndicationNode, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ISyndicationNode_put_BaseUri, p0)
 
-proc attributeExtensions*(self: SyndicationText): seq[SyndicationAttribute]  =
+proc attributeExtensions*(self: SyndicationText): seq[SyndicationAttribute] =
   ## Windows.Web.Syndication.SyndicationText.get_AttributeExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_AttributeExtensions, Fn_ISyndicationNode_get_AttributeExtensions)(it, tmp.addr).check("SyndicationText.get_AttributeExtensions")
+    it.call(ISyndicationNode_get_AttributeExtensions, tmp.addr)
     result = toSeq[SyndicationAttribute](tmp, IID_IVector_1_SyndicationAttribute)
     release(tmp)
 
-proc elementExtensions*(self: SyndicationText): seq[SyndicationNode]  =
+proc elementExtensions*(self: SyndicationText): seq[SyndicationNode] =
   ## Windows.Web.Syndication.SyndicationText.get_ElementExtensions
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationText.get_ElementExtensions")
+    it.call(ISyndicationNode_get_ElementExtensions, tmp.addr)
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
-proc getXmlDocument*(self: SyndicationText, format: SyndicationFormat): XmlDocument  =
+proc getXmlDocument*(self: SyndicationText, format: SyndicationFormat): XmlDocument =
   ## Windows.Web.Syndication.SyndicationText.GetXmlDocument
-  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+  withIface(self.p, ISyndicationNode, it):
     var tmp: pointer
-    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationText.GetXmlDocument")
+    it.call(ISyndicationNode_GetXmlDocument, format, tmp.addr)
     result = adopt[XmlDocument](tmp)
 
-proc createSyndicationText*(_: typedesc[SyndicationText], text: string): SyndicationText  =
+proc createSyndicationText*(_: typedesc[SyndicationText], text: string): SyndicationText =
   ## Windows.Web.Syndication.SyndicationText.CreateSyndicationText
-  withStatics("Windows.Web.Syndication.SyndicationText", IID_ISyndicationTextFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationText",
+              ISyndicationTextFactory, it):
     withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationTextFactory_CreateSyndicationText, Fn_ISyndicationTextFactory_CreateSyndicationText)(it, h0, tmp.addr).check("SyndicationText.CreateSyndicationText")
+      it.call(ISyndicationTextFactory_CreateSyndicationText, h0, tmp.addr)
       result = adopt[SyndicationText](tmp)
 
-proc createSyndicationTextEx*(_: typedesc[SyndicationText], text: string, `type`: SyndicationTextType): SyndicationText  =
+proc createSyndicationTextEx*(_: typedesc[SyndicationText], text: string,
+                              `type`: SyndicationTextType): SyndicationText =
   ## Windows.Web.Syndication.SyndicationText.CreateSyndicationTextEx
-  withStatics("Windows.Web.Syndication.SyndicationText", IID_ISyndicationTextFactory, it):
+  withStatics("Windows.Web.Syndication.SyndicationText",
+              ISyndicationTextFactory, it):
     withHString(text, h0):
       var tmp: pointer
-      vcall(it, Slot_ISyndicationTextFactory_CreateSyndicationTextEx, Fn_ISyndicationTextFactory_CreateSyndicationTextEx)(it, h0, `type`, tmp.addr).check("SyndicationText.CreateSyndicationTextEx")
+      it.call(ISyndicationTextFactory_CreateSyndicationTextEx, h0, `type`,
+              tmp.addr)
       result = adopt[SyndicationText](tmp)
 
-proc source*(self: WebViewControl): Uri  =
+proc source*(self: WebViewControl): Uri =
   ## Windows.Web.UI.Interop.WebViewControl.get_Source
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControl_get_Source, Fn_IWebViewControl_get_Source)(it, tmp.addr).check("WebViewControl.get_Source")
+    it.call(IWebViewControl_get_Source, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `source=`*(self: WebViewControl, value: Uri)  =
+proc `source=`*(self: WebViewControl, value: Uri) =
   ## Windows.Web.UI.Interop.WebViewControl.put_Source
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IWebViewControl_put_Source, Fn_IWebViewControl_put_Source)(it, p0).check("WebViewControl.put_Source")
+  withIface(self.p, IWebViewControl, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IWebViewControl_put_Source, p0)
 
-proc documentTitle*(self: WebViewControl): string  =
+proc documentTitle*(self: WebViewControl): string =
   ## Windows.Web.UI.Interop.WebViewControl.get_DocumentTitle
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWebViewControl_get_DocumentTitle, Fn_IWebViewControl_get_DocumentTitle)(it, tmp.addr).check("WebViewControl.get_DocumentTitle")
+    it.call(IWebViewControl_get_DocumentTitle, tmp.addr)
     result = takeString(tmp)
 
-proc canGoBack*(self: WebViewControl): bool  =
+proc canGoBack*(self: WebViewControl): bool =
   ## Windows.Web.UI.Interop.WebViewControl.get_CanGoBack
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControl_get_CanGoBack, Fn_IWebViewControl_get_CanGoBack)(it, tmp.addr).check("WebViewControl.get_CanGoBack")
+    it.call(IWebViewControl_get_CanGoBack, tmp.addr)
     result = tmp
 
-proc canGoForward*(self: WebViewControl): bool  =
+proc canGoForward*(self: WebViewControl): bool =
   ## Windows.Web.UI.Interop.WebViewControl.get_CanGoForward
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControl_get_CanGoForward, Fn_IWebViewControl_get_CanGoForward)(it, tmp.addr).check("WebViewControl.get_CanGoForward")
+    it.call(IWebViewControl_get_CanGoForward, tmp.addr)
     result = tmp
 
-proc `defaultBackgroundColor=`*(self: WebViewControl, value: Color)  =
+proc `defaultBackgroundColor=`*(self: WebViewControl, value: Color) =
   ## Windows.Web.UI.Interop.WebViewControl.put_DefaultBackgroundColor
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_put_DefaultBackgroundColor, Fn_IWebViewControl_put_DefaultBackgroundColor)(it, value).check("WebViewControl.put_DefaultBackgroundColor")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_put_DefaultBackgroundColor, value)
 
-proc defaultBackgroundColor*(self: WebViewControl): Color  =
+proc defaultBackgroundColor*(self: WebViewControl): Color =
   ## Windows.Web.UI.Interop.WebViewControl.get_DefaultBackgroundColor
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: Color
-    vcall(it, Slot_IWebViewControl_get_DefaultBackgroundColor, Fn_IWebViewControl_get_DefaultBackgroundColor)(it, tmp.addr).check("WebViewControl.get_DefaultBackgroundColor")
+    it.call(IWebViewControl_get_DefaultBackgroundColor, tmp.addr)
     result = tmp
 
-proc containsFullScreenElement*(self: WebViewControl): bool  =
+proc containsFullScreenElement*(self: WebViewControl): bool =
   ## Windows.Web.UI.Interop.WebViewControl.get_ContainsFullScreenElement
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControl_get_ContainsFullScreenElement, Fn_IWebViewControl_get_ContainsFullScreenElement)(it, tmp.addr).check("WebViewControl.get_ContainsFullScreenElement")
+    it.call(IWebViewControl_get_ContainsFullScreenElement, tmp.addr)
     result = tmp
 
-proc settings*(self: WebViewControl): WebViewControlSettings  =
+proc settings*(self: WebViewControl): WebViewControlSettings =
   ## Windows.Web.UI.Interop.WebViewControl.get_Settings
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControl_get_Settings, Fn_IWebViewControl_get_Settings)(it, tmp.addr).check("WebViewControl.get_Settings")
+    it.call(IWebViewControl_get_Settings, tmp.addr)
     result = adopt[WebViewControlSettings](tmp)
 
-proc deferredPermissionRequests*(self: WebViewControl): seq[WebViewControlDeferredPermissionRequest]  =
+proc deferredPermissionRequests*(self: WebViewControl): seq[WebViewControlDeferredPermissionRequest] =
   ## Windows.Web.UI.Interop.WebViewControl.get_DeferredPermissionRequests
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControl_get_DeferredPermissionRequests, Fn_IWebViewControl_get_DeferredPermissionRequests)(it, tmp.addr).check("WebViewControl.get_DeferredPermissionRequests")
-    result = toSeq[WebViewControlDeferredPermissionRequest](tmp, IID_IVectorView_1_WebViewControlDeferredPermissionRequest)
+    it.call(IWebViewControl_get_DeferredPermissionRequests, tmp.addr)
+    result = toSeq[WebViewControlDeferredPermissionRequest](tmp,
+                                                            IID_IVectorView_1_WebViewControlDeferredPermissionRequest)
     release(tmp)
 
-proc goForward*(self: WebViewControl)  =
+proc goForward*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.GoForward
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_GoForward, Fn_IWebViewControl_GoForward)(it).check("WebViewControl.GoForward")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_GoForward)
 
-proc goBack*(self: WebViewControl)  =
+proc goBack*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.GoBack
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_GoBack, Fn_IWebViewControl_GoBack)(it).check("WebViewControl.GoBack")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_GoBack)
 
-proc refresh*(self: WebViewControl)  =
+proc refresh*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.Refresh
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_Refresh, Fn_IWebViewControl_Refresh)(it).check("WebViewControl.Refresh")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_Refresh)
 
-proc stop*(self: WebViewControl)  =
+proc stop*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.Stop
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_Stop, Fn_IWebViewControl_Stop)(it).check("WebViewControl.Stop")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_Stop)
 
-proc navigate*(self: WebViewControl, source: Uri)  =
+proc navigate*(self: WebViewControl, source: Uri) =
   ## Windows.Web.UI.Interop.WebViewControl.Navigate
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    withIface(source.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IWebViewControl_Navigate, Fn_IWebViewControl_Navigate)(it, p0).check("WebViewControl.Navigate")
+  withIface(self.p, IWebViewControl, it):
+    withIface(source.p, IUriRuntimeClass, p0):
+      it.call(IWebViewControl_Navigate, p0)
 
-proc navigateToString*(self: WebViewControl, text: string)  =
+proc navigateToString*(self: WebViewControl, text: string) =
   ## Windows.Web.UI.Interop.WebViewControl.NavigateToString
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     withHString(text, h0):
-      vcall(it, Slot_IWebViewControl_NavigateToString, Fn_IWebViewControl_NavigateToString)(it, h0).check("WebViewControl.NavigateToString")
+      it.call(IWebViewControl_NavigateToString, h0)
 
-proc navigateToLocalStreamUri*(self: WebViewControl, source: Uri, streamResolver: WinRtObject)  =
+proc navigateToLocalStreamUri*(self: WebViewControl, source: Uri,
+                               streamResolver: WinRtObject) =
   ## Windows.Web.UI.Interop.WebViewControl.NavigateToLocalStreamUri
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    withIface(source.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(streamResolver.p, IID_IUriToStreamResolver, "IUriToStreamResolver", p1):
-        vcall(it, Slot_IWebViewControl_NavigateToLocalStreamUri, Fn_IWebViewControl_NavigateToLocalStreamUri)(it, p0, p1).check("WebViewControl.NavigateToLocalStreamUri")
+  withIface(self.p, IWebViewControl, it):
+    withIface(source.p, IUriRuntimeClass, p0):
+      withIface(streamResolver.p, IUriToStreamResolver, p1):
+        it.call(IWebViewControl_NavigateToLocalStreamUri, p0, p1)
 
-proc navigateWithHttpRequestMessage*(self: WebViewControl, requestMessage: HttpRequestMessage)  =
+proc navigateWithHttpRequestMessage*(self: WebViewControl,
+                                     requestMessage: HttpRequestMessage) =
   ## Windows.Web.UI.Interop.WebViewControl.NavigateWithHttpRequestMessage
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    withIface(requestMessage.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
-      vcall(it, Slot_IWebViewControl_NavigateWithHttpRequestMessage, Fn_IWebViewControl_NavigateWithHttpRequestMessage)(it, p0).check("WebViewControl.NavigateWithHttpRequestMessage")
+  withIface(self.p, IWebViewControl, it):
+    withIface(requestMessage.p, IHttpRequestMessage, p0):
+      it.call(IWebViewControl_NavigateWithHttpRequestMessage, p0)
 
-proc invokeScriptAsync*(self: WebViewControl, scriptName: string, arguments: seq[string]): Future[string] {.async.} =
+proc invokeScriptAsync*(self: WebViewControl, scriptName: string,
+                        arguments: seq[string]): Future[string] {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.InvokeScriptAsync
   var op: pointer
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     withHString(scriptName, h0):
-      let p1 = asIterableString(arguments, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      let p1 = asIterableString(arguments, IID_IIterable_1_String,
+                                           IID_IVectorView_1_String,
+                                           IID_IIterator_1_String)
       defer: discard release(p1)
-      vcall(it, Slot_IWebViewControl_InvokeScriptAsync, Fn_IWebViewControl_InvokeScriptAsync)(it, h0, p1, op.addr).check("WebViewControl.InvokeScriptAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "WebViewControl.InvokeScriptAsync")
+      it.call(IWebViewControl_InvokeScriptAsync, h0, p1, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "WebViewControl.InvokeScriptAsync")
 
 proc capturePreviewToStreamAsync*(self: WebViewControl, stream: WinRtObject) {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync
   var op: pointer
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
-      vcall(it, Slot_IWebViewControl_CapturePreviewToStreamAsync, Fn_IWebViewControl_CapturePreviewToStreamAsync)(it, p0, op.addr).check("WebViewControl.CapturePreviewToStreamAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "WebViewControl.CapturePreviewToStreamAsync")
+  withIface(self.p, IWebViewControl, it):
+    withIface(stream.p, IRandomAccessStream, p0):
+      it.call(IWebViewControl_CapturePreviewToStreamAsync, p0, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "WebViewControl.CapturePreviewToStreamAsync")
 
 proc captureSelectedContentToDataPackageAsync*(self: WebViewControl): Future[DataPackage] {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CaptureSelectedContentToDataPackageAsync
   var op: pointer
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync, Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync)(it, op.addr).check("WebViewControl.CaptureSelectedContentToDataPackageAsync")
-  result = adopt[DataPackage](await awaitObject(op, IID_IAsyncOperation_1_DataPackage, IID_AsyncOperationCompletedHandler_1_DataPackage, alPlain, "WebViewControl.CaptureSelectedContentToDataPackageAsync"))
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_CaptureSelectedContentToDataPackageAsync, op.addr)
+  result = adopt[DataPackage](await awaitObject(op,
+                                                IID_IAsyncOperation_1_DataPackage,
+                                                IID_AsyncOperationCompletedHandler_1_DataPackage,
+                                                alPlain,
+                                                "WebViewControl.CaptureSelectedContentToDataPackageAsync"))
 
-proc buildLocalStreamUri*(self: WebViewControl, contentIdentifier: string, relativePath: string): Uri  =
+proc buildLocalStreamUri*(self: WebViewControl, contentIdentifier: string,
+                          relativePath: string): Uri =
   ## Windows.Web.UI.Interop.WebViewControl.BuildLocalStreamUri
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     withHString(contentIdentifier, h0):
       withHString(relativePath, h1):
         var tmp: pointer
-        vcall(it, Slot_IWebViewControl_BuildLocalStreamUri, Fn_IWebViewControl_BuildLocalStreamUri)(it, h0, h1, tmp.addr).check("WebViewControl.BuildLocalStreamUri")
+        it.call(IWebViewControl_BuildLocalStreamUri, h0, h1, tmp.addr)
         result = adopt[Uri](tmp)
 
-proc getDeferredPermissionRequestById*(self: WebViewControl, id: uint32): tuple[a2: WebViewControlDeferredPermissionRequest]  =
+proc getDeferredPermissionRequestById*(self: WebViewControl, id: uint32): tuple[a2: WebViewControlDeferredPermissionRequest] =
   ## Windows.Web.UI.Interop.WebViewControl.GetDeferredPermissionRequestById
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+  withIface(self.p, IWebViewControl, it):
     var a2: pointer
-    vcall(it, Slot_IWebViewControl_GetDeferredPermissionRequestById, Fn_IWebViewControl_GetDeferredPermissionRequestById)(it, id, a2.addr).check("WebViewControl.GetDeferredPermissionRequestById")
+    it.call(IWebViewControl_GetDeferredPermissionRequestById, id, a2.addr)
     result = (a2: adopt[WebViewControlDeferredPermissionRequest](a2))
 
 proc onNavigationStarting*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[WebViewControl, WebViewControlNavigationStartingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NavigationStarting
-  ##
-  ## The token is what `removeNavigationStarting` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
+  ## The token is what `removeNavigationStarting` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlNavigationStartingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_NavigationStarting, Fn_IWebViewControl_add_NavigationStarting)(it, cb, result.addr)
-        .check("WebViewControl.add_NavigationStarting")
+      it.call(IWebViewControl_add_NavigationStarting, cb, result.addr)
     finally:
       release(cb)
 
 proc removeNavigationStarting*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_NavigationStarting, Fn_IWebViewControl_remove_NavigationStarting)(it, token).check("WebViewControl.remove_NavigationStarting")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_NavigationStarting, token)
 
 proc onContentLoading*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[WebViewControl, WebViewControlContentLoadingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ContentLoading
-  ##
-  ## The token is what `removeContentLoading` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
+  ## The token is what `removeContentLoading` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlContentLoadingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_ContentLoading, Fn_IWebViewControl_add_ContentLoading)(it, cb, result.addr)
-        .check("WebViewControl.add_ContentLoading")
+      it.call(IWebViewControl_add_ContentLoading, cb, result.addr)
     finally:
       release(cb)
 
 proc removeContentLoading*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_ContentLoading, Fn_IWebViewControl_remove_ContentLoading)(it, token).check("WebViewControl.remove_ContentLoading")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_ContentLoading, token)
 
 proc onDOMContentLoaded*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[WebViewControl, WebViewControlDOMContentLoadedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_DOMContentLoaded
-  ##
-  ## The token is what `removeDOMContentLoaded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
+  ## The token is what `removeDOMContentLoaded` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlDOMContentLoadedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_DOMContentLoaded, Fn_IWebViewControl_add_DOMContentLoaded)(it, cb, result.addr)
-        .check("WebViewControl.add_DOMContentLoaded")
+      it.call(IWebViewControl_add_DOMContentLoaded, cb, result.addr)
     finally:
       release(cb)
 
 proc removeDOMContentLoaded*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_DOMContentLoaded, Fn_IWebViewControl_remove_DOMContentLoaded)(it, token).check("WebViewControl.remove_DOMContentLoaded")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_DOMContentLoaded, token)
 
 proc onNavigationCompleted*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[WebViewControl, WebViewControlNavigationCompletedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NavigationCompleted
-  ##
-  ## The token is what `removeNavigationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
+  ## The token is what `removeNavigationCompleted` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlNavigationCompletedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_NavigationCompleted, Fn_IWebViewControl_add_NavigationCompleted)(it, cb, result.addr)
-        .check("WebViewControl.add_NavigationCompleted")
+      it.call(IWebViewControl_add_NavigationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeNavigationCompleted*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_NavigationCompleted, Fn_IWebViewControl_remove_NavigationCompleted)(it, token).check("WebViewControl.remove_NavigationCompleted")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_NavigationCompleted, token)
 
 proc onFrameNavigationStarting*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[WebViewControl, WebViewControlNavigationStartingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameNavigationStarting
-  ##
-  ## The token is what `removeFrameNavigationStarting` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
+  ## The token is what `removeFrameNavigationStarting` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlNavigationStartingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_FrameNavigationStarting, Fn_IWebViewControl_add_FrameNavigationStarting)(it, cb, result.addr)
-        .check("WebViewControl.add_FrameNavigationStarting")
+      it.call(IWebViewControl_add_FrameNavigationStarting, cb, result.addr)
     finally:
       release(cb)
 
 proc removeFrameNavigationStarting*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_FrameNavigationStarting, Fn_IWebViewControl_remove_FrameNavigationStarting)(it, token).check("WebViewControl.remove_FrameNavigationStarting")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_FrameNavigationStarting, token)
 
 proc onFrameContentLoading*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[WebViewControl, WebViewControlContentLoadingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameContentLoading
-  ##
-  ## The token is what `removeFrameContentLoading` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
+  ## The token is what `removeFrameContentLoading` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlContentLoadingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_FrameContentLoading, Fn_IWebViewControl_add_FrameContentLoading)(it, cb, result.addr)
-        .check("WebViewControl.add_FrameContentLoading")
+      it.call(IWebViewControl_add_FrameContentLoading, cb, result.addr)
     finally:
       release(cb)
 
 proc removeFrameContentLoading*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_FrameContentLoading, Fn_IWebViewControl_remove_FrameContentLoading)(it, token).check("WebViewControl.remove_FrameContentLoading")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_FrameContentLoading, token)
 
 proc onFrameDOMContentLoaded*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[WebViewControl, WebViewControlDOMContentLoadedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameDOMContentLoaded
-  ##
-  ## The token is what `removeFrameDOMContentLoaded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
+  ## The token is what `removeFrameDOMContentLoaded` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlDOMContentLoadedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_FrameDOMContentLoaded, Fn_IWebViewControl_add_FrameDOMContentLoaded)(it, cb, result.addr)
-        .check("WebViewControl.add_FrameDOMContentLoaded")
+      it.call(IWebViewControl_add_FrameDOMContentLoaded, cb, result.addr)
     finally:
       release(cb)
 
 proc removeFrameDOMContentLoaded*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_FrameDOMContentLoaded, Fn_IWebViewControl_remove_FrameDOMContentLoaded)(it, token).check("WebViewControl.remove_FrameDOMContentLoaded")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_FrameDOMContentLoaded, token)
 
 proc onFrameNavigationCompleted*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[WebViewControl, WebViewControlNavigationCompletedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameNavigationCompleted
-  ##
-  ## The token is what `removeFrameNavigationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
+  ## The token is what `removeFrameNavigationCompleted` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlNavigationCompletedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_FrameNavigationCompleted, Fn_IWebViewControl_add_FrameNavigationCompleted)(it, cb, result.addr)
-        .check("WebViewControl.add_FrameNavigationCompleted")
+      it.call(IWebViewControl_add_FrameNavigationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeFrameNavigationCompleted*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_FrameNavigationCompleted, Fn_IWebViewControl_remove_FrameNavigationCompleted)(it, token).check("WebViewControl.remove_FrameNavigationCompleted")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_FrameNavigationCompleted, token)
 
 proc onScriptNotify*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlScriptNotifyEventArgs)): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[WebViewControl, WebViewControlScriptNotifyEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ScriptNotify
-  ##
-  ## The token is what `removeScriptNotify` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlScriptNotifyEventArgs](a1)), event = true)
+  ## The token is what `removeScriptNotify` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlScriptNotifyEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_ScriptNotify, Fn_IWebViewControl_add_ScriptNotify)(it, cb, result.addr)
-        .check("WebViewControl.add_ScriptNotify")
+      it.call(IWebViewControl_add_ScriptNotify, cb, result.addr)
     finally:
       release(cb)
 
 proc removeScriptNotify*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_ScriptNotify, Fn_IWebViewControl_remove_ScriptNotify)(it, token).check("WebViewControl.remove_ScriptNotify")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_ScriptNotify, token)
 
 proc onLongRunningScriptDetected*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+                                  handler: EventHandler[WebViewControl, WebViewControlLongRunningScriptDetectedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_LongRunningScriptDetected
-  ##
-  ## The token is what `removeLongRunningScriptDetected` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlLongRunningScriptDetectedEventArgs](a1)), event = true)
+  ## The token is what `removeLongRunningScriptDetected` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlLongRunningScriptDetectedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_LongRunningScriptDetected, Fn_IWebViewControl_add_LongRunningScriptDetected)(it, cb, result.addr)
-        .check("WebViewControl.add_LongRunningScriptDetected")
+      it.call(IWebViewControl_add_LongRunningScriptDetected, cb, result.addr)
     finally:
       release(cb)
 
 proc removeLongRunningScriptDetected*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_LongRunningScriptDetected, Fn_IWebViewControl_remove_LongRunningScriptDetected)(it, token).check("WebViewControl.remove_LongRunningScriptDetected")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_LongRunningScriptDetected, token)
 
 proc onUnsafeContentWarningDisplaying*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                       handler: EventHandler[WebViewControl, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnsafeContentWarningDisplaying
-  ##
-  ## The token is what `removeUnsafeContentWarningDisplaying` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeUnsafeContentWarningDisplaying` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_UnsafeContentWarningDisplaying, Fn_IWebViewControl_add_UnsafeContentWarningDisplaying)(it, cb, result.addr)
-        .check("WebViewControl.add_UnsafeContentWarningDisplaying")
+      it.call(IWebViewControl_add_UnsafeContentWarningDisplaying, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUnsafeContentWarningDisplaying*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying, Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying)(it, token).check("WebViewControl.remove_UnsafeContentWarningDisplaying")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_UnsafeContentWarningDisplaying, token)
 
 proc onUnviewableContentIdentified*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+                                    handler: EventHandler[WebViewControl, WebViewControlUnviewableContentIdentifiedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnviewableContentIdentified
-  ##
-  ## The token is what `removeUnviewableContentIdentified` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a1)), event = true)
+  ## The token is what `removeUnviewableContentIdentified` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_UnviewableContentIdentified, Fn_IWebViewControl_add_UnviewableContentIdentified)(it, cb, result.addr)
-        .check("WebViewControl.add_UnviewableContentIdentified")
+      it.call(IWebViewControl_add_UnviewableContentIdentified, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUnviewableContentIdentified*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_UnviewableContentIdentified, Fn_IWebViewControl_remove_UnviewableContentIdentified)(it, token).check("WebViewControl.remove_UnviewableContentIdentified")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_UnviewableContentIdentified, token)
 
 proc onPermissionRequested*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[WebViewControl, WebViewControlPermissionRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_PermissionRequested
-  ##
-  ## The token is what `removePermissionRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlPermissionRequestedEventArgs](a1)), event = true)
+  ## The token is what `removePermissionRequested` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlPermissionRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_PermissionRequested, Fn_IWebViewControl_add_PermissionRequested)(it, cb, result.addr)
-        .check("WebViewControl.add_PermissionRequested")
+      it.call(IWebViewControl_add_PermissionRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removePermissionRequested*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_PermissionRequested, Fn_IWebViewControl_remove_PermissionRequested)(it, token).check("WebViewControl.remove_PermissionRequested")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_PermissionRequested, token)
 
 proc onUnsupportedUriSchemeIdentified*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+                                       handler: EventHandler[WebViewControl, WebViewControlUnsupportedUriSchemeIdentifiedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnsupportedUriSchemeIdentified
-  ##
-  ## The token is what `removeUnsupportedUriSchemeIdentified` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a1)), event = true)
+  ## The token is what `removeUnsupportedUriSchemeIdentified` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified)(it, cb, result.addr)
-        .check("WebViewControl.add_UnsupportedUriSchemeIdentified")
+      it.call(IWebViewControl_add_UnsupportedUriSchemeIdentified, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUnsupportedUriSchemeIdentified*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified)(it, token).check("WebViewControl.remove_UnsupportedUriSchemeIdentified")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_UnsupportedUriSchemeIdentified, token)
 
 proc onNewWindowRequested*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[WebViewControl, WebViewControlNewWindowRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NewWindowRequested
-  ##
-  ## The token is what `removeNewWindowRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNewWindowRequestedEventArgs](a1)), event = true)
+  ## The token is what `removeNewWindowRequested` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlNewWindowRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_NewWindowRequested, Fn_IWebViewControl_add_NewWindowRequested)(it, cb, result.addr)
-        .check("WebViewControl.add_NewWindowRequested")
+      it.call(IWebViewControl_add_NewWindowRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeNewWindowRequested*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_NewWindowRequested, Fn_IWebViewControl_remove_NewWindowRequested)(it, token).check("WebViewControl.remove_NewWindowRequested")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_NewWindowRequested, token)
 
 proc onContainsFullScreenElementChanged*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                         handler: EventHandler[WebViewControl, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ContainsFullScreenElementChanged
-  ##
-  ## The token is what `removeContainsFullScreenElementChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeContainsFullScreenElementChanged` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_ContainsFullScreenElementChanged, Fn_IWebViewControl_add_ContainsFullScreenElementChanged)(it, cb, result.addr)
-        .check("WebViewControl.add_ContainsFullScreenElementChanged")
+      it.call(IWebViewControl_add_ContainsFullScreenElementChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeContainsFullScreenElementChanged*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_ContainsFullScreenElementChanged, Fn_IWebViewControl_remove_ContainsFullScreenElementChanged)(it, token).check("WebViewControl.remove_ContainsFullScreenElementChanged")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_ContainsFullScreenElementChanged, token)
 
 proc onWebResourceRequested*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[WebViewControl, WebViewControlWebResourceRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_WebResourceRequested
-  ##
-  ## The token is what `removeWebResourceRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlWebResourceRequestedEventArgs](a1)), event = true)
+  ## The token is what `removeWebResourceRequested` takes.
+  withIface(self.p, IWebViewControl, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlWebResourceRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControl_add_WebResourceRequested, Fn_IWebViewControl_add_WebResourceRequested)(it, cb, result.addr)
-        .check("WebViewControl.add_WebResourceRequested")
+      it.call(IWebViewControl_add_WebResourceRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeWebResourceRequested*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_remove_WebResourceRequested, Fn_IWebViewControl_remove_WebResourceRequested)(it, token).check("WebViewControl.remove_WebResourceRequested")
+  withIface(self.p, IWebViewControl, it):
+    it.call(IWebViewControl_remove_WebResourceRequested, token)
 
-proc process*(self: WebViewControl): WebViewControlProcess  =
+proc process*(self: WebViewControl): WebViewControlProcess =
   ## Windows.Web.UI.Interop.WebViewControl.get_Process
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
+  withIface(self.p, IWebViewControlSite, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlSite_get_Process, Fn_IWebViewControlSite_get_Process)(it, tmp.addr).check("WebViewControl.get_Process")
+    it.call(IWebViewControlSite_get_Process, tmp.addr)
     result = adopt[WebViewControlProcess](tmp)
 
-proc `scale=`*(self: WebViewControl, value: float64)  =
+proc `scale=`*(self: WebViewControl, value: float64) =
   ## Windows.Web.UI.Interop.WebViewControl.put_Scale
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_put_Scale, Fn_IWebViewControlSite_put_Scale)(it, value).check("WebViewControl.put_Scale")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_put_Scale, value)
 
-proc scale*(self: WebViewControl): float64  =
+proc scale*(self: WebViewControl): float64 =
   ## Windows.Web.UI.Interop.WebViewControl.get_Scale
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
+  withIface(self.p, IWebViewControlSite, it):
     var tmp: float64
-    vcall(it, Slot_IWebViewControlSite_get_Scale, Fn_IWebViewControlSite_get_Scale)(it, tmp.addr).check("WebViewControl.get_Scale")
+    it.call(IWebViewControlSite_get_Scale, tmp.addr)
     result = tmp
 
-proc `bounds=`*(self: WebViewControl, value: Rect)  =
+proc `bounds=`*(self: WebViewControl, value: Rect) =
   ## Windows.Web.UI.Interop.WebViewControl.put_Bounds
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_put_Bounds, Fn_IWebViewControlSite_put_Bounds)(it, value).check("WebViewControl.put_Bounds")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_put_Bounds, value)
 
-proc bounds*(self: WebViewControl): Rect  =
+proc bounds*(self: WebViewControl): Rect =
   ## Windows.Web.UI.Interop.WebViewControl.get_Bounds
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
+  withIface(self.p, IWebViewControlSite, it):
     var tmp: Rect
-    vcall(it, Slot_IWebViewControlSite_get_Bounds, Fn_IWebViewControlSite_get_Bounds)(it, tmp.addr).check("WebViewControl.get_Bounds")
+    it.call(IWebViewControlSite_get_Bounds, tmp.addr)
     result = tmp
 
-proc `isVisible=`*(self: WebViewControl, value: bool)  =
+proc `isVisible=`*(self: WebViewControl, value: bool) =
   ## Windows.Web.UI.Interop.WebViewControl.put_IsVisible
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_put_IsVisible, Fn_IWebViewControlSite_put_IsVisible)(it, value).check("WebViewControl.put_IsVisible")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_put_IsVisible, value)
 
-proc isVisible*(self: WebViewControl): bool  =
+proc isVisible*(self: WebViewControl): bool =
   ## Windows.Web.UI.Interop.WebViewControl.get_IsVisible
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
+  withIface(self.p, IWebViewControlSite, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlSite_get_IsVisible, Fn_IWebViewControlSite_get_IsVisible)(it, tmp.addr).check("WebViewControl.get_IsVisible")
+    it.call(IWebViewControlSite_get_IsVisible, tmp.addr)
     result = tmp
 
-proc close*(self: WebViewControl)  =
+proc close*(self: WebViewControl) =
   ## Windows.Web.UI.Interop.WebViewControl.Close
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_Close, Fn_IWebViewControlSite_Close)(it).check("WebViewControl.Close")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_Close)
 
-proc moveFocus*(self: WebViewControl, reason: WebViewControlMoveFocusReason)  =
+proc moveFocus*(self: WebViewControl, reason: WebViewControlMoveFocusReason) =
   ## Windows.Web.UI.Interop.WebViewControl.MoveFocus
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_MoveFocus, Fn_IWebViewControlSite_MoveFocus)(it, reason).check("WebViewControl.MoveFocus")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_MoveFocus, reason)
 
 proc onMoveFocusRequested*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlMoveFocusRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[WebViewControl, WebViewControlMoveFocusRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_MoveFocusRequested
-  ##
-  ## The token is what `removeMoveFocusRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlMoveFocusRequestedEventArgs](a1)), event = true)
+  ## The token is what `removeMoveFocusRequested` takes.
+  withIface(self.p, IWebViewControlSite, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlMoveFocusRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControlSite_add_MoveFocusRequested, Fn_IWebViewControlSite_add_MoveFocusRequested)(it, cb, result.addr)
-        .check("WebViewControl.add_MoveFocusRequested")
+      it.call(IWebViewControlSite_add_MoveFocusRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeMoveFocusRequested*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_remove_MoveFocusRequested, Fn_IWebViewControlSite_remove_MoveFocusRequested)(it, token).check("WebViewControl.remove_MoveFocusRequested")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_remove_MoveFocusRequested, token)
 
 proc onAcceleratorKeyPressed*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WebViewControlAcceleratorKeyPressedEventArgs)): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[WebViewControl, WebViewControlAcceleratorKeyPressedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_AcceleratorKeyPressed
-  ##
-  ## The token is what `removeAcceleratorKeyPressed` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlAcceleratorKeyPressedEventArgs](a1)), event = true)
+  ## The token is what `removeAcceleratorKeyPressed` takes.
+  withIface(self.p, IWebViewControlSite, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0),
+              borrow[WebViewControlAcceleratorKeyPressedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControlSite_add_AcceleratorKeyPressed, Fn_IWebViewControlSite_add_AcceleratorKeyPressed)(it, cb, result.addr)
-        .check("WebViewControl.add_AcceleratorKeyPressed")
+      it.call(IWebViewControlSite_add_AcceleratorKeyPressed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAcceleratorKeyPressed*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    vcall(it, Slot_IWebViewControlSite_remove_AcceleratorKeyPressed, Fn_IWebViewControlSite_remove_AcceleratorKeyPressed)(it, token).check("WebViewControl.remove_AcceleratorKeyPressed")
+  withIface(self.p, IWebViewControlSite, it):
+    it.call(IWebViewControlSite_remove_AcceleratorKeyPressed, token)
 
-proc addInitializeScript*(self: WebViewControl, script: string)  =
+proc addInitializeScript*(self: WebViewControl, script: string) =
   ## Windows.Web.UI.Interop.WebViewControl.AddInitializeScript
-  withIface(self.p, IID_IWebViewControl2, "IWebViewControl2", it):
+  withIface(self.p, IWebViewControl2, it):
     withHString(script, h0):
-      vcall(it, Slot_IWebViewControl2_AddInitializeScript, Fn_IWebViewControl2_AddInitializeScript)(it, h0).check("WebViewControl.AddInitializeScript")
+      it.call(IWebViewControl2_AddInitializeScript, h0)
 
 proc onGotFocus*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                 handler: EventHandler[WebViewControl, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_GotFocus
-  ##
-  ## The token is what `removeGotFocus` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeGotFocus` takes.
+  withIface(self.p, IWebViewControlSite2, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControlSite2_add_GotFocus, Fn_IWebViewControlSite2_add_GotFocus)(it, cb, result.addr)
-        .check("WebViewControl.add_GotFocus")
+      it.call(IWebViewControlSite2_add_GotFocus, cb, result.addr)
     finally:
       release(cb)
 
 proc removeGotFocus*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    vcall(it, Slot_IWebViewControlSite2_remove_GotFocus, Fn_IWebViewControlSite2_remove_GotFocus)(it, token).check("WebViewControl.remove_GotFocus")
+  withIface(self.p, IWebViewControlSite2, it):
+    it.call(IWebViewControlSite2_remove_GotFocus, token)
 
 proc onLostFocus*(self: WebViewControl,
-    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                  handler: EventHandler[WebViewControl, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_LostFocus
-  ##
-  ## The token is what `removeLostFocus` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeLostFocus` takes.
+  withIface(self.p, IWebViewControlSite2, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControlSite2_add_LostFocus, Fn_IWebViewControlSite2_add_LostFocus)(it, cb, result.addr)
-        .check("WebViewControl.add_LostFocus")
+      it.call(IWebViewControlSite2_add_LostFocus, cb, result.addr)
     finally:
       release(cb)
 
 proc removeLostFocus*(self: WebViewControl, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    vcall(it, Slot_IWebViewControlSite2_remove_LostFocus, Fn_IWebViewControlSite2_remove_LostFocus)(it, token).check("WebViewControl.remove_LostFocus")
+  withIface(self.p, IWebViewControlSite2, it):
+    it.call(IWebViewControlSite2_remove_LostFocus, token)
 
-proc eventType*(self: WebViewControlAcceleratorKeyPressedEventArgs): CoreAcceleratorKeyEventType  =
+proc eventType*(self: WebViewControlAcceleratorKeyPressedEventArgs): CoreAcceleratorKeyEventType =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_EventType
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
     var tmp: CoreAcceleratorKeyEventType
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_EventType")
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType,
+            tmp.addr)
     result = tmp
 
-proc virtualKey*(self: WebViewControlAcceleratorKeyPressedEventArgs): VirtualKey  =
+proc virtualKey*(self: WebViewControlAcceleratorKeyPressedEventArgs): VirtualKey =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_VirtualKey
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
     var tmp: VirtualKey
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_VirtualKey")
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey,
+            tmp.addr)
     result = tmp
 
-proc keyStatus*(self: WebViewControlAcceleratorKeyPressedEventArgs): CorePhysicalKeyStatus  =
+proc keyStatus*(self: WebViewControlAcceleratorKeyPressedEventArgs): CorePhysicalKeyStatus =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_KeyStatus
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
     var tmp: CorePhysicalKeyStatus
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_KeyStatus")
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus,
+            tmp.addr)
     result = tmp
 
-proc routingStage*(self: WebViewControlAcceleratorKeyPressedEventArgs): WebViewControlAcceleratorKeyRoutingStage  =
+proc routingStage*(self: WebViewControlAcceleratorKeyPressedEventArgs): WebViewControlAcceleratorKeyRoutingStage =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_RoutingStage
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
     var tmp: WebViewControlAcceleratorKeyRoutingStage
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_RoutingStage")
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage,
+            tmp.addr)
     result = tmp
 
-proc handled*(self: WebViewControlAcceleratorKeyPressedEventArgs): bool  =
+proc handled*(self: WebViewControlAcceleratorKeyPressedEventArgs): bool =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_Handled
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_Handled")
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled, tmp.addr)
     result = tmp
 
-proc `handled=`*(self: WebViewControlAcceleratorKeyPressedEventArgs, value: bool)  =
+proc `handled=`*(self: WebViewControlAcceleratorKeyPressedEventArgs, value: bool) =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.put_Handled
-  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
-    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled)(it, value).check("WebViewControlAcceleratorKeyPressedEventArgs.put_Handled")
+  withIface(self.p, IWebViewControlAcceleratorKeyPressedEventArgs, it):
+    it.call(IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled, value)
 
-proc reason*(self: WebViewControlMoveFocusRequestedEventArgs): WebViewControlMoveFocusReason  =
+proc reason*(self: WebViewControlMoveFocusRequestedEventArgs): WebViewControlMoveFocusReason =
   ## Windows.Web.UI.Interop.WebViewControlMoveFocusRequestedEventArgs.get_Reason
-  withIface(self.p, IID_IWebViewControlMoveFocusRequestedEventArgs, "IWebViewControlMoveFocusRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlMoveFocusRequestedEventArgs, it):
     var tmp: WebViewControlMoveFocusReason
-    vcall(it, Slot_IWebViewControlMoveFocusRequestedEventArgs_get_Reason, Fn_IWebViewControlMoveFocusRequestedEventArgs_get_Reason)(it, tmp.addr).check("WebViewControlMoveFocusRequestedEventArgs.get_Reason")
+    it.call(IWebViewControlMoveFocusRequestedEventArgs_get_Reason, tmp.addr)
     result = tmp
 
 proc newWebViewControlProcess*(): WebViewControlProcess =
   ## Activate a `Windows.Web.UI.Interop.WebViewControlProcess`.
   adopt[WebViewControlProcess](activateAs("Windows.Web.UI.Interop.WebViewControlProcess", IID_IWebViewControlProcess))
 
-proc processId*(self: WebViewControlProcess): uint32  =
+proc processId*(self: WebViewControlProcess): uint32 =
   ## Windows.Web.UI.Interop.WebViewControlProcess.get_ProcessId
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+  withIface(self.p, IWebViewControlProcess, it):
     var tmp: uint32
-    vcall(it, Slot_IWebViewControlProcess_get_ProcessId, Fn_IWebViewControlProcess_get_ProcessId)(it, tmp.addr).check("WebViewControlProcess.get_ProcessId")
+    it.call(IWebViewControlProcess_get_ProcessId, tmp.addr)
     result = tmp
 
-proc enterpriseId*(self: WebViewControlProcess): string  =
+proc enterpriseId*(self: WebViewControlProcess): string =
   ## Windows.Web.UI.Interop.WebViewControlProcess.get_EnterpriseId
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+  withIface(self.p, IWebViewControlProcess, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWebViewControlProcess_get_EnterpriseId, Fn_IWebViewControlProcess_get_EnterpriseId)(it, tmp.addr).check("WebViewControlProcess.get_EnterpriseId")
+    it.call(IWebViewControlProcess_get_EnterpriseId, tmp.addr)
     result = takeString(tmp)
 
-proc isPrivateNetworkClientServerCapabilityEnabled*(self: WebViewControlProcess): bool  =
+proc isPrivateNetworkClientServerCapabilityEnabled*(self: WebViewControlProcess): bool =
   ## Windows.Web.UI.Interop.WebViewControlProcess.get_IsPrivateNetworkClientServerCapabilityEnabled
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+  withIface(self.p, IWebViewControlProcess, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled, Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled)(it, tmp.addr).check("WebViewControlProcess.get_IsPrivateNetworkClientServerCapabilityEnabled")
+    it.call(IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled,
+            tmp.addr)
     result = tmp
 
-proc createWebViewControlAsync*(self: WebViewControlProcess, hostWindowHandle: int64, bounds: Rect): Future[WebViewControl] {.async.} =
+proc createWebViewControlAsync*(self: WebViewControlProcess,
+                                hostWindowHandle: int64, bounds: Rect): Future[WebViewControl] {.async.} =
   ## Windows.Web.UI.Interop.WebViewControlProcess.CreateWebViewControlAsync
   var op: pointer
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
-    vcall(it, Slot_IWebViewControlProcess_CreateWebViewControlAsync, Fn_IWebViewControlProcess_CreateWebViewControlAsync)(it, hostWindowHandle, bounds, op.addr).check("WebViewControlProcess.CreateWebViewControlAsync")
-  result = adopt[WebViewControl](await awaitObject(op, IID_IAsyncOperation_1_WebViewControl, IID_AsyncOperationCompletedHandler_1_WebViewControl, alPlain, "WebViewControlProcess.CreateWebViewControlAsync"))
+  withIface(self.p, IWebViewControlProcess, it):
+    it.call(IWebViewControlProcess_CreateWebViewControlAsync, hostWindowHandle,
+            bounds, op.addr)
+  result = adopt[WebViewControl](await awaitObject(op,
+                                                   IID_IAsyncOperation_1_WebViewControl,
+                                                   IID_AsyncOperationCompletedHandler_1_WebViewControl,
+                                                   alPlain,
+                                                   "WebViewControlProcess.CreateWebViewControlAsync"))
 
-proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl]  =
+proc getWebViewControls*(self: WebViewControlProcess): seq[WebViewControl] =
   ## Windows.Web.UI.Interop.WebViewControlProcess.GetWebViewControls
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
+  withIface(self.p, IWebViewControlProcess, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlProcess_GetWebViewControls, Fn_IWebViewControlProcess_GetWebViewControls)(it, tmp.addr).check("WebViewControlProcess.GetWebViewControls")
+    it.call(IWebViewControlProcess_GetWebViewControls, tmp.addr)
     result = toSeq[WebViewControl](tmp, IID_IVectorView_1_WebViewControl)
     release(tmp)
 
-proc terminate*(self: WebViewControlProcess)  =
+proc terminate*(self: WebViewControlProcess) =
   ## Windows.Web.UI.Interop.WebViewControlProcess.Terminate
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
-    vcall(it, Slot_IWebViewControlProcess_Terminate, Fn_IWebViewControlProcess_Terminate)(it).check("WebViewControlProcess.Terminate")
+  withIface(self.p, IWebViewControlProcess, it):
+    it.call(IWebViewControlProcess_Terminate)
 
 proc onProcessExited*(self: WebViewControlProcess,
-    handler: proc(sender: WebViewControlProcess, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[WebViewControlProcess, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControlProcess.add_ProcessExited
-  ##
-  ## The token is what `removeProcessExited` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControlProcess_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControlProcess](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeProcessExited` takes.
+  withIface(self.p, IWebViewControlProcess, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WebViewControlProcess](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControlProcess_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWebViewControlProcess_add_ProcessExited, Fn_IWebViewControlProcess_add_ProcessExited)(it, cb, result.addr)
-        .check("WebViewControlProcess.add_ProcessExited")
+      it.call(IWebViewControlProcess_add_ProcessExited, cb, result.addr)
     finally:
       release(cb)
 
 proc removeProcessExited*(self: WebViewControlProcess, token: EventRegistrationToken) =
-  withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
-    vcall(it, Slot_IWebViewControlProcess_remove_ProcessExited, Fn_IWebViewControlProcess_remove_ProcessExited)(it, token).check("WebViewControlProcess.remove_ProcessExited")
+  withIface(self.p, IWebViewControlProcess, it):
+    it.call(IWebViewControlProcess_remove_ProcessExited, token)
 
-proc createWithOptions*(_: typedesc[WebViewControlProcess], processOptions: WebViewControlProcessOptions): WebViewControlProcess  =
+proc createWithOptions*(_: typedesc[WebViewControlProcess],
+                        processOptions: WebViewControlProcessOptions): WebViewControlProcess =
   ## Windows.Web.UI.Interop.WebViewControlProcess.CreateWithOptions
-  withStatics("Windows.Web.UI.Interop.WebViewControlProcess", IID_IWebViewControlProcessFactory, it):
-    withIface(processOptions.p, IID_IWebViewControlProcessOptions, "IWebViewControlProcessOptions", p0):
+  withStatics("Windows.Web.UI.Interop.WebViewControlProcess",
+              IWebViewControlProcessFactory, it):
+    withIface(processOptions.p, IWebViewControlProcessOptions, p0):
       var tmp: pointer
-      vcall(it, Slot_IWebViewControlProcessFactory_CreateWithOptions, Fn_IWebViewControlProcessFactory_CreateWithOptions)(it, p0, tmp.addr).check("WebViewControlProcess.CreateWithOptions")
+      it.call(IWebViewControlProcessFactory_CreateWithOptions, p0, tmp.addr)
       result = adopt[WebViewControlProcess](tmp)
 
 proc newWebViewControlProcessOptions*(): WebViewControlProcessOptions =
   ## Activate a `Windows.Web.UI.Interop.WebViewControlProcessOptions`.
   adopt[WebViewControlProcessOptions](activateAs("Windows.Web.UI.Interop.WebViewControlProcessOptions", IID_IWebViewControlProcessOptions))
 
-proc `enterpriseId=`*(self: WebViewControlProcessOptions, value: string)  =
+proc `enterpriseId=`*(self: WebViewControlProcessOptions, value: string) =
   ## Windows.Web.UI.Interop.WebViewControlProcessOptions.put_EnterpriseId
-  withIface(self.p, IID_IWebViewControlProcessOptions, "IWebViewControlProcessOptions", it):
+  withIface(self.p, IWebViewControlProcessOptions, it):
     withHString(value, h0):
-      vcall(it, Slot_IWebViewControlProcessOptions_put_EnterpriseId, Fn_IWebViewControlProcessOptions_put_EnterpriseId)(it, h0).check("WebViewControlProcessOptions.put_EnterpriseId")
+      it.call(IWebViewControlProcessOptions_put_EnterpriseId, h0)
 
-proc enterpriseId*(self: WebViewControlProcessOptions): string  =
+proc enterpriseId*(self: WebViewControlProcessOptions): string =
   ## Windows.Web.UI.Interop.WebViewControlProcessOptions.get_EnterpriseId
-  withIface(self.p, IID_IWebViewControlProcessOptions, "IWebViewControlProcessOptions", it):
+  withIface(self.p, IWebViewControlProcessOptions, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWebViewControlProcessOptions_get_EnterpriseId, Fn_IWebViewControlProcessOptions_get_EnterpriseId)(it, tmp.addr).check("WebViewControlProcessOptions.get_EnterpriseId")
+    it.call(IWebViewControlProcessOptions_get_EnterpriseId, tmp.addr)
     result = takeString(tmp)
 
-proc `privateNetworkClientServerCapability=`*(self: WebViewControlProcessOptions, value: WebViewControlProcessCapabilityState)  =
+proc `privateNetworkClientServerCapability=`*(self: WebViewControlProcessOptions,
+                                              value: WebViewControlProcessCapabilityState) =
   ## Windows.Web.UI.Interop.WebViewControlProcessOptions.put_PrivateNetworkClientServerCapability
-  withIface(self.p, IID_IWebViewControlProcessOptions, "IWebViewControlProcessOptions", it):
-    vcall(it, Slot_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability, Fn_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability)(it, value).check("WebViewControlProcessOptions.put_PrivateNetworkClientServerCapability")
+  withIface(self.p, IWebViewControlProcessOptions, it):
+    it.call(IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability,
+            value)
 
-proc privateNetworkClientServerCapability*(self: WebViewControlProcessOptions): WebViewControlProcessCapabilityState  =
+proc privateNetworkClientServerCapability*(self: WebViewControlProcessOptions): WebViewControlProcessCapabilityState =
   ## Windows.Web.UI.Interop.WebViewControlProcessOptions.get_PrivateNetworkClientServerCapability
-  withIface(self.p, IID_IWebViewControlProcessOptions, "IWebViewControlProcessOptions", it):
+  withIface(self.p, IWebViewControlProcessOptions, it):
     var tmp: WebViewControlProcessCapabilityState
-    vcall(it, Slot_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability, Fn_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability)(it, tmp.addr).check("WebViewControlProcessOptions.get_PrivateNetworkClientServerCapability")
+    it.call(IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability,
+            tmp.addr)
     result = tmp
 
-proc uri*(self: WebViewControlContentLoadingEventArgs): Uri  =
+proc uri*(self: WebViewControlContentLoadingEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlContentLoadingEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlContentLoadingEventArgs, "IWebViewControlContentLoadingEventArgs", it):
+  withIface(self.p, IWebViewControlContentLoadingEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlContentLoadingEventArgs_get_Uri, Fn_IWebViewControlContentLoadingEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlContentLoadingEventArgs.get_Uri")
+    it.call(IWebViewControlContentLoadingEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc uri*(self: WebViewControlDOMContentLoadedEventArgs): Uri  =
+proc uri*(self: WebViewControlDOMContentLoadedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlDOMContentLoadedEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlDOMContentLoadedEventArgs, "IWebViewControlDOMContentLoadedEventArgs", it):
+  withIface(self.p, IWebViewControlDOMContentLoadedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlDOMContentLoadedEventArgs_get_Uri, Fn_IWebViewControlDOMContentLoadedEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlDOMContentLoadedEventArgs.get_Uri")
+    it.call(IWebViewControlDOMContentLoadedEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc id*(self: WebViewControlDeferredPermissionRequest): uint32  =
+proc id*(self: WebViewControlDeferredPermissionRequest): uint32 =
   ## Windows.Web.UI.WebViewControlDeferredPermissionRequest.get_Id
-  withIface(self.p, IID_IWebViewControlDeferredPermissionRequest, "IWebViewControlDeferredPermissionRequest", it):
+  withIface(self.p, IWebViewControlDeferredPermissionRequest, it):
     var tmp: uint32
-    vcall(it, Slot_IWebViewControlDeferredPermissionRequest_get_Id, Fn_IWebViewControlDeferredPermissionRequest_get_Id)(it, tmp.addr).check("WebViewControlDeferredPermissionRequest.get_Id")
+    it.call(IWebViewControlDeferredPermissionRequest_get_Id, tmp.addr)
     result = tmp
 
-proc uri*(self: WebViewControlDeferredPermissionRequest): Uri  =
+proc uri*(self: WebViewControlDeferredPermissionRequest): Uri =
   ## Windows.Web.UI.WebViewControlDeferredPermissionRequest.get_Uri
-  withIface(self.p, IID_IWebViewControlDeferredPermissionRequest, "IWebViewControlDeferredPermissionRequest", it):
+  withIface(self.p, IWebViewControlDeferredPermissionRequest, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlDeferredPermissionRequest_get_Uri, Fn_IWebViewControlDeferredPermissionRequest_get_Uri)(it, tmp.addr).check("WebViewControlDeferredPermissionRequest.get_Uri")
+    it.call(IWebViewControlDeferredPermissionRequest_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc permissionType*(self: WebViewControlDeferredPermissionRequest): WebViewControlPermissionType  =
+proc permissionType*(self: WebViewControlDeferredPermissionRequest): WebViewControlPermissionType =
   ## Windows.Web.UI.WebViewControlDeferredPermissionRequest.get_PermissionType
-  withIface(self.p, IID_IWebViewControlDeferredPermissionRequest, "IWebViewControlDeferredPermissionRequest", it):
+  withIface(self.p, IWebViewControlDeferredPermissionRequest, it):
     var tmp: WebViewControlPermissionType
-    vcall(it, Slot_IWebViewControlDeferredPermissionRequest_get_PermissionType, Fn_IWebViewControlDeferredPermissionRequest_get_PermissionType)(it, tmp.addr).check("WebViewControlDeferredPermissionRequest.get_PermissionType")
+    it.call(IWebViewControlDeferredPermissionRequest_get_PermissionType,
+            tmp.addr)
     result = tmp
 
-proc allow*(self: WebViewControlDeferredPermissionRequest)  =
+proc allow*(self: WebViewControlDeferredPermissionRequest) =
   ## Windows.Web.UI.WebViewControlDeferredPermissionRequest.Allow
-  withIface(self.p, IID_IWebViewControlDeferredPermissionRequest, "IWebViewControlDeferredPermissionRequest", it):
-    vcall(it, Slot_IWebViewControlDeferredPermissionRequest_Allow, Fn_IWebViewControlDeferredPermissionRequest_Allow)(it).check("WebViewControlDeferredPermissionRequest.Allow")
+  withIface(self.p, IWebViewControlDeferredPermissionRequest, it):
+    it.call(IWebViewControlDeferredPermissionRequest_Allow)
 
-proc deny*(self: WebViewControlDeferredPermissionRequest)  =
+proc deny*(self: WebViewControlDeferredPermissionRequest) =
   ## Windows.Web.UI.WebViewControlDeferredPermissionRequest.Deny
-  withIface(self.p, IID_IWebViewControlDeferredPermissionRequest, "IWebViewControlDeferredPermissionRequest", it):
-    vcall(it, Slot_IWebViewControlDeferredPermissionRequest_Deny, Fn_IWebViewControlDeferredPermissionRequest_Deny)(it).check("WebViewControlDeferredPermissionRequest.Deny")
+  withIface(self.p, IWebViewControlDeferredPermissionRequest, it):
+    it.call(IWebViewControlDeferredPermissionRequest_Deny)
 
-proc executionTime*(self: WebViewControlLongRunningScriptDetectedEventArgs): TimeSpan  =
+proc executionTime*(self: WebViewControlLongRunningScriptDetectedEventArgs): TimeSpan =
   ## Windows.Web.UI.WebViewControlLongRunningScriptDetectedEventArgs.get_ExecutionTime
-  withIface(self.p, IID_IWebViewControlLongRunningScriptDetectedEventArgs, "IWebViewControlLongRunningScriptDetectedEventArgs", it):
+  withIface(self.p, IWebViewControlLongRunningScriptDetectedEventArgs, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime, Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime)(it, tmp.addr).check("WebViewControlLongRunningScriptDetectedEventArgs.get_ExecutionTime")
+    it.call(IWebViewControlLongRunningScriptDetectedEventArgs_get_ExecutionTime,
+            tmp.addr)
     result = tmp
 
-proc stopPageScriptExecution*(self: WebViewControlLongRunningScriptDetectedEventArgs): bool  =
+proc stopPageScriptExecution*(self: WebViewControlLongRunningScriptDetectedEventArgs): bool =
   ## Windows.Web.UI.WebViewControlLongRunningScriptDetectedEventArgs.get_StopPageScriptExecution
-  withIface(self.p, IID_IWebViewControlLongRunningScriptDetectedEventArgs, "IWebViewControlLongRunningScriptDetectedEventArgs", it):
+  withIface(self.p, IWebViewControlLongRunningScriptDetectedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution, Fn_IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution)(it, tmp.addr).check("WebViewControlLongRunningScriptDetectedEventArgs.get_StopPageScriptExecution")
+    it.call(IWebViewControlLongRunningScriptDetectedEventArgs_get_StopPageScriptExecution,
+            tmp.addr)
     result = tmp
 
-proc `stopPageScriptExecution=`*(self: WebViewControlLongRunningScriptDetectedEventArgs, value: bool)  =
+proc `stopPageScriptExecution=`*(self: WebViewControlLongRunningScriptDetectedEventArgs,
+                                 value: bool) =
   ## Windows.Web.UI.WebViewControlLongRunningScriptDetectedEventArgs.put_StopPageScriptExecution
-  withIface(self.p, IID_IWebViewControlLongRunningScriptDetectedEventArgs, "IWebViewControlLongRunningScriptDetectedEventArgs", it):
-    vcall(it, Slot_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution, Fn_IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution)(it, value).check("WebViewControlLongRunningScriptDetectedEventArgs.put_StopPageScriptExecution")
+  withIface(self.p, IWebViewControlLongRunningScriptDetectedEventArgs, it):
+    it.call(IWebViewControlLongRunningScriptDetectedEventArgs_put_StopPageScriptExecution,
+            value)
 
-proc uri*(self: WebViewControlNavigationCompletedEventArgs): Uri  =
+proc uri*(self: WebViewControlNavigationCompletedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlNavigationCompletedEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlNavigationCompletedEventArgs, "IWebViewControlNavigationCompletedEventArgs", it):
+  withIface(self.p, IWebViewControlNavigationCompletedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNavigationCompletedEventArgs_get_Uri, Fn_IWebViewControlNavigationCompletedEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlNavigationCompletedEventArgs.get_Uri")
+    it.call(IWebViewControlNavigationCompletedEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc isSuccess*(self: WebViewControlNavigationCompletedEventArgs): bool  =
+proc isSuccess*(self: WebViewControlNavigationCompletedEventArgs): bool =
   ## Windows.Web.UI.WebViewControlNavigationCompletedEventArgs.get_IsSuccess
-  withIface(self.p, IID_IWebViewControlNavigationCompletedEventArgs, "IWebViewControlNavigationCompletedEventArgs", it):
+  withIface(self.p, IWebViewControlNavigationCompletedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess, Fn_IWebViewControlNavigationCompletedEventArgs_get_IsSuccess)(it, tmp.addr).check("WebViewControlNavigationCompletedEventArgs.get_IsSuccess")
+    it.call(IWebViewControlNavigationCompletedEventArgs_get_IsSuccess, tmp.addr)
     result = tmp
 
-proc webErrorStatus*(self: WebViewControlNavigationCompletedEventArgs): WebErrorStatus  =
+proc webErrorStatus*(self: WebViewControlNavigationCompletedEventArgs): WebErrorStatus =
   ## Windows.Web.UI.WebViewControlNavigationCompletedEventArgs.get_WebErrorStatus
-  withIface(self.p, IID_IWebViewControlNavigationCompletedEventArgs, "IWebViewControlNavigationCompletedEventArgs", it):
+  withIface(self.p, IWebViewControlNavigationCompletedEventArgs, it):
     var tmp: WebErrorStatus
-    vcall(it, Slot_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus, Fn_IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus)(it, tmp.addr).check("WebViewControlNavigationCompletedEventArgs.get_WebErrorStatus")
+    it.call(IWebViewControlNavigationCompletedEventArgs_get_WebErrorStatus,
+            tmp.addr)
     result = tmp
 
-proc uri*(self: WebViewControlNavigationStartingEventArgs): Uri  =
+proc uri*(self: WebViewControlNavigationStartingEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlNavigationStartingEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlNavigationStartingEventArgs, "IWebViewControlNavigationStartingEventArgs", it):
+  withIface(self.p, IWebViewControlNavigationStartingEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNavigationStartingEventArgs_get_Uri, Fn_IWebViewControlNavigationStartingEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlNavigationStartingEventArgs.get_Uri")
+    it.call(IWebViewControlNavigationStartingEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc cancel*(self: WebViewControlNavigationStartingEventArgs): bool  =
+proc cancel*(self: WebViewControlNavigationStartingEventArgs): bool =
   ## Windows.Web.UI.WebViewControlNavigationStartingEventArgs.get_Cancel
-  withIface(self.p, IID_IWebViewControlNavigationStartingEventArgs, "IWebViewControlNavigationStartingEventArgs", it):
+  withIface(self.p, IWebViewControlNavigationStartingEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlNavigationStartingEventArgs_get_Cancel, Fn_IWebViewControlNavigationStartingEventArgs_get_Cancel)(it, tmp.addr).check("WebViewControlNavigationStartingEventArgs.get_Cancel")
+    it.call(IWebViewControlNavigationStartingEventArgs_get_Cancel, tmp.addr)
     result = tmp
 
-proc `cancel=`*(self: WebViewControlNavigationStartingEventArgs, value: bool)  =
+proc `cancel=`*(self: WebViewControlNavigationStartingEventArgs, value: bool) =
   ## Windows.Web.UI.WebViewControlNavigationStartingEventArgs.put_Cancel
-  withIface(self.p, IID_IWebViewControlNavigationStartingEventArgs, "IWebViewControlNavigationStartingEventArgs", it):
-    vcall(it, Slot_IWebViewControlNavigationStartingEventArgs_put_Cancel, Fn_IWebViewControlNavigationStartingEventArgs_put_Cancel)(it, value).check("WebViewControlNavigationStartingEventArgs.put_Cancel")
+  withIface(self.p, IWebViewControlNavigationStartingEventArgs, it):
+    it.call(IWebViewControlNavigationStartingEventArgs_put_Cancel, value)
 
-proc uri*(self: WebViewControlNewWindowRequestedEventArgs): Uri  =
+proc uri*(self: WebViewControlNewWindowRequestedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs, "IWebViewControlNewWindowRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs_get_Uri, Fn_IWebViewControlNewWindowRequestedEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlNewWindowRequestedEventArgs.get_Uri")
+    it.call(IWebViewControlNewWindowRequestedEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc referrer*(self: WebViewControlNewWindowRequestedEventArgs): Uri  =
+proc referrer*(self: WebViewControlNewWindowRequestedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.get_Referrer
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs, "IWebViewControlNewWindowRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs_get_Referrer, Fn_IWebViewControlNewWindowRequestedEventArgs_get_Referrer)(it, tmp.addr).check("WebViewControlNewWindowRequestedEventArgs.get_Referrer")
+    it.call(IWebViewControlNewWindowRequestedEventArgs_get_Referrer, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc handled*(self: WebViewControlNewWindowRequestedEventArgs): bool  =
+proc handled*(self: WebViewControlNewWindowRequestedEventArgs): bool =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.get_Handled
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs, "IWebViewControlNewWindowRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs_get_Handled, Fn_IWebViewControlNewWindowRequestedEventArgs_get_Handled)(it, tmp.addr).check("WebViewControlNewWindowRequestedEventArgs.get_Handled")
+    it.call(IWebViewControlNewWindowRequestedEventArgs_get_Handled, tmp.addr)
     result = tmp
 
-proc `handled=`*(self: WebViewControlNewWindowRequestedEventArgs, value: bool)  =
+proc `handled=`*(self: WebViewControlNewWindowRequestedEventArgs, value: bool) =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.put_Handled
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs, "IWebViewControlNewWindowRequestedEventArgs", it):
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs_put_Handled, Fn_IWebViewControlNewWindowRequestedEventArgs_put_Handled)(it, value).check("WebViewControlNewWindowRequestedEventArgs.put_Handled")
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs, it):
+    it.call(IWebViewControlNewWindowRequestedEventArgs_put_Handled, value)
 
-proc newWindow*(self: WebViewControlNewWindowRequestedEventArgs): WebViewControl  =
+proc newWindow*(self: WebViewControlNewWindowRequestedEventArgs): WebViewControl =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.get_NewWindow
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs2, "IWebViewControlNewWindowRequestedEventArgs2", it):
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs2, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow, Fn_IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow)(it, tmp.addr).check("WebViewControlNewWindowRequestedEventArgs.get_NewWindow")
+    it.call(IWebViewControlNewWindowRequestedEventArgs2_get_NewWindow, tmp.addr)
     result = adopt[WebViewControl](tmp)
 
-proc `newWindow=`*(self: WebViewControlNewWindowRequestedEventArgs, value: WebViewControl)  =
+proc `newWindow=`*(self: WebViewControlNewWindowRequestedEventArgs,
+                   value: WebViewControl) =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.put_NewWindow
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs2, "IWebViewControlNewWindowRequestedEventArgs2", it):
-    withIface(value.p, IID_IWebViewControl, "IWebViewControl", p0):
-      vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow, Fn_IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow)(it, p0).check("WebViewControlNewWindowRequestedEventArgs.put_NewWindow")
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs2, it):
+    withIface(value.p, IWebViewControl, p0):
+      it.call(IWebViewControlNewWindowRequestedEventArgs2_put_NewWindow, p0)
 
-proc getDeferral*(self: WebViewControlNewWindowRequestedEventArgs): Deferral  =
+proc getDeferral*(self: WebViewControlNewWindowRequestedEventArgs): Deferral =
   ## Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs.GetDeferral
-  withIface(self.p, IID_IWebViewControlNewWindowRequestedEventArgs2, "IWebViewControlNewWindowRequestedEventArgs2", it):
+  withIface(self.p, IWebViewControlNewWindowRequestedEventArgs2, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral, Fn_IWebViewControlNewWindowRequestedEventArgs2_GetDeferral)(it, tmp.addr).check("WebViewControlNewWindowRequestedEventArgs.GetDeferral")
+    it.call(IWebViewControlNewWindowRequestedEventArgs2_GetDeferral, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc id*(self: WebViewControlPermissionRequest): uint32  =
+proc id*(self: WebViewControlPermissionRequest): uint32 =
   ## Windows.Web.UI.WebViewControlPermissionRequest.get_Id
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
+  withIface(self.p, IWebViewControlPermissionRequest, it):
     var tmp: uint32
-    vcall(it, Slot_IWebViewControlPermissionRequest_get_Id, Fn_IWebViewControlPermissionRequest_get_Id)(it, tmp.addr).check("WebViewControlPermissionRequest.get_Id")
+    it.call(IWebViewControlPermissionRequest_get_Id, tmp.addr)
     result = tmp
 
-proc uri*(self: WebViewControlPermissionRequest): Uri  =
+proc uri*(self: WebViewControlPermissionRequest): Uri =
   ## Windows.Web.UI.WebViewControlPermissionRequest.get_Uri
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
+  withIface(self.p, IWebViewControlPermissionRequest, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlPermissionRequest_get_Uri, Fn_IWebViewControlPermissionRequest_get_Uri)(it, tmp.addr).check("WebViewControlPermissionRequest.get_Uri")
+    it.call(IWebViewControlPermissionRequest_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc permissionType*(self: WebViewControlPermissionRequest): WebViewControlPermissionType  =
+proc permissionType*(self: WebViewControlPermissionRequest): WebViewControlPermissionType =
   ## Windows.Web.UI.WebViewControlPermissionRequest.get_PermissionType
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
+  withIface(self.p, IWebViewControlPermissionRequest, it):
     var tmp: WebViewControlPermissionType
-    vcall(it, Slot_IWebViewControlPermissionRequest_get_PermissionType, Fn_IWebViewControlPermissionRequest_get_PermissionType)(it, tmp.addr).check("WebViewControlPermissionRequest.get_PermissionType")
+    it.call(IWebViewControlPermissionRequest_get_PermissionType, tmp.addr)
     result = tmp
 
-proc state*(self: WebViewControlPermissionRequest): WebViewControlPermissionState  =
+proc state*(self: WebViewControlPermissionRequest): WebViewControlPermissionState =
   ## Windows.Web.UI.WebViewControlPermissionRequest.get_State
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
+  withIface(self.p, IWebViewControlPermissionRequest, it):
     var tmp: WebViewControlPermissionState
-    vcall(it, Slot_IWebViewControlPermissionRequest_get_State, Fn_IWebViewControlPermissionRequest_get_State)(it, tmp.addr).check("WebViewControlPermissionRequest.get_State")
+    it.call(IWebViewControlPermissionRequest_get_State, tmp.addr)
     result = tmp
 
-proc `defer`*(self: WebViewControlPermissionRequest)  =
+proc `defer`*(self: WebViewControlPermissionRequest) =
   ## Windows.Web.UI.WebViewControlPermissionRequest.Defer
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
-    vcall(it, Slot_IWebViewControlPermissionRequest_Defer, Fn_IWebViewControlPermissionRequest_Defer)(it).check("WebViewControlPermissionRequest.Defer")
+  withIface(self.p, IWebViewControlPermissionRequest, it):
+    it.call(IWebViewControlPermissionRequest_Defer)
 
-proc allow*(self: WebViewControlPermissionRequest)  =
+proc allow*(self: WebViewControlPermissionRequest) =
   ## Windows.Web.UI.WebViewControlPermissionRequest.Allow
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
-    vcall(it, Slot_IWebViewControlPermissionRequest_Allow, Fn_IWebViewControlPermissionRequest_Allow)(it).check("WebViewControlPermissionRequest.Allow")
+  withIface(self.p, IWebViewControlPermissionRequest, it):
+    it.call(IWebViewControlPermissionRequest_Allow)
 
-proc deny*(self: WebViewControlPermissionRequest)  =
+proc deny*(self: WebViewControlPermissionRequest) =
   ## Windows.Web.UI.WebViewControlPermissionRequest.Deny
-  withIface(self.p, IID_IWebViewControlPermissionRequest, "IWebViewControlPermissionRequest", it):
-    vcall(it, Slot_IWebViewControlPermissionRequest_Deny, Fn_IWebViewControlPermissionRequest_Deny)(it).check("WebViewControlPermissionRequest.Deny")
+  withIface(self.p, IWebViewControlPermissionRequest, it):
+    it.call(IWebViewControlPermissionRequest_Deny)
 
-proc permissionRequest*(self: WebViewControlPermissionRequestedEventArgs): WebViewControlPermissionRequest  =
+proc permissionRequest*(self: WebViewControlPermissionRequestedEventArgs): WebViewControlPermissionRequest =
   ## Windows.Web.UI.WebViewControlPermissionRequestedEventArgs.get_PermissionRequest
-  withIface(self.p, IID_IWebViewControlPermissionRequestedEventArgs, "IWebViewControlPermissionRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlPermissionRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest, Fn_IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest)(it, tmp.addr).check("WebViewControlPermissionRequestedEventArgs.get_PermissionRequest")
+    it.call(IWebViewControlPermissionRequestedEventArgs_get_PermissionRequest,
+            tmp.addr)
     result = adopt[WebViewControlPermissionRequest](tmp)
 
-proc uri*(self: WebViewControlScriptNotifyEventArgs): Uri  =
+proc uri*(self: WebViewControlScriptNotifyEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlScriptNotifyEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlScriptNotifyEventArgs, "IWebViewControlScriptNotifyEventArgs", it):
+  withIface(self.p, IWebViewControlScriptNotifyEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlScriptNotifyEventArgs_get_Uri, Fn_IWebViewControlScriptNotifyEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlScriptNotifyEventArgs.get_Uri")
+    it.call(IWebViewControlScriptNotifyEventArgs_get_Uri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc value*(self: WebViewControlScriptNotifyEventArgs): string  =
+proc value*(self: WebViewControlScriptNotifyEventArgs): string =
   ## Windows.Web.UI.WebViewControlScriptNotifyEventArgs.get_Value
-  withIface(self.p, IID_IWebViewControlScriptNotifyEventArgs, "IWebViewControlScriptNotifyEventArgs", it):
+  withIface(self.p, IWebViewControlScriptNotifyEventArgs, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWebViewControlScriptNotifyEventArgs_get_Value, Fn_IWebViewControlScriptNotifyEventArgs_get_Value)(it, tmp.addr).check("WebViewControlScriptNotifyEventArgs.get_Value")
+    it.call(IWebViewControlScriptNotifyEventArgs_get_Value, tmp.addr)
     result = takeString(tmp)
 
-proc `isJavaScriptEnabled=`*(self: WebViewControlSettings, value: bool)  =
+proc `isJavaScriptEnabled=`*(self: WebViewControlSettings, value: bool) =
   ## Windows.Web.UI.WebViewControlSettings.put_IsJavaScriptEnabled
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
-    vcall(it, Slot_IWebViewControlSettings_put_IsJavaScriptEnabled, Fn_IWebViewControlSettings_put_IsJavaScriptEnabled)(it, value).check("WebViewControlSettings.put_IsJavaScriptEnabled")
+  withIface(self.p, IWebViewControlSettings, it):
+    it.call(IWebViewControlSettings_put_IsJavaScriptEnabled, value)
 
-proc isJavaScriptEnabled*(self: WebViewControlSettings): bool  =
+proc isJavaScriptEnabled*(self: WebViewControlSettings): bool =
   ## Windows.Web.UI.WebViewControlSettings.get_IsJavaScriptEnabled
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
+  withIface(self.p, IWebViewControlSettings, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlSettings_get_IsJavaScriptEnabled, Fn_IWebViewControlSettings_get_IsJavaScriptEnabled)(it, tmp.addr).check("WebViewControlSettings.get_IsJavaScriptEnabled")
+    it.call(IWebViewControlSettings_get_IsJavaScriptEnabled, tmp.addr)
     result = tmp
 
-proc `isIndexedDBEnabled=`*(self: WebViewControlSettings, value: bool)  =
+proc `isIndexedDBEnabled=`*(self: WebViewControlSettings, value: bool) =
   ## Windows.Web.UI.WebViewControlSettings.put_IsIndexedDBEnabled
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
-    vcall(it, Slot_IWebViewControlSettings_put_IsIndexedDBEnabled, Fn_IWebViewControlSettings_put_IsIndexedDBEnabled)(it, value).check("WebViewControlSettings.put_IsIndexedDBEnabled")
+  withIface(self.p, IWebViewControlSettings, it):
+    it.call(IWebViewControlSettings_put_IsIndexedDBEnabled, value)
 
-proc isIndexedDBEnabled*(self: WebViewControlSettings): bool  =
+proc isIndexedDBEnabled*(self: WebViewControlSettings): bool =
   ## Windows.Web.UI.WebViewControlSettings.get_IsIndexedDBEnabled
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
+  withIface(self.p, IWebViewControlSettings, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlSettings_get_IsIndexedDBEnabled, Fn_IWebViewControlSettings_get_IsIndexedDBEnabled)(it, tmp.addr).check("WebViewControlSettings.get_IsIndexedDBEnabled")
+    it.call(IWebViewControlSettings_get_IsIndexedDBEnabled, tmp.addr)
     result = tmp
 
-proc `isScriptNotifyAllowed=`*(self: WebViewControlSettings, value: bool)  =
+proc `isScriptNotifyAllowed=`*(self: WebViewControlSettings, value: bool) =
   ## Windows.Web.UI.WebViewControlSettings.put_IsScriptNotifyAllowed
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
-    vcall(it, Slot_IWebViewControlSettings_put_IsScriptNotifyAllowed, Fn_IWebViewControlSettings_put_IsScriptNotifyAllowed)(it, value).check("WebViewControlSettings.put_IsScriptNotifyAllowed")
+  withIface(self.p, IWebViewControlSettings, it):
+    it.call(IWebViewControlSettings_put_IsScriptNotifyAllowed, value)
 
-proc isScriptNotifyAllowed*(self: WebViewControlSettings): bool  =
+proc isScriptNotifyAllowed*(self: WebViewControlSettings): bool =
   ## Windows.Web.UI.WebViewControlSettings.get_IsScriptNotifyAllowed
-  withIface(self.p, IID_IWebViewControlSettings, "IWebViewControlSettings", it):
+  withIface(self.p, IWebViewControlSettings, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlSettings_get_IsScriptNotifyAllowed, Fn_IWebViewControlSettings_get_IsScriptNotifyAllowed)(it, tmp.addr).check("WebViewControlSettings.get_IsScriptNotifyAllowed")
+    it.call(IWebViewControlSettings_get_IsScriptNotifyAllowed, tmp.addr)
     result = tmp
 
-proc uri*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs): Uri  =
+proc uri*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs", it):
+  withIface(self.p, IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri, Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.get_Uri")
+    it.call(IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Uri,
+            tmp.addr)
     result = adopt[Uri](tmp)
 
-proc handled*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs): bool  =
+proc handled*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs): bool =
   ## Windows.Web.UI.WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.get_Handled
-  withIface(self.p, IID_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs", it):
+  withIface(self.p, IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled, Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled)(it, tmp.addr).check("WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.get_Handled")
+    it.call(IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_get_Handled,
+            tmp.addr)
     result = tmp
 
-proc `handled=`*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, value: bool)  =
+proc `handled=`*(self: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs,
+                 value: bool) =
   ## Windows.Web.UI.WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.put_Handled
-  withIface(self.p, IID_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, "IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs", it):
-    vcall(it, Slot_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled, Fn_IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled)(it, value).check("WebViewControlUnsupportedUriSchemeIdentifiedEventArgs.put_Handled")
+  withIface(self.p, IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, it):
+    it.call(IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs_put_Handled,
+            value)
 
-proc uri*(self: WebViewControlUnviewableContentIdentifiedEventArgs): Uri  =
+proc uri*(self: WebViewControlUnviewableContentIdentifiedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlUnviewableContentIdentifiedEventArgs.get_Uri
-  withIface(self.p, IID_IWebViewControlUnviewableContentIdentifiedEventArgs, "IWebViewControlUnviewableContentIdentifiedEventArgs", it):
+  withIface(self.p, IWebViewControlUnviewableContentIdentifiedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri, Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri)(it, tmp.addr).check("WebViewControlUnviewableContentIdentifiedEventArgs.get_Uri")
+    it.call(IWebViewControlUnviewableContentIdentifiedEventArgs_get_Uri,
+            tmp.addr)
     result = adopt[Uri](tmp)
 
-proc referrer*(self: WebViewControlUnviewableContentIdentifiedEventArgs): Uri  =
+proc referrer*(self: WebViewControlUnviewableContentIdentifiedEventArgs): Uri =
   ## Windows.Web.UI.WebViewControlUnviewableContentIdentifiedEventArgs.get_Referrer
-  withIface(self.p, IID_IWebViewControlUnviewableContentIdentifiedEventArgs, "IWebViewControlUnviewableContentIdentifiedEventArgs", it):
+  withIface(self.p, IWebViewControlUnviewableContentIdentifiedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer, Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer)(it, tmp.addr).check("WebViewControlUnviewableContentIdentifiedEventArgs.get_Referrer")
+    it.call(IWebViewControlUnviewableContentIdentifiedEventArgs_get_Referrer,
+            tmp.addr)
     result = adopt[Uri](tmp)
 
-proc mediaType*(self: WebViewControlUnviewableContentIdentifiedEventArgs): string  =
+proc mediaType*(self: WebViewControlUnviewableContentIdentifiedEventArgs): string =
   ## Windows.Web.UI.WebViewControlUnviewableContentIdentifiedEventArgs.get_MediaType
-  withIface(self.p, IID_IWebViewControlUnviewableContentIdentifiedEventArgs, "IWebViewControlUnviewableContentIdentifiedEventArgs", it):
+  withIface(self.p, IWebViewControlUnviewableContentIdentifiedEventArgs, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType, Fn_IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType)(it, tmp.addr).check("WebViewControlUnviewableContentIdentifiedEventArgs.get_MediaType")
+    it.call(IWebViewControlUnviewableContentIdentifiedEventArgs_get_MediaType,
+            tmp.addr)
     result = takeString(tmp)
 
-proc getDeferral*(self: WebViewControlWebResourceRequestedEventArgs): Deferral  =
+proc getDeferral*(self: WebViewControlWebResourceRequestedEventArgs): Deferral =
   ## Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs.GetDeferral
-  withIface(self.p, IID_IWebViewControlWebResourceRequestedEventArgs, "IWebViewControlWebResourceRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlWebResourceRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlWebResourceRequestedEventArgs_GetDeferral, Fn_IWebViewControlWebResourceRequestedEventArgs_GetDeferral)(it, tmp.addr).check("WebViewControlWebResourceRequestedEventArgs.GetDeferral")
+    it.call(IWebViewControlWebResourceRequestedEventArgs_GetDeferral, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc request*(self: WebViewControlWebResourceRequestedEventArgs): HttpRequestMessage  =
+proc request*(self: WebViewControlWebResourceRequestedEventArgs): HttpRequestMessage =
   ## Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs.get_Request
-  withIface(self.p, IID_IWebViewControlWebResourceRequestedEventArgs, "IWebViewControlWebResourceRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlWebResourceRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlWebResourceRequestedEventArgs_get_Request, Fn_IWebViewControlWebResourceRequestedEventArgs_get_Request)(it, tmp.addr).check("WebViewControlWebResourceRequestedEventArgs.get_Request")
+    it.call(IWebViewControlWebResourceRequestedEventArgs_get_Request, tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc `response=`*(self: WebViewControlWebResourceRequestedEventArgs, value: HttpResponseMessage)  =
+proc `response=`*(self: WebViewControlWebResourceRequestedEventArgs,
+                  value: HttpResponseMessage) =
   ## Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs.put_Response
-  withIface(self.p, IID_IWebViewControlWebResourceRequestedEventArgs, "IWebViewControlWebResourceRequestedEventArgs", it):
-    withIface(value.p, IID_IHttpResponseMessage, "IHttpResponseMessage", p0):
-      vcall(it, Slot_IWebViewControlWebResourceRequestedEventArgs_put_Response, Fn_IWebViewControlWebResourceRequestedEventArgs_put_Response)(it, p0).check("WebViewControlWebResourceRequestedEventArgs.put_Response")
+  withIface(self.p, IWebViewControlWebResourceRequestedEventArgs, it):
+    withIface(value.p, IHttpResponseMessage, p0):
+      it.call(IWebViewControlWebResourceRequestedEventArgs_put_Response, p0)
 
-proc response*(self: WebViewControlWebResourceRequestedEventArgs): HttpResponseMessage  =
+proc response*(self: WebViewControlWebResourceRequestedEventArgs): HttpResponseMessage =
   ## Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs.get_Response
-  withIface(self.p, IID_IWebViewControlWebResourceRequestedEventArgs, "IWebViewControlWebResourceRequestedEventArgs", it):
+  withIface(self.p, IWebViewControlWebResourceRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IWebViewControlWebResourceRequestedEventArgs_get_Response, Fn_IWebViewControlWebResourceRequestedEventArgs_get_Response)(it, tmp.addr).check("WebViewControlWebResourceRequestedEventArgs.get_Response")
+    it.call(IWebViewControlWebResourceRequestedEventArgs_get_Response, tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc getStatus*(_: typedesc[WebError], hresult: int32): WebErrorStatus  =
+proc getStatus*(_: typedesc[WebError], hresult: int32): WebErrorStatus =
   ## Windows.Web.WebError.GetStatus
-  withStatics("Windows.Web.WebError", IID_IWebErrorStatics, it):
+  withStatics("Windows.Web.WebError", IWebErrorStatics, it):
     var tmp: WebErrorStatus
-    vcall(it, Slot_IWebErrorStatics_GetStatus, Fn_IWebErrorStatics_GetStatus)(it, hresult, tmp.addr).check("WebError.GetStatus")
+    it.call(IWebErrorStatics_GetStatus, hresult, tmp.addr)
     result = tmp
 

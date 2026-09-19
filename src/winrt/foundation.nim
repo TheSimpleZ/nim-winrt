@@ -8,49 +8,27 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-export core
-import ./abi/types
-export types
-import ./abi/foundation
-export foundation
-import ./abi/storage
-export storage
-import ./delegate
-import ./classes
-export classes
-import ./asyncops
-export asyncops
+import ./abi/[types, foundation, storage]
+import ./[classes, delegate, asyncops]
+export core, types, foundation, storage, classes, asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
-const IID_EventHandler_1_TracingStatusChangedEventArgs* = GUID(
-    data1: 0x2BF27008'u32, data2: 0x2EB4'u16, data3: 0x5675'u16,
-    data4: [0xB1'u8, 0xCD, 0xE9, 0x90, 0x6C, 0xC5, 0xCE, 0x64])
-const IID_AsyncOperationCompletedHandler_1_ErrorDetails* = GUID(
-    data1: 0xA6997F9D'u32, data2: 0x7195'u16, data3: 0x5972'u16,
-    data4: [0x8E'u8, 0xCD, 0x1C, 0x73, 0xAA, 0x5C, 0xB3, 0x12])
-const IID_IAsyncOperation_1_ErrorDetails* = GUID(
-    data1: 0x9B05106D'u32, data2: 0x77E0'u16, data3: 0x5C24'u16,
-    data4: [0x82'u8, 0xB0, 0x9B, 0x2D, 0xC8, 0xF7, 0x96, 0x71])
-const IID_AsyncOperationCompletedHandler_1_StorageFile* = GUID(
-    data1: 0xE521C894'u32, data2: 0x2C26'u16, data3: 0x5946'u16,
-    data4: [0x9E'u8, 0x61, 0x2B, 0x5E, 0x18, 0x8D, 0x01, 0xED])
-const IID_IAsyncOperation_1_StorageFile* = GUID(
-    data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
-    data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
-const IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs* = GUID(
-    data1: 0x0C6563B0'u32, data2: 0x9D8B'u16, data3: 0x5B60'u16,
-    data4: [0x99'u8, 0x4B, 0xDE, 0xE1, 0x17, 0x4D, 0x1E, 0xFB])
-const IID_TypedEventHandler_2_ILoggingChannel_Object* = GUID(
-    data1: 0x52C9C2A1'u32, data2: 0x54A3'u16, data3: 0x5EF9'u16,
-    data4: [0x9A'u8, 0xFF, 0x01, 0x4E, 0x7C, 0x45, 0x46, 0x55])
+const IID_EventHandler_1_TracingStatusChangedEventArgs* = guid"2BF27008-2EB4-5675-B1CD-E9906CC5CE64"
+const IID_AsyncOperationCompletedHandler_1_ErrorDetails* = guid"A6997F9D-7195-5972-8ECD-1C73AA5CB312"
+const IID_IAsyncOperation_1_ErrorDetails* = guid"9B05106D-77E0-5C24-82B0-9B2DC8F79671"
+const IID_AsyncOperationCompletedHandler_1_StorageFile* = guid"E521C894-2C26-5946-9E61-2B5E188D01ED"
+const IID_IAsyncOperation_1_StorageFile* = guid"5E52F8CE-ACED-5A42-95B4-F674DD84885E"
+const IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs* = guid"0C6563B0-9D8B-5B60-994B-DEE1174D1EFB"
+const IID_TypedEventHandler_2_ILoggingChannel_Object* = guid"52C9C2A1-54A3-5EF9-9AFF-014E7C454655"
 
 
-proc invoke*(self: AsyncActionCompletedHandler, asyncInfo: WinRtObject, asyncStatus: AsyncStatus)  =
+proc invoke*(self: AsyncActionCompletedHandler, asyncInfo: WinRtObject,
+             asyncStatus: AsyncStatus) =
   ## Windows.Foundation.AsyncActionCompletedHandler.Invoke
-  withIface(self.p, IID_AsyncActionCompletedHandler, "AsyncActionCompletedHandler", it):
-    withIface(asyncInfo.p, IID_IAsyncAction, "IAsyncAction", p0):
-      vcall(it, Slot_AsyncActionCompletedHandler_Invoke, Fn_AsyncActionCompletedHandler_Invoke)(it, p0, asyncStatus).check("AsyncActionCompletedHandler.Invoke")
+  withIface(self.p, AsyncActionCompletedHandler, it):
+    withIface(asyncInfo.p, IAsyncAction, p0):
+      it.call(AsyncActionCompletedHandler_Invoke, p0, asyncStatus)
 
 proc newPropertySet*(): PropertySet =
   ## Activate a `Windows.Foundation.Collections.PropertySet`.
@@ -60,2132 +38,2323 @@ proc newValueSet*(): ValueSet =
   ## Activate a `Windows.Foundation.Collections.ValueSet`.
   adopt[ValueSet](activateAs("Windows.Foundation.Collections.ValueSet", IID_IPropertySet))
 
-proc complete*(self: Deferral)  =
+proc complete*(self: Deferral) =
   ## Windows.Foundation.Deferral.Complete
-  withIface(self.p, IID_IDeferral, "IDeferral", it):
-    vcall(it, Slot_IDeferral_Complete, Fn_IDeferral_Complete)(it).check("Deferral.Complete")
+  withIface(self.p, IDeferral, it):
+    it.call(IDeferral_Complete)
 
-proc close*(self: Deferral)  =
+proc close*(self: Deferral) =
   ## Windows.Foundation.Deferral.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Deferral.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc create*(_: typedesc[Deferral], handler: proc()): Deferral  =
+proc create*(_: typedesc[Deferral], handler: proc()): Deferral =
   ## Windows.Foundation.Deferral.Create
-  withStatics("Windows.Foundation.Deferral", IID_IDeferralFactory, it):
+  withStatics("Windows.Foundation.Deferral", IDeferralFactory, it):
     let d0 = newDelegate(IID_DeferralCompletedHandler, handler)
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IDeferralFactory_Create, Fn_IDeferralFactory_Create)(it, d0, tmp.addr).check("Deferral.Create")
+    it.call(IDeferralFactory_Create, d0, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc invoke*(self: DeferralCompletedHandler)  =
+proc invoke*(self: DeferralCompletedHandler) =
   ## Windows.Foundation.DeferralCompletedHandler.Invoke
-  withIface(self.p, IID_DeferralCompletedHandler, "DeferralCompletedHandler", it):
-    vcall(it, Slot_DeferralCompletedHandler_Invoke, Fn_DeferralCompletedHandler_Invoke)(it).check("DeferralCompletedHandler.Invoke")
+  withIface(self.p, DeferralCompletedHandler, it):
+    it.call(DeferralCompletedHandler_Invoke)
 
-proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, operationName: string, relatedContext: uint64)  =
+proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer],
+                             traceLevel: CausalityTraceLevel,
+                             source: CausalitySource, platformId: GUID,
+                             operationId: uint64, operationName: string,
+                             relatedContext: uint64) =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationCreation
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
     withHString(operationName, h4):
-      vcall(it, Slot_IAsyncCausalityTracerStatics_TraceOperationCreation, Fn_IAsyncCausalityTracerStatics_TraceOperationCreation)(it, traceLevel, source, platformId, operationId, h4, relatedContext).check("AsyncCausalityTracer.TraceOperationCreation")
+      it.call(IAsyncCausalityTracerStatics_TraceOperationCreation, traceLevel,
+              source, platformId, operationId, h4, relatedContext)
 
-proc traceOperationCompletion*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, status: AsyncStatus)  =
+proc traceOperationCompletion*(_: typedesc[AsyncCausalityTracer],
+                               traceLevel: CausalityTraceLevel,
+                               source: CausalitySource, platformId: GUID,
+                               operationId: uint64, status: AsyncStatus) =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationCompletion
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    vcall(it, Slot_IAsyncCausalityTracerStatics_TraceOperationCompletion, Fn_IAsyncCausalityTracerStatics_TraceOperationCompletion)(it, traceLevel, source, platformId, operationId, status).check("AsyncCausalityTracer.TraceOperationCompletion")
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    it.call(IAsyncCausalityTracerStatics_TraceOperationCompletion, traceLevel,
+            source, platformId, operationId, status)
 
-proc traceOperationRelation*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, relation: CausalityRelation)  =
+proc traceOperationRelation*(_: typedesc[AsyncCausalityTracer],
+                             traceLevel: CausalityTraceLevel,
+                             source: CausalitySource, platformId: GUID,
+                             operationId: uint64, relation: CausalityRelation) =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationRelation
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    vcall(it, Slot_IAsyncCausalityTracerStatics_TraceOperationRelation, Fn_IAsyncCausalityTracerStatics_TraceOperationRelation)(it, traceLevel, source, platformId, operationId, relation).check("AsyncCausalityTracer.TraceOperationRelation")
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    it.call(IAsyncCausalityTracerStatics_TraceOperationRelation, traceLevel,
+            source, platformId, operationId, relation)
 
-proc traceSynchronousWorkStart*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, work: CausalitySynchronousWork)  =
+proc traceSynchronousWorkStart*(_: typedesc[AsyncCausalityTracer],
+                                traceLevel: CausalityTraceLevel,
+                                source: CausalitySource, platformId: GUID,
+                                operationId: uint64,
+                                work: CausalitySynchronousWork) =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceSynchronousWorkStart
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    vcall(it, Slot_IAsyncCausalityTracerStatics_TraceSynchronousWorkStart, Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkStart)(it, traceLevel, source, platformId, operationId, work).check("AsyncCausalityTracer.TraceSynchronousWorkStart")
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    it.call(IAsyncCausalityTracerStatics_TraceSynchronousWorkStart, traceLevel,
+            source, platformId, operationId, work)
 
-proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, work: CausalitySynchronousWork)  =
+proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer],
+                                     traceLevel: CausalityTraceLevel,
+                                     source: CausalitySource,
+                                     work: CausalitySynchronousWork) =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceSynchronousWorkCompletion
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    vcall(it, Slot_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion, Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion)(it, traceLevel, source, work).check("AsyncCausalityTracer.TraceSynchronousWorkCompletion")
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    it.call(IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion,
+            traceLevel, source, work)
 
 proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
-    handler: proc(sender: WinRtObject, args: TracingStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[WinRtObject, TracingStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.add_TracingStatusChanged
-  ##
-  ## The token is what `removeTracingStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1)), event = true)
+  ## The token is what `removeTracingStatusChanged` takes.
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1))
+    let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAsyncCausalityTracerStatics_add_TracingStatusChanged, Fn_IAsyncCausalityTracerStatics_add_TracingStatusChanged)(it, cb, result.addr)
-        .check("AsyncCausalityTracer.add_TracingStatusChanged")
+      it.call(IAsyncCausalityTracerStatics_add_TracingStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeTracingStatusChanged*(_: typedesc[AsyncCausalityTracer], token: EventRegistrationToken) =
-  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    vcall(it, Slot_IAsyncCausalityTracerStatics_remove_TracingStatusChanged, Fn_IAsyncCausalityTracerStatics_remove_TracingStatusChanged)(it, token).check("AsyncCausalityTracer.remove_TracingStatusChanged")
+  withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
+              IAsyncCausalityTracerStatics, it):
+    it.call(IAsyncCausalityTracerStatics_remove_TracingStatusChanged, token)
 
-proc description*(self: ErrorDetails): string  =
+proc description*(self: ErrorDetails): string =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_Description
-  withIface(self.p, IID_IErrorDetails, "IErrorDetails", it):
+  withIface(self.p, IErrorDetails, it):
     var tmp: HSTRING
-    vcall(it, Slot_IErrorDetails_get_Description, Fn_IErrorDetails_get_Description)(it, tmp.addr).check("ErrorDetails.get_Description")
+    it.call(IErrorDetails_get_Description, tmp.addr)
     result = takeString(tmp)
 
-proc longDescription*(self: ErrorDetails): string  =
+proc longDescription*(self: ErrorDetails): string =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_LongDescription
-  withIface(self.p, IID_IErrorDetails, "IErrorDetails", it):
+  withIface(self.p, IErrorDetails, it):
     var tmp: HSTRING
-    vcall(it, Slot_IErrorDetails_get_LongDescription, Fn_IErrorDetails_get_LongDescription)(it, tmp.addr).check("ErrorDetails.get_LongDescription")
+    it.call(IErrorDetails_get_LongDescription, tmp.addr)
     result = takeString(tmp)
 
-proc helpUri*(self: ErrorDetails): Uri  =
+proc helpUri*(self: ErrorDetails): Uri =
   ## Windows.Foundation.Diagnostics.ErrorDetails.get_HelpUri
-  withIface(self.p, IID_IErrorDetails, "IErrorDetails", it):
+  withIface(self.p, IErrorDetails, it):
     var tmp: pointer
-    vcall(it, Slot_IErrorDetails_get_HelpUri, Fn_IErrorDetails_get_HelpUri)(it, tmp.addr).check("ErrorDetails.get_HelpUri")
+    it.call(IErrorDetails_get_HelpUri, tmp.addr)
     result = adopt[Uri](tmp)
 
 proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32): Future[ErrorDetails] {.async.} =
   ## Windows.Foundation.Diagnostics.ErrorDetails.CreateFromHResultAsync
   var op: pointer
-  withStatics("Windows.Foundation.Diagnostics.ErrorDetails", IID_IErrorDetailsStatics, it):
-    vcall(it, Slot_IErrorDetailsStatics_CreateFromHResultAsync, Fn_IErrorDetailsStatics_CreateFromHResultAsync)(it, errorCode, op.addr).check("ErrorDetails.CreateFromHResultAsync")
-  result = adopt[ErrorDetails](await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails, IID_AsyncOperationCompletedHandler_1_ErrorDetails, alPlain, "ErrorDetails.CreateFromHResultAsync"))
+  withStatics("Windows.Foundation.Diagnostics.ErrorDetails",
+              IErrorDetailsStatics, it):
+    it.call(IErrorDetailsStatics_CreateFromHResultAsync, errorCode, op.addr)
+  result = adopt[ErrorDetails](await awaitObject(op,
+                                                 IID_IAsyncOperation_1_ErrorDetails,
+                                                 IID_AsyncOperationCompletedHandler_1_ErrorDetails,
+                                                 alPlain,
+                                                 "ErrorDetails.CreateFromHResultAsync"))
 
-proc name*(self: FileLoggingSession): string  =
+proc name*(self: FileLoggingSession): string =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
+  withIface(self.p, IFileLoggingSession, it):
     var tmp: HSTRING
-    vcall(it, Slot_IFileLoggingSession_get_Name, Fn_IFileLoggingSession_get_Name)(it, tmp.addr).check("FileLoggingSession.get_Name")
+    it.call(IFileLoggingSession_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel)  =
+proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_IFileLoggingSession_AddLoggingChannel, Fn_IFileLoggingSession_AddLoggingChannel)(it, p0).check("FileLoggingSession.AddLoggingChannel")
+  withIface(self.p, IFileLoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(IFileLoggingSession_AddLoggingChannel, p0)
 
-proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel, maxLevel: LoggingLevel)  =
+proc addLoggingChannel*(self: FileLoggingSession,
+                        loggingChannel: LoggingChannel, maxLevel: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_IFileLoggingSession_AddLoggingChannel2, Fn_IFileLoggingSession_AddLoggingChannel2)(it, p0, maxLevel).check("FileLoggingSession.AddLoggingChannel")
+  withIface(self.p, IFileLoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(IFileLoggingSession_AddLoggingChannel2, p0, maxLevel)
 
-proc removeLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel)  =
+proc removeLoggingChannel*(self: FileLoggingSession,
+                           loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.RemoveLoggingChannel
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_IFileLoggingSession_RemoveLoggingChannel, Fn_IFileLoggingSession_RemoveLoggingChannel)(it, p0).check("FileLoggingSession.RemoveLoggingChannel")
+  withIface(self.p, IFileLoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(IFileLoggingSession_RemoveLoggingChannel, p0)
 
 proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.async.} =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.CloseAndSaveToFileAsync
   var op: pointer
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    vcall(it, Slot_IFileLoggingSession_CloseAndSaveToFileAsync, Fn_IFileLoggingSession_CloseAndSaveToFileAsync)(it, op.addr).check("FileLoggingSession.CloseAndSaveToFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "FileLoggingSession.CloseAndSaveToFileAsync"))
+  withIface(self.p, IFileLoggingSession, it):
+    it.call(IFileLoggingSession_CloseAndSaveToFileAsync, op.addr)
+  result = adopt[StorageFile](await awaitObject(op,
+                                                IID_IAsyncOperation_1_StorageFile,
+                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                                alPlain,
+                                                "FileLoggingSession.CloseAndSaveToFileAsync"))
 
 proc onLogFileGenerated*(self: FileLoggingSession,
-    handler: proc(sender: FileLoggingSession, args: LogFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[FileLoggingSession, LogFileGeneratedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.add_LogFileGenerated
-  ##
-  ## The token is what `removeLogFileGenerated` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FileLoggingSession](a0), borrow[LogFileGeneratedEventArgs](a1)), event = true)
+  ## The token is what `removeLogFileGenerated` takes.
+  withIface(self.p, IFileLoggingSession, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[FileLoggingSession](a0),
+              borrow[LogFileGeneratedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IFileLoggingSession_add_LogFileGenerated, Fn_IFileLoggingSession_add_LogFileGenerated)(it, cb, result.addr)
-        .check("FileLoggingSession.add_LogFileGenerated")
+      it.call(IFileLoggingSession_add_LogFileGenerated, cb, result.addr)
     finally:
       release(cb)
 
 proc removeLogFileGenerated*(self: FileLoggingSession, token: EventRegistrationToken) =
-  withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    vcall(it, Slot_IFileLoggingSession_remove_LogFileGenerated, Fn_IFileLoggingSession_remove_LogFileGenerated)(it, token).check("FileLoggingSession.remove_LogFileGenerated")
+  withIface(self.p, IFileLoggingSession, it):
+    it.call(IFileLoggingSession_remove_LogFileGenerated, token)
 
-proc close*(self: FileLoggingSession)  =
+proc close*(self: FileLoggingSession) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("FileLoggingSession.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc create*(_: typedesc[FileLoggingSession], name: string): FileLoggingSession  =
+proc create*(_: typedesc[FileLoggingSession], name: string): FileLoggingSession =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.Create
-  withStatics("Windows.Foundation.Diagnostics.FileLoggingSession", IID_IFileLoggingSessionFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.FileLoggingSession",
+              IFileLoggingSessionFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IFileLoggingSessionFactory_Create, Fn_IFileLoggingSessionFactory_Create)(it, h0, tmp.addr).check("FileLoggingSession.Create")
+      it.call(IFileLoggingSessionFactory_Create, h0, tmp.addr)
       result = adopt[FileLoggingSession](tmp)
 
-proc file*(self: LogFileGeneratedEventArgs): StorageFile  =
+proc file*(self: LogFileGeneratedEventArgs): StorageFile =
   ## Windows.Foundation.Diagnostics.LogFileGeneratedEventArgs.get_File
-  withIface(self.p, IID_ILogFileGeneratedEventArgs, "ILogFileGeneratedEventArgs", it):
+  withIface(self.p, ILogFileGeneratedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_ILogFileGeneratedEventArgs_get_File, Fn_ILogFileGeneratedEventArgs_get_File)(it, tmp.addr).check("LogFileGeneratedEventArgs.get_File")
+    it.call(ILogFileGeneratedEventArgs_get_File, tmp.addr)
     result = adopt[StorageFile](tmp)
 
-proc name*(self: LoggingActivity): string  =
+proc name*(self: LoggingActivity): string =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Name
-  withIface(self.p, IID_ILoggingActivity, "ILoggingActivity", it):
+  withIface(self.p, ILoggingActivity, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILoggingActivity_get_Name, Fn_ILoggingActivity_get_Name)(it, tmp.addr).check("LoggingActivity.get_Name")
+    it.call(ILoggingActivity_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc id*(self: LoggingActivity): GUID  =
+proc id*(self: LoggingActivity): GUID =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Id
-  withIface(self.p, IID_ILoggingActivity, "ILoggingActivity", it):
+  withIface(self.p, ILoggingActivity, it):
     var tmp: GUID
-    vcall(it, Slot_ILoggingActivity_get_Id, Fn_ILoggingActivity_get_Id)(it, tmp.addr).check("LoggingActivity.get_Id")
+    it.call(ILoggingActivity_get_Id, tmp.addr)
     result = tmp
 
-proc close*(self: LoggingActivity)  =
+proc close*(self: LoggingActivity) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LoggingActivity.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc channel*(self: LoggingActivity): LoggingChannel  =
+proc channel*(self: LoggingActivity): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingActivity.get_Channel
-  withIface(self.p, IID_ILoggingActivity2, "ILoggingActivity2", it):
+  withIface(self.p, ILoggingActivity2, it):
     var tmp: pointer
-    vcall(it, Slot_ILoggingActivity2_get_Channel, Fn_ILoggingActivity2_get_Channel)(it, tmp.addr).check("LoggingActivity.get_Channel")
+    it.call(ILoggingActivity2_get_Channel, tmp.addr)
     result = adopt[LoggingChannel](tmp)
 
-proc stopActivity*(self: LoggingActivity, stopEventName: string)  =
+proc stopActivity*(self: LoggingActivity, stopEventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StopActivity
-  withIface(self.p, IID_ILoggingActivity2, "ILoggingActivity2", it):
+  withIface(self.p, ILoggingActivity2, it):
     withHString(stopEventName, h0):
-      vcall(it, Slot_ILoggingActivity2_StopActivity, Fn_ILoggingActivity2_StopActivity)(it, h0).check("LoggingActivity.StopActivity")
+      it.call(ILoggingActivity2_StopActivity, h0)
 
-proc stopActivity*(self: LoggingActivity, stopEventName: string, fields: LoggingFields)  =
+proc stopActivity*(self: LoggingActivity, stopEventName: string,
+                   fields: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StopActivity
-  withIface(self.p, IID_ILoggingActivity2, "ILoggingActivity2", it):
+  withIface(self.p, ILoggingActivity2, it):
     withHString(stopEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        vcall(it, Slot_ILoggingActivity2_StopActivity2, Fn_ILoggingActivity2_StopActivity2)(it, h0, p1).check("LoggingActivity.StopActivity")
+      withIface(fields.p, ILoggingFields, p1):
+        it.call(ILoggingActivity2_StopActivity2, h0, p1)
 
-proc stopActivity*(self: LoggingActivity, stopEventName: string, fields: LoggingFields, options: LoggingOptions)  =
+proc stopActivity*(self: LoggingActivity, stopEventName: string,
+                   fields: LoggingFields, options: LoggingOptions) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StopActivity
-  withIface(self.p, IID_ILoggingActivity2, "ILoggingActivity2", it):
+  withIface(self.p, ILoggingActivity2, it):
     withHString(stopEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        withIface(options.p, IID_ILoggingOptions, "ILoggingOptions", p2):
-          vcall(it, Slot_ILoggingActivity2_StopActivity3, Fn_ILoggingActivity2_StopActivity3)(it, h0, p1, p2).check("LoggingActivity.StopActivity")
+      withIface(fields.p, ILoggingFields, p1):
+        withIface(options.p, ILoggingOptions, p2):
+          it.call(ILoggingActivity2_StopActivity3, h0, p1, p2)
 
-proc isEnabled*(self: LoggingActivity): bool  =
+proc isEnabled*(self: LoggingActivity): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled, Fn_ILoggingTarget_IsEnabled)(it, tmp.addr).check("LoggingActivity.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingActivity, level: LoggingLevel): bool  =
+proc isEnabled*(self: LoggingActivity, level: LoggingLevel): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled2, Fn_ILoggingTarget_IsEnabled2)(it, level, tmp.addr).check("LoggingActivity.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64): bool  =
+proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled3, Fn_ILoggingTarget_IsEnabled3)(it, level, keywords, tmp.addr).check("LoggingActivity.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled3, level, keywords, tmp.addr)
     result = tmp
 
-proc logEvent*(self: LoggingActivity, eventName: string)  =
+proc logEvent*(self: LoggingActivity, eventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      vcall(it, Slot_ILoggingTarget_LogEvent, Fn_ILoggingTarget_LogEvent)(it, h0).check("LoggingActivity.LogEvent")
+      it.call(ILoggingTarget_LogEvent, h0)
 
-proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields)  =
+proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        vcall(it, Slot_ILoggingTarget_LogEvent2, Fn_ILoggingTarget_LogEvent2)(it, h0, p1).check("LoggingActivity.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        it.call(ILoggingTarget_LogEvent2, h0, p1)
 
-proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields, level: LoggingLevel)  =
+proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
+               level: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        vcall(it, Slot_ILoggingTarget_LogEvent3, Fn_ILoggingTarget_LogEvent3)(it, h0, p1, level).check("LoggingActivity.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        it.call(ILoggingTarget_LogEvent3, h0, p1, level)
 
-proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields, level: LoggingLevel, options: LoggingOptions)  =
+proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
+               level: LoggingLevel, options: LoggingOptions) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        withIface(options.p, IID_ILoggingOptions, "ILoggingOptions", p3):
-          vcall(it, Slot_ILoggingTarget_LogEvent4, Fn_ILoggingTarget_LogEvent4)(it, h0, p1, level, p3).check("LoggingActivity.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        withIface(options.p, ILoggingOptions, p3):
+          it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
 
-proc startActivity*(self: LoggingActivity, startEventName: string): LoggingActivity  =
+proc startActivity*(self: LoggingActivity, startEventName: string): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
       var tmp: pointer
-      vcall(it, Slot_ILoggingTarget_StartActivity, Fn_ILoggingTarget_StartActivity)(it, h0, tmp.addr).check("LoggingActivity.StartActivity")
+      it.call(ILoggingTarget_StartActivity, h0, tmp.addr)
       result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingActivity, startEventName: string, fields: LoggingFields): LoggingActivity  =
+proc startActivity*(self: LoggingActivity, startEventName: string,
+                    fields: LoggingFields): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
+      withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingTarget_StartActivity2, Fn_ILoggingTarget_StartActivity2)(it, h0, p1, tmp.addr).check("LoggingActivity.StartActivity")
+        it.call(ILoggingTarget_StartActivity2, h0, p1, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingActivity, startEventName: string, fields: LoggingFields, level: LoggingLevel): LoggingActivity  =
+proc startActivity*(self: LoggingActivity, startEventName: string,
+                    fields: LoggingFields, level: LoggingLevel): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
+      withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingTarget_StartActivity3, Fn_ILoggingTarget_StartActivity3)(it, h0, p1, level, tmp.addr).check("LoggingActivity.StartActivity")
+        it.call(ILoggingTarget_StartActivity3, h0, p1, level, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingActivity, startEventName: string, fields: LoggingFields, level: LoggingLevel, options: LoggingOptions): LoggingActivity  =
+proc startActivity*(self: LoggingActivity, startEventName: string,
+                    fields: LoggingFields, level: LoggingLevel,
+                    options: LoggingOptions): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        withIface(options.p, IID_ILoggingOptions, "ILoggingOptions", p3):
+      withIface(fields.p, ILoggingFields, p1):
+        withIface(options.p, ILoggingOptions, p3):
           var tmp: pointer
-          vcall(it, Slot_ILoggingTarget_StartActivity4, Fn_ILoggingTarget_StartActivity4)(it, h0, p1, level, p3, tmp.addr).check("LoggingActivity.StartActivity")
+          it.call(ILoggingTarget_StartActivity4, h0, p1, level, p3, tmp.addr)
           result = adopt[LoggingActivity](tmp)
 
-proc createLoggingActivity*(_: typedesc[LoggingActivity], activityName: string, loggingChannel: LoggingChannel): LoggingActivity  =
+proc createLoggingActivity*(_: typedesc[LoggingActivity], activityName: string,
+                            loggingChannel: LoggingChannel): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivity
-  withStatics("Windows.Foundation.Diagnostics.LoggingActivity", IID_ILoggingActivityFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingActivity",
+              ILoggingActivityFactory, it):
     withHString(activityName, h0):
-      withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p1):
+      withIface(loggingChannel.p, ILoggingChannel, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingActivityFactory_CreateLoggingActivity, Fn_ILoggingActivityFactory_CreateLoggingActivity)(it, h0, p1, tmp.addr).check("LoggingActivity.CreateLoggingActivity")
+        it.call(ILoggingActivityFactory_CreateLoggingActivity, h0, p1, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc createLoggingActivityWithLevel*(_: typedesc[LoggingActivity], activityName: string, loggingChannel: LoggingChannel, level: LoggingLevel): LoggingActivity  =
+proc createLoggingActivityWithLevel*(_: typedesc[LoggingActivity],
+                                     activityName: string,
+                                     loggingChannel: LoggingChannel,
+                                     level: LoggingLevel): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivityWithLevel
-  withStatics("Windows.Foundation.Diagnostics.LoggingActivity", IID_ILoggingActivityFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingActivity",
+              ILoggingActivityFactory, it):
     withHString(activityName, h0):
-      withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p1):
+      withIface(loggingChannel.p, ILoggingChannel, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingActivityFactory_CreateLoggingActivityWithLevel, Fn_ILoggingActivityFactory_CreateLoggingActivityWithLevel)(it, h0, p1, level, tmp.addr).check("LoggingActivity.CreateLoggingActivityWithLevel")
+        it.call(ILoggingActivityFactory_CreateLoggingActivityWithLevel, h0, p1,
+                level, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc name*(self: LoggingChannel): string  =
+proc name*(self: LoggingChannel): string =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Name
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILoggingChannel_get_Name, Fn_ILoggingChannel_get_Name)(it, tmp.addr).check("LoggingChannel.get_Name")
+    it.call(ILoggingChannel_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc enabled*(self: LoggingChannel): bool  =
+proc enabled*(self: LoggingChannel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Enabled
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingChannel_get_Enabled, Fn_ILoggingChannel_get_Enabled)(it, tmp.addr).check("LoggingChannel.get_Enabled")
+    it.call(ILoggingChannel_get_Enabled, tmp.addr)
     result = tmp
 
-proc level*(self: LoggingChannel): LoggingLevel  =
+proc level*(self: LoggingChannel): LoggingLevel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Level
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     var tmp: LoggingLevel
-    vcall(it, Slot_ILoggingChannel_get_Level, Fn_ILoggingChannel_get_Level)(it, tmp.addr).check("LoggingChannel.get_Level")
+    it.call(ILoggingChannel_get_Level, tmp.addr)
     result = tmp
 
-proc logMessage*(self: LoggingChannel, eventString: string)  =
+proc logMessage*(self: LoggingChannel, eventString: string) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogMessage
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     withHString(eventString, h0):
-      vcall(it, Slot_ILoggingChannel_LogMessage, Fn_ILoggingChannel_LogMessage)(it, h0).check("LoggingChannel.LogMessage")
+      it.call(ILoggingChannel_LogMessage, h0)
 
-proc logMessage*(self: LoggingChannel, eventString: string, level: LoggingLevel)  =
+proc logMessage*(self: LoggingChannel, eventString: string, level: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogMessage
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     withHString(eventString, h0):
-      vcall(it, Slot_ILoggingChannel_LogMessage2, Fn_ILoggingChannel_LogMessage2)(it, h0, level).check("LoggingChannel.LogMessage")
+      it.call(ILoggingChannel_LogMessage2, h0, level)
 
-proc logValuePair*(self: LoggingChannel, value1: string, value2: int32)  =
+proc logValuePair*(self: LoggingChannel, value1: string, value2: int32) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogValuePair
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     withHString(value1, h0):
-      vcall(it, Slot_ILoggingChannel_LogValuePair, Fn_ILoggingChannel_LogValuePair)(it, h0, value2).check("LoggingChannel.LogValuePair")
+      it.call(ILoggingChannel_LogValuePair, h0, value2)
 
-proc logValuePair*(self: LoggingChannel, value1: string, value2: int32, level: LoggingLevel)  =
+proc logValuePair*(self: LoggingChannel, value1: string, value2: int32,
+                   level: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogValuePair
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
+  withIface(self.p, ILoggingChannel, it):
     withHString(value1, h0):
-      vcall(it, Slot_ILoggingChannel_LogValuePair2, Fn_ILoggingChannel_LogValuePair2)(it, h0, value2, level).check("LoggingChannel.LogValuePair")
+      it.call(ILoggingChannel_LogValuePair2, h0, value2, level)
 
 proc onLoggingEnabled*(self: LoggingChannel,
-    handler: proc(sender: LoggingChannel, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[LoggingChannel, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.LoggingChannel.add_LoggingEnabled
-  ##
-  ## The token is what `removeLoggingEnabled` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, proc(a0: pointer, a1: pointer) = handler(borrow[LoggingChannel](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeLoggingEnabled` takes.
+  withIface(self.p, ILoggingChannel, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[LoggingChannel](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, shim, event = true)
     try:
-      vcall(it, Slot_ILoggingChannel_add_LoggingEnabled, Fn_ILoggingChannel_add_LoggingEnabled)(it, cb, result.addr)
-        .check("LoggingChannel.add_LoggingEnabled")
+      it.call(ILoggingChannel_add_LoggingEnabled, cb, result.addr)
     finally:
       release(cb)
 
 proc removeLoggingEnabled*(self: LoggingChannel, token: EventRegistrationToken) =
-  withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
-    vcall(it, Slot_ILoggingChannel_remove_LoggingEnabled, Fn_ILoggingChannel_remove_LoggingEnabled)(it, token).check("LoggingChannel.remove_LoggingEnabled")
+  withIface(self.p, ILoggingChannel, it):
+    it.call(ILoggingChannel_remove_LoggingEnabled, token)
 
-proc close*(self: LoggingChannel)  =
+proc close*(self: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LoggingChannel.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc id*(self: LoggingChannel): GUID  =
+proc id*(self: LoggingChannel): GUID =
   ## Windows.Foundation.Diagnostics.LoggingChannel.get_Id
-  withIface(self.p, IID_ILoggingChannel2, "ILoggingChannel2", it):
+  withIface(self.p, ILoggingChannel2, it):
     var tmp: GUID
-    vcall(it, Slot_ILoggingChannel2_get_Id, Fn_ILoggingChannel2_get_Id)(it, tmp.addr).check("LoggingChannel.get_Id")
+    it.call(ILoggingChannel2_get_Id, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingChannel): bool  =
+proc isEnabled*(self: LoggingChannel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled, Fn_ILoggingTarget_IsEnabled)(it, tmp.addr).check("LoggingChannel.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingChannel, level: LoggingLevel): bool  =
+proc isEnabled*(self: LoggingChannel, level: LoggingLevel): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled2, Fn_ILoggingTarget_IsEnabled2)(it, level, tmp.addr).check("LoggingChannel.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64): bool  =
+proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     var tmp: bool
-    vcall(it, Slot_ILoggingTarget_IsEnabled3, Fn_ILoggingTarget_IsEnabled3)(it, level, keywords, tmp.addr).check("LoggingChannel.IsEnabled")
+    it.call(ILoggingTarget_IsEnabled3, level, keywords, tmp.addr)
     result = tmp
 
-proc logEvent*(self: LoggingChannel, eventName: string)  =
+proc logEvent*(self: LoggingChannel, eventName: string) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      vcall(it, Slot_ILoggingTarget_LogEvent, Fn_ILoggingTarget_LogEvent)(it, h0).check("LoggingChannel.LogEvent")
+      it.call(ILoggingTarget_LogEvent, h0)
 
-proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields)  =
+proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        vcall(it, Slot_ILoggingTarget_LogEvent2, Fn_ILoggingTarget_LogEvent2)(it, h0, p1).check("LoggingChannel.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        it.call(ILoggingTarget_LogEvent2, h0, p1)
 
-proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields, level: LoggingLevel)  =
+proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
+               level: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        vcall(it, Slot_ILoggingTarget_LogEvent3, Fn_ILoggingTarget_LogEvent3)(it, h0, p1, level).check("LoggingChannel.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        it.call(ILoggingTarget_LogEvent3, h0, p1, level)
 
-proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields, level: LoggingLevel, options: LoggingOptions)  =
+proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
+               level: LoggingLevel, options: LoggingOptions) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogEvent
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        withIface(options.p, IID_ILoggingOptions, "ILoggingOptions", p3):
-          vcall(it, Slot_ILoggingTarget_LogEvent4, Fn_ILoggingTarget_LogEvent4)(it, h0, p1, level, p3).check("LoggingChannel.LogEvent")
+      withIface(fields.p, ILoggingFields, p1):
+        withIface(options.p, ILoggingOptions, p3):
+          it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
 
-proc startActivity*(self: LoggingChannel, startEventName: string): LoggingActivity  =
+proc startActivity*(self: LoggingChannel, startEventName: string): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
       var tmp: pointer
-      vcall(it, Slot_ILoggingTarget_StartActivity, Fn_ILoggingTarget_StartActivity)(it, h0, tmp.addr).check("LoggingChannel.StartActivity")
+      it.call(ILoggingTarget_StartActivity, h0, tmp.addr)
       result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingChannel, startEventName: string, fields: LoggingFields): LoggingActivity  =
+proc startActivity*(self: LoggingChannel, startEventName: string,
+                    fields: LoggingFields): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
+      withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingTarget_StartActivity2, Fn_ILoggingTarget_StartActivity2)(it, h0, p1, tmp.addr).check("LoggingChannel.StartActivity")
+        it.call(ILoggingTarget_StartActivity2, h0, p1, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingChannel, startEventName: string, fields: LoggingFields, level: LoggingLevel): LoggingActivity  =
+proc startActivity*(self: LoggingChannel, startEventName: string,
+                    fields: LoggingFields, level: LoggingLevel): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
+      withIface(fields.p, ILoggingFields, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingTarget_StartActivity3, Fn_ILoggingTarget_StartActivity3)(it, h0, p1, level, tmp.addr).check("LoggingChannel.StartActivity")
+        it.call(ILoggingTarget_StartActivity3, h0, p1, level, tmp.addr)
         result = adopt[LoggingActivity](tmp)
 
-proc startActivity*(self: LoggingChannel, startEventName: string, fields: LoggingFields, level: LoggingLevel, options: LoggingOptions): LoggingActivity  =
+proc startActivity*(self: LoggingChannel, startEventName: string,
+                    fields: LoggingFields, level: LoggingLevel,
+                    options: LoggingOptions): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
-  withIface(self.p, IID_ILoggingTarget, "ILoggingTarget", it):
+  withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
-      withIface(fields.p, IID_ILoggingFields, "ILoggingFields", p1):
-        withIface(options.p, IID_ILoggingOptions, "ILoggingOptions", p3):
+      withIface(fields.p, ILoggingFields, p1):
+        withIface(options.p, ILoggingOptions, p3):
           var tmp: pointer
-          vcall(it, Slot_ILoggingTarget_StartActivity4, Fn_ILoggingTarget_StartActivity4)(it, h0, p1, level, p3, tmp.addr).check("LoggingChannel.StartActivity")
+          it.call(ILoggingTarget_StartActivity4, h0, p1, level, p3, tmp.addr)
           result = adopt[LoggingActivity](tmp)
 
-proc createWithOptions*(_: typedesc[LoggingChannel], name: string, options: LoggingChannelOptions): LoggingChannel  =
+proc createWithOptions*(_: typedesc[LoggingChannel], name: string,
+                        options: LoggingChannelOptions): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptions
-  withStatics("Windows.Foundation.Diagnostics.LoggingChannel", IID_ILoggingChannelFactory2, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingChannel",
+              ILoggingChannelFactory2, it):
     withHString(name, h0):
-      withIface(options.p, IID_ILoggingChannelOptions, "ILoggingChannelOptions", p1):
+      withIface(options.p, ILoggingChannelOptions, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingChannelFactory2_CreateWithOptions, Fn_ILoggingChannelFactory2_CreateWithOptions)(it, h0, p1, tmp.addr).check("LoggingChannel.CreateWithOptions")
+        it.call(ILoggingChannelFactory2_CreateWithOptions, h0, p1, tmp.addr)
         result = adopt[LoggingChannel](tmp)
 
-proc createWithOptionsAndId*(_: typedesc[LoggingChannel], name: string, options: LoggingChannelOptions, id: GUID): LoggingChannel  =
+proc createWithOptionsAndId*(_: typedesc[LoggingChannel], name: string,
+                             options: LoggingChannelOptions, id: GUID): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptionsAndId
-  withStatics("Windows.Foundation.Diagnostics.LoggingChannel", IID_ILoggingChannelFactory2, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingChannel",
+              ILoggingChannelFactory2, it):
     withHString(name, h0):
-      withIface(options.p, IID_ILoggingChannelOptions, "ILoggingChannelOptions", p1):
+      withIface(options.p, ILoggingChannelOptions, p1):
         var tmp: pointer
-        vcall(it, Slot_ILoggingChannelFactory2_CreateWithOptionsAndId, Fn_ILoggingChannelFactory2_CreateWithOptionsAndId)(it, h0, p1, id, tmp.addr).check("LoggingChannel.CreateWithOptionsAndId")
+        it.call(ILoggingChannelFactory2_CreateWithOptionsAndId, h0, p1, id,
+                tmp.addr)
         result = adopt[LoggingChannel](tmp)
 
-proc create*(_: typedesc[LoggingChannel], name: string): LoggingChannel  =
+proc create*(_: typedesc[LoggingChannel], name: string): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.Create
-  withStatics("Windows.Foundation.Diagnostics.LoggingChannel", IID_ILoggingChannelFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingChannel",
+              ILoggingChannelFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_ILoggingChannelFactory_Create, Fn_ILoggingChannelFactory_Create)(it, h0, tmp.addr).check("LoggingChannel.Create")
+      it.call(ILoggingChannelFactory_Create, h0, tmp.addr)
       result = adopt[LoggingChannel](tmp)
 
 proc newLoggingChannelOptions*(): LoggingChannelOptions =
   ## Activate a `Windows.Foundation.Diagnostics.LoggingChannelOptions`.
   adopt[LoggingChannelOptions](activateAs("Windows.Foundation.Diagnostics.LoggingChannelOptions", IID_ILoggingChannelOptions))
 
-proc group*(self: LoggingChannelOptions): GUID  =
+proc group*(self: LoggingChannelOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.get_Group
-  withIface(self.p, IID_ILoggingChannelOptions, "ILoggingChannelOptions", it):
+  withIface(self.p, ILoggingChannelOptions, it):
     var tmp: GUID
-    vcall(it, Slot_ILoggingChannelOptions_get_Group, Fn_ILoggingChannelOptions_get_Group)(it, tmp.addr).check("LoggingChannelOptions.get_Group")
+    it.call(ILoggingChannelOptions_get_Group, tmp.addr)
     result = tmp
 
-proc `group=`*(self: LoggingChannelOptions, value: GUID)  =
+proc `group=`*(self: LoggingChannelOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.put_Group
-  withIface(self.p, IID_ILoggingChannelOptions, "ILoggingChannelOptions", it):
-    vcall(it, Slot_ILoggingChannelOptions_put_Group, Fn_ILoggingChannelOptions_put_Group)(it, value).check("LoggingChannelOptions.put_Group")
+  withIface(self.p, ILoggingChannelOptions, it):
+    it.call(ILoggingChannelOptions_put_Group, value)
 
-proc create*(_: typedesc[LoggingChannelOptions], group: GUID): LoggingChannelOptions  =
+proc create*(_: typedesc[LoggingChannelOptions], group: GUID): LoggingChannelOptions =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.Create
-  withStatics("Windows.Foundation.Diagnostics.LoggingChannelOptions", IID_ILoggingChannelOptionsFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingChannelOptions",
+              ILoggingChannelOptionsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ILoggingChannelOptionsFactory_Create, Fn_ILoggingChannelOptionsFactory_Create)(it, group, tmp.addr).check("LoggingChannelOptions.Create")
+    it.call(ILoggingChannelOptionsFactory_Create, group, tmp.addr)
     result = adopt[LoggingChannelOptions](tmp)
 
 proc newLoggingFields*(): LoggingFields =
   ## Activate a `Windows.Foundation.Diagnostics.LoggingFields`.
   adopt[LoggingFields](activateAs("Windows.Foundation.Diagnostics.LoggingFields", IID_ILoggingFields))
 
-proc clear*(self: LoggingFields)  =
+proc clear*(self: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingFields.Clear
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
-    vcall(it, Slot_ILoggingFields_Clear, Fn_ILoggingFields_Clear)(it).check("LoggingFields.Clear")
+  withIface(self.p, ILoggingFields, it):
+    it.call(ILoggingFields_Clear)
 
-proc beginStruct*(self: LoggingFields, name: string)  =
+proc beginStruct*(self: LoggingFields, name: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.BeginStruct
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_BeginStruct, Fn_ILoggingFields_BeginStruct)(it, h0).check("LoggingFields.BeginStruct")
+      it.call(ILoggingFields_BeginStruct, h0)
 
-proc beginStruct*(self: LoggingFields, name: string, tags: int32)  =
+proc beginStruct*(self: LoggingFields, name: string, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.BeginStruct
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_BeginStruct2, Fn_ILoggingFields_BeginStruct2)(it, h0, tags).check("LoggingFields.BeginStruct")
+      it.call(ILoggingFields_BeginStruct2, h0, tags)
 
-proc endStruct*(self: LoggingFields)  =
+proc endStruct*(self: LoggingFields) =
   ## Windows.Foundation.Diagnostics.LoggingFields.EndStruct
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
-    vcall(it, Slot_ILoggingFields_EndStruct, Fn_ILoggingFields_EndStruct)(it).check("LoggingFields.EndStruct")
+  withIface(self.p, ILoggingFields, it):
+    it.call(ILoggingFields_EndStruct)
 
-proc addEmpty*(self: LoggingFields, name: string)  =
+proc addEmpty*(self: LoggingFields, name: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddEmpty, Fn_ILoggingFields_AddEmpty)(it, h0).check("LoggingFields.AddEmpty")
+      it.call(ILoggingFields_AddEmpty, h0)
 
-proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat)  =
+proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddEmpty2, Fn_ILoggingFields_AddEmpty2)(it, h0, format).check("LoggingFields.AddEmpty")
+      it.call(ILoggingFields_AddEmpty2, h0, format)
 
-proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat, tags: int32)  =
+proc addEmpty*(self: LoggingFields, name: string, format: LoggingFieldFormat,
+               tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddEmpty
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddEmpty3, Fn_ILoggingFields_AddEmpty3)(it, h0, format, tags).check("LoggingFields.AddEmpty")
+      it.call(ILoggingFields_AddEmpty3, h0, format, tags)
 
-proc addUInt8*(self: LoggingFields, name: string, value: uint8)  =
+proc addUInt8*(self: LoggingFields, name: string, value: uint8) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt8, Fn_ILoggingFields_AddUInt8)(it, h0, value).check("LoggingFields.AddUInt8")
+      it.call(ILoggingFields_AddUInt8, h0, value)
 
-proc addUInt8*(self: LoggingFields, name: string, value: uint8, format: LoggingFieldFormat)  =
+proc addUInt8*(self: LoggingFields, name: string, value: uint8,
+               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt82, Fn_ILoggingFields_AddUInt82)(it, h0, value, format).check("LoggingFields.AddUInt8")
+      it.call(ILoggingFields_AddUInt82, h0, value, format)
 
-proc addUInt8*(self: LoggingFields, name: string, value: uint8, format: LoggingFieldFormat, tags: int32)  =
+proc addUInt8*(self: LoggingFields, name: string, value: uint8,
+               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt83, Fn_ILoggingFields_AddUInt83)(it, h0, value, format, tags).check("LoggingFields.AddUInt8")
+      it.call(ILoggingFields_AddUInt83, h0, value, format, tags)
 
-proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8])  =
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt8Array, Fn_ILoggingFields_AddUInt8Array)(it, h0, n1, d1).check("LoggingFields.AddUInt8Array")
+      it.call(ILoggingFields_AddUInt8Array, h0, n1, d1)
 
-proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8], format: LoggingFieldFormat)  =
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
+                    format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt8Array2, Fn_ILoggingFields_AddUInt8Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt8Array")
+      it.call(ILoggingFields_AddUInt8Array2, h0, n1, d1, format)
 
-proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8], format: LoggingFieldFormat, tags: int32)  =
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8],
+                    format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt8Array3, Fn_ILoggingFields_AddUInt8Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt8Array")
+      it.call(ILoggingFields_AddUInt8Array3, h0, n1, d1, format, tags)
 
-proc addInt16*(self: LoggingFields, name: string, value: int16)  =
+proc addInt16*(self: LoggingFields, name: string, value: int16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt16, Fn_ILoggingFields_AddInt16)(it, h0, value).check("LoggingFields.AddInt16")
+      it.call(ILoggingFields_AddInt16, h0, value)
 
-proc addInt16*(self: LoggingFields, name: string, value: int16, format: LoggingFieldFormat)  =
+proc addInt16*(self: LoggingFields, name: string, value: int16,
+               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt162, Fn_ILoggingFields_AddInt162)(it, h0, value, format).check("LoggingFields.AddInt16")
+      it.call(ILoggingFields_AddInt162, h0, value, format)
 
-proc addInt16*(self: LoggingFields, name: string, value: int16, format: LoggingFieldFormat, tags: int32)  =
+proc addInt16*(self: LoggingFields, name: string, value: int16,
+               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt163, Fn_ILoggingFields_AddInt163)(it, h0, value, format, tags).check("LoggingFields.AddInt16")
+      it.call(ILoggingFields_AddInt163, h0, value, format, tags)
 
-proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16])  =
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt16Array, Fn_ILoggingFields_AddInt16Array)(it, h0, n1, d1).check("LoggingFields.AddInt16Array")
+      it.call(ILoggingFields_AddInt16Array, h0, n1, d1)
 
-proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16], format: LoggingFieldFormat)  =
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
+                    format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt16Array2, Fn_ILoggingFields_AddInt16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt16Array")
+      it.call(ILoggingFields_AddInt16Array2, h0, n1, d1, format)
 
-proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16], format: LoggingFieldFormat, tags: int32)  =
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16],
+                    format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt16Array3, Fn_ILoggingFields_AddInt16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt16Array")
+      it.call(ILoggingFields_AddInt16Array3, h0, n1, d1, format, tags)
 
-proc addUInt16*(self: LoggingFields, name: string, value: uint16)  =
+proc addUInt16*(self: LoggingFields, name: string, value: uint16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt16, Fn_ILoggingFields_AddUInt16)(it, h0, value).check("LoggingFields.AddUInt16")
+      it.call(ILoggingFields_AddUInt16, h0, value)
 
-proc addUInt16*(self: LoggingFields, name: string, value: uint16, format: LoggingFieldFormat)  =
+proc addUInt16*(self: LoggingFields, name: string, value: uint16,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt162, Fn_ILoggingFields_AddUInt162)(it, h0, value, format).check("LoggingFields.AddUInt16")
+      it.call(ILoggingFields_AddUInt162, h0, value, format)
 
-proc addUInt16*(self: LoggingFields, name: string, value: uint16, format: LoggingFieldFormat, tags: int32)  =
+proc addUInt16*(self: LoggingFields, name: string, value: uint16,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt163, Fn_ILoggingFields_AddUInt163)(it, h0, value, format, tags).check("LoggingFields.AddUInt16")
+      it.call(ILoggingFields_AddUInt163, h0, value, format, tags)
 
-proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16])  =
+proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt16Array, Fn_ILoggingFields_AddUInt16Array)(it, h0, n1, d1).check("LoggingFields.AddUInt16Array")
+      it.call(ILoggingFields_AddUInt16Array, h0, n1, d1)
 
-proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat)  =
+proc addUInt16Array*(self: LoggingFields, name: string,
+                     value: openArray[uint16], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt16Array2, Fn_ILoggingFields_AddUInt16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt16Array")
+      it.call(ILoggingFields_AddUInt16Array2, h0, n1, d1, format)
 
-proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat, tags: int32)  =
+proc addUInt16Array*(self: LoggingFields, name: string,
+                     value: openArray[uint16], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt16Array3, Fn_ILoggingFields_AddUInt16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt16Array")
+      it.call(ILoggingFields_AddUInt16Array3, h0, n1, d1, format, tags)
 
-proc addInt32*(self: LoggingFields, name: string, value: int32)  =
+proc addInt32*(self: LoggingFields, name: string, value: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt32, Fn_ILoggingFields_AddInt32)(it, h0, value).check("LoggingFields.AddInt32")
+      it.call(ILoggingFields_AddInt32, h0, value)
 
-proc addInt32*(self: LoggingFields, name: string, value: int32, format: LoggingFieldFormat)  =
+proc addInt32*(self: LoggingFields, name: string, value: int32,
+               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt322, Fn_ILoggingFields_AddInt322)(it, h0, value, format).check("LoggingFields.AddInt32")
+      it.call(ILoggingFields_AddInt322, h0, value, format)
 
-proc addInt32*(self: LoggingFields, name: string, value: int32, format: LoggingFieldFormat, tags: int32)  =
+proc addInt32*(self: LoggingFields, name: string, value: int32,
+               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt323, Fn_ILoggingFields_AddInt323)(it, h0, value, format, tags).check("LoggingFields.AddInt32")
+      it.call(ILoggingFields_AddInt323, h0, value, format, tags)
 
-proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32])  =
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt32Array, Fn_ILoggingFields_AddInt32Array)(it, h0, n1, d1).check("LoggingFields.AddInt32Array")
+      it.call(ILoggingFields_AddInt32Array, h0, n1, d1)
 
-proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32], format: LoggingFieldFormat)  =
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
+                    format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt32Array2, Fn_ILoggingFields_AddInt32Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt32Array")
+      it.call(ILoggingFields_AddInt32Array2, h0, n1, d1, format)
 
-proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32], format: LoggingFieldFormat, tags: int32)  =
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32],
+                    format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt32Array3, Fn_ILoggingFields_AddInt32Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt32Array")
+      it.call(ILoggingFields_AddInt32Array3, h0, n1, d1, format, tags)
 
-proc addUInt32*(self: LoggingFields, name: string, value: uint32)  =
+proc addUInt32*(self: LoggingFields, name: string, value: uint32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt32, Fn_ILoggingFields_AddUInt32)(it, h0, value).check("LoggingFields.AddUInt32")
+      it.call(ILoggingFields_AddUInt32, h0, value)
 
-proc addUInt32*(self: LoggingFields, name: string, value: uint32, format: LoggingFieldFormat)  =
+proc addUInt32*(self: LoggingFields, name: string, value: uint32,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt322, Fn_ILoggingFields_AddUInt322)(it, h0, value, format).check("LoggingFields.AddUInt32")
+      it.call(ILoggingFields_AddUInt322, h0, value, format)
 
-proc addUInt32*(self: LoggingFields, name: string, value: uint32, format: LoggingFieldFormat, tags: int32)  =
+proc addUInt32*(self: LoggingFields, name: string, value: uint32,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt323, Fn_ILoggingFields_AddUInt323)(it, h0, value, format, tags).check("LoggingFields.AddUInt32")
+      it.call(ILoggingFields_AddUInt323, h0, value, format, tags)
 
-proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32])  =
+proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt32Array, Fn_ILoggingFields_AddUInt32Array)(it, h0, n1, d1).check("LoggingFields.AddUInt32Array")
+      it.call(ILoggingFields_AddUInt32Array, h0, n1, d1)
 
-proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32], format: LoggingFieldFormat)  =
+proc addUInt32Array*(self: LoggingFields, name: string,
+                     value: openArray[uint32], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt32Array2, Fn_ILoggingFields_AddUInt32Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt32Array")
+      it.call(ILoggingFields_AddUInt32Array2, h0, n1, d1, format)
 
-proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32], format: LoggingFieldFormat, tags: int32)  =
+proc addUInt32Array*(self: LoggingFields, name: string,
+                     value: openArray[uint32], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt32Array3, Fn_ILoggingFields_AddUInt32Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt32Array")
+      it.call(ILoggingFields_AddUInt32Array3, h0, n1, d1, format, tags)
 
-proc addInt64*(self: LoggingFields, name: string, value: int64)  =
+proc addInt64*(self: LoggingFields, name: string, value: int64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt64, Fn_ILoggingFields_AddInt64)(it, h0, value).check("LoggingFields.AddInt64")
+      it.call(ILoggingFields_AddInt64, h0, value)
 
-proc addInt64*(self: LoggingFields, name: string, value: int64, format: LoggingFieldFormat)  =
+proc addInt64*(self: LoggingFields, name: string, value: int64,
+               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt642, Fn_ILoggingFields_AddInt642)(it, h0, value, format).check("LoggingFields.AddInt64")
+      it.call(ILoggingFields_AddInt642, h0, value, format)
 
-proc addInt64*(self: LoggingFields, name: string, value: int64, format: LoggingFieldFormat, tags: int32)  =
+proc addInt64*(self: LoggingFields, name: string, value: int64,
+               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddInt643, Fn_ILoggingFields_AddInt643)(it, h0, value, format, tags).check("LoggingFields.AddInt64")
+      it.call(ILoggingFields_AddInt643, h0, value, format, tags)
 
-proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64])  =
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt64Array, Fn_ILoggingFields_AddInt64Array)(it, h0, n1, d1).check("LoggingFields.AddInt64Array")
+      it.call(ILoggingFields_AddInt64Array, h0, n1, d1)
 
-proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64], format: LoggingFieldFormat)  =
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
+                    format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt64Array2, Fn_ILoggingFields_AddInt64Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt64Array")
+      it.call(ILoggingFields_AddInt64Array2, h0, n1, d1, format)
 
-proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64], format: LoggingFieldFormat, tags: int32)  =
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64],
+                    format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddInt64Array3, Fn_ILoggingFields_AddInt64Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt64Array")
+      it.call(ILoggingFields_AddInt64Array3, h0, n1, d1, format, tags)
 
-proc addUInt64*(self: LoggingFields, name: string, value: uint64)  =
+proc addUInt64*(self: LoggingFields, name: string, value: uint64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt64, Fn_ILoggingFields_AddUInt64)(it, h0, value).check("LoggingFields.AddUInt64")
+      it.call(ILoggingFields_AddUInt64, h0, value)
 
-proc addUInt64*(self: LoggingFields, name: string, value: uint64, format: LoggingFieldFormat)  =
+proc addUInt64*(self: LoggingFields, name: string, value: uint64,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt642, Fn_ILoggingFields_AddUInt642)(it, h0, value, format).check("LoggingFields.AddUInt64")
+      it.call(ILoggingFields_AddUInt642, h0, value, format)
 
-proc addUInt64*(self: LoggingFields, name: string, value: uint64, format: LoggingFieldFormat, tags: int32)  =
+proc addUInt64*(self: LoggingFields, name: string, value: uint64,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddUInt643, Fn_ILoggingFields_AddUInt643)(it, h0, value, format, tags).check("LoggingFields.AddUInt64")
+      it.call(ILoggingFields_AddUInt643, h0, value, format, tags)
 
-proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64])  =
+proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt64Array, Fn_ILoggingFields_AddUInt64Array)(it, h0, n1, d1).check("LoggingFields.AddUInt64Array")
+      it.call(ILoggingFields_AddUInt64Array, h0, n1, d1)
 
-proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64], format: LoggingFieldFormat)  =
+proc addUInt64Array*(self: LoggingFields, name: string,
+                     value: openArray[uint64], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt64Array2, Fn_ILoggingFields_AddUInt64Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt64Array")
+      it.call(ILoggingFields_AddUInt64Array2, h0, n1, d1, format)
 
-proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64], format: LoggingFieldFormat, tags: int32)  =
+proc addUInt64Array*(self: LoggingFields, name: string,
+                     value: openArray[uint64], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddUInt64Array3, Fn_ILoggingFields_AddUInt64Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt64Array")
+      it.call(ILoggingFields_AddUInt64Array3, h0, n1, d1, format, tags)
 
-proc addSingle*(self: LoggingFields, name: string, value: float32)  =
+proc addSingle*(self: LoggingFields, name: string, value: float32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSingle, Fn_ILoggingFields_AddSingle)(it, h0, value).check("LoggingFields.AddSingle")
+      it.call(ILoggingFields_AddSingle, h0, value)
 
-proc addSingle*(self: LoggingFields, name: string, value: float32, format: LoggingFieldFormat)  =
+proc addSingle*(self: LoggingFields, name: string, value: float32,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSingle2, Fn_ILoggingFields_AddSingle2)(it, h0, value, format).check("LoggingFields.AddSingle")
+      it.call(ILoggingFields_AddSingle2, h0, value, format)
 
-proc addSingle*(self: LoggingFields, name: string, value: float32, format: LoggingFieldFormat, tags: int32)  =
+proc addSingle*(self: LoggingFields, name: string, value: float32,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSingle3, Fn_ILoggingFields_AddSingle3)(it, h0, value, format, tags).check("LoggingFields.AddSingle")
+      it.call(ILoggingFields_AddSingle3, h0, value, format, tags)
 
-proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32])  =
+proc addSingleArray*(self: LoggingFields, name: string,
+                     value: openArray[float32]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSingleArray, Fn_ILoggingFields_AddSingleArray)(it, h0, n1, d1).check("LoggingFields.AddSingleArray")
+      it.call(ILoggingFields_AddSingleArray, h0, n1, d1)
 
-proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32], format: LoggingFieldFormat)  =
+proc addSingleArray*(self: LoggingFields, name: string,
+                     value: openArray[float32], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSingleArray2, Fn_ILoggingFields_AddSingleArray2)(it, h0, n1, d1, format).check("LoggingFields.AddSingleArray")
+      it.call(ILoggingFields_AddSingleArray2, h0, n1, d1, format)
 
-proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32], format: LoggingFieldFormat, tags: int32)  =
+proc addSingleArray*(self: LoggingFields, name: string,
+                     value: openArray[float32], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSingleArray3, Fn_ILoggingFields_AddSingleArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddSingleArray")
+      it.call(ILoggingFields_AddSingleArray3, h0, n1, d1, format, tags)
 
-proc addDouble*(self: LoggingFields, name: string, value: float64)  =
+proc addDouble*(self: LoggingFields, name: string, value: float64) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDouble, Fn_ILoggingFields_AddDouble)(it, h0, value).check("LoggingFields.AddDouble")
+      it.call(ILoggingFields_AddDouble, h0, value)
 
-proc addDouble*(self: LoggingFields, name: string, value: float64, format: LoggingFieldFormat)  =
+proc addDouble*(self: LoggingFields, name: string, value: float64,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDouble2, Fn_ILoggingFields_AddDouble2)(it, h0, value, format).check("LoggingFields.AddDouble")
+      it.call(ILoggingFields_AddDouble2, h0, value, format)
 
-proc addDouble*(self: LoggingFields, name: string, value: float64, format: LoggingFieldFormat, tags: int32)  =
+proc addDouble*(self: LoggingFields, name: string, value: float64,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDouble3, Fn_ILoggingFields_AddDouble3)(it, h0, value, format, tags).check("LoggingFields.AddDouble")
+      it.call(ILoggingFields_AddDouble3, h0, value, format, tags)
 
-proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64])  =
+proc addDoubleArray*(self: LoggingFields, name: string,
+                     value: openArray[float64]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDoubleArray, Fn_ILoggingFields_AddDoubleArray)(it, h0, n1, d1).check("LoggingFields.AddDoubleArray")
+      it.call(ILoggingFields_AddDoubleArray, h0, n1, d1)
 
-proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64], format: LoggingFieldFormat)  =
+proc addDoubleArray*(self: LoggingFields, name: string,
+                     value: openArray[float64], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDoubleArray2, Fn_ILoggingFields_AddDoubleArray2)(it, h0, n1, d1, format).check("LoggingFields.AddDoubleArray")
+      it.call(ILoggingFields_AddDoubleArray2, h0, n1, d1, format)
 
-proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64], format: LoggingFieldFormat, tags: int32)  =
+proc addDoubleArray*(self: LoggingFields, name: string,
+                     value: openArray[float64], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDoubleArray3, Fn_ILoggingFields_AddDoubleArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddDoubleArray")
+      it.call(ILoggingFields_AddDoubleArray3, h0, n1, d1, format, tags)
 
-proc addChar16*(self: LoggingFields, name: string, value: uint16)  =
+proc addChar16*(self: LoggingFields, name: string, value: uint16) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddChar16, Fn_ILoggingFields_AddChar16)(it, h0, value).check("LoggingFields.AddChar16")
+      it.call(ILoggingFields_AddChar16, h0, value)
 
-proc addChar16*(self: LoggingFields, name: string, value: uint16, format: LoggingFieldFormat)  =
+proc addChar16*(self: LoggingFields, name: string, value: uint16,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddChar162, Fn_ILoggingFields_AddChar162)(it, h0, value, format).check("LoggingFields.AddChar16")
+      it.call(ILoggingFields_AddChar162, h0, value, format)
 
-proc addChar16*(self: LoggingFields, name: string, value: uint16, format: LoggingFieldFormat, tags: int32)  =
+proc addChar16*(self: LoggingFields, name: string, value: uint16,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddChar163, Fn_ILoggingFields_AddChar163)(it, h0, value, format, tags).check("LoggingFields.AddChar16")
+      it.call(ILoggingFields_AddChar163, h0, value, format, tags)
 
-proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16])  =
+proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddChar16Array, Fn_ILoggingFields_AddChar16Array)(it, h0, n1, d1).check("LoggingFields.AddChar16Array")
+      it.call(ILoggingFields_AddChar16Array, h0, n1, d1)
 
-proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat)  =
+proc addChar16Array*(self: LoggingFields, name: string,
+                     value: openArray[uint16], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddChar16Array2, Fn_ILoggingFields_AddChar16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddChar16Array")
+      it.call(ILoggingFields_AddChar16Array2, h0, n1, d1, format)
 
-proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat, tags: int32)  =
+proc addChar16Array*(self: LoggingFields, name: string,
+                     value: openArray[uint16], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddChar16Array3, Fn_ILoggingFields_AddChar16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddChar16Array")
+      it.call(ILoggingFields_AddChar16Array3, h0, n1, d1, format, tags)
 
-proc addBoolean*(self: LoggingFields, name: string, value: bool)  =
+proc addBoolean*(self: LoggingFields, name: string, value: bool) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddBoolean, Fn_ILoggingFields_AddBoolean)(it, h0, value).check("LoggingFields.AddBoolean")
+      it.call(ILoggingFields_AddBoolean, h0, value)
 
-proc addBoolean*(self: LoggingFields, name: string, value: bool, format: LoggingFieldFormat)  =
+proc addBoolean*(self: LoggingFields, name: string, value: bool,
+                 format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddBoolean2, Fn_ILoggingFields_AddBoolean2)(it, h0, value, format).check("LoggingFields.AddBoolean")
+      it.call(ILoggingFields_AddBoolean2, h0, value, format)
 
-proc addBoolean*(self: LoggingFields, name: string, value: bool, format: LoggingFieldFormat, tags: int32)  =
+proc addBoolean*(self: LoggingFields, name: string, value: bool,
+                 format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddBoolean3, Fn_ILoggingFields_AddBoolean3)(it, h0, value, format, tags).check("LoggingFields.AddBoolean")
+      it.call(ILoggingFields_AddBoolean3, h0, value, format, tags)
 
-proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool])  =
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddBooleanArray, Fn_ILoggingFields_AddBooleanArray)(it, h0, n1, d1).check("LoggingFields.AddBooleanArray")
+      it.call(ILoggingFields_AddBooleanArray, h0, n1, d1)
 
-proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool], format: LoggingFieldFormat)  =
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
+                      format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddBooleanArray2, Fn_ILoggingFields_AddBooleanArray2)(it, h0, n1, d1, format).check("LoggingFields.AddBooleanArray")
+      it.call(ILoggingFields_AddBooleanArray2, h0, n1, d1, format)
 
-proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool], format: LoggingFieldFormat, tags: int32)  =
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool],
+                      format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddBooleanArray3, Fn_ILoggingFields_AddBooleanArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddBooleanArray")
+      it.call(ILoggingFields_AddBooleanArray3, h0, n1, d1, format, tags)
 
-proc addString*(self: LoggingFields, name: string, value: string)  =
+proc addString*(self: LoggingFields, name: string, value: string) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddString
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_ILoggingFields_AddString, Fn_ILoggingFields_AddString)(it, h0, h1).check("LoggingFields.AddString")
+        it.call(ILoggingFields_AddString, h0, h1)
 
-proc addString*(self: LoggingFields, name: string, value: string, format: LoggingFieldFormat)  =
+proc addString*(self: LoggingFields, name: string, value: string,
+                format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddString
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_ILoggingFields_AddString2, Fn_ILoggingFields_AddString2)(it, h0, h1, format).check("LoggingFields.AddString")
+        it.call(ILoggingFields_AddString2, h0, h1, format)
 
-proc addString*(self: LoggingFields, name: string, value: string, format: LoggingFieldFormat, tags: int32)  =
+proc addString*(self: LoggingFields, name: string, value: string,
+                format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddString
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withHString(value, h1):
-        vcall(it, Slot_ILoggingFields_AddString3, Fn_ILoggingFields_AddString3)(it, h0, h1, format, tags).check("LoggingFields.AddString")
+        it.call(ILoggingFields_AddString3, h0, h1, format, tags)
 
-proc addStringArray*(self: LoggingFields, name: string, value: openArray[string])  =
+proc addStringArray*(self: LoggingFields, name: string, value: openArray[string]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        vcall(it, Slot_ILoggingFields_AddStringArray, Fn_ILoggingFields_AddStringArray)(it, h0, n1, d1).check("LoggingFields.AddStringArray")
+        it.call(ILoggingFields_AddStringArray, h0, n1, d1)
 
-proc addStringArray*(self: LoggingFields, name: string, value: openArray[string], format: LoggingFieldFormat)  =
+proc addStringArray*(self: LoggingFields, name: string,
+                     value: openArray[string], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        vcall(it, Slot_ILoggingFields_AddStringArray2, Fn_ILoggingFields_AddStringArray2)(it, h0, n1, d1, format).check("LoggingFields.AddStringArray")
+        it.call(ILoggingFields_AddStringArray2, h0, n1, d1, format)
 
-proc addStringArray*(self: LoggingFields, name: string, value: openArray[string], format: LoggingFieldFormat, tags: int32)  =
+proc addStringArray*(self: LoggingFields, name: string,
+                     value: openArray[string], format: LoggingFieldFormat,
+                     tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       withStringArray(value, n1, d1):
-        vcall(it, Slot_ILoggingFields_AddStringArray3, Fn_ILoggingFields_AddStringArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddStringArray")
+        it.call(ILoggingFields_AddStringArray3, h0, n1, d1, format, tags)
 
-proc addGuid*(self: LoggingFields, name: string, value: GUID)  =
+proc addGuid*(self: LoggingFields, name: string, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddGuid, Fn_ILoggingFields_AddGuid)(it, h0, value).check("LoggingFields.AddGuid")
+      it.call(ILoggingFields_AddGuid, h0, value)
 
-proc addGuid*(self: LoggingFields, name: string, value: GUID, format: LoggingFieldFormat)  =
+proc addGuid*(self: LoggingFields, name: string, value: GUID,
+              format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddGuid2, Fn_ILoggingFields_AddGuid2)(it, h0, value, format).check("LoggingFields.AddGuid")
+      it.call(ILoggingFields_AddGuid2, h0, value, format)
 
-proc addGuid*(self: LoggingFields, name: string, value: GUID, format: LoggingFieldFormat, tags: int32)  =
+proc addGuid*(self: LoggingFields, name: string, value: GUID,
+              format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddGuid3, Fn_ILoggingFields_AddGuid3)(it, h0, value, format, tags).check("LoggingFields.AddGuid")
+      it.call(ILoggingFields_AddGuid3, h0, value, format, tags)
 
-proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID])  =
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddGuidArray, Fn_ILoggingFields_AddGuidArray)(it, h0, n1, d1).check("LoggingFields.AddGuidArray")
+      it.call(ILoggingFields_AddGuidArray, h0, n1, d1)
 
-proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID], format: LoggingFieldFormat)  =
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
+                   format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddGuidArray2, Fn_ILoggingFields_AddGuidArray2)(it, h0, n1, d1, format).check("LoggingFields.AddGuidArray")
+      it.call(ILoggingFields_AddGuidArray2, h0, n1, d1, format)
 
-proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID], format: LoggingFieldFormat, tags: int32)  =
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID],
+                   format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddGuidArray3, Fn_ILoggingFields_AddGuidArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddGuidArray")
+      it.call(ILoggingFields_AddGuidArray3, h0, n1, d1, format, tags)
 
-proc addDateTime*(self: LoggingFields, name: string, value: DateTime)  =
+proc addDateTime*(self: LoggingFields, name: string, value: DateTime) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDateTime, Fn_ILoggingFields_AddDateTime)(it, h0, value).check("LoggingFields.AddDateTime")
+      it.call(ILoggingFields_AddDateTime, h0, value)
 
-proc addDateTime*(self: LoggingFields, name: string, value: DateTime, format: LoggingFieldFormat)  =
+proc addDateTime*(self: LoggingFields, name: string, value: DateTime,
+                  format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDateTime2, Fn_ILoggingFields_AddDateTime2)(it, h0, value, format).check("LoggingFields.AddDateTime")
+      it.call(ILoggingFields_AddDateTime2, h0, value, format)
 
-proc addDateTime*(self: LoggingFields, name: string, value: DateTime, format: LoggingFieldFormat, tags: int32)  =
+proc addDateTime*(self: LoggingFields, name: string, value: DateTime,
+                  format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddDateTime3, Fn_ILoggingFields_AddDateTime3)(it, h0, value, format, tags).check("LoggingFields.AddDateTime")
+      it.call(ILoggingFields_AddDateTime3, h0, value, format, tags)
 
-proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime])  =
+proc addDateTimeArray*(self: LoggingFields, name: string,
+                       value: openArray[DateTime]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDateTimeArray, Fn_ILoggingFields_AddDateTimeArray)(it, h0, n1, d1).check("LoggingFields.AddDateTimeArray")
+      it.call(ILoggingFields_AddDateTimeArray, h0, n1, d1)
 
-proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime], format: LoggingFieldFormat)  =
+proc addDateTimeArray*(self: LoggingFields, name: string,
+                       value: openArray[DateTime], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDateTimeArray2, Fn_ILoggingFields_AddDateTimeArray2)(it, h0, n1, d1, format).check("LoggingFields.AddDateTimeArray")
+      it.call(ILoggingFields_AddDateTimeArray2, h0, n1, d1, format)
 
-proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime], format: LoggingFieldFormat, tags: int32)  =
+proc addDateTimeArray*(self: LoggingFields, name: string,
+                       value: openArray[DateTime], format: LoggingFieldFormat,
+                       tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddDateTimeArray3, Fn_ILoggingFields_AddDateTimeArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddDateTimeArray")
+      it.call(ILoggingFields_AddDateTimeArray3, h0, n1, d1, format, tags)
 
-proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan)  =
+proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddTimeSpan, Fn_ILoggingFields_AddTimeSpan)(it, h0, value).check("LoggingFields.AddTimeSpan")
+      it.call(ILoggingFields_AddTimeSpan, h0, value)
 
-proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan, format: LoggingFieldFormat)  =
+proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan,
+                  format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddTimeSpan2, Fn_ILoggingFields_AddTimeSpan2)(it, h0, value, format).check("LoggingFields.AddTimeSpan")
+      it.call(ILoggingFields_AddTimeSpan2, h0, value, format)
 
-proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan, format: LoggingFieldFormat, tags: int32)  =
+proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan,
+                  format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddTimeSpan3, Fn_ILoggingFields_AddTimeSpan3)(it, h0, value, format, tags).check("LoggingFields.AddTimeSpan")
+      it.call(ILoggingFields_AddTimeSpan3, h0, value, format, tags)
 
-proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan])  =
+proc addTimeSpanArray*(self: LoggingFields, name: string,
+                       value: openArray[TimeSpan]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddTimeSpanArray, Fn_ILoggingFields_AddTimeSpanArray)(it, h0, n1, d1).check("LoggingFields.AddTimeSpanArray")
+      it.call(ILoggingFields_AddTimeSpanArray, h0, n1, d1)
 
-proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan], format: LoggingFieldFormat)  =
+proc addTimeSpanArray*(self: LoggingFields, name: string,
+                       value: openArray[TimeSpan], format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddTimeSpanArray2, Fn_ILoggingFields_AddTimeSpanArray2)(it, h0, n1, d1, format).check("LoggingFields.AddTimeSpanArray")
+      it.call(ILoggingFields_AddTimeSpanArray2, h0, n1, d1, format)
 
-proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan], format: LoggingFieldFormat, tags: int32)  =
+proc addTimeSpanArray*(self: LoggingFields, name: string,
+                       value: openArray[TimeSpan], format: LoggingFieldFormat,
+                       tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddTimeSpanArray3, Fn_ILoggingFields_AddTimeSpanArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddTimeSpanArray")
+      it.call(ILoggingFields_AddTimeSpanArray3, h0, n1, d1, format, tags)
 
-proc addPoint*(self: LoggingFields, name: string, value: Point)  =
+proc addPoint*(self: LoggingFields, name: string, value: Point) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddPoint, Fn_ILoggingFields_AddPoint)(it, h0, value).check("LoggingFields.AddPoint")
+      it.call(ILoggingFields_AddPoint, h0, value)
 
-proc addPoint*(self: LoggingFields, name: string, value: Point, format: LoggingFieldFormat)  =
+proc addPoint*(self: LoggingFields, name: string, value: Point,
+               format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddPoint2, Fn_ILoggingFields_AddPoint2)(it, h0, value, format).check("LoggingFields.AddPoint")
+      it.call(ILoggingFields_AddPoint2, h0, value, format)
 
-proc addPoint*(self: LoggingFields, name: string, value: Point, format: LoggingFieldFormat, tags: int32)  =
+proc addPoint*(self: LoggingFields, name: string, value: Point,
+               format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddPoint3, Fn_ILoggingFields_AddPoint3)(it, h0, value, format, tags).check("LoggingFields.AddPoint")
+      it.call(ILoggingFields_AddPoint3, h0, value, format, tags)
 
-proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point])  =
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddPointArray, Fn_ILoggingFields_AddPointArray)(it, h0, n1, d1).check("LoggingFields.AddPointArray")
+      it.call(ILoggingFields_AddPointArray, h0, n1, d1)
 
-proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point], format: LoggingFieldFormat)  =
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
+                    format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddPointArray2, Fn_ILoggingFields_AddPointArray2)(it, h0, n1, d1, format).check("LoggingFields.AddPointArray")
+      it.call(ILoggingFields_AddPointArray2, h0, n1, d1, format)
 
-proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point], format: LoggingFieldFormat, tags: int32)  =
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point],
+                    format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddPointArray3, Fn_ILoggingFields_AddPointArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddPointArray")
+      it.call(ILoggingFields_AddPointArray3, h0, n1, d1, format, tags)
 
-proc addSize*(self: LoggingFields, name: string, value: Size)  =
+proc addSize*(self: LoggingFields, name: string, value: Size) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSize, Fn_ILoggingFields_AddSize)(it, h0, value).check("LoggingFields.AddSize")
+      it.call(ILoggingFields_AddSize, h0, value)
 
-proc addSize*(self: LoggingFields, name: string, value: Size, format: LoggingFieldFormat)  =
+proc addSize*(self: LoggingFields, name: string, value: Size,
+              format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSize2, Fn_ILoggingFields_AddSize2)(it, h0, value, format).check("LoggingFields.AddSize")
+      it.call(ILoggingFields_AddSize2, h0, value, format)
 
-proc addSize*(self: LoggingFields, name: string, value: Size, format: LoggingFieldFormat, tags: int32)  =
+proc addSize*(self: LoggingFields, name: string, value: Size,
+              format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddSize3, Fn_ILoggingFields_AddSize3)(it, h0, value, format, tags).check("LoggingFields.AddSize")
+      it.call(ILoggingFields_AddSize3, h0, value, format, tags)
 
-proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size])  =
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSizeArray, Fn_ILoggingFields_AddSizeArray)(it, h0, n1, d1).check("LoggingFields.AddSizeArray")
+      it.call(ILoggingFields_AddSizeArray, h0, n1, d1)
 
-proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size], format: LoggingFieldFormat)  =
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
+                   format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSizeArray2, Fn_ILoggingFields_AddSizeArray2)(it, h0, n1, d1, format).check("LoggingFields.AddSizeArray")
+      it.call(ILoggingFields_AddSizeArray2, h0, n1, d1, format)
 
-proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size], format: LoggingFieldFormat, tags: int32)  =
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size],
+                   format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddSizeArray3, Fn_ILoggingFields_AddSizeArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddSizeArray")
+      it.call(ILoggingFields_AddSizeArray3, h0, n1, d1, format, tags)
 
-proc addRect*(self: LoggingFields, name: string, value: Rect)  =
+proc addRect*(self: LoggingFields, name: string, value: Rect) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddRect, Fn_ILoggingFields_AddRect)(it, h0, value).check("LoggingFields.AddRect")
+      it.call(ILoggingFields_AddRect, h0, value)
 
-proc addRect*(self: LoggingFields, name: string, value: Rect, format: LoggingFieldFormat)  =
+proc addRect*(self: LoggingFields, name: string, value: Rect,
+              format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddRect2, Fn_ILoggingFields_AddRect2)(it, h0, value, format).check("LoggingFields.AddRect")
+      it.call(ILoggingFields_AddRect2, h0, value, format)
 
-proc addRect*(self: LoggingFields, name: string, value: Rect, format: LoggingFieldFormat, tags: int32)  =
+proc addRect*(self: LoggingFields, name: string, value: Rect,
+              format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
-      vcall(it, Slot_ILoggingFields_AddRect3, Fn_ILoggingFields_AddRect3)(it, h0, value, format, tags).check("LoggingFields.AddRect")
+      it.call(ILoggingFields_AddRect3, h0, value, format, tags)
 
-proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect])  =
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect]) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddRectArray, Fn_ILoggingFields_AddRectArray)(it, h0, n1, d1).check("LoggingFields.AddRectArray")
+      it.call(ILoggingFields_AddRectArray, h0, n1, d1)
 
-proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect], format: LoggingFieldFormat)  =
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
+                   format: LoggingFieldFormat) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddRectArray2, Fn_ILoggingFields_AddRectArray2)(it, h0, n1, d1, format).check("LoggingFields.AddRectArray")
+      it.call(ILoggingFields_AddRectArray2, h0, n1, d1, format)
 
-proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect], format: LoggingFieldFormat, tags: int32)  =
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect],
+                   format: LoggingFieldFormat, tags: int32) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
-  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+  withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
       let n1 = uint32(value.len)
       let d1 = if value.len > 0: value[0].unsafeAddr else: nil
-      vcall(it, Slot_ILoggingFields_AddRectArray3, Fn_ILoggingFields_AddRectArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddRectArray")
+      it.call(ILoggingFields_AddRectArray3, h0, n1, d1, format, tags)
 
 proc newLoggingOptions*(): LoggingOptions =
   ## Activate a `Windows.Foundation.Diagnostics.LoggingOptions`.
   adopt[LoggingOptions](activateAs("Windows.Foundation.Diagnostics.LoggingOptions", IID_ILoggingOptions))
 
-proc keywords*(self: LoggingOptions): int64  =
+proc keywords*(self: LoggingOptions): int64 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Keywords
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: int64
-    vcall(it, Slot_ILoggingOptions_get_Keywords, Fn_ILoggingOptions_get_Keywords)(it, tmp.addr).check("LoggingOptions.get_Keywords")
+    it.call(ILoggingOptions_get_Keywords, tmp.addr)
     result = tmp
 
-proc `keywords=`*(self: LoggingOptions, value: int64)  =
+proc `keywords=`*(self: LoggingOptions, value: int64) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Keywords
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_Keywords, Fn_ILoggingOptions_put_Keywords)(it, value).check("LoggingOptions.put_Keywords")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_Keywords, value)
 
-proc tags*(self: LoggingOptions): int32  =
+proc tags*(self: LoggingOptions): int32 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Tags
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: int32
-    vcall(it, Slot_ILoggingOptions_get_Tags, Fn_ILoggingOptions_get_Tags)(it, tmp.addr).check("LoggingOptions.get_Tags")
+    it.call(ILoggingOptions_get_Tags, tmp.addr)
     result = tmp
 
-proc `tags=`*(self: LoggingOptions, value: int32)  =
+proc `tags=`*(self: LoggingOptions, value: int32) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Tags
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_Tags, Fn_ILoggingOptions_put_Tags)(it, value).check("LoggingOptions.put_Tags")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_Tags, value)
 
-proc task*(self: LoggingOptions): int16  =
+proc task*(self: LoggingOptions): int16 =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Task
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: int16
-    vcall(it, Slot_ILoggingOptions_get_Task, Fn_ILoggingOptions_get_Task)(it, tmp.addr).check("LoggingOptions.get_Task")
+    it.call(ILoggingOptions_get_Task, tmp.addr)
     result = tmp
 
-proc `task=`*(self: LoggingOptions, value: int16)  =
+proc `task=`*(self: LoggingOptions, value: int16) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Task
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_Task, Fn_ILoggingOptions_put_Task)(it, value).check("LoggingOptions.put_Task")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_Task, value)
 
-proc opcode*(self: LoggingOptions): LoggingOpcode  =
+proc opcode*(self: LoggingOptions): LoggingOpcode =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_Opcode
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: LoggingOpcode
-    vcall(it, Slot_ILoggingOptions_get_Opcode, Fn_ILoggingOptions_get_Opcode)(it, tmp.addr).check("LoggingOptions.get_Opcode")
+    it.call(ILoggingOptions_get_Opcode, tmp.addr)
     result = tmp
 
-proc `opcode=`*(self: LoggingOptions, value: LoggingOpcode)  =
+proc `opcode=`*(self: LoggingOptions, value: LoggingOpcode) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_Opcode
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_Opcode, Fn_ILoggingOptions_put_Opcode)(it, value).check("LoggingOptions.put_Opcode")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_Opcode, value)
 
-proc activityId*(self: LoggingOptions): GUID  =
+proc activityId*(self: LoggingOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_ActivityId
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: GUID
-    vcall(it, Slot_ILoggingOptions_get_ActivityId, Fn_ILoggingOptions_get_ActivityId)(it, tmp.addr).check("LoggingOptions.get_ActivityId")
+    it.call(ILoggingOptions_get_ActivityId, tmp.addr)
     result = tmp
 
-proc `activityId=`*(self: LoggingOptions, value: GUID)  =
+proc `activityId=`*(self: LoggingOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_ActivityId
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_ActivityId, Fn_ILoggingOptions_put_ActivityId)(it, value).check("LoggingOptions.put_ActivityId")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_ActivityId, value)
 
-proc relatedActivityId*(self: LoggingOptions): GUID  =
+proc relatedActivityId*(self: LoggingOptions): GUID =
   ## Windows.Foundation.Diagnostics.LoggingOptions.get_RelatedActivityId
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
+  withIface(self.p, ILoggingOptions, it):
     var tmp: GUID
-    vcall(it, Slot_ILoggingOptions_get_RelatedActivityId, Fn_ILoggingOptions_get_RelatedActivityId)(it, tmp.addr).check("LoggingOptions.get_RelatedActivityId")
+    it.call(ILoggingOptions_get_RelatedActivityId, tmp.addr)
     result = tmp
 
-proc `relatedActivityId=`*(self: LoggingOptions, value: GUID)  =
+proc `relatedActivityId=`*(self: LoggingOptions, value: GUID) =
   ## Windows.Foundation.Diagnostics.LoggingOptions.put_RelatedActivityId
-  withIface(self.p, IID_ILoggingOptions, "ILoggingOptions", it):
-    vcall(it, Slot_ILoggingOptions_put_RelatedActivityId, Fn_ILoggingOptions_put_RelatedActivityId)(it, value).check("LoggingOptions.put_RelatedActivityId")
+  withIface(self.p, ILoggingOptions, it):
+    it.call(ILoggingOptions_put_RelatedActivityId, value)
 
-proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64): LoggingOptions  =
+proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64): LoggingOptions =
   ## Windows.Foundation.Diagnostics.LoggingOptions.CreateWithKeywords
-  withStatics("Windows.Foundation.Diagnostics.LoggingOptions", IID_ILoggingOptionsFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingOptions",
+              ILoggingOptionsFactory, it):
     var tmp: pointer
-    vcall(it, Slot_ILoggingOptionsFactory_CreateWithKeywords, Fn_ILoggingOptionsFactory_CreateWithKeywords)(it, keywords, tmp.addr).check("LoggingOptions.CreateWithKeywords")
+    it.call(ILoggingOptionsFactory_CreateWithKeywords, keywords, tmp.addr)
     result = adopt[LoggingOptions](tmp)
 
-proc name*(self: LoggingSession): string  =
+proc name*(self: LoggingSession): string =
   ## Windows.Foundation.Diagnostics.LoggingSession.get_Name
-  withIface(self.p, IID_ILoggingSession, "ILoggingSession", it):
+  withIface(self.p, ILoggingSession, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILoggingSession_get_Name, Fn_ILoggingSession_get_Name)(it, tmp.addr).check("LoggingSession.get_Name")
+    it.call(ILoggingSession_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder, fileName: string): Future[StorageFile] {.async.} =
+proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
+                      fileName: string): Future[StorageFile] {.async.} =
   ## Windows.Foundation.Diagnostics.LoggingSession.SaveToFileAsync
   var op: pointer
-  withIface(self.p, IID_ILoggingSession, "ILoggingSession", it):
-    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
+  withIface(self.p, ILoggingSession, it):
+    withIface(folder.p, IStorageFolder, p0):
       withHString(fileName, h1):
-        vcall(it, Slot_ILoggingSession_SaveToFileAsync, Fn_ILoggingSession_SaveToFileAsync)(it, p0, h1, op.addr).check("LoggingSession.SaveToFileAsync")
-  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "LoggingSession.SaveToFileAsync"))
+        it.call(ILoggingSession_SaveToFileAsync, p0, h1, op.addr)
+  result = adopt[StorageFile](await awaitObject(op,
+                                                IID_IAsyncOperation_1_StorageFile,
+                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
+                                                alPlain,
+                                                "LoggingSession.SaveToFileAsync"))
 
-proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel)  =
+proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
-  withIface(self.p, IID_ILoggingSession, "ILoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_ILoggingSession_AddLoggingChannel, Fn_ILoggingSession_AddLoggingChannel)(it, p0).check("LoggingSession.AddLoggingChannel")
+  withIface(self.p, ILoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(ILoggingSession_AddLoggingChannel, p0)
 
-proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel, maxLevel: LoggingLevel)  =
+proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel,
+                        maxLevel: LoggingLevel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
-  withIface(self.p, IID_ILoggingSession, "ILoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_ILoggingSession_AddLoggingChannel2, Fn_ILoggingSession_AddLoggingChannel2)(it, p0, maxLevel).check("LoggingSession.AddLoggingChannel")
+  withIface(self.p, ILoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(ILoggingSession_AddLoggingChannel2, p0, maxLevel)
 
-proc removeLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel)  =
+proc removeLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.RemoveLoggingChannel
-  withIface(self.p, IID_ILoggingSession, "ILoggingSession", it):
-    withIface(loggingChannel.p, IID_ILoggingChannel, "ILoggingChannel", p0):
-      vcall(it, Slot_ILoggingSession_RemoveLoggingChannel, Fn_ILoggingSession_RemoveLoggingChannel)(it, p0).check("LoggingSession.RemoveLoggingChannel")
+  withIface(self.p, ILoggingSession, it):
+    withIface(loggingChannel.p, ILoggingChannel, p0):
+      it.call(ILoggingSession_RemoveLoggingChannel, p0)
 
-proc close*(self: LoggingSession)  =
+proc close*(self: LoggingSession) =
   ## Windows.Foundation.Diagnostics.LoggingSession.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LoggingSession.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc create*(_: typedesc[LoggingSession], name: string): LoggingSession  =
+proc create*(_: typedesc[LoggingSession], name: string): LoggingSession =
   ## Windows.Foundation.Diagnostics.LoggingSession.Create
-  withStatics("Windows.Foundation.Diagnostics.LoggingSession", IID_ILoggingSessionFactory, it):
+  withStatics("Windows.Foundation.Diagnostics.LoggingSession",
+              ILoggingSessionFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_ILoggingSessionFactory_Create, Fn_ILoggingSessionFactory_Create)(it, h0, tmp.addr).check("LoggingSession.Create")
+      it.call(ILoggingSessionFactory_Create, h0, tmp.addr)
       result = adopt[LoggingSession](tmp)
 
 proc newRuntimeBrokerErrorSettings*(): RuntimeBrokerErrorSettings =
   ## Activate a `Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings`.
   adopt[RuntimeBrokerErrorSettings](activateAs("Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings", IID_IErrorReportingSettings))
 
-proc setErrorOptions*(self: RuntimeBrokerErrorSettings, value: ErrorOptions)  =
+proc setErrorOptions*(self: RuntimeBrokerErrorSettings, value: ErrorOptions) =
   ## Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.SetErrorOptions
-  withIface(self.p, IID_IErrorReportingSettings, "IErrorReportingSettings", it):
-    vcall(it, Slot_IErrorReportingSettings_SetErrorOptions, Fn_IErrorReportingSettings_SetErrorOptions)(it, value).check("RuntimeBrokerErrorSettings.SetErrorOptions")
+  withIface(self.p, IErrorReportingSettings, it):
+    it.call(IErrorReportingSettings_SetErrorOptions, value)
 
-proc getErrorOptions*(self: RuntimeBrokerErrorSettings): ErrorOptions  =
+proc getErrorOptions*(self: RuntimeBrokerErrorSettings): ErrorOptions =
   ## Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.GetErrorOptions
-  withIface(self.p, IID_IErrorReportingSettings, "IErrorReportingSettings", it):
+  withIface(self.p, IErrorReportingSettings, it):
     var tmp: ErrorOptions
-    vcall(it, Slot_IErrorReportingSettings_GetErrorOptions, Fn_IErrorReportingSettings_GetErrorOptions)(it, tmp.addr).check("RuntimeBrokerErrorSettings.GetErrorOptions")
+    it.call(IErrorReportingSettings_GetErrorOptions, tmp.addr)
     result = tmp
 
-proc enabled*(self: TracingStatusChangedEventArgs): bool  =
+proc enabled*(self: TracingStatusChangedEventArgs): bool =
   ## Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs.get_Enabled
-  withIface(self.p, IID_ITracingStatusChangedEventArgs, "ITracingStatusChangedEventArgs", it):
+  withIface(self.p, ITracingStatusChangedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_ITracingStatusChangedEventArgs_get_Enabled, Fn_ITracingStatusChangedEventArgs_get_Enabled)(it, tmp.addr).check("TracingStatusChangedEventArgs.get_Enabled")
+    it.call(ITracingStatusChangedEventArgs_get_Enabled, tmp.addr)
     result = tmp
 
-proc traceLevel*(self: TracingStatusChangedEventArgs): CausalityTraceLevel  =
+proc traceLevel*(self: TracingStatusChangedEventArgs): CausalityTraceLevel =
   ## Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs.get_TraceLevel
-  withIface(self.p, IID_ITracingStatusChangedEventArgs, "ITracingStatusChangedEventArgs", it):
+  withIface(self.p, ITracingStatusChangedEventArgs, it):
     var tmp: CausalityTraceLevel
-    vcall(it, Slot_ITracingStatusChangedEventArgs_get_TraceLevel, Fn_ITracingStatusChangedEventArgs_get_TraceLevel)(it, tmp.addr).check("TracingStatusChangedEventArgs.get_TraceLevel")
+    it.call(ITracingStatusChangedEventArgs_get_TraceLevel, tmp.addr)
     result = tmp
 
-proc createNewGuid*(_: typedesc[GuidHelper]): GUID  =
+proc createNewGuid*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.GuidHelper.CreateNewGuid
-  withStatics("Windows.Foundation.GuidHelper", IID_IGuidHelperStatics, it):
+  withStatics("Windows.Foundation.GuidHelper", IGuidHelperStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IGuidHelperStatics_CreateNewGuid, Fn_IGuidHelperStatics_CreateNewGuid)(it, tmp.addr).check("GuidHelper.CreateNewGuid")
+    it.call(IGuidHelperStatics_CreateNewGuid, tmp.addr)
     result = tmp
 
-proc empty*(_: typedesc[GuidHelper]): GUID  =
+proc empty*(_: typedesc[GuidHelper]): GUID =
   ## Windows.Foundation.GuidHelper.get_Empty
-  withStatics("Windows.Foundation.GuidHelper", IID_IGuidHelperStatics, it):
+  withStatics("Windows.Foundation.GuidHelper", IGuidHelperStatics, it):
     var tmp: GUID
-    vcall(it, Slot_IGuidHelperStatics_get_Empty, Fn_IGuidHelperStatics_get_Empty)(it, tmp.addr).check("GuidHelper.get_Empty")
+    it.call(IGuidHelperStatics_get_Empty, tmp.addr)
     result = tmp
 
-proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool  =
+proc equals*(_: typedesc[GuidHelper], target: GUID, value: GUID): bool =
   ## Windows.Foundation.GuidHelper.Equals
-  withStatics("Windows.Foundation.GuidHelper", IID_IGuidHelperStatics, it):
+  withStatics("Windows.Foundation.GuidHelper", IGuidHelperStatics, it):
     var by0 = target
     var by1 = value
     var tmp: bool
-    vcall(it, Slot_IGuidHelperStatics_Equals, Fn_IGuidHelperStatics_Equals)(it, by0.addr, by1.addr, tmp.addr).check("GuidHelper.Equals")
+    it.call(IGuidHelperStatics_Equals, by0.addr, by1.addr, tmp.addr)
     result = tmp
 
-proc createReference*(self: MemoryBuffer): WinRtObject  =
+proc createReference*(self: MemoryBuffer): WinRtObject =
   ## Windows.Foundation.MemoryBuffer.CreateReference
-  withIface(self.p, IID_IMemoryBuffer, "IMemoryBuffer", it):
+  withIface(self.p, IMemoryBuffer, it):
     var tmp: pointer
-    vcall(it, Slot_IMemoryBuffer_CreateReference, Fn_IMemoryBuffer_CreateReference)(it, tmp.addr).check("MemoryBuffer.CreateReference")
+    it.call(IMemoryBuffer_CreateReference, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc close*(self: MemoryBuffer)  =
+proc close*(self: MemoryBuffer) =
   ## Windows.Foundation.MemoryBuffer.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MemoryBuffer.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc create*(_: typedesc[MemoryBuffer], capacity: uint32): MemoryBuffer  =
+proc create*(_: typedesc[MemoryBuffer], capacity: uint32): MemoryBuffer =
   ## Windows.Foundation.MemoryBuffer.Create
-  withStatics("Windows.Foundation.MemoryBuffer", IID_IMemoryBufferFactory, it):
+  withStatics("Windows.Foundation.MemoryBuffer", IMemoryBufferFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IMemoryBufferFactory_Create, Fn_IMemoryBufferFactory_Create)(it, capacity, tmp.addr).check("MemoryBuffer.Create")
+    it.call(IMemoryBufferFactory_Create, capacity, tmp.addr)
     result = adopt[MemoryBuffer](tmp)
 
-proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool  =
+proc isTypePresent*(_: typedesc[ApiInformation], typeName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsTypePresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       var tmp: bool
-      vcall(it, Slot_IApiInformationStatics_IsTypePresent, Fn_IApiInformationStatics_IsTypePresent)(it, h0, tmp.addr).check("ApiInformation.IsTypePresent")
+      it.call(IApiInformationStatics_IsTypePresent, h0, tmp.addr)
       result = tmp
 
-proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string, methodName: string): bool  =
+proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
+                      methodName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsMethodPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(methodName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsMethodPresent, Fn_IApiInformationStatics_IsMethodPresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsMethodPresent")
+        it.call(IApiInformationStatics_IsMethodPresent, h0, h1, tmp.addr)
         result = tmp
 
-proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string, methodName: string, inputParameterCount: uint32): bool  =
+proc isMethodPresent*(_: typedesc[ApiInformation], typeName: string,
+                      methodName: string, inputParameterCount: uint32): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsMethodPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(methodName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsMethodPresent2, Fn_IApiInformationStatics_IsMethodPresent2)(it, h0, h1, inputParameterCount, tmp.addr).check("ApiInformation.IsMethodPresent")
+        it.call(IApiInformationStatics_IsMethodPresent2, h0, h1,
+                inputParameterCount, tmp.addr)
         result = tmp
 
-proc isEventPresent*(_: typedesc[ApiInformation], typeName: string, eventName: string): bool  =
+proc isEventPresent*(_: typedesc[ApiInformation], typeName: string,
+                     eventName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsEventPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(eventName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsEventPresent, Fn_IApiInformationStatics_IsEventPresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsEventPresent")
+        it.call(IApiInformationStatics_IsEventPresent, h0, h1, tmp.addr)
         result = tmp
 
-proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string, propertyName: string): bool  =
+proc isPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
+                        propertyName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsPropertyPresent, Fn_IApiInformationStatics_IsPropertyPresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsPropertyPresent")
+        it.call(IApiInformationStatics_IsPropertyPresent, h0, h1, tmp.addr)
         result = tmp
 
-proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string, propertyName: string): bool  =
+proc isReadOnlyPropertyPresent*(_: typedesc[ApiInformation], typeName: string,
+                                propertyName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsReadOnlyPropertyPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsReadOnlyPropertyPresent, Fn_IApiInformationStatics_IsReadOnlyPropertyPresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsReadOnlyPropertyPresent")
+        it.call(IApiInformationStatics_IsReadOnlyPropertyPresent, h0, h1,
+                tmp.addr)
         result = tmp
 
-proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string, propertyName: string): bool  =
+proc isWriteablePropertyPresent*(_: typedesc[ApiInformation], typeName: string,
+                                 propertyName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsWriteablePropertyPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(typeName, h0):
       withHString(propertyName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsWriteablePropertyPresent, Fn_IApiInformationStatics_IsWriteablePropertyPresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsWriteablePropertyPresent")
+        it.call(IApiInformationStatics_IsWriteablePropertyPresent, h0, h1,
+                tmp.addr)
         result = tmp
 
-proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string, valueName: string): bool  =
+proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
+                              valueName: string): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsEnumNamedValuePresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(enumTypeName, h0):
       withHString(valueName, h1):
         var tmp: bool
-        vcall(it, Slot_IApiInformationStatics_IsEnumNamedValuePresent, Fn_IApiInformationStatics_IsEnumNamedValuePresent)(it, h0, h1, tmp.addr).check("ApiInformation.IsEnumNamedValuePresent")
+        it.call(IApiInformationStatics_IsEnumNamedValuePresent, h0, h1, tmp.addr)
         result = tmp
 
-proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string, majorVersion: uint16): bool  =
+proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
+                           majorVersion: uint16): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(contractName, h0):
       var tmp: bool
-      vcall(it, Slot_IApiInformationStatics_IsApiContractPresent, Fn_IApiInformationStatics_IsApiContractPresent)(it, h0, majorVersion, tmp.addr).check("ApiInformation.IsApiContractPresent")
+      it.call(IApiInformationStatics_IsApiContractPresent, h0, majorVersion,
+              tmp.addr)
       result = tmp
 
-proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string, majorVersion: uint16, minorVersion: uint16): bool  =
+proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
+                           majorVersion: uint16, minorVersion: uint16): bool =
   ## Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent
-  withStatics("Windows.Foundation.Metadata.ApiInformation", IID_IApiInformationStatics, it):
+  withStatics("Windows.Foundation.Metadata.ApiInformation",
+              IApiInformationStatics, it):
     withHString(contractName, h0):
       var tmp: bool
-      vcall(it, Slot_IApiInformationStatics_IsApiContractPresent2, Fn_IApiInformationStatics_IsApiContractPresent2)(it, h0, majorVersion, minorVersion, tmp.addr).check("ApiInformation.IsApiContractPresent")
+      it.call(IApiInformationStatics_IsApiContractPresent2, h0, majorVersion,
+              minorVersion, tmp.addr)
       result = tmp
 
-proc createEmpty*(_: typedesc[PropertyValue]): WinRtObject  =
+proc createEmpty*(_: typedesc[PropertyValue]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateEmpty
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateEmpty, Fn_IPropertyValueStatics_CreateEmpty)(it, tmp.addr).check("PropertyValue.CreateEmpty")
+    it.call(IPropertyValueStatics_CreateEmpty, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject  =
+proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt8
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt8, Fn_IPropertyValueStatics_CreateUInt8)(it, value, tmp.addr).check("PropertyValue.CreateUInt8")
+    it.call(IPropertyValueStatics_CreateUInt8, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject  =
+proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt16
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt16, Fn_IPropertyValueStatics_CreateInt16)(it, value, tmp.addr).check("PropertyValue.CreateInt16")
+    it.call(IPropertyValueStatics_CreateInt16, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject  =
+proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt16
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt16, Fn_IPropertyValueStatics_CreateUInt16)(it, value, tmp.addr).check("PropertyValue.CreateUInt16")
+    it.call(IPropertyValueStatics_CreateUInt16, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject  =
+proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt32
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt32, Fn_IPropertyValueStatics_CreateInt32)(it, value, tmp.addr).check("PropertyValue.CreateInt32")
+    it.call(IPropertyValueStatics_CreateInt32, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject  =
+proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt32
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt32, Fn_IPropertyValueStatics_CreateUInt32)(it, value, tmp.addr).check("PropertyValue.CreateUInt32")
+    it.call(IPropertyValueStatics_CreateUInt32, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject  =
+proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt64
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt64, Fn_IPropertyValueStatics_CreateInt64)(it, value, tmp.addr).check("PropertyValue.CreateInt64")
+    it.call(IPropertyValueStatics_CreateInt64, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject  =
+proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt64
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt64, Fn_IPropertyValueStatics_CreateUInt64)(it, value, tmp.addr).check("PropertyValue.CreateUInt64")
+    it.call(IPropertyValueStatics_CreateUInt64, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject  =
+proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSingle
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateSingle, Fn_IPropertyValueStatics_CreateSingle)(it, value, tmp.addr).check("PropertyValue.CreateSingle")
+    it.call(IPropertyValueStatics_CreateSingle, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject  =
+proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDouble
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateDouble, Fn_IPropertyValueStatics_CreateDouble)(it, value, tmp.addr).check("PropertyValue.CreateDouble")
+    it.call(IPropertyValueStatics_CreateDouble, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createChar16*(_: typedesc[PropertyValue], value: uint16): WinRtObject  =
+proc createChar16*(_: typedesc[PropertyValue], value: uint16): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateChar16
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateChar16, Fn_IPropertyValueStatics_CreateChar16)(it, value, tmp.addr).check("PropertyValue.CreateChar16")
+    it.call(IPropertyValueStatics_CreateChar16, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject  =
+proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateBoolean
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateBoolean, Fn_IPropertyValueStatics_CreateBoolean)(it, value, tmp.addr).check("PropertyValue.CreateBoolean")
+    it.call(IPropertyValueStatics_CreateBoolean, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject  =
+proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateString
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withHString(value, h0):
       var tmp: pointer
-      vcall(it, Slot_IPropertyValueStatics_CreateString, Fn_IPropertyValueStatics_CreateString)(it, h0, tmp.addr).check("PropertyValue.CreateString")
+      it.call(IPropertyValueStatics_CreateString, h0, tmp.addr)
       result = adopt[WinRtObject](tmp)
 
-proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject): WinRtObject  =
+proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInspectable
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInspectable, Fn_IPropertyValueStatics_CreateInspectable)(it, value.p, tmp.addr).check("PropertyValue.CreateInspectable")
+    it.call(IPropertyValueStatics_CreateInspectable, value.p, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createGuid*(_: typedesc[PropertyValue], value: GUID): WinRtObject  =
+proc createGuid*(_: typedesc[PropertyValue], value: GUID): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateGuid
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateGuid, Fn_IPropertyValueStatics_CreateGuid)(it, value, tmp.addr).check("PropertyValue.CreateGuid")
+    it.call(IPropertyValueStatics_CreateGuid, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject  =
+proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDateTime
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateDateTime, Fn_IPropertyValueStatics_CreateDateTime)(it, value, tmp.addr).check("PropertyValue.CreateDateTime")
+    it.call(IPropertyValueStatics_CreateDateTime, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject  =
+proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateTimeSpan
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateTimeSpan, Fn_IPropertyValueStatics_CreateTimeSpan)(it, value, tmp.addr).check("PropertyValue.CreateTimeSpan")
+    it.call(IPropertyValueStatics_CreateTimeSpan, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject  =
+proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreatePoint
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreatePoint, Fn_IPropertyValueStatics_CreatePoint)(it, value, tmp.addr).check("PropertyValue.CreatePoint")
+    it.call(IPropertyValueStatics_CreatePoint, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSize*(_: typedesc[PropertyValue], value: Size): WinRtObject  =
+proc createSize*(_: typedesc[PropertyValue], value: Size): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSize
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateSize, Fn_IPropertyValueStatics_CreateSize)(it, value, tmp.addr).check("PropertyValue.CreateSize")
+    it.call(IPropertyValueStatics_CreateSize, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject  =
+proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateRect
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateRect, Fn_IPropertyValueStatics_CreateRect)(it, value, tmp.addr).check("PropertyValue.CreateRect")
+    it.call(IPropertyValueStatics_CreateRect, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): WinRtObject  =
+proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt8Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt8Array, Fn_IPropertyValueStatics_CreateUInt8Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt8Array")
+    it.call(IPropertyValueStatics_CreateUInt8Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): WinRtObject  =
+proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt16Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt16Array, Fn_IPropertyValueStatics_CreateInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt16Array")
+    it.call(IPropertyValueStatics_CreateInt16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject  =
+proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt16Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt16Array, Fn_IPropertyValueStatics_CreateUInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt16Array")
+    it.call(IPropertyValueStatics_CreateUInt16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): WinRtObject  =
+proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt32Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt32Array, Fn_IPropertyValueStatics_CreateInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt32Array")
+    it.call(IPropertyValueStatics_CreateInt32Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): WinRtObject  =
+proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt32Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt32Array, Fn_IPropertyValueStatics_CreateUInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt32Array")
+    it.call(IPropertyValueStatics_CreateUInt32Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): WinRtObject  =
+proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt64Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInt64Array, Fn_IPropertyValueStatics_CreateInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt64Array")
+    it.call(IPropertyValueStatics_CreateInt64Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): WinRtObject  =
+proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt64Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateUInt64Array, Fn_IPropertyValueStatics_CreateUInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt64Array")
+    it.call(IPropertyValueStatics_CreateUInt64Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): WinRtObject  =
+proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSingleArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateSingleArray, Fn_IPropertyValueStatics_CreateSingleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSingleArray")
+    it.call(IPropertyValueStatics_CreateSingleArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): WinRtObject  =
+proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDoubleArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateDoubleArray, Fn_IPropertyValueStatics_CreateDoubleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDoubleArray")
+    it.call(IPropertyValueStatics_CreateDoubleArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject  =
+proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateChar16Array
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateChar16Array, Fn_IPropertyValueStatics_CreateChar16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateChar16Array")
+    it.call(IPropertyValueStatics_CreateChar16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): WinRtObject  =
+proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateBooleanArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateBooleanArray, Fn_IPropertyValueStatics_CreateBooleanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateBooleanArray")
+    it.call(IPropertyValueStatics_CreateBooleanArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]): WinRtObject  =
+proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateStringArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withStringArray(value, n0, d0):
       var tmp: pointer
-      vcall(it, Slot_IPropertyValueStatics_CreateStringArray, Fn_IPropertyValueStatics_CreateStringArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateStringArray")
+      it.call(IPropertyValueStatics_CreateStringArray, n0, d0, tmp.addr)
       result = adopt[WinRtObject](tmp)
 
-proc createInspectableArray*(_: typedesc[PropertyValue], value: openArray[WinRtObject]): WinRtObject  =
+proc createInspectableArray*(_: typedesc[PropertyValue],
+                             value: openArray[WinRtObject]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInspectableArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withObjectArray(value, IID_IInspectable, n0, d0):
       var tmp: pointer
-      vcall(it, Slot_IPropertyValueStatics_CreateInspectableArray, Fn_IPropertyValueStatics_CreateInspectableArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInspectableArray")
+      it.call(IPropertyValueStatics_CreateInspectableArray, n0, d0, tmp.addr)
       result = adopt[WinRtObject](tmp)
 
-proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRtObject  =
+proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateGuidArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateGuidArray, Fn_IPropertyValueStatics_CreateGuidArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateGuidArray")
+    it.call(IPropertyValueStatics_CreateGuidArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): WinRtObject  =
+proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDateTimeArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateDateTimeArray, Fn_IPropertyValueStatics_CreateDateTimeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDateTimeArray")
+    it.call(IPropertyValueStatics_CreateDateTimeArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): WinRtObject  =
+proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateTimeSpanArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateTimeSpanArray, Fn_IPropertyValueStatics_CreateTimeSpanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateTimeSpanArray")
+    it.call(IPropertyValueStatics_CreateTimeSpanArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): WinRtObject  =
+proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreatePointArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreatePointArray, Fn_IPropertyValueStatics_CreatePointArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreatePointArray")
+    it.call(IPropertyValueStatics_CreatePointArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): WinRtObject  =
+proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSizeArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateSizeArray, Fn_IPropertyValueStatics_CreateSizeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSizeArray")
+    it.call(IPropertyValueStatics_CreateSizeArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): WinRtObject  =
+proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateRectArray
-  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+  withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateRectArray, Fn_IPropertyValueStatics_CreateRectArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateRectArray")
+    it.call(IPropertyValueStatics_CreateRectArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc absoluteUri*(self: Uri): string  =
+proc absoluteUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_AbsoluteUri
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_AbsoluteUri, Fn_IUriRuntimeClass_get_AbsoluteUri)(it, tmp.addr).check("Uri.get_AbsoluteUri")
+    it.call(IUriRuntimeClass_get_AbsoluteUri, tmp.addr)
     result = takeString(tmp)
 
-proc displayUri*(self: Uri): string  =
+proc displayUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_DisplayUri
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_DisplayUri, Fn_IUriRuntimeClass_get_DisplayUri)(it, tmp.addr).check("Uri.get_DisplayUri")
+    it.call(IUriRuntimeClass_get_DisplayUri, tmp.addr)
     result = takeString(tmp)
 
-proc domain*(self: Uri): string  =
+proc domain*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Domain
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Domain, Fn_IUriRuntimeClass_get_Domain)(it, tmp.addr).check("Uri.get_Domain")
+    it.call(IUriRuntimeClass_get_Domain, tmp.addr)
     result = takeString(tmp)
 
-proc extension*(self: Uri): string  =
+proc extension*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Extension
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Extension, Fn_IUriRuntimeClass_get_Extension)(it, tmp.addr).check("Uri.get_Extension")
+    it.call(IUriRuntimeClass_get_Extension, tmp.addr)
     result = takeString(tmp)
 
-proc fragment*(self: Uri): string  =
+proc fragment*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Fragment
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Fragment, Fn_IUriRuntimeClass_get_Fragment)(it, tmp.addr).check("Uri.get_Fragment")
+    it.call(IUriRuntimeClass_get_Fragment, tmp.addr)
     result = takeString(tmp)
 
-proc host*(self: Uri): string  =
+proc host*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Host
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Host, Fn_IUriRuntimeClass_get_Host)(it, tmp.addr).check("Uri.get_Host")
+    it.call(IUriRuntimeClass_get_Host, tmp.addr)
     result = takeString(tmp)
 
-proc password*(self: Uri): string  =
+proc password*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Password
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Password, Fn_IUriRuntimeClass_get_Password)(it, tmp.addr).check("Uri.get_Password")
+    it.call(IUriRuntimeClass_get_Password, tmp.addr)
     result = takeString(tmp)
 
-proc path*(self: Uri): string  =
+proc path*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Path
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Path, Fn_IUriRuntimeClass_get_Path)(it, tmp.addr).check("Uri.get_Path")
+    it.call(IUriRuntimeClass_get_Path, tmp.addr)
     result = takeString(tmp)
 
-proc query*(self: Uri): string  =
+proc query*(self: Uri): string =
   ## Windows.Foundation.Uri.get_Query
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_Query, Fn_IUriRuntimeClass_get_Query)(it, tmp.addr).check("Uri.get_Query")
+    it.call(IUriRuntimeClass_get_Query, tmp.addr)
     result = takeString(tmp)
 
-proc queryParsed*(self: Uri): WwwFormUrlDecoder  =
+proc queryParsed*(self: Uri): WwwFormUrlDecoder =
   ## Windows.Foundation.Uri.get_QueryParsed
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: pointer
-    vcall(it, Slot_IUriRuntimeClass_get_QueryParsed, Fn_IUriRuntimeClass_get_QueryParsed)(it, tmp.addr).check("Uri.get_QueryParsed")
+    it.call(IUriRuntimeClass_get_QueryParsed, tmp.addr)
     result = adopt[WwwFormUrlDecoder](tmp)
 
-proc rawUri*(self: Uri): string  =
+proc rawUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_RawUri
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_RawUri, Fn_IUriRuntimeClass_get_RawUri)(it, tmp.addr).check("Uri.get_RawUri")
+    it.call(IUriRuntimeClass_get_RawUri, tmp.addr)
     result = takeString(tmp)
 
-proc schemeName*(self: Uri): string  =
+proc schemeName*(self: Uri): string =
   ## Windows.Foundation.Uri.get_SchemeName
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_SchemeName, Fn_IUriRuntimeClass_get_SchemeName)(it, tmp.addr).check("Uri.get_SchemeName")
+    it.call(IUriRuntimeClass_get_SchemeName, tmp.addr)
     result = takeString(tmp)
 
-proc userName*(self: Uri): string  =
+proc userName*(self: Uri): string =
   ## Windows.Foundation.Uri.get_UserName
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClass_get_UserName, Fn_IUriRuntimeClass_get_UserName)(it, tmp.addr).check("Uri.get_UserName")
+    it.call(IUriRuntimeClass_get_UserName, tmp.addr)
     result = takeString(tmp)
 
-proc port*(self: Uri): int32  =
+proc port*(self: Uri): int32 =
   ## Windows.Foundation.Uri.get_Port
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: int32
-    vcall(it, Slot_IUriRuntimeClass_get_Port, Fn_IUriRuntimeClass_get_Port)(it, tmp.addr).check("Uri.get_Port")
+    it.call(IUriRuntimeClass_get_Port, tmp.addr)
     result = tmp
 
-proc suspicious*(self: Uri): bool  =
+proc suspicious*(self: Uri): bool =
   ## Windows.Foundation.Uri.get_Suspicious
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     var tmp: bool
-    vcall(it, Slot_IUriRuntimeClass_get_Suspicious, Fn_IUriRuntimeClass_get_Suspicious)(it, tmp.addr).check("Uri.get_Suspicious")
+    it.call(IUriRuntimeClass_get_Suspicious, tmp.addr)
     result = tmp
 
-proc equals*(self: Uri, pUri: Uri): bool  =
+proc equals*(self: Uri, pUri: Uri): bool =
   ## Windows.Foundation.Uri.Equals
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
-    withIface(pUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withIface(self.p, IUriRuntimeClass, it):
+    withIface(pUri.p, IUriRuntimeClass, p0):
       var tmp: bool
-      vcall(it, Slot_IUriRuntimeClass_Equals, Fn_IUriRuntimeClass_Equals)(it, p0, tmp.addr).check("Uri.Equals")
+      it.call(IUriRuntimeClass_Equals, p0, tmp.addr)
       result = tmp
 
-proc combineUri*(self: Uri, relativeUri: string): Uri  =
+proc combineUri*(self: Uri, relativeUri: string): Uri =
   ## Windows.Foundation.Uri.CombineUri
-  withIface(self.p, IID_IUriRuntimeClass, "IUriRuntimeClass", it):
+  withIface(self.p, IUriRuntimeClass, it):
     withHString(relativeUri, h0):
       var tmp: pointer
-      vcall(it, Slot_IUriRuntimeClass_CombineUri, Fn_IUriRuntimeClass_CombineUri)(it, h0, tmp.addr).check("Uri.CombineUri")
+      it.call(IUriRuntimeClass_CombineUri, h0, tmp.addr)
       result = adopt[Uri](tmp)
 
-proc absoluteCanonicalUri*(self: Uri): string  =
+proc absoluteCanonicalUri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_AbsoluteCanonicalUri
-  withIface(self.p, IID_IUriRuntimeClassWithAbsoluteCanonicalUri, "IUriRuntimeClassWithAbsoluteCanonicalUri", it):
+  withIface(self.p, IUriRuntimeClassWithAbsoluteCanonicalUri, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri, Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri)(it, tmp.addr).check("Uri.get_AbsoluteCanonicalUri")
+    it.call(IUriRuntimeClassWithAbsoluteCanonicalUri_get_AbsoluteCanonicalUri,
+            tmp.addr)
     result = takeString(tmp)
 
-proc displayIri*(self: Uri): string  =
+proc displayIri*(self: Uri): string =
   ## Windows.Foundation.Uri.get_DisplayIri
-  withIface(self.p, IID_IUriRuntimeClassWithAbsoluteCanonicalUri, "IUriRuntimeClassWithAbsoluteCanonicalUri", it):
+  withIface(self.p, IUriRuntimeClassWithAbsoluteCanonicalUri, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri, Fn_IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri)(it, tmp.addr).check("Uri.get_DisplayIri")
+    it.call(IUriRuntimeClassWithAbsoluteCanonicalUri_get_DisplayIri, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: Uri): string  =
+proc toString*(self: Uri): string =
   ## Windows.Foundation.Uri.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("Uri.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string  =
+proc unescapeComponent*(_: typedesc[Uri], toUnescape: string): string =
   ## Windows.Foundation.Uri.UnescapeComponent
-  withStatics("Windows.Foundation.Uri", IID_IUriEscapeStatics, it):
+  withStatics("Windows.Foundation.Uri", IUriEscapeStatics, it):
     withHString(toUnescape, h0):
       var tmp: HSTRING
-      vcall(it, Slot_IUriEscapeStatics_UnescapeComponent, Fn_IUriEscapeStatics_UnescapeComponent)(it, h0, tmp.addr).check("Uri.UnescapeComponent")
+      it.call(IUriEscapeStatics_UnescapeComponent, h0, tmp.addr)
       result = takeString(tmp)
 
-proc escapeComponent*(_: typedesc[Uri], toEscape: string): string  =
+proc escapeComponent*(_: typedesc[Uri], toEscape: string): string =
   ## Windows.Foundation.Uri.EscapeComponent
-  withStatics("Windows.Foundation.Uri", IID_IUriEscapeStatics, it):
+  withStatics("Windows.Foundation.Uri", IUriEscapeStatics, it):
     withHString(toEscape, h0):
       var tmp: HSTRING
-      vcall(it, Slot_IUriEscapeStatics_EscapeComponent, Fn_IUriEscapeStatics_EscapeComponent)(it, h0, tmp.addr).check("Uri.EscapeComponent")
+      it.call(IUriEscapeStatics_EscapeComponent, h0, tmp.addr)
       result = takeString(tmp)
 
-proc createUri*(_: typedesc[Uri], uri: string): Uri  =
+proc createUri*(_: typedesc[Uri], uri: string): Uri =
   ## Windows.Foundation.Uri.CreateUri
-  withStatics("Windows.Foundation.Uri", IID_IUriRuntimeClassFactory, it):
+  withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, it):
     withHString(uri, h0):
       var tmp: pointer
-      vcall(it, Slot_IUriRuntimeClassFactory_CreateUri, Fn_IUriRuntimeClassFactory_CreateUri)(it, h0, tmp.addr).check("Uri.CreateUri")
+      it.call(IUriRuntimeClassFactory_CreateUri, h0, tmp.addr)
       result = adopt[Uri](tmp)
 
-proc createWithRelativeUri*(_: typedesc[Uri], baseUri: string, relativeUri: string): Uri  =
+proc createWithRelativeUri*(_: typedesc[Uri], baseUri: string,
+                            relativeUri: string): Uri =
   ## Windows.Foundation.Uri.CreateWithRelativeUri
-  withStatics("Windows.Foundation.Uri", IID_IUriRuntimeClassFactory, it):
+  withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, it):
     withHString(baseUri, h0):
       withHString(relativeUri, h1):
         var tmp: pointer
-        vcall(it, Slot_IUriRuntimeClassFactory_CreateWithRelativeUri, Fn_IUriRuntimeClassFactory_CreateWithRelativeUri)(it, h0, h1, tmp.addr).check("Uri.CreateWithRelativeUri")
+        it.call(IUriRuntimeClassFactory_CreateWithRelativeUri, h0, h1, tmp.addr)
         result = adopt[Uri](tmp)
 
-proc getFirstValueByName*(self: WwwFormUrlDecoder, name: string): string  =
+proc getFirstValueByName*(self: WwwFormUrlDecoder, name: string): string =
   ## Windows.Foundation.WwwFormUrlDecoder.GetFirstValueByName
-  withIface(self.p, IID_IWwwFormUrlDecoderRuntimeClass, "IWwwFormUrlDecoderRuntimeClass", it):
+  withIface(self.p, IWwwFormUrlDecoderRuntimeClass, it):
     withHString(name, h0):
       var tmp: HSTRING
-      vcall(it, Slot_IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName, Fn_IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName)(it, h0, tmp.addr).check("WwwFormUrlDecoder.GetFirstValueByName")
+      it.call(IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName, h0, tmp.addr)
       result = takeString(tmp)
 
-proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string): WwwFormUrlDecoder  =
+proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string): WwwFormUrlDecoder =
   ## Windows.Foundation.WwwFormUrlDecoder.CreateWwwFormUrlDecoder
-  withStatics("Windows.Foundation.WwwFormUrlDecoder", IID_IWwwFormUrlDecoderRuntimeClassFactory, it):
+  withStatics("Windows.Foundation.WwwFormUrlDecoder",
+              IWwwFormUrlDecoderRuntimeClassFactory, it):
     withHString(query, h0):
       var tmp: pointer
-      vcall(it, Slot_IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder, Fn_IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder)(it, h0, tmp.addr).check("WwwFormUrlDecoder.CreateWwwFormUrlDecoder")
+      it.call(IWwwFormUrlDecoderRuntimeClassFactory_CreateWwwFormUrlDecoder, h0,
+              tmp.addr)
       result = adopt[WwwFormUrlDecoder](tmp)
 
-proc name*(self: WwwFormUrlDecoderEntry): string  =
+proc name*(self: WwwFormUrlDecoderEntry): string =
   ## Windows.Foundation.WwwFormUrlDecoderEntry.get_Name
-  withIface(self.p, IID_IWwwFormUrlDecoderEntry, "IWwwFormUrlDecoderEntry", it):
+  withIface(self.p, IWwwFormUrlDecoderEntry, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWwwFormUrlDecoderEntry_get_Name, Fn_IWwwFormUrlDecoderEntry_get_Name)(it, tmp.addr).check("WwwFormUrlDecoderEntry.get_Name")
+    it.call(IWwwFormUrlDecoderEntry_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc value*(self: WwwFormUrlDecoderEntry): string  =
+proc value*(self: WwwFormUrlDecoderEntry): string =
   ## Windows.Foundation.WwwFormUrlDecoderEntry.get_Value
-  withIface(self.p, IID_IWwwFormUrlDecoderEntry, "IWwwFormUrlDecoderEntry", it):
+  withIface(self.p, IWwwFormUrlDecoderEntry, it):
     var tmp: HSTRING
-    vcall(it, Slot_IWwwFormUrlDecoderEntry_get_Value, Fn_IWwwFormUrlDecoderEntry_get_Value)(it, tmp.addr).check("WwwFormUrlDecoderEntry.get_Value")
+    it.call(IWwwFormUrlDecoderEntry_get_Value, tmp.addr)
     result = takeString(tmp)
 

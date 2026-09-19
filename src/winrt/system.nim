@@ -8,2432 +8,2400 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-export core
-import ./abi/types
-export types
-import ./abi/applicationmodel
-export applicationmodel
-import ./abi/data
-export data
-import ./abi/foundation
-export foundation
-import ./abi/networking
-export networking
-import ./abi/security
-export security
-import ./abi/storage
-export storage
-import ./abi/system
-export system
-import ./abi/web
-export web
-import ./delegate
-import ./classes
-export classes
-import ./asyncops
-export asyncops
-import ./seqview
-import ./mapview
+import ./abi/[types, applicationmodel, data, foundation, networking, security,
+              storage, system, web]
+import ./[classes, delegate, asyncops, seqview, mapview]
+export core, types, applicationmodel, data, foundation, networking, security,
+       storage, system, web, classes, asyncops
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
-const IID_IVector_1_AppResourceGroupInfo* = GUID(
-    data1: 0xBD7D69A0'u32, data2: 0x0D57'u16, data3: 0x5148'u16,
-    data4: [0x8B'u8, 0x23, 0x49, 0xA0, 0x86, 0x54, 0xF0, 0xC7])
-const IID_AsyncOperationCompletedHandler_1_AppActivationResult* = GUID(
-    data1: 0x966E2307'u32, data2: 0xD529'u16, data3: 0x50EA'u16,
-    data4: [0x98'u8, 0x72, 0x8D, 0xFB, 0x35, 0xCF, 0xEF, 0xFD])
-const IID_IAsyncOperation_1_AppActivationResult* = GUID(
-    data1: 0xB6F373B8'u32, data2: 0xBD4D'u16, data3: 0x50BF'u16,
-    data4: [0x82'u8, 0xB4, 0x5B, 0x1D, 0x45, 0x2A, 0x5F, 0x83])
-const IID_AsyncOperationCompletedHandler_1_IVector_1* = GUID(
-    data1: 0xCC3F5F7E'u32, data2: 0x4160'u16, data3: 0x567F'u16,
-    data4: [0xA0'u8, 0xF6, 0xAA, 0x9A, 0xEB, 0x18, 0x7A, 0xF3])
-const IID_IAsyncOperation_1_IVector_1* = GUID(
-    data1: 0xD6A9D3B9'u32, data2: 0xF63C'u16, data3: 0x59BE'u16,
-    data4: [0xA0'u8, 0x96, 0x3E, 0x95, 0x57, 0xC4, 0x11, 0x82])
-const IID_IVector_1_AppDiagnosticInfo* = GUID(
-    data1: 0x9CFFA2C3'u32, data2: 0x7EEB'u16, data3: 0x599C'u16,
-    data4: [0xB9'u8, 0x4D, 0xC7, 0x94, 0xB1, 0x1F, 0x80, 0x7F])
-const IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus* = GUID(
-    data1: 0x5D1302D7'u32, data2: 0x5497'u16, data3: 0x5A92'u16,
-    data4: [0xBF'u8, 0x43, 0xEB, 0x8B, 0x50, 0x67, 0x9A, 0xAB])
-const IID_IAsyncOperation_1_DiagnosticAccessStatus* = GUID(
-    data1: 0x61C11BBE'u32, data2: 0x2618'u16, data3: 0x588A'u16,
-    data4: [0xA7'u8, 0xCA, 0xF6, 0x06, 0x91, 0x27, 0x23, 0x24])
-const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs* = GUID(
-    data1: 0x7C8C6F9F'u32, data2: 0xD6BF'u16, data3: 0x5566'u16,
-    data4: [0xB0'u8, 0x13, 0x39, 0xC1, 0x41, 0xE0, 0xFF, 0x8C])
-const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object* = GUID(
-    data1: 0x895DEE2F'u32, data2: 0xE0F2'u16, data3: 0x5304'u16,
-    data4: [0xA4'u8, 0x0E, 0x1C, 0x67, 0xA2, 0xC0, 0x58, 0xAA])
-const IID_IVector_1_AppResourceGroupBackgroundTaskReport* = GUID(
-    data1: 0x80F1820A'u32, data2: 0xDB02'u16, data3: 0x5CB2'u16,
-    data4: [0xA1'u8, 0x28, 0x51, 0x72, 0x15, 0x1D, 0x14, 0x44])
-const IID_IVector_1_ProcessDiagnosticInfo* = GUID(
-    data1: 0xF62E2D01'u32, data2: 0xC1DD'u16, data3: 0x5B60'u16,
-    data4: [0xB5'u8, 0xDA, 0x16, 0x51, 0x8C, 0xBA, 0x0B, 0xB0])
-const IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult* = GUID(
-    data1: 0xC162B59A'u32, data2: 0xBDD2'u16, data3: 0x5E4D'u16,
-    data4: [0xA3'u8, 0x09, 0xB4, 0x76, 0xEB, 0x97, 0xB8, 0x23])
-const IID_IAsyncOperation_1_AppExecutionStateChangeResult* = GUID(
-    data1: 0xC251CC22'u32, data2: 0xABA9'u16, data3: 0x59B8'u16,
-    data4: [0xBF'u8, 0x87, 0x20, 0x67, 0x7F, 0xC4, 0x92, 0x4E])
-const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs* = GUID(
-    data1: 0xA7E14BAE'u32, data2: 0xC778'u16, data3: 0x5661'u16,
-    data4: [0xA4'u8, 0x1C, 0x1A, 0xC3, 0xAC, 0x63, 0x5F, 0x79])
-const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object* = GUID(
-    data1: 0xE23A2901'u32, data2: 0x197A'u16, data3: 0x5867'u16,
-    data4: [0x87'u8, 0x28, 0x9C, 0x9D, 0xB9, 0x49, 0x8D, 0x76])
-const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherExecutionStateChangedEventArgs* = GUID(
-    data1: 0x93F9724C'u32, data2: 0x17F8'u16, data3: 0x5DF5'u16,
-    data4: [0xA6'u8, 0xCF, 0x2F, 0x0A, 0xB9, 0x0C, 0x0A, 0x27])
-const IID_IVectorView_1_AppDiagnosticInfo* = GUID(
-    data1: 0xB0C2C7A4'u32, data2: 0x78BA'u16, data3: 0x50FD'u16,
-    data4: [0x84'u8, 0xFE, 0x00, 0xE0, 0x2A, 0x6C, 0x1D, 0x42])
-const IID_AsyncOperationCompletedHandler_1_IVector_12* = GUID(
-    data1: 0xD725228C'u32, data2: 0x1DCD'u16, data3: 0x5748'u16,
-    data4: [0xA8'u8, 0x4A, 0xE5, 0xB0, 0x3C, 0x41, 0xE3, 0x97])
-const IID_IAsyncOperation_1_IVector_12* = GUID(
-    data1: 0xA87E4877'u32, data2: 0xF690'u16, data3: 0x5883'u16,
-    data4: [0xB2'u8, 0xBD, 0x9E, 0x3C, 0x2A, 0xB6, 0x64, 0x13])
-const IID_IVector_1_AppUriHandlerHost* = GUID(
-    data1: 0x4A226614'u32, data2: 0x2197'u16, data3: 0x526A'u16,
-    data4: [0xA9'u8, 0xFF, 0x03, 0x02, 0x5D, 0x18, 0xE3, 0x22])
-const IID_IIterable_1_AppUriHandlerHost* = GUID(
-    data1: 0xF6E575BD'u32, data2: 0xEAB7'u16, data3: 0x5981'u16,
-    data4: [0xBA'u8, 0x01, 0x49, 0xFF, 0x97, 0x6C, 0xA1, 0x86])
-const IID_IVectorView_1_AppUriHandlerHost* = GUID(
-    data1: 0xB5B07811'u32, data2: 0x1C9E'u16, data3: 0x5F97'u16,
-    data4: [0xBB'u8, 0x56, 0x17, 0xC8, 0x0B, 0x1B, 0x1A, 0x45])
-const IID_IIterator_1_AppUriHandlerHost* = GUID(
-    data1: 0x66078237'u32, data2: 0xA994'u16, data3: 0x50DE'u16,
-    data4: [0xB1'u8, 0xEA, 0x33, 0x8D, 0x7C, 0xF8, 0x9A, 0x2C])
-const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs* = GUID(
-    data1: 0x2AAD93A8'u32, data2: 0x52FA'u16, data3: 0x54B3'u16,
-    data4: [0x95'u8, 0x56, 0x15, 0xD6, 0x51, 0x20, 0x8B, 0x3F])
-const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionRequestReceivedEventArgs* = GUID(
-    data1: 0xD8E33FF8'u32, data2: 0x8AC4'u16, data3: 0x5FD9'u16,
-    data4: [0xB1'u8, 0x84, 0x8A, 0xE8, 0x7D, 0x82, 0x8E, 0xB9])
-const IID_IVectorView_1_String* = GUID(
-    data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
-    data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
-const IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState* = GUID(
-    data1: 0x390B0091'u32, data2: 0xCAF7'u16, data3: 0x5B64'u16,
-    data4: [0x83'u8, 0x9D, 0x49, 0x90, 0xAE, 0x7F, 0x75, 0x3C])
-const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState* = GUID(
-    data1: 0xBB5D493E'u32, data2: 0x74E9'u16, data3: 0x57A1'u16,
-    data4: [0x8C'u8, 0x4C, 0x92, 0x3E, 0x0D, 0xC4, 0x56, 0x5B])
-const IID_IVectorView_1_ProcessDiagnosticInfo* = GUID(
-    data1: 0x74AB2473'u32, data2: 0x9624'u16, data3: 0x5A06'u16,
-    data4: [0x90'u8, 0x25, 0x6D, 0x91, 0xE6, 0x22, 0xBF, 0x8E])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
-    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
-    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
-const IID_IIterator_1_IKeyValuePair_2* = GUID(
-    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
-    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
-const IID_IKeyValuePair_2_String_String* = GUID(
-    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
-    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IMapView_2_String_String* = GUID(
-    data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
-    data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
-const IID_IMap_2_String_String* = GUID(
-    data1: 0xF6D1F700'u32, data2: 0x49C2'u16, data3: 0x52AE'u16,
-    data4: [0x81'u8, 0x54, 0x82, 0x6F, 0x99, 0x08, 0x77, 0x3C])
-const IID_IVectorView_1_Guid* = GUID(
-    data1: 0x9520E64B'u32, data2: 0x15B2'u16, data3: 0x52A6'u16,
-    data4: [0x98'u8, 0xED, 0x31, 0x91, 0xFA, 0x6C, 0xF6, 0x8A])
-const IID_IVectorView_1_PlatformDiagnosticTraceInfo* = GUID(
-    data1: 0x8F1B3397'u32, data2: 0x4DC3'u16, data3: 0x5B72'u16,
-    data4: [0x91'u8, 0xFA, 0x0F, 0xDC, 0x91, 0x5D, 0x95, 0x0C])
-const IID_TypedEventHandler_2_DispatcherQueue_DispatcherQueueShutdownStartingEventArgs* = GUID(
-    data1: 0xB58B5E24'u32, data2: 0xE1C6'u16, data3: 0x528E'u16,
-    data4: [0x9D'u8, 0x99, 0x07, 0xEC, 0x88, 0x29, 0xDE, 0xA5])
-const IID_TypedEventHandler_2_DispatcherQueue_Object* = GUID(
-    data1: 0xFE79F855'u32, data2: 0x2F40'u16, data3: 0x5B88'u16,
-    data4: [0xA0'u8, 0xC3, 0x4C, 0x04, 0x2A, 0x05, 0xDD, 0x05])
-const IID_TypedEventHandler_2_DispatcherQueueTimer_Object* = GUID(
-    data1: 0x8B5644C8'u32, data2: 0x8B57'u16, data3: 0x50CE'u16,
-    data4: [0x89'u8, 0x33, 0x7A, 0xB2, 0xCC, 0x5A, 0x14, 0xEF])
-const IID_IVector_1_IStorageItem* = GUID(
-    data1: 0x802508E2'u32, data2: 0x9C2C'u16, data3: 0x5B91'u16,
-    data4: [0x89'u8, 0xA8, 0x39, 0xBC, 0xF7, 0x22, 0x33, 0x44])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
-    data1: 0xEB945C7C'u32, data2: 0x7EDD'u16, data3: 0x565A'u16,
-    data4: [0x8B'u8, 0xCC, 0x82, 0xBA, 0xF4, 0xEA, 0x17, 0xB6])
-const IID_IAsyncOperation_1_IVectorView_1* = GUID(
-    data1: 0x9FFDAF80'u32, data2: 0x6D25'u16, data3: 0x5E34'u16,
-    data4: [0x98'u8, 0x86, 0x2B, 0x5D, 0x54, 0x1D, 0x83, 0x24])
-const IID_IVectorView_1_InstalledDesktopApp* = GUID(
-    data1: 0xBA3A2146'u32, data2: 0x42DD'u16, data3: 0x5FA8'u16,
-    data4: [0xA7'u8, 0xF0, 0x36, 0xB6, 0x97, 0x38, 0x03, 0xB5])
-const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
-    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
-    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
-const IID_IAsyncOperation_1_Bool* = GUID(
-    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
-    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
-const IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus* = GUID(
-    data1: 0x198CAC52'u32, data2: 0xABCD'u16, data3: 0x5529'u16,
-    data4: [0x93'u8, 0x3F, 0x07, 0x1C, 0xC9, 0x3F, 0xD6, 0x35])
-const IID_IAsyncOperation_1_LaunchQuerySupportStatus* = GUID(
-    data1: 0xE7539992'u32, data2: 0x2220'u16, data3: 0x5D2D'u16,
-    data4: [0x82'u8, 0xC4, 0x3D, 0x44, 0xF8, 0x75, 0x0D, 0x91])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
-    data1: 0x07F25B6F'u32, data2: 0xF054'u16, data3: 0x5649'u16,
-    data4: [0xA5'u8, 0xCE, 0xB3, 0x48, 0xDD, 0xC6, 0x18, 0xB6])
-const IID_IAsyncOperation_1_IVectorView_12* = GUID(
-    data1: 0x07543D91'u32, data2: 0x8610'u16, data3: 0x5152'u16,
-    data4: [0xB0'u8, 0xE4, 0x43, 0xD6, 0xE4, 0xCD, 0xD0, 0xCB])
-const IID_IVectorView_1_AppInfo* = GUID(
-    data1: 0x8246ED12'u32, data2: 0x33E8'u16, data3: 0x52B3'u16,
-    data4: [0xA5'u8, 0xC5, 0x19, 0x77, 0x9D, 0xE9, 0x99, 0x9E])
-const IID_AsyncOperationCompletedHandler_1_LaunchUriStatus* = GUID(
-    data1: 0x520AA58E'u32, data2: 0x40D6'u16, data3: 0x5A57'u16,
-    data4: [0xA6'u8, 0xDC, 0xCB, 0x5F, 0xAE, 0xA5, 0xCC, 0xA5])
-const IID_IAsyncOperation_1_LaunchUriStatus* = GUID(
-    data1: 0xAB3D721B'u32, data2: 0xA4F3'u16, data3: 0x5861'u16,
-    data4: [0xB0'u8, 0x34, 0x03, 0x0B, 0x15, 0x23, 0x3C, 0x52])
-const IID_AsyncOperationCompletedHandler_1_LaunchUriResult* = GUID(
-    data1: 0x70A97BF8'u32, data2: 0xE0A5'u16, data3: 0x59BB'u16,
-    data4: [0x91'u8, 0x74, 0x81, 0x2A, 0x13, 0x1D, 0x85, 0xA0])
-const IID_IAsyncOperation_1_LaunchUriResult* = GUID(
-    data1: 0x7F97FC15'u32, data2: 0x1CD6'u16, data3: 0x54B7'u16,
-    data4: [0xA2'u8, 0x90, 0xAC, 0xB6, 0x0D, 0xBA, 0x81, 0xA1])
-const IID_IReference_1_Point* = GUID(
-    data1: 0x84F14C22'u32, data2: 0xA00A'u16, data3: 0x5272'u16,
-    data4: [0x8D'u8, 0x3D, 0x82, 0x11, 0x2E, 0x66, 0xDF, 0x00])
-const IID_IReference_1_Rect* = GUID(
-    data1: 0x80423F11'u32, data2: 0x054F'u16, data3: 0x5EAC'u16,
-    data4: [0xAF'u8, 0xD3, 0x63, 0xB6, 0xCE, 0x15, 0xE7, 0x7B])
-const IID_EventHandler_1_Object* = GUID(
-    data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
-    data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
-const IID_EventHandler_1_AppMemoryUsageLimitChangingEventArgs* = GUID(
-    data1: 0x6030E7C3'u32, data2: 0xF93F'u16, data3: 0x5E9C'u16,
-    data4: [0x9B'u8, 0xA2, 0x9A, 0x01, 0x8D, 0x2B, 0x09, 0xC0])
-const IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration* = GUID(
-    data1: 0x81B90641'u32, data2: 0x0B65'u16, data3: 0x56EF'u16,
-    data4: [0xB0'u8, 0x40, 0x45, 0x7F, 0x2E, 0x7B, 0xE3, 0x5A])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
-    data1: 0x36BFAE51'u32, data2: 0x120D'u16, data3: 0x5970'u16,
-    data4: [0xB9'u8, 0x25, 0xDF, 0xE1, 0xB2, 0x26, 0xBF, 0x9A])
-const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_PowerThermalChannelDataReceivedEventArgs* = GUID(
-    data1: 0xB59910AD'u32, data2: 0xA826'u16, data3: 0x5040'u16,
-    data4: [0x88'u8, 0x5B, 0xC8, 0x9F, 0xC0, 0xAD, 0x2C, 0xF3])
-const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_Object* = GUID(
-    data1: 0xFB816E05'u32, data2: 0xB649'u16, data3: 0x5BAF'u16,
-    data4: [0xBB'u8, 0x41, 0xC1, 0xA7, 0x05, 0x17, 0x73, 0xF0])
-const IID_TypedEventHandler_2_PowerThermalChannelDataProducer_Object* = GUID(
-    data1: 0x790AFC3F'u32, data2: 0x625E'u16, data3: 0x52AC'u16,
-    data4: [0x87'u8, 0x69, 0xFB, 0xB5, 0xB0, 0xBA, 0x73, 0x86])
-const IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading* = GUID(
-    data1: 0x4B1218AD'u32, data2: 0xD399'u16, data3: 0x5762'u16,
-    data4: [0x82'u8, 0x02, 0xC5, 0xD0, 0xD4, 0xB6, 0xEB, 0x54])
-const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading* = GUID(
-    data1: 0x2286A430'u32, data2: 0xA059'u16, data3: 0x5998'u16,
-    data4: [0x81'u8, 0x0C, 0x25, 0xBA, 0x16, 0x01, 0x7C, 0x9E])
-const IID_TypedEventHandler_2_TwoPanelHingedDevicePosturePreview_TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* = GUID(
-    data1: 0x3FC92C27'u32, data2: 0x176D'u16, data3: 0x58AA'u16,
-    data4: [0xA7'u8, 0x48, 0xBE, 0x82, 0xC3, 0x78, 0xDF, 0x41])
-const IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview* = GUID(
-    data1: 0xF2F2C54E'u32, data2: 0xDF52'u16, data3: 0x5A7F'u16,
-    data4: [0x86'u8, 0x10, 0xE5, 0x79, 0xFD, 0x85, 0x93, 0xD8])
-const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview* = GUID(
-    data1: 0xB9620919'u32, data2: 0xE111'u16, data3: 0x520F'u16,
-    data4: [0x80'u8, 0x97, 0x8E, 0x9B, 0x27, 0x53, 0x91, 0xB5])
-const IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult* = GUID(
-    data1: 0x8D787EE6'u32, data2: 0x07E4'u16, data3: 0x5DCE'u16,
-    data4: [0x8F'u8, 0xE5, 0xB5, 0x03, 0xA1, 0xF6, 0x36, 0x8C])
-const IID_IAsyncOperation_1_ProcessLauncherResult* = GUID(
-    data1: 0xE6827240'u32, data2: 0x7A8D'u16, data3: 0x51BE'u16,
-    data4: [0x8D'u8, 0x21, 0xE0, 0x93, 0x26, 0x8C, 0xCC, 0x15])
-const IID_IIterable_1_String* = GUID(
-    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
-    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
-const IID_IIterator_1_String* = GUID(
-    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
-    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
-const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
-    data1: 0x75E3182C'u32, data2: 0xE6E1'u16, data3: 0x589C'u16,
-    data4: [0xAB'u8, 0x73, 0xE8, 0x64, 0x4B, 0xC2, 0x85, 0xBF])
-const IID_IAsyncOperation_1_IMapView_2* = GUID(
-    data1: 0x817944B6'u32, data2: 0xF046'u16, data3: 0x5391'u16,
-    data4: [0xBB'u8, 0x0B, 0x4C, 0xC3, 0x4D, 0x80, 0x40, 0xF3])
-const IID_IVectorView_1_UnsupportedAppRequirement* = GUID(
-    data1: 0x5B638C58'u32, data2: 0x9D04'u16, data3: 0x5D1A'u16,
-    data4: [0x92'u8, 0xFB, 0x86, 0x08, 0x52, 0xC3, 0xE4, 0xD0])
-const IID_IKeyValuePair_2_String_Object* = GUID(
-    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
-    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
-    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
-    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
-const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
-    data1: 0xFF5F83B6'u32, data2: 0x18E5'u16, data3: 0x5787'u16,
-    data4: [0xBF'u8, 0x03, 0x97, 0x4C, 0xA9, 0x92, 0x92, 0x75])
-const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_PerformLocalActionRequestedEventArgs* = GUID(
-    data1: 0x6BF735E4'u32, data2: 0x8EAF'u16, data3: 0x53AC'u16,
-    data4: [0x90'u8, 0x53, 0x4B, 0x2A, 0x41, 0x54, 0x28, 0xA3])
-const IID_IVector_1_RemoteDesktopInfo* = GUID(
-    data1: 0x0D009032'u32, data2: 0xEC6B'u16, data3: 0x5789'u16,
-    data4: [0x9A'u8, 0x69, 0xEB, 0x76, 0x9E, 0x0A, 0x16, 0x44])
-const IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus* = GUID(
-    data1: 0x3F8F4B1B'u32, data2: 0xCD54'u16, data3: 0x543C'u16,
-    data4: [0x81'u8, 0x7F, 0x26, 0x30, 0x48, 0x7F, 0x18, 0x78])
-const IID_IAsyncOperation_1_RemoteLaunchUriStatus* = GUID(
-    data1: 0xBB70E5CD'u32, data2: 0x62C2'u16, data3: 0x5F78'u16,
-    data4: [0xAC'u8, 0x8D, 0xF4, 0xB9, 0x73, 0x98, 0x1D, 0xA4])
-const IID_IVector_1_String* = GUID(
-    data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
-    data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
-const IID_IVectorView_1_RemoteSystemApp* = GUID(
-    data1: 0x40011F82'u32, data2: 0xE7E8'u16, data3: 0x5A96'u16,
-    data4: [0xB7'u8, 0x67, 0x39, 0x9C, 0x6A, 0x4B, 0xE1, 0x01])
-const IID_AsyncOperationCompletedHandler_1_RemoteSystem* = GUID(
-    data1: 0x3A0B522D'u32, data2: 0x98D0'u16, data3: 0x5D34'u16,
-    data4: [0xAC'u8, 0xE6, 0x2C, 0x73, 0x46, 0x61, 0x3F, 0x1D])
-const IID_IAsyncOperation_1_RemoteSystem* = GUID(
-    data1: 0x0D39F546'u32, data2: 0x0ECA'u16, data3: 0x5236'u16,
-    data4: [0xA5'u8, 0xCA, 0x7E, 0x36, 0x60, 0x65, 0x84, 0x62])
-const IID_IIterable_1_IRemoteSystemFilter* = GUID(
-    data1: 0x13966C92'u32, data2: 0xA8DE'u16, data3: 0x50C0'u16,
-    data4: [0xB1'u8, 0x6B, 0x00, 0xC2, 0xC4, 0x8F, 0x5F, 0x37])
-const IID_IVectorView_1_IRemoteSystemFilter* = GUID(
-    data1: 0xD2810AE1'u32, data2: 0xCFF2'u16, data3: 0x5636'u16,
-    data4: [0x8F'u8, 0xEB, 0x05, 0x4C, 0x5D, 0x3A, 0x1A, 0xE2])
-const IID_IIterator_1_IRemoteSystemFilter* = GUID(
-    data1: 0x6A2C5AEF'u32, data2: 0x9F30'u16, data3: 0x58AE'u16,
-    data4: [0xA6'u8, 0xCB, 0x9A, 0xC9, 0xC8, 0x09, 0x2A, 0x41])
-const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = GUID(
-    data1: 0x543A221D'u32, data2: 0xEF39'u16, data3: 0x57F5'u16,
-    data4: [0x97'u8, 0x41, 0xB0, 0x52, 0xDB, 0xC2, 0x92, 0x49])
-const IID_IAsyncOperation_1_RemoteSystemAccessStatus* = GUID(
-    data1: 0xD76DA678'u32, data2: 0xDD76'u16, data3: 0x5460'u16,
-    data4: [0x87'u8, 0x45, 0x91, 0x5B, 0x44, 0x10, 0xC9, 0x05])
-const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = GUID(
-    data1: 0xFBA14773'u32, data2: 0x5038'u16, data3: 0x511A'u16,
-    data4: [0x95'u8, 0xA3, 0x4B, 0xA4, 0x53, 0x49, 0x10, 0x0A])
-const IID_TypedEventHandler_2_RemoteSystemSessionController_RemoteSystemSessionJoinRequestedEventArgs* = GUID(
-    data1: 0xD8E04916'u32, data2: 0xB452'u16, data3: 0x5322'u16,
-    data4: [0xAE'u8, 0xC9, 0xE3, 0xD4, 0xD5, 0x81, 0xC7, 0x72])
-const IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult* = GUID(
-    data1: 0x6E72C549'u32, data2: 0x73AA'u16, data3: 0x5168'u16,
-    data4: [0x85'u8, 0x60, 0xC7, 0x23, 0x64, 0x93, 0xB5, 0x04])
-const IID_IAsyncOperation_1_RemoteSystemSessionCreationResult* = GUID(
-    data1: 0x90364BF5'u32, data2: 0xD084'u16, data3: 0x5F50'u16,
-    data4: [0x97'u8, 0x29, 0x82, 0x02, 0x53, 0x26, 0xAB, 0xEF])
-const IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult* = GUID(
-    data1: 0x379ADF35'u32, data2: 0x4CB4'u16, data3: 0x522F'u16,
-    data4: [0x91'u8, 0xBE, 0x91, 0x3B, 0x56, 0x90, 0x56, 0x8F])
-const IID_IAsyncOperation_1_RemoteSystemSessionJoinResult* = GUID(
-    data1: 0xC58DBD1E'u32, data2: 0xE300'u16, data3: 0x55A8'u16,
-    data4: [0xAD'u8, 0xA5, 0xE2, 0x5A, 0xAA, 0xA8, 0x66, 0x67])
-const IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs* = GUID(
-    data1: 0x18A242BB'u32, data2: 0xD338'u16, data3: 0x56C4'u16,
-    data4: [0x95'u8, 0x59, 0x56, 0x8D, 0x5C, 0x2C, 0x3E, 0x93])
-const IID_IIterable_1_RemoteSystemSessionParticipant* = GUID(
-    data1: 0x00189D10'u32, data2: 0x16EC'u16, data3: 0x5D1A'u16,
-    data4: [0x83'u8, 0x69, 0x48, 0x70, 0xC6, 0x9E, 0x52, 0xB3])
-const IID_IVectorView_1_RemoteSystemSessionParticipant* = GUID(
-    data1: 0x9EEB2C2D'u32, data2: 0x1AB6'u16, data3: 0x59E8'u16,
-    data4: [0xB2'u8, 0x09, 0xB6, 0x0B, 0x6E, 0x43, 0xA6, 0x72])
-const IID_IIterator_1_RemoteSystemSessionParticipant* = GUID(
-    data1: 0x05FEC44B'u32, data2: 0x3DD9'u16, data3: 0x5CF1'u16,
-    data4: [0xA1'u8, 0x00, 0xBE, 0xDC, 0x92, 0x33, 0x29, 0x2D])
-const IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs* = GUID(
-    data1: 0xC476232D'u32, data2: 0x8C76'u16, data3: 0x5BA6'u16,
-    data4: [0x99'u8, 0xF5, 0x14, 0x55, 0x74, 0x84, 0xC2, 0x0D])
-const IID_IVectorView_1_HostName* = GUID(
-    data1: 0xF4706AB1'u32, data2: 0x55A3'u16, data3: 0x5270'u16,
-    data4: [0xAF'u8, 0xB2, 0x73, 0x29, 0x88, 0xFE, 0x82, 0x27])
-const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantAddedEventArgs* = GUID(
-    data1: 0x7D42FFF3'u32, data2: 0xFD21'u16, data3: 0x5E15'u16,
-    data4: [0xB2'u8, 0x1A, 0x75, 0xE1, 0xBB, 0xCD, 0x13, 0xC7])
-const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantRemovedEventArgs* = GUID(
-    data1: 0x73D7E8B3'u32, data2: 0x7D44'u16, data3: 0x50C8'u16,
-    data4: [0xAF'u8, 0xAD, 0x45, 0x0D, 0xE5, 0x9F, 0xD0, 0xAE])
-const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_Object* = GUID(
-    data1: 0xD4CF5BDA'u32, data2: 0xCC7A'u16, data3: 0x52EF'u16,
-    data4: [0xA2'u8, 0x56, 0xC4, 0xB3, 0x61, 0x63, 0xBE, 0xEC])
-const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionAddedEventArgs* = GUID(
-    data1: 0x1B036C4F'u32, data2: 0x6B8F'u16, data3: 0x55D6'u16,
-    data4: [0xB6'u8, 0xDF, 0x45, 0xE4, 0x6A, 0x82, 0x3B, 0x1D])
-const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionUpdatedEventArgs* = GUID(
-    data1: 0x040F48B7'u32, data2: 0x0D41'u16, data3: 0x5AA2'u16,
-    data4: [0x85'u8, 0xE8, 0x63, 0x11, 0x66, 0x6F, 0x03, 0x24])
-const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionRemovedEventArgs* = GUID(
-    data1: 0x1CBC54F0'u32, data2: 0x0C9D'u16, data3: 0x59CC'u16,
-    data4: [0x80'u8, 0x55, 0x5E, 0x01, 0x7A, 0x31, 0x78, 0x12])
-const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemAddedEventArgs* = GUID(
-    data1: 0xA9B98F4A'u32, data2: 0xB63D'u16, data3: 0x5D07'u16,
-    data4: [0x92'u8, 0xBB, 0xE2, 0xAC, 0xB3, 0x94, 0x55, 0xD1])
-const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemUpdatedEventArgs* = GUID(
-    data1: 0x88F9D23F'u32, data2: 0x8946'u16, data3: 0x5A1E'u16,
-    data4: [0x8D'u8, 0xA1, 0x82, 0xC6, 0x69, 0x82, 0xA6, 0xD2])
-const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemRemovedEventArgs* = GUID(
-    data1: 0xC290FB5A'u32, data2: 0x3ED0'u16, data3: 0x5858'u16,
-    data4: [0xAF'u8, 0x19, 0xF8, 0x55, 0x53, 0xCB, 0x96, 0xB8])
-const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemEnumerationCompletedEventArgs* = GUID(
-    data1: 0x42AE9D52'u32, data2: 0xFD0D'u16, data3: 0x5411'u16,
-    data4: [0x8C'u8, 0x8C, 0xD6, 0x76, 0xA0, 0x97, 0x67, 0xE9])
-const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemWatcherErrorOccurredEventArgs* = GUID(
-    data1: 0xA4A023B4'u32, data2: 0x567B'u16, data3: 0x5D4B'u16,
-    data4: [0xA4'u8, 0xC8, 0x5C, 0xA4, 0xF8, 0x86, 0xD3, 0xA3])
-const IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus* = GUID(
-    data1: 0xC2B7624C'u32, data2: 0x9F35'u16, data3: 0x5074'u16,
-    data4: [0x80'u8, 0x21, 0x06, 0x33, 0x18, 0x48, 0x99, 0xA7])
-const IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus* = GUID(
-    data1: 0xB69475AC'u32, data2: 0xA5D4'u16, data3: 0x53D7'u16,
-    data4: [0xA5'u8, 0x3A, 0xBB, 0x01, 0xB6, 0x96, 0x20, 0xFA])
-const IID_IVectorView_1_SystemUpdateItem* = GUID(
-    data1: 0x7C77B64C'u32, data2: 0x8BE2'u16, data3: 0x50E0'u16,
-    data4: [0x8C'u8, 0xA5, 0xD8, 0x26, 0x5D, 0x80, 0x90, 0x2B])
-const IID_AsyncOperationCompletedHandler_1_Object* = GUID(
-    data1: 0x3F08262E'u32, data2: 0xA2E1'u16, data3: 0x5134'u16,
-    data4: [0x92'u8, 0x97, 0xE9, 0x21, 0x1F, 0x48, 0x1A, 0x2D])
-const IID_IAsyncOperation_1_Object* = GUID(
-    data1: 0xABF53C57'u32, data2: 0xEE50'u16, data3: 0x5342'u16,
-    data4: [0xB5'u8, 0x2A, 0x26, 0xE3, 0xB8, 0xCC, 0x02, 0x4F])
-const IID_AsyncOperationCompletedHandler_1_IPropertySet* = GUID(
-    data1: 0x5075A55F'u32, data2: 0x68BA'u16, data3: 0x56F2'u16,
-    data4: [0x97'u8, 0xE6, 0x9B, 0x1C, 0xBF, 0xA2, 0xC5, 0xF2])
-const IID_IAsyncOperation_1_IPropertySet* = GUID(
-    data1: 0x490B0686'u32, data2: 0xAFD7'u16, data3: 0x5037'u16,
-    data4: [0x96'u8, 0x47, 0xD8, 0xFE, 0x24, 0x8F, 0x18, 0x2C])
-const IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference* = GUID(
-    data1: 0x60847289'u32, data2: 0xEA0B'u16, data3: 0x5DF6'u16,
-    data4: [0x89'u8, 0xDF, 0xF2, 0xC6, 0x2C, 0xBA, 0x96, 0x93])
-const IID_IAsyncOperation_1_IRandomAccessStreamReference* = GUID(
-    data1: 0x65178D50'u32, data2: 0xE6A2'u16, data3: 0x5D16'u16,
-    data4: [0xB2'u8, 0x44, 0x65, 0xE9, 0x72, 0x5E, 0x5A, 0x0C])
-const IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult* = GUID(
-    data1: 0x5FF26075'u32, data2: 0x034F'u16, data3: 0x5186'u16,
-    data4: [0x8F'u8, 0xD3, 0x9E, 0xDA, 0x8D, 0xA3, 0xE7, 0x39])
-const IID_IAsyncOperation_1_UserAgeConsentResult* = GUID(
-    data1: 0xD4DF0010'u32, data2: 0x0172'u16, data3: 0x5EFA'u16,
-    data4: [0xBD'u8, 0x5C, 0x64, 0x44, 0xDE, 0x94, 0xAF, 0x74])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = GUID(
-    data1: 0x09870533'u32, data2: 0xF7CB'u16, data3: 0x569C'u16,
-    data4: [0xB7'u8, 0x97, 0xDC, 0xB4, 0x8D, 0xEB, 0xD7, 0x09])
-const IID_IAsyncOperation_1_IVectorView_13* = GUID(
-    data1: 0xE44EA1DF'u32, data2: 0xBB85'u16, data3: 0x5A8C'u16,
-    data4: [0xBD'u8, 0xDC, 0xC8, 0xE9, 0x60, 0xC3, 0x55, 0xC9])
-const IID_IVectorView_1_User* = GUID(
-    data1: 0x8CBD762A'u32, data2: 0x1222'u16, data3: 0x5EE5'u16,
-    data4: [0xB7'u8, 0x45, 0x48, 0x9E, 0x7A, 0x42, 0xC6, 0xEC])
-const IID_IVectorView_1_UserWatcherUpdateKind* = GUID(
-    data1: 0x92B358CD'u32, data2: 0xC1CA'u16, data3: 0x5552'u16,
-    data4: [0x9E'u8, 0x2E, 0x67, 0xE2, 0xD6, 0xEA, 0xD4, 0xD1])
-const IID_EventHandler_1_UserDeviceAssociationChangedEventArgs* = GUID(
-    data1: 0xD3A3D4C5'u32, data2: 0xD8B6'u16, data3: 0x5A0E'u16,
-    data4: [0x88'u8, 0xED, 0xA5, 0x49, 0x9C, 0x37, 0x7B, 0xE3])
-const IID_AsyncOperationCompletedHandler_1_User* = GUID(
-    data1: 0xF913E3A2'u32, data2: 0xD1C5'u16, data3: 0x5308'u16,
-    data4: [0xBE'u8, 0xCF, 0x4C, 0x2D, 0x81, 0x67, 0x82, 0x4A])
-const IID_IAsyncOperation_1_User* = GUID(
-    data1: 0xA895D2F9'u32, data2: 0x2399'u16, data3: 0x5104'u16,
-    data4: [0xA5'u8, 0x32, 0x5B, 0xA4, 0x4A, 0xB4, 0xB1, 0x65])
-const IID_AsyncOperationCompletedHandler_1_SetImageFeedResult* = GUID(
-    data1: 0xF214731A'u32, data2: 0x1305'u16, data3: 0x5B44'u16,
-    data4: [0x93'u8, 0x2C, 0xAF, 0x9A, 0x1E, 0x4D, 0x78, 0xC9])
-const IID_IAsyncOperation_1_SetImageFeedResult* = GUID(
-    data1: 0x5361BFC9'u32, data2: 0x0740'u16, data3: 0x544A'u16,
-    data4: [0x97'u8, 0x97, 0x1F, 0xFE, 0x5E, 0x73, 0xC5, 0x4E])
-const IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult* = GUID(
-    data1: 0x603F3E31'u32, data2: 0x7A51'u16, data3: 0x518C'u16,
-    data4: [0x92'u8, 0x80, 0xC1, 0x88, 0xEA, 0x42, 0x13, 0xD8])
-const IID_IAsyncOperation_1_SetAccountPictureResult* = GUID(
-    data1: 0x6809E406'u32, data2: 0x6D3B'u16, data3: 0x5164'u16,
-    data4: [0x8F'u8, 0x32, 0xB8, 0x45, 0xB0, 0x78, 0x14, 0x05])
-const IID_AsyncOperationCompletedHandler_1_String* = GUID(
-    data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
-    data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
-const IID_IAsyncOperation_1_String* = GUID(
-    data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
-    data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
-const IID_AsyncOperationCompletedHandler_1_Uri* = GUID(
-    data1: 0xAD46F1CC'u32, data2: 0x2BB0'u16, data3: 0x585C'u16,
-    data4: [0x98'u8, 0x85, 0x03, 0xC2, 0x78, 0x0D, 0x4D, 0x58])
-const IID_IAsyncOperation_1_Uri* = GUID(
-    data1: 0x641CB9DD'u32, data2: 0xA28D'u16, data3: 0x59E2'u16,
-    data4: [0xB8'u8, 0xDB, 0xA2, 0x27, 0xED, 0xA6, 0xCF, 0x2E])
-const IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs* = GUID(
-    data1: 0xEB9D0454'u32, data2: 0x25DB'u16, data3: 0x5620'u16,
-    data4: [0x98'u8, 0xB8, 0xBE, 0x4C, 0x5D, 0x0D, 0xBC, 0x67])
-const IID_TypedEventHandler_2_UserWatcher_UserAuthenticationStatusChangingEventArgs* = GUID(
-    data1: 0x9EC3D9D5'u32, data2: 0xB413'u16, data3: 0x51DF'u16,
-    data4: [0x8C'u8, 0x64, 0x64, 0x0E, 0x33, 0x56, 0xE3, 0x51])
-const IID_TypedEventHandler_2_UserWatcher_Object* = GUID(
-    data1: 0xF155E0FF'u32, data2: 0xDBB5'u16, data3: 0x5C34'u16,
-    data4: [0xAC'u8, 0x0C, 0x7E, 0x29, 0x1E, 0x33, 0x00, 0xAB])
+const IID_IVector_1_AppResourceGroupInfo* = guid"BD7D69A0-0D57-5148-8B23-49A08654F0C7"
+const IID_AsyncOperationCompletedHandler_1_AppActivationResult* = guid"966E2307-D529-50EA-9872-8DFB35CFEFFD"
+const IID_IAsyncOperation_1_AppActivationResult* = guid"B6F373B8-BD4D-50BF-82B4-5B1D452A5F83"
+const IID_AsyncOperationCompletedHandler_1_IVector_1* = guid"CC3F5F7E-4160-567F-A0F6-AA9AEB187AF3"
+const IID_IAsyncOperation_1_IVector_1* = guid"D6A9D3B9-F63C-59BE-A096-3E9557C41182"
+const IID_IVector_1_AppDiagnosticInfo* = guid"9CFFA2C3-7EEB-599C-B94D-C794B11F807F"
+const IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus* = guid"5D1302D7-5497-5A92-BF43-EB8B50679AAB"
+const IID_IAsyncOperation_1_DiagnosticAccessStatus* = guid"61C11BBE-2618-588A-A7CA-F60691272324"
+const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs* = guid"7C8C6F9F-D6BF-5566-B013-39C141E0FF8C"
+const IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object* = guid"895DEE2F-E0F2-5304-A40E-1C67A2C058AA"
+const IID_IVector_1_AppResourceGroupBackgroundTaskReport* = guid"80F1820A-DB02-5CB2-A128-5172151D1444"
+const IID_IVector_1_ProcessDiagnosticInfo* = guid"F62E2D01-C1DD-5B60-B5DA-16518CBA0BB0"
+const IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult* = guid"C162B59A-BDD2-5E4D-A309-B476EB97B823"
+const IID_IAsyncOperation_1_AppExecutionStateChangeResult* = guid"C251CC22-ABA9-59B8-BF87-20677FC4924E"
+const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs* = guid"A7E14BAE-C778-5661-A41C-1AC3AC635F79"
+const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object* = guid"E23A2901-197A-5867-8728-9C9DB9498D76"
+const IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherExecutionStateChangedEventArgs* = guid"93F9724C-17F8-5DF5-A6CF-2F0AB90C0A27"
+const IID_IVectorView_1_AppDiagnosticInfo* = guid"B0C2C7A4-78BA-50FD-84FE-00E02A6C1D42"
+const IID_AsyncOperationCompletedHandler_1_IVector_12* = guid"D725228C-1DCD-5748-A84A-E5B03C41E397"
+const IID_IAsyncOperation_1_IVector_12* = guid"A87E4877-F690-5883-B2BD-9E3C2AB66413"
+const IID_IVector_1_AppUriHandlerHost* = guid"4A226614-2197-526A-A9FF-03025D18E322"
+const IID_IIterable_1_AppUriHandlerHost* = guid"F6E575BD-EAB7-5981-BA01-49FF976CA186"
+const IID_IVectorView_1_AppUriHandlerHost* = guid"B5B07811-1C9E-5F97-BB56-17C80B1B1A45"
+const IID_IIterator_1_AppUriHandlerHost* = guid"66078237-A994-50DE-B1EA-338D7CF89A2C"
+const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs* = guid"2AAD93A8-52FA-54B3-9556-15D651208B3F"
+const IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionRequestReceivedEventArgs* = guid"D8E33FF8-8AC4-5FD9-B184-8AE87D828EB9"
+const IID_IVectorView_1_String* = guid"2F13C006-A03A-5F69-B090-75A43E33423E"
+const IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState* = guid"390B0091-CAF7-5B64-839D-4990AE7F753C"
+const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState* = guid"BB5D493E-74E9-57A1-8C4C-923E0DC4565B"
+const IID_IVectorView_1_ProcessDiagnosticInfo* = guid"74AB2473-9624-5A06-9025-6D91E622BF8E"
+const IID_IIterable_1_IKeyValuePair_2* = guid"E9BDAAF0-CBF6-5C72-BE90-29CBF3A1319B"
+const IID_IIterator_1_IKeyValuePair_2* = guid"05EB86F1-7140-5517-B88D-CBAEBE57E6B1"
+const IID_IKeyValuePair_2_String_String* = guid"60310303-49C5-52E6-ABC6-A9B36ECCC716"
+const IID_IMapView_2_String_String* = guid"AC7F26F2-FEB7-5B2A-8AC4-345BC62CAEDE"
+const IID_IMap_2_String_String* = guid"F6D1F700-49C2-52AE-8154-826F9908773C"
+const IID_IVectorView_1_Guid* = guid"9520E64B-15B2-52A6-98ED-3191FA6CF68A"
+const IID_IVectorView_1_PlatformDiagnosticTraceInfo* = guid"8F1B3397-4DC3-5B72-91FA-0FDC915D950C"
+const IID_TypedEventHandler_2_DispatcherQueue_DispatcherQueueShutdownStartingEventArgs* = guid"B58B5E24-E1C6-528E-9D99-07EC8829DEA5"
+const IID_TypedEventHandler_2_DispatcherQueue_Object* = guid"FE79F855-2F40-5B88-A0C3-4C042A05DD05"
+const IID_TypedEventHandler_2_DispatcherQueueTimer_Object* = guid"8B5644C8-8B57-50CE-8933-7AB2CC5A14EF"
+const IID_IVector_1_IStorageItem* = guid"802508E2-9C2C-5B91-89A8-39BCF7223344"
+const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = guid"EB945C7C-7EDD-565A-8BCC-82BAF4EA17B6"
+const IID_IAsyncOperation_1_IVectorView_1* = guid"9FFDAF80-6D25-5E34-9886-2B5D541D8324"
+const IID_IVectorView_1_InstalledDesktopApp* = guid"BA3A2146-42DD-5FA8-A7F0-36B6973803B5"
+const IID_AsyncOperationCompletedHandler_1_Bool* = guid"C1D3D1A2-AE17-5A5F-B5A2-BDCC8844889A"
+const IID_IAsyncOperation_1_Bool* = guid"CDB5EFB3-5788-509D-9BE1-71CCB8A3362A"
+const IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus* = guid"198CAC52-ABCD-5529-933F-071CC93FD635"
+const IID_IAsyncOperation_1_LaunchQuerySupportStatus* = guid"E7539992-2220-5D2D-82C4-3D44F8750D91"
+const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = guid"07F25B6F-F054-5649-A5CE-B348DDC618B6"
+const IID_IAsyncOperation_1_IVectorView_12* = guid"07543D91-8610-5152-B0E4-43D6E4CDD0CB"
+const IID_IVectorView_1_AppInfo* = guid"8246ED12-33E8-52B3-A5C5-19779DE9999E"
+const IID_AsyncOperationCompletedHandler_1_LaunchUriStatus* = guid"520AA58E-40D6-5A57-A6DC-CB5FAEA5CCA5"
+const IID_IAsyncOperation_1_LaunchUriStatus* = guid"AB3D721B-A4F3-5861-B034-030B15233C52"
+const IID_AsyncOperationCompletedHandler_1_LaunchUriResult* = guid"70A97BF8-E0A5-59BB-9174-812A131D85A0"
+const IID_IAsyncOperation_1_LaunchUriResult* = guid"7F97FC15-1CD6-54B7-A290-ACB60DBA81A1"
+const IID_IReference_1_Point* = guid"84F14C22-A00A-5272-8D3D-82112E66DF00"
+const IID_IReference_1_Rect* = guid"80423F11-054F-5EAC-AFD3-63B6CE15E77B"
+const IID_EventHandler_1_Object* = guid"C50898F6-C536-5F47-8583-8B2C2438A13B"
+const IID_EventHandler_1_AppMemoryUsageLimitChangingEventArgs* = guid"6030E7C3-F93F-5E9C-9BA2-9A018D2B09C0"
+const IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration* = guid"81B90641-0B65-56EF-B040-457F2E7BE35A"
+const IID_IIterable_1_IKeyValuePair_22* = guid"36BFAE51-120D-5970-B925-DFE1B226BF9A"
+const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_PowerThermalChannelDataReceivedEventArgs* = guid"B59910AD-A826-5040-885B-C89FC0AD2CF3"
+const IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_Object* = guid"FB816E05-B649-5BAF-BB41-C1A7051773F0"
+const IID_TypedEventHandler_2_PowerThermalChannelDataProducer_Object* = guid"790AFC3F-625E-52AC-8769-FBB5B0BA7386"
+const IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading* = guid"4B1218AD-D399-5762-8202-C5D0D4B6EB54"
+const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading* = guid"2286A430-A059-5998-810C-25BA16017C9E"
+const IID_TypedEventHandler_2_TwoPanelHingedDevicePosturePreview_TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* = guid"3FC92C27-176D-58AA-A748-BE82C378DF41"
+const IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview* = guid"F2F2C54E-DF52-5A7F-8610-E579FD8593D8"
+const IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview* = guid"B9620919-E111-520F-8097-8E9B275391B5"
+const IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult* = guid"8D787EE6-07E4-5DCE-8FE5-B503A1F6368C"
+const IID_IAsyncOperation_1_ProcessLauncherResult* = guid"E6827240-7A8D-51BE-8D21-E093268CCC15"
+const IID_IIterable_1_String* = guid"E2FCC7C1-3BFC-5A0B-B2B0-72E769D1CB7E"
+const IID_IIterator_1_String* = guid"8C304EBB-6615-50A4-8829-879ECD443236"
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = guid"75E3182C-E6E1-589C-AB73-E8644BC285BF"
+const IID_IAsyncOperation_1_IMapView_2* = guid"817944B6-F046-5391-BB0B-4CC34D8040F3"
+const IID_IVectorView_1_UnsupportedAppRequirement* = guid"5B638C58-9D04-5D1A-92FB-860852C3E4D0"
+const IID_IKeyValuePair_2_String_Object* = guid"09335560-6C6B-5A26-9348-97B781132B20"
+const IID_IIterable_1_IKeyValuePair_23* = guid"FE2F3D47-5D47-5499-8374-430C7CDA0204"
+const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = guid"FF5F83B6-18E5-5787-BF03-974CA9929275"
+const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_PerformLocalActionRequestedEventArgs* = guid"6BF735E4-8EAF-53AC-9053-4B2A415428A3"
+const IID_IVector_1_RemoteDesktopInfo* = guid"0D009032-EC6B-5789-9A69-EB769E0A1644"
+const IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus* = guid"3F8F4B1B-CD54-543C-817F-2630487F1878"
+const IID_IAsyncOperation_1_RemoteLaunchUriStatus* = guid"BB70E5CD-62C2-5F78-AC8D-F4B973981DA4"
+const IID_IVector_1_String* = guid"98B9ACC1-4B56-532E-AC73-03D5291CCA90"
+const IID_IVectorView_1_RemoteSystemApp* = guid"40011F82-E7E8-5A96-B767-399C6A4BE101"
+const IID_AsyncOperationCompletedHandler_1_RemoteSystem* = guid"3A0B522D-98D0-5D34-ACE6-2C7346613F1D"
+const IID_IAsyncOperation_1_RemoteSystem* = guid"0D39F546-0ECA-5236-A5CA-7E3660658462"
+const IID_IIterable_1_IRemoteSystemFilter* = guid"13966C92-A8DE-50C0-B16B-00C2C48F5F37"
+const IID_IVectorView_1_IRemoteSystemFilter* = guid"D2810AE1-CFF2-5636-8FEB-054C5D3A1AE2"
+const IID_IIterator_1_IRemoteSystemFilter* = guid"6A2C5AEF-9F30-58AE-A6CB-9AC9C8092A41"
+const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = guid"543A221D-EF39-57F5-9741-B052DBC29249"
+const IID_IAsyncOperation_1_RemoteSystemAccessStatus* = guid"D76DA678-DD76-5460-8745-915B4410C905"
+const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = guid"FBA14773-5038-511A-95A3-4BA45349100A"
+const IID_TypedEventHandler_2_RemoteSystemSessionController_RemoteSystemSessionJoinRequestedEventArgs* = guid"D8E04916-B452-5322-AEC9-E3D4D581C772"
+const IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult* = guid"6E72C549-73AA-5168-8560-C7236493B504"
+const IID_IAsyncOperation_1_RemoteSystemSessionCreationResult* = guid"90364BF5-D084-5F50-9729-82025326ABEF"
+const IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult* = guid"379ADF35-4CB4-522F-91BE-913B5690568F"
+const IID_IAsyncOperation_1_RemoteSystemSessionJoinResult* = guid"C58DBD1E-E300-55A8-ADA5-E25AAAA86667"
+const IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs* = guid"18A242BB-D338-56C4-9559-568D5C2C3E93"
+const IID_IIterable_1_RemoteSystemSessionParticipant* = guid"00189D10-16EC-5D1A-8369-4870C69E52B3"
+const IID_IVectorView_1_RemoteSystemSessionParticipant* = guid"9EEB2C2D-1AB6-59E8-B209-B60B6E43A672"
+const IID_IIterator_1_RemoteSystemSessionParticipant* = guid"05FEC44B-3DD9-5CF1-A100-BEDC9233292D"
+const IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs* = guid"C476232D-8C76-5BA6-99F5-14557484C20D"
+const IID_IVectorView_1_HostName* = guid"F4706AB1-55A3-5270-AFB2-732988FE8227"
+const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantAddedEventArgs* = guid"7D42FFF3-FD21-5E15-B21A-75E1BBCD13C7"
+const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantRemovedEventArgs* = guid"73D7E8B3-7D44-50C8-AFAD-450DE59FD0AE"
+const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_Object* = guid"D4CF5BDA-CC7A-52EF-A256-C4B36163BEEC"
+const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionAddedEventArgs* = guid"1B036C4F-6B8F-55D6-B6DF-45E46A823B1D"
+const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionUpdatedEventArgs* = guid"040F48B7-0D41-5AA2-85E8-6311666F0324"
+const IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionRemovedEventArgs* = guid"1CBC54F0-0C9D-59CC-8055-5E017A317812"
+const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemAddedEventArgs* = guid"A9B98F4A-B63D-5D07-92BB-E2ACB39455D1"
+const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemUpdatedEventArgs* = guid"88F9D23F-8946-5A1E-8DA1-82C66982A6D2"
+const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemRemovedEventArgs* = guid"C290FB5A-3ED0-5858-AF19-F85553CB96B8"
+const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemEnumerationCompletedEventArgs* = guid"42AE9D52-FD0D-5411-8C8C-D676A09767E9"
+const IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemWatcherErrorOccurredEventArgs* = guid"A4A023B4-567B-5D4B-A4C8-5CA4F886D3A3"
+const IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus* = guid"C2B7624C-9F35-5074-8021-0633184899A7"
+const IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus* = guid"B69475AC-A5D4-53D7-A53A-BB01B69620FA"
+const IID_IVectorView_1_SystemUpdateItem* = guid"7C77B64C-8BE2-50E0-8CA5-D8265D80902B"
+const IID_AsyncOperationCompletedHandler_1_Object* = guid"3F08262E-A2E1-5134-9297-E9211F481A2D"
+const IID_IAsyncOperation_1_Object* = guid"ABF53C57-EE50-5342-B52A-26E3B8CC024F"
+const IID_AsyncOperationCompletedHandler_1_IPropertySet* = guid"5075A55F-68BA-56F2-97E6-9B1CBFA2C5F2"
+const IID_IAsyncOperation_1_IPropertySet* = guid"490B0686-AFD7-5037-9647-D8FE248F182C"
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference* = guid"60847289-EA0B-5DF6-89DF-F2C62CBA9693"
+const IID_IAsyncOperation_1_IRandomAccessStreamReference* = guid"65178D50-E6A2-5D16-B244-65E9725E5A0C"
+const IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult* = guid"5FF26075-034F-5186-8FD3-9EDA8DA3E739"
+const IID_IAsyncOperation_1_UserAgeConsentResult* = guid"D4DF0010-0172-5EFA-BD5C-6444DE94AF74"
+const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = guid"09870533-F7CB-569C-B797-DCB48DEBD709"
+const IID_IAsyncOperation_1_IVectorView_13* = guid"E44EA1DF-BB85-5A8C-BDDC-C8E960C355C9"
+const IID_IVectorView_1_User* = guid"8CBD762A-1222-5EE5-B745-489E7A42C6EC"
+const IID_IVectorView_1_UserWatcherUpdateKind* = guid"92B358CD-C1CA-5552-9E2E-67E2D6EAD4D1"
+const IID_EventHandler_1_UserDeviceAssociationChangedEventArgs* = guid"D3A3D4C5-D8B6-5A0E-88ED-A5499C377BE3"
+const IID_AsyncOperationCompletedHandler_1_User* = guid"F913E3A2-D1C5-5308-BECF-4C2D8167824A"
+const IID_IAsyncOperation_1_User* = guid"A895D2F9-2399-5104-A532-5BA44AB4B165"
+const IID_AsyncOperationCompletedHandler_1_SetImageFeedResult* = guid"F214731A-1305-5B44-932C-AF9A1E4D78C9"
+const IID_IAsyncOperation_1_SetImageFeedResult* = guid"5361BFC9-0740-544A-9797-1FFE5E73C54E"
+const IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult* = guid"603F3E31-7A51-518C-9280-C188EA4213D8"
+const IID_IAsyncOperation_1_SetAccountPictureResult* = guid"6809E406-6D3B-5164-8F32-B845B0781405"
+const IID_AsyncOperationCompletedHandler_1_String* = guid"B79A741F-7FB5-50AE-9E99-911201EC3D41"
+const IID_IAsyncOperation_1_String* = guid"3E1FE603-F897-5263-B328-0806426B8A79"
+const IID_AsyncOperationCompletedHandler_1_Uri* = guid"AD46F1CC-2BB0-585C-9885-03C2780D4D58"
+const IID_IAsyncOperation_1_Uri* = guid"641CB9DD-A28D-59E2-B8DB-A227EDA6CF2E"
+const IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs* = guid"EB9D0454-25DB-5620-98B8-BE4C5D0DBC67"
+const IID_TypedEventHandler_2_UserWatcher_UserAuthenticationStatusChangingEventArgs* = guid"9EC3D9D5-B413-51DF-8C64-640E3356E351"
+const IID_TypedEventHandler_2_UserWatcher_Object* = guid"F155E0FF-DBB5-5C34-AC0C-7E291E3300AB"
 
 
-proc extendedError*(self: AppActivationResult): HRESULT  =
+proc extendedError*(self: AppActivationResult): HRESULT =
   ## Windows.System.AppActivationResult.get_ExtendedError
-  withIface(self.p, IID_IAppActivationResult, "IAppActivationResult", it):
+  withIface(self.p, IAppActivationResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IAppActivationResult_get_ExtendedError, Fn_IAppActivationResult_get_ExtendedError)(it, tmp.addr).check("AppActivationResult.get_ExtendedError")
+    it.call(IAppActivationResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc appResourceGroupInfo*(self: AppActivationResult): AppResourceGroupInfo  =
+proc appResourceGroupInfo*(self: AppActivationResult): AppResourceGroupInfo =
   ## Windows.System.AppActivationResult.get_AppResourceGroupInfo
-  withIface(self.p, IID_IAppActivationResult, "IAppActivationResult", it):
+  withIface(self.p, IAppActivationResult, it):
     var tmp: pointer
-    vcall(it, Slot_IAppActivationResult_get_AppResourceGroupInfo, Fn_IAppActivationResult_get_AppResourceGroupInfo)(it, tmp.addr).check("AppActivationResult.get_AppResourceGroupInfo")
+    it.call(IAppActivationResult_get_AppResourceGroupInfo, tmp.addr)
     result = adopt[AppResourceGroupInfo](tmp)
 
-proc appInfo*(self: AppDiagnosticInfo): AppInfo  =
+proc appInfo*(self: AppDiagnosticInfo): AppInfo =
   ## Windows.System.AppDiagnosticInfo.get_AppInfo
-  withIface(self.p, IID_IAppDiagnosticInfo, "IAppDiagnosticInfo", it):
+  withIface(self.p, IAppDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IAppDiagnosticInfo_get_AppInfo, Fn_IAppDiagnosticInfo_get_AppInfo)(it, tmp.addr).check("AppDiagnosticInfo.get_AppInfo")
+    it.call(IAppDiagnosticInfo_get_AppInfo, tmp.addr)
     result = adopt[AppInfo](tmp)
 
-proc getResourceGroups*(self: AppDiagnosticInfo): seq[AppResourceGroupInfo]  =
+proc getResourceGroups*(self: AppDiagnosticInfo): seq[AppResourceGroupInfo] =
   ## Windows.System.AppDiagnosticInfo.GetResourceGroups
-  withIface(self.p, IID_IAppDiagnosticInfo2, "IAppDiagnosticInfo2", it):
+  withIface(self.p, IAppDiagnosticInfo2, it):
     var tmp: pointer
-    vcall(it, Slot_IAppDiagnosticInfo2_GetResourceGroups, Fn_IAppDiagnosticInfo2_GetResourceGroups)(it, tmp.addr).check("AppDiagnosticInfo.GetResourceGroups")
+    it.call(IAppDiagnosticInfo2_GetResourceGroups, tmp.addr)
     result = toSeq[AppResourceGroupInfo](tmp, IID_IVector_1_AppResourceGroupInfo)
     release(tmp)
 
-proc createResourceGroupWatcher*(self: AppDiagnosticInfo): AppResourceGroupInfoWatcher  =
+proc createResourceGroupWatcher*(self: AppDiagnosticInfo): AppResourceGroupInfoWatcher =
   ## Windows.System.AppDiagnosticInfo.CreateResourceGroupWatcher
-  withIface(self.p, IID_IAppDiagnosticInfo2, "IAppDiagnosticInfo2", it):
+  withIface(self.p, IAppDiagnosticInfo2, it):
     var tmp: pointer
-    vcall(it, Slot_IAppDiagnosticInfo2_CreateResourceGroupWatcher, Fn_IAppDiagnosticInfo2_CreateResourceGroupWatcher)(it, tmp.addr).check("AppDiagnosticInfo.CreateResourceGroupWatcher")
+    it.call(IAppDiagnosticInfo2_CreateResourceGroupWatcher, tmp.addr)
     result = adopt[AppResourceGroupInfoWatcher](tmp)
 
 proc launchAsync*(self: AppDiagnosticInfo): Future[AppActivationResult] {.async.} =
   ## Windows.System.AppDiagnosticInfo.LaunchAsync
   var op: pointer
-  withIface(self.p, IID_IAppDiagnosticInfo3, "IAppDiagnosticInfo3", it):
-    vcall(it, Slot_IAppDiagnosticInfo3_LaunchAsync, Fn_IAppDiagnosticInfo3_LaunchAsync)(it, op.addr).check("AppDiagnosticInfo.LaunchAsync")
-  result = adopt[AppActivationResult](await awaitObject(op, IID_IAsyncOperation_1_AppActivationResult, IID_AsyncOperationCompletedHandler_1_AppActivationResult, alPlain, "AppDiagnosticInfo.LaunchAsync"))
+  withIface(self.p, IAppDiagnosticInfo3, it):
+    it.call(IAppDiagnosticInfo3_LaunchAsync, op.addr)
+  result = adopt[AppActivationResult](await awaitObject(op,
+                                                        IID_IAsyncOperation_1_AppActivationResult,
+                                                        IID_AsyncOperationCompletedHandler_1_AppActivationResult,
+                                                        alPlain,
+                                                        "AppDiagnosticInfo.LaunchAsync"))
 
 proc requestInfoAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] {.async.} =
   ## Windows.System.AppDiagnosticInfo.RequestInfoAsync
   var op: pointer
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics, it):
-    vcall(it, Slot_IAppDiagnosticInfoStatics_RequestInfoAsync, Fn_IAppDiagnosticInfoStatics_RequestInfoAsync)(it, op.addr).check("AppDiagnosticInfo.RequestInfoAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "AppDiagnosticInfo.RequestInfoAsync")
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics, it):
+    it.call(IAppDiagnosticInfoStatics_RequestInfoAsync, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
+                               IID_AsyncOperationCompletedHandler_1_IVector_1,
+                               alPlain, "AppDiagnosticInfo.RequestInfoAsync")
   result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
   discard release(coll)
 
-proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher  =
+proc createWatcher*(_: typedesc[AppDiagnosticInfo]): AppDiagnosticInfoWatcher =
   ## Windows.System.AppDiagnosticInfo.CreateWatcher
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IAppDiagnosticInfoStatics2_CreateWatcher, Fn_IAppDiagnosticInfoStatics2_CreateWatcher)(it, tmp.addr).check("AppDiagnosticInfo.CreateWatcher")
+    it.call(IAppDiagnosticInfoStatics2_CreateWatcher, tmp.addr)
     result = adopt[AppDiagnosticInfoWatcher](tmp)
 
 proc requestAccessAsync*(_: typedesc[AppDiagnosticInfo]): Future[DiagnosticAccessStatus] {.async.} =
   ## Windows.System.AppDiagnosticInfo.RequestAccessAsync
   var op: pointer
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
-    vcall(it, Slot_IAppDiagnosticInfoStatics2_RequestAccessAsync, Fn_IAppDiagnosticInfoStatics2_RequestAccessAsync)(it, op.addr).check("AppDiagnosticInfo.RequestAccessAsync")
-  result = await awaitValue[DiagnosticAccessStatus](op, IID_IAsyncOperation_1_DiagnosticAccessStatus, IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus, alPlain, "AppDiagnosticInfo.RequestAccessAsync")
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it):
+    it.call(IAppDiagnosticInfoStatics2_RequestAccessAsync, op.addr)
+  result = await awaitValue[DiagnosticAccessStatus](op,
+                                                    IID_IAsyncOperation_1_DiagnosticAccessStatus,
+                                                    IID_AsyncOperationCompletedHandler_1_DiagnosticAccessStatus,
+                                                    alPlain,
+                                                    "AppDiagnosticInfo.RequestAccessAsync")
 
-proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo], packageFamilyName: string): Future[seq[AppDiagnosticInfo]] {.async.} =
+proc requestInfoForPackageAsync*(_: typedesc[AppDiagnosticInfo],
+                                 packageFamilyName: string): Future[seq[AppDiagnosticInfo]] {.async.} =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForPackageAsync
   var op: pointer
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it):
     withHString(packageFamilyName, h0):
-      vcall(it, Slot_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync, Fn_IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync)(it, h0, op.addr).check("AppDiagnosticInfo.RequestInfoForPackageAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "AppDiagnosticInfo.RequestInfoForPackageAsync")
+      it.call(IAppDiagnosticInfoStatics2_RequestInfoForPackageAsync, h0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
+                               IID_AsyncOperationCompletedHandler_1_IVector_1,
+                               alPlain,
+                               "AppDiagnosticInfo.RequestInfoForPackageAsync")
   result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
   discard release(coll)
 
 proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo]): Future[seq[AppDiagnosticInfo]] {.async.} =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForAppAsync
   var op: pointer
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
-    vcall(it, Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync, Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync)(it, op.addr).check("AppDiagnosticInfo.RequestInfoForAppAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "AppDiagnosticInfo.RequestInfoForAppAsync")
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it):
+    it.call(IAppDiagnosticInfoStatics2_RequestInfoForAppAsync, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
+                               IID_AsyncOperationCompletedHandler_1_IVector_1,
+                               alPlain,
+                               "AppDiagnosticInfo.RequestInfoForAppAsync")
   result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
   discard release(coll)
 
-proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo], appUserModelId: string): Future[seq[AppDiagnosticInfo]] {.async.} =
+proc requestInfoForAppAsync*(_: typedesc[AppDiagnosticInfo],
+                             appUserModelId: string): Future[seq[AppDiagnosticInfo]] {.async.} =
   ## Windows.System.AppDiagnosticInfo.RequestInfoForAppAsync
   var op: pointer
-  withStatics("Windows.System.AppDiagnosticInfo", IID_IAppDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.AppDiagnosticInfo", IAppDiagnosticInfoStatics2, it):
     withHString(appUserModelId, h0):
-      vcall(it, Slot_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2, Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2)(it, h0, op.addr).check("AppDiagnosticInfo.RequestInfoForAppAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "AppDiagnosticInfo.RequestInfoForAppAsync")
+      it.call(IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2, h0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1,
+                               IID_AsyncOperationCompletedHandler_1_IVector_1,
+                               alPlain,
+                               "AppDiagnosticInfo.RequestInfoForAppAsync")
   result = toSeq[AppDiagnosticInfo](coll, IID_IVector_1_AppDiagnosticInfo)
   discard release(coll)
 
 proc onAdded*(self: AppDiagnosticInfoWatcher,
-    handler: proc(sender: AppDiagnosticInfoWatcher, args: AppDiagnosticInfoWatcherEventArgs)): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[AppDiagnosticInfoWatcher, AppDiagnosticInfoWatcherEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppDiagnosticInfoWatcher.add_Added
-  ##
-  ## The token is what `removeAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[AppDiagnosticInfoWatcherEventArgs](a1)), event = true)
+  ## The token is what `removeAdded` takes.
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppDiagnosticInfoWatcher](a0),
+              borrow[AppDiagnosticInfoWatcherEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAppDiagnosticInfoWatcher_add_Added, Fn_IAppDiagnosticInfoWatcher_add_Added)(it, cb, result.addr)
-        .check("AppDiagnosticInfoWatcher.add_Added")
+      it.call(IAppDiagnosticInfoWatcher_add_Added, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAdded*(self: AppDiagnosticInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_remove_Added, Fn_IAppDiagnosticInfoWatcher_remove_Added)(it, token).check("AppDiagnosticInfoWatcher.remove_Added")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_remove_Added, token)
 
 proc onRemoved*(self: AppDiagnosticInfoWatcher,
-    handler: proc(sender: AppDiagnosticInfoWatcher, args: AppDiagnosticInfoWatcherEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[AppDiagnosticInfoWatcher, AppDiagnosticInfoWatcherEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppDiagnosticInfoWatcher.add_Removed
-  ##
-  ## The token is what `removeRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[AppDiagnosticInfoWatcherEventArgs](a1)), event = true)
+  ## The token is what `removeRemoved` takes.
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppDiagnosticInfoWatcher](a0),
+              borrow[AppDiagnosticInfoWatcherEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_AppDiagnosticInfoWatcherEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAppDiagnosticInfoWatcher_add_Removed, Fn_IAppDiagnosticInfoWatcher_add_Removed)(it, cb, result.addr)
-        .check("AppDiagnosticInfoWatcher.add_Removed")
+      it.call(IAppDiagnosticInfoWatcher_add_Removed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoved*(self: AppDiagnosticInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_remove_Removed, Fn_IAppDiagnosticInfoWatcher_remove_Removed)(it, token).check("AppDiagnosticInfoWatcher.remove_Removed")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_remove_Removed, token)
 
 proc onEnumerationCompleted*(self: AppDiagnosticInfoWatcher,
-    handler: proc(sender: AppDiagnosticInfoWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[AppDiagnosticInfoWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppDiagnosticInfoWatcher.add_EnumerationCompleted
-  ##
-  ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeEnumerationCompleted` takes.
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IAppDiagnosticInfoWatcher_add_EnumerationCompleted, Fn_IAppDiagnosticInfoWatcher_add_EnumerationCompleted)(it, cb, result.addr)
-        .check("AppDiagnosticInfoWatcher.add_EnumerationCompleted")
+      it.call(IAppDiagnosticInfoWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnumerationCompleted*(self: AppDiagnosticInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted, Fn_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted)(it, token).check("AppDiagnosticInfoWatcher.remove_EnumerationCompleted")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_remove_EnumerationCompleted, token)
 
 proc onStopped*(self: AppDiagnosticInfoWatcher,
-    handler: proc(sender: AppDiagnosticInfoWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[AppDiagnosticInfoWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppDiagnosticInfoWatcher.add_Stopped
-  ##
-  ## The token is what `removeStopped` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeStopped` takes.
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppDiagnosticInfoWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppDiagnosticInfoWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IAppDiagnosticInfoWatcher_add_Stopped, Fn_IAppDiagnosticInfoWatcher_add_Stopped)(it, cb, result.addr)
-        .check("AppDiagnosticInfoWatcher.add_Stopped")
+      it.call(IAppDiagnosticInfoWatcher_add_Stopped, cb, result.addr)
     finally:
       release(cb)
 
 proc removeStopped*(self: AppDiagnosticInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_remove_Stopped, Fn_IAppDiagnosticInfoWatcher_remove_Stopped)(it, token).check("AppDiagnosticInfoWatcher.remove_Stopped")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_remove_Stopped, token)
 
-proc status*(self: AppDiagnosticInfoWatcher): AppDiagnosticInfoWatcherStatus  =
+proc status*(self: AppDiagnosticInfoWatcher): AppDiagnosticInfoWatcherStatus =
   ## Windows.System.AppDiagnosticInfoWatcher.get_Status
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
     var tmp: AppDiagnosticInfoWatcherStatus
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_get_Status, Fn_IAppDiagnosticInfoWatcher_get_Status)(it, tmp.addr).check("AppDiagnosticInfoWatcher.get_Status")
+    it.call(IAppDiagnosticInfoWatcher_get_Status, tmp.addr)
     result = tmp
 
-proc start*(self: AppDiagnosticInfoWatcher)  =
+proc start*(self: AppDiagnosticInfoWatcher) =
   ## Windows.System.AppDiagnosticInfoWatcher.Start
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_Start, Fn_IAppDiagnosticInfoWatcher_Start)(it).check("AppDiagnosticInfoWatcher.Start")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_Start)
 
-proc stop*(self: AppDiagnosticInfoWatcher)  =
+proc stop*(self: AppDiagnosticInfoWatcher) =
   ## Windows.System.AppDiagnosticInfoWatcher.Stop
-  withIface(self.p, IID_IAppDiagnosticInfoWatcher, "IAppDiagnosticInfoWatcher", it):
-    vcall(it, Slot_IAppDiagnosticInfoWatcher_Stop, Fn_IAppDiagnosticInfoWatcher_Stop)(it).check("AppDiagnosticInfoWatcher.Stop")
+  withIface(self.p, IAppDiagnosticInfoWatcher, it):
+    it.call(IAppDiagnosticInfoWatcher_Stop)
 
-proc appDiagnosticInfo*(self: AppDiagnosticInfoWatcherEventArgs): AppDiagnosticInfo  =
+proc appDiagnosticInfo*(self: AppDiagnosticInfoWatcherEventArgs): AppDiagnosticInfo =
   ## Windows.System.AppDiagnosticInfoWatcherEventArgs.get_AppDiagnosticInfo
-  withIface(self.p, IID_IAppDiagnosticInfoWatcherEventArgs, "IAppDiagnosticInfoWatcherEventArgs", it):
+  withIface(self.p, IAppDiagnosticInfoWatcherEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo, Fn_IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo)(it, tmp.addr).check("AppDiagnosticInfoWatcherEventArgs.get_AppDiagnosticInfo")
+    it.call(IAppDiagnosticInfoWatcherEventArgs_get_AppDiagnosticInfo, tmp.addr)
     result = adopt[AppDiagnosticInfo](tmp)
 
-proc extendedError*(self: AppExecutionStateChangeResult): HRESULT  =
+proc extendedError*(self: AppExecutionStateChangeResult): HRESULT =
   ## Windows.System.AppExecutionStateChangeResult.get_ExtendedError
-  withIface(self.p, IID_IAppExecutionStateChangeResult, "IAppExecutionStateChangeResult", it):
+  withIface(self.p, IAppExecutionStateChangeResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IAppExecutionStateChangeResult_get_ExtendedError, Fn_IAppExecutionStateChangeResult_get_ExtendedError)(it, tmp.addr).check("AppExecutionStateChangeResult.get_ExtendedError")
+    it.call(IAppExecutionStateChangeResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc privateCommitUsage*(self: AppMemoryReport): uint64  =
+proc privateCommitUsage*(self: AppMemoryReport): uint64 =
   ## Windows.System.AppMemoryReport.get_PrivateCommitUsage
-  withIface(self.p, IID_IAppMemoryReport, "IAppMemoryReport", it):
+  withIface(self.p, IAppMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryReport_get_PrivateCommitUsage, Fn_IAppMemoryReport_get_PrivateCommitUsage)(it, tmp.addr).check("AppMemoryReport.get_PrivateCommitUsage")
+    it.call(IAppMemoryReport_get_PrivateCommitUsage, tmp.addr)
     result = tmp
 
-proc peakPrivateCommitUsage*(self: AppMemoryReport): uint64  =
+proc peakPrivateCommitUsage*(self: AppMemoryReport): uint64 =
   ## Windows.System.AppMemoryReport.get_PeakPrivateCommitUsage
-  withIface(self.p, IID_IAppMemoryReport, "IAppMemoryReport", it):
+  withIface(self.p, IAppMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryReport_get_PeakPrivateCommitUsage, Fn_IAppMemoryReport_get_PeakPrivateCommitUsage)(it, tmp.addr).check("AppMemoryReport.get_PeakPrivateCommitUsage")
+    it.call(IAppMemoryReport_get_PeakPrivateCommitUsage, tmp.addr)
     result = tmp
 
-proc totalCommitUsage*(self: AppMemoryReport): uint64  =
+proc totalCommitUsage*(self: AppMemoryReport): uint64 =
   ## Windows.System.AppMemoryReport.get_TotalCommitUsage
-  withIface(self.p, IID_IAppMemoryReport, "IAppMemoryReport", it):
+  withIface(self.p, IAppMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryReport_get_TotalCommitUsage, Fn_IAppMemoryReport_get_TotalCommitUsage)(it, tmp.addr).check("AppMemoryReport.get_TotalCommitUsage")
+    it.call(IAppMemoryReport_get_TotalCommitUsage, tmp.addr)
     result = tmp
 
-proc totalCommitLimit*(self: AppMemoryReport): uint64  =
+proc totalCommitLimit*(self: AppMemoryReport): uint64 =
   ## Windows.System.AppMemoryReport.get_TotalCommitLimit
-  withIface(self.p, IID_IAppMemoryReport, "IAppMemoryReport", it):
+  withIface(self.p, IAppMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryReport_get_TotalCommitLimit, Fn_IAppMemoryReport_get_TotalCommitLimit)(it, tmp.addr).check("AppMemoryReport.get_TotalCommitLimit")
+    it.call(IAppMemoryReport_get_TotalCommitLimit, tmp.addr)
     result = tmp
 
-proc expectedTotalCommitLimit*(self: AppMemoryReport): uint64  =
+proc expectedTotalCommitLimit*(self: AppMemoryReport): uint64 =
   ## Windows.System.AppMemoryReport.get_ExpectedTotalCommitLimit
-  withIface(self.p, IID_IAppMemoryReport2, "IAppMemoryReport2", it):
+  withIface(self.p, IAppMemoryReport2, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryReport2_get_ExpectedTotalCommitLimit, Fn_IAppMemoryReport2_get_ExpectedTotalCommitLimit)(it, tmp.addr).check("AppMemoryReport.get_ExpectedTotalCommitLimit")
+    it.call(IAppMemoryReport2_get_ExpectedTotalCommitLimit, tmp.addr)
     result = tmp
 
-proc oldLimit*(self: AppMemoryUsageLimitChangingEventArgs): uint64  =
+proc oldLimit*(self: AppMemoryUsageLimitChangingEventArgs): uint64 =
   ## Windows.System.AppMemoryUsageLimitChangingEventArgs.get_OldLimit
-  withIface(self.p, IID_IAppMemoryUsageLimitChangingEventArgs, "IAppMemoryUsageLimitChangingEventArgs", it):
+  withIface(self.p, IAppMemoryUsageLimitChangingEventArgs, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit, Fn_IAppMemoryUsageLimitChangingEventArgs_get_OldLimit)(it, tmp.addr).check("AppMemoryUsageLimitChangingEventArgs.get_OldLimit")
+    it.call(IAppMemoryUsageLimitChangingEventArgs_get_OldLimit, tmp.addr)
     result = tmp
 
-proc newLimit*(self: AppMemoryUsageLimitChangingEventArgs): uint64  =
+proc newLimit*(self: AppMemoryUsageLimitChangingEventArgs): uint64 =
   ## Windows.System.AppMemoryUsageLimitChangingEventArgs.get_NewLimit
-  withIface(self.p, IID_IAppMemoryUsageLimitChangingEventArgs, "IAppMemoryUsageLimitChangingEventArgs", it):
+  withIface(self.p, IAppMemoryUsageLimitChangingEventArgs, it):
     var tmp: uint64
-    vcall(it, Slot_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit, Fn_IAppMemoryUsageLimitChangingEventArgs_get_NewLimit)(it, tmp.addr).check("AppMemoryUsageLimitChangingEventArgs.get_NewLimit")
+    it.call(IAppMemoryUsageLimitChangingEventArgs_get_NewLimit, tmp.addr)
     result = tmp
 
-proc taskId*(self: AppResourceGroupBackgroundTaskReport): GUID  =
+proc taskId*(self: AppResourceGroupBackgroundTaskReport): GUID =
   ## Windows.System.AppResourceGroupBackgroundTaskReport.get_TaskId
-  withIface(self.p, IID_IAppResourceGroupBackgroundTaskReport, "IAppResourceGroupBackgroundTaskReport", it):
+  withIface(self.p, IAppResourceGroupBackgroundTaskReport, it):
     var tmp: GUID
-    vcall(it, Slot_IAppResourceGroupBackgroundTaskReport_get_TaskId, Fn_IAppResourceGroupBackgroundTaskReport_get_TaskId)(it, tmp.addr).check("AppResourceGroupBackgroundTaskReport.get_TaskId")
+    it.call(IAppResourceGroupBackgroundTaskReport_get_TaskId, tmp.addr)
     result = tmp
 
-proc name*(self: AppResourceGroupBackgroundTaskReport): string  =
+proc name*(self: AppResourceGroupBackgroundTaskReport): string =
   ## Windows.System.AppResourceGroupBackgroundTaskReport.get_Name
-  withIface(self.p, IID_IAppResourceGroupBackgroundTaskReport, "IAppResourceGroupBackgroundTaskReport", it):
+  withIface(self.p, IAppResourceGroupBackgroundTaskReport, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppResourceGroupBackgroundTaskReport_get_Name, Fn_IAppResourceGroupBackgroundTaskReport_get_Name)(it, tmp.addr).check("AppResourceGroupBackgroundTaskReport.get_Name")
+    it.call(IAppResourceGroupBackgroundTaskReport_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc trigger*(self: AppResourceGroupBackgroundTaskReport): string  =
+proc trigger*(self: AppResourceGroupBackgroundTaskReport): string =
   ## Windows.System.AppResourceGroupBackgroundTaskReport.get_Trigger
-  withIface(self.p, IID_IAppResourceGroupBackgroundTaskReport, "IAppResourceGroupBackgroundTaskReport", it):
+  withIface(self.p, IAppResourceGroupBackgroundTaskReport, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppResourceGroupBackgroundTaskReport_get_Trigger, Fn_IAppResourceGroupBackgroundTaskReport_get_Trigger)(it, tmp.addr).check("AppResourceGroupBackgroundTaskReport.get_Trigger")
+    it.call(IAppResourceGroupBackgroundTaskReport_get_Trigger, tmp.addr)
     result = takeString(tmp)
 
-proc entryPoint*(self: AppResourceGroupBackgroundTaskReport): string  =
+proc entryPoint*(self: AppResourceGroupBackgroundTaskReport): string =
   ## Windows.System.AppResourceGroupBackgroundTaskReport.get_EntryPoint
-  withIface(self.p, IID_IAppResourceGroupBackgroundTaskReport, "IAppResourceGroupBackgroundTaskReport", it):
+  withIface(self.p, IAppResourceGroupBackgroundTaskReport, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppResourceGroupBackgroundTaskReport_get_EntryPoint, Fn_IAppResourceGroupBackgroundTaskReport_get_EntryPoint)(it, tmp.addr).check("AppResourceGroupBackgroundTaskReport.get_EntryPoint")
+    it.call(IAppResourceGroupBackgroundTaskReport_get_EntryPoint, tmp.addr)
     result = takeString(tmp)
 
-proc instanceId*(self: AppResourceGroupInfo): GUID  =
+proc instanceId*(self: AppResourceGroupInfo): GUID =
   ## Windows.System.AppResourceGroupInfo.get_InstanceId
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: GUID
-    vcall(it, Slot_IAppResourceGroupInfo_get_InstanceId, Fn_IAppResourceGroupInfo_get_InstanceId)(it, tmp.addr).check("AppResourceGroupInfo.get_InstanceId")
+    it.call(IAppResourceGroupInfo_get_InstanceId, tmp.addr)
     result = tmp
 
-proc isShared*(self: AppResourceGroupInfo): bool  =
+proc isShared*(self: AppResourceGroupInfo): bool =
   ## Windows.System.AppResourceGroupInfo.get_IsShared
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: bool
-    vcall(it, Slot_IAppResourceGroupInfo_get_IsShared, Fn_IAppResourceGroupInfo_get_IsShared)(it, tmp.addr).check("AppResourceGroupInfo.get_IsShared")
+    it.call(IAppResourceGroupInfo_get_IsShared, tmp.addr)
     result = tmp
 
-proc getBackgroundTaskReports*(self: AppResourceGroupInfo): seq[AppResourceGroupBackgroundTaskReport]  =
+proc getBackgroundTaskReports*(self: AppResourceGroupInfo): seq[AppResourceGroupBackgroundTaskReport] =
   ## Windows.System.AppResourceGroupInfo.GetBackgroundTaskReports
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfo_GetBackgroundTaskReports, Fn_IAppResourceGroupInfo_GetBackgroundTaskReports)(it, tmp.addr).check("AppResourceGroupInfo.GetBackgroundTaskReports")
-    result = toSeq[AppResourceGroupBackgroundTaskReport](tmp, IID_IVector_1_AppResourceGroupBackgroundTaskReport)
+    it.call(IAppResourceGroupInfo_GetBackgroundTaskReports, tmp.addr)
+    result = toSeq[AppResourceGroupBackgroundTaskReport](tmp,
+                                                         IID_IVector_1_AppResourceGroupBackgroundTaskReport)
     release(tmp)
 
-proc getMemoryReport*(self: AppResourceGroupInfo): AppResourceGroupMemoryReport  =
+proc getMemoryReport*(self: AppResourceGroupInfo): AppResourceGroupMemoryReport =
   ## Windows.System.AppResourceGroupInfo.GetMemoryReport
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfo_GetMemoryReport, Fn_IAppResourceGroupInfo_GetMemoryReport)(it, tmp.addr).check("AppResourceGroupInfo.GetMemoryReport")
+    it.call(IAppResourceGroupInfo_GetMemoryReport, tmp.addr)
     result = adopt[AppResourceGroupMemoryReport](tmp)
 
-proc getProcessDiagnosticInfos*(self: AppResourceGroupInfo): seq[ProcessDiagnosticInfo]  =
+proc getProcessDiagnosticInfos*(self: AppResourceGroupInfo): seq[ProcessDiagnosticInfo] =
   ## Windows.System.AppResourceGroupInfo.GetProcessDiagnosticInfos
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfo_GetProcessDiagnosticInfos, Fn_IAppResourceGroupInfo_GetProcessDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfo.GetProcessDiagnosticInfos")
-    result = toSeq[ProcessDiagnosticInfo](tmp, IID_IVector_1_ProcessDiagnosticInfo)
+    it.call(IAppResourceGroupInfo_GetProcessDiagnosticInfos, tmp.addr)
+    result = toSeq[ProcessDiagnosticInfo](tmp,
+                                          IID_IVector_1_ProcessDiagnosticInfo)
     release(tmp)
 
-proc getStateReport*(self: AppResourceGroupInfo): AppResourceGroupStateReport  =
+proc getStateReport*(self: AppResourceGroupInfo): AppResourceGroupStateReport =
   ## Windows.System.AppResourceGroupInfo.GetStateReport
-  withIface(self.p, IID_IAppResourceGroupInfo, "IAppResourceGroupInfo", it):
+  withIface(self.p, IAppResourceGroupInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfo_GetStateReport, Fn_IAppResourceGroupInfo_GetStateReport)(it, tmp.addr).check("AppResourceGroupInfo.GetStateReport")
+    it.call(IAppResourceGroupInfo_GetStateReport, tmp.addr)
     result = adopt[AppResourceGroupStateReport](tmp)
 
 proc startSuspendAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
   ## Windows.System.AppResourceGroupInfo.StartSuspendAsync
   var op: pointer
-  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
-    vcall(it, Slot_IAppResourceGroupInfo2_StartSuspendAsync, Fn_IAppResourceGroupInfo2_StartSuspendAsync)(it, op.addr).check("AppResourceGroupInfo.StartSuspendAsync")
-  result = adopt[AppExecutionStateChangeResult](await awaitObject(op, IID_IAsyncOperation_1_AppExecutionStateChangeResult, IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult, alPlain, "AppResourceGroupInfo.StartSuspendAsync"))
+  withIface(self.p, IAppResourceGroupInfo2, it):
+    it.call(IAppResourceGroupInfo2_StartSuspendAsync, op.addr)
+  result = adopt[AppExecutionStateChangeResult](await awaitObject(op,
+                                                                  IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                                  IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                                  alPlain,
+                                                                  "AppResourceGroupInfo.StartSuspendAsync"))
 
 proc startResumeAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
   ## Windows.System.AppResourceGroupInfo.StartResumeAsync
   var op: pointer
-  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
-    vcall(it, Slot_IAppResourceGroupInfo2_StartResumeAsync, Fn_IAppResourceGroupInfo2_StartResumeAsync)(it, op.addr).check("AppResourceGroupInfo.StartResumeAsync")
-  result = adopt[AppExecutionStateChangeResult](await awaitObject(op, IID_IAsyncOperation_1_AppExecutionStateChangeResult, IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult, alPlain, "AppResourceGroupInfo.StartResumeAsync"))
+  withIface(self.p, IAppResourceGroupInfo2, it):
+    it.call(IAppResourceGroupInfo2_StartResumeAsync, op.addr)
+  result = adopt[AppExecutionStateChangeResult](await awaitObject(op,
+                                                                  IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                                  IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                                  alPlain,
+                                                                  "AppResourceGroupInfo.StartResumeAsync"))
 
 proc startTerminateAsync*(self: AppResourceGroupInfo): Future[AppExecutionStateChangeResult] {.async.} =
   ## Windows.System.AppResourceGroupInfo.StartTerminateAsync
   var op: pointer
-  withIface(self.p, IID_IAppResourceGroupInfo2, "IAppResourceGroupInfo2", it):
-    vcall(it, Slot_IAppResourceGroupInfo2_StartTerminateAsync, Fn_IAppResourceGroupInfo2_StartTerminateAsync)(it, op.addr).check("AppResourceGroupInfo.StartTerminateAsync")
-  result = adopt[AppExecutionStateChangeResult](await awaitObject(op, IID_IAsyncOperation_1_AppExecutionStateChangeResult, IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult, alPlain, "AppResourceGroupInfo.StartTerminateAsync"))
+  withIface(self.p, IAppResourceGroupInfo2, it):
+    it.call(IAppResourceGroupInfo2_StartTerminateAsync, op.addr)
+  result = adopt[AppExecutionStateChangeResult](await awaitObject(op,
+                                                                  IID_IAsyncOperation_1_AppExecutionStateChangeResult,
+                                                                  IID_AsyncOperationCompletedHandler_1_AppExecutionStateChangeResult,
+                                                                  alPlain,
+                                                                  "AppResourceGroupInfo.StartTerminateAsync"))
 
 proc onAdded*(self: AppResourceGroupInfoWatcher,
-    handler: proc(sender: AppResourceGroupInfoWatcher, args: AppResourceGroupInfoWatcherEventArgs)): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[AppResourceGroupInfoWatcher, AppResourceGroupInfoWatcherEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppResourceGroupInfoWatcher.add_Added
-  ##
-  ## The token is what `removeAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[AppResourceGroupInfoWatcherEventArgs](a1)), event = true)
+  ## The token is what `removeAdded` takes.
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppResourceGroupInfoWatcher](a0),
+              borrow[AppResourceGroupInfoWatcherEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAppResourceGroupInfoWatcher_add_Added, Fn_IAppResourceGroupInfoWatcher_add_Added)(it, cb, result.addr)
-        .check("AppResourceGroupInfoWatcher.add_Added")
+      it.call(IAppResourceGroupInfoWatcher_add_Added, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAdded*(self: AppResourceGroupInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_remove_Added, Fn_IAppResourceGroupInfoWatcher_remove_Added)(it, token).check("AppResourceGroupInfoWatcher.remove_Added")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_remove_Added, token)
 
 proc onRemoved*(self: AppResourceGroupInfoWatcher,
-    handler: proc(sender: AppResourceGroupInfoWatcher, args: AppResourceGroupInfoWatcherEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[AppResourceGroupInfoWatcher, AppResourceGroupInfoWatcherEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppResourceGroupInfoWatcher.add_Removed
-  ##
-  ## The token is what `removeRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[AppResourceGroupInfoWatcherEventArgs](a1)), event = true)
+  ## The token is what `removeRemoved` takes.
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppResourceGroupInfoWatcher](a0),
+              borrow[AppResourceGroupInfoWatcherEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAppResourceGroupInfoWatcher_add_Removed, Fn_IAppResourceGroupInfoWatcher_add_Removed)(it, cb, result.addr)
-        .check("AppResourceGroupInfoWatcher.add_Removed")
+      it.call(IAppResourceGroupInfoWatcher_add_Removed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoved*(self: AppResourceGroupInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_remove_Removed, Fn_IAppResourceGroupInfoWatcher_remove_Removed)(it, token).check("AppResourceGroupInfoWatcher.remove_Removed")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_remove_Removed, token)
 
 proc onEnumerationCompleted*(self: AppResourceGroupInfoWatcher,
-    handler: proc(sender: AppResourceGroupInfoWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[AppResourceGroupInfoWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppResourceGroupInfoWatcher.add_EnumerationCompleted
-  ##
-  ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeEnumerationCompleted` takes.
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IAppResourceGroupInfoWatcher_add_EnumerationCompleted, Fn_IAppResourceGroupInfoWatcher_add_EnumerationCompleted)(it, cb, result.addr)
-        .check("AppResourceGroupInfoWatcher.add_EnumerationCompleted")
+      it.call(IAppResourceGroupInfoWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnumerationCompleted*(self: AppResourceGroupInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted, Fn_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted)(it, token).check("AppResourceGroupInfoWatcher.remove_EnumerationCompleted")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_remove_EnumerationCompleted, token)
 
 proc onStopped*(self: AppResourceGroupInfoWatcher,
-    handler: proc(sender: AppResourceGroupInfoWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[AppResourceGroupInfoWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppResourceGroupInfoWatcher.add_Stopped
-  ##
-  ## The token is what `removeStopped` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeStopped` takes.
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IAppResourceGroupInfoWatcher_add_Stopped, Fn_IAppResourceGroupInfoWatcher_add_Stopped)(it, cb, result.addr)
-        .check("AppResourceGroupInfoWatcher.add_Stopped")
+      it.call(IAppResourceGroupInfoWatcher_add_Stopped, cb, result.addr)
     finally:
       release(cb)
 
 proc removeStopped*(self: AppResourceGroupInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_remove_Stopped, Fn_IAppResourceGroupInfoWatcher_remove_Stopped)(it, token).check("AppResourceGroupInfoWatcher.remove_Stopped")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_remove_Stopped, token)
 
 proc onExecutionStateChanged*(self: AppResourceGroupInfoWatcher,
-    handler: proc(sender: AppResourceGroupInfoWatcher, args: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[AppResourceGroupInfoWatcher, AppResourceGroupInfoWatcherExecutionStateChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.AppResourceGroupInfoWatcher.add_ExecutionStateChanged
-  ##
-  ## The token is what `removeExecutionStateChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherExecutionStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppResourceGroupInfoWatcher](a0), borrow[AppResourceGroupInfoWatcherExecutionStateChangedEventArgs](a1)), event = true)
+  ## The token is what `removeExecutionStateChanged` takes.
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[AppResourceGroupInfoWatcher](a0),
+              borrow[AppResourceGroupInfoWatcherExecutionStateChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppResourceGroupInfoWatcher_AppResourceGroupInfoWatcherExecutionStateChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged, Fn_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged)(it, cb, result.addr)
-        .check("AppResourceGroupInfoWatcher.add_ExecutionStateChanged")
+      it.call(IAppResourceGroupInfoWatcher_add_ExecutionStateChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeExecutionStateChanged*(self: AppResourceGroupInfoWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged, Fn_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged)(it, token).check("AppResourceGroupInfoWatcher.remove_ExecutionStateChanged")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged, token)
 
-proc status*(self: AppResourceGroupInfoWatcher): AppResourceGroupInfoWatcherStatus  =
+proc status*(self: AppResourceGroupInfoWatcher): AppResourceGroupInfoWatcherStatus =
   ## Windows.System.AppResourceGroupInfoWatcher.get_Status
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
     var tmp: AppResourceGroupInfoWatcherStatus
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_get_Status, Fn_IAppResourceGroupInfoWatcher_get_Status)(it, tmp.addr).check("AppResourceGroupInfoWatcher.get_Status")
+    it.call(IAppResourceGroupInfoWatcher_get_Status, tmp.addr)
     result = tmp
 
-proc start*(self: AppResourceGroupInfoWatcher)  =
+proc start*(self: AppResourceGroupInfoWatcher) =
   ## Windows.System.AppResourceGroupInfoWatcher.Start
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_Start, Fn_IAppResourceGroupInfoWatcher_Start)(it).check("AppResourceGroupInfoWatcher.Start")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_Start)
 
-proc stop*(self: AppResourceGroupInfoWatcher)  =
+proc stop*(self: AppResourceGroupInfoWatcher) =
   ## Windows.System.AppResourceGroupInfoWatcher.Stop
-  withIface(self.p, IID_IAppResourceGroupInfoWatcher, "IAppResourceGroupInfoWatcher", it):
-    vcall(it, Slot_IAppResourceGroupInfoWatcher_Stop, Fn_IAppResourceGroupInfoWatcher_Stop)(it).check("AppResourceGroupInfoWatcher.Stop")
+  withIface(self.p, IAppResourceGroupInfoWatcher, it):
+    it.call(IAppResourceGroupInfoWatcher_Stop)
 
-proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherEventArgs): seq[AppDiagnosticInfo]  =
+proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherEventArgs): seq[AppDiagnosticInfo] =
   ## Windows.System.AppResourceGroupInfoWatcherEventArgs.get_AppDiagnosticInfos
-  withIface(self.p, IID_IAppResourceGroupInfoWatcherEventArgs, "IAppResourceGroupInfoWatcherEventArgs", it):
+  withIface(self.p, IAppResourceGroupInfoWatcherEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos, Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfoWatcherEventArgs.get_AppDiagnosticInfos")
+    it.call(IAppResourceGroupInfoWatcherEventArgs_get_AppDiagnosticInfos,
+            tmp.addr)
     result = toSeq[AppDiagnosticInfo](tmp, IID_IVectorView_1_AppDiagnosticInfo)
     release(tmp)
 
-proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherEventArgs): AppResourceGroupInfo  =
+proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherEventArgs): AppResourceGroupInfo =
   ## Windows.System.AppResourceGroupInfoWatcherEventArgs.get_AppResourceGroupInfo
-  withIface(self.p, IID_IAppResourceGroupInfoWatcherEventArgs, "IAppResourceGroupInfoWatcherEventArgs", it):
+  withIface(self.p, IAppResourceGroupInfoWatcherEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo, Fn_IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo)(it, tmp.addr).check("AppResourceGroupInfoWatcherEventArgs.get_AppResourceGroupInfo")
+    it.call(IAppResourceGroupInfoWatcherEventArgs_get_AppResourceGroupInfo,
+            tmp.addr)
     result = adopt[AppResourceGroupInfo](tmp)
 
-proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): seq[AppDiagnosticInfo]  =
+proc appDiagnosticInfos*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): seq[AppDiagnosticInfo] =
   ## Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppDiagnosticInfos
-  withIface(self.p, IID_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs, "IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs", it):
+  withIface(self.p, IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos, Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos)(it, tmp.addr).check("AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppDiagnosticInfos")
+    it.call(IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppDiagnosticInfos,
+            tmp.addr)
     result = toSeq[AppDiagnosticInfo](tmp, IID_IVectorView_1_AppDiagnosticInfo)
     release(tmp)
 
-proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): AppResourceGroupInfo  =
+proc appResourceGroupInfo*(self: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): AppResourceGroupInfo =
   ## Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppResourceGroupInfo
-  withIface(self.p, IID_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs, "IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs", it):
+  withIface(self.p, IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo, Fn_IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo)(it, tmp.addr).check("AppResourceGroupInfoWatcherExecutionStateChangedEventArgs.get_AppResourceGroupInfo")
+    it.call(IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs_get_AppResourceGroupInfo,
+            tmp.addr)
     result = adopt[AppResourceGroupInfo](tmp)
 
-proc commitUsageLimit*(self: AppResourceGroupMemoryReport): uint64  =
+proc commitUsageLimit*(self: AppResourceGroupMemoryReport): uint64 =
   ## Windows.System.AppResourceGroupMemoryReport.get_CommitUsageLimit
-  withIface(self.p, IID_IAppResourceGroupMemoryReport, "IAppResourceGroupMemoryReport", it):
+  withIface(self.p, IAppResourceGroupMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppResourceGroupMemoryReport_get_CommitUsageLimit, Fn_IAppResourceGroupMemoryReport_get_CommitUsageLimit)(it, tmp.addr).check("AppResourceGroupMemoryReport.get_CommitUsageLimit")
+    it.call(IAppResourceGroupMemoryReport_get_CommitUsageLimit, tmp.addr)
     result = tmp
 
-proc commitUsageLevel*(self: AppResourceGroupMemoryReport): AppMemoryUsageLevel  =
+proc commitUsageLevel*(self: AppResourceGroupMemoryReport): AppMemoryUsageLevel =
   ## Windows.System.AppResourceGroupMemoryReport.get_CommitUsageLevel
-  withIface(self.p, IID_IAppResourceGroupMemoryReport, "IAppResourceGroupMemoryReport", it):
+  withIface(self.p, IAppResourceGroupMemoryReport, it):
     var tmp: AppMemoryUsageLevel
-    vcall(it, Slot_IAppResourceGroupMemoryReport_get_CommitUsageLevel, Fn_IAppResourceGroupMemoryReport_get_CommitUsageLevel)(it, tmp.addr).check("AppResourceGroupMemoryReport.get_CommitUsageLevel")
+    it.call(IAppResourceGroupMemoryReport_get_CommitUsageLevel, tmp.addr)
     result = tmp
 
-proc privateCommitUsage*(self: AppResourceGroupMemoryReport): uint64  =
+proc privateCommitUsage*(self: AppResourceGroupMemoryReport): uint64 =
   ## Windows.System.AppResourceGroupMemoryReport.get_PrivateCommitUsage
-  withIface(self.p, IID_IAppResourceGroupMemoryReport, "IAppResourceGroupMemoryReport", it):
+  withIface(self.p, IAppResourceGroupMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppResourceGroupMemoryReport_get_PrivateCommitUsage, Fn_IAppResourceGroupMemoryReport_get_PrivateCommitUsage)(it, tmp.addr).check("AppResourceGroupMemoryReport.get_PrivateCommitUsage")
+    it.call(IAppResourceGroupMemoryReport_get_PrivateCommitUsage, tmp.addr)
     result = tmp
 
-proc totalCommitUsage*(self: AppResourceGroupMemoryReport): uint64  =
+proc totalCommitUsage*(self: AppResourceGroupMemoryReport): uint64 =
   ## Windows.System.AppResourceGroupMemoryReport.get_TotalCommitUsage
-  withIface(self.p, IID_IAppResourceGroupMemoryReport, "IAppResourceGroupMemoryReport", it):
+  withIface(self.p, IAppResourceGroupMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IAppResourceGroupMemoryReport_get_TotalCommitUsage, Fn_IAppResourceGroupMemoryReport_get_TotalCommitUsage)(it, tmp.addr).check("AppResourceGroupMemoryReport.get_TotalCommitUsage")
+    it.call(IAppResourceGroupMemoryReport_get_TotalCommitUsage, tmp.addr)
     result = tmp
 
-proc executionState*(self: AppResourceGroupStateReport): AppResourceGroupExecutionState  =
+proc executionState*(self: AppResourceGroupStateReport): AppResourceGroupExecutionState =
   ## Windows.System.AppResourceGroupStateReport.get_ExecutionState
-  withIface(self.p, IID_IAppResourceGroupStateReport, "IAppResourceGroupStateReport", it):
+  withIface(self.p, IAppResourceGroupStateReport, it):
     var tmp: AppResourceGroupExecutionState
-    vcall(it, Slot_IAppResourceGroupStateReport_get_ExecutionState, Fn_IAppResourceGroupStateReport_get_ExecutionState)(it, tmp.addr).check("AppResourceGroupStateReport.get_ExecutionState")
+    it.call(IAppResourceGroupStateReport_get_ExecutionState, tmp.addr)
     result = tmp
 
-proc energyQuotaState*(self: AppResourceGroupStateReport): AppResourceGroupEnergyQuotaState  =
+proc energyQuotaState*(self: AppResourceGroupStateReport): AppResourceGroupEnergyQuotaState =
   ## Windows.System.AppResourceGroupStateReport.get_EnergyQuotaState
-  withIface(self.p, IID_IAppResourceGroupStateReport, "IAppResourceGroupStateReport", it):
+  withIface(self.p, IAppResourceGroupStateReport, it):
     var tmp: AppResourceGroupEnergyQuotaState
-    vcall(it, Slot_IAppResourceGroupStateReport_get_EnergyQuotaState, Fn_IAppResourceGroupStateReport_get_EnergyQuotaState)(it, tmp.addr).check("AppResourceGroupStateReport.get_EnergyQuotaState")
+    it.call(IAppResourceGroupStateReport_get_EnergyQuotaState, tmp.addr)
     result = tmp
 
 proc newAppUriHandlerHost*(): AppUriHandlerHost =
   ## Activate a `Windows.System.AppUriHandlerHost`.
   adopt[AppUriHandlerHost](activateAs("Windows.System.AppUriHandlerHost", IID_IAppUriHandlerHost))
 
-proc name*(self: AppUriHandlerHost): string  =
+proc name*(self: AppUriHandlerHost): string =
   ## Windows.System.AppUriHandlerHost.get_Name
-  withIface(self.p, IID_IAppUriHandlerHost, "IAppUriHandlerHost", it):
+  withIface(self.p, IAppUriHandlerHost, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppUriHandlerHost_get_Name, Fn_IAppUriHandlerHost_get_Name)(it, tmp.addr).check("AppUriHandlerHost.get_Name")
+    it.call(IAppUriHandlerHost_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc `name=`*(self: AppUriHandlerHost, value: string)  =
+proc `name=`*(self: AppUriHandlerHost, value: string) =
   ## Windows.System.AppUriHandlerHost.put_Name
-  withIface(self.p, IID_IAppUriHandlerHost, "IAppUriHandlerHost", it):
+  withIface(self.p, IAppUriHandlerHost, it):
     withHString(value, h0):
-      vcall(it, Slot_IAppUriHandlerHost_put_Name, Fn_IAppUriHandlerHost_put_Name)(it, h0).check("AppUriHandlerHost.put_Name")
+      it.call(IAppUriHandlerHost_put_Name, h0)
 
-proc isEnabled*(self: AppUriHandlerHost): bool  =
+proc isEnabled*(self: AppUriHandlerHost): bool =
   ## Windows.System.AppUriHandlerHost.get_IsEnabled
-  withIface(self.p, IID_IAppUriHandlerHost2, "IAppUriHandlerHost2", it):
+  withIface(self.p, IAppUriHandlerHost2, it):
     var tmp: bool
-    vcall(it, Slot_IAppUriHandlerHost2_get_IsEnabled, Fn_IAppUriHandlerHost2_get_IsEnabled)(it, tmp.addr).check("AppUriHandlerHost.get_IsEnabled")
+    it.call(IAppUriHandlerHost2_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc `isEnabled=`*(self: AppUriHandlerHost, value: bool)  =
+proc `isEnabled=`*(self: AppUriHandlerHost, value: bool) =
   ## Windows.System.AppUriHandlerHost.put_IsEnabled
-  withIface(self.p, IID_IAppUriHandlerHost2, "IAppUriHandlerHost2", it):
-    vcall(it, Slot_IAppUriHandlerHost2_put_IsEnabled, Fn_IAppUriHandlerHost2_put_IsEnabled)(it, value).check("AppUriHandlerHost.put_IsEnabled")
+  withIface(self.p, IAppUriHandlerHost2, it):
+    it.call(IAppUriHandlerHost2_put_IsEnabled, value)
 
-proc createInstance*(_: typedesc[AppUriHandlerHost], name: string): AppUriHandlerHost  =
+proc createInstance*(_: typedesc[AppUriHandlerHost], name: string): AppUriHandlerHost =
   ## Windows.System.AppUriHandlerHost.CreateInstance
-  withStatics("Windows.System.AppUriHandlerHost", IID_IAppUriHandlerHostFactory, it):
+  withStatics("Windows.System.AppUriHandlerHost", IAppUriHandlerHostFactory, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IAppUriHandlerHostFactory_CreateInstance, Fn_IAppUriHandlerHostFactory_CreateInstance)(it, h0, tmp.addr).check("AppUriHandlerHost.CreateInstance")
+      it.call(IAppUriHandlerHostFactory_CreateInstance, h0, tmp.addr)
       result = adopt[AppUriHandlerHost](tmp)
 
-proc name*(self: AppUriHandlerRegistration): string  =
+proc name*(self: AppUriHandlerRegistration): string =
   ## Windows.System.AppUriHandlerRegistration.get_Name
-  withIface(self.p, IID_IAppUriHandlerRegistration, "IAppUriHandlerRegistration", it):
+  withIface(self.p, IAppUriHandlerRegistration, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppUriHandlerRegistration_get_Name, Fn_IAppUriHandlerRegistration_get_Name)(it, tmp.addr).check("AppUriHandlerRegistration.get_Name")
+    it.call(IAppUriHandlerRegistration_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc user*(self: AppUriHandlerRegistration): User  =
+proc user*(self: AppUriHandlerRegistration): User =
   ## Windows.System.AppUriHandlerRegistration.get_User
-  withIface(self.p, IID_IAppUriHandlerRegistration, "IAppUriHandlerRegistration", it):
+  withIface(self.p, IAppUriHandlerRegistration, it):
     var tmp: pointer
-    vcall(it, Slot_IAppUriHandlerRegistration_get_User, Fn_IAppUriHandlerRegistration_get_User)(it, tmp.addr).check("AppUriHandlerRegistration.get_User")
+    it.call(IAppUriHandlerRegistration_get_User, tmp.addr)
     result = adopt[User](tmp)
 
 proc getAppAddedHostsAsync*(self: AppUriHandlerRegistration): Future[seq[AppUriHandlerHost]] {.async.} =
   ## Windows.System.AppUriHandlerRegistration.GetAppAddedHostsAsync
   var op: pointer
-  withIface(self.p, IID_IAppUriHandlerRegistration, "IAppUriHandlerRegistration", it):
-    vcall(it, Slot_IAppUriHandlerRegistration_GetAppAddedHostsAsync, Fn_IAppUriHandlerRegistration_GetAppAddedHostsAsync)(it, op.addr).check("AppUriHandlerRegistration.GetAppAddedHostsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12, IID_AsyncOperationCompletedHandler_1_IVector_12, alPlain, "AppUriHandlerRegistration.GetAppAddedHostsAsync")
+  withIface(self.p, IAppUriHandlerRegistration, it):
+    it.call(IAppUriHandlerRegistration_GetAppAddedHostsAsync, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12,
+                               IID_AsyncOperationCompletedHandler_1_IVector_12,
+                               alPlain,
+                               "AppUriHandlerRegistration.GetAppAddedHostsAsync")
   result = toSeq[AppUriHandlerHost](coll, IID_IVector_1_AppUriHandlerHost)
   discard release(coll)
 
-proc setAppAddedHostsAsync*(self: AppUriHandlerRegistration, hosts: seq[AppUriHandlerHost]) {.async.} =
+proc setAppAddedHostsAsync*(self: AppUriHandlerRegistration,
+                            hosts: seq[AppUriHandlerHost]) {.async.} =
   ## Windows.System.AppUriHandlerRegistration.SetAppAddedHostsAsync
   var op: pointer
-  withIface(self.p, IID_IAppUriHandlerRegistration, "IAppUriHandlerRegistration", it):
-    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost, IID_IVectorView_1_AppUriHandlerHost, IID_IIterator_1_AppUriHandlerHost)
+  withIface(self.p, IAppUriHandlerRegistration, it):
+    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost,
+                                                  IID_IVectorView_1_AppUriHandlerHost,
+                                                  IID_IIterator_1_AppUriHandlerHost)
     defer: discard release(p0)
-    vcall(it, Slot_IAppUriHandlerRegistration_SetAppAddedHostsAsync, Fn_IAppUriHandlerRegistration_SetAppAddedHostsAsync)(it, p0, op.addr).check("AppUriHandlerRegistration.SetAppAddedHostsAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "AppUriHandlerRegistration.SetAppAddedHostsAsync")
+    it.call(IAppUriHandlerRegistration_SetAppAddedHostsAsync, p0, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "AppUriHandlerRegistration.SetAppAddedHostsAsync")
 
-proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost]  =
+proc getAllHosts*(self: AppUriHandlerRegistration): seq[AppUriHandlerHost] =
   ## Windows.System.AppUriHandlerRegistration.GetAllHosts
-  withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
+  withIface(self.p, IAppUriHandlerRegistration2, it):
     var tmp: pointer
-    vcall(it, Slot_IAppUriHandlerRegistration2_GetAllHosts, Fn_IAppUriHandlerRegistration2_GetAllHosts)(it, tmp.addr).check("AppUriHandlerRegistration.GetAllHosts")
+    it.call(IAppUriHandlerRegistration2_GetAllHosts, tmp.addr)
     result = toSeq[AppUriHandlerHost](tmp, IID_IVector_1_AppUriHandlerHost)
     release(tmp)
 
-proc updateHosts*(self: AppUriHandlerRegistration, hosts: seq[AppUriHandlerHost])  =
+proc updateHosts*(self: AppUriHandlerRegistration, hosts: seq[AppUriHandlerHost]) =
   ## Windows.System.AppUriHandlerRegistration.UpdateHosts
-  withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
-    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost, IID_IVectorView_1_AppUriHandlerHost, IID_IIterator_1_AppUriHandlerHost)
+  withIface(self.p, IAppUriHandlerRegistration2, it):
+    let p0 = asIterable[AppUriHandlerHost](hosts, IID_IIterable_1_AppUriHandlerHost,
+                                                  IID_IVectorView_1_AppUriHandlerHost,
+                                                  IID_IIterator_1_AppUriHandlerHost)
     defer: discard release(p0)
-    vcall(it, Slot_IAppUriHandlerRegistration2_UpdateHosts, Fn_IAppUriHandlerRegistration2_UpdateHosts)(it, p0).check("AppUriHandlerRegistration.UpdateHosts")
+    it.call(IAppUriHandlerRegistration2_UpdateHosts, p0)
 
-proc packageFamilyName*(self: AppUriHandlerRegistration): string  =
+proc packageFamilyName*(self: AppUriHandlerRegistration): string =
   ## Windows.System.AppUriHandlerRegistration.get_PackageFamilyName
-  withIface(self.p, IID_IAppUriHandlerRegistration2, "IAppUriHandlerRegistration2", it):
+  withIface(self.p, IAppUriHandlerRegistration2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppUriHandlerRegistration2_get_PackageFamilyName, Fn_IAppUriHandlerRegistration2_get_PackageFamilyName)(it, tmp.addr).check("AppUriHandlerRegistration.get_PackageFamilyName")
+    it.call(IAppUriHandlerRegistration2_get_PackageFamilyName, tmp.addr)
     result = takeString(tmp)
 
-proc user*(self: AppUriHandlerRegistrationManager): User  =
+proc user*(self: AppUriHandlerRegistrationManager): User =
   ## Windows.System.AppUriHandlerRegistrationManager.get_User
-  withIface(self.p, IID_IAppUriHandlerRegistrationManager, "IAppUriHandlerRegistrationManager", it):
+  withIface(self.p, IAppUriHandlerRegistrationManager, it):
     var tmp: pointer
-    vcall(it, Slot_IAppUriHandlerRegistrationManager_get_User, Fn_IAppUriHandlerRegistrationManager_get_User)(it, tmp.addr).check("AppUriHandlerRegistrationManager.get_User")
+    it.call(IAppUriHandlerRegistrationManager_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc tryGetRegistration*(self: AppUriHandlerRegistrationManager, name: string): AppUriHandlerRegistration  =
+proc tryGetRegistration*(self: AppUriHandlerRegistrationManager, name: string): AppUriHandlerRegistration =
   ## Windows.System.AppUriHandlerRegistrationManager.TryGetRegistration
-  withIface(self.p, IID_IAppUriHandlerRegistrationManager, "IAppUriHandlerRegistrationManager", it):
+  withIface(self.p, IAppUriHandlerRegistrationManager, it):
     withHString(name, h0):
       var tmp: pointer
-      vcall(it, Slot_IAppUriHandlerRegistrationManager_TryGetRegistration, Fn_IAppUriHandlerRegistrationManager_TryGetRegistration)(it, h0, tmp.addr).check("AppUriHandlerRegistrationManager.TryGetRegistration")
+      it.call(IAppUriHandlerRegistrationManager_TryGetRegistration, h0, tmp.addr)
       result = adopt[AppUriHandlerRegistration](tmp)
 
-proc packageFamilyName*(self: AppUriHandlerRegistrationManager): string  =
+proc packageFamilyName*(self: AppUriHandlerRegistrationManager): string =
   ## Windows.System.AppUriHandlerRegistrationManager.get_PackageFamilyName
-  withIface(self.p, IID_IAppUriHandlerRegistrationManager2, "IAppUriHandlerRegistrationManager2", it):
+  withIface(self.p, IAppUriHandlerRegistrationManager2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAppUriHandlerRegistrationManager2_get_PackageFamilyName, Fn_IAppUriHandlerRegistrationManager2_get_PackageFamilyName)(it, tmp.addr).check("AppUriHandlerRegistrationManager.get_PackageFamilyName")
+    it.call(IAppUriHandlerRegistrationManager2_get_PackageFamilyName, tmp.addr)
     result = takeString(tmp)
 
-proc getDefault*(_: typedesc[AppUriHandlerRegistrationManager]): AppUriHandlerRegistrationManager  =
+proc getDefault*(_: typedesc[AppUriHandlerRegistrationManager]): AppUriHandlerRegistrationManager =
   ## Windows.System.AppUriHandlerRegistrationManager.GetDefault
-  withStatics("Windows.System.AppUriHandlerRegistrationManager", IID_IAppUriHandlerRegistrationManagerStatics, it):
+  withStatics("Windows.System.AppUriHandlerRegistrationManager",
+              IAppUriHandlerRegistrationManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IAppUriHandlerRegistrationManagerStatics_GetDefault, Fn_IAppUriHandlerRegistrationManagerStatics_GetDefault)(it, tmp.addr).check("AppUriHandlerRegistrationManager.GetDefault")
+    it.call(IAppUriHandlerRegistrationManagerStatics_GetDefault, tmp.addr)
     result = adopt[AppUriHandlerRegistrationManager](tmp)
 
-proc getForUser*(_: typedesc[AppUriHandlerRegistrationManager], user: User): AppUriHandlerRegistrationManager  =
+proc getForUser*(_: typedesc[AppUriHandlerRegistrationManager], user: User): AppUriHandlerRegistrationManager =
   ## Windows.System.AppUriHandlerRegistrationManager.GetForUser
-  withStatics("Windows.System.AppUriHandlerRegistrationManager", IID_IAppUriHandlerRegistrationManagerStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.AppUriHandlerRegistrationManager",
+              IAppUriHandlerRegistrationManagerStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IAppUriHandlerRegistrationManagerStatics_GetForUser, Fn_IAppUriHandlerRegistrationManagerStatics_GetForUser)(it, p0, tmp.addr).check("AppUriHandlerRegistrationManager.GetForUser")
+      it.call(IAppUriHandlerRegistrationManagerStatics_GetForUser, p0, tmp.addr)
       result = adopt[AppUriHandlerRegistrationManager](tmp)
 
-proc getForPackage*(_: typedesc[AppUriHandlerRegistrationManager], packageFamilyName: string): AppUriHandlerRegistrationManager  =
+proc getForPackage*(_: typedesc[AppUriHandlerRegistrationManager],
+                    packageFamilyName: string): AppUriHandlerRegistrationManager =
   ## Windows.System.AppUriHandlerRegistrationManager.GetForPackage
-  withStatics("Windows.System.AppUriHandlerRegistrationManager", IID_IAppUriHandlerRegistrationManagerStatics2, it):
+  withStatics("Windows.System.AppUriHandlerRegistrationManager",
+              IAppUriHandlerRegistrationManagerStatics2, it):
     withHString(packageFamilyName, h0):
       var tmp: pointer
-      vcall(it, Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackage, Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackage)(it, h0, tmp.addr).check("AppUriHandlerRegistrationManager.GetForPackage")
+      it.call(IAppUriHandlerRegistrationManagerStatics2_GetForPackage, h0,
+              tmp.addr)
       result = adopt[AppUriHandlerRegistrationManager](tmp)
 
-proc getForPackageForUser*(_: typedesc[AppUriHandlerRegistrationManager], packageFamilyName: string, user: User): AppUriHandlerRegistrationManager  =
+proc getForPackageForUser*(_: typedesc[AppUriHandlerRegistrationManager],
+                           packageFamilyName: string, user: User): AppUriHandlerRegistrationManager =
   ## Windows.System.AppUriHandlerRegistrationManager.GetForPackageForUser
-  withStatics("Windows.System.AppUriHandlerRegistrationManager", IID_IAppUriHandlerRegistrationManagerStatics2, it):
+  withStatics("Windows.System.AppUriHandlerRegistrationManager",
+              IAppUriHandlerRegistrationManagerStatics2, it):
     withHString(packageFamilyName, h0):
-      withIface(user.p, IID_IUser, "IUser", p1):
+      withIface(user.p, IUser, p1):
         var tmp: pointer
-        vcall(it, Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser, Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser)(it, h0, p1, tmp.addr).check("AppUriHandlerRegistrationManager.GetForPackageForUser")
+        it.call(IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser,
+                h0, p1, tmp.addr)
         result = adopt[AppUriHandlerRegistrationManager](tmp)
 
-proc setSystemDateTime*(_: typedesc[DateTimeSettings], utcDateTime: DateTime)  =
+proc setSystemDateTime*(_: typedesc[DateTimeSettings], utcDateTime: DateTime) =
   ## Windows.System.DateTimeSettings.SetSystemDateTime
-  withStatics("Windows.System.DateTimeSettings", IID_IDateTimeSettingsStatics, it):
-    vcall(it, Slot_IDateTimeSettingsStatics_SetSystemDateTime, Fn_IDateTimeSettingsStatics_SetSystemDateTime)(it, utcDateTime).check("DateTimeSettings.SetSystemDateTime")
+  withStatics("Windows.System.DateTimeSettings", IDateTimeSettingsStatics, it):
+    it.call(IDateTimeSettingsStatics_SetSystemDateTime, utcDateTime)
 
 proc onClosed*(self: DevicePortalConnection,
-    handler: proc(sender: DevicePortalConnection, args: DevicePortalConnectionClosedEventArgs)): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[DevicePortalConnection, DevicePortalConnectionClosedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.add_Closed
-  ##
-  ## The token is what `removeClosed` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IDevicePortalConnection, "IDevicePortalConnection", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DevicePortalConnection](a0), borrow[DevicePortalConnectionClosedEventArgs](a1)), event = true)
+  ## The token is what `removeClosed` takes.
+  withIface(self.p, IDevicePortalConnection, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[DevicePortalConnection](a0),
+              borrow[DevicePortalConnectionClosedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionClosedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IDevicePortalConnection_add_Closed, Fn_IDevicePortalConnection_add_Closed)(it, cb, result.addr)
-        .check("DevicePortalConnection.add_Closed")
+      it.call(IDevicePortalConnection_add_Closed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeClosed*(self: DevicePortalConnection, token: EventRegistrationToken) =
-  withIface(self.p, IID_IDevicePortalConnection, "IDevicePortalConnection", it):
-    vcall(it, Slot_IDevicePortalConnection_remove_Closed, Fn_IDevicePortalConnection_remove_Closed)(it, token).check("DevicePortalConnection.remove_Closed")
+  withIface(self.p, IDevicePortalConnection, it):
+    it.call(IDevicePortalConnection_remove_Closed, token)
 
 proc onRequestReceived*(self: DevicePortalConnection,
-    handler: proc(sender: DevicePortalConnection, args: DevicePortalConnectionRequestReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[DevicePortalConnection, DevicePortalConnectionRequestReceivedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.add_RequestReceived
-  ##
-  ## The token is what `removeRequestReceived` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IDevicePortalConnection, "IDevicePortalConnection", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionRequestReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DevicePortalConnection](a0), borrow[DevicePortalConnectionRequestReceivedEventArgs](a1)), event = true)
+  ## The token is what `removeRequestReceived` takes.
+  withIface(self.p, IDevicePortalConnection, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[DevicePortalConnection](a0),
+              borrow[DevicePortalConnectionRequestReceivedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_DevicePortalConnection_DevicePortalConnectionRequestReceivedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IDevicePortalConnection_add_RequestReceived, Fn_IDevicePortalConnection_add_RequestReceived)(it, cb, result.addr)
-        .check("DevicePortalConnection.add_RequestReceived")
+      it.call(IDevicePortalConnection_add_RequestReceived, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRequestReceived*(self: DevicePortalConnection, token: EventRegistrationToken) =
-  withIface(self.p, IID_IDevicePortalConnection, "IDevicePortalConnection", it):
-    vcall(it, Slot_IDevicePortalConnection_remove_RequestReceived, Fn_IDevicePortalConnection_remove_RequestReceived)(it, token).check("DevicePortalConnection.remove_RequestReceived")
+  withIface(self.p, IDevicePortalConnection, it):
+    it.call(IDevicePortalConnection_remove_RequestReceived, token)
 
-proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage): ServerMessageWebSocket  =
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection,
+                                          request: HttpRequestMessage): ServerMessageWebSocket =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+  withIface(self.p, IDevicePortalWebSocketConnection, it):
+    withIface(request.p, IHttpRequestMessage, p0):
       var tmp: pointer
-      vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest)(it, p0, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+      it.call(IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest,
+              p0, tmp.addr)
       result = adopt[ServerMessageWebSocket](tmp)
 
-proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, messageType: SocketMessageType, protocol: string): ServerMessageWebSocket  =
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection,
+                                          request: HttpRequestMessage,
+                                          messageType: SocketMessageType,
+                                          protocol: string): ServerMessageWebSocket =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+  withIface(self.p, IDevicePortalWebSocketConnection, it):
+    withIface(request.p, IHttpRequestMessage, p0):
       withHString(protocol, h2):
         var tmp: pointer
-        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2)(it, p0, messageType, h2, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+        it.call(IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2,
+                p0, messageType, h2, tmp.addr)
         result = adopt[ServerMessageWebSocket](tmp)
 
-proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, messageType: SocketMessageType, protocol: string, outboundBufferSizeInBytes: uint32, maxMessageSize: uint32, receiveMode: MessageWebSocketReceiveMode): ServerMessageWebSocket  =
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection,
+                                          request: HttpRequestMessage,
+                                          messageType: SocketMessageType,
+                                          protocol: string,
+                                          outboundBufferSizeInBytes: uint32,
+                                          maxMessageSize: uint32,
+                                          receiveMode: MessageWebSocketReceiveMode): ServerMessageWebSocket =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+  withIface(self.p, IDevicePortalWebSocketConnection, it):
+    withIface(request.p, IHttpRequestMessage, p0):
       withHString(protocol, h2):
         var tmp: pointer
-        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3)(it, p0, messageType, h2, outboundBufferSizeInBytes, maxMessageSize, receiveMode, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+        it.call(IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3,
+                p0, messageType, h2, outboundBufferSizeInBytes, maxMessageSize,
+                receiveMode, tmp.addr)
         result = adopt[ServerMessageWebSocket](tmp)
 
-proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage): ServerStreamWebSocket  =
+proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection,
+                                         request: HttpRequestMessage): ServerStreamWebSocket =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerStreamWebSocketForRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+  withIface(self.p, IDevicePortalWebSocketConnection, it):
+    withIface(request.p, IHttpRequestMessage, p0):
       var tmp: pointer
-      vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest, Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest)(it, p0, tmp.addr).check("DevicePortalConnection.GetServerStreamWebSocketForRequest")
+      it.call(IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest,
+              p0, tmp.addr)
       result = adopt[ServerStreamWebSocket](tmp)
 
-proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, protocol: string, outboundBufferSizeInBytes: uint32, noDelay: bool): ServerStreamWebSocket  =
+proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection,
+                                         request: HttpRequestMessage,
+                                         protocol: string,
+                                         outboundBufferSizeInBytes: uint32,
+                                         noDelay: bool): ServerStreamWebSocket =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerStreamWebSocketForRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
-    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+  withIface(self.p, IDevicePortalWebSocketConnection, it):
+    withIface(request.p, IHttpRequestMessage, p0):
       withHString(protocol, h1):
         var tmp: pointer
-        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2, Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2)(it, p0, h1, outboundBufferSizeInBytes, noDelay, tmp.addr).check("DevicePortalConnection.GetServerStreamWebSocketForRequest")
+        it.call(IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2,
+                p0, h1, outboundBufferSizeInBytes, noDelay, tmp.addr)
         result = adopt[ServerStreamWebSocket](tmp)
 
-proc getForAppServiceConnection*(_: typedesc[DevicePortalConnection], appServiceConnection: AppServiceConnection): DevicePortalConnection  =
+proc getForAppServiceConnection*(_: typedesc[DevicePortalConnection],
+                                 appServiceConnection: AppServiceConnection): DevicePortalConnection =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetForAppServiceConnection
-  withStatics("Windows.System.Diagnostics.DevicePortal.DevicePortalConnection", IID_IDevicePortalConnectionStatics, it):
-    withIface(appServiceConnection.p, IID_IAppServiceConnection, "IAppServiceConnection", p0):
+  withStatics("Windows.System.Diagnostics.DevicePortal.DevicePortalConnection",
+              IDevicePortalConnectionStatics, it):
+    withIface(appServiceConnection.p, IAppServiceConnection, p0):
       var tmp: pointer
-      vcall(it, Slot_IDevicePortalConnectionStatics_GetForAppServiceConnection, Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection)(it, p0, tmp.addr).check("DevicePortalConnection.GetForAppServiceConnection")
+      it.call(IDevicePortalConnectionStatics_GetForAppServiceConnection, p0,
+              tmp.addr)
       result = adopt[DevicePortalConnection](tmp)
 
-proc reason*(self: DevicePortalConnectionClosedEventArgs): DevicePortalConnectionClosedReason  =
+proc reason*(self: DevicePortalConnectionClosedEventArgs): DevicePortalConnectionClosedReason =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs.get_Reason
-  withIface(self.p, IID_IDevicePortalConnectionClosedEventArgs, "IDevicePortalConnectionClosedEventArgs", it):
+  withIface(self.p, IDevicePortalConnectionClosedEventArgs, it):
     var tmp: DevicePortalConnectionClosedReason
-    vcall(it, Slot_IDevicePortalConnectionClosedEventArgs_get_Reason, Fn_IDevicePortalConnectionClosedEventArgs_get_Reason)(it, tmp.addr).check("DevicePortalConnectionClosedEventArgs.get_Reason")
+    it.call(IDevicePortalConnectionClosedEventArgs_get_Reason, tmp.addr)
     result = tmp
 
-proc requestMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpRequestMessage  =
+proc requestMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpRequestMessage =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_RequestMessage
-  withIface(self.p, IID_IDevicePortalConnectionRequestReceivedEventArgs, "IDevicePortalConnectionRequestReceivedEventArgs", it):
+  withIface(self.p, IDevicePortalConnectionRequestReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage, Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_RequestMessage")
+    it.call(IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage,
+            tmp.addr)
     result = adopt[HttpRequestMessage](tmp)
 
-proc responseMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpResponseMessage  =
+proc responseMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpResponseMessage =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_ResponseMessage
-  withIface(self.p, IID_IDevicePortalConnectionRequestReceivedEventArgs, "IDevicePortalConnectionRequestReceivedEventArgs", it):
+  withIface(self.p, IDevicePortalConnectionRequestReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage, Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_ResponseMessage")
+    it.call(IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage,
+            tmp.addr)
     result = adopt[HttpResponseMessage](tmp)
 
-proc isWebSocketUpgradeRequest*(self: DevicePortalConnectionRequestReceivedEventArgs): bool  =
+proc isWebSocketUpgradeRequest*(self: DevicePortalConnectionRequestReceivedEventArgs): bool =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_IsWebSocketUpgradeRequest
-  withIface(self.p, IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs, "IDevicePortalWebSocketConnectionRequestReceivedEventArgs", it):
+  withIface(self.p, IDevicePortalWebSocketConnectionRequestReceivedEventArgs, it):
     var tmp: bool
-    vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_IsWebSocketUpgradeRequest")
+    it.call(IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_IsWebSocketUpgradeRequest,
+            tmp.addr)
     result = tmp
 
-proc webSocketProtocolsRequested*(self: DevicePortalConnectionRequestReceivedEventArgs): seq[string]  =
+proc webSocketProtocolsRequested*(self: DevicePortalConnectionRequestReceivedEventArgs): seq[string] =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_WebSocketProtocolsRequested
-  withIface(self.p, IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs, "IDevicePortalWebSocketConnectionRequestReceivedEventArgs", it):
+  withIface(self.p, IDevicePortalWebSocketConnectionRequestReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_WebSocketProtocolsRequested")
+    it.call(IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested,
+            tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc getDeferral*(self: DevicePortalConnectionRequestReceivedEventArgs): Deferral  =
+proc getDeferral*(self: DevicePortalConnectionRequestReceivedEventArgs): Deferral =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.GetDeferral
-  withIface(self.p, IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs, "IDevicePortalWebSocketConnectionRequestReceivedEventArgs", it):
+  withIface(self.p, IDevicePortalWebSocketConnectionRequestReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.GetDeferral")
+    it.call(IDevicePortalWebSocketConnectionRequestReceivedEventArgs_GetDeferral,
+            tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc extendedError*(self: DiagnosticActionResult): HRESULT  =
+proc extendedError*(self: DiagnosticActionResult): HRESULT =
   ## Windows.System.Diagnostics.DiagnosticActionResult.get_ExtendedError
-  withIface(self.p, IID_IDiagnosticActionResult, "IDiagnosticActionResult", it):
+  withIface(self.p, IDiagnosticActionResult, it):
     var tmp: HRESULT
-    vcall(it, Slot_IDiagnosticActionResult_get_ExtendedError, Fn_IDiagnosticActionResult_get_ExtendedError)(it, tmp.addr).check("DiagnosticActionResult.get_ExtendedError")
+    it.call(IDiagnosticActionResult_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc results*(self: DiagnosticActionResult): ValueSet  =
+proc results*(self: DiagnosticActionResult): ValueSet =
   ## Windows.System.Diagnostics.DiagnosticActionResult.get_Results
-  withIface(self.p, IID_IDiagnosticActionResult, "IDiagnosticActionResult", it):
+  withIface(self.p, IDiagnosticActionResult, it):
     var tmp: pointer
-    vcall(it, Slot_IDiagnosticActionResult_get_Results, Fn_IDiagnosticActionResult_get_Results)(it, tmp.addr).check("DiagnosticActionResult.get_Results")
+    it.call(IDiagnosticActionResult_get_Results, tmp.addr)
     result = adopt[ValueSet](tmp)
 
 proc runDiagnosticActionAsync*(self: DiagnosticInvoker, context: JsonObject): Future[DiagnosticActionResult] {.async.} =
   ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionAsync
   var op: pointer
-  withIface(self.p, IID_IDiagnosticInvoker, "IDiagnosticInvoker", it):
-    withIface(context.p, IID_IJsonObject, "IJsonObject", p0):
-      vcall(it, Slot_IDiagnosticInvoker_RunDiagnosticActionAsync, Fn_IDiagnosticInvoker_RunDiagnosticActionAsync)(it, p0, op.addr).check("DiagnosticInvoker.RunDiagnosticActionAsync")
-  result = adopt[DiagnosticActionResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState, IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState, alProgress, "DiagnosticInvoker.RunDiagnosticActionAsync"))
+  withIface(self.p, IDiagnosticInvoker, it):
+    withIface(context.p, IJsonObject, p0):
+      it.call(IDiagnosticInvoker_RunDiagnosticActionAsync, p0, op.addr)
+  result = adopt[DiagnosticActionResult](await awaitObject(op,
+                                                           IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
+                                                           IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                                                           alProgress,
+                                                           "DiagnosticInvoker.RunDiagnosticActionAsync"))
 
-proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker, context: string): Future[DiagnosticActionResult] {.async.} =
+proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker,
+                                         context: string): Future[DiagnosticActionResult] {.async.} =
   ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionFromStringAsync
   var op: pointer
-  withIface(self.p, IID_IDiagnosticInvoker2, "IDiagnosticInvoker2", it):
+  withIface(self.p, IDiagnosticInvoker2, it):
     withHString(context, h0):
-      vcall(it, Slot_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync, Fn_IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync)(it, h0, op.addr).check("DiagnosticInvoker.RunDiagnosticActionFromStringAsync")
-  result = adopt[DiagnosticActionResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState, IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState, alProgress, "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"))
+      it.call(IDiagnosticInvoker2_RunDiagnosticActionFromStringAsync, h0,
+              op.addr)
+  result = adopt[DiagnosticActionResult](await awaitObject(op,
+                                                           IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState,
+                                                           IID_AsyncOperationWithProgressCompletedHandler_2_DiagnosticActionResult_DiagnosticActionState,
+                                                           alProgress,
+                                                           "DiagnosticInvoker.RunDiagnosticActionFromStringAsync"))
 
-proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker  =
+proc getDefault*(_: typedesc[DiagnosticInvoker]): DiagnosticInvoker =
   ## Windows.System.Diagnostics.DiagnosticInvoker.GetDefault
-  withStatics("Windows.System.Diagnostics.DiagnosticInvoker", IID_IDiagnosticInvokerStatics, it):
+  withStatics("Windows.System.Diagnostics.DiagnosticInvoker",
+              IDiagnosticInvokerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDiagnosticInvokerStatics_GetDefault, Fn_IDiagnosticInvokerStatics_GetDefault)(it, tmp.addr).check("DiagnosticInvoker.GetDefault")
+    it.call(IDiagnosticInvokerStatics_GetDefault, tmp.addr)
     result = adopt[DiagnosticInvoker](tmp)
 
-proc getForUser*(_: typedesc[DiagnosticInvoker], user: User): DiagnosticInvoker  =
+proc getForUser*(_: typedesc[DiagnosticInvoker], user: User): DiagnosticInvoker =
   ## Windows.System.Diagnostics.DiagnosticInvoker.GetForUser
-  withStatics("Windows.System.Diagnostics.DiagnosticInvoker", IID_IDiagnosticInvokerStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.Diagnostics.DiagnosticInvoker",
+              IDiagnosticInvokerStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IDiagnosticInvokerStatics_GetForUser, Fn_IDiagnosticInvokerStatics_GetForUser)(it, p0, tmp.addr).check("DiagnosticInvoker.GetForUser")
+      it.call(IDiagnosticInvokerStatics_GetForUser, p0, tmp.addr)
       result = adopt[DiagnosticInvoker](tmp)
 
-proc isSupported*(_: typedesc[DiagnosticInvoker]): bool  =
+proc isSupported*(_: typedesc[DiagnosticInvoker]): bool =
   ## Windows.System.Diagnostics.DiagnosticInvoker.get_IsSupported
-  withStatics("Windows.System.Diagnostics.DiagnosticInvoker", IID_IDiagnosticInvokerStatics, it):
+  withStatics("Windows.System.Diagnostics.DiagnosticInvoker",
+              IDiagnosticInvokerStatics, it):
     var tmp: bool
-    vcall(it, Slot_IDiagnosticInvokerStatics_get_IsSupported, Fn_IDiagnosticInvokerStatics_get_IsSupported)(it, tmp.addr).check("DiagnosticInvoker.get_IsSupported")
+    it.call(IDiagnosticInvokerStatics_get_IsSupported, tmp.addr)
     result = tmp
 
-proc getReport*(self: ProcessCpuUsage): ProcessCpuUsageReport  =
+proc getReport*(self: ProcessCpuUsage): ProcessCpuUsageReport =
   ## Windows.System.Diagnostics.ProcessCpuUsage.GetReport
-  withIface(self.p, IID_IProcessCpuUsage, "IProcessCpuUsage", it):
+  withIface(self.p, IProcessCpuUsage, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessCpuUsage_GetReport, Fn_IProcessCpuUsage_GetReport)(it, tmp.addr).check("ProcessCpuUsage.GetReport")
+    it.call(IProcessCpuUsage_GetReport, tmp.addr)
     result = adopt[ProcessCpuUsageReport](tmp)
 
-proc kernelTime*(self: ProcessCpuUsageReport): TimeSpan  =
+proc kernelTime*(self: ProcessCpuUsageReport): TimeSpan =
   ## Windows.System.Diagnostics.ProcessCpuUsageReport.get_KernelTime
-  withIface(self.p, IID_IProcessCpuUsageReport, "IProcessCpuUsageReport", it):
+  withIface(self.p, IProcessCpuUsageReport, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IProcessCpuUsageReport_get_KernelTime, Fn_IProcessCpuUsageReport_get_KernelTime)(it, tmp.addr).check("ProcessCpuUsageReport.get_KernelTime")
+    it.call(IProcessCpuUsageReport_get_KernelTime, tmp.addr)
     result = tmp
 
-proc userTime*(self: ProcessCpuUsageReport): TimeSpan  =
+proc userTime*(self: ProcessCpuUsageReport): TimeSpan =
   ## Windows.System.Diagnostics.ProcessCpuUsageReport.get_UserTime
-  withIface(self.p, IID_IProcessCpuUsageReport, "IProcessCpuUsageReport", it):
+  withIface(self.p, IProcessCpuUsageReport, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IProcessCpuUsageReport_get_UserTime, Fn_IProcessCpuUsageReport_get_UserTime)(it, tmp.addr).check("ProcessCpuUsageReport.get_UserTime")
+    it.call(IProcessCpuUsageReport_get_UserTime, tmp.addr)
     result = tmp
 
-proc processId*(self: ProcessDiagnosticInfo): uint32  =
+proc processId*(self: ProcessDiagnosticInfo): uint32 =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_ProcessId
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: uint32
-    vcall(it, Slot_IProcessDiagnosticInfo_get_ProcessId, Fn_IProcessDiagnosticInfo_get_ProcessId)(it, tmp.addr).check("ProcessDiagnosticInfo.get_ProcessId")
+    it.call(IProcessDiagnosticInfo_get_ProcessId, tmp.addr)
     result = tmp
 
-proc executableFileName*(self: ProcessDiagnosticInfo): string  =
+proc executableFileName*(self: ProcessDiagnosticInfo): string =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_ExecutableFileName
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IProcessDiagnosticInfo_get_ExecutableFileName, Fn_IProcessDiagnosticInfo_get_ExecutableFileName)(it, tmp.addr).check("ProcessDiagnosticInfo.get_ExecutableFileName")
+    it.call(IProcessDiagnosticInfo_get_ExecutableFileName, tmp.addr)
     result = takeString(tmp)
 
-proc parent*(self: ProcessDiagnosticInfo): ProcessDiagnosticInfo  =
+proc parent*(self: ProcessDiagnosticInfo): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_Parent
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfo_get_Parent, Fn_IProcessDiagnosticInfo_get_Parent)(it, tmp.addr).check("ProcessDiagnosticInfo.get_Parent")
+    it.call(IProcessDiagnosticInfo_get_Parent, tmp.addr)
     result = adopt[ProcessDiagnosticInfo](tmp)
 
-proc processStartTime*(self: ProcessDiagnosticInfo): DateTime  =
+proc processStartTime*(self: ProcessDiagnosticInfo): DateTime =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_ProcessStartTime
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: DateTime
-    vcall(it, Slot_IProcessDiagnosticInfo_get_ProcessStartTime, Fn_IProcessDiagnosticInfo_get_ProcessStartTime)(it, tmp.addr).check("ProcessDiagnosticInfo.get_ProcessStartTime")
+    it.call(IProcessDiagnosticInfo_get_ProcessStartTime, tmp.addr)
     result = tmp
 
-proc diskUsage*(self: ProcessDiagnosticInfo): ProcessDiskUsage  =
+proc diskUsage*(self: ProcessDiagnosticInfo): ProcessDiskUsage =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_DiskUsage
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfo_get_DiskUsage, Fn_IProcessDiagnosticInfo_get_DiskUsage)(it, tmp.addr).check("ProcessDiagnosticInfo.get_DiskUsage")
+    it.call(IProcessDiagnosticInfo_get_DiskUsage, tmp.addr)
     result = adopt[ProcessDiskUsage](tmp)
 
-proc memoryUsage*(self: ProcessDiagnosticInfo): ProcessMemoryUsage  =
+proc memoryUsage*(self: ProcessDiagnosticInfo): ProcessMemoryUsage =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_MemoryUsage
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfo_get_MemoryUsage, Fn_IProcessDiagnosticInfo_get_MemoryUsage)(it, tmp.addr).check("ProcessDiagnosticInfo.get_MemoryUsage")
+    it.call(IProcessDiagnosticInfo_get_MemoryUsage, tmp.addr)
     result = adopt[ProcessMemoryUsage](tmp)
 
-proc cpuUsage*(self: ProcessDiagnosticInfo): ProcessCpuUsage  =
+proc cpuUsage*(self: ProcessDiagnosticInfo): ProcessCpuUsage =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_CpuUsage
-  withIface(self.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", it):
+  withIface(self.p, IProcessDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfo_get_CpuUsage, Fn_IProcessDiagnosticInfo_get_CpuUsage)(it, tmp.addr).check("ProcessDiagnosticInfo.get_CpuUsage")
+    it.call(IProcessDiagnosticInfo_get_CpuUsage, tmp.addr)
     result = adopt[ProcessCpuUsage](tmp)
 
-proc getAppDiagnosticInfos*(self: ProcessDiagnosticInfo): seq[AppDiagnosticInfo]  =
+proc getAppDiagnosticInfos*(self: ProcessDiagnosticInfo): seq[AppDiagnosticInfo] =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetAppDiagnosticInfos
-  withIface(self.p, IID_IProcessDiagnosticInfo2, "IProcessDiagnosticInfo2", it):
+  withIface(self.p, IProcessDiagnosticInfo2, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfo2_GetAppDiagnosticInfos, Fn_IProcessDiagnosticInfo2_GetAppDiagnosticInfos)(it, tmp.addr).check("ProcessDiagnosticInfo.GetAppDiagnosticInfos")
+    it.call(IProcessDiagnosticInfo2_GetAppDiagnosticInfos, tmp.addr)
     result = toSeq[AppDiagnosticInfo](tmp, IID_IVector_1_AppDiagnosticInfo)
     release(tmp)
 
-proc isPackaged*(self: ProcessDiagnosticInfo): bool  =
+proc isPackaged*(self: ProcessDiagnosticInfo): bool =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.get_IsPackaged
-  withIface(self.p, IID_IProcessDiagnosticInfo2, "IProcessDiagnosticInfo2", it):
+  withIface(self.p, IProcessDiagnosticInfo2, it):
     var tmp: bool
-    vcall(it, Slot_IProcessDiagnosticInfo2_get_IsPackaged, Fn_IProcessDiagnosticInfo2_get_IsPackaged)(it, tmp.addr).check("ProcessDiagnosticInfo.get_IsPackaged")
+    it.call(IProcessDiagnosticInfo2_get_IsPackaged, tmp.addr)
     result = tmp
 
-proc getForProcesses*(_: typedesc[ProcessDiagnosticInfo]): seq[ProcessDiagnosticInfo]  =
+proc getForProcesses*(_: typedesc[ProcessDiagnosticInfo]): seq[ProcessDiagnosticInfo] =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetForProcesses
-  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo", IID_IProcessDiagnosticInfoStatics, it):
+  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo",
+              IProcessDiagnosticInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfoStatics_GetForProcesses, Fn_IProcessDiagnosticInfoStatics_GetForProcesses)(it, tmp.addr).check("ProcessDiagnosticInfo.GetForProcesses")
-    result = toSeq[ProcessDiagnosticInfo](tmp, IID_IVectorView_1_ProcessDiagnosticInfo)
+    it.call(IProcessDiagnosticInfoStatics_GetForProcesses, tmp.addr)
+    result = toSeq[ProcessDiagnosticInfo](tmp,
+                                          IID_IVectorView_1_ProcessDiagnosticInfo)
     release(tmp)
 
-proc getForCurrentProcess*(_: typedesc[ProcessDiagnosticInfo]): ProcessDiagnosticInfo  =
+proc getForCurrentProcess*(_: typedesc[ProcessDiagnosticInfo]): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.GetForCurrentProcess
-  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo", IID_IProcessDiagnosticInfoStatics, it):
+  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo",
+              IProcessDiagnosticInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfoStatics_GetForCurrentProcess, Fn_IProcessDiagnosticInfoStatics_GetForCurrentProcess)(it, tmp.addr).check("ProcessDiagnosticInfo.GetForCurrentProcess")
+    it.call(IProcessDiagnosticInfoStatics_GetForCurrentProcess, tmp.addr)
     result = adopt[ProcessDiagnosticInfo](tmp)
 
-proc tryGetForProcessId*(_: typedesc[ProcessDiagnosticInfo], processId: uint32): ProcessDiagnosticInfo  =
+proc tryGetForProcessId*(_: typedesc[ProcessDiagnosticInfo], processId: uint32): ProcessDiagnosticInfo =
   ## Windows.System.Diagnostics.ProcessDiagnosticInfo.TryGetForProcessId
-  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo", IID_IProcessDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.Diagnostics.ProcessDiagnosticInfo",
+              IProcessDiagnosticInfoStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiagnosticInfoStatics2_TryGetForProcessId, Fn_IProcessDiagnosticInfoStatics2_TryGetForProcessId)(it, processId, tmp.addr).check("ProcessDiagnosticInfo.TryGetForProcessId")
+    it.call(IProcessDiagnosticInfoStatics2_TryGetForProcessId, processId,
+            tmp.addr)
     result = adopt[ProcessDiagnosticInfo](tmp)
 
-proc getReport*(self: ProcessDiskUsage): ProcessDiskUsageReport  =
+proc getReport*(self: ProcessDiskUsage): ProcessDiskUsageReport =
   ## Windows.System.Diagnostics.ProcessDiskUsage.GetReport
-  withIface(self.p, IID_IProcessDiskUsage, "IProcessDiskUsage", it):
+  withIface(self.p, IProcessDiskUsage, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessDiskUsage_GetReport, Fn_IProcessDiskUsage_GetReport)(it, tmp.addr).check("ProcessDiskUsage.GetReport")
+    it.call(IProcessDiskUsage_GetReport, tmp.addr)
     result = adopt[ProcessDiskUsageReport](tmp)
 
-proc readOperationCount*(self: ProcessDiskUsageReport): int64  =
+proc readOperationCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_ReadOperationCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_ReadOperationCount, Fn_IProcessDiskUsageReport_get_ReadOperationCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_ReadOperationCount")
+    it.call(IProcessDiskUsageReport_get_ReadOperationCount, tmp.addr)
     result = tmp
 
-proc writeOperationCount*(self: ProcessDiskUsageReport): int64  =
+proc writeOperationCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_WriteOperationCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_WriteOperationCount, Fn_IProcessDiskUsageReport_get_WriteOperationCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_WriteOperationCount")
+    it.call(IProcessDiskUsageReport_get_WriteOperationCount, tmp.addr)
     result = tmp
 
-proc otherOperationCount*(self: ProcessDiskUsageReport): int64  =
+proc otherOperationCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_OtherOperationCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_OtherOperationCount, Fn_IProcessDiskUsageReport_get_OtherOperationCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_OtherOperationCount")
+    it.call(IProcessDiskUsageReport_get_OtherOperationCount, tmp.addr)
     result = tmp
 
-proc bytesReadCount*(self: ProcessDiskUsageReport): int64  =
+proc bytesReadCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_BytesReadCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_BytesReadCount, Fn_IProcessDiskUsageReport_get_BytesReadCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_BytesReadCount")
+    it.call(IProcessDiskUsageReport_get_BytesReadCount, tmp.addr)
     result = tmp
 
-proc bytesWrittenCount*(self: ProcessDiskUsageReport): int64  =
+proc bytesWrittenCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_BytesWrittenCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_BytesWrittenCount, Fn_IProcessDiskUsageReport_get_BytesWrittenCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_BytesWrittenCount")
+    it.call(IProcessDiskUsageReport_get_BytesWrittenCount, tmp.addr)
     result = tmp
 
-proc otherBytesCount*(self: ProcessDiskUsageReport): int64  =
+proc otherBytesCount*(self: ProcessDiskUsageReport): int64 =
   ## Windows.System.Diagnostics.ProcessDiskUsageReport.get_OtherBytesCount
-  withIface(self.p, IID_IProcessDiskUsageReport, "IProcessDiskUsageReport", it):
+  withIface(self.p, IProcessDiskUsageReport, it):
     var tmp: int64
-    vcall(it, Slot_IProcessDiskUsageReport_get_OtherBytesCount, Fn_IProcessDiskUsageReport_get_OtherBytesCount)(it, tmp.addr).check("ProcessDiskUsageReport.get_OtherBytesCount")
+    it.call(IProcessDiskUsageReport_get_OtherBytesCount, tmp.addr)
     result = tmp
 
-proc getReport*(self: ProcessMemoryUsage): ProcessMemoryUsageReport  =
+proc getReport*(self: ProcessMemoryUsage): ProcessMemoryUsageReport =
   ## Windows.System.Diagnostics.ProcessMemoryUsage.GetReport
-  withIface(self.p, IID_IProcessMemoryUsage, "IProcessMemoryUsage", it):
+  withIface(self.p, IProcessMemoryUsage, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessMemoryUsage_GetReport, Fn_IProcessMemoryUsage_GetReport)(it, tmp.addr).check("ProcessMemoryUsage.GetReport")
+    it.call(IProcessMemoryUsage_GetReport, tmp.addr)
     result = adopt[ProcessMemoryUsageReport](tmp)
 
-proc nonPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc nonPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_NonPagedPoolSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes, Fn_IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_NonPagedPoolSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_NonPagedPoolSizeInBytes, tmp.addr)
     result = tmp
 
-proc pageFaultCount*(self: ProcessMemoryUsageReport): uint32  =
+proc pageFaultCount*(self: ProcessMemoryUsageReport): uint32 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PageFaultCount
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint32
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PageFaultCount, Fn_IProcessMemoryUsageReport_get_PageFaultCount)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PageFaultCount")
+    it.call(IProcessMemoryUsageReport_get_PageFaultCount, tmp.addr)
     result = tmp
 
-proc pageFileSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc pageFileSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PageFileSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PageFileSizeInBytes, Fn_IProcessMemoryUsageReport_get_PageFileSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PageFileSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PageFileSizeInBytes, tmp.addr)
     result = tmp
 
-proc pagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc pagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PagedPoolSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes, Fn_IProcessMemoryUsageReport_get_PagedPoolSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PagedPoolSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PagedPoolSizeInBytes, tmp.addr)
     result = tmp
 
-proc peakNonPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc peakNonPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PeakNonPagedPoolSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes, Fn_IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PeakNonPagedPoolSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PeakNonPagedPoolSizeInBytes, tmp.addr)
     result = tmp
 
-proc peakPageFileSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc peakPageFileSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PeakPageFileSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes, Fn_IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PeakPageFileSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PeakPageFileSizeInBytes, tmp.addr)
     result = tmp
 
-proc peakPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc peakPagedPoolSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PeakPagedPoolSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes, Fn_IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PeakPagedPoolSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PeakPagedPoolSizeInBytes, tmp.addr)
     result = tmp
 
-proc peakVirtualMemorySizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc peakVirtualMemorySizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PeakVirtualMemorySizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes, Fn_IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PeakVirtualMemorySizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PeakVirtualMemorySizeInBytes, tmp.addr)
     result = tmp
 
-proc peakWorkingSetSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc peakWorkingSetSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PeakWorkingSetSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes, Fn_IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PeakWorkingSetSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_PeakWorkingSetSizeInBytes, tmp.addr)
     result = tmp
 
-proc privatePageCount*(self: ProcessMemoryUsageReport): uint64  =
+proc privatePageCount*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_PrivatePageCount
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_PrivatePageCount, Fn_IProcessMemoryUsageReport_get_PrivatePageCount)(it, tmp.addr).check("ProcessMemoryUsageReport.get_PrivatePageCount")
+    it.call(IProcessMemoryUsageReport_get_PrivatePageCount, tmp.addr)
     result = tmp
 
-proc virtualMemorySizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc virtualMemorySizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_VirtualMemorySizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes, Fn_IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_VirtualMemorySizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_VirtualMemorySizeInBytes, tmp.addr)
     result = tmp
 
-proc workingSetSizeInBytes*(self: ProcessMemoryUsageReport): uint64  =
+proc workingSetSizeInBytes*(self: ProcessMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.ProcessMemoryUsageReport.get_WorkingSetSizeInBytes
-  withIface(self.p, IID_IProcessMemoryUsageReport, "IProcessMemoryUsageReport", it):
+  withIface(self.p, IProcessMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes, Fn_IProcessMemoryUsageReport_get_WorkingSetSizeInBytes)(it, tmp.addr).check("ProcessMemoryUsageReport.get_WorkingSetSizeInBytes")
+    it.call(IProcessMemoryUsageReport_get_WorkingSetSizeInBytes, tmp.addr)
     result = tmp
 
-proc getReport*(self: SystemCpuUsage): SystemCpuUsageReport  =
+proc getReport*(self: SystemCpuUsage): SystemCpuUsageReport =
   ## Windows.System.Diagnostics.SystemCpuUsage.GetReport
-  withIface(self.p, IID_ISystemCpuUsage, "ISystemCpuUsage", it):
+  withIface(self.p, ISystemCpuUsage, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemCpuUsage_GetReport, Fn_ISystemCpuUsage_GetReport)(it, tmp.addr).check("SystemCpuUsage.GetReport")
+    it.call(ISystemCpuUsage_GetReport, tmp.addr)
     result = adopt[SystemCpuUsageReport](tmp)
 
-proc kernelTime*(self: SystemCpuUsageReport): TimeSpan  =
+proc kernelTime*(self: SystemCpuUsageReport): TimeSpan =
   ## Windows.System.Diagnostics.SystemCpuUsageReport.get_KernelTime
-  withIface(self.p, IID_ISystemCpuUsageReport, "ISystemCpuUsageReport", it):
+  withIface(self.p, ISystemCpuUsageReport, it):
     var tmp: TimeSpan
-    vcall(it, Slot_ISystemCpuUsageReport_get_KernelTime, Fn_ISystemCpuUsageReport_get_KernelTime)(it, tmp.addr).check("SystemCpuUsageReport.get_KernelTime")
+    it.call(ISystemCpuUsageReport_get_KernelTime, tmp.addr)
     result = tmp
 
-proc userTime*(self: SystemCpuUsageReport): TimeSpan  =
+proc userTime*(self: SystemCpuUsageReport): TimeSpan =
   ## Windows.System.Diagnostics.SystemCpuUsageReport.get_UserTime
-  withIface(self.p, IID_ISystemCpuUsageReport, "ISystemCpuUsageReport", it):
+  withIface(self.p, ISystemCpuUsageReport, it):
     var tmp: TimeSpan
-    vcall(it, Slot_ISystemCpuUsageReport_get_UserTime, Fn_ISystemCpuUsageReport_get_UserTime)(it, tmp.addr).check("SystemCpuUsageReport.get_UserTime")
+    it.call(ISystemCpuUsageReport_get_UserTime, tmp.addr)
     result = tmp
 
-proc idleTime*(self: SystemCpuUsageReport): TimeSpan  =
+proc idleTime*(self: SystemCpuUsageReport): TimeSpan =
   ## Windows.System.Diagnostics.SystemCpuUsageReport.get_IdleTime
-  withIface(self.p, IID_ISystemCpuUsageReport, "ISystemCpuUsageReport", it):
+  withIface(self.p, ISystemCpuUsageReport, it):
     var tmp: TimeSpan
-    vcall(it, Slot_ISystemCpuUsageReport_get_IdleTime, Fn_ISystemCpuUsageReport_get_IdleTime)(it, tmp.addr).check("SystemCpuUsageReport.get_IdleTime")
+    it.call(ISystemCpuUsageReport_get_IdleTime, tmp.addr)
     result = tmp
 
-proc memoryUsage*(self: SystemDiagnosticInfo): SystemMemoryUsage  =
+proc memoryUsage*(self: SystemDiagnosticInfo): SystemMemoryUsage =
   ## Windows.System.Diagnostics.SystemDiagnosticInfo.get_MemoryUsage
-  withIface(self.p, IID_ISystemDiagnosticInfo, "ISystemDiagnosticInfo", it):
+  withIface(self.p, ISystemDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemDiagnosticInfo_get_MemoryUsage, Fn_ISystemDiagnosticInfo_get_MemoryUsage)(it, tmp.addr).check("SystemDiagnosticInfo.get_MemoryUsage")
+    it.call(ISystemDiagnosticInfo_get_MemoryUsage, tmp.addr)
     result = adopt[SystemMemoryUsage](tmp)
 
-proc cpuUsage*(self: SystemDiagnosticInfo): SystemCpuUsage  =
+proc cpuUsage*(self: SystemDiagnosticInfo): SystemCpuUsage =
   ## Windows.System.Diagnostics.SystemDiagnosticInfo.get_CpuUsage
-  withIface(self.p, IID_ISystemDiagnosticInfo, "ISystemDiagnosticInfo", it):
+  withIface(self.p, ISystemDiagnosticInfo, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemDiagnosticInfo_get_CpuUsage, Fn_ISystemDiagnosticInfo_get_CpuUsage)(it, tmp.addr).check("SystemDiagnosticInfo.get_CpuUsage")
+    it.call(ISystemDiagnosticInfo_get_CpuUsage, tmp.addr)
     result = adopt[SystemCpuUsage](tmp)
 
-proc getForCurrentSystem*(_: typedesc[SystemDiagnosticInfo]): SystemDiagnosticInfo  =
+proc getForCurrentSystem*(_: typedesc[SystemDiagnosticInfo]): SystemDiagnosticInfo =
   ## Windows.System.Diagnostics.SystemDiagnosticInfo.GetForCurrentSystem
-  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo", IID_ISystemDiagnosticInfoStatics, it):
+  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo",
+              ISystemDiagnosticInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemDiagnosticInfoStatics_GetForCurrentSystem, Fn_ISystemDiagnosticInfoStatics_GetForCurrentSystem)(it, tmp.addr).check("SystemDiagnosticInfo.GetForCurrentSystem")
+    it.call(ISystemDiagnosticInfoStatics_GetForCurrentSystem, tmp.addr)
     result = adopt[SystemDiagnosticInfo](tmp)
 
-proc isArchitectureSupported*(_: typedesc[SystemDiagnosticInfo], `type`: ProcessorArchitecture): bool  =
+proc isArchitectureSupported*(_: typedesc[SystemDiagnosticInfo],
+                              `type`: ProcessorArchitecture): bool =
   ## Windows.System.Diagnostics.SystemDiagnosticInfo.IsArchitectureSupported
-  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo", IID_ISystemDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo",
+              ISystemDiagnosticInfoStatics2, it):
     var tmp: bool
-    vcall(it, Slot_ISystemDiagnosticInfoStatics2_IsArchitectureSupported, Fn_ISystemDiagnosticInfoStatics2_IsArchitectureSupported)(it, `type`, tmp.addr).check("SystemDiagnosticInfo.IsArchitectureSupported")
+    it.call(ISystemDiagnosticInfoStatics2_IsArchitectureSupported, `type`,
+            tmp.addr)
     result = tmp
 
-proc preferredArchitecture*(_: typedesc[SystemDiagnosticInfo]): ProcessorArchitecture  =
+proc preferredArchitecture*(_: typedesc[SystemDiagnosticInfo]): ProcessorArchitecture =
   ## Windows.System.Diagnostics.SystemDiagnosticInfo.get_PreferredArchitecture
-  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo", IID_ISystemDiagnosticInfoStatics2, it):
+  withStatics("Windows.System.Diagnostics.SystemDiagnosticInfo",
+              ISystemDiagnosticInfoStatics2, it):
     var tmp: ProcessorArchitecture
-    vcall(it, Slot_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture, Fn_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture)(it, tmp.addr).check("SystemDiagnosticInfo.get_PreferredArchitecture")
+    it.call(ISystemDiagnosticInfoStatics2_get_PreferredArchitecture, tmp.addr)
     result = tmp
 
-proc getReport*(self: SystemMemoryUsage): SystemMemoryUsageReport  =
+proc getReport*(self: SystemMemoryUsage): SystemMemoryUsageReport =
   ## Windows.System.Diagnostics.SystemMemoryUsage.GetReport
-  withIface(self.p, IID_ISystemMemoryUsage, "ISystemMemoryUsage", it):
+  withIface(self.p, ISystemMemoryUsage, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemMemoryUsage_GetReport, Fn_ISystemMemoryUsage_GetReport)(it, tmp.addr).check("SystemMemoryUsage.GetReport")
+    it.call(ISystemMemoryUsage_GetReport, tmp.addr)
     result = adopt[SystemMemoryUsageReport](tmp)
 
-proc totalPhysicalSizeInBytes*(self: SystemMemoryUsageReport): uint64  =
+proc totalPhysicalSizeInBytes*(self: SystemMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.SystemMemoryUsageReport.get_TotalPhysicalSizeInBytes
-  withIface(self.p, IID_ISystemMemoryUsageReport, "ISystemMemoryUsageReport", it):
+  withIface(self.p, ISystemMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes, Fn_ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes)(it, tmp.addr).check("SystemMemoryUsageReport.get_TotalPhysicalSizeInBytes")
+    it.call(ISystemMemoryUsageReport_get_TotalPhysicalSizeInBytes, tmp.addr)
     result = tmp
 
-proc availableSizeInBytes*(self: SystemMemoryUsageReport): uint64  =
+proc availableSizeInBytes*(self: SystemMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.SystemMemoryUsageReport.get_AvailableSizeInBytes
-  withIface(self.p, IID_ISystemMemoryUsageReport, "ISystemMemoryUsageReport", it):
+  withIface(self.p, ISystemMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_ISystemMemoryUsageReport_get_AvailableSizeInBytes, Fn_ISystemMemoryUsageReport_get_AvailableSizeInBytes)(it, tmp.addr).check("SystemMemoryUsageReport.get_AvailableSizeInBytes")
+    it.call(ISystemMemoryUsageReport_get_AvailableSizeInBytes, tmp.addr)
     result = tmp
 
-proc committedSizeInBytes*(self: SystemMemoryUsageReport): uint64  =
+proc committedSizeInBytes*(self: SystemMemoryUsageReport): uint64 =
   ## Windows.System.Diagnostics.SystemMemoryUsageReport.get_CommittedSizeInBytes
-  withIface(self.p, IID_ISystemMemoryUsageReport, "ISystemMemoryUsageReport", it):
+  withIface(self.p, ISystemMemoryUsageReport, it):
     var tmp: uint64
-    vcall(it, Slot_ISystemMemoryUsageReport_get_CommittedSizeInBytes, Fn_ISystemMemoryUsageReport_get_CommittedSizeInBytes)(it, tmp.addr).check("SystemMemoryUsageReport.get_CommittedSizeInBytes")
+    it.call(ISystemMemoryUsageReport_get_CommittedSizeInBytes, tmp.addr)
     result = tmp
 
-proc register*(_: typedesc[PlatformTelemetryClient], id: string): PlatformTelemetryRegistrationResult  =
+proc register*(_: typedesc[PlatformTelemetryClient], id: string): PlatformTelemetryRegistrationResult =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient.Register
-  withStatics("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient", IID_IPlatformTelemetryClientStatics, it):
+  withStatics("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient",
+              IPlatformTelemetryClientStatics, it):
     withHString(id, h0):
       var tmp: pointer
-      vcall(it, Slot_IPlatformTelemetryClientStatics_Register, Fn_IPlatformTelemetryClientStatics_Register)(it, h0, tmp.addr).check("PlatformTelemetryClient.Register")
+      it.call(IPlatformTelemetryClientStatics_Register, h0, tmp.addr)
       result = adopt[PlatformTelemetryRegistrationResult](tmp)
 
-proc register*(_: typedesc[PlatformTelemetryClient], id: string, settings: PlatformTelemetryRegistrationSettings): PlatformTelemetryRegistrationResult  =
+proc register*(_: typedesc[PlatformTelemetryClient], id: string,
+               settings: PlatformTelemetryRegistrationSettings): PlatformTelemetryRegistrationResult =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient.Register
-  withStatics("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient", IID_IPlatformTelemetryClientStatics, it):
+  withStatics("Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient",
+              IPlatformTelemetryClientStatics, it):
     withHString(id, h0):
-      withIface(settings.p, IID_IPlatformTelemetryRegistrationSettings, "IPlatformTelemetryRegistrationSettings", p1):
+      withIface(settings.p, IPlatformTelemetryRegistrationSettings, p1):
         var tmp: pointer
-        vcall(it, Slot_IPlatformTelemetryClientStatics_Register2, Fn_IPlatformTelemetryClientStatics_Register2)(it, h0, p1, tmp.addr).check("PlatformTelemetryClient.Register")
+        it.call(IPlatformTelemetryClientStatics_Register2, h0, p1, tmp.addr)
         result = adopt[PlatformTelemetryRegistrationResult](tmp)
 
-proc status*(self: PlatformTelemetryRegistrationResult): PlatformTelemetryRegistrationStatus  =
+proc status*(self: PlatformTelemetryRegistrationResult): PlatformTelemetryRegistrationStatus =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult.get_Status
-  withIface(self.p, IID_IPlatformTelemetryRegistrationResult, "IPlatformTelemetryRegistrationResult", it):
+  withIface(self.p, IPlatformTelemetryRegistrationResult, it):
     var tmp: PlatformTelemetryRegistrationStatus
-    vcall(it, Slot_IPlatformTelemetryRegistrationResult_get_Status, Fn_IPlatformTelemetryRegistrationResult_get_Status)(it, tmp.addr).check("PlatformTelemetryRegistrationResult.get_Status")
+    it.call(IPlatformTelemetryRegistrationResult_get_Status, tmp.addr)
     result = tmp
 
 proc newPlatformTelemetryRegistrationSettings*(): PlatformTelemetryRegistrationSettings =
   ## Activate a `Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings`.
   adopt[PlatformTelemetryRegistrationSettings](activateAs("Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings", IID_IPlatformTelemetryRegistrationSettings))
 
-proc storageSize*(self: PlatformTelemetryRegistrationSettings): uint32  =
+proc storageSize*(self: PlatformTelemetryRegistrationSettings): uint32 =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings.get_StorageSize
-  withIface(self.p, IID_IPlatformTelemetryRegistrationSettings, "IPlatformTelemetryRegistrationSettings", it):
+  withIface(self.p, IPlatformTelemetryRegistrationSettings, it):
     var tmp: uint32
-    vcall(it, Slot_IPlatformTelemetryRegistrationSettings_get_StorageSize, Fn_IPlatformTelemetryRegistrationSettings_get_StorageSize)(it, tmp.addr).check("PlatformTelemetryRegistrationSettings.get_StorageSize")
+    it.call(IPlatformTelemetryRegistrationSettings_get_StorageSize, tmp.addr)
     result = tmp
 
-proc `storageSize=`*(self: PlatformTelemetryRegistrationSettings, value: uint32)  =
+proc `storageSize=`*(self: PlatformTelemetryRegistrationSettings, value: uint32) =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings.put_StorageSize
-  withIface(self.p, IID_IPlatformTelemetryRegistrationSettings, "IPlatformTelemetryRegistrationSettings", it):
-    vcall(it, Slot_IPlatformTelemetryRegistrationSettings_put_StorageSize, Fn_IPlatformTelemetryRegistrationSettings_put_StorageSize)(it, value).check("PlatformTelemetryRegistrationSettings.put_StorageSize")
+  withIface(self.p, IPlatformTelemetryRegistrationSettings, it):
+    it.call(IPlatformTelemetryRegistrationSettings_put_StorageSize, value)
 
-proc uploadQuotaSize*(self: PlatformTelemetryRegistrationSettings): uint32  =
+proc uploadQuotaSize*(self: PlatformTelemetryRegistrationSettings): uint32 =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings.get_UploadQuotaSize
-  withIface(self.p, IID_IPlatformTelemetryRegistrationSettings, "IPlatformTelemetryRegistrationSettings", it):
+  withIface(self.p, IPlatformTelemetryRegistrationSettings, it):
     var tmp: uint32
-    vcall(it, Slot_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize, Fn_IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize)(it, tmp.addr).check("PlatformTelemetryRegistrationSettings.get_UploadQuotaSize")
+    it.call(IPlatformTelemetryRegistrationSettings_get_UploadQuotaSize, tmp.addr)
     result = tmp
 
-proc `uploadQuotaSize=`*(self: PlatformTelemetryRegistrationSettings, value: uint32)  =
+proc `uploadQuotaSize=`*(self: PlatformTelemetryRegistrationSettings,
+                         value: uint32) =
   ## Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings.put_UploadQuotaSize
-  withIface(self.p, IID_IPlatformTelemetryRegistrationSettings, "IPlatformTelemetryRegistrationSettings", it):
-    vcall(it, Slot_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize, Fn_IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize)(it, value).check("PlatformTelemetryRegistrationSettings.put_UploadQuotaSize")
+  withIface(self.p, IPlatformTelemetryRegistrationSettings, it):
+    it.call(IPlatformTelemetryRegistrationSettings_put_UploadQuotaSize, value)
 
-proc isScenarioEnabled*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID): bool  =
+proc isScenarioEnabled*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID): bool =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.IsScenarioEnabled
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: bool
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_IsScenarioEnabled, Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled)(it, scenarioId, tmp.addr).check("PlatformDiagnosticActions.IsScenarioEnabled")
+    it.call(IPlatformDiagnosticActionsStatics_IsScenarioEnabled, scenarioId,
+            tmp.addr)
     result = tmp
 
-proc tryEscalateScenario*(_: typedesc[PlatformDiagnosticActions], scenarioId: GUID, escalationType: PlatformDiagnosticEscalationType, outputDirectory: string, timestampOutputDirectory: bool, forceEscalationUpload: bool, triggers: Table[string, string]): bool  =
+proc tryEscalateScenario*(_: typedesc[PlatformDiagnosticActions],
+                          scenarioId: GUID,
+                          escalationType: PlatformDiagnosticEscalationType,
+                          outputDirectory: string,
+                          timestampOutputDirectory: bool,
+                          forceEscalationUpload: bool,
+                          triggers: Table[string, string]): bool =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.TryEscalateScenario
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     withHString(outputDirectory, h2):
-      let p5 = asMap(triggers, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_String, view: IID_IMapView_2_String_String, map: IID_IMap_2_String_String))
+      let p5 = asMap(triggers, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2,
+                                       cursor: IID_IIterator_1_IKeyValuePair_2,
+                                       pair: IID_IKeyValuePair_2_String_String,
+                                       view: IID_IMapView_2_String_String,
+                                       map: IID_IMap_2_String_String))
       defer: discard release(p5)
       var tmp: bool
-      vcall(it, Slot_IPlatformDiagnosticActionsStatics_TryEscalateScenario, Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario)(it, scenarioId, escalationType, h2, timestampOutputDirectory, forceEscalationUpload, p5, tmp.addr).check("PlatformDiagnosticActions.TryEscalateScenario")
+      it.call(IPlatformDiagnosticActionsStatics_TryEscalateScenario, scenarioId,
+              escalationType, h2, timestampOutputDirectory,
+              forceEscalationUpload, p5, tmp.addr)
       result = tmp
 
-proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions], partner: string, feature: string, isScenarioNamespace: bool, downloadOverCostedNetwork: bool, downloadOverBattery: bool): PlatformDiagnosticActionState  =
+proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions],
+                                         partner: string, feature: string,
+                                         isScenarioNamespace: bool,
+                                         downloadOverCostedNetwork: bool,
+                                         downloadOverBattery: bool): PlatformDiagnosticActionState =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.DownloadLatestSettingsForNamespace
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     withHString(partner, h0):
       withHString(feature, h1):
         var tmp: PlatformDiagnosticActionState
-        vcall(it, Slot_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace, Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace)(it, h0, h1, isScenarioNamespace, downloadOverCostedNetwork, downloadOverBattery, tmp.addr).check("PlatformDiagnosticActions.DownloadLatestSettingsForNamespace")
+        it.call(IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace,
+                h0, h1, isScenarioNamespace, downloadOverCostedNetwork,
+                downloadOverBattery, tmp.addr)
         result = tmp
 
-proc getActiveScenarioList*(_: typedesc[PlatformDiagnosticActions]): seq[GUID]  =
+proc getActiveScenarioList*(_: typedesc[PlatformDiagnosticActions]): seq[GUID] =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.GetActiveScenarioList
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetActiveScenarioList, Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList)(it, tmp.addr).check("PlatformDiagnosticActions.GetActiveScenarioList")
+    it.call(IPlatformDiagnosticActionsStatics_GetActiveScenarioList, tmp.addr)
     result = toSeq[GUID](tmp, IID_IVectorView_1_Guid)
     release(tmp)
 
-proc forceUpload*(_: typedesc[PlatformDiagnosticActions], latency: PlatformDiagnosticEventBufferLatencies, uploadOverCostedNetwork: bool, uploadOverBattery: bool): PlatformDiagnosticActionState  =
+proc forceUpload*(_: typedesc[PlatformDiagnosticActions],
+                  latency: PlatformDiagnosticEventBufferLatencies,
+                  uploadOverCostedNetwork: bool, uploadOverBattery: bool): PlatformDiagnosticActionState =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.ForceUpload
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: PlatformDiagnosticActionState
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_ForceUpload, Fn_IPlatformDiagnosticActionsStatics_ForceUpload)(it, latency, uploadOverCostedNetwork, uploadOverBattery, tmp.addr).check("PlatformDiagnosticActions.ForceUpload")
+    it.call(IPlatformDiagnosticActionsStatics_ForceUpload, latency,
+            uploadOverCostedNetwork, uploadOverBattery, tmp.addr)
     result = tmp
 
-proc isTraceRunning*(_: typedesc[PlatformDiagnosticActions], slotType: PlatformDiagnosticTraceSlotType, scenarioId: GUID, traceProfileHash: uint64): PlatformDiagnosticTraceSlotState  =
+proc isTraceRunning*(_: typedesc[PlatformDiagnosticActions],
+                     slotType: PlatformDiagnosticTraceSlotType,
+                     scenarioId: GUID, traceProfileHash: uint64): PlatformDiagnosticTraceSlotState =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.IsTraceRunning
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: PlatformDiagnosticTraceSlotState
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_IsTraceRunning, Fn_IPlatformDiagnosticActionsStatics_IsTraceRunning)(it, slotType, scenarioId, traceProfileHash, tmp.addr).check("PlatformDiagnosticActions.IsTraceRunning")
+    it.call(IPlatformDiagnosticActionsStatics_IsTraceRunning, slotType,
+            scenarioId, traceProfileHash, tmp.addr)
     result = tmp
 
-proc getActiveTraceRuntime*(_: typedesc[PlatformDiagnosticActions], slotType: PlatformDiagnosticTraceSlotType): PlatformDiagnosticTraceRuntimeInfo  =
+proc getActiveTraceRuntime*(_: typedesc[PlatformDiagnosticActions],
+                            slotType: PlatformDiagnosticTraceSlotType): PlatformDiagnosticTraceRuntimeInfo =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.GetActiveTraceRuntime
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime, Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime)(it, slotType, tmp.addr).check("PlatformDiagnosticActions.GetActiveTraceRuntime")
+    it.call(IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime, slotType,
+            tmp.addr)
     result = adopt[PlatformDiagnosticTraceRuntimeInfo](tmp)
 
-proc getKnownTraceList*(_: typedesc[PlatformDiagnosticActions], slotType: PlatformDiagnosticTraceSlotType): seq[PlatformDiagnosticTraceInfo]  =
+proc getKnownTraceList*(_: typedesc[PlatformDiagnosticActions],
+                        slotType: PlatformDiagnosticTraceSlotType): seq[PlatformDiagnosticTraceInfo] =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.GetKnownTraceList
-  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions",
+              IPlatformDiagnosticActionsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetKnownTraceList, Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList)(it, slotType, tmp.addr).check("PlatformDiagnosticActions.GetKnownTraceList")
-    result = toSeq[PlatformDiagnosticTraceInfo](tmp, IID_IVectorView_1_PlatformDiagnosticTraceInfo)
+    it.call(IPlatformDiagnosticActionsStatics_GetKnownTraceList, slotType,
+            tmp.addr)
+    result = toSeq[PlatformDiagnosticTraceInfo](tmp,
+                                                IID_IVectorView_1_PlatformDiagnosticTraceInfo)
     release(tmp)
 
-proc scenarioId*(self: PlatformDiagnosticTraceInfo): GUID  =
+proc scenarioId*(self: PlatformDiagnosticTraceInfo): GUID =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_ScenarioId
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: GUID
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_ScenarioId, Fn_IPlatformDiagnosticTraceInfo_get_ScenarioId)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_ScenarioId")
+    it.call(IPlatformDiagnosticTraceInfo_get_ScenarioId, tmp.addr)
     result = tmp
 
-proc profileHash*(self: PlatformDiagnosticTraceInfo): uint64  =
+proc profileHash*(self: PlatformDiagnosticTraceInfo): uint64 =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_ProfileHash
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: uint64
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_ProfileHash, Fn_IPlatformDiagnosticTraceInfo_get_ProfileHash)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_ProfileHash")
+    it.call(IPlatformDiagnosticTraceInfo_get_ProfileHash, tmp.addr)
     result = tmp
 
-proc isExclusive*(self: PlatformDiagnosticTraceInfo): bool  =
+proc isExclusive*(self: PlatformDiagnosticTraceInfo): bool =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_IsExclusive
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: bool
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_IsExclusive, Fn_IPlatformDiagnosticTraceInfo_get_IsExclusive)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_IsExclusive")
+    it.call(IPlatformDiagnosticTraceInfo_get_IsExclusive, tmp.addr)
     result = tmp
 
-proc isAutoLogger*(self: PlatformDiagnosticTraceInfo): bool  =
+proc isAutoLogger*(self: PlatformDiagnosticTraceInfo): bool =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_IsAutoLogger
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: bool
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_IsAutoLogger, Fn_IPlatformDiagnosticTraceInfo_get_IsAutoLogger)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_IsAutoLogger")
+    it.call(IPlatformDiagnosticTraceInfo_get_IsAutoLogger, tmp.addr)
     result = tmp
 
-proc maxTraceDurationFileTime*(self: PlatformDiagnosticTraceInfo): int64  =
+proc maxTraceDurationFileTime*(self: PlatformDiagnosticTraceInfo): int64 =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_MaxTraceDurationFileTime
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: int64
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime, Fn_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_MaxTraceDurationFileTime")
+    it.call(IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime, tmp.addr)
     result = tmp
 
-proc priority*(self: PlatformDiagnosticTraceInfo): PlatformDiagnosticTracePriority  =
+proc priority*(self: PlatformDiagnosticTraceInfo): PlatformDiagnosticTracePriority =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo.get_Priority
-  withIface(self.p, IID_IPlatformDiagnosticTraceInfo, "IPlatformDiagnosticTraceInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceInfo, it):
     var tmp: PlatformDiagnosticTracePriority
-    vcall(it, Slot_IPlatformDiagnosticTraceInfo_get_Priority, Fn_IPlatformDiagnosticTraceInfo_get_Priority)(it, tmp.addr).check("PlatformDiagnosticTraceInfo.get_Priority")
+    it.call(IPlatformDiagnosticTraceInfo_get_Priority, tmp.addr)
     result = tmp
 
-proc runtimeFileTime*(self: PlatformDiagnosticTraceRuntimeInfo): int64  =
+proc runtimeFileTime*(self: PlatformDiagnosticTraceRuntimeInfo): int64 =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo.get_RuntimeFileTime
-  withIface(self.p, IID_IPlatformDiagnosticTraceRuntimeInfo, "IPlatformDiagnosticTraceRuntimeInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceRuntimeInfo, it):
     var tmp: int64
-    vcall(it, Slot_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime, Fn_IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime)(it, tmp.addr).check("PlatformDiagnosticTraceRuntimeInfo.get_RuntimeFileTime")
+    it.call(IPlatformDiagnosticTraceRuntimeInfo_get_RuntimeFileTime, tmp.addr)
     result = tmp
 
-proc etwRuntimeFileTime*(self: PlatformDiagnosticTraceRuntimeInfo): int64  =
+proc etwRuntimeFileTime*(self: PlatformDiagnosticTraceRuntimeInfo): int64 =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo.get_EtwRuntimeFileTime
-  withIface(self.p, IID_IPlatformDiagnosticTraceRuntimeInfo, "IPlatformDiagnosticTraceRuntimeInfo", it):
+  withIface(self.p, IPlatformDiagnosticTraceRuntimeInfo, it):
     var tmp: int64
-    vcall(it, Slot_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime, Fn_IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime)(it, tmp.addr).check("PlatformDiagnosticTraceRuntimeInfo.get_EtwRuntimeFileTime")
+    it.call(IPlatformDiagnosticTraceRuntimeInfo_get_EtwRuntimeFileTime, tmp.addr)
     result = tmp
 
-proc createTimer*(self: DispatcherQueue): DispatcherQueueTimer  =
+proc createTimer*(self: DispatcherQueue): DispatcherQueueTimer =
   ## Windows.System.DispatcherQueue.CreateTimer
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
+  withIface(self.p, IDispatcherQueue, it):
     var tmp: pointer
-    vcall(it, Slot_IDispatcherQueue_CreateTimer, Fn_IDispatcherQueue_CreateTimer)(it, tmp.addr).check("DispatcherQueue.CreateTimer")
+    it.call(IDispatcherQueue_CreateTimer, tmp.addr)
     result = adopt[DispatcherQueueTimer](tmp)
 
-proc tryEnqueue*(self: DispatcherQueue, callback: proc()): bool  =
+proc tryEnqueue*(self: DispatcherQueue, callback: proc()): bool =
   ## Windows.System.DispatcherQueue.TryEnqueue
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
+  withIface(self.p, IDispatcherQueue, it):
     let d0 = newDelegate(IID_DispatcherQueueHandler, callback)
     defer: discard release(d0)
     var tmp: bool
-    vcall(it, Slot_IDispatcherQueue_TryEnqueue, Fn_IDispatcherQueue_TryEnqueue)(it, d0, tmp.addr).check("DispatcherQueue.TryEnqueue")
+    it.call(IDispatcherQueue_TryEnqueue, d0, tmp.addr)
     result = tmp
 
-proc tryEnqueue*(self: DispatcherQueue, priority: DispatcherQueuePriority, callback: proc()): bool  =
+proc tryEnqueue*(self: DispatcherQueue, priority: DispatcherQueuePriority,
+                 callback: proc()): bool =
   ## Windows.System.DispatcherQueue.TryEnqueue
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
+  withIface(self.p, IDispatcherQueue, it):
     let d1 = newDelegate(IID_DispatcherQueueHandler, callback)
     defer: discard release(d1)
     var tmp: bool
-    vcall(it, Slot_IDispatcherQueue_TryEnqueue2, Fn_IDispatcherQueue_TryEnqueue2)(it, priority, d1, tmp.addr).check("DispatcherQueue.TryEnqueue")
+    it.call(IDispatcherQueue_TryEnqueue2, priority, d1, tmp.addr)
     result = tmp
 
 proc onShutdownStarting*(self: DispatcherQueue,
-    handler: proc(sender: DispatcherQueue, args: DispatcherQueueShutdownStartingEventArgs)): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[DispatcherQueue, DispatcherQueueShutdownStartingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.DispatcherQueue.add_ShutdownStarting
-  ##
-  ## The token is what `removeShutdownStarting` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueue_DispatcherQueueShutdownStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DispatcherQueue](a0), borrow[DispatcherQueueShutdownStartingEventArgs](a1)), event = true)
+  ## The token is what `removeShutdownStarting` takes.
+  withIface(self.p, IDispatcherQueue, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[DispatcherQueue](a0),
+              borrow[DispatcherQueueShutdownStartingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueue_DispatcherQueueShutdownStartingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IDispatcherQueue_add_ShutdownStarting, Fn_IDispatcherQueue_add_ShutdownStarting)(it, cb, result.addr)
-        .check("DispatcherQueue.add_ShutdownStarting")
+      it.call(IDispatcherQueue_add_ShutdownStarting, cb, result.addr)
     finally:
       release(cb)
 
 proc removeShutdownStarting*(self: DispatcherQueue, token: EventRegistrationToken) =
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
-    vcall(it, Slot_IDispatcherQueue_remove_ShutdownStarting, Fn_IDispatcherQueue_remove_ShutdownStarting)(it, token).check("DispatcherQueue.remove_ShutdownStarting")
+  withIface(self.p, IDispatcherQueue, it):
+    it.call(IDispatcherQueue_remove_ShutdownStarting, token)
 
 proc onShutdownCompleted*(self: DispatcherQueue,
-    handler: proc(sender: DispatcherQueue, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[DispatcherQueue, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.DispatcherQueue.add_ShutdownCompleted
-  ##
-  ## The token is what `removeShutdownCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueue_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DispatcherQueue](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeShutdownCompleted` takes.
+  withIface(self.p, IDispatcherQueue, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[DispatcherQueue](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueue_Object, shim, event = true)
     try:
-      vcall(it, Slot_IDispatcherQueue_add_ShutdownCompleted, Fn_IDispatcherQueue_add_ShutdownCompleted)(it, cb, result.addr)
-        .check("DispatcherQueue.add_ShutdownCompleted")
+      it.call(IDispatcherQueue_add_ShutdownCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeShutdownCompleted*(self: DispatcherQueue, token: EventRegistrationToken) =
-  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
-    vcall(it, Slot_IDispatcherQueue_remove_ShutdownCompleted, Fn_IDispatcherQueue_remove_ShutdownCompleted)(it, token).check("DispatcherQueue.remove_ShutdownCompleted")
+  withIface(self.p, IDispatcherQueue, it):
+    it.call(IDispatcherQueue_remove_ShutdownCompleted, token)
 
-proc hasThreadAccess*(self: DispatcherQueue): bool  =
+proc hasThreadAccess*(self: DispatcherQueue): bool =
   ## Windows.System.DispatcherQueue.get_HasThreadAccess
-  withIface(self.p, IID_IDispatcherQueue2, "IDispatcherQueue2", it):
+  withIface(self.p, IDispatcherQueue2, it):
     var tmp: bool
-    vcall(it, Slot_IDispatcherQueue2_get_HasThreadAccess, Fn_IDispatcherQueue2_get_HasThreadAccess)(it, tmp.addr).check("DispatcherQueue.get_HasThreadAccess")
+    it.call(IDispatcherQueue2_get_HasThreadAccess, tmp.addr)
     result = tmp
 
-proc getForCurrentThread*(_: typedesc[DispatcherQueue]): DispatcherQueue  =
+proc getForCurrentThread*(_: typedesc[DispatcherQueue]): DispatcherQueue =
   ## Windows.System.DispatcherQueue.GetForCurrentThread
-  withStatics("Windows.System.DispatcherQueue", IID_IDispatcherQueueStatics, it):
+  withStatics("Windows.System.DispatcherQueue", IDispatcherQueueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDispatcherQueueStatics_GetForCurrentThread, Fn_IDispatcherQueueStatics_GetForCurrentThread)(it, tmp.addr).check("DispatcherQueue.GetForCurrentThread")
+    it.call(IDispatcherQueueStatics_GetForCurrentThread, tmp.addr)
     result = adopt[DispatcherQueue](tmp)
 
-proc dispatcherQueue*(self: DispatcherQueueController): DispatcherQueue  =
+proc dispatcherQueue*(self: DispatcherQueueController): DispatcherQueue =
   ## Windows.System.DispatcherQueueController.get_DispatcherQueue
-  withIface(self.p, IID_IDispatcherQueueController, "IDispatcherQueueController", it):
+  withIface(self.p, IDispatcherQueueController, it):
     var tmp: pointer
-    vcall(it, Slot_IDispatcherQueueController_get_DispatcherQueue, Fn_IDispatcherQueueController_get_DispatcherQueue)(it, tmp.addr).check("DispatcherQueueController.get_DispatcherQueue")
+    it.call(IDispatcherQueueController_get_DispatcherQueue, tmp.addr)
     result = adopt[DispatcherQueue](tmp)
 
 proc shutdownQueueAsync*(self: DispatcherQueueController) {.async.} =
   ## Windows.System.DispatcherQueueController.ShutdownQueueAsync
   var op: pointer
-  withIface(self.p, IID_IDispatcherQueueController, "IDispatcherQueueController", it):
-    vcall(it, Slot_IDispatcherQueueController_ShutdownQueueAsync, Fn_IDispatcherQueueController_ShutdownQueueAsync)(it, op.addr).check("DispatcherQueueController.ShutdownQueueAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "DispatcherQueueController.ShutdownQueueAsync")
+  withIface(self.p, IDispatcherQueueController, it):
+    it.call(IDispatcherQueueController_ShutdownQueueAsync, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "DispatcherQueueController.ShutdownQueueAsync")
 
-proc createOnDedicatedThread*(_: typedesc[DispatcherQueueController]): DispatcherQueueController  =
+proc createOnDedicatedThread*(_: typedesc[DispatcherQueueController]): DispatcherQueueController =
   ## Windows.System.DispatcherQueueController.CreateOnDedicatedThread
-  withStatics("Windows.System.DispatcherQueueController", IID_IDispatcherQueueControllerStatics, it):
+  withStatics("Windows.System.DispatcherQueueController",
+              IDispatcherQueueControllerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDispatcherQueueControllerStatics_CreateOnDedicatedThread, Fn_IDispatcherQueueControllerStatics_CreateOnDedicatedThread)(it, tmp.addr).check("DispatcherQueueController.CreateOnDedicatedThread")
+    it.call(IDispatcherQueueControllerStatics_CreateOnDedicatedThread, tmp.addr)
     result = adopt[DispatcherQueueController](tmp)
 
-proc invoke*(self: DispatcherQueueHandler)  =
+proc invoke*(self: DispatcherQueueHandler) =
   ## Windows.System.DispatcherQueueHandler.Invoke
-  withIface(self.p, IID_DispatcherQueueHandler, "DispatcherQueueHandler", it):
-    vcall(it, Slot_DispatcherQueueHandler_Invoke, Fn_DispatcherQueueHandler_Invoke)(it).check("DispatcherQueueHandler.Invoke")
+  withIface(self.p, DispatcherQueueHandler, it):
+    it.call(DispatcherQueueHandler_Invoke)
 
-proc getDeferral*(self: DispatcherQueueShutdownStartingEventArgs): Deferral  =
+proc getDeferral*(self: DispatcherQueueShutdownStartingEventArgs): Deferral =
   ## Windows.System.DispatcherQueueShutdownStartingEventArgs.GetDeferral
-  withIface(self.p, IID_IDispatcherQueueShutdownStartingEventArgs, "IDispatcherQueueShutdownStartingEventArgs", it):
+  withIface(self.p, IDispatcherQueueShutdownStartingEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IDispatcherQueueShutdownStartingEventArgs_GetDeferral, Fn_IDispatcherQueueShutdownStartingEventArgs_GetDeferral)(it, tmp.addr).check("DispatcherQueueShutdownStartingEventArgs.GetDeferral")
+    it.call(IDispatcherQueueShutdownStartingEventArgs_GetDeferral, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc interval*(self: DispatcherQueueTimer): TimeSpan  =
+proc interval*(self: DispatcherQueueTimer): TimeSpan =
   ## Windows.System.DispatcherQueueTimer.get_Interval
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
+  withIface(self.p, IDispatcherQueueTimer, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IDispatcherQueueTimer_get_Interval, Fn_IDispatcherQueueTimer_get_Interval)(it, tmp.addr).check("DispatcherQueueTimer.get_Interval")
+    it.call(IDispatcherQueueTimer_get_Interval, tmp.addr)
     result = tmp
 
-proc `interval=`*(self: DispatcherQueueTimer, value: TimeSpan)  =
+proc `interval=`*(self: DispatcherQueueTimer, value: TimeSpan) =
   ## Windows.System.DispatcherQueueTimer.put_Interval
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    vcall(it, Slot_IDispatcherQueueTimer_put_Interval, Fn_IDispatcherQueueTimer_put_Interval)(it, value).check("DispatcherQueueTimer.put_Interval")
+  withIface(self.p, IDispatcherQueueTimer, it):
+    it.call(IDispatcherQueueTimer_put_Interval, value)
 
-proc isRunning*(self: DispatcherQueueTimer): bool  =
+proc isRunning*(self: DispatcherQueueTimer): bool =
   ## Windows.System.DispatcherQueueTimer.get_IsRunning
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
+  withIface(self.p, IDispatcherQueueTimer, it):
     var tmp: bool
-    vcall(it, Slot_IDispatcherQueueTimer_get_IsRunning, Fn_IDispatcherQueueTimer_get_IsRunning)(it, tmp.addr).check("DispatcherQueueTimer.get_IsRunning")
+    it.call(IDispatcherQueueTimer_get_IsRunning, tmp.addr)
     result = tmp
 
-proc isRepeating*(self: DispatcherQueueTimer): bool  =
+proc isRepeating*(self: DispatcherQueueTimer): bool =
   ## Windows.System.DispatcherQueueTimer.get_IsRepeating
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
+  withIface(self.p, IDispatcherQueueTimer, it):
     var tmp: bool
-    vcall(it, Slot_IDispatcherQueueTimer_get_IsRepeating, Fn_IDispatcherQueueTimer_get_IsRepeating)(it, tmp.addr).check("DispatcherQueueTimer.get_IsRepeating")
+    it.call(IDispatcherQueueTimer_get_IsRepeating, tmp.addr)
     result = tmp
 
-proc `isRepeating=`*(self: DispatcherQueueTimer, value: bool)  =
+proc `isRepeating=`*(self: DispatcherQueueTimer, value: bool) =
   ## Windows.System.DispatcherQueueTimer.put_IsRepeating
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    vcall(it, Slot_IDispatcherQueueTimer_put_IsRepeating, Fn_IDispatcherQueueTimer_put_IsRepeating)(it, value).check("DispatcherQueueTimer.put_IsRepeating")
+  withIface(self.p, IDispatcherQueueTimer, it):
+    it.call(IDispatcherQueueTimer_put_IsRepeating, value)
 
-proc start*(self: DispatcherQueueTimer)  =
+proc start*(self: DispatcherQueueTimer) =
   ## Windows.System.DispatcherQueueTimer.Start
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    vcall(it, Slot_IDispatcherQueueTimer_Start, Fn_IDispatcherQueueTimer_Start)(it).check("DispatcherQueueTimer.Start")
+  withIface(self.p, IDispatcherQueueTimer, it):
+    it.call(IDispatcherQueueTimer_Start)
 
-proc stop*(self: DispatcherQueueTimer)  =
+proc stop*(self: DispatcherQueueTimer) =
   ## Windows.System.DispatcherQueueTimer.Stop
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    vcall(it, Slot_IDispatcherQueueTimer_Stop, Fn_IDispatcherQueueTimer_Stop)(it).check("DispatcherQueueTimer.Stop")
+  withIface(self.p, IDispatcherQueueTimer, it):
+    it.call(IDispatcherQueueTimer_Stop)
 
 proc onTick*(self: DispatcherQueueTimer,
-    handler: proc(sender: DispatcherQueueTimer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+             handler: EventHandler[DispatcherQueueTimer, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.DispatcherQueueTimer.add_Tick
-  ##
-  ## The token is what `removeTick` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueueTimer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DispatcherQueueTimer](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeTick` takes.
+  withIface(self.p, IDispatcherQueueTimer, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[DispatcherQueueTimer](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_DispatcherQueueTimer_Object, shim, event = true)
     try:
-      vcall(it, Slot_IDispatcherQueueTimer_add_Tick, Fn_IDispatcherQueueTimer_add_Tick)(it, cb, result.addr)
-        .check("DispatcherQueueTimer.add_Tick")
+      it.call(IDispatcherQueueTimer_add_Tick, cb, result.addr)
     finally:
       release(cb)
 
 proc removeTick*(self: DispatcherQueueTimer, token: EventRegistrationToken) =
-  withIface(self.p, IID_IDispatcherQueueTimer, "IDispatcherQueueTimer", it):
-    vcall(it, Slot_IDispatcherQueueTimer_remove_Tick, Fn_IDispatcherQueueTimer_remove_Tick)(it, token).check("DispatcherQueueTimer.remove_Tick")
+  withIface(self.p, IDispatcherQueueTimer, it):
+    it.call(IDispatcherQueueTimer_remove_Tick, token)
 
 proc newDisplayRequest*(): DisplayRequest =
   ## Activate a `Windows.System.Display.DisplayRequest`.
   adopt[DisplayRequest](activateAs("Windows.System.Display.DisplayRequest", IID_IDisplayRequest))
 
-proc requestActive*(self: DisplayRequest)  =
+proc requestActive*(self: DisplayRequest) =
   ## Windows.System.Display.DisplayRequest.RequestActive
-  withIface(self.p, IID_IDisplayRequest, "IDisplayRequest", it):
-    vcall(it, Slot_IDisplayRequest_RequestActive, Fn_IDisplayRequest_RequestActive)(it).check("DisplayRequest.RequestActive")
+  withIface(self.p, IDisplayRequest, it):
+    it.call(IDisplayRequest_RequestActive)
 
-proc requestRelease*(self: DisplayRequest)  =
+proc requestRelease*(self: DisplayRequest) =
   ## Windows.System.Display.DisplayRequest.RequestRelease
-  withIface(self.p, IID_IDisplayRequest, "IDisplayRequest", it):
-    vcall(it, Slot_IDisplayRequest_RequestRelease, Fn_IDisplayRequest_RequestRelease)(it).check("DisplayRequest.RequestRelease")
+  withIface(self.p, IDisplayRequest, it):
+    it.call(IDisplayRequest_RequestRelease)
 
 proc newFolderLauncherOptions*(): FolderLauncherOptions =
   ## Activate a `Windows.System.FolderLauncherOptions`.
   adopt[FolderLauncherOptions](activateAs("Windows.System.FolderLauncherOptions", IID_IFolderLauncherOptions))
 
-proc itemsToSelect*(self: FolderLauncherOptions): seq[WinRtObject]  =
+proc itemsToSelect*(self: FolderLauncherOptions): seq[WinRtObject] =
   ## Windows.System.FolderLauncherOptions.get_ItemsToSelect
-  withIface(self.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", it):
+  withIface(self.p, IFolderLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IFolderLauncherOptions_get_ItemsToSelect, Fn_IFolderLauncherOptions_get_ItemsToSelect)(it, tmp.addr).check("FolderLauncherOptions.get_ItemsToSelect")
+    it.call(IFolderLauncherOptions_get_ItemsToSelect, tmp.addr)
     result = toSeq[WinRtObject](tmp, IID_IVector_1_IStorageItem)
     release(tmp)
 
-proc desiredRemainingView*(self: FolderLauncherOptions): ViewSizePreference  =
+proc desiredRemainingView*(self: FolderLauncherOptions): ViewSizePreference =
   ## Windows.System.FolderLauncherOptions.get_DesiredRemainingView
-  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+  withIface(self.p, ILauncherViewOptions, it):
     var tmp: ViewSizePreference
-    vcall(it, Slot_ILauncherViewOptions_get_DesiredRemainingView, Fn_ILauncherViewOptions_get_DesiredRemainingView)(it, tmp.addr).check("FolderLauncherOptions.get_DesiredRemainingView")
+    it.call(ILauncherViewOptions_get_DesiredRemainingView, tmp.addr)
     result = tmp
 
-proc `desiredRemainingView=`*(self: FolderLauncherOptions, value: ViewSizePreference)  =
+proc `desiredRemainingView=`*(self: FolderLauncherOptions,
+                              value: ViewSizePreference) =
   ## Windows.System.FolderLauncherOptions.put_DesiredRemainingView
-  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
-    vcall(it, Slot_ILauncherViewOptions_put_DesiredRemainingView, Fn_ILauncherViewOptions_put_DesiredRemainingView)(it, value).check("FolderLauncherOptions.put_DesiredRemainingView")
+  withIface(self.p, ILauncherViewOptions, it):
+    it.call(ILauncherViewOptions_put_DesiredRemainingView, value)
 
-proc json*(self: SysStorageProviderEventReceivedEventArgs): string  =
+proc json*(self: SysStorageProviderEventReceivedEventArgs): string =
   ## Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs.get_Json
-  withIface(self.p, IID_ISysStorageProviderEventReceivedEventArgs, "ISysStorageProviderEventReceivedEventArgs", it):
+  withIface(self.p, ISysStorageProviderEventReceivedEventArgs, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISysStorageProviderEventReceivedEventArgs_get_Json, Fn_ISysStorageProviderEventReceivedEventArgs_get_Json)(it, tmp.addr).check("SysStorageProviderEventReceivedEventArgs.get_Json")
+    it.call(ISysStorageProviderEventReceivedEventArgs_get_Json, tmp.addr)
     result = takeString(tmp)
 
-proc createInstance*(_: typedesc[SysStorageProviderEventReceivedEventArgs], json: string): SysStorageProviderEventReceivedEventArgs  =
+proc createInstance*(_: typedesc[SysStorageProviderEventReceivedEventArgs],
+                     json: string): SysStorageProviderEventReceivedEventArgs =
   ## Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs.CreateInstance
-  withStatics("Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs", IID_ISysStorageProviderEventReceivedEventArgsFactory, it):
+  withStatics("Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs",
+              ISysStorageProviderEventReceivedEventArgsFactory, it):
     withHString(json, h0):
       var tmp: pointer
-      vcall(it, Slot_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance, Fn_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance)(it, h0, tmp.addr).check("SysStorageProviderEventReceivedEventArgs.CreateInstance")
+      it.call(ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance,
+              h0, tmp.addr)
       result = adopt[SysStorageProviderEventReceivedEventArgs](tmp)
 
-proc id*(self: InstalledDesktopApp): string  =
+proc id*(self: InstalledDesktopApp): string =
   ## Windows.System.Inventory.InstalledDesktopApp.get_Id
-  withIface(self.p, IID_IInstalledDesktopApp, "IInstalledDesktopApp", it):
+  withIface(self.p, IInstalledDesktopApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IInstalledDesktopApp_get_Id, Fn_IInstalledDesktopApp_get_Id)(it, tmp.addr).check("InstalledDesktopApp.get_Id")
+    it.call(IInstalledDesktopApp_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc displayName*(self: InstalledDesktopApp): string  =
+proc displayName*(self: InstalledDesktopApp): string =
   ## Windows.System.Inventory.InstalledDesktopApp.get_DisplayName
-  withIface(self.p, IID_IInstalledDesktopApp, "IInstalledDesktopApp", it):
+  withIface(self.p, IInstalledDesktopApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IInstalledDesktopApp_get_DisplayName, Fn_IInstalledDesktopApp_get_DisplayName)(it, tmp.addr).check("InstalledDesktopApp.get_DisplayName")
+    it.call(IInstalledDesktopApp_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc publisher*(self: InstalledDesktopApp): string  =
+proc publisher*(self: InstalledDesktopApp): string =
   ## Windows.System.Inventory.InstalledDesktopApp.get_Publisher
-  withIface(self.p, IID_IInstalledDesktopApp, "IInstalledDesktopApp", it):
+  withIface(self.p, IInstalledDesktopApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IInstalledDesktopApp_get_Publisher, Fn_IInstalledDesktopApp_get_Publisher)(it, tmp.addr).check("InstalledDesktopApp.get_Publisher")
+    it.call(IInstalledDesktopApp_get_Publisher, tmp.addr)
     result = takeString(tmp)
 
-proc displayVersion*(self: InstalledDesktopApp): string  =
+proc displayVersion*(self: InstalledDesktopApp): string =
   ## Windows.System.Inventory.InstalledDesktopApp.get_DisplayVersion
-  withIface(self.p, IID_IInstalledDesktopApp, "IInstalledDesktopApp", it):
+  withIface(self.p, IInstalledDesktopApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IInstalledDesktopApp_get_DisplayVersion, Fn_IInstalledDesktopApp_get_DisplayVersion)(it, tmp.addr).check("InstalledDesktopApp.get_DisplayVersion")
+    it.call(IInstalledDesktopApp_get_DisplayVersion, tmp.addr)
     result = takeString(tmp)
 
-proc toString*(self: InstalledDesktopApp): string  =
+proc toString*(self: InstalledDesktopApp): string =
   ## Windows.System.Inventory.InstalledDesktopApp.ToString
-  withIface(self.p, IID_IStringable, "IStringable", it):
+  withIface(self.p, IStringable, it):
     var tmp: HSTRING
-    vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("InstalledDesktopApp.ToString")
+    it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
 proc getInventoryAsync*(_: typedesc[InstalledDesktopApp]): Future[seq[InstalledDesktopApp]] {.async.} =
   ## Windows.System.Inventory.InstalledDesktopApp.GetInventoryAsync
   var op: pointer
-  withStatics("Windows.System.Inventory.InstalledDesktopApp", IID_IInstalledDesktopAppStatics, it):
-    vcall(it, Slot_IInstalledDesktopAppStatics_GetInventoryAsync, Fn_IInstalledDesktopAppStatics_GetInventoryAsync)(it, op.addr).check("InstalledDesktopApp.GetInventoryAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "InstalledDesktopApp.GetInventoryAsync")
-  result = toSeq[InstalledDesktopApp](coll, IID_IVectorView_1_InstalledDesktopApp)
+  withStatics("Windows.System.Inventory.InstalledDesktopApp",
+              IInstalledDesktopAppStatics, it):
+    it.call(IInstalledDesktopAppStatics_GetInventoryAsync, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_1,
+                               alPlain, "InstalledDesktopApp.GetInventoryAsync")
+  result = toSeq[InstalledDesktopApp](coll,
+                                      IID_IVectorView_1_InstalledDesktopApp)
   discard release(coll)
 
-proc displayName*(_: typedesc[KnownUserProperties]): string  =
+proc displayName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_DisplayName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_DisplayName, Fn_IKnownUserPropertiesStatics_get_DisplayName)(it, tmp.addr).check("KnownUserProperties.get_DisplayName")
+    it.call(IKnownUserPropertiesStatics_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc firstName*(_: typedesc[KnownUserProperties]): string  =
+proc firstName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_FirstName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_FirstName, Fn_IKnownUserPropertiesStatics_get_FirstName)(it, tmp.addr).check("KnownUserProperties.get_FirstName")
+    it.call(IKnownUserPropertiesStatics_get_FirstName, tmp.addr)
     result = takeString(tmp)
 
-proc lastName*(_: typedesc[KnownUserProperties]): string  =
+proc lastName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_LastName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_LastName, Fn_IKnownUserPropertiesStatics_get_LastName)(it, tmp.addr).check("KnownUserProperties.get_LastName")
+    it.call(IKnownUserPropertiesStatics_get_LastName, tmp.addr)
     result = takeString(tmp)
 
-proc providerName*(_: typedesc[KnownUserProperties]): string  =
+proc providerName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_ProviderName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_ProviderName, Fn_IKnownUserPropertiesStatics_get_ProviderName)(it, tmp.addr).check("KnownUserProperties.get_ProviderName")
+    it.call(IKnownUserPropertiesStatics_get_ProviderName, tmp.addr)
     result = takeString(tmp)
 
-proc accountName*(_: typedesc[KnownUserProperties]): string  =
+proc accountName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_AccountName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_AccountName, Fn_IKnownUserPropertiesStatics_get_AccountName)(it, tmp.addr).check("KnownUserProperties.get_AccountName")
+    it.call(IKnownUserPropertiesStatics_get_AccountName, tmp.addr)
     result = takeString(tmp)
 
-proc guestHost*(_: typedesc[KnownUserProperties]): string  =
+proc guestHost*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_GuestHost
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_GuestHost, Fn_IKnownUserPropertiesStatics_get_GuestHost)(it, tmp.addr).check("KnownUserProperties.get_GuestHost")
+    it.call(IKnownUserPropertiesStatics_get_GuestHost, tmp.addr)
     result = takeString(tmp)
 
-proc principalName*(_: typedesc[KnownUserProperties]): string  =
+proc principalName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_PrincipalName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_PrincipalName, Fn_IKnownUserPropertiesStatics_get_PrincipalName)(it, tmp.addr).check("KnownUserProperties.get_PrincipalName")
+    it.call(IKnownUserPropertiesStatics_get_PrincipalName, tmp.addr)
     result = takeString(tmp)
 
-proc domainName*(_: typedesc[KnownUserProperties]): string  =
+proc domainName*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_DomainName
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_DomainName, Fn_IKnownUserPropertiesStatics_get_DomainName)(it, tmp.addr).check("KnownUserProperties.get_DomainName")
+    it.call(IKnownUserPropertiesStatics_get_DomainName, tmp.addr)
     result = takeString(tmp)
 
-proc sessionInitiationProtocolUri*(_: typedesc[KnownUserProperties]): string  =
+proc sessionInitiationProtocolUri*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_SessionInitiationProtocolUri
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics, it):
+  withStatics("Windows.System.KnownUserProperties", IKnownUserPropertiesStatics,
+              it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri, Fn_IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri)(it, tmp.addr).check("KnownUserProperties.get_SessionInitiationProtocolUri")
+    it.call(IKnownUserPropertiesStatics_get_SessionInitiationProtocolUri,
+            tmp.addr)
     result = takeString(tmp)
 
-proc ageEnforcementRegion*(_: typedesc[KnownUserProperties]): string  =
+proc ageEnforcementRegion*(_: typedesc[KnownUserProperties]): string =
   ## Windows.System.KnownUserProperties.get_AgeEnforcementRegion
-  withStatics("Windows.System.KnownUserProperties", IID_IKnownUserPropertiesStatics2, it):
+  withStatics("Windows.System.KnownUserProperties",
+              IKnownUserPropertiesStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion, Fn_IKnownUserPropertiesStatics2_get_AgeEnforcementRegion)(it, tmp.addr).check("KnownUserProperties.get_AgeEnforcementRegion")
+    it.call(IKnownUserPropertiesStatics2_get_AgeEnforcementRegion, tmp.addr)
     result = takeString(tmp)
 
-proc status*(self: LaunchUriResult): LaunchUriStatus  =
+proc status*(self: LaunchUriResult): LaunchUriStatus =
   ## Windows.System.LaunchUriResult.get_Status
-  withIface(self.p, IID_ILaunchUriResult, "ILaunchUriResult", it):
+  withIface(self.p, ILaunchUriResult, it):
     var tmp: LaunchUriStatus
-    vcall(it, Slot_ILaunchUriResult_get_Status, Fn_ILaunchUriResult_get_Status)(it, tmp.addr).check("LaunchUriResult.get_Status")
+    it.call(ILaunchUriResult_get_Status, tmp.addr)
     result = tmp
 
-proc `result`*(self: LaunchUriResult): ValueSet  =
+proc `result`*(self: LaunchUriResult): ValueSet =
   ## Windows.System.LaunchUriResult.get_Result
-  withIface(self.p, IID_ILaunchUriResult, "ILaunchUriResult", it):
+  withIface(self.p, ILaunchUriResult, it):
     var tmp: pointer
-    vcall(it, Slot_ILaunchUriResult_get_Result, Fn_ILaunchUriResult_get_Result)(it, tmp.addr).check("LaunchUriResult.get_Result")
+    it.call(ILaunchUriResult_get_Result, tmp.addr)
     result = adopt[ValueSet](tmp)
 
 proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_ILauncherStatics_LaunchFileAsync, Fn_ILauncherStatics_LaunchFileAsync)(it, p0, op.addr).check("Launcher.LaunchFileAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFileAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics, it):
+    withIface(file.p, IStorageFile, p0):
+      it.call(ILauncherStatics_LaunchFileAsync, p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFileAsync")
 
-proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile, options: LauncherOptions): Future[bool] {.async.} =
+proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile,
+                      options: LauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
-      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-        vcall(it, Slot_ILauncherStatics_LaunchFileAsync2, Fn_ILauncherStatics_LaunchFileAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchFileAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFileAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics, it):
+    withIface(file.p, IStorageFile, p0):
+      withIface(options.p, ILauncherOptions2, p1):
+        it.call(ILauncherStatics_LaunchFileAsync2, p0, p1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFileAsync")
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILauncherStatics_LaunchUriAsync, Fn_ILauncherStatics_LaunchUriAsync)(it, p0, op.addr).check("Launcher.LaunchUriAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchUriAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ILauncherStatics_LaunchUriAsync, p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchUriAsync")
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-        vcall(it, Slot_ILauncherStatics_LaunchUriAsync2, Fn_ILauncherStatics_LaunchUriAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchUriAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchUriAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(options.p, ILauncherOptions2, p1):
+        it.call(ILauncherStatics_LaunchUriAsync2, p0, p1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchUriAsync")
 
 proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics3, it):
-    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
-      vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync, Fn_ILauncherStatics3_LaunchFolderAsync)(it, p0, op.addr).check("Launcher.LaunchFolderAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics3, it):
+    withIface(folder.p, IStorageFolder, p0):
+      it.call(ILauncherStatics3_LaunchFolderAsync, p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFolderAsync")
 
-proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder, options: FolderLauncherOptions): Future[bool] {.async.} =
+proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder,
+                        options: FolderLauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics3, it):
-    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
-      withIface(options.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", p1):
-        vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync2, Fn_ILauncherStatics3_LaunchFolderAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchFolderAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics3, it):
+    withIface(folder.p, IStorageFolder, p0):
+      withIface(options.p, IFolderLauncherOptions, p1):
+        it.call(ILauncherStatics3_LaunchFolderAsync2, p0, p1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFolderAsync")
 
 proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryAppUriSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILauncherStatics4_QueryAppUriSupportAsync, Fn_ILauncherStatics4_QueryAppUriSupportAsync)(it, p0, op.addr).check("Launcher.QueryAppUriSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryAppUriSupportAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ILauncherStatics4_QueryAppUriSupportAsync, p0, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryAppUriSupportAsync")
 
-proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri, packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
+proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
+                              packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryAppUriSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(packageFamilyName, h1):
-        vcall(it, Slot_ILauncherStatics4_QueryAppUriSupportAsync2, Fn_ILauncherStatics4_QueryAppUriSupportAsync2)(it, p0, h1, op.addr).check("Launcher.QueryAppUriSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryAppUriSupportAsync")
+        it.call(ILauncherStatics4_QueryAppUriSupportAsync2, p0, h1, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryAppUriSupportAsync")
 
 proc findAppUriHandlersAsync*(_: typedesc[Launcher], uri: Uri): Future[seq[AppInfo]] {.async.} =
   ## Windows.System.Launcher.FindAppUriHandlersAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILauncherStatics4_FindAppUriHandlersAsync, Fn_ILauncherStatics4_FindAppUriHandlersAsync)(it, p0, op.addr).check("Launcher.FindAppUriHandlersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "Launcher.FindAppUriHandlersAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ILauncherStatics4_FindAppUriHandlersAsync, p0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                               alPlain, "Launcher.FindAppUriHandlersAsync")
   result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
   discard release(coll)
 
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri): Future[LaunchUriStatus] {.async.} =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        vcall(it, Slot_ILauncherStatics4_LaunchUriForUserAsync, Fn_ILauncherStatics4_LaunchUriForUserAsync)(it, p0, p1, op.addr).check("Launcher.LaunchUriForUserAsync")
-  result = await awaitValue[LaunchUriStatus](op, IID_IAsyncOperation_1_LaunchUriStatus, IID_AsyncOperationCompletedHandler_1_LaunchUriStatus, alPlain, "Launcher.LaunchUriForUserAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(user.p, IUser, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        it.call(ILauncherStatics4_LaunchUriForUserAsync, p0, p1, op.addr)
+  result = await awaitValue[LaunchUriStatus](op,
+                                             IID_IAsyncOperation_1_LaunchUriStatus,
+                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                             alPlain,
+                                             "Launcher.LaunchUriForUserAsync")
 
-proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri, options: LauncherOptions): Future[LaunchUriStatus] {.async.} =
+proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
+                            options: LauncherOptions): Future[LaunchUriStatus] {.async.} =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p2):
-          vcall(it, Slot_ILauncherStatics4_LaunchUriForUserAsync2, Fn_ILauncherStatics4_LaunchUriForUserAsync2)(it, p0, p1, p2, op.addr).check("Launcher.LaunchUriForUserAsync")
-  result = await awaitValue[LaunchUriStatus](op, IID_IAsyncOperation_1_LaunchUriStatus, IID_AsyncOperationCompletedHandler_1_LaunchUriStatus, alPlain, "Launcher.LaunchUriForUserAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(user.p, IUser, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, ILauncherOptions2, p2):
+          it.call(ILauncherStatics4_LaunchUriForUserAsync2, p0, p1, p2, op.addr)
+  result = await awaitValue[LaunchUriStatus](op,
+                                             IID_IAsyncOperation_1_LaunchUriStatus,
+                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                             alPlain,
+                                             "Launcher.LaunchUriForUserAsync")
 
-proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri, options: LauncherOptions, inputData: ValueSet): Future[LaunchUriStatus] {.async.} =
+proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri,
+                            options: LauncherOptions, inputData: ValueSet): Future[LaunchUriStatus] {.async.} =
   ## Windows.System.Launcher.LaunchUriForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p2):
-          withIface(inputData.p, IID_IPropertySet, "IPropertySet", p3):
-            vcall(it, Slot_ILauncherStatics4_LaunchUriForUserAsync3, Fn_ILauncherStatics4_LaunchUriForUserAsync3)(it, p0, p1, p2, p3, op.addr).check("Launcher.LaunchUriForUserAsync")
-  result = await awaitValue[LaunchUriStatus](op, IID_IAsyncOperation_1_LaunchUriStatus, IID_AsyncOperationCompletedHandler_1_LaunchUriStatus, alPlain, "Launcher.LaunchUriForUserAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(user.p, IUser, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, ILauncherOptions2, p2):
+          withIface(inputData.p, IPropertySet, p3):
+            it.call(ILauncherStatics4_LaunchUriForUserAsync3, p0, p1, p2, p3,
+                    op.addr)
+  result = await awaitValue[LaunchUriStatus](op,
+                                             IID_IAsyncOperation_1_LaunchUriStatus,
+                                             IID_AsyncOperationCompletedHandler_1_LaunchUriStatus,
+                                             alPlain,
+                                             "Launcher.LaunchUriForUserAsync")
 
-proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri, options: LauncherOptions): Future[LaunchUriResult] {.async.} =
+proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
+                                      uri: Uri, options: LauncherOptions): Future[LaunchUriResult] {.async.} =
   ## Windows.System.Launcher.LaunchUriForResultsForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p2):
-          vcall(it, Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync, Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync)(it, p0, p1, p2, op.addr).check("Launcher.LaunchUriForResultsForUserAsync")
-  result = adopt[LaunchUriResult](await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult, IID_AsyncOperationCompletedHandler_1_LaunchUriResult, alPlain, "Launcher.LaunchUriForResultsForUserAsync"))
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(user.p, IUser, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, ILauncherOptions2, p2):
+          it.call(ILauncherStatics4_LaunchUriForResultsForUserAsync, p0, p1, p2,
+                  op.addr)
+  result = adopt[LaunchUriResult](await awaitObject(op,
+                                                    IID_IAsyncOperation_1_LaunchUriResult,
+                                                    IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                                    alPlain,
+                                                    "Launcher.LaunchUriForResultsForUserAsync"))
 
-proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri, options: LauncherOptions, inputData: ValueSet): Future[LaunchUriResult] {.async.} =
+proc launchUriForResultsForUserAsync*(_: typedesc[Launcher], user: User,
+                                      uri: Uri, options: LauncherOptions,
+                                      inputData: ValueSet): Future[LaunchUriResult] {.async.} =
   ## Windows.System.Launcher.LaunchUriForResultsForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p2):
-          withIface(inputData.p, IID_IPropertySet, "IPropertySet", p3):
-            vcall(it, Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync2, Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync2)(it, p0, p1, p2, p3, op.addr).check("Launcher.LaunchUriForResultsForUserAsync")
-  result = adopt[LaunchUriResult](await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult, IID_AsyncOperationCompletedHandler_1_LaunchUriResult, alPlain, "Launcher.LaunchUriForResultsForUserAsync"))
+  withStatics("Windows.System.Launcher", ILauncherStatics4, it):
+    withIface(user.p, IUser, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, ILauncherOptions2, p2):
+          withIface(inputData.p, IPropertySet, p3):
+            it.call(ILauncherStatics4_LaunchUriForResultsForUserAsync2, p0, p1,
+                    p2, p3, op.addr)
+  result = adopt[LaunchUriResult](await awaitObject(op,
+                                                    IID_IAsyncOperation_1_LaunchUriResult,
+                                                    IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                                    alPlain,
+                                                    "Launcher.LaunchUriForResultsForUserAsync"))
 
 proc launchFolderPathAsync*(_: typedesc[Launcher], path: string): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderPathAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics5, it):
+  withStatics("Windows.System.Launcher", ILauncherStatics5, it):
     withHString(path, h0):
-      vcall(it, Slot_ILauncherStatics5_LaunchFolderPathAsync, Fn_ILauncherStatics5_LaunchFolderPathAsync)(it, h0, op.addr).check("Launcher.LaunchFolderPathAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderPathAsync")
+      it.call(ILauncherStatics5_LaunchFolderPathAsync, h0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFolderPathAsync")
 
-proc launchFolderPathAsync*(_: typedesc[Launcher], path: string, options: FolderLauncherOptions): Future[bool] {.async.} =
+proc launchFolderPathAsync*(_: typedesc[Launcher], path: string,
+                            options: FolderLauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderPathAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics5, it):
+  withStatics("Windows.System.Launcher", ILauncherStatics5, it):
     withHString(path, h0):
-      withIface(options.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", p1):
-        vcall(it, Slot_ILauncherStatics5_LaunchFolderPathAsync2, Fn_ILauncherStatics5_LaunchFolderPathAsync2)(it, h0, p1, op.addr).check("Launcher.LaunchFolderPathAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderPathAsync")
+      withIface(options.p, IFolderLauncherOptions, p1):
+        it.call(ILauncherStatics5_LaunchFolderPathAsync2, h0, p1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchFolderPathAsync")
 
-proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User, path: string): Future[bool] {.async.} =
+proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
+                                   path: string): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderPathForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics5, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.Launcher", ILauncherStatics5, it):
+    withIface(user.p, IUser, p0):
       withHString(path, h1):
-        vcall(it, Slot_ILauncherStatics5_LaunchFolderPathForUserAsync, Fn_ILauncherStatics5_LaunchFolderPathForUserAsync)(it, p0, h1, op.addr).check("Launcher.LaunchFolderPathForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderPathForUserAsync")
+        it.call(ILauncherStatics5_LaunchFolderPathForUserAsync, p0, h1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "Launcher.LaunchFolderPathForUserAsync")
 
-proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User, path: string, options: FolderLauncherOptions): Future[bool] {.async.} =
+proc launchFolderPathForUserAsync*(_: typedesc[Launcher], user: User,
+                                   path: string, options: FolderLauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderPathForUserAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics5, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.Launcher", ILauncherStatics5, it):
+    withIface(user.p, IUser, p0):
       withHString(path, h1):
-        withIface(options.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", p2):
-          vcall(it, Slot_ILauncherStatics5_LaunchFolderPathForUserAsync2, Fn_ILauncherStatics5_LaunchFolderPathForUserAsync2)(it, p0, h1, p2, op.addr).check("Launcher.LaunchFolderPathForUserAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchFolderPathForUserAsync")
+        withIface(options.p, IFolderLauncherOptions, p2):
+          it.call(ILauncherStatics5_LaunchFolderPathForUserAsync2, p0, h1, p2,
+                  op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "Launcher.LaunchFolderPathForUserAsync")
 
-proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions): Future[LaunchUriResult] {.async.} =
+proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
+                               options: LauncherOptions): Future[LaunchUriResult] {.async.} =
   ## Windows.System.Launcher.LaunchUriForResultsAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-        vcall(it, Slot_ILauncherStatics2_LaunchUriForResultsAsync, Fn_ILauncherStatics2_LaunchUriForResultsAsync)(it, p0, p1, op.addr).check("Launcher.LaunchUriForResultsAsync")
-  result = adopt[LaunchUriResult](await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult, IID_AsyncOperationCompletedHandler_1_LaunchUriResult, alPlain, "Launcher.LaunchUriForResultsAsync"))
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(options.p, ILauncherOptions2, p1):
+        it.call(ILauncherStatics2_LaunchUriForResultsAsync, p0, p1, op.addr)
+  result = adopt[LaunchUriResult](await awaitObject(op,
+                                                    IID_IAsyncOperation_1_LaunchUriResult,
+                                                    IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                                    alPlain,
+                                                    "Launcher.LaunchUriForResultsAsync"))
 
-proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions, inputData: ValueSet): Future[LaunchUriResult] {.async.} =
+proc launchUriForResultsAsync*(_: typedesc[Launcher], uri: Uri,
+                               options: LauncherOptions, inputData: ValueSet): Future[LaunchUriResult] {.async.} =
   ## Windows.System.Launcher.LaunchUriForResultsAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-        withIface(inputData.p, IID_IPropertySet, "IPropertySet", p2):
-          vcall(it, Slot_ILauncherStatics2_LaunchUriForResultsAsync2, Fn_ILauncherStatics2_LaunchUriForResultsAsync2)(it, p0, p1, p2, op.addr).check("Launcher.LaunchUriForResultsAsync")
-  result = adopt[LaunchUriResult](await awaitObject(op, IID_IAsyncOperation_1_LaunchUriResult, IID_AsyncOperationCompletedHandler_1_LaunchUriResult, alPlain, "Launcher.LaunchUriForResultsAsync"))
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(options.p, ILauncherOptions2, p1):
+        withIface(inputData.p, IPropertySet, p2):
+          it.call(ILauncherStatics2_LaunchUriForResultsAsync2, p0, p1, p2,
+                  op.addr)
+  result = adopt[LaunchUriResult](await awaitObject(op,
+                                                    IID_IAsyncOperation_1_LaunchUriResult,
+                                                    IID_AsyncOperationCompletedHandler_1_LaunchUriResult,
+                                                    alPlain,
+                                                    "Launcher.LaunchUriForResultsAsync"))
 
-proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions, inputData: ValueSet): Future[bool] {.async.} =
+proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions,
+                     inputData: ValueSet): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-        withIface(inputData.p, IID_IPropertySet, "IPropertySet", p2):
-          vcall(it, Slot_ILauncherStatics2_LaunchUriAsync, Fn_ILauncherStatics2_LaunchUriAsync)(it, p0, p1, p2, op.addr).check("Launcher.LaunchUriAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "Launcher.LaunchUriAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      withIface(options.p, ILauncherOptions2, p1):
+        withIface(inputData.p, IPropertySet, p2):
+          it.call(ILauncherStatics2_LaunchUriAsync, p0, p1, p2, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain, "Launcher.LaunchUriAsync")
 
-proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri, launchQuerySupportType: LaunchQuerySupportType): Future[LaunchQuerySupportStatus] {.async.} =
+proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
+                           launchQuerySupportType: LaunchQuerySupportType): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryUriSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILauncherStatics2_QueryUriSupportAsync, Fn_ILauncherStatics2_QueryUriSupportAsync)(it, p0, launchQuerySupportType, op.addr).check("Launcher.QueryUriSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryUriSupportAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
+      it.call(ILauncherStatics2_QueryUriSupportAsync, p0,
+              launchQuerySupportType, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryUriSupportAsync")
 
-proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri, launchQuerySupportType: LaunchQuerySupportType, packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
+proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri,
+                           launchQuerySupportType: LaunchQuerySupportType,
+                           packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryUriSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(uri.p, IUriRuntimeClass, p0):
       withHString(packageFamilyName, h2):
-        vcall(it, Slot_ILauncherStatics2_QueryUriSupportAsync2, Fn_ILauncherStatics2_QueryUriSupportAsync2)(it, p0, launchQuerySupportType, h2, op.addr).check("Launcher.QueryUriSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryUriSupportAsync")
+        it.call(ILauncherStatics2_QueryUriSupportAsync2, p0,
+                launchQuerySupportType, h2, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryUriSupportAsync")
 
 proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryFileSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_ILauncherStatics2_QueryFileSupportAsync, Fn_ILauncherStatics2_QueryFileSupportAsync)(it, p0, op.addr).check("Launcher.QueryFileSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryFileSupportAsync")
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(file.p, IStorageFile, p0):
+      it.call(ILauncherStatics2_QueryFileSupportAsync, p0, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryFileSupportAsync")
 
-proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile, packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
+proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile,
+                            packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
   ## Windows.System.Launcher.QueryFileSupportAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
-    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
+    withIface(file.p, IStorageFile, p0):
       withHString(packageFamilyName, h1):
-        vcall(it, Slot_ILauncherStatics2_QueryFileSupportAsync2, Fn_ILauncherStatics2_QueryFileSupportAsync2)(it, p0, h1, op.addr).check("Launcher.QueryFileSupportAsync")
-  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, alPlain, "Launcher.QueryFileSupportAsync")
+        it.call(ILauncherStatics2_QueryFileSupportAsync2, p0, h1, op.addr)
+  result = await awaitValue[LaunchQuerySupportStatus](op,
+                                                      IID_IAsyncOperation_1_LaunchQuerySupportStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus,
+                                                      alPlain,
+                                                      "Launcher.QueryFileSupportAsync")
 
 proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string): Future[seq[AppInfo]] {.async.} =
   ## Windows.System.Launcher.FindUriSchemeHandlersAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withHString(scheme, h0):
-      vcall(it, Slot_ILauncherStatics2_FindUriSchemeHandlersAsync, Fn_ILauncherStatics2_FindUriSchemeHandlersAsync)(it, h0, op.addr).check("Launcher.FindUriSchemeHandlersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "Launcher.FindUriSchemeHandlersAsync")
+      it.call(ILauncherStatics2_FindUriSchemeHandlersAsync, h0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                               alPlain, "Launcher.FindUriSchemeHandlersAsync")
   result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
   discard release(coll)
 
-proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string, launchQuerySupportType: LaunchQuerySupportType): Future[seq[AppInfo]] {.async.} =
+proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string,
+                                 launchQuerySupportType: LaunchQuerySupportType): Future[seq[AppInfo]] {.async.} =
   ## Windows.System.Launcher.FindUriSchemeHandlersAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withHString(scheme, h0):
-      vcall(it, Slot_ILauncherStatics2_FindUriSchemeHandlersAsync2, Fn_ILauncherStatics2_FindUriSchemeHandlersAsync2)(it, h0, launchQuerySupportType, op.addr).check("Launcher.FindUriSchemeHandlersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "Launcher.FindUriSchemeHandlersAsync")
+      it.call(ILauncherStatics2_FindUriSchemeHandlersAsync2, h0,
+              launchQuerySupportType, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                               alPlain, "Launcher.FindUriSchemeHandlersAsync")
   result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
   discard release(coll)
 
 proc findFileHandlersAsync*(_: typedesc[Launcher], extension: string): Future[seq[AppInfo]] {.async.} =
   ## Windows.System.Launcher.FindFileHandlersAsync
   var op: pointer
-  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+  withStatics("Windows.System.Launcher", ILauncherStatics2, it):
     withHString(extension, h0):
-      vcall(it, Slot_ILauncherStatics2_FindFileHandlersAsync, Fn_ILauncherStatics2_FindFileHandlersAsync)(it, h0, op.addr).check("Launcher.FindFileHandlersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, alPlain, "Launcher.FindFileHandlersAsync")
+      it.call(ILauncherStatics2_FindFileHandlersAsync, h0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_12,
+                               alPlain, "Launcher.FindFileHandlersAsync")
   result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
   discard release(coll)
 
@@ -2441,2453 +2409,2731 @@ proc newLauncherOptions*(): LauncherOptions =
   ## Activate a `Windows.System.LauncherOptions`.
   adopt[LauncherOptions](activateAs("Windows.System.LauncherOptions", IID_ILauncherOptions2))
 
-proc targetApplicationPackageFamilyName*(self: LauncherOptions): string  =
+proc targetApplicationPackageFamilyName*(self: LauncherOptions): string =
   ## Windows.System.LauncherOptions.get_TargetApplicationPackageFamilyName
-  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
+  withIface(self.p, ILauncherOptions2, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILauncherOptions2_get_TargetApplicationPackageFamilyName, Fn_ILauncherOptions2_get_TargetApplicationPackageFamilyName)(it, tmp.addr).check("LauncherOptions.get_TargetApplicationPackageFamilyName")
+    it.call(ILauncherOptions2_get_TargetApplicationPackageFamilyName, tmp.addr)
     result = takeString(tmp)
 
-proc `targetApplicationPackageFamilyName=`*(self: LauncherOptions, value: string)  =
+proc `targetApplicationPackageFamilyName=`*(self: LauncherOptions, value: string) =
   ## Windows.System.LauncherOptions.put_TargetApplicationPackageFamilyName
-  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
+  withIface(self.p, ILauncherOptions2, it):
     withHString(value, h0):
-      vcall(it, Slot_ILauncherOptions2_put_TargetApplicationPackageFamilyName, Fn_ILauncherOptions2_put_TargetApplicationPackageFamilyName)(it, h0).check("LauncherOptions.put_TargetApplicationPackageFamilyName")
+      it.call(ILauncherOptions2_put_TargetApplicationPackageFamilyName, h0)
 
-proc neighboringFilesQuery*(self: LauncherOptions): StorageFileQueryResult  =
+proc neighboringFilesQuery*(self: LauncherOptions): StorageFileQueryResult =
   ## Windows.System.LauncherOptions.get_NeighboringFilesQuery
-  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
+  withIface(self.p, ILauncherOptions2, it):
     var tmp: pointer
-    vcall(it, Slot_ILauncherOptions2_get_NeighboringFilesQuery, Fn_ILauncherOptions2_get_NeighboringFilesQuery)(it, tmp.addr).check("LauncherOptions.get_NeighboringFilesQuery")
+    it.call(ILauncherOptions2_get_NeighboringFilesQuery, tmp.addr)
     result = adopt[StorageFileQueryResult](tmp)
 
-proc `neighboringFilesQuery=`*(self: LauncherOptions, value: StorageFileQueryResult)  =
+proc `neighboringFilesQuery=`*(self: LauncherOptions,
+                               value: StorageFileQueryResult) =
   ## Windows.System.LauncherOptions.put_NeighboringFilesQuery
-  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
-    withIface(value.p, IID_IStorageFileQueryResult, "IStorageFileQueryResult", p0):
-      vcall(it, Slot_ILauncherOptions2_put_NeighboringFilesQuery, Fn_ILauncherOptions2_put_NeighboringFilesQuery)(it, p0).check("LauncherOptions.put_NeighboringFilesQuery")
+  withIface(self.p, ILauncherOptions2, it):
+    withIface(value.p, IStorageFileQueryResult, p0):
+      it.call(ILauncherOptions2_put_NeighboringFilesQuery, p0)
 
-proc treatAsUntrusted*(self: LauncherOptions): bool  =
+proc treatAsUntrusted*(self: LauncherOptions): bool =
   ## Windows.System.LauncherOptions.get_TreatAsUntrusted
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: bool
-    vcall(it, Slot_ILauncherOptions_get_TreatAsUntrusted, Fn_ILauncherOptions_get_TreatAsUntrusted)(it, tmp.addr).check("LauncherOptions.get_TreatAsUntrusted")
+    it.call(ILauncherOptions_get_TreatAsUntrusted, tmp.addr)
     result = tmp
 
-proc `treatAsUntrusted=`*(self: LauncherOptions, value: bool)  =
+proc `treatAsUntrusted=`*(self: LauncherOptions, value: bool) =
   ## Windows.System.LauncherOptions.put_TreatAsUntrusted
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
-    vcall(it, Slot_ILauncherOptions_put_TreatAsUntrusted, Fn_ILauncherOptions_put_TreatAsUntrusted)(it, value).check("LauncherOptions.put_TreatAsUntrusted")
+  withIface(self.p, ILauncherOptions, it):
+    it.call(ILauncherOptions_put_TreatAsUntrusted, value)
 
-proc displayApplicationPicker*(self: LauncherOptions): bool  =
+proc displayApplicationPicker*(self: LauncherOptions): bool =
   ## Windows.System.LauncherOptions.get_DisplayApplicationPicker
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: bool
-    vcall(it, Slot_ILauncherOptions_get_DisplayApplicationPicker, Fn_ILauncherOptions_get_DisplayApplicationPicker)(it, tmp.addr).check("LauncherOptions.get_DisplayApplicationPicker")
+    it.call(ILauncherOptions_get_DisplayApplicationPicker, tmp.addr)
     result = tmp
 
-proc `displayApplicationPicker=`*(self: LauncherOptions, value: bool)  =
+proc `displayApplicationPicker=`*(self: LauncherOptions, value: bool) =
   ## Windows.System.LauncherOptions.put_DisplayApplicationPicker
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
-    vcall(it, Slot_ILauncherOptions_put_DisplayApplicationPicker, Fn_ILauncherOptions_put_DisplayApplicationPicker)(it, value).check("LauncherOptions.put_DisplayApplicationPicker")
+  withIface(self.p, ILauncherOptions, it):
+    it.call(ILauncherOptions_put_DisplayApplicationPicker, value)
 
-proc uI*(self: LauncherOptions): LauncherUIOptions  =
+proc uI*(self: LauncherOptions): LauncherUIOptions =
   ## Windows.System.LauncherOptions.get_UI
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_ILauncherOptions_get_UI, Fn_ILauncherOptions_get_UI)(it, tmp.addr).check("LauncherOptions.get_UI")
+    it.call(ILauncherOptions_get_UI, tmp.addr)
     result = adopt[LauncherUIOptions](tmp)
 
-proc preferredApplicationPackageFamilyName*(self: LauncherOptions): string  =
+proc preferredApplicationPackageFamilyName*(self: LauncherOptions): string =
   ## Windows.System.LauncherOptions.get_PreferredApplicationPackageFamilyName
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILauncherOptions_get_PreferredApplicationPackageFamilyName, Fn_ILauncherOptions_get_PreferredApplicationPackageFamilyName)(it, tmp.addr).check("LauncherOptions.get_PreferredApplicationPackageFamilyName")
+    it.call(ILauncherOptions_get_PreferredApplicationPackageFamilyName, tmp.addr)
     result = takeString(tmp)
 
-proc `preferredApplicationPackageFamilyName=`*(self: LauncherOptions, value: string)  =
+proc `preferredApplicationPackageFamilyName=`*(self: LauncherOptions,
+                                               value: string) =
   ## Windows.System.LauncherOptions.put_PreferredApplicationPackageFamilyName
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     withHString(value, h0):
-      vcall(it, Slot_ILauncherOptions_put_PreferredApplicationPackageFamilyName, Fn_ILauncherOptions_put_PreferredApplicationPackageFamilyName)(it, h0).check("LauncherOptions.put_PreferredApplicationPackageFamilyName")
+      it.call(ILauncherOptions_put_PreferredApplicationPackageFamilyName, h0)
 
-proc preferredApplicationDisplayName*(self: LauncherOptions): string  =
+proc preferredApplicationDisplayName*(self: LauncherOptions): string =
   ## Windows.System.LauncherOptions.get_PreferredApplicationDisplayName
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILauncherOptions_get_PreferredApplicationDisplayName, Fn_ILauncherOptions_get_PreferredApplicationDisplayName)(it, tmp.addr).check("LauncherOptions.get_PreferredApplicationDisplayName")
+    it.call(ILauncherOptions_get_PreferredApplicationDisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc `preferredApplicationDisplayName=`*(self: LauncherOptions, value: string)  =
+proc `preferredApplicationDisplayName=`*(self: LauncherOptions, value: string) =
   ## Windows.System.LauncherOptions.put_PreferredApplicationDisplayName
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     withHString(value, h0):
-      vcall(it, Slot_ILauncherOptions_put_PreferredApplicationDisplayName, Fn_ILauncherOptions_put_PreferredApplicationDisplayName)(it, h0).check("LauncherOptions.put_PreferredApplicationDisplayName")
+      it.call(ILauncherOptions_put_PreferredApplicationDisplayName, h0)
 
-proc fallbackUri*(self: LauncherOptions): Uri  =
+proc fallbackUri*(self: LauncherOptions): Uri =
   ## Windows.System.LauncherOptions.get_FallbackUri
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_ILauncherOptions_get_FallbackUri, Fn_ILauncherOptions_get_FallbackUri)(it, tmp.addr).check("LauncherOptions.get_FallbackUri")
+    it.call(ILauncherOptions_get_FallbackUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `fallbackUri=`*(self: LauncherOptions, value: Uri)  =
+proc `fallbackUri=`*(self: LauncherOptions, value: Uri) =
   ## Windows.System.LauncherOptions.put_FallbackUri
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILauncherOptions_put_FallbackUri, Fn_ILauncherOptions_put_FallbackUri)(it, p0).check("LauncherOptions.put_FallbackUri")
+  withIface(self.p, ILauncherOptions, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(ILauncherOptions_put_FallbackUri, p0)
 
-proc contentType*(self: LauncherOptions): string  =
+proc contentType*(self: LauncherOptions): string =
   ## Windows.System.LauncherOptions.get_ContentType
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     var tmp: HSTRING
-    vcall(it, Slot_ILauncherOptions_get_ContentType, Fn_ILauncherOptions_get_ContentType)(it, tmp.addr).check("LauncherOptions.get_ContentType")
+    it.call(ILauncherOptions_get_ContentType, tmp.addr)
     result = takeString(tmp)
 
-proc `contentType=`*(self: LauncherOptions, value: string)  =
+proc `contentType=`*(self: LauncherOptions, value: string) =
   ## Windows.System.LauncherOptions.put_ContentType
-  withIface(self.p, IID_ILauncherOptions, "ILauncherOptions", it):
+  withIface(self.p, ILauncherOptions, it):
     withHString(value, h0):
-      vcall(it, Slot_ILauncherOptions_put_ContentType, Fn_ILauncherOptions_put_ContentType)(it, h0).check("LauncherOptions.put_ContentType")
+      it.call(ILauncherOptions_put_ContentType, h0)
 
-proc ignoreAppUriHandlers*(self: LauncherOptions): bool  =
+proc ignoreAppUriHandlers*(self: LauncherOptions): bool =
   ## Windows.System.LauncherOptions.get_IgnoreAppUriHandlers
-  withIface(self.p, IID_ILauncherOptions3, "ILauncherOptions3", it):
+  withIface(self.p, ILauncherOptions3, it):
     var tmp: bool
-    vcall(it, Slot_ILauncherOptions3_get_IgnoreAppUriHandlers, Fn_ILauncherOptions3_get_IgnoreAppUriHandlers)(it, tmp.addr).check("LauncherOptions.get_IgnoreAppUriHandlers")
+    it.call(ILauncherOptions3_get_IgnoreAppUriHandlers, tmp.addr)
     result = tmp
 
-proc `ignoreAppUriHandlers=`*(self: LauncherOptions, value: bool)  =
+proc `ignoreAppUriHandlers=`*(self: LauncherOptions, value: bool) =
   ## Windows.System.LauncherOptions.put_IgnoreAppUriHandlers
-  withIface(self.p, IID_ILauncherOptions3, "ILauncherOptions3", it):
-    vcall(it, Slot_ILauncherOptions3_put_IgnoreAppUriHandlers, Fn_ILauncherOptions3_put_IgnoreAppUriHandlers)(it, value).check("LauncherOptions.put_IgnoreAppUriHandlers")
+  withIface(self.p, ILauncherOptions3, it):
+    it.call(ILauncherOptions3_put_IgnoreAppUriHandlers, value)
 
-proc limitPickerToCurrentAppAndAppUriHandlers*(self: LauncherOptions): bool  =
+proc limitPickerToCurrentAppAndAppUriHandlers*(self: LauncherOptions): bool =
   ## Windows.System.LauncherOptions.get_LimitPickerToCurrentAppAndAppUriHandlers
-  withIface(self.p, IID_ILauncherOptions4, "ILauncherOptions4", it):
+  withIface(self.p, ILauncherOptions4, it):
     var tmp: bool
-    vcall(it, Slot_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers, Fn_ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers)(it, tmp.addr).check("LauncherOptions.get_LimitPickerToCurrentAppAndAppUriHandlers")
+    it.call(ILauncherOptions4_get_LimitPickerToCurrentAppAndAppUriHandlers,
+            tmp.addr)
     result = tmp
 
-proc `limitPickerToCurrentAppAndAppUriHandlers=`*(self: LauncherOptions, value: bool)  =
+proc `limitPickerToCurrentAppAndAppUriHandlers=`*(self: LauncherOptions,
+                                                  value: bool) =
   ## Windows.System.LauncherOptions.put_LimitPickerToCurrentAppAndAppUriHandlers
-  withIface(self.p, IID_ILauncherOptions4, "ILauncherOptions4", it):
-    vcall(it, Slot_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers, Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers)(it, value).check("LauncherOptions.put_LimitPickerToCurrentAppAndAppUriHandlers")
+  withIface(self.p, ILauncherOptions4, it):
+    it.call(ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers,
+            value)
 
-proc desiredRemainingView*(self: LauncherOptions): ViewSizePreference  =
+proc desiredRemainingView*(self: LauncherOptions): ViewSizePreference =
   ## Windows.System.LauncherOptions.get_DesiredRemainingView
-  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+  withIface(self.p, ILauncherViewOptions, it):
     var tmp: ViewSizePreference
-    vcall(it, Slot_ILauncherViewOptions_get_DesiredRemainingView, Fn_ILauncherViewOptions_get_DesiredRemainingView)(it, tmp.addr).check("LauncherOptions.get_DesiredRemainingView")
+    it.call(ILauncherViewOptions_get_DesiredRemainingView, tmp.addr)
     result = tmp
 
-proc `desiredRemainingView=`*(self: LauncherOptions, value: ViewSizePreference)  =
+proc `desiredRemainingView=`*(self: LauncherOptions, value: ViewSizePreference) =
   ## Windows.System.LauncherOptions.put_DesiredRemainingView
-  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
-    vcall(it, Slot_ILauncherViewOptions_put_DesiredRemainingView, Fn_ILauncherViewOptions_put_DesiredRemainingView)(it, value).check("LauncherOptions.put_DesiredRemainingView")
+  withIface(self.p, ILauncherViewOptions, it):
+    it.call(ILauncherViewOptions_put_DesiredRemainingView, value)
 
-proc invocationPoint*(self: LauncherUIOptions): Option[Point]  =
+proc invocationPoint*(self: LauncherUIOptions): Option[Point] =
   ## Windows.System.LauncherUIOptions.get_InvocationPoint
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+  withIface(self.p, ILauncherUIOptions, it):
     var tmp: pointer
-    vcall(it, Slot_ILauncherUIOptions_get_InvocationPoint, Fn_ILauncherUIOptions_get_InvocationPoint)(it, tmp.addr).check("LauncherUIOptions.get_InvocationPoint")
-    result = readReference[Point](tmp, IID_IReference_1_Point, "LauncherUIOptions.get_InvocationPoint")
+    it.call(ILauncherUIOptions_get_InvocationPoint, tmp.addr)
+    result = readReference[Point](tmp, IID_IReference_1_Point,
+                                  "LauncherUIOptions.get_InvocationPoint")
     release(tmp)
 
-proc `invocationPoint=`*(self: LauncherUIOptions, value: Option[Point])  =
+proc `invocationPoint=`*(self: LauncherUIOptions, value: Option[Point]) =
   ## Windows.System.LauncherUIOptions.put_InvocationPoint
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+  withIface(self.p, ILauncherUIOptions, it):
     let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_ILauncherUIOptions_put_InvocationPoint, Fn_ILauncherUIOptions_put_InvocationPoint)(it, p0).check("LauncherUIOptions.put_InvocationPoint")
+    it.call(ILauncherUIOptions_put_InvocationPoint, p0)
 
-proc selectionRect*(self: LauncherUIOptions): Option[Rect]  =
+proc selectionRect*(self: LauncherUIOptions): Option[Rect] =
   ## Windows.System.LauncherUIOptions.get_SelectionRect
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+  withIface(self.p, ILauncherUIOptions, it):
     var tmp: pointer
-    vcall(it, Slot_ILauncherUIOptions_get_SelectionRect, Fn_ILauncherUIOptions_get_SelectionRect)(it, tmp.addr).check("LauncherUIOptions.get_SelectionRect")
-    result = readReference[Rect](tmp, IID_IReference_1_Rect, "LauncherUIOptions.get_SelectionRect")
+    it.call(ILauncherUIOptions_get_SelectionRect, tmp.addr)
+    result = readReference[Rect](tmp, IID_IReference_1_Rect,
+                                 "LauncherUIOptions.get_SelectionRect")
     release(tmp)
 
-proc `selectionRect=`*(self: LauncherUIOptions, value: Option[Rect])  =
+proc `selectionRect=`*(self: LauncherUIOptions, value: Option[Rect]) =
   ## Windows.System.LauncherUIOptions.put_SelectionRect
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+  withIface(self.p, ILauncherUIOptions, it):
     let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
     defer: discard release(p0)
-    vcall(it, Slot_ILauncherUIOptions_put_SelectionRect, Fn_ILauncherUIOptions_put_SelectionRect)(it, p0).check("LauncherUIOptions.put_SelectionRect")
+    it.call(ILauncherUIOptions_put_SelectionRect, p0)
 
-proc preferredPlacement*(self: LauncherUIOptions): Placement  =
+proc preferredPlacement*(self: LauncherUIOptions): Placement =
   ## Windows.System.LauncherUIOptions.get_PreferredPlacement
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+  withIface(self.p, ILauncherUIOptions, it):
     var tmp: Placement
-    vcall(it, Slot_ILauncherUIOptions_get_PreferredPlacement, Fn_ILauncherUIOptions_get_PreferredPlacement)(it, tmp.addr).check("LauncherUIOptions.get_PreferredPlacement")
+    it.call(ILauncherUIOptions_get_PreferredPlacement, tmp.addr)
     result = tmp
 
-proc `preferredPlacement=`*(self: LauncherUIOptions, value: Placement)  =
+proc `preferredPlacement=`*(self: LauncherUIOptions, value: Placement) =
   ## Windows.System.LauncherUIOptions.put_PreferredPlacement
-  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
-    vcall(it, Slot_ILauncherUIOptions_put_PreferredPlacement, Fn_ILauncherUIOptions_put_PreferredPlacement)(it, value).check("LauncherUIOptions.put_PreferredPlacement")
+  withIface(self.p, ILauncherUIOptions, it):
+    it.call(ILauncherUIOptions_put_PreferredPlacement, value)
 
-proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64  =
+proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.MemoryManager.get_AppMemoryUsage
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
     var tmp: uint64
-    vcall(it, Slot_IMemoryManagerStatics_get_AppMemoryUsage, Fn_IMemoryManagerStatics_get_AppMemoryUsage)(it, tmp.addr).check("MemoryManager.get_AppMemoryUsage")
+    it.call(IMemoryManagerStatics_get_AppMemoryUsage, tmp.addr)
     result = tmp
 
-proc appMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64  =
+proc appMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.MemoryManager.get_AppMemoryUsageLimit
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
     var tmp: uint64
-    vcall(it, Slot_IMemoryManagerStatics_get_AppMemoryUsageLimit, Fn_IMemoryManagerStatics_get_AppMemoryUsageLimit)(it, tmp.addr).check("MemoryManager.get_AppMemoryUsageLimit")
+    it.call(IMemoryManagerStatics_get_AppMemoryUsageLimit, tmp.addr)
     result = tmp
 
-proc appMemoryUsageLevel*(_: typedesc[MemoryManager]): AppMemoryUsageLevel  =
+proc appMemoryUsageLevel*(_: typedesc[MemoryManager]): AppMemoryUsageLevel =
   ## Windows.System.MemoryManager.get_AppMemoryUsageLevel
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
     var tmp: AppMemoryUsageLevel
-    vcall(it, Slot_IMemoryManagerStatics_get_AppMemoryUsageLevel, Fn_IMemoryManagerStatics_get_AppMemoryUsageLevel)(it, tmp.addr).check("MemoryManager.get_AppMemoryUsageLevel")
+    it.call(IMemoryManagerStatics_get_AppMemoryUsageLevel, tmp.addr)
     result = tmp
 
 proc onAppMemoryUsageIncreased*(_: typedesc[MemoryManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.MemoryManager.add_AppMemoryUsageIncreased
-  ##
-  ## The token is what `removeAppMemoryUsageIncreased` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeAppMemoryUsageIncreased` takes.
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IMemoryManagerStatics_add_AppMemoryUsageIncreased, Fn_IMemoryManagerStatics_add_AppMemoryUsageIncreased)(it, cb, result.addr)
-        .check("MemoryManager.add_AppMemoryUsageIncreased")
+      it.call(IMemoryManagerStatics_add_AppMemoryUsageIncreased, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAppMemoryUsageIncreased*(_: typedesc[MemoryManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    vcall(it, Slot_IMemoryManagerStatics_remove_AppMemoryUsageIncreased, Fn_IMemoryManagerStatics_remove_AppMemoryUsageIncreased)(it, token).check("MemoryManager.remove_AppMemoryUsageIncreased")
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    it.call(IMemoryManagerStatics_remove_AppMemoryUsageIncreased, token)
 
 proc onAppMemoryUsageDecreased*(_: typedesc[MemoryManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.MemoryManager.add_AppMemoryUsageDecreased
-  ##
-  ## The token is what `removeAppMemoryUsageDecreased` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeAppMemoryUsageDecreased` takes.
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IMemoryManagerStatics_add_AppMemoryUsageDecreased, Fn_IMemoryManagerStatics_add_AppMemoryUsageDecreased)(it, cb, result.addr)
-        .check("MemoryManager.add_AppMemoryUsageDecreased")
+      it.call(IMemoryManagerStatics_add_AppMemoryUsageDecreased, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAppMemoryUsageDecreased*(_: typedesc[MemoryManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    vcall(it, Slot_IMemoryManagerStatics_remove_AppMemoryUsageDecreased, Fn_IMemoryManagerStatics_remove_AppMemoryUsageDecreased)(it, token).check("MemoryManager.remove_AppMemoryUsageDecreased")
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    it.call(IMemoryManagerStatics_remove_AppMemoryUsageDecreased, token)
 
 proc onAppMemoryUsageLimitChanging*(_: typedesc[MemoryManager],
-    handler: proc(sender: WinRtObject, args: AppMemoryUsageLimitChangingEventArgs)): EventRegistrationToken {.discardable.} =
+                                    handler: EventHandler[WinRtObject, AppMemoryUsageLimitChangingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.MemoryManager.add_AppMemoryUsageLimitChanging
-  ##
-  ## The token is what `removeAppMemoryUsageLimitChanging` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_AppMemoryUsageLimitChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[AppMemoryUsageLimitChangingEventArgs](a1)), event = true)
+  ## The token is what `removeAppMemoryUsageLimitChanging` takes.
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0),
+              borrow[AppMemoryUsageLimitChangingEventArgs](a1))
+    let cb = newDelegate(IID_EventHandler_1_AppMemoryUsageLimitChangingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging, Fn_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging)(it, cb, result.addr)
-        .check("MemoryManager.add_AppMemoryUsageLimitChanging")
+      it.call(IMemoryManagerStatics_add_AppMemoryUsageLimitChanging, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAppMemoryUsageLimitChanging*(_: typedesc[MemoryManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics, it):
-    vcall(it, Slot_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging, Fn_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging)(it, token).check("MemoryManager.remove_AppMemoryUsageLimitChanging")
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics, it):
+    it.call(IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging, token)
 
-proc getAppMemoryReport*(_: typedesc[MemoryManager]): AppMemoryReport  =
+proc getAppMemoryReport*(_: typedesc[MemoryManager]): AppMemoryReport =
   ## Windows.System.MemoryManager.GetAppMemoryReport
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics2, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IMemoryManagerStatics2_GetAppMemoryReport, Fn_IMemoryManagerStatics2_GetAppMemoryReport)(it, tmp.addr).check("MemoryManager.GetAppMemoryReport")
+    it.call(IMemoryManagerStatics2_GetAppMemoryReport, tmp.addr)
     result = adopt[AppMemoryReport](tmp)
 
-proc getProcessMemoryReport*(_: typedesc[MemoryManager]): ProcessMemoryReport  =
+proc getProcessMemoryReport*(_: typedesc[MemoryManager]): ProcessMemoryReport =
   ## Windows.System.MemoryManager.GetProcessMemoryReport
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics2, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IMemoryManagerStatics2_GetProcessMemoryReport, Fn_IMemoryManagerStatics2_GetProcessMemoryReport)(it, tmp.addr).check("MemoryManager.GetProcessMemoryReport")
+    it.call(IMemoryManagerStatics2_GetProcessMemoryReport, tmp.addr)
     result = adopt[ProcessMemoryReport](tmp)
 
-proc trySetAppMemoryUsageLimit*(_: typedesc[MemoryManager], value: uint64): bool  =
+proc trySetAppMemoryUsageLimit*(_: typedesc[MemoryManager], value: uint64): bool =
   ## Windows.System.MemoryManager.TrySetAppMemoryUsageLimit
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics3, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics3, it):
     var tmp: bool
-    vcall(it, Slot_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit, Fn_IMemoryManagerStatics3_TrySetAppMemoryUsageLimit)(it, value, tmp.addr).check("MemoryManager.TrySetAppMemoryUsageLimit")
+    it.call(IMemoryManagerStatics3_TrySetAppMemoryUsageLimit, value, tmp.addr)
     result = tmp
 
-proc expectedAppMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64  =
+proc expectedAppMemoryUsageLimit*(_: typedesc[MemoryManager]): uint64 =
   ## Windows.System.MemoryManager.get_ExpectedAppMemoryUsageLimit
-  withStatics("Windows.System.MemoryManager", IID_IMemoryManagerStatics4, it):
+  withStatics("Windows.System.MemoryManager", IMemoryManagerStatics4, it):
     var tmp: uint64
-    vcall(it, Slot_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit, Fn_IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit)(it, tmp.addr).check("MemoryManager.get_ExpectedAppMemoryUsageLimit")
+    it.call(IMemoryManagerStatics4_get_ExpectedAppMemoryUsageLimit, tmp.addr)
     result = tmp
 
-proc lowUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc lowUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_LowUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_LowUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_LowUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_LowUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_LowUsageLevel, tmp.addr)
     result = tmp
 
-proc nearMaxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc nearMaxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_NearMaxAcceptableUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_NearMaxAcceptableUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel,
+            tmp.addr)
     result = tmp
 
-proc maxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc maxAcceptableUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_MaxAcceptableUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_MaxAcceptableUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_MaxAcceptableUsageLevel,
+            tmp.addr)
     result = tmp
 
-proc excessiveUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc excessiveUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_ExcessiveUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_ExcessiveUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_ExcessiveUsageLevel, tmp.addr)
     result = tmp
 
-proc nearTerminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc nearTerminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_NearTerminationUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_NearTerminationUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_NearTerminationUsageLevel,
+            tmp.addr)
     result = tmp
 
-proc terminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc terminationUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_TerminationUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_TerminationUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_TerminationUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_TerminationUsageLevel, tmp.addr)
     result = tmp
 
-proc recentEnergyUsage*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc recentEnergyUsage*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_RecentEnergyUsage
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage, Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsage)(it, tmp.addr).check("BackgroundEnergyManager.get_RecentEnergyUsage")
+    it.call(IBackgroundEnergyManagerStatics_get_RecentEnergyUsage, tmp.addr)
     result = tmp
 
-proc recentEnergyUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32  =
+proc recentEnergyUsageLevel*(_: typedesc[BackgroundEnergyManager]): uint32 =
   ## Windows.System.Power.BackgroundEnergyManager.get_RecentEnergyUsageLevel
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel, Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel)(it, tmp.addr).check("BackgroundEnergyManager.get_RecentEnergyUsageLevel")
+    it.call(IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel, tmp.addr)
     result = tmp
 
 proc onRecentEnergyUsageIncreased*(_: typedesc[BackgroundEnergyManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.BackgroundEnergyManager.add_RecentEnergyUsageIncreased
-  ##
-  ## The token is what `removeRecentEnergyUsageIncreased` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRecentEnergyUsageIncreased` takes.
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased, Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased)(it, cb, result.addr)
-        .check("BackgroundEnergyManager.add_RecentEnergyUsageIncreased")
+      it.call(IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRecentEnergyUsageIncreased*(_: typedesc[BackgroundEnergyManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased, Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased)(it, token).check("BackgroundEnergyManager.remove_RecentEnergyUsageIncreased")
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
+    it.call(IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased, token)
 
 proc onRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.BackgroundEnergyManager.add_RecentEnergyUsageReturnedToLow
-  ##
-  ## The token is what `removeRecentEnergyUsageReturnedToLow` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRecentEnergyUsageReturnedToLow` takes.
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow, Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow)(it, cb, result.addr)
-        .check("BackgroundEnergyManager.add_RecentEnergyUsageReturnedToLow")
+      it.call(IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[BackgroundEnergyManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.BackgroundEnergyManager", IID_IBackgroundEnergyManagerStatics, it):
-    vcall(it, Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow, Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow)(it, token).check("BackgroundEnergyManager.remove_RecentEnergyUsageReturnedToLow")
+  withStatics("Windows.System.Power.BackgroundEnergyManager",
+              IBackgroundEnergyManagerStatics, it):
+    it.call(IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow, token)
 
-proc deviceSpecificConversionFactor*(_: typedesc[BackgroundEnergyDiagnostics]): float64  =
+proc deviceSpecificConversionFactor*(_: typedesc[BackgroundEnergyDiagnostics]): float64 =
   ## Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics.get_DeviceSpecificConversionFactor
-  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics", IID_IBackgroundEnergyDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics",
+              IBackgroundEnergyDiagnosticsStatics, it):
     var tmp: float64
-    vcall(it, Slot_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor, Fn_IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor)(it, tmp.addr).check("BackgroundEnergyDiagnostics.get_DeviceSpecificConversionFactor")
+    it.call(IBackgroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor,
+            tmp.addr)
     result = tmp
 
-proc computeTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]): uint64  =
+proc computeTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]): uint64 =
   ## Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics.ComputeTotalEnergyUsage
-  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics", IID_IBackgroundEnergyDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics",
+              IBackgroundEnergyDiagnosticsStatics, it):
     var tmp: uint64
-    vcall(it, Slot_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage, Fn_IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage)(it, tmp.addr).check("BackgroundEnergyDiagnostics.ComputeTotalEnergyUsage")
+    it.call(IBackgroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage,
+            tmp.addr)
     result = tmp
 
-proc resetTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics])  =
+proc resetTotalEnergyUsage*(_: typedesc[BackgroundEnergyDiagnostics]) =
   ## Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics.ResetTotalEnergyUsage
-  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics", IID_IBackgroundEnergyDiagnosticsStatics, it):
-    vcall(it, Slot_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage, Fn_IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage)(it).check("BackgroundEnergyDiagnostics.ResetTotalEnergyUsage")
+  withStatics("Windows.System.Power.Diagnostics.BackgroundEnergyDiagnostics",
+              IBackgroundEnergyDiagnosticsStatics, it):
+    it.call(IBackgroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage)
 
-proc deviceSpecificConversionFactor*(_: typedesc[ForegroundEnergyDiagnostics]): float64  =
+proc deviceSpecificConversionFactor*(_: typedesc[ForegroundEnergyDiagnostics]): float64 =
   ## Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics.get_DeviceSpecificConversionFactor
-  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics", IID_IForegroundEnergyDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics",
+              IForegroundEnergyDiagnosticsStatics, it):
     var tmp: float64
-    vcall(it, Slot_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor, Fn_IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor)(it, tmp.addr).check("ForegroundEnergyDiagnostics.get_DeviceSpecificConversionFactor")
+    it.call(IForegroundEnergyDiagnosticsStatics_get_DeviceSpecificConversionFactor,
+            tmp.addr)
     result = tmp
 
-proc computeTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]): uint64  =
+proc computeTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]): uint64 =
   ## Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics.ComputeTotalEnergyUsage
-  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics", IID_IForegroundEnergyDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics",
+              IForegroundEnergyDiagnosticsStatics, it):
     var tmp: uint64
-    vcall(it, Slot_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage, Fn_IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage)(it, tmp.addr).check("ForegroundEnergyDiagnostics.ComputeTotalEnergyUsage")
+    it.call(IForegroundEnergyDiagnosticsStatics_ComputeTotalEnergyUsage,
+            tmp.addr)
     result = tmp
 
-proc resetTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics])  =
+proc resetTotalEnergyUsage*(_: typedesc[ForegroundEnergyDiagnostics]) =
   ## Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics.ResetTotalEnergyUsage
-  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics", IID_IForegroundEnergyDiagnosticsStatics, it):
-    vcall(it, Slot_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage, Fn_IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage)(it).check("ForegroundEnergyDiagnostics.ResetTotalEnergyUsage")
+  withStatics("Windows.System.Power.Diagnostics.ForegroundEnergyDiagnostics",
+              IForegroundEnergyDiagnosticsStatics, it):
+    it.call(IForegroundEnergyDiagnosticsStatics_ResetTotalEnergyUsage)
 
-proc lowUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc lowUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_LowUsageLevel
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_LowUsageLevel, Fn_IForegroundEnergyManagerStatics_get_LowUsageLevel)(it, tmp.addr).check("ForegroundEnergyManager.get_LowUsageLevel")
+    it.call(IForegroundEnergyManagerStatics_get_LowUsageLevel, tmp.addr)
     result = tmp
 
-proc nearMaxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc nearMaxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_NearMaxAcceptableUsageLevel
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel, Fn_IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel)(it, tmp.addr).check("ForegroundEnergyManager.get_NearMaxAcceptableUsageLevel")
+    it.call(IForegroundEnergyManagerStatics_get_NearMaxAcceptableUsageLevel,
+            tmp.addr)
     result = tmp
 
-proc maxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc maxAcceptableUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_MaxAcceptableUsageLevel
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel, Fn_IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel)(it, tmp.addr).check("ForegroundEnergyManager.get_MaxAcceptableUsageLevel")
+    it.call(IForegroundEnergyManagerStatics_get_MaxAcceptableUsageLevel,
+            tmp.addr)
     result = tmp
 
-proc excessiveUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc excessiveUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_ExcessiveUsageLevel
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel, Fn_IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel)(it, tmp.addr).check("ForegroundEnergyManager.get_ExcessiveUsageLevel")
+    it.call(IForegroundEnergyManagerStatics_get_ExcessiveUsageLevel, tmp.addr)
     result = tmp
 
-proc recentEnergyUsage*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc recentEnergyUsage*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_RecentEnergyUsage
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsage, Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsage)(it, tmp.addr).check("ForegroundEnergyManager.get_RecentEnergyUsage")
+    it.call(IForegroundEnergyManagerStatics_get_RecentEnergyUsage, tmp.addr)
     result = tmp
 
-proc recentEnergyUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32  =
+proc recentEnergyUsageLevel*(_: typedesc[ForegroundEnergyManager]): uint32 =
   ## Windows.System.Power.ForegroundEnergyManager.get_RecentEnergyUsageLevel
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
     var tmp: uint32
-    vcall(it, Slot_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel, Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel)(it, tmp.addr).check("ForegroundEnergyManager.get_RecentEnergyUsageLevel")
+    it.call(IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel, tmp.addr)
     result = tmp
 
 proc onRecentEnergyUsageIncreased*(_: typedesc[ForegroundEnergyManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.ForegroundEnergyManager.add_RecentEnergyUsageIncreased
-  ##
-  ## The token is what `removeRecentEnergyUsageIncreased` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRecentEnergyUsageIncreased` takes.
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased, Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased)(it, cb, result.addr)
-        .check("ForegroundEnergyManager.add_RecentEnergyUsageIncreased")
+      it.call(IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRecentEnergyUsageIncreased*(_: typedesc[ForegroundEnergyManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
-    vcall(it, Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased, Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased)(it, token).check("ForegroundEnergyManager.remove_RecentEnergyUsageIncreased")
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
+    it.call(IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased, token)
 
 proc onRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.ForegroundEnergyManager.add_RecentEnergyUsageReturnedToLow
-  ##
-  ## The token is what `removeRecentEnergyUsageReturnedToLow` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRecentEnergyUsageReturnedToLow` takes.
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow, Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow)(it, cb, result.addr)
-        .check("ForegroundEnergyManager.add_RecentEnergyUsageReturnedToLow")
+      it.call(IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRecentEnergyUsageReturnedToLow*(_: typedesc[ForegroundEnergyManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.ForegroundEnergyManager", IID_IForegroundEnergyManagerStatics, it):
-    vcall(it, Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow, Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow)(it, token).check("ForegroundEnergyManager.remove_RecentEnergyUsageReturnedToLow")
+  withStatics("Windows.System.Power.ForegroundEnergyManager",
+              IForegroundEnergyManagerStatics, it):
+    it.call(IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow, token)
 
-proc energySaverStatus*(_: typedesc[PowerManager]): EnergySaverStatus  =
+proc energySaverStatus*(_: typedesc[PowerManager]): EnergySaverStatus =
   ## Windows.System.Power.PowerManager.get_EnergySaverStatus
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
     var tmp: EnergySaverStatus
-    vcall(it, Slot_IPowerManagerStatics_get_EnergySaverStatus, Fn_IPowerManagerStatics_get_EnergySaverStatus)(it, tmp.addr).check("PowerManager.get_EnergySaverStatus")
+    it.call(IPowerManagerStatics_get_EnergySaverStatus, tmp.addr)
     result = tmp
 
 proc onEnergySaverStatusChanged*(_: typedesc[PowerManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.PowerManager.add_EnergySaverStatusChanged
-  ##
-  ## The token is what `removeEnergySaverStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeEnergySaverStatusChanged` takes.
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerManagerStatics_add_EnergySaverStatusChanged, Fn_IPowerManagerStatics_add_EnergySaverStatusChanged)(it, cb, result.addr)
-        .check("PowerManager.add_EnergySaverStatusChanged")
+      it.call(IPowerManagerStatics_add_EnergySaverStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnergySaverStatusChanged*(_: typedesc[PowerManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    vcall(it, Slot_IPowerManagerStatics_remove_EnergySaverStatusChanged, Fn_IPowerManagerStatics_remove_EnergySaverStatusChanged)(it, token).check("PowerManager.remove_EnergySaverStatusChanged")
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    it.call(IPowerManagerStatics_remove_EnergySaverStatusChanged, token)
 
-proc batteryStatus*(_: typedesc[PowerManager]): BatteryStatus  =
+proc batteryStatus*(_: typedesc[PowerManager]): BatteryStatus =
   ## Windows.System.Power.PowerManager.get_BatteryStatus
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
     var tmp: BatteryStatus
-    vcall(it, Slot_IPowerManagerStatics_get_BatteryStatus, Fn_IPowerManagerStatics_get_BatteryStatus)(it, tmp.addr).check("PowerManager.get_BatteryStatus")
+    it.call(IPowerManagerStatics_get_BatteryStatus, tmp.addr)
     result = tmp
 
 proc onBatteryStatusChanged*(_: typedesc[PowerManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.PowerManager.add_BatteryStatusChanged
-  ##
-  ## The token is what `removeBatteryStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeBatteryStatusChanged` takes.
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerManagerStatics_add_BatteryStatusChanged, Fn_IPowerManagerStatics_add_BatteryStatusChanged)(it, cb, result.addr)
-        .check("PowerManager.add_BatteryStatusChanged")
+      it.call(IPowerManagerStatics_add_BatteryStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeBatteryStatusChanged*(_: typedesc[PowerManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    vcall(it, Slot_IPowerManagerStatics_remove_BatteryStatusChanged, Fn_IPowerManagerStatics_remove_BatteryStatusChanged)(it, token).check("PowerManager.remove_BatteryStatusChanged")
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    it.call(IPowerManagerStatics_remove_BatteryStatusChanged, token)
 
-proc powerSupplyStatus*(_: typedesc[PowerManager]): PowerSupplyStatus  =
+proc powerSupplyStatus*(_: typedesc[PowerManager]): PowerSupplyStatus =
   ## Windows.System.Power.PowerManager.get_PowerSupplyStatus
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
     var tmp: PowerSupplyStatus
-    vcall(it, Slot_IPowerManagerStatics_get_PowerSupplyStatus, Fn_IPowerManagerStatics_get_PowerSupplyStatus)(it, tmp.addr).check("PowerManager.get_PowerSupplyStatus")
+    it.call(IPowerManagerStatics_get_PowerSupplyStatus, tmp.addr)
     result = tmp
 
 proc onPowerSupplyStatusChanged*(_: typedesc[PowerManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.PowerManager.add_PowerSupplyStatusChanged
-  ##
-  ## The token is what `removePowerSupplyStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removePowerSupplyStatusChanged` takes.
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerManagerStatics_add_PowerSupplyStatusChanged, Fn_IPowerManagerStatics_add_PowerSupplyStatusChanged)(it, cb, result.addr)
-        .check("PowerManager.add_PowerSupplyStatusChanged")
+      it.call(IPowerManagerStatics_add_PowerSupplyStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removePowerSupplyStatusChanged*(_: typedesc[PowerManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    vcall(it, Slot_IPowerManagerStatics_remove_PowerSupplyStatusChanged, Fn_IPowerManagerStatics_remove_PowerSupplyStatusChanged)(it, token).check("PowerManager.remove_PowerSupplyStatusChanged")
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    it.call(IPowerManagerStatics_remove_PowerSupplyStatusChanged, token)
 
-proc remainingChargePercent*(_: typedesc[PowerManager]): int32  =
+proc remainingChargePercent*(_: typedesc[PowerManager]): int32 =
   ## Windows.System.Power.PowerManager.get_RemainingChargePercent
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
     var tmp: int32
-    vcall(it, Slot_IPowerManagerStatics_get_RemainingChargePercent, Fn_IPowerManagerStatics_get_RemainingChargePercent)(it, tmp.addr).check("PowerManager.get_RemainingChargePercent")
+    it.call(IPowerManagerStatics_get_RemainingChargePercent, tmp.addr)
     result = tmp
 
 proc onRemainingChargePercentChanged*(_: typedesc[PowerManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                      handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.PowerManager.add_RemainingChargePercentChanged
-  ##
-  ## The token is what `removeRemainingChargePercentChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRemainingChargePercentChanged` takes.
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerManagerStatics_add_RemainingChargePercentChanged, Fn_IPowerManagerStatics_add_RemainingChargePercentChanged)(it, cb, result.addr)
-        .check("PowerManager.add_RemainingChargePercentChanged")
+      it.call(IPowerManagerStatics_add_RemainingChargePercentChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemainingChargePercentChanged*(_: typedesc[PowerManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    vcall(it, Slot_IPowerManagerStatics_remove_RemainingChargePercentChanged, Fn_IPowerManagerStatics_remove_RemainingChargePercentChanged)(it, token).check("PowerManager.remove_RemainingChargePercentChanged")
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    it.call(IPowerManagerStatics_remove_RemainingChargePercentChanged, token)
 
-proc remainingDischargeTime*(_: typedesc[PowerManager]): TimeSpan  =
+proc remainingDischargeTime*(_: typedesc[PowerManager]): TimeSpan =
   ## Windows.System.Power.PowerManager.get_RemainingDischargeTime
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IPowerManagerStatics_get_RemainingDischargeTime, Fn_IPowerManagerStatics_get_RemainingDischargeTime)(it, tmp.addr).check("PowerManager.get_RemainingDischargeTime")
+    it.call(IPowerManagerStatics_get_RemainingDischargeTime, tmp.addr)
     result = tmp
 
 proc onRemainingDischargeTimeChanged*(_: typedesc[PowerManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                      handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.PowerManager.add_RemainingDischargeTimeChanged
-  ##
-  ## The token is what `removeRemainingDischargeTimeChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeRemainingDischargeTimeChanged` takes.
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerManagerStatics_add_RemainingDischargeTimeChanged, Fn_IPowerManagerStatics_add_RemainingDischargeTimeChanged)(it, cb, result.addr)
-        .check("PowerManager.add_RemainingDischargeTimeChanged")
+      it.call(IPowerManagerStatics_add_RemainingDischargeTimeChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemainingDischargeTimeChanged*(_: typedesc[PowerManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Power.PowerManager", IID_IPowerManagerStatics, it):
-    vcall(it, Slot_IPowerManagerStatics_remove_RemainingDischargeTimeChanged, Fn_IPowerManagerStatics_remove_RemainingDischargeTimeChanged)(it, token).check("PowerManager.remove_RemainingDischargeTimeChanged")
+  withStatics("Windows.System.Power.PowerManager", IPowerManagerStatics, it):
+    it.call(IPowerManagerStatics_remove_RemainingDischargeTimeChanged, token)
 
-proc id*(self: PowerThermalChannelConfiguration): PowerThermalChannelId  =
+proc id*(self: PowerThermalChannelConfiguration): PowerThermalChannelId =
   ## Windows.System.Power.Thermal.PowerThermalChannelConfiguration.get_Id
-  withIface(self.p, IID_IPowerThermalChannelConfiguration, "IPowerThermalChannelConfiguration", it):
+  withIface(self.p, IPowerThermalChannelConfiguration, it):
     var tmp: PowerThermalChannelId
-    vcall(it, Slot_IPowerThermalChannelConfiguration_get_Id, Fn_IPowerThermalChannelConfiguration_get_Id)(it, tmp.addr).check("PowerThermalChannelConfiguration.get_Id")
+    it.call(IPowerThermalChannelConfiguration_get_Id, tmp.addr)
     result = tmp
 
-proc configurationString*(self: PowerThermalChannelConfiguration): string  =
+proc configurationString*(self: PowerThermalChannelConfiguration): string =
   ## Windows.System.Power.Thermal.PowerThermalChannelConfiguration.get_ConfigurationString
-  withIface(self.p, IID_IPowerThermalChannelConfiguration, "IPowerThermalChannelConfiguration", it):
+  withIface(self.p, IPowerThermalChannelConfiguration, it):
     var tmp: HSTRING
-    vcall(it, Slot_IPowerThermalChannelConfiguration_get_ConfigurationString, Fn_IPowerThermalChannelConfiguration_get_ConfigurationString)(it, tmp.addr).check("PowerThermalChannelConfiguration.get_ConfigurationString")
+    it.call(IPowerThermalChannelConfiguration_get_ConfigurationString, tmp.addr)
     result = takeString(tmp)
 
-proc getConfigurationNumericParameters*(self: PowerThermalChannelConfiguration): seq[int32]  =
+proc getConfigurationNumericParameters*(self: PowerThermalChannelConfiguration): seq[int32] =
   ## Windows.System.Power.Thermal.PowerThermalChannelConfiguration.GetConfigurationNumericParameters
-  withIface(self.p, IID_IPowerThermalChannelConfiguration, "IPowerThermalChannelConfiguration", it):
+  withIface(self.p, IPowerThermalChannelConfiguration, it):
     var tmpSize: uint32
     var tmp: ptr int32
-    vcall(it, Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters, Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelConfiguration.GetConfigurationNumericParameters")
+    it.call(IPowerThermalChannelConfiguration_GetConfigurationNumericParameters,
+            tmpSize.addr, tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc getChannelIds*(self: PowerThermalChannelDataConsumer): seq[PowerThermalChannelId]  =
+proc getChannelIds*(self: PowerThermalChannelDataConsumer): seq[PowerThermalChannelId] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.GetChannelIds
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
     var tmpSize: uint32
     var tmp: ptr PowerThermalChannelId
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_GetChannelIds, Fn_IPowerThermalChannelDataConsumer_GetChannelIds)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataConsumer.GetChannelIds")
+    it.call(IPowerThermalChannelDataConsumer_GetChannelIds, tmpSize.addr,
+            tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc getChannelConfigurations*(self: PowerThermalChannelDataConsumer): Table[PowerThermalChannelId, PowerThermalChannelConfiguration]  =
+proc getChannelConfigurations*(self: PowerThermalChannelDataConsumer): Table[PowerThermalChannelId, PowerThermalChannelConfiguration] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.GetChannelConfigurations
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
     var tmp: pointer
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_GetChannelConfigurations, Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations)(it, tmp.addr).check("PowerThermalChannelDataConsumer.GetChannelConfigurations")
-    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
+    it.call(IPowerThermalChannelDataConsumer_GetChannelConfigurations, tmp.addr)
+    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp,
+                                                                              IID_IIterable_1_IKeyValuePair_22,
+                                                                              IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
     release(tmp)
 
-proc start*(self: PowerThermalChannelDataConsumer)  =
+proc start*(self: PowerThermalChannelDataConsumer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.Start
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_Start, Fn_IPowerThermalChannelDataConsumer_Start)(it).check("PowerThermalChannelDataConsumer.Start")
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    it.call(IPowerThermalChannelDataConsumer_Start)
 
-proc stop*(self: PowerThermalChannelDataConsumer)  =
+proc stop*(self: PowerThermalChannelDataConsumer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.Stop
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_Stop, Fn_IPowerThermalChannelDataConsumer_Stop)(it).check("PowerThermalChannelDataConsumer.Stop")
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    it.call(IPowerThermalChannelDataConsumer_Stop)
 
 proc onChannelDataReceived*(self: PowerThermalChannelDataConsumer,
-    handler: proc(sender: PowerThermalChannelDataConsumer, args: PowerThermalChannelDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[PowerThermalChannelDataConsumer, PowerThermalChannelDataReceivedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.add_ChannelDataReceived
-  ##
-  ## The token is what `removeChannelDataReceived` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_PowerThermalChannelDataReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PowerThermalChannelDataConsumer](a0), borrow[PowerThermalChannelDataReceivedEventArgs](a1)), event = true)
+  ## The token is what `removeChannelDataReceived` takes.
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[PowerThermalChannelDataConsumer](a0),
+              borrow[PowerThermalChannelDataReceivedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_PowerThermalChannelDataReceivedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IPowerThermalChannelDataConsumer_add_ChannelDataReceived, Fn_IPowerThermalChannelDataConsumer_add_ChannelDataReceived)(it, cb, result.addr)
-        .check("PowerThermalChannelDataConsumer.add_ChannelDataReceived")
+      it.call(IPowerThermalChannelDataConsumer_add_ChannelDataReceived, cb, result.addr)
     finally:
       release(cb)
 
 proc removeChannelDataReceived*(self: PowerThermalChannelDataConsumer, token: EventRegistrationToken) =
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived, Fn_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived)(it, token).check("PowerThermalChannelDataConsumer.remove_ChannelDataReceived")
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    it.call(IPowerThermalChannelDataConsumer_remove_ChannelDataReceived, token)
 
-proc backEndStatus*(self: PowerThermalChannelDataConsumer): PowerThermalBackEndStatus  =
+proc backEndStatus*(self: PowerThermalChannelDataConsumer): PowerThermalBackEndStatus =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.get_BackEndStatus
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
     var tmp: PowerThermalBackEndStatus
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_get_BackEndStatus, Fn_IPowerThermalChannelDataConsumer_get_BackEndStatus)(it, tmp.addr).check("PowerThermalChannelDataConsumer.get_BackEndStatus")
+    it.call(IPowerThermalChannelDataConsumer_get_BackEndStatus, tmp.addr)
     result = tmp
 
 proc onBackEndStatusChanged*(self: PowerThermalChannelDataConsumer,
-    handler: proc(sender: PowerThermalChannelDataConsumer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PowerThermalChannelDataConsumer, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.add_BackEndStatusChanged
-  ##
-  ## The token is what `removeBackEndStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PowerThermalChannelDataConsumer](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeBackEndStatusChanged` takes.
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[PowerThermalChannelDataConsumer](a0),
+              borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataConsumer_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged, Fn_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged)(it, cb, result.addr)
-        .check("PowerThermalChannelDataConsumer.add_BackEndStatusChanged")
+      it.call(IPowerThermalChannelDataConsumer_add_BackEndStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeBackEndStatusChanged*(self: PowerThermalChannelDataConsumer, token: EventRegistrationToken) =
-  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
-    vcall(it, Slot_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged, Fn_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged)(it, token).check("PowerThermalChannelDataConsumer.remove_BackEndStatusChanged")
+  withIface(self.p, IPowerThermalChannelDataConsumer, it):
+    it.call(IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged, token)
 
-proc close*(self: PowerThermalChannelDataConsumer)  =
+proc close*(self: PowerThermalChannelDataConsumer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PowerThermalChannelDataConsumer.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc createInstance*(_: typedesc[PowerThermalChannelDataConsumer], channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataConsumer  =
+proc createInstance*(_: typedesc[PowerThermalChannelDataConsumer],
+                     channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataConsumer =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.CreateInstance
-  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataConsumer", IID_IPowerThermalChannelDataConsumerFactory, it):
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataConsumer",
+              IPowerThermalChannelDataConsumerFactory, it):
     let n0 = uint32(channelIds.len)
     let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPowerThermalChannelDataConsumerFactory_CreateInstance, Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataConsumer.CreateInstance")
+    it.call(IPowerThermalChannelDataConsumerFactory_CreateInstance, n0, d0,
+            tmp.addr)
     result = adopt[PowerThermalChannelDataConsumer](tmp)
 
-proc getChannelIds*(self: PowerThermalChannelDataProducer): seq[PowerThermalChannelId]  =
+proc getChannelIds*(self: PowerThermalChannelDataProducer): seq[PowerThermalChannelId] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.GetChannelIds
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
     var tmpSize: uint32
     var tmp: ptr PowerThermalChannelId
-    vcall(it, Slot_IPowerThermalChannelDataProducer_GetChannelIds, Fn_IPowerThermalChannelDataProducer_GetChannelIds)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataProducer.GetChannelIds")
+    it.call(IPowerThermalChannelDataProducer_GetChannelIds, tmpSize.addr,
+            tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc getChannelConfigurations*(self: PowerThermalChannelDataProducer): Table[PowerThermalChannelId, PowerThermalChannelConfiguration]  =
+proc getChannelConfigurations*(self: PowerThermalChannelDataProducer): Table[PowerThermalChannelId, PowerThermalChannelConfiguration] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.GetChannelConfigurations
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
     var tmp: pointer
-    vcall(it, Slot_IPowerThermalChannelDataProducer_GetChannelConfigurations, Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations)(it, tmp.addr).check("PowerThermalChannelDataProducer.GetChannelConfigurations")
-    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
+    it.call(IPowerThermalChannelDataProducer_GetChannelConfigurations, tmp.addr)
+    result = toTable[PowerThermalChannelId, PowerThermalChannelConfiguration](tmp,
+                                                                              IID_IIterable_1_IKeyValuePair_22,
+                                                                              IID_IKeyValuePair_2_PowerThermalChannelId_PowerThermalChannelConfiguration)
     release(tmp)
 
-proc disableChannel*(self: PowerThermalChannelDataProducer, channelId: PowerThermalChannelId)  =
+proc disableChannel*(self: PowerThermalChannelDataProducer,
+                     channelId: PowerThermalChannelId) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.DisableChannel
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
-    vcall(it, Slot_IPowerThermalChannelDataProducer_DisableChannel, Fn_IPowerThermalChannelDataProducer_DisableChannel)(it, channelId).check("PowerThermalChannelDataProducer.DisableChannel")
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
+    it.call(IPowerThermalChannelDataProducer_DisableChannel, channelId)
 
-proc start*(self: PowerThermalChannelDataProducer)  =
+proc start*(self: PowerThermalChannelDataProducer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.Start
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
-    vcall(it, Slot_IPowerThermalChannelDataProducer_Start, Fn_IPowerThermalChannelDataProducer_Start)(it).check("PowerThermalChannelDataProducer.Start")
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
+    it.call(IPowerThermalChannelDataProducer_Start)
 
-proc stop*(self: PowerThermalChannelDataProducer)  =
+proc stop*(self: PowerThermalChannelDataProducer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.Stop
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
-    vcall(it, Slot_IPowerThermalChannelDataProducer_Stop, Fn_IPowerThermalChannelDataProducer_Stop)(it).check("PowerThermalChannelDataProducer.Stop")
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
+    it.call(IPowerThermalChannelDataProducer_Stop)
 
-proc publishInputChannelData*(self: PowerThermalChannelDataProducer, data: openArray[PowerThermalChannelData])  =
+proc publishInputChannelData*(self: PowerThermalChannelDataProducer,
+                              data: openArray[PowerThermalChannelData]) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.PublishInputChannelData
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
     let n0 = uint32(data.len)
     let d0 = if data.len > 0: data[0].unsafeAddr else: nil
-    vcall(it, Slot_IPowerThermalChannelDataProducer_PublishInputChannelData, Fn_IPowerThermalChannelDataProducer_PublishInputChannelData)(it, n0, d0).check("PowerThermalChannelDataProducer.PublishInputChannelData")
+    it.call(IPowerThermalChannelDataProducer_PublishInputChannelData, n0, d0)
 
-proc backEndStatus*(self: PowerThermalChannelDataProducer): PowerThermalBackEndStatus  =
+proc backEndStatus*(self: PowerThermalChannelDataProducer): PowerThermalBackEndStatus =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.get_BackEndStatus
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
     var tmp: PowerThermalBackEndStatus
-    vcall(it, Slot_IPowerThermalChannelDataProducer_get_BackEndStatus, Fn_IPowerThermalChannelDataProducer_get_BackEndStatus)(it, tmp.addr).check("PowerThermalChannelDataProducer.get_BackEndStatus")
+    it.call(IPowerThermalChannelDataProducer_get_BackEndStatus, tmp.addr)
     result = tmp
 
 proc onBackEndStatusChanged*(self: PowerThermalChannelDataProducer,
-    handler: proc(sender: PowerThermalChannelDataProducer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PowerThermalChannelDataProducer, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.add_BackEndStatusChanged
-  ##
-  ## The token is what `removeBackEndStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataProducer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PowerThermalChannelDataProducer](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeBackEndStatusChanged` takes.
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[PowerThermalChannelDataProducer](a0),
+              borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_PowerThermalChannelDataProducer_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPowerThermalChannelDataProducer_add_BackEndStatusChanged, Fn_IPowerThermalChannelDataProducer_add_BackEndStatusChanged)(it, cb, result.addr)
-        .check("PowerThermalChannelDataProducer.add_BackEndStatusChanged")
+      it.call(IPowerThermalChannelDataProducer_add_BackEndStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeBackEndStatusChanged*(self: PowerThermalChannelDataProducer, token: EventRegistrationToken) =
-  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
-    vcall(it, Slot_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged, Fn_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged)(it, token).check("PowerThermalChannelDataProducer.remove_BackEndStatusChanged")
+  withIface(self.p, IPowerThermalChannelDataProducer, it):
+    it.call(IPowerThermalChannelDataProducer_remove_BackEndStatusChanged, token)
 
-proc close*(self: PowerThermalChannelDataProducer)  =
+proc close*(self: PowerThermalChannelDataProducer) =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PowerThermalChannelDataProducer.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc createInstance*(_: typedesc[PowerThermalChannelDataProducer], channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataProducer  =
+proc createInstance*(_: typedesc[PowerThermalChannelDataProducer],
+                     channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataProducer =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.CreateInstance
-  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataProducer", IID_IPowerThermalChannelDataProducerFactory, it):
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataProducer",
+              IPowerThermalChannelDataProducerFactory, it):
     let n0 = uint32(channelIds.len)
     let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
     var tmp: pointer
-    vcall(it, Slot_IPowerThermalChannelDataProducerFactory_CreateInstance, Fn_IPowerThermalChannelDataProducerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataProducer.CreateInstance")
+    it.call(IPowerThermalChannelDataProducerFactory_CreateInstance, n0, d0,
+            tmp.addr)
     result = adopt[PowerThermalChannelDataProducer](tmp)
 
-proc getData*(self: PowerThermalChannelDataReceivedEventArgs): seq[PowerThermalChannelData]  =
+proc getData*(self: PowerThermalChannelDataReceivedEventArgs): seq[PowerThermalChannelData] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataReceivedEventArgs.GetData
-  withIface(self.p, IID_IPowerThermalChannelDataReceivedEventArgs, "IPowerThermalChannelDataReceivedEventArgs", it):
+  withIface(self.p, IPowerThermalChannelDataReceivedEventArgs, it):
     var tmpSize: uint32
     var tmp: ptr PowerThermalChannelData
-    vcall(it, Slot_IPowerThermalChannelDataReceivedEventArgs_GetData, Fn_IPowerThermalChannelDataReceivedEventArgs_GetData)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataReceivedEventArgs.GetData")
+    it.call(IPowerThermalChannelDataReceivedEventArgs_GetData, tmpSize.addr,
+            tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelDiagnostics  =
+proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelDiagnostics =
   ## Windows.System.Power.Thermal.PowerThermalChannelDiagnostics.get_Current
-  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics", IID_IPowerThermalChannelDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics",
+              IPowerThermalChannelDiagnosticsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPowerThermalChannelDiagnosticsStatics_get_Current, Fn_IPowerThermalChannelDiagnosticsStatics_get_Current)(it, tmp.addr).check("PowerThermalChannelDiagnostics.get_Current")
+    it.call(IPowerThermalChannelDiagnosticsStatics_get_Current, tmp.addr)
     result = adopt[PowerThermalChannelDiagnostics](tmp)
 
-proc getDataForChannels*(_: typedesc[PowerThermalChannelDiagnostics], channelIds: openArray[PowerThermalChannelId]): seq[PowerThermalChannelData]  =
+proc getDataForChannels*(_: typedesc[PowerThermalChannelDiagnostics],
+                         channelIds: openArray[PowerThermalChannelId]): seq[PowerThermalChannelData] =
   ## Windows.System.Power.Thermal.PowerThermalChannelDiagnostics.GetDataForChannels
-  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics", IID_IPowerThermalChannelDiagnosticsStatics, it):
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics",
+              IPowerThermalChannelDiagnosticsStatics, it):
     let n0 = uint32(channelIds.len)
     let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
     var tmpSize: uint32
     var tmp: ptr PowerThermalChannelData
-    vcall(it, Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels, Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels)(it, n0, d0, tmpSize.addr, tmp.addr).check("PowerThermalChannelDiagnostics.GetDataForChannels")
+    it.call(IPowerThermalChannelDiagnosticsStatics_GetDataForChannels, n0, d0,
+            tmpSize.addr, tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc findChannels*(_: typedesc[PowerThermalChannelFinder], channelInterfaceType: GUID): seq[PowerThermalChannelId]  =
+proc findChannels*(_: typedesc[PowerThermalChannelFinder],
+                   channelInterfaceType: GUID): seq[PowerThermalChannelId] =
   ## Windows.System.Power.Thermal.PowerThermalChannelFinder.FindChannels
-  withStatics("Windows.System.Power.Thermal.PowerThermalChannelFinder", IID_IPowerThermalChannelFinderStatics, it):
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelFinder",
+              IPowerThermalChannelFinderStatics, it):
     var tmpSize: uint32
     var tmp: ptr PowerThermalChannelId
-    vcall(it, Slot_IPowerThermalChannelFinderStatics_FindChannels, Fn_IPowerThermalChannelFinderStatics_FindChannels)(it, channelInterfaceType, tmpSize.addr, tmp.addr).check("PowerThermalChannelFinder.FindChannels")
+    it.call(IPowerThermalChannelFinderStatics_FindChannels,
+            channelInterfaceType, tmpSize.addr, tmp.addr)
     result = takeArray(tmpSize, tmp)
 
 proc getCurrentPostureAsync*(self: TwoPanelHingedDevicePosturePreview): Future[TwoPanelHingedDevicePosturePreviewReading] {.async.} =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync
   var op: pointer
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreview, "ITwoPanelHingedDevicePosturePreview", it):
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync, Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync)(it, op.addr).check("TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync")
-  result = adopt[TwoPanelHingedDevicePosturePreviewReading](await awaitObject(op, IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading, IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading, alPlain, "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"))
+  withIface(self.p, ITwoPanelHingedDevicePosturePreview, it):
+    it.call(ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync, op.addr)
+  result = adopt[TwoPanelHingedDevicePosturePreviewReading](await awaitObject(op,
+                                                                              IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreviewReading,
+                                                                              IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreviewReading,
+                                                                              alPlain,
+                                                                              "TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync"))
 
 proc onPostureChanged*(self: TwoPanelHingedDevicePosturePreview,
-    handler: proc(sender: TwoPanelHingedDevicePosturePreview, args: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[TwoPanelHingedDevicePosturePreview, TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.add_PostureChanged
-  ##
-  ## The token is what `removePostureChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreview, "ITwoPanelHingedDevicePosturePreview", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_TwoPanelHingedDevicePosturePreview_TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TwoPanelHingedDevicePosturePreview](a0), borrow[TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs](a1)), event = true)
+  ## The token is what `removePostureChanged` takes.
+  withIface(self.p, ITwoPanelHingedDevicePosturePreview, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[TwoPanelHingedDevicePosturePreview](a0),
+              borrow[TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_TwoPanelHingedDevicePosturePreview_TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_ITwoPanelHingedDevicePosturePreview_add_PostureChanged, Fn_ITwoPanelHingedDevicePosturePreview_add_PostureChanged)(it, cb, result.addr)
-        .check("TwoPanelHingedDevicePosturePreview.add_PostureChanged")
+      it.call(ITwoPanelHingedDevicePosturePreview_add_PostureChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removePostureChanged*(self: TwoPanelHingedDevicePosturePreview, token: EventRegistrationToken) =
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreview, "ITwoPanelHingedDevicePosturePreview", it):
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged, Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged)(it, token).check("TwoPanelHingedDevicePosturePreview.remove_PostureChanged")
+  withIface(self.p, ITwoPanelHingedDevicePosturePreview, it):
+    it.call(ITwoPanelHingedDevicePosturePreview_remove_PostureChanged, token)
 
 proc getDefaultAsync*(_: typedesc[TwoPanelHingedDevicePosturePreview]): Future[TwoPanelHingedDevicePosturePreview] {.async.} =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetDefaultAsync
   var op: pointer
-  withStatics("Windows.System.Preview.TwoPanelHingedDevicePosturePreview", IID_ITwoPanelHingedDevicePosturePreviewStatics, it):
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync, Fn_ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync)(it, op.addr).check("TwoPanelHingedDevicePosturePreview.GetDefaultAsync")
-  result = adopt[TwoPanelHingedDevicePosturePreview](await awaitObject(op, IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview, IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview, alPlain, "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"))
+  withStatics("Windows.System.Preview.TwoPanelHingedDevicePosturePreview",
+              ITwoPanelHingedDevicePosturePreviewStatics, it):
+    it.call(ITwoPanelHingedDevicePosturePreviewStatics_GetDefaultAsync, op.addr)
+  result = adopt[TwoPanelHingedDevicePosturePreview](await awaitObject(op,
+                                                                       IID_IAsyncOperation_1_TwoPanelHingedDevicePosturePreview,
+                                                                       IID_AsyncOperationCompletedHandler_1_TwoPanelHingedDevicePosturePreview,
+                                                                       alPlain,
+                                                                       "TwoPanelHingedDevicePosturePreview.GetDefaultAsync"))
 
-proc timestamp*(self: TwoPanelHingedDevicePosturePreviewReading): DateTime  =
+proc timestamp*(self: TwoPanelHingedDevicePosturePreviewReading): DateTime =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Timestamp
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: DateTime
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Timestamp")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_Timestamp, tmp.addr)
     result = tmp
 
-proc hingeState*(self: TwoPanelHingedDevicePosturePreviewReading): HingeState  =
+proc hingeState*(self: TwoPanelHingedDevicePosturePreviewReading): HingeState =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_HingeState
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: HingeState
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_HingeState")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_HingeState, tmp.addr)
     result = tmp
 
-proc panel1Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation  =
+proc panel1Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel1Orientation
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: SimpleOrientation
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel1Orientation")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation,
+            tmp.addr)
     result = tmp
 
-proc panel1Id*(self: TwoPanelHingedDevicePosturePreviewReading): string  =
+proc panel1Id*(self: TwoPanelHingedDevicePosturePreviewReading): string =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel1Id
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: HSTRING
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel1Id")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id, tmp.addr)
     result = takeString(tmp)
 
-proc panel2Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation  =
+proc panel2Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel2Orientation
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: SimpleOrientation
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel2Orientation")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation,
+            tmp.addr)
     result = tmp
 
-proc panel2Id*(self: TwoPanelHingedDevicePosturePreviewReading): string  =
+proc panel2Id*(self: TwoPanelHingedDevicePosturePreviewReading): string =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel2Id
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReading, it):
     var tmp: HSTRING
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel2Id")
+    it.call(ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Id, tmp.addr)
     result = takeString(tmp)
 
-proc reading*(self: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs): TwoPanelHingedDevicePosturePreviewReading  =
+proc reading*(self: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs): TwoPanelHingedDevicePosturePreviewReading =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs.get_Reading
-  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, "ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs", it):
+  withIface(self.p, ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading, Fn_ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs.get_Reading")
+    it.call(ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs_get_Reading,
+            tmp.addr)
     result = adopt[TwoPanelHingedDevicePosturePreviewReading](tmp)
 
-proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string, args: string): Future[ProcessLauncherResult] {.async.} =
+proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
+                           args: string): Future[ProcessLauncherResult] {.async.} =
   ## Windows.System.ProcessLauncher.RunToCompletionAsync
   var op: pointer
-  withStatics("Windows.System.ProcessLauncher", IID_IProcessLauncherStatics, it):
+  withStatics("Windows.System.ProcessLauncher", IProcessLauncherStatics, it):
     withHString(fileName, h0):
       withHString(args, h1):
-        vcall(it, Slot_IProcessLauncherStatics_RunToCompletionAsync, Fn_IProcessLauncherStatics_RunToCompletionAsync)(it, h0, h1, op.addr).check("ProcessLauncher.RunToCompletionAsync")
-  result = adopt[ProcessLauncherResult](await awaitObject(op, IID_IAsyncOperation_1_ProcessLauncherResult, IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult, alPlain, "ProcessLauncher.RunToCompletionAsync"))
+        it.call(IProcessLauncherStatics_RunToCompletionAsync, h0, h1, op.addr)
+  result = adopt[ProcessLauncherResult](await awaitObject(op,
+                                                          IID_IAsyncOperation_1_ProcessLauncherResult,
+                                                          IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
+                                                          alPlain,
+                                                          "ProcessLauncher.RunToCompletionAsync"))
 
-proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string, args: string, options: ProcessLauncherOptions): Future[ProcessLauncherResult] {.async.} =
+proc runToCompletionAsync*(_: typedesc[ProcessLauncher], fileName: string,
+                           args: string, options: ProcessLauncherOptions): Future[ProcessLauncherResult] {.async.} =
   ## Windows.System.ProcessLauncher.RunToCompletionAsync
   var op: pointer
-  withStatics("Windows.System.ProcessLauncher", IID_IProcessLauncherStatics, it):
+  withStatics("Windows.System.ProcessLauncher", IProcessLauncherStatics, it):
     withHString(fileName, h0):
       withHString(args, h1):
-        withIface(options.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", p2):
-          vcall(it, Slot_IProcessLauncherStatics_RunToCompletionAsync2, Fn_IProcessLauncherStatics_RunToCompletionAsync2)(it, h0, h1, p2, op.addr).check("ProcessLauncher.RunToCompletionAsync")
-  result = adopt[ProcessLauncherResult](await awaitObject(op, IID_IAsyncOperation_1_ProcessLauncherResult, IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult, alPlain, "ProcessLauncher.RunToCompletionAsync"))
+        withIface(options.p, IProcessLauncherOptions, p2):
+          it.call(IProcessLauncherStatics_RunToCompletionAsync2, h0, h1, p2,
+                  op.addr)
+  result = adopt[ProcessLauncherResult](await awaitObject(op,
+                                                          IID_IAsyncOperation_1_ProcessLauncherResult,
+                                                          IID_AsyncOperationCompletedHandler_1_ProcessLauncherResult,
+                                                          alPlain,
+                                                          "ProcessLauncher.RunToCompletionAsync"))
 
 proc newProcessLauncherOptions*(): ProcessLauncherOptions =
   ## Activate a `Windows.System.ProcessLauncherOptions`.
   adopt[ProcessLauncherOptions](activateAs("Windows.System.ProcessLauncherOptions", IID_IProcessLauncherOptions))
 
-proc standardInput*(self: ProcessLauncherOptions): WinRtObject  =
+proc standardInput*(self: ProcessLauncherOptions): WinRtObject =
   ## Windows.System.ProcessLauncherOptions.get_StandardInput
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
+  withIface(self.p, IProcessLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessLauncherOptions_get_StandardInput, Fn_IProcessLauncherOptions_get_StandardInput)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardInput")
+    it.call(IProcessLauncherOptions_get_StandardInput, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `standardInput=`*(self: ProcessLauncherOptions, value: WinRtObject)  =
+proc `standardInput=`*(self: ProcessLauncherOptions, value: WinRtObject) =
   ## Windows.System.ProcessLauncherOptions.put_StandardInput
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    withIface(value.p, IID_IInputStream, "IInputStream", p0):
-      vcall(it, Slot_IProcessLauncherOptions_put_StandardInput, Fn_IProcessLauncherOptions_put_StandardInput)(it, p0).check("ProcessLauncherOptions.put_StandardInput")
+  withIface(self.p, IProcessLauncherOptions, it):
+    withIface(value.p, IInputStream, p0):
+      it.call(IProcessLauncherOptions_put_StandardInput, p0)
 
-proc standardOutput*(self: ProcessLauncherOptions): WinRtObject  =
+proc standardOutput*(self: ProcessLauncherOptions): WinRtObject =
   ## Windows.System.ProcessLauncherOptions.get_StandardOutput
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
+  withIface(self.p, IProcessLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessLauncherOptions_get_StandardOutput, Fn_IProcessLauncherOptions_get_StandardOutput)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardOutput")
+    it.call(IProcessLauncherOptions_get_StandardOutput, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `standardOutput=`*(self: ProcessLauncherOptions, value: WinRtObject)  =
+proc `standardOutput=`*(self: ProcessLauncherOptions, value: WinRtObject) =
   ## Windows.System.ProcessLauncherOptions.put_StandardOutput
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    withIface(value.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IProcessLauncherOptions_put_StandardOutput, Fn_IProcessLauncherOptions_put_StandardOutput)(it, p0).check("ProcessLauncherOptions.put_StandardOutput")
+  withIface(self.p, IProcessLauncherOptions, it):
+    withIface(value.p, IOutputStream, p0):
+      it.call(IProcessLauncherOptions_put_StandardOutput, p0)
 
-proc standardError*(self: ProcessLauncherOptions): WinRtObject  =
+proc standardError*(self: ProcessLauncherOptions): WinRtObject =
   ## Windows.System.ProcessLauncherOptions.get_StandardError
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
+  withIface(self.p, IProcessLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IProcessLauncherOptions_get_StandardError, Fn_IProcessLauncherOptions_get_StandardError)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardError")
+    it.call(IProcessLauncherOptions_get_StandardError, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc `standardError=`*(self: ProcessLauncherOptions, value: WinRtObject)  =
+proc `standardError=`*(self: ProcessLauncherOptions, value: WinRtObject) =
   ## Windows.System.ProcessLauncherOptions.put_StandardError
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    withIface(value.p, IID_IOutputStream, "IOutputStream", p0):
-      vcall(it, Slot_IProcessLauncherOptions_put_StandardError, Fn_IProcessLauncherOptions_put_StandardError)(it, p0).check("ProcessLauncherOptions.put_StandardError")
+  withIface(self.p, IProcessLauncherOptions, it):
+    withIface(value.p, IOutputStream, p0):
+      it.call(IProcessLauncherOptions_put_StandardError, p0)
 
-proc workingDirectory*(self: ProcessLauncherOptions): string  =
+proc workingDirectory*(self: ProcessLauncherOptions): string =
   ## Windows.System.ProcessLauncherOptions.get_WorkingDirectory
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
+  withIface(self.p, IProcessLauncherOptions, it):
     var tmp: HSTRING
-    vcall(it, Slot_IProcessLauncherOptions_get_WorkingDirectory, Fn_IProcessLauncherOptions_get_WorkingDirectory)(it, tmp.addr).check("ProcessLauncherOptions.get_WorkingDirectory")
+    it.call(IProcessLauncherOptions_get_WorkingDirectory, tmp.addr)
     result = takeString(tmp)
 
-proc `workingDirectory=`*(self: ProcessLauncherOptions, value: string)  =
+proc `workingDirectory=`*(self: ProcessLauncherOptions, value: string) =
   ## Windows.System.ProcessLauncherOptions.put_WorkingDirectory
-  withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
+  withIface(self.p, IProcessLauncherOptions, it):
     withHString(value, h0):
-      vcall(it, Slot_IProcessLauncherOptions_put_WorkingDirectory, Fn_IProcessLauncherOptions_put_WorkingDirectory)(it, h0).check("ProcessLauncherOptions.put_WorkingDirectory")
+      it.call(IProcessLauncherOptions_put_WorkingDirectory, h0)
 
-proc exitCode*(self: ProcessLauncherResult): uint32  =
+proc exitCode*(self: ProcessLauncherResult): uint32 =
   ## Windows.System.ProcessLauncherResult.get_ExitCode
-  withIface(self.p, IID_IProcessLauncherResult, "IProcessLauncherResult", it):
+  withIface(self.p, IProcessLauncherResult, it):
     var tmp: uint32
-    vcall(it, Slot_IProcessLauncherResult_get_ExitCode, Fn_IProcessLauncherResult_get_ExitCode)(it, tmp.addr).check("ProcessLauncherResult.get_ExitCode")
+    it.call(IProcessLauncherResult_get_ExitCode, tmp.addr)
     result = tmp
 
-proc privateWorkingSetUsage*(self: ProcessMemoryReport): uint64  =
+proc privateWorkingSetUsage*(self: ProcessMemoryReport): uint64 =
   ## Windows.System.ProcessMemoryReport.get_PrivateWorkingSetUsage
-  withIface(self.p, IID_IProcessMemoryReport, "IProcessMemoryReport", it):
+  withIface(self.p, IProcessMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryReport_get_PrivateWorkingSetUsage, Fn_IProcessMemoryReport_get_PrivateWorkingSetUsage)(it, tmp.addr).check("ProcessMemoryReport.get_PrivateWorkingSetUsage")
+    it.call(IProcessMemoryReport_get_PrivateWorkingSetUsage, tmp.addr)
     result = tmp
 
-proc totalWorkingSetUsage*(self: ProcessMemoryReport): uint64  =
+proc totalWorkingSetUsage*(self: ProcessMemoryReport): uint64 =
   ## Windows.System.ProcessMemoryReport.get_TotalWorkingSetUsage
-  withIface(self.p, IID_IProcessMemoryReport, "IProcessMemoryReport", it):
+  withIface(self.p, IProcessMemoryReport, it):
     var tmp: uint64
-    vcall(it, Slot_IProcessMemoryReport_get_TotalWorkingSetUsage, Fn_IProcessMemoryReport_get_TotalWorkingSetUsage)(it, tmp.addr).check("ProcessMemoryReport.get_TotalWorkingSetUsage")
+    it.call(IProcessMemoryReport_get_TotalWorkingSetUsage, tmp.addr)
     result = tmp
 
-proc versionInfo*(_: typedesc[AnalyticsInfo]): AnalyticsVersionInfo  =
+proc versionInfo*(_: typedesc[AnalyticsInfo]): AnalyticsVersionInfo =
   ## Windows.System.Profile.AnalyticsInfo.get_VersionInfo
-  withStatics("Windows.System.Profile.AnalyticsInfo", IID_IAnalyticsInfoStatics, it):
+  withStatics("Windows.System.Profile.AnalyticsInfo", IAnalyticsInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IAnalyticsInfoStatics_get_VersionInfo, Fn_IAnalyticsInfoStatics_get_VersionInfo)(it, tmp.addr).check("AnalyticsInfo.get_VersionInfo")
+    it.call(IAnalyticsInfoStatics_get_VersionInfo, tmp.addr)
     result = adopt[AnalyticsVersionInfo](tmp)
 
-proc deviceForm*(_: typedesc[AnalyticsInfo]): string  =
+proc deviceForm*(_: typedesc[AnalyticsInfo]): string =
   ## Windows.System.Profile.AnalyticsInfo.get_DeviceForm
-  withStatics("Windows.System.Profile.AnalyticsInfo", IID_IAnalyticsInfoStatics, it):
+  withStatics("Windows.System.Profile.AnalyticsInfo", IAnalyticsInfoStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAnalyticsInfoStatics_get_DeviceForm, Fn_IAnalyticsInfoStatics_get_DeviceForm)(it, tmp.addr).check("AnalyticsInfo.get_DeviceForm")
+    it.call(IAnalyticsInfoStatics_get_DeviceForm, tmp.addr)
     result = takeString(tmp)
 
-proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo], attributeNames: seq[string]): Future[Table[string, string]] {.async.} =
+proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo],
+                               attributeNames: seq[string]): Future[Table[string, string]] {.async.} =
   ## Windows.System.Profile.AnalyticsInfo.GetSystemPropertiesAsync
   var op: pointer
-  withStatics("Windows.System.Profile.AnalyticsInfo", IID_IAnalyticsInfoStatics2, it):
-    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+  withStatics("Windows.System.Profile.AnalyticsInfo", IAnalyticsInfoStatics2, it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String,
+                                              IID_IVectorView_1_String,
+                                              IID_IIterator_1_String)
     defer: discard release(p0)
-    vcall(it, Slot_IAnalyticsInfoStatics2_GetSystemPropertiesAsync, Fn_IAnalyticsInfoStatics2_GetSystemPropertiesAsync)(it, p0, op.addr).check("AnalyticsInfo.GetSystemPropertiesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "AnalyticsInfo.GetSystemPropertiesAsync")
-  result = toTable[string, string](coll, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    it.call(IAnalyticsInfoStatics2_GetSystemPropertiesAsync, p0, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2,
+                               IID_AsyncOperationCompletedHandler_1_IMapView_2,
+                               alPlain, "AnalyticsInfo.GetSystemPropertiesAsync")
+  result = toTable[string, string](coll, IID_IIterable_1_IKeyValuePair_2,
+                                   IID_IKeyValuePair_2_String_String)
   discard release(coll)
 
-proc deviceFamily*(self: AnalyticsVersionInfo): string  =
+proc deviceFamily*(self: AnalyticsVersionInfo): string =
   ## Windows.System.Profile.AnalyticsVersionInfo.get_DeviceFamily
-  withIface(self.p, IID_IAnalyticsVersionInfo, "IAnalyticsVersionInfo", it):
+  withIface(self.p, IAnalyticsVersionInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAnalyticsVersionInfo_get_DeviceFamily, Fn_IAnalyticsVersionInfo_get_DeviceFamily)(it, tmp.addr).check("AnalyticsVersionInfo.get_DeviceFamily")
+    it.call(IAnalyticsVersionInfo_get_DeviceFamily, tmp.addr)
     result = takeString(tmp)
 
-proc deviceFamilyVersion*(self: AnalyticsVersionInfo): string  =
+proc deviceFamilyVersion*(self: AnalyticsVersionInfo): string =
   ## Windows.System.Profile.AnalyticsVersionInfo.get_DeviceFamilyVersion
-  withIface(self.p, IID_IAnalyticsVersionInfo, "IAnalyticsVersionInfo", it):
+  withIface(self.p, IAnalyticsVersionInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAnalyticsVersionInfo_get_DeviceFamilyVersion, Fn_IAnalyticsVersionInfo_get_DeviceFamilyVersion)(it, tmp.addr).check("AnalyticsVersionInfo.get_DeviceFamilyVersion")
+    it.call(IAnalyticsVersionInfo_get_DeviceFamilyVersion, tmp.addr)
     result = takeString(tmp)
 
-proc productName*(self: AnalyticsVersionInfo): string  =
+proc productName*(self: AnalyticsVersionInfo): string =
   ## Windows.System.Profile.AnalyticsVersionInfo.get_ProductName
-  withIface(self.p, IID_IAnalyticsVersionInfo2, "IAnalyticsVersionInfo2", it):
+  withIface(self.p, IAnalyticsVersionInfo2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAnalyticsVersionInfo2_get_ProductName, Fn_IAnalyticsVersionInfo2_get_ProductName)(it, tmp.addr).check("AnalyticsVersionInfo.get_ProductName")
+    it.call(IAnalyticsVersionInfo2_get_ProductName, tmp.addr)
     result = takeString(tmp)
 
-proc getUnsupportedAppRequirements*(_: typedesc[AppApplicability], capabilities: seq[string]): seq[UnsupportedAppRequirement]  =
+proc getUnsupportedAppRequirements*(_: typedesc[AppApplicability],
+                                    capabilities: seq[string]): seq[UnsupportedAppRequirement] =
   ## Windows.System.Profile.AppApplicability.GetUnsupportedAppRequirements
-  withStatics("Windows.System.Profile.AppApplicability", IID_IAppApplicabilityStatics, it):
-    let p0 = asIterableString(capabilities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+  withStatics("Windows.System.Profile.AppApplicability",
+              IAppApplicabilityStatics, it):
+    let p0 = asIterableString(capabilities, IID_IIterable_1_String,
+                                            IID_IVectorView_1_String,
+                                            IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    vcall(it, Slot_IAppApplicabilityStatics_GetUnsupportedAppRequirements, Fn_IAppApplicabilityStatics_GetUnsupportedAppRequirements)(it, p0, tmp.addr).check("AppApplicability.GetUnsupportedAppRequirements")
-    result = toSeq[UnsupportedAppRequirement](tmp, IID_IVectorView_1_UnsupportedAppRequirement)
+    it.call(IAppApplicabilityStatics_GetUnsupportedAppRequirements, p0, tmp.addr)
+    result = toSeq[UnsupportedAppRequirement](tmp,
+                                              IID_IVectorView_1_UnsupportedAppRequirement)
     release(tmp)
 
-proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool  =
+proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool =
   ## Windows.System.Profile.EducationSettings.get_IsEducationEnvironment
-  withStatics("Windows.System.Profile.EducationSettings", IID_IEducationSettingsStatics, it):
+  withStatics("Windows.System.Profile.EducationSettings",
+              IEducationSettingsStatics, it):
     var tmp: bool
-    vcall(it, Slot_IEducationSettingsStatics_get_IsEducationEnvironment, Fn_IEducationSettingsStatics_get_IsEducationEnvironment)(it, tmp.addr).check("EducationSettings.get_IsEducationEnvironment")
+    it.call(IEducationSettingsStatics_get_IsEducationEnvironment, tmp.addr)
     result = tmp
 
-proc getPackageSpecificToken*(_: typedesc[HardwareIdentification], nonce: Buffer): HardwareToken  =
+proc getPackageSpecificToken*(_: typedesc[HardwareIdentification], nonce: Buffer): HardwareToken =
   ## Windows.System.Profile.HardwareIdentification.GetPackageSpecificToken
-  withStatics("Windows.System.Profile.HardwareIdentification", IID_IHardwareIdentificationStatics, it):
-    withIface(nonce.p, IID_IBuffer, "IBuffer", p0):
+  withStatics("Windows.System.Profile.HardwareIdentification",
+              IHardwareIdentificationStatics, it):
+    withIface(nonce.p, IBuffer, p0):
       var tmp: pointer
-      vcall(it, Slot_IHardwareIdentificationStatics_GetPackageSpecificToken, Fn_IHardwareIdentificationStatics_GetPackageSpecificToken)(it, p0, tmp.addr).check("HardwareIdentification.GetPackageSpecificToken")
+      it.call(IHardwareIdentificationStatics_GetPackageSpecificToken, p0,
+              tmp.addr)
       result = adopt[HardwareToken](tmp)
 
-proc id*(self: HardwareToken): Buffer  =
+proc id*(self: HardwareToken): Buffer =
   ## Windows.System.Profile.HardwareToken.get_Id
-  withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
+  withIface(self.p, IHardwareToken, it):
     var tmp: pointer
-    vcall(it, Slot_IHardwareToken_get_Id, Fn_IHardwareToken_get_Id)(it, tmp.addr).check("HardwareToken.get_Id")
+    it.call(IHardwareToken_get_Id, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc signature*(self: HardwareToken): Buffer  =
+proc signature*(self: HardwareToken): Buffer =
   ## Windows.System.Profile.HardwareToken.get_Signature
-  withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
+  withIface(self.p, IHardwareToken, it):
     var tmp: pointer
-    vcall(it, Slot_IHardwareToken_get_Signature, Fn_IHardwareToken_get_Signature)(it, tmp.addr).check("HardwareToken.get_Signature")
+    it.call(IHardwareToken_get_Signature, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc certificate*(self: HardwareToken): Buffer  =
+proc certificate*(self: HardwareToken): Buffer =
   ## Windows.System.Profile.HardwareToken.get_Certificate
-  withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
+  withIface(self.p, IHardwareToken, it):
     var tmp: pointer
-    vcall(it, Slot_IHardwareToken_get_Certificate, Fn_IHardwareToken_get_Certificate)(it, tmp.addr).check("HardwareToken.get_Certificate")
+    it.call(IHardwareToken_get_Certificate, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc retailAccessCode*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc retailAccessCode*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_RetailAccessCode
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode, Fn_IKnownRetailInfoPropertiesStatics_get_RetailAccessCode)(it, tmp.addr).check("KnownRetailInfoProperties.get_RetailAccessCode")
+    it.call(IKnownRetailInfoPropertiesStatics_get_RetailAccessCode, tmp.addr)
     result = takeString(tmp)
 
-proc manufacturerName*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc manufacturerName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_ManufacturerName
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_ManufacturerName, Fn_IKnownRetailInfoPropertiesStatics_get_ManufacturerName)(it, tmp.addr).check("KnownRetailInfoProperties.get_ManufacturerName")
+    it.call(IKnownRetailInfoPropertiesStatics_get_ManufacturerName, tmp.addr)
     result = takeString(tmp)
 
-proc modelName*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc modelName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_ModelName
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_ModelName, Fn_IKnownRetailInfoPropertiesStatics_get_ModelName)(it, tmp.addr).check("KnownRetailInfoProperties.get_ModelName")
+    it.call(IKnownRetailInfoPropertiesStatics_get_ModelName, tmp.addr)
     result = takeString(tmp)
 
-proc displayModelName*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc displayModelName*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_DisplayModelName
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_DisplayModelName, Fn_IKnownRetailInfoPropertiesStatics_get_DisplayModelName)(it, tmp.addr).check("KnownRetailInfoProperties.get_DisplayModelName")
+    it.call(IKnownRetailInfoPropertiesStatics_get_DisplayModelName, tmp.addr)
     result = takeString(tmp)
 
-proc price*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc price*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_Price
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_Price, Fn_IKnownRetailInfoPropertiesStatics_get_Price)(it, tmp.addr).check("KnownRetailInfoProperties.get_Price")
+    it.call(IKnownRetailInfoPropertiesStatics_get_Price, tmp.addr)
     result = takeString(tmp)
 
-proc isFeatured*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc isFeatured*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_IsFeatured
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_IsFeatured, Fn_IKnownRetailInfoPropertiesStatics_get_IsFeatured)(it, tmp.addr).check("KnownRetailInfoProperties.get_IsFeatured")
+    it.call(IKnownRetailInfoPropertiesStatics_get_IsFeatured, tmp.addr)
     result = takeString(tmp)
 
-proc formFactor*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc formFactor*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_FormFactor
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_FormFactor, Fn_IKnownRetailInfoPropertiesStatics_get_FormFactor)(it, tmp.addr).check("KnownRetailInfoProperties.get_FormFactor")
+    it.call(IKnownRetailInfoPropertiesStatics_get_FormFactor, tmp.addr)
     result = takeString(tmp)
 
-proc screenSize*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc screenSize*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_ScreenSize
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_ScreenSize, Fn_IKnownRetailInfoPropertiesStatics_get_ScreenSize)(it, tmp.addr).check("KnownRetailInfoProperties.get_ScreenSize")
+    it.call(IKnownRetailInfoPropertiesStatics_get_ScreenSize, tmp.addr)
     result = takeString(tmp)
 
-proc weight*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc weight*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_Weight
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_Weight, Fn_IKnownRetailInfoPropertiesStatics_get_Weight)(it, tmp.addr).check("KnownRetailInfoProperties.get_Weight")
+    it.call(IKnownRetailInfoPropertiesStatics_get_Weight, tmp.addr)
     result = takeString(tmp)
 
-proc displayDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc displayDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_DisplayDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_DisplayDescription, Fn_IKnownRetailInfoPropertiesStatics_get_DisplayDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_DisplayDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_DisplayDescription, tmp.addr)
     result = takeString(tmp)
 
-proc batteryLifeDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc batteryLifeDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_BatteryLifeDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription, Fn_IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_BatteryLifeDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_BatteryLifeDescription,
+            tmp.addr)
     result = takeString(tmp)
 
-proc processorDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc processorDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_ProcessorDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription, Fn_IKnownRetailInfoPropertiesStatics_get_ProcessorDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_ProcessorDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_ProcessorDescription, tmp.addr)
     result = takeString(tmp)
 
-proc memory*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc memory*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_Memory
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_Memory, Fn_IKnownRetailInfoPropertiesStatics_get_Memory)(it, tmp.addr).check("KnownRetailInfoProperties.get_Memory")
+    it.call(IKnownRetailInfoPropertiesStatics_get_Memory, tmp.addr)
     result = takeString(tmp)
 
-proc storageDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc storageDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_StorageDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_StorageDescription, Fn_IKnownRetailInfoPropertiesStatics_get_StorageDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_StorageDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_StorageDescription, tmp.addr)
     result = takeString(tmp)
 
-proc graphicsDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc graphicsDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_GraphicsDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription, Fn_IKnownRetailInfoPropertiesStatics_get_GraphicsDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_GraphicsDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_GraphicsDescription, tmp.addr)
     result = takeString(tmp)
 
-proc frontCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc frontCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_FrontCameraDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription, Fn_IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_FrontCameraDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_FrontCameraDescription,
+            tmp.addr)
     result = takeString(tmp)
 
-proc rearCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc rearCameraDescription*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_RearCameraDescription
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription, Fn_IKnownRetailInfoPropertiesStatics_get_RearCameraDescription)(it, tmp.addr).check("KnownRetailInfoProperties.get_RearCameraDescription")
+    it.call(IKnownRetailInfoPropertiesStatics_get_RearCameraDescription,
+            tmp.addr)
     result = takeString(tmp)
 
-proc hasNfc*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc hasNfc*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_HasNfc
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_HasNfc, Fn_IKnownRetailInfoPropertiesStatics_get_HasNfc)(it, tmp.addr).check("KnownRetailInfoProperties.get_HasNfc")
+    it.call(IKnownRetailInfoPropertiesStatics_get_HasNfc, tmp.addr)
     result = takeString(tmp)
 
-proc hasSdSlot*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc hasSdSlot*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_HasSdSlot
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_HasSdSlot, Fn_IKnownRetailInfoPropertiesStatics_get_HasSdSlot)(it, tmp.addr).check("KnownRetailInfoProperties.get_HasSdSlot")
+    it.call(IKnownRetailInfoPropertiesStatics_get_HasSdSlot, tmp.addr)
     result = takeString(tmp)
 
-proc hasOpticalDrive*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc hasOpticalDrive*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_HasOpticalDrive
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive, Fn_IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive)(it, tmp.addr).check("KnownRetailInfoProperties.get_HasOpticalDrive")
+    it.call(IKnownRetailInfoPropertiesStatics_get_HasOpticalDrive, tmp.addr)
     result = takeString(tmp)
 
-proc isOfficeInstalled*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc isOfficeInstalled*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_IsOfficeInstalled
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled, Fn_IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled)(it, tmp.addr).check("KnownRetailInfoProperties.get_IsOfficeInstalled")
+    it.call(IKnownRetailInfoPropertiesStatics_get_IsOfficeInstalled, tmp.addr)
     result = takeString(tmp)
 
-proc windowsEdition*(_: typedesc[KnownRetailInfoProperties]): string  =
+proc windowsEdition*(_: typedesc[KnownRetailInfoProperties]): string =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_WindowsEdition
-  withStatics("Windows.System.Profile.KnownRetailInfoProperties", IID_IKnownRetailInfoPropertiesStatics, it):
+  withStatics("Windows.System.Profile.KnownRetailInfoProperties",
+              IKnownRetailInfoPropertiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRetailInfoPropertiesStatics_get_WindowsEdition, Fn_IKnownRetailInfoPropertiesStatics_get_WindowsEdition)(it, tmp.addr).check("KnownRetailInfoProperties.get_WindowsEdition")
+    it.call(IKnownRetailInfoPropertiesStatics_get_WindowsEdition, tmp.addr)
     result = takeString(tmp)
 
-proc policy*(_: typedesc[PlatformAutomaticAppSignInManager]): PlatformAutomaticAppSignInPolicy  =
+proc policy*(_: typedesc[PlatformAutomaticAppSignInManager]): PlatformAutomaticAppSignInPolicy =
   ## Windows.System.Profile.PlatformAutomaticAppSignInManager.get_Policy
-  withStatics("Windows.System.Profile.PlatformAutomaticAppSignInManager", IID_IPlatformAutomaticAppSignInManagerStatics, it):
+  withStatics("Windows.System.Profile.PlatformAutomaticAppSignInManager",
+              IPlatformAutomaticAppSignInManagerStatics, it):
     var tmp: PlatformAutomaticAppSignInPolicy
-    vcall(it, Slot_IPlatformAutomaticAppSignInManagerStatics_get_Policy, Fn_IPlatformAutomaticAppSignInManagerStatics_get_Policy)(it, tmp.addr).check("PlatformAutomaticAppSignInManager.get_Policy")
+    it.call(IPlatformAutomaticAppSignInManagerStatics_get_Policy, tmp.addr)
     result = tmp
 
-proc collectionLevel*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings]): PlatformDataCollectionLevel  =
+proc collectionLevel*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings]): PlatformDataCollectionLevel =
   ## Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings.get_CollectionLevel
-  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings", IID_IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
+  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings",
+              IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
     var tmp: PlatformDataCollectionLevel
-    vcall(it, Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel, Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel)(it, tmp.addr).check("PlatformDiagnosticsAndUsageDataSettings.get_CollectionLevel")
+    it.call(IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel,
+            tmp.addr)
     result = tmp
 
 proc onCollectionLevelChanged*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings.add_CollectionLevelChanged
-  ##
-  ## The token is what `removeCollectionLevelChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings", IID_IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeCollectionLevelChanged` takes.
+  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings",
+              IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged, Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged)(it, cb, result.addr)
-        .check("PlatformDiagnosticsAndUsageDataSettings.add_CollectionLevelChanged")
+      it.call(IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeCollectionLevelChanged*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings], token: EventRegistrationToken) =
-  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings", IID_IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
-    vcall(it, Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged, Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged)(it, token).check("PlatformDiagnosticsAndUsageDataSettings.remove_CollectionLevelChanged")
+  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings",
+              IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
+    it.call(IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged, token)
 
-proc canCollectDiagnostics*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings], level: PlatformDataCollectionLevel): bool  =
+proc canCollectDiagnostics*(_: typedesc[PlatformDiagnosticsAndUsageDataSettings],
+                            level: PlatformDataCollectionLevel): bool =
   ## Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings.CanCollectDiagnostics
-  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings", IID_IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
+  withStatics("Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings",
+              IPlatformDiagnosticsAndUsageDataSettingsStatics, it):
     var tmp: bool
-    vcall(it, Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics, Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics)(it, level, tmp.addr).check("PlatformDiagnosticsAndUsageDataSettings.CanCollectDiagnostics")
+    it.call(IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics,
+            level, tmp.addr)
     result = tmp
 
-proc isDemoModeEnabled*(_: typedesc[RetailInfo]): bool  =
+proc isDemoModeEnabled*(_: typedesc[RetailInfo]): bool =
   ## Windows.System.Profile.RetailInfo.get_IsDemoModeEnabled
-  withStatics("Windows.System.Profile.RetailInfo", IID_IRetailInfoStatics, it):
+  withStatics("Windows.System.Profile.RetailInfo", IRetailInfoStatics, it):
     var tmp: bool
-    vcall(it, Slot_IRetailInfoStatics_get_IsDemoModeEnabled, Fn_IRetailInfoStatics_get_IsDemoModeEnabled)(it, tmp.addr).check("RetailInfo.get_IsDemoModeEnabled")
+    it.call(IRetailInfoStatics_get_IsDemoModeEnabled, tmp.addr)
     result = tmp
 
-proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject]  =
+proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject] =
   ## Windows.System.Profile.RetailInfo.get_Properties
-  withStatics("Windows.System.Profile.RetailInfo", IID_IRetailInfoStatics, it):
+  withStatics("Windows.System.Profile.RetailInfo", IRetailInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRetailInfoStatics_get_Properties, Fn_IRetailInfoStatics_get_Properties)(it, tmp.addr).check("RetailInfo.get_Properties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
+    it.call(IRetailInfoStatics_get_Properties, tmp.addr)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23,
+                                          IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
-proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool  =
+proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool =
   ## Windows.System.Profile.SharedModeSettings.get_ShouldAvoidLocalStorage
-  withStatics("Windows.System.Profile.SharedModeSettings", IID_ISharedModeSettingsStatics2, it):
+  withStatics("Windows.System.Profile.SharedModeSettings",
+              ISharedModeSettingsStatics2, it):
     var tmp: bool
-    vcall(it, Slot_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage, Fn_ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage)(it, tmp.addr).check("SharedModeSettings.get_ShouldAvoidLocalStorage")
+    it.call(ISharedModeSettingsStatics2_get_ShouldAvoidLocalStorage, tmp.addr)
     result = tmp
 
-proc isEnabled*(_: typedesc[SharedModeSettings]): bool  =
+proc isEnabled*(_: typedesc[SharedModeSettings]): bool =
   ## Windows.System.Profile.SharedModeSettings.get_IsEnabled
-  withStatics("Windows.System.Profile.SharedModeSettings", IID_ISharedModeSettingsStatics, it):
+  withStatics("Windows.System.Profile.SharedModeSettings",
+              ISharedModeSettingsStatics, it):
     var tmp: bool
-    vcall(it, Slot_ISharedModeSettingsStatics_get_IsEnabled, Fn_ISharedModeSettingsStatics_get_IsEnabled)(it, tmp.addr).check("SharedModeSettings.get_IsEnabled")
+    it.call(ISharedModeSettingsStatics_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc isEnabled*(_: typedesc[SmartAppControlPolicy]): bool  =
+proc isEnabled*(_: typedesc[SmartAppControlPolicy]): bool =
   ## Windows.System.Profile.SmartAppControlPolicy.get_IsEnabled
-  withStatics("Windows.System.Profile.SmartAppControlPolicy", IID_ISmartAppControlPolicyStatics, it):
+  withStatics("Windows.System.Profile.SmartAppControlPolicy",
+              ISmartAppControlPolicyStatics, it):
     var tmp: bool
-    vcall(it, Slot_ISmartAppControlPolicyStatics_get_IsEnabled, Fn_ISmartAppControlPolicyStatics_get_IsEnabled)(it, tmp.addr).check("SmartAppControlPolicy.get_IsEnabled")
+    it.call(ISmartAppControlPolicyStatics_get_IsEnabled, tmp.addr)
     result = tmp
 
 proc onChanged*(_: typedesc[SmartAppControlPolicy],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.SmartAppControlPolicy.add_Changed
-  ##
-  ## The token is what `removeChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Profile.SmartAppControlPolicy", IID_ISmartAppControlPolicyStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeChanged` takes.
+  withStatics("Windows.System.Profile.SmartAppControlPolicy",
+              ISmartAppControlPolicyStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_ISmartAppControlPolicyStatics_add_Changed, Fn_ISmartAppControlPolicyStatics_add_Changed)(it, cb, result.addr)
-        .check("SmartAppControlPolicy.add_Changed")
+      it.call(ISmartAppControlPolicyStatics_add_Changed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeChanged*(_: typedesc[SmartAppControlPolicy], token: EventRegistrationToken) =
-  withStatics("Windows.System.Profile.SmartAppControlPolicy", IID_ISmartAppControlPolicyStatics, it):
-    vcall(it, Slot_ISmartAppControlPolicyStatics_remove_Changed, Fn_ISmartAppControlPolicyStatics_remove_Changed)(it, token).check("SmartAppControlPolicy.remove_Changed")
+  withStatics("Windows.System.Profile.SmartAppControlPolicy",
+              ISmartAppControlPolicyStatics, it):
+    it.call(ISmartAppControlPolicyStatics_remove_Changed, token)
 
-proc getSystemIdForPublisher*(_: typedesc[SystemIdentification]): SystemIdentificationInfo  =
+proc getSystemIdForPublisher*(_: typedesc[SystemIdentification]): SystemIdentificationInfo =
   ## Windows.System.Profile.SystemIdentification.GetSystemIdForPublisher
-  withStatics("Windows.System.Profile.SystemIdentification", IID_ISystemIdentificationStatics, it):
+  withStatics("Windows.System.Profile.SystemIdentification",
+              ISystemIdentificationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemIdentificationStatics_GetSystemIdForPublisher, Fn_ISystemIdentificationStatics_GetSystemIdForPublisher)(it, tmp.addr).check("SystemIdentification.GetSystemIdForPublisher")
+    it.call(ISystemIdentificationStatics_GetSystemIdForPublisher, tmp.addr)
     result = adopt[SystemIdentificationInfo](tmp)
 
-proc getSystemIdForUser*(_: typedesc[SystemIdentification], user: User): SystemIdentificationInfo  =
+proc getSystemIdForUser*(_: typedesc[SystemIdentification], user: User): SystemIdentificationInfo =
   ## Windows.System.Profile.SystemIdentification.GetSystemIdForUser
-  withStatics("Windows.System.Profile.SystemIdentification", IID_ISystemIdentificationStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.Profile.SystemIdentification",
+              ISystemIdentificationStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_ISystemIdentificationStatics_GetSystemIdForUser, Fn_ISystemIdentificationStatics_GetSystemIdForUser)(it, p0, tmp.addr).check("SystemIdentification.GetSystemIdForUser")
+      it.call(ISystemIdentificationStatics_GetSystemIdForUser, p0, tmp.addr)
       result = adopt[SystemIdentificationInfo](tmp)
 
-proc id*(self: SystemIdentificationInfo): Buffer  =
+proc id*(self: SystemIdentificationInfo): Buffer =
   ## Windows.System.Profile.SystemIdentificationInfo.get_Id
-  withIface(self.p, IID_ISystemIdentificationInfo, "ISystemIdentificationInfo", it):
+  withIface(self.p, ISystemIdentificationInfo, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemIdentificationInfo_get_Id, Fn_ISystemIdentificationInfo_get_Id)(it, tmp.addr).check("SystemIdentificationInfo.get_Id")
+    it.call(ISystemIdentificationInfo_get_Id, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc source*(self: SystemIdentificationInfo): SystemIdentificationSource  =
+proc source*(self: SystemIdentificationInfo): SystemIdentificationSource =
   ## Windows.System.Profile.SystemIdentificationInfo.get_Source
-  withIface(self.p, IID_ISystemIdentificationInfo, "ISystemIdentificationInfo", it):
+  withIface(self.p, ISystemIdentificationInfo, it):
     var tmp: SystemIdentificationSource
-    vcall(it, Slot_ISystemIdentificationInfo_get_Source, Fn_ISystemIdentificationInfo_get_Source)(it, tmp.addr).check("SystemIdentificationInfo.get_Source")
+    it.call(ISystemIdentificationInfo_get_Source, tmp.addr)
     result = tmp
 
-proc supportLink*(self: OemSupportInfo): Uri  =
+proc supportLink*(self: OemSupportInfo): Uri =
   ## Windows.System.Profile.SystemManufacturers.OemSupportInfo.get_SupportLink
-  withIface(self.p, IID_IOemSupportInfo, "IOemSupportInfo", it):
+  withIface(self.p, IOemSupportInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IOemSupportInfo_get_SupportLink, Fn_IOemSupportInfo_get_SupportLink)(it, tmp.addr).check("OemSupportInfo.get_SupportLink")
+    it.call(IOemSupportInfo_get_SupportLink, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc supportAppLink*(self: OemSupportInfo): Uri  =
+proc supportAppLink*(self: OemSupportInfo): Uri =
   ## Windows.System.Profile.SystemManufacturers.OemSupportInfo.get_SupportAppLink
-  withIface(self.p, IID_IOemSupportInfo, "IOemSupportInfo", it):
+  withIface(self.p, IOemSupportInfo, it):
     var tmp: pointer
-    vcall(it, Slot_IOemSupportInfo_get_SupportAppLink, Fn_IOemSupportInfo_get_SupportAppLink)(it, tmp.addr).check("OemSupportInfo.get_SupportAppLink")
+    it.call(IOemSupportInfo_get_SupportAppLink, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc supportProvider*(self: OemSupportInfo): string  =
+proc supportProvider*(self: OemSupportInfo): string =
   ## Windows.System.Profile.SystemManufacturers.OemSupportInfo.get_SupportProvider
-  withIface(self.p, IID_IOemSupportInfo, "IOemSupportInfo", it):
+  withIface(self.p, IOemSupportInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IOemSupportInfo_get_SupportProvider, Fn_IOemSupportInfo_get_SupportProvider)(it, tmp.addr).check("OemSupportInfo.get_SupportProvider")
+    it.call(IOemSupportInfo_get_SupportProvider, tmp.addr)
     result = takeString(tmp)
 
-proc serialNumber*(_: typedesc[SmbiosInformation]): string  =
+proc serialNumber*(_: typedesc[SmbiosInformation]): string =
   ## Windows.System.Profile.SystemManufacturers.SmbiosInformation.get_SerialNumber
-  withStatics("Windows.System.Profile.SystemManufacturers.SmbiosInformation", IID_ISmbiosInformationStatics, it):
+  withStatics("Windows.System.Profile.SystemManufacturers.SmbiosInformation",
+              ISmbiosInformationStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISmbiosInformationStatics_get_SerialNumber, Fn_ISmbiosInformationStatics_get_SerialNumber)(it, tmp.addr).check("SmbiosInformation.get_SerialNumber")
+    it.call(ISmbiosInformationStatics_get_SerialNumber, tmp.addr)
     result = takeString(tmp)
 
-proc operatingSystem*(self: SystemSupportDeviceInfo): string  =
+proc operatingSystem*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_OperatingSystem
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_OperatingSystem, Fn_ISystemSupportDeviceInfo_get_OperatingSystem)(it, tmp.addr).check("SystemSupportDeviceInfo.get_OperatingSystem")
+    it.call(ISystemSupportDeviceInfo_get_OperatingSystem, tmp.addr)
     result = takeString(tmp)
 
-proc friendlyName*(self: SystemSupportDeviceInfo): string  =
+proc friendlyName*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_FriendlyName
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_FriendlyName, Fn_ISystemSupportDeviceInfo_get_FriendlyName)(it, tmp.addr).check("SystemSupportDeviceInfo.get_FriendlyName")
+    it.call(ISystemSupportDeviceInfo_get_FriendlyName, tmp.addr)
     result = takeString(tmp)
 
-proc systemManufacturer*(self: SystemSupportDeviceInfo): string  =
+proc systemManufacturer*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_SystemManufacturer
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_SystemManufacturer, Fn_ISystemSupportDeviceInfo_get_SystemManufacturer)(it, tmp.addr).check("SystemSupportDeviceInfo.get_SystemManufacturer")
+    it.call(ISystemSupportDeviceInfo_get_SystemManufacturer, tmp.addr)
     result = takeString(tmp)
 
-proc systemProductName*(self: SystemSupportDeviceInfo): string  =
+proc systemProductName*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_SystemProductName
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_SystemProductName, Fn_ISystemSupportDeviceInfo_get_SystemProductName)(it, tmp.addr).check("SystemSupportDeviceInfo.get_SystemProductName")
+    it.call(ISystemSupportDeviceInfo_get_SystemProductName, tmp.addr)
     result = takeString(tmp)
 
-proc systemSku*(self: SystemSupportDeviceInfo): string  =
+proc systemSku*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_SystemSku
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_SystemSku, Fn_ISystemSupportDeviceInfo_get_SystemSku)(it, tmp.addr).check("SystemSupportDeviceInfo.get_SystemSku")
+    it.call(ISystemSupportDeviceInfo_get_SystemSku, tmp.addr)
     result = takeString(tmp)
 
-proc systemHardwareVersion*(self: SystemSupportDeviceInfo): string  =
+proc systemHardwareVersion*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_SystemHardwareVersion
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_SystemHardwareVersion, Fn_ISystemSupportDeviceInfo_get_SystemHardwareVersion)(it, tmp.addr).check("SystemSupportDeviceInfo.get_SystemHardwareVersion")
+    it.call(ISystemSupportDeviceInfo_get_SystemHardwareVersion, tmp.addr)
     result = takeString(tmp)
 
-proc systemFirmwareVersion*(self: SystemSupportDeviceInfo): string  =
+proc systemFirmwareVersion*(self: SystemSupportDeviceInfo): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo.get_SystemFirmwareVersion
-  withIface(self.p, IID_ISystemSupportDeviceInfo, "ISystemSupportDeviceInfo", it):
+  withIface(self.p, ISystemSupportDeviceInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportDeviceInfo_get_SystemFirmwareVersion, Fn_ISystemSupportDeviceInfo_get_SystemFirmwareVersion)(it, tmp.addr).check("SystemSupportDeviceInfo.get_SystemFirmwareVersion")
+    it.call(ISystemSupportDeviceInfo_get_SystemFirmwareVersion, tmp.addr)
     result = takeString(tmp)
 
-proc localDeviceInfo*(_: typedesc[SystemSupportInfo]): SystemSupportDeviceInfo  =
+proc localDeviceInfo*(_: typedesc[SystemSupportInfo]): SystemSupportDeviceInfo =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportInfo.get_LocalDeviceInfo
-  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo", IID_ISystemSupportInfoStatics2, it):
+  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo",
+              ISystemSupportInfoStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemSupportInfoStatics2_get_LocalDeviceInfo, Fn_ISystemSupportInfoStatics2_get_LocalDeviceInfo)(it, tmp.addr).check("SystemSupportInfo.get_LocalDeviceInfo")
+    it.call(ISystemSupportInfoStatics2_get_LocalDeviceInfo, tmp.addr)
     result = adopt[SystemSupportDeviceInfo](tmp)
 
-proc localSystemEdition*(_: typedesc[SystemSupportInfo]): string  =
+proc localSystemEdition*(_: typedesc[SystemSupportInfo]): string =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportInfo.get_LocalSystemEdition
-  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo", IID_ISystemSupportInfoStatics, it):
+  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo",
+              ISystemSupportInfoStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemSupportInfoStatics_get_LocalSystemEdition, Fn_ISystemSupportInfoStatics_get_LocalSystemEdition)(it, tmp.addr).check("SystemSupportInfo.get_LocalSystemEdition")
+    it.call(ISystemSupportInfoStatics_get_LocalSystemEdition, tmp.addr)
     result = takeString(tmp)
 
-proc oemSupportInfo*(_: typedesc[SystemSupportInfo]): OemSupportInfo  =
+proc oemSupportInfo*(_: typedesc[SystemSupportInfo]): OemSupportInfo =
   ## Windows.System.Profile.SystemManufacturers.SystemSupportInfo.get_OemSupportInfo
-  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo", IID_ISystemSupportInfoStatics, it):
+  withStatics("Windows.System.Profile.SystemManufacturers.SystemSupportInfo",
+              ISystemSupportInfoStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemSupportInfoStatics_get_OemSupportInfo, Fn_ISystemSupportInfoStatics_get_OemSupportInfo)(it, tmp.addr).check("SystemSupportInfo.get_OemSupportInfo")
+    it.call(ISystemSupportInfoStatics_get_OemSupportInfo, tmp.addr)
     result = adopt[OemSupportInfo](tmp)
 
-proc outOfBoxExperienceState*(_: typedesc[SystemSetupInfo]): SystemOutOfBoxExperienceState  =
+proc outOfBoxExperienceState*(_: typedesc[SystemSetupInfo]): SystemOutOfBoxExperienceState =
   ## Windows.System.Profile.SystemSetupInfo.get_OutOfBoxExperienceState
-  withStatics("Windows.System.Profile.SystemSetupInfo", IID_ISystemSetupInfoStatics, it):
+  withStatics("Windows.System.Profile.SystemSetupInfo", ISystemSetupInfoStatics,
+              it):
     var tmp: SystemOutOfBoxExperienceState
-    vcall(it, Slot_ISystemSetupInfoStatics_get_OutOfBoxExperienceState, Fn_ISystemSetupInfoStatics_get_OutOfBoxExperienceState)(it, tmp.addr).check("SystemSetupInfo.get_OutOfBoxExperienceState")
+    it.call(ISystemSetupInfoStatics_get_OutOfBoxExperienceState, tmp.addr)
     result = tmp
 
 proc onOutOfBoxExperienceStateChanged*(_: typedesc[SystemSetupInfo],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.SystemSetupInfo.add_OutOfBoxExperienceStateChanged
-  ##
-  ## The token is what `removeOutOfBoxExperienceStateChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Profile.SystemSetupInfo", IID_ISystemSetupInfoStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeOutOfBoxExperienceStateChanged` takes.
+  withStatics("Windows.System.Profile.SystemSetupInfo", ISystemSetupInfoStatics,
+              it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged, Fn_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged)(it, cb, result.addr)
-        .check("SystemSetupInfo.add_OutOfBoxExperienceStateChanged")
+      it.call(ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeOutOfBoxExperienceStateChanged*(_: typedesc[SystemSetupInfo], token: EventRegistrationToken) =
-  withStatics("Windows.System.Profile.SystemSetupInfo", IID_ISystemSetupInfoStatics, it):
-    vcall(it, Slot_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged, Fn_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged)(it, token).check("SystemSetupInfo.remove_OutOfBoxExperienceStateChanged")
+  withStatics("Windows.System.Profile.SystemSetupInfo", ISystemSetupInfoStatics,
+              it):
+    it.call(ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged, token)
 
-proc requirement*(self: UnsupportedAppRequirement): string  =
+proc requirement*(self: UnsupportedAppRequirement): string =
   ## Windows.System.Profile.UnsupportedAppRequirement.get_Requirement
-  withIface(self.p, IID_IUnsupportedAppRequirement, "IUnsupportedAppRequirement", it):
+  withIface(self.p, IUnsupportedAppRequirement, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUnsupportedAppRequirement_get_Requirement, Fn_IUnsupportedAppRequirement_get_Requirement)(it, tmp.addr).check("UnsupportedAppRequirement.get_Requirement")
+    it.call(IUnsupportedAppRequirement_get_Requirement, tmp.addr)
     result = takeString(tmp)
 
-proc reasons*(self: UnsupportedAppRequirement): UnsupportedAppRequirementReasons  =
+proc reasons*(self: UnsupportedAppRequirement): UnsupportedAppRequirementReasons =
   ## Windows.System.Profile.UnsupportedAppRequirement.get_Reasons
-  withIface(self.p, IID_IUnsupportedAppRequirement, "IUnsupportedAppRequirement", it):
+  withIface(self.p, IUnsupportedAppRequirement, it):
     var tmp: UnsupportedAppRequirementReasons
-    vcall(it, Slot_IUnsupportedAppRequirement_get_Reasons, Fn_IUnsupportedAppRequirement_get_Reasons)(it, tmp.addr).check("UnsupportedAppRequirement.get_Reasons")
+    it.call(IUnsupportedAppRequirement_get_Reasons, tmp.addr)
     result = tmp
 
-proc isEnabled*(_: typedesc[WindowsIntegrityPolicy]): bool  =
+proc isEnabled*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.WindowsIntegrityPolicy.get_IsEnabled
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
     var tmp: bool
-    vcall(it, Slot_IWindowsIntegrityPolicyStatics_get_IsEnabled, Fn_IWindowsIntegrityPolicyStatics_get_IsEnabled)(it, tmp.addr).check("WindowsIntegrityPolicy.get_IsEnabled")
+    it.call(IWindowsIntegrityPolicyStatics_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc isEnabledForTrial*(_: typedesc[WindowsIntegrityPolicy]): bool  =
+proc isEnabledForTrial*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.WindowsIntegrityPolicy.get_IsEnabledForTrial
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
     var tmp: bool
-    vcall(it, Slot_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial, Fn_IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial)(it, tmp.addr).check("WindowsIntegrityPolicy.get_IsEnabledForTrial")
+    it.call(IWindowsIntegrityPolicyStatics_get_IsEnabledForTrial, tmp.addr)
     result = tmp
 
-proc canDisable*(_: typedesc[WindowsIntegrityPolicy]): bool  =
+proc canDisable*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.WindowsIntegrityPolicy.get_CanDisable
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
     var tmp: bool
-    vcall(it, Slot_IWindowsIntegrityPolicyStatics_get_CanDisable, Fn_IWindowsIntegrityPolicyStatics_get_CanDisable)(it, tmp.addr).check("WindowsIntegrityPolicy.get_CanDisable")
+    it.call(IWindowsIntegrityPolicyStatics_get_CanDisable, tmp.addr)
     result = tmp
 
-proc isDisableSupported*(_: typedesc[WindowsIntegrityPolicy]): bool  =
+proc isDisableSupported*(_: typedesc[WindowsIntegrityPolicy]): bool =
   ## Windows.System.Profile.WindowsIntegrityPolicy.get_IsDisableSupported
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
     var tmp: bool
-    vcall(it, Slot_IWindowsIntegrityPolicyStatics_get_IsDisableSupported, Fn_IWindowsIntegrityPolicyStatics_get_IsDisableSupported)(it, tmp.addr).check("WindowsIntegrityPolicy.get_IsDisableSupported")
+    it.call(IWindowsIntegrityPolicyStatics_get_IsDisableSupported, tmp.addr)
     result = tmp
 
 proc onPolicyChanged*(_: typedesc[WindowsIntegrityPolicy],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Profile.WindowsIntegrityPolicy.add_PolicyChanged
-  ##
-  ## The token is what `removePolicyChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removePolicyChanged` takes.
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IWindowsIntegrityPolicyStatics_add_PolicyChanged, Fn_IWindowsIntegrityPolicyStatics_add_PolicyChanged)(it, cb, result.addr)
-        .check("WindowsIntegrityPolicy.add_PolicyChanged")
+      it.call(IWindowsIntegrityPolicyStatics_add_PolicyChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removePolicyChanged*(_: typedesc[WindowsIntegrityPolicy], token: EventRegistrationToken) =
-  withStatics("Windows.System.Profile.WindowsIntegrityPolicy", IID_IWindowsIntegrityPolicyStatics, it):
-    vcall(it, Slot_IWindowsIntegrityPolicyStatics_remove_PolicyChanged, Fn_IWindowsIntegrityPolicyStatics_remove_PolicyChanged)(it, token).check("WindowsIntegrityPolicy.remove_PolicyChanged")
+  withStatics("Windows.System.Profile.WindowsIntegrityPolicy",
+              IWindowsIntegrityPolicyStatics, it):
+    it.call(IWindowsIntegrityPolicyStatics_remove_PolicyChanged, token)
 
-proc reportCompleted*(self: ProtocolForResultsOperation, data: ValueSet)  =
+proc reportCompleted*(self: ProtocolForResultsOperation, data: ValueSet) =
   ## Windows.System.ProtocolForResultsOperation.ReportCompleted
-  withIface(self.p, IID_IProtocolForResultsOperation, "IProtocolForResultsOperation", it):
-    withIface(data.p, IID_IPropertySet, "IPropertySet", p0):
-      vcall(it, Slot_IProtocolForResultsOperation_ReportCompleted, Fn_IProtocolForResultsOperation_ReportCompleted)(it, p0).check("ProtocolForResultsOperation.ReportCompleted")
+  withIface(self.p, IProtocolForResultsOperation, it):
+    withIface(data.p, IPropertySet, p0):
+      it.call(IProtocolForResultsOperation_ReportCompleted, p0)
 
-proc isEnabled*(self: RemoteTextConnection): bool  =
+proc isEnabled*(self: RemoteTextConnection): bool =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.get_IsEnabled
-  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
+  withIface(self.p, IRemoteTextConnection, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteTextConnection_get_IsEnabled, Fn_IRemoteTextConnection_get_IsEnabled)(it, tmp.addr).check("RemoteTextConnection.get_IsEnabled")
+    it.call(IRemoteTextConnection_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc `isEnabled=`*(self: RemoteTextConnection, value: bool)  =
+proc `isEnabled=`*(self: RemoteTextConnection, value: bool) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.put_IsEnabled
-  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
-    vcall(it, Slot_IRemoteTextConnection_put_IsEnabled, Fn_IRemoteTextConnection_put_IsEnabled)(it, value).check("RemoteTextConnection.put_IsEnabled")
+  withIface(self.p, IRemoteTextConnection, it):
+    it.call(IRemoteTextConnection_put_IsEnabled, value)
 
-proc registerThread*(self: RemoteTextConnection, threadId: uint32)  =
+proc registerThread*(self: RemoteTextConnection, threadId: uint32) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.RegisterThread
-  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
-    vcall(it, Slot_IRemoteTextConnection_RegisterThread, Fn_IRemoteTextConnection_RegisterThread)(it, threadId).check("RemoteTextConnection.RegisterThread")
+  withIface(self.p, IRemoteTextConnection, it):
+    it.call(IRemoteTextConnection_RegisterThread, threadId)
 
-proc unregisterThread*(self: RemoteTextConnection, threadId: uint32)  =
+proc unregisterThread*(self: RemoteTextConnection, threadId: uint32) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.UnregisterThread
-  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
-    vcall(it, Slot_IRemoteTextConnection_UnregisterThread, Fn_IRemoteTextConnection_UnregisterThread)(it, threadId).check("RemoteTextConnection.UnregisterThread")
+  withIface(self.p, IRemoteTextConnection, it):
+    it.call(IRemoteTextConnection_UnregisterThread, threadId)
 
-proc reportDataReceived*(self: RemoteTextConnection, pduData: openArray[uint8])  =
+proc reportDataReceived*(self: RemoteTextConnection, pduData: openArray[uint8]) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.ReportDataReceived
-  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
+  withIface(self.p, IRemoteTextConnection, it):
     let n0 = uint32(pduData.len)
     let d0 = if pduData.len > 0: pduData[0].unsafeAddr else: nil
-    vcall(it, Slot_IRemoteTextConnection_ReportDataReceived, Fn_IRemoteTextConnection_ReportDataReceived)(it, n0, d0).check("RemoteTextConnection.ReportDataReceived")
+    it.call(IRemoteTextConnection_ReportDataReceived, n0, d0)
 
-proc reportPredictedKeyEvent*(self: RemoteTextConnection, scanCode: uint16, attributes: RemoteKeyEventAttributes)  =
+proc reportPredictedKeyEvent*(self: RemoteTextConnection, scanCode: uint16,
+                              attributes: RemoteKeyEventAttributes) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.ReportPredictedKeyEvent
-  withIface(self.p, IID_IRemoteTextConnection2, "IRemoteTextConnection2", it):
-    vcall(it, Slot_IRemoteTextConnection2_ReportPredictedKeyEvent, Fn_IRemoteTextConnection2_ReportPredictedKeyEvent)(it, scanCode, attributes).check("RemoteTextConnection.ReportPredictedKeyEvent")
+  withIface(self.p, IRemoteTextConnection2, it):
+    it.call(IRemoteTextConnection2_ReportPredictedKeyEvent, scanCode, attributes)
 
-proc close*(self: RemoteTextConnection)  =
+proc close*(self: RemoteTextConnection) =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("RemoteTextConnection.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc createInstance*(_: typedesc[RemoteTextConnection], connectionId: GUID, pduForwarder: proc(a0: openArray[uint8]), options: RemoteTextConnectionOptions): RemoteTextConnection  =
+proc createInstance*(_: typedesc[RemoteTextConnection], connectionId: GUID,
+                     pduForwarder: proc(a0: openArray[uint8]),
+                     options: RemoteTextConnectionOptions): RemoteTextConnection =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.CreateInstance
-  withStatics("Windows.System.RemoteDesktop.Input.RemoteTextConnection", IID_IRemoteTextConnectionFactory2, it):
-    let d1 = newDelegate(IID_RemoteTextConnectionDataHandler, proc(a0: openArray[uint8]) = pduForwarder(a0))
+  withStatics("Windows.System.RemoteDesktop.Input.RemoteTextConnection",
+              IRemoteTextConnectionFactory2, it):
+    let d1 = newDelegate(IID_RemoteTextConnectionDataHandler,
+                         proc(a0: openArray[uint8]) = pduForwarder(a0))
     defer: discard release(d1)
     var tmp: pointer
-    vcall(it, Slot_IRemoteTextConnectionFactory2_CreateInstance, Fn_IRemoteTextConnectionFactory2_CreateInstance)(it, connectionId, d1, options, tmp.addr).check("RemoteTextConnection.CreateInstance")
+    it.call(IRemoteTextConnectionFactory2_CreateInstance, connectionId, d1,
+            options, tmp.addr)
     result = adopt[RemoteTextConnection](tmp)
 
-proc createInstance*(_: typedesc[RemoteTextConnection], connectionId: GUID, pduForwarder: proc(a0: openArray[uint8])): RemoteTextConnection  =
+proc createInstance*(_: typedesc[RemoteTextConnection], connectionId: GUID,
+                     pduForwarder: proc(a0: openArray[uint8])): RemoteTextConnection =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.CreateInstance
-  withStatics("Windows.System.RemoteDesktop.Input.RemoteTextConnection", IID_IRemoteTextConnectionFactory, it):
-    let d1 = newDelegate(IID_RemoteTextConnectionDataHandler, proc(a0: openArray[uint8]) = pduForwarder(a0))
+  withStatics("Windows.System.RemoteDesktop.Input.RemoteTextConnection",
+              IRemoteTextConnectionFactory, it):
+    let d1 = newDelegate(IID_RemoteTextConnectionDataHandler,
+                         proc(a0: openArray[uint8]) = pduForwarder(a0))
     defer: discard release(d1)
     var tmp: pointer
-    vcall(it, Slot_IRemoteTextConnectionFactory_CreateInstance, Fn_IRemoteTextConnectionFactory_CreateInstance)(it, connectionId, d1, tmp.addr).check("RemoteTextConnection.CreateInstance")
+    it.call(IRemoteTextConnectionFactory_CreateInstance, connectionId, d1,
+            tmp.addr)
     result = adopt[RemoteTextConnection](tmp)
 
-proc invoke*(self: RemoteTextConnectionDataHandler, pduData: openArray[uint8]): bool  =
+proc invoke*(self: RemoteTextConnectionDataHandler, pduData: openArray[uint8]): bool =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler.Invoke
-  withIface(self.p, IID_RemoteTextConnectionDataHandler, "RemoteTextConnectionDataHandler", it):
+  withIface(self.p, RemoteTextConnectionDataHandler, it):
     let n0 = uint32(pduData.len)
     let d0 = if pduData.len > 0: pduData[0].unsafeAddr else: nil
     var tmp: bool
-    vcall(it, Slot_RemoteTextConnectionDataHandler_Invoke, Fn_RemoteTextConnectionDataHandler_Invoke)(it, n0, d0, tmp.addr).check("RemoteTextConnectionDataHandler.Invoke")
+    it.call(RemoteTextConnectionDataHandler_Invoke, n0, d0, tmp.addr)
     result = tmp
 
-proc isRemote*(_: typedesc[InteractiveSession]): bool  =
+proc isRemote*(_: typedesc[InteractiveSession]): bool =
   ## Windows.System.RemoteDesktop.InteractiveSession.get_IsRemote
-  withStatics("Windows.System.RemoteDesktop.InteractiveSession", IID_IInteractiveSessionStatics, it):
+  withStatics("Windows.System.RemoteDesktop.InteractiveSession",
+              IInteractiveSessionStatics, it):
     var tmp: bool
-    vcall(it, Slot_IInteractiveSessionStatics_get_IsRemote, Fn_IInteractiveSessionStatics_get_IsRemote)(it, tmp.addr).check("InteractiveSession.get_IsRemote")
+    it.call(IInteractiveSessionStatics_get_IsRemote, tmp.addr)
     result = tmp
 
-proc action*(self: PerformLocalActionRequestedEventArgs): RemoteDesktopLocalAction  =
+proc action*(self: PerformLocalActionRequestedEventArgs): RemoteDesktopLocalAction =
   ## Windows.System.RemoteDesktop.Provider.PerformLocalActionRequestedEventArgs.get_Action
-  withIface(self.p, IID_IPerformLocalActionRequestedEventArgs, "IPerformLocalActionRequestedEventArgs", it):
+  withIface(self.p, IPerformLocalActionRequestedEventArgs, it):
     var tmp: RemoteDesktopLocalAction
-    vcall(it, Slot_IPerformLocalActionRequestedEventArgs_get_Action, Fn_IPerformLocalActionRequestedEventArgs_get_Action)(it, tmp.addr).check("PerformLocalActionRequestedEventArgs.get_Action")
+    it.call(IPerformLocalActionRequestedEventArgs_get_Action, tmp.addr)
     result = tmp
 
-proc setConnectionStatus*(self: RemoteDesktopConnectionInfo, value: RemoteDesktopConnectionStatus)  =
+proc setConnectionStatus*(self: RemoteDesktopConnectionInfo,
+                          value: RemoteDesktopConnectionStatus) =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.SetConnectionStatus
-  withIface(self.p, IID_IRemoteDesktopConnectionInfo, "IRemoteDesktopConnectionInfo", it):
-    vcall(it, Slot_IRemoteDesktopConnectionInfo_SetConnectionStatus, Fn_IRemoteDesktopConnectionInfo_SetConnectionStatus)(it, value).check("RemoteDesktopConnectionInfo.SetConnectionStatus")
+  withIface(self.p, IRemoteDesktopConnectionInfo, it):
+    it.call(IRemoteDesktopConnectionInfo_SetConnectionStatus, value)
 
-proc switchToLocalSession*(self: RemoteDesktopConnectionInfo)  =
+proc switchToLocalSession*(self: RemoteDesktopConnectionInfo) =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.SwitchToLocalSession
-  withIface(self.p, IID_IRemoteDesktopConnectionInfo, "IRemoteDesktopConnectionInfo", it):
-    vcall(it, Slot_IRemoteDesktopConnectionInfo_SwitchToLocalSession, Fn_IRemoteDesktopConnectionInfo_SwitchToLocalSession)(it).check("RemoteDesktopConnectionInfo.SwitchToLocalSession")
+  withIface(self.p, IRemoteDesktopConnectionInfo, it):
+    it.call(IRemoteDesktopConnectionInfo_SwitchToLocalSession)
 
-proc performLocalActionFromRemote*(self: RemoteDesktopConnectionInfo, action: RemoteDesktopLocalAction)  =
+proc performLocalActionFromRemote*(self: RemoteDesktopConnectionInfo,
+                                   action: RemoteDesktopLocalAction) =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.PerformLocalActionFromRemote
-  withIface(self.p, IID_IRemoteDesktopConnectionInfo2, "IRemoteDesktopConnectionInfo2", it):
-    vcall(it, Slot_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote, Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote)(it, action).check("RemoteDesktopConnectionInfo.PerformLocalActionFromRemote")
+  withIface(self.p, IRemoteDesktopConnectionInfo2, it):
+    it.call(IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote, action)
 
-proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionInfo], launchUri: Uri, windowId: WindowId): RemoteDesktopConnectionInfo  =
+proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionInfo], launchUri: Uri,
+                      windowId: WindowId): RemoteDesktopConnectionInfo =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.GetForLaunchUri
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo", IID_IRemoteDesktopConnectionInfoStatics, it):
-    withIface(launchUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo",
+              IRemoteDesktopConnectionInfoStatics, it):
+    withIface(launchUri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri, Fn_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri)(it, p0, windowId, tmp.addr).check("RemoteDesktopConnectionInfo.GetForLaunchUri")
+      it.call(IRemoteDesktopConnectionInfoStatics_GetForLaunchUri, p0, windowId,
+              tmp.addr)
       result = adopt[RemoteDesktopConnectionInfo](tmp)
 
-proc reportSwitched*(self: RemoteDesktopConnectionRemoteInfo)  =
+proc reportSwitched*(self: RemoteDesktopConnectionRemoteInfo) =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.ReportSwitched
-  withIface(self.p, IID_IRemoteDesktopConnectionRemoteInfo, "IRemoteDesktopConnectionRemoteInfo", it):
-    vcall(it, Slot_IRemoteDesktopConnectionRemoteInfo_ReportSwitched, Fn_IRemoteDesktopConnectionRemoteInfo_ReportSwitched)(it).check("RemoteDesktopConnectionRemoteInfo.ReportSwitched")
+  withIface(self.p, IRemoteDesktopConnectionRemoteInfo, it):
+    it.call(IRemoteDesktopConnectionRemoteInfo_ReportSwitched)
 
 proc onSwitchToLocalSessionRequested*(self: RemoteDesktopConnectionRemoteInfo,
-    handler: proc(sender: RemoteDesktopConnectionRemoteInfo, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                                      handler: EventHandler[RemoteDesktopConnectionRemoteInfo, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.add_SwitchToLocalSessionRequested
-  ##
-  ## The token is what `removeSwitchToLocalSessionRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteDesktopConnectionRemoteInfo, "IRemoteDesktopConnectionRemoteInfo", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteDesktopConnectionRemoteInfo](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeSwitchToLocalSessionRequested` takes.
+  withIface(self.p, IRemoteDesktopConnectionRemoteInfo, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteDesktopConnectionRemoteInfo](a0),
+              borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested, Fn_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested)(it, cb, result.addr)
-        .check("RemoteDesktopConnectionRemoteInfo.add_SwitchToLocalSessionRequested")
+      it.call(IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeSwitchToLocalSessionRequested*(self: RemoteDesktopConnectionRemoteInfo, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteDesktopConnectionRemoteInfo, "IRemoteDesktopConnectionRemoteInfo", it):
-    vcall(it, Slot_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested, Fn_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested)(it, token).check("RemoteDesktopConnectionRemoteInfo.remove_SwitchToLocalSessionRequested")
+  withIface(self.p, IRemoteDesktopConnectionRemoteInfo, it):
+    it.call(IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested, token)
 
 proc onPerformLocalActionRequested*(self: RemoteDesktopConnectionRemoteInfo,
-    handler: proc(sender: RemoteDesktopConnectionRemoteInfo, args: PerformLocalActionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                                    handler: EventHandler[RemoteDesktopConnectionRemoteInfo, PerformLocalActionRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.add_PerformLocalActionRequested
-  ##
-  ## The token is what `removePerformLocalActionRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteDesktopConnectionRemoteInfo, "IRemoteDesktopConnectionRemoteInfo", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_PerformLocalActionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteDesktopConnectionRemoteInfo](a0), borrow[PerformLocalActionRequestedEventArgs](a1)), event = true)
+  ## The token is what `removePerformLocalActionRequested` takes.
+  withIface(self.p, IRemoteDesktopConnectionRemoteInfo, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteDesktopConnectionRemoteInfo](a0),
+              borrow[PerformLocalActionRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_PerformLocalActionRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested, Fn_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested)(it, cb, result.addr)
-        .check("RemoteDesktopConnectionRemoteInfo.add_PerformLocalActionRequested")
+      it.call(IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removePerformLocalActionRequested*(self: RemoteDesktopConnectionRemoteInfo, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteDesktopConnectionRemoteInfo, "IRemoteDesktopConnectionRemoteInfo", it):
-    vcall(it, Slot_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested, Fn_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested)(it, token).check("RemoteDesktopConnectionRemoteInfo.remove_PerformLocalActionRequested")
+  withIface(self.p, IRemoteDesktopConnectionRemoteInfo, it):
+    it.call(IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested, token)
 
-proc close*(self: RemoteDesktopConnectionRemoteInfo)  =
+proc close*(self: RemoteDesktopConnectionRemoteInfo) =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("RemoteDesktopConnectionRemoteInfo.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc isSwitchSupported*(_: typedesc[RemoteDesktopConnectionRemoteInfo]): bool  =
+proc isSwitchSupported*(_: typedesc[RemoteDesktopConnectionRemoteInfo]): bool =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.IsSwitchSupported
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo", IID_IRemoteDesktopConnectionRemoteInfoStatics, it):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo",
+              IRemoteDesktopConnectionRemoteInfoStatics, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported, Fn_IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported)(it, tmp.addr).check("RemoteDesktopConnectionRemoteInfo.IsSwitchSupported")
+    it.call(IRemoteDesktopConnectionRemoteInfoStatics_IsSwitchSupported,
+            tmp.addr)
     result = tmp
 
-proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionRemoteInfo], launchUri: Uri): RemoteDesktopConnectionRemoteInfo  =
+proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionRemoteInfo],
+                      launchUri: Uri): RemoteDesktopConnectionRemoteInfo =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.GetForLaunchUri
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo", IID_IRemoteDesktopConnectionRemoteInfoStatics, it):
-    withIface(launchUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo",
+              IRemoteDesktopConnectionRemoteInfoStatics, it):
+    withIface(launchUri.p, IUriRuntimeClass, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri, Fn_IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri)(it, p0, tmp.addr).check("RemoteDesktopConnectionRemoteInfo.GetForLaunchUri")
+      it.call(IRemoteDesktopConnectionRemoteInfoStatics_GetForLaunchUri, p0,
+              tmp.addr)
       result = adopt[RemoteDesktopConnectionRemoteInfo](tmp)
 
-proc displayName*(self: RemoteDesktopInfo): string  =
+proc displayName*(self: RemoteDesktopInfo): string =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo.get_DisplayName
-  withIface(self.p, IID_IRemoteDesktopInfo, "IRemoteDesktopInfo", it):
+  withIface(self.p, IRemoteDesktopInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteDesktopInfo_get_DisplayName, Fn_IRemoteDesktopInfo_get_DisplayName)(it, tmp.addr).check("RemoteDesktopInfo.get_DisplayName")
+    it.call(IRemoteDesktopInfo_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc id*(self: RemoteDesktopInfo): string  =
+proc id*(self: RemoteDesktopInfo): string =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo.get_Id
-  withIface(self.p, IID_IRemoteDesktopInfo, "IRemoteDesktopInfo", it):
+  withIface(self.p, IRemoteDesktopInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteDesktopInfo_get_Id, Fn_IRemoteDesktopInfo_get_Id)(it, tmp.addr).check("RemoteDesktopInfo.get_Id")
+    it.call(IRemoteDesktopInfo_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc createInstance*(_: typedesc[RemoteDesktopInfo], id: string, displayName: string): RemoteDesktopInfo  =
+proc createInstance*(_: typedesc[RemoteDesktopInfo], id: string,
+                     displayName: string): RemoteDesktopInfo =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo.CreateInstance
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo", IID_IRemoteDesktopInfoFactory, it):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo",
+              IRemoteDesktopInfoFactory, it):
     withHString(id, h0):
       withHString(displayName, h1):
         var tmp: pointer
-        vcall(it, Slot_IRemoteDesktopInfoFactory_CreateInstance, Fn_IRemoteDesktopInfoFactory_CreateInstance)(it, h0, h1, tmp.addr).check("RemoteDesktopInfo.CreateInstance")
+        it.call(IRemoteDesktopInfoFactory_CreateInstance, h0, h1, tmp.addr)
         result = adopt[RemoteDesktopInfo](tmp)
 
-proc desktopInfos*(_: typedesc[RemoteDesktopRegistrar]): seq[RemoteDesktopInfo]  =
+proc desktopInfos*(_: typedesc[RemoteDesktopRegistrar]): seq[RemoteDesktopInfo] =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar.get_DesktopInfos
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar", IID_IRemoteDesktopRegistrarStatics, it):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar",
+              IRemoteDesktopRegistrarStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteDesktopRegistrarStatics_get_DesktopInfos, Fn_IRemoteDesktopRegistrarStatics_get_DesktopInfos)(it, tmp.addr).check("RemoteDesktopRegistrar.get_DesktopInfos")
+    it.call(IRemoteDesktopRegistrarStatics_get_DesktopInfos, tmp.addr)
     result = toSeq[RemoteDesktopInfo](tmp, IID_IVector_1_RemoteDesktopInfo)
     release(tmp)
 
-proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool  =
+proc isSwitchToLocalSessionEnabled*(_: typedesc[RemoteDesktopRegistrar]): bool =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar.IsSwitchToLocalSessionEnabled
-  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar", IID_IRemoteDesktopRegistrarStatics, it):
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopRegistrar",
+              IRemoteDesktopRegistrarStatics, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled, Fn_IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled)(it, tmp.addr).check("RemoteDesktopRegistrar.IsSwitchToLocalSessionEnabled")
+    it.call(IRemoteDesktopRegistrarStatics_IsSwitchToLocalSessionEnabled,
+            tmp.addr)
     result = tmp
 
-proc launchUriAsync*(_: typedesc[RemoteLauncher], remoteSystemConnectionRequest: RemoteSystemConnectionRequest, uri: Uri): Future[RemoteLaunchUriStatus] {.async.} =
+proc launchUriAsync*(_: typedesc[RemoteLauncher],
+                     remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
+                     uri: Uri): Future[RemoteLaunchUriStatus] {.async.} =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.RemoteLauncher", IID_IRemoteLauncherStatics, it):
-    withIface(remoteSystemConnectionRequest.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        vcall(it, Slot_IRemoteLauncherStatics_LaunchUriAsync, Fn_IRemoteLauncherStatics_LaunchUriAsync)(it, p0, p1, op.addr).check("RemoteLauncher.LaunchUriAsync")
-  result = await awaitValue[RemoteLaunchUriStatus](op, IID_IAsyncOperation_1_RemoteLaunchUriStatus, IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus, alPlain, "RemoteLauncher.LaunchUriAsync")
+  withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
+    withIface(remoteSystemConnectionRequest.p, IRemoteSystemConnectionRequest, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        it.call(IRemoteLauncherStatics_LaunchUriAsync, p0, p1, op.addr)
+  result = await awaitValue[RemoteLaunchUriStatus](op,
+                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                                   alPlain,
+                                                   "RemoteLauncher.LaunchUriAsync")
 
-proc launchUriAsync*(_: typedesc[RemoteLauncher], remoteSystemConnectionRequest: RemoteSystemConnectionRequest, uri: Uri, options: RemoteLauncherOptions): Future[RemoteLaunchUriStatus] {.async.} =
+proc launchUriAsync*(_: typedesc[RemoteLauncher],
+                     remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
+                     uri: Uri, options: RemoteLauncherOptions): Future[RemoteLaunchUriStatus] {.async.} =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.RemoteLauncher", IID_IRemoteLauncherStatics, it):
-    withIface(remoteSystemConnectionRequest.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", p2):
-          vcall(it, Slot_IRemoteLauncherStatics_LaunchUriAsync2, Fn_IRemoteLauncherStatics_LaunchUriAsync2)(it, p0, p1, p2, op.addr).check("RemoteLauncher.LaunchUriAsync")
-  result = await awaitValue[RemoteLaunchUriStatus](op, IID_IAsyncOperation_1_RemoteLaunchUriStatus, IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus, alPlain, "RemoteLauncher.LaunchUriAsync")
+  withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
+    withIface(remoteSystemConnectionRequest.p, IRemoteSystemConnectionRequest, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, IRemoteLauncherOptions, p2):
+          it.call(IRemoteLauncherStatics_LaunchUriAsync2, p0, p1, p2, op.addr)
+  result = await awaitValue[RemoteLaunchUriStatus](op,
+                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                                   alPlain,
+                                                   "RemoteLauncher.LaunchUriAsync")
 
-proc launchUriAsync*(_: typedesc[RemoteLauncher], remoteSystemConnectionRequest: RemoteSystemConnectionRequest, uri: Uri, options: RemoteLauncherOptions, inputData: ValueSet): Future[RemoteLaunchUriStatus] {.async.} =
+proc launchUriAsync*(_: typedesc[RemoteLauncher],
+                     remoteSystemConnectionRequest: RemoteSystemConnectionRequest,
+                     uri: Uri, options: RemoteLauncherOptions,
+                     inputData: ValueSet): Future[RemoteLaunchUriStatus] {.async.} =
   ## Windows.System.RemoteLauncher.LaunchUriAsync
   var op: pointer
-  withStatics("Windows.System.RemoteLauncher", IID_IRemoteLauncherStatics, it):
-    withIface(remoteSystemConnectionRequest.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", p0):
-      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-        withIface(options.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", p2):
-          withIface(inputData.p, IID_IPropertySet, "IPropertySet", p3):
-            vcall(it, Slot_IRemoteLauncherStatics_LaunchUriAsync3, Fn_IRemoteLauncherStatics_LaunchUriAsync3)(it, p0, p1, p2, p3, op.addr).check("RemoteLauncher.LaunchUriAsync")
-  result = await awaitValue[RemoteLaunchUriStatus](op, IID_IAsyncOperation_1_RemoteLaunchUriStatus, IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus, alPlain, "RemoteLauncher.LaunchUriAsync")
+  withStatics("Windows.System.RemoteLauncher", IRemoteLauncherStatics, it):
+    withIface(remoteSystemConnectionRequest.p, IRemoteSystemConnectionRequest, p0):
+      withIface(uri.p, IUriRuntimeClass, p1):
+        withIface(options.p, IRemoteLauncherOptions, p2):
+          withIface(inputData.p, IPropertySet, p3):
+            it.call(IRemoteLauncherStatics_LaunchUriAsync3, p0, p1, p2, p3,
+                    op.addr)
+  result = await awaitValue[RemoteLaunchUriStatus](op,
+                                                   IID_IAsyncOperation_1_RemoteLaunchUriStatus,
+                                                   IID_AsyncOperationCompletedHandler_1_RemoteLaunchUriStatus,
+                                                   alPlain,
+                                                   "RemoteLauncher.LaunchUriAsync")
 
 proc newRemoteLauncherOptions*(): RemoteLauncherOptions =
   ## Activate a `Windows.System.RemoteLauncherOptions`.
   adopt[RemoteLauncherOptions](activateAs("Windows.System.RemoteLauncherOptions", IID_IRemoteLauncherOptions))
 
-proc fallbackUri*(self: RemoteLauncherOptions): Uri  =
+proc fallbackUri*(self: RemoteLauncherOptions): Uri =
   ## Windows.System.RemoteLauncherOptions.get_FallbackUri
-  withIface(self.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", it):
+  withIface(self.p, IRemoteLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteLauncherOptions_get_FallbackUri, Fn_IRemoteLauncherOptions_get_FallbackUri)(it, tmp.addr).check("RemoteLauncherOptions.get_FallbackUri")
+    it.call(IRemoteLauncherOptions_get_FallbackUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc `fallbackUri=`*(self: RemoteLauncherOptions, value: Uri)  =
+proc `fallbackUri=`*(self: RemoteLauncherOptions, value: Uri) =
   ## Windows.System.RemoteLauncherOptions.put_FallbackUri
-  withIface(self.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", it):
-    withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IRemoteLauncherOptions_put_FallbackUri, Fn_IRemoteLauncherOptions_put_FallbackUri)(it, p0).check("RemoteLauncherOptions.put_FallbackUri")
+  withIface(self.p, IRemoteLauncherOptions, it):
+    withIface(value.p, IUriRuntimeClass, p0):
+      it.call(IRemoteLauncherOptions_put_FallbackUri, p0)
 
-proc preferredAppIds*(self: RemoteLauncherOptions): seq[string]  =
+proc preferredAppIds*(self: RemoteLauncherOptions): seq[string] =
   ## Windows.System.RemoteLauncherOptions.get_PreferredAppIds
-  withIface(self.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", it):
+  withIface(self.p, IRemoteLauncherOptions, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteLauncherOptions_get_PreferredAppIds, Fn_IRemoteLauncherOptions_get_PreferredAppIds)(it, tmp.addr).check("RemoteLauncherOptions.get_PreferredAppIds")
+    it.call(IRemoteLauncherOptions_get_PreferredAppIds, tmp.addr)
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
-proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string  =
+proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.KnownRemoteSystemCapabilities.get_AppService
-  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities", IID_IKnownRemoteSystemCapabilitiesStatics, it):
+  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities",
+              IKnownRemoteSystemCapabilitiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRemoteSystemCapabilitiesStatics_get_AppService, Fn_IKnownRemoteSystemCapabilitiesStatics_get_AppService)(it, tmp.addr).check("KnownRemoteSystemCapabilities.get_AppService")
+    it.call(IKnownRemoteSystemCapabilitiesStatics_get_AppService, tmp.addr)
     result = takeString(tmp)
 
-proc launchUri*(_: typedesc[KnownRemoteSystemCapabilities]): string  =
+proc launchUri*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.KnownRemoteSystemCapabilities.get_LaunchUri
-  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities", IID_IKnownRemoteSystemCapabilitiesStatics, it):
+  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities",
+              IKnownRemoteSystemCapabilitiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri, Fn_IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri)(it, tmp.addr).check("KnownRemoteSystemCapabilities.get_LaunchUri")
+    it.call(IKnownRemoteSystemCapabilitiesStatics_get_LaunchUri, tmp.addr)
     result = takeString(tmp)
 
-proc remoteSession*(_: typedesc[KnownRemoteSystemCapabilities]): string  =
+proc remoteSession*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.KnownRemoteSystemCapabilities.get_RemoteSession
-  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities", IID_IKnownRemoteSystemCapabilitiesStatics, it):
+  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities",
+              IKnownRemoteSystemCapabilitiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession, Fn_IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession)(it, tmp.addr).check("KnownRemoteSystemCapabilities.get_RemoteSession")
+    it.call(IKnownRemoteSystemCapabilitiesStatics_get_RemoteSession, tmp.addr)
     result = takeString(tmp)
 
-proc spatialEntity*(_: typedesc[KnownRemoteSystemCapabilities]): string  =
+proc spatialEntity*(_: typedesc[KnownRemoteSystemCapabilities]): string =
   ## Windows.System.RemoteSystems.KnownRemoteSystemCapabilities.get_SpatialEntity
-  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities", IID_IKnownRemoteSystemCapabilitiesStatics, it):
+  withStatics("Windows.System.RemoteSystems.KnownRemoteSystemCapabilities",
+              IKnownRemoteSystemCapabilitiesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity, Fn_IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity)(it, tmp.addr).check("KnownRemoteSystemCapabilities.get_SpatialEntity")
+    it.call(IKnownRemoteSystemCapabilitiesStatics_get_SpatialEntity, tmp.addr)
     result = takeString(tmp)
 
-proc displayName*(self: RemoteSystem): string  =
+proc displayName*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_DisplayName
-  withIface(self.p, IID_IRemoteSystem, "IRemoteSystem", it):
+  withIface(self.p, IRemoteSystem, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystem_get_DisplayName, Fn_IRemoteSystem_get_DisplayName)(it, tmp.addr).check("RemoteSystem.get_DisplayName")
+    it.call(IRemoteSystem_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc id*(self: RemoteSystem): string  =
+proc id*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_Id
-  withIface(self.p, IID_IRemoteSystem, "IRemoteSystem", it):
+  withIface(self.p, IRemoteSystem, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystem_get_Id, Fn_IRemoteSystem_get_Id)(it, tmp.addr).check("RemoteSystem.get_Id")
+    it.call(IRemoteSystem_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc kind*(self: RemoteSystem): string  =
+proc kind*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_Kind
-  withIface(self.p, IID_IRemoteSystem, "IRemoteSystem", it):
+  withIface(self.p, IRemoteSystem, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystem_get_Kind, Fn_IRemoteSystem_get_Kind)(it, tmp.addr).check("RemoteSystem.get_Kind")
+    it.call(IRemoteSystem_get_Kind, tmp.addr)
     result = takeString(tmp)
 
-proc status*(self: RemoteSystem): RemoteSystemStatus  =
+proc status*(self: RemoteSystem): RemoteSystemStatus =
   ## Windows.System.RemoteSystems.RemoteSystem.get_Status
-  withIface(self.p, IID_IRemoteSystem, "IRemoteSystem", it):
+  withIface(self.p, IRemoteSystem, it):
     var tmp: RemoteSystemStatus
-    vcall(it, Slot_IRemoteSystem_get_Status, Fn_IRemoteSystem_get_Status)(it, tmp.addr).check("RemoteSystem.get_Status")
+    it.call(IRemoteSystem_get_Status, tmp.addr)
     result = tmp
 
-proc isAvailableByProximity*(self: RemoteSystem): bool  =
+proc isAvailableByProximity*(self: RemoteSystem): bool =
   ## Windows.System.RemoteSystems.RemoteSystem.get_IsAvailableByProximity
-  withIface(self.p, IID_IRemoteSystem, "IRemoteSystem", it):
+  withIface(self.p, IRemoteSystem, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystem_get_IsAvailableByProximity, Fn_IRemoteSystem_get_IsAvailableByProximity)(it, tmp.addr).check("RemoteSystem.get_IsAvailableByProximity")
+    it.call(IRemoteSystem_get_IsAvailableByProximity, tmp.addr)
     result = tmp
 
-proc isAvailableBySpatialProximity*(self: RemoteSystem): bool  =
+proc isAvailableBySpatialProximity*(self: RemoteSystem): bool =
   ## Windows.System.RemoteSystems.RemoteSystem.get_IsAvailableBySpatialProximity
-  withIface(self.p, IID_IRemoteSystem2, "IRemoteSystem2", it):
+  withIface(self.p, IRemoteSystem2, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystem2_get_IsAvailableBySpatialProximity, Fn_IRemoteSystem2_get_IsAvailableBySpatialProximity)(it, tmp.addr).check("RemoteSystem.get_IsAvailableBySpatialProximity")
+    it.call(IRemoteSystem2_get_IsAvailableBySpatialProximity, tmp.addr)
     result = tmp
 
 proc getCapabilitySupportedAsync*(self: RemoteSystem, capabilityName: string): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystem.GetCapabilitySupportedAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystem2, "IRemoteSystem2", it):
+  withIface(self.p, IRemoteSystem2, it):
     withHString(capabilityName, h0):
-      vcall(it, Slot_IRemoteSystem2_GetCapabilitySupportedAsync, Fn_IRemoteSystem2_GetCapabilitySupportedAsync)(it, h0, op.addr).check("RemoteSystem.GetCapabilitySupportedAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystem.GetCapabilitySupportedAsync")
+      it.call(IRemoteSystem2_GetCapabilitySupportedAsync, h0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystem.GetCapabilitySupportedAsync")
 
-proc manufacturerDisplayName*(self: RemoteSystem): string  =
+proc manufacturerDisplayName*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_ManufacturerDisplayName
-  withIface(self.p, IID_IRemoteSystem3, "IRemoteSystem3", it):
+  withIface(self.p, IRemoteSystem3, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystem3_get_ManufacturerDisplayName, Fn_IRemoteSystem3_get_ManufacturerDisplayName)(it, tmp.addr).check("RemoteSystem.get_ManufacturerDisplayName")
+    it.call(IRemoteSystem3_get_ManufacturerDisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc modelDisplayName*(self: RemoteSystem): string  =
+proc modelDisplayName*(self: RemoteSystem): string =
   ## Windows.System.RemoteSystems.RemoteSystem.get_ModelDisplayName
-  withIface(self.p, IID_IRemoteSystem3, "IRemoteSystem3", it):
+  withIface(self.p, IRemoteSystem3, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystem3_get_ModelDisplayName, Fn_IRemoteSystem3_get_ModelDisplayName)(it, tmp.addr).check("RemoteSystem.get_ModelDisplayName")
+    it.call(IRemoteSystem3_get_ModelDisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc platform*(self: RemoteSystem): RemoteSystemPlatform  =
+proc platform*(self: RemoteSystem): RemoteSystemPlatform =
   ## Windows.System.RemoteSystems.RemoteSystem.get_Platform
-  withIface(self.p, IID_IRemoteSystem4, "IRemoteSystem4", it):
+  withIface(self.p, IRemoteSystem4, it):
     var tmp: RemoteSystemPlatform
-    vcall(it, Slot_IRemoteSystem4_get_Platform, Fn_IRemoteSystem4_get_Platform)(it, tmp.addr).check("RemoteSystem.get_Platform")
+    it.call(IRemoteSystem4_get_Platform, tmp.addr)
     result = tmp
 
-proc apps*(self: RemoteSystem): seq[RemoteSystemApp]  =
+proc apps*(self: RemoteSystem): seq[RemoteSystemApp] =
   ## Windows.System.RemoteSystems.RemoteSystem.get_Apps
-  withIface(self.p, IID_IRemoteSystem5, "IRemoteSystem5", it):
+  withIface(self.p, IRemoteSystem5, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystem5_get_Apps, Fn_IRemoteSystem5_get_Apps)(it, tmp.addr).check("RemoteSystem.get_Apps")
+    it.call(IRemoteSystem5_get_Apps, tmp.addr)
     result = toSeq[RemoteSystemApp](tmp, IID_IVectorView_1_RemoteSystemApp)
     release(tmp)
 
-proc user*(self: RemoteSystem): User  =
+proc user*(self: RemoteSystem): User =
   ## Windows.System.RemoteSystems.RemoteSystem.get_User
-  withIface(self.p, IID_IRemoteSystem6, "IRemoteSystem6", it):
+  withIface(self.p, IRemoteSystem6, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystem6_get_User, Fn_IRemoteSystem6_get_User)(it, tmp.addr).check("RemoteSystem.get_User")
+    it.call(IRemoteSystem6_get_User, tmp.addr)
     result = adopt[User](tmp)
 
 proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName): Future[RemoteSystem] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystem.FindByHostNameAsync
   var op: pointer
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
-    withIface(hostName.p, IID_IHostName, "IHostName", p0):
-      vcall(it, Slot_IRemoteSystemStatics_FindByHostNameAsync, Fn_IRemoteSystemStatics_FindByHostNameAsync)(it, p0, op.addr).check("RemoteSystem.FindByHostNameAsync")
-  result = adopt[RemoteSystem](await awaitObject(op, IID_IAsyncOperation_1_RemoteSystem, IID_AsyncOperationCompletedHandler_1_RemoteSystem, alPlain, "RemoteSystem.FindByHostNameAsync"))
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
+              it):
+    withIface(hostName.p, IHostName, p0):
+      it.call(IRemoteSystemStatics_FindByHostNameAsync, p0, op.addr)
+  result = adopt[RemoteSystem](await awaitObject(op,
+                                                 IID_IAsyncOperation_1_RemoteSystem,
+                                                 IID_AsyncOperationCompletedHandler_1_RemoteSystem,
+                                                 alPlain,
+                                                 "RemoteSystem.FindByHostNameAsync"))
 
-proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher  =
+proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcher
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
+              it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemStatics_CreateWatcher, Fn_IRemoteSystemStatics_CreateWatcher)(it, tmp.addr).check("RemoteSystem.CreateWatcher")
+    it.call(IRemoteSystemStatics_CreateWatcher, tmp.addr)
     result = adopt[RemoteSystemWatcher](tmp)
 
-proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[WinRtObject]): RemoteSystemWatcher  =
+proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[WinRtObject]): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcher
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
-    let p0 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter, IID_IVectorView_1_IRemoteSystemFilter, IID_IIterator_1_IRemoteSystemFilter)
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
+              it):
+    let p0 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter,
+                                              IID_IVectorView_1_IRemoteSystemFilter,
+                                              IID_IIterator_1_IRemoteSystemFilter)
     defer: discard release(p0)
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemStatics_CreateWatcher2, Fn_IRemoteSystemStatics_CreateWatcher2)(it, p0, tmp.addr).check("RemoteSystem.CreateWatcher")
+    it.call(IRemoteSystemStatics_CreateWatcher2, p0, tmp.addr)
     result = adopt[RemoteSystemWatcher](tmp)
 
 proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessStatus] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystem.RequestAccessAsync
   var op: pointer
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
-    vcall(it, Slot_IRemoteSystemStatics_RequestAccessAsync, Fn_IRemoteSystemStatics_RequestAccessAsync)(it, op.addr).check("RemoteSystem.RequestAccessAsync")
-  result = await awaitValue[RemoteSystemAccessStatus](op, IID_IAsyncOperation_1_RemoteSystemAccessStatus, IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus, alPlain, "RemoteSystem.RequestAccessAsync")
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IRemoteSystemStatics,
+              it):
+    it.call(IRemoteSystemStatics_RequestAccessAsync, op.addr)
+  result = await awaitValue[RemoteSystemAccessStatus](op,
+                                                      IID_IAsyncOperation_1_RemoteSystemAccessStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus,
+                                                      alPlain,
+                                                      "RemoteSystem.RequestAccessAsync")
 
-proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User): RemoteSystemWatcher  =
+proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcherForUser
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics3, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystem",
+              IRemoteSystemStatics3, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemStatics3_CreateWatcherForUser, Fn_IRemoteSystemStatics3_CreateWatcherForUser)(it, p0, tmp.addr).check("RemoteSystem.CreateWatcherForUser")
+      it.call(IRemoteSystemStatics3_CreateWatcherForUser, p0, tmp.addr)
       result = adopt[RemoteSystemWatcher](tmp)
 
-proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User, filters: seq[WinRtObject]): RemoteSystemWatcher  =
+proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User,
+                           filters: seq[WinRtObject]): RemoteSystemWatcher =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcherForUser
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics3, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
-      let p1 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter, IID_IVectorView_1_IRemoteSystemFilter, IID_IIterator_1_IRemoteSystemFilter)
+  withStatics("Windows.System.RemoteSystems.RemoteSystem",
+              IRemoteSystemStatics3, it):
+    withIface(user.p, IUser, p0):
+      let p1 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter,
+                                                IID_IVectorView_1_IRemoteSystemFilter,
+                                                IID_IIterator_1_IRemoteSystemFilter)
       defer: discard release(p1)
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemStatics3_CreateWatcherForUser2, Fn_IRemoteSystemStatics3_CreateWatcherForUser2)(it, p0, p1, tmp.addr).check("RemoteSystem.CreateWatcherForUser")
+      it.call(IRemoteSystemStatics3_CreateWatcherForUser2, p0, p1, tmp.addr)
       result = adopt[RemoteSystemWatcher](tmp)
 
-proc isAuthorizationKindEnabled*(_: typedesc[RemoteSystem], kind: RemoteSystemAuthorizationKind): bool  =
+proc isAuthorizationKindEnabled*(_: typedesc[RemoteSystem],
+                                 kind: RemoteSystemAuthorizationKind): bool =
   ## Windows.System.RemoteSystems.RemoteSystem.IsAuthorizationKindEnabled
-  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics2, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystem",
+              IRemoteSystemStatics2, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystemStatics2_IsAuthorizationKindEnabled, Fn_IRemoteSystemStatics2_IsAuthorizationKindEnabled)(it, kind, tmp.addr).check("RemoteSystem.IsAuthorizationKindEnabled")
+    it.call(IRemoteSystemStatics2_IsAuthorizationKindEnabled, kind, tmp.addr)
     result = tmp
 
-proc remoteSystem*(self: RemoteSystemAddedEventArgs): RemoteSystem  =
+proc remoteSystem*(self: RemoteSystemAddedEventArgs): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemAddedEventArgs.get_RemoteSystem
-  withIface(self.p, IID_IRemoteSystemAddedEventArgs, "IRemoteSystemAddedEventArgs", it):
+  withIface(self.p, IRemoteSystemAddedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemAddedEventArgs_get_RemoteSystem, Fn_IRemoteSystemAddedEventArgs_get_RemoteSystem)(it, tmp.addr).check("RemoteSystemAddedEventArgs.get_RemoteSystem")
+    it.call(IRemoteSystemAddedEventArgs_get_RemoteSystem, tmp.addr)
     result = adopt[RemoteSystem](tmp)
 
-proc id*(self: RemoteSystemApp): string  =
+proc id*(self: RemoteSystemApp): string =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_Id
-  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+  withIface(self.p, IRemoteSystemApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemApp_get_Id, Fn_IRemoteSystemApp_get_Id)(it, tmp.addr).check("RemoteSystemApp.get_Id")
+    it.call(IRemoteSystemApp_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc displayName*(self: RemoteSystemApp): string  =
+proc displayName*(self: RemoteSystemApp): string =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_DisplayName
-  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+  withIface(self.p, IRemoteSystemApp, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemApp_get_DisplayName, Fn_IRemoteSystemApp_get_DisplayName)(it, tmp.addr).check("RemoteSystemApp.get_DisplayName")
+    it.call(IRemoteSystemApp_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc isAvailableByProximity*(self: RemoteSystemApp): bool  =
+proc isAvailableByProximity*(self: RemoteSystemApp): bool =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_IsAvailableByProximity
-  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+  withIface(self.p, IRemoteSystemApp, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystemApp_get_IsAvailableByProximity, Fn_IRemoteSystemApp_get_IsAvailableByProximity)(it, tmp.addr).check("RemoteSystemApp.get_IsAvailableByProximity")
+    it.call(IRemoteSystemApp_get_IsAvailableByProximity, tmp.addr)
     result = tmp
 
-proc isAvailableBySpatialProximity*(self: RemoteSystemApp): bool  =
+proc isAvailableBySpatialProximity*(self: RemoteSystemApp): bool =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_IsAvailableBySpatialProximity
-  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+  withIface(self.p, IRemoteSystemApp, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystemApp_get_IsAvailableBySpatialProximity, Fn_IRemoteSystemApp_get_IsAvailableBySpatialProximity)(it, tmp.addr).check("RemoteSystemApp.get_IsAvailableBySpatialProximity")
+    it.call(IRemoteSystemApp_get_IsAvailableBySpatialProximity, tmp.addr)
     result = tmp
 
-proc attributes*(self: RemoteSystemApp): Table[string, string]  =
+proc attributes*(self: RemoteSystemApp): Table[string, string] =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_Attributes
-  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+  withIface(self.p, IRemoteSystemApp, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemApp_get_Attributes, Fn_IRemoteSystemApp_get_Attributes)(it, tmp.addr).check("RemoteSystemApp.get_Attributes")
-    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    it.call(IRemoteSystemApp_get_Attributes, tmp.addr)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2,
+                                     IID_IKeyValuePair_2_String_String)
     release(tmp)
 
-proc user*(self: RemoteSystemApp): User  =
+proc user*(self: RemoteSystemApp): User =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_User
-  withIface(self.p, IID_IRemoteSystemApp2, "IRemoteSystemApp2", it):
+  withIface(self.p, IRemoteSystemApp2, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemApp2_get_User, Fn_IRemoteSystemApp2_get_User)(it, tmp.addr).check("RemoteSystemApp.get_User")
+    it.call(IRemoteSystemApp2_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc connectionToken*(self: RemoteSystemApp): string  =
+proc connectionToken*(self: RemoteSystemApp): string =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_ConnectionToken
-  withIface(self.p, IID_IRemoteSystemApp2, "IRemoteSystemApp2", it):
+  withIface(self.p, IRemoteSystemApp2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemApp2_get_ConnectionToken, Fn_IRemoteSystemApp2_get_ConnectionToken)(it, tmp.addr).check("RemoteSystemApp.get_ConnectionToken")
+    it.call(IRemoteSystemApp2_get_ConnectionToken, tmp.addr)
     result = takeString(tmp)
 
-proc user*(self: RemoteSystemAppRegistration): User  =
+proc user*(self: RemoteSystemAppRegistration): User =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.get_User
-  withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
+  withIface(self.p, IRemoteSystemAppRegistration, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemAppRegistration_get_User, Fn_IRemoteSystemAppRegistration_get_User)(it, tmp.addr).check("RemoteSystemAppRegistration.get_User")
+    it.call(IRemoteSystemAppRegistration_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc attributes*(self: RemoteSystemAppRegistration): Table[string, string]  =
+proc attributes*(self: RemoteSystemAppRegistration): Table[string, string] =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.get_Attributes
-  withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
+  withIface(self.p, IRemoteSystemAppRegistration, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemAppRegistration_get_Attributes, Fn_IRemoteSystemAppRegistration_get_Attributes)(it, tmp.addr).check("RemoteSystemAppRegistration.get_Attributes")
-    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    it.call(IRemoteSystemAppRegistration_get_Attributes, tmp.addr)
+    result = toTable[string, string](tmp, IID_IIterable_1_IKeyValuePair_2,
+                                     IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.SaveAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
-    vcall(it, Slot_IRemoteSystemAppRegistration_SaveAsync, Fn_IRemoteSystemAppRegistration_SaveAsync)(it, op.addr).check("RemoteSystemAppRegistration.SaveAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemAppRegistration.SaveAsync")
+  withIface(self.p, IRemoteSystemAppRegistration, it):
+    it.call(IRemoteSystemAppRegistration_SaveAsync, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemAppRegistration.SaveAsync")
 
-proc getDefault*(_: typedesc[RemoteSystemAppRegistration]): RemoteSystemAppRegistration  =
+proc getDefault*(_: typedesc[RemoteSystemAppRegistration]): RemoteSystemAppRegistration =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.GetDefault
-  withStatics("Windows.System.RemoteSystems.RemoteSystemAppRegistration", IID_IRemoteSystemAppRegistrationStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemAppRegistration",
+              IRemoteSystemAppRegistrationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemAppRegistrationStatics_GetDefault, Fn_IRemoteSystemAppRegistrationStatics_GetDefault)(it, tmp.addr).check("RemoteSystemAppRegistration.GetDefault")
+    it.call(IRemoteSystemAppRegistrationStatics_GetDefault, tmp.addr)
     result = adopt[RemoteSystemAppRegistration](tmp)
 
-proc getForUser*(_: typedesc[RemoteSystemAppRegistration], user: User): RemoteSystemAppRegistration  =
+proc getForUser*(_: typedesc[RemoteSystemAppRegistration], user: User): RemoteSystemAppRegistration =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.GetForUser
-  withStatics("Windows.System.RemoteSystems.RemoteSystemAppRegistration", IID_IRemoteSystemAppRegistrationStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemAppRegistration",
+              IRemoteSystemAppRegistrationStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemAppRegistrationStatics_GetForUser, Fn_IRemoteSystemAppRegistrationStatics_GetForUser)(it, p0, tmp.addr).check("RemoteSystemAppRegistration.GetForUser")
+      it.call(IRemoteSystemAppRegistrationStatics_GetForUser, p0, tmp.addr)
       result = adopt[RemoteSystemAppRegistration](tmp)
 
-proc remoteSystemAuthorizationKind*(self: RemoteSystemAuthorizationKindFilter): RemoteSystemAuthorizationKind  =
+proc remoteSystemAuthorizationKind*(self: RemoteSystemAuthorizationKindFilter): RemoteSystemAuthorizationKind =
   ## Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.get_RemoteSystemAuthorizationKind
-  withIface(self.p, IID_IRemoteSystemAuthorizationKindFilter, "IRemoteSystemAuthorizationKindFilter", it):
+  withIface(self.p, IRemoteSystemAuthorizationKindFilter, it):
     var tmp: RemoteSystemAuthorizationKind
-    vcall(it, Slot_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind, Fn_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind)(it, tmp.addr).check("RemoteSystemAuthorizationKindFilter.get_RemoteSystemAuthorizationKind")
+    it.call(IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind,
+            tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[RemoteSystemAuthorizationKindFilter], remoteSystemAuthorizationKind: RemoteSystemAuthorizationKind): RemoteSystemAuthorizationKindFilter  =
+proc create*(_: typedesc[RemoteSystemAuthorizationKindFilter],
+             remoteSystemAuthorizationKind: RemoteSystemAuthorizationKind): RemoteSystemAuthorizationKindFilter =
   ## Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter", IID_IRemoteSystemAuthorizationKindFilterFactory, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter",
+              IRemoteSystemAuthorizationKindFilterFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemAuthorizationKindFilterFactory_Create, Fn_IRemoteSystemAuthorizationKindFilterFactory_Create)(it, remoteSystemAuthorizationKind, tmp.addr).check("RemoteSystemAuthorizationKindFilter.Create")
+    it.call(IRemoteSystemAuthorizationKindFilterFactory_Create,
+            remoteSystemAuthorizationKind, tmp.addr)
     result = adopt[RemoteSystemAuthorizationKindFilter](tmp)
 
-proc isProximal*(self: RemoteSystemConnectionInfo): bool  =
+proc isProximal*(self: RemoteSystemConnectionInfo): bool =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionInfo.get_IsProximal
-  withIface(self.p, IID_IRemoteSystemConnectionInfo, "IRemoteSystemConnectionInfo", it):
+  withIface(self.p, IRemoteSystemConnectionInfo, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystemConnectionInfo_get_IsProximal, Fn_IRemoteSystemConnectionInfo_get_IsProximal)(it, tmp.addr).check("RemoteSystemConnectionInfo.get_IsProximal")
+    it.call(IRemoteSystemConnectionInfo_get_IsProximal, tmp.addr)
     result = tmp
 
-proc tryCreateFromAppServiceConnection*(_: typedesc[RemoteSystemConnectionInfo], connection: AppServiceConnection): RemoteSystemConnectionInfo  =
+proc tryCreateFromAppServiceConnection*(_: typedesc[RemoteSystemConnectionInfo],
+                                        connection: AppServiceConnection): RemoteSystemConnectionInfo =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionInfo.TryCreateFromAppServiceConnection
-  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionInfo", IID_IRemoteSystemConnectionInfoStatics, it):
-    withIface(connection.p, IID_IAppServiceConnection, "IAppServiceConnection", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionInfo",
+              IRemoteSystemConnectionInfoStatics, it):
+    withIface(connection.p, IAppServiceConnection, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection, Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection)(it, p0, tmp.addr).check("RemoteSystemConnectionInfo.TryCreateFromAppServiceConnection")
+      it.call(IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection,
+              p0, tmp.addr)
       result = adopt[RemoteSystemConnectionInfo](tmp)
 
-proc remoteSystem*(self: RemoteSystemConnectionRequest): RemoteSystem  =
+proc remoteSystem*(self: RemoteSystemConnectionRequest): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.get_RemoteSystem
-  withIface(self.p, IID_IRemoteSystemConnectionRequest, "IRemoteSystemConnectionRequest", it):
+  withIface(self.p, IRemoteSystemConnectionRequest, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemConnectionRequest_get_RemoteSystem, Fn_IRemoteSystemConnectionRequest_get_RemoteSystem)(it, tmp.addr).check("RemoteSystemConnectionRequest.get_RemoteSystem")
+    it.call(IRemoteSystemConnectionRequest_get_RemoteSystem, tmp.addr)
     result = adopt[RemoteSystem](tmp)
 
-proc remoteSystemApp*(self: RemoteSystemConnectionRequest): RemoteSystemApp  =
+proc remoteSystemApp*(self: RemoteSystemConnectionRequest): RemoteSystemApp =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.get_RemoteSystemApp
-  withIface(self.p, IID_IRemoteSystemConnectionRequest2, "IRemoteSystemConnectionRequest2", it):
+  withIface(self.p, IRemoteSystemConnectionRequest2, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemConnectionRequest2_get_RemoteSystemApp, Fn_IRemoteSystemConnectionRequest2_get_RemoteSystemApp)(it, tmp.addr).check("RemoteSystemConnectionRequest.get_RemoteSystemApp")
+    it.call(IRemoteSystemConnectionRequest2_get_RemoteSystemApp, tmp.addr)
     result = adopt[RemoteSystemApp](tmp)
 
-proc connectionToken*(self: RemoteSystemConnectionRequest): string  =
+proc connectionToken*(self: RemoteSystemConnectionRequest): string =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.get_ConnectionToken
-  withIface(self.p, IID_IRemoteSystemConnectionRequest3, "IRemoteSystemConnectionRequest3", it):
+  withIface(self.p, IRemoteSystemConnectionRequest3, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemConnectionRequest3_get_ConnectionToken, Fn_IRemoteSystemConnectionRequest3_get_ConnectionToken)(it, tmp.addr).check("RemoteSystemConnectionRequest.get_ConnectionToken")
+    it.call(IRemoteSystemConnectionRequest3_get_ConnectionToken, tmp.addr)
     result = takeString(tmp)
 
-proc createFromConnectionToken*(_: typedesc[RemoteSystemConnectionRequest], connectionToken: string): RemoteSystemConnectionRequest  =
+proc createFromConnectionToken*(_: typedesc[RemoteSystemConnectionRequest],
+                                connectionToken: string): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.CreateFromConnectionToken
-  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest", IID_IRemoteSystemConnectionRequestStatics2, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest",
+              IRemoteSystemConnectionRequestStatics2, it):
     withHString(connectionToken, h0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken, Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken)(it, h0, tmp.addr).check("RemoteSystemConnectionRequest.CreateFromConnectionToken")
+      it.call(IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken,
+              h0, tmp.addr)
       result = adopt[RemoteSystemConnectionRequest](tmp)
 
-proc createFromConnectionTokenForUser*(_: typedesc[RemoteSystemConnectionRequest], user: User, connectionToken: string): RemoteSystemConnectionRequest  =
+proc createFromConnectionTokenForUser*(_: typedesc[RemoteSystemConnectionRequest],
+                                       user: User, connectionToken: string): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.CreateFromConnectionTokenForUser
-  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest", IID_IRemoteSystemConnectionRequestStatics2, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest",
+              IRemoteSystemConnectionRequestStatics2, it):
+    withIface(user.p, IUser, p0):
       withHString(connectionToken, h1):
         var tmp: pointer
-        vcall(it, Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser, Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser)(it, p0, h1, tmp.addr).check("RemoteSystemConnectionRequest.CreateFromConnectionTokenForUser")
+        it.call(IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser,
+                p0, h1, tmp.addr)
         result = adopt[RemoteSystemConnectionRequest](tmp)
 
-proc createForApp*(_: typedesc[RemoteSystemConnectionRequest], remoteSystemApp: RemoteSystemApp): RemoteSystemConnectionRequest  =
+proc createForApp*(_: typedesc[RemoteSystemConnectionRequest],
+                   remoteSystemApp: RemoteSystemApp): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.CreateForApp
-  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest", IID_IRemoteSystemConnectionRequestStatics, it):
-    withIface(remoteSystemApp.p, IID_IRemoteSystemApp, "IRemoteSystemApp", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest",
+              IRemoteSystemConnectionRequestStatics, it):
+    withIface(remoteSystemApp.p, IRemoteSystemApp, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemConnectionRequestStatics_CreateForApp, Fn_IRemoteSystemConnectionRequestStatics_CreateForApp)(it, p0, tmp.addr).check("RemoteSystemConnectionRequest.CreateForApp")
+      it.call(IRemoteSystemConnectionRequestStatics_CreateForApp, p0, tmp.addr)
       result = adopt[RemoteSystemConnectionRequest](tmp)
 
-proc create*(_: typedesc[RemoteSystemConnectionRequest], remoteSystem: RemoteSystem): RemoteSystemConnectionRequest  =
+proc create*(_: typedesc[RemoteSystemConnectionRequest],
+             remoteSystem: RemoteSystem): RemoteSystemConnectionRequest =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest", IID_IRemoteSystemConnectionRequestFactory, it):
-    withIface(remoteSystem.p, IID_IRemoteSystem, "IRemoteSystem", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionRequest",
+              IRemoteSystemConnectionRequestFactory, it):
+    withIface(remoteSystem.p, IRemoteSystem, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemConnectionRequestFactory_Create, Fn_IRemoteSystemConnectionRequestFactory_Create)(it, p0, tmp.addr).check("RemoteSystemConnectionRequest.Create")
+      it.call(IRemoteSystemConnectionRequestFactory_Create, p0, tmp.addr)
       result = adopt[RemoteSystemConnectionRequest](tmp)
 
-proc remoteSystemDiscoveryType*(self: RemoteSystemDiscoveryTypeFilter): RemoteSystemDiscoveryType  =
+proc remoteSystemDiscoveryType*(self: RemoteSystemDiscoveryTypeFilter): RemoteSystemDiscoveryType =
   ## Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.get_RemoteSystemDiscoveryType
-  withIface(self.p, IID_IRemoteSystemDiscoveryTypeFilter, "IRemoteSystemDiscoveryTypeFilter", it):
+  withIface(self.p, IRemoteSystemDiscoveryTypeFilter, it):
     var tmp: RemoteSystemDiscoveryType
-    vcall(it, Slot_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType, Fn_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType)(it, tmp.addr).check("RemoteSystemDiscoveryTypeFilter.get_RemoteSystemDiscoveryType")
+    it.call(IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType,
+            tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[RemoteSystemDiscoveryTypeFilter], discoveryType: RemoteSystemDiscoveryType): RemoteSystemDiscoveryTypeFilter  =
+proc create*(_: typedesc[RemoteSystemDiscoveryTypeFilter],
+             discoveryType: RemoteSystemDiscoveryType): RemoteSystemDiscoveryTypeFilter =
   ## Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter", IID_IRemoteSystemDiscoveryTypeFilterFactory, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter",
+              IRemoteSystemDiscoveryTypeFilterFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemDiscoveryTypeFilterFactory_Create, Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create)(it, discoveryType, tmp.addr).check("RemoteSystemDiscoveryTypeFilter.Create")
+    it.call(IRemoteSystemDiscoveryTypeFilterFactory_Create, discoveryType,
+            tmp.addr)
     result = adopt[RemoteSystemDiscoveryTypeFilter](tmp)
 
-proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string]  =
+proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string] =
   ## Windows.System.RemoteSystems.RemoteSystemKindFilter.get_RemoteSystemKinds
-  withIface(self.p, IID_IRemoteSystemKindFilter, "IRemoteSystemKindFilter", it):
+  withIface(self.p, IRemoteSystemKindFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemKindFilter_get_RemoteSystemKinds, Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds)(it, tmp.addr).check("RemoteSystemKindFilter.get_RemoteSystemKinds")
+    it.call(IRemoteSystemKindFilter_get_RemoteSystemKinds, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc create*(_: typedesc[RemoteSystemKindFilter], remoteSystemKinds: seq[string]): RemoteSystemKindFilter  =
+proc create*(_: typedesc[RemoteSystemKindFilter], remoteSystemKinds: seq[string]): RemoteSystemKindFilter =
   ## Windows.System.RemoteSystems.RemoteSystemKindFilter.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKindFilter", IID_IRemoteSystemKindFilterFactory, it):
-    let p0 = asIterableString(remoteSystemKinds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKindFilter",
+              IRemoteSystemKindFilterFactory, it):
+    let p0 = asIterableString(remoteSystemKinds, IID_IIterable_1_String,
+                                                 IID_IVectorView_1_String,
+                                                 IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemKindFilterFactory_Create, Fn_IRemoteSystemKindFilterFactory_Create)(it, p0, tmp.addr).check("RemoteSystemKindFilter.Create")
+    it.call(IRemoteSystemKindFilterFactory_Create, p0, tmp.addr)
     result = adopt[RemoteSystemKindFilter](tmp)
 
-proc iot*(_: typedesc[RemoteSystemKinds]): string  =
+proc iot*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Iot
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics2, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics2_get_Iot, Fn_IRemoteSystemKindStatics2_get_Iot)(it, tmp.addr).check("RemoteSystemKinds.get_Iot")
+    it.call(IRemoteSystemKindStatics2_get_Iot, tmp.addr)
     result = takeString(tmp)
 
-proc tablet*(_: typedesc[RemoteSystemKinds]): string  =
+proc tablet*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Tablet
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics2, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics2_get_Tablet, Fn_IRemoteSystemKindStatics2_get_Tablet)(it, tmp.addr).check("RemoteSystemKinds.get_Tablet")
+    it.call(IRemoteSystemKindStatics2_get_Tablet, tmp.addr)
     result = takeString(tmp)
 
-proc laptop*(_: typedesc[RemoteSystemKinds]): string  =
+proc laptop*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Laptop
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics2, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics2, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics2_get_Laptop, Fn_IRemoteSystemKindStatics2_get_Laptop)(it, tmp.addr).check("RemoteSystemKinds.get_Laptop")
+    it.call(IRemoteSystemKindStatics2_get_Laptop, tmp.addr)
     result = takeString(tmp)
 
-proc phone*(_: typedesc[RemoteSystemKinds]): string  =
+proc phone*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Phone
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics_get_Phone, Fn_IRemoteSystemKindStatics_get_Phone)(it, tmp.addr).check("RemoteSystemKinds.get_Phone")
+    it.call(IRemoteSystemKindStatics_get_Phone, tmp.addr)
     result = takeString(tmp)
 
-proc hub*(_: typedesc[RemoteSystemKinds]): string  =
+proc hub*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Hub
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics_get_Hub, Fn_IRemoteSystemKindStatics_get_Hub)(it, tmp.addr).check("RemoteSystemKinds.get_Hub")
+    it.call(IRemoteSystemKindStatics_get_Hub, tmp.addr)
     result = takeString(tmp)
 
-proc holographic*(_: typedesc[RemoteSystemKinds]): string  =
+proc holographic*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Holographic
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics_get_Holographic, Fn_IRemoteSystemKindStatics_get_Holographic)(it, tmp.addr).check("RemoteSystemKinds.get_Holographic")
+    it.call(IRemoteSystemKindStatics_get_Holographic, tmp.addr)
     result = takeString(tmp)
 
-proc desktop*(_: typedesc[RemoteSystemKinds]): string  =
+proc desktop*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Desktop
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics_get_Desktop, Fn_IRemoteSystemKindStatics_get_Desktop)(it, tmp.addr).check("RemoteSystemKinds.get_Desktop")
+    it.call(IRemoteSystemKindStatics_get_Desktop, tmp.addr)
     result = takeString(tmp)
 
-proc xbox*(_: typedesc[RemoteSystemKinds]): string  =
+proc xbox*(_: typedesc[RemoteSystemKinds]): string =
   ## Windows.System.RemoteSystems.RemoteSystemKinds.get_Xbox
-  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds", IID_IRemoteSystemKindStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemKinds",
+              IRemoteSystemKindStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemKindStatics_get_Xbox, Fn_IRemoteSystemKindStatics_get_Xbox)(it, tmp.addr).check("RemoteSystemKinds.get_Xbox")
+    it.call(IRemoteSystemKindStatics_get_Xbox, tmp.addr)
     result = takeString(tmp)
 
-proc remoteSystemId*(self: RemoteSystemRemovedEventArgs): string  =
+proc remoteSystemId*(self: RemoteSystemRemovedEventArgs): string =
   ## Windows.System.RemoteSystems.RemoteSystemRemovedEventArgs.get_RemoteSystemId
-  withIface(self.p, IID_IRemoteSystemRemovedEventArgs, "IRemoteSystemRemovedEventArgs", it):
+  withIface(self.p, IRemoteSystemRemovedEventArgs, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemRemovedEventArgs_get_RemoteSystemId, Fn_IRemoteSystemRemovedEventArgs_get_RemoteSystemId)(it, tmp.addr).check("RemoteSystemRemovedEventArgs.get_RemoteSystemId")
+    it.call(IRemoteSystemRemovedEventArgs_get_RemoteSystemId, tmp.addr)
     result = takeString(tmp)
 
-proc id*(self: RemoteSystemSession): string  =
+proc id*(self: RemoteSystemSession): string =
   ## Windows.System.RemoteSystems.RemoteSystemSession.get_Id
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
+  withIface(self.p, IRemoteSystemSession, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemSession_get_Id, Fn_IRemoteSystemSession_get_Id)(it, tmp.addr).check("RemoteSystemSession.get_Id")
+    it.call(IRemoteSystemSession_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc displayName*(self: RemoteSystemSession): string  =
+proc displayName*(self: RemoteSystemSession): string =
   ## Windows.System.RemoteSystems.RemoteSystemSession.get_DisplayName
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
+  withIface(self.p, IRemoteSystemSession, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemSession_get_DisplayName, Fn_IRemoteSystemSession_get_DisplayName)(it, tmp.addr).check("RemoteSystemSession.get_DisplayName")
+    it.call(IRemoteSystemSession_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc controllerDisplayName*(self: RemoteSystemSession): string  =
+proc controllerDisplayName*(self: RemoteSystemSession): string =
   ## Windows.System.RemoteSystems.RemoteSystemSession.get_ControllerDisplayName
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
+  withIface(self.p, IRemoteSystemSession, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemSession_get_ControllerDisplayName, Fn_IRemoteSystemSession_get_ControllerDisplayName)(it, tmp.addr).check("RemoteSystemSession.get_ControllerDisplayName")
+    it.call(IRemoteSystemSession_get_ControllerDisplayName, tmp.addr)
     result = takeString(tmp)
 
 proc onDisconnected*(self: RemoteSystemSession,
-    handler: proc(sender: RemoteSystemSession, args: RemoteSystemSessionDisconnectedEventArgs)): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[RemoteSystemSession, RemoteSystemSessionDisconnectedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSession.add_Disconnected
-  ##
-  ## The token is what `removeDisconnected` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSession](a0), borrow[RemoteSystemSessionDisconnectedEventArgs](a1)), event = true)
+  ## The token is what `removeDisconnected` takes.
+  withIface(self.p, IRemoteSystemSession, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSession](a0),
+              borrow[RemoteSystemSessionDisconnectedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSession_add_Disconnected, Fn_IRemoteSystemSession_add_Disconnected)(it, cb, result.addr)
-        .check("RemoteSystemSession.add_Disconnected")
+      it.call(IRemoteSystemSession_add_Disconnected, cb, result.addr)
     finally:
       release(cb)
 
 proc removeDisconnected*(self: RemoteSystemSession, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
-    vcall(it, Slot_IRemoteSystemSession_remove_Disconnected, Fn_IRemoteSystemSession_remove_Disconnected)(it, token).check("RemoteSystemSession.remove_Disconnected")
+  withIface(self.p, IRemoteSystemSession, it):
+    it.call(IRemoteSystemSession_remove_Disconnected, token)
 
-proc createParticipantWatcher*(self: RemoteSystemSession): RemoteSystemSessionParticipantWatcher  =
+proc createParticipantWatcher*(self: RemoteSystemSession): RemoteSystemSessionParticipantWatcher =
   ## Windows.System.RemoteSystems.RemoteSystemSession.CreateParticipantWatcher
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
+  withIface(self.p, IRemoteSystemSession, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSession_CreateParticipantWatcher, Fn_IRemoteSystemSession_CreateParticipantWatcher)(it, tmp.addr).check("RemoteSystemSession.CreateParticipantWatcher")
+    it.call(IRemoteSystemSession_CreateParticipantWatcher, tmp.addr)
     result = adopt[RemoteSystemSessionParticipantWatcher](tmp)
 
 proc sendInvitationAsync*(self: RemoteSystemSession, invitee: RemoteSystem): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSession.SendInvitationAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSession, "IRemoteSystemSession", it):
-    withIface(invitee.p, IID_IRemoteSystem, "IRemoteSystem", p0):
-      vcall(it, Slot_IRemoteSystemSession_SendInvitationAsync, Fn_IRemoteSystemSession_SendInvitationAsync)(it, p0, op.addr).check("RemoteSystemSession.SendInvitationAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemSession.SendInvitationAsync")
+  withIface(self.p, IRemoteSystemSession, it):
+    withIface(invitee.p, IRemoteSystem, p0):
+      it.call(IRemoteSystemSession_SendInvitationAsync, p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemSession.SendInvitationAsync")
 
-proc close*(self: RemoteSystemSession)  =
+proc close*(self: RemoteSystemSession) =
   ## Windows.System.RemoteSystems.RemoteSystemSession.Close
-  withIface(self.p, IID_IClosable, "IClosable", it):
-    vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("RemoteSystemSession.Close")
+  withIface(self.p, IClosable, it):
+    it.call(IClosable_Close)
 
-proc createWatcher*(_: typedesc[RemoteSystemSession]): RemoteSystemSessionWatcher  =
+proc createWatcher*(_: typedesc[RemoteSystemSession]): RemoteSystemSessionWatcher =
   ## Windows.System.RemoteSystems.RemoteSystemSession.CreateWatcher
-  withStatics("Windows.System.RemoteSystems.RemoteSystemSession", IID_IRemoteSystemSessionStatics, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemSession",
+              IRemoteSystemSessionStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionStatics_CreateWatcher, Fn_IRemoteSystemSessionStatics_CreateWatcher)(it, tmp.addr).check("RemoteSystemSession.CreateWatcher")
+    it.call(IRemoteSystemSessionStatics_CreateWatcher, tmp.addr)
     result = adopt[RemoteSystemSessionWatcher](tmp)
 
-proc sessionInfo*(self: RemoteSystemSessionAddedEventArgs): RemoteSystemSessionInfo  =
+proc sessionInfo*(self: RemoteSystemSessionAddedEventArgs): RemoteSystemSessionInfo =
   ## Windows.System.RemoteSystems.RemoteSystemSessionAddedEventArgs.get_SessionInfo
-  withIface(self.p, IID_IRemoteSystemSessionAddedEventArgs, "IRemoteSystemSessionAddedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionAddedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionAddedEventArgs_get_SessionInfo, Fn_IRemoteSystemSessionAddedEventArgs_get_SessionInfo)(it, tmp.addr).check("RemoteSystemSessionAddedEventArgs.get_SessionInfo")
+    it.call(IRemoteSystemSessionAddedEventArgs_get_SessionInfo, tmp.addr)
     result = adopt[RemoteSystemSessionInfo](tmp)
 
 proc onJoinRequested*(self: RemoteSystemSessionController,
-    handler: proc(sender: RemoteSystemSessionController, args: RemoteSystemSessionJoinRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[RemoteSystemSessionController, RemoteSystemSessionJoinRequestedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.add_JoinRequested
-  ##
-  ## The token is what `removeJoinRequested` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionController_RemoteSystemSessionJoinRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionController](a0), borrow[RemoteSystemSessionJoinRequestedEventArgs](a1)), event = true)
+  ## The token is what `removeJoinRequested` takes.
+  withIface(self.p, IRemoteSystemSessionController, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionController](a0),
+              borrow[RemoteSystemSessionJoinRequestedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionController_RemoteSystemSessionJoinRequestedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionController_add_JoinRequested, Fn_IRemoteSystemSessionController_add_JoinRequested)(it, cb, result.addr)
-        .check("RemoteSystemSessionController.add_JoinRequested")
+      it.call(IRemoteSystemSessionController_add_JoinRequested, cb, result.addr)
     finally:
       release(cb)
 
 proc removeJoinRequested*(self: RemoteSystemSessionController, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
-    vcall(it, Slot_IRemoteSystemSessionController_remove_JoinRequested, Fn_IRemoteSystemSessionController_remove_JoinRequested)(it, token).check("RemoteSystemSessionController.remove_JoinRequested")
+  withIface(self.p, IRemoteSystemSessionController, it):
+    it.call(IRemoteSystemSessionController_remove_JoinRequested, token)
 
-proc removeParticipantAsync*(self: RemoteSystemSessionController, pParticipant: RemoteSystemSessionParticipant): Future[bool] {.async.} =
+proc removeParticipantAsync*(self: RemoteSystemSessionController,
+                             pParticipant: RemoteSystemSessionParticipant): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.RemoveParticipantAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
-    withIface(pParticipant.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", p0):
-      vcall(it, Slot_IRemoteSystemSessionController_RemoveParticipantAsync, Fn_IRemoteSystemSessionController_RemoveParticipantAsync)(it, p0, op.addr).check("RemoteSystemSessionController.RemoveParticipantAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemSessionController.RemoveParticipantAsync")
+  withIface(self.p, IRemoteSystemSessionController, it):
+    withIface(pParticipant.p, IRemoteSystemSessionParticipant, p0):
+      it.call(IRemoteSystemSessionController_RemoveParticipantAsync, p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemSessionController.RemoveParticipantAsync")
 
 proc createSessionAsync*(self: RemoteSystemSessionController): Future[RemoteSystemSessionCreationResult] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateSessionAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionController, "IRemoteSystemSessionController", it):
-    vcall(it, Slot_IRemoteSystemSessionController_CreateSessionAsync, Fn_IRemoteSystemSessionController_CreateSessionAsync)(it, op.addr).check("RemoteSystemSessionController.CreateSessionAsync")
-  result = adopt[RemoteSystemSessionCreationResult](await awaitObject(op, IID_IAsyncOperation_1_RemoteSystemSessionCreationResult, IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult, alPlain, "RemoteSystemSessionController.CreateSessionAsync"))
+  withIface(self.p, IRemoteSystemSessionController, it):
+    it.call(IRemoteSystemSessionController_CreateSessionAsync, op.addr)
+  result = adopt[RemoteSystemSessionCreationResult](await awaitObject(op,
+                                                                      IID_IAsyncOperation_1_RemoteSystemSessionCreationResult,
+                                                                      IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionCreationResult,
+                                                                      alPlain,
+                                                                      "RemoteSystemSessionController.CreateSessionAsync"))
 
-proc createController*(_: typedesc[RemoteSystemSessionController], displayName: string): RemoteSystemSessionController  =
+proc createController*(_: typedesc[RemoteSystemSessionController],
+                       displayName: string): RemoteSystemSessionController =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController
-  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionController", IID_IRemoteSystemSessionControllerFactory, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionController",
+              IRemoteSystemSessionControllerFactory, it):
     withHString(displayName, h0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemSessionControllerFactory_CreateController, Fn_IRemoteSystemSessionControllerFactory_CreateController)(it, h0, tmp.addr).check("RemoteSystemSessionController.CreateController")
+      it.call(IRemoteSystemSessionControllerFactory_CreateController, h0,
+              tmp.addr)
       result = adopt[RemoteSystemSessionController](tmp)
 
-proc createController*(_: typedesc[RemoteSystemSessionController], displayName: string, options: RemoteSystemSessionOptions): RemoteSystemSessionController  =
+proc createController*(_: typedesc[RemoteSystemSessionController],
+                       displayName: string, options: RemoteSystemSessionOptions): RemoteSystemSessionController =
   ## Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController
-  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionController", IID_IRemoteSystemSessionControllerFactory, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionController",
+              IRemoteSystemSessionControllerFactory, it):
     withHString(displayName, h0):
-      withIface(options.p, IID_IRemoteSystemSessionOptions, "IRemoteSystemSessionOptions", p1):
+      withIface(options.p, IRemoteSystemSessionOptions, p1):
         var tmp: pointer
-        vcall(it, Slot_IRemoteSystemSessionControllerFactory_CreateController2, Fn_IRemoteSystemSessionControllerFactory_CreateController2)(it, h0, p1, tmp.addr).check("RemoteSystemSessionController.CreateController")
+        it.call(IRemoteSystemSessionControllerFactory_CreateController2, h0, p1,
+                tmp.addr)
         result = adopt[RemoteSystemSessionController](tmp)
 
-proc status*(self: RemoteSystemSessionCreationResult): RemoteSystemSessionCreationStatus  =
+proc status*(self: RemoteSystemSessionCreationResult): RemoteSystemSessionCreationStatus =
   ## Windows.System.RemoteSystems.RemoteSystemSessionCreationResult.get_Status
-  withIface(self.p, IID_IRemoteSystemSessionCreationResult, "IRemoteSystemSessionCreationResult", it):
+  withIface(self.p, IRemoteSystemSessionCreationResult, it):
     var tmp: RemoteSystemSessionCreationStatus
-    vcall(it, Slot_IRemoteSystemSessionCreationResult_get_Status, Fn_IRemoteSystemSessionCreationResult_get_Status)(it, tmp.addr).check("RemoteSystemSessionCreationResult.get_Status")
+    it.call(IRemoteSystemSessionCreationResult_get_Status, tmp.addr)
     result = tmp
 
-proc session*(self: RemoteSystemSessionCreationResult): RemoteSystemSession  =
+proc session*(self: RemoteSystemSessionCreationResult): RemoteSystemSession =
   ## Windows.System.RemoteSystems.RemoteSystemSessionCreationResult.get_Session
-  withIface(self.p, IID_IRemoteSystemSessionCreationResult, "IRemoteSystemSessionCreationResult", it):
+  withIface(self.p, IRemoteSystemSessionCreationResult, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionCreationResult_get_Session, Fn_IRemoteSystemSessionCreationResult_get_Session)(it, tmp.addr).check("RemoteSystemSessionCreationResult.get_Session")
+    it.call(IRemoteSystemSessionCreationResult_get_Session, tmp.addr)
     result = adopt[RemoteSystemSession](tmp)
 
-proc reason*(self: RemoteSystemSessionDisconnectedEventArgs): RemoteSystemSessionDisconnectedReason  =
+proc reason*(self: RemoteSystemSessionDisconnectedEventArgs): RemoteSystemSessionDisconnectedReason =
   ## Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedEventArgs.get_Reason
-  withIface(self.p, IID_IRemoteSystemSessionDisconnectedEventArgs, "IRemoteSystemSessionDisconnectedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionDisconnectedEventArgs, it):
     var tmp: RemoteSystemSessionDisconnectedReason
-    vcall(it, Slot_IRemoteSystemSessionDisconnectedEventArgs_get_Reason, Fn_IRemoteSystemSessionDisconnectedEventArgs_get_Reason)(it, tmp.addr).check("RemoteSystemSessionDisconnectedEventArgs.get_Reason")
+    it.call(IRemoteSystemSessionDisconnectedEventArgs_get_Reason, tmp.addr)
     result = tmp
 
-proc displayName*(self: RemoteSystemSessionInfo): string  =
+proc displayName*(self: RemoteSystemSessionInfo): string =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInfo.get_DisplayName
-  withIface(self.p, IID_IRemoteSystemSessionInfo, "IRemoteSystemSessionInfo", it):
+  withIface(self.p, IRemoteSystemSessionInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemSessionInfo_get_DisplayName, Fn_IRemoteSystemSessionInfo_get_DisplayName)(it, tmp.addr).check("RemoteSystemSessionInfo.get_DisplayName")
+    it.call(IRemoteSystemSessionInfo_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc controllerDisplayName*(self: RemoteSystemSessionInfo): string  =
+proc controllerDisplayName*(self: RemoteSystemSessionInfo): string =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInfo.get_ControllerDisplayName
-  withIface(self.p, IID_IRemoteSystemSessionInfo, "IRemoteSystemSessionInfo", it):
+  withIface(self.p, IRemoteSystemSessionInfo, it):
     var tmp: HSTRING
-    vcall(it, Slot_IRemoteSystemSessionInfo_get_ControllerDisplayName, Fn_IRemoteSystemSessionInfo_get_ControllerDisplayName)(it, tmp.addr).check("RemoteSystemSessionInfo.get_ControllerDisplayName")
+    it.call(IRemoteSystemSessionInfo_get_ControllerDisplayName, tmp.addr)
     result = takeString(tmp)
 
 proc joinAsync*(self: RemoteSystemSessionInfo): Future[RemoteSystemSessionJoinResult] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInfo.JoinAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionInfo, "IRemoteSystemSessionInfo", it):
-    vcall(it, Slot_IRemoteSystemSessionInfo_JoinAsync, Fn_IRemoteSystemSessionInfo_JoinAsync)(it, op.addr).check("RemoteSystemSessionInfo.JoinAsync")
-  result = adopt[RemoteSystemSessionJoinResult](await awaitObject(op, IID_IAsyncOperation_1_RemoteSystemSessionJoinResult, IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult, alPlain, "RemoteSystemSessionInfo.JoinAsync"))
+  withIface(self.p, IRemoteSystemSessionInfo, it):
+    it.call(IRemoteSystemSessionInfo_JoinAsync, op.addr)
+  result = adopt[RemoteSystemSessionJoinResult](await awaitObject(op,
+                                                                  IID_IAsyncOperation_1_RemoteSystemSessionJoinResult,
+                                                                  IID_AsyncOperationCompletedHandler_1_RemoteSystemSessionJoinResult,
+                                                                  alPlain,
+                                                                  "RemoteSystemSessionInfo.JoinAsync"))
 
-proc sender*(self: RemoteSystemSessionInvitation): RemoteSystem  =
+proc sender*(self: RemoteSystemSessionInvitation): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitation.get_Sender
-  withIface(self.p, IID_IRemoteSystemSessionInvitation, "IRemoteSystemSessionInvitation", it):
+  withIface(self.p, IRemoteSystemSessionInvitation, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionInvitation_get_Sender, Fn_IRemoteSystemSessionInvitation_get_Sender)(it, tmp.addr).check("RemoteSystemSessionInvitation.get_Sender")
+    it.call(IRemoteSystemSessionInvitation_get_Sender, tmp.addr)
     result = adopt[RemoteSystem](tmp)
 
-proc sessionInfo*(self: RemoteSystemSessionInvitation): RemoteSystemSessionInfo  =
+proc sessionInfo*(self: RemoteSystemSessionInvitation): RemoteSystemSessionInfo =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitation.get_SessionInfo
-  withIface(self.p, IID_IRemoteSystemSessionInvitation, "IRemoteSystemSessionInvitation", it):
+  withIface(self.p, IRemoteSystemSessionInvitation, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionInvitation_get_SessionInfo, Fn_IRemoteSystemSessionInvitation_get_SessionInfo)(it, tmp.addr).check("RemoteSystemSessionInvitation.get_SessionInfo")
+    it.call(IRemoteSystemSessionInvitation_get_SessionInfo, tmp.addr)
     result = adopt[RemoteSystemSessionInfo](tmp)
 
 proc newRemoteSystemSessionInvitationListener*(): RemoteSystemSessionInvitationListener =
@@ -4895,1805 +5141,2055 @@ proc newRemoteSystemSessionInvitationListener*(): RemoteSystemSessionInvitationL
   adopt[RemoteSystemSessionInvitationListener](activateAs("Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener", IID_IRemoteSystemSessionInvitationListener))
 
 proc onInvitationReceived*(self: RemoteSystemSessionInvitationListener,
-    handler: proc(sender: RemoteSystemSessionInvitationListener, args: RemoteSystemSessionInvitationReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[RemoteSystemSessionInvitationListener, RemoteSystemSessionInvitationReceivedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener.add_InvitationReceived
-  ##
-  ## The token is what `removeInvitationReceived` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionInvitationListener, "IRemoteSystemSessionInvitationListener", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionInvitationListener](a0), borrow[RemoteSystemSessionInvitationReceivedEventArgs](a1)), event = true)
+  ## The token is what `removeInvitationReceived` takes.
+  withIface(self.p, IRemoteSystemSessionInvitationListener, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionInvitationListener](a0),
+              borrow[RemoteSystemSessionInvitationReceivedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionInvitationListener_RemoteSystemSessionInvitationReceivedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionInvitationListener_add_InvitationReceived, Fn_IRemoteSystemSessionInvitationListener_add_InvitationReceived)(it, cb, result.addr)
-        .check("RemoteSystemSessionInvitationListener.add_InvitationReceived")
+      it.call(IRemoteSystemSessionInvitationListener_add_InvitationReceived, cb, result.addr)
     finally:
       release(cb)
 
 proc removeInvitationReceived*(self: RemoteSystemSessionInvitationListener, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionInvitationListener, "IRemoteSystemSessionInvitationListener", it):
-    vcall(it, Slot_IRemoteSystemSessionInvitationListener_remove_InvitationReceived, Fn_IRemoteSystemSessionInvitationListener_remove_InvitationReceived)(it, token).check("RemoteSystemSessionInvitationListener.remove_InvitationReceived")
+  withIface(self.p, IRemoteSystemSessionInvitationListener, it):
+    it.call(IRemoteSystemSessionInvitationListener_remove_InvitationReceived, token)
 
-proc invitation*(self: RemoteSystemSessionInvitationReceivedEventArgs): RemoteSystemSessionInvitation  =
+proc invitation*(self: RemoteSystemSessionInvitationReceivedEventArgs): RemoteSystemSessionInvitation =
   ## Windows.System.RemoteSystems.RemoteSystemSessionInvitationReceivedEventArgs.get_Invitation
-  withIface(self.p, IID_IRemoteSystemSessionInvitationReceivedEventArgs, "IRemoteSystemSessionInvitationReceivedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionInvitationReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation, Fn_IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation)(it, tmp.addr).check("RemoteSystemSessionInvitationReceivedEventArgs.get_Invitation")
+    it.call(IRemoteSystemSessionInvitationReceivedEventArgs_get_Invitation,
+            tmp.addr)
     result = adopt[RemoteSystemSessionInvitation](tmp)
 
-proc participant*(self: RemoteSystemSessionJoinRequest): RemoteSystemSessionParticipant  =
+proc participant*(self: RemoteSystemSessionJoinRequest): RemoteSystemSessionParticipant =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinRequest.get_Participant
-  withIface(self.p, IID_IRemoteSystemSessionJoinRequest, "IRemoteSystemSessionJoinRequest", it):
+  withIface(self.p, IRemoteSystemSessionJoinRequest, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionJoinRequest_get_Participant, Fn_IRemoteSystemSessionJoinRequest_get_Participant)(it, tmp.addr).check("RemoteSystemSessionJoinRequest.get_Participant")
+    it.call(IRemoteSystemSessionJoinRequest_get_Participant, tmp.addr)
     result = adopt[RemoteSystemSessionParticipant](tmp)
 
-proc accept*(self: RemoteSystemSessionJoinRequest)  =
+proc accept*(self: RemoteSystemSessionJoinRequest) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinRequest.Accept
-  withIface(self.p, IID_IRemoteSystemSessionJoinRequest, "IRemoteSystemSessionJoinRequest", it):
-    vcall(it, Slot_IRemoteSystemSessionJoinRequest_Accept, Fn_IRemoteSystemSessionJoinRequest_Accept)(it).check("RemoteSystemSessionJoinRequest.Accept")
+  withIface(self.p, IRemoteSystemSessionJoinRequest, it):
+    it.call(IRemoteSystemSessionJoinRequest_Accept)
 
-proc joinRequest*(self: RemoteSystemSessionJoinRequestedEventArgs): RemoteSystemSessionJoinRequest  =
+proc joinRequest*(self: RemoteSystemSessionJoinRequestedEventArgs): RemoteSystemSessionJoinRequest =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinRequestedEventArgs.get_JoinRequest
-  withIface(self.p, IID_IRemoteSystemSessionJoinRequestedEventArgs, "IRemoteSystemSessionJoinRequestedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionJoinRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest, Fn_IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest)(it, tmp.addr).check("RemoteSystemSessionJoinRequestedEventArgs.get_JoinRequest")
+    it.call(IRemoteSystemSessionJoinRequestedEventArgs_get_JoinRequest, tmp.addr)
     result = adopt[RemoteSystemSessionJoinRequest](tmp)
 
-proc getDeferral*(self: RemoteSystemSessionJoinRequestedEventArgs): Deferral  =
+proc getDeferral*(self: RemoteSystemSessionJoinRequestedEventArgs): Deferral =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinRequestedEventArgs.GetDeferral
-  withIface(self.p, IID_IRemoteSystemSessionJoinRequestedEventArgs, "IRemoteSystemSessionJoinRequestedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionJoinRequestedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral, Fn_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral)(it, tmp.addr).check("RemoteSystemSessionJoinRequestedEventArgs.GetDeferral")
+    it.call(IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral, tmp.addr)
     result = adopt[Deferral](tmp)
 
-proc status*(self: RemoteSystemSessionJoinResult): RemoteSystemSessionJoinStatus  =
+proc status*(self: RemoteSystemSessionJoinResult): RemoteSystemSessionJoinStatus =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinResult.get_Status
-  withIface(self.p, IID_IRemoteSystemSessionJoinResult, "IRemoteSystemSessionJoinResult", it):
+  withIface(self.p, IRemoteSystemSessionJoinResult, it):
     var tmp: RemoteSystemSessionJoinStatus
-    vcall(it, Slot_IRemoteSystemSessionJoinResult_get_Status, Fn_IRemoteSystemSessionJoinResult_get_Status)(it, tmp.addr).check("RemoteSystemSessionJoinResult.get_Status")
+    it.call(IRemoteSystemSessionJoinResult_get_Status, tmp.addr)
     result = tmp
 
-proc session*(self: RemoteSystemSessionJoinResult): RemoteSystemSession  =
+proc session*(self: RemoteSystemSessionJoinResult): RemoteSystemSession =
   ## Windows.System.RemoteSystems.RemoteSystemSessionJoinResult.get_Session
-  withIface(self.p, IID_IRemoteSystemSessionJoinResult, "IRemoteSystemSessionJoinResult", it):
+  withIface(self.p, IRemoteSystemSessionJoinResult, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionJoinResult_get_Session, Fn_IRemoteSystemSessionJoinResult_get_Session)(it, tmp.addr).check("RemoteSystemSessionJoinResult.get_Session")
+    it.call(IRemoteSystemSessionJoinResult_get_Session, tmp.addr)
     result = adopt[RemoteSystemSession](tmp)
 
-proc session*(self: RemoteSystemSessionMessageChannel): RemoteSystemSession  =
+proc session*(self: RemoteSystemSessionMessageChannel): RemoteSystemSession =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.get_Session
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionMessageChannel_get_Session, Fn_IRemoteSystemSessionMessageChannel_get_Session)(it, tmp.addr).check("RemoteSystemSessionMessageChannel.get_Session")
+    it.call(IRemoteSystemSessionMessageChannel_get_Session, tmp.addr)
     result = adopt[RemoteSystemSession](tmp)
 
-proc broadcastValueSetAsync*(self: RemoteSystemSessionMessageChannel, messageData: ValueSet): Future[bool] {.async.} =
+proc broadcastValueSetAsync*(self: RemoteSystemSessionMessageChannel,
+                             messageData: ValueSet): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.BroadcastValueSetAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
-    withIface(messageData.p, IID_IPropertySet, "IPropertySet", p0):
-      vcall(it, Slot_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync, Fn_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync)(it, p0, op.addr).check("RemoteSystemSessionMessageChannel.BroadcastValueSetAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemSessionMessageChannel.BroadcastValueSetAsync")
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
+    withIface(messageData.p, IPropertySet, p0):
+      it.call(IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync, p0,
+              op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemSessionMessageChannel.BroadcastValueSetAsync")
 
-proc sendValueSetAsync*(self: RemoteSystemSessionMessageChannel, messageData: ValueSet, participant: RemoteSystemSessionParticipant): Future[bool] {.async.} =
+proc sendValueSetAsync*(self: RemoteSystemSessionMessageChannel,
+                        messageData: ValueSet,
+                        participant: RemoteSystemSessionParticipant): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.SendValueSetAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
-    withIface(messageData.p, IID_IPropertySet, "IPropertySet", p0):
-      withIface(participant.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", p1):
-        vcall(it, Slot_IRemoteSystemSessionMessageChannel_SendValueSetAsync, Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync)(it, p0, p1, op.addr).check("RemoteSystemSessionMessageChannel.SendValueSetAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemSessionMessageChannel.SendValueSetAsync")
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
+    withIface(messageData.p, IPropertySet, p0):
+      withIface(participant.p, IRemoteSystemSessionParticipant, p1):
+        it.call(IRemoteSystemSessionMessageChannel_SendValueSetAsync, p0, p1,
+                op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemSessionMessageChannel.SendValueSetAsync")
 
-proc sendValueSetToParticipantsAsync*(self: RemoteSystemSessionMessageChannel, messageData: ValueSet, participants: seq[RemoteSystemSessionParticipant]): Future[bool] {.async.} =
+proc sendValueSetToParticipantsAsync*(self: RemoteSystemSessionMessageChannel,
+                                      messageData: ValueSet,
+                                      participants: seq[RemoteSystemSessionParticipant]): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync
   var op: pointer
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
-    withIface(messageData.p, IID_IPropertySet, "IPropertySet", p0):
-      let p1 = asIterable[RemoteSystemSessionParticipant](participants, IID_IIterable_1_RemoteSystemSessionParticipant, IID_IVectorView_1_RemoteSystemSessionParticipant, IID_IIterator_1_RemoteSystemSessionParticipant)
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
+    withIface(messageData.p, IPropertySet, p0):
+      let p1 = asIterable[RemoteSystemSessionParticipant](participants, IID_IIterable_1_RemoteSystemSessionParticipant,
+                                                                        IID_IVectorView_1_RemoteSystemSessionParticipant,
+                                                                        IID_IIterator_1_RemoteSystemSessionParticipant)
       defer: discard release(p1)
-      vcall(it, Slot_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync, Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync)(it, p0, p1, op.addr).check("RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync")
+      it.call(IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync,
+              p0, p1, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "RemoteSystemSessionMessageChannel.SendValueSetToParticipantsAsync")
 
 proc onValueSetReceived*(self: RemoteSystemSessionMessageChannel,
-    handler: proc(sender: RemoteSystemSessionMessageChannel, args: RemoteSystemSessionValueSetReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[RemoteSystemSessionMessageChannel, RemoteSystemSessionValueSetReceivedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.add_ValueSetReceived
-  ##
-  ## The token is what `removeValueSetReceived` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionMessageChannel](a0), borrow[RemoteSystemSessionValueSetReceivedEventArgs](a1)), event = true)
+  ## The token is what `removeValueSetReceived` takes.
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionMessageChannel](a0),
+              borrow[RemoteSystemSessionValueSetReceivedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionMessageChannel_add_ValueSetReceived, Fn_IRemoteSystemSessionMessageChannel_add_ValueSetReceived)(it, cb, result.addr)
-        .check("RemoteSystemSessionMessageChannel.add_ValueSetReceived")
+      it.call(IRemoteSystemSessionMessageChannel_add_ValueSetReceived, cb, result.addr)
     finally:
       release(cb)
 
 proc removeValueSetReceived*(self: RemoteSystemSessionMessageChannel, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionMessageChannel, "IRemoteSystemSessionMessageChannel", it):
-    vcall(it, Slot_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived, Fn_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived)(it, token).check("RemoteSystemSessionMessageChannel.remove_ValueSetReceived")
+  withIface(self.p, IRemoteSystemSessionMessageChannel, it):
+    it.call(IRemoteSystemSessionMessageChannel_remove_ValueSetReceived, token)
 
-proc create*(_: typedesc[RemoteSystemSessionMessageChannel], session: RemoteSystemSession, channelName: string): RemoteSystemSessionMessageChannel  =
+proc create*(_: typedesc[RemoteSystemSessionMessageChannel],
+             session: RemoteSystemSession, channelName: string): RemoteSystemSessionMessageChannel =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel", IID_IRemoteSystemSessionMessageChannelFactory, it):
-    withIface(session.p, IID_IRemoteSystemSession, "IRemoteSystemSession", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel",
+              IRemoteSystemSessionMessageChannelFactory, it):
+    withIface(session.p, IRemoteSystemSession, p0):
       withHString(channelName, h1):
         var tmp: pointer
-        vcall(it, Slot_IRemoteSystemSessionMessageChannelFactory_Create, Fn_IRemoteSystemSessionMessageChannelFactory_Create)(it, p0, h1, tmp.addr).check("RemoteSystemSessionMessageChannel.Create")
+        it.call(IRemoteSystemSessionMessageChannelFactory_Create, p0, h1,
+                tmp.addr)
         result = adopt[RemoteSystemSessionMessageChannel](tmp)
 
-proc create*(_: typedesc[RemoteSystemSessionMessageChannel], session: RemoteSystemSession, channelName: string, reliability: RemoteSystemSessionMessageChannelReliability): RemoteSystemSessionMessageChannel  =
+proc create*(_: typedesc[RemoteSystemSessionMessageChannel],
+             session: RemoteSystemSession, channelName: string,
+             reliability: RemoteSystemSessionMessageChannelReliability): RemoteSystemSessionMessageChannel =
   ## Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel", IID_IRemoteSystemSessionMessageChannelFactory, it):
-    withIface(session.p, IID_IRemoteSystemSession, "IRemoteSystemSession", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel",
+              IRemoteSystemSessionMessageChannelFactory, it):
+    withIface(session.p, IRemoteSystemSession, p0):
       withHString(channelName, h1):
         var tmp: pointer
-        vcall(it, Slot_IRemoteSystemSessionMessageChannelFactory_Create2, Fn_IRemoteSystemSessionMessageChannelFactory_Create2)(it, p0, h1, reliability, tmp.addr).check("RemoteSystemSessionMessageChannel.Create")
+        it.call(IRemoteSystemSessionMessageChannelFactory_Create2, p0, h1,
+                reliability, tmp.addr)
         result = adopt[RemoteSystemSessionMessageChannel](tmp)
 
 proc newRemoteSystemSessionOptions*(): RemoteSystemSessionOptions =
   ## Activate a `Windows.System.RemoteSystems.RemoteSystemSessionOptions`.
   adopt[RemoteSystemSessionOptions](activateAs("Windows.System.RemoteSystems.RemoteSystemSessionOptions", IID_IRemoteSystemSessionOptions))
 
-proc isInviteOnly*(self: RemoteSystemSessionOptions): bool  =
+proc isInviteOnly*(self: RemoteSystemSessionOptions): bool =
   ## Windows.System.RemoteSystems.RemoteSystemSessionOptions.get_IsInviteOnly
-  withIface(self.p, IID_IRemoteSystemSessionOptions, "IRemoteSystemSessionOptions", it):
+  withIface(self.p, IRemoteSystemSessionOptions, it):
     var tmp: bool
-    vcall(it, Slot_IRemoteSystemSessionOptions_get_IsInviteOnly, Fn_IRemoteSystemSessionOptions_get_IsInviteOnly)(it, tmp.addr).check("RemoteSystemSessionOptions.get_IsInviteOnly")
+    it.call(IRemoteSystemSessionOptions_get_IsInviteOnly, tmp.addr)
     result = tmp
 
-proc `isInviteOnly=`*(self: RemoteSystemSessionOptions, value: bool)  =
+proc `isInviteOnly=`*(self: RemoteSystemSessionOptions, value: bool) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionOptions.put_IsInviteOnly
-  withIface(self.p, IID_IRemoteSystemSessionOptions, "IRemoteSystemSessionOptions", it):
-    vcall(it, Slot_IRemoteSystemSessionOptions_put_IsInviteOnly, Fn_IRemoteSystemSessionOptions_put_IsInviteOnly)(it, value).check("RemoteSystemSessionOptions.put_IsInviteOnly")
+  withIface(self.p, IRemoteSystemSessionOptions, it):
+    it.call(IRemoteSystemSessionOptions_put_IsInviteOnly, value)
 
-proc remoteSystem*(self: RemoteSystemSessionParticipant): RemoteSystem  =
+proc remoteSystem*(self: RemoteSystemSessionParticipant): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipant.get_RemoteSystem
-  withIface(self.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", it):
+  withIface(self.p, IRemoteSystemSessionParticipant, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionParticipant_get_RemoteSystem, Fn_IRemoteSystemSessionParticipant_get_RemoteSystem)(it, tmp.addr).check("RemoteSystemSessionParticipant.get_RemoteSystem")
+    it.call(IRemoteSystemSessionParticipant_get_RemoteSystem, tmp.addr)
     result = adopt[RemoteSystem](tmp)
 
-proc getHostNames*(self: RemoteSystemSessionParticipant): seq[HostName]  =
+proc getHostNames*(self: RemoteSystemSessionParticipant): seq[HostName] =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipant.GetHostNames
-  withIface(self.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", it):
+  withIface(self.p, IRemoteSystemSessionParticipant, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionParticipant_GetHostNames, Fn_IRemoteSystemSessionParticipant_GetHostNames)(it, tmp.addr).check("RemoteSystemSessionParticipant.GetHostNames")
+    it.call(IRemoteSystemSessionParticipant_GetHostNames, tmp.addr)
     result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
     release(tmp)
 
-proc participant*(self: RemoteSystemSessionParticipantAddedEventArgs): RemoteSystemSessionParticipant  =
+proc participant*(self: RemoteSystemSessionParticipantAddedEventArgs): RemoteSystemSessionParticipant =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantAddedEventArgs.get_Participant
-  withIface(self.p, IID_IRemoteSystemSessionParticipantAddedEventArgs, "IRemoteSystemSessionParticipantAddedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionParticipantAddedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant, Fn_IRemoteSystemSessionParticipantAddedEventArgs_get_Participant)(it, tmp.addr).check("RemoteSystemSessionParticipantAddedEventArgs.get_Participant")
+    it.call(IRemoteSystemSessionParticipantAddedEventArgs_get_Participant,
+            tmp.addr)
     result = adopt[RemoteSystemSessionParticipant](tmp)
 
-proc participant*(self: RemoteSystemSessionParticipantRemovedEventArgs): RemoteSystemSessionParticipant  =
+proc participant*(self: RemoteSystemSessionParticipantRemovedEventArgs): RemoteSystemSessionParticipant =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantRemovedEventArgs.get_Participant
-  withIface(self.p, IID_IRemoteSystemSessionParticipantRemovedEventArgs, "IRemoteSystemSessionParticipantRemovedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionParticipantRemovedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant, Fn_IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant)(it, tmp.addr).check("RemoteSystemSessionParticipantRemovedEventArgs.get_Participant")
+    it.call(IRemoteSystemSessionParticipantRemovedEventArgs_get_Participant,
+            tmp.addr)
     result = adopt[RemoteSystemSessionParticipant](tmp)
 
-proc start*(self: RemoteSystemSessionParticipantWatcher)  =
+proc start*(self: RemoteSystemSessionParticipantWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.Start
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_Start, Fn_IRemoteSystemSessionParticipantWatcher_Start)(it).check("RemoteSystemSessionParticipantWatcher.Start")
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    it.call(IRemoteSystemSessionParticipantWatcher_Start)
 
-proc stop*(self: RemoteSystemSessionParticipantWatcher)  =
+proc stop*(self: RemoteSystemSessionParticipantWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.Stop
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_Stop, Fn_IRemoteSystemSessionParticipantWatcher_Stop)(it).check("RemoteSystemSessionParticipantWatcher.Stop")
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    it.call(IRemoteSystemSessionParticipantWatcher_Stop)
 
-proc status*(self: RemoteSystemSessionParticipantWatcher): RemoteSystemSessionParticipantWatcherStatus  =
+proc status*(self: RemoteSystemSessionParticipantWatcher): RemoteSystemSessionParticipantWatcherStatus =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.get_Status
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
     var tmp: RemoteSystemSessionParticipantWatcherStatus
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_get_Status, Fn_IRemoteSystemSessionParticipantWatcher_get_Status)(it, tmp.addr).check("RemoteSystemSessionParticipantWatcher.get_Status")
+    it.call(IRemoteSystemSessionParticipantWatcher_get_Status, tmp.addr)
     result = tmp
 
 proc onAdded*(self: RemoteSystemSessionParticipantWatcher,
-    handler: proc(sender: RemoteSystemSessionParticipantWatcher, args: RemoteSystemSessionParticipantAddedEventArgs)): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[RemoteSystemSessionParticipantWatcher, RemoteSystemSessionParticipantAddedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.add_Added
-  ##
-  ## The token is what `removeAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantAddedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionParticipantWatcher](a0), borrow[RemoteSystemSessionParticipantAddedEventArgs](a1)), event = true)
+  ## The token is what `removeAdded` takes.
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionParticipantWatcher](a0),
+              borrow[RemoteSystemSessionParticipantAddedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantAddedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_add_Added, Fn_IRemoteSystemSessionParticipantWatcher_add_Added)(it, cb, result.addr)
-        .check("RemoteSystemSessionParticipantWatcher.add_Added")
+      it.call(IRemoteSystemSessionParticipantWatcher_add_Added, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAdded*(self: RemoteSystemSessionParticipantWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_remove_Added, Fn_IRemoteSystemSessionParticipantWatcher_remove_Added)(it, token).check("RemoteSystemSessionParticipantWatcher.remove_Added")
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    it.call(IRemoteSystemSessionParticipantWatcher_remove_Added, token)
 
 proc onRemoved*(self: RemoteSystemSessionParticipantWatcher,
-    handler: proc(sender: RemoteSystemSessionParticipantWatcher, args: RemoteSystemSessionParticipantRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[RemoteSystemSessionParticipantWatcher, RemoteSystemSessionParticipantRemovedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.add_Removed
-  ##
-  ## The token is what `removeRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionParticipantWatcher](a0), borrow[RemoteSystemSessionParticipantRemovedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoved` takes.
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionParticipantWatcher](a0),
+              borrow[RemoteSystemSessionParticipantRemovedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantRemovedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_add_Removed, Fn_IRemoteSystemSessionParticipantWatcher_add_Removed)(it, cb, result.addr)
-        .check("RemoteSystemSessionParticipantWatcher.add_Removed")
+      it.call(IRemoteSystemSessionParticipantWatcher_add_Removed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoved*(self: RemoteSystemSessionParticipantWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_remove_Removed, Fn_IRemoteSystemSessionParticipantWatcher_remove_Removed)(it, token).check("RemoteSystemSessionParticipantWatcher.remove_Removed")
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    it.call(IRemoteSystemSessionParticipantWatcher_remove_Removed, token)
 
 proc onEnumerationCompleted*(self: RemoteSystemSessionParticipantWatcher,
-    handler: proc(sender: RemoteSystemSessionParticipantWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[RemoteSystemSessionParticipantWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher.add_EnumerationCompleted
-  ##
-  ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionParticipantWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeEnumerationCompleted` takes.
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionParticipantWatcher](a0),
+              borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted, Fn_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted)(it, cb, result.addr)
-        .check("RemoteSystemSessionParticipantWatcher.add_EnumerationCompleted")
+      it.call(IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnumerationCompleted*(self: RemoteSystemSessionParticipantWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionParticipantWatcher, "IRemoteSystemSessionParticipantWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted, Fn_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted)(it, token).check("RemoteSystemSessionParticipantWatcher.remove_EnumerationCompleted")
+  withIface(self.p, IRemoteSystemSessionParticipantWatcher, it):
+    it.call(IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted, token)
 
-proc sessionInfo*(self: RemoteSystemSessionRemovedEventArgs): RemoteSystemSessionInfo  =
+proc sessionInfo*(self: RemoteSystemSessionRemovedEventArgs): RemoteSystemSessionInfo =
   ## Windows.System.RemoteSystems.RemoteSystemSessionRemovedEventArgs.get_SessionInfo
-  withIface(self.p, IID_IRemoteSystemSessionRemovedEventArgs, "IRemoteSystemSessionRemovedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionRemovedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo, Fn_IRemoteSystemSessionRemovedEventArgs_get_SessionInfo)(it, tmp.addr).check("RemoteSystemSessionRemovedEventArgs.get_SessionInfo")
+    it.call(IRemoteSystemSessionRemovedEventArgs_get_SessionInfo, tmp.addr)
     result = adopt[RemoteSystemSessionInfo](tmp)
 
-proc sessionInfo*(self: RemoteSystemSessionUpdatedEventArgs): RemoteSystemSessionInfo  =
+proc sessionInfo*(self: RemoteSystemSessionUpdatedEventArgs): RemoteSystemSessionInfo =
   ## Windows.System.RemoteSystems.RemoteSystemSessionUpdatedEventArgs.get_SessionInfo
-  withIface(self.p, IID_IRemoteSystemSessionUpdatedEventArgs, "IRemoteSystemSessionUpdatedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionUpdatedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo, Fn_IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo)(it, tmp.addr).check("RemoteSystemSessionUpdatedEventArgs.get_SessionInfo")
+    it.call(IRemoteSystemSessionUpdatedEventArgs_get_SessionInfo, tmp.addr)
     result = adopt[RemoteSystemSessionInfo](tmp)
 
-proc sender*(self: RemoteSystemSessionValueSetReceivedEventArgs): RemoteSystemSessionParticipant  =
+proc sender*(self: RemoteSystemSessionValueSetReceivedEventArgs): RemoteSystemSessionParticipant =
   ## Windows.System.RemoteSystems.RemoteSystemSessionValueSetReceivedEventArgs.get_Sender
-  withIface(self.p, IID_IRemoteSystemSessionValueSetReceivedEventArgs, "IRemoteSystemSessionValueSetReceivedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionValueSetReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender, Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender)(it, tmp.addr).check("RemoteSystemSessionValueSetReceivedEventArgs.get_Sender")
+    it.call(IRemoteSystemSessionValueSetReceivedEventArgs_get_Sender, tmp.addr)
     result = adopt[RemoteSystemSessionParticipant](tmp)
 
-proc message*(self: RemoteSystemSessionValueSetReceivedEventArgs): ValueSet  =
+proc message*(self: RemoteSystemSessionValueSetReceivedEventArgs): ValueSet =
   ## Windows.System.RemoteSystems.RemoteSystemSessionValueSetReceivedEventArgs.get_Message
-  withIface(self.p, IID_IRemoteSystemSessionValueSetReceivedEventArgs, "IRemoteSystemSessionValueSetReceivedEventArgs", it):
+  withIface(self.p, IRemoteSystemSessionValueSetReceivedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message, Fn_IRemoteSystemSessionValueSetReceivedEventArgs_get_Message)(it, tmp.addr).check("RemoteSystemSessionValueSetReceivedEventArgs.get_Message")
+    it.call(IRemoteSystemSessionValueSetReceivedEventArgs_get_Message, tmp.addr)
     result = adopt[ValueSet](tmp)
 
-proc start*(self: RemoteSystemSessionWatcher)  =
+proc start*(self: RemoteSystemSessionWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.Start
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionWatcher_Start, Fn_IRemoteSystemSessionWatcher_Start)(it).check("RemoteSystemSessionWatcher.Start")
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    it.call(IRemoteSystemSessionWatcher_Start)
 
-proc stop*(self: RemoteSystemSessionWatcher)  =
+proc stop*(self: RemoteSystemSessionWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.Stop
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionWatcher_Stop, Fn_IRemoteSystemSessionWatcher_Stop)(it).check("RemoteSystemSessionWatcher.Stop")
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    it.call(IRemoteSystemSessionWatcher_Stop)
 
-proc status*(self: RemoteSystemSessionWatcher): RemoteSystemSessionWatcherStatus  =
+proc status*(self: RemoteSystemSessionWatcher): RemoteSystemSessionWatcherStatus =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.get_Status
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
     var tmp: RemoteSystemSessionWatcherStatus
-    vcall(it, Slot_IRemoteSystemSessionWatcher_get_Status, Fn_IRemoteSystemSessionWatcher_get_Status)(it, tmp.addr).check("RemoteSystemSessionWatcher.get_Status")
+    it.call(IRemoteSystemSessionWatcher_get_Status, tmp.addr)
     result = tmp
 
 proc onAdded*(self: RemoteSystemSessionWatcher,
-    handler: proc(sender: RemoteSystemSessionWatcher, args: RemoteSystemSessionAddedEventArgs)): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[RemoteSystemSessionWatcher, RemoteSystemSessionAddedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.add_Added
-  ##
-  ## The token is what `removeAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionAddedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionWatcher](a0), borrow[RemoteSystemSessionAddedEventArgs](a1)), event = true)
+  ## The token is what `removeAdded` takes.
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionWatcher](a0),
+              borrow[RemoteSystemSessionAddedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionAddedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionWatcher_add_Added, Fn_IRemoteSystemSessionWatcher_add_Added)(it, cb, result.addr)
-        .check("RemoteSystemSessionWatcher.add_Added")
+      it.call(IRemoteSystemSessionWatcher_add_Added, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAdded*(self: RemoteSystemSessionWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionWatcher_remove_Added, Fn_IRemoteSystemSessionWatcher_remove_Added)(it, token).check("RemoteSystemSessionWatcher.remove_Added")
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    it.call(IRemoteSystemSessionWatcher_remove_Added, token)
 
 proc onUpdated*(self: RemoteSystemSessionWatcher,
-    handler: proc(sender: RemoteSystemSessionWatcher, args: RemoteSystemSessionUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[RemoteSystemSessionWatcher, RemoteSystemSessionUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.add_Updated
-  ##
-  ## The token is what `removeUpdated` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionWatcher](a0), borrow[RemoteSystemSessionUpdatedEventArgs](a1)), event = true)
+  ## The token is what `removeUpdated` takes.
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionWatcher](a0),
+              borrow[RemoteSystemSessionUpdatedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionUpdatedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionWatcher_add_Updated, Fn_IRemoteSystemSessionWatcher_add_Updated)(it, cb, result.addr)
-        .check("RemoteSystemSessionWatcher.add_Updated")
+      it.call(IRemoteSystemSessionWatcher_add_Updated, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUpdated*(self: RemoteSystemSessionWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionWatcher_remove_Updated, Fn_IRemoteSystemSessionWatcher_remove_Updated)(it, token).check("RemoteSystemSessionWatcher.remove_Updated")
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    it.call(IRemoteSystemSessionWatcher_remove_Updated, token)
 
 proc onRemoved*(self: RemoteSystemSessionWatcher,
-    handler: proc(sender: RemoteSystemSessionWatcher, args: RemoteSystemSessionRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[RemoteSystemSessionWatcher, RemoteSystemSessionRemovedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemSessionWatcher.add_Removed
-  ##
-  ## The token is what `removeRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemSessionWatcher](a0), borrow[RemoteSystemSessionRemovedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoved` takes.
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemSessionWatcher](a0),
+              borrow[RemoteSystemSessionRemovedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemSessionWatcher_RemoteSystemSessionRemovedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemSessionWatcher_add_Removed, Fn_IRemoteSystemSessionWatcher_add_Removed)(it, cb, result.addr)
-        .check("RemoteSystemSessionWatcher.add_Removed")
+      it.call(IRemoteSystemSessionWatcher_add_Removed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoved*(self: RemoteSystemSessionWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemSessionWatcher, "IRemoteSystemSessionWatcher", it):
-    vcall(it, Slot_IRemoteSystemSessionWatcher_remove_Removed, Fn_IRemoteSystemSessionWatcher_remove_Removed)(it, token).check("RemoteSystemSessionWatcher.remove_Removed")
+  withIface(self.p, IRemoteSystemSessionWatcher, it):
+    it.call(IRemoteSystemSessionWatcher_remove_Removed, token)
 
-proc remoteSystemStatusType*(self: RemoteSystemStatusTypeFilter): RemoteSystemStatusType  =
+proc remoteSystemStatusType*(self: RemoteSystemStatusTypeFilter): RemoteSystemStatusType =
   ## Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.get_RemoteSystemStatusType
-  withIface(self.p, IID_IRemoteSystemStatusTypeFilter, "IRemoteSystemStatusTypeFilter", it):
+  withIface(self.p, IRemoteSystemStatusTypeFilter, it):
     var tmp: RemoteSystemStatusType
-    vcall(it, Slot_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType, Fn_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType)(it, tmp.addr).check("RemoteSystemStatusTypeFilter.get_RemoteSystemStatusType")
+    it.call(IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType, tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[RemoteSystemStatusTypeFilter], remoteSystemStatusType: RemoteSystemStatusType): RemoteSystemStatusTypeFilter  =
+proc create*(_: typedesc[RemoteSystemStatusTypeFilter],
+             remoteSystemStatusType: RemoteSystemStatusType): RemoteSystemStatusTypeFilter =
   ## Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter", IID_IRemoteSystemStatusTypeFilterFactory, it):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter",
+              IRemoteSystemStatusTypeFilterFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemStatusTypeFilterFactory_Create, Fn_IRemoteSystemStatusTypeFilterFactory_Create)(it, remoteSystemStatusType, tmp.addr).check("RemoteSystemStatusTypeFilter.Create")
+    it.call(IRemoteSystemStatusTypeFilterFactory_Create, remoteSystemStatusType,
+            tmp.addr)
     result = adopt[RemoteSystemStatusTypeFilter](tmp)
 
-proc remoteSystem*(self: RemoteSystemUpdatedEventArgs): RemoteSystem  =
+proc remoteSystem*(self: RemoteSystemUpdatedEventArgs): RemoteSystem =
   ## Windows.System.RemoteSystems.RemoteSystemUpdatedEventArgs.get_RemoteSystem
-  withIface(self.p, IID_IRemoteSystemUpdatedEventArgs, "IRemoteSystemUpdatedEventArgs", it):
+  withIface(self.p, IRemoteSystemUpdatedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemUpdatedEventArgs_get_RemoteSystem, Fn_IRemoteSystemUpdatedEventArgs_get_RemoteSystem)(it, tmp.addr).check("RemoteSystemUpdatedEventArgs.get_RemoteSystem")
+    it.call(IRemoteSystemUpdatedEventArgs_get_RemoteSystem, tmp.addr)
     result = adopt[RemoteSystem](tmp)
 
-proc start*(self: RemoteSystemWatcher)  =
+proc start*(self: RemoteSystemWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.Start
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    vcall(it, Slot_IRemoteSystemWatcher_Start, Fn_IRemoteSystemWatcher_Start)(it).check("RemoteSystemWatcher.Start")
+  withIface(self.p, IRemoteSystemWatcher, it):
+    it.call(IRemoteSystemWatcher_Start)
 
-proc stop*(self: RemoteSystemWatcher)  =
+proc stop*(self: RemoteSystemWatcher) =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.Stop
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    vcall(it, Slot_IRemoteSystemWatcher_Stop, Fn_IRemoteSystemWatcher_Stop)(it).check("RemoteSystemWatcher.Stop")
+  withIface(self.p, IRemoteSystemWatcher, it):
+    it.call(IRemoteSystemWatcher_Stop)
 
 proc onRemoteSystemAdded*(self: RemoteSystemWatcher,
-    handler: proc(sender: RemoteSystemWatcher, args: RemoteSystemAddedEventArgs)): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[RemoteSystemWatcher, RemoteSystemAddedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.add_RemoteSystemAdded
-  ##
-  ## The token is what `removeRemoteSystemAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemAddedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemWatcher](a0), borrow[RemoteSystemAddedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoteSystemAdded` takes.
+  withIface(self.p, IRemoteSystemWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemWatcher](a0),
+              borrow[RemoteSystemAddedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemAddedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemWatcher_add_RemoteSystemAdded, Fn_IRemoteSystemWatcher_add_RemoteSystemAdded)(it, cb, result.addr)
-        .check("RemoteSystemWatcher.add_RemoteSystemAdded")
+      it.call(IRemoteSystemWatcher_add_RemoteSystemAdded, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoteSystemAdded*(self: RemoteSystemWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    vcall(it, Slot_IRemoteSystemWatcher_remove_RemoteSystemAdded, Fn_IRemoteSystemWatcher_remove_RemoteSystemAdded)(it, token).check("RemoteSystemWatcher.remove_RemoteSystemAdded")
+  withIface(self.p, IRemoteSystemWatcher, it):
+    it.call(IRemoteSystemWatcher_remove_RemoteSystemAdded, token)
 
 proc onRemoteSystemUpdated*(self: RemoteSystemWatcher,
-    handler: proc(sender: RemoteSystemWatcher, args: RemoteSystemUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[RemoteSystemWatcher, RemoteSystemUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.add_RemoteSystemUpdated
-  ##
-  ## The token is what `removeRemoteSystemUpdated` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemWatcher](a0), borrow[RemoteSystemUpdatedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoteSystemUpdated` takes.
+  withIface(self.p, IRemoteSystemWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemWatcher](a0),
+              borrow[RemoteSystemUpdatedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemUpdatedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemWatcher_add_RemoteSystemUpdated, Fn_IRemoteSystemWatcher_add_RemoteSystemUpdated)(it, cb, result.addr)
-        .check("RemoteSystemWatcher.add_RemoteSystemUpdated")
+      it.call(IRemoteSystemWatcher_add_RemoteSystemUpdated, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoteSystemUpdated*(self: RemoteSystemWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    vcall(it, Slot_IRemoteSystemWatcher_remove_RemoteSystemUpdated, Fn_IRemoteSystemWatcher_remove_RemoteSystemUpdated)(it, token).check("RemoteSystemWatcher.remove_RemoteSystemUpdated")
+  withIface(self.p, IRemoteSystemWatcher, it):
+    it.call(IRemoteSystemWatcher_remove_RemoteSystemUpdated, token)
 
 proc onRemoteSystemRemoved*(self: RemoteSystemWatcher,
-    handler: proc(sender: RemoteSystemWatcher, args: RemoteSystemRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[RemoteSystemWatcher, RemoteSystemRemovedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.add_RemoteSystemRemoved
-  ##
-  ## The token is what `removeRemoteSystemRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemWatcher](a0), borrow[RemoteSystemRemovedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoteSystemRemoved` takes.
+  withIface(self.p, IRemoteSystemWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemWatcher](a0),
+              borrow[RemoteSystemRemovedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemRemovedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemWatcher_add_RemoteSystemRemoved, Fn_IRemoteSystemWatcher_add_RemoteSystemRemoved)(it, cb, result.addr)
-        .check("RemoteSystemWatcher.add_RemoteSystemRemoved")
+      it.call(IRemoteSystemWatcher_add_RemoteSystemRemoved, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoteSystemRemoved*(self: RemoteSystemWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemWatcher, "IRemoteSystemWatcher", it):
-    vcall(it, Slot_IRemoteSystemWatcher_remove_RemoteSystemRemoved, Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved)(it, token).check("RemoteSystemWatcher.remove_RemoteSystemRemoved")
+  withIface(self.p, IRemoteSystemWatcher, it):
+    it.call(IRemoteSystemWatcher_remove_RemoteSystemRemoved, token)
 
 proc onEnumerationCompleted*(self: RemoteSystemWatcher,
-    handler: proc(sender: RemoteSystemWatcher, args: RemoteSystemEnumerationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[RemoteSystemWatcher, RemoteSystemEnumerationCompletedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.add_EnumerationCompleted
-  ##
-  ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemWatcher2, "IRemoteSystemWatcher2", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemEnumerationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemWatcher](a0), borrow[RemoteSystemEnumerationCompletedEventArgs](a1)), event = true)
+  ## The token is what `removeEnumerationCompleted` takes.
+  withIface(self.p, IRemoteSystemWatcher2, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemWatcher](a0),
+              borrow[RemoteSystemEnumerationCompletedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemEnumerationCompletedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemWatcher2_add_EnumerationCompleted, Fn_IRemoteSystemWatcher2_add_EnumerationCompleted)(it, cb, result.addr)
-        .check("RemoteSystemWatcher.add_EnumerationCompleted")
+      it.call(IRemoteSystemWatcher2_add_EnumerationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnumerationCompleted*(self: RemoteSystemWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemWatcher2, "IRemoteSystemWatcher2", it):
-    vcall(it, Slot_IRemoteSystemWatcher2_remove_EnumerationCompleted, Fn_IRemoteSystemWatcher2_remove_EnumerationCompleted)(it, token).check("RemoteSystemWatcher.remove_EnumerationCompleted")
+  withIface(self.p, IRemoteSystemWatcher2, it):
+    it.call(IRemoteSystemWatcher2_remove_EnumerationCompleted, token)
 
 proc onErrorOccurred*(self: RemoteSystemWatcher,
-    handler: proc(sender: RemoteSystemWatcher, args: RemoteSystemWatcherErrorOccurredEventArgs)): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[RemoteSystemWatcher, RemoteSystemWatcherErrorOccurredEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.add_ErrorOccurred
-  ##
-  ## The token is what `removeErrorOccurred` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IRemoteSystemWatcher2, "IRemoteSystemWatcher2", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemWatcherErrorOccurredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteSystemWatcher](a0), borrow[RemoteSystemWatcherErrorOccurredEventArgs](a1)), event = true)
+  ## The token is what `removeErrorOccurred` takes.
+  withIface(self.p, IRemoteSystemWatcher2, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[RemoteSystemWatcher](a0),
+              borrow[RemoteSystemWatcherErrorOccurredEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteSystemWatcher_RemoteSystemWatcherErrorOccurredEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IRemoteSystemWatcher2_add_ErrorOccurred, Fn_IRemoteSystemWatcher2_add_ErrorOccurred)(it, cb, result.addr)
-        .check("RemoteSystemWatcher.add_ErrorOccurred")
+      it.call(IRemoteSystemWatcher2_add_ErrorOccurred, cb, result.addr)
     finally:
       release(cb)
 
 proc removeErrorOccurred*(self: RemoteSystemWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IRemoteSystemWatcher2, "IRemoteSystemWatcher2", it):
-    vcall(it, Slot_IRemoteSystemWatcher2_remove_ErrorOccurred, Fn_IRemoteSystemWatcher2_remove_ErrorOccurred)(it, token).check("RemoteSystemWatcher.remove_ErrorOccurred")
+  withIface(self.p, IRemoteSystemWatcher2, it):
+    it.call(IRemoteSystemWatcher2_remove_ErrorOccurred, token)
 
-proc user*(self: RemoteSystemWatcher): User  =
+proc user*(self: RemoteSystemWatcher): User =
   ## Windows.System.RemoteSystems.RemoteSystemWatcher.get_User
-  withIface(self.p, IID_IRemoteSystemWatcher3, "IRemoteSystemWatcher3", it):
+  withIface(self.p, IRemoteSystemWatcher3, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemWatcher3_get_User, Fn_IRemoteSystemWatcher3_get_User)(it, tmp.addr).check("RemoteSystemWatcher.get_User")
+    it.call(IRemoteSystemWatcher3_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc error*(self: RemoteSystemWatcherErrorOccurredEventArgs): RemoteSystemWatcherError  =
+proc error*(self: RemoteSystemWatcherErrorOccurredEventArgs): RemoteSystemWatcherError =
   ## Windows.System.RemoteSystems.RemoteSystemWatcherErrorOccurredEventArgs.get_Error
-  withIface(self.p, IID_IRemoteSystemWatcherErrorOccurredEventArgs, "IRemoteSystemWatcherErrorOccurredEventArgs", it):
+  withIface(self.p, IRemoteSystemWatcherErrorOccurredEventArgs, it):
     var tmp: RemoteSystemWatcherError
-    vcall(it, Slot_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error, Fn_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error)(it, tmp.addr).check("RemoteSystemWatcherErrorOccurredEventArgs.get_Error")
+    it.call(IRemoteSystemWatcherErrorOccurredEventArgs_get_Error, tmp.addr)
     result = tmp
 
-proc account*(self: RemoteSystemWebAccountFilter): WebAccount  =
+proc account*(self: RemoteSystemWebAccountFilter): WebAccount =
   ## Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.get_Account
-  withIface(self.p, IID_IRemoteSystemWebAccountFilter, "IRemoteSystemWebAccountFilter", it):
+  withIface(self.p, IRemoteSystemWebAccountFilter, it):
     var tmp: pointer
-    vcall(it, Slot_IRemoteSystemWebAccountFilter_get_Account, Fn_IRemoteSystemWebAccountFilter_get_Account)(it, tmp.addr).check("RemoteSystemWebAccountFilter.get_Account")
+    it.call(IRemoteSystemWebAccountFilter_get_Account, tmp.addr)
     result = adopt[WebAccount](tmp)
 
-proc create*(_: typedesc[RemoteSystemWebAccountFilter], account: WebAccount): RemoteSystemWebAccountFilter  =
+proc create*(_: typedesc[RemoteSystemWebAccountFilter], account: WebAccount): RemoteSystemWebAccountFilter =
   ## Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create
-  withStatics("Windows.System.RemoteSystems.RemoteSystemWebAccountFilter", IID_IRemoteSystemWebAccountFilterFactory, it):
-    withIface(account.p, IID_IWebAccount, "IWebAccount", p0):
+  withStatics("Windows.System.RemoteSystems.RemoteSystemWebAccountFilter",
+              IRemoteSystemWebAccountFilterFactory, it):
+    withIface(account.p, IWebAccount, p0):
       var tmp: pointer
-      vcall(it, Slot_IRemoteSystemWebAccountFilterFactory_Create, Fn_IRemoteSystemWebAccountFilterFactory_Create)(it, p0, tmp.addr).check("RemoteSystemWebAccountFilter.Create")
+      it.call(IRemoteSystemWebAccountFilterFactory_Create, p0, tmp.addr)
       result = adopt[RemoteSystemWebAccountFilter](tmp)
 
-proc isPowerStateSupported*(_: typedesc[ShutdownManager], powerState: PowerState): bool  =
+proc isPowerStateSupported*(_: typedesc[ShutdownManager], powerState: PowerState): bool =
   ## Windows.System.ShutdownManager.IsPowerStateSupported
-  withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics2, it):
+  withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics2, it):
     var tmp: bool
-    vcall(it, Slot_IShutdownManagerStatics2_IsPowerStateSupported, Fn_IShutdownManagerStatics2_IsPowerStateSupported)(it, powerState, tmp.addr).check("ShutdownManager.IsPowerStateSupported")
+    it.call(IShutdownManagerStatics2_IsPowerStateSupported, powerState, tmp.addr)
     result = tmp
 
-proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState)  =
+proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState) =
   ## Windows.System.ShutdownManager.EnterPowerState
-  withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics2, it):
-    vcall(it, Slot_IShutdownManagerStatics2_EnterPowerState, Fn_IShutdownManagerStatics2_EnterPowerState)(it, powerState).check("ShutdownManager.EnterPowerState")
+  withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics2, it):
+    it.call(IShutdownManagerStatics2_EnterPowerState, powerState)
 
-proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState, wakeUpAfter: TimeSpan)  =
+proc enterPowerState*(_: typedesc[ShutdownManager], powerState: PowerState,
+                      wakeUpAfter: TimeSpan) =
   ## Windows.System.ShutdownManager.EnterPowerState
-  withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics2, it):
-    vcall(it, Slot_IShutdownManagerStatics2_EnterPowerState2, Fn_IShutdownManagerStatics2_EnterPowerState2)(it, powerState, wakeUpAfter).check("ShutdownManager.EnterPowerState")
+  withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics2, it):
+    it.call(IShutdownManagerStatics2_EnterPowerState2, powerState, wakeUpAfter)
 
-proc beginShutdown*(_: typedesc[ShutdownManager], shutdownKind: ShutdownKind, timeout: TimeSpan)  =
+proc beginShutdown*(_: typedesc[ShutdownManager], shutdownKind: ShutdownKind,
+                    timeout: TimeSpan) =
   ## Windows.System.ShutdownManager.BeginShutdown
-  withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics, it):
-    vcall(it, Slot_IShutdownManagerStatics_BeginShutdown, Fn_IShutdownManagerStatics_BeginShutdown)(it, shutdownKind, timeout).check("ShutdownManager.BeginShutdown")
+  withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics, it):
+    it.call(IShutdownManagerStatics_BeginShutdown, shutdownKind, timeout)
 
-proc cancelShutdown*(_: typedesc[ShutdownManager])  =
+proc cancelShutdown*(_: typedesc[ShutdownManager]) =
   ## Windows.System.ShutdownManager.CancelShutdown
-  withStatics("Windows.System.ShutdownManager", IID_IShutdownManagerStatics, it):
-    vcall(it, Slot_IShutdownManagerStatics_CancelShutdown, Fn_IShutdownManagerStatics_CancelShutdown)(it).check("ShutdownManager.CancelShutdown")
+  withStatics("Windows.System.ShutdownManager", IShutdownManagerStatics, it):
+    it.call(IShutdownManagerStatics_CancelShutdown)
 
 proc runAsync*(self: PreallocatedWorkItem) {.async.} =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.RunAsync
   var op: pointer
-  withIface(self.p, IID_IPreallocatedWorkItem, "IPreallocatedWorkItem", it):
-    vcall(it, Slot_IPreallocatedWorkItem_RunAsync, Fn_IPreallocatedWorkItem_RunAsync)(it, op.addr).check("PreallocatedWorkItem.RunAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "PreallocatedWorkItem.RunAsync")
+  withIface(self.p, IPreallocatedWorkItem, it):
+    it.call(IPreallocatedWorkItem_RunAsync, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "PreallocatedWorkItem.RunAsync")
 
-proc createWorkItem*(_: typedesc[PreallocatedWorkItem], handler: proc(a0: WinRtObject)): PreallocatedWorkItem  =
+proc createWorkItem*(_: typedesc[PreallocatedWorkItem],
+                     handler: proc(a0: WinRtObject)): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItem
-  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem",
+              IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItem, Fn_IPreallocatedWorkItemFactory_CreateWorkItem)(it, d0, tmp.addr).check("PreallocatedWorkItem.CreateWorkItem")
+    it.call(IPreallocatedWorkItemFactory_CreateWorkItem, d0, tmp.addr)
     result = adopt[PreallocatedWorkItem](tmp)
 
-proc createWorkItemWithPriority*(_: typedesc[PreallocatedWorkItem], handler: proc(a0: WinRtObject), priority: WorkItemPriority): PreallocatedWorkItem  =
+proc createWorkItemWithPriority*(_: typedesc[PreallocatedWorkItem],
+                                 handler: proc(a0: WinRtObject),
+                                 priority: WorkItemPriority): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriority
-  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem",
+              IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority, Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority)(it, d0, priority, tmp.addr).check("PreallocatedWorkItem.CreateWorkItemWithPriority")
+    it.call(IPreallocatedWorkItemFactory_CreateWorkItemWithPriority, d0,
+            priority, tmp.addr)
     result = adopt[PreallocatedWorkItem](tmp)
 
-proc createWorkItemWithPriorityAndOptions*(_: typedesc[PreallocatedWorkItem], handler: proc(a0: WinRtObject), priority: WorkItemPriority, options: WorkItemOptions): PreallocatedWorkItem  =
+proc createWorkItemWithPriorityAndOptions*(_: typedesc[PreallocatedWorkItem],
+                                           handler: proc(a0: WinRtObject),
+                                           priority: WorkItemPriority,
+                                           options: WorkItemOptions): PreallocatedWorkItem =
   ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriorityAndOptions
-  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem",
+              IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions, Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions)(it, d0, priority, options, tmp.addr).check("PreallocatedWorkItem.CreateWorkItemWithPriorityAndOptions")
+    it.call(IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions,
+            d0, priority, options, tmp.addr)
     result = adopt[PreallocatedWorkItem](tmp)
 
-proc invoke*(self: SignalHandler, signalNotifier: SignalNotifier, timedOut: bool)  =
+proc invoke*(self: SignalHandler, signalNotifier: SignalNotifier, timedOut: bool) =
   ## Windows.System.Threading.Core.SignalHandler.Invoke
-  withIface(self.p, IID_SignalHandler, "SignalHandler", it):
-    withIface(signalNotifier.p, IID_ISignalNotifier, "ISignalNotifier", p0):
-      vcall(it, Slot_SignalHandler_Invoke, Fn_SignalHandler_Invoke)(it, p0, timedOut).check("SignalHandler.Invoke")
+  withIface(self.p, SignalHandler, it):
+    withIface(signalNotifier.p, ISignalNotifier, p0):
+      it.call(SignalHandler_Invoke, p0, timedOut)
 
-proc enable*(self: SignalNotifier)  =
+proc enable*(self: SignalNotifier) =
   ## Windows.System.Threading.Core.SignalNotifier.Enable
-  withIface(self.p, IID_ISignalNotifier, "ISignalNotifier", it):
-    vcall(it, Slot_ISignalNotifier_Enable, Fn_ISignalNotifier_Enable)(it).check("SignalNotifier.Enable")
+  withIface(self.p, ISignalNotifier, it):
+    it.call(ISignalNotifier_Enable)
 
-proc terminate*(self: SignalNotifier)  =
+proc terminate*(self: SignalNotifier) =
   ## Windows.System.Threading.Core.SignalNotifier.Terminate
-  withIface(self.p, IID_ISignalNotifier, "ISignalNotifier", it):
-    vcall(it, Slot_ISignalNotifier_Terminate, Fn_ISignalNotifier_Terminate)(it).check("SignalNotifier.Terminate")
+  withIface(self.p, ISignalNotifier, it):
+    it.call(ISignalNotifier_Terminate)
 
-proc attachToEvent*(_: typedesc[SignalNotifier], name: string, handler: proc(a0: SignalNotifier, a1: bool)): SignalNotifier  =
+proc attachToEvent*(_: typedesc[SignalNotifier], name: string,
+                    handler: proc(a0: SignalNotifier, a1: bool)): SignalNotifier =
   ## Windows.System.Threading.Core.SignalNotifier.AttachToEvent
-  withStatics("Windows.System.Threading.Core.SignalNotifier", IID_ISignalNotifierStatics, it):
+  withStatics("Windows.System.Threading.Core.SignalNotifier",
+              ISignalNotifierStatics, it):
     withHString(name, h0):
-      let d1 = newDelegate(IID_SignalHandler, proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
+      let d1 = newDelegate(IID_SignalHandler,
+                           proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
       defer: discard release(d1)
       var tmp: pointer
-      vcall(it, Slot_ISignalNotifierStatics_AttachToEvent, Fn_ISignalNotifierStatics_AttachToEvent)(it, h0, d1, tmp.addr).check("SignalNotifier.AttachToEvent")
+      it.call(ISignalNotifierStatics_AttachToEvent, h0, d1, tmp.addr)
       result = adopt[SignalNotifier](tmp)
 
-proc attachToEvent*(_: typedesc[SignalNotifier], name: string, handler: proc(a0: SignalNotifier, a1: bool), timeout: TimeSpan): SignalNotifier  =
+proc attachToEvent*(_: typedesc[SignalNotifier], name: string,
+                    handler: proc(a0: SignalNotifier, a1: bool),
+                    timeout: TimeSpan): SignalNotifier =
   ## Windows.System.Threading.Core.SignalNotifier.AttachToEvent
-  withStatics("Windows.System.Threading.Core.SignalNotifier", IID_ISignalNotifierStatics, it):
+  withStatics("Windows.System.Threading.Core.SignalNotifier",
+              ISignalNotifierStatics, it):
     withHString(name, h0):
-      let d1 = newDelegate(IID_SignalHandler, proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
+      let d1 = newDelegate(IID_SignalHandler,
+                           proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
       defer: discard release(d1)
       var tmp: pointer
-      vcall(it, Slot_ISignalNotifierStatics_AttachToEvent2, Fn_ISignalNotifierStatics_AttachToEvent2)(it, h0, d1, timeout, tmp.addr).check("SignalNotifier.AttachToEvent")
+      it.call(ISignalNotifierStatics_AttachToEvent2, h0, d1, timeout, tmp.addr)
       result = adopt[SignalNotifier](tmp)
 
-proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string, handler: proc(a0: SignalNotifier, a1: bool)): SignalNotifier  =
+proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string,
+                        handler: proc(a0: SignalNotifier, a1: bool)): SignalNotifier =
   ## Windows.System.Threading.Core.SignalNotifier.AttachToSemaphore
-  withStatics("Windows.System.Threading.Core.SignalNotifier", IID_ISignalNotifierStatics, it):
+  withStatics("Windows.System.Threading.Core.SignalNotifier",
+              ISignalNotifierStatics, it):
     withHString(name, h0):
-      let d1 = newDelegate(IID_SignalHandler, proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
+      let d1 = newDelegate(IID_SignalHandler,
+                           proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
       defer: discard release(d1)
       var tmp: pointer
-      vcall(it, Slot_ISignalNotifierStatics_AttachToSemaphore, Fn_ISignalNotifierStatics_AttachToSemaphore)(it, h0, d1, tmp.addr).check("SignalNotifier.AttachToSemaphore")
+      it.call(ISignalNotifierStatics_AttachToSemaphore, h0, d1, tmp.addr)
       result = adopt[SignalNotifier](tmp)
 
-proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string, handler: proc(a0: SignalNotifier, a1: bool), timeout: TimeSpan): SignalNotifier  =
+proc attachToSemaphore*(_: typedesc[SignalNotifier], name: string,
+                        handler: proc(a0: SignalNotifier, a1: bool),
+                        timeout: TimeSpan): SignalNotifier =
   ## Windows.System.Threading.Core.SignalNotifier.AttachToSemaphore
-  withStatics("Windows.System.Threading.Core.SignalNotifier", IID_ISignalNotifierStatics, it):
+  withStatics("Windows.System.Threading.Core.SignalNotifier",
+              ISignalNotifierStatics, it):
     withHString(name, h0):
-      let d1 = newDelegate(IID_SignalHandler, proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
+      let d1 = newDelegate(IID_SignalHandler,
+                           proc(a0: pointer, a1: bool) = handler(borrow[SignalNotifier](a0), a1))
       defer: discard release(d1)
       var tmp: pointer
-      vcall(it, Slot_ISignalNotifierStatics_AttachToSemaphore2, Fn_ISignalNotifierStatics_AttachToSemaphore2)(it, h0, d1, timeout, tmp.addr).check("SignalNotifier.AttachToSemaphore")
+      it.call(ISignalNotifierStatics_AttachToSemaphore2, h0, d1, timeout,
+              tmp.addr)
       result = adopt[SignalNotifier](tmp)
 
 proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject)) {.async.} =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
-  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
-    vcall(it, Slot_IThreadPoolStatics_RunAsync, Fn_IThreadPoolStatics_RunAsync)(it, d0, op.addr).check("ThreadPool.RunAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ThreadPool.RunAsync")
+    it.call(IThreadPoolStatics_RunAsync, d0, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "ThreadPool.RunAsync")
 
-proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject), priority: WorkItemPriority) {.async.} =
+proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
+               priority: WorkItemPriority) {.async.} =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
-  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
-    vcall(it, Slot_IThreadPoolStatics_RunAsync2, Fn_IThreadPoolStatics_RunAsync2)(it, d0, priority, op.addr).check("ThreadPool.RunAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ThreadPool.RunAsync")
+    it.call(IThreadPoolStatics_RunAsync2, d0, priority, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "ThreadPool.RunAsync")
 
-proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject), priority: WorkItemPriority, options: WorkItemOptions) {.async.} =
+proc runAsync*(_: typedesc[ThreadPool], handler: proc(a0: WinRtObject),
+               priority: WorkItemPriority, options: WorkItemOptions) {.async.} =
   ## Windows.System.Threading.ThreadPool.RunAsync
   var op: pointer
-  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
-    let d0 = newDelegate(IID_WorkItemHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
+  withStatics("Windows.System.Threading.ThreadPool", IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler,
+                         proc(a0: pointer) = handler(borrow[WinRtObject](a0)))
     defer: discard release(d0)
-    vcall(it, Slot_IThreadPoolStatics_RunAsync3, Fn_IThreadPoolStatics_RunAsync3)(it, d0, priority, options, op.addr).check("ThreadPool.RunAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ThreadPool.RunAsync")
+    it.call(IThreadPoolStatics_RunAsync3, d0, priority, options, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "ThreadPool.RunAsync")
 
-proc period*(self: ThreadPoolTimer): TimeSpan  =
+proc period*(self: ThreadPoolTimer): TimeSpan =
   ## Windows.System.Threading.ThreadPoolTimer.get_Period
-  withIface(self.p, IID_IThreadPoolTimer, "IThreadPoolTimer", it):
+  withIface(self.p, IThreadPoolTimer, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IThreadPoolTimer_get_Period, Fn_IThreadPoolTimer_get_Period)(it, tmp.addr).check("ThreadPoolTimer.get_Period")
+    it.call(IThreadPoolTimer_get_Period, tmp.addr)
     result = tmp
 
-proc delay*(self: ThreadPoolTimer): TimeSpan  =
+proc delay*(self: ThreadPoolTimer): TimeSpan =
   ## Windows.System.Threading.ThreadPoolTimer.get_Delay
-  withIface(self.p, IID_IThreadPoolTimer, "IThreadPoolTimer", it):
+  withIface(self.p, IThreadPoolTimer, it):
     var tmp: TimeSpan
-    vcall(it, Slot_IThreadPoolTimer_get_Delay, Fn_IThreadPoolTimer_get_Delay)(it, tmp.addr).check("ThreadPoolTimer.get_Delay")
+    it.call(IThreadPoolTimer_get_Delay, tmp.addr)
     result = tmp
 
-proc cancel*(self: ThreadPoolTimer)  =
+proc cancel*(self: ThreadPoolTimer) =
   ## Windows.System.Threading.ThreadPoolTimer.Cancel
-  withIface(self.p, IID_IThreadPoolTimer, "IThreadPoolTimer", it):
-    vcall(it, Slot_IThreadPoolTimer_Cancel, Fn_IThreadPoolTimer_Cancel)(it).check("ThreadPoolTimer.Cancel")
+  withIface(self.p, IThreadPoolTimer, it):
+    it.call(IThreadPoolTimer_Cancel)
 
-proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer], handler: proc(a0: ThreadPoolTimer), period: TimeSpan): ThreadPoolTimer  =
+proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer],
+                          handler: proc(a0: ThreadPoolTimer), period: TimeSpan): ThreadPoolTimer =
   ## Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer
-  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
-    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
+  withStatics("Windows.System.Threading.ThreadPoolTimer",
+              IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler,
+                         proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IThreadPoolTimerStatics_CreatePeriodicTimer, Fn_IThreadPoolTimerStatics_CreatePeriodicTimer)(it, d0, period, tmp.addr).check("ThreadPoolTimer.CreatePeriodicTimer")
+    it.call(IThreadPoolTimerStatics_CreatePeriodicTimer, d0, period, tmp.addr)
     result = adopt[ThreadPoolTimer](tmp)
 
-proc createTimer*(_: typedesc[ThreadPoolTimer], handler: proc(a0: ThreadPoolTimer), delay: TimeSpan): ThreadPoolTimer  =
+proc createTimer*(_: typedesc[ThreadPoolTimer],
+                  handler: proc(a0: ThreadPoolTimer), delay: TimeSpan): ThreadPoolTimer =
   ## Windows.System.Threading.ThreadPoolTimer.CreateTimer
-  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
-    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
+  withStatics("Windows.System.Threading.ThreadPoolTimer",
+              IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler,
+                         proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d0)
     var tmp: pointer
-    vcall(it, Slot_IThreadPoolTimerStatics_CreateTimer, Fn_IThreadPoolTimerStatics_CreateTimer)(it, d0, delay, tmp.addr).check("ThreadPoolTimer.CreateTimer")
+    it.call(IThreadPoolTimerStatics_CreateTimer, d0, delay, tmp.addr)
     result = adopt[ThreadPoolTimer](tmp)
 
-proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer], handler: proc(a0: ThreadPoolTimer), period: TimeSpan, destroyed: proc(a0: ThreadPoolTimer)): ThreadPoolTimer  =
+proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer],
+                          handler: proc(a0: ThreadPoolTimer), period: TimeSpan,
+                          destroyed: proc(a0: ThreadPoolTimer)): ThreadPoolTimer =
   ## Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer
-  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
-    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
+  withStatics("Windows.System.Threading.ThreadPoolTimer",
+              IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler,
+                         proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d0)
-    let d2 = newDelegate(IID_TimerDestroyedHandler, proc(a0: pointer) = destroyed(borrow[ThreadPoolTimer](a0)))
+    let d2 = newDelegate(IID_TimerDestroyedHandler,
+                         proc(a0: pointer) = destroyed(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d2)
     var tmp: pointer
-    vcall(it, Slot_IThreadPoolTimerStatics_CreatePeriodicTimer2, Fn_IThreadPoolTimerStatics_CreatePeriodicTimer2)(it, d0, period, d2, tmp.addr).check("ThreadPoolTimer.CreatePeriodicTimer")
+    it.call(IThreadPoolTimerStatics_CreatePeriodicTimer2, d0, period, d2,
+            tmp.addr)
     result = adopt[ThreadPoolTimer](tmp)
 
-proc createTimer*(_: typedesc[ThreadPoolTimer], handler: proc(a0: ThreadPoolTimer), delay: TimeSpan, destroyed: proc(a0: ThreadPoolTimer)): ThreadPoolTimer  =
+proc createTimer*(_: typedesc[ThreadPoolTimer],
+                  handler: proc(a0: ThreadPoolTimer), delay: TimeSpan,
+                  destroyed: proc(a0: ThreadPoolTimer)): ThreadPoolTimer =
   ## Windows.System.Threading.ThreadPoolTimer.CreateTimer
-  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
-    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
+  withStatics("Windows.System.Threading.ThreadPoolTimer",
+              IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler,
+                         proc(a0: pointer) = handler(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d0)
-    let d2 = newDelegate(IID_TimerDestroyedHandler, proc(a0: pointer) = destroyed(borrow[ThreadPoolTimer](a0)))
+    let d2 = newDelegate(IID_TimerDestroyedHandler,
+                         proc(a0: pointer) = destroyed(borrow[ThreadPoolTimer](a0)))
     defer: discard release(d2)
     var tmp: pointer
-    vcall(it, Slot_IThreadPoolTimerStatics_CreateTimer2, Fn_IThreadPoolTimerStatics_CreateTimer2)(it, d0, delay, d2, tmp.addr).check("ThreadPoolTimer.CreateTimer")
+    it.call(IThreadPoolTimerStatics_CreateTimer2, d0, delay, d2, tmp.addr)
     result = adopt[ThreadPoolTimer](tmp)
 
-proc invoke*(self: TimerDestroyedHandler, timer: ThreadPoolTimer)  =
+proc invoke*(self: TimerDestroyedHandler, timer: ThreadPoolTimer) =
   ## Windows.System.Threading.TimerDestroyedHandler.Invoke
-  withIface(self.p, IID_TimerDestroyedHandler, "TimerDestroyedHandler", it):
-    withIface(timer.p, IID_IThreadPoolTimer, "IThreadPoolTimer", p0):
-      vcall(it, Slot_TimerDestroyedHandler_Invoke, Fn_TimerDestroyedHandler_Invoke)(it, p0).check("TimerDestroyedHandler.Invoke")
+  withIface(self.p, TimerDestroyedHandler, it):
+    withIface(timer.p, IThreadPoolTimer, p0):
+      it.call(TimerDestroyedHandler_Invoke, p0)
 
-proc invoke*(self: TimerElapsedHandler, timer: ThreadPoolTimer)  =
+proc invoke*(self: TimerElapsedHandler, timer: ThreadPoolTimer) =
   ## Windows.System.Threading.TimerElapsedHandler.Invoke
-  withIface(self.p, IID_TimerElapsedHandler, "TimerElapsedHandler", it):
-    withIface(timer.p, IID_IThreadPoolTimer, "IThreadPoolTimer", p0):
-      vcall(it, Slot_TimerElapsedHandler_Invoke, Fn_TimerElapsedHandler_Invoke)(it, p0).check("TimerElapsedHandler.Invoke")
+  withIface(self.p, TimerElapsedHandler, it):
+    withIface(timer.p, IThreadPoolTimer, p0):
+      it.call(TimerElapsedHandler_Invoke, p0)
 
-proc invoke*(self: WorkItemHandler, operation: WinRtObject)  =
+proc invoke*(self: WorkItemHandler, operation: WinRtObject) =
   ## Windows.System.Threading.WorkItemHandler.Invoke
-  withIface(self.p, IID_WorkItemHandler, "WorkItemHandler", it):
-    withIface(operation.p, IID_IAsyncAction, "IAsyncAction", p0):
-      vcall(it, Slot_WorkItemHandler_Invoke, Fn_WorkItemHandler_Invoke)(it, p0).check("WorkItemHandler.Invoke")
+  withIface(self.p, WorkItemHandler, it):
+    withIface(operation.p, IAsyncAction, p0):
+      it.call(WorkItemHandler_Invoke, p0)
 
-proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string  =
+proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string =
   ## Windows.System.TimeZoneSettings.get_CurrentTimeZoneDisplayName
-  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
+  withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName, Fn_ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName)(it, tmp.addr).check("TimeZoneSettings.get_CurrentTimeZoneDisplayName")
+    it.call(ITimeZoneSettingsStatics_get_CurrentTimeZoneDisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string]  =
+proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string] =
   ## Windows.System.TimeZoneSettings.get_SupportedTimeZoneDisplayNames
-  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
+  withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames, Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames)(it, tmp.addr).check("TimeZoneSettings.get_SupportedTimeZoneDisplayNames")
+    it.call(ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool  =
+proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool =
   ## Windows.System.TimeZoneSettings.get_CanChangeTimeZone
-  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
+  withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics, it):
     var tmp: bool
-    vcall(it, Slot_ITimeZoneSettingsStatics_get_CanChangeTimeZone, Fn_ITimeZoneSettingsStatics_get_CanChangeTimeZone)(it, tmp.addr).check("TimeZoneSettings.get_CanChangeTimeZone")
+    it.call(ITimeZoneSettingsStatics_get_CanChangeTimeZone, tmp.addr)
     result = tmp
 
-proc changeTimeZoneByDisplayName*(_: typedesc[TimeZoneSettings], timeZoneDisplayName: string)  =
+proc changeTimeZoneByDisplayName*(_: typedesc[TimeZoneSettings],
+                                  timeZoneDisplayName: string) =
   ## Windows.System.TimeZoneSettings.ChangeTimeZoneByDisplayName
-  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
+  withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics, it):
     withHString(timeZoneDisplayName, h0):
-      vcall(it, Slot_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName, Fn_ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName)(it, h0).check("TimeZoneSettings.ChangeTimeZoneByDisplayName")
+      it.call(ITimeZoneSettingsStatics_ChangeTimeZoneByDisplayName, h0)
 
 proc autoUpdateTimeZoneAsync*(_: typedesc[TimeZoneSettings], timeout: TimeSpan): Future[AutoUpdateTimeZoneStatus] {.async.} =
   ## Windows.System.TimeZoneSettings.AutoUpdateTimeZoneAsync
   var op: pointer
-  withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics2, it):
-    vcall(it, Slot_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync, Fn_ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync)(it, timeout, op.addr).check("TimeZoneSettings.AutoUpdateTimeZoneAsync")
-  result = await awaitValue[AutoUpdateTimeZoneStatus](op, IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus, IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus, alPlain, "TimeZoneSettings.AutoUpdateTimeZoneAsync")
+  withStatics("Windows.System.TimeZoneSettings", ITimeZoneSettingsStatics2, it):
+    it.call(ITimeZoneSettingsStatics2_AutoUpdateTimeZoneAsync, timeout, op.addr)
+  result = await awaitValue[AutoUpdateTimeZoneStatus](op,
+                                                      IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus,
+                                                      IID_AsyncOperationCompletedHandler_1_AutoUpdateTimeZoneStatus,
+                                                      alPlain,
+                                                      "TimeZoneSettings.AutoUpdateTimeZoneAsync")
 
-proc state*(self: SystemUpdateItem): SystemUpdateItemState  =
+proc state*(self: SystemUpdateItem): SystemUpdateItemState =
   ## Windows.System.Update.SystemUpdateItem.get_State
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: SystemUpdateItemState
-    vcall(it, Slot_ISystemUpdateItem_get_State, Fn_ISystemUpdateItem_get_State)(it, tmp.addr).check("SystemUpdateItem.get_State")
+    it.call(ISystemUpdateItem_get_State, tmp.addr)
     result = tmp
 
-proc title*(self: SystemUpdateItem): string  =
+proc title*(self: SystemUpdateItem): string =
   ## Windows.System.Update.SystemUpdateItem.get_Title
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemUpdateItem_get_Title, Fn_ISystemUpdateItem_get_Title)(it, tmp.addr).check("SystemUpdateItem.get_Title")
+    it.call(ISystemUpdateItem_get_Title, tmp.addr)
     result = takeString(tmp)
 
-proc description*(self: SystemUpdateItem): string  =
+proc description*(self: SystemUpdateItem): string =
   ## Windows.System.Update.SystemUpdateItem.get_Description
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemUpdateItem_get_Description, Fn_ISystemUpdateItem_get_Description)(it, tmp.addr).check("SystemUpdateItem.get_Description")
+    it.call(ISystemUpdateItem_get_Description, tmp.addr)
     result = takeString(tmp)
 
-proc id*(self: SystemUpdateItem): string  =
+proc id*(self: SystemUpdateItem): string =
   ## Windows.System.Update.SystemUpdateItem.get_Id
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemUpdateItem_get_Id, Fn_ISystemUpdateItem_get_Id)(it, tmp.addr).check("SystemUpdateItem.get_Id")
+    it.call(ISystemUpdateItem_get_Id, tmp.addr)
     result = takeString(tmp)
 
-proc revision*(self: SystemUpdateItem): uint32  =
+proc revision*(self: SystemUpdateItem): uint32 =
   ## Windows.System.Update.SystemUpdateItem.get_Revision
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: uint32
-    vcall(it, Slot_ISystemUpdateItem_get_Revision, Fn_ISystemUpdateItem_get_Revision)(it, tmp.addr).check("SystemUpdateItem.get_Revision")
+    it.call(ISystemUpdateItem_get_Revision, tmp.addr)
     result = tmp
 
-proc downloadProgress*(self: SystemUpdateItem): float64  =
+proc downloadProgress*(self: SystemUpdateItem): float64 =
   ## Windows.System.Update.SystemUpdateItem.get_DownloadProgress
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: float64
-    vcall(it, Slot_ISystemUpdateItem_get_DownloadProgress, Fn_ISystemUpdateItem_get_DownloadProgress)(it, tmp.addr).check("SystemUpdateItem.get_DownloadProgress")
+    it.call(ISystemUpdateItem_get_DownloadProgress, tmp.addr)
     result = tmp
 
-proc installProgress*(self: SystemUpdateItem): float64  =
+proc installProgress*(self: SystemUpdateItem): float64 =
   ## Windows.System.Update.SystemUpdateItem.get_InstallProgress
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: float64
-    vcall(it, Slot_ISystemUpdateItem_get_InstallProgress, Fn_ISystemUpdateItem_get_InstallProgress)(it, tmp.addr).check("SystemUpdateItem.get_InstallProgress")
+    it.call(ISystemUpdateItem_get_InstallProgress, tmp.addr)
     result = tmp
 
-proc extendedError*(self: SystemUpdateItem): HRESULT  =
+proc extendedError*(self: SystemUpdateItem): HRESULT =
   ## Windows.System.Update.SystemUpdateItem.get_ExtendedError
-  withIface(self.p, IID_ISystemUpdateItem, "ISystemUpdateItem", it):
+  withIface(self.p, ISystemUpdateItem, it):
     var tmp: HRESULT
-    vcall(it, Slot_ISystemUpdateItem_get_ExtendedError, Fn_ISystemUpdateItem_get_ExtendedError)(it, tmp.addr).check("SystemUpdateItem.get_ExtendedError")
+    it.call(ISystemUpdateItem_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc state*(self: SystemUpdateLastErrorInfo): SystemUpdateManagerState  =
+proc state*(self: SystemUpdateLastErrorInfo): SystemUpdateManagerState =
   ## Windows.System.Update.SystemUpdateLastErrorInfo.get_State
-  withIface(self.p, IID_ISystemUpdateLastErrorInfo, "ISystemUpdateLastErrorInfo", it):
+  withIface(self.p, ISystemUpdateLastErrorInfo, it):
     var tmp: SystemUpdateManagerState
-    vcall(it, Slot_ISystemUpdateLastErrorInfo_get_State, Fn_ISystemUpdateLastErrorInfo_get_State)(it, tmp.addr).check("SystemUpdateLastErrorInfo.get_State")
+    it.call(ISystemUpdateLastErrorInfo_get_State, tmp.addr)
     result = tmp
 
-proc extendedError*(self: SystemUpdateLastErrorInfo): HRESULT  =
+proc extendedError*(self: SystemUpdateLastErrorInfo): HRESULT =
   ## Windows.System.Update.SystemUpdateLastErrorInfo.get_ExtendedError
-  withIface(self.p, IID_ISystemUpdateLastErrorInfo, "ISystemUpdateLastErrorInfo", it):
+  withIface(self.p, ISystemUpdateLastErrorInfo, it):
     var tmp: HRESULT
-    vcall(it, Slot_ISystemUpdateLastErrorInfo_get_ExtendedError, Fn_ISystemUpdateLastErrorInfo_get_ExtendedError)(it, tmp.addr).check("SystemUpdateLastErrorInfo.get_ExtendedError")
+    it.call(ISystemUpdateLastErrorInfo_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc isInteractive*(self: SystemUpdateLastErrorInfo): bool  =
+proc isInteractive*(self: SystemUpdateLastErrorInfo): bool =
   ## Windows.System.Update.SystemUpdateLastErrorInfo.get_IsInteractive
-  withIface(self.p, IID_ISystemUpdateLastErrorInfo, "ISystemUpdateLastErrorInfo", it):
+  withIface(self.p, ISystemUpdateLastErrorInfo, it):
     var tmp: bool
-    vcall(it, Slot_ISystemUpdateLastErrorInfo_get_IsInteractive, Fn_ISystemUpdateLastErrorInfo_get_IsInteractive)(it, tmp.addr).check("SystemUpdateLastErrorInfo.get_IsInteractive")
+    it.call(ISystemUpdateLastErrorInfo_get_IsInteractive, tmp.addr)
     result = tmp
 
-proc isSupported*(_: typedesc[SystemUpdateManager]): bool  =
+proc isSupported*(_: typedesc[SystemUpdateManager]): bool =
   ## Windows.System.Update.SystemUpdateManager.IsSupported
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: bool
-    vcall(it, Slot_ISystemUpdateManagerStatics_IsSupported, Fn_ISystemUpdateManagerStatics_IsSupported)(it, tmp.addr).check("SystemUpdateManager.IsSupported")
+    it.call(ISystemUpdateManagerStatics_IsSupported, tmp.addr)
     result = tmp
 
-proc state*(_: typedesc[SystemUpdateManager]): SystemUpdateManagerState  =
+proc state*(_: typedesc[SystemUpdateManager]): SystemUpdateManagerState =
   ## Windows.System.Update.SystemUpdateManager.get_State
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: SystemUpdateManagerState
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_State, Fn_ISystemUpdateManagerStatics_get_State)(it, tmp.addr).check("SystemUpdateManager.get_State")
+    it.call(ISystemUpdateManagerStatics_get_State, tmp.addr)
     result = tmp
 
 proc onStateChanged*(_: typedesc[SystemUpdateManager],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.Update.SystemUpdateManager.add_StateChanged
-  ##
-  ## The token is what `removeStateChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeStateChanged` takes.
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_ISystemUpdateManagerStatics_add_StateChanged, Fn_ISystemUpdateManagerStatics_add_StateChanged)(it, cb, result.addr)
-        .check("SystemUpdateManager.add_StateChanged")
+      it.call(ISystemUpdateManagerStatics_add_StateChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeStateChanged*(_: typedesc[SystemUpdateManager], token: EventRegistrationToken) =
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
-    vcall(it, Slot_ISystemUpdateManagerStatics_remove_StateChanged, Fn_ISystemUpdateManagerStatics_remove_StateChanged)(it, token).check("SystemUpdateManager.remove_StateChanged")
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
+    it.call(ISystemUpdateManagerStatics_remove_StateChanged, token)
 
-proc downloadProgress*(_: typedesc[SystemUpdateManager]): float64  =
+proc downloadProgress*(_: typedesc[SystemUpdateManager]): float64 =
   ## Windows.System.Update.SystemUpdateManager.get_DownloadProgress
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: float64
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_DownloadProgress, Fn_ISystemUpdateManagerStatics_get_DownloadProgress)(it, tmp.addr).check("SystemUpdateManager.get_DownloadProgress")
+    it.call(ISystemUpdateManagerStatics_get_DownloadProgress, tmp.addr)
     result = tmp
 
-proc installProgress*(_: typedesc[SystemUpdateManager]): float64  =
+proc installProgress*(_: typedesc[SystemUpdateManager]): float64 =
   ## Windows.System.Update.SystemUpdateManager.get_InstallProgress
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: float64
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_InstallProgress, Fn_ISystemUpdateManagerStatics_get_InstallProgress)(it, tmp.addr).check("SystemUpdateManager.get_InstallProgress")
+    it.call(ISystemUpdateManagerStatics_get_InstallProgress, tmp.addr)
     result = tmp
 
-proc userActiveHoursStart*(_: typedesc[SystemUpdateManager]): TimeSpan  =
+proc userActiveHoursStart*(_: typedesc[SystemUpdateManager]): TimeSpan =
   ## Windows.System.Update.SystemUpdateManager.get_UserActiveHoursStart
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: TimeSpan
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_UserActiveHoursStart, Fn_ISystemUpdateManagerStatics_get_UserActiveHoursStart)(it, tmp.addr).check("SystemUpdateManager.get_UserActiveHoursStart")
+    it.call(ISystemUpdateManagerStatics_get_UserActiveHoursStart, tmp.addr)
     result = tmp
 
-proc userActiveHoursEnd*(_: typedesc[SystemUpdateManager]): TimeSpan  =
+proc userActiveHoursEnd*(_: typedesc[SystemUpdateManager]): TimeSpan =
   ## Windows.System.Update.SystemUpdateManager.get_UserActiveHoursEnd
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: TimeSpan
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_UserActiveHoursEnd, Fn_ISystemUpdateManagerStatics_get_UserActiveHoursEnd)(it, tmp.addr).check("SystemUpdateManager.get_UserActiveHoursEnd")
+    it.call(ISystemUpdateManagerStatics_get_UserActiveHoursEnd, tmp.addr)
     result = tmp
 
-proc userActiveHoursMax*(_: typedesc[SystemUpdateManager]): int32  =
+proc userActiveHoursMax*(_: typedesc[SystemUpdateManager]): int32 =
   ## Windows.System.Update.SystemUpdateManager.get_UserActiveHoursMax
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: int32
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_UserActiveHoursMax, Fn_ISystemUpdateManagerStatics_get_UserActiveHoursMax)(it, tmp.addr).check("SystemUpdateManager.get_UserActiveHoursMax")
+    it.call(ISystemUpdateManagerStatics_get_UserActiveHoursMax, tmp.addr)
     result = tmp
 
-proc trySetUserActiveHours*(_: typedesc[SystemUpdateManager], start: TimeSpan, `end`: TimeSpan): bool  =
+proc trySetUserActiveHours*(_: typedesc[SystemUpdateManager], start: TimeSpan,
+                            `end`: TimeSpan): bool =
   ## Windows.System.Update.SystemUpdateManager.TrySetUserActiveHours
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: bool
-    vcall(it, Slot_ISystemUpdateManagerStatics_TrySetUserActiveHours, Fn_ISystemUpdateManagerStatics_TrySetUserActiveHours)(it, start, `end`, tmp.addr).check("SystemUpdateManager.TrySetUserActiveHours")
+    it.call(ISystemUpdateManagerStatics_TrySetUserActiveHours, start, `end`,
+            tmp.addr)
     result = tmp
 
-proc lastUpdateCheckTime*(_: typedesc[SystemUpdateManager]): DateTime  =
+proc lastUpdateCheckTime*(_: typedesc[SystemUpdateManager]): DateTime =
   ## Windows.System.Update.SystemUpdateManager.get_LastUpdateCheckTime
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: DateTime
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_LastUpdateCheckTime, Fn_ISystemUpdateManagerStatics_get_LastUpdateCheckTime)(it, tmp.addr).check("SystemUpdateManager.get_LastUpdateCheckTime")
+    it.call(ISystemUpdateManagerStatics_get_LastUpdateCheckTime, tmp.addr)
     result = tmp
 
-proc lastUpdateInstallTime*(_: typedesc[SystemUpdateManager]): DateTime  =
+proc lastUpdateInstallTime*(_: typedesc[SystemUpdateManager]): DateTime =
   ## Windows.System.Update.SystemUpdateManager.get_LastUpdateInstallTime
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: DateTime
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_LastUpdateInstallTime, Fn_ISystemUpdateManagerStatics_get_LastUpdateInstallTime)(it, tmp.addr).check("SystemUpdateManager.get_LastUpdateInstallTime")
+    it.call(ISystemUpdateManagerStatics_get_LastUpdateInstallTime, tmp.addr)
     result = tmp
 
-proc lastErrorInfo*(_: typedesc[SystemUpdateManager]): SystemUpdateLastErrorInfo  =
+proc lastErrorInfo*(_: typedesc[SystemUpdateManager]): SystemUpdateLastErrorInfo =
   ## Windows.System.Update.SystemUpdateManager.get_LastErrorInfo
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_LastErrorInfo, Fn_ISystemUpdateManagerStatics_get_LastErrorInfo)(it, tmp.addr).check("SystemUpdateManager.get_LastErrorInfo")
+    it.call(ISystemUpdateManagerStatics_get_LastErrorInfo, tmp.addr)
     result = adopt[SystemUpdateLastErrorInfo](tmp)
 
-proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string]  =
+proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] =
   ## Windows.System.Update.SystemUpdateManager.GetAutomaticRebootBlockIds
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds, Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds)(it, tmp.addr).check("SystemUpdateManager.GetAutomaticRebootBlockIds")
+    it.call(ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string): Future[bool] {.async.} =
   ## Windows.System.Update.SystemUpdateManager.BlockAutomaticRebootAsync
   var op: pointer
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     withHString(lockId, h0):
-      vcall(it, Slot_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync, Fn_ISystemUpdateManagerStatics_BlockAutomaticRebootAsync)(it, h0, op.addr).check("SystemUpdateManager.BlockAutomaticRebootAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "SystemUpdateManager.BlockAutomaticRebootAsync")
+      it.call(ISystemUpdateManagerStatics_BlockAutomaticRebootAsync, h0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "SystemUpdateManager.BlockAutomaticRebootAsync")
 
-proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string): Future[bool] {.async.} =
+proc unblockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager],
+                                  lockId: string): Future[bool] {.async.} =
   ## Windows.System.Update.SystemUpdateManager.UnblockAutomaticRebootAsync
   var op: pointer
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     withHString(lockId, h0):
-      vcall(it, Slot_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync, Fn_ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync)(it, h0, op.addr).check("SystemUpdateManager.UnblockAutomaticRebootAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "SystemUpdateManager.UnblockAutomaticRebootAsync")
+      it.call(ISystemUpdateManagerStatics_UnblockAutomaticRebootAsync, h0,
+              op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "SystemUpdateManager.UnblockAutomaticRebootAsync")
 
-proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT  =
+proc extendedError*(_: typedesc[SystemUpdateManager]): HRESULT =
   ## Windows.System.Update.SystemUpdateManager.get_ExtendedError
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: HRESULT
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_ExtendedError, Fn_ISystemUpdateManagerStatics_get_ExtendedError)(it, tmp.addr).check("SystemUpdateManager.get_ExtendedError")
+    it.call(ISystemUpdateManagerStatics_get_ExtendedError, tmp.addr)
     result = tmp
 
-proc getUpdateItems*(_: typedesc[SystemUpdateManager]): seq[SystemUpdateItem]  =
+proc getUpdateItems*(_: typedesc[SystemUpdateManager]): seq[SystemUpdateItem] =
   ## Windows.System.Update.SystemUpdateManager.GetUpdateItems
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ISystemUpdateManagerStatics_GetUpdateItems, Fn_ISystemUpdateManagerStatics_GetUpdateItems)(it, tmp.addr).check("SystemUpdateManager.GetUpdateItems")
+    it.call(ISystemUpdateManagerStatics_GetUpdateItems, tmp.addr)
     result = toSeq[SystemUpdateItem](tmp, IID_IVectorView_1_SystemUpdateItem)
     release(tmp)
 
-proc attentionRequiredReason*(_: typedesc[SystemUpdateManager]): SystemUpdateAttentionRequiredReason  =
+proc attentionRequiredReason*(_: typedesc[SystemUpdateManager]): SystemUpdateAttentionRequiredReason =
   ## Windows.System.Update.SystemUpdateManager.get_AttentionRequiredReason
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: SystemUpdateAttentionRequiredReason
-    vcall(it, Slot_ISystemUpdateManagerStatics_get_AttentionRequiredReason, Fn_ISystemUpdateManagerStatics_get_AttentionRequiredReason)(it, tmp.addr).check("SystemUpdateManager.get_AttentionRequiredReason")
+    it.call(ISystemUpdateManagerStatics_get_AttentionRequiredReason, tmp.addr)
     result = tmp
 
-proc setFlightRing*(_: typedesc[SystemUpdateManager], flightRing: string): bool  =
+proc setFlightRing*(_: typedesc[SystemUpdateManager], flightRing: string): bool =
   ## Windows.System.Update.SystemUpdateManager.SetFlightRing
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     withHString(flightRing, h0):
       var tmp: bool
-      vcall(it, Slot_ISystemUpdateManagerStatics_SetFlightRing, Fn_ISystemUpdateManagerStatics_SetFlightRing)(it, h0, tmp.addr).check("SystemUpdateManager.SetFlightRing")
+      it.call(ISystemUpdateManagerStatics_SetFlightRing, h0, tmp.addr)
       result = tmp
 
-proc getFlightRing*(_: typedesc[SystemUpdateManager]): string  =
+proc getFlightRing*(_: typedesc[SystemUpdateManager]): string =
   ## Windows.System.Update.SystemUpdateManager.GetFlightRing
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_ISystemUpdateManagerStatics_GetFlightRing, Fn_ISystemUpdateManagerStatics_GetFlightRing)(it, tmp.addr).check("SystemUpdateManager.GetFlightRing")
+    it.call(ISystemUpdateManagerStatics_GetFlightRing, tmp.addr)
     result = takeString(tmp)
 
-proc startInstall*(_: typedesc[SystemUpdateManager], action: SystemUpdateStartInstallAction)  =
+proc startInstall*(_: typedesc[SystemUpdateManager],
+                   action: SystemUpdateStartInstallAction) =
   ## Windows.System.Update.SystemUpdateManager.StartInstall
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
-    vcall(it, Slot_ISystemUpdateManagerStatics_StartInstall, Fn_ISystemUpdateManagerStatics_StartInstall)(it, action).check("SystemUpdateManager.StartInstall")
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
+    it.call(ISystemUpdateManagerStatics_StartInstall, action)
 
-proc rebootToCompleteInstall*(_: typedesc[SystemUpdateManager])  =
+proc rebootToCompleteInstall*(_: typedesc[SystemUpdateManager]) =
   ## Windows.System.Update.SystemUpdateManager.RebootToCompleteInstall
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
-    vcall(it, Slot_ISystemUpdateManagerStatics_RebootToCompleteInstall, Fn_ISystemUpdateManagerStatics_RebootToCompleteInstall)(it).check("SystemUpdateManager.RebootToCompleteInstall")
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
+    it.call(ISystemUpdateManagerStatics_RebootToCompleteInstall)
 
-proc startCancelUpdates*(_: typedesc[SystemUpdateManager])  =
+proc startCancelUpdates*(_: typedesc[SystemUpdateManager]) =
   ## Windows.System.Update.SystemUpdateManager.StartCancelUpdates
-  withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
-    vcall(it, Slot_ISystemUpdateManagerStatics_StartCancelUpdates, Fn_ISystemUpdateManagerStatics_StartCancelUpdates)(it).check("SystemUpdateManager.StartCancelUpdates")
+  withStatics("Windows.System.Update.SystemUpdateManager",
+              ISystemUpdateManagerStatics, it):
+    it.call(ISystemUpdateManagerStatics_StartCancelUpdates)
 
-proc nonRoamableId*(self: User): string  =
+proc nonRoamableId*(self: User): string =
   ## Windows.System.User.get_NonRoamableId
-  withIface(self.p, IID_IUser, "IUser", it):
+  withIface(self.p, IUser, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUser_get_NonRoamableId, Fn_IUser_get_NonRoamableId)(it, tmp.addr).check("User.get_NonRoamableId")
+    it.call(IUser_get_NonRoamableId, tmp.addr)
     result = takeString(tmp)
 
-proc authenticationStatus*(self: User): UserAuthenticationStatus  =
+proc authenticationStatus*(self: User): UserAuthenticationStatus =
   ## Windows.System.User.get_AuthenticationStatus
-  withIface(self.p, IID_IUser, "IUser", it):
+  withIface(self.p, IUser, it):
     var tmp: UserAuthenticationStatus
-    vcall(it, Slot_IUser_get_AuthenticationStatus, Fn_IUser_get_AuthenticationStatus)(it, tmp.addr).check("User.get_AuthenticationStatus")
+    it.call(IUser_get_AuthenticationStatus, tmp.addr)
     result = tmp
 
-proc `type`*(self: User): UserType  =
+proc `type`*(self: User): UserType =
   ## Windows.System.User.get_Type
-  withIface(self.p, IID_IUser, "IUser", it):
+  withIface(self.p, IUser, it):
     var tmp: UserType
-    vcall(it, Slot_IUser_get_Type, Fn_IUser_get_Type)(it, tmp.addr).check("User.get_Type")
+    it.call(IUser_get_Type, tmp.addr)
     result = tmp
 
 proc getPropertyAsync*(self: User, value: string): Future[WinRtObject] {.async.} =
   ## Windows.System.User.GetPropertyAsync
   var op: pointer
-  withIface(self.p, IID_IUser, "IUser", it):
+  withIface(self.p, IUser, it):
     withHString(value, h0):
-      vcall(it, Slot_IUser_GetPropertyAsync, Fn_IUser_GetPropertyAsync)(it, h0, op.addr).check("User.GetPropertyAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, alPlain, "User.GetPropertyAsync"))
+      it.call(IUser_GetPropertyAsync, h0, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperation_1_Object,
+                                                IID_AsyncOperationCompletedHandler_1_Object,
+                                                alPlain, "User.GetPropertyAsync"))
 
 proc getPropertiesAsync*(self: User, values: seq[string]): Future[WinRtObject] {.async.} =
   ## Windows.System.User.GetPropertiesAsync
   var op: pointer
-  withIface(self.p, IID_IUser, "IUser", it):
-    let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+  withIface(self.p, IUser, it):
+    let p0 = asIterableString(values, IID_IIterable_1_String,
+                                      IID_IVectorView_1_String,
+                                      IID_IIterator_1_String)
     defer: discard release(p0)
-    vcall(it, Slot_IUser_GetPropertiesAsync, Fn_IUser_GetPropertiesAsync)(it, p0, op.addr).check("User.GetPropertiesAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, alPlain, "User.GetPropertiesAsync"))
+    it.call(IUser_GetPropertiesAsync, p0, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperation_1_IPropertySet,
+                                                IID_AsyncOperationCompletedHandler_1_IPropertySet,
+                                                alPlain,
+                                                "User.GetPropertiesAsync"))
 
 proc getPictureAsync*(self: User, desiredSize: UserPictureSize): Future[WinRtObject] {.async.} =
   ## Windows.System.User.GetPictureAsync
   var op: pointer
-  withIface(self.p, IID_IUser, "IUser", it):
-    vcall(it, Slot_IUser_GetPictureAsync, Fn_IUser_GetPictureAsync)(it, desiredSize, op.addr).check("User.GetPictureAsync")
-  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, alPlain, "User.GetPictureAsync"))
+  withIface(self.p, IUser, it):
+    it.call(IUser_GetPictureAsync, desiredSize, op.addr)
+  result = adopt[WinRtObject](await awaitObject(op,
+                                                IID_IAsyncOperation_1_IRandomAccessStreamReference,
+                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference,
+                                                alPlain, "User.GetPictureAsync"))
 
-proc checkUserAgeConsentGroupAsync*(self: User, consentGroup: UserAgeConsentGroup): Future[UserAgeConsentResult] {.async.} =
+proc checkUserAgeConsentGroupAsync*(self: User,
+                                    consentGroup: UserAgeConsentGroup): Future[UserAgeConsentResult] {.async.} =
   ## Windows.System.User.CheckUserAgeConsentGroupAsync
   var op: pointer
-  withIface(self.p, IID_IUser2, "IUser2", it):
-    vcall(it, Slot_IUser2_CheckUserAgeConsentGroupAsync, Fn_IUser2_CheckUserAgeConsentGroupAsync)(it, consentGroup, op.addr).check("User.CheckUserAgeConsentGroupAsync")
-  result = await awaitValue[UserAgeConsentResult](op, IID_IAsyncOperation_1_UserAgeConsentResult, IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult, alPlain, "User.CheckUserAgeConsentGroupAsync")
+  withIface(self.p, IUser2, it):
+    it.call(IUser2_CheckUserAgeConsentGroupAsync, consentGroup, op.addr)
+  result = await awaitValue[UserAgeConsentResult](op,
+                                                  IID_IAsyncOperation_1_UserAgeConsentResult,
+                                                  IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult,
+                                                  alPlain,
+                                                  "User.CheckUserAgeConsentGroupAsync")
 
-proc getDefault*(_: typedesc[User]): User  =
+proc getDefault*(_: typedesc[User]): User =
   ## Windows.System.User.GetDefault
-  withStatics("Windows.System.User", IID_IUserStatics2, it):
+  withStatics("Windows.System.User", IUserStatics2, it):
     var tmp: pointer
-    vcall(it, Slot_IUserStatics2_GetDefault, Fn_IUserStatics2_GetDefault)(it, tmp.addr).check("User.GetDefault")
+    it.call(IUserStatics2_GetDefault, tmp.addr)
     result = adopt[User](tmp)
 
-proc createWatcher*(_: typedesc[User]): UserWatcher  =
+proc createWatcher*(_: typedesc[User]): UserWatcher =
   ## Windows.System.User.CreateWatcher
-  withStatics("Windows.System.User", IID_IUserStatics, it):
+  withStatics("Windows.System.User", IUserStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IUserStatics_CreateWatcher, Fn_IUserStatics_CreateWatcher)(it, tmp.addr).check("User.CreateWatcher")
+    it.call(IUserStatics_CreateWatcher, tmp.addr)
     result = adopt[UserWatcher](tmp)
 
 proc findAllAsync*(_: typedesc[User]): Future[seq[User]] {.async.} =
   ## Windows.System.User.FindAllAsync
   var op: pointer
-  withStatics("Windows.System.User", IID_IUserStatics, it):
-    vcall(it, Slot_IUserStatics_FindAllAsync, Fn_IUserStatics_FindAllAsync)(it, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "User.FindAllAsync")
+  withStatics("Windows.System.User", IUserStatics, it):
+    it.call(IUserStatics_FindAllAsync, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                               alPlain, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
 proc findAllAsync*(_: typedesc[User], `type`: UserType): Future[seq[User]] {.async.} =
   ## Windows.System.User.FindAllAsync
   var op: pointer
-  withStatics("Windows.System.User", IID_IUserStatics, it):
-    vcall(it, Slot_IUserStatics_FindAllAsync2, Fn_IUserStatics_FindAllAsync2)(it, `type`, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "User.FindAllAsync")
+  withStatics("Windows.System.User", IUserStatics, it):
+    it.call(IUserStatics_FindAllAsync2, `type`, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                               alPlain, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
-proc findAllAsync*(_: typedesc[User], `type`: UserType, status: UserAuthenticationStatus): Future[seq[User]] {.async.} =
+proc findAllAsync*(_: typedesc[User], `type`: UserType,
+                   status: UserAuthenticationStatus): Future[seq[User]] {.async.} =
   ## Windows.System.User.FindAllAsync
   var op: pointer
-  withStatics("Windows.System.User", IID_IUserStatics, it):
-    vcall(it, Slot_IUserStatics_FindAllAsync3, Fn_IUserStatics_FindAllAsync3)(it, `type`, status, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, alPlain, "User.FindAllAsync")
+  withStatics("Windows.System.User", IUserStatics, it):
+    it.call(IUserStatics_FindAllAsync3, `type`, status, op.addr)
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
+                               IID_AsyncOperationCompletedHandler_1_IVectorView_13,
+                               alPlain, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
-proc getFromId*(_: typedesc[User], nonRoamableId: string): User  =
+proc getFromId*(_: typedesc[User], nonRoamableId: string): User =
   ## Windows.System.User.GetFromId
-  withStatics("Windows.System.User", IID_IUserStatics, it):
+  withStatics("Windows.System.User", IUserStatics, it):
     withHString(nonRoamableId, h0):
       var tmp: pointer
-      vcall(it, Slot_IUserStatics_GetFromId, Fn_IUserStatics_GetFromId)(it, h0, tmp.addr).check("User.GetFromId")
+      it.call(IUserStatics_GetFromId, h0, tmp.addr)
       result = adopt[User](tmp)
 
-proc complete*(self: UserAuthenticationStatusChangeDeferral)  =
+proc complete*(self: UserAuthenticationStatusChangeDeferral) =
   ## Windows.System.UserAuthenticationStatusChangeDeferral.Complete
-  withIface(self.p, IID_IUserAuthenticationStatusChangeDeferral, "IUserAuthenticationStatusChangeDeferral", it):
-    vcall(it, Slot_IUserAuthenticationStatusChangeDeferral_Complete, Fn_IUserAuthenticationStatusChangeDeferral_Complete)(it).check("UserAuthenticationStatusChangeDeferral.Complete")
+  withIface(self.p, IUserAuthenticationStatusChangeDeferral, it):
+    it.call(IUserAuthenticationStatusChangeDeferral_Complete)
 
-proc getDeferral*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatusChangeDeferral  =
+proc getDeferral*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatusChangeDeferral =
   ## Windows.System.UserAuthenticationStatusChangingEventArgs.GetDeferral
-  withIface(self.p, IID_IUserAuthenticationStatusChangingEventArgs, "IUserAuthenticationStatusChangingEventArgs", it):
+  withIface(self.p, IUserAuthenticationStatusChangingEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IUserAuthenticationStatusChangingEventArgs_GetDeferral, Fn_IUserAuthenticationStatusChangingEventArgs_GetDeferral)(it, tmp.addr).check("UserAuthenticationStatusChangingEventArgs.GetDeferral")
+    it.call(IUserAuthenticationStatusChangingEventArgs_GetDeferral, tmp.addr)
     result = adopt[UserAuthenticationStatusChangeDeferral](tmp)
 
-proc user*(self: UserAuthenticationStatusChangingEventArgs): User  =
+proc user*(self: UserAuthenticationStatusChangingEventArgs): User =
   ## Windows.System.UserAuthenticationStatusChangingEventArgs.get_User
-  withIface(self.p, IID_IUserAuthenticationStatusChangingEventArgs, "IUserAuthenticationStatusChangingEventArgs", it):
+  withIface(self.p, IUserAuthenticationStatusChangingEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IUserAuthenticationStatusChangingEventArgs_get_User, Fn_IUserAuthenticationStatusChangingEventArgs_get_User)(it, tmp.addr).check("UserAuthenticationStatusChangingEventArgs.get_User")
+    it.call(IUserAuthenticationStatusChangingEventArgs_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc newStatus*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatus  =
+proc newStatus*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatus =
   ## Windows.System.UserAuthenticationStatusChangingEventArgs.get_NewStatus
-  withIface(self.p, IID_IUserAuthenticationStatusChangingEventArgs, "IUserAuthenticationStatusChangingEventArgs", it):
+  withIface(self.p, IUserAuthenticationStatusChangingEventArgs, it):
     var tmp: UserAuthenticationStatus
-    vcall(it, Slot_IUserAuthenticationStatusChangingEventArgs_get_NewStatus, Fn_IUserAuthenticationStatusChangingEventArgs_get_NewStatus)(it, tmp.addr).check("UserAuthenticationStatusChangingEventArgs.get_NewStatus")
+    it.call(IUserAuthenticationStatusChangingEventArgs_get_NewStatus, tmp.addr)
     result = tmp
 
-proc currentStatus*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatus  =
+proc currentStatus*(self: UserAuthenticationStatusChangingEventArgs): UserAuthenticationStatus =
   ## Windows.System.UserAuthenticationStatusChangingEventArgs.get_CurrentStatus
-  withIface(self.p, IID_IUserAuthenticationStatusChangingEventArgs, "IUserAuthenticationStatusChangingEventArgs", it):
+  withIface(self.p, IUserAuthenticationStatusChangingEventArgs, it):
     var tmp: UserAuthenticationStatus
-    vcall(it, Slot_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus, Fn_IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus)(it, tmp.addr).check("UserAuthenticationStatusChangingEventArgs.get_CurrentStatus")
+    it.call(IUserAuthenticationStatusChangingEventArgs_get_CurrentStatus,
+            tmp.addr)
     result = tmp
 
-proc user*(self: UserChangedEventArgs): User  =
+proc user*(self: UserChangedEventArgs): User =
   ## Windows.System.UserChangedEventArgs.get_User
-  withIface(self.p, IID_IUserChangedEventArgs, "IUserChangedEventArgs", it):
+  withIface(self.p, IUserChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IUserChangedEventArgs_get_User, Fn_IUserChangedEventArgs_get_User)(it, tmp.addr).check("UserChangedEventArgs.get_User")
+    it.call(IUserChangedEventArgs_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc changedPropertyKinds*(self: UserChangedEventArgs): seq[UserWatcherUpdateKind]  =
+proc changedPropertyKinds*(self: UserChangedEventArgs): seq[UserWatcherUpdateKind] =
   ## Windows.System.UserChangedEventArgs.get_ChangedPropertyKinds
-  withIface(self.p, IID_IUserChangedEventArgs2, "IUserChangedEventArgs2", it):
+  withIface(self.p, IUserChangedEventArgs2, it):
     var tmp: pointer
-    vcall(it, Slot_IUserChangedEventArgs2_get_ChangedPropertyKinds, Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds)(it, tmp.addr).check("UserChangedEventArgs.get_ChangedPropertyKinds")
-    result = toSeq[UserWatcherUpdateKind](tmp, IID_IVectorView_1_UserWatcherUpdateKind)
+    it.call(IUserChangedEventArgs2_get_ChangedPropertyKinds, tmp.addr)
+    result = toSeq[UserWatcherUpdateKind](tmp,
+                                          IID_IVectorView_1_UserWatcherUpdateKind)
     release(tmp)
 
-proc findUserFromDeviceId*(_: typedesc[UserDeviceAssociation], deviceId: string): User  =
+proc findUserFromDeviceId*(_: typedesc[UserDeviceAssociation], deviceId: string): User =
   ## Windows.System.UserDeviceAssociation.FindUserFromDeviceId
-  withStatics("Windows.System.UserDeviceAssociation", IID_IUserDeviceAssociationStatics, it):
+  withStatics("Windows.System.UserDeviceAssociation",
+              IUserDeviceAssociationStatics, it):
     withHString(deviceId, h0):
       var tmp: pointer
-      vcall(it, Slot_IUserDeviceAssociationStatics_FindUserFromDeviceId, Fn_IUserDeviceAssociationStatics_FindUserFromDeviceId)(it, h0, tmp.addr).check("UserDeviceAssociation.FindUserFromDeviceId")
+      it.call(IUserDeviceAssociationStatics_FindUserFromDeviceId, h0, tmp.addr)
       result = adopt[User](tmp)
 
 proc onUserDeviceAssociationChanged*(_: typedesc[UserDeviceAssociation],
-    handler: proc(sender: WinRtObject, args: UserDeviceAssociationChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                                     handler: EventHandler[WinRtObject, UserDeviceAssociationChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserDeviceAssociation.add_UserDeviceAssociationChanged
-  ##
-  ## The token is what `removeUserDeviceAssociationChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.UserDeviceAssociation", IID_IUserDeviceAssociationStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_UserDeviceAssociationChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserDeviceAssociationChangedEventArgs](a1)), event = true)
+  ## The token is what `removeUserDeviceAssociationChanged` takes.
+  withStatics("Windows.System.UserDeviceAssociation",
+              IUserDeviceAssociationStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0),
+              borrow[UserDeviceAssociationChangedEventArgs](a1))
+    let cb = newDelegate(IID_EventHandler_1_UserDeviceAssociationChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged, Fn_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged)(it, cb, result.addr)
-        .check("UserDeviceAssociation.add_UserDeviceAssociationChanged")
+      it.call(IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUserDeviceAssociationChanged*(_: typedesc[UserDeviceAssociation], token: EventRegistrationToken) =
-  withStatics("Windows.System.UserDeviceAssociation", IID_IUserDeviceAssociationStatics, it):
-    vcall(it, Slot_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged, Fn_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged)(it, token).check("UserDeviceAssociation.remove_UserDeviceAssociationChanged")
+  withStatics("Windows.System.UserDeviceAssociation",
+              IUserDeviceAssociationStatics, it):
+    it.call(IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged, token)
 
-proc deviceId*(self: UserDeviceAssociationChangedEventArgs): string  =
+proc deviceId*(self: UserDeviceAssociationChangedEventArgs): string =
   ## Windows.System.UserDeviceAssociationChangedEventArgs.get_DeviceId
-  withIface(self.p, IID_IUserDeviceAssociationChangedEventArgs, "IUserDeviceAssociationChangedEventArgs", it):
+  withIface(self.p, IUserDeviceAssociationChangedEventArgs, it):
     var tmp: HSTRING
-    vcall(it, Slot_IUserDeviceAssociationChangedEventArgs_get_DeviceId, Fn_IUserDeviceAssociationChangedEventArgs_get_DeviceId)(it, tmp.addr).check("UserDeviceAssociationChangedEventArgs.get_DeviceId")
+    it.call(IUserDeviceAssociationChangedEventArgs_get_DeviceId, tmp.addr)
     result = takeString(tmp)
 
-proc newUser*(self: UserDeviceAssociationChangedEventArgs): User  =
+proc newUser*(self: UserDeviceAssociationChangedEventArgs): User =
   ## Windows.System.UserDeviceAssociationChangedEventArgs.get_NewUser
-  withIface(self.p, IID_IUserDeviceAssociationChangedEventArgs, "IUserDeviceAssociationChangedEventArgs", it):
+  withIface(self.p, IUserDeviceAssociationChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IUserDeviceAssociationChangedEventArgs_get_NewUser, Fn_IUserDeviceAssociationChangedEventArgs_get_NewUser)(it, tmp.addr).check("UserDeviceAssociationChangedEventArgs.get_NewUser")
+    it.call(IUserDeviceAssociationChangedEventArgs_get_NewUser, tmp.addr)
     result = adopt[User](tmp)
 
-proc oldUser*(self: UserDeviceAssociationChangedEventArgs): User  =
+proc oldUser*(self: UserDeviceAssociationChangedEventArgs): User =
   ## Windows.System.UserDeviceAssociationChangedEventArgs.get_OldUser
-  withIface(self.p, IID_IUserDeviceAssociationChangedEventArgs, "IUserDeviceAssociationChangedEventArgs", it):
+  withIface(self.p, IUserDeviceAssociationChangedEventArgs, it):
     var tmp: pointer
-    vcall(it, Slot_IUserDeviceAssociationChangedEventArgs_get_OldUser, Fn_IUserDeviceAssociationChangedEventArgs_get_OldUser)(it, tmp.addr).check("UserDeviceAssociationChangedEventArgs.get_OldUser")
+    it.call(IUserDeviceAssociationChangedEventArgs_get_OldUser, tmp.addr)
     result = adopt[User](tmp)
 
 proc newUserPicker*(): UserPicker =
   ## Activate a `Windows.System.UserPicker`.
   adopt[UserPicker](activateAs("Windows.System.UserPicker", IID_IUserPicker))
 
-proc allowGuestAccounts*(self: UserPicker): bool  =
+proc allowGuestAccounts*(self: UserPicker): bool =
   ## Windows.System.UserPicker.get_AllowGuestAccounts
-  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
+  withIface(self.p, IUserPicker, it):
     var tmp: bool
-    vcall(it, Slot_IUserPicker_get_AllowGuestAccounts, Fn_IUserPicker_get_AllowGuestAccounts)(it, tmp.addr).check("UserPicker.get_AllowGuestAccounts")
+    it.call(IUserPicker_get_AllowGuestAccounts, tmp.addr)
     result = tmp
 
-proc `allowGuestAccounts=`*(self: UserPicker, value: bool)  =
+proc `allowGuestAccounts=`*(self: UserPicker, value: bool) =
   ## Windows.System.UserPicker.put_AllowGuestAccounts
-  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
-    vcall(it, Slot_IUserPicker_put_AllowGuestAccounts, Fn_IUserPicker_put_AllowGuestAccounts)(it, value).check("UserPicker.put_AllowGuestAccounts")
+  withIface(self.p, IUserPicker, it):
+    it.call(IUserPicker_put_AllowGuestAccounts, value)
 
-proc suggestedSelectedUser*(self: UserPicker): User  =
+proc suggestedSelectedUser*(self: UserPicker): User =
   ## Windows.System.UserPicker.get_SuggestedSelectedUser
-  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
+  withIface(self.p, IUserPicker, it):
     var tmp: pointer
-    vcall(it, Slot_IUserPicker_get_SuggestedSelectedUser, Fn_IUserPicker_get_SuggestedSelectedUser)(it, tmp.addr).check("UserPicker.get_SuggestedSelectedUser")
+    it.call(IUserPicker_get_SuggestedSelectedUser, tmp.addr)
     result = adopt[User](tmp)
 
-proc `suggestedSelectedUser=`*(self: UserPicker, value: User)  =
+proc `suggestedSelectedUser=`*(self: UserPicker, value: User) =
   ## Windows.System.UserPicker.put_SuggestedSelectedUser
-  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
-    withIface(value.p, IID_IUser, "IUser", p0):
-      vcall(it, Slot_IUserPicker_put_SuggestedSelectedUser, Fn_IUserPicker_put_SuggestedSelectedUser)(it, p0).check("UserPicker.put_SuggestedSelectedUser")
+  withIface(self.p, IUserPicker, it):
+    withIface(value.p, IUser, p0):
+      it.call(IUserPicker_put_SuggestedSelectedUser, p0)
 
 proc pickSingleUserAsync*(self: UserPicker): Future[User] {.async.} =
   ## Windows.System.UserPicker.PickSingleUserAsync
   var op: pointer
-  withIface(self.p, IID_IUserPicker, "IUserPicker", it):
-    vcall(it, Slot_IUserPicker_PickSingleUserAsync, Fn_IUserPicker_PickSingleUserAsync)(it, op.addr).check("UserPicker.PickSingleUserAsync")
-  result = adopt[User](await awaitObject(op, IID_IAsyncOperation_1_User, IID_AsyncOperationCompletedHandler_1_User, alPlain, "UserPicker.PickSingleUserAsync"))
+  withIface(self.p, IUserPicker, it):
+    it.call(IUserPicker_PickSingleUserAsync, op.addr)
+  result = adopt[User](await awaitObject(op, IID_IAsyncOperation_1_User,
+                                         IID_AsyncOperationCompletedHandler_1_User,
+                                         alPlain,
+                                         "UserPicker.PickSingleUserAsync"))
 
-proc isSupported*(_: typedesc[UserPicker]): bool  =
+proc isSupported*(_: typedesc[UserPicker]): bool =
   ## Windows.System.UserPicker.IsSupported
-  withStatics("Windows.System.UserPicker", IID_IUserPickerStatics, it):
+  withStatics("Windows.System.UserPicker", IUserPickerStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUserPickerStatics_IsSupported, Fn_IUserPickerStatics_IsSupported)(it, tmp.addr).check("UserPicker.IsSupported")
+    it.call(IUserPickerStatics_IsSupported, tmp.addr)
     result = tmp
 
-proc getForUser*(_: typedesc[AdvertisingManager], user: User): AdvertisingManagerForUser  =
+proc getForUser*(_: typedesc[AdvertisingManager], user: User): AdvertisingManagerForUser =
   ## Windows.System.UserProfile.AdvertisingManager.GetForUser
-  withStatics("Windows.System.UserProfile.AdvertisingManager", IID_IAdvertisingManagerStatics2, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.UserProfile.AdvertisingManager",
+              IAdvertisingManagerStatics2, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IAdvertisingManagerStatics2_GetForUser, Fn_IAdvertisingManagerStatics2_GetForUser)(it, p0, tmp.addr).check("AdvertisingManager.GetForUser")
+      it.call(IAdvertisingManagerStatics2_GetForUser, p0, tmp.addr)
       result = adopt[AdvertisingManagerForUser](tmp)
 
-proc advertisingId*(_: typedesc[AdvertisingManager]): string  =
+proc advertisingId*(_: typedesc[AdvertisingManager]): string =
   ## Windows.System.UserProfile.AdvertisingManager.get_AdvertisingId
-  withStatics("Windows.System.UserProfile.AdvertisingManager", IID_IAdvertisingManagerStatics, it):
+  withStatics("Windows.System.UserProfile.AdvertisingManager",
+              IAdvertisingManagerStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAdvertisingManagerStatics_get_AdvertisingId, Fn_IAdvertisingManagerStatics_get_AdvertisingId)(it, tmp.addr).check("AdvertisingManager.get_AdvertisingId")
+    it.call(IAdvertisingManagerStatics_get_AdvertisingId, tmp.addr)
     result = takeString(tmp)
 
-proc advertisingId*(self: AdvertisingManagerForUser): string  =
+proc advertisingId*(self: AdvertisingManagerForUser): string =
   ## Windows.System.UserProfile.AdvertisingManagerForUser.get_AdvertisingId
-  withIface(self.p, IID_IAdvertisingManagerForUser, "IAdvertisingManagerForUser", it):
+  withIface(self.p, IAdvertisingManagerForUser, it):
     var tmp: HSTRING
-    vcall(it, Slot_IAdvertisingManagerForUser_get_AdvertisingId, Fn_IAdvertisingManagerForUser_get_AdvertisingId)(it, tmp.addr).check("AdvertisingManagerForUser.get_AdvertisingId")
+    it.call(IAdvertisingManagerForUser_get_AdvertisingId, tmp.addr)
     result = takeString(tmp)
 
-proc user*(self: AdvertisingManagerForUser): User  =
+proc user*(self: AdvertisingManagerForUser): User =
   ## Windows.System.UserProfile.AdvertisingManagerForUser.get_User
-  withIface(self.p, IID_IAdvertisingManagerForUser, "IAdvertisingManagerForUser", it):
+  withIface(self.p, IAdvertisingManagerForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IAdvertisingManagerForUser_get_User, Fn_IAdvertisingManagerForUser_get_User)(it, tmp.addr).check("AdvertisingManagerForUser.get_User")
+    it.call(IAdvertisingManagerForUser_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc isEnabled*(self: AssignedAccessSettings): bool  =
+proc isEnabled*(self: AssignedAccessSettings): bool =
   ## Windows.System.UserProfile.AssignedAccessSettings.get_IsEnabled
-  withIface(self.p, IID_IAssignedAccessSettings, "IAssignedAccessSettings", it):
+  withIface(self.p, IAssignedAccessSettings, it):
     var tmp: bool
-    vcall(it, Slot_IAssignedAccessSettings_get_IsEnabled, Fn_IAssignedAccessSettings_get_IsEnabled)(it, tmp.addr).check("AssignedAccessSettings.get_IsEnabled")
+    it.call(IAssignedAccessSettings_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc isSingleAppKioskMode*(self: AssignedAccessSettings): bool  =
+proc isSingleAppKioskMode*(self: AssignedAccessSettings): bool =
   ## Windows.System.UserProfile.AssignedAccessSettings.get_IsSingleAppKioskMode
-  withIface(self.p, IID_IAssignedAccessSettings, "IAssignedAccessSettings", it):
+  withIface(self.p, IAssignedAccessSettings, it):
     var tmp: bool
-    vcall(it, Slot_IAssignedAccessSettings_get_IsSingleAppKioskMode, Fn_IAssignedAccessSettings_get_IsSingleAppKioskMode)(it, tmp.addr).check("AssignedAccessSettings.get_IsSingleAppKioskMode")
+    it.call(IAssignedAccessSettings_get_IsSingleAppKioskMode, tmp.addr)
     result = tmp
 
-proc user*(self: AssignedAccessSettings): User  =
+proc user*(self: AssignedAccessSettings): User =
   ## Windows.System.UserProfile.AssignedAccessSettings.get_User
-  withIface(self.p, IID_IAssignedAccessSettings, "IAssignedAccessSettings", it):
+  withIface(self.p, IAssignedAccessSettings, it):
     var tmp: pointer
-    vcall(it, Slot_IAssignedAccessSettings_get_User, Fn_IAssignedAccessSettings_get_User)(it, tmp.addr).check("AssignedAccessSettings.get_User")
+    it.call(IAssignedAccessSettings_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc getDefault*(_: typedesc[AssignedAccessSettings]): AssignedAccessSettings  =
+proc getDefault*(_: typedesc[AssignedAccessSettings]): AssignedAccessSettings =
   ## Windows.System.UserProfile.AssignedAccessSettings.GetDefault
-  withStatics("Windows.System.UserProfile.AssignedAccessSettings", IID_IAssignedAccessSettingsStatics, it):
+  withStatics("Windows.System.UserProfile.AssignedAccessSettings",
+              IAssignedAccessSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IAssignedAccessSettingsStatics_GetDefault, Fn_IAssignedAccessSettingsStatics_GetDefault)(it, tmp.addr).check("AssignedAccessSettings.GetDefault")
+    it.call(IAssignedAccessSettingsStatics_GetDefault, tmp.addr)
     result = adopt[AssignedAccessSettings](tmp)
 
-proc getForUser*(_: typedesc[AssignedAccessSettings], user: User): AssignedAccessSettings  =
+proc getForUser*(_: typedesc[AssignedAccessSettings], user: User): AssignedAccessSettings =
   ## Windows.System.UserProfile.AssignedAccessSettings.GetForUser
-  withStatics("Windows.System.UserProfile.AssignedAccessSettings", IID_IAssignedAccessSettingsStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.UserProfile.AssignedAccessSettings",
+              IAssignedAccessSettingsStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IAssignedAccessSettingsStatics_GetForUser, Fn_IAssignedAccessSettingsStatics_GetForUser)(it, p0, tmp.addr).check("AssignedAccessSettings.GetForUser")
+      it.call(IAssignedAccessSettingsStatics_GetForUser, p0, tmp.addr)
       result = adopt[AssignedAccessSettings](tmp)
 
-proc canUseDiagnosticsToTailorExperiences*(self: DiagnosticsSettings): bool  =
+proc canUseDiagnosticsToTailorExperiences*(self: DiagnosticsSettings): bool =
   ## Windows.System.UserProfile.DiagnosticsSettings.get_CanUseDiagnosticsToTailorExperiences
-  withIface(self.p, IID_IDiagnosticsSettings, "IDiagnosticsSettings", it):
+  withIface(self.p, IDiagnosticsSettings, it):
     var tmp: bool
-    vcall(it, Slot_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences, Fn_IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences)(it, tmp.addr).check("DiagnosticsSettings.get_CanUseDiagnosticsToTailorExperiences")
+    it.call(IDiagnosticsSettings_get_CanUseDiagnosticsToTailorExperiences,
+            tmp.addr)
     result = tmp
 
-proc user*(self: DiagnosticsSettings): User  =
+proc user*(self: DiagnosticsSettings): User =
   ## Windows.System.UserProfile.DiagnosticsSettings.get_User
-  withIface(self.p, IID_IDiagnosticsSettings, "IDiagnosticsSettings", it):
+  withIface(self.p, IDiagnosticsSettings, it):
     var tmp: pointer
-    vcall(it, Slot_IDiagnosticsSettings_get_User, Fn_IDiagnosticsSettings_get_User)(it, tmp.addr).check("DiagnosticsSettings.get_User")
+    it.call(IDiagnosticsSettings_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc getDefault*(_: typedesc[DiagnosticsSettings]): DiagnosticsSettings  =
+proc getDefault*(_: typedesc[DiagnosticsSettings]): DiagnosticsSettings =
   ## Windows.System.UserProfile.DiagnosticsSettings.GetDefault
-  withStatics("Windows.System.UserProfile.DiagnosticsSettings", IID_IDiagnosticsSettingsStatics, it):
+  withStatics("Windows.System.UserProfile.DiagnosticsSettings",
+              IDiagnosticsSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IDiagnosticsSettingsStatics_GetDefault, Fn_IDiagnosticsSettingsStatics_GetDefault)(it, tmp.addr).check("DiagnosticsSettings.GetDefault")
+    it.call(IDiagnosticsSettingsStatics_GetDefault, tmp.addr)
     result = adopt[DiagnosticsSettings](tmp)
 
-proc getForUser*(_: typedesc[DiagnosticsSettings], user: User): DiagnosticsSettings  =
+proc getForUser*(_: typedesc[DiagnosticsSettings], user: User): DiagnosticsSettings =
   ## Windows.System.UserProfile.DiagnosticsSettings.GetForUser
-  withStatics("Windows.System.UserProfile.DiagnosticsSettings", IID_IDiagnosticsSettingsStatics, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.UserProfile.DiagnosticsSettings",
+              IDiagnosticsSettingsStatics, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IDiagnosticsSettingsStatics_GetForUser, Fn_IDiagnosticsSettingsStatics_GetForUser)(it, p0, tmp.addr).check("DiagnosticsSettings.GetForUser")
+      it.call(IDiagnosticsSettingsStatics_GetForUser, p0, tmp.addr)
       result = adopt[DiagnosticsSettings](tmp)
 
-proc getDefault*(_: typedesc[FirstSignInSettings]): FirstSignInSettings  =
+proc getDefault*(_: typedesc[FirstSignInSettings]): FirstSignInSettings =
   ## Windows.System.UserProfile.FirstSignInSettings.GetDefault
-  withStatics("Windows.System.UserProfile.FirstSignInSettings", IID_IFirstSignInSettingsStatics, it):
+  withStatics("Windows.System.UserProfile.FirstSignInSettings",
+              IFirstSignInSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IFirstSignInSettingsStatics_GetDefault, Fn_IFirstSignInSettingsStatics_GetDefault)(it, tmp.addr).check("FirstSignInSettings.GetDefault")
+    it.call(IFirstSignInSettingsStatics_GetDefault, tmp.addr)
     result = adopt[FirstSignInSettings](tmp)
 
-proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences], region: string): bool  =
+proc trySetHomeGeographicRegion*(_: typedesc[GlobalizationPreferences],
+                                 region: string): bool =
   ## Windows.System.UserProfile.GlobalizationPreferences.TrySetHomeGeographicRegion
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics2, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics2, it):
     withHString(region, h0):
       var tmp: bool
-      vcall(it, Slot_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion, Fn_IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion)(it, h0, tmp.addr).check("GlobalizationPreferences.TrySetHomeGeographicRegion")
+      it.call(IGlobalizationPreferencesStatics2_TrySetHomeGeographicRegion, h0,
+              tmp.addr)
       result = tmp
 
-proc trySetLanguages*(_: typedesc[GlobalizationPreferences], languageTags: seq[string]): bool  =
+proc trySetLanguages*(_: typedesc[GlobalizationPreferences],
+                      languageTags: seq[string]): bool =
   ## Windows.System.UserProfile.GlobalizationPreferences.TrySetLanguages
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics2, it):
-    let p0 = asIterableString(languageTags, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics2, it):
+    let p0 = asIterableString(languageTags, IID_IIterable_1_String,
+                                            IID_IVectorView_1_String,
+                                            IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: bool
-    vcall(it, Slot_IGlobalizationPreferencesStatics2_TrySetLanguages, Fn_IGlobalizationPreferencesStatics2_TrySetLanguages)(it, p0, tmp.addr).check("GlobalizationPreferences.TrySetLanguages")
+    it.call(IGlobalizationPreferencesStatics2_TrySetLanguages, p0, tmp.addr)
     result = tmp
 
-proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string]  =
+proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_Calendars
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Calendars, Fn_IGlobalizationPreferencesStatics_get_Calendars)(it, tmp.addr).check("GlobalizationPreferences.get_Calendars")
+    it.call(IGlobalizationPreferencesStatics_get_Calendars, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string]  =
+proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_Clocks
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Clocks, Fn_IGlobalizationPreferencesStatics_get_Clocks)(it, tmp.addr).check("GlobalizationPreferences.get_Clocks")
+    it.call(IGlobalizationPreferencesStatics_get_Clocks, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string]  =
+proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_Currencies
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Currencies, Fn_IGlobalizationPreferencesStatics_get_Currencies)(it, tmp.addr).check("GlobalizationPreferences.get_Currencies")
+    it.call(IGlobalizationPreferencesStatics_get_Currencies, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc languages*(_: typedesc[GlobalizationPreferences]): seq[string]  =
+proc languages*(_: typedesc[GlobalizationPreferences]): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_Languages
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_Languages, Fn_IGlobalizationPreferencesStatics_get_Languages)(it, tmp.addr).check("GlobalizationPreferences.get_Languages")
+    it.call(IGlobalizationPreferencesStatics_get_Languages, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string  =
+proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_HomeGeographicRegion
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: HSTRING
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_HomeGeographicRegion, Fn_IGlobalizationPreferencesStatics_get_HomeGeographicRegion)(it, tmp.addr).check("GlobalizationPreferences.get_HomeGeographicRegion")
+    it.call(IGlobalizationPreferencesStatics_get_HomeGeographicRegion, tmp.addr)
     result = takeString(tmp)
 
-proc weekStartsOn*(_: typedesc[GlobalizationPreferences]): DayOfWeek  =
+proc weekStartsOn*(_: typedesc[GlobalizationPreferences]): DayOfWeek =
   ## Windows.System.UserProfile.GlobalizationPreferences.get_WeekStartsOn
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics, it):
     var tmp: DayOfWeek
-    vcall(it, Slot_IGlobalizationPreferencesStatics_get_WeekStartsOn, Fn_IGlobalizationPreferencesStatics_get_WeekStartsOn)(it, tmp.addr).check("GlobalizationPreferences.get_WeekStartsOn")
+    it.call(IGlobalizationPreferencesStatics_get_WeekStartsOn, tmp.addr)
     result = tmp
 
-proc getForUser*(_: typedesc[GlobalizationPreferences], user: User): GlobalizationPreferencesForUser  =
+proc getForUser*(_: typedesc[GlobalizationPreferences], user: User): GlobalizationPreferencesForUser =
   ## Windows.System.UserProfile.GlobalizationPreferences.GetForUser
-  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics3, it):
-    withIface(user.p, IID_IUser, "IUser", p0):
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences",
+              IGlobalizationPreferencesStatics3, it):
+    withIface(user.p, IUser, p0):
       var tmp: pointer
-      vcall(it, Slot_IGlobalizationPreferencesStatics3_GetForUser, Fn_IGlobalizationPreferencesStatics3_GetForUser)(it, p0, tmp.addr).check("GlobalizationPreferences.GetForUser")
+      it.call(IGlobalizationPreferencesStatics3_GetForUser, p0, tmp.addr)
       result = adopt[GlobalizationPreferencesForUser](tmp)
 
-proc user*(self: GlobalizationPreferencesForUser): User  =
+proc user*(self: GlobalizationPreferencesForUser): User =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_User
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_User, Fn_IGlobalizationPreferencesForUser_get_User)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_User")
+    it.call(IGlobalizationPreferencesForUser_get_User, tmp.addr)
     result = adopt[User](tmp)
 
-proc calendars*(self: GlobalizationPreferencesForUser): seq[string]  =
+proc calendars*(self: GlobalizationPreferencesForUser): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Calendars
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Calendars, Fn_IGlobalizationPreferencesForUser_get_Calendars)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Calendars")
+    it.call(IGlobalizationPreferencesForUser_get_Calendars, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc clocks*(self: GlobalizationPreferencesForUser): seq[string]  =
+proc clocks*(self: GlobalizationPreferencesForUser): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Clocks
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Clocks, Fn_IGlobalizationPreferencesForUser_get_Clocks)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Clocks")
+    it.call(IGlobalizationPreferencesForUser_get_Clocks, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc currencies*(self: GlobalizationPreferencesForUser): seq[string]  =
+proc currencies*(self: GlobalizationPreferencesForUser): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Currencies
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Currencies, Fn_IGlobalizationPreferencesForUser_get_Currencies)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Currencies")
+    it.call(IGlobalizationPreferencesForUser_get_Currencies, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc languages*(self: GlobalizationPreferencesForUser): seq[string]  =
+proc languages*(self: GlobalizationPreferencesForUser): seq[string] =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_Languages
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: pointer
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_Languages, Fn_IGlobalizationPreferencesForUser_get_Languages)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Languages")
+    it.call(IGlobalizationPreferencesForUser_get_Languages, tmp.addr)
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc homeGeographicRegion*(self: GlobalizationPreferencesForUser): string  =
+proc homeGeographicRegion*(self: GlobalizationPreferencesForUser): string =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_HomeGeographicRegion
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: HSTRING
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_HomeGeographicRegion, Fn_IGlobalizationPreferencesForUser_get_HomeGeographicRegion)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_HomeGeographicRegion")
+    it.call(IGlobalizationPreferencesForUser_get_HomeGeographicRegion, tmp.addr)
     result = takeString(tmp)
 
-proc weekStartsOn*(self: GlobalizationPreferencesForUser): DayOfWeek  =
+proc weekStartsOn*(self: GlobalizationPreferencesForUser): DayOfWeek =
   ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_WeekStartsOn
-  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+  withIface(self.p, IGlobalizationPreferencesForUser, it):
     var tmp: DayOfWeek
-    vcall(it, Slot_IGlobalizationPreferencesForUser_get_WeekStartsOn, Fn_IGlobalizationPreferencesForUser_get_WeekStartsOn)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_WeekStartsOn")
+    it.call(IGlobalizationPreferencesForUser_get_WeekStartsOn, tmp.addr)
     result = tmp
 
-proc originalImageFile*(_: typedesc[LockScreen]): Uri  =
+proc originalImageFile*(_: typedesc[LockScreen]): Uri =
   ## Windows.System.UserProfile.LockScreen.get_OriginalImageFile
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
+  withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILockScreenStatics_get_OriginalImageFile, Fn_ILockScreenStatics_get_OriginalImageFile)(it, tmp.addr).check("LockScreen.get_OriginalImageFile")
+    it.call(ILockScreenStatics_get_OriginalImageFile, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc getImageStream*(_: typedesc[LockScreen]): WinRtObject  =
+proc getImageStream*(_: typedesc[LockScreen]): WinRtObject =
   ## Windows.System.UserProfile.LockScreen.GetImageStream
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
+  withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILockScreenStatics_GetImageStream, Fn_ILockScreenStatics_GetImageStream)(it, tmp.addr).check("LockScreen.GetImageStream")
+    it.call(ILockScreenStatics_GetImageStream, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
 proc setImageFileAsync*(_: typedesc[LockScreen], value: StorageFile) {.async.} =
   ## Windows.System.UserProfile.LockScreen.SetImageFileAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
-    withIface(value.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_ILockScreenStatics_SetImageFileAsync, Fn_ILockScreenStatics_SetImageFileAsync)(it, p0, op.addr).check("LockScreen.SetImageFileAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "LockScreen.SetImageFileAsync")
+  withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
+    withIface(value.p, IStorageFile, p0):
+      it.call(ILockScreenStatics_SetImageFileAsync, p0, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "LockScreen.SetImageFileAsync")
 
 proc setImageStreamAsync*(_: typedesc[LockScreen], value: WinRtObject) {.async.} =
   ## Windows.System.UserProfile.LockScreen.SetImageStreamAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
-    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
-      vcall(it, Slot_ILockScreenStatics_SetImageStreamAsync, Fn_ILockScreenStatics_SetImageStreamAsync)(it, p0, op.addr).check("LockScreen.SetImageStreamAsync")
-  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "LockScreen.SetImageStreamAsync")
+  withStatics("Windows.System.UserProfile.LockScreen", ILockScreenStatics, it):
+    withIface(value.p, IRandomAccessStream, p0):
+      it.call(ILockScreenStatics_SetImageStreamAsync, p0, op.addr)
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
+                  "LockScreen.SetImageStreamAsync")
 
 proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri): Future[SetImageFeedResult] {.async.} =
   ## Windows.System.UserProfile.LockScreen.RequestSetImageFeedAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenImageFeedStatics, it):
-    withIface(syndicationFeedUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_ILockScreenImageFeedStatics_RequestSetImageFeedAsync, Fn_ILockScreenImageFeedStatics_RequestSetImageFeedAsync)(it, p0, op.addr).check("LockScreen.RequestSetImageFeedAsync")
-  result = await awaitValue[SetImageFeedResult](op, IID_IAsyncOperation_1_SetImageFeedResult, IID_AsyncOperationCompletedHandler_1_SetImageFeedResult, alPlain, "LockScreen.RequestSetImageFeedAsync")
+  withStatics("Windows.System.UserProfile.LockScreen",
+              ILockScreenImageFeedStatics, it):
+    withIface(syndicationFeedUri.p, IUriRuntimeClass, p0):
+      it.call(ILockScreenImageFeedStatics_RequestSetImageFeedAsync, p0, op.addr)
+  result = await awaitValue[SetImageFeedResult](op,
+                                                IID_IAsyncOperation_1_SetImageFeedResult,
+                                                IID_AsyncOperationCompletedHandler_1_SetImageFeedResult,
+                                                alPlain,
+                                                "LockScreen.RequestSetImageFeedAsync")
 
-proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool  =
+proc tryRemoveImageFeed*(_: typedesc[LockScreen]): bool =
   ## Windows.System.UserProfile.LockScreen.TryRemoveImageFeed
-  withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenImageFeedStatics, it):
+  withStatics("Windows.System.UserProfile.LockScreen",
+              ILockScreenImageFeedStatics, it):
     var tmp: bool
-    vcall(it, Slot_ILockScreenImageFeedStatics_TryRemoveImageFeed, Fn_ILockScreenImageFeedStatics_TryRemoveImageFeed)(it, tmp.addr).check("LockScreen.TryRemoveImageFeed")
+    it.call(ILockScreenImageFeedStatics_TryRemoveImageFeed, tmp.addr)
     result = tmp
 
-proc accountPictureChangeEnabled*(_: typedesc[UserInformation]): bool  =
+proc accountPictureChangeEnabled*(_: typedesc[UserInformation]): bool =
   ## Windows.System.UserProfile.UserInformation.get_AccountPictureChangeEnabled
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUserInformationStatics_get_AccountPictureChangeEnabled, Fn_IUserInformationStatics_get_AccountPictureChangeEnabled)(it, tmp.addr).check("UserInformation.get_AccountPictureChangeEnabled")
+    it.call(IUserInformationStatics_get_AccountPictureChangeEnabled, tmp.addr)
     result = tmp
 
-proc nameAccessAllowed*(_: typedesc[UserInformation]): bool  =
+proc nameAccessAllowed*(_: typedesc[UserInformation]): bool =
   ## Windows.System.UserProfile.UserInformation.get_NameAccessAllowed
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUserInformationStatics_get_NameAccessAllowed, Fn_IUserInformationStatics_get_NameAccessAllowed)(it, tmp.addr).check("UserInformation.get_NameAccessAllowed")
+    it.call(IUserInformationStatics_get_NameAccessAllowed, tmp.addr)
     result = tmp
 
-proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind): StorageFile  =
+proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind): StorageFile =
   ## Windows.System.UserProfile.UserInformation.GetAccountPicture
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IUserInformationStatics_GetAccountPicture, Fn_IUserInformationStatics_GetAccountPicture)(it, kind, tmp.addr).check("UserInformation.GetAccountPicture")
+    it.call(IUserInformationStatics_GetAccountPicture, kind, tmp.addr)
     result = adopt[StorageFile](tmp)
 
 proc setAccountPictureAsync*(_: typedesc[UserInformation], image: StorageFile): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    withIface(image.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_IUserInformationStatics_SetAccountPictureAsync, Fn_IUserInformationStatics_SetAccountPictureAsync)(it, p0, op.addr).check("UserInformation.SetAccountPictureAsync")
-  result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, alPlain, "UserInformation.SetAccountPictureAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    withIface(image.p, IStorageFile, p0):
+      it.call(IUserInformationStatics_SetAccountPictureAsync, p0, op.addr)
+  result = await awaitValue[SetAccountPictureResult](op,
+                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                     alPlain,
+                                                     "UserInformation.SetAccountPictureAsync")
 
-proc setAccountPicturesAsync*(_: typedesc[UserInformation], smallImage: StorageFile, largeImage: StorageFile, video: StorageFile): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPicturesAsync*(_: typedesc[UserInformation],
+                              smallImage: StorageFile, largeImage: StorageFile,
+                              video: StorageFile): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    withIface(smallImage.p, IID_IStorageFile, "IStorageFile", p0):
-      withIface(largeImage.p, IID_IStorageFile, "IStorageFile", p1):
-        withIface(video.p, IID_IStorageFile, "IStorageFile", p2):
-          vcall(it, Slot_IUserInformationStatics_SetAccountPicturesAsync, Fn_IUserInformationStatics_SetAccountPicturesAsync)(it, p0, p1, p2, op.addr).check("UserInformation.SetAccountPicturesAsync")
-  result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, alPlain, "UserInformation.SetAccountPicturesAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    withIface(smallImage.p, IStorageFile, p0):
+      withIface(largeImage.p, IStorageFile, p1):
+        withIface(video.p, IStorageFile, p2):
+          it.call(IUserInformationStatics_SetAccountPicturesAsync, p0, p1, p2,
+                  op.addr)
+  result = await awaitValue[SetAccountPictureResult](op,
+                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                     alPlain,
+                                                     "UserInformation.SetAccountPicturesAsync")
 
-proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation], image: WinRtObject): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation],
+                                       image: WinRtObject): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureFromStreamAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    withIface(image.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
-      vcall(it, Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync, Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync)(it, p0, op.addr).check("UserInformation.SetAccountPictureFromStreamAsync")
-  result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, alPlain, "UserInformation.SetAccountPictureFromStreamAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    withIface(image.p, IRandomAccessStream, p0):
+      it.call(IUserInformationStatics_SetAccountPictureFromStreamAsync, p0,
+              op.addr)
+  result = await awaitValue[SetAccountPictureResult](op,
+                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                     alPlain,
+                                                     "UserInformation.SetAccountPictureFromStreamAsync")
 
-proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation], smallImage: WinRtObject, largeImage: WinRtObject, video: WinRtObject): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation],
+                                         smallImage: WinRtObject,
+                                         largeImage: WinRtObject,
+                                         video: WinRtObject): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesFromStreamsAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    withIface(smallImage.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
-      withIface(largeImage.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
-        withIface(video.p, IID_IRandomAccessStream, "IRandomAccessStream", p2):
-          vcall(it, Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync, Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync)(it, p0, p1, p2, op.addr).check("UserInformation.SetAccountPicturesFromStreamsAsync")
-  result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, alPlain, "UserInformation.SetAccountPicturesFromStreamsAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    withIface(smallImage.p, IRandomAccessStream, p0):
+      withIface(largeImage.p, IRandomAccessStream, p1):
+        withIface(video.p, IRandomAccessStream, p2):
+          it.call(IUserInformationStatics_SetAccountPicturesFromStreamsAsync,
+                  p0, p1, p2, op.addr)
+  result = await awaitValue[SetAccountPictureResult](op,
+                                                     IID_IAsyncOperation_1_SetAccountPictureResult,
+                                                     IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult,
+                                                     alPlain,
+                                                     "UserInformation.SetAccountPicturesFromStreamsAsync")
 
 proc onAccountPictureChanged*(_: typedesc[UserInformation],
-    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserProfile.UserInformation.add_AccountPictureChanged
-  ##
-  ## The token is what `removeAccountPictureChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeAccountPictureChanged` takes.
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_EventHandler_1_Object, shim, event = true)
     try:
-      vcall(it, Slot_IUserInformationStatics_add_AccountPictureChanged, Fn_IUserInformationStatics_add_AccountPictureChanged)(it, cb, result.addr)
-        .check("UserInformation.add_AccountPictureChanged")
+      it.call(IUserInformationStatics_add_AccountPictureChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAccountPictureChanged*(_: typedesc[UserInformation], token: EventRegistrationToken) =
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_remove_AccountPictureChanged, Fn_IUserInformationStatics_remove_AccountPictureChanged)(it, token).check("UserInformation.remove_AccountPictureChanged")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_remove_AccountPictureChanged, token)
 
 proc getDisplayNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetDisplayNameAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetDisplayNameAsync, Fn_IUserInformationStatics_GetDisplayNameAsync)(it, op.addr).check("UserInformation.GetDisplayNameAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserInformation.GetDisplayNameAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetDisplayNameAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "UserInformation.GetDisplayNameAsync")
 
 proc getFirstNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetFirstNameAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetFirstNameAsync, Fn_IUserInformationStatics_GetFirstNameAsync)(it, op.addr).check("UserInformation.GetFirstNameAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserInformation.GetFirstNameAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetFirstNameAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "UserInformation.GetFirstNameAsync")
 
 proc getLastNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetLastNameAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetLastNameAsync, Fn_IUserInformationStatics_GetLastNameAsync)(it, op.addr).check("UserInformation.GetLastNameAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserInformation.GetLastNameAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetLastNameAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "UserInformation.GetLastNameAsync")
 
 proc getPrincipalNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetPrincipalNameAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetPrincipalNameAsync, Fn_IUserInformationStatics_GetPrincipalNameAsync)(it, op.addr).check("UserInformation.GetPrincipalNameAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserInformation.GetPrincipalNameAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetPrincipalNameAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "UserInformation.GetPrincipalNameAsync")
 
 proc getSessionInitiationProtocolUriAsync*(_: typedesc[UserInformation]): Future[Uri] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetSessionInitiationProtocolUriAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetSessionInitiationProtocolUriAsync, Fn_IUserInformationStatics_GetSessionInitiationProtocolUriAsync)(it, op.addr).check("UserInformation.GetSessionInitiationProtocolUriAsync")
-  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri, IID_AsyncOperationCompletedHandler_1_Uri, alPlain, "UserInformation.GetSessionInitiationProtocolUriAsync"))
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetSessionInitiationProtocolUriAsync,
+            op.addr)
+  result = adopt[Uri](await awaitObject(op, IID_IAsyncOperation_1_Uri,
+                                        IID_AsyncOperationCompletedHandler_1_Uri,
+                                        alPlain,
+                                        "UserInformation.GetSessionInitiationProtocolUriAsync"))
 
 proc getDomainNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.} =
   ## Windows.System.UserProfile.UserInformation.GetDomainNameAsync
   var op: pointer
-  withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_GetDomainNameAsync, Fn_IUserInformationStatics_GetDomainNameAsync)(it, op.addr).check("UserInformation.GetDomainNameAsync")
-  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "UserInformation.GetDomainNameAsync")
+  withStatics("Windows.System.UserProfile.UserInformation",
+              IUserInformationStatics, it):
+    it.call(IUserInformationStatics_GetDomainNameAsync, op.addr)
+  result = await awaitString(op, IID_IAsyncOperation_1_String,
+                             IID_AsyncOperationCompletedHandler_1_String,
+                             alPlain, "UserInformation.GetDomainNameAsync")
 
-proc trySetLockScreenImageAsync*(self: UserProfilePersonalizationSettings, imageFile: StorageFile): Future[bool] {.async.} =
+proc trySetLockScreenImageAsync*(self: UserProfilePersonalizationSettings,
+                                 imageFile: StorageFile): Future[bool] {.async.} =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetLockScreenImageAsync
   var op: pointer
-  withIface(self.p, IID_IUserProfilePersonalizationSettings, "IUserProfilePersonalizationSettings", it):
-    withIface(imageFile.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync, Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync)(it, p0, op.addr).check("UserProfilePersonalizationSettings.TrySetLockScreenImageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync")
+  withIface(self.p, IUserProfilePersonalizationSettings, it):
+    withIface(imageFile.p, IStorageFile, p0):
+      it.call(IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync,
+              p0, op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync")
 
-proc trySetWallpaperImageAsync*(self: UserProfilePersonalizationSettings, imageFile: StorageFile): Future[bool] {.async.} =
+proc trySetWallpaperImageAsync*(self: UserProfilePersonalizationSettings,
+                                imageFile: StorageFile): Future[bool] {.async.} =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetWallpaperImageAsync
   var op: pointer
-  withIface(self.p, IID_IUserProfilePersonalizationSettings, "IUserProfilePersonalizationSettings", it):
-    withIface(imageFile.p, IID_IStorageFile, "IStorageFile", p0):
-      vcall(it, Slot_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync, Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync)(it, p0, op.addr).check("UserProfilePersonalizationSettings.TrySetWallpaperImageAsync")
-  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync")
+  withIface(self.p, IUserProfilePersonalizationSettings, it):
+    withIface(imageFile.p, IStorageFile, p0):
+      it.call(IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync, p0,
+              op.addr)
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
+                                  IID_AsyncOperationCompletedHandler_1_Bool,
+                                  alPlain,
+                                  "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync")
 
-proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings  =
+proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.get_Current
-  withStatics("Windows.System.UserProfile.UserProfilePersonalizationSettings", IID_IUserProfilePersonalizationSettingsStatics, it):
+  withStatics("Windows.System.UserProfile.UserProfilePersonalizationSettings",
+              IUserProfilePersonalizationSettingsStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IUserProfilePersonalizationSettingsStatics_get_Current, Fn_IUserProfilePersonalizationSettingsStatics_get_Current)(it, tmp.addr).check("UserProfilePersonalizationSettings.get_Current")
+    it.call(IUserProfilePersonalizationSettingsStatics_get_Current, tmp.addr)
     result = adopt[UserProfilePersonalizationSettings](tmp)
 
-proc isSupported*(_: typedesc[UserProfilePersonalizationSettings]): bool  =
+proc isSupported*(_: typedesc[UserProfilePersonalizationSettings]): bool =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.IsSupported
-  withStatics("Windows.System.UserProfile.UserProfilePersonalizationSettings", IID_IUserProfilePersonalizationSettingsStatics, it):
+  withStatics("Windows.System.UserProfile.UserProfilePersonalizationSettings",
+              IUserProfilePersonalizationSettingsStatics, it):
     var tmp: bool
-    vcall(it, Slot_IUserProfilePersonalizationSettingsStatics_IsSupported, Fn_IUserProfilePersonalizationSettingsStatics_IsSupported)(it, tmp.addr).check("UserProfilePersonalizationSettings.IsSupported")
+    it.call(IUserProfilePersonalizationSettingsStatics_IsSupported, tmp.addr)
     result = tmp
 
-proc status*(self: UserWatcher): UserWatcherStatus  =
+proc status*(self: UserWatcher): UserWatcherStatus =
   ## Windows.System.UserWatcher.get_Status
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
+  withIface(self.p, IUserWatcher, it):
     var tmp: UserWatcherStatus
-    vcall(it, Slot_IUserWatcher_get_Status, Fn_IUserWatcher_get_Status)(it, tmp.addr).check("UserWatcher.get_Status")
+    it.call(IUserWatcher_get_Status, tmp.addr)
     result = tmp
 
-proc start*(self: UserWatcher)  =
+proc start*(self: UserWatcher) =
   ## Windows.System.UserWatcher.Start
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_Start, Fn_IUserWatcher_Start)(it).check("UserWatcher.Start")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_Start)
 
-proc stop*(self: UserWatcher)  =
+proc stop*(self: UserWatcher) =
   ## Windows.System.UserWatcher.Stop
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_Stop, Fn_IUserWatcher_Stop)(it).check("UserWatcher.Stop")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_Stop)
 
 proc onAdded*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[UserWatcher, UserChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_Added
-  ##
-  ## The token is what `removeAdded` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1)), event = true)
+  ## The token is what `removeAdded` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_Added, Fn_IUserWatcher_add_Added)(it, cb, result.addr)
-        .check("UserWatcher.add_Added")
+      it.call(IUserWatcher_add_Added, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAdded*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_Added, Fn_IUserWatcher_remove_Added)(it, token).check("UserWatcher.remove_Added")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_Added, token)
 
 proc onRemoved*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[UserWatcher, UserChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_Removed
-  ##
-  ## The token is what `removeRemoved` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1)), event = true)
+  ## The token is what `removeRemoved` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_Removed, Fn_IUserWatcher_add_Removed)(it, cb, result.addr)
-        .check("UserWatcher.add_Removed")
+      it.call(IUserWatcher_add_Removed, cb, result.addr)
     finally:
       release(cb)
 
 proc removeRemoved*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_Removed, Fn_IUserWatcher_remove_Removed)(it, token).check("UserWatcher.remove_Removed")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_Removed, token)
 
 proc onUpdated*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[UserWatcher, UserChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_Updated
-  ##
-  ## The token is what `removeUpdated` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1)), event = true)
+  ## The token is what `removeUpdated` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_Updated, Fn_IUserWatcher_add_Updated)(it, cb, result.addr)
-        .check("UserWatcher.add_Updated")
+      it.call(IUserWatcher_add_Updated, cb, result.addr)
     finally:
       release(cb)
 
 proc removeUpdated*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_Updated, Fn_IUserWatcher_remove_Updated)(it, token).check("UserWatcher.remove_Updated")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_Updated, token)
 
 proc onAuthenticationStatusChanged*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+                                    handler: EventHandler[UserWatcher, UserChangedEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_AuthenticationStatusChanged
-  ##
-  ## The token is what `removeAuthenticationStatusChanged` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1)), event = true)
+  ## The token is what `removeAuthenticationStatusChanged` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[UserChangedEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserChangedEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_AuthenticationStatusChanged, Fn_IUserWatcher_add_AuthenticationStatusChanged)(it, cb, result.addr)
-        .check("UserWatcher.add_AuthenticationStatusChanged")
+      it.call(IUserWatcher_add_AuthenticationStatusChanged, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAuthenticationStatusChanged*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_AuthenticationStatusChanged, Fn_IUserWatcher_remove_AuthenticationStatusChanged)(it, token).check("UserWatcher.remove_AuthenticationStatusChanged")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_AuthenticationStatusChanged, token)
 
 proc onAuthenticationStatusChanging*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: UserAuthenticationStatusChangingEventArgs)): EventRegistrationToken {.discardable.} =
+                                     handler: EventHandler[UserWatcher, UserAuthenticationStatusChangingEventArgs]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_AuthenticationStatusChanging
-  ##
-  ## The token is what `removeAuthenticationStatusChanging` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserAuthenticationStatusChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[UserAuthenticationStatusChangingEventArgs](a1)), event = true)
+  ## The token is what `removeAuthenticationStatusChanging` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0),
+              borrow[UserAuthenticationStatusChangingEventArgs](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_UserAuthenticationStatusChangingEventArgs, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_AuthenticationStatusChanging, Fn_IUserWatcher_add_AuthenticationStatusChanging)(it, cb, result.addr)
-        .check("UserWatcher.add_AuthenticationStatusChanging")
+      it.call(IUserWatcher_add_AuthenticationStatusChanging, cb, result.addr)
     finally:
       release(cb)
 
 proc removeAuthenticationStatusChanging*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_AuthenticationStatusChanging, Fn_IUserWatcher_remove_AuthenticationStatusChanging)(it, token).check("UserWatcher.remove_AuthenticationStatusChanging")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_AuthenticationStatusChanging, token)
 
 proc onEnumerationCompleted*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[UserWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_EnumerationCompleted
-  ##
-  ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeEnumerationCompleted` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_EnumerationCompleted, Fn_IUserWatcher_add_EnumerationCompleted)(it, cb, result.addr)
-        .check("UserWatcher.add_EnumerationCompleted")
+      it.call(IUserWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
       release(cb)
 
 proc removeEnumerationCompleted*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_EnumerationCompleted, Fn_IUserWatcher_remove_EnumerationCompleted)(it, token).check("UserWatcher.remove_EnumerationCompleted")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_EnumerationCompleted, token)
 
 proc onStopped*(self: UserWatcher,
-    handler: proc(sender: UserWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[UserWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
   ## Windows.System.UserWatcher.add_Stopped
-  ##
-  ## The token is what `removeStopped` needs. The delegate is released here because the
-  ## event source took its own reference.
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UserWatcher](a0), borrow[WinRtObject](a1)), event = true)
+  ## The token is what `removeStopped` takes.
+  withIface(self.p, IUserWatcher, it):
+    proc shim(a0: pointer, a1: pointer) =
+      handler(borrow[UserWatcher](a0), borrow[WinRtObject](a1))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserWatcher_Object, shim, event = true)
     try:
-      vcall(it, Slot_IUserWatcher_add_Stopped, Fn_IUserWatcher_add_Stopped)(it, cb, result.addr)
-        .check("UserWatcher.add_Stopped")
+      it.call(IUserWatcher_add_Stopped, cb, result.addr)
     finally:
       release(cb)
 
 proc removeStopped*(self: UserWatcher, token: EventRegistrationToken) =
-  withIface(self.p, IID_IUserWatcher, "IUserWatcher", it):
-    vcall(it, Slot_IUserWatcher_remove_Stopped, Fn_IUserWatcher_remove_Stopped)(it, token).check("UserWatcher.remove_Stopped")
+  withIface(self.p, IUserWatcher, it):
+    it.call(IUserWatcher_remove_Stopped, token)
 
